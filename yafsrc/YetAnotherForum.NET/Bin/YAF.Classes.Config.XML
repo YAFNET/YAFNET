@@ -1111,6 +1111,11 @@
             The replace words.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Constants.Cache.ReplaceWordsCache">
+            <summary>
+            The replace words.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.Constants.Cache.Shoutbox">
             <summary>
             The shoutbox.
@@ -2038,6 +2043,16 @@
             The admin_bbcode_import.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.admin_languages">
+            <summary>
+            The admin_languages.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editlanguage">
+            <summary>
+            The admin_editlanguage.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.ForumPages.admin_reindex">
             <summary>
             The admin_reindex.
@@ -2468,6 +2483,11 @@
             Gets or sets a value indicating whether UseFullTextSearch.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableIPInfoService">
+            <summary>
+            Gets or sets a value indicating whether Enable IP Info Service.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.UseSSLToLogIn">
             <summary>
             Gets or sets a value indicating whether Use SSL To Log In.
@@ -2491,6 +2511,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.ShowGuestsInDetailedActiveList">
             <summary>
             Gets or sets a value indicating whether Show Guests In Detailed Active List.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowCrawlersInActiveList">
+            <summary>
+            Gets or sets a value indicating whether Show Crawlers In Active List.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowGroups">
@@ -2616,11 +2641,6 @@
         <member name="P:YAF.Classes.YafBoardSettings.RemoveNestedQuotes">
             <summary>
             Gets or sets a value indicating whether RemoveNestedQuotes.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.DateFormatFromLanguage">
-            <summary>
-            Gets or sets a value indicating whether DateFormatFromLanguage.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.DisableRegistrations">
@@ -2803,6 +2823,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.IPInfoPageURL">
             <summary>
             Gets or sets IPInfo page Url.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.IPLocatorPath">
+            <summary>
+            Gets or sets IP Locator Path.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">
@@ -3034,6 +3059,53 @@
             <summary>
             Gets or sets RolesAppName.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.AreEqualFunc`1">
+            <summary>
+            The are equal func.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Utils.AreEqualFunc`1._comparer">
+            <summary>
+            The _comparer.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.AreEqualFunc`1"/> class.
+            </summary>
+            <param name="comparer">
+            The comparer.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.Equals(`0,`0)">
+            <summary>
+            The equals.
+            </summary>
+            <param name="x">
+            The x.
+            </param>
+            <param name="y">
+            The y.
+            </param>
+            <returns>
+            The equals.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.GetHashCode(`0)">
+            <summary>
+            The get hash code.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <returns>
+            The get hash code.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Pattern.SingleClassInstanceFactory">
             <summary>
@@ -3331,53 +3403,6 @@
             <summary>
             Gets ThemeDir.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.AreEqualFunc`1">
-            <summary>
-            The are equal func.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="F:YAF.Classes.Utils.AreEqualFunc`1._comparer">
-            <summary>
-            The _comparer.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.#ctor(System.Func{`0,`0,System.Boolean})">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.AreEqualFunc`1"/> class.
-            </summary>
-            <param name="comparer">
-            The comparer.
-            </param>
-            <exception cref="T:System.ArgumentNullException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.Equals(`0,`0)">
-            <summary>
-            The equals.
-            </summary>
-            <param name="x">
-            The x.
-            </param>
-            <param name="y">
-            The y.
-            </param>
-            <returns>
-            The equals.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.GetHashCode(`0)">
-            <summary>
-            The get hash code.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            The get hash code.
-            </returns>
         </member>
     </members>
 </doc>

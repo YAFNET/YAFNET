@@ -2832,32 +2832,32 @@
         </member>
         <member name="F:YAF.Controls.emaildigest._combinedUserData">
             <summary>
-            The _combined user data.
+              The _combined user data.
             </summary>
         </member>
         <member name="F:YAF.Controls.emaildigest._forumData">
             <summary>
-            The _forum data.
+              The _forum data.
             </summary>
         </member>
         <member name="F:YAF.Controls.emaildigest._languageFile">
             <summary>
-            The _language file.
+              The _language file.
             </summary>
         </member>
         <member name="F:YAF.Controls.emaildigest._theme">
             <summary>
-            The _theme.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.emaildigest._yafLocalization">
-            <summary>
-            The _yaf localization.
+              The _theme.
             </summary>
         </member>
         <member name="F:YAF.Controls.emaildigest._topicHours">
             <summary>
-            Numbers of hours to compute digest for...
+              Numbers of hours to compute digest for...
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._yafLocalization">
+            <summary>
+              The _yaf localization.
             </summary>
         </member>
         <member name="M:YAF.Controls.emaildigest.GetText(System.String)">
@@ -2896,24 +2896,29 @@
             The e.
             </param>
         </member>
+        <member name="P:YAF.Controls.emaildigest.ActiveTopics">
+            <summary>
+            Gets ActiveTopics.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.emaildigest.BoardID">
             <summary>
-            Gets or sets BoardID.
+              Gets or sets BoardID.
             </summary>
         </member>
         <member name="P:YAF.Controls.emaildigest.CurrentUserID">
             <summary>
-            Gets or sets CurrentUserID.
+              Gets or sets CurrentUserID.
             </summary>
         </member>
         <member name="P:YAF.Controls.emaildigest.NewTopics">
             <summary>
-            Gets NewTopics.
+              Gets NewTopics.
             </summary>
         </member>
         <member name="P:YAF.Controls.emaildigest.UserData">
             <summary>
-            Gets UserData.
+              Gets UserData.
             </summary>
         </member>
         <member name="T:YAF.Pages.cp_changepassword">
@@ -3561,8 +3566,7 @@
             <summary>
             script for the add Favorite Topic button
             </summary>
-            <param name="RemoveThankBoxHTML">
-            HTML code for the "Untag As Favorite" button
+            <param name="UntagButtonHTML">HTML code for the "Untag As Favorite" button
             </param>
             <returns>
             The add Favorite Topic js.
@@ -7603,6 +7607,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.PMList.lblExportType">
+            <summary>
+            lblExportType control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.PMList.ExportType">
+            <summary>
+            ExportType control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.PMList.PagerBottom">
             <summary>
             PagerBottom control.
@@ -7757,6 +7779,46 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportSelected_Click(System.Object,System.EventArgs)">
+            <summary>
+            The delete all_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportAll_Click(System.Object,System.EventArgs)">
+            <summary>
+            The delete all_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportXmlFile(System.Data.DataView)">
+            <summary>
+            Export the Private Messages in messageList as Xml File
+            </summary>
+            <param name="messageList">DataView that Contains the Private Messages</param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportCsvFile(System.Data.DataView)">
+            <summary>
+            Export the Private Messages in messageList as CSV File
+            </summary>
+            <param name="messageList">DataView that Contains the Private Messages</param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportTextFile(System.Data.DataView)">
+            <summary>
+            Export the Private Messages in messageList as Text File
+            </summary>
+            <param name="messageList">DataView that Contains the Private Messages</param>
         </member>
         <member name="M:YAF.Controls.PMList.GetImage(System.Object)">
             <summary>
@@ -10868,7 +10930,7 @@
             Initializes the values of BuddyList control's properties and calls the BindData() 
             method of the control.
             </summary>
-            <param name="CustomBuddyList">
+            <param name="customBuddyList">
             The BuddyList control
             </param>
             <param name="BuddyListMode">
@@ -12807,6 +12869,11 @@
               Initializes a new instance of the <see cref="T:YAF.Pages.register"/> class.
             </summary>
         </member>
+        <member name="F:YAF.Pages.register._userIpLocator">
+            <summary>
+              Gets User IP Info.
+            </summary>
+        </member>
         <member name="M:YAF.Pages.register.CreateUserWizard1_ContinueButtonClick(System.Object,System.EventArgs)">
             <summary>
             The create user wizard 1_ continue button click.
@@ -13352,7 +13419,7 @@
             <param name="_countLimit">
             The _count limit.
             </param>
-            <param name="excludeCurrentBoardB">
+            <param name="_excludeCurrentBoard">
             The _exclude current board.
             </param>
             <returns>
@@ -18168,15 +18235,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.DateFormatFromLanguage">
-            <summary>
-            DateFormatFromLanguage control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.CreateNntpUsers">
             <summary>
             CreateNntpUsers control.
@@ -18261,15 +18319,6 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ActiveListTime">
             <summary>
             ActiveListTime control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowGuestsInDetailedActiveList">
-            <summary>
-            ShowGuestsInDetailedActiveList control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -18405,6 +18454,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.LockPosts">
             <summary>
             LockPosts control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.EnableIPInfoService">
+            <summary>
+            EnableIPInfoService control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.IPLocatorPath">
+            <summary>
+            IPLocatorPath control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -18675,6 +18742,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ShowModeratorList">
             <summary>
             ShowModeratorList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowGuestsInDetailedActiveList">
+            <summary>
+            ShowGuestsInDetailedActiveList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowCrawlersInDetailedActiveList">
+            <summary>
+            ShowCrawlersInDetailedActiveList control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21287,6 +21372,79 @@
             The e.
             </param>
         </member>
+        <member name="T:YAF.Pages.Admin.languages">
+            <summary>
+            Summary description for attachments.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.languages.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.languages.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.languages.List_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            The list_ item command.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.languages.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.languages.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.languages.PageLinks">
+            <summary>
+            PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.languages.List">
+            <summary>
+            List control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.languages.SmartScroller1">
+            <summary>
+            SmartScroller1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="T:YAF.Modules.LastVisitModule">
             <summary>
             Summary description for Last Visit Module
@@ -21307,6 +21465,11 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="T:YAF.controls.PollList">
+            <summary>
+             PollList Class
+            </summary>
         </member>
         <member name="F:YAF.controls.PollList.PollGroup">
             <summary>
@@ -21365,6 +21528,16 @@
               The _canChange.
             </summary>
         </member>
+        <member name="F:YAF.controls.PollList._showResults">
+            <summary>
+              The _showResults. Used to store data from parent repeater.
+            </summary>
+        </member>
+        <member name="F:YAF.controls.PollList._canVote">
+            <summary>
+              The _canVote. Used to store data from parent repeater.
+            </summary>
+        </member>
         <member name="F:YAF.controls.PollList.isBound">
             <summary>
               The isBound.
@@ -21379,6 +21552,27 @@
             <summary>
               Gets VotingCookieName.
             </summary>
+        </member>
+        <member name="M:YAF.controls.PollList.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            Page_Load
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:YAF.controls.PollList.GetThemeContents(System.String,System.String)">
+            <summary>
+             Get Theme Contents
+            </summary>
+            <param name="page">The Page</param>
+            <param name="tag">Tag</param>
+            <returns>Content</returns>
+        </member>
+        <member name="M:YAF.controls.PollList.ParamsToSend">
+            <summary>
+            A method to return parameters string. It should be implemented in other way.
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:YAF.controls.PollList.CanVote(System.Object)">
             <summary>
@@ -21447,6 +21641,13 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.controls.PollList.PollGroup_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            PollGroup_ItemCommand
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:YAF.controls.PollList.GetImageAspect(System.Object)">
             <summary>
             Returns an image width|height ratio. 
@@ -21467,7 +21668,7 @@
         </member>
         <member name="M:YAF.controls.PollList.ReturnToPage">
             <summary>
-            Returns user to the original call page
+            Returns user to the original call page. 
             </summary>
         </member>
         <member name="M:YAF.controls.PollList.ChangePollShowStatus(System.Boolean)">
@@ -21569,7 +21770,7 @@
         </member>
         <member name="P:YAF.controls.PollList.EditMessageId">
             <summary>
-            Returns EditMessageId
+            Returns EditMessageId.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.CategoryId">
@@ -21599,7 +21800,9 @@
         </member>
         <member name="P:YAF.controls.PollList.EditBoardId">
             <summary>
-            Returns EditBoardId
+            Returns EditBoardId.
+            Used to return to edit board page.
+            Currently is not implemented.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PollNumber">
@@ -21609,7 +21812,7 @@
         </member>
         <member name="P:YAF.controls.PollList.MaxImageAspect">
             <summary>
-            Returns MaxImageAspect
+            Returns MaxImageAspect. Stores max aspect to get rows of equal height.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.IsLocked">
@@ -21716,6 +21919,9 @@
             </returns>
             <exception cref="T:System.Exception">
             </exception>
+        </member>
+        <member name="M:YafWebService.SetDisplayNameFromUsername(System.String,System.String,System.String)">
+            <exception cref="T:System.Exception"><c>Exception</c>.</exception>
         </member>
         <member name="T:YAF.ForumPageTitleArgs">
             <summary>
@@ -24530,8 +24736,8 @@
             <summary>
             The format time span.
             </summary>
-            <param name="item">
-            The item.
+            <param name="time">
+            The time item.
             </param>
             <returns>
             The format time span.
@@ -24736,6 +24942,272 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:YAF.Pages.Admin.editlanguage">
+            <summary>
+            Administrative Page for the editting of forum properties.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage._resourcesNamespaces">
+            <summary>
+            List of namespaces for  Resources  in destination translation file, backing store for property
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage._resourcesAttributes">
+            <summary>
+            List of attributes for Resources in destination translation file, backing store for property
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.sLangPath">
+            <summary>
+            Pysical Path to The languages folder
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.sXmlFile">
+            <summary>
+            Xml File Name of Current Language
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.bUpdate">
+            <summary>
+            Indicates if Xml File is Syncronized
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.ListToDataTable(System.Collections.IList)">
+            <summary>
+             Converts an Generics List to a DataTable
+            </summary>
+            <param name="list">List to Convert</param>
+            <returns>The New Created DataTable</returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.PopulateTranslations(System.String,System.String)">
+            <summary>
+            Wraps creation of translation controls.
+            </summary>
+            <param name="srcFile"></param>
+            <param name="dstFile"></param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceHeader(System.String)">
+            <summary>
+            Creates a header row in the Ressource Page DropDown Header text is page section name in XML file.
+            </summary>
+            <param name="sPageName"></param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceControl(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates controls for column 1 (Resource tag) and column 2 (Resource value).
+            </summary>
+            <param name="sPageName"></param>
+            <param name="resourceName"></param>
+            <param name="srcResourceValue"></param>
+            <param name="dstResourceValue"></param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.LoadPageLocalization(System.Object,System.EventArgs)">
+            <summary>
+            Load Selected Page Ressources
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.TextBoxTextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.SaveClick(System.Object,System.EventArgs)">
+            <summary>
+            Save the Updated Xml File
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.SaveLanguageFile">
+            <summary>
+            Save the Updated Xml File.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.UpdateLocalizedValues">
+            <summary>
+            Update Localizated Values in the Generics List
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.GrdLocalsItemDataBound(System.Object,System.Web.UI.WebControls.DataGridItemEventArgs)">
+            <summary>
+            Checks if Resources are translated and handle Size of the Textboxes based on the Content Length
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.CancelClick(System.Object,System.EventArgs)">
+            <summary>
+            Returns Back to The Languages Page
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.InitializeComponent">
+            <summary>
+            The initialize component.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.PageLinks">
+            <summary>
+            PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.Adminmenu1">
+            <summary>
+            Adminmenu1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.lblPageName">
+            <summary>
+            lblPageName control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.lblPages">
+            <summary>
+            lblPages control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.dDLPages">
+            <summary>
+            dDLPages control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.btnLoadPageLocalization">
+            <summary>
+            btnLoadPageLocalization control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.lblInfo">
+            <summary>
+            lblInfo control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.grdLocals">
+            <summary>
+            grdLocals control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.btnSave">
+            <summary>
+            btnSave control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.btnCancel">
+            <summary>
+            btnCancel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.SmartScroller1">
+            <summary>
+            SmartScroller1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="P:YAF.Pages.Admin.editlanguage.ResourcesNamespaces">
+            <summary>
+             List of namespaces for Resources in destination translation file
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.Admin.editlanguage.ResourcesAttributes">
+            <summary>
+             List of attributes for Resources in destination translation file
+            </summary>
+        </member>
+        <member name="T:YAF.Pages.Admin.editlanguage.Translation">
+            <summary>
+            Support class for TextBox.Tag property value
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sPageName">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sResourceName">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sResourceValue">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sLocalizedValue">
+            <summary>
             </summary>
         </member>
         <member name="T:YAF.Pages.Admin.admin">
@@ -27939,11 +28411,6 @@
               The _data bound.
             </summary>
         </member>
-        <member name="F:YAF.Pages.posts._dtPoll">
-            <summary>
-              The _dt poll.
-            </summary>
-        </member>
         <member name="F:YAF.Pages.posts._forum">
             <summary>
               The _forum.
@@ -28208,8 +28675,6 @@
             <summary>
             Gets the message ID if "find" is in the query string
             </summary>
-            <param name="pds">
-            </param>
             <returns>
             The get find message id.
             </returns>

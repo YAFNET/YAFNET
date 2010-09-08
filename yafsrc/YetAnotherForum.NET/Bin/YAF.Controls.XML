@@ -809,31 +809,6 @@
             The invoke string.
             </param>
         </member>
-        <member name="F:YAF.Controls.MessageSignature._displayUserID">
-            <summary>
-            The _display user id.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._htmlPrefix">
-            <summary>
-            The _html prefix.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._htmlSuffix">
-            <summary>
-            The _html suffix.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._signature">
-            <summary>
-            The _signature.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageSignature.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.MessageSignature"/> class.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.MessageSignature.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
@@ -850,24 +825,29 @@
             The writer.
             </param>
         </member>
-        <member name="P:YAF.Controls.MessageSignature.Signature">
-            <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
         <member name="P:YAF.Controls.MessageSignature.DisplayUserID">
             <summary>
-            Gets or sets DisplayUserID.
+              Gets or sets DisplayUserID.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessageSignature.HtmlPrefix">
             <summary>
-            Gets or sets HtmlPrefix.
+              Gets or sets HtmlPrefix.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessageSignature.HtmlSuffix">
             <summary>
-            Gets or sets HtmlSuffix.
+              Gets or sets HtmlSuffix.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.Signature">
+            <summary>
+              Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.UserSignatureCache">
+            <summary>
+              Gets UserSignatureCache.
             </summary>
         </member>
         <member name="T:YAF.Controls.MessagePost">
@@ -1422,6 +1402,11 @@
         <member name="P:YAF.Controls.UserLabel.UserID">
             <summary>
             The userid of this user for the link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.ReplaceName">
+            <summary>
+            The replace name of this user for the link
             </summary>
         </member>
         <member name="M:YAF.Controls.UserLink.#ctor">

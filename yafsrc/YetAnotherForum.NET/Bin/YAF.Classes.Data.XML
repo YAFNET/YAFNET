@@ -1393,6 +1393,113 @@
             The is question.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.ActiveFlags">
+            <summary>
+            The access flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(YAF.Classes.Data.ActiveFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.op_Implicit(System.Int32)~YAF.Classes.Data.ActiveFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.op_Implicit(YAF.Classes.Data.ActiveFlags.Flags)~YAF.Classes.Data.ActiveFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsActiveNow">
+            <summary>
+            Gets or sets the user is active right now.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsGuest">
+            <summary>
+            Gets or sets that user is a guest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsRegistered">
+            <summary>
+            Gets or sets the user is a registered one.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsCrawler">
+            <summary>
+            Gets or sets that user is a crawler.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.ActiveFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsActiveNow">
+            <summary>
+            The Is Active Now.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsGuest">
+            <summary>
+            The Is Guest.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsRegistered">
+            <summary>
+            The Is Registered.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsCrawler">
+            <summary>
+            The Is Crawler.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.YafDBConnManager">
             <summary>
             Provides open/close management for DB Connections
@@ -1923,6 +2030,72 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
+        <member name="T:YAF.Classes.Data.TypedAllThanks">
+            <summary>
+            The typed all thanks.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedAllThanks.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedAllThanks"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedAllThanks.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedAllThanks"/> class.
+            </summary>
+            <param name="messageid">
+            The messageid.
+            </param>
+            <param name="fromuserid">
+            The fromuserid.
+            </param>
+            <param name="thanksdate">
+            The thanksdate.
+            </param>
+            <param name="thanksfromusernumber">
+            The thanksfromusernumber.
+            </param>
+            <param name="thankstousernumber">
+            The thankstousernumber.
+            </param>
+            <param name="thankstouserpostsnumber">
+            The thankstouserpostsnumber.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.FromUserID">
+            <summary>
+            Gets or sets FromUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksDate">
+            <summary>
+            Gets or sets ThanksDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksFromUserNumber">
+            <summary>
+            Gets or sets ThanksFromUserNumber.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksToUserNumber">
+            <summary>
+            Gets or sets ThanksToUserNumber.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksToUserPostsNumber">
+            <summary>
+            Gets or sets ThanksToUserPostsNumber.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.DB">
             <summary>
             All the Database functions for YAF
@@ -1954,7 +2127,7 @@
             The get boolean registry value.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pageload.
             </summary>
@@ -2139,7 +2312,7 @@
             Sort Order?
             </param> 
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object,System.Object,System.Int32,System.Object)">
             <summary>
             Gets list of active users
             </summary>
@@ -2158,7 +2331,7 @@
             Returns a DataTable of active users
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_list_user(System.Object,System.Object,System.Object,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.active_list_user(System.Object,System.Object,System.Object,System.Object,System.Int32,System.Object)">
             <summary>
             Gets list of active users for a specific user with access fixes to not display him forbidden locations. 
             </summary>
@@ -2323,7 +2496,7 @@
             <summary>
             Gets posting statistics
             </summary>
-            <param name="boardID">
+            <param name="boardId">
             BoardID
             </param>
             <param name="useStyledNick">
@@ -2340,7 +2513,7 @@
             <summary>
             Gets users statistics
             </summary>
-            <param name="boardID">
+            <param name="boardId">
             BoardID
             </param>
             <returns>
@@ -3156,7 +3329,62 @@
             <returns>
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:YAF.Classes.Data.DB.group_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)" -->
+        <member name="M:YAF.Classes.Data.DB.group_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            The group_save.
+            </summary>
+            <param name="groupID">
+            The group id.
+            </param>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="isAdmin">
+            The is admin.
+            </param>
+            <param name="isGuest">
+            The is guest.
+            </param>
+            <param name="isStart">
+            The is start.
+            </param>
+            <param name="isModerator">
+            The is moderator.
+            </param>
+            <param name="accessMaskID">
+            The access mask id.
+            </param>
+            <param name="pmLimit">
+            The pm limit.
+            </param>
+            <param name="style">
+            The style.
+            </param>
+            <param name="sortOrder">
+            The sort order.
+            </param>
+            <param name="usrSigChars">
+            The usrSigChars defines number of allowed characters in user signature.
+            </param>    
+            <param name="usrSigBBCodes">
+            The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature 
+            </param>
+            <param name="usrSigHTMLTags">
+            The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature 
+            </param>
+            <param name="usrAlbums">
+            The UsrAlbums defines allowed number of albums.
+            </param>
+            <param name="usrAlbumImages">
+            The UsrAlbumImages defines number of images allowed for an album.
+            </param>
+            <returns>
+            The group_save.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.mail_delete(System.Object)">
             <summary>
             The mail_delete.
@@ -3242,9 +3470,6 @@
             </param>
             <param name="styledNicks">
             The styled nicks.
-            </param>
-            <param name="showThanksDate">
-            The show thanks date.
             </param>
             <returns>
             </returns>
@@ -3392,9 +3617,6 @@
             <summary>
             Retrieve all reported messages with the correct forumID argument.
             </summary>
-            <param name="messageFlag">
-            The message flag.
-            </param>
             <param name="forumID">
             The forum id.
             </param>
@@ -3429,9 +3651,6 @@
             <summary>
             The message_report.
             </summary>
-            <param name="reportFlag">
-            The report flag.
-            </param>
             <param name="messageID">
             The message id.
             </param>
@@ -3715,12 +3934,12 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_GetAllThanks(System.Object)">
+        <member name="M:YAF.Classes.Data.DB.MessageGetAllThanks(System.String)">
             <summary>
             Retuns All the Thanks for the Message IDs which are in the 
             delimited string variable MessageIDs
             </summary>
-            <param name="MessageIDs">
+            <param name="messageIdsSeparatedWithColon">
             The message i ds.
             </param>
             <returns>
@@ -4285,7 +4504,7 @@
             <summary>
             The pollgroup_stats.
             </summary>
-            <param name="pollGroupID">
+            <param name="pollGroupId">
             The poll group id.
             </param>
             <returns>
@@ -4295,7 +4514,7 @@
             <summary>
             The pollgroup_attach.
             </summary>
-            <param name="pollGroupID">
+            <param name="pollGroupId">
             The poll group id.
             </param>
             <returns>
@@ -4305,7 +4524,7 @@
             <summary>
             The poll_stats.
             </summary>
-            <param name="pollID">
+            <param name="pollId">
             The poll id.
             </param>
             <returns>
@@ -4342,11 +4561,11 @@
             <param name="pollID">
             The poll id. If null all polls in a group a deleted. 
             </param>
-            <param name="boardID">
+            <param name="boardId">
             The BoardID id. 
             </param>
             <param name="removeCompletely">
-            The RemoveCompletely. If true and <param name="pollID">pollID</param> is null , all polls in a group are deleted completely, 
+            The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
             else only one poll is deleted completely. 
             </param>
         </member>
@@ -4373,16 +4592,18 @@
             <param name="pollGroupID">
             The poll group id. The parameter should always be present. 
             </param>
-            <param name="pollID">
+            <param name="topicId">
             The poll id. If null all polls in a group a deleted. 
             </param>
-            <param name="boardID">
+            <param name="boardId">
             The BoardID id. 
             </param>
             <param name="removeCompletely">
-            The RemoveCompletely. If true and <param name="pollID">pollID</param> is null , all polls in a group are deleted completely, 
+            The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
             else only one poll is deleted completely. 
             </param>
+            <param name="forumId"></param>
+            <param name="removeEverywhere"></param>
         </member>
         <member name="M:YAF.Classes.Data.DB.choice_delete(System.Object)">
             <summary>
@@ -4912,9 +5133,6 @@
             </param>
             <param name="priority">
             The priority.
-            </param>
-            <param name="pollID">
-            The poll id.
             </param>
             <param name="userName">
             The user name.
@@ -6239,9 +6457,6 @@
             </summary>
             <param name="FromUserID">
             The from user id.
-            </param>
-            <param name="JustApproved">
-            Return only the approved users?
             </param>
             <returns>
             a Datatable containing the buddy list.

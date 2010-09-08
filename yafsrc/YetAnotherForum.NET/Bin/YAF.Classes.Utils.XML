@@ -816,6 +816,21 @@
             system error
             </summary>
         </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.RequiresCookies">
+            <summary>
+            requires cookies
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.RequiresEcmaScript">
+            <summary>
+            requires JS
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.EcmaScriptVersionUnsupported">
+            <summary>
+            unsupported JS version
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Utils.YafBuildLink">
             <summary>
             Static class with link building functions.
@@ -1345,9 +1360,6 @@
             The color only.
             </param>
             <param name="styleColumns">
-            The style Columns.
-            </param>
-            <param name="colorOnly">
             The styleColumns can contain param array to handle several style columns.
             </param>
         </member>
@@ -1407,6 +1419,20 @@
             <typeparam name="T"></typeparam>
             <param name="list"></param>
             <param name="action"></param>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ToHashSet``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Converts an <see cref="!:IEnumerable"/> to a HashSet -- similar to ToList()
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
         </member>
         <member name="T:YAF.Classes.Utils.IPHelper">
             <summary>
@@ -1549,6 +1575,17 @@
             The is valid email.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidXmpp(System.String)">
+            <summary>
+            The is valid xmpp.
+            </summary>
+            <param name="xmpp">
+            The xmpp.
+            </param>
+            <returns>
+            The is valid xmpp.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidURL(System.String)">
             <summary>
             The is valid url.
@@ -1570,6 +1607,23 @@
             <returns>
             The is valid int.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidInt(System.String,System.Int32,System.Int32)">
+            <summary>
+            The is valid int.
+            </summary>
+            <param name="intstr">
+            The intstr.
+            </param>
+            <param name="lowerBound">
+            The lower Bound.
+            </param>
+            <param name="upperBound">
+            The upper Bound.
+            </param>
+            <returns>
+            The is valid int.
+            </returns> 
         </member>
         <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidPosShort(System.String)">
             <summary>
@@ -1626,6 +1680,130 @@
             <returns>
             The is valid tag.
             </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.MostRecentlyUsed">
+            <summary>
+            The most recently used.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_linkToKey">
+            <summary>
+            The m_link to key.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_list">
+            <summary>
+            The m_list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_max">
+            <summary>
+            The m_max.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.MostRecentlyUsed"/> class. 
+              Default constructor for the most recently used items using the default size (50)
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.#ctor(System.UInt32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.MostRecentlyUsed"/> class. 
+            Construct a most recently used items list with the maximum number of items
+              allowed in the list.
+            </summary>
+            <param name="maxItems">
+            Maximum number of items allowed
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Add(System.Object,System.Object)">
+            <summary>
+            The add.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Contains(System.Object)">
+            <summary>
+            The contains.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The contains.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Remove(System.Object)">
+            <summary>
+            The remove.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>
+            The to string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.OnInsert(System.Object,System.Object)">
+            <summary>
+            The on insert.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="E:YAF.Classes.Utils.MostRecentlyUsed.OnPurgedFromCache">
+            <summary>
+              Event that is fired when an item falls outside of the cache
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Capacity">
+            <summary>
+              The maximum capacity of the list
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Keys">
+            <summary>
+            Gets Keys.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Values">
+            <summary>
+            Gets Values.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Item(System.Object)">
+            <summary>
+            The this.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.MostRecentlyUsed.PurgedFromCacheDelegate">
+            <summary>
+            The purged from cache delegate.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
         </member>
         <member name="T:YAF.Classes.Utils.EnumExtensions">
             <summary>
@@ -2246,16 +2424,6 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.General.GetHourOffsetFromNode(System.Xml.XmlNode)">
-            <summary>
-            Helper function for the Language TimeZone XML.
-            </summary>
-            <param name="node">
-            </param>
-            <returns>
-            The get hour offset from node.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl">
             <summary>
             The get safe raw url.
@@ -2371,6 +2539,271 @@
             <returns>
             </returns>
         </member>
+        <member name="T:YAF.Classes.Utils.DoubleLinkedList">
+            <summary>
+            Class that represents a doubly linked list (I can't believe that .NET didn't 
+              have one of these).  The primary usage for this class is with the MostRecenlyUsed class,
+              but can be used in a variety of scenarios.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.HeadLink">
+            <summary>
+            The head link.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.TailLink">
+            <summary>
+            The tail link.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.m_syncRoot">
+            <summary>
+            The m_sync root.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.m_count">
+            <summary>
+            The m_count.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Append(System.Object)">
+            <summary>
+            Append the specified value to the tail of the list (not a LinkItem)
+            </summary>
+            <param name="value">
+            The value to append to the list
+            </param>
+            <returns>
+            The new LinkItem which points to the value
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.MoveToHead(YAF.Classes.Utils.DoubleLinkedList.LinkItem)">
+            <summary>
+            Move the specified LinkItem to the head of the list
+            </summary>
+            <param name="item">
+            The existing LinkItem in the list
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Prepend(System.Object)">
+            <summary>
+            Prepend the specified value to the head of the list
+            </summary>
+            <param name="value">
+            Value to prepend to the list (not a LinkItem)
+            </param>
+            <returns>
+            The LinkItem which points to this new value
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.RemoveLink(YAF.Classes.Utils.DoubleLinkedList.LinkItem)">
+            <summary>
+            Remove the specified link from the list
+            </summary>
+            <param name="item">
+            Item to remove 
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.CopyTo(System.Array,System.Int32)">
+            <summary>
+            The copy to.
+            </summary>
+            <param name="array">
+            The array.
+            </param>
+            <param name="index">
+            The index.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.GetEnumerator">
+            <summary>
+            The get enumerator.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Add(System.Object)">
+            <summary>
+            The add.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The add.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Clear">
+            <summary>
+            The clear.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Contains(System.Object)">
+            <summary>
+            The contains.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The contains.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.IndexOf(System.Object)">
+            <summary>
+            The index of.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The index of.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Insert(System.Int32,System.Object)">
+            <summary>
+            The insert.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Remove(System.Object)">
+            <summary>
+            The remove.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.RemoveAt(System.Int32)">
+            <summary>
+            The remove at.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.Count">
+            <summary>
+            Gets Count.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsFixedSize">
+            <summary>
+            Gets a value indicating whether IsFixedSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsReadOnly">
+            <summary>
+            Gets a value indicating whether IsReadOnly.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsSynchronized">
+            <summary>
+            Gets a value indicating whether IsSynchronized.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.SyncRoot">
+            <summary>
+            Gets SyncRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.Item(System.Int32)">
+            <summary>
+            The this.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList">
+            <summary>
+            Public class to enumerate the items in the list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.m_list">
+            <summary>
+            The m_list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.m_current">
+            <summary>
+            The m_current.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.#ctor(YAF.Classes.Utils.DoubleLinkedList)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList"/> class.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.MoveNext">
+            <summary>
+            The move next.
+            </summary>
+            <returns>
+            The move next.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.Reset">
+            <summary>
+            The reset.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.DoubleLinkedList.LinkItem">
+            <summary>
+            Class that represents an element in the doubly linked list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Item">
+            <summary>
+              Current item that this node points to (ie the value)
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Next">
+            <summary>
+              Next item in the list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Previous">
+            <summary>
+              Previous item in the list
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.LinkItem.#ctor(YAF.Classes.Utils.DoubleLinkedList.LinkItem,YAF.Classes.Utils.DoubleLinkedList.LinkItem,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.DoubleLinkedList.LinkItem"/> class. 
+            Build a new LinkItem pointing to the next, previous and current value
+            </summary>
+            <param name="next">
+            The next LinkItem in the list
+            </param>
+            <param name="previous">
+            The previous LinkItem in the list
+            </param>
+            <param name="item">
+            The current value that this item points to
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.LinkItem.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>
+            The to string.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Utils.ViewStateExtensions">
             <summary>
             The view state extensions.
@@ -2419,6 +2852,60 @@
             The string helper.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.AreAnyWordsOverMaxLength(System.String,System.Int32)">
+            <summary>
+            Function to check a max word length, used i.e. in topic names.
+            </summary>
+            <param name="text">
+            The raw string to format
+            </param>
+            <param name="maxWordLength">
+            The max Word Length.
+            </param>
+            <returns>
+            The formatted string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.FastIndexOf(System.String,System.String)">
+            <summary>
+            The fast index of.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="pattern">
+            The pattern.
+            </param>
+            <returns>
+            The fast index of.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ForEachChar(System.String,System.Action{System.Char})">
+            <summary>
+            Does an action for each character in the input string. Kind of useless, but in a
+              useful way. ;)
+            </summary>
+            <param name="input">
+            </param>
+            <param name="forEachAction">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.FormatWith(System.String,System.Object[])">
+            <summary>
+            Formats a string with the provided parameters
+            </summary>
+            <param name="s">
+            The s.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+            <returns>
+            The formatted string
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.GenerateRandomString(System.Int32,System.String)">
             <summary>
             Returns a "random" alpha-numeric string of specified length and characters.
@@ -2433,25 +2920,27 @@
             The generate random string.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.AreAnyWordsOverMaxLength(System.String,System.Int32)">
+        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoEmptyStrings(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            Function to check a max word length, used i.e. in topic names.
+            Removes empty strings from the list
             </summary>
-            <param name="text">
-            The raw string to format
+            <param name="inputList">
             </param>
             <returns>
-            The formatted string
             </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="inputList"/> is <c>null</c>.
+            </exception>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.IsSet(System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoSmallStrings(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
             <summary>
-            When the string is trimmed, is it <see langword="null"/> or empty?
+            Removes strings that are smaller then <paramref name="minSize"/>
             </summary>
-            <param name="str">
+            <param name="inputList">
+            </param>
+            <param name="minSize">
             </param>
             <returns>
-            The is <see langword="null"/> or empty trimmed.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.IsNotSet(System.String)">
@@ -2464,17 +2953,15 @@
             The is <see langword="null"/> or empty trimmed.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ToDelimitedString``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.IsSet(System.String)">
             <summary>
-            Creates a delimited string an enumerable list of T.
+            When the string is trimmed, is it <see langword="null"/> or empty?
             </summary>
-            <param name="objList"></param>
-            <param name="delimiter">
+            <param name="str">
             </param>
             <returns>
-            The list to string.
+            The is <see langword="null"/> or empty trimmed.
             </returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="objList"/> is <c>null</c>.</exception>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String)">
             <summary>
@@ -2518,16 +3005,6 @@
             The process text.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoEmptyStrings(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Removes empty strings from the list
-            </summary>
-            <param name="inputList">
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:System.ArgumentNullException"><paramref name="inputList"/> is <c>null</c>.</exception>
-        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleSingleQuotes(System.String)">
             <summary>
             Removes multiple single quote ' characters from a string.
@@ -2546,17 +3023,6 @@
             </param>
             <returns>
             The remove multiple whitespace.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoSmallStrings(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
-            <summary>
-            Removes strings that are smaller then <paramref name="minSize"/>
-            </summary>
-            <param name="inputList">
-            </param>
-            <param name="minSize">
-            </param>
-            <returns>
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.StringToHexBytes(System.String)">
@@ -2600,6 +3066,35 @@
             list of strings
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToDelimitedString``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Creates a delimited string an enumerable list of T.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="objList">
+            </param>
+            <param name="delimiter">
+            </param>
+            <returns>
+            The list to string.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="objList"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
+            <summary>
+            Cleans a string into a proper RegEx statement. 
+              E.g. "[b]Whatever[/b]" will be converted to:
+              "\[b\]Whatever\[\/b\]"
+            </summary>
+            <param name="input">
+            </param>
+            <returns>
+            The to reg ex string.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.ToStream(System.String)">
             <summary>
             Converts a String to a MemoryStream.
@@ -2608,26 +3103,6 @@
             </param>
             <returns>
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
-            <summary>
-            Cleans a string into a proper RegEx statement. 
-            E.g. "[b]Whatever[/b]" will be converted to:
-            "\[b\]Whatever\[\/b\]"
-            </summary>
-            <param name="input">
-            </param>
-            <returns>
-            The to reg ex string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ForEachChar(System.String,System.Action{System.Char})">
-            <summary>
-            Does an action for each character in the input string. Kind of useless, but in a
-            useful way. ;)
-            </summary>
-            <param name="input"></param>
-            <param name="forEachAction"></param>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.Truncate(System.String,System.Int32)">
             <summary>
@@ -2655,20 +3130,6 @@
             </param>
             <returns>
             truncated string
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.FormatWith(System.String,System.Object[])">
-            <summary>
-            Formats a string with the provided parameters
-            </summary>
-            <param name="s">
-            The s.
-            </param>
-            <param name="args">
-            The args.
-            </param>
-            <returns>
-            The formatted string
             </returns>
         </member>
     </members>
