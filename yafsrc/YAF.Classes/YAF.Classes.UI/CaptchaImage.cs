@@ -29,6 +29,8 @@ namespace YAF.Classes.UI
   /// </summary>
   public class CaptchaImage : IDisposable
   {
+    private Random random;
+
     // Public properties (all read-only).
     /// <summary>
     /// The family name.
@@ -74,10 +76,8 @@ namespace YAF.Classes.UI
     /// The height.
     /// </param>
     public CaptchaImage(string s, int width, int height)
+      : this(s, width, height, string.Empty)
     {
-      this.text = s;
-      SetDimensions(width, height);
-      GenerateImage();
     }
 
 
@@ -103,6 +103,7 @@ namespace YAF.Classes.UI
     public CaptchaImage(string s, int width, int height, string familyName)
     {
       this.text = s;
+      random = new Random((int)DateTime.Now.Ticks);
       SetDimensions(width, height);
       SetFamilyName(familyName);
       GenerateImage();
@@ -210,7 +211,7 @@ namespace YAF.Classes.UI
       // If the named font is not installed, default to a system font.
       try
       {
-        var font = new Font(this.familyName, 12F);
+        var font = new Font(this.familyName, 14F);
         this.familyName = familyName;
         font.Dispose();
       }
@@ -238,8 +239,10 @@ namespace YAF.Classes.UI
       g.SmoothingMode = SmoothingMode.AntiAlias;
       var rect = new Rectangle(0, 0, this.width, this.height);
 
+      var randomLineColor = random.Next(40) + 200;
+
       // Fill in the background.
-      var hatchBrush = new HatchBrush(HatchStyle.SmallConfetti, Color.LightGray, Color.White);
+      var hatchBrush = new HatchBrush(HatchStyle.SmallConfetti, Color.FromArgb(randomLineColor, randomLineColor, randomLineColor), Color.White);
       g.FillRectangle(hatchBrush, rect);
 
       // Set up the text font.
@@ -254,7 +257,7 @@ namespace YAF.Classes.UI
         font = new Font(this.familyName, fontSize, FontStyle.Bold);
         size = g.MeasureString(this.text, font);
       }
- while (size.Width > rect.Width);
+      while (size.Width > rect.Width);
 
       // Set up the text format.
       var format = new StringFormat();
@@ -263,35 +266,70 @@ namespace YAF.Classes.UI
 
       // Create a path using the text and warp it randomly.
       var path = new GraphicsPath();
-      path.AddString(this.text, font.FontFamily, (int) font.Style, font.Size, rect, format);
+      path.AddString(this.text, font.FontFamily, (int)font.Style, font.Size, rect, format);
       float v = 4F;
       PointF[] points = {
-                          new PointF(r.Next(rect.Width)/v, r.Next(rect.Height)/v), new PointF(rect.Width - r.Next(rect.Width)/v, r.Next(rect.Height)/v), 
-                          new PointF(r.Next(rect.Width)/v, rect.Height - r.Next(rect.Height)/v), 
-                          new PointF(rect.Width - r.Next(rect.Width)/v, rect.Height - r.Next(rect.Height)/v)
+                          new PointF(r.Next(rect.Width) / v, r.Next(rect.Height) / v),
+                          new PointF(rect.Width - r.Next(rect.Width) / v, r.Next(rect.Height) / v),
+                          new PointF(r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v),
+                          new PointF(rect.Width - r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v)
                         };
       var matrix = new Matrix();
       matrix.Translate(0F, 0F);
       path.Warp(points, rect, matrix, WarpMode.Perspective, 0F);
 
+      var randomColor = Color.FromArgb(random.Next(100) + 100, random.Next(100) + 100, random.Next(100) + 100);
+      var randomBackground = Color.FromArgb(20 + random.Next(100), 20 + random.Next(100), 20 + random.Next(100));
+
       // Draw the text.
-      hatchBrush = new HatchBrush(HatchStyle.LargeConfetti, Color.LightSkyBlue, Color.DarkGray);
+      hatchBrush = new HatchBrush(HatchStyle.LargeConfetti, randomColor, randomBackground);
       g.FillPath(hatchBrush, path);
 
       // Add some random noise.
       int m = Math.Max(rect.Width, rect.Height);
-      for (int i = 0; i < (int) (rect.Width*rect.Height/30F); i++)
+      for (int i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)
       {
         int x = r.Next(rect.Width);
         int y = r.Next(rect.Height);
-        int w = r.Next(m/50);
-        int h = r.Next(m/50);
+        int w = r.Next(m / (random.Next(1000) + 50));
+        int h = r.Next(m / (random.Next(1000) + 50));
+
         g.FillEllipse(hatchBrush, x, y, w, h);
+      }
+
+      double noise = random.Next(35) + 35;
+
+      int maxDim = Math.Max(rect.Width, rect.Height);
+      int radius = (int)(maxDim * noise / 3000);
+      int maxGran = (int)(rect.Width * rect.Height
+          / (100 - (noise >= 90 ? 90 : noise)));
+      for (int i = 0; i < maxGran; i++)
+      {
+        g.FillEllipse(
+          hatchBrush, random.Next(rect.Width), random.Next(rect.Height), random.Next(radius), random.Next(radius));
+      }
+
+      double _lines = random.Next(25) + 15;
+
+      if (_lines > 0)
+      {
+        int lines = ((int)_lines / 30) + 1;
+        using (Pen pen = new Pen(hatchBrush, 1))
+          for (int i = 0; i < lines; i++)
+          {
+            var pointsLine = new PointF[lines > 2 ? lines - 1 : 2];
+            for (int j = 0; j < pointsLine.Length; j++)
+            {
+              pointsLine[j] = new PointF(random.Next(rect.Width), random.Next(rect.Height));
+            }
+            g.DrawCurve(pen, pointsLine, 1.75F);
+          }
       }
 
       // Clean up.
       font.Dispose();
       hatchBrush.Dispose();
+      
       g.Dispose();
 
       // Set the image.
