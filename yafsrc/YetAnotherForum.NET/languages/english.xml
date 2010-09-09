@@ -94,6 +94,8 @@
 		<Resource tag="ADMIN_GROUPS">Views groups in admin section</Resource>
 		<Resource tag="ADMIN_USERS">Views users in admin section</Resource>
 		<Resource tag="ADMIN_RANKS">Views ranks in admin section</Resource>
+    <Resource tag="ADMIN_LANGUAGES">Views languages list</Resource>
+    <Resource tag="ADMIN_EDITLANGUAGE">Edits a languages file</Resource>
 		<Resource tag="ADMIN_MAIL">Views/edits mails</Resource>
 		<Resource tag="ADMIN_MEDALS">Views/edits medals</Resource>
 		<Resource tag="ADMIN_PRUNE">Views/performs pruning</Resource>

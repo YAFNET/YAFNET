@@ -383,7 +383,7 @@ namespace YAF.Controls
                           else
                           {
                               // Generic action name based on page name
-                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName);
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName.ToUpper());
                           }
                       }
 

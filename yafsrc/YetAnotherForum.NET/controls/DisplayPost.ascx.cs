@@ -377,9 +377,9 @@ namespace YAF.Controls
           else if (YafBuddies.IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
           {
             this.PopMenu1.AddClientScriptItemWithPostback(
-              this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
-              "removebuddy", 
-              "if (confirm('Remove Buddy?')) {postbackcode}");
+               this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
+              "removebuddy",
+              String.Format("if (confirm('{0}')) {1}", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"),"{postbackcode}"));
           }
         }
 
@@ -516,8 +516,8 @@ namespace YAF.Controls
             this.PopMenu1.AddClientScriptItemWithPostback(
               this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
               "removebuddy", 
-              "if (confirm('Remove Buddy?')) {postbackcode}");
-          }
+                String.Format("if (confirm('{0}')) {1}", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"),"{postbackcode}"));
+           }
           else
           {
             this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));

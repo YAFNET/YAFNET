@@ -17,6 +17,7 @@
     <Resource tag="ADMIN_EDITCATEGORY">Редактирует категорию</Resource>
     <Resource tag="ADMIN_EDITFORUM">Редактиурет форум</Resource>
     <Resource tag="ADMIN_EDITGROUP">Редактирует группу</Resource>
+    <Resource tag="ADMIN_EDITLANGUAGE">Редактирует языковой файл</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Редактирует медали</Resource>
     <Resource tag="ADMIN_EDITRANK">Редактирует ранги</Resource>
     <Resource tag="ADMIN_EDITUSER">Редактирует пользователя</Resource>
@@ -27,6 +28,7 @@
     <Resource tag="ADMIN_FORUMS">Просматривает настройки форумов</Resource>
     <Resource tag="ADMIN_GROUPS">Просматривает группы</Resource>
     <Resource tag="ADMIN_HOSTSETTING">Просматривает настройки хоста</Resource>
+    <Resource tag="ADMIN_LANGUAGES">Просматривает список локализаций</Resource>
     <Resource tag="ADMIN_MAIL">Находится в отправке почты</Resource>
     <Resource tag="ADMIN_MEDALS">Просматривает медали</Resource>
     <Resource tag="ADMIN_NNTPFORUMS">Находится в настройках NNTP-форумов</Resource>

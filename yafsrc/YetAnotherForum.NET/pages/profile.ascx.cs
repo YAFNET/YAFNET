@@ -412,7 +412,8 @@ namespace YAF.Pages
         this.lnkBuddy.Visible = true;
         this.lnkBuddy.Text = string.Format("({0})", this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
         this.lnkBuddy.CommandArgument = "removebuddy";
-        this.lnkBuddy.Attributes["onclick"] = "return confirm('Remove Buddy?')";
+        this.lnkBuddy.Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+ 
       }
       else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], false))
       {
