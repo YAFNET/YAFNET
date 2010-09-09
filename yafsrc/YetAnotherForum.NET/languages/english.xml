@@ -946,7 +946,6 @@
 		<Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">All buddy requests approved and added to your buddy list.</Resource>
 		<Resource tag="NOTIFICATION_ALL_DENIED">All buddy requests more than 14 days old denied.</Resource>
 		<Resource tag="PENDINGBUDDIES">You have {0} pending buddy request(s)</Resource>
-		<Resource tag="REMOVEBUDDY">Remove {0} from your buddy list?</Resource>
 		<Resource tag="REMOVEBUDDY_NOTIFICATION">{0} has been removed from your Buddy list.</Resource>
 	</page>
 	<page name="CP_EDITBUDDIES">
