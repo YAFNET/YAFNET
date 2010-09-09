@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="DataController.cs" />
     <Compile Include="DnnRichEditor.cs" />
+    <Compile Include="DotNetNukeUrlBuilder.cs" />
     <Compile Include="YafDnnImportScheduler.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

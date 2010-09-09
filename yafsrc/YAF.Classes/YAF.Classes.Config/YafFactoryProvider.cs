@@ -81,7 +81,7 @@ namespace YAF.Classes
         }
         else if (Config.IsDotNetNuke)
         {
-          urlAssembly = "YAF.Classes.DotNetNukeUrlBuilder,YAF.Classes.Core";
+            urlAssembly = "YAF.DotNetNuke.DotNetNukeUrlBuilder,YAF.DotNetNuke.Module";
         }
         else if (Config.IsMojoPortal)
         {
