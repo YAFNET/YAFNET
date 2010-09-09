@@ -111,7 +111,7 @@ namespace YAF
         }
 
           // TommyB: End MOD: Preview Images   ##########
-        else if (context.Request.QueryString.GetFirstOrDefault("c") != null && context.Session["CaptchaImageText"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
         {
           // captcha					
           GetResponseCaptcha(context);
