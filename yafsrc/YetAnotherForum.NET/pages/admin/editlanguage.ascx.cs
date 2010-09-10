@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
             public string sLocalizedValue;
         }
 
-        private readonly List<Translation> translations = new List<Translation>();
+        private List<Translation> translations = new List<Translation>();
 
         /// <summary>
         /// The page_ load.
@@ -331,6 +331,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// 
         /// Creates controls for column 1 (Resource tag) and column 2 (Resource value).
         /// </summary>
         /// <param name="sPageName"></param>
@@ -417,6 +418,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void SaveLanguageFile()
         {
+            translations = RemoveDuplicateSections(translations);
+
             new XmlDocument();
 
             XmlWriterSettings xwSettings = new XmlWriterSettings
@@ -482,7 +485,30 @@ namespace YAF.Pages.Admin
             xw.WriteEndDocument();
             xw.Close();
         }
+        /// <summary>
+        /// Remove all Resources with the same Name and Page
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns>The Cleaned List</returns>
+        public static List<T> RemoveDuplicateSections<T>(List<T> list) where T : Translation
+        {
+            List<T> finalList = new List<T>();
 
+            /*foreach (T item1 in
+                list.Where(item1 => finalList.Find(check => check.sPageName.Equals(item1.sPageName) && check.sResourceName.Equals(item1.sResourceName) && check.sResourceValue.Equals(item1.sResourceValue) && check.sLocalizedValue.Equals(item1.sLocalizedValue)) == null))
+            {
+                finalList.Add(item1);
+            }*/
+
+            foreach (T item1 in
+                list.Where(item1 => finalList.Find(check => check.sPageName.Equals(item1.sPageName) && check.sResourceName.Equals(item1.sResourceName)) == null))
+            {
+                finalList.Add(item1);
+            }
+
+            return finalList;
+        }
         /// <summary>
         /// Update Localizated Values in the Generics List
         /// </summary>
