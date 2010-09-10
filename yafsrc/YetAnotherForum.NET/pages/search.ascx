@@ -75,7 +75,7 @@
                         <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
                         </strong><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
-                            <%# Container.DataItemToField<string>("Topic") %>
+                            <%# HtmlEncode(Container.DataItemToField<string>("Topic")) %>
                         </a>
                     </td>
                 </tr>

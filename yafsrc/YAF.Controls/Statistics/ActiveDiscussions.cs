@@ -124,7 +124,7 @@ namespace YAF.Controls.Statistics
         // Output Topic Link
         html.AppendFormat(
           "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})",
-          YafServices.BadWordReplace.Replace(Convert.ToString(r["Topic"])),
+          YafServices.BadWordReplace.Replace(HtmlEncode(Convert.ToString(r["Topic"]))),
           YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]),
           currentPost,
           r["NumPosts"]);

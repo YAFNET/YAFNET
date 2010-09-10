@@ -468,7 +468,7 @@ namespace YAF.Controls
         "post_link", 
         YafFormatMessage.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
 
-      writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this._row["Subject"])));
+      writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(HtmlEncode(this._row["Subject"]))));
       writer.WriteEndTag("a");
 
       int actualPostCount = Convert.ToInt32(this._row["Replies"]) + 1;

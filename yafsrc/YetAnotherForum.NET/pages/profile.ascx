@@ -257,7 +257,7 @@
 											<strong>
 												<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
 											</strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
-												<%# YafServices.BadWordReplace.Replace(Container.DataItemToField<string>("Subject")) %>
+												<%# YafServices.BadWordReplace.Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
 											</a>
 											<br />
 											<strong>

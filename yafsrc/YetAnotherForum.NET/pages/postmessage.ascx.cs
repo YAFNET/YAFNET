@@ -666,7 +666,7 @@ namespace YAF.Pages
 
       if (this.Subject.Enabled)
       {
-        subjectSave = this.HtmlEncode(this.Subject.Text);
+          subjectSave = this.Subject.Text;
       }
 
       // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -733,7 +733,7 @@ namespace YAF.Pages
       // Save to Db
         topicId = DB.topic_save(
         this.PageContext.PageForumID, 
-        this.HtmlEncode(this.Subject.Text), 
+        this.Subject.Text, 
         this._forumEditor.Text, 
         this.PageContext.PageUserID, 
         this.Priority.SelectedValue, 

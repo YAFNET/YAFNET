@@ -595,7 +595,7 @@ namespace YAF.Pages
         PageLinks.AddLink(
           YafServices.BadWordReplace.Replace(Server.HtmlDecode(PageContext.PageTopicName)), string.Empty);
 
-        TopicTitle.Text = YafServices.BadWordReplace.Replace((string)_topic["Topic"]);
+        TopicTitle.Text = HtmlEncode(YafServices.BadWordReplace.Replace((string)_topic["Topic"]));
 
         ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
         ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump &&
