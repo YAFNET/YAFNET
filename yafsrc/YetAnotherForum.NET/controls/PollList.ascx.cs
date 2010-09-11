@@ -695,9 +695,8 @@ namespace YAF.controls
                                   : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
           questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
-          questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-          questionImage.Src = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-
+          questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+         
           if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
           {
             decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
@@ -812,18 +811,16 @@ namespace YAF.controls
         if (this.PageContext.IsGuest)
         {
           var guestOptionsHidden = item.FindControlRecursiveAs<Label>("GuestOptionsHidden");
-          if (!cvote && (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions))
-          {
-            guestOptionsHidden.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST");
-            guestOptionsHidden.Visible = true;
-            showWarningsRow = true;
-          }
+            if (!cvote)
+            {
+                if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
+                {
+                    guestOptionsHidden.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST");
+                }
 
-          if (!this.PageContext.ForumPollAccess)
-          {
-            guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST");
-            guestOptionsHidden.Visible = true;
-            showWarningsRow = true;
+                guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST");
+                guestOptionsHidden.Visible = true;
+                showWarningsRow = true;
           }
         }
 
@@ -1006,8 +1003,8 @@ namespace YAF.controls
                                 : this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
           choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
 
-          choiceImage.Alt = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
-          choiceImage.Src = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
+          choiceImage.Src = choiceImage.Alt = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
+         
 
           if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
           {
