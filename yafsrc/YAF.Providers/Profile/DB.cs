@@ -28,6 +28,7 @@ namespace YAF.Providers.Profile
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// The yaf profile db conn manager.
@@ -121,7 +122,7 @@ namespace YAF.Providers.Profile
     /// </returns>
     public DataTable GetProfileStructure()
     {
-      string sql = String.Format(@"SELECT TOP 1 * FROM {0}", YafDBAccess.GetObjectName("prov_Profile"));
+      string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(YafDBAccess.GetObjectName("prov_Profile"));
 
       using (var cmd = new SqlCommand(sql))
       {
@@ -152,7 +153,7 @@ namespace YAF.Providers.Profile
         type += "(" + size.ToString() + ")";
       }
 
-      string sql = String.Format("ALTER TABLE {0} ADD [{1}] {2} NULL", YafDBAccess.GetObjectName("prov_Profile"), name, type);
+      string sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(YafDBAccess.GetObjectName("prov_Profile"), name, type);
 
       using (var cmd = new SqlCommand(sql))
       {

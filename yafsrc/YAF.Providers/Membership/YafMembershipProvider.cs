@@ -29,6 +29,7 @@ namespace YAF.Providers.Membership
   using System.Web.Security;
 
   using YAF.Classes.Core;
+  using YAF.Classes.Utils;
   using YAF.Providers.Utils;
 
   /// <summary>
@@ -438,7 +439,7 @@ namespace YAF.Providers.Membership
           break;
       }
 
-      if (!String.IsNullOrEmpty(hashRemoveChars))
+      if (hashRemoveChars.IsSet())
       {
         foreach (char removeChar in hashRemoveChars)
         {
@@ -502,7 +503,7 @@ namespace YAF.Providers.Membership
       if (this.UseSalt)
       {
         // generate a salt if one doesn't exist...
-        passwordSalt = String.IsNullOrEmpty(currentPasswordInfo.PasswordSalt)
+        passwordSalt = currentPasswordInfo.PasswordSalt.IsNotSet()
                          ? GenerateSalt()
                          : currentPasswordInfo.PasswordSalt;
       }
@@ -655,13 +656,13 @@ namespace YAF.Providers.Membership
       // Check password Question and Answer requirements.
       if (this.RequiresQuestionAndAnswer)
       {
-        if (String.IsNullOrEmpty(passwordQuestion))
+        if (passwordQuestion.IsNotSet())
         {
           status = MembershipCreateStatus.InvalidQuestion;
           return null;
         }
 
-        if (String.IsNullOrEmpty(passwordAnswer))
+        if (passwordAnswer.IsNotSet())
         {
           status = MembershipCreateStatus.InvalidAnswer;
           return null;
@@ -682,7 +683,7 @@ namespace YAF.Providers.Membership
       // Check for unique email
       if (this.RequiresUniqueEmail)
       {
-        if (!String.IsNullOrEmpty(this.GetUserNameByEmail(email)))
+        if (this.GetUserNameByEmail(email).IsSet())
         {
           status = MembershipCreateStatus.DuplicateEmail; // Email exists
           return null;
@@ -999,7 +1000,7 @@ namespace YAF.Providers.Membership
       }
 
       // if it's empty don't bother calling the DB.
-      if (String.IsNullOrEmpty(username))
+      if (username.IsNotSet())
       {
         return null;
       }
@@ -1140,7 +1141,7 @@ namespace YAF.Providers.Membership
       }
 
       // is the connection string set?
-      if (!String.IsNullOrEmpty(this._connStrName))
+      if (this._connStrName.IsSet())
       {
         string connStr = ConfigurationManager.ConnectionStrings[this._connStrName].ConnectionString;
 
@@ -1202,7 +1203,7 @@ namespace YAF.Providers.Membership
 
       if (currentPasswordInfo != null)
       {
-        if (this.UseSalt && String.IsNullOrEmpty(currentPasswordInfo.PasswordSalt))
+        if (this.UseSalt && currentPasswordInfo.PasswordSalt.IsNotSet())
         {
           // get a new password salt...
           newPasswordSalt = GenerateSalt();
@@ -1213,7 +1214,7 @@ namespace YAF.Providers.Membership
           newPasswordSalt = currentPasswordInfo.PasswordSalt;
         }
 
-        if (!String.IsNullOrEmpty(answer))
+        if (answer.IsSet())
         {
           // verify answer is correct...
           if (!currentPasswordInfo.IsCorrectAnswer(answer))
@@ -1398,13 +1399,13 @@ namespace YAF.Providers.Membership
       var passwordFormat = (MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), encFormat);
 
       // Multiple Checks to ensure UseSalt is valid.
-      if (String.IsNullOrEmpty(clearString))
+      if (clearString.IsNotSet())
       {
         // Check to ensure string is not null or empty.
         return String.Empty;
       }
 
-      if (useSalt && String.IsNullOrEmpty(salt))
+      if (useSalt && salt.IsNotSet())
       {
         // If Salt value is null disable Salt procedure
         useSalt = false;
@@ -1554,7 +1555,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     private static string HashType()
     {
-      if (String.IsNullOrEmpty(Membership.HashAlgorithmType))
+      if (Membership.HashAlgorithmType.IsNotSet())
       {
         return "MD5"; // Default Hash Algorithm Type
       }

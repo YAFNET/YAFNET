@@ -47,13 +47,13 @@ namespace YAF.Providers.Utils
     /// </summary>
     private static XmlDocument ExceptionXML()
     {
-      if (String.IsNullOrEmpty(ProviderExceptionFile))
+      if (ProviderExceptionFile.IsNotSet())
       {
         throw new ApplicationException("Exceptionfile cannot be null or empty!");
       }
 
       var exceptionXmlDoc = new XmlDocument();
-      exceptionXmlDoc.Load(HttpContext.Current.Server.MapPath(String.Format("{0}resources/{1}", YafForumInfo.ForumServerFileRoot, ProviderExceptionFile)));
+      exceptionXmlDoc.Load(HttpContext.Current.Server.MapPath("{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, ProviderExceptionFile)));
 
       return exceptionXmlDoc;
     }
@@ -72,7 +72,7 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static string GetReport(string providerSection, string tag)
     {
-      string select = string.Format("//provider[@name='{0}']/Resource[@tag='{1}']", providerSection.ToUpper(), tag.ToUpper());
+      string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(providerSection.ToUpper(), tag.ToUpper());
       XmlNode node = ExceptionXML().SelectSingleNode(select);
 
       if (node != null)
@@ -81,7 +81,7 @@ namespace YAF.Providers.Utils
       }
       else
       {
-        return String.Format("Exception({1}:{0}) cannot be found in Exception file!", tag, providerSection);
+        return "Exception({1}:{0}) cannot be found in Exception file!".FormatWith(tag, providerSection);
       }
     }
 

@@ -374,7 +374,7 @@ namespace YAF.Providers.Profile
 
       string username = context["UserName"].ToString();
 
-      if (String.IsNullOrEmpty(username))
+      if (username.IsNotSet())
       {
         return settingPropertyCollection;
       }
@@ -459,7 +459,7 @@ namespace YAF.Providers.Profile
       }
 
       // is the connection string set?
-      if (!String.IsNullOrEmpty(this._connStrName))
+      if (this._connStrName.IsSet())
       {
         string connStr = ConfigurationManager.ConnectionStrings[this._connStrName].ConnectionString;
 
@@ -670,7 +670,7 @@ namespace YAF.Providers.Profile
     /// </returns>
     private string GenerateCacheKey(string name)
     {
-      return String.Format("YafProfileProvider-{0}-{1}", name, this.ApplicationName);
+      return "YafProfileProvider-{0}-{1}".FormatWith(name, this.ApplicationName);
     }
 
     /// <summary>
@@ -695,7 +695,7 @@ namespace YAF.Providers.Profile
       size = -1;
       dbType = SqlDbType.NVarChar;
 
-      if (String.IsNullOrEmpty(providerData))
+      if (providerData.IsNotSet())
       {
         return false;
       }
