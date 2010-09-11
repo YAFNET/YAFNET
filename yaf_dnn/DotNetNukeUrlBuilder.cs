@@ -19,7 +19,6 @@
 
 
 using DotNetNuke.Common;
-using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 
@@ -31,12 +30,12 @@ namespace YAF.DotNetNuke
     using System.Data;
     using System.Globalization;
     using System.Text;
+    using System.Web;
     using System.Web.Caching;
     using Classes;
     using Classes.Core;
     using Classes.Data;
     using Classes.Utils;
-    using System.Web;
 
     #endregion
 
@@ -108,7 +107,20 @@ namespace YAF.DotNetNuke
 
           try
           {
-              sNewURL = Globals.NavigateURL(curTab.TabID).Replace("Default.aspx", "");
+
+             
+              sNewURL = Globals.NavigateURL(curTab.TabID);
+
+              if (sNewURL.Contains("Default.aspx"))
+              {
+                  sNewURL = sNewURL.Replace("Default.aspx", "");
+              }
+
+              // Fix For DNN 4
+              if (sNewURL.Contains(".aspx"))
+              {
+                  sNewURL = Globals.ResolveUrl(string.Format("~/tabid/{0}/", curTab.TabID));
+              }
 
               var parser = new SimpleURLParameterParser(sUrl);
 
