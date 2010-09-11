@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
+<YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="7">
@@ -71,6 +72,7 @@
 		</FooterTemplate>
 	</asp:Repeater>
 </table>
+<YAF:Pager runat="server"  LinkedPager="Pager" OnPageChange="Pager_PageChange" />
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
