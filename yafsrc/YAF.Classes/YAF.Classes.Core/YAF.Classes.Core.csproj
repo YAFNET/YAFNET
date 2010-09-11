@@ -114,6 +114,7 @@
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\ResourcesExtensions.cs" />
+    <Compile Include="Handlers\CantLoadThemeException.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Localization\LocalizerLoader.cs" />

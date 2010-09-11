@@ -16,29 +16,53 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System;
+
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The theme handler.
   /// </summary>
   public class ThemeHandler
   {
-    /// <summary>
-    /// The _init theme.
-    /// </summary>
-    private bool _initTheme = false;
+    #region Constants and Fields
 
     /// <summary>
-    /// The _theme.
+    ///   The _init theme.
     /// </summary>
-    private YafTheme _theme = null;
+    private bool _initTheme;
 
     /// <summary>
-    /// Gets or sets Theme.
+    ///   The _theme.
+    /// </summary>
+    private YafTheme _theme;
+
+    #endregion
+
+    #region Events
+
+    /// <summary>
+    ///   The after init.
+    /// </summary>
+    public event EventHandler<EventArgs> AfterInit;
+
+    /// <summary>
+    ///   The before init.
+    /// </summary>
+    public event EventHandler<EventArgs> BeforeInit;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Theme.
     /// </summary>
     public YafTheme Theme
     {
@@ -46,7 +70,7 @@ namespace YAF.Classes.Core
       {
         if (!this._initTheme)
         {
-          InitTheme();
+          this.InitTheme();
         }
 
         return this._theme;
@@ -59,15 +83,9 @@ namespace YAF.Classes.Core
       }
     }
 
-    /// <summary>
-    /// The before init.
-    /// </summary>
-    public event EventHandler<EventArgs> BeforeInit;
+    #endregion
 
-    /// <summary>
-    /// The after init.
-    /// </summary>
-    public event EventHandler<EventArgs> AfterInit;
+    #region Methods
 
     /// <summary>
     /// Sets the theme class up for usage
@@ -76,14 +94,15 @@ namespace YAF.Classes.Core
     {
       if (!this._initTheme)
       {
-        if (BeforeInit != null)
+        if (this.BeforeInit != null)
         {
-          BeforeInit(this, new EventArgs());
+          this.BeforeInit(this, new EventArgs());
         }
 
         string themeFile = null;
 
-        if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != DBNull.Value && YafContext.Current.BoardSettings.AllowUserTheme)
+        if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != DBNull.Value &&
+            YafContext.Current.BoardSettings.AllowUserTheme)
         {
           // use user-selected theme
           themeFile = YafContext.Current.Page["ThemeFile"].ToString();
@@ -99,24 +118,27 @@ namespace YAF.Classes.Core
 
         if (!YafTheme.IsValidTheme(themeFile))
         {
-            themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();           
+          themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
         }
 
         // create the theme class
-        Theme = new YafTheme(themeFile);
+        this.Theme = new YafTheme(themeFile);
 
         // make sure it's valid again...
-        if (!YafTheme.IsValidTheme(Theme.ThemeFile))
+        if (!YafTheme.IsValidTheme(this.Theme.ThemeFile))
         {
           // can't load a theme... throw an exception.
-          throw new Exception("Unable to find a theme to load. Last attempted to load \"{0}\" but failed.".FormatWith(themeFile));
+          throw new CantLoadThemeException(
+            "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.".FormatWith(themeFile));
         }
 
-        if (AfterInit != null)
+        if (this.AfterInit != null)
         {
-          AfterInit(this, new EventArgs());
+          this.AfterInit(this, new EventArgs());
         }
       }
     }
+
+    #endregion
   }
 }

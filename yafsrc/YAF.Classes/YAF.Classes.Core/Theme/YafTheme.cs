@@ -19,64 +19,288 @@
  */
 namespace YAF.Classes.Core
 {
-  using System;
-  using System.Xml;
-  using YAF.Classes.Utils;
-  using Interfaces;
+  #region Using
 
+  using System;
+  using System.IO;
+  using System.Web;
+  using System.Xml;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.Interfaces;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// The yaf theme.
+  /// </summary>
   public class YafTheme : IYafTheme
   {
-    private string _themeFile = null;
-    private XmlDocument _themeXmlDoc = null;
-    private bool _logMissingThemeItem = false;
+    #region Constants and Fields
 
+    /// <summary>
+    /// The _theme file.
+    /// </summary>
+    private string _themeFile;
+
+    /// <summary>
+    /// The _theme xml doc.
+    /// </summary>
+    private XmlDocument _themeXmlDoc;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafTheme"/> class.
+    /// </summary>
     public YafTheme()
     {
-
-    }
-
-    public YafTheme(string newThemeFile)
-    {
-      ThemeFile = newThemeFile;
     }
 
     /// <summary>
-    /// Get or Set the current Theme File
+    /// Initializes a new instance of the <see cref="YafTheme"/> class.
+    /// </summary>
+    /// <param name="newThemeFile">
+    /// The new theme file.
+    /// </param>
+    public YafTheme([NotNull] string newThemeFile)
+    {
+      CodeContracts.ArgumentNotNull(newThemeFile, "newThemeFile");
+
+      this.ThemeFile = newThemeFile;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets a value indicating whether LogMissingThemeItem.
+    /// </summary>
+    public bool LogMissingThemeItem { get; set; }
+
+    /// <summary>
+    /// Gets ThemeDir.
+    /// </summary>
+    public string ThemeDir
+    {
+      get
+      {
+        this.LoadThemeFile();
+        return "{0}{1}/{2}/".FormatWith(
+          YafForumInfo.ForumClientFileRoot, 
+          YafBoardFolders.Current.Themes, 
+          this._themeXmlDoc.DocumentElement.Attributes["dir"].Value);
+      }
+    }
+
+    /// <summary>
+    ///   Get or Set the current Theme File
     /// </summary>
     public string ThemeFile
     {
       get
       {
-        return _themeFile;
+        return this._themeFile;
       }
+
       set
       {
-        if (_themeFile != value)
+        if (this._themeFile != value)
         {
           if (IsValidTheme(value))
           {
-            _themeFile = value;
-            _themeXmlDoc = null;
+            this._themeFile = value;
+            this._themeXmlDoc = null;
           }
         }
       }
     }
 
-    public bool LogMissingThemeItem
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Basic testing of the theme's validity...
+    /// </summary>
+    /// <param name="themeFile">
+    /// </param>
+    /// <returns>
+    /// The is valid theme.
+    /// </returns>
+    public static bool IsValidTheme([NotNull] string themeFile)
     {
-      get
+      CodeContracts.ArgumentNotNull(themeFile, "themeFile");
+
+      if (themeFile.IsNotSet())
       {
-        return _logMissingThemeItem;
+        return false;
       }
-      set
+
+      themeFile = themeFile.Trim().ToLower();
+
+      if (themeFile.Length == 0)
       {
-        _logMissingThemeItem = value;
+        return false;
       }
+
+      if (!themeFile.EndsWith(".xml"))
+      {
+        return false;
+      }
+
+      return
+        File.Exists(
+          HttpContext.Current.Server.MapPath(
+            String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", themeFile.Trim())));
     }
 
+    /// <summary>
+    /// Gets the collapsible panel image url (expanded or collapsed).
+    ///   </summary>
+    /// <param name="panelID">
+    /// ID of collapsible panel
+    /// </param>
+    /// <param name="defaultState">
+    /// Default Panel State
+    /// </param>
+    /// <returns>
+    /// Image URL
+    /// </returns>
+    public string GetCollapsiblePanelImageURL([NotNull] string panelID, PanelSessionState.CollapsiblePanelState defaultState)
+    {
+      CodeContracts.ArgumentNotNull(panelID, "panelID");
+
+      PanelSessionState.CollapsiblePanelState stateValue = Mession.PanelState[panelID];
+      if (stateValue == PanelSessionState.CollapsiblePanelState.None)
+      {
+        stateValue = defaultState;
+        Mession.PanelState[panelID] = defaultState;
+      }
+
+      return this.GetItem(
+        "ICONS", stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND");
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IYafTheme
+
+    /// <summary>
+    /// Gets full path to the given theme file.
+    /// </summary>
+    /// <param name="filename">
+    /// Short name of theme file.
+    /// </param>
+    /// <returns>
+    /// The build theme path.
+    /// </returns>
+    public string BuildThemePath([NotNull] string filename)
+    {
+      CodeContracts.ArgumentNotNull(filename, "filename");
+
+      return this.ThemeDir + filename;
+    }
+
+    /// <summary>
+    /// The get item.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The get item.
+    /// </returns>
+    public string GetItem([NotNull] string page, [NotNull] string tag)
+    {
+      CodeContracts.ArgumentNotNull(page, "page");
+      CodeContracts.ArgumentNotNull(tag, "tag");
+
+      return this.GetItem(page, tag, "[{0}.{1}]".FormatWith(page.ToUpper(), tag.ToUpper()));
+    }
+
+    /// <summary>
+    /// The get item.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    /// <returns>
+    /// The get item.
+    /// </returns>
+    public string GetItem([NotNull] string page, [NotNull] string tag, [NotNull] string defaultValue)
+    {
+      CodeContracts.ArgumentNotNull(page, "page");
+      CodeContracts.ArgumentNotNull(tag, "tag");
+      CodeContracts.ArgumentNotNull(defaultValue, "defaultValue");
+
+      string item = string.Empty;
+
+      this.LoadThemeFile();
+
+      if (this._themeXmlDoc != null)
+      {
+        string themeDir = this._themeXmlDoc.DocumentElement.Attributes["dir"].Value;
+        string langCode = YafContext.Current.Localization.LanguageCode.ToUpper();
+        string select = "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']".FormatWith(
+          page.ToUpper(), tag.ToUpper(), langCode);
+
+        XmlNode node = this._themeXmlDoc.SelectSingleNode(select);
+        if (node == null)
+        {
+          select = "//page[@name='{0}']/Resource[@tag='{1}']".FormatWith(page.ToUpper(), tag.ToUpper());
+          node = this._themeXmlDoc.SelectSingleNode(select);
+        }
+
+        if (node == null)
+        {
+          if (this.LogMissingThemeItem)
+          {
+            DB.eventlog_create(
+              YafContext.Current.PageUserID, 
+              page.ToLower() + ".ascx", 
+              "Missing Theme Item: {0}.{1}".FormatWith(page.ToUpper(), tag.ToUpper()), 
+              EventLogTypes.Error);
+          }
+
+          return defaultValue;
+        }
+
+        item = node.InnerText.Replace(
+          "~", "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, themeDir));
+      }
+
+      return item;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The load theme file.
+    /// </summary>
     private void LoadThemeFile()
     {
-      if (ThemeFile != null)
+      if (this.ThemeFile != null)
       {
 #if !DEBUG
         if (_themeXmlDoc == null)
@@ -85,11 +309,12 @@ namespace YAF.Classes.Core
         }
 #endif
 
-        if (_themeXmlDoc == null)
+        if (this._themeXmlDoc == null)
         {
-          _themeXmlDoc = new XmlDocument();
-          _themeXmlDoc.Load(
-                      System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", ThemeFile)));
+          this._themeXmlDoc = new XmlDocument();
+          this._themeXmlDoc.Load(
+            HttpContext.Current.Server.MapPath(
+              String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", this.ThemeFile)));
 #if !DEBUG
           System.Web.HttpContext.Current.Cache[ThemeFile] = _themeXmlDoc;
 #endif
@@ -97,95 +322,6 @@ namespace YAF.Classes.Core
       }
     }
 
-    /// <summary>
-    /// Basic testing of the theme's validity...
-    /// </summary>
-    /// <param name="themeFile"></param>
-    /// <returns></returns>
-    public static bool IsValidTheme(string themeFile)
-    {
-      if (themeFile.IsNotSet()) return false;
-
-      themeFile = themeFile.Trim().ToLower();
-
-      if (themeFile.Length == 0) return false;
-
-      if (!themeFile.EndsWith(".xml")) return false;
-
-      return System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", themeFile.Trim())));
-    }
-
-    public string GetItem(string page, string tag)
-    {
-      return GetItem(page, tag, "[{0}.{1}]".FormatWith(page.ToUpper(), tag.ToUpper()));
-    }
-
-    public string GetItem(string page, string tag, string defaultValue)
-    {
-      string item = "";
-
-      LoadThemeFile();
-
-      if (_themeXmlDoc != null)
-      {
-        string themeDir = _themeXmlDoc.DocumentElement.Attributes["dir"].Value;
-        string langCode = YafContext.Current.Localization.LanguageCode.ToUpper();
-        string select = "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']".FormatWith(page.ToUpper(), tag.ToUpper(), langCode);
-
-        XmlNode node = _themeXmlDoc.SelectSingleNode(select);
-        if (node == null)
-        {
-          select = "//page[@name='{0}']/Resource[@tag='{1}']".FormatWith(page.ToUpper(), tag.ToUpper());
-          node = _themeXmlDoc.SelectSingleNode(select);
-        }
-
-        if (node == null)
-        {
-          if (LogMissingThemeItem) YAF.Classes.Data.DB.eventlog_create(YafContext.Current.PageUserID, page.ToLower() + ".ascx", "Missing Theme Item: {0}.{1}".FormatWith(page.ToUpper(), tag.ToUpper()), EventLogTypes.Error);
-          return defaultValue;
-        }
-
-        item = node.InnerText.Replace("~", "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, themeDir));
-      }
-
-      return item;
-    }
-
-    public string ThemeDir
-    {
-      get
-      {
-        LoadThemeFile();
-        return "{0}{1}/{2}/".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Themes, this._themeXmlDoc.DocumentElement.Attributes["dir"].Value);
-      }
-    }
-
-    /// <summary>
-    /// Gets full path to the given theme file.
-    /// </summary>
-    /// <param name="filename">Short name of theme file.</param>
-    /// <returns></returns>
-    public string BuildThemePath(string filename)
-    {
-      return ThemeDir + filename;
-    }
-
-    /// <summary>
-    /// Gets the collapsible panel image url (expanded or collapsed).
-    /// <param name="panelID">ID of collapsible panel</param>
-    /// <param name="defaultState">Default Panel State</param>
-    /// </summary>
-    /// <returns>Image URL</returns>
-    public string GetCollapsiblePanelImageURL(string panelID, PanelSessionState.CollapsiblePanelState defaultState)
-    {
-      PanelSessionState.CollapsiblePanelState stateValue = Mession.PanelState[panelID];
-      if (stateValue == PanelSessionState.CollapsiblePanelState.None)
-      {
-        stateValue = defaultState;
-        Mession.PanelState[panelID] = defaultState;
-      }
-
-      return GetItem("ICONS", (stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND"));
-    }
+    #endregion
   }
 }

@@ -27,6 +27,7 @@ namespace YAF.Classes.Core
   using System.Xml;
   using System.Xml.Serialization;
 
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -50,8 +51,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// IPLocator Class
     /// </returns>
-    public IPLocator GetData(string ipAddress, bool tzInfo)
+    public IPLocator GetData([NotNull] string ipAddress, bool tzInfo)
     {
+      CodeContracts.ArgumentNotNull(ipAddress, "ipAddress");
+
       var ipLoc = new IPLocator();
       if (YafContext.Current.BoardSettings.EnableIPInfoService)
       {
@@ -87,8 +90,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The deserialize.
     /// </returns>
-    private object Deserialize(string pXmlizedString)
+    private object Deserialize([NotNull] string pXmlizedString)
     {
+      CodeContracts.ArgumentNotNull(pXmlizedString, "pXmlizedString");
+
       var xs = new XmlSerializer(typeof(IPLocator));
       var memoryStream = new MemoryStream(this.StringToUTF8ByteArray(pXmlizedString));
       var xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
@@ -103,8 +108,11 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    private byte[] StringToUTF8ByteArray(string pXmlString)
+    [NotNull]
+    private byte[] StringToUTF8ByteArray([NotNull] string pXmlString)
     {
+      CodeContracts.ArgumentNotNull(pXmlString, "pXmlString");
+
       var encoding = new UTF8Encoding();
       byte[] byteArray = encoding.GetBytes(pXmlString);
       return byteArray;

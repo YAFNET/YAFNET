@@ -19,6 +19,8 @@
  */
 namespace YAF.Classes.Core
 {
+  #region Using
+
   using System;
   using System.IO;
   using System.Text;
@@ -29,11 +31,24 @@ namespace YAF.Classes.Core
 
   using YAF.Classes.Utils;
 
+  #endregion
+
+  /// <summary>
+  /// The localizer loader.
+  /// </summary>
   public class LocalizerLoader
   {
+    #region Public Methods
+
     /// <summary>
     /// The attempt load language file.
     /// </summary>
+    /// <param name="languageFileName">
+    /// The language File Name.
+    /// </param>
+    /// <param name="cacheName">
+    /// The cache Name.
+    /// </param>
     /// <returns>
     /// </returns>
     public Resources LoadSiteFile(string languageFileName, string cacheName)
@@ -60,12 +75,12 @@ namespace YAF.Classes.Core
             {
               var fileDependency = new CacheDependency(languageFileName);
               HttpRuntime.Cache.Add(
-                cacheName,
-                resources,
-                fileDependency,
-                DateTime.UtcNow.AddHours(1.0),
-                TimeSpan.Zero,
-                CacheItemPriority.Default,
+                cacheName, 
+                resources, 
+                fileDependency, 
+                DateTime.UtcNow.AddHours(1.0), 
+                TimeSpan.Zero, 
+                CacheItemPriority.Default, 
                 null);
             }
 
@@ -77,9 +92,21 @@ namespace YAF.Classes.Core
       return null;
     }
 
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The get encoding for xml file.
+    /// </summary>
+    /// <param name="xmlFileName">
+    /// The xml file name.
+    /// </param>
+    /// <returns>
+    /// </returns>
     private Encoding GetEncodingForXmlFile(string xmlFileName)
     {
-      XmlDocument doc = new XmlDocument();
+      var doc = new XmlDocument();
 
       doc.Load(xmlFileName);
 
@@ -88,7 +115,7 @@ namespace YAF.Classes.Core
       if (doc.FirstChild.NodeType == XmlNodeType.XmlDeclaration)
       {
         // Get the encoding declaration.
-        XmlDeclaration decl = (XmlDeclaration)doc.FirstChild;
+        var decl = (XmlDeclaration)doc.FirstChild;
         Encoding currentEncoding;
         try
         {
@@ -103,5 +130,7 @@ namespace YAF.Classes.Core
 
       return Encoding.UTF8;
     }
+
+    #endregion
   }
 }
