@@ -29,6 +29,7 @@ namespace YAF.Classes.Utils
   using System.Text.RegularExpressions;
 
   using YAF.Classes.Extensions;
+  using YAF.Classes.Pattern;
 
   #endregion
 
@@ -51,8 +52,10 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The formatted string
     /// </returns>
-    public static bool AreAnyWordsOverMaxLength(this string text, int maxWordLength)
+    public static bool AreAnyWordsOverMaxLength([NotNull] this string text, int maxWordLength)
     {
+      CodeContracts.ArgumentNotNull(text, "text");
+
       if (maxWordLength > 0 && text.Length > 0)
       {
         var overMax = text.Split(' ').Where(w => w.IsSet() && w.Length > maxWordLength);
@@ -77,12 +80,10 @@ namespace YAF.Classes.Utils
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    public static int FastIndexOf(this string source, string pattern)
+    public static int FastIndexOf([NotNull] this string source, [NotNull] string pattern)
     {
-      if (pattern == null)
-      {
-        throw new ArgumentNullException();
-      }
+      CodeContracts.ArgumentNotNull(source, "source");
+      CodeContracts.ArgumentNotNull(pattern, "pattern");
 
       if (pattern.Length == 0)
       {
@@ -147,8 +148,11 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <param name="forEachAction">
     /// </param>
-    public static void ForEachChar(this string input, Action<char> forEachAction)
+    public static void ForEachChar([NotNull] this string input, [NotNull] Action<char> forEachAction)
     {
+      CodeContracts.ArgumentNotNull(input, "input");
+      CodeContracts.ArgumentNotNull(forEachAction, "forEachAction");
+
       foreach (char c in input)
       {
         forEachAction(c);
@@ -189,12 +193,9 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The generate random string.
     /// </returns>
-    public static string GenerateRandomString(int length, string pickfrom)
+    public static string GenerateRandomString(int length, [NotNull] string pickfrom)
     {
-      if (pickfrom.IsNotSet())
-      {
-        throw new ArgumentException("pickfrom is null or empty.", "pickfrom");
-      }
+      CodeContracts.ArgumentNotNull(pickfrom, "pickfrom");
 
       var r = new Random();
       string result = string.Empty;
@@ -219,14 +220,12 @@ namespace YAF.Classes.Utils
     /// <exception cref="ArgumentNullException">
     /// <paramref name="inputList"/> is <c>null</c>.
     /// </exception>
-    public static List<string> GetNewNoEmptyStrings(this IEnumerable<string> inputList)
+    [NotNull]
+    public static List<string> GetNewNoEmptyStrings([NotNull] this IEnumerable<string> inputList)
     {
-      if (inputList == null)
-      {
-        throw new ArgumentNullException("inputList", "inputList is null.");
-      }
+      CodeContracts.ArgumentNotNull(inputList, "inputList");
 
-      return inputList.Where(x => !x.IsNotSet()).ToList();
+      return inputList.Where(x => x.IsSet()).ToList();
     }
 
     /// <summary>
@@ -238,12 +237,10 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static List<string> GetNewNoSmallStrings(this IEnumerable<string> inputList, int minSize)
+    [NotNull]
+    public static List<string> GetNewNoSmallStrings([NotNull] this IEnumerable<string> inputList, int minSize)
     {
-      if (inputList == null)
-      {
-        throw new ArgumentNullException("inputList", "inputList is null.");
-      }
+      CodeContracts.ArgumentNotNull(inputList, "inputList");
 
       return inputList.Where(x => x.Length >= minSize).ToList();
     }
@@ -438,17 +435,11 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// list of strings
     /// </returns>
-    public static List<string> StringToList(this string str, char delimiter, List<string> exclude)
+    [NotNull]
+    public static List<string> StringToList([NotNull] this string str, char delimiter, [NotNull] List<string> exclude)
     {
-      if (str.IsNotSet())
-      {
-        throw new ArgumentException("str is null or empty.", "str");
-      }
-
-      if (exclude == null)
-      {
-        throw new ArgumentNullException("exclude", "exclude is null.");
-      }
+      CodeContracts.ArgumentNotNull(str, "str");
+      CodeContracts.ArgumentNotNull(exclude, "exclude");
 
       var list = str.Split(delimiter).ToList();
 
@@ -508,8 +499,11 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The to reg ex string.
     /// </returns>
-    public static string ToRegExString(this string input)
+    [NotNull]
+    public static string ToRegExString([NotNull] this string input)
     {
+      CodeContracts.ArgumentNotNull(input, "input");
+
       var sb = new StringBuilder();
 
       input.ForEachChar(
@@ -533,8 +527,11 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static Stream ToStream(this string str)
+    [NotNull]
+    public static Stream ToStream([NotNull] this string str)
     {
+      CodeContracts.ArgumentNotNull(str, "str");
+
       byte[] byteArray = Encoding.ASCII.GetBytes(str);
       return new MemoryStream(byteArray);
     }

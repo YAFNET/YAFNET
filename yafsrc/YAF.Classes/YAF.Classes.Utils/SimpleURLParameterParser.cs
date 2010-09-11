@@ -24,6 +24,8 @@ namespace YAF.Classes.Utils
   using System.Linq;
   using System.Text;
 
+  using YAF.Classes.Pattern;
+
   #endregion
 
   /// <summary>
@@ -157,8 +159,11 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The create query string.
     /// </returns>
-    public string CreateQueryString(string[] excludeValues)
+    [NotNull]
+    public string CreateQueryString([NotNull] string[] excludeValues)
     {
+      CodeContracts.ArgumentNotNull(excludeValues, "excludeValues");
+
       var queryBuilder = new StringBuilder();
 
       for (int i = 0; i < this._nameValues.Count; i++)

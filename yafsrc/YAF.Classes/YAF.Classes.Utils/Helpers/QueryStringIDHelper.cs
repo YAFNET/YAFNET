@@ -24,6 +24,8 @@ namespace YAF.Classes.Utils
   using System.Collections.Generic;
   using System.Web;
 
+  using YAF.Classes.Pattern;
+
   #endregion
 
   /// <summary>
@@ -73,8 +75,10 @@ namespace YAF.Classes.Utils
     /// <param name="errorOnInvalid">
     /// The error on invalid.
     /// </param>
-    public QueryStringIDHelper(string idName, bool errorOnInvalid)
+    public QueryStringIDHelper([NotNull] string idName, bool errorOnInvalid)
     {
+      CodeContracts.ArgumentNotNull(idName, "idName");
+
       this.InitIDs(new[] { idName }, new[] { errorOnInvalid });
     }
 
@@ -87,8 +91,10 @@ namespace YAF.Classes.Utils
     /// <param name="errorOnInvalid">
     /// The error on invalid.
     /// </param>
-    public QueryStringIDHelper(string[] idNames, bool errorOnInvalid)
+    public QueryStringIDHelper([NotNull] string[] idNames, bool errorOnInvalid)
     {
+      CodeContracts.ArgumentNotNull(idNames, "idNames");
+
       var failInvalid = new bool[idNames.Length];
 
       for (int i = 0; i < failInvalid.Length; i++)
@@ -189,8 +195,11 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <exception cref="Exception">
     /// </exception>
-    private void InitIDs(string[] idNames, bool[] errorOnInvalid)
+    private void InitIDs([NotNull] string[] idNames, [NotNull] bool[] errorOnInvalid)
     {
+      CodeContracts.ArgumentNotNull(idNames, "idNames");
+      CodeContracts.ArgumentNotNull(errorOnInvalid, "errorOnInvalid");
+
       if (idNames.Length != errorOnInvalid.Length)
       {
         throw new Exception("idNames and errorOnInvalid variables must be the same array length.");

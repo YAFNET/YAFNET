@@ -5,6 +5,8 @@ namespace YAF.Classes.Utils
   using System.Collections.Specialized;
   using System.Linq;
 
+  using YAF.Classes.Pattern;
+
   public static class NameValueCollectionExtensions
   {
     /// <summary>
@@ -14,18 +16,24 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static IDictionary<string, string> ToSimpleDictionary(this NameValueCollection collection)
+    [NotNull]
+    public static IDictionary<string, string> ToSimpleDictionary([NotNull] this NameValueCollection collection)
     {
+      CodeContracts.ArgumentNotNull(collection, "collection");
+
       return collection.AllKeys.ToDictionary(key => key, key => collection[key]);
-    }    
+    }
 
     /// <summary>
     /// Gets the value as an <see cref="IEnumerable"/> handling splitting the string if needed.
     /// </summary>
     /// <param name="collection"></param>
     /// <returns>Does not return null.</returns>
-    public static IEnumerable<string> GetValueList(this NameValueCollection collection, string paramName)
+    public static IEnumerable<string> GetValueList([NotNull] this NameValueCollection collection, [NotNull] string paramName)
     {
+      CodeContracts.ArgumentNotNull(collection, "collection");
+      CodeContracts.ArgumentNotNull(paramName, "paramName");
+
       return collection[paramName] == null ? new List<string>() : collection[paramName].Split(',').AsEnumerable();
     }
 
@@ -34,8 +42,11 @@ namespace YAF.Classes.Utils
     /// </summary>
     /// <param name="collection"></param>
     /// <returns></returns>
-    public static string GetFirstOrDefault(this NameValueCollection collection, string paramName)
+    public static string GetFirstOrDefault([NotNull] this NameValueCollection collection, [NotNull] string paramName)
     {
+      CodeContracts.ArgumentNotNull(collection, "collection");
+      CodeContracts.ArgumentNotNull(paramName, "paramName");
+
       return collection.GetValueList(paramName).FirstOrDefault();
     }
   }

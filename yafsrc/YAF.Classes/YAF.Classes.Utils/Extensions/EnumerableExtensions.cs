@@ -22,6 +22,8 @@ namespace YAF.Classes.Extensions
   using System.Collections.Generic;
   using System.Linq;
 
+  using YAF.Classes.Pattern;
+
   public static class EnumerableExtensions
   {
     /// <summary>
@@ -30,8 +32,11 @@ namespace YAF.Classes.Extensions
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
     /// <param name="action"></param>
-    public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
+    public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
     {
+      CodeContracts.ArgumentNotNull(list, "list");
+      CodeContracts.ArgumentNotNull(action, "action");
+
       foreach (var item in list.ToList())
       {
         action(item);
@@ -44,8 +49,11 @@ namespace YAF.Classes.Extensions
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
     /// <param name="action"></param>
-    public static void ForEachFirst<T>(this IEnumerable<T> list,  Action<T, bool> action)
+    public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
     {
+      CodeContracts.ArgumentNotNull(list, "list");
+      CodeContracts.ArgumentNotNull(action, "action");
+
       bool isFirst = true;
       foreach (var item in list.ToList())
       {
@@ -60,8 +68,11 @@ namespace YAF.Classes.Extensions
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
     /// <param name="action"></param>
-    public static void ForEachIndex<T>(this IEnumerable<T> list, Action<T, int> action)
+    public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
     {
+      CodeContracts.ArgumentNotNull(list, "list");
+      CodeContracts.ArgumentNotNull(action, "action");
+
       int i = 0;
       foreach (var item in list.ToList())
       {
@@ -81,12 +92,10 @@ namespace YAF.Classes.Extensions
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    public static HashSet<T> ToHashSet<T>(this IEnumerable<T> list)
+    [NotNull]
+    public static HashSet<T> ToHashSet<T>([NotNull] this IEnumerable<T> list)
     {
-      if (list == null)
-      {
-        throw new ArgumentNullException("list");
-      }
+      CodeContracts.ArgumentNotNull(list, "list");
 
       return new HashSet<T>(list);
     }
