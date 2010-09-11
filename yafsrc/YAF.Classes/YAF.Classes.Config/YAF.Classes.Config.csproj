@@ -88,9 +88,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pattern\Annotations.cs" />
     <Compile Include="Attributes\AltStringValueAttribute.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="BaseUrlBuilder.cs" />
+    <Compile Include="Pattern\CodeContracts.cs" />
     <Compile Include="Extensions\AreEqualFunc.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
