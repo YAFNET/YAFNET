@@ -23,6 +23,8 @@ namespace YAF.Controls
   using System;
   using System.Web.UI;
 
+  using YAF.Classes.Utils;
+
   #endregion
 
   /// <summary>
@@ -268,7 +270,7 @@ namespace YAF.Controls
     /// <returns>Current image alt value</returns>
     protected string GetCurrentThemeItem()
     {
-      if (!String.IsNullOrEmpty(this._themePage) && !String.IsNullOrEmpty(this._themeTag))
+      if (this._themePage.IsSet() && this._themeTag.IsSet())
       {
         return this.PageContext.Theme.GetItem(this.ThemePage, this.ThemeTag, null);
       }
@@ -284,11 +286,11 @@ namespace YAF.Controls
     /// </returns>
     protected string GetCurrentTitleItem()
     {
-      if (!String.IsNullOrEmpty(this._localizedTitlePage) && !String.IsNullOrEmpty(this._localizedTitleTag))
+      if (this._localizedTitlePage.IsSet() && this._localizedTitleTag.IsSet())
       {
         return this.PageContext.Localization.GetText(this._localizedTitlePage, this._localizedTitleTag);
       }
-      else if (!String.IsNullOrEmpty(this._localizedTitleTag))
+      else if (this._localizedTitleTag.IsSet())
       {
         return this.PageContext.Localization.GetText(this._localizedTitleTag);
       }
@@ -322,12 +324,12 @@ namespace YAF.Controls
       }
 
       // might not be needed...
-      if (String.IsNullOrEmpty(src))
+      if (src.IsNotSet())
       {
         return;
       }
 
-      if (this.UseTitleForEmptyAlt && String.IsNullOrEmpty(this.Alt) && !String.IsNullOrEmpty(title))
+      if (this.UseTitleForEmptyAlt && this.Alt.IsNotSet() && title.IsSet())
       {
         this.Alt = title;
       }
@@ -340,17 +342,17 @@ namespace YAF.Controls
       output.WriteAttribute("src", src);
       output.WriteAttribute("alt", this.Alt);
 
-      if (!String.IsNullOrEmpty(this.Style))
+      if (this.Style.IsSet())
       {
         output.WriteAttribute("style", this.Style);
       }
 
-      if (!String.IsNullOrEmpty(this.CssClass))
+      if (this.CssClass.IsSet())
       {
         output.WriteAttribute("class", this.CssClass);
       }
 
-      if (!String.IsNullOrEmpty(title))
+      if (title.IsSet())
       {
         output.WriteAttribute("title", title);
       }

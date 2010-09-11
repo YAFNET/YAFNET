@@ -22,6 +22,8 @@ using System.Web.UI.WebControls;
 
 namespace YAF.Controls
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The theme button.
   /// </summary>
@@ -284,14 +286,14 @@ namespace YAF.Controls
     /// </param>
     private void ThemeButton_Load(object sender, EventArgs e)
     {
-      if (!String.IsNullOrEmpty(this._themeImage.ThemeTag))
+      if (this._themeImage.ThemeTag.IsSet())
       {
         // add the theme image...
         Controls.Add(this._themeImage);
       }
 
       // render the text if available
-      if (!String.IsNullOrEmpty(this._localizedLabel.LocalizedTag))
+      if (this._localizedLabel.LocalizedTag.IsSet())
       {
         Controls.Add(this._localizedLabel);
       }
@@ -311,21 +313,21 @@ namespace YAF.Controls
       output.BeginRender();
       output.WriteBeginTag("a");
       output.WriteAttribute("id", ClientID);
-      if (!String.IsNullOrEmpty(CssClass))
+      if (this.CssClass.IsSet())
       {
         output.WriteAttribute("class", CssClass);
       }
 
-      if (!String.IsNullOrEmpty(title))
+      if (title.IsSet())
       {
         output.WriteAttribute("title", title);
       }
-      else if (!String.IsNullOrEmpty(TitleNonLocalized))
+      else if (this.TitleNonLocalized.IsSet())
       {
         output.WriteAttribute("title", TitleNonLocalized);
       }
 
-      if (!String.IsNullOrEmpty(NavigateUrl))
+      if (this.NavigateUrl.IsSet())
       {
         output.WriteAttribute("href", NavigateUrl.Replace("&", "&amp;"));
       }
@@ -347,7 +349,7 @@ namespace YAF.Controls
           if (key.ToLower() == "onclick")
           {
             // special handling... add to it...
-            output.WriteAttribute(key, string.Format("{0};{1}", this._attributeCollection[key], "this.blur();"));
+            output.WriteAttribute(key, "{0};{1}".FormatWith(this._attributeCollection[key], "this.blur();"));
             wroteOnClick = true;
           }
           else if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
@@ -385,15 +387,15 @@ namespace YAF.Controls
     /// </returns>
     protected string GetLocalizedTitle()
     {
-      if (Site != null && Site.DesignMode == true && !String.IsNullOrEmpty(TitleLocalizedTag))
+      if (Site != null && Site.DesignMode == true && this.TitleLocalizedTag.IsSet())
       {
-        return String.Format("[TITLE:{0}]", TitleLocalizedTag);
+        return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
       }
-      else if (!String.IsNullOrEmpty(TitleLocalizedPage) && !String.IsNullOrEmpty(TitleLocalizedTag))
+      else if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
       {
         return PageContext.Localization.GetText(TitleLocalizedPage, TitleLocalizedTag);
       }
-      else if (!String.IsNullOrEmpty(TitleLocalizedTag))
+      else if (this.TitleLocalizedTag.IsSet())
       {
         return PageContext.Localization.GetText(TitleLocalizedTag);
       }

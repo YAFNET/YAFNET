@@ -6,6 +6,8 @@ using YAF.Classes.Core;
 
 namespace YAF.Controls
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Rendered DIV container
   /// </summary>
@@ -73,8 +75,8 @@ namespace YAF.Controls
     /// </returns>
     private string ExpandLink()
     {
-      string jsHref = String.Format("javascript:toggleContainer('{0}', '{1}', '{2}', '{3}');", ContentsClientID, LinkClientID, ShowText, HideText);
-      string link = String.Format("<a id=\"{0}\" href=\"{1}\">{2}</a>", LinkClientID, jsHref, ShowText);
+      string jsHref = "javascript:toggleContainer('{0}', '{1}', '{2}', '{3}');".FormatWith(this.ContentsClientID, this.LinkClientID, this.ShowText, this.HideText);
+      string link = "<a id=\"{0}\" href=\"{1}\">{2}</a>".FormatWith(this.LinkClientID, jsHref, this.ShowText);
       return link;
     }
 
@@ -99,7 +101,7 @@ namespace YAF.Controls
 
       writer.WriteBeginTag("div");
       writer.WriteAttribute("id", ClientID);
-      if (!String.IsNullOrEmpty(CSSClass))
+      if (this.CSSClass.IsSet())
       {
         // Make sure CSS Class is not empty before rendering attribute
         writer.WriteAttribute("class", CSSClass);
@@ -174,7 +176,7 @@ namespace YAF.Controls
       writer.Write(">");
       writer.WriteLine();
 
-      if (!String.IsNullOrEmpty(Title))
+      if (this.Title.IsSet())
       {
         writer.WriteFullBeginTag("h2");
         writer.Write(Title);

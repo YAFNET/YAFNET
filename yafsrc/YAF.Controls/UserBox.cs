@@ -302,7 +302,7 @@ namespace YAF.Controls
     /// </param>
     protected override void Render(HtmlTextWriter output)
     {
-      output.WriteLine(String.Format(@"<div class=""yafUserBox"" id=""{0}"">", this.ClientID));
+      output.WriteLine(@"<div class=""yafUserBox"" id=""{0}"">".FormatWith(this.ClientID));
 
       string userBox = this.CachedUserBox;
 
@@ -338,11 +338,9 @@ namespace YAF.Controls
       {
         string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(this.UserId);
 
-        if (!String.IsNullOrEmpty(avatarUrl))
+        if (avatarUrl.IsSet())
         {
-          filler = String.Format(
-            this.PageContext.BoardSettings.UserBoxAvatar, 
-            String.Format(@"<img class=""avatarimage"" src=""{0}"" alt="""" />", avatarUrl));
+          filler = this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(String.Format(@"<img class=""avatarimage"" src=""{0}"" alt="""" />", avatarUrl));
         }
       }
 
@@ -425,7 +423,7 @@ namespace YAF.Controls
           {
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
-              groupsText.AppendLine(string.Format(StyledNick, role, roleStyle));
+              groupsText.AppendLine(StyledNick.FormatWith(role, roleStyle));
             }
             else
             {
@@ -438,7 +436,7 @@ namespace YAF.Controls
           {
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
-              groupsText.AppendLine(string.Format(@", " + StyledNick, role, roleStyle));
+              groupsText.AppendLine((@", " + StyledNick).FormatWith(role, roleStyle));
             }
             else
             {
@@ -449,8 +447,7 @@ namespace YAF.Controls
           roleStyle = null;
         }
 
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxGroups, this.PageContext.Localization.GetText("groups"), groupsText);
+        filler = this.PageContext.BoardSettings.UserBoxGroups.FormatWith(this.PageContext.Localization.GetText("groups"), groupsText);
 
         // mddubs : 02/21/2009
         // Remove the space before the first comma when multiple groups exist.
@@ -486,11 +483,9 @@ namespace YAF.Controls
                   imageAlt = this.PageContext.Localization.GetText("USERGENDER_FEM");
               }
 
-              filler = String.Format(
-                this.PageContext.BoardSettings.UserBoxGender,
-                String.Format(
-                  @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>",
-                  imagePath, imageAlt));
+              filler = this.PageContext.BoardSettings.UserBoxGender.FormatWith(String.Format(
+                @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>",
+                imagePath, imageAlt));
 
           }
       }
@@ -516,10 +511,7 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.DisplayJoinDate)
       {
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxJoinDate, 
-          this.PageContext.Localization.GetText("joined"), 
-          YafServices.DateTime.FormatDateShort((DateTime)this.DataRow["Joined"]));
+        filler = this.PageContext.BoardSettings.UserBoxJoinDate.FormatWith(this.PageContext.Localization.GetText("joined"), YafServices.DateTime.FormatDateShort((DateTime)this.DataRow["Joined"]));
       }
 
       // replaces template placeholder with actual join date
@@ -543,10 +535,7 @@ namespace YAF.Controls
 
       if (!this.UserProfile.Location.IsNotSet())
       {
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxLocation, 
-          this.PageContext.Localization.GetText("location"), 
-          YafFormatMessage.RepairHtml(this.UserProfile.Location, false));
+        filler = this.PageContext.BoardSettings.UserBoxLocation.FormatWith(this.PageContext.Localization.GetText("location"), YafFormatMessage.RepairHtml(this.UserProfile.Location, false));
       }
 
       // replaces template placeholder with actual location
@@ -616,7 +605,7 @@ namespace YAF.Controls
               r["SmallRibbonWidth"], 
               r["SmallRibbonHeight"], 
               r["Name"], 
-              f.ShowMessage ? String.Format(": {0}", r["Message"]) : string.Empty, 
+              f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty, 
               YafBoardFolders.Current.Medals);
 
             inRow++;
@@ -642,7 +631,7 @@ namespace YAF.Controls
               r["SmallMedalWidth"], 
               r["SmallMedalHeight"], 
               r["Name"], 
-              f.ShowMessage ? String.Format(": {0}", r["Message"]) : string.Empty, 
+              f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty, 
               YafBoardFolders.Current.Medals);
           }
 
@@ -650,11 +639,7 @@ namespace YAF.Controls
           i++;
         }
 
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxMedals, 
-          this.PageContext.Localization.GetText("MEDALS"), 
-          ribbonBar, 
-          medals);
+        filler = this.PageContext.BoardSettings.UserBoxMedals.FormatWith(this.PageContext.Localization.GetText("MEDALS"), ribbonBar, medals);
       }
 
       // replaces template placeholder with actual medals
@@ -678,10 +663,7 @@ namespace YAF.Controls
       var rx = new Regex(Constants.UserBox.Points);
       if (this.PageContext.BoardSettings.DisplayPoints)
       {
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxPoints, 
-          this.PageContext.Localization.GetText("points"), 
-          this.DataRow["Points"]);
+        filler = this.PageContext.BoardSettings.UserBoxPoints.FormatWith(this.PageContext.Localization.GetText("points"), this.DataRow["Points"]);
       }
 
       // replaces template placeholder with actual points
@@ -705,10 +687,7 @@ namespace YAF.Controls
       // vzrus: should not display posts count string if the user post only in a forum with no post count?
       // if ((int)this.DataRow["Posts"] > 0)
       // {
-          string filler = String.Format(
-            this.PageContext.BoardSettings.UserBoxPosts,
-            this.PageContext.Localization.GetText("posts"),
-            this.DataRow["Posts"]);
+          string filler = this.PageContext.BoardSettings.UserBoxPosts.FormatWith(this.PageContext.Localization.GetText("posts"), this.DataRow["Posts"]);
      // }
 
       // replaces template placeholder with actual post count
@@ -748,17 +727,11 @@ namespace YAF.Controls
       var rx = new Regex(Constants.UserBox.Rank);
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxRank, 
-          this.PageContext.Localization.GetText("rank"), 
-          string.Format(@"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>", this.DataRow["RankName"], rankStyle));
+        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(this.PageContext.Localization.GetText("rank"), string.Format(@"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>", this.DataRow["RankName"], rankStyle));
       }
       else
       {
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxRank, 
-          this.PageContext.Localization.GetText("rank"), 
-          this.DataRow["RankName"]);
+        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(this.PageContext.Localization.GetText("rank"), this.DataRow["RankName"]);
       }
 
       // replaces template placeholder with actual rank
@@ -782,13 +755,11 @@ namespace YAF.Controls
 
       if (!this.DataRow["RankImage"].IsNullOrEmptyDBField())
       {
-        filler = String.Format(
-          this.PageContext.BoardSettings.UserBoxRankImage, 
-          String.Format(
-            @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", 
-            YafForumInfo.ForumClientFileRoot, 
-            YafBoardFolders.Current.Ranks, 
-            this.DataRow["RankImage"]));
+        filler = this.PageContext.BoardSettings.UserBoxRankImage.FormatWith(String.Format(
+          @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", 
+          YafForumInfo.ForumClientFileRoot, 
+          YafBoardFolders.Current.Ranks, 
+          this.DataRow["RankImage"]));
       }
 
       // replaces template placeholder with actual rank image
@@ -816,9 +787,7 @@ namespace YAF.Controls
        if ((int)this.DataRow["ThanksFromUserNumber"] > 0 )
        {
      
-          filler = String.Format(
-            this.PageContext.BoardSettings.UserBoxThanksFrom,
-            String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
+          filler = this.PageContext.BoardSettings.UserBoxThanksFrom.FormatWith(String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
        }
      }
      
@@ -848,12 +817,10 @@ namespace YAF.Controls
       if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
        {
  
-          filler = String.Format(
-            this.PageContext.BoardSettings.UserBoxThanksTo,
-            String.Format(
-              this.PageContext.Localization.GetText("thanksto"),
-              this.DataRow["ThanksToUserNumber"],
-              this.DataRow["ThanksToUserPostsNumber"]));
+          filler = this.PageContext.BoardSettings.UserBoxThanksTo.FormatWith(String.Format(
+            this.PageContext.Localization.GetText("thanksto"),
+            this.DataRow["ThanksToUserNumber"],
+            this.DataRow["ThanksToUserPostsNumber"]));
       }
      }
       // replaces template placeholder with actual thanks from

@@ -202,7 +202,7 @@ namespace YAF.Controls
 
           if (linkedPager == null)
           {
-            throw new Exception(string.Format("Failed to link pager to '{0}'.", this.LinkedPager));
+            throw new Exception("Failed to link pager to '{0}'.".FormatWith(this.LinkedPager));
           }
 
           return linkedPager;

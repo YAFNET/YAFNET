@@ -132,7 +132,7 @@ namespace YAF.Controls
     protected override void Render(HtmlTextWriter writer)
     {
       // TODO: Needs better commentting.
-      writer.WriteLine(String.Format(@"<div id=""{0}"" class=""yafReportedPosts"">", this.ClientID));
+      writer.WriteLine(@"<div id=""{0}"" class=""yafReportedPosts"">".FormatWith(this.ClientID));
 
       DataTable reportersList = DB.message_listreporters(this.MessageID);
 

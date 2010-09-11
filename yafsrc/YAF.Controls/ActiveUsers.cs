@@ -172,7 +172,7 @@ namespace YAF.Controls
           if (userCount > 1 && !isCrawler)
           {
             // add postfix if there is more the one user of this name
-            userLink.PostfixText = String.Format(" ({0})", userCount);
+            userLink.PostfixText = " ({0})".FormatWith(userCount);
           }
 
           // we might not want to add this user link if user is marked as hidden
@@ -189,7 +189,7 @@ namespace YAF.Controls
               userLink.CssClass = "active_hidden";
 
               // and also add postfix
-              userLink.PostfixText = String.Format(" ({0})", this.PageContext.Localization.GetText("HIDDEN"));
+              userLink.PostfixText = " ({0})".FormatWith(this.PageContext.Localization.GetText("HIDDEN"));
             }
             else
             {
@@ -222,7 +222,7 @@ namespace YAF.Controls
     protected override void Render(HtmlTextWriter writer)
     {
       // writes starting tag
-      writer.WriteLine(String.Format(@"<div class=""yafactiveusers"" id=""{0}"">", this.ClientID));
+      writer.WriteLine(@"<div class=""yafactiveusers"" id=""{0}"">".FormatWith(this.ClientID));
 
       // indicates whether we are processing first active user
       bool isFirst = true;

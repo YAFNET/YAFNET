@@ -209,7 +209,7 @@ namespace YAF.Controls
         this.RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
-        if (String.IsNullOrEmpty(this.ReplaceName))
+        if (this.ReplaceName.IsNotSet())
         {
             output.WriteEncodedText(displayName);
         }
@@ -221,7 +221,7 @@ namespace YAF.Controls
 
           output.WriteEndTag("span");
 
-        if (!String.IsNullOrEmpty(this.PostfixText))
+        if (this.PostfixText.IsSet())
         {
           output.Write(this.PostfixText);
         }
@@ -236,27 +236,27 @@ namespace YAF.Controls
     /// <param name="output"></param>
     protected void RenderMainTagAttributes(HtmlTextWriter output)
     {
-      if (!String.IsNullOrEmpty(this.ClientID))
+      if (this.ClientID.IsSet())
       {
         output.WriteAttribute("id", this.ClientID);
       }
 
-      if (!String.IsNullOrEmpty(this.Style))
+      if (this.Style.IsSet())
       {
         output.WriteAttribute("style", this.HtmlEncode(this.Style));
       }
 
-      if (!String.IsNullOrEmpty(this.OnClick))
+      if (this.OnClick.IsSet())
       {
         output.WriteAttribute("onclick", this.OnClick);
       }
 
-      if (!String.IsNullOrEmpty(this.OnMouseOver))
+      if (this.OnMouseOver.IsSet())
       {
         output.WriteAttribute("onmouseover", this.OnMouseOver);
       }
 
-      if (!String.IsNullOrEmpty(this.CssClass))
+      if (this.CssClass.IsSet())
       {
         output.WriteAttribute("class", this.CssClass);
       }

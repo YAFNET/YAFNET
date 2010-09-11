@@ -175,7 +175,7 @@ namespace YAF.Controls
           if (YafContext.Current.BoardSettings.ShowThanksDate)
           {
             filler.AppendFormat(
-              @" {0}", String.Format(YafContext.Current.Localization.GetText("DEFAULT", "ONDATE"), YafServices.DateTime.FormatDateShort(dr["ThanksDate"])));
+              @" {0}", YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(YafServices.DateTime.FormatDateShort(dr["ThanksDate"])));
           }
         }
       }
@@ -202,10 +202,10 @@ namespace YAF.Controls
         case 0:
           return String.Empty;
         case 1:
-          return String.Format(YafContext.Current.Localization.GetText("POSTS", "THANKSINFOSINGLE"), username);
+          return YafContext.Current.Localization.GetText("POSTS", "THANKSINFOSINGLE").FormatWith(username);
       }
 
-      return String.Format(YafContext.Current.Localization.GetText("POSTS", "THANKSINFO"), thanksNumber, username);
+      return YafContext.Current.Localization.GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, username);
     }
   }
 }

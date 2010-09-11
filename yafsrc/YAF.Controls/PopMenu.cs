@@ -24,6 +24,8 @@ using System.Web.UI.WebControls;
 
 namespace YAF.Controls
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Summary description for ForumJump.
   /// </summary>
@@ -71,7 +73,7 @@ namespace YAF.Controls
     {
       get
       {
-        return string.Format("yaf_popit('{0}')", ClientID);
+        return "yaf_popit('{0}')".FormatWith(this.ClientID);
       }
     }
 
@@ -82,7 +84,7 @@ namespace YAF.Controls
     {
       get
       {
-        return string.Format("yaf_mouseover('{0}')", ClientID);
+        return "yaf_mouseover('{0}')".FormatWith(this.ClientID);
       }
     }
 
@@ -208,7 +210,7 @@ namespace YAF.Controls
       {
         string onClick;
 
-        if (!String.IsNullOrEmpty(thisItem.ClientScript))
+        if (thisItem.ClientScript.IsSet())
         {
           // js style
           onClick = thisItem.ClientScript.Replace("{postbackcode}", Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));

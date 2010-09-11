@@ -30,6 +30,7 @@ namespace YAF.Controls
 
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   #endregion
 
@@ -172,13 +173,11 @@ namespace YAF.Controls
       request.Method = "POST";
       request.UserAgent = "reCAPTCHA/ASP.NET";
       request.ContentType = "application/x-www-form-urlencoded";
-      string s = string.Format(
-        "privatekey={0}&remoteip={1}&challenge={2}&response={3}", 
-        new object[]
-          {
-            HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), 
-            HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response)
-          });
+      string s = "privatekey={0}&remoteip={1}&challenge={2}&response={3}".FormatWith(new object[]
+        {
+          HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), 
+          HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response)
+        });
       byte[] bytes = Encoding.ASCII.GetBytes(s);
       using (Stream stream = request.GetRequestStream())
       {

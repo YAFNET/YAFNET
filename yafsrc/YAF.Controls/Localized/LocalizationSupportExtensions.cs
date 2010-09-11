@@ -25,6 +25,7 @@ namespace YAF.Controls
   using Classes.UI;
 
   using YAF.Classes.Core.BBCode;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// The localization support extensions.
@@ -49,13 +50,13 @@ namespace YAF.Controls
     {
       if (currentControl.Site != null && currentControl.Site.DesignMode == true)
       {
-        return String.Format("[PAGE:{0}|TAG:{1}]", supportItem.LocalizedPage, supportItem.LocalizedTag);
+        return "[PAGE:{0}|TAG:{1}]".FormatWith(supportItem.LocalizedPage, supportItem.LocalizedTag);
       }
-      else if (!String.IsNullOrEmpty(supportItem.LocalizedPage) && !String.IsNullOrEmpty(supportItem.LocalizedTag))
+      else if (supportItem.LocalizedPage.IsSet() && supportItem.LocalizedTag.IsSet())
       {
         return YafContext.Current.Localization.GetText(supportItem.LocalizedPage, supportItem.LocalizedTag);
       }
-      else if (!String.IsNullOrEmpty(supportItem.LocalizedTag))
+      else if (supportItem.LocalizedTag.IsSet())
       {
         return YafContext.Current.Localization.GetText(supportItem.LocalizedTag);
       }
@@ -85,7 +86,7 @@ namespace YAF.Controls
         localizedItem = YafBBCode.MakeHtml(localizedItem, true, false);
       }
 
-      return String.Format(localizedItem, supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
+      return localizedItem.FormatWith(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
     }
 
     #endregion

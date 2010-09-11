@@ -125,7 +125,7 @@ namespace YAF.Controls
       writer.BeginRender();
 
       // render the contents of the admin menu....
-      writer.WriteLine(String.Format(@"<div id=""{0}"">", ClientID));
+      writer.WriteLine(@"<div id=""{0}"">".FormatWith(this.ClientID));
       writer.WriteLine(@"<table class=""adminContainer""><tr>");
       writer.WriteLine(@"<td class=""adminMenu"" valign=""top"">");
       this._accordian.RenderControl(writer);
@@ -164,7 +164,7 @@ namespace YAF.Controls
         {
           bool isVisible = true;
 
-          if (!String.IsNullOrEmpty(item.Debug) && Convert.ToBoolean(item.Debug) == true)
+          if (item.Debug.IsSet() && Convert.ToBoolean(item.Debug) == true)
           {
             isVisible = false;
 #if DEBUG
@@ -181,22 +181,22 @@ namespace YAF.Controls
 
           string url = string.Empty;
 
-          if (!String.IsNullOrEmpty(item.Link))
+          if (item.Link.IsSet())
           {
             // direct link...
             url = item.Link.Replace("~", YafForumInfo.ForumClientFileRoot);
           }
-          else if (!String.IsNullOrEmpty(item.ForumPage))
+          else if (item.ForumPage.IsSet())
           {
             // internal "page" link...
             url = YafBuildLink.GetLink((ForumPages) Enum.Parse(typeof (ForumPages), item.ForumPage));
           }
 
-          if (!String.IsNullOrEmpty(item.Image))
+          if (item.Image.IsSet())
           {
             // add icon...
             view.AddItem(
-              String.Format(@"<img alt="""" src=""{1}"" /> {0}", item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);
+              @"<img alt="""" src=""{1}"" /> {0}".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);
           }
           else
           {

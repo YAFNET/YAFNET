@@ -275,15 +275,15 @@ namespace YAF.Controls
     /// </returns>
     protected string GetLocalizedTitle()
     {
-      if (this.Site != null && this.Site.DesignMode == true && !String.IsNullOrEmpty(this.TitleLocalizedTag))
+      if (this.Site != null && this.Site.DesignMode == true && this.TitleLocalizedTag.IsSet())
       {
-        return String.Format("[TITLE:{0}]", this.TitleLocalizedTag);
+        return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
       }
-      else if (!String.IsNullOrEmpty(this.TitleLocalizedPage) && !String.IsNullOrEmpty(this.TitleLocalizedTag))
+      else if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
       {
         return this.PageContext.Localization.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag);
       }
-      else if (!String.IsNullOrEmpty(this.TitleLocalizedTag))
+      else if (this.TitleLocalizedTag.IsSet())
       {
         return this.PageContext.Localization.GetText(this.TitleLocalizedTag);
       }
@@ -308,18 +308,18 @@ namespace YAF.Controls
 
         if (this.ShowSpacerBefore)
         {
-          output.Write(String.Format(" |&nbsp;"));
+          output.Write(" |&nbsp;".FormatWith());
         }
 
         output.WriteBeginTag("a");
         output.WriteAttribute("id", this.ClientID);
 
-        if (!String.IsNullOrEmpty(this.CssClass))
+        if (this.CssClass.IsSet())
         {
           output.WriteAttribute("class", this.CssClass);
         }
 
-        if (!String.IsNullOrEmpty(title))
+        if (title.IsSet())
         {
           output.WriteAttribute("title", title);
         }
@@ -332,7 +332,7 @@ namespace YAF.Controls
             this.FeedType.GetStringValue(),
             this.AdditionalParameters.IsNotSet()
               ? string.Empty
-              : String.Format("&{0}", this.AdditionalParameters)));
+              : "&{0}".FormatWith(this.AdditionalParameters)));
 
         // handle additional attributes (if any)
         if (this._attributeCollection.Count > 0)
@@ -361,7 +361,7 @@ namespace YAF.Controls
 
         if (this.ShowSpacerAfter)
         {
-          output.Write(String.Format("&nbsp;| "));
+          output.Write("&nbsp;| ".FormatWith());
         }
 
         output.EndRender();
@@ -380,12 +380,12 @@ namespace YAF.Controls
     private void RssFeedLink_Load(object sender, EventArgs e)
     {
       // render the text if available
-      if (!String.IsNullOrEmpty(this._localizedLabel.LocalizedTag))
+      if (this._localizedLabel.LocalizedTag.IsSet())
       {
         this.Controls.Add(this._localizedLabel);
       }
 
-      if (!String.IsNullOrEmpty(this._themeImage.ThemeTag))
+      if (this._themeImage.ThemeTag.IsSet())
       {
         // add the theme image...
         this.Controls.Add(this._themeImage);

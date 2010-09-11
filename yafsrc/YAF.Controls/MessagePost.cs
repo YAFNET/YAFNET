@@ -27,6 +27,7 @@ namespace YAF.Controls
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.UI;
+  using YAF.Classes.Utils;
 
   #endregion
 
@@ -187,7 +188,7 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender(EventArgs e)
     {
-      if (!String.IsNullOrEmpty(this.Signature))
+      if (this.Signature.IsSet())
       {
         var sig = new MessageSignature { Signature = this.Signature, DisplayUserID = this.DisplayUserID };
         this.Controls.Add(sig);

@@ -16,37 +16,48 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Specialized;
-using System.Data;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Collections.Specialized;
+  using System.Data;
+  using System.Web.UI;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// Summary description for ForumJump.
   /// </summary>
   public class ForumJump : BaseControl, IPostBackDataHandler
   {
+    #region Properties
+
     /// <summary>
-    /// Gets or sets ForumID.
+    ///   Gets or sets ForumID.
     /// </summary>
     private int ForumID
     {
       get
       {
-        return (int) ViewState["ForumID"];
+        return (int)this.ViewState["ForumID"];
       }
 
       set
       {
-        ViewState["ForumID"] = value;
+        this.ViewState["ForumID"] = value;
       }
     }
+
+    #endregion
+
+    #region Implemented Interfaces
 
     #region IPostBackDataHandler
 
@@ -65,9 +76,9 @@ namespace YAF.Controls
     public virtual bool LoadPostData(string postDataKey, NameValueCollection postCollection)
     {
       int forumID;
-      if (int.TryParse(postCollection[postDataKey], out forumID) && forumID != ForumID)
+      if (int.TryParse(postCollection[postDataKey], out forumID) && forumID != this.ForumID)
       {
-        ForumID = forumID;
+        this.ForumID = forumID;
         return true;
       }
 
@@ -80,34 +91,21 @@ namespace YAF.Controls
     public virtual void RaisePostDataChangedEvent()
     {
       // Ederon : 9/4/2007
-      if (ForumID > 0)
+      if (this.ForumID > 0)
       {
-        YafBuildLink.Redirect(ForumPages.topics, "f={0}", ForumID);
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumID);
       }
       else
       {
-        YafBuildLink.Redirect(ForumPages.forum, "c={0}", -ForumID);
+        YafBuildLink.Redirect(ForumPages.forum, "c={0}", -this.ForumID);
       }
     }
 
     #endregion
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Page_Load(object sender, EventArgs e)
-    {
-      if (!Page.IsPostBack)
-      {
-        ForumID = PageContext.PageForumID;
-      }
-    }
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The on init.
@@ -117,7 +115,7 @@ namespace YAF.Controls
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      Load += new EventHandler(Page_Load);
+      this.Load += this.Page_Load;
       base.OnInit(e);
     }
 
@@ -130,22 +128,25 @@ namespace YAF.Controls
     protected override void Render(HtmlTextWriter writer)
     {
       string cacheKey =
-        YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ForumJump, PageContext.User != null ? PageContext.PageUserID.ToString() : "Guest"));
+        YafCache.GetBoardCacheKey(
+          Constants.Cache.ForumJump.FormatWith(
+            this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"));
       DataTable dataTable;
-      if (PageContext.Cache[cacheKey] != null)
+      if (this.PageContext.Cache[cacheKey] != null)
       {
-        dataTable = (DataTable) PageContext.Cache[cacheKey];
+        dataTable = (DataTable)this.PageContext.Cache[cacheKey];
       }
       else
       {
-        dataTable = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
-        PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.UtcNow.AddMinutes(5), TimeSpan.Zero);
+        dataTable = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+        this.PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.UtcNow.AddMinutes(5), TimeSpan.Zero);
       }
 
       writer.WriteLine(
-        String.Format(@"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", UniqueID, Page.ClientScript.GetPostBackClientHyperlink(this, ID), ClientID));
+        @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">".FormatWith(
+          this.UniqueID, this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID), this.ClientID));
 
-      int forumID = PageContext.PageForumID;
+      int forumID = this.PageContext.PageForumID;
       if (forumID <= 0)
       {
         writer.WriteLine("<option/>");
@@ -154,14 +155,32 @@ namespace YAF.Controls
       foreach (DataRow row in dataTable.Rows)
       {
         writer.WriteLine(
-          string.Format(
-            @"<option {2}value=""{0}"">{1}</option>", 
+          @"<option {2}value=""{0}"">{1}</option>".FormatWith(
             row["ForumID"], 
-            HtmlEncode(row["Title"]), 
+            this.HtmlEncode(row["Title"]), 
             Convert.ToString(row["ForumID"]) == forumID.ToString() ? @"selected=""selected"" " : string.Empty));
       }
 
       writer.WriteLine("</select>");
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Page_Load(object sender, EventArgs e)
+    {
+      if (!this.Page.IsPostBack)
+      {
+        this.ForumID = this.PageContext.PageForumID;
+      }
+    }
+
+    #endregion
   }
 }

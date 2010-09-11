@@ -26,6 +26,8 @@ using YAF.Classes.Data;
 
 namespace YAF.Controls.Statistics
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The most active users.
   /// </summary>
@@ -148,7 +150,7 @@ namespace YAF.Controls.Statistics
         onlineStatusImage.RenderControl(writer);
 
         writer.WriteLine(" ");
-        writer.WriteLine(String.Format(@"<span class=""NumberOfPosts"">({0})</span>", row.Field<int>("NumOfPosts")));
+        writer.WriteLine(@"<span class=""NumberOfPosts"">({0})</span>".FormatWith(row.Field<int>("NumOfPosts")));
         writer.WriteLine("</li>");
       }
 

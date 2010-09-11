@@ -25,6 +25,8 @@ using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Summary description for ForumUsers.
   /// </summary>
@@ -40,7 +42,7 @@ namespace YAF.Controls
     /// </summary>
     public ForumUsers()
     {
-      this._activeUsers.ID = GetUniqueID("ActiveUsers");
+      this._activeUsers.ID = this.GetUniqueID("ActiveUsers");
       Load += new EventHandler(ForumUsers_Load);
     }
 
@@ -104,16 +106,16 @@ namespace YAF.Controls
 
       if (bTopic)
       {
-        writer.WriteLine(String.Format(@"<tr id=""{0}"" class=""header2"">", ClientID));
-        writer.WriteLine(String.Format("<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText("TOPICBROWSERS")));
+        writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
+        writer.WriteLine("<td colspan=\"3\">{0}</td>".FormatWith(this.PageContext.Localization.GetText("TOPICBROWSERS")));
         writer.WriteLine("</tr>");
         writer.WriteLine("<tr class=\"post\">");
         writer.WriteLine("<td colspan=\"3\">");
       }
       else
       {
-        writer.WriteLine(String.Format(@"<tr id=""{0}"" class=""header2"">", ClientID));
-        writer.WriteLine(String.Format("<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText("FORUMUSERS")));
+        writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
+        writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.PageContext.Localization.GetText("FORUMUSERS")));
         writer.WriteLine("</tr>");
         writer.WriteLine("<tr class=\"post\">");
         writer.WriteLine("<td colspan=\"6\">");

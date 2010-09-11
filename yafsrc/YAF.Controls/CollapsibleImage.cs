@@ -190,7 +190,7 @@ namespace YAF.Controls
     {
       Control control = null;
 
-      if (!String.IsNullOrEmpty(AttachedControlID))
+      if (this.AttachedControlID.IsSet())
       {
         // attempt to find this control...
         control = Parent.FindControl(AttachedControlID) as Control;

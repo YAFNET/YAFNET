@@ -16,30 +16,38 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Web.UI;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// Summary description for PageLinks.
   /// </summary>
   public class PageLinks : BaseControl
   {
+    #region Properties
+
     /// <summary>
-    /// Gets or sets LinkedPageLinkID.
+    ///   Gets or sets LinkedPageLinkID.
     /// </summary>
     public string LinkedPageLinkID
     {
       get
       {
-        if (ViewState["LinkedPageLinkID"] != null)
+        if (this.ViewState["LinkedPageLinkID"] != null)
         {
-          return ViewState["LinkedPageLinkID"].ToString();
+          return this.ViewState["LinkedPageLinkID"].ToString();
         }
 
         return null;
@@ -47,20 +55,20 @@ namespace YAF.Controls
 
       set
       {
-        ViewState["LinkedPageLinkID"] = value;
+        this.ViewState["LinkedPageLinkID"] = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets PageLinkDT.
+    ///   Gets or sets PageLinkDT.
     /// </summary>
     protected DataTable PageLinkDT
     {
       get
       {
-        if (ViewState["PageLinkDT"] != null)
+        if (this.ViewState["PageLinkDT"] != null)
         {
-          return ViewState["PageLinkDT"] as DataTable;
+          return this.ViewState["PageLinkDT"] as DataTable;
         }
 
         return null;
@@ -68,58 +76,13 @@ namespace YAF.Controls
 
       set
       {
-        ViewState["PageLinkDT"] = value;
+        this.ViewState["PageLinkDT"] = value;
       }
     }
 
-    /// <summary>
-    /// The add link.
-    /// </summary>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    public void AddLink(string title)
-    {
-      AddLink(title, string.Empty);
-    }
+    #endregion
 
-    /// <summary>
-    /// The add link.
-    /// </summary>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="url">
-    /// The url.
-    /// </param>
-    public void AddLink(string title, string url)
-    {
-      DataTable dt = PageLinkDT;
-
-      if (dt == null)
-      {
-        dt = new DataTable();
-        dt.Columns.Add("Title", typeof (string));
-        dt.Columns.Add("URL", typeof (string));
-        PageLinkDT = dt;
-      }
-
-      DataRow dr = dt.NewRow();
-      dr["Title"] = title;
-      dr["URL"] = url;
-      dt.Rows.Add(dr);
-    }
-
-    /// <summary>
-    /// Clear all Links
-    /// </summary>
-    public void Clear()
-    {
-      if (PageLinkDT != null)
-      {
-        PageLinkDT = null;
-      }
-    }
+    #region Public Methods
 
     /// <summary>
     /// The add forum links.
@@ -129,7 +92,7 @@ namespace YAF.Controls
     /// </param>
     public void AddForumLinks(int forumID)
     {
-      AddForumLinks(forumID, false);
+      this.AddForumLinks(forumID, false);
     }
 
     /// <summary>
@@ -149,15 +112,68 @@ namespace YAF.Controls
         {
           if (noForumLink && Convert.ToInt32(row["ForumID"]) == forumID)
           {
-            AddLink(row["Name"].ToString(), string.Empty);
+            this.AddLink(row["Name"].ToString(), string.Empty);
           }
           else
           {
-            AddLink(row["Name"].ToString(), YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
+            this.AddLink(row["Name"].ToString(), YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
           }
         }
       }
     }
+
+    /// <summary>
+    /// The add link.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    public void AddLink(string title)
+    {
+      this.AddLink(title, string.Empty);
+    }
+
+    /// <summary>
+    /// The add link.
+    /// </summary>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="url">
+    /// The url.
+    /// </param>
+    public void AddLink(string title, string url)
+    {
+      DataTable dt = this.PageLinkDT;
+
+      if (dt == null)
+      {
+        dt = new DataTable();
+        dt.Columns.Add("Title", typeof(string));
+        dt.Columns.Add("URL", typeof(string));
+        this.PageLinkDT = dt;
+      }
+
+      DataRow dr = dt.NewRow();
+      dr["Title"] = title;
+      dr["URL"] = url;
+      dt.Rows.Add(dr);
+    }
+
+    /// <summary>
+    /// Clear all Links
+    /// </summary>
+    public void Clear()
+    {
+      if (this.PageLinkDT != null)
+      {
+        this.PageLinkDT = null;
+      }
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The render.
@@ -169,10 +185,10 @@ namespace YAF.Controls
     {
       DataTable linkDataTable = null;
 
-      if (!String.IsNullOrEmpty(LinkedPageLinkID))
+      if (this.LinkedPageLinkID.IsSet())
       {
         // attempt to get access to the other control...
-        var plControl = Parent.FindControl(LinkedPageLinkID) as PageLinks;
+        var plControl = this.Parent.FindControl(this.LinkedPageLinkID) as PageLinks;
 
         if (plControl != null)
         {
@@ -183,7 +199,7 @@ namespace YAF.Controls
       else
       {
         // use the data table from this control...
-        linkDataTable = PageLinkDT;
+        linkDataTable = this.PageLinkDT;
       }
 
       if (linkDataTable == null || linkDataTable.Rows.Count == 0)
@@ -191,7 +207,7 @@ namespace YAF.Controls
         return;
       }
 
-      writer.WriteLine(String.Format(@"<div id=""{0}"" class=""yafPageLink"">", ClientID));
+      writer.WriteLine(@"<div id=""{0}"" class=""yafPageLink"">".FormatWith(this.ClientID));
 
       bool bFirst = true;
       foreach (DataRow row in linkDataTable.Rows)
@@ -208,17 +224,19 @@ namespace YAF.Controls
         string title = this.HtmlEncode(row["Title"].ToString().Trim());
         string url = row["URL"].ToString().Trim();
 
-        if (String.IsNullOrEmpty(url))
+        if (url.IsNotSet())
         {
-          writer.WriteLine(String.Format(@"<span class=""currentPageLink"">{0}</span>", title));
+          writer.WriteLine(@"<span class=""currentPageLink"">{0}</span>".FormatWith(title));
         }
         else
         {
-          writer.WriteLine(String.Format(@"<a href=""{0}"">{1}</a>", url, title));
+          writer.WriteLine(@"<a href=""{0}"">{1}</a>".FormatWith(url, title));
         }
       }
 
       writer.WriteLine("</div>");
     }
+
+    #endregion
   }
 }

@@ -448,7 +448,7 @@ namespace YAF.Controls
     private int RenderTopic(HtmlTextWriter writer)
     {
       string priorityMessage = this.GetPriorityMessage(this._row);
-      if (!String.IsNullOrEmpty(priorityMessage))
+      if (priorityMessage.IsSet())
       {
         writer.WriteBeginTag("span");
         writer.WriteAttribute("class", "post_priority");
@@ -639,7 +639,7 @@ namespace YAF.Controls
     /// </returns>
     private string MakeLink(string text, string link)
     {
-      return String.Format("<a href=\"{0}\">{1}</a>", link, text);
+      return "<a href=\"{0}\">{1}</a>".FormatWith(link, text);
     }
 
     #endregion

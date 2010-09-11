@@ -110,7 +110,7 @@ namespace YAF.Controls
         RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
-        if (String.IsNullOrEmpty(this.ReplaceName))
+        if (this.ReplaceName.IsNotSet())
           {
               output.WriteEncodedText(displayName);
           }
@@ -128,7 +128,7 @@ namespace YAF.Controls
           output.WriteEndTag("span");
         }
 
-        if (!String.IsNullOrEmpty(this.PostfixText))
+        if (this.PostfixText.IsSet())
         {
           output.Write(this.PostfixText);
         }
