@@ -140,7 +140,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -177,7 +177,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -212,7 +212,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -246,7 +246,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -280,7 +280,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -314,7 +314,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -348,7 +348,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("wizardControl", "wizardControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -394,7 +394,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("sourceControl", "sourceControl is null.");
       }
 
-      if (String.IsNullOrEmpty(id))
+      if (id.IsNotSet())
       {
         throw new ArgumentException("id is null or empty.", "id");
       }
@@ -557,17 +557,17 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("control", "control is null.");
       }
 
-      if (String.IsNullOrEmpty(width))
+      if (width.IsNotSet())
       {
         throw new ArgumentException("width is null or empty.", "width");
       }
 
-      if (String.IsNullOrEmpty(height))
+      if (height.IsNotSet())
       {
         throw new ArgumentException("height is null or empty.", "height");
       }
 
-      control.Attributes.Add("style", String.Format("width: {0}; height: {1};", width, height));
+      control.Attributes.Add("style", "width: {0}; height: {1};".FormatWith(width, height));
     }
 
     /// <summary>
@@ -586,12 +586,12 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("control", "control is null.");
       }
 
-      if (String.IsNullOrEmpty(width))
+      if (width.IsNotSet())
       {
         throw new ArgumentException("width is null or empty.", "width");
       }
 
-      control.Attributes.Add("style", String.Format("width: {0};", width));
+      control.Attributes.Add("style", "width: {0};".FormatWith(width));
     }
 
     /// <summary>
@@ -610,12 +610,12 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("control", "control is null.");
       }
 
-      if (String.IsNullOrEmpty(height))
+      if (height.IsNotSet())
       {
         throw new ArgumentException("height is null or empty.", "height");
       }
 
-      control.Attributes.Add("style", String.Format("height: {0};", height));
+      control.Attributes.Add("style", "height: {0};".FormatWith(height));
     }
 
     /// <summary>
@@ -634,7 +634,7 @@ namespace YAF.Classes.Utils
             throw new ArgumentNullException("control", "control is null.");
         }
 
-        if (String.IsNullOrEmpty(maxLength))
+        if (maxLength.IsNotSet())
         {
             throw new ArgumentException("MaxLength is null or empty.", "height");
         }
@@ -663,7 +663,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("control", "control is null.");
       }
 
-      if (String.IsNullOrEmpty(message))
+      if (message.IsNotSet())
       {
         throw new ArgumentException("message is null or empty.", "message");
       }
@@ -687,12 +687,12 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("control", "control is null.");
       }
 
-      if (String.IsNullOrEmpty(message))
+      if (message.IsNotSet())
       {
         throw new ArgumentException("message is null or empty.", "message");
       }
 
-      control.Attributes["onclick"] = String.Format("return confirm('{0}');", message);
+      control.Attributes["onclick"] = "return confirm('{0}');".FormatWith(message);
     }
   }
 }

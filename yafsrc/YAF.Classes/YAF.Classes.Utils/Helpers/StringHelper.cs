@@ -191,7 +191,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string GenerateRandomString(int length, string pickfrom)
     {
-      if (String.IsNullOrEmpty(pickfrom))
+      if (pickfrom.IsNotSet())
       {
         throw new ArgumentException("pickfrom is null or empty.", "pickfrom");
       }
@@ -322,7 +322,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string ProcessText(string text, bool nullify, bool trim)
     {
-      if (trim && !String.IsNullOrEmpty(text))
+      if (trim && text.IsSet())
       {
         text = text.Trim();
       }
@@ -346,7 +346,7 @@ namespace YAF.Classes.Utils
     public static string RemoveMultipleSingleQuotes(string text)
     {
       string result = String.Empty;
-      if (String.IsNullOrEmpty(text))
+      if (text.IsNotSet())
       {
         return result;
       }
@@ -366,7 +366,7 @@ namespace YAF.Classes.Utils
     public static string RemoveMultipleWhitespace(string text)
     {
       string result = String.Empty;
-      if (String.IsNullOrEmpty(text))
+      if (text.IsNotSet())
       {
         return result;
       }
@@ -386,7 +386,7 @@ namespace YAF.Classes.Utils
     public static string StringToHexBytes(string strValue)
     {
       string result = String.Empty;
-      if (String.IsNullOrEmpty(strValue))
+      if (strValue.IsNotSet())
       {
         return result;
       }
@@ -440,7 +440,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static List<string> StringToList(this string str, char delimiter, List<string> exclude)
     {
-      if (String.IsNullOrEmpty(str))
+      if (str.IsNotSet())
       {
         throw new ArgumentException("str is null or empty.", "str");
       }
@@ -555,7 +555,7 @@ namespace YAF.Classes.Utils
     {
       string output = input;
 
-      if (String.IsNullOrEmpty(input))
+      if (input.IsNotSet())
       {
         return null;
       }
@@ -602,7 +602,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string TruncateMiddle(string input, int limit)
     {
-      if (String.IsNullOrEmpty(input))
+      if (input.IsNotSet())
       {
         return null;
       }

@@ -99,7 +99,7 @@ namespace YAF.Classes.Utils
         }
       }
 
-      return String.IsNullOrEmpty(strValue) ? Enum.GetName(type, value) : strValue;
+      return strValue.IsNotSet() ? Enum.GetName(type, value) : strValue;
     }
 
     /// <summary>

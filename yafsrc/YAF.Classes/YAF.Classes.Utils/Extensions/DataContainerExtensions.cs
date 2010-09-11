@@ -48,7 +48,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T DataItemToField<T>(this IDataItemContainer container, string fieldName)
     {
-      if (container == null || String.IsNullOrEmpty(fieldName))
+      if (container == null || fieldName.IsNotSet())
       {
         return default(T);
       }

@@ -147,7 +147,7 @@ namespace YAF.Classes.Utils
       // also look for images and put them in our arraylist
       string txtInfo = string.Empty;
 
-      txtInfo += String.Format("Found {0} resources\r\n", resNames.Length);
+      txtInfo += "Found {0} resources\r\n".FormatWith(resNames.Length);
       txtInfo += "----------\r\n";
       foreach (string s in resNames)
       {

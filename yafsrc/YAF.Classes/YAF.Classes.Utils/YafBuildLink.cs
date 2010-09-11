@@ -110,8 +110,8 @@ namespace YAF.Classes.Utils
     public static string GetLink(ForumPages page, bool fullUrl)
     {
       return fullUrl
-               ? YafFactoryProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}", page))
-               : YafFactoryProvider.UrlBuilder.BuildUrl(string.Format("g={0}", page));
+               ? YafFactoryProvider.UrlBuilder.BuildUrlFull("g={0}".FormatWith(page))
+               : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}".FormatWith(page));
     }
 
     /// <summary>
@@ -148,8 +148,8 @@ namespace YAF.Classes.Utils
     public static string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
     {
       return fullUrl
-               ? YafFactoryProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}&{1}", page, string.Format(format, args)))
-               : YafFactoryProvider.UrlBuilder.BuildUrl(string.Format("g={0}&{1}", page, string.Format(format, args)));
+               ? YafFactoryProvider.UrlBuilder.BuildUrlFull("g={0}&{1}".FormatWith(page, string.Format(format, args)))
+               : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}&{1}".FormatWith(page, string.Format(format, args)));
     }
 
     /// <summary>
@@ -280,7 +280,7 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void RedirectInfoPage(InfoMessage infoMessage)
     {
-      Redirect(ForumPages.info, String.Format("i={0}", (int)infoMessage));
+      Redirect(ForumPages.info, "i={0}".FormatWith((int)infoMessage));
     }
 
     /// <summary>
@@ -294,7 +294,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string Smiley(string icon)
     {
-      return String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, icon);
+      return "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, icon);
     }
 
     #endregion

@@ -316,7 +316,7 @@ namespace YAF.Classes.Utils
 
       if (instanceType == typeof(string))
       {
-        if (String.IsNullOrEmpty(instance as string))
+        if ((instance as string).IsNotSet())
         {
           return default(T);
         }

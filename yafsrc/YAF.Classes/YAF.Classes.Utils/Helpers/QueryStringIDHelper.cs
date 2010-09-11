@@ -202,7 +202,7 @@ namespace YAF.Classes.Utils
         {
           long idConverted = -1;
 
-          if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString[idNames[i]]) &&
+          if (HttpContext.Current.Request.QueryString[idNames[i]].IsSet() &&
               long.TryParse(HttpContext.Current.Request.QueryString[idNames[i]], out idConverted))
           {
             this.Params.Add(idNames[i], idConverted);
