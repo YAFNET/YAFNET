@@ -244,11 +244,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The get item.
     /// </returns>
-    public string GetItem([NotNull] string page, [NotNull] string tag, [NotNull] string defaultValue)
+    public string GetItem([NotNull] string page, [NotNull] string tag, [CanBeNull] string defaultValue)
     {
       CodeContracts.ArgumentNotNull(page, "page");
       CodeContracts.ArgumentNotNull(tag, "tag");
-      CodeContracts.ArgumentNotNull(defaultValue, "defaultValue");
 
       string item = string.Empty;
 
