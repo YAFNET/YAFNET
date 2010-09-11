@@ -48,6 +48,18 @@ namespace YAF.TranslateApp
 
         private List<Translation> translations = new List<Translation>();
 
+         /// <summary>
+         /// Language Code of the Source 
+         /// Translation File
+         /// </summary>
+         private string sLangCodeSrc;
+
+         /// <summary>
+         /// Language Code of the Destionation 
+         /// Translation File
+         /// </summary>
+         private string sLangCodeDest;
+
         #endregion
 
         #region Properties
@@ -257,9 +269,38 @@ namespace YAF.TranslateApp
         {
             btnSave.Enabled = true;
         }
+         /// <summary>
+         /// Auto Translate The Selected Resource via Google Translator
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+        void MenuItemClick(object sender, EventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
 
+            ContextMenu contextMenu = (ContextMenu)menuItem.Parent;
 
-        /// <summary>
+            TextBox tbx = (TextBox)contextMenu.SourceControl;
+            TextBoxTranslation tbt = (TextBoxTranslation)tbx.Tag;
+
+            tbx.Text = Translator.TranslateText(tbx.Text, string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
+
+            if (tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase))
+            {
+                tbx.ForeColor = Color.Red;
+            }
+            else
+            {
+                tbx.ForeColor = Color.Black;
+            }
+
+            // Update Translations List
+            translations.Find(check =>
+                              check.sPageName.Equals(tbt.pageName) && check.sResourceName.Equals(tbt.resourceName)).
+                sLocalizedValue = tbx.Text;
+        }
+
+         /// <summary>
         /// Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
         /// </summary>
         /// <param name="sender"></param>
@@ -336,7 +377,10 @@ namespace YAF.TranslateApp
             tlpTranslations.PerformLayout();
 
             Cursor = Cursors.Default;
-        }
+
+             btnSave.Enabled = true;
+             btnAutoTranslate.Enabled = true;
+         }
 
 
          /// <summary>
@@ -365,7 +409,7 @@ namespace YAF.TranslateApp
                 {
                     do
                     {
-                        ResourcesNamespaces.Add(navDst.Name, navDst.Value);
+                       ResourcesNamespaces.Add(navDst.Name, navDst.Value);
                     } while (navDst.MoveToNextNamespace());
                 }
 
@@ -373,10 +417,30 @@ namespace YAF.TranslateApp
                 navDst.MoveToFirstChild();
 
                 ResourcesAttributes.Clear();
+
+                if (navSrc.MoveToFirstAttribute())
+                {
+                    do
+                    {
+                        if (!navSrc.Name.Equals("code")) continue;
+
+                        sLangCodeSrc = navSrc.Value;
+                    } while (navSrc.MoveToNextAttribute());
+                }
+
+
+                navSrc.MoveToRoot();
+                navSrc.MoveToFirstChild();
+
                 if (navDst.MoveToFirstAttribute())
                 {
                     do
                     {
+                        if (navDst.Name.Equals("code"))
+                        {
+                            sLangCodeDest = navDst.Value;
+                        }
+
                         ResourcesAttributes.Add(navDst.Name, navDst.Value);
                     } while (navDst.MoveToNextAttribute());
                 }
@@ -400,8 +464,14 @@ namespace YAF.TranslateApp
 
                     XPathNodeIterator resourceItemCollection = pageItemNavigator.Select("Resource");
 
+                    progressBar.Maximum = resourceItemCollection.Count;
+                    progressBar.Minimum = 0;
+                    progressBar.Value = 0;
+
+
                     foreach (XPathNavigator resourceItem in resourceItemCollection)
                     {
+                        progressBar.Value++;
                         totalResourceCount++;
 
                         string resourceTagAttributeValue = resourceItem.GetAttribute("tag", String.Empty);
@@ -483,9 +553,8 @@ namespace YAF.TranslateApp
          /// <param name="srcResourceValue"></param>
          /// <param name="dstResourceValue"></param>
          /// <param name="rowNum"></param>
-         /// <param name="bShowOnlyPending"></param>
          private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue, int rowNum)
-        {
+         {
             Label lbl = new Label();
             Label lblSource = new Label();
             TextBox tbx = new TextBox();
@@ -534,6 +603,18 @@ namespace YAF.TranslateApp
             tbx.LostFocus += TbxLostFocus;
             tbx.TextChanged += TbxTextChanged;
 
+             MenuItem menuItem = new MenuItem {Text = "Auto Translate"};
+
+             menuItem.Click += MenuItemClick;
+
+             ContextMenu contextMenu = new ContextMenu();
+
+             contextMenu.MenuItems.Add(menuItem);
+
+             tbx.ContextMenu = contextMenu;
+
+           
+
             tbx.Tag = new TextBoxTranslation { pageName = pageName, resourceName = resourceName, srcResourceValue = srcResourceValue };
 
             tlpTranslations.Controls.Add(lbl);
@@ -546,7 +627,6 @@ namespace YAF.TranslateApp
 
            
         }
-        
         /// <summary>
         /// Save translations back to original file.
         /// </summary>
@@ -649,6 +729,12 @@ namespace YAF.TranslateApp
             return result;
 
         }
+        /// <summary>
+        /// Remove all Resources with the same Name and Page
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns>The Cleaned List</returns>
         public static List<T> RemoveDuplicateSections<T>(List<T> list) where T : Translation
         {
            List<T> finalList = new List<T>();
@@ -709,6 +795,48 @@ namespace YAF.TranslateApp
         }
 
         #endregion
+
+        /// <summary>
+        /// Translate all Pending Ressources with Google Translator
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AutoTranslateAll(object sender, EventArgs e)
+        {
+            progressBar.Maximum = tlpTranslations.Controls.Count;
+            progressBar.Minimum = 0;
+
+            progressBar.Value = 0;
+
+            foreach (Control c in tlpTranslations.Controls)
+            {
+                progressBar.Value++;
+
+                if (!(c is TextBox)) continue;
+
+                TextBox tbx = (TextBox)c;
+                TextBoxTranslation tbt = (TextBoxTranslation)c.Tag;
+
+                if (!tbx.ForeColor.Equals(Color.Red)) continue;
+
+                tbx.Text = Translator.TranslateText(tbx.Text, string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
+
+                if (tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase))
+                {
+                    tbx.ForeColor = Color.Red;
+                }
+                else
+                {
+                    tbx.ForeColor = Color.Black;
+                }
+
+                // Update Translations List
+                translations.Find(check =>
+                                  check.sPageName.Equals(tbt.pageName) &&
+                                  check.sResourceName.Equals(tbt.resourceName)).
+                    sLocalizedValue = tbx.Text;
+            }
+        }
     }
 
 }
