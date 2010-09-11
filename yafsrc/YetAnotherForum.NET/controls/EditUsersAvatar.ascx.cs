@@ -90,7 +90,7 @@ namespace YAF.Controls
         {
           // save the avatar right now...
           DB.user_saveavatar(
-            this._currentUserID, string.Format("{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString.GetFirstOrDefault("av")), null, null);
+            this._currentUserID, "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, this.Request.QueryString.GetFirstOrDefault("av")), null, null);
 
           // clear the cache for this user...
           UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
@@ -103,7 +103,7 @@ namespace YAF.Controls
         this.NoAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "NOAVATAR");
 
         this.DeleteAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE");
-        this.DeleteAvatar.Attributes["onclick"] = string.Format("return confirm('{0}?')", PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE"));
+        this.DeleteAvatar.Attributes["onclick"] = "return confirm('{0}?')".FormatWith(this.PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
         string addAdminParam = string.Empty;
         if (this._adminEditMode)
@@ -137,19 +137,14 @@ namespace YAF.Controls
 
       if (PageContext.BoardSettings.AvatarUpload && row["HasAvatarImage"] != null && long.Parse(row["HasAvatarImage"].ToString()) > 0)
       {
-        this.AvatarImg.ImageUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumClientFileRoot, this._currentUserID);
+        this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this._currentUserID);
         this.Avatar.Text = string.Empty;
         this.DeleteAvatar.Visible = true;
       }
       else if (row["Avatar"].ToString().Length > 0)
       {
         // Took out PageContext.BoardSettings.AvatarRemote
-        this.AvatarImg.ImageUrl = String.Format(
-          "{3}resource.ashx?url={0}&width={1}&height={2}", 
-          Server.UrlEncode(row["Avatar"].ToString()), 
-          PageContext.BoardSettings.AvatarWidth, 
-          PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumClientFileRoot);
+        this.AvatarImg.ImageUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(this.Server.UrlEncode(row["Avatar"].ToString()), this.PageContext.BoardSettings.AvatarWidth, this.PageContext.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
 
         this.Avatar.Text = row["Avatar"].ToString();
         this.DeleteAvatar.Visible = true;
@@ -169,12 +164,7 @@ namespace YAF.Controls
 
         string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
 
-        this.AvatarImg.ImageUrl = String.Format(
-          "{3}resource.ashx?url={0}&width={1}&height={2}", 
-          Server.UrlEncode(gravatarUrl), 
-          PageContext.BoardSettings.AvatarWidth, 
-          PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumClientFileRoot);
+        this.AvatarImg.ImageUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(this.Server.UrlEncode(gravatarUrl), this.PageContext.BoardSettings.AvatarWidth, this.PageContext.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
 
         this.NoAvatar.Text = "Gravatar Image";
         this.NoAvatar.Visible = true;
@@ -295,8 +285,8 @@ namespace YAF.Controls
           {
             if (img.Width > x || img.Height > y)
             {
-              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_TOOBIG"), x, y));
-              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_SIZE"), img.Width, img.Height));
+              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
+              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
               PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
 
               double newWidth = img.Width;
@@ -322,8 +312,8 @@ namespace YAF.Controls
 
             if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
             {
-              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_BIGFILE"), nAvatarSize));
-              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_FILESIZE"), this.File.PostedFile.ContentLength));
+              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
+              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(this.File.PostedFile.ContentLength));
               return;
             }
 

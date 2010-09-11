@@ -349,7 +349,7 @@ namespace YAF.Pages.Admin
     protected void RemoveMedalsFromCache()
     {
       // remove all user medals...
-      PageContext.Cache.RemoveAllStartsWith(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserMedals, string.Empty)));
+      PageContext.Cache.RemoveAllStartsWith(YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(string.Empty)));
     }
 
 
@@ -462,13 +462,13 @@ namespace YAF.Pages.Admin
     protected void AddUserSave_Click(object sender, EventArgs e)
     {
       // test if there is specified unsername/user id
-      if (String.IsNullOrEmpty(this.UserID.Text) && String.IsNullOrEmpty(this.UserNameList.SelectedValue) && String.IsNullOrEmpty(this.UserName.Text))
+      if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
       {
         // no username, nor userID specified
         PageContext.AddLoadMessage("Please specify valid user!");
         return;
       }
-      else if (String.IsNullOrEmpty(this.UserNameList.SelectedValue) && String.IsNullOrEmpty(this.UserID.Text))
+      else if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
       {
         // only username is specified, we must find id for it
         var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
@@ -501,7 +501,7 @@ namespace YAF.Pages.Admin
       DB.user_medal_save(
         this.UserID.Text, 
         Request.QueryString.GetFirstOrDefault("m"), 
-        String.IsNullOrEmpty(this.UserMessage.Text) ? null : this.UserMessage.Text, 
+        this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text, 
         this.UserHide.Checked, 
         this.UserOnlyRibbon.Checked, 
         this.UserSortOrder.Text, 
@@ -525,7 +525,7 @@ namespace YAF.Pages.Admin
     protected void RemoveUserFromCache(int userId)
     {
       // remove user from cache...
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserMedals, userId)));
+      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(userId)));
     }
 
     /// <summary>
@@ -610,7 +610,7 @@ namespace YAF.Pages.Admin
       DB.group_medal_save(
         this.AvailableGroupList.SelectedValue, 
         Request.QueryString.GetFirstOrDefault("m"), 
-        String.IsNullOrEmpty(this.GroupMessage.Text) ? null : this.GroupMessage.Text, 
+        this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text, 
         this.GroupHide.Checked, 
         this.GroupOnlyRibbon.Checked, 
         this.GroupSortOrder.Text);
@@ -667,7 +667,7 @@ namespace YAF.Pages.Admin
         dt.Rows.Add(dr);
 
         // add files from medals folder
-        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
+        var dir = new DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
         FileInfo[] files = dir.GetFiles("*.*");
 
         long nFileID = 1;
@@ -766,10 +766,10 @@ namespace YAF.Pages.Admin
       else
       {
         // set all previews on blank image
-        this.MedalPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
-        this.RibbonPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
-        this.SmallMedalPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
-        this.SmallRibbonPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+        this.MedalPreview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+        this.RibbonPreview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+        this.SmallMedalPreview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+        this.SmallRibbonPreview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
       }
     }
 
@@ -787,7 +787,7 @@ namespace YAF.Pages.Admin
     {
       var dr = (DataRowView) data;
 
-      return String.Format("<a href=\"{1}\">{0}</a>", dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
+      return "<a href=\"{1}\">{0}</a>".FormatWith(dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
     }
 
 
@@ -804,7 +804,7 @@ namespace YAF.Pages.Admin
     {
       var dr = (DataRowView) data;
 
-      return String.Format("<a href=\"{1}\">{0}</a>", this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+      return "<a href=\"{1}\">{0}</a>".FormatWith(this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
 
     }
 
@@ -849,12 +849,12 @@ namespace YAF.Pages.Admin
         item.Selected = true;
 
         // set preview image
-        preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
+        preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
       }
       else
       {
         // if we found nothing, set blank image as preview
-        preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+        preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
       }
     }
 
@@ -871,8 +871,7 @@ namespace YAF.Pages.Admin
     private void SetPreview(WebControl imageSelector, HtmlControl imagePreview)
     {
       // create javascript
-      imageSelector.Attributes["onchange"] = String.Format(
-        "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
+      imageSelector.Attributes["onchange"] = "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
     }
 
 
@@ -887,7 +886,7 @@ namespace YAF.Pages.Admin
     /// </returns>
     private Size GetImageSize(string filename)
     {
-      using (Image img = Image.FromFile(Server.MapPath(String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
+      using (Image img = Image.FromFile(Server.MapPath("{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
       {
         return img.Size;
       }

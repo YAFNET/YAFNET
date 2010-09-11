@@ -53,9 +53,9 @@ namespace YAF.Pages // YAF.Pages
 				// get full user data...
 				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
 
-                Msg.NavigateUrl = string.Format("msnim:chat?contact={0}", userData.Profile.MSN);
+                Msg.NavigateUrl = "msnim:chat?contact={0}".FormatWith(userData.Profile.MSN);
 				//Msg.Attributes.Add( "onclick", "return skypeCheck();" );
-                Img.Src = string.Format("http://messenger.services.live.com/users/{0}/presenceimage", userData.Profile.MSN);
+                Img.Src = "http://messenger.services.live.com/users/{0}/presenceimage".FormatWith(userData.Profile.MSN);
 			}
 		}
 	}

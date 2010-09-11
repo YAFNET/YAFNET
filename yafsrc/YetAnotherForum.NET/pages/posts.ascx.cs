@@ -158,7 +158,7 @@ namespace YAF.Pages
     {
       get
       {
-        return String.Format("poll#{0}", _topic["PollID"]);
+        return "poll#{0}".FormatWith(this._topic["PollID"]);
       }
     }
 
@@ -177,8 +177,7 @@ namespace YAF.Pages
     /// </param>
     protected void DeleteMessage_Load(object sender, EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = String.Format(
-        "return confirm('{0}')", GetText("confirm_deletemessage"));
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_deletemessage"));
     }
 
     /// <summary>
@@ -214,8 +213,7 @@ namespace YAF.Pages
     /// </param>
     protected void DeleteTopic_Load(object sender, EventArgs e)
     {
-      ((ThemeButton)sender).Attributes["onclick"] = String.Format(
-        "return confirm('{0}')", GetText("confirm_deletetopic"));
+      ((ThemeButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_deletetopic"));
     }
 
     /// <summary>
@@ -257,10 +255,7 @@ namespace YAF.Pages
         var iIndent = (int) o;
         if (iIndent > 0)
         {
-            return string.Format(
-                "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>",
-                iIndent*32,
-                YafForumInfo.ForumClientFileRoot);
+            return "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>".FormatWith(iIndent*32, YafForumInfo.ForumClientFileRoot);
         }
 
         return string.Empty;
@@ -824,7 +819,7 @@ namespace YAF.Pages
             {
                 HtmlMeta descriptionMeta;
 
-                string content = String.Format("{0}: {1}", _topic["Topic"], message.MessageTruncated);
+                string content = "{0}: {1}".FormatWith(this._topic["Topic"], message.MessageTruncated);
 
                 if (meta.Exists(x => x.Name.Equals("description")))
                 {
@@ -854,7 +849,7 @@ namespace YAF.Pages
             {
                 HtmlMeta keywordMeta;
 
-                var keywordStr = message.MessageKeywords.Where(x => !String.IsNullOrEmpty(x)).ToList().ToDelimitedString(",");
+                var keywordStr = message.MessageKeywords.Where(x => x.IsSet()).ToList().ToDelimitedString(",");
 
                 if (meta.Exists(x => x.Name.Equals("keywords")))
                 {

@@ -1918,7 +1918,9 @@
     <Content Include="YafWebService.asmx" />
     <None Include="Classes\Register Forum\Reference.map" />
     <None Include="Classes\Register Forum\Register.wsdl" />
-    <Content Include="db.config" />
+    <Content Include="db.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="images\medals\eusa.pak" />
     <Content Include="mail.config" />
     <Content Include="themes\flatearth.xml" />
@@ -2099,7 +2101,9 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="Resource.ashx" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
@@ -2153,7 +2157,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2441</DevelopmentServerPort>
+          <DevelopmentServerPort>48440</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/yetanotherforum.net</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>

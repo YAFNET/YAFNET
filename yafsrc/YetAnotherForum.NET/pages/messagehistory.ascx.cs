@@ -78,7 +78,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("m")))
+      if (this.Request.QueryString.GetFirstOrDefault("m").IsSet())
       {
         if (!Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("m"), out this.messageID))
         {
@@ -88,7 +88,7 @@ namespace YAF.Pages
         this.ReturnBtn.Visible = true;
       }
 
-      if (!String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("f")))
+      if (this.Request.QueryString.GetFirstOrDefault("f").IsSet())
       {
         // We check here if the user have access to the option
         if (this.PageContext.IsGuest)

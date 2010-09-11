@@ -160,7 +160,7 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        if (String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("pm")))
+        if (this.Request.QueryString.GetFirstOrDefault("pm").IsNotSet())
         {
           YafBuildLink.AccessDenied();
         }
@@ -187,7 +187,7 @@ namespace YAF.Pages
     protected void ThemeButtonDelete_Load(object sender, EventArgs e)
     {
       var themeButton = (ThemeButton)sender;
-      themeButton.Attributes["onclick"] = String.Format("return confirm('{0}')", this.GetText("confirm_deletemessage"));
+      themeButton.Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_deletemessage"));
     }
 
     /// <summary>
@@ -246,7 +246,7 @@ namespace YAF.Pages
 
         // Clearing cache with old permissions data...
         this.PageContext.Cache.Remove(
-          YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID)));
+          YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
       }
     }
 

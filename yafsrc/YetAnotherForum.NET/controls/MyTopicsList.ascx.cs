@@ -325,10 +325,7 @@ namespace YAF.Controls
       string html = string.Empty;
       if (forumName != this._lastForumName)
       {
-        html = String.Format(
-          @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", 
-          forumName, 
-          YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
+        html = @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>".FormatWith(forumName, YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
         this._lastForumName = forumName;
       }
 
@@ -371,13 +368,13 @@ namespace YAF.Controls
       {
           this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
           this.RssFeed.FeedType = YafRssFeeds.Active;
-          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.UrlEncode(Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), Server.UrlEncode(Server.HtmlEncode(this.sinceDate.ToString())));
+          this.RssFeed.AdditionalParameters = "txt={0}&d={1}".FormatWith(this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
       }
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
           this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
           this.RssFeed.FeedType = YafRssFeeds.Favorite;
-          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.UrlEncode(Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), Server.UrlEncode(Server.HtmlEncode(this.sinceDate.ToString())));
+          this.RssFeed.AdditionalParameters = "txt={0}&d={1}".FormatWith(this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
       }
   }
 

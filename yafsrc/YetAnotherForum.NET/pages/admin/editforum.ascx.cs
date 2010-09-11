@@ -55,8 +55,7 @@ namespace YAF.Pages.Admin
         // Populate Forum Images Table
         CreateImagesDataTable();
 
-        this.ForumImages.Attributes["onchange"] = String.Format(
-          "getElementById('{1}').src='{0}{2}/' + this.value", YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
+        this.ForumImages.Attributes["onchange"] = "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
         
          BindData();
 
@@ -78,13 +77,13 @@ namespace YAF.Pages.Admin
 
             this.CategoryList.SelectedValue = row["CategoryID"].ToString();
 
-            this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+            this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
 
             ListItem item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
             if (item != null)
             {
                 item.Selected = true;
-                this.Preview.Src = String.Format("{0}{2}/{1}", YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
+                this.Preview.Src = "{0}{2}/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
             }
 
             // populate parent forums list with forums according to selected category
@@ -419,7 +418,7 @@ namespace YAF.Pages.Admin
             dr["Description"] = "None";
             dt.Rows.Add(dr);
 
-            var dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
+            var dir = new System.IO.DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
             if (dir.Exists)
             {
                 FileInfo[] files = dir.GetFiles("*.*");

@@ -100,7 +100,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-              ipError += String.Format("\r\n\"{0}\" is not a valid IP section value.", ip);
+              ipError += "\r\n\"{0}\" is not a valid IP section value.".FormatWith(ip);
             }
 
             break;
@@ -111,13 +111,13 @@ namespace YAF.Pages.Admin
           // try parse succeeded... verify number amount...
           if (number > 255)
           {
-            ipError += String.Format("\r\n\"{0}\" is not a valid IP section value (must be less then 255).", ip);
+            ipError += "\r\n\"{0}\" is not a valid IP section value (must be less then 255).".FormatWith(ip);
           }
         }
       }
 
       // show error(s) if not valid...
-      if (!String.IsNullOrEmpty(ipError))
+      if (ipError.IsSet())
       {
         PageContext.AddLoadMessage(ipError);
         return;

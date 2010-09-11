@@ -20,6 +20,8 @@ namespace YAF.Utilities
 {
   using Classes.Core;
 
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Summary description for JavaScriptBlocks
   /// </summary>
@@ -117,9 +119,9 @@ function toggleMessage(divId)
     /// </returns>
     public static string BlockUIExecuteJs(string elementId)
     {
-      return string.Format(@"jQuery(document).ready(function() {{ 
+      return @"jQuery(document).ready(function() {{ 
             jQuery.blockUI({{ message: jQuery('#{0}') }}); 
-        }});", elementId);
+        }});".FormatWith(elementId);
     }
 
     /// <summary>
@@ -134,13 +136,11 @@ function toggleMessage(divId)
     public static string addThanksJs(string RemoveThankBoxHTML)
     {
       return
-        string.Format(
-          "function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
-          "function addThanksSuccess(res){{if (res.value != null) {{" +
-          "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
-          "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-          "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", 
-          RemoveThankBoxHTML);
+        ("function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
+         "function addThanksSuccess(res){{if (res.value != null) {{" +
+         "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
+         "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+         "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}").FormatWith(RemoveThankBoxHTML);
     }
 
     /// <summary>
@@ -155,13 +155,11 @@ function toggleMessage(divId)
     public static string removeThanksJs(string AddThankBoxHTML)
     {
       return
-        string.Format(
-          "function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
-          "function removeThanksSuccess(res){{if (res.value != null) {{" +
-          "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
-          "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-          "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", 
-          AddThankBoxHTML);
+        ("function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
+         "function removeThanksSuccess(res){{if (res.value != null) {{" +
+         "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
+         "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+         "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}").FormatWith(AddThankBoxHTML);
     }
 
       /// <summary>
@@ -175,12 +173,10 @@ function toggleMessage(divId)
       public static string addFavoriteTopicJs(string UntagButtonHTML)
     {
         return
-          string.Format(
-            "function addFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
-            "function addFavoriteTopicSuccess(res){{" +
-            "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
-            "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}",
-            UntagButtonHTML);
+          ("function addFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
+           "function addFavoriteTopicSuccess(res){{" +
+           "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
+           "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}").FormatWith(UntagButtonHTML);
     }
 
     /// <summary>
@@ -195,12 +191,10 @@ function toggleMessage(divId)
     public static string removeFavoriteTopicJs(string TagButtonHTML)
     {
         return
-          string.Format(
-            "function removeFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
-            "function removeFavoriteTopicSuccess(res){{" +
-            "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
-            "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}",
-            TagButtonHTML);
+          ("function removeFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
+           "function removeFavoriteTopicSuccess(res){{" +
+           "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
+           "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}").FormatWith(TagButtonHTML);
     }
 
       /// <summary>
@@ -208,33 +202,30 @@ function toggleMessage(divId)
       /// </summary>
     public static string AlbumEventsJs(string AlbumEmptyTitle, string ImageEmptyCaption)
       {
-              return string.Format(
-                  "function showTexBox(spnTitleId){{" + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));" +
-                     "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));" +
-                     "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);" +
-                     "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}" +
-                     "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}" + 
+              return ("function showTexBox(spnTitleId){{" + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));" +
+                      "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));" +
+                      "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);" +
+                      "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}" +
+                      "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}" + 
                      
-                     "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
-                     "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';" +
-                     "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}" +
+                      "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
+                      "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';" +
+                      "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}" +
 
-                     "function checkKey(event, handler, id, isAlbum){{" + 
-                        "if ((event.keyCode == 13) || (event.which == 13)){{" +
-                            "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; " +
-                            "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
-                                "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}" +
-                            "else resetBox(handler.id, isAlbum);}}" +
-                        "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}" +
+                      "function checkKey(event, handler, id, isAlbum){{" + 
+                      "if ((event.keyCode == 13) || (event.which == 13)){{" +
+                      "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; " +
+                      "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
+                      "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}" +
+                      "else resetBox(handler.id, isAlbum);}}" +
+                      "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}" +
                      
-                     "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
-                        "if (spnTitleVar.firstChild != null){{" + 
-                            "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
-                                "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}" +
-                            "else resetBox(txtTitleId, isAlbum);}}" + 
-                        "else resetBox(txtTitleId, isAlbum);}}",
-                     AlbumEmptyTitle,
-                     ImageEmptyCaption);
+                      "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
+                      "if (spnTitleVar.firstChild != null){{" + 
+                      "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
+                      "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}" +
+                      "else resetBox(txtTitleId, isAlbum);}}" + 
+                      "else resetBox(txtTitleId, isAlbum);}}").FormatWith(AlbumEmptyTitle, ImageEmptyCaption);
       }
 
       /// <summary>

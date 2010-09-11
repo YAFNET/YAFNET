@@ -27,6 +27,7 @@ namespace YAF.Editors
   using YAF.Classes.Core;
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.UI;
+  using YAF.Classes.Utils;
   using YAF.Controls;
 
   #endregion
@@ -230,20 +231,13 @@ namespace YAF.Editors
 
         // add drop down for optional "extra" codes...
         writer.WriteLine(
-          String.Format(
-            @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />", 
-            this._popMenu.ControlOnClick, 
-            this._popMenu.ControlOnMouseOver, 
-            YafContext.Current.Localization.GetText("COMMON", "CUSTOM_BBCODE"), 
-            this.ClientID + "_bbcode_popMenu", 
-            YafContext.Current.Localization.GetText("COMMON", "TT_CUSTOMBBCODE"), 
-            this.ResolveUrl("yafEditor/bbcode.gif")));
+          @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />".FormatWith(this._popMenu.ControlOnClick, this._popMenu.ControlOnMouseOver, YafContext.Current.Localization.GetText("COMMON", "CUSTOM_BBCODE"), this.ClientID + "_bbcode_popMenu", YafContext.Current.Localization.GetText("COMMON", "TT_CUSTOMBBCODE"), this.ResolveUrl("yafEditor/bbcode.gif")));
 
         foreach (DataRow row in customBbCode.Rows)
         {
           string name = row["Name"].ToString();
 
-          if (row["Description"] != DBNull.Value && !String.IsNullOrEmpty(row["Description"].ToString()))
+          if (row["Description"] != DBNull.Value && row["Description"].ToString().IsSet())
           {
             // use the description as the option "name"
             name = YafBBCode.LocalizeCustomBBCodeElement(row["Description"].ToString());
@@ -251,14 +245,14 @@ namespace YAF.Editors
 
           string onclickJS = string.Empty;
 
-          if (row["OnClickJS"] != DBNull.Value && !String.IsNullOrEmpty(row["OnClickJS"].ToString()))
+          if (row["OnClickJS"] != DBNull.Value && row["OnClickJS"].ToString().IsSet())
           {
             onclickJS = row["OnClickJS"].ToString();
           }
           else
           {
             // assume the bbcode is just the name... 
-            onclickJS = string.Format("setStyle('{0}','')", row["Name"].ToString().Trim());
+            onclickJS = "setStyle('{0}','')".FormatWith(row["Name"].ToString().Trim());
           }
 
           this._popMenu.AddClientScriptItem(name, onclickJS);
@@ -281,7 +275,7 @@ namespace YAF.Editors
       foreach (string color in Colors)
       {
         string tValue = color.Replace(" ", string.Empty).ToLower();
-        writer.WriteLine(string.Format("<option style=\"color:{0}\" value=\"{0}\">{1}</option>", tValue, color));
+        writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
       }
 
       writer.WriteLine("</select>");

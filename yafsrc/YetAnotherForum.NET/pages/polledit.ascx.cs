@@ -302,7 +302,7 @@ namespace YAF.Pages
 
         int dateVerified = 0;
         if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) &&
-            (!String.IsNullOrEmpty(this.PollExpire.Text.Trim())))
+            (this.PollExpire.Text.Trim().IsSet()))
         {
           YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "EXPIRE_BAD"));
           return false;
@@ -460,7 +460,7 @@ namespace YAF.Pages
       string questionPath = this.QuestionObjectPath.Text.Trim();
       string questionMime = string.Empty;
 
-      if (!String.IsNullOrEmpty(questionPath))
+      if (questionPath.IsSet())
       {
         questionMime = this.GetImageParameters(new Uri(questionPath));
         if (questionMime == null)
@@ -492,7 +492,7 @@ namespace YAF.Pages
           string parametrs = string.Empty;
 
           // update choice
-          if (!String.IsNullOrEmpty(objectPath))
+          if (objectPath.IsSet())
           {
             parametrs = this.GetImageParameters(new Uri(objectPath));
             if (parametrs == null)
@@ -565,7 +565,7 @@ namespace YAF.Pages
             realTopic = this.editTopicId;
           }
 
-          if (this.datePollExpire == null && (!String.IsNullOrEmpty(this.PollExpire.Text.Trim())))
+          if (this.datePollExpire == null && (this.PollExpire.Text.Trim().IsSet()))
           {
             this.datePollExpire = DateTime.UtcNow.AddDays(Convert.ToInt32(this.PollExpire.Text.Trim()));
           }

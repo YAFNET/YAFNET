@@ -569,9 +569,9 @@ namespace YAF.Pages
       if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
       {
           // new topic poll token
-          attachp = String.Format("&t={0}", newTopic);
+          attachp = "&t={0}".FormatWith(newTopic);
           // new return forum poll token
-          retforum = String.Format("&f={0}", this.PageContext.PageForumID);
+          retforum = "&f={0}".FormatWith(this.PageContext.PageForumID);
       }
 
      
@@ -593,7 +593,7 @@ namespace YAF.Pages
         }
         else
         {
-            if (String.IsNullOrEmpty(attachp) || (!this.PostOptions1.PollChecked))
+            if (attachp.IsNotSet() || (!this.PostOptions1.PollChecked))
         {
           // regular redirect...
           YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
@@ -698,7 +698,7 @@ namespace YAF.Pages
 
       // remove cache if it exists...
       this.PageContext.Cache.Remove(
-        string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.TopicID));
+        Constants.Cache.FirstPostCleaned.FormatWith(this.PageContext.PageBoardID, this.TopicID));
 
       return messageId;
     }

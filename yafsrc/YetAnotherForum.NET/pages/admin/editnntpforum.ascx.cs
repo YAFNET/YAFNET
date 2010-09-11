@@ -103,7 +103,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Save_Click(object sender, EventArgs e)
     {
-        if (String.IsNullOrEmpty(this.GroupName.Text.Trim()))
+        if (this.GroupName.Text.Trim().IsNotSet())
         {
             this.PageContext.LoadMessage.Add("You should enter a valid group name.");
             return;  

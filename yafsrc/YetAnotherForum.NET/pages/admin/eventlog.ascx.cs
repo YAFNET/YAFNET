@@ -241,8 +241,7 @@ namespace YAF.Pages.Admin
       }
 
       // return HTML code of event log entry image
-      return String.Format(
-        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />", YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", imageType.ToLower())), imageType);
+      return @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", imageType.ToLower())), imageType);
     }
 
     #endregion

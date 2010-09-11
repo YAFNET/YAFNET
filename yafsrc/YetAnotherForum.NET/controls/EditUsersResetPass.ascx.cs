@@ -55,9 +55,7 @@ namespace YAF.Controls
 
 			if ( !IsPostBack )
 			{
-				lblPassRequirements.Text = String.Format("{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).",
-																									PageContext.CurrentMembership.MinRequiredPasswordLength,
-																									PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters );
+				lblPassRequirements.Text = "{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).".FormatWith(this.PageContext.CurrentMembership.MinRequiredPasswordLength, this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters);
 
 				if ( !PageContext.CurrentMembership.EnablePasswordReset )
 				{
@@ -102,12 +100,12 @@ namespace YAF.Controls
 						// email a notification...
 						YafTemplateEmail passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-						string subject = String.Format(PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
+						string subject = this.PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(this.PageContext.BoardSettings.Name);
 
 						passwordRetrieval.TemplateParams["{username}"] = user.UserName;
 						passwordRetrieval.TemplateParams["{password}"] = newPass;
 						passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
-						passwordRetrieval.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+						passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
 						passwordRetrieval.SendEmail(new System.Net.Mail.MailAddress(user.Email, user.UserName), subject, true);
 
@@ -141,12 +139,12 @@ namespace YAF.Controls
 					// email a notification...
 					YafTemplateEmail passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-					string subject = String.Format(PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
+					string subject = this.PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(this.PageContext.BoardSettings.Name);
 
 					passwordRetrieval.TemplateParams["{username}"] = user.UserName;
 					passwordRetrieval.TemplateParams["{password}"] = newPassword;
 					passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
-					passwordRetrieval.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+					passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
 					passwordRetrieval.SendEmail(new System.Net.Mail.MailAddress(user.Email, user.UserName), subject, true);
 

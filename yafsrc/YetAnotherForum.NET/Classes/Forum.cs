@@ -352,8 +352,8 @@ namespace YAF
     {
       // wrap the forum in one main div and then a page div for better CSS selection
       writer.WriteLine();
-      writer.Write(String.Format(@"<div class=""yafnet"" id=""{0}"">", this.ClientID));
-      writer.Write(String.Format(@"<div id=""yafpage_{0}"">", this._page.ToString()));
+      writer.Write(@"<div class=""yafnet"" id=""{0}"">".FormatWith(this.ClientID));
+      writer.Write(@"<div id=""yafpage_{0}"">".FormatWith(this._page.ToString()));
 
       // render the forum
       base.Render(writer);
@@ -496,11 +496,11 @@ namespace YAF
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
       }
 
-      string src = string.Format("{0}pages/{1}.ascx", m_baseDir, this._page);
+      string src = "{0}pages/{1}.ascx".FormatWith(m_baseDir, this._page);
 
       string controlOverride = YafContext.Current.Theme.GetItem("PAGE_OVERRIDE", this._page.ToString(), null);
 
-      if (!String.IsNullOrEmpty(controlOverride))
+      if (controlOverride.IsSet())
       {
         src = controlOverride;
       }

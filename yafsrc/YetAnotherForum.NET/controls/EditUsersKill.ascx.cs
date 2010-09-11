@@ -137,7 +137,7 @@ namespace YAF.Controls
       } 
         
       IPAddresses.ForEach(x => DB.bannedip_save(null, PageContext.PageBoardID, x,
-          string.Format(@"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP", this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), Server.HtmlEncode(name)), this.PageContext.PageUserID));
+          @"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP".FormatWith(this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), this.HtmlEncode(name)), this.PageContext.PageUserID));
 
       // clear cache of banned IPs for this board
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
@@ -174,7 +174,7 @@ namespace YAF.Controls
       DeletePosts();
 
       MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
-      PageContext.AddLoadMessage(String.Format("User {0} Killed!", user.UserName));
+      PageContext.AddLoadMessage("User {0} Killed!".FormatWith(user.UserName));
 
       // update the displayed data...
       BindData();

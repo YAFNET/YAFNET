@@ -169,7 +169,7 @@ namespace YAF.Pages
       if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
       {
         YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "openBrowserTabJs", string.Format("window.open('{0}', '', '');", this.GetExtSearchLink(1)));
+          "openBrowserTabJs", "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(1)));
       }
       else
       {
@@ -196,7 +196,7 @@ namespace YAF.Pages
       if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
       {
         YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "openBrowserTabJs", string.Format("window.open('{0}', '', '');", this.GetExtSearchLink(2)));
+          "openBrowserTabJs", "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(2)));
       }
       else
       {
@@ -281,20 +281,20 @@ namespace YAF.Pages
       bool searchTooSmall = false;
       bool searchTooLarge = false;
 
-      if (String.IsNullOrEmpty(this.SearchWhoCleaned.Trim()) && this.IsSearchTextTooSmall(this.SearchWhatCleaned))
+      if (this.SearchWhoCleaned.Trim().IsNotSet() && this.IsSearchTextTooSmall(this.SearchWhatCleaned))
       {
         searchTooSmall = true;
       }
-      else if (String.IsNullOrEmpty(this.SearchWhatCleaned.Trim()) && String.IsNullOrEmpty(this.SearchWhoCleaned.Trim()))
+      else if (this.SearchWhatCleaned.Trim().IsNotSet() && this.SearchWhoCleaned.Trim().IsNotSet())
       {
         searchTooSmall = true;
       }
-      else if (String.IsNullOrEmpty(this.SearchWhoCleaned.Trim()) &&
+      else if (this.SearchWhoCleaned.Trim().IsNotSet() &&
                this.IsSearchTextTooLarge(this.SearchWhatCleaned.Trim()))
       {
         searchTooLarge = true;
       }
-      else if (String.IsNullOrEmpty(this.SearchWhatCleaned.Trim()) &&
+      else if (this.SearchWhatCleaned.Trim().IsNotSet() &&
                this.IsSearchTextTooLarge(this.SearchWhoCleaned.Trim()))
       {
         searchTooLarge = true;
@@ -326,7 +326,7 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsValidSearchText(string searchText)
     {
-      return !String.IsNullOrEmpty(searchText) && !this.IsSearchTextTooSmall(searchText) &&
+      return searchText.IsSet() && !this.IsSearchTextTooSmall(searchText) &&
              !this.IsSearchTextTooLarge(searchText) &&
              Regex.IsMatch(searchText, this.PageContext.BoardSettings.SearchStringPattern);
     }
@@ -409,7 +409,7 @@ namespace YAF.Pages
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-        this.btnSearch.Text = string.Format("{0} YAF", this.GetText("btnsearch"));
+        this.btnSearch.Text = "{0} YAF".FormatWith(this.GetText("btnsearch"));
 
         if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
         {
@@ -494,14 +494,14 @@ namespace YAF.Pages
         bool doSearch = false;
 
         string searchString = this.Request.QueryString.GetFirstOrDefault("search");
-        if (!String.IsNullOrEmpty(searchString) && searchString.Length < 50)
+        if (searchString.IsSet() && searchString.Length < 50)
         {
           this.txtSearchStringWhat.Text = searchString;
           doSearch = true;
         }
 
         string postedBy = this.Request.QueryString.GetFirstOrDefault("postedby");
-        if (!String.IsNullOrEmpty(postedBy) && postedBy.Length < 50)
+        if (postedBy.IsSet() && postedBy.Length < 50)
         {
           this.txtSearchStringFromWho.Text = postedBy;
           doSearch = true;
@@ -552,8 +552,7 @@ namespace YAF.Pages
       {
         string messageID = cell.InnerText;
         int rowCount = e.Item.ItemIndex + 1 + (this.Pager.CurrentPageIndex * this.Pager.PageSize);
-        cell.InnerHtml = string.Format(
-          "<a href=\"{1}\">{0}</a>", rowCount, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
+        cell.InnerHtml = "<a href=\"{1}\">{0}</a>".FormatWith(rowCount, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
       }
     }
 
@@ -699,7 +698,7 @@ namespace YAF.Pages
 
         if (this.PageContext.IsAdmin)
         {
-          this.PageContext.AddLoadMessage(string.Format("{0}", x));
+          this.PageContext.AddLoadMessage("{0}".FormatWith(x));
         }
         else
         {

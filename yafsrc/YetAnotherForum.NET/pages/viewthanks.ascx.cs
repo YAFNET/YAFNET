@@ -102,8 +102,8 @@ namespace YAF.Pages
             InitializeThanksList(ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
 
                 // Set the DNA Views' titles.
-            this.ThanksTabs.Views[0].Text = String.Format(GetText("VIEWTHANKS", "ThanksFromUser"),displayName);
-            this.ThanksTabs.Views[1].Text = String.Format(GetText("VIEWTHANKS", "ThanksToUser"),displayName);
+            this.ThanksTabs.Views[0].Text = this.GetText("VIEWTHANKS", "ThanksFromUser").FormatWith(displayName);
+            this.ThanksTabs.Views[1].Text = this.GetText("VIEWTHANKS", "ThanksToUser").FormatWith(displayName);
 
         }
         #endregion

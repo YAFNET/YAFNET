@@ -626,7 +626,7 @@ namespace YAF.Pages.Admin
         i = 0;
       }
 
-      return string.Format("{0} Categories, ", ib);
+      return "{0} Categories, ".FormatWith(ib);
     }
 
     /// <summary>
@@ -714,13 +714,13 @@ namespace YAF.Pages.Admin
     private int CreateForums(int categoryID, object parentID, int numForums, int _topicsToCreate, int _messagesToCreate)
     {
       bool countMessagesInStatistics = false;
-      if (String.IsNullOrEmpty(ForumsCountMessages.Text.Trim()))
+      if (this.ForumsCountMessages.Text.Trim().IsNotSet())
       {
         countMessagesInStatistics = true;
       }
 
       bool isHiddenIfNoAccess = false;
-      if (String.IsNullOrEmpty(ForumsHideNoAccess.Text.Trim()))
+      if (this.ForumsHideNoAccess.Text.Trim().IsNotSet())
       {
         isHiddenIfNoAccess = true;
       }
@@ -824,7 +824,7 @@ namespace YAF.Pages.Admin
             DB.pmessage_markread(dr["PMessageID"]);
 
             // Clearing cache with old permissions data...
-            this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, userAID)));
+            this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userAID)));
         }
       }
 

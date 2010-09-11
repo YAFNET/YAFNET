@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
     {
       TimeSpan elapsed = DateTime.UtcNow.Subtract(time);
 
-      return String.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", elapsed.Days, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
+      return "{0:D2}:{1:D2}:{2:D2}:{3:D2}".FormatWith(elapsed.Days, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
     }
 
     /// <summary>

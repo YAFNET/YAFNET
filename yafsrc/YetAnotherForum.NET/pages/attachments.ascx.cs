@@ -79,7 +79,7 @@ namespace YAF.Pages
     /// </param>
     protected void Back_Click(object sender, EventArgs e)
     {
-        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("ra")))
+        if (this.Request.QueryString.GetFirstOrDefault("ra").IsSet())
         {
             if (Config.IsRainbow)
             {
@@ -89,10 +89,10 @@ namespace YAF.Pages
             string poll = string.Empty;
             string lnk = string.Empty;
             string fullflnk = string.Empty; 
-            if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("f")))
+            if (this.Request.QueryString.GetFirstOrDefault("f").IsSet())
             {
                 lnk = Request.QueryString.GetFirstOrDefault("f");
-                fullflnk = String.Format("f={0}&", lnk);
+                fullflnk = "f={0}&".FormatWith(lnk);
             }
             else
             {
@@ -104,7 +104,7 @@ namespace YAF.Pages
             string  url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", lnk);
           
             // new topic variable
-            if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("t")))
+            if (this.Request.QueryString.GetFirstOrDefault("t").IsSet())
             {
                 url = this.Request.QueryString.GetFirstOrDefault("t");
                 YafBuildLink.Redirect(ForumPages.polledit, "{0}t={1}&ra=1", fullflnk, this.Server.UrlEncode(url));
@@ -117,7 +117,7 @@ namespace YAF.Pages
         }
 
         // the post is already approved and we can view it
-        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("t")))
+        if (this.Request.QueryString.GetFirstOrDefault("t").IsSet())
         {
             
             YafBuildLink.Redirect(ForumPages.polledit, "t={0}", this.Request.QueryString.GetFirstOrDefault("t"));
@@ -140,7 +140,7 @@ namespace YAF.Pages
     /// </param>
     protected void Delete_Load(object sender, EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.GetText("ASK_DELETE"));
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ASK_DELETE"));
     }
 
     /// <summary>
@@ -239,14 +239,14 @@ namespace YAF.Pages
 
         foreach (DataRow row in extensionTable.Rows)
         {
-          types += String.Format("{1}*.{0}", row["Extension"].ToString(), bFirst ? string.Empty : ", ");
+          types += "{1}*.{0}".FormatWith(row["Extension"].ToString(), bFirst ? string.Empty : ", ");
           if (bFirst)
           {
             bFirst = false;
           }
         }
 
-        if (!String.IsNullOrEmpty(types))
+        if (types.IsSet())
         {
           this.ExtensionsList.Text = types;
         }
@@ -323,7 +323,7 @@ namespace YAF.Pages
     {
       string filePath = uploadedFile.PostedFile.FileName.Trim();
 
-      if (String.IsNullOrEmpty(filePath) || uploadedFile.PostedFile.ContentLength == 0)
+      if (filePath.IsNotSet() || uploadedFile.PostedFile.ContentLength == 0)
       {
         return false;
       }
@@ -407,7 +407,7 @@ namespace YAF.Pages
       }
       else
       {
-        file.PostedFile.SaveAs(String.Format("{0}/{1}.{2}.yafupload", previousDirectory, messageID, filename));
+        file.PostedFile.SaveAs("{0}/{1}.{2}.yafupload".FormatWith(previousDirectory, messageID, filename));
         DB.attachment_save(messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null);
       }
     }

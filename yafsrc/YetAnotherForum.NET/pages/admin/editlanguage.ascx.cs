@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             sLangPath =
-                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot));
+                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot));
 
             if (Request.QueryString.GetFirstOrDefault("x") != null)
             {
@@ -455,7 +455,7 @@ namespace YAF.Pages.Admin
                 // <page></page>
                 if (!trans.sPageName.Equals(currentPageName, StringComparison.OrdinalIgnoreCase))
                 {
-                    if (!String.IsNullOrEmpty(currentPageName))
+                    if (currentPageName.IsSet())
                     {
                         xw.WriteFullEndElement();
                     }
@@ -474,7 +474,7 @@ namespace YAF.Pages.Admin
             }
 
             // final </page>
-            if (!String.IsNullOrEmpty(currentPageName))
+            if (currentPageName.IsSet())
             {
                 xw.WriteFullEndElement();
             }

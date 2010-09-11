@@ -250,11 +250,11 @@ namespace YAF.Pages
               {
                   if (filter == string.Empty)
                   {
-                      filter = string.Format("{0} not like '{1}%'", nameField, letter);
+                      filter = "{0} not like '{1}%'".FormatWith(nameField, letter);
                   }
                   else
                   {
-                      filter += string.Format("and {0} not like '{1}%'", nameField, letter);
+                      filter += "and {0} not like '{1}%'".FormatWith(nameField, letter);
                   }
               }
           }
@@ -263,14 +263,14 @@ namespace YAF.Pages
         }
         else
         {
-          userListDataView.RowFilter = string.Format("{0} like '{1}%'", nameField, selectedLetter);
+          userListDataView.RowFilter = "{0} like '{1}%'".FormatWith(nameField, selectedLetter);
         }
       }
 
       this.Pager.Count = userListDataView.Count;
 
       // create paged data source for the memberlist
-      userListDataView.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool) ViewState["SortAscending"] ? "asc" : "desc");
+      userListDataView.Sort = "{0} {1}".FormatWith(this.ViewState["SortField"], (bool) this.ViewState["SortAscending"] ? "asc" : "desc");
       var pds = new PagedDataSource();
       pds.DataSource = userListDataView;
       pds.AllowPaging = true;

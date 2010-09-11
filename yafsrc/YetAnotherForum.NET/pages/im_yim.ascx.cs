@@ -86,8 +86,8 @@ namespace YAF.Pages
         // get full user data...
         var userData = new CombinedUserDataHelper(user, UserID);
 
-        this.Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2", userData.Profile.YIM);
-        this.Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg", userData.Profile.YIM);
+        this.Img.Src = "http://opi.yahoo.com/online?u={0}&m=g&t=2".FormatWith(userData.Profile.YIM);
+        this.Msg.NavigateUrl = "http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg".FormatWith(userData.Profile.YIM);
       }
     }
   }

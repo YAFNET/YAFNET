@@ -83,11 +83,11 @@ namespace YAF.Pages.Admin
 
           if (importedCount > 0)
           {
-            PageContext.LoadMessage.AddSession(String.Format("{0} new custom bbcode(s) imported successfully.", importedCount));
+            PageContext.LoadMessage.AddSession("{0} new custom bbcode(s) imported successfully.".FormatWith(importedCount));
           }
           else
           {
-            PageContext.LoadMessage.AddSession(String.Format("Nothing imported: no new custom bbcode was found in the upload.", importedCount));
+            PageContext.LoadMessage.AddSession("Nothing imported: no new custom bbcode was found in the upload.".FormatWith(importedCount));
           }
 
           YafBuildLink.Redirect(ForumPages.admin_bbcode);

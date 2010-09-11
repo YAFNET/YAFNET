@@ -62,7 +62,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("i")))
+      if (this.Request.QueryString.GetFirstOrDefault("i").IsSet())
       {
         DataRow row = DB.extension_edit(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
         this.extension.Text = (string) row["Extension"];
@@ -104,7 +104,7 @@ namespace YAF.Pages.Admin
     /// </returns>
     protected bool IsValidExtension(string newExtension)
     {
-      if (String.IsNullOrEmpty(newExtension))
+      if (newExtension.IsNotSet())
       {
         PageContext.AddLoadMessage("You must enter something.");
         return false;

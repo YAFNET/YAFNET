@@ -202,10 +202,10 @@ namespace YAF.Controls
 
       // if (UserID == PageContext.PageUserID)
       // ltrTitle.Visible = false;
-      this.ltrTitleOnly.Text = this.Server.HtmlEncode(albumTitle);
+      this.ltrTitleOnly.Text = this.HtmlEncode(albumTitle);
       this.ltrTitle.Text = albumTitle == string.Empty
                              ? this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE")
-                             : this.Server.HtmlEncode(albumTitle);
+                             : this.HtmlEncode(albumTitle);
 
       // set the Datatable
       var dtAlbumImageList = DB.album_image_list(this.AlbumID, null);

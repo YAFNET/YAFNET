@@ -83,9 +83,9 @@ namespace YAF.Pages
         // get full user data...
         var userData = new CombinedUserDataHelper(user, UserID);
 
-        this.Msg.NavigateUrl = string.Format("skype:{0}?call", userData.Profile.Skype);
+        this.Msg.NavigateUrl = "skype:{0}?call".FormatWith(userData.Profile.Skype);
         this.Msg.Attributes.Add("onclick", "return skypeCheck();");
-        this.Img.Src = string.Format("http://mystatus.skype.com/bigclassic/{0}", userData.Profile.Skype);
+        this.Img.Src = "http://mystatus.skype.com/bigclassic/{0}".FormatWith(userData.Profile.Skype);
       }
     }
   }

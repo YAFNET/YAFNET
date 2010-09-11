@@ -72,7 +72,7 @@
 			<HeaderStyle Width="60%" />
 			<ItemTemplate>
 				<a href='<%# GetMessageLink(Eval("UserPMessageID")) %>'>
-					<%# HtmlEncode(Eval("Subject")) %>
+					<%# this.HtmlEncode(Eval("Subject")) %>
 				</a>
 			</ItemTemplate>
 		</asp:TemplateField>

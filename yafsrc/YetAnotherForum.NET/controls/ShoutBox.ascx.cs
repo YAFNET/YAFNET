@@ -261,7 +261,7 @@ namespace YAF.Controls
       code = code.Replace("'", "\'");
       code = code.Replace("\"", "\"\"");
       code = code.Replace("\\", "\\\\");
-      string onClickScript = String.Format("insertsmiley('{0}','{1}');return false;", code, path);
+      string onClickScript = "insertsmiley('{0}','{1}');return false;".FormatWith(code, path);
       return onClickScript;
     }
 

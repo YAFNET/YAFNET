@@ -93,8 +93,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteButton_Load(object sender, EventArgs e)
     {
-      ((Button) sender).Attributes["onclick"] = String.Format(
-        "return confirm('{0}')", "Do you really want to delete private messages? This process is irreversible.");
+      ((Button) sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith("Do you really want to delete private messages? This process is irreversible.");
     }
 
     #region Web Form Designer generated code

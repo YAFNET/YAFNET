@@ -54,7 +54,7 @@ namespace YAF.Pages
     {
       FormsAuthentication.SignOut();
       // Clearing user cache with permissions data and active users cache...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID)));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
       
       Session.Abandon();      

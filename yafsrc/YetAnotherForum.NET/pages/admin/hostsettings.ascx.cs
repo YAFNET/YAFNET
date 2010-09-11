@@ -253,7 +253,7 @@ namespace YAF.Pages.Admin
           string value = ((TextBox) control).Text.Trim();
           int i = 0;
 
-          if (String.IsNullOrEmpty(value))
+          if (value.IsNotSet())
           {
             i = 0;
           }
@@ -280,7 +280,7 @@ namespace YAF.Pages.Admin
           string value = ((TextBox) control).Text.Trim();
           double i = 0;
 
-          if (String.IsNullOrEmpty(value))
+          if (value.IsNotSet())
           {
             i = 0;
           }

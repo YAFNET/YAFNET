@@ -156,7 +156,7 @@ namespace YAF.Controls
           }
 
           // Clearing cache with old permisssions data...
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID)));
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
         }
       }
 

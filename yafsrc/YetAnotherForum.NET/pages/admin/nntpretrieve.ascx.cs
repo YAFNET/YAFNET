@@ -81,7 +81,7 @@ namespace YAF.Pages.Admin
       }
 
       int nArticleCount = YafNntp.ReadArticles(PageContext.PageBoardID, 10, nSeconds, PageContext.BoardSettings.CreateNntpUsers);
-      PageContext.AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.", nArticleCount, (double) nArticleCount / nSeconds));
+      PageContext.AddLoadMessage("Retrieved {0} articles. {1:N2} articles per second.".FormatWith(nArticleCount, (double) nArticleCount / nSeconds));
       BindData();
     }
 
@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
     protected string LastMessageNo(object _o)
     {
       var row = (DataRowView) _o;
-      return string.Format("{0:N0}", row["LastMessageNo"]);
+      return "{0:N0}".FormatWith(row["LastMessageNo"]);
     }
   }
 }

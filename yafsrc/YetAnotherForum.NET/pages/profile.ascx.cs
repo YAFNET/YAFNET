@@ -140,7 +140,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      this.lnkThanks.Text = string.Format("({0})", this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
+      this.lnkThanks.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
       this.lnkThanks.Visible = YafContext.Current.BoardSettings.EnableThanksMod;
 
       if (this.Request.QueryString.GetFirstOrDefault("u") == null)
@@ -177,7 +177,7 @@ namespace YAF.Pages
     /// </param>
     protected void SetupThemeButtonWithLink(ThemeButton thisButton, string linkUrl)
     {
-      if (!String.IsNullOrEmpty(linkUrl))
+      if (linkUrl.IsSet())
       {
         string link = linkUrl.Replace("\"", string.Empty);
         if (!link.ToLower().StartsWith("http"))
@@ -222,8 +222,7 @@ namespace YAF.Pages
         if (Convert.ToBoolean(strBuddyRequest[1]))
         {
           this.PageContext.AddLoadMessage(
-            string.Format(
-              this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]));
+            this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
         }
         else
         {
@@ -235,8 +234,7 @@ namespace YAF.Pages
       else
       {
         this.PageContext.AddLoadMessage(
-          string.Format(
-            this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"), YafBuddies.RemoveBuddy(userID)));
+          this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(userID)));
       }
 
       this.BindData();
@@ -375,15 +373,10 @@ namespace YAF.Pages
       {
         this.Avatar.ImageUrl = YafForumInfo.ForumClientFileRoot + "resource.ashx?u=" + userID;
       }
-      else if (!String.IsNullOrEmpty(userData.Avatar))
+      else if (userData.Avatar.IsSet())
       {
         // Took out PageContext.BoardSettings.AvatarRemote
-        this.Avatar.ImageUrl = String.Format(
-          "{3}resource.ashx?url={0}&width={1}&height={2}", 
-          this.Server.UrlEncode(userData.Avatar), 
-          this.PageContext.BoardSettings.AvatarWidth, 
-          this.PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumClientFileRoot);
+        this.Avatar.ImageUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(this.Server.UrlEncode(userData.Avatar), this.PageContext.BoardSettings.AvatarWidth, this.PageContext.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
       }
       else
       {
@@ -410,7 +403,7 @@ namespace YAF.Pages
       else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], true))
       {
         this.lnkBuddy.Visible = true;
-        this.lnkBuddy.Text = string.Format("({0})", this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
+        this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
         this.lnkBuddy.CommandArgument = "removebuddy";
         this.lnkBuddy.Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
  
@@ -423,7 +416,7 @@ namespace YAF.Pages
       else
       {
         this.lnkBuddy.Visible = true;
-        this.lnkBuddy.Text = string.Format("({0})", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+        this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
         this.lnkBuddy.CommandArgument = "addbuddy";
         this.lnkBuddy.Attributes["onclick"] = string.Empty;
       }
@@ -441,11 +434,11 @@ namespace YAF.Pages
     private void SetupUserLinks(CombinedUserDataHelper userData)
     {
       // homepage link
-      this.Home.Visible = !String.IsNullOrEmpty(userData.Profile.Homepage);
+      this.Home.Visible = userData.Profile.Homepage.IsSet();
       this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
 
       // blog link
-      this.Blog.Visible = !String.IsNullOrEmpty(userData.Profile.Blog);
+      this.Blog.Visible = userData.Profile.Blog.IsSet();
       this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
 
       if (userData.UserID != this.PageContext.PageUserID)
@@ -461,22 +454,22 @@ namespace YAF.Pages
           this.Email.TitleNonLocalized = userData.Membership.Email;
         }
 
-        this.MSN.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.MSN);
+        this.MSN.Visible = this.User != null && userData.Profile.MSN.IsSet();
         this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
 
-        this.YIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.YIM);
+        this.YIM.Visible = this.User != null && userData.Profile.YIM.IsSet();
         this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
 
-        this.AIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.AIM);
+        this.AIM.Visible = this.User != null && userData.Profile.AIM.IsSet();
         this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
 
-        this.ICQ.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.ICQ);
+        this.ICQ.Visible = this.User != null && userData.Profile.ICQ.IsSet();
         this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
 
-        this.XMPP.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.XMPP);
+        this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
         this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
 
-        this.Skype.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
+        this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
         this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
       }
     }
@@ -503,14 +496,14 @@ namespace YAF.Pages
 
       if (this.PageContext.IsAdmin && userDisplayName != user.UserName)
       {
-        this.Name.Text = this.HtmlEncode(String.Format("{0} ({1})", userDisplayName, user.UserName));
+        this.Name.Text = this.HtmlEncode("{0} ({1})".FormatWith(userDisplayName, user.UserName));
       }
       else
       {
         this.Name.Text = this.HtmlEncode(userDisplayName);
       }
 
-      this.Joined.Text = String.Format("{0}", YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
+      this.Joined.Text = "{0}".FormatWith(YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
 
       // vzrus: Show last visit only to admins if user is hidden
       if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
@@ -632,14 +625,10 @@ namespace YAF.Pages
                     SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
       }
 
-      this.Stats.InnerHtml = String.Format(
-        "{0:N0}<br/>[{1} / {2}]", 
-        userData.DBRow["NumPosts"], 
-        this.GetTextFormatted("NUMALL", dAllPosts), 
-        this.GetTextFormatted(
-          "NUMDAY", 
-          (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
-          SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"])));
+      this.Stats.InnerHtml = "{0:N0}<br/>[{1} / {2}]".FormatWith(userData.DBRow["NumPosts"], this.GetTextFormatted("NUMALL", dAllPosts), this.GetTextFormatted(
+        "NUMDAY", 
+        (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
+        SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"])));
     }
 
     #endregion

@@ -372,21 +372,13 @@ namespace YAF.Pages.Admin
                     // filter by name or email
                     if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
                     {
-                        dv.RowFilter = String.Format(
-                            "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'",
-                            this.name.Text.Trim(),
-                            this.Email.Text.Trim()
-                            );
+                        dv.RowFilter = "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(this.name.Text.Trim(), this.Email.Text.Trim());
                     }
 
                     // filter by date of registration
                     if (sinceValue != 9999)
                     {
-                        dv.RowFilter += String.Format(
-                            "{1}Joined > '{0}'",
-                            sinceDate.ToString(),
-                            String.IsNullOrEmpty(dv.RowFilter) ? string.Empty : " AND "
-                            );
+                        dv.RowFilter += "{1}Joined > '{0}'".FormatWith(sinceDate.ToString(), dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
                     }
 
                     // set pager and datasource
@@ -415,7 +407,7 @@ namespace YAF.Pages.Admin
         protected void InitSinceDropdown()
         {
             // value 0, for since last visted
-            this.Since.Items.Add(new ListItem(String.Format("Last visit at {0}", YafServices.DateTime.FormatDateTime(Mession.LastVisit)), "0"));
+            this.Since.Items.Add(new ListItem("Last visit at {0}".FormatWith(YafServices.DateTime.FormatDateTime(Mession.LastVisit)), "0"));
 
             // negative values for hours backward
             this.Since.Items.Add(new ListItem("Last hour", "-1"));

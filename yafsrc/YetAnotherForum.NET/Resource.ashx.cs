@@ -316,7 +316,7 @@ namespace YAF
           var data = new MemoryStream();
           if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
           {
-            fileName = context.Server.MapPath(String.Format("{0}/images/{1}", YafForumInfo.ForumClientFileRoot, "noCover.png"));
+            fileName = context.Server.MapPath("{0}/images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noCover.png"));
           }
           else
           {
@@ -329,10 +329,10 @@ namespace YAF
 
                 string oldFileName =
                   context.Server.MapPath(
-                    String.Format("{0}/{1}.{2}.{3}", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                    "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
                 string newFileName =
                   context.Server.MapPath(
-                    String.Format("{0}/{1}.{2}.{3}.yafalbum", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                    "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
                 // use the new fileName (with extension) if it exists...
                 fileName = File.Exists(newFileName) ? newFileName : oldFileName;
@@ -403,10 +403,10 @@ namespace YAF
 
             string oldFileName =
               context.Server.MapPath(
-                String.Format("{0}/{1}.{2}.{3}", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
             string newFileName =
               context.Server.MapPath(
-                String.Format("{0}/{1}.{2}.{3}.yafalbum", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
             string fileName;
 
@@ -474,8 +474,7 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode());
+      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -496,10 +495,10 @@ namespace YAF
 
             string oldFileName =
               context.Server.MapPath(
-                String.Format("{0}/{1}.{2}.{3}", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
             string newFileName =
               context.Server.MapPath(
-                String.Format("{0}/{1}.{2}.{3}.yafalbum", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
             string fileName;
 
@@ -723,7 +722,7 @@ namespace YAF
 
                 sf.Alignment = StringAlignment.Far;
                 g.DrawString(
-                  string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), downloads), f, brush, rDstTxt, sf);
+                  localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads), f, brush, rDstTxt, sf);
               }
             }
           }
@@ -825,10 +824,10 @@ namespace YAF
               string sUpDir = YafBoardFolders.Current.Uploads;
 
               string oldFileName =
-                context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+                context.Server.MapPath("{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
               string newFileName =
                 context.Server.MapPath(
-                  String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+                  "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
               string fileName;
 
@@ -857,8 +856,7 @@ namespace YAF
             context.Response.ContentType = row["ContentType"].ToString();
             context.Response.AppendHeader(
               "Content-Disposition",
-              String.Format(
-                "attachment; filename={0}", HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
+              "attachment; filename={0}".FormatWith(HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
             context.Response.OutputStream.Write(data, 0, data.Length);
             DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("a"));
             break;
@@ -909,7 +907,7 @@ namespace YAF
     /// </param>
     private static void GetResponseGoogleSpell(HttpContext context)
     {
-      string url = string.Format("https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString.GetFirstOrDefault("lang"));
+      string url = "https://www.google.com/tbproxy/spell?lang={0}".FormatWith(context.Request.QueryString.GetFirstOrDefault("lang"));
 
       var webRequest = (HttpWebRequest)WebRequest.Create(url);
       webRequest.KeepAlive = true;
@@ -972,10 +970,10 @@ namespace YAF
               string sUpDir = YafBoardFolders.Current.Uploads;
 
               string oldFileName =
-                context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+                context.Server.MapPath("{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
               string newFileName =
                 context.Server.MapPath(
-                  String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+                  "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
               string fileName;
 
@@ -1079,10 +1077,10 @@ namespace YAF
               string sUpDir = YafBoardFolders.Current.Uploads;
 
               string oldFileName =
-                context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+                context.Server.MapPath("{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
               string newFileName =
                 context.Server.MapPath(
-                  String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+                  "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
               string fileName;
 
@@ -1164,7 +1162,7 @@ namespace YAF
             string contentType = row["AvatarImageType"].ToString();
 
             context.Response.Clear();
-            if (String.IsNullOrEmpty(contentType))
+            if (contentType.IsNotSet())
             {
               contentType = "image/jpeg";
             }

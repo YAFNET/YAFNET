@@ -140,7 +140,7 @@ namespace YAF.Controls
           else
           {
               System.Web.UI.HtmlControls.HtmlImage forumImage = e.Item.FindControl("ForumImage1") as System.Web.UI.HtmlControls.HtmlImage;
-              forumImage.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
+              forumImage.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
               
               // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
               // Highlight custom icon images and add tool tips to them. 
@@ -153,7 +153,7 @@ namespace YAF.Controls
                       forumImage.Attributes.Add("class", "forum_customimage_locked");                      
                       forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED"));
                       forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED"));
-                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                      forumImage.Attributes.Add("src", "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
                     
                   }
                   else if (lastPosted > lastRead)
@@ -161,13 +161,13 @@ namespace YAF.Controls
                       forumImage.Attributes.Add("class", "forum_customimage_newposts");                    
                       forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
                       forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
-                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                      forumImage.Attributes.Add("src", "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
                      
                   }
                   else
                   {
                       forumImage.Attributes.Add("class", "forum_customimage_nonewposts"); 
-                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));                    
+                      forumImage.Attributes.Add("src", "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));                    
                       forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
                       forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));                    
                      
@@ -234,7 +234,7 @@ namespace YAF.Controls
 
       if ((int) row["IsGroup"] == 0)
       {
-        output = String.Format("<a href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]), row["ModeratorName"]);
+        output = "<a href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]), row["ModeratorName"]);
       }
       else
       {
@@ -244,7 +244,7 @@ namespace YAF.Controls
 						YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
 						row["ModeratorName"]
 						);*/
-        output = String.Format("<strong>{0}</strong>", row["ModeratorName"]);
+        output = "<strong>{0}</strong>".FormatWith(row["ModeratorName"]);
       }
 
       return output;
@@ -272,12 +272,12 @@ namespace YAF.Controls
 
       if (int.Parse(row["ReadAccess"].ToString()) > 0)
       {
-        output = String.Format("<a href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), output);
+        output = "<a href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), output);
       }
       else
       {
         // no access to this forum
-        output = String.Format("{0} {1}", output, PageContext.Localization.GetText("NO_FORUM_ACCESS"));
+        output = "{0} {1}".FormatWith(output, this.PageContext.Localization.GetText("NO_FORUM_ACCESS"));
       }
 
       return output;
@@ -297,7 +297,7 @@ namespace YAF.Controls
       var row = (DataRow) _o;
       if (row["RemoteURL"] == DBNull.Value)
       {
-        return string.Format("{0:N0}", row["Topics"]);
+        return "{0:N0}".FormatWith(row["Topics"]);
       }
       else
       {
@@ -319,7 +319,7 @@ namespace YAF.Controls
       var row = (DataRow) _o;
       if (row["RemoteURL"] == DBNull.Value)
       {
-        return string.Format("{0:N0}", row["Posts"]);
+        return "{0:N0}".FormatWith(row["Posts"]);
       }
       else
       {

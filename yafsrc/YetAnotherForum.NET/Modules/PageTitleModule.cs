@@ -91,7 +91,7 @@ namespace YAF.Modules
 
         if (currentPager != null && currentPager.CurrentPageIndex != 0)
         {
-          pageStr = String.Format("Page {0} - ", currentPager.CurrentPageIndex + 1);
+          pageStr = "Page {0} - ".FormatWith(currentPager.CurrentPageIndex + 1);
         }
       }
 

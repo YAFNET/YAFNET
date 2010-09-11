@@ -227,7 +227,7 @@ namespace YAF.Pages
         this.SendVerificationEmail(user, userID);
       }
 
-      if (!String.IsNullOrEmpty(this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList))
+      if (this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
       {
         // send user register notification to the following admin users...
         this.SendRegistrationNotificationEmail(user);
@@ -467,27 +467,27 @@ namespace YAF.Pages
             _userIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
         }
           // fill dst field 
-        if (!String.IsNullOrEmpty(_userIpLocator.Isdst) && _userIpLocator.Status.ToUpper() == "OK")
+        if (this._userIpLocator.Isdst.IsSet() && _userIpLocator.Status.ToUpper() == "OK")
         {
             this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = _userIpLocator.Isdst == "1" ? true : false;
         }
         // fill location field 
-        if (!String.IsNullOrEmpty(_userIpLocator.Isdst) && _userIpLocator.Status.ToUpper() == "OK")
+        if (this._userIpLocator.Isdst.IsSet() && _userIpLocator.Status.ToUpper() == "OK")
         {
             // Trying to consume data about user IP whereabouts
             if (_userIpLocator.Status == "OK")
             {
 
                 string txtLoc = String.Empty;
-                if (!String.IsNullOrEmpty(_userIpLocator.CountryName))
+                if (this._userIpLocator.CountryName.IsSet())
                 {
                     txtLoc += _userIpLocator.CountryName;
                 }
-                if (!String.IsNullOrEmpty(_userIpLocator.RegionName))
+                if (this._userIpLocator.RegionName.IsSet())
                 {
                     txtLoc += ", " + _userIpLocator.RegionName;
                 }
-                if (!String.IsNullOrEmpty(_userIpLocator.City))
+                if (this._userIpLocator.City.IsSet())
                 {
                     txtLoc += ", " + _userIpLocator.City;
                 }
@@ -524,7 +524,7 @@ namespace YAF.Pages
          int tz = 0;
          if (_userIpLocator.Status == "OK")
          {
-             if (!String.IsNullOrEmpty(_userIpLocator.Gmtoffset) && (!String.IsNullOrEmpty(_userIpLocator.Isdst)))
+             if (this._userIpLocator.Gmtoffset.IsSet() && (this._userIpLocator.Isdst.IsSet()))
              {
                  tz = (Convert.ToInt32(_userIpLocator.Gmtoffset) - Convert.ToInt32(_userIpLocator.Isdst)*3600)/60;
              }
@@ -575,7 +575,7 @@ namespace YAF.Pages
 
       foreach (string email in emails)
       {
-        if (!String.IsNullOrEmpty(email.Trim()))
+        if (email.Trim().IsSet())
         {
           YafServices.SendMail.Queue(this.PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody);
         }
@@ -609,7 +609,7 @@ namespace YAF.Pages
       verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
       verifyEmail.TemplateParams["{key}"] = hash;
       verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
-      verifyEmail.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+      verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
       verifyEmail.SendEmail(new MailAddress(email, user.UserName), subject, true);
     }

@@ -160,15 +160,15 @@ namespace YAF.Pages.Admin
           verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink(ForumPages.approve, true, "k={0}", hash);
           verifyEmail.TemplateParams["{key}"] = hash;
           verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
-          verifyEmail.TemplateParams["{forumlink}"] = String.Format("{0}", ForumURL);
+          verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(this.ForumURL);
 
-          string subject = String.Format(PageContext.Localization.GetText("COMMON", "EMAILVERIFICATION_SUBJECT"), PageContext.BoardSettings.Name);
+          string subject = this.PageContext.Localization.GetText("COMMON", "EMAILVERIFICATION_SUBJECT").FormatWith(this.PageContext.BoardSettings.Name);
 
           verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
         }
 
         // success
-        PageContext.AddLoadMessage(string.Format("User {0} Created Successfully.", this.UserName.Text.Trim()));
+        PageContext.AddLoadMessage("User {0} Created Successfully.".FormatWith(this.UserName.Text.Trim()));
         YafBuildLink.Redirect(ForumPages.admin_reguser);
       }
     }

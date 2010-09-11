@@ -24,17 +24,17 @@
                     <tr>
                         <td class="albumimagebox">
                             <a rel='<%# String.Format("lightbox-group{0}", this._attachGroupID) %>' href='<%# String.Format("{0}resource.ashx?image={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
-                                target="_blank" title='<%# HtmlEncode(Eval("FileName")) %>'>
+                                target="_blank" title='<%# this.HtmlEncode(Eval("FileName")) %>'>
                                 <img src='<%# String.Format("{0}resource.ashx?imgprv={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
-                                    alt='<%# HtmlEncode(Eval("FileName")) %>' />
+                                    alt='<%# this.HtmlEncode(Eval("FileName")) %>' />
                             </a>
                         </td>
                     </tr>
                     <tr>
                         <td class="albumtitlebox">
-                            <span runat="server" id="spnUser" visible='<%# UserID != PageContext.PageUserID %>'><%# HtmlEncode(Eval("Caption"))%></span> 
+                            <span runat="server" id="spnUser" visible='<%# UserID != PageContext.PageUserID %>'><%# this.HtmlEncode(Eval("Caption"))%></span> 
                             <span runat="server" id="spnImageOwner" visible='<%# UserID == PageContext.PageUserID %>'>
-                                    <span class="albumtitle" id='<%# "spnTitle" + Eval("ImageID") %>' onclick="showTexBox(this.id)" style="display: inline;"><%# Eval("Caption").ToString() == string.Empty ? PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : HtmlEncode(Eval("Caption"))%></span>
+                                    <span class="albumtitle" id='<%# "spnTitle" + Eval("ImageID") %>' onclick="showTexBox(this.id)" style="display: inline;"><%# Eval("Caption").ToString() == string.Empty ? PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(Eval("Caption"))%></span>
                                     <input type="text" id='<%# "txtTitle" + Eval("ImageID") %>' onkeydown="checkKey(event, this,'<%#Eval("ImageID") %>',false)"
                                         onblur="blurTextBox(this.id, '<%# Eval("ImageID")%>', false)" style="display: none;" />
                                     <asp:Button ID="SetCover" runat="server" CssClass="pbutton" CommandArgument='<%# Eval("ImageID") %>'

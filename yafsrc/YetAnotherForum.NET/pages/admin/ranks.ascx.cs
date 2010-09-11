@@ -131,10 +131,10 @@ namespace YAF.Pages.Admin
       // Eval( "IsLadder"),Eval( "MinPosts")
       bool isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
 
-      string tmp = String.Format("{0}", isLadder);
+      string tmp = "{0}".FormatWith(isLadder);
       if (isLadder)
       {
-        tmp += String.Format(" ({0} posts)", dr["MinPosts"]);
+        tmp += " ({0} posts)".FormatWith(dr["MinPosts"]);
       }
 
       return tmp;

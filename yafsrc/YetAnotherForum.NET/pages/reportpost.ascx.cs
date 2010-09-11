@@ -145,7 +145,7 @@ namespace YAF.Pages
       this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
-      if (!String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("m")))
+      if (this.Request.QueryString.GetFirstOrDefault("m").IsSet())
       {
         // We check here if the user have access to the option
         if (!YafServices.Permissions.Check(this.PageContext.BoardSettings.ReportPostPermissions))
@@ -178,7 +178,7 @@ namespace YAF.Pages
 
         // Get Forum Link
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.btnReport.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
+        this.btnReport.Attributes.Add("onclick", "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
       }
     }
 

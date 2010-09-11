@@ -199,8 +199,7 @@ namespace YAF.Pages
         /// </param>
         protected void DeleteAlbum_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = string.Format(
-                "return confirm(\'{0}\')", this.GetText("ASK_DELETEALBUM"));
+            ((Button)sender).Attributes["onclick"] = "return confirm(\'{0}\')".FormatWith(this.GetText("ASK_DELETEALBUM"));
         }
 
         /// <summary>
@@ -239,8 +238,7 @@ namespace YAF.Pages
         /// </param>
         protected void ImageDelete_Load(object sender, EventArgs e)
         {
-            ((LinkButton)sender).Attributes["onclick"] = String.Format(
-                "return confirm('{0}')", this.GetText("ASK_DELETEIMAGE"));
+            ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ASK_DELETEIMAGE"));
         }
 
         /// <summary>
@@ -329,7 +327,7 @@ namespace YAF.Pages
         {
             string filePath = uploadedFile.PostedFile.FileName.Trim();
 
-            if (String.IsNullOrEmpty(filePath) || uploadedFile.PostedFile.ContentLength == 0)
+            if (filePath.IsNotSet() || uploadedFile.PostedFile.ContentLength == 0)
             {
                 return false;
             }
@@ -407,8 +405,7 @@ namespace YAF.Pages
 
                     int albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
                     file.PostedFile.SaveAs(
-                        String.Format(
-                            "{0}/{1}.{2}.{3}.yafalbum", sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
+                        "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
                     DB.album_image_save(
                         null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
                     YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
@@ -434,12 +431,7 @@ namespace YAF.Pages
 
 
                     file.PostedFile.SaveAs(
-                        String.Format(
-                            "{0}/{1}.{2}.{3}.yafalbum",
-                            sUpDir,
-                            this.PageContext.PageUserID,
-                            this.Request.QueryString.GetFirstOrDefault("a"),
-                            filename));
+                        "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"), filename));
                     DB.album_image_save(
                         null,
                         this.Request.QueryString.GetFirstOrDefault("a"),

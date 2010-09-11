@@ -145,7 +145,7 @@ namespace YAF.Pages
       passwordRetrieval.TemplateParams["{username}"] = userName;
       passwordRetrieval.TemplateParams["{password}"] = password;
       passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
-      passwordRetrieval.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+      passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
       passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
 
@@ -204,7 +204,7 @@ namespace YAF.Pages
               verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
               verifyEmail.TemplateParams["{key}"] = hash;
               verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
-              verifyEmail.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+              verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
               verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 

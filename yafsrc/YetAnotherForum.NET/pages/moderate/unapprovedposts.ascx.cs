@@ -108,7 +108,7 @@ namespace YAF.Pages.moderate
       var button = sender as ThemeButton;
       if (button != null)
       {
-        button.Attributes["onclick"] = String.Format("return confirm('{0}');", GetText("ASK_DELETE"));
+        button.Attributes["onclick"] = "return confirm('{0}');".FormatWith(this.GetText("ASK_DELETE"));
       }
     }
 

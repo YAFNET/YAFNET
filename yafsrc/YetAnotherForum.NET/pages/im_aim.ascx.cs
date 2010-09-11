@@ -69,8 +69,8 @@ namespace YAF.Pages // YAF.Pages
 				// get full user data...
 				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
 
-				Msg.NavigateUrl = string.Format( "aim:goim?screenname={0}&message=Hi.+Are+you+there?", userData.Profile.AIM );
-				Buddy.NavigateUrl = string.Format( "aim:addbuddy?screenname={0}", userData.Profile.AIM );
+				Msg.NavigateUrl = "aim:goim?screenname={0}&message=Hi.+Are+you+there?".FormatWith(userData.Profile.AIM);
+				Buddy.NavigateUrl = "aim:addbuddy?screenname={0}".FormatWith(userData.Profile.AIM);
 			}
 		}
 	}

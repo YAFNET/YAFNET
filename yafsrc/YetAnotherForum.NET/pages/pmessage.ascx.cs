@@ -184,7 +184,7 @@ namespace YAF.Pages
               body = YafServices.BadWordReplace.Replace(body);
 
               // Quote the original message
-              body = String.Format("[QUOTE={0}]{1}[/QUOTE]", displayName, body);
+              body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
 
               // we don't want any whitespaces at the beginning of message
               this._editor.Text = body.TrimStart();

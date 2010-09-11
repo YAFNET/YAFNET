@@ -46,7 +46,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			errormsg.InnerText = String.Format("An error has occured in '{0}'.",Request.QueryString.GetFirstOrDefault("aspxerrorpath"));
+			errormsg.InnerText = "An error has occured in '{0}'.".FormatWith(this.Request.QueryString.GetFirstOrDefault("aspxerrorpath"));
 		}
 
 		#region Web Form Designer generated code

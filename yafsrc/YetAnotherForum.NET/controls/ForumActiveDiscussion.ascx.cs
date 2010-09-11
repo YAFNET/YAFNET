@@ -76,7 +76,7 @@ namespace YAF.Controls
         var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
 
         // populate them...
-        textMessageLink.Text = YafServices.BadWordReplace.Replace(HtmlEncode(currentRow["Topic"].ToString()));
+        textMessageLink.Text = YafServices.BadWordReplace.Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
         textMessageLink.NavigateUrl = messageUrl;
         imageMessageLink.NavigateUrl = messageUrl;
         lastPostedImage.LocalizedTitle = this.lastPostToolTip;

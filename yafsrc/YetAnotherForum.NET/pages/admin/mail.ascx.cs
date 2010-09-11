@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
 
       string subject = this.Subject.Text.Trim();
 
-      if (String.IsNullOrEmpty(subject))
+      if (subject.IsNotSet())
       {
         PageContext.AddLoadMessage("Subject is Required");
       }

@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
             // import any extensions that don't exist...
             foreach (DataRow row in dsReplaceWords.Tables["YafReplaceWords"].Rows)
             {
-              if (replaceWordsList.Select(String.Format("badword = '{0}' AND goodword = '{1}'", row["badword"], row["goodword"])).Length == 0)
+              if (replaceWordsList.Select("badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0)
               {
                 // add this...
                 DB.replace_words_save(PageContext.PageBoardID, null, row["badword"], row["goodword"]);
@@ -104,11 +104,11 @@ namespace YAF.Pages.Admin
 
             if (importedCount > 0)
             {
-              PageContext.LoadMessage.AddSession(String.Format("{0} new replacement word(s) were imported successfully.", importedCount));
+              PageContext.LoadMessage.AddSession("{0} new replacement word(s) were imported successfully.".FormatWith(importedCount));
             }
             else
             {
-              PageContext.LoadMessage.AddSession(String.Format("Nothing imported: no new replacement words were found in the upload.", importedCount));
+              PageContext.LoadMessage.AddSession("Nothing imported: no new replacement words were found in the upload.".FormatWith(importedCount));
             }
 
             YafBuildLink.Redirect(ForumPages.admin_replacewords);

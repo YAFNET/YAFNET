@@ -82,19 +82,13 @@ namespace YAF.Pages // YAF.Pages
 				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
 
 				ViewState ["to"] = userData.Profile.ICQ;
-				Status.Src = string.Format( "http://web.icq.com/whitepages/online?icq={0}&img=5", userData.Profile.ICQ );
+				Status.Src = "http://web.icq.com/whitepages/online?icq={0}&img=5".FormatWith(userData.Profile.ICQ);
 			}
 		}
 
 		protected void Send_Click( object sender, EventArgs e )
 		{
-			string html = string.Format( "http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}",
-				Server.UrlEncode( From.Text ),
-				Server.UrlEncode( Email.Text ),
-				Server.UrlEncode( "From WebPager Panel" ),
-				ViewState ["to"],
-				Server.UrlEncode( Body.Text )
-				);
+			string html = "http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}".FormatWith(this.Server.UrlEncode( this.From.Text ), this.Server.UrlEncode( this.Email.Text ), this.Server.UrlEncode( "From WebPager Panel" ), this.ViewState ["to"], this.Server.UrlEncode( this.Body.Text ));
 			Response.Redirect( html );
 		}
 	}

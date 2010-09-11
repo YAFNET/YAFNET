@@ -42,7 +42,7 @@ namespace YAF.Pages.Admin
     {
       get
       {
-        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("b")))
+        if (this.Request.QueryString.GetFirstOrDefault("b").IsSet())
         {
           int boardId;
           if (int.TryParse(Request.QueryString.GetFirstOrDefault("b"), out boardId))
@@ -298,7 +298,7 @@ namespace YAF.Pages.Admin
       string currentMembershipAppName = PageContext.CurrentMembership.ApplicationName;
       string currentRolesAppName = PageContext.CurrentRoles.ApplicationName;
 
-      if (!String.IsNullOrEmpty(boardMembershipAppName) && !String.IsNullOrEmpty(boardRolesAppName))
+      if (boardMembershipAppName.IsSet() && boardRolesAppName.IsSet())
       {
         // Change App Names for new board
         PageContext.CurrentMembership.ApplicationName = boardMembershipAppName;
@@ -323,8 +323,8 @@ namespace YAF.Pages.Admin
           adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, null, out createStatus);
         if (createStatus != MembershipCreateStatus.Success)
         {
-          PageContext.AddLoadMessage(string.Format("Create User Failed: {0}", GetMembershipErrorMessage(createStatus)));
-          throw new ApplicationException(string.Format("Create User Failed: {0}", GetMembershipErrorMessage(createStatus)));
+          PageContext.AddLoadMessage("Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)));
+          throw new ApplicationException("Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)));
         }
 
         // Create groups required for the new board

@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
         dr["FileName"] = "Select File (*.pak)";
         dt.Rows.Add(dr);
 
-        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
+        var dir = new DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
         FileInfo[] files = dir.GetFiles("*.pak");
         long nFileID = 1;
         foreach (FileInfo file in files)
@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      string fileName = Request.MapPath(String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.File.SelectedItem.Text));
+      string fileName = Request.MapPath("{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.File.SelectedItem.Text));
       string split = Regex.Escape("=+:");
 
       using (var file = new StreamReader(fileName))

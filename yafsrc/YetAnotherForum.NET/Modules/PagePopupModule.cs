@@ -24,6 +24,7 @@ namespace YAF.Modules
   using System.Web.UI.WebControls;
   using DNA.UI.JQuery;
   using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// Summary description for PagePopupModule
@@ -127,12 +128,7 @@ namespace YAF.Modules
           PageContext.PageElements.RegisterJsBlockStartup(
             ForumControl.Page, 
             "modalNotification", 
-            String.Format(
-              "var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n", 
-              displayMessage, 
-              '{', 
-              '}', 
-              this._errorPopup.ShowModalFunction));
+            "var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n".FormatWith(displayMessage, '{', '}', this._errorPopup.ShowModalFunction));
         }
       }
     }
@@ -168,7 +164,7 @@ namespace YAF.Modules
     {
       get
       {
-        return string.Format("ShowPopupDialogNotification{0}", ClientID);
+        return "ShowPopupDialogNotification{0}".FormatWith(this.ClientID);
       }
     }
 
@@ -209,13 +205,7 @@ namespace YAF.Modules
 
       // add js for client-side error settings...
       string jsFunction =
-        String.Format(
-          "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').html(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n", 
-          ClientID, 
-          MainTextClientID, 
-          '{', 
-          '}', 
-          ShowModalFunction);
+        "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').html(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n".FormatWith(this.ClientID, this.MainTextClientID, '{', '}', this.ShowModalFunction);
       YafContext.Current.PageElements.RegisterJsBlock(this, ShowModalFunction, jsFunction);
     }
 

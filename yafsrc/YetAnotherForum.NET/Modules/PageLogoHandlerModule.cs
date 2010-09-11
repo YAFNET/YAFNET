@@ -75,7 +75,7 @@ namespace YAF.Modules
       {
         string graphicSrc = PageContext.Theme.GetItem("FORUM", "BANNER", null);
 
-        if (!String.IsNullOrEmpty(graphicSrc))
+        if (graphicSrc.IsSet())
         {
           if (htmlImgBanner != null)
           {

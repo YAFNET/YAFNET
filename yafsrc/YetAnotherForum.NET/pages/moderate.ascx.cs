@@ -103,7 +103,7 @@ namespace YAF.Pages
     /// </param>
     protected void Delete_Load(object sender, EventArgs e)
     {
-      ((ThemeButton) sender).Attributes["onclick"] = String.Format("return confirm('{0}')", GetText("confirm_delete"));
+      ((ThemeButton) sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_delete"));
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ namespace YAF.Pages
     /// </param>
     protected void DeleteUser_Load(object sender, EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = String.Format("return confirm('{0}')", "Remove this user from this forum?");
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith("Remove this user from this forum?");
     }
 
     /// <summary>

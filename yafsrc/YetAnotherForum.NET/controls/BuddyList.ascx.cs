@@ -131,7 +131,7 @@ namespace YAF.Controls
         /// </param>
         protected void Deny_Load(object sender, EventArgs e)
         {
-            ((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
+            ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace YAF.Controls
         /// </param>
         protected void Remove_Load(object sender, EventArgs e)
         {
-            ((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")); 
+            ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")); 
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace YAF.Controls
         /// </param>
         protected void DenyAll_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")); 
+            ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")); 
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace YAF.Controls
         /// </param>
         protected void ApproveAll_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL")); 
+            ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL")); 
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace YAF.Controls
         /// </param>
         protected void ApproveAddAll_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD")); 
+            ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD")); 
         }
 
 
@@ -201,7 +201,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetStringSafely(object svalue)
         {
-            return svalue == null ? string.Empty : HtmlEncode(svalue.ToString());
+            return svalue == null ? string.Empty : this.HtmlEncode(svalue.ToString());
         }
 
         /// <summary>
@@ -334,20 +334,20 @@ namespace YAF.Controls
                 {
                     case 1:
                         case 2:
-                        buddyListDataView.RowFilter = string.Format("Approved = 1", CurrentUserID);
+                        buddyListDataView.RowFilter = "Approved = 1".FormatWith(this.CurrentUserID);
                         break;
                     case 3:
-                        buddyListDataView.RowFilter = string.Format("Approved = 0 AND FromUserID <> {0}", CurrentUserID);
+                        buddyListDataView.RowFilter = "Approved = 0 AND FromUserID <> {0}".FormatWith(this.CurrentUserID);
                         break;
                     case 4:
-                        buddyListDataView.RowFilter = string.Format("Approved = 0 AND FromUserID = {0}", CurrentUserID);
+                        buddyListDataView.RowFilter = "Approved = 0 AND FromUserID = {0}".FormatWith(this.CurrentUserID);
                         break;
                 }
 
                 this.Pager.Count = buddyListDataView.Count;
 
                 // create paged data source for the buddylist
-                buddyListDataView.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool)ViewState["SortAscending"] ? "asc" : "desc");
+                buddyListDataView.Sort = "{0} {1}".FormatWith(this.ViewState["SortField"], (bool)this.ViewState["SortAscending"] ? "asc" : "desc");
                 var pds = new PagedDataSource();
                 pds.DataSource = buddyListDataView;
                 pds.AllowPaging = true;
@@ -437,14 +437,14 @@ namespace YAF.Controls
             switch (e.CommandName)
             {
                 case "remove":
-                    PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"), YafBuddies.RemoveBuddy(Convert.ToInt32(e.CommandArgument))));
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(Convert.ToInt32(e.CommandArgument))));
                     CurrentUserID = PageContext.PageUserID;
                     break;
                 case "approve":
-                    PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED"), YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), false)));
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED").FormatWith(YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), false)));
                     break;
                 case "approveadd":
-                    PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), true)));
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), true)));
                     break;
                 case "approveall":
                     YafBuddies.ApproveAllBuddyRequests(false);

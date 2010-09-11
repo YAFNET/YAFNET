@@ -198,7 +198,7 @@ namespace YAF.Controls
           @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
           userId,
           YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
-          Server.HtmlEncode(strUserName));
+          this.HtmlEncode(strUserName));
 
         // If showing thanks date is enabled, add it to the formatted string.
         if (showDate)
@@ -230,10 +230,7 @@ namespace YAF.Controls
       if (indent > 0)
       {
         return
-          string.Format(
-            @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>", 
-            indent * 32, 
-            YafForumInfo.ForumClientFileRoot);
+          @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>".FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
       }
       else
       {
@@ -421,8 +418,7 @@ namespace YAF.Controls
       {
         this.panMessage.Attributes["style"] = "display:none";
         this.PostFooter.TogglePost.Visible = true;
-        this.PostFooter.TogglePost.Attributes["onclick"] = string.Format(
-          "toggleMessage('{0}'); return false;", this.panMessage.ClientID);
+        this.PostFooter.TogglePost.Attributes["onclick"] = "toggleMessage('{0}'); return false;".FormatWith(this.panMessage.ClientID);
       }
       else if (!YafServices.UserIgnored.IsIgnored(this.PostData.UserId))
       {
@@ -475,13 +471,11 @@ namespace YAF.Controls
               this.Literal2.Visible = true;
               if (thanksNumber == 1)
               {
-                  this.Literal1.Text = String.Format(
-                    this.PageContext.Localization.GetText("THANKSINFOSINGLE"), Server.HtmlEncode(this.PostData.UserProfile.UserName));
+                  this.Literal1.Text = this.PageContext.Localization.GetText("THANKSINFOSINGLE").FormatWith(this.HtmlEncode(this.PostData.UserProfile.UserName));
               }
               else
               {
-                  this.Literal1.Text = String.Format(
-                    this.PageContext.Localization.GetText("THANKSINFO"), thanksNumber, Server.HtmlEncode(this.PostData.UserProfile.UserName));
+                  this.Literal1.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(thanksNumber, this.HtmlEncode(this.PostData.UserProfile.UserName));
               }
               this.Literal1.Visible = true;
           }
@@ -511,8 +505,7 @@ namespace YAF.Controls
           if (Convert.ToBoolean(strBuddyRequest[1]))
           {
             this.PageContext.AddLoadMessage(
-              string.Format(
-                this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]));
+              this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
             this.PopMenu1.AddClientScriptItemWithPostback(
               this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
               "removebuddy", 
@@ -529,9 +522,7 @@ namespace YAF.Controls
             this.PopMenu1.RemovePostBackItem("removebuddy");
             this.PopMenu1.AddPostBackItem("addbuddy", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
             this.PageContext.AddLoadMessage(
-              string.Format(
-                this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"), 
-                YafBuddies.RemoveBuddy(this.PostData.UserId)));
+              this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(this.PostData.UserId)));
             break;
           }
 

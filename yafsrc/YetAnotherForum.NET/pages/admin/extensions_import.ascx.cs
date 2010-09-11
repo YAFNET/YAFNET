@@ -83,11 +83,11 @@ namespace YAF.Pages.Admin
 
           if (importedCount > 0)
           {
-            PageContext.LoadMessage.AddSession(String.Format("{0} new extension(s) imported successfully.", importedCount));
+            PageContext.LoadMessage.AddSession("{0} new extension(s) imported successfully.".FormatWith(importedCount));
           }
           else
           {
-            PageContext.LoadMessage.AddSession(String.Format("Nothing imported: no new extensions were found in the upload.", importedCount));
+            PageContext.LoadMessage.AddSession("Nothing imported: no new extensions were found in the upload.".FormatWith(importedCount));
           }
 
           YafBuildLink.Redirect(ForumPages.admin_extensions);

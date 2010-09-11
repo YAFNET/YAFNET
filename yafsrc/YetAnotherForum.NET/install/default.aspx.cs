@@ -81,7 +81,7 @@ namespace YAF.Install
     {
       get
       {
-        return !String.IsNullOrEmpty(this._config.GetConfigValueAsString(_appPasswordKey));
+        return this._config.GetConfigValueAsString(_appPasswordKey).IsSet();
       }
     }
 
@@ -134,7 +134,7 @@ namespace YAF.Install
         {
           string connName = this.lbConnections.SelectedValue;
 
-          if (!String.IsNullOrEmpty(connName))
+          if (connName.IsSet())
           {
             // pull from existing connection string...
             return ConfigurationManager.ConnectionStrings[connName].ConnectionString;
@@ -1130,7 +1130,7 @@ namespace YAF.Install
           this.UserName.Text, this.Password1.Text, this.AdminEmail.Text, this.SecurityQuestion.Text, this.SecurityAnswer.Text, true, null, out status);
         if (status != MembershipCreateStatus.Success)
         {
-          AddLoadMessage(string.Format("Create Admin User Failed: {0}", GetMembershipErrorMessage(status)));
+          AddLoadMessage("Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
           return false;
         }
       }

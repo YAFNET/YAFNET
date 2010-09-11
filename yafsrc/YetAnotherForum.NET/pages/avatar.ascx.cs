@@ -180,7 +180,7 @@ namespace YAF.Pages // YAF.Pages
                         link = YafBuildLink.GetLink(ForumPages.cp_editavatar, "av={0}", Server.UrlEncode(CurrentDirectory + "/" + finfo.Name));
                     }
 
-                    fname.Text = string.Format(@"<div align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}", link, (strDirectory + "/" + finfo.Name), finfo.Name, Environment.NewLine);
+                    fname.Text = @"<div align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}".FormatWith(link, (strDirectory + "/" + finfo.Name), finfo.Name, Environment.NewLine);
                 }
             }
 
@@ -200,7 +200,7 @@ namespace YAF.Pages // YAF.Pages
 
                 LinkButton up = e.Item.FindControl("up") as LinkButton;
                 up.CommandArgument = previousDirectory;
-                up.Text = String.Format(@"<p align=""center""><img src=""{0}"" alt=""Up"" /><br />UP</p>", YafForumInfo.ForumClientFileRoot + "images/folder.gif");
+                up.Text = @"<p align=""center""><img src=""{0}"" alt=""Up"" /><br />UP</p>".FormatWith(YafForumInfo.ForumClientFileRoot + "images/folder.gif");
             }
         }
 
@@ -217,7 +217,7 @@ namespace YAF.Pages // YAF.Pages
             {
                 LinkButton dirName = e.Item.FindControl("dirName") as LinkButton;
                 dirName.CommandArgument = filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
-                dirName.Text = String.Format(@"<p align=""center""><img src=""{0}"" alt=""{1}"" /><br />{1}</p>", YafForumInfo.ForumClientFileRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+                dirName.Text = @"<p align=""center""><img src=""{0}"" alt=""{1}"" /><br />{1}</p>".FormatWith(YafForumInfo.ForumClientFileRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
             }
         }
 

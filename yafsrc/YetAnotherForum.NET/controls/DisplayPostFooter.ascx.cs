@@ -117,17 +117,11 @@
           {
             // reason was specified
            
-              this.messageHistoryLink.Title += String.Format(
-                 " | {0}: {1}",
-                 this.PageContext.Localization.GetText("EDIT_REASON"),
-                 YafFormatMessage.RepairHtml((string)this.DataRow["EditReason"], true));
+              this.messageHistoryLink.Title += " | {0}: {1}".FormatWith(this.PageContext.Localization.GetText("EDIT_REASON"), YafFormatMessage.RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
           {
-              this.messageHistoryLink.Title += String.Format(
-               " {0}: {1}",
-               this.PageContext.Localization.GetText("EDIT_REASON"),
-               this.PageContext.Localization.GetText("EDIT_REASON_NA"));
+              this.messageHistoryLink.Title += " {0}: {1}".FormatWith(this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
@@ -136,11 +130,7 @@
                                 ? this.PageContext.Localization.GetText("EDITED_BY_MOD")
                                 : this.PageContext.Localization.GetText("EDITED_BY_USER");
 
-          this.messageHistoryLink.InnerHtml = string.Format(
-             @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>",
-             this.PageContext.Localization.GetText("EDITED"),
-             whoChanged,
-             editedText + this.messageHistoryLink.Title);
+          this.messageHistoryLink.InnerHtml = @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>".FormatWith(this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText + this.messageHistoryLink.Title);
           this.messageHistoryLink.HRef = YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", DataRow["MessageID"]);
 
         }
@@ -173,9 +163,9 @@
          
           // We should show IP
           this.IPSpan1.Visible = true;
-          this.IPLink1.HRef = string.Format(this.PageContext.BoardSettings.IPInfoPageURL, this.DataRow["IP"].ToString());
+          this.IPLink1.HRef = this.PageContext.BoardSettings.IPInfoPageURL.FormatWith(this.DataRow["IP"].ToString());
           this.IPLink1.Title= this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS");
-          this.IPLink1.InnerText = HttpContext.Current.Server.HtmlEncode(this.DataRow["IP"].ToString());
+          this.IPLink1.InnerText = this.HtmlEncode(this.DataRow["IP"].ToString());
 
           sb.Append(' ');
         
@@ -225,7 +215,7 @@
     /// </param>
     protected void SetupThemeButtonWithLink(ThemeButton thisButton, string linkUrl)
     {
-      if (!String.IsNullOrEmpty(linkUrl))
+      if (linkUrl.IsSet())
       {
         string link = linkUrl.Replace("\"", string.Empty);
         if (!link.ToLower().StartsWith("http"))
@@ -285,37 +275,37 @@
             this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", this.PostData.UserId);
 
             // home page
-            this.Home.Visible = !this.PostData.PostDeleted && !String.IsNullOrEmpty(this.PostData.UserProfile.Homepage);
+            this.Home.Visible = !this.PostData.PostDeleted && this.PostData.UserProfile.Homepage.IsSet();
             this.SetupThemeButtonWithLink(this.Home, this.PostData.UserProfile.Homepage);
 
             // blog page
-            this.Blog.Visible = !this.PostData.PostDeleted && !String.IsNullOrEmpty(this.PostData.UserProfile.Blog);
+            this.Blog.Visible = !this.PostData.PostDeleted && this.PostData.UserProfile.Blog.IsSet();
             this.SetupThemeButtonWithLink(this.Blog, this.PostData.UserProfile.Blog);
 
             if (!this.PostData.PostDeleted && this.PageContext.User != null && (this.PostData.UserId != this.PageContext.PageUserID))
             {
                 // MSN
-                this.Msn.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.MSN);
+                this.Msn.Visible = this.PostData.UserProfile.MSN.IsSet();
                 this.Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", this.PostData.UserId);
 
                 // Yahoo IM
-                this.Yim.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.YIM);
+                this.Yim.Visible = this.PostData.UserProfile.YIM.IsSet();
                 this.Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", this.PostData.UserId);
 
                 // AOL IM
-                this.Aim.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.AIM);
+                this.Aim.Visible = this.PostData.UserProfile.AIM.IsSet();
                 this.Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", this.PostData.UserId);
 
                 // ICQ
-                this.Icq.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.ICQ);
+                this.Icq.Visible = this.PostData.UserProfile.ICQ.IsSet();
                 this.Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", this.PostData.UserId);
 
                 // XMPP
-                this.Xmpp.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.XMPP);
+                this.Xmpp.Visible = this.PostData.UserProfile.XMPP.IsSet();
                 this.Xmpp.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", this.PostData.UserId);
 
                 // Skype
-                this.Skype.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.Skype);
+                this.Skype.Visible = this.PostData.UserProfile.Skype.IsSet();
                 this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", this.PostData.UserId);
             }
         

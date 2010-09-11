@@ -83,12 +83,7 @@ namespace YAF.Controls
         this.MoreSmilies.Target = "yafShowSmilies";
         this.MoreSmilies.Attributes.Add(
           "onclick", 
-          String.Format(
-            "var smiliesWin = window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');smiliesWin.focus();return false;", 
-            this.MoreSmilies.NavigateUrl, 
-            this.MoreSmilies.Target, 
-            550, 
-            300));
+          "var smiliesWin = window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');smiliesWin.focus();return false;".FormatWith(this.MoreSmilies.NavigateUrl, this.MoreSmilies.Target, 550, 300));
       }
 
       YafBoardSettings bs = PageContext.BoardSettings;
@@ -145,8 +140,7 @@ namespace YAF.Controls
             strCode = strCode.Replace("\"", "&quot;");
             strCode = strCode.Replace("\\", "\\\\");
             strCode = strCode.Replace("'", "\\'");
-            evt = String.Format(
-              "javascript:{0}('{1} ','{3}{4}/{2}')", this._onclick, strCode, row["Icon"], YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons);
+            evt = "javascript:{0}('{1} ','{3}{4}/{2}')".FormatWith(this._onclick, strCode, row["Icon"], YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons);
           }
           else
           {

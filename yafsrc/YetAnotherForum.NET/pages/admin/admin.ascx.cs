@@ -190,25 +190,25 @@ namespace YAF.Pages.Admin
       // get stats for current board, selected board or all boards (see function)
       DataRow row = DB.board_stats(GetSelectedBoardID());
 
-      this.NumPosts.Text = String.Format("{0:N0}", row["NumPosts"]);
-      this.NumTopics.Text = String.Format("{0:N0}", row["NumTopics"]);
-      this.NumUsers.Text = String.Format("{0:N0}", row["NumUsers"]);
+      this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
+      this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
+      this.NumUsers.Text = "{0:N0}".FormatWith(row["NumUsers"]);
 
       TimeSpan span = DateTime.UtcNow - (DateTime) row["BoardStart"];
       double days = span.Days;
 
-      this.BoardStart.Text = String.Format("{0:d} ({1:N0} days ago)", row["BoardStart"], days);
+      this.BoardStart.Text = "{0:d} ({1:N0} days ago)".FormatWith(row["BoardStart"], days);
 
       if (days < 1)
       {
         days = 1;
       }
 
-      this.DayPosts.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumPosts"]) / days);
-      this.DayTopics.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
-      this.DayUsers.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
+      this.DayPosts.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumPosts"]) / days);
+      this.DayTopics.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
+      this.DayUsers.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
-      this.DBSize.Text = String.Format("{0} MB", DB.DBSize);
+      this.DBSize.Text = "{0} MB".FormatWith(DB.DBSize);
     }
 
     /// <summary>
@@ -305,7 +305,7 @@ namespace YAF.Pages.Admin
         return string.Empty;
       }
 
-      return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", ForumID), ForumName);
+      return "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", ForumID), ForumName);
     }
 
     /// <summary>
@@ -327,7 +327,7 @@ namespace YAF.Pages.Admin
         return string.Empty;
       }
 
-      return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", TopicID), TopicName);
+      return "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.posts, "t={0}", TopicID), TopicName);
     }
   }
 }

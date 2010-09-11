@@ -114,7 +114,7 @@ namespace YAF.Controls
                 }
 
                 string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-                this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn) ? Server.HtmlEncode(umhdn) : Server.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
+                this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn) ? this.HtmlEncode(umhdn) : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
                 
                 this.BindData();
                 // vzrus: replaced registry check for db data

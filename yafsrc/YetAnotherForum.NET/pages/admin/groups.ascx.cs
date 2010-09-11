@@ -208,7 +208,7 @@ namespace YAF.Pages.Admin
       foreach (string role in RoleMembershipHelper.GetAllRoles())
       {
         // make filter string, we want to filer by role name
-        string filter = string.Format("Name='{0}'", role.Replace("'", "''"));
+        string filter = "Name='{0}'".FormatWith(role.Replace("'", "''"));
 
         // get given role of YAF
         DataRow[] rows = dt.Select(filter);

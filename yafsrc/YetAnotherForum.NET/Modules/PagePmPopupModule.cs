@@ -65,12 +65,12 @@ namespace YAF.Modules
       // This happens when user logs in
       if (DisplayPMPopup())
       {
-        PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("COMMON", "UNREAD_MSG"), PageContext.UnreadPrivate));
+        PageContext.AddLoadMessage(this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
         Mession.LastPm = PageContext.LastUnreadPm;
       }
       if (DisplayPendingBuddies())
       {
-          PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES"), PageContext.PendingBuddies));
+          PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies));
           Mession.LastPendingBuddies = PageContext.LastPendingBuddies;
       }
     }
