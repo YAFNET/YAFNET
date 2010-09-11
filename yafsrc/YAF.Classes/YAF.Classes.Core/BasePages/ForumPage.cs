@@ -202,7 +202,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return YafContext.Current;
+        return this.PageContext();
       }
     }
 
@@ -513,7 +513,7 @@ namespace YAF.Classes.Core
       {
         var refresh = new HtmlMeta();
         refresh.HttpEquiv = "Refresh";
-        refresh.Content = String.Format("{1};url={0}", this.ForumHeader.RefreshURL, this.ForumHeader.RefreshTime);
+        refresh.Content = "{1};url={0}".FormatWith(this.ForumHeader.RefreshURL, this.ForumHeader.RefreshTime);
 
         addTo.Controls.Add(refresh);
       }

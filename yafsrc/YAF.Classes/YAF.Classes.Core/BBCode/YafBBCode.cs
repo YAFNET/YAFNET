@@ -29,6 +29,7 @@ namespace YAF.Classes.Core.BBCode
 
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// Summary description for YafBBCode.
@@ -447,8 +448,7 @@ namespace YAF.Classes.Core.BBCode
         // "quote" handling...
         string tmpReplaceStr;
 
-        tmpReplaceStr = string.Format(
-          @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+        tmpReplaceStr = @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
         ruleEngine.AddRule(
           new VariableRegexReplaceRule(
             _rgxQuote2, 
@@ -458,7 +458,7 @@ namespace YAF.Classes.Core.BBCode
                 "quote"
               }));
 
-        tmpReplaceStr = string.Format(@"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteStr, "${inner}");
+        tmpReplaceStr = @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteStr, "${inner}");
         ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr));
       }
 
@@ -503,7 +503,7 @@ namespace YAF.Classes.Core.BBCode
           innerParam.AppendChild(innerText);
           paramsNode.AppendChild(innerParam);
 
-          if (!String.IsNullOrEmpty(rawVariables))
+          if (rawVariables.IsSet())
           {
             // handle variables...
             string[] variables = rawVariables.Split(
@@ -535,13 +535,13 @@ namespace YAF.Classes.Core.BBCode
           }
         }
         else if (codeRow["SearchRegEx"] != DBNull.Value && codeRow["ReplaceRegEx"] != DBNull.Value &&
-                 !String.IsNullOrEmpty(codeRow["SearchRegEx"].ToString().Trim()))
+                 codeRow["SearchRegEx"].ToString().Trim().IsSet())
         {
           string searchRegEx = codeRow["SearchRegEx"].ToString();
           string replaceRegEx = codeRow["ReplaceRegEx"].ToString();
           string rawVariables = codeRow["Variables"].ToString();
 
-          if (!String.IsNullOrEmpty(rawVariables))
+          if (rawVariables.IsSet())
           {
             // handle variables...
             string[] variables = rawVariables.Split(
@@ -641,7 +641,7 @@ namespace YAF.Classes.Core.BBCode
           displayScript = LocalizeCustomBBCodeElement(row["DisplayJS"].ToString().Trim());
         }
 
-        if (!String.IsNullOrEmpty(editorID) && row["EditJS"] != DBNull.Value)
+        if (editorID.IsSet() && row["EditJS"] != DBNull.Value)
         {
           editScript = LocalizeCustomBBCodeElement(row["EditJS"].ToString().Trim());
 
@@ -649,13 +649,13 @@ namespace YAF.Classes.Core.BBCode
           editScript = editScript.Replace("{editorid}", editorID);
         }
 
-        if (!String.IsNullOrEmpty(displayScript) || !String.IsNullOrEmpty(editScript))
+        if (displayScript.IsSet() || editScript.IsSet())
         {
           jsScriptBuilder.AppendLine(displayScript + "\r\n" + editScript);
         }
 
         // see if there is any CSS associated with this YafBBCode
-        if (row["DisplayCSS"] != DBNull.Value && !String.IsNullOrEmpty(row["DisplayCSS"].ToString().Trim()))
+        if (row["DisplayCSS"] != DBNull.Value && row["DisplayCSS"].ToString().Trim().IsSet())
         {
           // yes, add it into the builder
           cssBuilder.AppendLine(LocalizeCustomBBCodeElement(row["DisplayCSS"].ToString().Trim()));

@@ -289,7 +289,7 @@ namespace YAF.Classes
     /// </returns>
     private string GetCacheName(string type, int id)
     {
-      return String.Format(@"urlRewritingDT-{0}-Range-{1}-to-{2}", type, this.HighRange(id), this.LowRange(id));
+      return @"urlRewritingDT-{0}-Range-{1}-to-{2}".FormatWith(type, this.HighRange(id), this.LowRange(id));
     }
 
     /// <summary>

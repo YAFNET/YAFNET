@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseControls\BaseControl.cs" />
+    <Compile Include="BaseControls\BasePanel.cs" />
     <Compile Include="BaseControls\IYafHeader.cs" />
     <Compile Include="BaseControls\IYafFooter.cs" />
     <Compile Include="BaseModules\IBaseEditorModule.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
+    <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\ResourcesExtensions.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />

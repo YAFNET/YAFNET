@@ -326,7 +326,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (!String.IsNullOrEmpty(Config.ProviderProvider) && System.Web.Profile.ProfileManager.Providers[Config.ProviderProvider] != null)
+        if (Config.ProviderProvider.IsSet() && System.Web.Profile.ProfileManager.Providers[Config.ProviderProvider] != null)
         {
           return System.Web.Profile.ProfileManager.Providers[Config.ProviderProvider];
         }
@@ -343,7 +343,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (!String.IsNullOrEmpty(Config.MembershipProvider) && Membership.Providers[Config.MembershipProvider] != null)
+        if (Config.MembershipProvider.IsSet() && Membership.Providers[Config.MembershipProvider] != null)
         {
           return Membership.Providers[Config.MembershipProvider];
         }
@@ -360,7 +360,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (!String.IsNullOrEmpty(Config.RoleProvider) && Roles.Providers[Config.RoleProvider] != null)
+        if (Config.RoleProvider.IsSet() && Roles.Providers[Config.RoleProvider] != null)
         {
           return Roles.Providers[Config.RoleProvider];
         }

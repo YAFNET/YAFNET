@@ -50,7 +50,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataRow ActiveUserLazyData(object userID)
     {
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, userID));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userID));
 
       // get a row with user lazy data...
       return YafContext.Current.Cache.GetItem(
@@ -244,7 +244,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public List<int> FavoriteTopicList(int userID)
     {
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.FavoriteTopicList, userID));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicList.FormatWith(userID));
 
       // stored in the user session...
       var favoriteTopicList = HttpContext.Current.Session[key] as List<int>;
@@ -524,7 +524,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataTable UserBuddyList(int UserID)
     {
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, UserID));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserBuddies.FormatWith(UserID));
       DataTable buddyList = YafContext.Current.Cache.GetItem(key, 10, () => DB.buddy_list(UserID));
       return buddyList;
     }
@@ -539,7 +539,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public List<int> UserIgnoredList(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserIgnoreList, userId));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserIgnoreList.FormatWith(userId));
 
       // stored in the user session...
       var userList = HttpContext.Current.Session[key] as List<int>;
@@ -570,7 +570,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataTable UserMedals(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserMedals, userId));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(userId));
 
       // get the medals cached...
       DataTable dt = YafContext.Current.Cache.GetItem(key, 10, () => DB.user_listmedals(userId));

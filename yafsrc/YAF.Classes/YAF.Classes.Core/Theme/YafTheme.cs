@@ -104,7 +104,7 @@ namespace YAF.Classes.Core
     /// <returns></returns>
     public static bool IsValidTheme(string themeFile)
     {
-      if (String.IsNullOrEmpty(themeFile)) return false;
+      if (themeFile.IsNotSet()) return false;
 
       themeFile = themeFile.Trim().ToLower();
 
@@ -117,7 +117,7 @@ namespace YAF.Classes.Core
 
     public string GetItem(string page, string tag)
     {
-      return GetItem(page, tag, String.Format("[{0}.{1}]", page.ToUpper(), tag.ToUpper()));
+      return GetItem(page, tag, "[{0}.{1}]".FormatWith(page.ToUpper(), tag.ToUpper()));
     }
 
     public string GetItem(string page, string tag, string defaultValue)
@@ -130,22 +130,22 @@ namespace YAF.Classes.Core
       {
         string themeDir = _themeXmlDoc.DocumentElement.Attributes["dir"].Value;
         string langCode = YafContext.Current.Localization.LanguageCode.ToUpper();
-        string select = string.Format("//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']", page.ToUpper(), tag.ToUpper(), langCode);
+        string select = "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']".FormatWith(page.ToUpper(), tag.ToUpper(), langCode);
 
         XmlNode node = _themeXmlDoc.SelectSingleNode(select);
         if (node == null)
         {
-          select = string.Format("//page[@name='{0}']/Resource[@tag='{1}']", page.ToUpper(), tag.ToUpper());
+          select = "//page[@name='{0}']/Resource[@tag='{1}']".FormatWith(page.ToUpper(), tag.ToUpper());
           node = _themeXmlDoc.SelectSingleNode(select);
         }
 
         if (node == null)
         {
-          if (LogMissingThemeItem) YAF.Classes.Data.DB.eventlog_create(YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format("Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper()), EventLogTypes.Error);
+          if (LogMissingThemeItem) YAF.Classes.Data.DB.eventlog_create(YafContext.Current.PageUserID, page.ToLower() + ".ascx", "Missing Theme Item: {0}.{1}".FormatWith(page.ToUpper(), tag.ToUpper()), EventLogTypes.Error);
           return defaultValue;
         }
 
-        item = node.InnerText.Replace("~", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, themeDir));
+        item = node.InnerText.Replace("~", "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, themeDir));
       }
 
       return item;
@@ -156,7 +156,7 @@ namespace YAF.Classes.Core
       get
       {
         LoadThemeFile();
-        return String.Format("{0}{1}/{2}/", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Themes, _themeXmlDoc.DocumentElement.Attributes["dir"].Value);
+        return "{0}{1}/{2}/".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Themes, this._themeXmlDoc.DocumentElement.Attributes["dir"].Value);
       }
     }
 

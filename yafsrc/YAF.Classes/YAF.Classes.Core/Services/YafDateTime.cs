@@ -73,7 +73,7 @@ namespace YAF.Classes.Core
 
       dt = dt + this.TimeOffset;      
 
-      string strDateFormat = String.Format("{0:F}", dt);
+      string strDateFormat = "{0:F}".FormatWith(dt);
 
       try
       {
@@ -83,7 +83,7 @@ namespace YAF.Classes.Core
       {
       }
 
-      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+      return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
     }
 
     /// <summary>

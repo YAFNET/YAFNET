@@ -189,11 +189,11 @@ namespace YAF.Classes.Core
       args.CopyTo(values, 0);
       for (int i = args.Length; i < 10; i++)
       {
-        values.SetValue(String.Format("[INVALID: {1}.{0} -- EMPTY PARAM #{2}]", text.ToUpper(), TransPage.ToUpper(), i), i);
+        values.SetValue("[INVALID: {1}.{0} -- EMPTY PARAM #{2}]".FormatWith(text.ToUpper(), this.TransPage.ToUpper(), i), i);
       }
 
       // run format command...
-      localizedText = String.Format(localizedText, values);
+      localizedText = localizedText.FormatWith(values);
 
       return localizedText;
     }
@@ -234,7 +234,7 @@ namespace YAF.Classes.Core
 #endif
       if (this._localizer == null)
       {
-        this._localizer = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/{1}", YafForumInfo.ForumServerFileRoot, fileName)));         
+        this._localizer = new Localizer(HttpContext.Current.Server.MapPath("{0}languages/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, fileName)));         
 
 #if !DEBUG
 				HttpContext.Current.Cache ["Localizer." + fileName] = _localizer;
@@ -251,7 +251,7 @@ namespace YAF.Classes.Core
 
         if (this._defaultLocale == null)
         {
-          this._defaultLocale = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/english.xml", YafForumInfo.ForumServerFileRoot)));
+          this._defaultLocale = new Localizer(HttpContext.Current.Server.MapPath("{0}languages/english.xml".FormatWith(YafForumInfo.ForumServerFileRoot)));
 #if !DEBUG
           HttpContext.Current.Cache ["DefaultLocale"] = _defaultLocale;
 #endif
@@ -374,7 +374,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public bool GetTextExists(string page, string tag)
     {
-      return !String.IsNullOrEmpty(GetLocalizedTextInternal(page, tag));
+      return this.GetLocalizedTextInternal(page, tag).IsSet();
     }
 
     /// <summary>
@@ -416,9 +416,9 @@ namespace YAF.Classes.Core
         DB.eventlog_create(
           YafContext.Current.PageUserID, 
           page.ToLower() + ".ascx", 
-          String.Format("Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper()), 
+          "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()), 
           EventLogTypes.Error);
-        return String.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
+        return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
       }
 
       localizedText = localizedText.Replace("[b]", "<b>");
@@ -445,7 +445,7 @@ namespace YAF.Classes.Core
     {
       if (Culture.IsNeutralCulture)
       {
-        return String.Format(format, args);
+        return format.FormatWith(args);
       }
       else
       {

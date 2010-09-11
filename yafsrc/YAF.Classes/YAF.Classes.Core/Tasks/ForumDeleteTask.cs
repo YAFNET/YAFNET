@@ -21,6 +21,7 @@ namespace YAF.Classes.Core
   using System;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// The forum delete task.
@@ -121,11 +122,11 @@ namespace YAF.Classes.Core
       try
       {
         DB.forum_delete(this.ForumId);
-        DB.eventlog_create(null, TaskName, String.Format("Forum (ID: {0}) Delete Task Complete.", this.ForumId), 2);
+        DB.eventlog_create(null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, String.Format("Error In Forum (ID: {0}) Delete Task: {1}", this.ForumId, x));
+        DB.eventlog_create(null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
       }
     }
 

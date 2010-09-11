@@ -4,6 +4,8 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The yaf load board settings.
   /// </summary>
@@ -44,11 +46,11 @@ namespace YAF.Classes.Core
     /// </param>
     private void SetupLegacyBoardSettings(DataRow board)
     {
-      _membershipAppName = String.IsNullOrEmpty(board["MembershipAppName"].ToString())
+      _membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
                              ? YafContext.Current.CurrentMembership.ApplicationName
                              : board["MembershipAppName"].ToString();
 
-      _rolesAppName = String.IsNullOrEmpty(board["RolesAppName"].ToString())
+      _rolesAppName = board["RolesAppName"].ToString().IsNotSet()
                         ? YafContext.Current.CurrentRoles.ApplicationName
                         : board["RolesAppName"].ToString();
 

@@ -20,6 +20,8 @@ using System;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The theme handler.
   /// </summary>
@@ -107,7 +109,7 @@ namespace YAF.Classes.Core
         if (!YafTheme.IsValidTheme(Theme.ThemeFile))
         {
           // can't load a theme... throw an exception.
-          throw new Exception(String.Format("Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile));
+          throw new Exception("Unable to find a theme to load. Last attempted to load \"{0}\" but failed.".FormatWith(themeFile));
         }
 
         if (AfterInit != null)

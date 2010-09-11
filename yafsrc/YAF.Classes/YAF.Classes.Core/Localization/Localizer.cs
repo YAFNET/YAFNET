@@ -210,7 +210,7 @@ namespace YAF.Classes.Core
         return;
       }
 
-      if (String.IsNullOrEmpty(page))
+      if (page.IsNotSet())
       {
         page = "DEFAULT";
       }

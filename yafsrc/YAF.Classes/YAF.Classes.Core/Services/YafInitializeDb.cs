@@ -65,7 +65,7 @@ namespace YAF.Classes.Core
 
       // step 2: validate the database version...
       string redirectStr = DB.forumpage_validateversion(YafForumInfo.AppVersion);
-      if (!String.IsNullOrEmpty(redirectStr))
+      if (redirectStr.IsSet())
       {
         HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
       }

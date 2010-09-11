@@ -73,7 +73,7 @@ namespace YAF.Classes.Core.BBCode
     {
       get
       {
-        return String.Format("Find = \"{0}\"", this._find);
+        return "Find = \"{0}\"".FormatWith(this._find);
       }
     }
 

@@ -14,6 +14,8 @@ namespace YAF.Classes.Core.BBCode
   using System.IO;
   using System.Text.RegularExpressions;
 
+  using YAF.Classes.Utils;
+
   #endregion
 
   /// <summary>
@@ -167,7 +169,7 @@ namespace YAF.Classes.Core.BBCode
                     ".def...</span>";
         valid = false;
         throw new ApplicationException(
-          string.Format("There was an error opening file {0}{1}.def", pathToDefFile, language), ex);
+          "There was an error opening file {0}{1}.def".FormatWith(pathToDefFile, language), ex);
       }
 
       if (valid)

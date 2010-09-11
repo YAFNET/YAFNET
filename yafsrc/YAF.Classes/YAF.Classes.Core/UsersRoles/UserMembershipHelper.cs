@@ -187,7 +187,7 @@ namespace YAF.Classes.Core
     public static void ClearCacheForUserId(long userId)
     {
       YafContext.Current.UserDisplayName.Clear((int)userId);
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(string.Format("UserListForID{0}", userId)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey("UserListForID{0}".FormatWith(userId)));
 
       string cacheKey =
           YafCache.GetBoardCacheKey(Constants.Cache.UserSignatureCache);
@@ -576,7 +576,7 @@ namespace YAF.Classes.Core
       }
 
       // get the item cached...
-      string cacheKey = YafCache.GetBoardCacheKey(string.Format("UserListForID{0}", userID));
+      string cacheKey = YafCache.GetBoardCacheKey("UserListForID{0}".FormatWith(userID));
 
       var userRow = YafContext.Current.Cache.GetItem<DataRow>(
         cacheKey, 5, () => DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow());

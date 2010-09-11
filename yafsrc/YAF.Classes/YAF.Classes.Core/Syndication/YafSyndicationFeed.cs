@@ -24,6 +24,8 @@ namespace YAF.Classes.Core
   using System.Collections.Generic;
   using System.ServiceModel.Syndication;
 
+  using YAF.Classes.Utils;
+
   #endregion
 
   /// <summary>
@@ -124,8 +126,8 @@ namespace YAF.Classes.Core
     public YafSyndicationFeed()
     {
       this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
-      this.Description = new TextSyndicationContent(String.Format("YetAnotherForum.NET - {0}", YafContext.Current.Localization.GetText("RSSFEED")));
-      this.Title = new TextSyndicationContent(String.Format("{0} - {1}", YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
+      this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED")));
+      this.Title = new TextSyndicationContent("{0} - {1}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
       this.Id = YafContext.Current.BoardSettings.Name;
       this.LastUpdatedTime = DateTime.UtcNow;
       this.Language = YafContext.Current.Localization.LanguageCode;
@@ -140,8 +142,8 @@ namespace YAF.Classes.Core
     public YafSyndicationFeed(string subTitle)
     {
         this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
-        this.Description = new TextSyndicationContent(String.Format("YetAnotherForum.NET - {0}", YafContext.Current.Localization.GetText("RSSFEED")));
-        this.Title = new TextSyndicationContent(String.Format("{0} - {1} - {2}", YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
+        this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED")));
+        this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
         this.Id = YafContext.Current.BoardSettings.Name;
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;

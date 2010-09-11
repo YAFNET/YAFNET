@@ -19,6 +19,8 @@
  */
 namespace YAF.Classes.Core.Nntp
 {
+  #region Using
+
   using System;
   using System.Collections;
   using System.IO;
@@ -26,32 +28,45 @@ namespace YAF.Classes.Core.Nntp
   using System.Text.RegularExpressions;
   using System.Web;
 
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The nntp util.
   /// </summary>
   public class NntpUtil
   {
-    /// <summary>
-    /// The base 64 pem code.
-    /// </summary>
-    private static char[] base64PemCode = {
-                                            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 
-                                            'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
-                                            'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
-                                          };
+    #region Constants and Fields
 
     /// <summary>
-    /// The base 64 pem convert code.
+    ///   The base 64 pem code.
     /// </summary>
-    private static byte[] base64PemConvertCode;
+    private static readonly char[] base64PemCode = {
+                                                     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+                                                     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+                                                     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+                                                     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 
+                                                     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
+                                                   };
 
     /// <summary>
-    /// The hex value.
+    ///   The base 64 pem convert code.
     /// </summary>
-    private static int[] hexValue;
+    private static readonly byte[] base64PemConvertCode;
 
     /// <summary>
-    /// Initializes static members of the <see cref="NntpUtil"/> class.
+    ///   The hex value.
+    /// </summary>
+    private static readonly int[] hexValue;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes static members of the <see cref = "NntpUtil" /> class.
     /// </summary>
     static NntpUtil()
     {
@@ -69,98 +84,18 @@ namespace YAF.Classes.Core.Nntp
       base64PemConvertCode = new byte[256];
       for (int i = 0; i < 255; i++)
       {
-        base64PemConvertCode[i] = (byte) 255;
+        base64PemConvertCode[i] = 255;
       }
 
       for (int i = 0; i < base64PemCode.Length; i++)
       {
-        base64PemConvertCode[base64PemCode[i]] = (byte) i;
+        base64PemConvertCode[base64PemCode[i]] = (byte)i;
       }
     }
 
-    /// <summary>
-    /// The uu decode.
-    /// </summary>
-    /// <param name="line">
-    /// The line.
-    /// </param>
-    /// <param name="outputStream">
-    /// The output stream.
-    /// </param>
-    /// <returns>
-    /// The uu decode.
-    /// </returns>
-    public static int UUDecode(string line, Stream outputStream)
-    {
-      return UUDecode(line.ToCharArray(), outputStream);
-    }
+    #endregion
 
-    /// <summary>
-    /// The uu decode.
-    /// </summary>
-    /// <param name="line">
-    /// The line.
-    /// </param>
-    /// <param name="outputStream">
-    /// The output stream.
-    /// </param>
-    /// <returns>
-    /// The uu decode.
-    /// </returns>
-    /// <exception cref="InvalidOperationException">
-    /// </exception>
-    public static int UUDecode(char[] line, Stream outputStream)
-    {
-      if (line.Length < 1)
-      {
-        throw new InvalidOperationException("Invalid line: " + new string(line) + ".");
-      }
-
-      if (line[0] == '`')
-      {
-        return 0;
-      }
-
-      var line2 = new uint[line.Length];
-      for (int ii = 0; ii < line.Length; ii++)
-      {
-        line2[ii] = (uint) line[ii] - 32 & 0x3f;
-      }
-
-      var length = (int) line2[0];
-      if ((int) (length/3.0 + 0.999999999)*4 > line.Length - 1)
-      {
-        throw new InvalidOperationException("Invalid length(" + length + ") with line: " + new string(line) + ".");
-      }
-
-      int i = 1;
-      int j = 0;
-      while (length > j + 3)
-      {
-        outputStream.WriteByte((byte) ((line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3) & 0xff));
-        outputStream.WriteByte((byte) ((line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf) & 0xff));
-        outputStream.WriteByte((byte) ((line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f) & 0xff));
-        i += 4;
-        j += 3;
-      }
-
-      if (length > j)
-      {
-        outputStream.WriteByte((byte) ((line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3) & 0xff));
-      }
-
-      if (length > j + 1)
-      {
-        outputStream.WriteByte((byte) ((line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf) & 0xff));
-      }
-
-      if (length > j + 2)
-      {
-        outputStream.WriteByte((byte) ((line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f) & 0xff));
-      }
-
-      return length;
-    }
+    #region Public Methods
 
     /// <summary>
     /// The base 64 decode.
@@ -203,7 +138,7 @@ namespace YAF.Classes.Core.Nntp
       var line2 = new uint[line.Length];
       for (int ii = 0; ii < line.Length && line[ii] != '='; ii++)
       {
-        line2[ii] = (uint) base64PemConvertCode[line[ii] & 0xff];
+        line2[ii] = base64PemConvertCode[line[ii] & 0xff];
       }
 
       int length;
@@ -217,9 +152,9 @@ namespace YAF.Classes.Core.Nntp
       int j = 0;
       while (length - i >= 4)
       {
-        outputStream.WriteByte((byte) (line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
-        outputStream.WriteByte((byte) (line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf));
-        outputStream.WriteByte((byte) (line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f));
+        outputStream.WriteByte((byte)(line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
+        outputStream.WriteByte((byte)(line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf));
+        outputStream.WriteByte((byte)(line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f));
         i += 4;
         j += 3;
       }
@@ -227,11 +162,11 @@ namespace YAF.Classes.Core.Nntp
       switch (length - i)
       {
         case 2:
-          outputStream.WriteByte((byte) (line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
+          outputStream.WriteByte((byte)(line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
           return j + 1;
         case 3:
-          outputStream.WriteByte((byte) (line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
-          outputStream.WriteByte((byte) (line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf));
+          outputStream.WriteByte((byte)(line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3));
+          outputStream.WriteByte((byte)(line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf));
           return j + 2;
         default:
           return j;
@@ -239,67 +174,162 @@ namespace YAF.Classes.Core.Nntp
     }
 
     /// <summary>
-    /// The quoted printable decode.
+    /// The base 64 header decode.
     /// </summary>
     /// <param name="line">
     /// The line.
     /// </param>
-    /// <param name="outputStream">
-    /// The output stream.
-    /// </param>
     /// <returns>
-    /// The quoted printable decode.
+    /// The base 64 header decode.
     /// </returns>
-    public static int QuotedPrintableDecode(string line, Stream outputStream)
+    public static string Base64HeaderDecode(string line)
     {
-      return QuotedPrintableDecode(line.ToCharArray(), outputStream);
+      MemoryStream ms = null;
+      byte[] bytes = null;
+      string oStr = null;
+      string code = null;
+      string content = null;
+      Match m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=");
+      while (m.Success)
+      {
+        ms = new MemoryStream();
+        oStr = m.Groups[0].ToString();
+        code = m.Groups[1].ToString();
+        content = m.Groups[2].ToString();
+        Base64Decode(content, ms);
+        ms.Seek(0, SeekOrigin.Begin);
+        bytes = new byte[ms.Length];
+        ms.Read(bytes, 0, bytes.Length);
+        line = line.Replace(oStr, Encoding.GetEncoding(code).GetString(bytes));
+        m = m.NextMatch();
+      }
+
+      return line;
     }
 
     /// <summary>
-    /// The quoted printable decode.
+    /// The convert list to tree.
     /// </summary>
-    /// <param name="line">
-    /// The line.
-    /// </param>
-    /// <param name="outputStream">
-    /// The output stream.
+    /// <param name="list">
+    /// The list.
     /// </param>
     /// <returns>
-    /// The quoted printable decode.
     /// </returns>
-    public static int QuotedPrintableDecode(char[] line, Stream outputStream)
+    public static ArrayList ConvertListToTree(ArrayList list)
     {
-      int length = line.Length;
-      int i = 0, j = 0;
-      while (i < length)
+      var hash = new Hashtable(list.Count);
+      var treeList = new ArrayList();
+      int len;
+      bool isTop;
+      foreach (Article article in list)
       {
-        if (line[i] == '=')
+        isTop = true;
+        hash[article.MessageId] = article;
+        article.LastReply = article.Header.Date;
+        article.Children = new ArrayList();
+        len = article.Header.ReferenceIds.Length;
+        for (int i = 0; i < len; i++)
         {
-          if (i + 2 < length)
+          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
           {
-            outputStream.WriteByte((byte) (hexValue[(int) line[i + 1]] << 4 | hexValue[(int) line[i + 2]]));
-            i += 3;
+            ((Article)hash[article.Header.ReferenceIds[i]]).LastReply = article.LastReply;
+            break;
           }
-          else
+        }
+
+        for (int i = len - 1; i >= 0; i--)
+        {
+          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
           {
-            i++;
+            isTop = false;
+            ((Article)hash[article.Header.ReferenceIds[i]]).Children.Add(article);
+            break;
           }
+        }
+
+        if (isTop)
+        {
+          treeList.Add(article);
+        }
+      }
+
+      return treeList;
+    }
+
+    /// <summary>
+    /// Date from an Article Header converted to UTC
+    /// </summary>
+    /// <param name="nntpDateTime">
+    /// </param>
+    /// <param name="tzi">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DateTime DecodeUTC(string nntpDateTime, out int tzi)
+    {
+      nntpDateTime = nntpDateTime.Substring(nntpDateTime.IndexOf(',') + 1);
+      if (nntpDateTime.IndexOf("(") > 0)
+      {
+        nntpDateTime = nntpDateTime.Substring(0, nntpDateTime.IndexOf('(') - 1).Trim();
+      }
+
+      int ipos = nntpDateTime.IndexOf('+');
+      int ineg = nntpDateTime.IndexOf('-');
+      string tz = string.Empty;
+      if (ipos > 0)
+      {
+        tz = nntpDateTime.Substring(ipos + 1).Trim();
+        nntpDateTime = nntpDateTime.Substring(0, ipos - 1).Trim();
+      }
+      else if (ineg > 0)
+      {
+        tz = nntpDateTime.Substring(ineg + 1).Trim();
+        nntpDateTime = nntpDateTime.Substring(0, ineg - 1).Trim();
+      }
+
+      int indGMT = nntpDateTime.IndexOf("GMT");
+
+      if (indGMT > 0 && ineg < 0 && ipos < 0)
+      {
+        nntpDateTime = nntpDateTime.Substring(0, indGMT - 1).Trim();
+      }
+
+      DateTime dtc;
+      if (DateTime.TryParse(nntpDateTime, out dtc))
+      {
+        if (ipos > 0)
+        {
+          TimeSpan ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) +
+                        TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
+          tzi = ts.Minutes;
+          return dtc + ts;
+        }
+        else if (ineg > 0)
+        {
+          TimeSpan ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) +
+                        TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
+          tzi = ts.Minutes;
+          return dtc - ts;
         }
         else
         {
-          outputStream.WriteByte((byte) line[i]);
-          i++;
+          tzi = 0;
+          return dtc;
         }
 
-        j++;
+        // eof vzrus
       }
-
-      if (line[length - 1] != '=')
+      else
       {
-        outputStream.WriteByte((byte) '\n');
+        DB.eventlog_create(
+          YafContext.Current.PageUserID, 
+          "NNTP Feature", 
+          "Unhandled NNTP DateTime nntpDateTime '{0}'".FormatWith(nntpDateTime), 
+          EventLogTypes.Error);
       }
 
-      return j;
+      tzi = 0;
+      return DateTime.UtcNow;
     }
 
     /// <summary>
@@ -363,12 +393,7 @@ namespace YAF.Classes.Core.Nntp
               if (m.Success)
               {
                 newPart.Filename = Base64HeaderDecode(m.Groups[1].ToString());
-                newPart.Filename = newPart.Filename.Substring(
-                  newPart.Filename.LastIndexOfAny(
-                    new[]
-                      {
-                        '\\', '/'
-                      }) + 1);
+                newPart.Filename = newPart.Filename.Substring(newPart.Filename.LastIndexOfAny(new[] { '\\', '/' }) + 1);
               }
 
               line = sr.ReadLine();
@@ -411,12 +436,12 @@ namespace YAF.Classes.Core.Nntp
                 case "7BIT":
                   bytes = Encoding.ASCII.GetBytes(line);
                   ms.Write(bytes, 0, bytes.Length);
-                  ms.WriteByte((byte) '\n');
+                  ms.WriteByte((byte)'\n');
                   break;
                 default:
                   bytes = Encoding.ASCII.GetBytes(line);
                   ms.Write(bytes, 0, bytes.Length);
-                  ms.WriteByte((byte) '\n');
+                  ms.WriteByte((byte)'\n');
                   break;
               }
             }
@@ -470,7 +495,7 @@ namespace YAF.Classes.Core.Nntp
 
           ms.Seek(0, SeekOrigin.Begin);
           part.BinaryData = new byte[ms.Length];
-          ms.Read(part.BinaryData, 0, (int) ms.Length);
+          ms.Read(part.BinaryData, 0, (int)ms.Length);
           break;
       }
 
@@ -478,150 +503,153 @@ namespace YAF.Classes.Core.Nntp
     }
 
     /// <summary>
-    /// The base 64 header decode.
+    /// The quoted printable decode.
     /// </summary>
     /// <param name="line">
     /// The line.
     /// </param>
-    /// <returns>
-    /// The base 64 header decode.
-    /// </returns>
-    public static string Base64HeaderDecode(string line)
-    {
-      MemoryStream ms = null;
-      byte[] bytes = null;
-      string oStr = null;
-      string code = null;
-      string content = null;
-      Match m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=");
-      while (m.Success)
-      {
-        ms = new MemoryStream();
-        oStr = m.Groups[0].ToString();
-        code = m.Groups[1].ToString();
-        content = m.Groups[2].ToString();
-        Base64Decode(content, ms);
-        ms.Seek(0, SeekOrigin.Begin);
-        bytes = new byte[ms.Length];
-        ms.Read(bytes, 0, bytes.Length);
-        line = line.Replace(oStr, Encoding.GetEncoding(code).GetString(bytes));
-        m = m.NextMatch();
-      }
-
-      return line;
-    }
-
-    /// <summary>
-    /// The convert list to tree.
-    /// </summary>
-    /// <param name="list">
-    /// The list.
+    /// <param name="outputStream">
+    /// The output stream.
     /// </param>
     /// <returns>
+    /// The quoted printable decode.
     /// </returns>
-    public static ArrayList ConvertListToTree(ArrayList list)
+    public static int QuotedPrintableDecode(string line, Stream outputStream)
     {
-      var hash = new Hashtable(list.Count);
-      var treeList = new ArrayList();
-      int len;
-      bool isTop;
-      foreach (Article article in list)
-      {
-        isTop = true;
-        hash[article.MessageId] = article;
-        article.LastReply = article.Header.Date;
-        article.Children = new ArrayList();
-        len = article.Header.ReferenceIds.Length;
-        for (int i = 0; i < len; i++)
-        {
-          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
-          {
-            ((Article) hash[article.Header.ReferenceIds[i]]).LastReply = article.LastReply;
-            break;
-          }
-        }
-
-        for (int i = len - 1; i >= 0; i--)
-        {
-          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
-          {
-            isTop = false;
-            ((Article) hash[article.Header.ReferenceIds[i]]).Children.Add(article);
-            break;
-          }
-        }
-
-        if (isTop)
-        {
-          treeList.Add(article);
-        }
-      }
-
-      return treeList;
+      return QuotedPrintableDecode(line.ToCharArray(), outputStream);
     }
+
     /// <summary>
-    /// Date from an Article Header converted to UTC
+    /// The quoted printable decode.
     /// </summary>
-    /// <param name="nntpDateTime"></param>
-    /// <param name="tzi"></param>
-    /// <returns></returns>
-    public static DateTime DecodeUTC(string nntpDateTime, out int tzi)
+    /// <param name="line">
+    /// The line.
+    /// </param>
+    /// <param name="outputStream">
+    /// The output stream.
+    /// </param>
+    /// <returns>
+    /// The quoted printable decode.
+    /// </returns>
+    public static int QuotedPrintableDecode(char[] line, Stream outputStream)
     {
-        nntpDateTime = nntpDateTime.Substring(nntpDateTime.IndexOf(',') + 1);
-        if (nntpDateTime.IndexOf("(") > 0)
+      int length = line.Length;
+      int i = 0, j = 0;
+      while (i < length)
+      {
+        if (line[i] == '=')
         {
-            nntpDateTime = nntpDateTime.Substring(0, nntpDateTime.IndexOf('(') - 1).Trim();
-        }        
-        int ipos = nntpDateTime.IndexOf('+');
-        int ineg = nntpDateTime.IndexOf('-');
-        string tz = string.Empty;
-        if (ipos > 0)
-        {
-            tz = nntpDateTime.Substring(ipos + 1).Trim();
-            nntpDateTime = nntpDateTime.Substring(0, ipos - 1).Trim();
-        }
-        else if (ineg > 0)
-        {
-            tz = nntpDateTime.Substring(ineg + 1).Trim();
-            nntpDateTime = nntpDateTime.Substring(0, ineg - 1).Trim();
-        } 
- 
-        int indGMT = nntpDateTime.IndexOf("GMT");
-
-        if (indGMT > 0 && ineg < 0 && ipos < 0)
-            {
-                nntpDateTime = nntpDateTime.Substring(0,indGMT-1).Trim();
-            }      
-      
-        DateTime dtc;
-        if (DateTime.TryParse(nntpDateTime, out dtc))
-        {
-
-            if (ipos > 0)
-            {
-                TimeSpan ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) + TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
-                tzi = ts.Minutes;
-                return dtc + ts;
-            }
-            else if (ineg > 0)
-            {
-                TimeSpan ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) + TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
-                tzi = ts.Minutes;
-                return dtc - ts;
-            }
-            else
-            {
-                tzi = 0;
-                return dtc;
-            }
-            // eof vzrus
+          if (i + 2 < length)
+          {
+            outputStream.WriteByte((byte)(hexValue[line[i + 1]] << 4 | hexValue[line[i + 2]]));
+            i += 3;
+          }
+          else
+          {
+            i++;
+          }
         }
         else
         {
-            YAF.Classes.Data.DB.eventlog_create(YafContext.Current.PageUserID, "NNTP Feature", String.Format("Unhandled NNTP DateTime nntpDateTime '{0}'", nntpDateTime), EventLogTypes.Error);
+          outputStream.WriteByte((byte)line[i]);
+          i++;
         }
-        tzi = 0;
-        return DateTime.UtcNow;
+
+        j++;
+      }
+
+      if (line[length - 1] != '=')
+      {
+        outputStream.WriteByte((byte)'\n');
+      }
+
+      return j;
     }
+
+    /// <summary>
+    /// The uu decode.
+    /// </summary>
+    /// <param name="line">
+    /// The line.
+    /// </param>
+    /// <param name="outputStream">
+    /// The output stream.
+    /// </param>
+    /// <returns>
+    /// The uu decode.
+    /// </returns>
+    public static int UUDecode(string line, Stream outputStream)
+    {
+      return UUDecode(line.ToCharArray(), outputStream);
+    }
+
+    /// <summary>
+    /// The uu decode.
+    /// </summary>
+    /// <param name="line">
+    /// The line.
+    /// </param>
+    /// <param name="outputStream">
+    /// The output stream.
+    /// </param>
+    /// <returns>
+    /// The uu decode.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// </exception>
+    public static int UUDecode(char[] line, Stream outputStream)
+    {
+      if (line.Length < 1)
+      {
+        throw new InvalidOperationException("Invalid line: " + new string(line) + ".");
+      }
+
+      if (line[0] == '`')
+      {
+        return 0;
+      }
+
+      var line2 = new uint[line.Length];
+      for (int ii = 0; ii < line.Length; ii++)
+      {
+        line2[ii] = (uint)line[ii] - 32 & 0x3f;
+      }
+
+      var length = (int)line2[0];
+      if ((int)(length / 3.0 + 0.999999999) * 4 > line.Length - 1)
+      {
+        throw new InvalidOperationException("Invalid length(" + length + ") with line: " + new string(line) + ".");
+      }
+
+      int i = 1;
+      int j = 0;
+      while (length > j + 3)
+      {
+        outputStream.WriteByte((byte)((line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3) & 0xff));
+        outputStream.WriteByte((byte)((line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf) & 0xff));
+        outputStream.WriteByte((byte)((line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f) & 0xff));
+        i += 4;
+        j += 3;
+      }
+
+      if (length > j)
+      {
+        outputStream.WriteByte((byte)((line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3) & 0xff));
+      }
+
+      if (length > j + 1)
+      {
+        outputStream.WriteByte((byte)((line2[i + 1] << 4 & 0xf0 | line2[i + 2] >> 2 & 0xf) & 0xff));
+      }
+
+      if (length > j + 2)
+      {
+        outputStream.WriteByte((byte)((line2[i + 2] << 6 & 0xc0 | line2[i + 3] & 0x3f) & 0xff));
+      }
+
+      return length;
+    }
+
+    #endregion
   }
 }

@@ -57,36 +57,22 @@ namespace YAF.Classes.Core
 
       if (YafContext.Current.BoardSettings.AvatarUpload && userData.HasAvatarImage)
       {
-        avatarUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumClientFileRoot, userData.UserID);
+        avatarUrl = "{0}resource.ashx?u={1}".FormatWith(YafForumInfo.ForumClientFileRoot, userData.UserID);
       }
-      else if (!String.IsNullOrEmpty(userData.Avatar))
+      else if (userData.Avatar.IsSet())
       {
         // Took out PageContext.BoardSettings.AvatarRemote
-        avatarUrl = String.Format(
-          "{3}resource.ashx?url={0}&width={1}&height={2}", 
-          HttpContext.Current.Server.UrlEncode(userData.Avatar), 
-          YafContext.Current.BoardSettings.AvatarWidth, 
-          YafContext.Current.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumClientFileRoot);
+        avatarUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(HttpContext.Current.Server.UrlEncode(userData.Avatar), YafContext.Current.BoardSettings.AvatarWidth, YafContext.Current.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
       }
         
         // JoeOuts added 8/17/09 for Gravatar use
-      else if (YafContext.Current.BoardSettings.AvatarGravatar && !String.IsNullOrEmpty(userData.Email))
+      else if (YafContext.Current.BoardSettings.AvatarGravatar && userData.Email.IsSet())
       {
         // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
-        string gravatarUrl = String.Format(
-          @"http://www.gravatar.com/avatar/{0}.jpg?r={1}", 
-          // &d={2} don't use a default...
-          StringHelper.StringToHexBytes(userData.Email), 
-          YafContext.Current.BoardSettings.GravatarRating);
+        string gravatarUrl = @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(StringHelper.StringToHexBytes(userData.Email), YafContext.Current.BoardSettings.GravatarRating);
 
 
-        avatarUrl = String.Format(
-          "{3}resource.ashx?url={0}&width={1}&height={2}", 
-          HttpContext.Current.Server.UrlEncode(gravatarUrl), 
-          YafContext.Current.BoardSettings.AvatarWidth, 
-          YafContext.Current.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumClientFileRoot);
+        avatarUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(HttpContext.Current.Server.UrlEncode(gravatarUrl), YafContext.Current.BoardSettings.AvatarWidth, YafContext.Current.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
       }
 
       return avatarUrl;

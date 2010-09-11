@@ -24,8 +24,9 @@ namespace YAF.Classes.Core
     using System.IO;
     using AjaxPro;
     using YAF.Classes.Data;
+    using YAF.Classes.Utils;
 
-    /// <summary>
+  /// <summary>
     /// Album Service for the current user.
     /// </summary>
     public static class YafAlbum
@@ -55,7 +56,7 @@ namespace YAF.Classes.Core
             returnObject.NewTitle = (newTitle == string.Empty)
                                         ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_CHANGE_TITLE")
                                         : newTitle;
-            returnObject.Id = string.Format("0{0}", albumID.ToString());
+            returnObject.Id = "0{0}".FormatWith(albumID.ToString());
             return returnObject;
         }
 
@@ -109,7 +110,7 @@ namespace YAF.Classes.Core
                 var dt = DB.album_image_list(albumID, null);
                 foreach (DataRow dr in dt.Rows)
                 {
-                    var fullName = String.Format("{0}/{1}.{2}.{3}.yafalbum", upDir, userID, albumID, dr["FileName"]);
+                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]);
                     var file = new FileInfo(fullName);
                     if (file.Exists)
                     {
@@ -125,7 +126,7 @@ namespace YAF.Classes.Core
                     var dr = dt.Rows[0];
                     var fileName = dr["FileName"].ToString();
                     var imgAlbumID = dr["albumID"].ToString();
-                    var fullName = String.Format("{0}/{1}.{2}.{3}.yafalbum", upDir, userID, imgAlbumID, fileName);
+                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumID, fileName);
                     var file = new FileInfo(fullName);
                     if (file.Exists)
                     {

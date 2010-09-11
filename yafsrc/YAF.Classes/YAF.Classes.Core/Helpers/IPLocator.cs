@@ -1,195 +1,403 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using System.Text;
-using System.Xml.Serialization;
-using System.Xml;
-using System.IO;
-using System.Net;
-
-
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 namespace YAF.Classes.Core
 {
-    
+  #region Using
+
+  using System;
+  using System.IO;
+  using System.Net;
+  using System.Text;
+  using System.Xml;
+  using System.Xml.Serialization;
+
+  using YAF.Classes.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for IPLocater
+  /// </summary>
+  public class IPDetails
+  {
+    #region Public Methods
+
     /// <summary>
-    /// Summary description for IPLocater
+    /// IP Details From IP Address
     /// </summary>
-    public class IPDetails
+    /// <param name="ipAddress">
+    /// string IPAddess 
+    /// </param>
+    /// <param name="tzInfo">
+    /// The tz Info.
+    /// </param>
+    /// <returns>
+    /// IPLocator Class
+    /// </returns>
+    public IPLocator GetData(string ipAddress, bool tzInfo)
     {
-        public IPDetails()
+      var ipLoc = new IPLocator();
+      if (YafContext.Current.BoardSettings.EnableIPInfoService)
+      {
+        try
+        {
+          string path = YafContext.Current.BoardSettings.IPLocatorPath.FormatWith(ipAddress, tzInfo ? "true" : "false");
+          var client = new WebClient();
+          string[] eResult = client.DownloadString(path).Split(',');
+          if (eResult.Length > 0)
+          {
+            // replace here 
+            object o = this.Deserialize(eResult[0]);
+            ipLoc = (IPLocator)this.Deserialize(eResult[0]);
+          }
+        }
+        catch
         {
         }
-        /// <summary>
-        /// IP Details From IP Address
-        /// </summary>
-        /// <param name="ipAddress">string IPAddess </param>
-        /// <returns>IPLocator Class</returns>
-        public IPLocator GetData(string ipAddress, bool tzInfo)
-        {
-           IPLocator ipLoc = new IPLocator();
-           if (YafContext.Current.BoardSettings.EnableIPInfoService)
-            {
-                try
-                {
-                    string path = String.Format(YafContext.Current.BoardSettings.IPLocatorPath, ipAddress,
-                                                tzInfo ? "true" : "false");
-                    var client = new WebClient();
-                    string[] eResult = client.DownloadString(path).ToString().Split(',');
-                    if (eResult.Length > 0)
-                    {
-                        // replace here 
-                        object o = Deserialize(eResult[0].ToString());
-                        ipLoc = (IPLocator) Deserialize(eResult[0].ToString());
-                    }
-                }
-                catch
-                {
-                }
-            }
-            return ipLoc;
-        }
-        /// <summary>
-        /// Deserialize XML String
-        /// </summary>
-        /// <param name="pXmlizedString"></param>
-        /// <returns></returns>
-        private Object Deserialize(String pXmlizedString)
-        {
-            XmlSerializer xs = new XmlSerializer(typeof(IPLocator));
-            MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(pXmlizedString));
-            XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-            return xs.Deserialize(memoryStream);
-        }
-        private Byte[] StringToUTF8ByteArray(String pXmlString)
-        {
-            UTF8Encoding encoding = new UTF8Encoding();
-            Byte[] byteArray = encoding.GetBytes(pXmlString);
-            return byteArray;
-        }
-       
+      }
+
+      return ipLoc;
     }
-    [XmlRootAttribute(ElementName = "Response", IsNullable = false)]
-    public class IPLocator
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Deserialize XML String
+    /// </summary>
+    /// <param name="pXmlizedString">
+    /// </param>
+    /// <returns>
+    /// The deserialize.
+    /// </returns>
+    private object Deserialize(string pXmlizedString)
     {
-        public IPLocator()
-        { }
-
-        private string isdst;
-        public string Isdst
-        {
-            get { return isdst; }
-            set { isdst = value; }
-        }
-        private string gmtoffset;
-
-        public string Gmtoffset
-        {
-            get { return gmtoffset; }
-            set { gmtoffset = value; }
-        }
-
-
-        private string timezone;
-
-        public string TimezoneName
-        {
-            get { return timezone; }
-            set { timezone = value; }
-        }
-
-
-        private string longitude;
-
-        public string Longitude
-        {
-            get { return longitude; }
-            set { longitude = value; }
-        }
-
-
-        private string latitude;
-
-        public string Latitude
-        {
-            get { return latitude; }
-            set { latitude = value; }
-        }
-
-        private string zip;
-
-        public string Zip
-        {
-            get { return zip; }
-            set { zip = value; }
-        }
-
-
-
-        private string city;
-
-        public string City
-        {
-            get { return city; }
-            set { city = value; }
-        }
-
-
-        private string regionname;
-
-        public string RegionName
-        {
-            get { return regionname; }
-            set { regionname = value; }
-        }
-
-        private string regioncode;
-
-        public string RegionCode
-        {
-            get { return regioncode; }
-            set { regioncode = value; }
-        }
-
-        private string countryname;
-
-        public string CountryName
-        {
-            get { return countryname; }
-            set { countryname = value; }
-        }
-
-
-        private string countrycode;
-
-        public string CountryCode
-        {
-            get { return countrycode; }
-            set { countrycode = value; }
-        }
-
-
-        private string status;
-
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
-
-        private string ip;
-
-        public string IP
-        {
-            get { return ip; }
-            set { ip = value; }
-        }
-
+      var xs = new XmlSerializer(typeof(IPLocator));
+      var memoryStream = new MemoryStream(this.StringToUTF8ByteArray(pXmlizedString));
+      var xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+      return xs.Deserialize(memoryStream);
     }
+
+    /// <summary>
+    /// The string to ut f 8 byte array.
+    /// </summary>
+    /// <param name="pXmlString">
+    /// The p xml string.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    private byte[] StringToUTF8ByteArray(string pXmlString)
+    {
+      var encoding = new UTF8Encoding();
+      byte[] byteArray = encoding.GetBytes(pXmlString);
+      return byteArray;
+    }
+
+    #endregion
+  }
+
+  /// <summary>
+  /// The ip locator.
+  /// </summary>
+  [XmlRootAttribute(ElementName = "Response", IsNullable = false)]
+  public class IPLocator
+  {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The city.
+    /// </summary>
+    private string city;
+
+    /// <summary>
+    /// The countrycode.
+    /// </summary>
+    private string countrycode;
+
+    /// <summary>
+    /// The countryname.
+    /// </summary>
+    private string countryname;
+
+    /// <summary>
+    /// The gmtoffset.
+    /// </summary>
+    private string gmtoffset;
+
+    /// <summary>
+    /// The ip.
+    /// </summary>
+    private string ip;
+
+    /// <summary>
+    /// The isdst.
+    /// </summary>
+    private string isdst;
+
+    /// <summary>
+    /// The latitude.
+    /// </summary>
+    private string latitude;
+
+    /// <summary>
+    /// The longitude.
+    /// </summary>
+    private string longitude;
+
+    /// <summary>
+    /// The regioncode.
+    /// </summary>
+    private string regioncode;
+
+    /// <summary>
+    /// The regionname.
+    /// </summary>
+    private string regionname;
+
+    /// <summary>
+    /// The status.
+    /// </summary>
+    private string status;
+
+    /// <summary>
+    /// The timezone.
+    /// </summary>
+    private string timezone;
+
+    /// <summary>
+    /// The zip.
+    /// </summary>
+    private string zip;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets City.
+    /// </summary>
+    public string City
+    {
+      get
+      {
+        return this.city;
+      }
+
+      set
+      {
+        this.city = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets CountryCode.
+    /// </summary>
+    public string CountryCode
+    {
+      get
+      {
+        return this.countrycode;
+      }
+
+      set
+      {
+        this.countrycode = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets CountryName.
+    /// </summary>
+    public string CountryName
+    {
+      get
+      {
+        return this.countryname;
+      }
+
+      set
+      {
+        this.countryname = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Gmtoffset.
+    /// </summary>
+    public string Gmtoffset
+    {
+      get
+      {
+        return this.gmtoffset;
+      }
+
+      set
+      {
+        this.gmtoffset = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets IP.
+    /// </summary>
+    public string IP
+    {
+      get
+      {
+        return this.ip;
+      }
+
+      set
+      {
+        this.ip = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Isdst.
+    /// </summary>
+    public string Isdst
+    {
+      get
+      {
+        return this.isdst;
+      }
+
+      set
+      {
+        this.isdst = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Latitude.
+    /// </summary>
+    public string Latitude
+    {
+      get
+      {
+        return this.latitude;
+      }
+
+      set
+      {
+        this.latitude = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Longitude.
+    /// </summary>
+    public string Longitude
+    {
+      get
+      {
+        return this.longitude;
+      }
+
+      set
+      {
+        this.longitude = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets RegionCode.
+    /// </summary>
+    public string RegionCode
+    {
+      get
+      {
+        return this.regioncode;
+      }
+
+      set
+      {
+        this.regioncode = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets RegionName.
+    /// </summary>
+    public string RegionName
+    {
+      get
+      {
+        return this.regionname;
+      }
+
+      set
+      {
+        this.regionname = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Status.
+    /// </summary>
+    public string Status
+    {
+      get
+      {
+        return this.status;
+      }
+
+      set
+      {
+        this.status = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets TimezoneName.
+    /// </summary>
+    public string TimezoneName
+    {
+      get
+      {
+        return this.timezone;
+      }
+
+      set
+      {
+        this.timezone = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Zip.
+    /// </summary>
+    public string Zip
+    {
+      get
+      {
+        return this.zip;
+      }
+
+      set
+      {
+        this.zip = value;
+      }
+    }
+
+    #endregion
+  }
 }

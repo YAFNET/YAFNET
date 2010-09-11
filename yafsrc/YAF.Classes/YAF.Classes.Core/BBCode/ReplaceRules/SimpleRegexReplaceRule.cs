@@ -22,6 +22,8 @@ namespace YAF.Classes.Core.BBCode
   using System.Text;
   using System.Text.RegularExpressions;
 
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// For basic regex with no variables
   /// </summary>
@@ -87,7 +89,7 @@ namespace YAF.Classes.Core.BBCode
     {
       get
       {
-        return String.Format("RegExSearch = \"{0}\"", this._regExSearch);
+        return "RegExSearch = \"{0}\"".FormatWith(this._regExSearch);
       }
     }
 

@@ -21,6 +21,8 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Run when we want to do migration of users in the background...
   /// </summary>
@@ -161,11 +163,11 @@ namespace YAF.Classes.Core
       {
         int count = DB.topic_prune(this.BoardID, this.ForumId, this.Days, this.PermDelete);
 
-        DB.eventlog_create(null, TaskName, String.Format("Prune Task Complete. Pruned {0} topics.", count), 2);
+        DB.eventlog_create(null, TaskName, "Prune Task Complete. Pruned {0} topics.".FormatWith(count), 2);
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, String.Format("Error In Prune Topic Task: {0}", x));
+        DB.eventlog_create(null, TaskName, "Error In Prune Topic Task: {0}".FormatWith(x));
       }
     }
   }

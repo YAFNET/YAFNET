@@ -728,7 +728,7 @@ namespace YAF.Classes
     {
       get
       {
-        return this._reg.GetValue<int>("CaptchaSize", 5);
+        return this._reg.GetValue<int>("CaptchaSize", 8);
       }
 
       set

@@ -22,6 +22,7 @@ namespace YAF.Classes.Core
   using System.Data;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// Yaf buddies service
@@ -58,7 +59,7 @@ namespace YAF.Classes.Core
     {
       DataTable dt = BuddyList();
       DataView dv = dt.DefaultView;
-      dv.RowFilter = String.Format("Approved = 0 AND UserID = {0}", YafContext.Current.PageUserID);
+      dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
       foreach (DataRowView drv in dv)
       {
         ApproveBuddyRequest((int)drv["FromUserID"], Mutual);
@@ -103,12 +104,12 @@ namespace YAF.Classes.Core
     public static void ClearBuddyCache(int UserID)
     {
       // Clear for the current user.
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, YafContext.Current.PageUserID)));
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, YafContext.Current.PageUserID)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UserBuddies.FormatWith(YafContext.Current.PageUserID)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(YafContext.Current.PageUserID)));
       
        // Clear for the second user.
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, UserID)));
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, UserID)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UserBuddies.FormatWith(UserID)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(UserID)));
       
     }
 
@@ -119,7 +120,7 @@ namespace YAF.Classes.Core
     {
       DataTable dt = BuddyList();
       DataView dv = dt.DefaultView;
-      dv.RowFilter = String.Format("Approved = 0 AND UserID = {0}", YafContext.Current.PageUserID);
+      dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
       foreach (DataRowView drv in dv)
       {
         if (Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow)
@@ -184,14 +185,14 @@ namespace YAF.Classes.Core
         // Filter the DataTable.
         if (Approved)
         {
-          if (userBuddyList.Select(string.Format("UserID = {0} AND Approved = 1", BuddyUserID)).Length > 0)
+          if (userBuddyList.Select("UserID = {0} AND Approved = 1".FormatWith(BuddyUserID)).Length > 0)
           {
             return true;
           }
         }
         else
         {
-          if (userBuddyList.Select(string.Format("UserID = {0}", BuddyUserID)).Length > 0)
+          if (userBuddyList.Select("UserID = {0}".FormatWith(BuddyUserID)).Length > 0)
           {
             return true;
           }

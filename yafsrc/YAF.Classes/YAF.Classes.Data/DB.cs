@@ -1063,7 +1063,7 @@ namespace YAF.Classes.Data
 
       string[] words;
 
-      if (!String.IsNullOrEmpty(toSearchFromWho))
+      if (toSearchFromWho.IsSet())
       {
         searchSql += "AND (";
         bFirst = true;
@@ -1167,7 +1167,7 @@ namespace YAF.Classes.Data
       }
 
 
-      if (!String.IsNullOrEmpty(toSearchWhat))
+      if (toSearchWhat.IsSet())
       {
         searchSql += "AND (";
         bFirst = true;
@@ -5856,9 +5856,9 @@ namespace YAF.Classes.Data
               cmd.Parameters.AddWithValue(String.Format("@Votes{0}", choiceCount1), 0);
            
                   cmd.Parameters.AddWithValue(String.Format("@ChoiceObjectPath{0}", choiceCount1),
-                      String.IsNullOrEmpty(question.Choice[1, choiceCount1]) ? String.Empty : question.Choice[1, choiceCount1]);
+                      question.Choice[1, choiceCount1].IsNotSet() ? String.Empty : question.Choice[1, choiceCount1]);
                   cmd.Parameters.AddWithValue(String.Format("@ChoiceMimeType{0}", choiceCount1),
-                                               String.IsNullOrEmpty(question.Choice[2, choiceCount1]) ? String.Empty : question.Choice[2, choiceCount1]);
+                                               question.Choice[2, choiceCount1].IsNotSet() ? String.Empty : question.Choice[2, choiceCount1]);
               
 
             }

@@ -186,7 +186,7 @@ namespace YAF.Classes.Core
         emailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyText, textEncoding, "text/plain"));
 
         // see if html alternative is also desired...
-        if (!String.IsNullOrEmpty(bodyHtml))
+        if (bodyHtml.IsSet())
         {
           emailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, "text/html"));
         }
@@ -230,7 +230,7 @@ namespace YAF.Classes.Core
             bool deleteEmail = true;
 
             // Build a MailMessage
-            if (!String.IsNullOrEmpty(fromEmail) && !String.IsNullOrEmpty(toEmail))
+            if (fromEmail.IsSet() && toEmail.IsSet())
             {
               MailAddress toEmailAddress;
 

@@ -555,7 +555,7 @@ namespace YAF.Classes.Core
         name = name.Replace(",", string.Empty);
 
         // verify this user & email are not empty
-        if (!String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(email))
+        if (name.IsSet() && email.IsSet())
         {
           MembershipUser user = UserMembershipHelper.GetUser(name, false);
 
@@ -566,7 +566,7 @@ namespace YAF.Classes.Core
 
             if (status != MembershipCreateStatus.Success)
             {
-              DB.eventlog_create(0, "MigrateUsers", string.Format("Failed to create user {0}: {1}", name, status));
+              DB.eventlog_create(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
             }
             else
             {

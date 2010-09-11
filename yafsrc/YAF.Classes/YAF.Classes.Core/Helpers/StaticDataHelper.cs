@@ -82,7 +82,7 @@ namespace YAF.Classes.Core
             // Get all language files info
             var dir =
               new DirectoryInfo(
-                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
             FileInfo[] files = dir.GetFiles("*.xml");
            
             // Create an array with tags
@@ -148,7 +148,7 @@ namespace YAF.Classes.Core
             // Get all language files info
             var dir =
               new DirectoryInfo(
-                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
             FileInfo[] files = dir.GetFiles(fileName);
 
             if (files.Length <= 0) return rawTag;
@@ -190,7 +190,7 @@ namespace YAF.Classes.Core
 
         var dir =
           new DirectoryInfo(
-            HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+            HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
         FileInfo[] files = dir.GetFiles("*.xml");
         foreach (FileInfo file in files)
         {

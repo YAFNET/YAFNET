@@ -21,6 +21,8 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Run when we want to do migration of users in the background...
   /// </summary>
@@ -82,7 +84,7 @@ namespace YAF.Classes.Core
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, String.Format("Error In SyncMembershipUsers Task: {0}", x));
+        DB.eventlog_create(null, TaskName, "Error In SyncMembershipUsers Task: {0}".FormatWith(x));
       }
     }
   }

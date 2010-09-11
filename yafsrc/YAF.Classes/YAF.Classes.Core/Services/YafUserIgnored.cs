@@ -25,6 +25,8 @@ namespace YAF.Classes.Core
   using System.Web;
   using Data;
 
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// User Ignored Service for the current user.
   /// </summary>
@@ -65,7 +67,7 @@ namespace YAF.Classes.Core
     public void ClearIgnoreCache()
     {
       // clear for the session
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserIgnoreList, YafContext.Current.PageUserID));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID));
       HttpContext.Current.Session.Remove(key);
     }
 

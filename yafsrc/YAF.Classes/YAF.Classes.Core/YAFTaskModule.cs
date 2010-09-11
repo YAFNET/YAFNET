@@ -24,6 +24,8 @@ using System.Web;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Runs Tasks in the background -- controlled by the context.
   /// </summary>
@@ -295,7 +297,7 @@ namespace YAF.Classes.Core
         // add and start this module...
         if (!start.IsRunning && !TaskExists(instanceName))
         {
-          Debug.WriteLine(String.Format("Starting Task {0}...", instanceName));
+          Debug.WriteLine("Starting Task {0}...".FormatWith(instanceName));
 
           // setup and run...
           start.AppContext = _appInstance;
@@ -321,7 +323,7 @@ namespace YAF.Classes.Core
         {
           if (this.TryRemoveTask(instanceName))
           {
-            Debug.WriteLine(String.Format("Stopped Task {0}...", instanceName));
+            Debug.WriteLine("Stopped Task {0}...".FormatWith(instanceName));
             task.Dispose();
           }
         }

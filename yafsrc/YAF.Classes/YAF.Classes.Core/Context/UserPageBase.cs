@@ -565,7 +565,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (String.IsNullOrEmpty(Page["LastUnreadPm"].ToString()))
+        if (this.Page["LastUnreadPm"].ToString().IsNotSet())
         {
           return DateTime.MinValue;
         }
@@ -629,7 +629,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (String.IsNullOrEmpty(Page["LastPendingBuddies"].ToString()))
+        if (this.Page["LastPendingBuddies"].ToString().IsNotSet())
         {
           return DateTime.MinValue;
         }

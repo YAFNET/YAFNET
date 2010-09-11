@@ -28,6 +28,7 @@ namespace YAF.Classes.Core
   using AjaxPro;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   #endregion
 
@@ -71,7 +72,7 @@ namespace YAF.Classes.Core
     {
       // clear for the session
       string key =
-        YafCache.GetBoardCacheKey(String.Format(Constants.Cache.FavoriteTopicList, YafContext.Current.PageUserID));
+        YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID));
       HttpContext.Current.Session.Remove(key);
     }
 

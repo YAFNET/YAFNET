@@ -23,6 +23,8 @@ using System.Web.Caching;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Caching helper class
   /// </summary>
@@ -170,7 +172,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public static string GetBoardCacheKey(string key, int boardID)
     {
-      return String.Format("{0}.{1}", key, boardID);
+      return "{0}.{1}".FormatWith(key, boardID);
     }
 
 

@@ -26,6 +26,7 @@ namespace YAF.Classes.Core.Nntp
   using System.Web;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   #endregion
 
@@ -134,8 +135,8 @@ namespace YAF.Classes.Core.Nntp
                   dateTime = DateTime.UtcNow;
                 }
 
-                body = String.Format("Date: {0}\r\n\r\n", article.Header.Date) + body;
-                body = String.Format("Date parsed: {0}(UTC)\r\n", dateTime) + body;
+                body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
+                body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
 
                 if (createUsers)
                 {
