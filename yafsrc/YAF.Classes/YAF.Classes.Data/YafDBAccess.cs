@@ -28,6 +28,7 @@ namespace YAF.Classes.Data
   using System.Data.SqlClient;
 
   using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
 
   #endregion
 
@@ -173,6 +174,7 @@ namespace YAF.Classes.Data
       cmd.CommandType = CommandType.StoredProcedure;
       cmd.CommandText = GetObjectName(storedProcedure);
       cmd.Connection = connection;
+      cmd.CommandTimeout = 99999;
 
       return cmd;
     }
@@ -339,7 +341,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string GetObjectName(string name)
     {
-      return String.Format("[{0}].[{1}{2}]", Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
+      return "[{0}].[{1}{2}]".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
     }
 
     /// <summary>
@@ -433,8 +435,7 @@ namespace YAF.Classes.Data
     /// </param>
     public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
     {
-      var qc = new QueryCounter(cmd.CommandText);
-      try
+      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
       {
         using (YafDBConnManager connMan = this.GetConnectionManager())
         {
@@ -457,10 +458,6 @@ namespace YAF.Classes.Data
             cmd.ExecuteNonQuery();
           }
         }
-      }
-      finally
-      {
-        qc.Dispose();
       }
     }
 
@@ -493,8 +490,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public object ExecuteScalar(SqlCommand cmd, bool transaction)
     {
-      var qc = new QueryCounter(cmd.CommandText);
-      try
+      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
       {
         using (YafDBConnManager connMan = this.GetConnectionManager())
         {
@@ -518,10 +514,6 @@ namespace YAF.Classes.Data
             return cmd.ExecuteScalar();
           }
         }
-      }
-      finally
-      {
-        qc.Dispose();
       }
     }
 
@@ -555,15 +547,9 @@ namespace YAF.Classes.Data
     /// </returns>
     public DataTable GetData(SqlCommand cmd, bool transaction)
     {
-      var qc = new QueryCounter(cmd.CommandText);
-
-      try
+      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
       {
         return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], cmd.CommandText);
-      }
-      finally
-      {
-        qc.Dispose();
       }
     }
 
@@ -597,8 +583,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public DataTable GetData(string commandText, bool transaction)
     {
-      var qc = new QueryCounter(commandText);
-      try
+      using (QueryCounter qc = new QueryCounter(commandText))
       {
         using (var cmd = new SqlCommand())
         {
@@ -606,10 +591,6 @@ namespace YAF.Classes.Data
           cmd.CommandText = commandText;
           return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], commandText);
         }
-      }
-      finally
-      {
-        qc.Dispose();
       }
     }
 
@@ -643,15 +624,9 @@ namespace YAF.Classes.Data
     /// </returns>
     public DataSet GetDataset(SqlCommand cmd, bool transaction)
     {
-      var qc = new QueryCounter(cmd.CommandText);
-
-      try
+      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
       {
         return this.GetDatasetBasic(cmd, transaction);
-      }
-      finally
-      {
-        qc.Dispose();
       }
     }
 
@@ -670,7 +645,7 @@ namespace YAF.Classes.Data
     private DataTable ProcessUsingResultFilters(DataTable dataTable, string sqlCommand)
     {
       string commandCleaned =
-        sqlCommand.Replace(String.Format("[{0}].[{1}", Config.DatabaseOwner, Config.DatabaseObjectQualifier), String.Empty);
+        sqlCommand.Replace("[{0}].[{1}".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier), String.Empty);
 
       if (commandCleaned.EndsWith("]"))
       {
