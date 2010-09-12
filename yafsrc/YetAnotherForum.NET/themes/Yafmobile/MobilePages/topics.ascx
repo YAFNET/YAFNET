@@ -1,6 +1,6 @@
 <%@ Control Language="c#" CodeFile="topics.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.topics" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="TopicLineMobile" Src="TopicLineMobile.ascx" %>
+<%@ Register TagPrefix="YAFMobile" TagName="TopicLineMobile" Src="TopicLineMobile.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>
@@ -41,15 +41,15 @@
     </tr>
     <asp:Repeater ID="Announcements" runat="server">
         <ItemTemplate>
-            <YAF:TopicLineMobile runat="server" DataRow="<%# Container.DataItem %>" />
+            <YAFMobile:TopicLineMobile runat="server" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
-            <YAF:TopicLineMobile runat="server" DataRow="<%# Container.DataItem %>" />
+            <YAFMobile:TopicLineMobile runat="server" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
         <AlternatingItemTemplate>
-            <YAF:TopicLineMobile runat="server" IsAlt="True" DataRow="<%# Container.DataItem %>" />
+            <YAFMobile:TopicLineMobile runat="server" IsAlt="True" DataRow="<%# Container.DataItem %>" />
         </AlternatingItemTemplate>
     </asp:Repeater>
     <YAF:ForumUsers runat="server" />
