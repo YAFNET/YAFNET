@@ -451,10 +451,6 @@ if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{
 DROP TABLE {databaseOwner}{objectQualifier}yaf_WatchTopic
 GO
 
-if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_User]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-DROP TABLE {databaseOwner}{objectQualifier}yaf_User
-GO
-
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Group]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 DROP TABLE {databaseOwner}{objectQualifier}yaf_Group
 GO
@@ -485,6 +481,14 @@ GO
 
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_Message]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 DROP TABLE {databaseOwner}{objectQualifier}yaf_Message
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_User]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_User
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_PollGroupCluster]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_PollGroupCluster
 GO
 
 /****PROCEDURES**/
@@ -1605,3 +1609,46 @@ if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{o
 drop procedure {databaseOwner}{objectQualifier}yaf_prov_unlockuser
 GO
 
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_userstats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_userstats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_message_gettextbyids') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_message_gettextbyids
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_attach') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_attach
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_list') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_list
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_migration') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_migration
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_remove') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_remove
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_stats') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_stats
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_pollgroup_votecheck') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_pollgroup_votecheck
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_lazydata') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_lazydata
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_savenotification') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_savenotification
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_viewallthanks') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_viewallthanks
+GO

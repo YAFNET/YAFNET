@@ -100,9 +100,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Install\01.94.01.SqlDataProvider" />
-    <None Include="Install\Uninstall.SqlDataProvider" />
-    <None Include="Install\YAF_DNNv5.dnn">
+    <None Include="DnnModule\01.94.01.SqlDataProvider" />
+    <None Include="DnnModule\Uninstall.SqlDataProvider" />
+    <None Include="DnnModule\YAF_DNNv5.dnn">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -144,6 +144,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DnnModule\License.html" />
+    <Content Include="DnnModule\ReadMe.html" />
     <Content Include="YafDnnModule.ascx" />
     <Content Include="YafDnnModuleEdit.ascx" />
     <Content Include="YafDnnModuleImport.ascx" />
