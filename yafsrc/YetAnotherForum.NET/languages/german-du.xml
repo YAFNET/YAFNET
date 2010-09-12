@@ -94,8 +94,8 @@
 		<Resource tag="ADMIN_GROUPS">Betrachtet Gruppen im Adminbereich</Resource>
 		<Resource tag="ADMIN_USERS">Betrachtet Benutzer im Adminbereich</Resource>
 		<Resource tag="ADMIN_RANKS">Betrachtet/Bearbeitet Ränge im Adminbereich</Resource>
-		<Resource tag="ADMIN_LANGUAGES">Views languages list</Resource>
-		<Resource tag="ADMIN_EDITLANGUAGE">Edits a languages file</Resource>
+		<Resource tag="ADMIN_LANGUAGES">Betrachtet Sprachenliste</Resource>
+		<Resource tag="ADMIN_EDITLANGUAGE">Bearbeitet eine Sprachendatei</Resource>
 		<Resource tag="ADMIN_MAIL">Betrachtet/Bearbeitet Mails</Resource>
 		<Resource tag="ADMIN_MEDALS">Betrachtet/Bearbeitet Medalien</Resource>
 		<Resource tag="ADMIN_PRUNE">Betrachtet/Bearbeitet Beschneiden</Resource>
@@ -290,8 +290,8 @@
 		<Resource tag="TT_QUOTE">Zitat</Resource>
 		<Resource tag="TT_UNDERLINE">Unterstrichen</Resource>
 		<Resource tag="TT_HIGHLIGHT">Hervorheben</Resource>
-		<Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
-		<Resource tag="TT_LISTORDERED">Ordered List</Resource>
+		<Resource tag="TT_LISTUNORDERED">Unsortierte Liste</Resource>
+		<Resource tag="TT_LISTORDERED">Sortierte Liste</Resource>
 		<Resource tag="UNREAD_MSG">Du hast {0} ungelesene Nachricht(en) in Deinem Posteingang</Resource>
 		<Resource tag="UPDATE">Aktualisieren</Resource>
 		<Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
@@ -399,7 +399,7 @@
 		<Resource tag="SUBJECT">Betreff</Resource>
 		<Resource tag="TITLE">Private Nachrichten</Resource>
 		<Resource tag="TO">An</Resource>
-		<Resource tag="EXPORTFORMAT">Export Format:</Resource>
+		<Resource tag="EXPORTFORMAT">Exportformat:</Resource>
 		<Resource tag="MSG_NOSELECTED">Keine Nachricht(en) Markiert, es wurde nichts Exportiert.</Resource>
 		<Resource tag="EXPORTSELECTED">Markierte Exportieren</Resource>
 		<Resource tag="EXPORTALL">Alle Exportieren</Resource>
@@ -576,9 +576,9 @@
 		<Resource tag="MODERATED">Da du in einem moderierten Forum einen Beitrag geschrieben hast, muss zuerst ein Moderator deinen Beitrag bestätigen, damit dieser sichtbar wird.</Resource>
 		<Resource tag="REGISTRATION">Eine E-Mail wurde an die angegebene Adresse geschickt. Bitte lies die darin enthaltenen Informationen, um Dich einzuloggen.</Resource>
 		<Resource tag="SUSPENDED">Dein Benutzerkonto wurde temporär gesperrt. Die Sperrung wird am {0} enden.</Resource>
-		<Resource tag="COOKIES">To use the forum you should enable cookies in your browser.</Resource>
-		<Resource tag="ECMAREQUIRED">To use the forum you should enable JavaScript in your browser.</Resource>
-		<Resource tag="ECMAVERSION">The JavaScript version is unsupported. Please use a more new browser version/</Resource>
+		<Resource tag="COOKIES">Um dieses Forum benutzen zu Können müssen Sie Cookies in ihrem Browser aktiviert haben.</Resource>
+		<Resource tag="ECMAREQUIRED">Um dieses Forum benutzen zu Können müssen Sie Javascrip in ihrem Browser aktiviert haben.</Resource>
+		<Resource tag="ECMAVERSION">Diese JavaScript Version wird nicht unterstützt. Bitte Nutzen Sie eiene Neuere Version.</Resource>
 		<Resource tag="TITLE_ACCESSDENIED">Zugriff verweigert</Resource>
 		<Resource tag="TITLE_EXCEPTION">Information</Resource>
 		<Resource tag="TITLE_FAILURE">Fehlschlag</Resource>
@@ -743,8 +743,8 @@
 		<Resource tag="ASK_POLL_DELETE">Wollen Sie diese Umfrage wirklich löschen?</Resource>
 		<Resource tag="ASK_POLL_DELETE_ALL">Wollen Sie diese Umfrage entgülitg löschen?</Resource>
 		<Resource tag="ASK_POLLGROUP_DELETE">Wollen Sie diese Umfragegruppe wirklich löschen?</Resource>
-		<Resource tag="ASK_POLLROUP_DELETE_ALL">Do you really want to remove the poll group completely?</Resource>
-		<Resource tag="ASK_POLLROUP_DELETE_EVR">Do you really want to remove the poll group from every place?</Resource>
+		<Resource tag="ASK_POLLROUP_DELETE_ALL">Wollen Sie wirklich die Umfragegruppe Komplett Löschen?</Resource>
+		<Resource tag="ASK_POLLROUP_DELETE_EVR">Wollen Sie wirklich die Umfragegruppe überall Löschen?</Resource>
 		<Resource tag="CHOICE">Wahl {0}:</Resource>
 		<Resource tag="POLLIMAGE_INVALID">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
 		<Resource tag="POLLIMAGE_TEXT">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
@@ -760,11 +760,11 @@
 		<Resource tag="CREATEPOLL">Umfrage Erstellen</Resource>
 		<Resource tag="EDITPOLL">Umfrage bearbeiten</Resource>
 		<Resource tag="POLL_EXPIRED">Die Umfrage ist abgelaufen.</Resource>
-		<Resource tag="POLL_IMGWIDTH">Image width in px:</Resource>
+		<Resource tag="POLL_IMGWIDTH">Bildbreite in px:</Resource>
 		<Resource tag="POLL_VOTED">Sie haben bereits abgestimmt.</Resource>
 		<Resource tag="POLL_WILLEXPIRE">Diese Umfrage wird geschlossen in {0} Tagen.</Resource>
 		<Resource tag="POLL_WILLEXPIRE_HOURS">Letzte Stunde zum wählen!</Resource>
-		<Resource tag="POLLRESULTSHIDDEN_SHORT">Results hidden</Resource>
+		<Resource tag="POLLRESULTSHIDDEN_SHORT">Ergebnisse versteckt</Resource>
 		<Resource tag="POLLRESULTSHIDDEN">Sie könnnen die Ergebnisse erst Sehen nachdem Sie abgestimmt haben.</Resource>
 		<Resource tag="POLLOPTIONSHIDDEN_GUEST">Gäste können keine Umfrage Ergbnisse und Wahlmöglichkeiten Sehen. Versuchen Sie sich zu registrieren.</Resource>
 		<Resource tag="POLLRESULTSHIDDEN_GUEST">Gäste können keine Umfrage Ergbnisse sehen. Versuchen Sie sich zu registrieren.</Resource>
@@ -1313,7 +1313,7 @@ Der Bestätigungscode lautet
 		<Resource tag="UTC3.5">(UTC+3:30) Teheran</Resource>
 		<Resource tag="UTC-3.5">(UTC-3:30) Neufundland</Resource>
 		<Resource tag="UTC4">(UTC+4:00) Abu Dhabi, Baku, Muskat, Tbilisi</Resource>
-		<Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+		<Resource tag="UTC-4">(UTC-4:00) Atlantische Zeit (Kanada), Caracas, La Paz</Resource>
 		<Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
 		<Resource tag="UTC5">(UTC+5:00) Jekaterinburg, Islamabad, Karatschi, Taschkent</Resource>
 		<Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Kanada), Bogota, Lima, Quito</Resource>
