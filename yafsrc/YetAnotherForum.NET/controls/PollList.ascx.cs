@@ -174,7 +174,7 @@ namespace YAF.controls
 
     #endregion
 
-    #region Public Methods
+    #region Protected Methods
 
     /// <summary>
     /// Get Theme Contents
@@ -188,7 +188,7 @@ namespace YAF.controls
     /// <returns>
     /// Content
     /// </returns>
-    public string GetThemeContents(string page, string tag)
+    protected string GetThemeContents(string page, string tag)
     {
       return this.PageContext.Theme.GetItem(page, tag);
     }
@@ -412,8 +412,14 @@ namespace YAF.controls
           if (tCloses > DateTime.UtcNow.Date)
           {
             int days = (tCloses - DateTime.UtcNow).Days;
-
-            return days == 0 ? 1 : days;
+            // The days should not be = 0 we return whole day and add a value to 
+            // say that it's a partial day
+              if (days == 0)
+              {
+                  soon = true;
+                  return 1;
+              }
+              return days;
           }
 
           return 0;
@@ -570,7 +576,7 @@ namespace YAF.controls
       bool boardPoll = this.PageContext.BoardVoteAccess &&
                        (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
 
-      this.NewPollRow.Visible = this.HasOwnerExistingGroupAccess() && (!existingPoll) &&
+      this.NewPollRow.Visible = this.ShowButtons && this.HasOwnerExistingGroupAccess() && (!existingPoll) &&
                                 (topicPoll || forumPoll || categoryPoll || boardPoll);
       if (this.PollGroupId > 0)
       {
@@ -784,6 +790,8 @@ namespace YAF.controls
         // Poll warnings section
         bool soon;
         bool showWarningsRow = false;
+
+        // returns number of day to run - null if nothing 
         int? daystorun = this.DaysToRun(pollId, out soon);
 
         var pollVotesLabel = item.FindControlRecursiveAs<Label>("PollVotesLabel");
@@ -816,11 +824,16 @@ namespace YAF.controls
                 if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
                 {
                     guestOptionsHidden.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST");
+                    guestOptionsHidden.Visible = true;
+                    showWarningsRow = true;
                 }
-
-                guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST");
-                guestOptionsHidden.Visible = true;
-                showWarningsRow = true;
+                if (isNotVoted)
+                {
+                    guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST");
+                    guestOptionsHidden.Visible = true;
+                    showWarningsRow = true;
+                }
+                
           }
         }
 
@@ -834,7 +847,7 @@ namespace YAF.controls
         }
 
         if (!isNotVoted &&
-            (this.PageContext.ForumPollAccess ||
+            (this.PageContext.ForumVoteAccess ||
              (this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0))))
         {
           var alreadyVotedLabel = item.FindControlRecursiveAs<Label>("AlreadyVotedLabel");
@@ -842,7 +855,8 @@ namespace YAF.controls
           showWarningsRow = alreadyVotedLabel.Visible = true;
         }
 
-        if (daystorun > 0)
+        // Poll has expiration date
+        if (daystorun != null)
         {
           var pollWillExpire = item.FindControlRecursiveAs<Label>("PollWillExpire");
           if (!soon)
@@ -868,11 +882,13 @@ namespace YAF.controls
         DisplayButtons();
       }
 
+      // Populate PollGroup Repeater footer
       if (item.ItemType == ListItemType.Footer)
       {
         var pgcr = item.FindControlRecursiveAs<HtmlTableRow>("PollGroupCommandRow");
         pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
-
+        
+        // return confirmations for poll group 
         if (pgcr.Visible)
         {
           item.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
@@ -1225,9 +1241,9 @@ namespace YAF.controls
     /// </returns>
     private bool HasOwnerExistingGroupAccess()
     {
-      if ((this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0) && this.ShowButtons)
+      if (this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0)
       {
-        // it topicid > 0 it can be every member
+        // if topicid > 0 it can be every member
         if (this.TopicId > 0)
         {
           return (this.topicUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin ||
@@ -1248,95 +1264,95 @@ namespace YAF.controls
     }
 
     /// <summary>
-    /// A method to return parameters string. It should be implemented in other way.
+    /// A method to return parameters string. 
+    /// Consrtucts parameters string to send to other forms.
     /// </summary>
     /// <returns>
     /// The params to send.
     /// </returns>
     private string ParamsToSend()
     {
-      var sb = new StringBuilder();
+      String sb = string.Empty;
 
       if (this.TopicId > 0)
       {
-        sb.AppendFormat("t={0}", this.TopicId);
+          sb += "t={0}".FormatWith(this.TopicId);
       }
 
       if (this.EditMessageId > 0)
       {
-        if (sb.ToString().IsSet())
+        if (sb.IsSet())
         {
-          sb.Append('&');
+          sb += '&';
         }
-
-        sb.AppendFormat("m={0}", this.EditMessageId);
+          sb += "m={0}".FormatWith(this.EditMessageId);
       }
 
       if (this.ForumId > 0)
       {
-        if (sb.ToString().IsSet())
-        {
-          sb.Append('&');
-        }
+          if (sb.IsSet())
+          {
+              sb += '&';
+          }
 
-        sb.AppendFormat("f={0}", this.ForumId);
+        sb += "f={0}".FormatWith(this.ForumId);
       }
 
       if (this.EditForumId > 0)
       {
-        if (sb.ToString().IsSet())
-        {
-          sb.Append('&');
-        }
+          if (sb.IsSet())
+          {
+              sb += '&';
+          }
 
-        sb.AppendFormat("ef={0}", this.EditForumId);
+        sb += "ef={0}".FormatWith(this.EditForumId);
       }
 
       if (this.CategoryId > 0)
       {
-        if (sb.ToString().IsSet())
-        {
-          sb.Append('&');
-        }
+          if (sb.IsSet())
+          {
+              sb += '&';
+          }
 
-        sb.AppendFormat("c={0}", this.CategoryId);
+        sb += "c={0}".FormatWith(this.CategoryId);
       }
 
       if (this.EditCategoryId > 0)
       {
-        if (sb.ToString().IsSet())
-        {
-          sb.Append('&');
-        }
+          if (sb.IsSet())
+          {
+              sb += '&';
+          }
 
-        sb.AppendFormat("ec={0}", this.EditCategoryId);
+        sb += "ec={0}".FormatWith(this.EditCategoryId);
       }
 
       if (this.BoardId > 0)
       {
-        if (sb.ToString().IsSet())
-        {
-          sb.Append('&');
-        }
+          if (sb.IsSet())
+          {
+              sb += '&';
+          }
 
-        sb.AppendFormat("b={0}", this.BoardId);
+        sb += "b={0}".FormatWith(this.BoardId);
       }
 
       if (this.EditBoardId > 0)
       {
-        if (sb.ToString().IsSet())
-        {
-          sb.Append('&');
-        }
+          if (sb.IsSet())
+          {
+              sb += '&';
+          }
 
-        sb.AppendFormat("eb={0}", this.EditBoardId);
+        sb += "eb={0}".FormatWith(this.EditBoardId);
       }
 
-      return sb.ToString();
+      return sb;
     }
 
     /// <summary>
-    /// Checks if a poll has votes.
+    /// Checks if a poll has no votes.
     /// </summary>
     /// <param name="pollId">
     /// </param>
@@ -1355,7 +1371,7 @@ namespace YAF.controls
     /// </summary>
     private void ReturnToPage()
     {
-      // We simply return here to the page where is the control. It can be made other way.
+      // We simply return here to the page where the control is put. It can be made other way.
       if (this.TopicId > 0)
       {
         YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
