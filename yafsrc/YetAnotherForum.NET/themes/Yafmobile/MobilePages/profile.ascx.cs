@@ -147,9 +147,13 @@ namespace YAF.Pages
       Interests.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
       Occupation.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
       Gender.InnerText = GetText("GENDER" + userData.Profile.Gender);
-      ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
-      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
-      ThanksToTimes.Text = ThanksToArray[0].ToString();
+      
+        //ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
+      //int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
+      this.ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
+      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+      
+        ThanksToTimes.Text = ThanksToArray[0].ToString();
       ThanksToPosts.Text = ThanksToArray[1].ToString();
       OnlineStatusImage1.UserID = userID;
       OnlineStatusImage1.Visible = PageContext.BoardSettings.ShowUserOnlineStatus;
@@ -224,7 +228,7 @@ namespace YAF.Pages
 
       if (PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
       {
-        Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + userID;
+          Avatar.ImageUrl = string.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumClientFileRoot, userID);
       }
       else if (!String.IsNullOrEmpty(userData.Avatar))
       {
@@ -233,8 +237,8 @@ namespace YAF.Pages
           "{3}resource.ashx?url={0}&width={1}&height={2}", 
           Server.UrlEncode(userData.Avatar), 
           PageContext.BoardSettings.AvatarWidth, 
-          PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
+          PageContext.BoardSettings.AvatarHeight,
+          YafForumInfo.ForumClientFileRoot);
       }
       else
       {

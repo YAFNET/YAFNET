@@ -312,7 +312,7 @@ namespace YAF.Pages
             TagFavorite2.Visible = false;
         }
 
-        this._quickReplyEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
+        this._quickReplyEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this._quickReplyEditor.StyleSheet = PageContext.Theme.BuildThemePath("theme.css");
 
       this._topic = DB.topic_info(PageContext.PageTopicID);
@@ -368,7 +368,7 @@ namespace YAF.Pages
             (PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded))
         {
           Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-          this.imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumRoot);
+          this.imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
           this.CaptchaDiv.Visible = true;
         }
 
@@ -1404,7 +1404,7 @@ namespace YAF.Pages
       var iIndent = (int) o;
       if (iIndent > 0)
       {
-        return string.Format("<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>", iIndent * 32, YafForumInfo.ForumRoot);
+          return string.Format("<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>", iIndent * 32, YafForumInfo.ForumClientFileRoot);
       }
       else
       {

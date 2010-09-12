@@ -194,7 +194,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetStringSafely(object svalue)
         {
-            return svalue == null ? string.Empty : HtmlEncode(svalue.ToString());
+            return svalue == null ? string.Empty : Server.HtmlEncode(svalue.ToString());
         }
 
         /// <summary>
