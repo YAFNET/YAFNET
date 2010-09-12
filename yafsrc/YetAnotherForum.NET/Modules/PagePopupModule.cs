@@ -18,13 +18,20 @@
  */
 namespace YAF.Modules
 {
+  #region Using
+
   using System;
   using System.Web.UI;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
+
   using DNA.UI.JQuery;
+
   using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for PagePopupModule
@@ -32,16 +39,24 @@ namespace YAF.Modules
   [YafModule("Page Popup Module", "Tiny Gecko", 1)]
   public class PagePopupModule : SimpleBaseModule
   {
-    /// <summary>
-    /// The _error popup.
-    /// </summary>
-    protected PopupDialogNotification _errorPopup = null;
+    #region Constants and Fields
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PagePopupModule"/> class.
+    ///   The _error popup.
     /// </summary>
-    public PagePopupModule()
+    protected PopupDialogNotification _errorPopup;
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
     {
+      this._errorPopup.Title = this.PageContext.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+      this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
     }
 
     /// <summary>
@@ -49,16 +64,55 @@ namespace YAF.Modules
     /// </summary>
     public override void InitForum()
     {
-      ForumControl.Init += new EventHandler(ForumControl_Init);
+      this.ForumControl.Init += this.ForumControl_Init;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The register load string.
+    /// </summary>
+    protected void RegisterLoadString()
+    {
+      this.PageContext.PageElements.RegisterJQuery();
+
+      if (this.PageContext.LoadMessage.LoadString.Length > 0)
+      {
+        if (ScriptManager.GetCurrent(this.ForumControl.Page) != null)
+        {
+          string displayMessage = this.PageContext.LoadMessage.LoadStringDelimited("<br />");
+
+          // Get the clean JS string.
+          displayMessage = LoadMessage.CleanJsString(displayMessage);
+          this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.ForumControl.Page, 
+            "modalNotification", 
+            "var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n"
+              .FormatWith(displayMessage, '{', '}', this._errorPopup.ShowModalFunction));
+        }
+      }
     }
 
     /// <summary>
-    /// The init after page.
+    /// Sets up the Modal Error Popup Dialog
     /// </summary>
-    public override void InitAfterPage()
+    private void AddErrorPopup()
     {
-      this._errorPopup.Title = PageContext.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
-      CurrentForumPage.PreRender += new EventHandler(CurrentForumPage_PreRender);
+      if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
+      {
+        // add error control...
+        this._errorPopup = new PopupDialogNotification();
+        this._errorPopup.ID = "YafForumPageErrorPopup1";
+
+        this.ForumControl.Controls.Add(this._errorPopup);
+      }
+      else
+      {
+        // reference existing control...
+        this._errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
+      }
     }
 
     /// <summary>
@@ -70,9 +124,9 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void CurrentForumPage_PreRender(object sender, EventArgs e)
+    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      RegisterLoadString();
+      this.RegisterLoadString();
     }
 
     /// <summary>
@@ -84,54 +138,13 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumControl_Init(object sender, EventArgs e)
+    private void ForumControl_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
       // at this point, init has already been called...
-      AddErrorPopup();
+      this.AddErrorPopup();
     }
 
-    /// <summary>
-    /// Sets up the Modal Error Popup Dialog
-    /// </summary>
-    private void AddErrorPopup()
-    {
-      if (ForumControl.FindControl("YafForumPageErrorPopup1") == null)
-      {
-        // add error control...
-        this._errorPopup = new PopupDialogNotification();
-        this._errorPopup.ID = "YafForumPageErrorPopup1";
-
-        ForumControl.Controls.Add(this._errorPopup);
-      }
-      else
-      {
-        // reference existing control...
-        this._errorPopup = (PopupDialogNotification) ForumControl.FindControl("YafForumPageErrorPopup1");
-      }
-    }
-
-    /// <summary>
-    /// The register load string.
-    /// </summary>
-    protected void RegisterLoadString()
-    {
-      PageContext.PageElements.RegisterJQuery();
-
-      if (PageContext.LoadMessage.LoadString.Length > 0)
-      {
-        if (ScriptManager.GetCurrent(ForumControl.Page) != null)
-        {
-          string displayMessage = PageContext.LoadMessage.LoadStringDelimited("<br />");
-          
-          //Get the clean JS string.
-          displayMessage = YAF.Classes.Core.LoadMessage.CleanJsString(displayMessage);
-          PageContext.PageElements.RegisterJsBlockStartup(
-            ForumControl.Page, 
-            "modalNotification", 
-            "var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n".FormatWith(displayMessage, '{', '}', this._errorPopup.ShowModalFunction));
-        }
-      }
-    }
+    #endregion
   }
 
   /// <summary>
@@ -139,38 +152,26 @@ namespace YAF.Modules
   /// </summary>
   public class PopupDialogNotification : Dialog
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _okay button.
+    ///   The _okay button.
     /// </summary>
     protected DialogButton _okayButton = new DialogButton();
 
     /// <summary>
-    /// The _template.
+    ///   The _template.
     /// </summary>
     protected ErrorPopupCustomTemplate _template = new ErrorPopupCustomTemplate();
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PopupDialogNotification"/> class.
-    /// </summary>
-    public PopupDialogNotification()
-      : base()
-    {
-    }
+    #endregion
+
+    #region Properties
 
     /// <summary>
-    /// Gets ShowModalFunction.
+    ///   Gets MainTextClientID.
     /// </summary>
-    public string ShowModalFunction
-    {
-      get
-      {
-        return "ShowPopupDialogNotification{0}".FormatWith(this.ClientID);
-      }
-    }
-
-    /// <summary>
-    /// Gets MainTextClientID.
-    /// </summary>
+    [NotNull]
     public string MainTextClientID
     {
       get
@@ -180,17 +181,57 @@ namespace YAF.Modules
     }
 
     /// <summary>
+    ///   Gets ShowModalFunction.
+    /// </summary>
+    public string ShowModalFunction
+    {
+      get
+      {
+        return "ShowPopupDialogNotification{0}".FormatWith(this.ClientID);
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // init the popup first...
+      base.OnInit(e);
+
+      // make a few changes for this type of modal...
+      this.ShowModal = true;
+      this.IsDraggable = true;
+      this.IsResizable = false;
+      this.DialogButtons = DialogButtons.OK;
+      this.Width = Unit.Pixel(400);
+
+      this.BodyTemplate = this._template;
+
+      this._okayButton.Text = "OK";
+      this._okayButton.OnClientClick = "jQuery(this).dialog('close');";
+      this.Buttons.Add(this._okayButton);
+    }
+
+    /// <summary>
     /// The on load.
     /// </summary>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnLoad(EventArgs e)
+    protected override void OnLoad([NotNull] EventArgs e)
     {
       base.OnLoad(e);
 
       this._okayButton.Text = YafContext.Current.Localization.GetText("COMMON", "OK");
-      Title = YafContext.Current.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+      this.Title = YafContext.Current.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
     }
 
     /// <summary>
@@ -199,59 +240,41 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
       base.OnPreRender(e);
 
       // add js for client-side error settings...
       string jsFunction =
-        "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').html(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n".FormatWith(this.ClientID, this.MainTextClientID, '{', '}', this.ShowModalFunction);
-      YafContext.Current.PageElements.RegisterJsBlock(this, ShowModalFunction, jsFunction);
+        "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').html(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n"
+          .FormatWith(this.ClientID, this.MainTextClientID, '{', '}', this.ShowModalFunction);
+      YafContext.Current.PageElements.RegisterJsBlock(this, this.ShowModalFunction, jsFunction);
     }
 
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      // init the popup first...
-      base.OnInit(e);
-
-      // make a few changes for this type of modal...
-      ShowModal = true;
-      IsDraggable = true;
-      IsResizable = false;
-      DialogButtons = DialogButtons.OK;
-      Width = Unit.Pixel(400);
-
-      BodyTemplate = this._template;
-
-      this._okayButton.Text = "OK";
-      this._okayButton.OnClientClick = "jQuery(this).dialog('close');";
-      Buttons.Add(this._okayButton);
-    }
-
-    #region Nested type: ErrorPopupCustomTemplate
+    #endregion
 
     /// <summary>
     /// The error popup custom template.
     /// </summary>
     public class ErrorPopupCustomTemplate : ITemplate
     {
+      #region Constants and Fields
+
       /// <summary>
-      /// The span inner message.
+      ///   The span inner message.
       /// </summary>
       public HtmlGenericControl SpanInnerMessage = new HtmlGenericControl("span");
 
       /// <summary>
-      /// The span outer message.
+      ///   The span outer message.
       /// </summary>
       public HtmlGenericControl SpanOuterMessage = new HtmlGenericControl("span");
 
-      #region ITemplate Members
+      #endregion
+
+      #region Implemented Interfaces
+
+      #region ITemplate
 
       /// <summary>
       /// The instantiate in.
@@ -259,7 +282,7 @@ namespace YAF.Modules
       /// <param name="container">
       /// The container.
       /// </param>
-      public void InstantiateIn(Control container)
+      public void InstantiateIn([NotNull] Control container)
       {
         this.SpanOuterMessage.ID = "YafPopupErrorMessageOuter";
         this.SpanOuterMessage.Attributes.Add("class", "modalOuter");
@@ -275,8 +298,8 @@ namespace YAF.Modules
       }
 
       #endregion
-    }
 
-    #endregion
+      #endregion
+    }
   }
 }

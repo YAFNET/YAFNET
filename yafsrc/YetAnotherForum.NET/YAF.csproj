@@ -240,6 +240,7 @@
     <Compile Include="Modules\PagePermissionModule.cs" />
     <Compile Include="Modules\PagePmPopupModule.cs" />
     <Compile Include="Modules\PagePopupModule.cs" />
+    <Compile Include="Modules\PageRequiresSecureConnectionModule.cs" />
     <Compile Include="Modules\PageRssFeedLinkModule.cs" />
     <Compile Include="Modules\PageSecurityModule.cs" />
     <Compile Include="Modules\PageTitleModule.cs" />
@@ -2104,6 +2105,7 @@
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="UrlRewriter.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

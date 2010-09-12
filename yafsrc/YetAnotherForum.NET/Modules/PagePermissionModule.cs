@@ -18,9 +18,15 @@
  */
 namespace YAF.Modules
 {
+  #region Using
+
   using System;
+
   using YAF.Classes;
   using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
+
+  #endregion
 
   /// <summary>
   /// Module that handles page permission feature
@@ -28,13 +34,19 @@ namespace YAF.Modules
   [YafModule("Page Permission Module", "Tiny Gecko", 1)]
   public class PagePermissionModule : SimpleBaseModule
   {
+    #region Public Methods
+
     /// <summary>
     /// The init after page.
     /// </summary>
     public override void InitAfterPage()
     {
-      CurrentForumPage.Load += CurrentPage_Load;
+      this.CurrentForumPage.Load += this.CurrentPage_Load;
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The current page_ load.
@@ -45,28 +57,33 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void CurrentPage_Load(object sender, EventArgs e)
+    private void CurrentPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // check access permissions for specific pages...
-        switch (ForumPageType)
-        {
-            case ForumPages.activeusers:
-                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ActiveUsersViewPermissions);
-                break;
-            case ForumPages.members:
-                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
-                break;
-            case ForumPages.profile:
-            case ForumPages.albums:
-            case ForumPages.album:
-                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
-                break;
-            case ForumPages.search:
-                YafServices.Permissions.HandleRequest(YafServices.Permissions.Check(PageContext.BoardSettings.SearchPermissions) == true ? PageContext.BoardSettings.SearchPermissions : PageContext.BoardSettings.ExternalSearchPermissions);
-                break;
-            default:
-                break;
-        }
+      switch (this.ForumPageType)
+      {
+        case ForumPages.activeusers:
+          YafServices.Permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+          break;
+        case ForumPages.members:
+          YafServices.Permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+          break;
+        case ForumPages.profile:
+        case ForumPages.albums:
+        case ForumPages.album:
+          YafServices.Permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+          break;
+        case ForumPages.search:
+          YafServices.Permissions.HandleRequest(
+            YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions)
+              ? this.PageContext.BoardSettings.SearchPermissions
+              : this.PageContext.BoardSettings.ExternalSearchPermissions);
+          break;
+        default:
+          break;
+      }
     }
+
+    #endregion
   }
 }

@@ -436,12 +436,6 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
 
-      // Check if secure connection only is allowed
-      if (!this.Page.Request.IsSecureConnection & this.PageContext.BoardSettings.UseSSLToRegister)
-      {
-        YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
-      }
-
       if (!this.IsPostBack)
       {
         
