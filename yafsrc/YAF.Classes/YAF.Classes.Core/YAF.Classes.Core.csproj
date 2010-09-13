@@ -110,6 +110,7 @@
     <Compile Include="BBCode\ReplaceRules\VariableRegexReplaceRule.cs" />
     <Compile Include="BBCode\YafBBCode.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />

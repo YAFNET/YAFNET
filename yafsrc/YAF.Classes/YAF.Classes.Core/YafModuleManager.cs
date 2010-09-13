@@ -27,6 +27,7 @@ namespace YAF.Modules
   using System.Reflection;
 
   using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
 
   #endregion
 
@@ -296,50 +297,21 @@ namespace YAF.Modules
     #region Methods
 
     /// <summary>
-    /// Finds modules (classes) in the supplied assemblies.
+    /// Add modules to the module manager.
     /// </summary>
     /// <param name="assemblies">
     /// The assemblies.
     /// </param>
-    /// <param name="moduleNamespace">
-    /// The module namespace.
-    /// </param>
-    /// <param name="moduleBaseInterface">
-    /// The module base interface.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    protected static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface)
+    protected void AddModules([NotNull] IList assemblies)
     {
-      var moduleClassTypes = new List<Type>();
-      var baseInterface = Type.GetType(moduleBaseInterface);
+      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
 
-      // get classes...
-      foreach (Assembly assembly in assemblies)
+      if (this.ModuleClassTypes == null)
       {
-        foreach (Module module in assembly.GetModules())
-        {
-          var types = module.GetTypes().ToList();
-
-          foreach (Type modClass in types.Where(t => t.Namespace != null && t.Namespace.Equals(moduleNamespace)))
-          {
-            // don't add any abstract classes...
-            if (modClass.IsAbstract)
-            {
-              continue;
-            }
-
-            // verify it implements the interface...
-            if (modClass.GetInterfaces().Any(i => i.Equals(baseInterface)))
-            {
-              // it does, add this class
-              moduleClassTypes.Add(modClass);
-            }
-          }
-        }
+        this.ModuleClassTypes = new List<Type>();
       }
 
-      return moduleClassTypes;
+      this.ModuleClassTypes.AddRange(assemblies.Cast<Assembly>().FindModules(this.ModuleNamespace, this.ModuleBaseType));
     }
 
     /// <summary>
@@ -348,34 +320,16 @@ namespace YAF.Modules
     /// <param name="assemblies">
     /// The assemblies.
     /// </param>
-    protected void AddModules(IList assemblies)
+    protected void AddModules([NotNull] List<Assembly> assemblies)
     {
-      if (this.ModuleClassTypes == null)
-      {
-        this.ModuleClassTypes = FindModules(assemblies, this.ModuleNamespace, this.ModuleBaseType);
-      }
-      else
-      {
-        this.ModuleClassTypes.AddRange(FindModules(assemblies, this.ModuleNamespace, this.ModuleBaseType));
-      }
-    }
+      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
 
-    /// <summary>
-    /// Add modules to the module manager.
-    /// </summary>
-    /// <param name="assemblies">
-    /// The assemblies.
-    /// </param>
-    protected void AddModules(List<Assembly> assemblies)
-    {
       if (this.ModuleClassTypes == null)
       {
-        this.ModuleClassTypes = FindModules(assemblies, this.ModuleNamespace, this.ModuleBaseType);
+        this.ModuleClassTypes = new List<Type>();
       }
-      else
-      {
-        this.ModuleClassTypes.AddRange(FindModules(assemblies, this.ModuleNamespace, this.ModuleBaseType));
-      }
+
+      this.ModuleClassTypes.AddRange(assemblies.FindModules(this.ModuleNamespace, this.ModuleBaseType));
     }
 
     /// <summary>
@@ -394,7 +348,7 @@ namespace YAF.Modules
     /// </summary>
     protected void LoadFactories()
     {
-      if (this.ModuleClassFactories == null)
+      if (this.ModuleClassFactories == null && this.ModuleClassTypes != null)
       {
         this.ModuleClassFactories = new Dictionary<Type, YafFactory>();
 
