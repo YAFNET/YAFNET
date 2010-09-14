@@ -1,5 +1,11 @@
 @import "jquery/jquery-ui.css";
 
+.yafnet .EditorDiv td
+{
+    padding: 0px !important;
+    border: 0 !important;
+}
+
 .yafnet {
     font-family: arial,helvetica,"lucida grande",verdana,sans-serif;
     font-size: 9.5pt;
