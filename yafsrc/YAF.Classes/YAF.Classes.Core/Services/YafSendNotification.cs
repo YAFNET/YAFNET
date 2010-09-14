@@ -29,6 +29,7 @@ namespace YAF.Classes.Core
   using System.Web;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -98,7 +99,7 @@ namespace YAF.Classes.Core
     /// <param name="subject">
     /// Subject of PM user is notified about.
     /// </param>
-    public void ToPrivateMessageRecipient(int toUserId, string subject)
+    public void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject)
     {
       try
       {
@@ -190,23 +191,20 @@ namespace YAF.Classes.Core
         {
           var userId = row["UserID"].ToType<int>();
 
-         /* var watchEmail = new YafTemplateEmail("TOPICPOST")
-                               {
-                                   TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId)
-                               };*/
+          var watchEmail = new YafTemplateEmail("TOPICPOST");
+          watchEmail.TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId);
 
-            // cleaned body as text...
+          // cleaned body as text...
           string bodyText =
             StringHelper.RemoveMultipleWhitespace(
               BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString()))));
-  
 
           // Send track mails
           string subject =
             YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
               YafContext.Current.BoardSettings.Name);
 
-         /* watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
+          watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
           watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(row["Topic"].ToString());
           watchEmail.TemplateParams["{postedby}"] =
             UserMembershipHelper.GetDisplayNameFromID(row["UserID"].ToType<long>());
@@ -219,44 +217,20 @@ namespace YAF.Classes.Core
             row["TopicID"].ToType<int>(), 
             userId, 
             new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name), 
-            subject);*/
+            subject);
 
           // create individual watch emails for all users who have All Posts on...
           foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
           {
-              var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+            var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
 
-
-              var watchEmail = new YafTemplateEmail("TOPICPOST");
-
-              if (!string.IsNullOrEmpty(user.LanguageFile))
-              {
-                  watchEmail.TemplateLanguageFile = user.LanguageFile;
-              }
-              else
-              {
-                  watchEmail.TemplateLanguageFile = YafContext.Current.Localization.LanguageFileName;
-              }
-
-              watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
-              watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(row["Topic"].ToString());
-              watchEmail.TemplateParams["{postedby}"] =
-                UserMembershipHelper.GetDisplayNameFromID(row["UserID"].ToType<long>());
-              watchEmail.TemplateParams["{body}"] = bodyText;
-              watchEmail.TemplateParams["{bodytruncated}"] = StringHelper.Truncate(bodyText, 160);
-              watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.posts, true, "m={0}#post{0}", newMessageId);
-
-              watchEmail.CreateWatch(
-                row["TopicID"].ToType<int>(),
-                userId,
-                new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-                subject);
-
+            watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
+                                                ? user.LanguageFile
+                                                : YafContext.Current.Localization.LanguageFileName;
             watchEmail.SendEmail(
-              new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-              new MailAddress(membershipUser.Email, membershipUser.UserName),
-              subject,
+              new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name), 
+              new MailAddress(membershipUser.Email, membershipUser.UserName), 
+              subject, 
               true);
           }
         }
