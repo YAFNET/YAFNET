@@ -21,6 +21,8 @@ using YAF.Controls;
 
 namespace YAF.Editors
 {
+  using System.Web.UI;
+
   /// <summary>
   /// Summary description for BaseForumEditor.
   /// </summary>
@@ -109,6 +111,14 @@ namespace YAF.Editors
       }
 
       return txt;
+    }
+
+    protected virtual void AddEditorControl(Control editor)
+    {
+      var newDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("div") { ID = "EditorDiv" };
+      newDiv.Attributes.Add("class", "EditorDiv");
+      newDiv.Controls.Add(editor);
+      Controls.Add(newDiv);      
     }
 
     #region Virtual Properties

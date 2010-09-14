@@ -78,16 +78,13 @@ namespace YAF.Editors
         dt.Columns.Add("Value", Type.GetType("System.Int32"));
         dt.Columns.Add("Name", Type.GetType("System.String"));
 
-        foreach (BaseForumEditor editor in this.Modules)
+        foreach (BaseForumEditor editor in this.Modules.Where(editor => editor.Active))
         {
-          if (editor.Active)
-          {
-            dt.Rows.Add(
-              new object[]
-                {
-                  editor.ModuleId, editor.Description
-                });
-          }
+          dt.Rows.Add(
+            new object[]
+              {
+                editor.ModuleId, editor.Description
+              });
         }
 
         return dt;
