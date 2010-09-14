@@ -50,7 +50,9 @@ namespace YAF.Editors
         Load += new EventHandler(Editor_Load);
         PropertyInfo pInfo = this._typEditor.GetProperty("ID");
         pInfo.SetValue(this._editor, "edit", null);
-        Controls.Add(this._editor);
+
+
+        this.AddEditorControl(this._editor);
       }
 
       base.OnInit(e);

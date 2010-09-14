@@ -19,8 +19,11 @@
 namespace YAF.Editors
 {
   using System;
+  using System.Linq;
   using System.Reflection;
   using System.Web.UI;
+
+  using YAF.Classes.Pattern;
 
   /// <summary>
   /// The rich class editor.
@@ -115,7 +118,7 @@ namespace YAF.Editors
     /// <summary>
     /// The get interface in assembly.
     /// </summary>
-    /// <param name="cAssembly">
+    /// <param name="assembly">
     /// The c assembly.
     /// </param>
     /// <param name="className">
@@ -123,19 +126,12 @@ namespace YAF.Editors
     /// </param>
     /// <returns>
     /// </returns>
-    protected Type GetInterfaceInAssembly(Assembly cAssembly, string className)
+    protected Type GetInterfaceInAssembly([NotNull] Assembly assembly, [NotNull] string className)
     {
-      Type[] types = cAssembly.GetTypes();
-      foreach (Type typ in types)
-      {
-        // dynamically create or activate(if exist) object
-        if (typ.FullName == className)
-        {
-          return typ;
-        }
-      }
+      CodeContracts.ArgumentNotNull(assembly, "assembly");
+      CodeContracts.ArgumentNotNull(className, "className");
 
-      return null;
+      return assembly.GetExportedTypes().FirstOrDefault(typ => typ.FullName == className);
     }
 
     #region Properties

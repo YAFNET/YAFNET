@@ -130,7 +130,8 @@ namespace YAF.Editors
       this._textCtl.Rows = 15;
       this._textCtl.Cols = 100;
       this._textCtl.Attributes.Add("class", "YafTextEditor");
-      Controls.Add(this._textCtl);
+
+      this.AddEditorControl(this._textCtl);
 
       base.OnInit(e);
     }

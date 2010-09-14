@@ -88,7 +88,7 @@ namespace YAF.Editors
         }
 
         // Add Editor
-        Controls.Add(this._editor);
+        this.AddEditorControl(this._editor);
 
         // Register smiley JavaScript
         RegisterSmilieyScript();

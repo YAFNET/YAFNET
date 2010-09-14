@@ -57,7 +57,8 @@ namespace YAF.Editors
           this._editor, 
           "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", 
           null);
-        Controls.Add(this._editor);
+
+        this.AddEditorControl(this._editor);
       }
 
       base.OnInit(e);
