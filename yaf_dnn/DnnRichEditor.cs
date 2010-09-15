@@ -111,7 +111,11 @@ namespace YAF.Editors
 
             _editor.Height = Unit.Pixel(400);
             _editor.Width = Unit.Percentage(100);
-            Controls.Add(_editor.HtmlEditorControl);
+
+            //Controls.Add(_editor.HtmlEditorControl);
+
+            this.AddEditorControl(_editor.HtmlEditorControl);
+            
             RegisterSmilieyScript();
         }
 
