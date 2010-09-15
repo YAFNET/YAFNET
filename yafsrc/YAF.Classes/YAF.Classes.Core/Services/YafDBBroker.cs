@@ -148,8 +148,13 @@ namespace YAF.Classes.Core
     /// <returns>
     /// Returns board layout
     /// </returns>
-    public DataSet BoardLayout(int boardID, int userID, int? categoryID, int parentID)
+    public DataSet BoardLayout(int boardID, int userID, int? categoryID, int? parentID)
     {
+      if (categoryID.HasValue && categoryID == 0)
+      {
+        categoryID = null;
+      }
+
       using (var ds = new DataSet())
       {
         // get the cached version of forum moderators if it's valid
@@ -178,7 +183,7 @@ namespace YAF.Classes.Core
 
         DataTable categoryTable = ds.Tables[YafDBAccess.GetObjectName("Category")];
 
-        if (categoryID != null)
+        if (categoryID.HasValue)
         {
           // make sure this only has the category desired in the dataset
           foreach (DataRow row in
@@ -211,7 +216,7 @@ namespace YAF.Classes.Core
         // remove empty categories...
         foreach (DataRow row in
           categoryTable.AsEnumerable().Select(
-            row => new { row, childRows = row.GetChildRows("FK_Forum_Category") }).Where(@t => @t.childRows.Length == 0)
+            row => new { row, childRows = row.GetChildRows("FK_Forum_Category") }).Where(@t => !@t.childRows.Any())
             .Select(@t => @t.row))
         {
           // remove this category...
