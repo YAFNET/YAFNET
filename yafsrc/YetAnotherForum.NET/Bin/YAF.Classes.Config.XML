@@ -1523,6 +1523,339 @@
             Gets WithOIDs.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.LocalizationRequiredAttribute">
+            <summary>
+            Indicates that marked element should be localized or not.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.LocalizationRequiredAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.LocalizationRequiredAttribute"/> class.
+            </summary>
+            <param name="required">
+            <c>true</c> if a element should be localized; otherwise, <c>false</c>.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.LocalizationRequiredAttribute.Equals(System.Object)">
+            <summary>
+            Returns whether the value of the given object is equal to the current <see cref="T:YAF.Classes.Pattern.LocalizationRequiredAttribute"/>.
+            </summary>
+            <param name="obj">
+            The object to test the value equality of. 
+            </param>
+            <returns>
+            <c>true</c> if the value of the given object is equal to that of the current; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.LocalizationRequiredAttribute.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for the current <see cref="T:YAF.Classes.Pattern.LocalizationRequiredAttribute"/>.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Pattern.LocalizationRequiredAttribute.Required">
+            <summary>
+              Gets a value indicating whether a element should be localized.
+              <value><c>true</c> if a element should be localized; otherwise, <c>false</c>.</value>
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.StringFormatMethodAttribute">
+            <summary>
+            Indicates that marked method builds string by format pattern and (optional) arguments. 
+              Parameter, which contains format string, should be given in constructor.
+              The format string should be in <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])"/> -like form
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.StringFormatMethodAttribute.myFormatParameterName">
+            <summary>
+            The my format parameter name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.StringFormatMethodAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.StringFormatMethodAttribute"/> class. 
+            Initializes new instance of StringFormatMethodAttribute
+            </summary>
+            <param name="formatParameterName">
+            Specifies which parameter of an annotated method should be treated as format-string
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Pattern.StringFormatMethodAttribute.FormatParameterName">
+            <summary>
+              Gets format parameter name
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.InvokerParameterNameAttribute">
+            <summary>
+            Indicates that the function argument should be string literal and match one  of the parameters of the caller function.
+              For example, <see cref="T:System.ArgumentNullException"/> has such parameter.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.AssertionMethodAttribute">
+            <summary>
+            Indicates that the marked method is assertion method, i.e. it halts control flow if one of the conditions is satisfied. 
+              To set the condition, mark one of the parameters with <see cref="T:YAF.Classes.Pattern.AssertionConditionAttribute"/> attribute
+            </summary>
+            <seealso cref="T:YAF.Classes.Pattern.AssertionConditionAttribute"/>
+        </member>
+        <member name="T:YAF.Classes.Pattern.AssertionConditionAttribute">
+            <summary>
+            Indicates the condition parameter of the assertion method. 
+              The method itself should be marked by <see cref="T:YAF.Classes.Pattern.AssertionMethodAttribute"/> attribute.
+              The mandatory argument of the attribute is the assertion type.
+            </summary>
+            <seealso cref="T:YAF.Classes.Pattern.AssertionConditionType"/>
+        </member>
+        <member name="F:YAF.Classes.Pattern.AssertionConditionAttribute.myConditionType">
+            <summary>
+            The my condition type.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.AssertionConditionAttribute.#ctor(YAF.Classes.Pattern.AssertionConditionType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.AssertionConditionAttribute"/> class. 
+            Initializes new instance of AssertionConditionAttribute
+            </summary>
+            <param name="conditionType">
+            Specifies condition type
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Pattern.AssertionConditionAttribute.ConditionType">
+            <summary>
+              Gets condition type
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.AssertionConditionType">
+            <summary>
+            Specifies assertion type. If the assertion method argument satisifes the condition, then the execution continues. 
+              Otherwise, execution is assumed to be halted
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.AssertionConditionType.IS_TRUE">
+            <summary>
+              Indicates that the marked parameter should be evaluated to true
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.AssertionConditionType.IS_FALSE">
+            <summary>
+              Indicates that the marked parameter should be evaluated to false
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.AssertionConditionType.IS_NULL">
+            <summary>
+              Indicates that the marked parameter should be evaluated to null value
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.AssertionConditionType.IS_NOT_NULL">
+            <summary>
+              Indicates that the marked parameter should be evaluated to not null value
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.TerminatesProgramAttribute">
+            <summary>
+            Indicates that the marked method unconditionally terminates control flow execution.
+              For example, it could unconditionally throw exception
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.CanBeNullAttribute">
+            <summary>
+            Indicates that the value of marked element could be <c>null</c> sometimes, so the check for <c>null</c> is necessary before its usage
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.NotNullAttribute">
+            <summary>
+            Indicates that the value of marked element could never be <c>null</c>
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.CannotApplyEqualityOperatorAttribute">
+            <summary>
+            Indicates that the value of marked type (or its derivatives) cannot be compared using '==' or '!=' operators.
+              There is only exception to compare with <c>null</c>, it is permitted
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.BaseTypeRequiredAttribute">
+            <summary>
+            When applied to target attribute, specifies a requirement for any type which is marked with 
+              target attribute to implement or inherit specific type or types
+            </summary>
+            <example>
+            <code>
+            [BaseTypeRequired(typeof(IComponent)] // Specify requirement
+                public class ComponentAttribute : Attribute 
+                {}
+            
+                [Component] // ComponentAttribute requires implementing IComponent interface
+                public class MyComponent : IComponent
+                {}
+              </code>
+            </example>
+        </member>
+        <member name="F:YAF.Classes.Pattern.BaseTypeRequiredAttribute.myBaseTypes">
+            <summary>
+            The my base types.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.BaseTypeRequiredAttribute.#ctor(System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.BaseTypeRequiredAttribute"/> class. 
+            Initializes new instance of BaseTypeRequiredAttribute
+            </summary>
+            <param name="baseTypes">
+            Specifies which types are required
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Pattern.BaseTypeRequiredAttribute.BaseTypes">
+            <summary>
+              Gets enumerations of specified base types
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.UsedImplicitlyAttribute">
+            <summary>
+            Indicates that the marked symbol is used implicitly (e.g. via reflection, in external library),
+              so this symbol will not be marked as unused (as well as by other usage inspections)
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.UsedImplicitlyAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.UsedImplicitlyAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.UsedImplicitlyAttribute.#ctor(YAF.Classes.Pattern.ImplicitUseKindFlags,YAF.Classes.Pattern.ImplicitUseTargetFlags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.UsedImplicitlyAttribute"/> class.
+            </summary>
+            <param name="useKindFlags">
+            The use kind flags.
+            </param>
+            <param name="targetFlags">
+            The target flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.UsedImplicitlyAttribute.#ctor(YAF.Classes.Pattern.ImplicitUseKindFlags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.UsedImplicitlyAttribute"/> class.
+            </summary>
+            <param name="useKindFlags">
+            The use kind flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.UsedImplicitlyAttribute.#ctor(YAF.Classes.Pattern.ImplicitUseTargetFlags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.UsedImplicitlyAttribute"/> class.
+            </summary>
+            <param name="targetFlags">
+            The target flags.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Pattern.UsedImplicitlyAttribute.TargetFlags">
+            <summary>
+              Gets value indicating what is meant to be used
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.UsedImplicitlyAttribute.UseKindFlags">
+            <summary>
+            Gets UseKindFlags.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.MeansImplicitUseAttribute">
+            <summary>
+            Should be used on attributes and causes ReSharper to not mark symbols marked with such attributes as unused (as well as by other usage inspections)
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.MeansImplicitUseAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.MeansImplicitUseAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.MeansImplicitUseAttribute.#ctor(YAF.Classes.Pattern.ImplicitUseKindFlags,YAF.Classes.Pattern.ImplicitUseTargetFlags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.MeansImplicitUseAttribute"/> class.
+            </summary>
+            <param name="useKindFlags">
+            The use kind flags.
+            </param>
+            <param name="targetFlags">
+            The target flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.MeansImplicitUseAttribute.#ctor(YAF.Classes.Pattern.ImplicitUseKindFlags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.MeansImplicitUseAttribute"/> class.
+            </summary>
+            <param name="useKindFlags">
+            The use kind flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.MeansImplicitUseAttribute.#ctor(YAF.Classes.Pattern.ImplicitUseTargetFlags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.MeansImplicitUseAttribute"/> class.
+            </summary>
+            <param name="targetFlags">
+            The target flags.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Pattern.MeansImplicitUseAttribute.TargetFlags">
+            <summary>
+              Gets value indicating what is meant to be used
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.MeansImplicitUseAttribute.UseKindFlags">
+            <summary>
+            Gets UseKindFlags.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.ImplicitUseKindFlags">
+            <summary>
+            The implicit use kind flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseKindFlags.Default">
+            <summary>
+            The default.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseKindFlags.Access">
+            <summary>
+              Only entity marked with attribute considered used
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseKindFlags.Assign">
+            <summary>
+              Indicates implicit assignment to a member
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseKindFlags.Instantiated">
+            <summary>
+              Indicates implicit instantiation of a type
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.ImplicitUseTargetFlags">
+            <summary>
+            Specify what is considered used implicitly when marked with <see cref="T:YAF.Classes.Pattern.MeansImplicitUseAttribute"/> or <see cref="T:YAF.Classes.Pattern.UsedImplicitlyAttribute"/>
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseTargetFlags.Default">
+            <summary>
+            The default.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseTargetFlags.Itself">
+            <summary>
+            The itself.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseTargetFlags.Members">
+            <summary>
+              Members of entity marked with attribute are considered used
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ImplicitUseTargetFlags.WithMembers">
+            <summary>
+              Entity marked with attribute and all its members considered used
+            </summary>
+        </member>
         <member name="T:YAF.Classes.ForumPages">
             <summary>
             List of all pages available in the YAF forum
@@ -3135,6 +3468,23 @@
             </param>
             <typeparam name="T">
             </typeparam>
+        </member>
+        <member name="T:YAF.Classes.Pattern.CodeContracts">
+            <summary>
+            Provides functions used for code contracts.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.CodeContracts.ArgumentNotNull``1(``0,System.String)">
+            <summary>
+            Validates argument (obj) is not <see langword="null"/>. Throws exception
+            if it is.
+            </summary>
+            <typeparam name="T">type of the argument that's being verified
+            </typeparam>
+            <param name="obj">value of argument to verify not null</param>
+            <param name="argumentName">name of the argument</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="obj"/> is 
+            <c>null</c>.</exception>
         </member>
         <member name="T:YAF.Classes.YafControlSettings">
             <summary>

@@ -1877,6 +1877,59 @@
             <remarks>
             </remarks>
         </member>
+        <member name="T:YAF.Classes.Core.ControlExtensions">
+            <summary>
+            The control extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ControlExtensions.GetExtendedID(System.Web.UI.Control,System.String)">
+            <summary>
+            Creates a ID Based on the Control Structure
+            </summary>
+            <param name="currentControl">
+            The current Control.
+            </param>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get extended id.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ControlExtensions.GetUniqueID(System.Web.UI.Control,System.String)">
+            <summary>
+            Creates a Unique ID
+            </summary>
+            <param name="currentControl">
+            The current Control.
+            </param>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get unique id.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ControlExtensions.HtmlEncode(System.Web.UI.Control,System.Object)">
+            <summary>
+            The html encode.
+            </summary>
+            <param name="currentControl">
+            The current Control.
+            </param>
+            <param name="data">
+            The data.
+            </param>
+            <returns>
+            The html encode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ControlExtensions.PageContext(System.Web.UI.Control)">
+            <summary>
+            Gets PageContext.
+            </summary>
+            <param name="currentControl">
+            The current Control.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule">
             <summary>
             For complex regex with variable/default and truncate support
@@ -3381,71 +3434,10 @@
             EventArgs class for the PageTitleSet event
             </summary>
         </member>
-        <member name="T:YAF.Controls.BasePanel">
-            <summary>
-            Control derived from Panel that includes a reference to the <see cref="T:YAF.Classes.Core.YafContext"/>.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.BasePanel.GetUniqueID(System.String)">
-            <summary>
-            Creates a Unique ID
-            </summary>
-            <param name="prefix">
-            </param>
-            <returns>
-            The get unique id.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.BasePanel.GetExtendedID(System.String)">
-            <summary>
-            Creates a ID Based on the Control Structure
-            </summary>
-            <param name="prefix">
-            </param>
-            <returns>
-            The get extended id.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.BasePanel.PageContext">
-            <summary>
-            Gets PageContext.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.BaseControl">
             <summary>
             Summary description for BaseControl.
             </summary>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.HtmlEncode(System.Object)">
-            <summary>
-            The html encode.
-            </summary>
-            <param name="data">
-            The data.
-            </param>
-            <returns>
-            The html encode.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.GetUniqueID(System.String)">
-            <summary>
-            Creates a Unique ID
-            </summary>
-            <param name="prefix">
-            </param>
-            <returns>
-            The get unique id.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.GetExtendedID(System.String)">
-            <summary>
-            Creates a ID Based on the Control Structure
-            </summary>
-            <param name="prefix">
-            </param>
-            <returns>
-            The get extended id.
-            </returns>
         </member>
         <member name="P:YAF.Controls.BaseControl.PageContext">
             <summary>
@@ -4310,10 +4302,31 @@
             Gets or sets Request.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.LocalizerLoader">
+            <summary>
+            The localizer loader.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.LocalizerLoader.LoadSiteFile(System.String,System.String)">
             <summary>
             The attempt load language file.
             </summary>
+            <param name="languageFileName">
+            The language File Name.
+            </param>
+            <param name="cacheName">
+            The cache Name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.LocalizerLoader.GetEncodingForXmlFile(System.String)">
+            <summary>
+            The get encoding for xml file.
+            </summary>
+            <param name="xmlFileName">
+            The xml file name.
+            </param>
             <returns>
             </returns>
         </member>
@@ -4609,6 +4622,27 @@
             </param>
             <returns>
             The compare.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.AssemblyExtensions">
+            <summary>
+            The assembly extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.AssemblyExtensions.FindModules(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.String,System.String)">
+            <summary>
+            The find modules.
+            </summary>
+            <param name="assemblies">
+            The assemblies.
+            </param>
+            <param name="moduleNamespace">
+            The module namespace.
+            </param>
+            <param name="moduleBaseInterface">
+            The module base interface.
+            </param>
+            <returns>
             </returns>
         </member>
         <member name="T:YAF.Classes.Core.BBCode.CodeRegexReplaceRule">
@@ -5442,53 +5476,23 @@
         </member>
         <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemCode">
             <summary>
-            The base 64 pem code.
+              The base 64 pem code.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemConvertCode">
             <summary>
-            The base 64 pem convert code.
+              The base 64 pem convert code.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.Nntp.NntpUtil.hexValue">
             <summary>
-            The hex value.
+              The hex value.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.Nntp.NntpUtil.#cctor">
             <summary>
-            Initializes static members of the <see cref="T:YAF.Classes.Core.Nntp.NntpUtil"/> class.
+              Initializes static members of the <see cref="T:YAF.Classes.Core.Nntp.NntpUtil"/> class.
             </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.String,System.IO.Stream)">
-            <summary>
-            The uu decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The uu decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.Char[],System.IO.Stream)">
-            <summary>
-            The uu decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The uu decode.
-            </returns>
-            <exception cref="T:System.InvalidOperationException">
-            </exception>
         </member>
         <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.String,System.IO.Stream)">
             <summary>
@@ -5520,6 +5524,54 @@
             <exception cref="T:System.InvalidOperationException">
             </exception>
         </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64HeaderDecode(System.String)">
+            <summary>
+            The base 64 header decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <returns>
+            The base 64 header decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.ConvertListToTree(System.Collections.ArrayList)">
+            <summary>
+            The convert list to tree.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DecodeUTC(System.String,System.Int32@)">
+            <summary>
+            Date from an Article Header converted to UTC
+            </summary>
+            <param name="nntpDateTime">
+            </param>
+            <param name="tzi">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DispatchMIMEContent(System.IO.StreamReader,YAF.Classes.Core.Nntp.MIMEPart,System.String)">
+            <summary>
+            The dispatch mime content.
+            </summary>
+            <param name="sr">
+            The sr.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <param name="seperator">
+            The seperator.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.String,System.IO.Stream)">
             <summary>
             The quoted printable decode.
@@ -5548,50 +5600,35 @@
             The quoted printable decode.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DispatchMIMEContent(System.IO.StreamReader,YAF.Classes.Core.Nntp.MIMEPart,System.String)">
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.String,System.IO.Stream)">
             <summary>
-            The dispatch mime content.
-            </summary>
-            <param name="sr">
-            The sr.
-            </param>
-            <param name="part">
-            The part.
-            </param>
-            <param name="seperator">
-            The seperator.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64HeaderDecode(System.String)">
-            <summary>
-            The base 64 header decode.
+            The uu decode.
             </summary>
             <param name="line">
             The line.
             </param>
-            <returns>
-            The base 64 header decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.ConvertListToTree(System.Collections.ArrayList)">
-            <summary>
-            The convert list to tree.
-            </summary>
-            <param name="list">
-            The list.
+            <param name="outputStream">
+            The output stream.
             </param>
             <returns>
+            The uu decode.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DecodeUTC(System.String,System.Int32@)">
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.Char[],System.IO.Stream)">
             <summary>
-            Date from an Article Header converted to UTC
+            The uu decode.
             </summary>
-            <param name="nntpDateTime"></param>
-            <param name="tzi"></param>
-            <returns></returns>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The uu decode.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            </exception>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.ArticleHeader">
             <summary>
@@ -5722,23 +5759,12 @@
         </member>
         <member name="T:YAF.Classes.Core.BaseUserControl">
             <summary>
-            Summary description for ForumUsers.
+            The base user control.
             </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.BaseUserControl.HtmlEncode(System.Object)">
-            <summary>
-            The html encode.
-            </summary>
-            <param name="data">
-            The data.
-            </param>
-            <returns>
-            The html encode.
-            </returns>
         </member>
         <member name="P:YAF.Classes.Core.BaseUserControl.PageContext">
             <summary>
-            Gets PageContext.
+              Gets PageContext.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafDateTime">
@@ -6026,7 +6052,7 @@
             <param name="dataRows">
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Int32,System.Int32,System.Nullable{System.Int32},System.Int32)">
             <summary>
             Returns the layout of the board
             </summary>
@@ -6357,22 +6383,6 @@
             <summary>
             Unloads all the modules in the module manager.
             </summary>
-        </member>
-        <member name="M:YAF.Modules.YafModuleManager`1.FindModules(System.Collections.IList,System.String,System.String)">
-            <summary>
-            Finds modules (classes) in the supplied assemblies.
-            </summary>
-            <param name="assemblies">
-            The assemblies.
-            </param>
-            <param name="moduleNamespace">
-            The module namespace.
-            </param>
-            <param name="moduleBaseInterface">
-            The module base interface.
-            </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Modules.YafModuleManager`1.AddModules(System.Collections.IList)">
             <summary>
@@ -6828,31 +6838,148 @@
             Gets or sets ForumControlObj.
             </summary>
         </member>
+        <member name="T:YAF.Controls.BasePanel">
+            <summary>
+            Control derived from Panel that includes a reference to the <see cref="T:YAF.Classes.Core.YafContext"/>.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BasePanel.GetUniqueID(System.String)">
+            <summary>
+            Creates a Unique ID
+            </summary>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get unique id.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.BasePanel.GetExtendedID(System.String)">
+            <summary>
+            Creates a ID Based on the Control Structure
+            </summary>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get extended id.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.BasePanel.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafTheme">
+            <summary>
+            The yaf theme.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTheme._themeFile">
+            <summary>
+            The _theme file.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTheme._themeXmlDoc">
+            <summary>
+            The _theme xml doc.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTheme.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafTheme"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTheme.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafTheme"/> class.
+            </summary>
+            <param name="newThemeFile">
+            The new theme file.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.YafTheme.IsValidTheme(System.String)">
             <summary>
             Basic testing of the theme's validity...
             </summary>
-            <param name="themeFile"></param>
-            <returns></returns>
+            <param name="themeFile">
+            </param>
+            <returns>
+            The is valid theme.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTheme.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
+            <summary>
+            Gets the collapsible panel image url (expanded or collapsed).
+              </summary>
+            <param name="panelID">
+            ID of collapsible panel
+            </param>
+            <param name="defaultState">
+            Default Panel State
+            </param>
+            <returns>
+            Image URL
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTheme.BuildThemePath(System.String)">
             <summary>
             Gets full path to the given theme file.
             </summary>
-            <param name="filename">Short name of theme file.</param>
-            <returns></returns>
+            <param name="filename">
+            Short name of theme file.
+            </param>
+            <returns>
+            The build theme path.
+            </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafTheme.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
+        <member name="M:YAF.Classes.Core.YafTheme.GetItem(System.String,System.String)">
             <summary>
-            Gets the collapsible panel image url (expanded or collapsed).
-            <param name="panelID">ID of collapsible panel</param>
-            <param name="defaultState">Default Panel State</param>
+            The get item.
             </summary>
-            <returns>Image URL</returns>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get item.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTheme.GetItem(System.String,System.String,System.String)">
+            <summary>
+            The get item.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <returns>
+            The get item.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTheme.LoadThemeFile">
+            <summary>
+            The load theme file.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTheme.LogMissingThemeItem">
+            <summary>
+            Gets or sets a value indicating whether LogMissingThemeItem.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTheme.ThemeDir">
+            <summary>
+            Gets ThemeDir.
+            </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafTheme.ThemeFile">
             <summary>
-            Get or Set the current Theme File
+              Get or Set the current Theme File
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafCheckBannedIps">
@@ -6885,12 +7012,12 @@
         </member>
         <member name="F:YAF.Classes.Core.ThemeHandler._initTheme">
             <summary>
-            The _init theme.
+              The _init theme.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.ThemeHandler._theme">
             <summary>
-            The _theme.
+              The _theme.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.ThemeHandler.InitTheme">
@@ -6898,19 +7025,19 @@
             Sets the theme class up for usage
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.ThemeHandler.Theme">
+        <member name="E:YAF.Classes.Core.ThemeHandler.AfterInit">
             <summary>
-            Gets or sets Theme.
+              The after init.
             </summary>
         </member>
         <member name="E:YAF.Classes.Core.ThemeHandler.BeforeInit">
             <summary>
-            The before init.
+              The before init.
             </summary>
         </member>
-        <member name="E:YAF.Classes.Core.ThemeHandler.AfterInit">
+        <member name="P:YAF.Classes.Core.ThemeHandler.Theme">
             <summary>
-            The after init.
+              Gets or sets Theme.
             </summary>
         </member>
         <member name="T:YAF.Modules.MailSendingModule">
@@ -6952,173 +7079,6 @@
         <member name="P:YAF.Modules.MailSendingModule.ForumControlObj">
             <summary>
             Gets or sets ForumControlObj.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.DotNetNukeUrlBuilder">
-            <summary>
-            The dot net nuke url builder.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.DotNetNukeUrlBuilder._cacheSize">
-            <summary>
-            The cache size.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.BuildUrl(System.String)">
-            <summary>
-            The build url.
-            </summary>
-            <param name="sUrl">
-            The url.
-            </param>
-            <returns>
-            The build url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.ResolveUrl(System.String)">
-            <summary>
-             Get Domain Name
-            </summary>
-            <param name="url"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.HighRange(System.Int32)">
-            <summary>
-            The high range.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The high range.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.LowRange(System.Int32)">
-            <summary>
-            The low range.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The low range.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.CleanStringForURL(System.String)">
-            <summary>
-            The clean string for url.
-            </summary>
-            <param name="str">
-            The str.
-            </param>
-            <returns>
-            The clean string for url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetProfileName(System.Int32)">
-            <summary>
-            The get profile name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get profile name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetCacheName(System.String,System.Int32)">
-            <summary>
-            The get cache name.
-            </summary>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get cache name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetCategoryName(System.Int32)">
-            <summary>
-            The get category name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get category name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetDataRowFromCache(System.String,System.Int32)">
-            <summary>
-            The get data row from cache.
-            </summary>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetForumName(System.Int32)">
-            <summary>
-            The get forum name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get forum name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetTopicName(System.Int32)">
-            <summary>
-            The get topic name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get topic name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.GetTopicNameFromMessage(System.Int32)">
-            <summary>
-            The get topic name from message.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get topic name from message.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.SetupDataToCache(System.Data.DataTable@,System.String,System.Int32,System.String)">
-            <summary>
-            The setup data to cache.
-            </summary>
-            <param name="list">
-            The list.
-            </param>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <param name="primaryKey">
-            The primary key.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.DotNetNukeUrlBuilder.CacheSize">
-            <summary>
-            Gets or sets CacheSize.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.BBCode.ReplaceRulesCreator">
@@ -8330,15 +8290,170 @@
             <summary>
             IP Details From IP Address
             </summary>
-            <param name="ipAddress">string IPAddess </param>
-            <returns>IPLocator Class</returns>
+            <param name="ipAddress">
+            string IPAddess 
+            </param>
+            <param name="tzInfo">
+            The tz Info.
+            </param>
+            <returns>
+            IPLocator Class
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.IPDetails.Deserialize(System.String)">
             <summary>
             Deserialize XML String
             </summary>
-            <param name="pXmlizedString"></param>
-            <returns></returns>
+            <param name="pXmlizedString">
+            </param>
+            <returns>
+            The deserialize.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.IPDetails.StringToUTF8ByteArray(System.String)">
+            <summary>
+            The string to ut f 8 byte array.
+            </summary>
+            <param name="pXmlString">
+            The p xml string.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.IPLocator">
+            <summary>
+            The ip locator.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.city">
+            <summary>
+            The city.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.countrycode">
+            <summary>
+            The countrycode.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.countryname">
+            <summary>
+            The countryname.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.gmtoffset">
+            <summary>
+            The gmtoffset.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.ip">
+            <summary>
+            The ip.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.isdst">
+            <summary>
+            The isdst.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.latitude">
+            <summary>
+            The latitude.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.longitude">
+            <summary>
+            The longitude.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.regioncode">
+            <summary>
+            The regioncode.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.regionname">
+            <summary>
+            The regionname.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.status">
+            <summary>
+            The status.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.timezone">
+            <summary>
+            The timezone.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IPLocator.zip">
+            <summary>
+            The zip.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.City">
+            <summary>
+            Gets or sets City.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.CountryCode">
+            <summary>
+            Gets or sets CountryCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.CountryName">
+            <summary>
+            Gets or sets CountryName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.Gmtoffset">
+            <summary>
+            Gets or sets Gmtoffset.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.Isdst">
+            <summary>
+            Gets or sets Isdst.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.Latitude">
+            <summary>
+            Gets or sets Latitude.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.Longitude">
+            <summary>
+            Gets or sets Longitude.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.RegionCode">
+            <summary>
+            Gets or sets RegionCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.RegionName">
+            <summary>
+            Gets or sets RegionName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.Status">
+            <summary>
+            Gets or sets Status.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.TimezoneName">
+            <summary>
+            Gets or sets TimezoneName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IPLocator.Zip">
+            <summary>
+            Gets or sets Zip.
+            </summary>
         </member>
         <member name="M:YAF.Classes.Utils.BinaryExtensions.BinaryAnd(System.Int32,System.Int32)">
             <summary>
@@ -8470,32 +8585,27 @@
         </member>
         <member name="F:YAF.Classes.Core.YafLocalization._culture">
             <summary>
-            The _culture.
+              The _culture.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafLocalization._defaultLocale">
             <summary>
-            The _default locale.
+              The _default locale.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafLocalization._languageFileName">
             <summary>
-            The _language file name.
+              The _language file name.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafLocalization._localizer">
             <summary>
-            The _localizer.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafLocalization._transPage">
-            <summary>
-            The _trans page.
+              The _localizer.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafLocalization.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafLocalization"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafLocalization"/> class.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafLocalization.#ctor(System.String)">
@@ -8506,16 +8616,51 @@
             The trans page.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.GetTextFormatted(System.String,System.Object[])">
+        <member name="M:YAF.Classes.Core.YafLocalization.FormatDateTime(System.String,System.DateTime)">
             <summary>
-            Formats a localized string -- but verifies the parameter count matches
+            Formats date using given formatting string and current culture.
             </summary>
-            <param name="text">
+            <param name="format">
+            Format string.
             </param>
-            <param name="args">
+            <param name="date">
+            Date to format.
             </param>
             <returns>
-            The get text formatted.
+            Formatted string.
+            </returns>
+            <remarks>
+            If current localization culture is neutral, it's not used in formatting.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.FormatString(System.String,System.Object[])">
+            <summary>
+            Formats string using current culture.
+            </summary>
+            <param name="format">
+            Format string.
+            </param>
+            <param name="args">
+            Parameters used in format string.
+            </param>
+            <returns>
+            Formatted string.
+            </returns>
+            <remarks>
+            If current localization culture is neutral, it's not used in formatting.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetNodesUsingQuery(System.String,System.Func{YAF.Classes.Core.ResourcesPageResource,System.Boolean})">
+            <summary>
+            The get nodes using query.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="predicate">
+            The predicate.
+            </param>
+            <returns>
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafLocalization.GetText(System.String)">
@@ -8527,6 +8672,46 @@
             </param>
             <returns>
             The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetText(System.String,System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetTextExists(System.String,System.String)">
+            <summary>
+            The get text exists.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text exists.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetTextFormatted(System.String,System.Object[])">
+            <summary>
+            Formats a localized string -- but verifies the parameter count matches
+            </summary>
+            <param name="text">
+            </param>
+            <param name="args">
+            </param>
+            <returns>
+            The get text formatted.
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafLocalization.LoadTranslation(System.String)">
@@ -8562,104 +8747,29 @@
             The get localized text internal.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.GetNodesUsingQuery(System.String,System.Func{YAF.Classes.Core.ResourcesPageResource,System.Boolean})">
+        <member name="P:YAF.Classes.Core.YafLocalization.Culture">
             <summary>
-            The get nodes using query.
-            </summary>
-            <param name="page">
-            The page.
-            </param>
-            <param name="tagQuery">
-            The tag query.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.GetTextExists(System.String,System.String)">
-            <summary>
-            The get text exists.
-            </summary>
-            <param name="page">
-            The page.
-            </param>
-            <param name="tag">
-            The tag.
-            </param>
-            <returns>
-            The get text exists.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.GetText(System.String,System.String)">
-            <summary>
-            The get text.
-            </summary>
-            <param name="page">
-            The page.
-            </param>
-            <param name="tag">
-            The tag.
-            </param>
-            <returns>
-            The get text.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.FormatString(System.String,System.Object[])">
-            <summary>
-            Formats string using current culture.
-            </summary>
-            <param name="format">
-            Format string.
-            </param>
-            <param name="args">
-            Parameters used in format string.
-            </param>
-            <returns>
-            Formatted string.
-            </returns>
-            <remarks>
-            If current localization culture is neutral, it's not used in formatting.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.FormatDateTime(System.String,System.DateTime)">
-            <summary>
-            Formats date using given formatting string and current culture.
-            </summary>
-            <param name="format">
-            Format string.
-            </param>
-            <param name="date">
-            Date to format.
-            </param>
-            <returns>
-            Formatted string.
-            </returns>
-            <remarks>
-            If current localization culture is neutral, it's not used in formatting.
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.YafLocalization.TranslationLoaded">
-            <summary>
-            Gets a value indicating whether TranslationLoaded.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafLocalization.TransPage">
-            <summary>
-            What section of the xml is used to translate this page
+              Gets Culture.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafLocalization.LanguageCode">
             <summary>
-            Gets LanguageCode.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafLocalization.Culture">
-            <summary>
-            Gets Culture.
+              Gets LanguageCode.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafLocalization.LanguageFileName">
             <summary>
-            Gets LanguageFileName.
+              Gets LanguageFileName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.TransPage">
+            <summary>
+              What section of the xml is used to translate this page
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.TranslationLoaded">
+            <summary>
+              Gets a value indicating whether TranslationLoaded.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafUserIgnored">

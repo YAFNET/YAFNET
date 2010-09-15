@@ -6310,10 +6310,11 @@
             The board ID.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.shoutbox_getmessages(System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.shoutbox_getmessages(System.Int32,System.Int32,System.Object)">
             <summary>
             The shoutbox_getmessages.
             </summary>
+            <param name="boardId"></param>
             <param name="numberOfMessages">
             The number of messages.
             </param>
@@ -6323,14 +6324,14 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.shoutbox_savemessage(System.String,System.String,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.shoutbox_savemessage(System.Int32,System.String,System.String,System.Int32,System.Object)">
             <summary>
             The shoutbox_savemessage.
             </summary>
             <param name="message">
             The message.
             </param>
-            <param name="usernName">
+            <param name="userName">
             The usern name.
             </param>
             <param name="userID">
@@ -6343,7 +6344,7 @@
             The shoutbox_savemessage.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.shoutbox_clearmessages">
+        <member name="M:YAF.Classes.Data.DB.shoutbox_clearmessages(System.Int32)">
             <summary>
             The shoutbox_clearmessages.
             </summary>

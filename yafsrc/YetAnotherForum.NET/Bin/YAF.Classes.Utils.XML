@@ -1439,17 +1439,6 @@
             The ip helper.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.IPHelper.Str2IP(System.String[])">
-            <summary>
-            Converts an array of strings into a ulong representing a 4 byte IP address
-            </summary>
-            <param name="ip">
-            string array of numbers
-            </param>
-            <returns>
-            ulong represending an encoding IP address
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Utils.IPHelper.IPStrToLong(System.String)">
             <summary>
             The ip str to long.
@@ -1473,6 +1462,17 @@
             </param>
             <returns>
             true if it's banned
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.IPHelper.Str2IP(System.String[])">
+            <summary>
+            Converts an array of strings into a ulong representing a 4 byte IP address
+            </summary>
+            <param name="ip">
+            string array of numbers
+            </param>
+            <returns>
+            ulong represending an encoding IP address
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.UserAgentHelper">

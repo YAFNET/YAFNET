@@ -2111,11 +2111,6 @@
             The goto page forum event args.
             </summary>
         </member>
-        <member name="F:YAF.Controls.GotoPageForumEventArgs._gotoPage">
-            <summary>
-            The _goto page.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.GotoPageForumEventArgs.#ctor(System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Controls.GotoPageForumEventArgs"/> class.
@@ -2126,7 +2121,7 @@
         </member>
         <member name="P:YAF.Controls.GotoPageForumEventArgs.GotoPage">
             <summary>
-            Gets or sets GotoPage.
+              Gets or sets GotoPage.
             </summary>
         </member>
         <member name="T:YAF.Controls.GotoPageForm">
@@ -2136,38 +2131,49 @@
         </member>
         <member name="F:YAF.Controls.GotoPageForm._divInner">
             <summary>
-            The _div inner.
+              The _div inner.
             </summary>
         </member>
         <member name="F:YAF.Controls.GotoPageForm._gotoButton">
             <summary>
-            The _goto button.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.GotoPageForm._gotoPageValue">
-            <summary>
-            The _goto page value.
+              The _goto button.
             </summary>
         </member>
         <member name="F:YAF.Controls.GotoPageForm._gotoTextBox">
             <summary>
-            The _goto text box.
+              The _goto text box.
             </summary>
         </member>
         <member name="F:YAF.Controls.GotoPageForm._headerText">
             <summary>
-            The _header text.
+              The _header text.
             </summary>
         </member>
         <member name="F:YAF.Controls.GotoPageForm._mainPanel">
             <summary>
-            The _main panel.
+              The _main panel.
             </summary>
         </member>
-        <member name="M:YAF.Controls.GotoPageForm.#ctor">
+        <member name="F:YAF.Controls.GotoPageForm._gotoPageValue">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.GotoPageForm"/> class.
+              The _goto page value.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.GotoPageForm.BuildForm">
+            <summary>
+            The build form.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.GotoPageForm.GotoButtonClick(System.Object,System.EventArgs)">
+            <summary>
+            The goto button click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Controls.GotoPageForm.OnInit(System.EventArgs)">
             <summary>
@@ -2185,11 +2191,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.GotoPageForm.BuildForm">
-            <summary>
-            The build form.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.GotoPageForm.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
@@ -2198,45 +2199,34 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.GotoPageForm.GotoButtonClick(System.Object,System.EventArgs)">
+        <member name="E:YAF.Controls.GotoPageForm.GotoPageClick">
             <summary>
-            The goto button click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.GotoPageForm.MainPanel">
-            <summary>
-            Gets MainPanel.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.GotoPageForm.InnerDiv">
-            <summary>
-            Gets InnerDiv.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.GotoPageForm.GotoPageValue">
-            <summary>
-            Gets or sets GotoPageValue.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.GotoPageForm.GotoTextBoxClientID">
-            <summary>
-            Gets GotoTextBoxClientID.
+              The goto page click.
             </summary>
         </member>
         <member name="P:YAF.Controls.GotoPageForm.GotoButtonClientID">
             <summary>
-            Gets GotoButtonClientID.
+              Gets GotoButtonClientID.
             </summary>
         </member>
-        <member name="E:YAF.Controls.GotoPageForm.GotoPageClick">
+        <member name="P:YAF.Controls.GotoPageForm.GotoPageValue">
             <summary>
-            The goto page click.
+              Gets or sets GotoPageValue.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.GotoPageForm.GotoTextBoxClientID">
+            <summary>
+              Gets GotoTextBoxClientID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.GotoPageForm.InnerDiv">
+            <summary>
+              Gets InnerDiv.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.GotoPageForm.MainPanel">
+            <summary>
+              Gets MainPanel.
             </summary>
         </member>
         <member name="T:YAF.Controls.RecaptchaValidator">
@@ -2569,17 +2559,6 @@
             The raise post data changed event.
             </summary>
         </member>
-        <member name="M:YAF.Controls.ForumJump.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Controls.ForumJump.OnInit(System.EventArgs)">
             <summary>
             The on init.
@@ -2596,9 +2575,20 @@
             The writer.
             </param>
         </member>
+        <member name="M:YAF.Controls.ForumJump.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="P:YAF.Controls.ForumJump.ForumID">
             <summary>
-            Gets or sets ForumID.
+              Gets or sets ForumID.
             </summary>
         </member>
         <member name="T:YAF.Controls.AdminMenu">
@@ -2725,19 +2715,9 @@
             The message attached.
             </summary>
         </member>
-        <member name="F:YAF.Controls.MessageAttached._messageId">
-            <summary>
-            The _message id.
-            </summary>
-        </member>
         <member name="F:YAF.Controls.MessageAttached._userName">
             <summary>
-            The _user name.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageAttached.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.MessageAttached"/> class.
+              The _user name.
             </summary>
         </member>
         <member name="M:YAF.Controls.MessageAttached.Render(System.Web.UI.HtmlTextWriter)">
@@ -2758,18 +2738,37 @@
         </member>
         <member name="P:YAF.Controls.MessageAttached.MessageID">
             <summary>
-            Gets or sets MessageID.
+              Gets or sets MessageID.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessageAttached.UserName">
             <summary>
-            Gets or sets UserName.
+              Gets or sets UserName.
             </summary>
         </member>
         <member name="T:YAF.Controls.PageLinks">
             <summary>
             Summary description for PageLinks.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32)">
+            <summary>
+            The add forum links.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32,System.Boolean)">
+            <summary>
+            The add forum links.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="noForumLink">
+            The no forum link.
+            </param>
         </member>
         <member name="M:YAF.Controls.PageLinks.AddLink(System.String)">
             <summary>
@@ -2795,25 +2794,6 @@
             Clear all Links
             </summary>
         </member>
-        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32)">
-            <summary>
-            The add forum links.
-            </summary>
-            <param name="forumID">
-            The forum id.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32,System.Boolean)">
-            <summary>
-            The add forum links.
-            </summary>
-            <param name="forumID">
-            The forum id.
-            </param>
-            <param name="noForumLink">
-            The no forum link.
-            </param>
-        </member>
         <member name="M:YAF.Controls.PageLinks.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
@@ -2824,12 +2804,12 @@
         </member>
         <member name="P:YAF.Controls.PageLinks.LinkedPageLinkID">
             <summary>
-            Gets or sets LinkedPageLinkID.
+              Gets or sets LinkedPageLinkID.
             </summary>
         </member>
         <member name="P:YAF.Controls.PageLinks.PageLinkDT">
             <summary>
-            Gets or sets PageLinkDT.
+              Gets or sets PageLinkDT.
             </summary>
         </member>
         <member name="T:YAF.Controls.AlphaSort">

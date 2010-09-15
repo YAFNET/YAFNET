@@ -758,9 +758,67 @@
               The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.activeusers.btnReturn_Click(System.Object,System.EventArgs)">
+            <summary>
+            Button click. 
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The Event args</param>
+        </member>
+        <member name="M:YAF.Pages.activeusers.Pager_PageChange(System.Object,System.EventArgs)">
+            <summary>
+            The pager_ page change.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.activeusers.GetActiveUsersData(System.Boolean,System.Boolean)">
+            <summary>
+            Gets active user data Table data for a page user 
+            </summary>
+            <param name="showGuests">The show guests.</param>
+            <param name="showCrawlers">The show crawlers.</param>
+            <returns>A DataTable</returns>
+        </member>
+        <member name="M:YAF.Pages.activeusers.RemoveAllButGusts(System.Data.DataView@)">
+            <summary>
+            Removes from the DataView all users but guests.
+            </summary>
+            <param name="activeUsers">The active users.</param>
+        </member>
+        <member name="M:YAF.Pages.activeusers.RemoveAllButHiddenUsers(System.Data.DataView@)">
+            <summary>
+            Removes from the DataView all users but hidden.
+            </summary>
+            <param name="activeUsers">The active users.</param>
+        </member>
+        <member name="M:YAF.Pages.activeusers.RemoveHiddenUsers(System.Data.DataView@)">
+            <summary>
+            Removes hidden users.
+            </summary>
+            <param name="activeUsers">The active users.</param>
+        </member>
+        <member name="M:YAF.Pages.activeusers.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
         <member name="F:YAF.Pages.activeusers.PageLinks">
             <summary>
             PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.activeusers.Pager">
+            <summary>
+            Pager control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -7634,9 +7692,20 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="M:YAF.Controls.PMList.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PMList.ArchiveAll_Click(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The archive all_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ArchiveAll_Load(System.Object,System.EventArgs)">
+            <summary>
+            The archive all_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -7645,12 +7714,125 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.PMList.GetTitle">
+        <member name="M:YAF.Controls.PMList.ArchiveSelected_Click(System.Object,System.EventArgs)">
             <summary>
-            The get title.
+            The archive selected_ click.
             </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.DateLink_Click(System.Object,System.EventArgs)">
+            <summary>
+            The date link_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.DeleteAll_Click(System.Object,System.EventArgs)">
+            <summary>
+            The delete all_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.DeleteAll_Load(System.Object,System.EventArgs)">
+            <summary>
+            The delete all_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.DeleteSelected_Click(System.Object,System.EventArgs)">
+            <summary>
+            The delete selected_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.DeleteSelected_Load(System.Object,System.EventArgs)">
+            <summary>
+            The delete selected_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportAll_Click(System.Object,System.EventArgs)">
+            <summary>
+            The delete all_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportSelected_Click(System.Object,System.EventArgs)">
+            <summary>
+            The delete all_ click.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.FormatBody(System.Object)">
+            <summary>
+            The format body.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
             <returns>
-            The get title.
+            The format body.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.PMList.FromLink_Click(System.Object,System.EventArgs)">
+            <summary>
+            The from link_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.GetImage(System.Object)">
+            <summary>
+            The get image.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The get image.
             </returns>
         </member>
         <member name="M:YAF.Controls.PMList.GetLocalizedText(System.String)">
@@ -7662,6 +7844,25 @@
             </param>
             <returns>
             The get localized text.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.PMList.GetMessageLink(System.Object)">
+            <summary>
+            The get message link.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            The get message link.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.PMList.GetMessageUserHeader">
+            <summary>
+            The get message user header.
+            </summary>
+            <returns>
+            The get message user header.
             </returns>
         </member>
         <member name="M:YAF.Controls.PMList.GetPMessageText(System.String,System.Object,System.Object,System.Object,System.Object,System.Object)">
@@ -7690,62 +7891,13 @@
             The get p message text.
             </returns>
         </member>
-        <member name="M:YAF.Controls.PMList.GetMessageUserHeader">
+        <member name="M:YAF.Controls.PMList.GetTitle">
             <summary>
-            The get message user header.
+            The get title.
             </summary>
             <returns>
-            The get message user header.
+            The get title.
             </returns>
-        </member>
-        <member name="M:YAF.Controls.PMList.GetMessageLink(System.Object)">
-            <summary>
-            The get message link.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <returns>
-            The get message link.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.PMList.FormatBody(System.Object)">
-            <summary>
-            The format body.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The format body.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.PMList.BindData">
-            <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.PMList.ArchiveSelected_Click(System.Object,System.EventArgs)">
-            <summary>
-            The archive selected_ click.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ArchiveAll_Click(System.Object,System.EventArgs)">
-            <summary>
-            The archive all_ click.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
         </member>
         <member name="M:YAF.Controls.PMList.MarkAsRead_Click(System.Object,System.EventArgs)">
             <summary>
@@ -7758,159 +7910,20 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.PMList.DeleteSelected_Click(System.Object,System.EventArgs)">
-            <summary>
-            The delete selected_ click.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.DeleteAll_Click(System.Object,System.EventArgs)">
-            <summary>
-            The delete all_ click.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ExportSelected_Click(System.Object,System.EventArgs)">
-            <summary>
-            The delete all_ click.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ExportAll_Click(System.Object,System.EventArgs)">
-            <summary>
-            The delete all_ click.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ExportXmlFile(System.Data.DataView)">
-            <summary>
-            Export the Private Messages in messageList as Xml File
-            </summary>
-            <param name="messageList">DataView that Contains the Private Messages</param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ExportCsvFile(System.Data.DataView)">
-            <summary>
-            Export the Private Messages in messageList as CSV File
-            </summary>
-            <param name="messageList">DataView that Contains the Private Messages</param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ExportTextFile(System.Data.DataView)">
-            <summary>
-            Export the Private Messages in messageList as Text File
-            </summary>
-            <param name="messageList">DataView that Contains the Private Messages</param>
-        </member>
-        <member name="M:YAF.Controls.PMList.GetImage(System.Object)">
-            <summary>
-            The get image.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The get image.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.PMList.SetSort(System.String,System.Boolean)">
-            <summary>
-            The set sort.
-            </summary>
-            <param name="field">
-            The field.
-            </param>
-            <param name="asc">
-            The asc.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.SubjectLink_Click(System.Object,System.EventArgs)">
-            <summary>
-            The subject link_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.FromLink_Click(System.Object,System.EventArgs)">
-            <summary>
-            The from link_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.DateLink_Click(System.Object,System.EventArgs)">
-            <summary>
-            The date link_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.ArchiveAll_Load(System.Object,System.EventArgs)">
-            <summary>
-            The archive all_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.DeleteSelected_Load(System.Object,System.EventArgs)">
-            <summary>
-            The delete selected_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PMList.DeleteAll_Load(System.Object,System.EventArgs)">
-            <summary>
-            The delete all_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Controls.PMList.MessagesView_RowCreated(System.Object,System.Web.UI.WebControls.GridViewRowEventArgs)">
             <summary>
             The messages view_ row created.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -7935,9 +7948,60 @@
             The stats_ renew.
             </summary>
         </member>
+        <member name="M:YAF.Controls.PMList.SubjectLink_Click(System.Object,System.EventArgs)">
+            <summary>
+            The subject link_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportCsvFile(System.Data.DataView)">
+            <summary>
+            Export the Private Messages in messageList as CSV File
+            </summary>
+            <param name="messageList">
+            DataView that Contains the Private Messages
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportTextFile(System.Data.DataView)">
+            <summary>
+            Export the Private Messages in messageList as Text File
+            </summary>
+            <param name="messageList">
+            DataView that Contains the Private Messages
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.ExportXmlFile(System.Data.DataView)">
+            <summary>
+            Export the Private Messages in messageList as Xml File
+            </summary>
+            <param name="messageList">
+            DataView that Contains the Private Messages
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PMList.SetSort(System.String,System.Boolean)">
+            <summary>
+            The set sort.
+            </summary>
+            <param name="field">
+            The field.
+            </param>
+            <param name="asc">
+            The asc.
+            </param>
+        </member>
         <member name="P:YAF.Controls.PMList.View">
             <summary>
-            Gets or sets the current view for the user's private messages.
+              Gets or sets the current view for the user's private messages.
             </summary>
         </member>
         <member name="T:YAF.RegisterForum.Register">
@@ -8424,7 +8488,7 @@
             <summary>
             The get interface in assembly.
             </summary>
-            <param name="cAssembly">
+            <param name="assembly">
             The c assembly.
             </param>
             <param name="className">
@@ -15009,12 +15073,31 @@
         </member>
         <member name="M:YAF.Controls.ShoutBox.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ShoutBox"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Controls.ShoutBox"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Controls.ShoutBox.ShoutBox_PreRender(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.ShoutBox.DataBind">
             <summary>
-            The shout box_ pre render.
+            The data bind.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ShoutBox.FormatSmiliesOnClickString(System.String,System.String)">
+            <summary>
+            The format smilies on click string.
+            </summary>
+            <param name="code">
+            The code.
+            </param>
+            <param name="path">
+            The path.
+            </param>
+            <returns>
+            The format smilies on click string.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ShoutBox.CollapsibleImageShoutBox_Click(System.Object,System.Web.UI.ImageClickEventArgs)">
+            <summary>
+            The collapsible image shout box_ click.
             </summary>
             <param name="sender">
             The sender.
@@ -15067,16 +15150,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.ShoutBox.DataBind">
-            <summary>
-            The data bind.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ShoutBox.BindData">
-            <summary>
-            The bind data.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.ShoutBox.FormatHyperLink(System.String)">
             <summary>
             The format hyper link.
@@ -15088,23 +15161,14 @@
             The format hyper link.
             </returns>
         </member>
-        <member name="M:YAF.Controls.ShoutBox.FormatSmiliesOnClickString(System.String,System.String)">
+        <member name="M:YAF.Controls.ShoutBox.BindData">
             <summary>
-            The format smilies on click string.
+            The bind data.
             </summary>
-            <param name="code">
-            The code.
-            </param>
-            <param name="path">
-            The path.
-            </param>
-            <returns>
-            The format smilies on click string.
-            </returns>
         </member>
-        <member name="M:YAF.Controls.ShoutBox.CollapsibleImageShoutBox_Click(System.Object,System.Web.UI.ImageClickEventArgs)">
+        <member name="M:YAF.Controls.ShoutBox.ShoutBox_PreRender(System.Object,System.EventArgs)">
             <summary>
-            The collapsible image shout box_ click.
+            The shout box_ pre render.
             </summary>
             <param name="sender">
             The sender.
@@ -15115,7 +15179,7 @@
         </member>
         <member name="P:YAF.Controls.ShoutBox.CacheKey">
             <summary>
-            Gets CacheKey.
+              Gets CacheKey.
             </summary>
         </member>
         <member name="T:YAF.Controls.PMView">
@@ -15125,23 +15189,32 @@
         </member>
         <member name="F:YAF.Controls.PMView.Inbox">
             <summary>
-            The inbox.
+              The inbox.
             </summary>
         </member>
         <member name="F:YAF.Controls.PMView.Outbox">
             <summary>
-            The outbox.
+              The outbox.
             </summary>
         </member>
         <member name="F:YAF.Controls.PMView.Archive">
             <summary>
-            The archive.
+              The archive.
             </summary>
         </member>
         <member name="T:YAF.Controls.PMViewConverter">
             <summary>
             Converts <see cref="T:YAF.Controls.PMView"/>s to and from their URL query string representations.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.PMViewConverter.FromQueryString(System.String)">
+            <summary>
+            Returns a <see cref="T:YAF.Controls.PMView"/> based on its URL query string value.
+            </summary>
+            <param name="param">
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Controls.PMViewConverter.ToQueryStringParam(YAF.Controls.PMView)">
             <summary>
@@ -15151,15 +15224,6 @@
             </param>
             <returns>
             The to query string param.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.PMViewConverter.FromQueryString(System.String)">
-            <summary>
-            Returns a <see cref="T:YAF.Controls.PMView"/> based on its URL query string value.
-            </summary>
-            <param name="param">
-            </param>
-            <returns>
             </returns>
         </member>
         <member name="T:YAF.Controls.ForumModeratorList">
@@ -21468,7 +21532,7 @@
         </member>
         <member name="T:YAF.controls.PollList">
             <summary>
-             PollList Class
+            PollList Class
             </summary>
         </member>
         <member name="F:YAF.controls.PollList.PollGroup">
@@ -21498,6 +21562,16 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.controls.PollList._canChange">
+            <summary>
+              The _canChange.
+            </summary>
+        </member>
+        <member name="F:YAF.controls.PollList._canVote">
+            <summary>
+              The _canVote. Used to store data from parent repeater.
+            </summary>
+        </member>
         <member name="F:YAF.controls.PollList._dataBound">
             <summary>
               The _data bound.
@@ -21518,24 +21592,9 @@
               The _dt Votes.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList.topicUser">
-            <summary>
-              The topic User.
-            </summary>
-        </member>
-        <member name="F:YAF.controls.PollList._canChange">
-            <summary>
-              The _canChange.
-            </summary>
-        </member>
         <member name="F:YAF.controls.PollList._showResults">
             <summary>
               The _showResults. Used to store data from parent repeater.
-            </summary>
-        </member>
-        <member name="F:YAF.controls.PollList._canVote">
-            <summary>
-              The _canVote. Used to store data from parent repeater.
             </summary>
         </member>
         <member name="F:YAF.controls.PollList.isBound">
@@ -21548,41 +21607,138 @@
               The isClosedBound.
             </summary>
         </member>
-        <member name="M:YAF.controls.PollList.VotingCookieName(System.Int32)">
+        <member name="F:YAF.controls.PollList.topicUser">
             <summary>
-              Gets VotingCookieName.
+              The topic User.
             </summary>
-        </member>
-        <member name="M:YAF.controls.PollList.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            Page_Load
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
         </member>
         <member name="M:YAF.controls.PollList.GetThemeContents(System.String,System.String)">
             <summary>
-             Get Theme Contents
+            Get Theme Contents
             </summary>
-            <param name="page">The Page</param>
-            <param name="tag">Tag</param>
-            <returns>Content</returns>
+            <param name="page">
+            The Page
+            </param>
+            <param name="tag">
+            Tag
+            </param>
+            <returns>
+            Content
+            </returns>
         </member>
-        <member name="M:YAF.controls.PollList.ParamsToSend">
+        <member name="M:YAF.controls.PollList.CanCreatePoll">
             <summary>
-            A method to return parameters string. It should be implemented in other way.
+            Checks if a user can create poll.
             </summary>
-            <returns></returns>
+            <returns>
+            The can create poll.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.CanEditPoll(System.Object)">
+            <summary>
+            Checks if user can edit a poll
+            </summary>
+            <param name="pollId">
+            </param>
+            <returns>
+            The can edit poll.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.CanRemoveGroup">
+            <summary>
+            Checks if a user can remove all polls in a group
+            </summary>
+            <returns>
+            The can remove group.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.CanRemoveGroupCompletely">
+            <summary>
+            Checks if  a user can remove all polls in a group completely.
+            </summary>
+            <returns>
+            The can remove group completely.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.CanRemoveGroupEverywhere">
+            <summary>
+            Checks if a user can delete group from all places but not completely
+            </summary>
+            <returns>
+            The can remove group everywhere.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.CanRemovePoll(System.Object)">
+            <summary>
+            Checks if a user can delete poll without deleting it from database
+            </summary>
+            <param name="pollId">
+            </param>
+            <returns>
+            The can remove poll.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.CanRemovePollCompletely(System.Object)">
+            <summary>
+            Checks if a user can delete poll completely
+            </summary>
+            <param name="pollId">
+            </param>
+            <returns>
+            The can remove poll completely.
+            </returns>
         </member>
         <member name="M:YAF.controls.PollList.CanVote(System.Object)">
             <summary>
-              Property to verify if the current user can vote in this poll.
+            Property to verify if the current user can vote in this poll.
             </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
+            <returns>
+            The can vote.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.ChangePollShowStatus(System.Boolean)">
+            <summary>
+            The change poll show status.
+            </summary>
+            <param name="newStatus">
+            The new status.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollList.DaysToRun(System.Object,System.Boolean@)">
+            <summary>
+            The days to run.
+            </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
+            <param name="soon">
+            The soon.
+            </param>
+            <returns>
+            The days to run.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.GetImageHeight(System.Object)">
+            <summary>
+            The get image height.
+            </summary>
+            <param name="mimeType">
+            The mime type.
+            </param>
+            <returns>
+            The get image height.
+            </returns>
         </member>
         <member name="M:YAF.controls.PollList.GetPollIsClosed(System.Object)">
             <summary>
             The get poll is closed.
             </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
             <returns>
             The get poll is closed.
             </returns>
@@ -21591,6 +21747,9 @@
             <summary>
             The get poll question.
             </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
             <returns>
             The get poll question.
             </returns>
@@ -21599,36 +21758,52 @@
             <summary>
             The get total.
             </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
             <returns>
             The get total.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.IsNotVoted(System.Object)">
+            <summary>
+            The is not voted.
+            </summary>
+            <param name="pollId">
+            The poll id.
+            </param>
+            <returns>
+            The is not voted.
             </returns>
         </member>
         <member name="M:YAF.controls.PollList.IsPollClosed(System.Object)">
             <summary>
             The is poll closed.
             </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
             <returns>
             The is poll closed.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.DaysToRun(System.Object,System.Boolean@)">
+        <member name="M:YAF.controls.PollList.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The days to run.
+            Page_Load
             </summary>
-            <returns>
-            The days to run.
-            </returns>
-        </member>
-        <member name="M:YAF.controls.PollList.VoteWidth(System.Object)">
-            <summary>
-            The vote width.
-            </summary>
-            <param name="o">
-            The o.
+            <param name="sender">
             </param>
-            <returns>
-            The vote width.
-            </returns>
+            <param name="e">
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollList.PollGroup_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            PollGroup_ItemCommand
+            </summary>
+            <param name="source">
+            </param>
+            <param name="e">
+            </param>
         </member>
         <member name="M:YAF.controls.PollList.PollGroup_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
@@ -21641,20 +21816,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.PollGroup_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
-            <summary>
-            PollGroup_ItemCommand
-            </summary>
-            <param name="source"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.controls.PollList.GetImageAspect(System.Object)">
-            <summary>
-            Returns an image width|height ratio. 
-            </summary>
-            <param name="mimeType"></param>
-            <returns></returns>
-        </member>
         <member name="M:YAF.controls.PollList.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
             The poll_ item command.
@@ -21666,77 +21827,12 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.ReturnToPage">
+        <member name="M:YAF.controls.PollList.Poll_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
-            Returns user to the original call page. 
+            The poll_ on item data bound.
             </summary>
-        </member>
-        <member name="M:YAF.controls.PollList.ChangePollShowStatus(System.Boolean)">
-            <summary>
-            The change poll show status.
-            </summary>
-            <param name="newStatus">
-            The new status.
-            </param>
-        </member>
-        <member name="M:YAF.controls.PollList.CanCreatePoll">
-            <summary>
-            Checks if a user can create poll.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanEditPoll(System.Object)">
-            <summary>
-            Checks if user can edit a poll
-            </summary>
-            <param name="pollId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanRemovePoll(System.Object)">
-            <summary>
-            Checks if a user can delete poll without deleting it from database
-            </summary>
-            <param name="pollId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanRemovePollCompletely(System.Object)">
-            <summary>
-            Checks if a user can delete poll completely
-            </summary>
-            <param name="pollId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanRemoveGroup">
-            <summary>
-            Checks if a user can remove all polls in a group 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanRemoveGroupCompletely">
-            <summary>
-            Checks if  a user can remove all polls in a group completely.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanRemoveGroupEverywhere">
-            <summary>
-            Checks if a user can delete group from all places but not completely
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.PollHasNoVotes(System.Object)">
-            <summary>
-            Checks if a poll has votes.
-            </summary>
-            <param name="pollId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.controls.PollList.RemovePoll_Load(System.Object,System.EventArgs)">
-            <summary>
-            The remove poll_ load.
-            </summary>
-            <param name="sender">
-            The sender.
+            <param name="source">
+            The source.
             </param>
             <param name="e">
             The e.
@@ -21753,81 +21849,166 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.controls.PollList.RemovePoll_Load(System.Object,System.EventArgs)">
+            <summary>
+            The remove poll_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollList.VoteWidth(System.Object)">
+            <summary>
+            The vote width.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The vote width.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.VotingCookieName(System.Int32)">
+            <summary>
+            Gets VotingCookieName.
+            </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
+            <returns>
+            The voting cookie name.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.DisplayButtons">
+            <summary>
+            The display buttons.
+            </summary>
+        </member>
+        <member name="M:YAF.controls.PollList.GetImageAspect(System.Object)">
+            <summary>
+            Returns an image width|height ratio.
+            </summary>
+            <param name="mimeType">
+            </param>
+            <returns>
+            The get image aspect.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.BindCreateNewPollRow">
+            <summary>
+            The bind create new poll row.
+            </summary>
+        </member>
         <member name="M:YAF.controls.PollList.BindData">
             <summary>
             The bind data.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.PollGroupId">
+        <member name="M:YAF.controls.PollList.HasOwnerExistingGroupAccess">
             <summary>
-            Returns PollGroupID
+            The has owner existing group access.
             </summary>
+            <returns>
+            The has owner existing group access.
+            </returns>
         </member>
-        <member name="P:YAF.controls.PollList.TopicId">
+        <member name="M:YAF.controls.PollList.ParamsToSend">
             <summary>
-            Returns TopicId
+            A method to return parameters string. 
+            Consrtucts parameters string to send to other forms.
             </summary>
+            <returns>
+            The params to send.
+            </returns>
         </member>
-        <member name="P:YAF.controls.PollList.EditMessageId">
+        <member name="M:YAF.controls.PollList.PollHasNoVotes(System.Object)">
             <summary>
-            Returns EditMessageId.
+            Checks if a poll has no votes.
             </summary>
+            <param name="pollId">
+            </param>
+            <returns>
+            The poll has no votes.
+            </returns>
         </member>
-        <member name="P:YAF.controls.PollList.CategoryId">
+        <member name="M:YAF.controls.PollList.ReturnToPage">
             <summary>
-            Returns CategoryId
-            </summary>
-        </member>
-        <member name="P:YAF.controls.PollList.EditCategoryId">
-            <summary>
-            Returns EditCategoryId
-            </summary>
-        </member>
-        <member name="P:YAF.controls.PollList.ForumId">
-            <summary>
-            Returns ForumId
-            </summary>
-        </member>
-        <member name="P:YAF.controls.PollList.EditForumId">
-            <summary>
-            Returns EditForumId
+            Returns user to the original call page.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.BoardId">
             <summary>
-            Returns BoardId
+              Returns BoardId
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.CategoryId">
+            <summary>
+              Returns CategoryId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditBoardId">
             <summary>
-            Returns EditBoardId.
-            Used to return to edit board page.
-            Currently is not implemented.
+              Returns EditBoardId.
+              Used to return to edit board page.
+              Currently is not implemented.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.PollNumber">
+        <member name="P:YAF.controls.PollList.EditCategoryId">
             <summary>
-            Returns PollNumber
+              Returns EditCategoryId
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.MaxImageAspect">
+        <member name="P:YAF.controls.PollList.EditForumId">
             <summary>
-            Returns MaxImageAspect. Stores max aspect to get rows of equal height.
+              Returns EditForumId
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.EditMessageId">
+            <summary>
+              Returns EditMessageId.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.ForumId">
+            <summary>
+              Returns ForumId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.IsLocked">
             <summary>
-            Returns IsLocked
+              Returns IsLocked
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.MaxImageAspect">
+            <summary>
+              Returns MaxImageAspect. Stores max aspect to get rows of equal height.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.PollGroupId">
+            <summary>
+              Returns PollGroupID
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.PollNumber">
+            <summary>
+              Returns PollNumber
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PostEdit">
             <summary>
-            Returns If we are editing a post
+              Returns If we are editing a post
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.ShowButtons">
             <summary>
-            Returns ShowButtons
+              Returns ShowButtons
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollList.TopicId">
+            <summary>
+              Returns TopicId
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumWelcome">
@@ -25007,6 +25188,7 @@
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceControl(System.String,System.String,System.String,System.String)">
             <summary>
+            
             Creates controls for column 1 (Resource tag) and column 2 (Resource value).
             </summary>
             <param name="sPageName"></param>
@@ -25051,6 +25233,14 @@
             <summary>
             Save the Updated Xml File.
             </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.RemoveDuplicateSections``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Remove all Resources with the same Name and Page
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <returns>The Cleaned List</returns>
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.UpdateLocalizedValues">
             <summary>
@@ -27682,6 +27872,27 @@
             The e.
             </param>
         </member>
+        <member name="T:YAF.Modules.PageRequiresSecureConnectionModule">
+            <summary>
+            The page requires secure connection module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.PageRequiresSecureConnectionModule.InitForum">
+            <summary>
+            The init forum.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.PageRequiresSecureConnectionModule.ForumControl_Load(System.Object,System.EventArgs)">
+            <summary>
+            The forum control_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="T:YAF.Pages.showsmilies">
             <summary>
             The showsmilies.
@@ -27954,12 +28165,12 @@
         </member>
         <member name="F:YAF.Modules.PagePopupModule._errorPopup">
             <summary>
-            The _error popup.
+              The _error popup.
             </summary>
         </member>
-        <member name="M:YAF.Modules.PagePopupModule.#ctor">
+        <member name="M:YAF.Modules.PagePopupModule.InitAfterPage">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Modules.PagePopupModule"/> class.
+            The init after page.
             </summary>
         </member>
         <member name="M:YAF.Modules.PagePopupModule.InitForum">
@@ -27967,9 +28178,14 @@
             The init forum.
             </summary>
         </member>
-        <member name="M:YAF.Modules.PagePopupModule.InitAfterPage">
+        <member name="M:YAF.Modules.PagePopupModule.RegisterLoadString">
             <summary>
-            The init after page.
+            The register load string.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.PagePopupModule.AddErrorPopup">
+            <summary>
+            Sets up the Modal Error Popup Dialog
             </summary>
         </member>
         <member name="M:YAF.Modules.PagePopupModule.CurrentForumPage_PreRender(System.Object,System.EventArgs)">
@@ -27994,16 +28210,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Modules.PagePopupModule.AddErrorPopup">
-            <summary>
-            Sets up the Modal Error Popup Dialog
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.PagePopupModule.RegisterLoadString">
-            <summary>
-            The register load string.
-            </summary>
-        </member>
         <member name="T:YAF.Modules.PopupDialogNotification">
             <summary>
             The popup dialog notification.
@@ -28011,18 +28217,21 @@
         </member>
         <member name="F:YAF.Modules.PopupDialogNotification._okayButton">
             <summary>
-            The _okay button.
+              The _okay button.
             </summary>
         </member>
         <member name="F:YAF.Modules.PopupDialogNotification._template">
             <summary>
-            The _template.
+              The _template.
             </summary>
         </member>
-        <member name="M:YAF.Modules.PopupDialogNotification.#ctor">
+        <member name="M:YAF.Modules.PopupDialogNotification.OnInit(System.EventArgs)">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Modules.PopupDialogNotification"/> class.
+            The on init.
             </summary>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Modules.PopupDialogNotification.OnLoad(System.EventArgs)">
             <summary>
@@ -28040,22 +28249,14 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Modules.PopupDialogNotification.OnInit(System.EventArgs)">
+        <member name="P:YAF.Modules.PopupDialogNotification.MainTextClientID">
             <summary>
-            The on init.
+              Gets MainTextClientID.
             </summary>
-            <param name="e">
-            The e.
-            </param>
         </member>
         <member name="P:YAF.Modules.PopupDialogNotification.ShowModalFunction">
             <summary>
-            Gets ShowModalFunction.
-            </summary>
-        </member>
-        <member name="P:YAF.Modules.PopupDialogNotification.MainTextClientID">
-            <summary>
-            Gets MainTextClientID.
+              Gets ShowModalFunction.
             </summary>
         </member>
         <member name="T:YAF.Modules.PopupDialogNotification.ErrorPopupCustomTemplate">
@@ -28065,12 +28266,12 @@
         </member>
         <member name="F:YAF.Modules.PopupDialogNotification.ErrorPopupCustomTemplate.SpanInnerMessage">
             <summary>
-            The span inner message.
+              The span inner message.
             </summary>
         </member>
         <member name="F:YAF.Modules.PopupDialogNotification.ErrorPopupCustomTemplate.SpanOuterMessage">
             <summary>
-            The span outer message.
+              The span outer message.
             </summary>
         </member>
         <member name="M:YAF.Modules.PopupDialogNotification.ErrorPopupCustomTemplate.InstantiateIn(System.Web.UI.Control)">
