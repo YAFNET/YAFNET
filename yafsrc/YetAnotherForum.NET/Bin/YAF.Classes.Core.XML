@@ -6052,7 +6052,7 @@
             <param name="dataRows">
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Int32,System.Int32,System.Nullable{System.Int32},System.Int32)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Returns the layout of the board
             </summary>
