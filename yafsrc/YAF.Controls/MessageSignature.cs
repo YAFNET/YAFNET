@@ -118,6 +118,11 @@ namespace YAF.Controls
     /// </param>
     protected void RenderSignature(HtmlTextWriter writer)
     {
+      if (!this.DisplayUserID.HasValue)
+      {
+        return;
+      }
+
       // don't allow any HTML on signatures
       var signatureFlags = new MessageFlags { IsHtml = false };
 
