@@ -29,6 +29,7 @@ namespace YAF.Classes.Core
 
   using YAF.Classes.Data;
   using YAF.Classes.Extensions;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -147,13 +148,8 @@ namespace YAF.Classes.Core
     /// <returns>
     /// Returns board layout
     /// </returns>
-    public DataSet BoardLayout(object boardID, object userID, object categoryID, object parentID)
+    public DataSet BoardLayout(int boardID, int userID, int? categoryID, int parentID)
     {
-      if (categoryID != null && long.Parse(categoryID.ToString()) == 0)
-      {
-        categoryID = null;
-      }
-
       using (var ds = new DataSet())
       {
         // get the cached version of forum moderators if it's valid
@@ -180,19 +176,19 @@ namespace YAF.Classes.Core
         // add it to this dataset				
         ds.Tables.Add(category.Copy());
 
+        DataTable categoryTable = ds.Tables[YafDBAccess.GetObjectName("Category")];
+
         if (categoryID != null)
         {
           // make sure this only has the category desired in the dataset
-          foreach (DataRow row in ds.Tables[YafDBAccess.GetObjectName("Category")].Rows)
+          foreach (DataRow row in
+            categoryTable.AsEnumerable().Where(row => row.Field<int>("CategoryID") != categoryID))
           {
-            if (Convert.ToInt32(row["CategoryID"]) != Convert.ToInt32(categoryID))
-            {
-              // delete it...
-              row.Delete();
-            }
+            // delete it...
+            row.Delete();
           }
 
-          ds.Tables[YafDBAccess.GetObjectName("Category")].AcceptChanges();
+          categoryTable.AcceptChanges();
         }
 
         DataTable forum = DB.forum_listread(boardID, userID, categoryID, parentID);
@@ -201,7 +197,7 @@ namespace YAF.Classes.Core
 
         ds.Relations.Add(
           "FK_Forum_Category", 
-          ds.Tables[YafDBAccess.GetObjectName("Category")].Columns["CategoryID"], 
+          categoryTable.Columns["CategoryID"], 
           ds.Tables[YafDBAccess.GetObjectName("Forum")].Columns["CategoryID"], 
           false);
         ds.Relations.Add(
@@ -213,21 +209,19 @@ namespace YAF.Classes.Core
         bool deletedCategory = false;
 
         // remove empty categories...
-        foreach (DataRow row in ds.Tables[YafDBAccess.GetObjectName("Category")].Rows)
+        foreach (DataRow row in
+          categoryTable.AsEnumerable().Select(
+            row => new { row, childRows = row.GetChildRows("FK_Forum_Category") }).Where(@t => @t.childRows.Length == 0)
+            .Select(@t => @t.row))
         {
-          DataRow[] childRows = row.GetChildRows("FK_Forum_Category");
-
-          if (childRows.Length == 0)
-          {
-            // remove this category...
-            row.Delete();
-            deletedCategory = true;
-          }
+          // remove this category...
+          row.Delete();
+          deletedCategory = true;
         }
 
         if (deletedCategory)
         {
-          ds.Tables[YafDBAccess.GetObjectName("Category")].AcceptChanges();
+          categoryTable.AcceptChanges();
         }
 
         return ds;
@@ -344,29 +338,43 @@ namespace YAF.Classes.Core
       // get topics for all forums...
       foreach (var forum in forumData)
       {
-        forum.Topics =
-          DB.topic_list(forum.ForumID, userId, true, timeFrame, 0, maxCount, false).AsEnumerable().
-            Select(
-              x =>
-              new SimpleTopic()
-              {
-                TopicID = x.Field<int>("TopicID"),
-                CreatedDate = x.Field<DateTime>("Posted"),
-                Subject = x.Field<string>("Subject"),
-                StartedUserID = x.Field<int>("UserID"),
-                StartedUserName = UserMembershipHelper.GetDisplayNameFromID(x.Field<int>("UserID")),
-                Replies = x.Field<int>("Replies"),
-                LastPostDate = x.Field<DateTime>("LastPosted"),
-                LastUserID = x.Field<int>("LastUserID"),
-                LastUserName = UserMembershipHelper.GetDisplayNameFromID(x.Field<int>("LastUserID")),
-                LastMessageID = x.Field<int>("LastMessageID"),
-                FirstMessage = x.Field<string>("FirstMessage"),
-                LastMessage = DB.message_list(x.Field<int>("LastMessageID")).AsEnumerable().First().Field<string>("Message"),
-                Forum = forum
-              }).ToList();
+        // add announcements
+        var topics =
+          DB.topic_list(forum.ForumID, userId, true, timeFrame, 0, maxCount, false).AsEnumerable().Select(
+            x => this.LoadSimpleTopic(x, forum)).ToList();
+
+        // add all other topics...
+        topics.AddRange(DB.topic_list(forum.ForumID, userId, false, timeFrame, 0, maxCount, false).AsEnumerable().Select(
+            x => this.LoadSimpleTopic(x, forum)).ToList());
+
+        forum.Topics = topics;
       }
 
       return forumData;
+    }
+
+    [NotNull]
+    private SimpleTopic LoadSimpleTopic([NotNull] DataRow row, [NotNull] SimpleForum forum)
+    {
+      CodeContracts.ArgumentNotNull(row, "row");
+      CodeContracts.ArgumentNotNull(forum, "forum");
+
+      return new SimpleTopic()
+        {
+          TopicID = row.Field<int>("TopicID"),
+          CreatedDate = row.Field<DateTime>("Posted"),
+          Subject = row.Field<string>("Subject"),
+          StartedUserID = row.Field<int>("UserID"),
+          StartedUserName = UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("UserID")),
+          Replies = row.Field<int>("Replies"),
+          LastPostDate = row.Field<DateTime>("LastPosted"),
+          LastUserID = row.Field<int>("LastUserID"),
+          LastUserName = UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),
+          LastMessageID = row.Field<int>("LastMessageID"),
+          FirstMessage = row.Field<string>("FirstMessage"),
+          LastMessage = DB.message_list(row.Field<int>("LastMessageID")).AsEnumerable().First().Field<string>("Message"),
+          Forum = forum
+        };
     }
 
     /// <summary>
