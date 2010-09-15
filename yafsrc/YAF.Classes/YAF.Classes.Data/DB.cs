@@ -9597,6 +9597,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The shoutbox_getmessages.
     /// </summary>
+    /// <param name="boardId"></param>
     /// <param name="numberOfMessages">
     /// The number of messages.
     /// </param>
@@ -9605,12 +9606,13 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable shoutbox_getmessages(int numberOfMessages, object useStyledNicks)
+    public static DataTable shoutbox_getmessages(int boardId, int numberOfMessages, object useStyledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("shoutbox_getmessages"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NumberOfMessages", numberOfMessages);
+        cmd.Parameters.AddWithValue("BoardId", boardId);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         return YafDBAccess.Current.GetData(cmd);
       }
@@ -9622,7 +9624,7 @@ namespace YAF.Classes.Data
     /// <param name="message">
     /// The message.
     /// </param>
-    /// <param name="usernName">
+    /// <param name="userName">
     /// The usern name.
     /// </param>
     /// <param name="userID">
@@ -9634,13 +9636,14 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The shoutbox_savemessage.
     /// </returns>
-    public static bool shoutbox_savemessage(string message, string usernName, int userID, object ip)
+    public static bool shoutbox_savemessage(int boardId, string message, string userName, int userID, object ip)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("shoutbox_savemessage"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("BoardId", boardId);
         cmd.Parameters.AddWithValue("Message", message);
-        cmd.Parameters.AddWithValue("UserName", usernName);
+        cmd.Parameters.AddWithValue("UserName", userName);
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("IP", ip);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
@@ -9654,11 +9657,12 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The shoutbox_clearmessages.
     /// </returns>
-    public static bool shoutbox_clearmessages()
+    public static bool shoutbox_clearmessages(int boardId)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("shoutbox_clearmessages"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("BoardId", boardId);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
         return true;
       }

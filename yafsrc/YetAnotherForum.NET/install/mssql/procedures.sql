@@ -7418,22 +7418,25 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
 (
+  @BoardId int,
   @NumberOfMessages int, @StyledNicks bit = 0
 )  
 AS
 BEGIN	
-		SET ROWCOUNT @NumberOfMessages
+	SET ROWCOUNT @NumberOfMessages
 
 	SELECT
 		Username,
 		UserID,
-		Message,
+		[Message],
 		[Date],
 		Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](UserID)  
 			else ''	 end		
 	FROM
 		[{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+	WHERE 
+		BoardId = @BoardId
 	ORDER BY Date DESC
 	
 	SET ROWCOUNT 0
@@ -7442,6 +7445,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
 	@UserName		nvarchar(255)=null,
+	@BoardId		int,
 	@UserID			int,
 	@Message		ntext,
 	@Date			datetime=null,
@@ -7452,15 +7456,23 @@ BEGIN
 		IF @Date IS NULL
 		SET @Date = GETUTCDATE() 
 
-	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName, UserID, Message, Date, IP)
-	VALUES (@UserName, @UserID, @Message, @Date, @IP)
+	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName, BoardId, UserID, Message, Date, IP)
+	VALUES (@UserName, @BoardId, @UserID, @Message, @Date, @IP)
 
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages] AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]
+(
+	@BoardId int
+)
+AS
 BEGIN
-		DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(minute, Date, GETUTCDATE() ) > 1
+		DELETE FROM
+			[{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+		WHERE
+			BoardId = @BoardId AND
+			DATEDIFF(minute, Date, GETUTCDATE() ) > 1
 END
 GO
 

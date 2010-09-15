@@ -613,6 +613,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 begin
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
 		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
+		[BoardId] [int] NOT NULL,
 		[UserID] [int] NULL,
 		[UserName] [nvarchar](255) NOT NULL,
 		[Message] [ntext] NULL,
@@ -1243,6 +1244,13 @@ GO
 if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='BoardID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] add BoardID int not null constraint [DF_{objectQualifier}Replace_Words_BoardID] default (1)
+end
+GO
+
+-- ShoutboxMessage Table
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='BoardID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add BoardID int not null constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1)
 end
 GO
 

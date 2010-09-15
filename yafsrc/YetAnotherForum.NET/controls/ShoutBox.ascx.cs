@@ -10,31 +10,42 @@
 //*****************************************************************************************************
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI;
-  using Classes.Utils;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.UI;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
   using YAF.Utilities;
+
+  #endregion
 
   /// <summary>
   /// The shout box.
   /// </summary>
   public partial class ShoutBox : BaseUserControl
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="ShoutBox"/> class.
+    ///   Initializes a new instance of the <see cref = "ShoutBox" /> class.
     /// </summary>
     public ShoutBox()
     {
-      PreRender += ShoutBox_PreRender;
+      this.PreRender += this.ShoutBox_PreRender;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets CacheKey.
+    ///   Gets CacheKey.
     /// </summary>
     public string CacheKey
     {
@@ -44,205 +55,22 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// The shout box_ pre render.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    void ShoutBox_PreRender(object sender, EventArgs e)
-    {
-      // set timer status based on if the place holder is visible...
-      this.shoutBoxRefreshTimer.Enabled = this.shoutBoxPlaceHolder.Visible;
-    }
+    #endregion
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      YafContext.Current.PageElements.RegisterJsBlockStartup(
-        this.shoutBoxUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
-
-      if (PageContext.User != null)
-      {
-        // phShoutText.Visible = true;
-        this.shoutBoxPanel.Visible = true;
-
-        if (PageContext.IsAdmin)
-        {
-          this.btnClear.Visible = true;
-        }
-      }
-
-      if (!IsPostBack)
-      {
-        this.btnFlyOut.Text = PageContext.Localization.GetText("SHOUTBOX", "FLYOUT");
-        this.btnClear.Text = PageContext.Localization.GetText("SHOUTBOX", "CLEAR");
-        this.btnButton.Text = PageContext.Localization.GetText("SHOUTBOX", "SUBMIT");
-
-        this.FlyOutHolder.Visible = !YafControlSettings.Current.Popup;
-        this.CollapsibleImageShoutBox.Visible = !YafControlSettings.Current.Popup;
-
-        DataBind();
-      }
-    }
-
-    /// <summary>
-    /// The shout box refresh timer_ tick.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ShoutBoxRefreshTimer_Tick(object sender, EventArgs e)
-    {
-      DataBind();
-    }
-
-    /// <summary>
-    /// The btn button_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnButton_Click(object sender, EventArgs e)
-    {
-      string username = PageContext.PageUserName;
-
-      if (username != null && this.messageTextBox.Text != String.Empty)
-      {
-        DB.shoutbox_savemessage(this.messageTextBox.Text, username, PageContext.PageUserID, Request.UserHostAddress);
-
-        // clear cache...
-        PageContext.Cache.Remove(CacheKey);
-      }
-
-      DataBind();
-      this.messageTextBox.Text = String.Empty;
-
-      ScriptManager scriptManager = ScriptManager.GetCurrent(Page);
-
-      if (scriptManager != null)
-      {
-        scriptManager.SetFocus(this.messageTextBox);
-      }
-    }
-
-    /// <summary>
-    /// The btn clear_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnClear_Click(object sender, EventArgs e)
-    {
-      bool bl = DB.shoutbox_clearmessages();
-
-      // cleared... re-load from cache...
-      PageContext.Cache.Remove(CacheKey);
-      DataBind();
-    }
+    #region Public Methods
 
     /// <summary>
     /// The data bind.
     /// </summary>
     public override void DataBind()
     {
-      BindData();
+      this.BindData();
       base.DataBind();
     }
 
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    void BindData()
-    {
-      if (!this.shoutBoxPlaceHolder.Visible)
-      {
-        return;
-      }
+    #endregion
 
-      var shoutBoxMessages = (DataTable) PageContext.Cache[CacheKey];
-
-      if (shoutBoxMessages == null)
-      {
-        shoutBoxMessages = DB.shoutbox_getmessages(PageContext.BoardSettings.ShoutboxShowMessageCount, PageContext.BoardSettings.UseStyledNicks);
-
-        // Set colorOnly parameter to false, as we get all color info from data base
-        if (PageContext.BoardSettings.UseStyledNicks)
-        {
-          new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref shoutBoxMessages, false);
-        }
-
-        var flags = new MessageFlags
-          {
-            IsBBCode = true,
-            IsHtml = false
-          };
-
-        for (int i = 0; i < shoutBoxMessages.Rows.Count; i++)
-        {
-          string formattedMessage = YafFormatMessage.FormatMessage(shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
-          formattedMessage = FormatHyperLink(formattedMessage);
-          shoutBoxMessages.Rows[i]["Message"] = formattedMessage;
-        }
-
-        // cache for 30 seconds -- could cause problems on web farm configurations.
-        PageContext.Cache.Add(CacheKey, shoutBoxMessages, DateTime.UtcNow.AddSeconds(30));
-      }
-
-      this.shoutBoxRepeater.DataSource = shoutBoxMessages;
-      if (PageContext.BoardSettings.ShowShoutboxSmiles)
-      {
-          this.smiliesRepeater.DataSource = DB.smiley_listunique(PageContext.PageBoardID);
-      }
-    }
-
-    /// <summary>
-    /// The format hyper link.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <returns>
-    /// The format hyper link.
-    /// </returns>
-    static string FormatHyperLink(string message)
-    {
-      if (message.Contains("<a"))
-      {
-        for (int i = 0; i < message.Length; i++)
-        {
-          if (i <= message.Length - 2)
-          {
-            if (message.Substring(i, 2) == "<a")
-            {
-              message = message.Substring(i, 2) + " target=\"_blank\"" + message.Substring(i + 2, message.Length - (i + 2));
-            }
-          }
-        }
-      }
-
-      return message;
-    }
+    #region Methods
 
     /// <summary>
     /// The format smilies on click string.
@@ -256,7 +84,7 @@ namespace YAF.Controls
     /// <returns>
     /// The format smilies on click string.
     /// </returns>
-    protected static string FormatSmiliesOnClickString(string code, string path)
+    protected static string FormatSmiliesOnClickString([NotNull] string code, [NotNull] string path)
     {
       code = code.Replace("'", "\'");
       code = code.Replace("\"", "\"\"");
@@ -274,9 +102,209 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CollapsibleImageShoutBox_Click(object sender, ImageClickEventArgs e)
+    protected void CollapsibleImageShoutBox_Click([NotNull] object sender, [NotNull] ImageClickEventArgs e)
     {
-      DataBind();
+      this.DataBind();
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafContext.Current.PageElements.RegisterJsBlockStartup(
+        this.shoutBoxUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
+
+      if (this.PageContext.User != null)
+      {
+        // phShoutText.Visible = true;
+        this.shoutBoxPanel.Visible = true;
+
+        if (this.PageContext.IsAdmin)
+        {
+          this.btnClear.Visible = true;
+        }
+      }
+
+      if (!this.IsPostBack)
+      {
+        this.btnFlyOut.Text = this.PageContext.Localization.GetText("SHOUTBOX", "FLYOUT");
+        this.btnClear.Text = this.PageContext.Localization.GetText("SHOUTBOX", "CLEAR");
+        this.btnButton.Text = this.PageContext.Localization.GetText("SHOUTBOX", "SUBMIT");
+
+        this.FlyOutHolder.Visible = !YafControlSettings.Current.Popup;
+        this.CollapsibleImageShoutBox.Visible = !YafControlSettings.Current.Popup;
+
+        this.DataBind();
+      }
+    }
+
+    /// <summary>
+    /// The shout box refresh timer_ tick.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ShoutBoxRefreshTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// The btn button_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnButton_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      string username = this.PageContext.PageUserName;
+
+      if (username != null && this.messageTextBox.Text != String.Empty)
+      {
+        DB.shoutbox_savemessage(
+          this.PageContext.PageBoardID, 
+          this.messageTextBox.Text, 
+          username, 
+          this.PageContext.PageUserID, 
+          this.Request.UserHostAddress);
+
+        // clear cache...
+        this.PageContext.Cache.Remove(this.CacheKey);
+      }
+
+      this.DataBind();
+      this.messageTextBox.Text = String.Empty;
+
+      ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+
+      if (scriptManager != null)
+      {
+        scriptManager.SetFocus(this.messageTextBox);
+      }
+    }
+
+    /// <summary>
+    /// The btn clear_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnClear_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      bool bl = DB.shoutbox_clearmessages(this.PageContext.PageBoardID);
+
+      // cleared... re-load from cache...
+      this.PageContext.Cache.Remove(this.CacheKey);
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// The format hyper link.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <returns>
+    /// The format hyper link.
+    /// </returns>
+    [NotNull]
+    private static string FormatHyperLink([NotNull] string message)
+    {
+      if (message.Contains("<a"))
+      {
+        for (int i = 0; i < message.Length; i++)
+        {
+          if (i <= message.Length - 2)
+          {
+            if (message.Substring(i, 2) == "<a")
+            {
+              message = message.Substring(i, 2) + " target=\"_blank\"" +
+                        message.Substring(i + 2, message.Length - (i + 2));
+            }
+          }
+        }
+      }
+
+      return message;
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      if (!this.shoutBoxPlaceHolder.Visible)
+      {
+        return;
+      }
+
+      var shoutBoxMessages = (DataTable)this.PageContext.Cache[this.CacheKey];
+
+      if (shoutBoxMessages == null)
+      {
+        shoutBoxMessages = DB.shoutbox_getmessages(
+          this.PageContext.PageBoardID, 
+          this.PageContext.BoardSettings.ShoutboxShowMessageCount, 
+          this.PageContext.BoardSettings.UseStyledNicks);
+
+        // Set colorOnly parameter to false, as we get all color info from data base
+        if (this.PageContext.BoardSettings.UseStyledNicks)
+        {
+          new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref shoutBoxMessages, false);
+        }
+
+        var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
+
+        for (int i = 0; i < shoutBoxMessages.Rows.Count; i++)
+        {
+          string formattedMessage = YafFormatMessage.FormatMessage(
+            shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
+          formattedMessage = FormatHyperLink(formattedMessage);
+          shoutBoxMessages.Rows[i]["Message"] = formattedMessage;
+        }
+
+        // cache for 30 seconds -- could cause problems on web farm configurations.
+        this.PageContext.Cache.Add(this.CacheKey, shoutBoxMessages, DateTime.UtcNow.AddSeconds(30));
+      }
+
+      this.shoutBoxRepeater.DataSource = shoutBoxMessages;
+      if (this.PageContext.BoardSettings.ShowShoutboxSmiles)
+      {
+        this.smiliesRepeater.DataSource = DB.smiley_listunique(this.PageContext.PageBoardID);
+      }
+    }
+
+    /// <summary>
+    /// The shout box_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ShoutBox_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // set timer status based on if the place holder is visible...
+      this.shoutBoxRefreshTimer.Enabled = this.shoutBoxPlaceHolder.Visible;
+    }
+
+    #endregion
   }
 }
