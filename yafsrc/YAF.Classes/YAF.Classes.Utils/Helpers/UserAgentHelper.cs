@@ -62,6 +62,24 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Validates if the useragent owner is a feed reader
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The is feed reader.
+    /// </returns>
+    public static bool IsFeedReader(string userAgent)
+          {
+              string[] agentContains = {
+                                        "Windows-RSS-Platform", "FeedDemon", "Feedreader","Apple-PubSub"
+                                    };
+ 
+              return userAgent.IsSet() ? agentContains.Any(agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant())) : false;
+          }
+
+
+      /// <summary>
     /// Validates if the useragent is a known ignored UA string
     /// </summary>
     /// <param name="userAgent">

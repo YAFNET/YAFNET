@@ -772,6 +772,13 @@ namespace YAF.Classes.Core
           dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList &&
                                   isSearchEngine;
 
+          // don't track if this is a feed reader. May be to make it switchable in host settings.
+          // we don't have page 'g' token for the feed page.
+          if (browser.Contains("Unknown") && !dontTrack)
+          {
+              dontTrack = UserAgentHelper.IsFeedReader(userAgent);
+          }
+
           int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("c"));
           int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("f"));
           int? topicID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("t"));
