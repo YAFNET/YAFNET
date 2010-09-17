@@ -102,7 +102,8 @@ namespace YAF.Pages
           {
 
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"));
-            
+              string icon = PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
+              string lastPostName = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST"); 
               foreach (DataRow row in dataTopics.Rows)
             {
                 if (syndicationItems.Count <= 0)
@@ -125,7 +126,7 @@ namespace YAF.Pages
                 string id = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]);
                 syndicationItems.AddSyndicationItem(
                 row["Topic"].ToString(),
-                @"<a href=""" + id + @""" >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
+                @"<a href=""" + id + @""" >" + @"<img src=""{0}"" alt =""{1}"" />".FormatWith(icon, String.Empty) + lastPostName + "</a>", 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
                 "{0}FeedType{1}TopicID{2}MessageID{3}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["TopicID"]), Convert.ToInt32(row["LastMessageID"])),
                !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset :  Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset, lastName);
@@ -348,7 +349,7 @@ namespace YAF.Pages
       // update the feed with the item list...      
       feed.Items = syndicationItems;
       feed.ImageUrl = new Uri("{0}{1}/YAFLogo.jpg".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Images),UriKind.Relative);
-     // feed.AttributeExtensions.Add(new XmlQualifiedName("ttl"), "60" );
+        // feed.AttributeExtensions.Add(new XmlQualifiedName("ttl"), "60" );
 
       var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
      
@@ -357,11 +358,13 @@ namespace YAF.Pages
         {
             var rssFormatter = new Rss20FeedFormatter(feed);
             rssFormatter.WriteTo(writer);
+           // this.Response.ContentType = "text/xml+rss";
         }
         else
         {
             var atomFormatter = new Atom10FeedFormatter(feed);
             atomFormatter.WriteTo(writer);
+          //  this.Response.ContentType = "text/xml+atom";
         }
 
         writer.Close();

@@ -110,8 +110,11 @@ namespace YAF.Classes.Core
             new Uri(link),
             id,
             new DateTimeOffset(posted));
+        si.PublishDate = new DateTimeOffset(posted);
         si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
-      currentList.Add(si);
+        si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),
+                                              TextSyndicationContentKind.Html);
+        currentList.Add(si);
     }
 
 
