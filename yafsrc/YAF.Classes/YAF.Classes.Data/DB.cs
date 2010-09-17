@@ -7395,6 +7395,7 @@ namespace YAF.Classes.Data
     {
       return user_list(boardID, userID, approved, null, null, false);
     }
+
     /// <summary>
     /// The user_list.
     /// </summary>
@@ -7433,7 +7434,6 @@ namespace YAF.Classes.Data
         return YafDBAccess.Current.GetData(cmd);
       }
     }
-
 
     /// <summary>
     /// For URL Rewriting
@@ -9001,7 +9001,7 @@ namespace YAF.Classes.Data
 
       StringBuilder sb = new StringBuilder();
 
-      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted, LastMessageID=a.LastMessageID ", topicLimit);
+      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted, LastPosted = a.LastPosted, LastUserID = a.LastUserID, LastMessageID=a.LastMessageID ", topicLimit);
       //sb.Append(", message = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) ");
       sb.Append("from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID = @ForumID and b.ForumID = a.ForumID and a.IsDeleted = 0");
       sb.Append(" ORDER BY a.Posted DESC");

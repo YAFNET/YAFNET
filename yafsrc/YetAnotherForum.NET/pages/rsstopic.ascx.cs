@@ -74,6 +74,8 @@ namespace YAF.Pages
       bool atomFeed = PageContext.BoardSettings.ShowAtomLink;
       var feed = new YafSyndicationFeed();
       var syndicationItems = new List<SyndicationItem>();
+      string lastPostIcon = PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
+      string lastPostName = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST"); 
 
       YafRssFeeds feedType = YafRssFeeds.Forum;
 
@@ -101,36 +103,33 @@ namespace YAF.Pages
           using (DataTable dataTopics = YafServices.DBBroker.GetLatestTopics(this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, "LastUserStyle"))
           {
 
-            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"));
-              string icon = PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
-              string lastPostName = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST"); 
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"));
+              
               foreach (DataRow row in dataTopics.Rows)
             {
+                DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField()
+                                          ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset
+                                          : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
                 if (syndicationItems.Count <= 0)
                 {
-                    feed.LastUpdatedTime =  !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2);
-                    feed.Authors.Add(new SyndicationPerson(String.Empty, PageContext.BoardSettings.EnableDisplayName
-                            ? UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(row["UserID"]))
-                           : UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(row["UserID"])), String.Empty));
-                    // Alternate Link
-                    feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                    feed.LastUpdatedTime = lastPosted;
+                    feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, (Convert.ToInt64(row["UserID"]))));
                     
-                    // Self Link
-                    feed.Links.Add(new SyndicationLink(new Uri(Request.Url.AbsoluteUri)));
+                    // Alternate Link for feed
+                    feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
                 }
+                
+                feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+               
+                string messageLink = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]);
 
-                string lastName = PageContext.BoardSettings.EnableDisplayName
-                                      ? UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(row["LastUserID"]))
-                                      : row["LastUserName"].ToString();
-                feed.Contributors.Add(new SyndicationPerson(String.Empty, lastName, String.Empty));
-                string id = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]);
                 syndicationItems.AddSyndicationItem(
-                row["Topic"].ToString(),
-                @"<a href=""" + id + @""" >" + @"<img src=""{0}"" alt =""{1}"" />".FormatWith(icon, String.Empty) + lastPostName + "</a>", 
-                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
-                "{0}FeedType{1}TopicID{2}MessageID{3}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["TopicID"]), Convert.ToInt32(row["LastMessageID"])),
-               !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset :  Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset, lastName);
-
+                    row["Topic"].ToString(),
+                    SyndicationItemExtensions.GetContent(messageLink, lastPostIcon, lastPostName, lastPostName),
+                    null,
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
+                    "{0}FeedType{1}TopicID{2}MessageID{3}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["TopicID"]), Convert.ToInt32(row["LastMessageID"])),
+                    lastPosted, feed.Contributors[feed.Contributors.Count-1].Name);
             }
           }
 
@@ -143,20 +142,37 @@ namespace YAF.Pages
 
           using (DataTable dt = DB.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
           {
-            foreach (DataRow row in dt.Rows)
-            {
-              syndicationItems.AddSyndicationItem(
-                row["Subject"].ToString(), 
-                row["Message"].ToString(), 
-                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")), 
-                "TopicID{0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("t")), 
-                !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2), String.Empty);
-            }
 
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"));
+          
+            foreach (DataRow row in dt.Rows)
+            {
+                DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
+
+                if (syndicationItems.Count <= 0)
+                {
+                    feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
+                    feed.LastUpdatedTime = lastPosted;
+
+                    // Alternate Link
+                    feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                }
+
+                feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+
+             
+              syndicationItems.AddSyndicationItem(
+                row["Subject"].ToString(), 
+                row["Message"].ToString(),
+                null,
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")),
+                "{0}FeedType{1}TopicID{2}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, this.Request.QueryString.GetFirstOrDefault("t")),
+                lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
+            }
           }
 
           break;
+        // Posts Feed
         case YafRssFeeds.Posts:
           if (!this.PageContext.ForumReadAccess)
           {
@@ -174,24 +190,37 @@ namespace YAF.Pages
 
               // load the missing message test
               YafServices.DBBroker.LoadMessageText(dataRows);
-
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("PROFILE", "TOPIC") + this.PageContext.PageTopicName);
               foreach (var row in dataRows)
               {
+                  DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
+
+                  if (syndicationItems.Count <= 0)
+                  {
+                      feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
+                      feed.LastUpdatedTime = lastPosted;
+
+                      // Alternate Link
+                      feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                  }
+
+                  feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+
                 syndicationItems.AddSyndicationItem(
                   row["Subject"].ToString(), 
-                  YafFormatMessage.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
+                  YafFormatMessage.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])),
+                   null,
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")),
-                  "TopicID{0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("t")),
-                  !row["Posted"].IsNullOrEmptyDBField()
-                    ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset
-                    : DateTime.MinValue + TimeSpan.FromDays(2), String.Empty);
+                   "{0}FeedType{1}TopicID{2}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, this.Request.QueryString.GetFirstOrDefault("t")),
+                   lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
               }
-
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("PROFILE", "TOPIC") + this.PageContext.PageTopicName);
+             
             }
           }
 
           break;
+
+        // Forum Feed
         case YafRssFeeds.Forum:
           int icategoryId = 0;
           object categoryId = null;
@@ -202,24 +231,43 @@ namespace YAF.Pages
           using (
             DataTable dt = DB.forum_listread(
               this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null))
-          {            
+          {
+ 
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"));
+
             foreach (DataRow row in dt.Rows)
             {
+                  DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + YafServices.DateTime.TimeOffset.Add(TimeSpan.FromDays(2));
 
-              syndicationItems.AddSyndicationItem(
+                  if (syndicationItems.Count <= 0)
+                  {
+                      feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+                      feed.LastUpdatedTime = lastPosted;
+
+                      // Alternate Link
+                      feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
+                  }
+                  if (!row["LastUserID"].IsNullOrEmptyDBField())
+                  {
+                      feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
+                                                                                           Convert.ToInt64(
+                                                                                               row["LastUserID"])));
+                  }
+
+                syndicationItems.AddSyndicationItem(
                 row["Forum"].ToString(), 
-                row["Description"].ToString(), 
+                row["Description"].ToString(),
+                null,
                 YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                "ForumID{0}".FormatWith(row["ForumID"]),
-                !row["LastPosted"].IsNullOrEmptyDBField()
-                  ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset
-                  : DateTime.MinValue + TimeSpan.FromDays(2), String.Empty);
+               "{0}FeedType{1}ForumID{2}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["ForumID"])),
+               lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
             }
-
-            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"));
+            
           }
  
           break;
+
+        // Topics Feed
         case YafRssFeeds.Topics:
           if (!this.PageContext.ForumReadAccess)
           {
@@ -229,24 +277,44 @@ namespace YAF.Pages
           int forumId;
           if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
           {
+           
             // vzrus changed to separate DLL specific code
             using (DataTable dt = DB.rsstopic_list(forumId))
             {
+
+                feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName);
+
+               
               foreach (DataRow row in dt.Rows)
               {
-                syndicationItems.AddSyndicationItem(
-                  row["Topic"].ToString(), 
-                  "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
-                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]), 
-                  "TopicID_{0}".FormatWith(row["TopicID"].ToString()), 
-                  !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + TimeSpan.FromDays(2), String.Empty);
-              }
+                  DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
 
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName);
+                  if (syndicationItems.Count <= 0)
+                  {
+                      feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+                      feed.LastUpdatedTime = lastPosted;
+
+                      // Alternate Link
+                      feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                  }
+
+                  feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+                
+                  syndicationItems.AddSyndicationItem(
+                  row["Topic"].ToString(),
+                  SyndicationItemExtensions.GetContent(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]), lastPostIcon, lastPostName, lastPostName),
+                  null,
+                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
+                  "{0}FeedType{1}TopicID{2}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["TopicID"])),
+                  lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
+              }
+             
             }
           }
 
-          break;
+        break;
+
+        // Active Topics
         case YafRssFeeds.Active:
         DateTime toActDate = DateTime.UtcNow;
         string toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
@@ -272,8 +340,10 @@ namespace YAF.Pages
                     toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
                 }
             }
-        }             
-
+        } 
+            
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText);
+            
             using (
               DataTable dt = DB.topic_active(
                 this.PageContext.PageBoardID, 
@@ -284,15 +354,28 @@ namespace YAF.Pages
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    syndicationItems.AddSyndicationItem(
-                      row["Subject"].ToString(), 
-                      "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
-                      YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
-                      "TopicID{0}".FormatWith(row["LinkTopicID"].ToString()),
-                      !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + TimeSpan.FromDays(2), String.Empty);
-                }
+                    DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
 
-                feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText);
+                    if (syndicationItems.Count <= 0)
+                    {
+                        feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
+                        feed.LastUpdatedTime = lastPosted;
+
+                        // Alternate Link
+                        feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                    }
+
+                    feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+                 
+                    syndicationItems.AddSyndicationItem(
+                      row["Subject"].ToString(),
+                      SyndicationItemExtensions.GetContent(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]), lastPostIcon, lastPostName, lastPostName),
+                      null,
+                      YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
+                      "{0}FeedType{1}TopicID{2}MessageID{3}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["LinkTopicID"]), Convert.ToInt32(row["LastMessageID"])),
+                      lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
+                }
+               
             }
 
             break;
@@ -329,15 +412,31 @@ namespace YAF.Pages
           {
               foreach (DataRow row in dt.Rows)
               {
+                  feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS") + " - " + toFavText);
+
+                  DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
+                 
+                  if (syndicationItems.Count <= 0)
+                  {
+                      feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
+                      feed.LastUpdatedTime = lastPosted;
+
+                      // Alternate Link
+                      feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                  }
+
+                  feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+                 
                   syndicationItems.AddSyndicationItem(
-                    row["Subject"].ToString(), 
-                    "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
-                    "TopicID{0}".FormatWith(row["LinkTopicID"].ToString()),
-                    !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + TimeSpan.FromDays(2), String.Empty);
+                    row["Subject"].ToString(),
+                    SyndicationItemExtensions.GetContent(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]), lastPostIcon, lastPostName, lastPostName),
+                     null,
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
+                    "{0}FeedType{1}TopicID{2}MessageID{3}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["LinkTopicID"]), Convert.ToInt32(row["LastMessageID"])),
+                    lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
               }
 
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS") + " - " + toFavText);
+             
           }
           
           break;
@@ -348,8 +447,9 @@ namespace YAF.Pages
 
       // update the feed with the item list...      
       feed.Items = syndicationItems;
-      feed.ImageUrl = new Uri("{0}{1}/YAFLogo.jpg".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Images),UriKind.Relative);
-        // feed.AttributeExtensions.Add(new XmlQualifiedName("ttl"), "60" );
+
+      // Self Link
+      feed.Links.Add(new SyndicationLink(new Uri(Request.Url.AbsoluteUri)));
 
       var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
      

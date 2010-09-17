@@ -804,11 +804,12 @@
                     <tr>
                         <td class="postheader">
                             <strong>Show Atom Links:</strong><br />
-                            Enable or disable display of ShowAtomLink links throughout the forum.
+                            Enable or disable display of Atom links throughout the forum.
                             You should enable Show RSS Links option too to see feed links.
+                            RSS feeds are replaced by Atom feeds.
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="ShowAtomLink" Enabled="false" runat="server"></asp:CheckBox>
+                            <asp:CheckBox ID="ShowAtomLink" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>

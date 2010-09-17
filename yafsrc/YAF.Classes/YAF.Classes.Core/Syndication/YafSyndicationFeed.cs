@@ -101,7 +101,7 @@ namespace YAF.Classes.Core
     /// The author.
     /// </param> 
     public static void AddSyndicationItem(
-      this List<SyndicationItem> currentList, string title, string content, string link, string id, DateTime posted, string  author)
+      this List<SyndicationItem> currentList, string title, string content, string summary,string link, string id, DateTime posted, string  author)
     {
         var si = new SyndicationItem(
             YafServices.BadWordReplace.Replace(title),
@@ -110,12 +110,33 @@ namespace YAF.Classes.Core
             new Uri(link),
             id,
             new DateTimeOffset(posted));
+
         si.PublishDate = new DateTimeOffset(posted);
         si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
-        si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),
-                                              TextSyndicationContentKind.Html);
+       
+        if (summary.IsNotSet())
+        {
+            si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),
+                                                    TextSyndicationContentKind.Html);
+        }
+
         currentList.Add(si);
     }
+
+    public static SyndicationPerson NewSyndicationPerson(string userEmail, long userId)
+    {
+        return new SyndicationPerson(userEmail, YafContext.Current.BoardSettings.EnableDisplayName
+                             ? UserMembershipHelper.GetDisplayNameFromID(userId)
+                            : UserMembershipHelper.GetUserNameFromID(userId), YafBuildLink.GetLinkNotEscaped(ForumPages.profile,true,"u={0}", userId));
+    }
+
+
+   public static string GetContent(string link, string imgUrl, string imgAlt, string linkName)
+   {
+
+       return @"<a href=""" + link + @""" >" + @"<img src=""{0}"" alt =""{1}"" />".FormatWith(imgUrl, imgAlt) + linkName +
+              "</a>"; 
+   }
 
 
     /// <summary>
@@ -158,11 +179,16 @@ namespace YAF.Classes.Core
   /// </summary>
   public class YafSyndicationFeed : SyndicationFeed
   {
-    #region Constructors and Destructors
+      #region Constants
 
-    /// <summary>
+      private const string FeedCategories = "YAF,YetAnotherForum";
+
+      #endregion
+
+      #region Constructors and Destructors
+
+      /// <summary>
     /// Initializes a new instance of the <see cref="YafSyndicationFeed"/> class. 
-    /// Initializes a new instance of the <see cref="RssFeed"/> class.
     /// </summary>
     public YafSyndicationFeed()
     {
@@ -192,7 +218,9 @@ namespace YAF.Classes.Core
         this.Language = YafContext.Current.Localization.LanguageCode;
         this.BaseUri = new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.forum, true));
         this.Generator = "YetAnotherForum.NET - {0}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"));
-       
+        this.Categories.Add(new SyndicationCategory(FeedCategories));
+        this.ImageUrl = new Uri("{0}{1}/YAFLogo.jpg".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Images), UriKind.Relative);
+        
         // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
     #endregion
