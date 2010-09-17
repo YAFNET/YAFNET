@@ -1680,6 +1680,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether ShowAtomLink.
+    /// </summary>
+    public bool ShowAtomLink
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowAtomLink", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowAtomLink", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether ShowPageGenerationTime.
     /// </summary>
     public bool ShowPageGenerationTime

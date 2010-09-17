@@ -4868,15 +4868,18 @@ BEGIN
 		f.Name as Forum,
 		t.Topic,
 		t.TopicID,
+		t.UserID,
+		t.UserName,		
 		t.LastMessageID,
 		t.LastUserID,
 		t.NumPosts,
+		t.Posted,		
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-		LastUserStyle = case(@StyledNicks)
-		when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
-		 else '' end	
-	FROM 
-		[{databaseOwner}].[{objectQualifier}Topic] t
+		LastUserStyle = case(@StyledNicks) when 1 
+		then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
+		else '' end		 	
+	FROM	
+		[{databaseOwner}].[{objectQualifier}Topic] t 
 	INNER JOIN
 		[{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID	
 	INNER JOIN
@@ -4946,12 +4949,12 @@ begin
 			c.Posted,
 			LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 			c.TopicMovedID,
-			Subject = c.Topic,
+			[Subject] = c.Topic,
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			Replies = c.NumPosts - 1,
 			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
-			Views = c.Views,
+			[Views] = c.[Views],
 			LastPosted = c.LastPosted,
 			LastUserID = c.LastUserID,
 			LastUserName = IsNull(c.LastUserName,(SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
@@ -4989,7 +4992,7 @@ begin
 			Starter = IsNull(c.UserName,b.Name),
 			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
 			Replies = c.NumPosts - 1,
-			Views = c.Views,
+			[Views] = c.[Views],
 			LastPosted = c.LastPosted,
 			LastUserID = c.LastUserID,
 			LastUserName = IsNull(c.LastUserName,(SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),

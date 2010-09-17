@@ -803,6 +803,16 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Show Atom Links:</strong><br />
+                            Enable or disable display of ShowAtomLink links throughout the forum.
+                            You should enable Show RSS Links option too to see feed links.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowAtomLink" Enabled="false" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <strong>Show Forum Jump Box:</strong><br />
                             Enable or disable display of the Forum Jump Box throughout the forum.
                         </td>

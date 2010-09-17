@@ -89,6 +89,45 @@ namespace YAF.Classes.Core
     /// The content.
     /// </param>
     /// <param name="link">
+    /// The alternate link.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="posted">
+    /// The posted.
+    /// </param>
+    /// <param name="author">
+    /// The author.
+    /// </param> 
+    public static void AddSyndicationItem(
+      this List<SyndicationItem> currentList, string title, string content, string link, string id, DateTime posted, string  author)
+    {
+        var si = new SyndicationItem(
+            YafServices.BadWordReplace.Replace(title),
+            new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),TextSyndicationContentKind.Html),
+            // Alternate Link
+            new Uri(link),
+            id,
+            new DateTimeOffset(posted));
+        si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
+      currentList.Add(si);
+    }
+
+
+    /// <summary>
+    /// The add syndication item.
+    /// </summary>
+    /// <param name="currentList">
+    /// The current list.
+    /// </param>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="content">
+    /// The content.
+    /// </param>
+    /// <param name="link">
     /// The link.
     /// </param>
     /// <param name="id">
@@ -100,15 +139,14 @@ namespace YAF.Classes.Core
     public static void AddSyndicationItem(
       this List<SyndicationItem> currentList, string title, string content, string link, string id, DateTime posted)
     {
-      currentList.Add(
-        new SyndicationItem(
-          YafServices.BadWordReplace.Replace(title), 
-          new TextSyndicationContent(YafServices.BadWordReplace.Replace(content)), 
-          new Uri(link), 
-          id, 
-          new DateTimeOffset(posted)));
+        var si = new SyndicationItem(
+            YafServices.BadWordReplace.Replace(title),
+            new TextSyndicationContent(YafServices.BadWordReplace.Replace(content)),
+            new Uri(link),
+            id,
+            new DateTimeOffset(posted));
+        currentList.Add(si);
     }
-
     #endregion
   }
 
@@ -131,6 +169,8 @@ namespace YAF.Classes.Core
       this.Id = YafContext.Current.BoardSettings.Name;
       this.LastUpdatedTime = DateTime.UtcNow;
       this.Language = YafContext.Current.Localization.LanguageCode;
+      this.BaseUri = new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.forum, true));
+      this.Generator = "YetAnotherForum.NET - {0}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"));
 
       // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
@@ -144,10 +184,12 @@ namespace YAF.Classes.Core
         this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
         this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
-        this.Id = YafContext.Current.BoardSettings.Name;
+        this.Id = "{0}_{1}_{2}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle); // YafContext.Current.BoardSettings.Name;
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
-
+        this.BaseUri = new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.forum, true));
+        this.Generator = "YetAnotherForum.NET - {0}".FormatWith(YafContext.Current.Localization.GetText("RSSFEED"));
+       
         // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
     #endregion

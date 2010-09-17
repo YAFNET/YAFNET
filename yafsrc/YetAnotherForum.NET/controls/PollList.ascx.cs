@@ -547,7 +547,7 @@ namespace YAF.controls
     protected bool IsPollClosed(object pollId)
     {
       return (from DataRow dr in this._dtPollGroup.Rows
-              where (dr["Closes"] != DBNull.Value) && (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
+              where (!dr["Closes"].IsNullOrEmptyDBField()) && (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
               select Convert.ToDateTime(dr["Closes"])).Any(tCloses => tCloses < DateTime.UtcNow);
     }
 
