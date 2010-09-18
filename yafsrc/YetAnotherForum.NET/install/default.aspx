@@ -8,63 +8,11 @@
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
     <title>Yet Another Forum.NET Installation</title>
-    <link type="text/css" rel="stylesheet" href="../resources/css/forum.css" />
-    <link type="text/css" rel="stylesheet" href="../themes/CleanSlate/theme.css" />
-    <style type="text/css">
-        .lined
-        {
-            border-bottom: solid 1px #999;
-            padding-bottom: 3px;
-        }
-        .wizNav
-        {
-            border-top: solid 1px #999;
-            padding-top: 3px;
-        }
-        .errorinfo
-        {
-            color: Red;
-            font-weight: bold;
-        }
-        .successinfo
-        {
-            color: Green;
-            font-weight: bold;
-        }
-        .wizButton
-        {
-            color: #284E98;
-            background-color: White;
-            border-color: #999999;
-            border-width: 1px;
-            border-style: Solid;
-            font-family: Verdana;
-            font-size: 10pt;
-            padding: 5px;
-            margin: 5px;
-        }
-        .wizButton:hover
-        {
-            background-color: #ddd;
-            color: #000;
-        }
-        .wizLoader
-        {
-            background: url(../resources/images/loading-white.gif) white no-repeat center center;
-            z-index: 9999;
-        }
-        .wizMain td
-        {
-            padding: 10px;
-        }
-        .wizMain
-        {
-            margin: 0 auto;
-        }
-    </style>
+   <link type="text/css" rel="stylesheet" href="wizard.css" />
+   <script src="../resources/js/jquery-1.4.2.min.js" type="text/javascript"></script>    
 </head>
 <body>
-    <form runat="server">
+    <form id="Form1" runat="server">
     <script type="text/javascript">
         jQuery('form').submit(function () {
             jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast');
@@ -74,8 +22,8 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <div id="wizContainer">
-        <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="1" BackColor="#EEEEEE"
-            BorderColor="#999999" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt"
+        <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="1" 
+            Font-Names="Verdana" Font-Size="9pt"
             Width="650px" CssClass="wizMain" DisplaySideBar="False" OnActiveStepChanged="Wizard_ActiveStepChanged"
             OnFinishButtonClick="Wizard_FinishButtonClick" OnPreviousButtonClick="Wizard_PreviousButtonClick"
             OnNextButtonClick="Wizard_NextButtonClick">
@@ -101,7 +49,7 @@
                     <br />
                     <asp:Button ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="wizButton"
                         OnClick="btnTestPermissions_Click" />
-                </asp:WizardStep>
+                </asp:WizardStep> 
                 <asp:WizardStep ID="WizCreatePassword" runat="server" Title="Create Config Password">
                     <h4 class="lined">
                         Create Config Password</h4>
@@ -113,11 +61,11 @@
                         file.</p>
                     <p>
                         Config Password:<br />
-                        <asp:TextBox ID="txtCreatePassword1" runat="server" Width="100%" TextMode="Password"></asp:TextBox>
+                        <asp:TextBox ID="txtCreatePassword1" runat="server" Width="80%" TextMode="Password"></asp:TextBox>
                     </p>
                     <p>
                         Verify Password:<br />
-                        <asp:TextBox ID="txtCreatePassword2" runat="server" Width="100%" TextMode="Password"></asp:TextBox>
+                        <asp:TextBox ID="txtCreatePassword2" runat="server" Width="80%" TextMode="Password"></asp:TextBox>
                     </p>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Enter Config Password" ID="WizEnterPassword">
@@ -130,7 +78,7 @@
                         the forum was first installed, not the admin user password.</p>
                     <br />
                     Password:<br />
-                    <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Width="100%"></asp:TextBox>
+                    <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Width="80%"></asp:TextBox>
                 </asp:WizardStep>
                 <asp:WizardStep ID="WizManuallySetPassword" runat="server" Title="Manually Set Config Password">
                     <h4 class="lined">
@@ -431,8 +379,8 @@
                         Text="Finish" />
                 </div>
             </FinishNavigationTemplate>
-            <HeaderStyle BackColor="White" BorderStyle="Solid" BorderWidth="1px" Font-Bold="True"
-                BorderColor="#999999" Font-Size="0.9em" ForeColor="Black" HorizontalAlign="Center" />
+            <HeaderStyle BackColor="White" Font-Bold="True"
+                Font-Size="0.9em" ForeColor="Black" HorizontalAlign="Center" />
             <HeaderTemplate>
                 <img src="../images/YAFLogo.jpg" alt="YAF Logo" /><br />
                 Installation Wizard
