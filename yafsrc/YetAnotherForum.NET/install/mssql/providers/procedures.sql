@@ -186,7 +186,7 @@ BEGIN
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
 	
-	UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Password=@Password, PasswordSalt=@PasswordSalt,
+	UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET [Password]=@Password, PasswordSalt=@PasswordSalt,
 		PasswordFormat=@PasswordFormat, PasswordAnswer=@PasswordAnswer
 	WHERE UsernameLwd=LOWER(@Username) and ApplicationID=@ApplicationID;
 
@@ -233,7 +233,7 @@ BEGIN
 	IF @UserKey IS NULL
 		SET @UserKey = NEWID()
 		
-	INSERT INTO [{databaseOwner}].[{objectQualifier}prov_Membership] (UserID,ApplicationID,Joined,Username,UsernameLwd,Password,PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}prov_Membership] (UserID,ApplicationID,Joined,Username,UsernameLwd,[Password],PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
 		VALUES (@UserKey, @ApplicationID, GETUTCDATE() ,@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
@@ -447,7 +447,7 @@ BEGIN
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
 	UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET
-	Password = @Password,
+	[Password] = @Password,
 	PasswordSalt = @PasswordSalt,
 	PasswordFormat = @PasswordFormat,
 	LastPasswordChange = @CurrentTimeUtc
@@ -638,11 +638,11 @@ BEGIN
 		SELECT
 			r.*
 		FROM
-			{objectQualifier}prov_Role r
+			[{databaseOwner}].[{objectQualifier}prov_Role] r
 		INNER JOIN
-			{objectQualifier}prov_RoleMembership rm ON r.RoleID = rm.RoleID
+			[{databaseOwner}].[{objectQualifier}prov_RoleMembership] rm ON r.RoleID = rm.RoleID
 		INNER JOIN
-			{objectQualifier}prov_Membership m ON m.UserID = rm.UserID
+			[{databaseOwner}].[{objectQualifier}prov_Membership] m ON m.UserID = rm.UserID
 		WHERE
 			r.ApplicationID  = @ApplicationID
 			AND m.UsernameLwd = LOWER(@Username)

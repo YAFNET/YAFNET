@@ -329,7 +329,7 @@ namespace YAF.Controls
           YafBuildLink.GetLink(
             ForumPages.rsstopic,
             "pg={0}{1}",
-            this.FeedType.GetStringValue(),
+            this.FeedType.ToInt(),
             this.AdditionalParameters.IsNotSet()
               ? string.Empty
               : "&{0}".FormatWith(this.AdditionalParameters)));

@@ -74,9 +74,10 @@ namespace YAF.Pages
       
       // Atom feeds are enabled
       bool atomFeed = PageContext.BoardSettings.ShowAtomLink;
-     
+      
       // Atom feed as variable
-      bool atomFeedByVar = this.Request.QueryString.GetFirstOrDefault("ft") == "atom";
+       bool atomFeedByVar = Request.QueryString.GetFirstOrDefault("ft") ==
+                             YafSyndicationFormats.Atom.ToInt().ToString();
       
       var feed = new YafSyndicationFeed();
       var syndicationItems = new List<SyndicationItem>();
@@ -93,6 +94,7 @@ namespace YAF.Pages
       {
         // default to Forum Feed.
       }
+
       if (atomFeedByVar)
       {
           atomFeed = true;
@@ -455,7 +457,7 @@ namespace YAF.Pages
       feed.Items = syndicationItems;
 
       // Self Link
-      feed.Links.Add(new SyndicationLink(new Uri(!atomFeedByVar ? Request.Url.AbsoluteUri : Request.Url.AbsoluteUri + "&pg=atom")));
+      feed.Links.Add(new SyndicationLink(new Uri(!atomFeedByVar ? Request.Url.AbsoluteUri : "{0}&pg={1}".FormatWith(Request.Url.AbsoluteUri,YafSyndicationFormats.Atom.ToInt()))));
 
       var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
     
