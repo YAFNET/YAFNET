@@ -249,7 +249,7 @@
 		<Resource tag="CAL_JQ_CULTURE">de</Resource>
 		<Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
 		<Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
-		<Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
+		<Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
 		<Resource tag="CUSTOM_BBCODE">Zusätzliche BB-Codes:</Resource>
 		<Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Mail Verifizierung</Resource>
 		<Resource tag="FONT_COLOR">Schriftfarbe:</Resource>
@@ -410,7 +410,7 @@
 		<Resource tag="CONTROL_PANEL">Einstellungen</Resource>
 		<Resource tag="EDIT_AVATAR">Avatar bearbeiten</Resource>
 		<Resource tag="EDIT_PROFILE">Profil bearbeiten</Resource>
-		<Resource tag="VIEW_PROFILE">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
+		<Resource tag="VIEW_PROFILE">Profil ansehen</Resource>
 		<Resource tag="EDIT_SIGNATURE">Signatur bearbeiten</Resource>
 		<Resource tag="GROUPS">Du bist Mitglied dieser Gruppen:</Resource>
 		<Resource tag="INBOX">Posteingang</Resource>
@@ -690,7 +690,7 @@
 	</page>
 	<page name="MYTOPICS">
 		<Resource tag="ACTIVETOPICS">Aktive Themen</Resource>
-		<Resource tag="FAVORITETOPICS">Favoritisierte Themeny</Resource>
+		<Resource tag="FAVORITETOPICS">Favoritisierte Themen</Resource>
 		<Resource tag="BY">von {0}</Resource>
 		<Resource tag="LAST_24">( Letzte 24 Stunden )</Resource>
 		<Resource tag="LAST_DAY">Letzter Tag</Resource>
@@ -746,8 +746,8 @@
 		<Resource tag="ASK_POLLROUP_DELETE_ALL">Wollen Sie wirklich die Umfragegruppe Komplett Löschen?</Resource>
 		<Resource tag="ASK_POLLROUP_DELETE_EVR">Wollen Sie wirklich die Umfragegruppe überall Löschen?</Resource>
 		<Resource tag="CHOICE">Wahl {0}:</Resource>
-		<Resource tag="POLLIMAGE_INVALID">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
-		<Resource tag="POLLIMAGE_TEXT">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
+		<Resource tag="POLLIMAGE_INVALID">Das Bild oder der Pfad ist für (0) ist ungültig.</Resource>
+		<Resource tag="POLLIMAGE_TEXT">Imagepfad:</Resource>
 		<Resource tag="POLLHEADER">Erstellen oder Umfrage bearbeiten</Resource>
 		<Resource tag="POLLADD">Umfrage hinzufügen</Resource>
 		<Resource tag="POLLQUESTION">Umfrage Frage:</Resource>
@@ -769,12 +769,12 @@
 		<Resource tag="POLLOPTIONSHIDDEN_GUEST">Gäste können keine Umfrage Ergbnisse und Wahlmöglichkeiten Sehen. Versuchen Sie sich zu registrieren.</Resource>
 		<Resource tag="POLLRESULTSHIDDEN_GUEST">Gäste können keine Umfrage Ergbnisse sehen. Versuchen Sie sich zu registrieren.</Resource>
 		<Resource tag="POLL_NOPERM_GUEST">Gäste können nicht wählen, Sie müssen Sich registrieren.</Resource>
-		<Resource tag="POLL_PLEASEVOTE">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
+		<Resource tag="POLL_PLEASEVOTE">Hier klicken zur Abstimmung</Resource>
 		<Resource tag="POLLGROUP_BOUND">Umfrage begrenzen</Resource>
 		<Resource tag="POLLGROUP_BOUNDWARN">Sie müssen in allen Umfrage abstimmen um die Ergebnisse zu sehen.</Resource>
 		<Resource tag="POLLGROUP_ATTACHED">Kann die Gruppe nicht anhängen. Da eine Gruppe bereits Angehangen ist.</Resource>
 		<Resource tag="POLLGROUPISBOUND">Ihre Stimme wird gezählt, wenn Sie an allen Umfragen teilgenommen haben.</Resource>
-		<Resource tag="POLLGROUP_CLOSEDBOUND">&lt;missing translation - not synchronized with english.xml?&gt;</Resource>
+		<Resource tag="POLLGROUP_CLOSEDBOUND">Keine Resultate zeigen wenn die Gruppe offen ist.</Resource>
 		<Resource tag="POLLGROUP_LIST">Wählen Sie eine Gruppe:</Resource>
 		<Resource tag="REMOVEPOLL">Umfrage löschen</Resource>
 		<Resource tag="REMOVEPOLL_ALL">Gruppe Komplett entfernen</Resource>
