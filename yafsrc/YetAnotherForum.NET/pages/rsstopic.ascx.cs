@@ -78,8 +78,8 @@ namespace YAF.Pages
       // Atom feed as variable
        bool atomFeedByVar = Request.QueryString.GetFirstOrDefault("ft") ==
                              YafSyndicationFormats.Atom.ToInt().ToString();
-      
-      var feed = new YafSyndicationFeed();
+
+      YafSyndicationFeed feed = null;
       var syndicationItems = new List<SyndicationItem>();
       string lastPostIcon = PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
       string lastPostName = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST"); 
@@ -124,7 +124,7 @@ namespace YAF.Pages
                     feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, (Convert.ToInt64(row["UserID"]))));
                     
                     // Alternate Link for feed
-                    feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                   // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
                 }
                 
                 feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
@@ -430,7 +430,7 @@ namespace YAF.Pages
                       feed.LastUpdatedTime = lastPosted;
 
                       // Alternate Link
-                      feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                      feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.forum, true))));
                   }
 
                   feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
@@ -454,34 +454,47 @@ namespace YAF.Pages
       }  
 
       // update the feed with the item list...      
-      feed.Items = syndicationItems;
+      if (feed != null)
+      {
+          feed.Items = syndicationItems;
 
-      // Self Link
-      feed.Links.Add(new SyndicationLink(new Uri(!atomFeedByVar ? Request.Url.AbsoluteUri : "{0}&pg={1}".FormatWith(Request.Url.AbsoluteUri,YafSyndicationFormats.Atom.ToInt()))));
+          // Self Link
+          feed.Links.Add(
+              SyndicationLink.CreateSelfLink(
+                  new Uri(!atomFeedByVar
+                              ? Request.Url.AbsoluteUri
+                              : "{0}&pg={1}".FormatWith(Request.Url.AbsoluteUri, YafSyndicationFormats.Atom.ToInt()))));
 
-      var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
-    
-      // write the feed to the response writer);
-        if (!atomFeed)
-        {
-            var rssFormatter = new Rss20FeedFormatter(feed);
-            rssFormatter.WriteTo(writer);
-           // this.Response.ContentType = "text/rss+xml";
-        }
-        else
-        {
-            var atomFormatter = new Atom10FeedFormatter(feed);
-            atomFormatter.WriteTo(writer);
-          //  this.Response.ContentType = "text/atom+xml";
-        }
-   
-        writer.Close();
 
-      this.Response.ContentEncoding = Encoding.UTF8;
-      this.Response.ContentType = "text/xml";
-      this.Response.Cache.SetCacheability(HttpCacheability.Public);
+          var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
+          writer.WriteStartDocument();
+          // write the feed to the response writer);
+          if (!atomFeed)
+          {
+              var rssFormatter = new Rss20FeedFormatter(feed);
+              rssFormatter.WriteTo(writer);
+              // this.Response.ContentType = "text/rss+xml";
+          }
+          else
+          {
+              var atomFormatter = new Atom10FeedFormatter(feed);
+              atomFormatter.WriteTo(writer);
+              //  this.Response.ContentType = "text/atom+xml";
+          }
 
-      this.Response.End();
+          writer.WriteEndDocument();
+          writer.Close();
+
+          this.Response.ContentEncoding = Encoding.UTF8;
+          this.Response.ContentType = "text/xml";
+          this.Response.Cache.SetCacheability(HttpCacheability.Public);
+
+          this.Response.End();
+      }
+      else
+      {
+          YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+      }
     }
 
     #endregion
