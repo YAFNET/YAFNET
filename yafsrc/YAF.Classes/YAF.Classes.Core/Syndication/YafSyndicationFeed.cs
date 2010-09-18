@@ -29,47 +29,6 @@ namespace YAF.Classes.Core
   #endregion
 
   /// <summary>
-  /// The yaf rss feeds.
-  /// </summary>
-  public enum YafRssFeeds
-  {
-    /// <summary>
-    /// The latest posts.
-    /// </summary>
-    LatestPosts, 
-
-    /// <summary>
-    /// The latest announcements.
-    /// </summary>
-    LatestAnnouncements, 
-
-    /// <summary>
-    /// The posts.
-    /// </summary>
-    Posts, 
-
-    /// <summary>
-    /// The forum.
-    /// </summary>
-    Forum, 
-
-    /// <summary>
-    /// The topics.
-    /// </summary>
-    Topics, 
-
-    /// <summary>
-    /// The active.
-    /// </summary>
-    Active, 
-
-    /// <summary>
-    /// The favorite.
-    /// </summary>
-    Favorite
-  }
-
-  /// <summary>
   /// The syndication item extensions.
   /// </summary>
   public static class SyndicationItemExtensions
@@ -111,7 +70,7 @@ namespace YAF.Classes.Core
             id,
             new DateTimeOffset(posted));
        
-        si.Links.Add(SyndicationLink.CreateSelfLink(new Uri(link), "text/html"));
+        // si.Links.Add(SyndicationLink.CreateSelfLink(new Uri(link), "text/html"));
         si.PublishDate = new DateTimeOffset(posted);
         si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
        
