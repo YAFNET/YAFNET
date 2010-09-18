@@ -110,7 +110,8 @@ namespace YAF.Classes.Core
             new Uri(link),
             id,
             new DateTimeOffset(posted));
-
+       
+        si.Links.Add(SyndicationLink.CreateSelfLink(new Uri(link), "text/html"));
         si.PublishDate = new DateTimeOffset(posted);
         si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
        

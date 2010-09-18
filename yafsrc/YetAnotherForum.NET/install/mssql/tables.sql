@@ -76,7 +76,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		ForumID			int NULL ,
 		TopicID			int NULL ,
 		Browser			nvarchar (50) NULL ,
-		Platform		nvarchar (50) NULL,
+		[Platform]		nvarchar (50) NULL,
 		Flags           int NULL
 	)
 go
@@ -139,7 +139,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		CategoryID		int NOT NULL ,
 		ParentID		int NULL ,
 		Name			nvarchar (50) NOT NULL ,
-		Description		nvarchar (255) NOT NULL ,
+		[Description]		nvarchar (255) NOT NULL ,
 		SortOrder		smallint NOT NULL ,
 		LastPosted		datetime NULL ,
 		LastTopicID		int NULL ,
@@ -215,7 +215,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}MessageHistory](
 		MessageHistoryID uniqueidentifier NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_MessageHistoryID] DEFAULT (newid()),
 		MessageID		int NOT NULL ,
-		Message			ntext NOT NULL ,
+		[Message]			ntext NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
 		Edited			datetime NULL,
 		EditedBy		int NULL,	
@@ -250,7 +250,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,
 		FromUserID		int NOT NULL ,
 		Created			datetime NOT NULL ,
-		Subject			nvarchar (100) NOT NULL ,
+		[Subject]			nvarchar (100) NOT NULL ,
 		Body			ntext NOT NULL,
 		Flags			int NOT NULL 
 	)
@@ -318,15 +318,15 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		ProviderUserKey	nvarchar(64),
 		[Name]			nvarchar (255) NOT NULL,
 		[DisplayName]	nvarchar (255) NOT NULL,
-		Password		nvarchar (32) NOT NULL,
-		Email			nvarchar (50) NULL,
+		[Password]		nvarchar (32) NOT NULL,
+		[Email]			nvarchar (50) NULL,
 		Joined			datetime NOT NULL,
 		LastVisit		datetime NOT NULL,
 		IP				nvarchar (15) NULL,
 		NumPosts		int NOT NULL,
 		TimeZone		int NOT NULL,
 		Avatar			nvarchar (255) NULL,
-		Signature		ntext NULL,
+		[Signature]		ntext NULL,
 		AvatarImage		image NULL,
 		AvatarImageType	nvarchar (50) NULL,
 		RankID			[int] NOT NULL,
@@ -369,7 +369,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
 		AttachmentID	int IDENTITY (1, 1) not null,
 		MessageID		int not null,
-		FileName		nvarchar(255) not null,
+		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,
 		FileID			int null,
 		ContentType		nvarchar(50) null,
@@ -432,7 +432,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		NntpServerID	int IDENTITY (1, 1) not null,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) not null,
-		Address			nvarchar(100) not null,
+		[Address]			nvarchar(100) not null,
 		Port			int null,
 		UserName		nvarchar(255) null,
 		UserPass		nvarchar(50) null
@@ -505,7 +505,7 @@ begin
 		EventLogID	int identity(1,1) not null,
 		EventTime	datetime not null constraint [DF_{objectQualifier}EventLog_EventTime] default GETUTCDATE() ,
 		UserID		int,
-		Source		nvarchar(50) not null,
+		[Source]	nvarchar(50) not null,
 		Description	ntext not null,
 		constraint [PK_{objectQualifier}EventLog] primary key(EventLogID)
 	)

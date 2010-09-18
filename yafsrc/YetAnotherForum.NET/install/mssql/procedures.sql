@@ -1232,7 +1232,7 @@ AS
 				b.UserID,
 				c.MessageID,
 				c.Posted,
-				c.Message,
+				c.[Message],
 				c.Flags
 		        from   [{databaseOwner}].[{objectQualifier}Thanks] t
 		        join [{databaseOwner}].[{objectQualifier}message] c  on c.MessageID = t.MessageID		 
@@ -1360,7 +1360,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,				
 			UserCount = 1,
-			c.Login,
+			c.[Login],
 			c.LastActive,
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
@@ -1393,7 +1393,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,				
 			UserCount = 1,
-			c.Login,
+			c.[Login],
 			c.LastActive,
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
@@ -1426,7 +1426,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,				
 			UserCount = 1,
-			c.Login,
+			c.[Login],
 			c.LastActive,
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
@@ -1474,7 +1474,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,			
 			UserCount = 1,
-			c.Login,
+			c.[Login],
 			c.LastActive,
 			c.Location,		
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
@@ -1509,7 +1509,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,			
 			UserCount = 1,
-			c.Login,
+			c.[Login],
 			c.LastActive,
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
@@ -1544,7 +1544,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,				
 			UserCount = 1,
-			c.Login,
+			c.[Login],
 			c.LastActive,
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
@@ -1839,7 +1839,7 @@ begin
 	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- User (GUEST)
-	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,[Password],Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
 	VALUES(@BoardID,@RankIDGuest,'Guest','Guest','na',GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone,@ForumEmail,6)
 	SET @UserIDGuest = SCOPE_IDENTITY()	
 	
@@ -1847,7 +1847,7 @@ begin
 	if @IsHostAdmin<>0 SET @UserFlags = 3
 	
 	-- User (ADMIN)
-	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName, Password, Email,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName, [Password], Email,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
 	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserName,'na',@UserEmail,@UserKey,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone,@UserFlags)
 	SET @UserIDAdmin = SCOPE_IDENTITY()
 
@@ -2594,7 +2594,7 @@ begin
 		Category		= a.Name, 
 		ForumID			= b.ForumID,
 		Forum			= b.Name, 
-		b.Description,
+		b.[Description],
 		b.ImageUrl,
 		b.Styles,
 		b.PollGroupID,
@@ -2750,7 +2750,7 @@ begin
 		update [{databaseOwner}].[{objectQualifier}Forum] set 
 			ParentID=@ParentID,
 			Name=@Name,
-			Description=@Description,
+			[Description]=@Description,
 			SortOrder=@SortOrder,
 			CategoryID=@CategoryID,
 			RemoteURL = @RemoteURL,
@@ -3192,7 +3192,7 @@ BEGIN
 		a.MessageID,
 		a.UserID,
 		UserName = b.Name,
-		a.Message,
+		a.[Message],
 		c.TopicID,
 		c.ForumID,
 		c.Topic,
@@ -3228,7 +3228,7 @@ SELECT
 		m.MessageID,
 		m.UserID,
 		IsNull(t.UserName, u.Name) as Name,
-		m.Message,
+		m.[Message],
 		m.Posted,
 		t.TopicID,
 		t.ForumID,
@@ -3321,7 +3321,7 @@ BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReported](MessageID, [Message])
 		SELECT 
 			a.MessageID,
-			a.Message
+			a.[Message]
 		FROM
 			[{databaseOwner}].[{objectQualifier}Message] a
 		WHERE
@@ -3351,7 +3351,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportcopyover](@MessageID int) AS
 BEGIN
 		UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
-	SET [{databaseOwner}].[{objectQualifier}MessageReported].Message = m.Message
+	SET [{databaseOwner}].[{objectQualifier}MessageReported].[Message] = m.[Message]
 	FROM [{databaseOwner}].[{objectQualifier}MessageReported] mr
 	JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mr.MessageID
 	WHERE mr.MessageID = @MessageID;
@@ -3426,7 +3426,7 @@ BEGIN
 	-- Add points to Users total points
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
 
-	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, Message, TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID)
+	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID)
 	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID)
 
 	SET @MessageID = SCOPE_IDENTITY()
@@ -3445,7 +3445,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 		Posted		= b.Posted,
 		TopicID		= a.TopicID,
 		Topic		= a.Topic,
-		[Message]	= b.Message,
+		[Message]	= b.[Message],
 		[Flags]		= b.Flags,
 		[IsModeratorChanged] = b.IsModeratorChanged
 	from
@@ -3496,7 +3496,7 @@ begin
 	-- insert current message variant - use OriginalMessage in future 	
 	insert into [{databaseOwner}].[{objectQualifier}MessageHistory]
 	(MessageID,		
-		Message,
+		[Message],
 		IP,
 		Edited,
 		EditedBy,		
@@ -3509,7 +3509,7 @@ begin
 		MessageID = @MessageID
 	
 	update [{databaseOwner}].[{objectQualifier}Message] set
-		Message = @Message,
+		[Message] = @Message,
 		Edited = GETUTCDATE() ,
 		EditedBy = @EditedBy,
 		Flags = @Flags,
@@ -3548,7 +3548,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpforum_list](@BoardID in
 begin
 		select
 		a.Name,
-		a.Address,
+		a.[Address],
 		Port = IsNull(a.Port,119),
 		a.UserName,
 		a.UserPass,		
@@ -3643,7 +3643,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpserver_save](
 	else
 		update [{databaseOwner}].[{objectQualifier}NntpServer] set
 			Name = @Name,
-			Address = @Address,
+			[Address] = @Address,
 			Port = @Port,
 			UserName = @UserName,
 			UserPass = @UserPass
@@ -3858,7 +3858,7 @@ begin
 				ForumID = @ForumID,
 				TopicID = @TopicID,
 				Browser = @Browser,
-				Platform = @Platform,
+				[Platform] = @Platform,
 				ForumPage = @ForumPage		
 			where SessionID = @SessionID
 			end
@@ -4059,7 +4059,7 @@ BEGIN
 		IsBound = convert(int,pg.Flags & 2), 
 		IsClosedBound = convert(int,pg.Flags & 4), 
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
-		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
+		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
 		[{databaseOwner}].[{objectQualifier}Choice] a		
 	INNER JOIN 
@@ -4090,7 +4090,7 @@ BEGIN
 		IsBound = convert(int,pg.Flags & 2),
 		IsClosedBound = convert(int,pg.Flags & 4),
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
-		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
+		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
 		[{databaseOwner}].[{objectQualifier}Choice] a		
 	INNER JOIN 
@@ -4150,13 +4150,13 @@ begin
 	select
 		a.MessageID,
 		a.Posted,
-		Subject = c.Topic,
-		a.Message,		
+		[Subject] = c.Topic,
+		a.[Message],		
 		a.IP,
 		a.UserID,
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
-		b.Signature,
+		b.[Signature],
 		c.TopicID
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a
@@ -4190,7 +4190,7 @@ begin
 		ForumFlags	= g.Flags,
 		a.MessageID,
 		a.Posted,
-		Subject = d.Topic,
+		[Subject] = d.Topic,
 		[Message] = '', -- no longer returns message
 		a.UserID,
 		a.Position,
@@ -4207,7 +4207,7 @@ begin
 		b.Signature,
 		Posts		= b.NumPosts,
 		b.Points,
-		d.Views,
+		d.[Views],
 		d.ForumID,
 		RankName = c.Name,		
 		c.RankImage,
@@ -4240,12 +4240,12 @@ begin
 
 	select top 10
 		a.Posted,
-		Subject = d.Topic,
-		a.Message,
+		[Subject] = d.Topic,
+		a.[Message],
 		a.UserID,
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
-		b.Signature
+		b.[Signature]
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a 
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
@@ -4321,7 +4321,7 @@ begin
 			PMLimit = @PMLimit,
 			Style = @Style,
 			SortOrder = @SortOrder,
-			Description = @Description,
+			[Description] = @Description,
 			UsrSigChars = @UsrSigChars,
 			UsrSigBBCodes = @UsrSigBBCodes,
 			UsrSigHTMLTags = @UsrSigHTMLTags,
@@ -4570,7 +4570,7 @@ begin
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
-		Views = c.Views,
+		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
 		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
@@ -4839,7 +4839,7 @@ AS
 BEGIN
 		DECLARE @SQL nvarchar(500)
 
-	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.TopicID, t.LastMessageID FROM'
+	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID FROM'
 	SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
 	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}vaccess] v on v.ForumID=f.ForumID'
 	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
@@ -4987,7 +4987,7 @@ begin
 			c.Posted,
 			LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 			c.TopicMovedID,
-			Subject = c.Topic,
+			[Subject] = c.Topic,
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
 			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
@@ -5410,7 +5410,7 @@ BEGIN
 	IF (@UpdateProvider = 1)
 	BEGIN
 		SELECT
-			@Password = Password,
+			@Password = [Password],
 			@IsApproved = (CASE (Flags & 2) WHEN 2 THEN 1 ELSE 0 END),
 			@LastActivity = LastVisit,
 			@Joined = Joined
@@ -5422,7 +5422,7 @@ BEGIN
 		UPDATE
 			{objectQualifier}prov_Membership
 		SET
-			Password = @Password,
+			[Password] = @Password,
 			PasswordFormat = '1',
 			LastActivity = @LastActivity,
 			IsApproved = @IsApproved,
@@ -5633,7 +5633,7 @@ begin
 		select 
 			a.Email 
 		from 
-			{objectQualifier}User a
+			[{databaseOwner}].[{objectQualifier}User] a
 			join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
 			join [{databaseOwner}].[{objectQualifier}Group] c on c.GroupID=b.GroupID
 		where 
@@ -5833,7 +5833,7 @@ begin
 			[{databaseOwner}].[{objectQualifier}User]
 		where 
 			Name=@Name and 
-			Password=@Password and 
+			[Password]=@Password and 
 			(BoardID=@BoardID or (Flags & 1)=1) and
 			(Flags & 2)=2
 
@@ -6296,7 +6296,7 @@ begin
 	select
 		a.*,
 		ForumName = b.Name,
-		Messages = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=a.ForumID),
+		[Messages] = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=a.ForumID),
 		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] x where x.ForumID=a.ForumID and x.TopicMovedID is null),
 		b.LastPosted,
 		b.LastMessageID,
@@ -6339,7 +6339,7 @@ begin
 		a.*,
 		TopicName = b.Topic,
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=b.TopicID),
-		b.Views,
+		b.[Views],
 		b.LastPosted,
 		b.LastMessageID,
 		b.LastUserID,
@@ -6359,7 +6359,7 @@ begin
 				a.MessageID,
 		a.Posted,
 		Subject = c.Topic,
-		a.Message,
+		a.[Message],
 		a.UserID,
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
@@ -7705,12 +7705,12 @@ begin
 		c.TopicID,
 		c.Posted,
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
-		Subject = c.Topic,
+		[Subject] = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
-		Views = c.Views,
+		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
 		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
@@ -7891,7 +7891,7 @@ as
 					(
 					  AlbumID,
 					  Caption,
-					  FileName,
+					  [FileName],
 					  Bytes,
 					  ContentType,
 					  Uploaded,

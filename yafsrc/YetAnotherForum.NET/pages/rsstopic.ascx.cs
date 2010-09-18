@@ -71,12 +71,18 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
       // Put user code to initialize the page here 
+      
+      // Atom feeds are enabled
       bool atomFeed = PageContext.BoardSettings.ShowAtomLink;
+     
+      // Atom feed as variable
+      bool atomFeedByVar = this.Request.QueryString.GetFirstOrDefault("ft") == "atom";
+      
       var feed = new YafSyndicationFeed();
       var syndicationItems = new List<SyndicationItem>();
       string lastPostIcon = PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
       string lastPostName = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST"); 
-
+     
       YafRssFeeds feedType = YafRssFeeds.Forum;
 
       try
@@ -87,7 +93,7 @@ namespace YAF.Pages
       {
         // default to Forum Feed.
       }
-      if (this.Request.QueryString.GetFirstOrDefault("ft") == "atom")
+      if (atomFeedByVar)
       {
           atomFeed = true;
       }
@@ -449,24 +455,24 @@ namespace YAF.Pages
       feed.Items = syndicationItems;
 
       // Self Link
-      feed.Links.Add(new SyndicationLink(new Uri(Request.Url.AbsoluteUri)));
+      feed.Links.Add(new SyndicationLink(new Uri(!atomFeedByVar ? Request.Url.AbsoluteUri : Request.Url.AbsoluteUri + "&pg=atom")));
 
       var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
-     
-      // write the feed to the response writer
+    
+      // write the feed to the response writer);
         if (!atomFeed)
         {
             var rssFormatter = new Rss20FeedFormatter(feed);
             rssFormatter.WriteTo(writer);
-           // this.Response.ContentType = "text/xml+rss";
+           // this.Response.ContentType = "text/rss+xml";
         }
         else
         {
             var atomFormatter = new Atom10FeedFormatter(feed);
             atomFormatter.WriteTo(writer);
-          //  this.Response.ContentType = "text/xml+atom";
+          //  this.Response.ContentType = "text/atom+xml";
         }
-
+   
         writer.Close();
 
       this.Response.ContentEncoding = Encoding.UTF8;
