@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="1.94.13611">
+    <package name="YetAnotherForumDotNet" type="Module" version="1.94.13638">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -359,6 +359,80 @@
               <name>Uninstall.SqlDataProvider</name>
             </script>
           </scripts>
+        </component>
+      </components>
+    </package>
+    <package name="YAF.Dnn.WhatsNew" type="Module" version="1.94.13638">
+      <friendlyName>YAF What's New</friendlyName>
+      <description>
+        &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
+        &lt;/p&gt;
+        &lt;p&gt;The Posts are rendered as nested List for easy Skinning.&lt;/p&gt;
+      </description>
+      <owner>
+        <name>Ingo Herbote</name>
+        <organization>Yet Another Forum.NET</organization>
+        <url>http://www.yetanotherforum.net/</url>
+        <email>support@yetanotherforum.net</email>
+      </owner>
+      <license src="License.html" />
+      <releaseNotes>
+        First Release
+      </releaseNotes>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>YAF.Dnn.WhatsNew</moduleName>
+            <foldername>YAF.Dnn.WhatsNew</foldername>
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>YAF What's New</friendlyName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/YAF.Dnn.WhatsNew/YafDnnWhatsNew.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle></controlTitle>
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>Settings</controlKey>
+                    <controlSrc>DesktopModules/YAF.Dnn.WhatsNew/YafDnnWhatsNewSettings.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle>YAF What's New Settings</controlTitle>
+                    <controlType>Edit</controlType>
+                    <iconFile />
+                    <helpUrl />
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+        <component type="File">
+          <files>
+            <basePath>DesktopModules\YAF.Dnn.WhatsNew</basePath>
+            <file>
+              <name>YafDnnWhatsNewSettings.ascx</name>
+              <sourceFileName>YafDnnWhatsNewSettings.ascx</sourceFileName>
+            </file>
+            <file>
+              <name>YafDnnWhatsNew.ascx</name>
+              <sourceFileName>YafDnnWhatsNew.ascx</sourceFileName>
+            </file>
+          </files>
+        </component>
+        <component type="ResourceFile">
+          <resourceFiles>
+            <basePath>DesktopModules\YAF.Dnn.WhatsNew</basePath>
+            <resourceFile>
+              <path></path>
+              <name>YafDnnWhatsNewResources.zip</name>
+            </resourceFile>
+          </resourceFiles>
         </component>
       </components>
     </package>

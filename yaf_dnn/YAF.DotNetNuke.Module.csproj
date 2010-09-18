@@ -67,9 +67,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\DataController.cs" />
     <Compile Include="DataController.cs" />
     <Compile Include="DnnRichEditor.cs" />
     <Compile Include="DotNetNukeUrlBuilder.cs" />
+    <Compile Include="YafDnnWhatsNew.ascx.cs">
+      <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="YafDnnWhatsNew.ascx.designer.cs">
+      <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="YafDnnWhatsNewSettings.ascx.cs">
+      <DependentUpon>YafDnnWhatsNewSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="YafDnnWhatsNewSettings.ascx.designer.cs">
+      <DependentUpon>YafDnnWhatsNewSettings.ascx</DependentUpon>
+    </Compile>
     <Compile Include="YafDnnImportScheduler.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,9 +161,17 @@
   <ItemGroup>
     <Content Include="DnnModule\License.html" />
     <Content Include="DnnModule\ReadMe.html" />
+    <Content Include="star.gif" />
+    <Content Include="YafDnnWhatsNew.ascx" />
+    <Content Include="module.css" />
+    <Content Include="YafDnnWhatsNewSettings.ascx" />
     <Content Include="YafDnnModule.ascx" />
     <Content Include="YafDnnModuleEdit.ascx" />
     <Content Include="YafDnnModuleImport.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\YafDnnWhatsNew.ascx.resx" />
+    <Content Include="App_LocalResources\YafDnnWhatsNewSettings.ascx.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
