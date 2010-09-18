@@ -1,70 +1,19 @@
-<%@ Control Language="c#" CodeFile="posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
+<%@ Control Language="c#" CodeBehind="../../../pages/posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
-<%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="displaypost.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="DisplayPost.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../../../controls/DisplayAd.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="PollList" Src="../../../controls/PollList.ascx" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<a id="top" name="top"></a>
-<asp:Repeater ID="Poll" runat="server" Visible="false">
-    <HeaderTemplate>
-        <table cellpadding="0" cellspacing="1" class="content" width="100%">
-            <tr>
-                <td class="header1" colspan="3">
-                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
-                    :
-                    <%# GetPollQuestion() %>
-                    <%# GetPollIsClosed() %>
-                </td>
-            </tr>
-            <tr>
-                <td class="header2">
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" />
-                </td>
-                <td class="header2" align="center" width="10%">
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="votes" />
-                </td>
-                <td class="header2" width="40%">
-                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
-                </td>
-            </tr>
-    </HeaderTemplate>
-    <ItemTemplate>
-        <tr>
-            <td class="post">
-                <YAF:MyLinkButton runat="server" Enabled="<%#CanVote%>" CommandName="vote" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>'
-                    Text='<%# HtmlEncode(YafServices.BadWordReplace.Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
-            </td>
-            <td class="post" align="center">
-                <%# DataBinder.Eval(Container.DataItem, "Votes") %>
-            </td>
-            <td class="post">
-                <nobr>
-					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>"><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
-						height="12" width='<%# VoteWidth(Container.DataItem) %>%'><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr>
-                <%# DataBinder.Eval(Container.DataItem,"Stats") %>
-                %
-            </td>
-        </tr>
-    </ItemTemplate>
-    <FooterTemplate>
-        <tr>
-            <td class="header2">
-                <%= GetText("total") %>
-            </td>
-            <td class="header2" align="center">
-                <%# GetTotal() %>
-            </td>
-            <td class="header2">
-                100%
-            </td>
-        </tr>
-        </table><br />
-    </FooterTemplate>
-</asp:Repeater>
-<table class="command" width="100%">
-    <tr>
-        <td align="left">
-            <YAF:Pager ID="Pager" runat="server" UsePostBack="False" />
-        </td>
-        <td>
+<YAF:PollList ID="PollList" TopicId='<%# PageContext.PageTopicID %>' ShowButtons='<%# ShowPollButtons() %>' Visible='<%# PollGroupId() > 0 %>' PollGroupId='<%# PollGroupId() %>' runat="server"/>
+<a id="top"  name="top"></a>
+
+<div>
+            <span id="dvFavorite1">
+                <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem"
+                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
+            </span>        
+            <asp:PlaceHolder ID="NoButtonsMobile" runat="server" Visible="false">
             <YAF:ThemeButton ID="MoveTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
             <YAF:ThemeButton ID="UnlockTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
@@ -74,24 +23,21 @@
             <YAF:ThemeButton ID="DeleteTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="DeleteTopic_Click" OnLoad="DeleteTopic_Load" TextLocalizedTag="BUTTON_DELETETOPIC"
                 TitleLocalizedTag="BUTTON_DELETETOPIC_TT" />
+            </asp:PlaceHolder>
             <YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
-            <span id="dvFavorite1">
-                <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem"
-                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
-            </span>
-        </td>
-    </tr>
-</table>
+</div>
+
+<YAF:Pager ID="Pager" runat="server" UsePostBack="False" />
 <table class="content postHeader" width="100%">
-    <tr class="postTitle">
+    <tr class="postTitle" >
         <td class="header1">
             <div class="leftItem">
                 <asp:Label ID="TopicTitle" runat="server" />
             </div>
-            <div class="rightItem">
+            <div class="rightItem"  runat="server" visible="false">
                 <asp:HyperLink ID="OptionsLink" runat="server">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
                 </asp:HyperLink>
@@ -103,7 +49,7 @@
             </div>
         </td>
     </tr>
-    <tr class="header2 postNavigation">
+    <tr class="header2 postNavigation"  runat="server" visible="false">
         <td class="header2links">
             <asp:LinkButton ID="PrevTopic" runat="server" CssClass="header2link" OnClick="PrevTopic_Click">
                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="prevtopic" />
@@ -111,7 +57,7 @@
             <asp:LinkButton ID="NextTopic" runat="server" CssClass="header2link" OnClick="NextTopic_Click">
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="nexttopic" />
             </asp:LinkButton>
-            <div runat="server" visible="false">
+            <div id="Div1" runat="server" visible="false">
                 <asp:LinkButton ID="TrackTopic" runat="server" CssClass="header2link" OnClick="TrackTopic_Click">
                     <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="watchtopic" />
                 </asp:LinkButton>
@@ -134,6 +80,7 @@
             <%# GetThreadedRow(Container.DataItem) %>
             <YAF:DisplayPost ID="DisplayPost1" runat="server" DataRow="<%# Container.DataItem %>"
                 Visible="<%#IsCurrentMessage(Container.DataItem)%>" IsThreaded="<%#IsThreaded%>" />
+            <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         </table>
     </ItemTemplate>
     <AlternatingItemTemplate>
@@ -141,6 +88,7 @@
             <%# GetThreadedRow(Container.DataItem) %>
             <YAF:DisplayPost ID="DisplayPostAlt" runat="server" DataRow="<%# Container.DataItem %>"
                 IsAlt="True" Visible="<%#IsCurrentMessage(Container.DataItem)%>" IsThreaded="<%#IsThreaded%>" />
+            <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         </table>
     </AlternatingItemTemplate>
 </asp:Repeater>
@@ -182,6 +130,7 @@
         </tr>
     </table>
 </asp:PlaceHolder>
+<asp:PlaceHolder ID="mobileHolder" runat="server" Visible="false">
 <table class="content postForumUsers" width="100%">
     <YAF:ForumUsers ID="ForumUsers1" runat="server" />
 </table>
@@ -191,6 +140,10 @@
             <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="false" />
         </td>
         <td>
+            <span id="dvFavorite2">
+                <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem"
+                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
+            </span>        
             <YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
             <YAF:ThemeButton ID="UnlockTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
@@ -204,13 +157,10 @@
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
-            <span id="dvFavorite2">
-                <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem"
-                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
-            </span>
         </td>
     </tr>
 </table>
+
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
     <div id="DivForumJump">
@@ -218,9 +168,10 @@
         &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>
 </asp:PlaceHolder>
-<div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+<div id="DivPageAccess" class="smallfont">
+    <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
+</asp:PlaceHolder>
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
     <ContentTemplate>
         <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
