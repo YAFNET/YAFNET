@@ -353,27 +353,39 @@ namespace YAF.controls
     /// </returns>
     protected bool CanVote(object pollId)
     {
-      // rule out users without voting rights
-      // If you come here from topics or edit TopicId should be > 0
-      if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
-      {
-        return false;
-      }
+        if (HasVoteAccess(pollId))
+        {
+            return this.IsNotVoted(pollId);
+        }
 
-      if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
-      {
         return false;
-      }
-
-      if (this.IsPollClosed(pollId))
-      {
-        return false;
-      }
-
-      return this.IsNotVoted(pollId);
     }
 
-    /// <summary>
+    private bool HasVoteAccess(object pollId)
+    {
+
+        // rule out users without voting rights
+        // If you come here from topics or edit TopicId should be > 0
+        if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
+        {
+            return false;
+        }
+
+        if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
+        {
+            return false;
+        }
+
+        if (this.IsPollClosed(pollId))
+        {
+            return false;
+        }
+
+        return true;
+
+    }
+
+      /// <summary>
     /// The change poll show status.
     /// </summary>
     /// <param name="newStatus">
@@ -740,10 +752,12 @@ namespace YAF.controls
         }
 
         polloll.DataSource = _choiceRow;
-        this._canVote = this.CanVote(pollId);
-        bool isPollClosed = this.IsPollClosed(pollId);
-        bool isNotVoted = this.IsNotVoted(pollId);
 
+        bool isNotVoted = this.IsNotVoted(pollId);
+        
+        this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
+        bool isPollClosed = this.IsPollClosed(pollId);
+        
         // Poll voting is bounded - you can't see results before voting in each poll
         if (this.isBound)
         {

@@ -245,16 +245,27 @@ namespace YAF.Pages
 
             foreach (DataRow row in dt.Rows)
             {
+             
                   DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + YafServices.DateTime.TimeOffset.Add(TimeSpan.FromDays(2));
 
                   if (syndicationItems.Count <= 0)
                   {
-                      feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+
+                      if (row["LastUserID"].IsNullOrEmptyDBField() || row["LastUserID"].IsNullOrEmptyDBField())
+                      {
+                          break;
+                      }
+
+                      feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
+                                                                                         Convert.ToInt64(
+                                                                                             row["LastUserID"])));
+
                       feed.LastUpdatedTime = lastPosted;
 
                       // Alternate Link
                       feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
                   }
+
                   if (!row["LastUserID"].IsNullOrEmptyDBField())
                   {
                       feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,

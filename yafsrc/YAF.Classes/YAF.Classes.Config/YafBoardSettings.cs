@@ -1686,7 +1686,7 @@ namespace YAF.Classes
     {
         get
         {
-            return this._reg.GetValue<bool>("ShowAtomLink", false);
+            return this._reg.GetValue<bool>("ShowAtomLink", true);
         }
 
         set
