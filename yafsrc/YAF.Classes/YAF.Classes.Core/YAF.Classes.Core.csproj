@@ -69,6 +69,8 @@
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -129,6 +131,14 @@
     <Compile Include="Nntp\NntpConnection.cs" />
     <Compile Include="Nntp\NntpException.cs" />
     <Compile Include="Nntp\NntpUtil.cs" />
+    <Compile Include="Services\CheckForSpam\AkismetSpamClient.cs" />
+    <Compile Include="Services\CheckForSpam\AntiSpamTypePadClient.cs" />
+    <Compile Include="Services\CheckForSpam\CheckForSpamClientBase.cs" />
+    <Compile Include="Services\CheckForSpam\Comment.cs" />
+    <Compile Include="Services\CheckForSpam\HttpClient.cs" />
+    <Compile Include="Services\CheckForSpam\ICheckForSpamClient.cs" />
+    <Compile Include="Services\CheckForSpam\IComment.cs" />
+    <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
     <Compile Include="Services\YafFormatMessage.cs" />
     <Compile Include="Services\YafSendNotification.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
@@ -248,7 +258,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
