@@ -883,7 +883,7 @@ namespace YAF.controls
 
           showWarningsRow = pollWillExpire.Visible = true;
         }
-        else 
+        else if (daystorun == 0)
         {
           var pollExpired = item.FindControlRecursiveAs<Label>("PollExpired");
           pollExpired.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");
