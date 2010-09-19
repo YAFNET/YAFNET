@@ -686,6 +686,12 @@ if not exists (select * from syscolumns where id = object_id(N'[{databaseOwner}]
  	alter table [{databaseOwner}].[{objectQualifier}Active] add [Flags] int NULL 
 GO
 
+if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)    
+    grant delete on [{databaseOwner}].[{objectQualifier}Active] to public
+	exec('delete from [{databaseOwner}].[{objectQualifier}Active]')
+	revoke delete on [{databaseOwner}].[{objectQualifier}Active] from public
+GO
+
 -- Board Table
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
