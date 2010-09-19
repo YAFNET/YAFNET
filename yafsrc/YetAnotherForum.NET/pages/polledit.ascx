@@ -71,7 +71,7 @@
      <tr id="IsBound" runat="server" visible="false">	
         	<td class="postformheader" width="20%">
 			<em>
-				 <YAF:LocalizedLabel ID="IsBoundLabel" runat="server" LocalizedTag="pollgroup_bound" />
+				 <YAF:LocalizedLabel ID="IsBoundLabel" runat="server" LocalizedTag="POLLGROUP_BOUNDWARN" />
 			</em>
 		</td>
 		<td class="post" width="80%">
@@ -82,6 +82,7 @@
     	<td class="postformheader" width="20%">
 			<em>
 				 <YAF:LocalizedLabel ID="IsClosedBoundLabel" runat="server" LocalizedTag="pollgroup_closedbound" />
+                ( <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server" LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" /> )
 			</em>
 		</td>
 		<td class="post" width="80%">

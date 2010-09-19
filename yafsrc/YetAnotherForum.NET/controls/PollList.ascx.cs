@@ -420,20 +420,18 @@ namespace YAF.controls
       {
         if (dr["Closes"] != DBNull.Value && Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
         {
-          DateTime tCloses = Convert.ToDateTime(dr["Closes"]).Date;
-          if (tCloses > DateTime.UtcNow.Date)
-          {
-            int days = (tCloses - DateTime.UtcNow).Days;
-            // The days should not be = 0 we return whole day and add a value to 
-            // say that it's a partial day
-              if (days == 0)
-              {
-                  soon = true;
-                  return 1;
-              }
-              return days;
-          }
+            TimeSpan ts = (Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow);
+            if (ts.TotalDays >= 1)
+            {
+                return Convert.ToInt32(ts.TotalDays);
+            }
 
+            if (ts.TotalSeconds > 0)
+            {
+                soon = true;
+                return 1;
+            }
+          DateTime tCloses = Convert.ToDateTime(dr["Closes"]).Date;
           return 0;
         }
       }
@@ -558,9 +556,9 @@ namespace YAF.controls
     /// </returns>
     protected bool IsPollClosed(object pollId)
     {
-      return (from DataRow dr in this._dtPollGroup.Rows
-              where (!dr["Closes"].IsNullOrEmptyDBField()) && (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
-              select Convert.ToDateTime(dr["Closes"])).Any(tCloses => tCloses < DateTime.UtcNow);
+        bool soon;
+        int? dtr = DaysToRun(pollId, out soon);
+        return dtr == 0;
     }
 
     /// <summary>
@@ -754,9 +752,10 @@ namespace YAF.controls
         polloll.DataSource = _choiceRow;
 
         bool isNotVoted = this.IsNotVoted(pollId);
-        
-        this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
         bool isPollClosed = this.IsPollClosed(pollId);
+
+        this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
+        
         
         // Poll voting is bounded - you can't see results before voting in each poll
         if (this.isBound)
@@ -870,7 +869,7 @@ namespace YAF.controls
         }
 
         // Poll has expiration date
-        if (daystorun != null)
+        if (daystorun > 0)
         {
           var pollWillExpire = item.FindControlRecursiveAs<Label>("PollWillExpire");
           if (!soon)
@@ -884,7 +883,7 @@ namespace YAF.controls
 
           showWarningsRow = pollWillExpire.Visible = true;
         }
-        else if (daystorun == 0)
+        else 
         {
           var pollExpired = item.FindControlRecursiveAs<Label>("PollExpired");
           pollExpired.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");

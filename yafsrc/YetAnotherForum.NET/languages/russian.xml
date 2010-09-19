@@ -840,9 +840,9 @@
     <Resource tag="POLL_WILLEXPIRE_HOURS">Последние часы голосования!</Resource>
     <Resource tag="POLLADD">Добавить опрос</Resource>
     <Resource tag="POLLGROUP_ATTACHED">Нельзя добавить группу. Какая-то группа уже добавлена.</Resource>
-    <Resource tag="POLLGROUP_BOUND">Связанное голосование</Resource>
     <Resource tag="POLLGROUP_BOUNDWARN">Для просмотра результатов проголосуйте во всех опросах.</Resource>
-    <Resource tag="POLLGROUP_CLOSEDBOUND">Не показывать результаты пока не проголосованы все опросы в группе</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND">Связанное голосование</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Не показывать результаты пока опросы в группе открыты</Resource>
     <Resource tag="POLLGROUP_LIST">Выберите существующую группу опросов:</Resource>
     <Resource tag="POLLGROUPISBOUND">Результаты вашего голосования будут видны, когда Вы проголосуете во всех опросах.</Resource>
     <Resource tag="POLLHEADER">Создание и редактирование опроса</Resource>
