@@ -361,23 +361,66 @@ namespace YAF.Controls
       // re-bind data
       this.BindData();
     }
-  private void BindFeeds()
-  {
-      // RSS link setup 
-      if (this.CurrentMode == TopicListMode.Active)
-      {
-          this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
-          this.RssFeed.FeedType = YafRssFeeds.Active;
-          this.RssFeed.AdditionalParameters = "txt={0}&d={1}".FormatWith(this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-      }
-      else if (this.CurrentMode == TopicListMode.Favorite)
-      {
-          this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
-          this.RssFeed.FeedType = YafRssFeeds.Favorite;
-          this.RssFeed.AdditionalParameters = "txt={0}&d={1}".FormatWith(this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-      }
-  }
+    private void BindFeeds()
+    {
+        // RSS link setup 
+        if (PageContext.BoardSettings.ShowRSSLink)
+        {
+            if (this.CurrentMode == TopicListMode.Active)
+            {
+                this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
+                this.RssFeed.FeedType = YafRssFeeds.Active;
+                this.RssFeed.AdditionalParameters =
+                    "txt={0}&d={1}".FormatWith(
+                        this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                        this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+            }
+            else if (this.CurrentMode == TopicListMode.Favorite)
+            {
+                this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
+                this.RssFeed.FeedType = YafRssFeeds.Favorite;
+                this.RssFeed.AdditionalParameters =
+                    "txt={0}&d={1}".FormatWith(
+                        this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                        this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+            }
 
-    #endregion
+            this.RssFeed.Visible = true;
+        }
+
+        // Atom link setup 
+        if (PageContext.BoardSettings.ShowAtomLink)
+        {
+            {
+                if (this.CurrentMode == TopicListMode.Active)
+                {
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Active;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                }
+                else if (this.CurrentMode == TopicListMode.Favorite)
+                {
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                }
+
+                this.AtomFeed.IsAtomFeed = true;
+                this.AtomFeed.Visible = true;
+            }
+        }
+    }
+
+      #endregion
   }
 }

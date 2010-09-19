@@ -40,49 +40,40 @@ namespace YAF.Controls {
         protected global::YAF.Controls.Pager PagerTop;
         
         /// <summary>
-        /// TopicsLabel control.
+        /// LocalizedLabel6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel TopicsLabel;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
-        /// StarterLabel control.
+        /// LocalizedLabel8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel StarterLabel;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
-        /// RepliesLabel control.
+        /// LocalizedLabel9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel RepliesLabel;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
         
         /// <summary>
-        /// ViewsLabel control.
+        /// LocalizedLabel10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ViewsLabel;
-        
-        /// <summary>
-        /// LastPostLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LastPostLabel;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
         
         /// <summary>
         /// TopicList control.
@@ -101,6 +92,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.RssFeedLink RssFeed;
+        
+        /// <summary>
+        /// AtomFeed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.RssFeedLink AtomFeed;
         
         /// <summary>
         /// PagerBottom control.

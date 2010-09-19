@@ -43,6 +43,7 @@
     <tr>
         <td class="footer1" align="right" width="100%" colspan="5">
             <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" />
+            <YAF:RssFeedLink ID="AtomFeed" runat="server" Visible="<%# PageContext.BoardSettings.ShowAtomLink %>"/>   
         </td>
     </tr>
 </table>

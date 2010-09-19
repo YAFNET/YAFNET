@@ -72,19 +72,42 @@ namespace YAF.Modules
     {
       HtmlHead head = ForumControl.Page.Header ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
-      if (head != null && PageContext.BoardSettings.ShowRSSLink)
+      if (head != null)
       {
-        // setup the rss link...
-        HtmlLink rssLink = new HtmlLink();
+          if (PageContext.BoardSettings.ShowRSSLink)
+          {
+              // setup the rss link...
+              HtmlLink rssLink = new HtmlLink();
 
-        // defaults to the "Active" rss.
-        rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}", YafRssFeeds.LatestPosts.GetStringValue());
+              // defaults to the "Active" rss.
+              rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}",
+                                                  YafRssFeeds.LatestPosts.GetStringValue());
 
-        rssLink.Attributes.Add("rel", "alternate");
-        rssLink.Attributes.Add("type", "application/rss+xml");
-        rssLink.Attributes.Add("title", "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
+              rssLink.Attributes.Add("rel", "alternate");
+              rssLink.Attributes.Add("type", "application/rss+xml");
+              rssLink.Attributes.Add("title",
+                                     "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("RSSFEED"),
+                                                            YafContext.Current.BoardSettings.Name));
 
-        head.Controls.Add(rssLink);
+              head.Controls.Add(rssLink);
+          }
+          if (PageContext.BoardSettings.ShowAtomLink)
+          {
+              // setup the rss link...
+              HtmlLink rssLink = new HtmlLink();
+
+              // defaults to the "Active" rss.
+              rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}&ft={1}",
+                                                  YafRssFeeds.LatestPosts.GetStringValue(), YafSyndicationFormats.Atom.ToInt());
+
+              rssLink.Attributes.Add("rel", "alternate");
+              rssLink.Attributes.Add("type", "application/atom+xml");
+              rssLink.Attributes.Add("title",
+                                     "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("ATOMFEED"),
+                                                            YafContext.Current.BoardSettings.Name));
+
+              head.Controls.Add(rssLink);
+          }
       }
     }
   }

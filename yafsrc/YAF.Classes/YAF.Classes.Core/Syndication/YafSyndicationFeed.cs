@@ -154,7 +154,7 @@ namespace YAF.Classes.Core
         // Self Link
         this.Links.Add(
             SyndicationLink.CreateSelfLink(
-                new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt())))));
+                new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)))));
         this.Generator = "YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"));
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;

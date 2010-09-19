@@ -132,6 +132,22 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// Gets or Sets if this is a link to atom feed. (Default <see langword="false"/>)
+    /// </summary>
+    public bool IsAtomFeed
+    {
+        get
+        {
+            return this.ViewState.ToTypeOrDefault<bool>("IsAtomFeed", false);
+        }
+
+        set
+        {
+            this.ViewState["IsAtomFeed"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or Sets additional rss feed url parameters.
     /// </summary>
     public string AdditionalParameters
@@ -328,8 +344,9 @@ namespace YAF.Controls
           "href",
           YafBuildLink.GetLink(
             ForumPages.rsstopic,
-            "pg={0}{1}",
+            "pg={0}&ft={1}{2}",
             this.FeedType.ToInt(),
+            IsAtomFeed ? 1 : 0,
             this.AdditionalParameters.IsNotSet()
               ? string.Empty
               : "&{0}".FormatWith(this.AdditionalParameters)));

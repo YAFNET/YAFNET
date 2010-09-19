@@ -150,10 +150,16 @@ namespace YAF.Controls
         }
       }
 
+      this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink;
+      this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
+
       this.lastPostToolTip = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
       this.LatestPosts.DataSource = activeTopics;
       this.LatestPosts.DataBind();
-    }
+      
+        
+
+        }
 
     #endregion
   }

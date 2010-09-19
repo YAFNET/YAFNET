@@ -36,8 +36,8 @@
                 </asp:Repeater>
                 <tr>
                     <td class="footer1" align="right" colspan="2">
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>"
-                            TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts"  TitleLocalizedTag="RSSICONTOOLTIPACTIVE" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" />&nbsp; 
+                        <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="LatestPosts" IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />                           
                     </td>
                 </tr>
             </asp:PlaceHolder>
