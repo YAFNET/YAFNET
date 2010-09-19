@@ -142,19 +142,30 @@ namespace YAF.Classes.Core
     /// Initializes a new instance of the <see cref="YafSyndicationFeed"/> class. 
     /// </summary>
     /// <param name="subTitle"></param>
-    public YafSyndicationFeed(string subTitle, int sf)
+    public YafSyndicationFeed(string subTitle, YafRssFeeds feedType, int sf)
     {
         this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
         this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
-        this.Id = "{0}&pg={1}".FormatWith(YafContext.HttpContext.Request.Url.AbsoluteUri, YafSyndicationFormats.Atom.ToInt());
+        // Alternate link
+        this.Links.Add(
+            SyndicationLink.CreateAlternateLink(
+                new Uri(YafContext.Current.CurrentForumPage.ForumURL)));
+        // Self Link
+        this.Links.Add(
+            SyndicationLink.CreateSelfLink(
+                new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt())))));
+        this.Generator = "YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"));
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
-        this.BaseUri = new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.forum, true));
-        this.Generator = "YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"));
+        this.ImageUrl = new Uri("{0}{1}/YAFLogo.jpg".FormatWith(YafContext.Current.CurrentForumPage.ForumURL, YafBoardFolders.Current.Images));
+        this.Id =YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt()));
+        
+        this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
+       
         this.Categories.Add(new SyndicationCategory(FeedCategories));
-        this.ImageUrl = new Uri("{0}{1}/YAFLogo.jpg".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Images), UriKind.Relative);
      
+       
         // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
     #endregion

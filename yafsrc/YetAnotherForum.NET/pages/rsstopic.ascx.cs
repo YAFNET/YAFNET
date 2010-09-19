@@ -72,10 +72,13 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
       // Put user code to initialize the page here 
-      
+      if (!(PageContext.BoardSettings.ShowRSSLink || PageContext.BoardSettings.ShowAtomLink))
+      {
+          YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+      }
       // Atom feeds are enabled
       bool atomFeed = PageContext.BoardSettings.ShowAtomLink;
-      
+     
       // Atom feed as variable
        bool atomFeedByVar = Request.QueryString.GetFirstOrDefault("ft") ==
                              YafSyndicationFormats.Atom.ToInt().ToString();
@@ -111,9 +114,9 @@ namespace YAF.Pages
 
           using (DataTable dataTopics = YafServices.DBBroker.GetLatestTopics(this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, "LastUserStyle"))
           {
-          
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"), atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
-              
+
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"), feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+             
               foreach (DataRow row in dataTopics.Rows)
             {
                 DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField()
@@ -125,9 +128,9 @@ namespace YAF.Pages
                     feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, (Convert.ToInt64(row["UserID"]))));
                     
                     // Alternate Link for feed
-                   // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                    // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
                 }
-                
+
                 feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
                
                 string messageLink = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]);
@@ -138,7 +141,7 @@ namespace YAF.Pages
                     null,
                     YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
                     "{0}FeedType{1}TopicID{2}MessageID{3}".FormatWith(YafContext.Current.BoardSettings.Name, feedType, Convert.ToInt32(row["TopicID"]), Convert.ToInt32(row["LastMessageID"])),
-                    lastPosted, feed.Contributors[feed.Contributors.Count-1].Name);
+                    lastPosted, feed.Contributors[feed.Contributors.Count - 1].Name);
             }
           }
 
@@ -152,7 +155,7 @@ namespace YAF.Pages
           using (DataTable dt = DB.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
           {
 
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"), atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"), feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
           
             foreach (DataRow row in dt.Rows)
             {
@@ -199,7 +202,7 @@ namespace YAF.Pages
 
               // load the missing message test
               YafServices.DBBroker.LoadMessageText(dataRows);
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("PROFILE", "TOPIC") + this.PageContext.PageTopicName, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("PROFILE", "TOPIC") + this.PageContext.PageTopicName, feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
               foreach (var row in dataRows)
               {
                   DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
@@ -242,7 +245,7 @@ namespace YAF.Pages
               this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null))
           {
 
-              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"), atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"), feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
 
             foreach (DataRow row in dt.Rows)
             {
@@ -302,7 +305,7 @@ namespace YAF.Pages
             using (DataTable dt = DB.rsstopic_list(forumId))
             {
 
-                feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+                feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName, feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
 
                
               foreach (DataRow row in dt.Rows)
@@ -362,7 +365,7 @@ namespace YAF.Pages
             }
         }
 
-        feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+        feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText, feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
             
             using (
               DataTable dt = DB.topic_active(
@@ -432,7 +435,7 @@ namespace YAF.Pages
           {
               foreach (DataRow row in dt.Rows)
               {
-                  feed = new YafSyndicationFeed("{0} - {1}".FormatWith(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText), atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+                  feed = new YafSyndicationFeed("{0} - {1}".FormatWith(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText), feedType, atomFeed ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
 
                   DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset;
                  
@@ -442,7 +445,7 @@ namespace YAF.Pages
                       feed.LastUpdatedTime = lastPosted;
 
                       // Alternate Link
-                      feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.forum, true))));
+                      feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(YafContext.Current.CurrentForumPage.ForumURL)));
                   }
 
                   feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
@@ -470,14 +473,6 @@ namespace YAF.Pages
       {
           feed.Items = syndicationItems;
 
-          // Self Link
-          feed.Links.Add(
-              SyndicationLink.CreateSelfLink(
-                  new Uri(!atomFeedByVar
-                              ? Request.Url.AbsoluteUri
-                              : "{0}&pg={1}".FormatWith(Request.Url.AbsoluteUri, YafSyndicationFormats.Atom.ToInt()))));
-
-
           var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
           writer.WriteStartDocument(true);
           // write the feed to the response writer);
@@ -493,7 +488,7 @@ namespace YAF.Pages
               atomFormatter.WriteTo(writer);
               //  this.Response.ContentType = "text/atom+xml";
           }
-
+        
           writer.WriteEndDocument();
           writer.Close();
 
