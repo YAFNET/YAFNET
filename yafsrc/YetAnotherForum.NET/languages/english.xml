@@ -75,7 +75,7 @@
 		<Resource tag="IM_MSN">Uses MSN</Resource>
 		<Resource tag="IM_EMAIL">Uses Email</Resource>
 		<Resource tag="IM_XMPP">Uses XMPP</Resource>
-		<Resource tag="RSSTOPIC">Views RSS feed</Resource>
+		<Resource tag="RSSTOPIC">Views RSS/Atom feed</Resource>
 		<Resource tag="HELP_INDEX">Views help index</Resource>
 		<Resource tag="HELP_RECOVER">No data</Resource>
 		<Resource tag="LASTPOSTS">No data</Resource>
@@ -479,6 +479,7 @@
 		<Resource tag="LASTPOST">Last Post</Resource>
 		<Resource tag="LATEST_POSTS">Latest Posts</Resource>
 		<Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
+    <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
 		<Resource tag="MARKALL">Mark all forums as read</Resource>
 		<Resource tag="MODERATORS">Moderators</Resource>
 		<Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
@@ -487,6 +488,9 @@
 		<Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
 		<Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
 		<Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFORUM">Subscribe to forum Atom feed.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFAVORITE">Subscribe to your favorite topics via Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPACTIVE">Subscribe to active topics via Atom.</Resource>
 		<Resource tag="STATS">Statistics</Resource>
 		<Resource tag="STATS_LASTMEMBER">The newest member is</Resource>
 		<Resource tag="STATS_LASTPOST">Last post {0} by</Resource>
@@ -706,6 +710,7 @@
 		<Resource tag="NO_POSTS">No Posts</Resource>
 		<Resource tag="REPLIES">Replies</Resource>
 		<Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="ATOMFEED">Atom Feed</Resource>
 		<Resource tag="SINCE">Since</Resource>
 		<Resource tag="GUESTTITLE">Active Topics</Resource>
 		<Resource tag="MEMBERTITLE">My Topics</Resource>
@@ -899,6 +904,7 @@
 		<Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
 		<Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
 		<Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="ATOMTOPIC">Atom Feed</Resource>
 		<Resource tag="SKYPE">SKYPE</Resource>
 		<Resource tag="STATISTICS">Statistics</Resource>
 		<Resource tag="THREADED">Threaded</Resource>
@@ -1373,6 +1379,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="POSTS">Posts</Resource>
 		<Resource tag="REPLIES">Replies</Resource>
 		<Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="ATOMFEED">Atom Feed</Resource>
 		<Resource tag="SHOWTOPICS">Show Topics</Resource>
 		<Resource tag="SUBFORUMS">Sub-forums</Resource>
 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>

@@ -41,7 +41,8 @@
 	<Resource tag="USER_OFFLINE">~/icon_useroffline.png</Resource>
 	<Resource tag="GENDER_MALE">~/male.gif</Resource>
 	<Resource tag="GENDER_FEMALE">~/female.gif</Resource>
-    <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
+  <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
+  <Resource tag="ATOMFEED">~/atomfeed.png</Resource>
   </page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>

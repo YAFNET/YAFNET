@@ -17,6 +17,7 @@
     <Resource tag="AIM">~/icon_aim.png</Resource>
     <Resource tag="YIM">~/icon_yahoo.png</Resource>
     <Resource tag="ICQ">~/icon_icq.png</Resource>
+    <Resource tag="XMPP">~/icon_xmpp.png</Resource>
     <Resource tag="SKYPE">~/icon_skype.png</Resource>
     <Resource tag="SEARCH">~/icon_search.png</Resource>
     <Resource tag="TOPIC_NEW">~/topic_new.gif</Resource>
@@ -46,6 +47,7 @@
 	<Resource tag="GENDER_MALE">~/male.gif</Resource>
 	<Resource tag="GENDER_FEMALE">~/female.gif</Resource>
     <Resource tag="RSSFEED">~/rssfeed.gif</Resource>
+    <Resource tag="ATOMFEED">~/atomfeed.png</Resource>
   </page>
   <page name="SORT">
 	<Resource tag="ASCENDING">~/sort_up.gif</Resource>

@@ -38,6 +38,7 @@
     <Resource tag="ADMIN_EDITCATEGORY">Edits categories</Resource>
     <Resource tag="ADMIN_EDITFORUM">Edits forums</Resource>
     <Resource tag="ADMIN_EDITGROUP">Edits groups</Resource>
+    <Resource tag="ADMIN_EDITLANGUAGE">Edits a languages file</Resource>
     <Resource tag="ADMIN_EDITMEDAL">Edits medals</Resource>
     <Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
     <Resource tag="ADMIN_EDITUSER">Edits a user</Resource>
@@ -48,6 +49,7 @@
     <Resource tag="ADMIN_FORUMS">Views forums in admin section</Resource>
     <Resource tag="ADMIN_GROUPS">Views groups in admin section</Resource>
     <Resource tag="ADMIN_HOSTSETTING">Views/edits hosts settings</Resource>
+    <Resource tag="ADMIN_LANGUAGES">Views languages list</Resource>
     <Resource tag="ADMIN_MAIL">Views/edits mails</Resource>
     <Resource tag="ADMIN_MEDALS">Views/edits medals</Resource>
     <Resource tag="ADMIN_NNTPFORUMS">Views/edits NNTP forums</Resource>
@@ -539,6 +541,9 @@
     <Resource tag="ACTIVE_USERS_MEMBERS1">חבר אחד</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} חברים</Resource>
     <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
+    <Resource tag="ATOMICONTOOLTIPACTIVE">Subscribe to active topics via Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFAVORITE">Subscribe to your favorite topics via Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFORUM">Subscribe to forum Atom feed.</Resource>
     <Resource tag="BY">ע"י {0}</Resource>
     <Resource tag="CURRENT_TIME">שעה נוכחית: {0}.</Resource>
     <Resource tag="FORUM">פורום</Resource>
@@ -548,6 +553,7 @@
     <Resource tag="LAST_VISIT">ביקורך האחרון: {0}.</Resource>
     <Resource tag="LASTPOST">הודעה אחרונה</Resource>
     <Resource tag="LATEST_POSTS">הודעות אחרונות</Resource>
+    <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS לפורום ראשי</Resource>
     <Resource tag="MARKALL">סמן את כל הפורומים כנקראו</Resource>
     <Resource tag="MODERATORS">אחראי פורום</Resource>
@@ -786,6 +792,7 @@
   </page>
   <page name="MYTOPICS">
     <Resource tag="ACTIVETOPICS">Active Topics</Resource>
+    <Resource tag="ATOMFEED">Atom Feed</Resource>
     <Resource tag="BY">by {0}</Resource>
     <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
     <Resource tag="GUESTTITLE">Active Topics</Resource>
@@ -926,6 +933,7 @@
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">מממן</Resource>
     <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATOMTOPIC">Atom Feed</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) downloaded [b]{1:N0}[/b] time(s).</Resource>
     <Resource tag="ATTACHMENTS">קובץ(ים) מצורף(ים):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
@@ -1483,6 +1491,7 @@
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">הכל</Resource>
+    <Resource tag="ATOMFEED">Atom Feed</Resource>
     <Resource tag="BY">ע"י {0}</Resource>
     <Resource tag="CREATED">נוצר</Resource>
     <Resource tag="FORUM">Forum</Resource>
