@@ -220,14 +220,16 @@ namespace YAF.controls
     /// </returns>
     protected bool CanEditPoll(object pollId)
     {
+      // The host admin can forbid a user to change poll after first vote to avoid fakes.    
       if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
       {
+        // Only if show buttons are enabled user can edit poll 
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
                 (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) &&
                  this.PollHasNoVotes(pollId) || (!this.IsPollClosed(pollId))));
       }
-
+      // we don't call PollHasNoVotes method here
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
               this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) &&
@@ -244,12 +246,9 @@ namespace YAF.controls
     {
       bool hasNoVotes = true;
 
-      foreach (DataRow dr in this._dtPoll.Rows)
+      foreach (DataRow dr in this._dtPoll.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["Votes"]) > 0))
       {
-        if (Convert.ToInt32(dr["Votes"]) > 0)
-        {
           hasNoVotes = false;
-        }
       }
 
       if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
@@ -266,6 +265,7 @@ namespace YAF.controls
 
     /// <summary>
     /// Checks if  a user can remove all polls in a group completely.
+    /// 
     /// </summary>
     /// <returns>
     /// The can remove group completely.
@@ -273,12 +273,9 @@ namespace YAF.controls
     protected bool CanRemoveGroupCompletely()
     {
       bool hasNoVotes = true;
-      foreach (DataRow dr in this._dtPoll.Rows)
+      foreach (DataRow dr in this._dtPoll.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["Votes"]) > 0))
       {
-        if (Convert.ToInt32(dr["Votes"]) > 0)
-        {
           hasNoVotes = false;
-        }
       }
 
       if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
@@ -294,7 +291,7 @@ namespace YAF.controls
     }
 
     /// <summary>
-    /// Checks if a user can delete group from all places but not completely
+    /// Checks if a user can delete group from all places, but not completely
     /// </summary>
     /// <returns>
     /// The can remove group everywhere.
@@ -320,7 +317,7 @@ namespace YAF.controls
     }
 
     /// <summary>
-    /// Checks if a user can delete poll completely
+    /// Checks if a user can delete poll completely from database.
     /// </summary>
     /// <param name="pollId">
     /// </param>
@@ -357,7 +354,6 @@ namespace YAF.controls
         {
             return this.IsNotVoted(pollId);
         }
-
         return false;
     }
 
@@ -570,15 +566,16 @@ namespace YAF.controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      // if (!IsPostBack)
-      // {
+      // Only if this control is in a topic we find the topic creator
       if (this.TopicId > 0)
       {
         this.topicUser = Convert.ToInt32(DB.topic_info(this.TopicId)["UserID"]);
       }
 
+      // We check here various variants if a poll exists, as we don't know from which place comes the call
       bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
-
+ 
+      // Here we'll find whether we should display create new poll button only 
       bool topicPoll = this.PageContext.ForumPollAccess &&
                        (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
       bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
@@ -586,8 +583,11 @@ namespace YAF.controls
       bool boardPoll = this.PageContext.BoardVoteAccess &&
                        (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
 
+      
       this.NewPollRow.Visible = this.ShowButtons && this.HasOwnerExistingGroupAccess() && (!existingPoll) &&
                                 (topicPoll || forumPoll || categoryPoll || boardPoll);
+      
+      // if this is > 0 then we already have a poll and will display all buttons
       if (this.PollGroupId > 0)
       {
         this.BindData();
@@ -599,8 +599,7 @@ namespace YAF.controls
           this.BindCreateNewPollRow();
         }
       }
-
-      // }
+      
     }
 
     /// <summary>
@@ -686,13 +685,16 @@ namespace YAF.controls
       if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
       {
         // clear the value after choiced are bounded
+        // the parameter is used to get correct aspect ratio if the poll is with images 
         this.MaxImageAspect = 1;
+
+        // We don't display poll command row to everyone 
         item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
                                                                               this.ShowButtons;
-
         var polloll = item.FindControlRecursiveAs<Repeater>("Poll");
 
         string pollId = drowv.Row["PollID"].ToString();
+       
         polloll.Visible = !this.CanVote(pollId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
                           this.PageContext.IsGuest
                             ? false
@@ -702,7 +704,7 @@ namespace YAF.controls
         var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
         var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
 
-        // Don't render if it's a standard image
+        // The image is not from theme
         if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
         {
           questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
@@ -724,6 +726,7 @@ namespace YAF.controls
         }
         else
         {
+          // image from theme no need to resize it
           questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
           questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
           questionAnchor.HRef = string.Empty;

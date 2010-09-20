@@ -70,7 +70,6 @@ namespace YAF.Classes.Core
             id,
             new DateTimeOffset(posted));
        
-        // si.Links.Add(SyndicationLink.CreateSelfLink(new Uri(link), "text/html"));
         si.PublishDate = new DateTimeOffset(posted);
         si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
        
@@ -78,6 +77,11 @@ namespace YAF.Classes.Core
         {
             si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),
                                                     TextSyndicationContentKind.Html);
+        }
+        else
+        {
+            si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(summary),
+                                                     TextSyndicationContentKind.Html);  
         }
 
         currentList.Add(si);
