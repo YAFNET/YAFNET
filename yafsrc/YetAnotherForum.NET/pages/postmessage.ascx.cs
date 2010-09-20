@@ -746,9 +746,11 @@ namespace YAF.Pages
 
       this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicId);
 
+      // clear caches as stats changed
       if (messageFlags.IsApproved)
       {
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
       }
 
       return messageId;
@@ -806,6 +808,7 @@ namespace YAF.Pages
       if (messageFlags.IsApproved)
       {
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
       }
 
       return messageId;
