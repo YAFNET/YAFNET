@@ -23,6 +23,7 @@ namespace YAF.Controls
   using System;
 
   using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
 
   #endregion
 
@@ -34,7 +35,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether AttachChecked.
+    ///   Gets or sets a value indicating whether AttachChecked.
     /// </summary>
     public bool AttachChecked
     {
@@ -50,60 +51,55 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether AttachOptionVisible.
+    ///   Gets or sets a value indicating whether AttachOptionVisible.
     /// </summary>
     public bool AttachOptionVisible
     {
       get
       {
-        return this.TopicAttach.Visible;
+        return this.liTopicAttach.Visible;
       }
 
       set
       {
-        this.TopicAttach.Visible = value;
-        this.TopicAttachBr.Visible = value;
-        this.TopicAttachLabel.Visible = value;
+        this.liTopicAttach.Visible = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Poll Option is Visible.
+    /// Gets or sets a value indicating whether IsQuestionChecked.
     /// </summary>
-    public bool PollOptionVisible
+    public bool IsQuestionChecked
     {
-        get
-        {
-            return this.AddPollCheckBox.Visible;
-        }
+      get
+      {
+        return this.chkIsQuestion.Checked;
+      }
 
-        set
-        {
-            this.AddPollCheckBox.Visible = value;
-            this.AddPollPlaceHolder.Visible = value;
-            this.AddPollLabel.Visible = value;
-        }
+      set
+      {
+        this.chkIsQuestion.Checked = value;
+      }
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Poll Option is Visible.
+    /// Gets or sets a value indicating whether IsQuestionVisible.
     /// </summary>
-    public bool PollChecked
+    public bool IsQuestionVisible
     {
-        get
-        {
-            return this.AddPollCheckBox.Checked;
-        }
+      get
+      {
+        return this.liQuestion.Visible;
+      }
 
-        set
-        {
-            this.AddPollCheckBox.Checked = value;
-        }
+      set
+      {
+        this.liQuestion.Visible = value;
+      }
     }
 
-
     /// <summary>
-    /// Gets or sets a value indicating whether PersistantChecked.
+    ///   Gets or sets a value indicating whether PersistantChecked.
     /// </summary>
     public bool PersistantChecked
     {
@@ -119,23 +115,55 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether PersistantOptionVisible.
+    ///   Gets or sets a value indicating whether PersistantOptionVisible.
     /// </summary>
     public bool PersistantOptionVisible
     {
       get
       {
-        return this.PersistencyHolder.Visible;
+        return this.liPersistency.Visible;
       }
 
       set
       {
-        this.PersistencyHolder.Visible = value;
+        this.liPersistency.Visible = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether WatchChecked.
+    ///   Gets or sets a value indicating whether Poll Option is Visible.
+    /// </summary>
+    public bool PollChecked
+    {
+      get
+      {
+        return this.AddPollCheckBox.Checked;
+      }
+
+      set
+      {
+        this.AddPollCheckBox.Checked = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether Poll Option is Visible.
+    /// </summary>
+    public bool PollOptionVisible
+    {
+      get
+      {
+        return this.AddPollCheckBox.Visible;
+      }
+
+      set
+      {
+        this.liAddPoll.Visible = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether WatchChecked.
     /// </summary>
     public bool WatchChecked
     {
@@ -151,19 +179,18 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether WatchOptionVisible.
+    ///   Gets or sets a value indicating whether WatchOptionVisible.
     /// </summary>
     public bool WatchOptionVisible
     {
       get
       {
-        return this.TopicWatch.Visible;
+        return this.liTopicWatch.Visible;
       }
 
       set
       {
-        this.TopicWatch.Visible = value;
-        this.TopicWatchLabel.Visible = value;
+        this.liTopicWatch.Visible = value;
       }
     }
 
@@ -180,7 +207,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
     }
 

@@ -20,6 +20,8 @@
 
 namespace YAF.Install
 {
+  #region Using
+
   using System;
   using System.Configuration;
   using System.Data;
@@ -31,100 +33,84 @@ namespace YAF.Install
   using System.Web.Security;
   using System.Web.UI;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Data.Import;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for install.
   /// </summary>
   public partial class _default : Page
   {
-    /// <summary>
-    /// The _app password key.
-    /// </summary>
-    private const string _appPasswordKey = "YAF.ConfigPassword";
+    #region Constants and Fields
 
     /// <summary>
-    /// The _bbcode import.
-    /// </summary>
-    private const string _bbcodeImport = "bbCodeExtensions.xml";
-
-    /// <summary>
-    /// The _file import.
-    /// </summary>
-    private const string _fileImport = "fileExtensions.xml";
-
-    /// <summary>
-    /// The _config.
-    /// </summary>
-    private ConfigHelper _config = new ConfigHelper();
-
-    /// <summary>
-    /// The _db version before upgrade.
+    ///   The _db version before upgrade.
     /// </summary>
     protected int _dbVersionBeforeUpgrade;
 
     /// <summary>
-    /// The _load message.
+    ///   The _app password key.
+    /// </summary>
+    private const string _appPasswordKey = "YAF.ConfigPassword";
+
+    /// <summary>
+    ///   The _bbcode import.
+    /// </summary>
+    private const string _bbcodeImport = "bbCodeExtensions.xml";
+
+    /// <summary>
+    ///   The _file import.
+    /// </summary>
+    private const string _fileImport = "fileExtensions.xml";
+
+    /// <summary>
+    ///   The _config.
+    /// </summary>
+    private readonly ConfigHelper _config = new ConfigHelper();
+
+    /// <summary>
+    ///   The _load message.
     /// </summary>
     private string _loadMessage = string.Empty;
+
+    #endregion
+
+    #region Enums
+
+    /// <summary>
+    /// The update db failure type.
+    /// </summary>
+    private enum UpdateDBFailureType
+    {
+      /// <summary>
+      ///   The none.
+      /// </summary>
+      None, 
+
+      /// <summary>
+      ///   The app settings write.
+      /// </summary>
+      AppSettingsWrite, 
+
+      /// <summary>
+      ///   The connection string write.
+      /// </summary>
+      ConnectionStringWrite
+    }
+
+    #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets a value indicating whether IsInstalled.
-    /// </summary>
-    private bool IsInstalled
-    {
-      get
-      {
-        return this._config.GetConfigValueAsString(_appPasswordKey).IsSet();
-      }
-    }
-
-    /// <summary>
-    /// Gets PageBoardID.
-    /// </summary>
-    private int PageBoardID
-    {
-      get
-      {
-        try
-        {
-          return int.Parse(Config.BoardID);
-        }
-        catch
-        {
-          return 1;
-        }
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets CurrentWizardStepID.
-    /// </summary>
-    private string CurrentWizardStepID
-    {
-      get
-      {
-        return this.InstallWizard.WizardSteps[this.InstallWizard.ActiveStepIndex].ID;
-      }
-
-      set
-      {
-        int index = IndexOfWizardID(value);
-        if (index >= 0)
-        {
-          this.InstallWizard.ActiveStepIndex = index;
-        }
-      }
-    }
-
-    /// <summary>
-    /// Gets CurrentConnString.
+    ///   Gets CurrentConnString.
     /// </summary>
     private string CurrentConnString
     {
@@ -168,9 +154,111 @@ namespace YAF.Install
       }
     }
 
+    /// <summary>
+    ///   Gets or sets CurrentWizardStepID.
+    /// </summary>
+    private string CurrentWizardStepID
+    {
+      get
+      {
+        return this.InstallWizard.WizardSteps[this.InstallWizard.ActiveStepIndex].ID;
+      }
+
+      set
+      {
+        int index = this.IndexOfWizardID(value);
+        if (index >= 0)
+        {
+          this.InstallWizard.ActiveStepIndex = index;
+        }
+      }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether IsInstalled.
+    /// </summary>
+    private bool IsInstalled
+    {
+      get
+      {
+        return this._config.GetConfigValueAsString(_appPasswordKey).IsSet();
+      }
+    }
+
+    /// <summary>
+    ///   Gets PageBoardID.
+    /// </summary>
+    private int PageBoardID
+    {
+      get
+      {
+        try
+        {
+          return int.Parse(Config.BoardID);
+        }
+        catch
+        {
+          return 1;
+        }
+      }
+    }
+
     #endregion
 
-    #region Event Handling
+    #region Public Methods
+
+    /// <summary>
+    /// The get membership error message.
+    /// </summary>
+    /// <param name="status">
+    /// The status.
+    /// </param>
+    /// <returns>
+    /// The get membership error message.
+    /// </returns>
+    [NotNull]
+    public string GetMembershipErrorMessage(MembershipCreateStatus status)
+    {
+      switch (status)
+      {
+        case MembershipCreateStatus.DuplicateUserName:
+          return "Username already exists. Please enter a different user name.";
+
+        case MembershipCreateStatus.DuplicateEmail:
+          return "A username for that e-mail address already exists. Please enter a different e-mail address.";
+
+        case MembershipCreateStatus.InvalidPassword:
+          return "The password provided is invalid. Please enter a valid password value.";
+
+        case MembershipCreateStatus.InvalidEmail:
+          return "The e-mail address provided is invalid. Please check the value and try again.";
+
+        case MembershipCreateStatus.InvalidAnswer:
+          return "The password retrieval answer provided is invalid. Please check the value and try again.";
+
+        case MembershipCreateStatus.InvalidQuestion:
+          return "The password retrieval question provided is invalid. Please check the value and try again.";
+
+        case MembershipCreateStatus.InvalidUserName:
+          return "The user name provided is invalid. Please check the value and try again.";
+
+        case MembershipCreateStatus.ProviderError:
+          return
+            "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+        case MembershipCreateStatus.UserRejected:
+          return
+            "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+        default:
+          return
+            "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+      }
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The page_ init.
@@ -181,10 +269,903 @@ namespace YAF.Install
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Init(object sender, EventArgs e)
+    protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
       // set the connection manager to the dynamic...
       YafDBAccess.Current.SetConnectionManagerAdapter<YafDynamicDBConnManager>();
+    }
+
+    /// <summary>
+    /// The parameter 11_ value_ check changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Parameter11_Value_CheckChanged([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.DBUsernamePasswordHolder.Visible = !this.Parameter11_Value.Checked;
+    }
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
+    {
+      base.Render(writer);
+      if (this._loadMessage != string.Empty)
+      {
+        writer.WriteLine("<script language='javascript'>");
+        writer.WriteLine("onload = function() {");
+        writer.WriteLine("	alert('{0}');", this._loadMessage);
+        writer.WriteLine("}");
+        writer.WriteLine("</script>");
+      }
+    }
+
+    /// <summary>
+    /// The update status timer_ tick.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // see if the migration is done....
+      if (YafTaskModule.Current.IsTaskRunning(MigrateUsersTask.TaskName))
+      {
+        // proceed...
+        return;
+      }
+
+      if (this.Session["InstallWizardFinal"] == null)
+      {
+        this.Session.Add("InstallWizardFinal", true);
+      }
+
+      // done here...
+      this.Response.Redirect("default.aspx");
+    }
+
+    /// <summary>
+    /// The user choice_ selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UserChoice_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.UserChoice.SelectedValue == "create")
+      {
+        this.ExistingUserHolder.Visible = false;
+        this.CreateAdminUserHolder.Visible = true;
+      }
+      else if (this.UserChoice.SelectedValue == "existing")
+      {
+        this.ExistingUserHolder.Visible = true;
+        this.CreateAdminUserHolder.Visible = false;
+      }
+    }
+
+    /// <summary>
+    /// The wizard_ active step changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Wizard_ActiveStepChanged([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      bool previousVisible = false;
+
+      switch (this.CurrentWizardStepID)
+      {
+        case "WizCreatePassword":
+          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.AppSettingsFull != null)
+          {
+            this.lblConfigPasswordAppSettingFile.Text = this._config.AppSettingsFull.File;
+          }
+          else
+          {
+            this.lblConfigPasswordAppSettingFile.Text = "(Unknown! YAF default is app.config)";
+          }
+
+          if (this.IsInstalled)
+          {
+            // no need for this setup if IsInstalled...
+            this.InstallWizard.ActiveStepIndex++;
+          }
+
+          break;
+        case "WizCreateForum":
+          if (DB.IsForumInstalled)
+          {
+            this.InstallWizard.ActiveStepIndex++;
+          }
+
+          break;
+        case "WizMigrateUsers":
+          if (!this.IsInstalled)
+          {
+            // no migration because it's a new install...
+            this.CurrentWizardStepID = "WizFinished";
+          }
+          else
+          {
+            object version = this.Cache["DBVersion"] ?? DB.DBVersion;
+
+            if (((int)version) >= 30 || ((int)version) == -1)
+            {
+              // migration is NOT needed...
+              this.CurrentWizardStepID = "WizFinished";
+            }
+
+            this.Cache.Remove("DBVersion");
+          }
+
+          // get user count
+          if (this.CurrentWizardStepID == "WizMigrateUsers")
+          {
+            this.lblMigrateUsersCount.Text = DB.user_list(this.PageBoardID, null, true).Rows.Count.ToString();
+          }
+
+          break;
+        case "WizDatabaseConnection":
+          previousVisible = true;
+
+          // fill with connection strings...
+          this.lblConnStringAppSettingName.Text = Config.ConnectionStringName;
+          this.FillWithConnectionStrings();
+          break;
+        case "WizManualDatabaseConnection":
+          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.AppSettingsFull != null)
+          {
+            this.lblAppSettingsFile.Text = this._config.AppSettingsFull.File;
+          }
+          else
+          {
+            this.lblAppSettingsFile.Text = "(Unknown! YAF default is app.config)";
+          }
+
+          previousVisible = true;
+          break;
+        case "WizManuallySetPassword":
+          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.AppSettingsFull != null)
+          {
+            this.lblAppSettingsFile2.Text = this._config.AppSettingsFull.File;
+          }
+          else
+          {
+            this.lblAppSettingsFile2.Text = "(Unknown! YAF default is app.config)";
+          }
+
+          break;
+        case "WizTestSettings":
+          previousVisible = true;
+          break;
+        case "WizValidatePermission":
+          break;
+        case "WizMigratingUsers":
+
+          // disable the next button...
+          var btnNext = this.InstallWizard.FindControlAs<Button>("StepNavigationTemplateContainerID$StepNextButton");
+          if (btnNext != null)
+          {
+            btnNext.Enabled = false;
+          }
+
+          break;
+      }
+
+      var btnPrevious = this.InstallWizard.FindControlAs<Button>("StepNavigationTemplateContainerID$StepPreviousButton");
+
+      if (btnPrevious != null)
+      {
+        btnPrevious.Visible = previousVisible;
+      }
+    }
+
+    /// <summary>
+    /// The wizard_ finish button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Wizard_FinishButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
+    {
+      // reset the board settings...
+      YafContext.Current.BoardSettings = null;
+
+      if (Config.IsDotNetNuke)
+      {
+        // Redirect back to the portal main page.
+        string rPath = YafForumInfo.ForumClientFileRoot;
+        int pos = rPath.IndexOf("/", 2);
+        rPath = rPath.Substring(0, pos);
+        this.Response.Redirect(rPath);
+      }
+      else
+      {
+        this.Response.Redirect("~/");
+      }
+    }
+
+    /// <summary>
+    /// The wizard_ next button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <exception cref="ApplicationException">
+    /// </exception>
+    protected void Wizard_NextButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
+    {
+      e.Cancel = true;
+
+      switch (this.CurrentWizardStepID)
+      {
+        case "WizValidatePermission":
+          e.Cancel = false;
+          break;
+        case "WizDatabaseConnection":
+
+          // save the database settings...
+          UpdateDBFailureType type = this.UpdateDatabaseConnection();
+          e.Cancel = false;
+
+          if (type == UpdateDBFailureType.None)
+          {
+            // jump to test settings...
+            this.CurrentWizardStepID = "WizTestSettings";
+          }
+          else
+          {
+            // failure -- show the next section but specify which errors...
+            if (type == UpdateDBFailureType.AppSettingsWrite)
+            {
+              this.NoWriteAppSettingsHolder.Visible = true;
+            }
+            else if (type == UpdateDBFailureType.ConnectionStringWrite)
+            {
+              this.NoWriteDBSettingsHolder.Visible = true;
+              this.lblDBConnStringName.Text = Config.ConnectionStringName;
+              this.lblDBConnStringValue.Text = this.CurrentConnString;
+            }
+          }
+
+          break;
+        case "WizManualDatabaseConnection":
+          e.Cancel = false;
+          break;
+        case "WizCreatePassword":
+          if (this.txtCreatePassword1.Text.Trim() == string.Empty)
+          {
+            this.AddLoadMessage("Please enter a configuration password.");
+            break;
+          }
+
+          if (this.txtCreatePassword2.Text != this.txtCreatePassword1.Text)
+          {
+            this.AddLoadMessage("Verification is not the same as your password.");
+            break;
+          }
+
+          e.Cancel = false;
+
+          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High &&
+              this._config.WriteAppSetting(_appPasswordKey, this.txtCreatePassword1.Text))
+          {
+            // advance to the testing section since the password is now set...
+            this.CurrentWizardStepID = "WizDatabaseConnection";
+          }
+          else
+          {
+            this.CurrentWizardStepID = "WizManuallySetPassword";
+          }
+
+          break;
+        case "WizManuallySetPassword":
+          if (this.IsInstalled)
+          {
+            e.Cancel = false;
+          }
+          else
+          {
+            this.AddLoadMessage(
+              "You must update your appSettings with the YAF.ConfigPassword Key to continue. NOTE: The key name is case sensitive.");
+          }
+
+          break;
+        case "WizTestSettings":
+          e.Cancel = false;
+          break;
+        case "WizEnterPassword":
+          if (this._config.GetConfigValueAsString(_appPasswordKey) ==
+              FormsAuthentication.HashPasswordForStoringInConfigFile(this.txtEnteredPassword.Text, "md5") ||
+              this._config.GetConfigValueAsString(_appPasswordKey) == this.txtEnteredPassword.Text.Trim())
+          {
+            e.Cancel = false;
+
+            // move to test settings...
+            this.CurrentWizardStepID = "WizTestSettings";
+          }
+          else
+          {
+            this.AddLoadMessage("Wrong password!");
+          }
+
+          break;
+        case "WizCreateForum":
+          if (this.CreateForum())
+          {
+            e.Cancel = false;
+          }
+
+          break;
+        case "WizInitDatabase":
+          if (this.UpgradeDatabase(this.FullTextSupport.Checked))
+          {
+            e.Cancel = false;
+          }
+
+          break;
+        case "WizMigrateUsers":
+
+          // migrate users/roles only if user does not want to skip
+          if (!this.skipMigration.Checked)
+          {
+            RoleMembershipHelper.SyncRoles(this.PageBoardID);
+
+            // start the background migration task...
+            MigrateUsersTask.Start(this.PageBoardID);
+          }
+
+          e.Cancel = false;
+          break;
+        case "WizFinished":
+          break;
+        default:
+          throw new ApplicationException(
+            "Installation Wizard step not handled: " + this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID);
+      }
+    }
+
+    /// <summary>
+    /// The wizard_ previous button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Wizard_PreviousButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
+    {
+      if (this.CurrentWizardStepID == "WizTestSettings")
+      {
+        this.CurrentWizardStepID = "WizDatabaseConnection";
+      }
+
+      e.Cancel = false;
+
+      //// go back only from last step (to user/roles migration)
+      // if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
+      // InstallWizard.MoveTo( InstallWizard.WizardSteps[e.CurrentStepIndex - 1] );
+      // else
+      // // othwerise cancel action
+      // e.Cancel = true;
+    }
+
+    /// <summary>
+    /// The btn test db connection manual_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnTestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // attempt to connect DB...
+      string message;
+
+      if (!TestDatabaseConnection(out message))
+      {
+        UpdateInfoPanel(
+          this.ManualConnectionInfoHolder, 
+          this.lblConnectionDetailsManual, 
+          "Failed to connect:<br/><br/>" + message, 
+          "errorinfo");
+      }
+      else
+      {
+        UpdateInfoPanel(
+          this.ManualConnectionInfoHolder, this.lblConnectionDetailsManual, "Connection Succeeded", "successinfo");
+      }
+    }
+
+    /// <summary>
+    /// The btn test db connection_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnTestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // attempt to connect selected DB...
+      YafContext.Current["ConnectionString"] = this.CurrentConnString;
+      string message;
+
+      if (!TestDatabaseConnection(out message))
+      {
+        UpdateInfoPanel(
+          this.ConnectionInfoHolder, this.lblConnectionDetails, "Failed to connect:<br/><br/>" + message, "errorinfo");
+      }
+      else
+      {
+        UpdateInfoPanel(this.ConnectionInfoHolder, this.lblConnectionDetails, "Connection Succeeded", "successinfo");
+      }
+
+      // we're done with it...
+      YafContext.Current.Vars.Remove("ConnectionString");
+    }
+
+    /// <summary>
+    /// The btn test permissions_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnTestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      UpdateStatusLabel(this.lblPermissionApp, 1);
+      UpdateStatusLabel(this.lblPermissionUpload, 1);
+      UpdateStatusLabel(this.lblHostingTrust, 1);
+
+      UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
+      UpdateStatusLabel(
+        this.lblPermissionUpload, 
+        DirectoryHasWritePermission(this.Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
+
+      UpdateStatusLabel(this.lblHostingTrust, this._config.TrustLevel == AspNetHostingPermissionLevel.High ? 2 : 0);
+
+      this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
+    }
+
+    /// <summary>
+    /// The btn test smtp_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnTestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      try
+      {
+        YafServices.SendMail.Send(
+          this.txtTestFromEmail.Text.Trim(), 
+          this.txtTestToEmail.Text.Trim(), 
+          "Test Email From Yet Another Forum.NET", 
+          "The email sending appears to be working from your YAF installation.");
+
+        // success
+        UpdateInfoPanel(
+          this.SmtpInfoHolder, 
+          this.lblSmtpTestDetails, 
+          "Mail Sent. Verify it's received at your entered email address.", 
+          "successinfo");
+      }
+      catch (Exception x)
+      {
+        UpdateInfoPanel(
+          this.SmtpInfoHolder, this.lblSmtpTestDetails, "Failed to connect:<br/><br/>" + x.Message, "errorinfo");
+      }
+    }
+
+    /// <summary>
+    /// The rbl yaf database_ selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void rblYAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.rblYAFDatabase.SelectedValue == "create")
+      {
+        this.ExistingConnectionHolder.Visible = false;
+        this.NewConnectionHolder.Visible = true;
+      }
+      else if (this.rblYAFDatabase.SelectedValue == "existing")
+      {
+        this.ExistingConnectionHolder.Visible = true;
+        this.NewConnectionHolder.Visible = false;
+      }
+    }
+
+    /// <summary>
+    /// Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
+    /// </summary>
+    /// <param name="directory">
+    /// </param>
+    /// <returns>
+    /// The directory has write permission.
+    /// </returns>
+    private static bool DirectoryHasWritePermission([NotNull] string directory)
+    {
+      bool hasWriteAccess = false;
+
+      try
+      {
+        // see if we have permission
+        var fp = new FileIOPermission(FileIOPermissionAccess.Write, directory);
+        fp.Demand();
+
+        hasWriteAccess = true;
+      }
+      catch
+      {
+        hasWriteAccess = false;
+      }
+
+      return hasWriteAccess;
+    }
+
+    /// <summary>
+    /// Tests database connection. Can probably be moved to DB class.
+    /// </summary>
+    /// <param name="exceptionMessage">
+    /// </param>
+    /// <returns>
+    /// The test database connection.
+    /// </returns>
+    private static bool TestDatabaseConnection([NotNull] out string exceptionMessage)
+    {
+      return YafDBAccess.TestConnection(out exceptionMessage);
+    }
+
+    /// <summary>
+    /// The update info panel.
+    /// </summary>
+    /// <param name="infoHolder">
+    /// The info holder.
+    /// </param>
+    /// <param name="detailsLabel">
+    /// The details label.
+    /// </param>
+    /// <param name="info">
+    /// The info.
+    /// </param>
+    /// <param name="cssClass">
+    /// The css class.
+    /// </param>
+    private static void UpdateInfoPanel([NotNull] Control infoHolder, [NotNull] Label detailsLabel, [NotNull] string info, [NotNull] string cssClass)
+    {
+      infoHolder.Visible = true;
+      detailsLabel.Text = info;
+      detailsLabel.CssClass = cssClass;
+    }
+
+    /// <summary>
+    /// The update status label.
+    /// </summary>
+    /// <param name="theLabel">
+    /// The the label.
+    /// </param>
+    /// <param name="status">
+    /// The status.
+    /// </param>
+    private static void UpdateStatusLabel([NotNull] Label theLabel, int status)
+    {
+      switch (status)
+      {
+        case 0:
+          theLabel.Text = "No";
+          theLabel.ForeColor = Color.Red;
+          break;
+        case 1:
+          theLabel.Text = "Unchcked";
+          theLabel.ForeColor = Color.Gray;
+          break;
+        case 2:
+          theLabel.Text = "YES";
+          theLabel.ForeColor = Color.Green;
+          break;
+      }
+    }
+
+    /// <summary>
+    /// The add load message.
+    /// </summary>
+    /// <param name="msg">
+    /// The msg.
+    /// </param>
+    private void AddLoadMessage([NotNull] string msg)
+    {
+      msg = msg.Replace("\\", "\\\\");
+      msg = msg.Replace("'", "\\'");
+      msg = msg.Replace("\r\n", "\\r\\n");
+      msg = msg.Replace("\n", "\\n");
+      msg = msg.Replace("\"", "\\\"");
+      this._loadMessage += msg + "\\n\\n";
+    }
+
+    /// <summary>
+    /// The create forum.
+    /// </summary>
+    /// <returns>
+    /// The create forum.
+    /// </returns>
+    private bool CreateForum()
+    {
+      if (DB.IsForumInstalled)
+      {
+        this.AddLoadMessage("Forum is already installed.");
+        return false;
+      }
+
+      if (this.TheForumName.Text.Length == 0)
+      {
+        this.AddLoadMessage("You must enter a forum name.");
+        return false;
+      }
+
+      if (this.ForumEmailAddress.Text.Length == 0)
+      {
+        this.AddLoadMessage("You must enter a forum email address.");
+        return false;
+      }
+
+      MembershipUser user = null;
+
+      if (this.UserChoice.SelectedValue == "create")
+      {
+        if (this.UserName.Text.Length == 0)
+        {
+          this.AddLoadMessage("You must enter the admin user name,");
+          return false;
+        }
+
+        if (this.AdminEmail.Text.Length == 0)
+        {
+          this.AddLoadMessage("You must enter the administrators email address.");
+          return false;
+        }
+
+        if (this.Password1.Text.Length == 0)
+        {
+          this.AddLoadMessage("You must enter a password.");
+          return false;
+        }
+
+        if (this.Password1.Text != this.Password2.Text)
+        {
+          this.AddLoadMessage("The passwords must match.");
+          return false;
+        }
+
+        // create the admin user...
+        MembershipCreateStatus status;
+        user = YafContext.Current.CurrentMembership.CreateUser(
+          this.UserName.Text, 
+          this.Password1.Text, 
+          this.AdminEmail.Text, 
+          this.SecurityQuestion.Text, 
+          this.SecurityAnswer.Text, 
+          true, 
+          null, 
+          out status);
+        if (status != MembershipCreateStatus.Success)
+        {
+          this.AddLoadMessage("Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
+          return false;
+        }
+      }
+      else
+      {
+        // try to get data for the existing user...
+        user = UserMembershipHelper.GetUser(this.ExistingUserName.Text.Trim());
+
+        if (user == null)
+        {
+          this.AddLoadMessage(
+            "Existing user name is invalid and does not represent a current user in the membership store.");
+          return false;
+        }
+      }
+
+      try
+      {
+        // add administrators and registered if they don't already exist...
+        if (!RoleMembershipHelper.RoleExists("Administrators"))
+        {
+          RoleMembershipHelper.CreateRole("Administrators");
+        }
+
+        if (!RoleMembershipHelper.RoleExists("Registered"))
+        {
+          RoleMembershipHelper.CreateRole("Registered");
+        }
+
+        if (!RoleMembershipHelper.IsUserInRole(user.UserName, "Administrators"))
+        {
+          RoleMembershipHelper.AddUserToRole(user.UserName, "Administrators");
+        }
+
+        // logout administrator...
+        FormsAuthentication.SignOut();
+        DataTable cult = StaticDataHelper.Cultures();
+        string langFile = "english.xml";
+        foreach (
+          DataRow drow in
+            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
+        {
+          langFile = (string)drow["CultureFile"];
+        }
+
+        DB.system_initialize(
+          this.TheForumName.Text, 
+          this.TimeZones.SelectedValue, 
+          this.Culture.SelectedValue, 
+          langFile, 
+          this.ForumEmailAddress.Text, 
+          string.Empty, 
+          user.UserName, 
+          user.Email, 
+          user.ProviderUserKey);
+
+        DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+        DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+
+        // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
+        // YAF.Classes.Data.DB.system_deleteinstallobjects();
+        // load default bbcode if available...
+        if (File.Exists(this.Request.MapPath(_bbcodeImport)))
+        {
+          // import into board...
+          using (var bbcodeStream = new StreamReader(this.Request.MapPath(_bbcodeImport)))
+          {
+            DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
+            bbcodeStream.Close();
+          }
+        }
+
+        // load default extensions if available...
+        if (File.Exists(this.Request.MapPath(_fileImport)))
+        {
+          // import into board...
+          using (var fileExtStream = new StreamReader(this.Request.MapPath(_fileImport)))
+          {
+            DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
+            fileExtStream.Close();
+          }
+        }
+      }
+      catch (Exception x)
+      {
+        this.AddLoadMessage(x.Message);
+        return false;
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// The execute script.
+    /// </summary>
+    /// <param name="scriptFile">
+    /// The script file.
+    /// </param>
+    /// <param name="useTransactions">
+    /// The use transactions.
+    /// </param>
+    /// <exception cref="Exception">
+    /// </exception>
+    private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
+    {
+      string script = null;
+      try
+      {
+        using (var file = new StreamReader(this.Request.MapPath(scriptFile)))
+        {
+          script = file.ReadToEnd() + "\r\n";
+
+          file.Close();
+        }
+      }
+      catch (FileNotFoundException)
+      {
+        return;
+      }
+      catch (Exception x)
+      {
+        throw new Exception("Failed to read " + scriptFile, x);
+      }
+
+      DB.system_initialize_executescripts(script, scriptFile, useTransactions);
+    }
+
+    /// <summary>
+    /// The fill with connection strings.
+    /// </summary>
+    private void FillWithConnectionStrings()
+    {
+      if (this.lbConnections.Items.Count == 0)
+      {
+        foreach (ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings)
+        {
+          this.lbConnections.Items.Add(connectionString.Name);
+        }
+
+        ListItem item = this.lbConnections.Items.FindByText("yafnet");
+        if (item != null)
+        {
+          item.Selected = true;
+        }
+      }
+    }
+
+    /// <summary>
+    /// The fix access.
+    /// </summary>
+    /// <param name="bGrant">
+    /// The b grant.
+    /// </param>
+    private void FixAccess(bool bGrant)
+    {
+      DB.system_initialize_fixaccess(bGrant);
+    }
+
+    /// <summary>
+    /// The index of wizard id.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The index of wizard id.
+    /// </returns>
+    private int IndexOfWizardID([NotNull] string id)
+    {
+      var step = this.InstallWizard.FindWizardControlRecursive(id) as WizardStepBase;
+
+      if (step != null)
+      {
+        return this.InstallWizard.WizardSteps.IndexOf(step);
+      }
+
+      return -1;
     }
 
     /// <summary>
@@ -196,24 +1177,25 @@ namespace YAF.Install
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Page_Load(object sender, EventArgs e)
+    private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafContext.Current.PageElements.RegisterJQuery(Page.Header);
+      YafContext.Current.PageElements.RegisterJQuery(this.Page.Header);
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        if (Session["InstallWizardFinal"] != null)
+        if (this.Session["InstallWizardFinal"] != null)
         {
-          CurrentWizardStepID = "WizFinished";
-          Session.Remove("InstallWizardFinal");
+          this.CurrentWizardStepID = "WizFinished";
+          this.Session.Remove("InstallWizardFinal");
         }
         else
         {
-          Cache["DBVersion"] = DB.DBVersion;
+          this.Cache["DBVersion"] = DB.DBVersion;
 
-          CurrentWizardStepID = IsInstalled ? "WizEnterPassword" : "WizValidatePermission"; // "WizCreatePassword"
-
-          if (!IsInstalled)
+          this.CurrentWizardStepID = this.IsInstalled ? "WizEnterPassword" : "WizValidatePermission";
+            
+            // "WizCreatePassword"
+          if (!this.IsInstalled)
           {
             // fake the board settings
             YafContext.Current.BoardSettings = new YafBoardSettings();
@@ -228,13 +1210,13 @@ namespace YAF.Install
           this.Culture.DataTextField = "CultureNativeName";
 
           this.DataBind();
-            
+
           this.TimeZones.Items.FindByValue("0").Selected = true;
-            if (this.Culture.Items.Count > 0)
-            {
-                this.Culture.Items.FindByValue("en-US").Selected = true;
-            }
-            
+          if (this.Culture.Items.Count > 0)
+          {
+            this.Culture.Items.FindByValue("en-US").Selected = true;
+          }
+
           this.DBUsernamePasswordHolder.Visible = DB.PasswordPlaceholderVisible;
 
           // Connection string parameters text boxes
@@ -319,527 +1301,6 @@ namespace YAF.Install
     }
 
     /// <summary>
-    /// The user choice_ selected index changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void UserChoice_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      if (this.UserChoice.SelectedValue == "create")
-      {
-        this.ExistingUserHolder.Visible = false;
-        this.CreateAdminUserHolder.Visible = true;
-      }
-      else if (this.UserChoice.SelectedValue == "existing")
-      {
-        this.ExistingUserHolder.Visible = true;
-        this.CreateAdminUserHolder.Visible = false;
-      }
-    }
-
-    /// <summary>
-    /// The wizard_ finish button click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Wizard_FinishButtonClick(object sender, WizardNavigationEventArgs e)
-    {
-      // reset the board settings...
-      YafContext.Current.BoardSettings = null;
-      
-      if (Config.IsDotNetNuke)
-      {
-        // Redirect back to the portal main page.
-        string rPath = YafForumInfo.ForumClientFileRoot;
-        int pos = rPath.IndexOf("/", 2);
-        rPath = rPath.Substring(0, pos);
-        Response.Redirect(rPath);
-      }
-      else
-      {
-        Response.Redirect("~/");
-      }
-    }
-
-    /// <summary>
-    /// The wizard_ previous button click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Wizard_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
-    {
-      if (CurrentWizardStepID == "WizTestSettings")
-      {
-        CurrentWizardStepID = "WizDatabaseConnection";
-      }
-
-      e.Cancel = false;
-
-      //// go back only from last step (to user/roles migration)
-      // if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
-      // InstallWizard.MoveTo( InstallWizard.WizardSteps[e.CurrentStepIndex - 1] );
-      // else
-      // // othwerise cancel action
-      // e.Cancel = true;
-    }
-
-    /// <summary>
-    /// The wizard_ active step changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Wizard_ActiveStepChanged(object sender, EventArgs e)
-    {
-      bool previousVisible = false;
-
-      switch (CurrentWizardStepID)
-      {
-        case "WizCreatePassword":
-          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.AppSettingsFull != null)
-          {
-            this.lblConfigPasswordAppSettingFile.Text = this._config.AppSettingsFull.File;
-          }
-          else
-          {
-            this.lblConfigPasswordAppSettingFile.Text = "(Unknown! YAF default is app.config)";
-          }
-
-          if (IsInstalled)
-          {
-            // no need for this setup if IsInstalled...
-            this.InstallWizard.ActiveStepIndex++;
-          }
-
-          break;
-        case "WizCreateForum":
-          if (DB.IsForumInstalled)
-          {
-            this.InstallWizard.ActiveStepIndex++;
-          }
-
-          break;
-        case "WizMigrateUsers":
-          if (!IsInstalled)
-          {
-            // no migration because it's a new install...
-            CurrentWizardStepID = "WizFinished";
-          }
-          else
-          {
-            object version = Cache["DBVersion"] ?? DB.DBVersion;
-
-            if (((int) version) >= 30 || ((int) version) == -1)
-            {
-              // migration is NOT needed...
-              CurrentWizardStepID = "WizFinished";
-            }
-
-            Cache.Remove("DBVersion");
-          }
-
-          // get user count
-          if (CurrentWizardStepID == "WizMigrateUsers")
-          {
-            this.lblMigrateUsersCount.Text = DB.user_list(PageBoardID, null, true).Rows.Count.ToString();
-          }
-
-          break;
-        case "WizDatabaseConnection":
-          previousVisible = true;
-
-          // fill with connection strings...
-          this.lblConnStringAppSettingName.Text = Config.ConnectionStringName;
-          FillWithConnectionStrings();
-          break;
-        case "WizManualDatabaseConnection":
-          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.AppSettingsFull != null)
-          {
-            this.lblAppSettingsFile.Text = this._config.AppSettingsFull.File;
-          }
-          else
-          {
-            this.lblAppSettingsFile.Text = "(Unknown! YAF default is app.config)";
-          }
-
-          previousVisible = true;
-          break;
-        case "WizManuallySetPassword":
-          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.AppSettingsFull != null)
-          {
-            this.lblAppSettingsFile2.Text = this._config.AppSettingsFull.File;
-          }
-          else
-          {
-            this.lblAppSettingsFile2.Text = "(Unknown! YAF default is app.config)";
-          }
-
-          break;
-        case "WizTestSettings":
-          previousVisible = true;
-          break;
-        case "WizValidatePermission":
-          break;
-        case "WizMigratingUsers":
-
-          // disable the next button...
-          var btnNext = ControlHelper.FindControlAs<Button>(this.InstallWizard, "StepNavigationTemplateContainerID$StepNextButton");
-          if (btnNext != null)
-          {
-            btnNext.Enabled = false;
-          }
-
-          break;
-      }
-
-      var btnPrevious = ControlHelper.FindControlAs<Button>(this.InstallWizard, "StepNavigationTemplateContainerID$StepPreviousButton");
-
-      if (btnPrevious != null)
-      {
-        btnPrevious.Visible = previousVisible;
-      }
-    }
-
-    /// <summary>
-    /// The wizard_ next button click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <exception cref="ApplicationException">
-    /// </exception>
-    protected void Wizard_NextButtonClick(object sender, WizardNavigationEventArgs e)
-    {
-      e.Cancel = true;
-
-      switch (CurrentWizardStepID)
-      {
-        case "WizValidatePermission":
-          e.Cancel = false;
-          break;
-        case "WizDatabaseConnection":
-
-          // save the database settings...
-          UpdateDBFailureType type = UpdateDatabaseConnection();
-          e.Cancel = false;
-
-          if (type == UpdateDBFailureType.None)
-          {
-            // jump to test settings...
-            CurrentWizardStepID = "WizTestSettings";
-          }
-          else
-          {
-            // failure -- show the next section but specify which errors...
-            if (type == UpdateDBFailureType.AppSettingsWrite)
-            {
-              this.NoWriteAppSettingsHolder.Visible = true;
-            }
-            else if (type == UpdateDBFailureType.ConnectionStringWrite)
-            {
-              this.NoWriteDBSettingsHolder.Visible = true;
-              this.lblDBConnStringName.Text = Config.ConnectionStringName;
-              this.lblDBConnStringValue.Text = CurrentConnString;
-            }
-          }
-
-          break;
-        case "WizManualDatabaseConnection":
-          e.Cancel = false;
-          break;
-        case "WizCreatePassword":
-          if (this.txtCreatePassword1.Text.Trim() == string.Empty)
-          {
-            AddLoadMessage("Please enter a configuration password.");
-            break;
-          }
-
-          if (this.txtCreatePassword2.Text != this.txtCreatePassword1.Text)
-          {
-            AddLoadMessage("Verification is not the same as your password.");
-            break;
-          }
-
-          e.Cancel = false;
-
-          if (this._config.TrustLevel == AspNetHostingPermissionLevel.High && this._config.WriteAppSetting(_appPasswordKey, this.txtCreatePassword1.Text))
-          {
-            // advance to the testing section since the password is now set...
-            CurrentWizardStepID = "WizDatabaseConnection";
-          }
-          else
-          {
-            CurrentWizardStepID = "WizManuallySetPassword";
-          }
-
-          break;
-        case "WizManuallySetPassword":
-          if (IsInstalled)
-          {
-            e.Cancel = false;
-          }
-          else
-          {
-            AddLoadMessage("You must update your appSettings with the YAF.ConfigPassword Key to continue. NOTE: The key name is case sensitive.");
-          }
-
-          break;
-        case "WizTestSettings":
-          e.Cancel = false;
-          break;
-        case "WizEnterPassword":
-          if (this._config.GetConfigValueAsString(_appPasswordKey) ==
-              FormsAuthentication.HashPasswordForStoringInConfigFile(this.txtEnteredPassword.Text, "md5") ||
-              this._config.GetConfigValueAsString(_appPasswordKey) == this.txtEnteredPassword.Text.Trim())
-          {
-            e.Cancel = false;
-
-            // move to test settings...
-            CurrentWizardStepID = "WizTestSettings";
-          }
-          else
-          {
-            AddLoadMessage("Wrong password!");
-          }
-
-          break;
-        case "WizCreateForum":
-          if (CreateForum())
-          {
-            e.Cancel = false;
-          }
-
-          break;
-        case "WizInitDatabase":
-          if (UpgradeDatabase(this.FullTextSupport.Checked))
-          {
-            e.Cancel = false;
-          }
-
-          break;
-        case "WizMigrateUsers":
-
-          // migrate users/roles only if user does not want to skip
-          if (!this.skipMigration.Checked)
-          {
-            RoleMembershipHelper.SyncRoles(PageBoardID);
-
-            // start the background migration task...
-            MigrateUsersTask.Start(PageBoardID);
-          }
-
-          e.Cancel = false;
-          break;
-        case "WizFinished":
-          break;
-        default:
-          throw new ApplicationException("Installation Wizard step not handled: " + this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID);
-      }
-    }
-
-    /// <summary>
-    /// The rbl yaf database_ selected index changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void rblYAFDatabase_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      if (this.rblYAFDatabase.SelectedValue == "create")
-      {
-        this.ExistingConnectionHolder.Visible = false;
-        this.NewConnectionHolder.Visible = true;
-      }
-      else if (this.rblYAFDatabase.SelectedValue == "existing")
-      {
-        this.ExistingConnectionHolder.Visible = true;
-        this.NewConnectionHolder.Visible = false;
-      }
-    }
-
-    /// <summary>
-    /// The btn test db connection_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestDBConnection_Click(object sender, EventArgs e)
-    {
-      // attempt to connect selected DB...
-      YafContext.Current["ConnectionString"] = CurrentConnString;
-      string message;
-
-      if (!TestDatabaseConnection(out message))
-      {
-        UpdateInfoPanel(this.ConnectionInfoHolder, this.lblConnectionDetails, "Failed to connect:<br/><br/>" + message, "errorinfo");
-      }
-      else
-      {
-        UpdateInfoPanel(this.ConnectionInfoHolder, this.lblConnectionDetails, "Connection Succeeded", "successinfo");
-      }
-
-      // we're done with it...
-      YafContext.Current.Vars.Remove("ConnectionString");
-    }
-
-    /// <summary>
-    /// The btn test db connection manual_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestDBConnectionManual_Click(object sender, EventArgs e)
-    {
-      // attempt to connect DB...
-      string message;
-
-      if (!TestDatabaseConnection(out message))
-      {
-        UpdateInfoPanel(this.ManualConnectionInfoHolder, this.lblConnectionDetailsManual, "Failed to connect:<br/><br/>" + message, "errorinfo");
-      }
-      else
-      {
-        UpdateInfoPanel(this.ManualConnectionInfoHolder, this.lblConnectionDetailsManual, "Connection Succeeded", "successinfo");
-      }
-    }
-
-    /// <summary>
-    /// The parameter 11_ value_ check changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Parameter11_Value_CheckChanged(object sender, EventArgs e)
-    {
-      this.DBUsernamePasswordHolder.Visible = !this.Parameter11_Value.Checked;
-    }
-
-    /// <summary>
-    /// The btn test permissions_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestPermissions_Click(object sender, EventArgs e)
-    {
-      UpdateStatusLabel(this.lblPermissionApp, 1);
-      UpdateStatusLabel(this.lblPermissionUpload, 1);
-      UpdateStatusLabel(this.lblHostingTrust, 1);
-
-      UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(Server.MapPath("~/")) ? 2 : 0);
-      UpdateStatusLabel(this.lblPermissionUpload, DirectoryHasWritePermission(Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
-
-      UpdateStatusLabel(this.lblHostingTrust, this._config.TrustLevel == AspNetHostingPermissionLevel.High ? 2 : 0);
-
-      this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
-    }
-
-    /// <summary>
-    /// The btn test smtp_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnTestSmtp_Click(object sender, EventArgs e)
-    {
-      try
-      {
-        YafServices.SendMail.Send(
-          this.txtTestFromEmail.Text.Trim(), 
-          this.txtTestToEmail.Text.Trim(), 
-          "Test Email From Yet Another Forum.NET", 
-          "The email sending appears to be working from your YAF installation.");
-
-        // success
-        UpdateInfoPanel(this.SmtpInfoHolder, this.lblSmtpTestDetails, "Mail Sent. Verify it's received at your entered email address.", "successinfo");
-      }
-      catch (Exception x)
-      {
-        UpdateInfoPanel(this.SmtpInfoHolder, this.lblSmtpTestDetails, "Failed to connect:<br/><br/>" + x.Message, "errorinfo");
-      }
-    }
-
-    /// <summary>
-    /// The update status timer_ tick.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void UpdateStatusTimer_Tick(object sender, EventArgs e)
-    {
-      // see if the migration is done....
-      if (YafTaskModule.Current.IsTaskRunning(MigrateUsersTask.TaskName))
-      {
-        // proceed...
-        return;
-      }
-
-      if (Session["InstallWizardFinal"] == null)
-      {
-        Session.Add("InstallWizardFinal", true);
-      }
-
-      // done here...
-      Response.Redirect("default.aspx");
-    }
-
-    #endregion
-
-    #region Event Helper Functions
-
-    /// <summary>
-    /// Tests database connection. Can probably be moved to DB class.
-    /// </summary>
-    /// <param name="exceptionMessage">
-    /// </param>
-    /// <returns>
-    /// The test database connection.
-    /// </returns>
-    private static bool TestDatabaseConnection(out string exceptionMessage)
-    {
-      return YafDBAccess.TestConnection(out exceptionMessage);
-    }
-
-    /// <summary>
     /// The update database connection.
     /// </summary>
     /// <returns>
@@ -872,7 +1333,9 @@ namespace YAF.Install
       {
         try
         {
-          if (!this._config.WriteConnectionString(Config.ConnectionStringName, CurrentConnString, DB.ProviderAssemblyName))
+          if (
+            !this._config.WriteConnectionString(
+              Config.ConnectionStringName, this.CurrentConnString, DB.ProviderAssemblyName))
           {
             // failure to write db Settings..
             return UpdateDBFailureType.ConnectionStringWrite;
@@ -888,104 +1351,6 @@ namespace YAF.Install
     }
 
     /// <summary>
-    /// The update info panel.
-    /// </summary>
-    /// <param name="infoHolder">
-    /// The info holder.
-    /// </param>
-    /// <param name="detailsLabel">
-    /// The details label.
-    /// </param>
-    /// <param name="info">
-    /// The info.
-    /// </param>
-    /// <param name="cssClass">
-    /// The css class.
-    /// </param>
-    private static void UpdateInfoPanel(Control infoHolder, Label detailsLabel, string info, string cssClass)
-    {
-      infoHolder.Visible = true;
-      detailsLabel.Text = info;
-      detailsLabel.CssClass = cssClass;
-    }
-
-    /// <summary>
-    /// The update status label.
-    /// </summary>
-    /// <param name="theLabel">
-    /// The the label.
-    /// </param>
-    /// <param name="status">
-    /// The status.
-    /// </param>
-    private static void UpdateStatusLabel(Label theLabel, int status)
-    {
-      switch (status)
-      {
-        case 0:
-          theLabel.Text = "No";
-          theLabel.ForeColor = Color.Red;
-          break;
-        case 1:
-          theLabel.Text = "Unchcked";
-          theLabel.ForeColor = Color.Gray;
-          break;
-        case 2:
-          theLabel.Text = "YES";
-          theLabel.ForeColor = Color.Green;
-          break;
-      }
-    }
-
-    /// <summary>
-    /// The fill with connection strings.
-    /// </summary>
-    private void FillWithConnectionStrings()
-    {
-      if (this.lbConnections.Items.Count == 0)
-      {
-        foreach (ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings)
-        {
-          this.lbConnections.Items.Add(connectionString.Name);
-        }
-
-        ListItem item = this.lbConnections.Items.FindByText("yafnet");
-        if (item != null)
-        {
-          item.Selected = true;
-        }
-      }
-    }
-
-    /// <summary>
-    /// Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
-    /// </summary>
-    /// <param name="directory">
-    /// </param>
-    /// <returns>
-    /// The directory has write permission.
-    /// </returns>
-    private static bool DirectoryHasWritePermission(string directory)
-    {
-      bool hasWriteAccess = false;
-
-      try
-      {
-        // see if we have permission
-        var fp = new FileIOPermission(FileIOPermissionAccess.Write, directory);
-        fp.Demand();
-
-        hasWriteAccess = true;
-      }
-      catch
-      {
-        hasWriteAccess = false;
-      }
-
-      return hasWriteAccess;
-    }
-
-    /// <summary>
     /// The upgrade database.
     /// </summary>
     /// <param name="fullText">
@@ -998,14 +1363,14 @@ namespace YAF.Install
     {
       {
         // try
-        FixAccess(false);
+        this.FixAccess(false);
 
         foreach (string script in DB.ScriptList)
         {
-          ExecuteScript(script, true);
+          this.ExecuteScript(script, true);
         }
 
-        FixAccess(true);
+        this.FixAccess(true);
 
         int prevVersion = DB.DBVersion;
 
@@ -1021,23 +1386,23 @@ namespace YAF.Install
         if (DB.IsForumInstalled && prevVersion < 30)
         {
           // load default bbcode if available...
-          if (File.Exists(Request.MapPath(_bbcodeImport)))
+          if (File.Exists(this.Request.MapPath(_bbcodeImport)))
           {
             // import into board...
-            using (var bbcodeStream = new StreamReader(Request.MapPath(_bbcodeImport)))
+            using (var bbcodeStream = new StreamReader(this.Request.MapPath(_bbcodeImport)))
             {
-              DataImport.BBCodeExtensionImport(PageBoardID, bbcodeStream.BaseStream);
+              DataImport.BBCodeExtensionImport(this.PageBoardID, bbcodeStream.BaseStream);
               bbcodeStream.Close();
             }
           }
 
           // load default extensions if available...
-          if (File.Exists(Request.MapPath(_fileImport)))
+          if (File.Exists(this.Request.MapPath(_fileImport)))
           {
             // import into board...
-            using (var fileExtStream = new StreamReader(Request.MapPath(_fileImport)))
+            using (var fileExtStream = new StreamReader(this.Request.MapPath(_fileImport)))
             {
-              DataImport.FileExtensionImport(PageBoardID, fileExtStream.BaseStream);
+              DataImport.FileExtensionImport(this.PageBoardID, fileExtStream.BaseStream);
               fileExtStream.Close();
             }
           }
@@ -1058,334 +1423,16 @@ namespace YAF.Install
       {
         try
         {
-          ExecuteScript(DB.FullTextScript, false);
+          this.ExecuteScript(DB.FullTextScript, false);
         }
         catch (Exception x)
         {
           // just a warning...
-          AddLoadMessage("Warning: FullText Support wasn't installed: " + x.Message);
+          this.AddLoadMessage("Warning: FullText Support wasn't installed: " + x.Message);
         }
       }
 
       return true;
-    }
-
-    /// <summary>
-    /// The create forum.
-    /// </summary>
-    /// <returns>
-    /// The create forum.
-    /// </returns>
-    private bool CreateForum()
-    {
-      if (DB.IsForumInstalled)
-      {
-        AddLoadMessage("Forum is already installed.");
-        return false;
-      }
-
-      if (this.TheForumName.Text.Length == 0)
-      {
-        AddLoadMessage("You must enter a forum name.");
-        return false;
-      }
-
-      if (this.ForumEmailAddress.Text.Length == 0)
-      {
-        AddLoadMessage("You must enter a forum email address.");
-        return false;
-      }
-
-      MembershipUser user = null;
-
-      if (this.UserChoice.SelectedValue == "create")
-      {
-        if (this.UserName.Text.Length == 0)
-        {
-          AddLoadMessage("You must enter the admin user name,");
-          return false;
-        }
-
-        if (this.AdminEmail.Text.Length == 0)
-        {
-          AddLoadMessage("You must enter the administrators email address.");
-          return false;
-        }
-
-        if (this.Password1.Text.Length == 0)
-        {
-          AddLoadMessage("You must enter a password.");
-          return false;
-        }
-
-        if (this.Password1.Text != this.Password2.Text)
-        {
-          AddLoadMessage("The passwords must match.");
-          return false;
-        }
-
-        // create the admin user...
-        MembershipCreateStatus status;
-        user = YafContext.Current.CurrentMembership.CreateUser(
-          this.UserName.Text, this.Password1.Text, this.AdminEmail.Text, this.SecurityQuestion.Text, this.SecurityAnswer.Text, true, null, out status);
-        if (status != MembershipCreateStatus.Success)
-        {
-          AddLoadMessage("Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
-          return false;
-        }
-      }
-      else
-      {
-        // try to get data for the existing user...
-        user = UserMembershipHelper.GetUser(this.ExistingUserName.Text.Trim());
-
-        if (user == null)
-        {
-          AddLoadMessage("Existing user name is invalid and does not represent a current user in the membership store.");
-          return false;
-        }
-      }
-
-      try
-      {
-        // add administrators and registered if they don't already exist...
-        if (!RoleMembershipHelper.RoleExists("Administrators"))
-        {
-          RoleMembershipHelper.CreateRole("Administrators");
-        }
-
-        if (!RoleMembershipHelper.RoleExists("Registered"))
-        {
-          RoleMembershipHelper.CreateRole("Registered");
-        }
-
-        if (!RoleMembershipHelper.IsUserInRole(user.UserName, "Administrators"))
-        {
-          RoleMembershipHelper.AddUserToRole(user.UserName, "Administrators");
-        }
-
-        // logout administrator...
-        FormsAuthentication.SignOut();
-        System.Data.DataTable cult = StaticDataHelper.Cultures();
-        string langFile = "english.xml";
-        foreach (DataRow drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
-        {
-          langFile = (string)drow["CultureFile"];
-        }
-        DB.system_initialize(
-          this.TheForumName.Text, this.TimeZones.SelectedValue, this.Culture.SelectedValue, langFile, this.ForumEmailAddress.Text, string.Empty, user.UserName, user.Email, user.ProviderUserKey);
-        DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-        DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-       
-        // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
-        // YAF.Classes.Data.DB.system_deleteinstallobjects();
-        // load default bbcode if available...
-        if (File.Exists(Request.MapPath(_bbcodeImport)))
-        {
-          // import into board...
-          using (var bbcodeStream = new StreamReader(Request.MapPath(_bbcodeImport)))
-          {
-            DataImport.BBCodeExtensionImport(PageBoardID, bbcodeStream.BaseStream);
-            bbcodeStream.Close();
-          }
-        }
-
-        // load default extensions if available...
-        if (File.Exists(Request.MapPath(_fileImport)))
-        {
-          // import into board...
-          using (var fileExtStream = new StreamReader(Request.MapPath(_fileImport)))
-          {
-            DataImport.FileExtensionImport(PageBoardID, fileExtStream.BaseStream);
-            fileExtStream.Close();
-          }
-        }
-      }
-      catch (Exception x)
-      {
-        AddLoadMessage(x.Message);
-        return false;
-      }
-
-      return true;
-    }
-
-    /// <summary>
-    /// The index of wizard id.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The index of wizard id.
-    /// </returns>
-    private int IndexOfWizardID(string id)
-    {
-      var step = this.InstallWizard.FindWizardControlRecursive(id) as WizardStepBase;
-
-      if (step != null)
-      {
-        return this.InstallWizard.WizardSteps.IndexOf(step);
-      }
-
-      return -1;
-    }
-
-    /// <summary>
-    /// The update db failure type.
-    /// </summary>
-    private enum UpdateDBFailureType
-    {
-      /// <summary>
-      /// The none.
-      /// </summary>
-      None, 
-
-      /// <summary>
-      /// The app settings write.
-      /// </summary>
-      AppSettingsWrite, 
-
-      /// <summary>
-      /// The connection string write.
-      /// </summary>
-      ConnectionStringWrite
-    }
-
-    #endregion
-
-    #region General Helper Functions
-
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
-    {
-      base.Render(writer);
-      if (this._loadMessage != string.Empty)
-      {
-        writer.WriteLine("<script language='javascript'>");
-        writer.WriteLine("onload = function() {");
-        writer.WriteLine("	alert('{0}');", this._loadMessage);
-        writer.WriteLine("}");
-        writer.WriteLine("</script>");
-      }
-    }
-
-    /// <summary>
-    /// The get membership error message.
-    /// </summary>
-    /// <param name="status">
-    /// The status.
-    /// </param>
-    /// <returns>
-    /// The get membership error message.
-    /// </returns>
-    public string GetMembershipErrorMessage(MembershipCreateStatus status)
-    {
-      switch (status)
-      {
-        case MembershipCreateStatus.DuplicateUserName:
-          return "Username already exists. Please enter a different user name.";
-
-        case MembershipCreateStatus.DuplicateEmail:
-          return "A username for that e-mail address already exists. Please enter a different e-mail address.";
-
-        case MembershipCreateStatus.InvalidPassword:
-          return "The password provided is invalid. Please enter a valid password value.";
-
-        case MembershipCreateStatus.InvalidEmail:
-          return "The e-mail address provided is invalid. Please check the value and try again.";
-
-        case MembershipCreateStatus.InvalidAnswer:
-          return "The password retrieval answer provided is invalid. Please check the value and try again.";
-
-        case MembershipCreateStatus.InvalidQuestion:
-          return "The password retrieval question provided is invalid. Please check the value and try again.";
-
-        case MembershipCreateStatus.InvalidUserName:
-          return "The user name provided is invalid. Please check the value and try again.";
-
-        case MembershipCreateStatus.ProviderError:
-          return
-            "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-        case MembershipCreateStatus.UserRejected:
-          return
-            "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-        default:
-          return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-      }
-    }
-
-    /// <summary>
-    /// The add load message.
-    /// </summary>
-    /// <param name="msg">
-    /// The msg.
-    /// </param>
-    private void AddLoadMessage(string msg)
-    {
-      msg = msg.Replace("\\", "\\\\");
-      msg = msg.Replace("'", "\\'");
-      msg = msg.Replace("\r\n", "\\r\\n");
-      msg = msg.Replace("\n", "\\n");
-      msg = msg.Replace("\"", "\\\"");
-      this._loadMessage += msg + "\\n\\n";
-    }
-
-    #endregion
-
-    #region DB Helper Functions
-
-    /// <summary>
-    /// The execute script.
-    /// </summary>
-    /// <param name="scriptFile">
-    /// The script file.
-    /// </param>
-    /// <param name="useTransactions">
-    /// The use transactions.
-    /// </param>
-    /// <exception cref="Exception">
-    /// </exception>
-    private void ExecuteScript(string scriptFile, bool useTransactions)
-    {
-      string script = null;
-      try
-      {
-        using (var file = new StreamReader(Request.MapPath(scriptFile)))
-        {
-          script = file.ReadToEnd() + "\r\n";
-
-          file.Close();
-        }
-      }
-      catch (FileNotFoundException)
-      {
-        return;
-      }
-      catch (Exception x)
-      {
-        throw new Exception("Failed to read " + scriptFile, x);
-      }
-
-      DB.system_initialize_executescripts(script, scriptFile, useTransactions);
-    }
-
-    /// <summary>
-    /// The fix access.
-    /// </summary>
-    /// <param name="bGrant">
-    /// The b grant.
-    /// </param>
-    private void FixAccess(bool bGrant)
-    {
-      DB.system_initialize_fixaccess(bGrant);
     }
 
     #endregion

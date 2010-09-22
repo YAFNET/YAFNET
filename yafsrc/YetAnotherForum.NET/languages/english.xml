@@ -799,7 +799,7 @@
 		<Resource tag="NEWPOSTOPTIONS">Options:</Resource>
 		<Resource tag="NEWTOPIC">Post New Topic</Resource>
 		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="PERSISTENCY">Persistent</Resource>
+		<Resource tag="PERSISTENCY">Is this topic persistent?</Resource>
 		<Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
@@ -814,6 +814,7 @@
 		<Resource tag="SUBJECT">Subject:</Resource>
 		<Resource tag="TOPICATTACH">Attach files to this post?</Resource>
 		<Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
 		<Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more then {0} characters. Suggestion: use abbreviations to shorten.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 	</page>

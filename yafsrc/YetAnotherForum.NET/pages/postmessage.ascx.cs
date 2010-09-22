@@ -579,7 +579,7 @@ namespace YAF.Pages
       // Create notification emails
       if (isApproved)
       {
-        YafServices.SendNotification.ToWatchingUsers(messageId);
+        YafServices.SendNotification.ToWatchingUsers(messageId.ToType<int>());
 
         if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
         {

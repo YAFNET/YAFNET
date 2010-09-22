@@ -1288,7 +1288,7 @@ namespace YAF.Pages
       if (bApproved)
       {
         // send new post notification to users watching this topic/forum
-        YafServices.SendNotification.ToWatchingUsers(nMessageId);
+        YafServices.SendNotification.ToWatchingUsers(nMessageId.ToType<int>());
 
         // redirect to newly posted message
         YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageId);
