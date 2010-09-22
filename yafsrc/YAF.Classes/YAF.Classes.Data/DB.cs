@@ -9380,6 +9380,8 @@ namespace YAF.Classes.Data
                 {
                   using (var cmd = new SqlCommand())
                   {
+                    // added so command won't timeout anymore...
+                    cmd.CommandTimeout = 99999;
                     cmd.Transaction = trans;
                     cmd.Connection = connMan.DBConnection;
                     cmd.CommandType = CommandType.Text;
