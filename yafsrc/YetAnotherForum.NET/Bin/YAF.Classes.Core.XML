@@ -44,7 +44,7 @@
             The user helper.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.UserHelper.GetUserLanguageFile(System.Int64)">
+        <member name="M:YAF.Classes.Core.UserHelper.GetUserLanguageFile(System.Int32)">
             <summary>
             The get user language file.
             </summary>
@@ -54,7 +54,7 @@
             language file name. If null -- use default language
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.UserHelper.GetUserThemeFile(System.Int64)">
+        <member name="M:YAF.Classes.Core.UserHelper.GetUserThemeFile(System.Int32)">
             <summary>
             </summary>
             <param name="userId">
@@ -1760,6 +1760,64 @@
             Gets or sets MessageTruncated.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Services.IComment">
+            <summary>
+            Defines the base information about a comment submitted to the client.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.Author">
+            <summary>
+              The name submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.AuthorEmail">
+            <summary>
+              The email submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.AuthorUrl">
+            <summary>
+              The url submitted if provided.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.CommentType">
+            <summary>
+              May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
+              like "registration".
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.Content">
+            <summary>
+              Content of the comment
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.IPAddress">
+            <summary>
+              IPAddress of the submitter
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.Permalink">
+            <summary>
+              Permanent location of the entry the comment was 
+              submitted to.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.Referrer">
+            <summary>
+              The HTTP_REFERER header value of the 
+              originating comment.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.ServerEnvironmentVariables">
+            <summary>
+              Optional collection of various server environment variables.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.IComment.UserAgent">
+            <summary>
+              User agent of the requester. (Required)
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.Resources">
             <summary>
             The resources.
@@ -2535,6 +2593,295 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="T:YAF.Classes.Core.Services.CheckForSpamClientBase">
+            <summary>
+            The client class used to communicate with the spam service.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Services.ICheckForSpamClient">
+            <summary>
+            Interface that communicates with a spam client.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.ICheckForSpamClient.CheckCommentForSpam(YAF.Classes.Core.Services.IComment)">
+            <summary>
+            Checks the comment and returns true if it is spam, otherwise false.
+            </summary>
+            <param name="comment">
+            </param>
+            <returns>
+            The check comment for spam.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.ICheckForSpamClient.SubmitHam(YAF.Classes.Core.Services.IComment)">
+            <summary>
+            Submits a comment to the client that should not have been 
+              flagged as SPAM (a false positive).
+            </summary>
+            <param name="comment">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.ICheckForSpamClient.SubmitSpam(YAF.Classes.Core.Services.IComment)">
+            <summary>
+            Submits a comment to the client that should have been 
+              flagged as SPAM, but was not flagged.
+            </summary>
+            <param name="comment">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.ICheckForSpamClient.VerifyApiKey">
+            <summary>
+            Verifies the API key.  You really only need to
+              call this once, perhaps at startup.
+            </summary>
+            <returns>
+            The verify api key.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.ICheckForSpamClient.ApiKey">
+            <summary>
+              Gets or sets the Akismet API key.
+            </summary>
+            <value>The API key.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.ICheckForSpamClient.Proxy">
+            <summary>
+              Gets or sets the proxy to use.
+            </summary>
+            <value>The proxy.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.ICheckForSpamClient.RootUrl">
+            <summary>
+              Gets or sets the root URL to the blog.
+            </summary>
+            <value>The blog URL.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.ICheckForSpamClient.Timeout">
+            <summary>
+              Gets or sets the timeout in milliseconds for the http request to the client.
+            </summary>
+            <value>The timeout.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.ICheckForSpamClient.UserAgent">
+            <summary>
+              Gets or sets the User Agent for the Client.  
+              Do not confuse this with the user agent for the comment 
+              being checked.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.httpClient">
+            <summary>
+              The http client.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.apiKey">
+            <summary>
+              The api key.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.proxy">
+            <summary>
+              The proxy.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.rootUrl">
+            <summary>
+              The root url.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.submitCheckUrl">
+            <summary>
+              The check url.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.submitHamUrl">
+            <summary>
+              The submit ham url.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.submitSpamUrl">
+            <summary>
+              The submit spam url.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.timeout">
+            <summary>
+              The timeout.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.userAgent">
+            <summary>
+              The user agent.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.verifyUrl">
+            <summary>
+              The verify url.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.CheckForSpamClientBase.version">
+            <summary>
+              The version.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.#ctor(System.String,System.Uri,YAF.Classes.Core.Services.HttpClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.CheckForSpamClientBase"/> class.
+            </summary>
+            <remarks>
+            This constructor takes in all the dependencies to allow for 
+              dependency injection and unit testing. Seems like overkill, 
+              but it's worth it.
+            </remarks>
+            <param name="apiKey">
+            The Akismet API key.
+            </param>
+            <param name="blogUrl">
+            The root url of the blog.
+            </param>
+            <param name="httpClient">
+            Client class used to make the underlying requests.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.#ctor(System.String,System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.CheckForSpamClientBase"/> class.
+            </summary>
+            <param name="apiKey">
+            The Akismet API key.
+            </param>
+            <param name="rootUrl">
+            The root url of the site using Akismet.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.BuildUserAgent(System.String)">
+            <summary>
+            Helper method for building a user agent string in the format 
+              preferred by Akismet.
+            </summary>
+            <param name="applicationName">
+            Name of the application.
+            </param>
+            <returns>
+            The build user agent.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.CheckCommentForSpam(YAF.Classes.Core.Services.IComment)">
+            <summary>
+            Checks the comment and returns true if it is spam, otherwise false.
+            </summary>
+            <param name="comment">
+            </param>
+            <returns>
+            The check comment for spam.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Services.InvalidResponseException">
+            Akismet returned an empty response
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.SubmitHam(YAF.Classes.Core.Services.IComment)">
+            <summary>
+            Submits a comment to Akismet that should not have been 
+              flagged as SPAM (a false positive).
+            </summary>
+            <param name="comment">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.SubmitSpam(YAF.Classes.Core.Services.IComment)">
+            <summary>
+            Submits a comment to Akismet that should have been 
+              flagged as SPAM, but was not flagged by Akismet.
+            </summary>
+            <param name="comment">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.VerifyApiKey">
+            <summary>
+            Verifies the API key.  You really only need to
+              call this once, perhaps at startup.
+            </summary>
+            <returns>
+            The verify api key.
+            </returns>
+            <exception type="Sytsem.Web.WebException">
+            If it cannot make a request of Akismet.
+            </exception>
+            <exception cref="T:YAF.Classes.Core.Services.InvalidResponseException">
+            Akismet returned an empty response
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.SetServiceUrls">
+            <summary>
+            The set service urls.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.CheckForSpamClientBase.SubmitComment(YAF.Classes.Core.Services.IComment,System.Uri)">
+            <summary>
+            The submit comment.
+            </summary>
+            <param name="comment">
+            The comment.
+            </param>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The submit comment.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.ApiKey">
+            <summary>
+              Gets or sets the Akismet API key.
+            </summary>
+            <value>The API key.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.Proxy">
+            <summary>
+              Gets or sets the proxy to use.
+            </summary>
+            <value>The proxy.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.RootUrl">
+            <summary>
+              Gets or sets the root URL to the blog.
+            </summary>
+            <value>The blog URL.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.Timeout">
+            <summary>
+              Gets or sets the timeout in milliseconds for the http request to Akismet. 
+              By default 5000 (5 seconds).
+            </summary>
+            <value>The timeout.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.UserAgent">
+            <summary>
+              Gets or sets the Usera Agent for the Akismet Client.  
+              Do not confuse this with the user agent for the comment 
+              being checked.
+            </summary>
+            <value>The API key.</value>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.CheckUrlFormat">
+            <summary>
+            Gets CheckUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.SubmitHamUrlFormat">
+            <summary>
+            Gets SubmitHamUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.SubmitSpamUrlFormat">
+            <summary>
+            Gets SubmitSpamUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.CheckForSpamClientBase.SubmitVerifyKeyFormat">
+            <summary>
+            Gets SubmitVerifyKeyFormat.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Core.BBCode.PostTopicRegexReplaceRule">
             <summary>
@@ -4740,6 +5087,84 @@
             The read articles.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Core.Services.InvalidResponseException">
+            <summary>
+            Exception thrown when a response other than 200 is returned.
+            </summary>
+            <remarks>
+            This exception does not have any custom properties, 
+              thus it does not implement ISerializable.
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.InvalidResponseException.status">
+            <summary>
+            The status.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.InvalidResponseException.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.InvalidResponseException"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.InvalidResponseException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.InvalidResponseException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.InvalidResponseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.InvalidResponseException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="innerException">
+            The inner exception.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.InvalidResponseException.#ctor(System.String,System.Net.HttpStatusCode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.InvalidResponseException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="status">
+            The status.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.InvalidResponseException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.InvalidResponseException"/> class.
+            </summary>
+            <param name="info">
+            The info.
+            </param>
+            <param name="context">
+            The context.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.InvalidResponseException.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo"/>
+              with information about the exception.
+            </summary>
+            <param name="info">
+            The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.
+            </param>
+            <param name="context">
+            The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.InvalidResponseException.HttpStatus">
+            <summary>
+              Gets the HTTP status returned by the service.
+            </summary>
+            <value>The HTTP status.</value>
+        </member>
         <member name="T:YAF.Classes.Utils.ResourcesExtensions">
             <summary>
             The resources extensions.
@@ -6128,6 +6553,19 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.LoadSimpleTopic(System.Data.DataRow,YAF.Classes.Data.SimpleForum)">
+            <summary>
+            </summary>
+            Creates a Simple Topic item.
+            <param name="row">
+            The row.
+            </param>
+            <param name="forum">
+            The forum.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.GetLatestTopics(System.Int32)">
             <summary>
             The get latest topics.
@@ -6802,6 +7240,127 @@
             Gets or sets CacheSize.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Services.HttpClient">
+            <summary>
+            Class used to make the actual HTTP requests.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.HttpClient.GetRequest(System.Uri,System.String,System.Int32,System.Net.IWebProxy)">
+            <summary>
+            Gets the content of a web page.
+            </summary>
+            <param name="url">
+            The URL.
+            </param>
+            <param name="userAgent">
+            The user agent.
+            </param>
+            <param name="timeout">
+            The timeout in miliseconds.
+            </param>
+            <param name="proxy">
+            The proxy.
+            </param>
+            <returns>
+            The string value of requested web page.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Services.InvalidResponseException"><c>InvalidResponseException</c>.</exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.HttpClient.PostRequest(System.Uri,System.String,System.Int32,System.String)">
+            <summary>
+            Posts the request and returns a text response.  
+              This is all that is needed for Akismet.
+            </summary>
+            <param name="url">
+            The URL.
+            </param>
+            <param name="userAgent">
+            The user agent.
+            </param>
+            <param name="timeout">
+            The timeout.
+            </param>
+            <param name="formParameters">
+            The properly formatted parameters.
+            </param>
+            <returns>
+            The post request.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.HttpClient.PostRequest(System.Uri,System.String,System.Int32,System.String,System.Net.IWebProxy)">
+            <summary>
+            Posts the request.
+            </summary>
+            <param name="url">
+            The URL.
+            </param>
+            <param name="userAgent">
+            The user agent.
+            </param>
+            <param name="timeout">
+            The timeout in milliseconds.
+            </param>
+            <param name="formParameters">
+            The form parameters.
+            </param>
+            <param name="proxy">
+            The proxy.
+            </param>
+            <returns>
+            The post request.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Services.InvalidResponseException"><c>InvalidResponseException</c>.</exception>
+        </member>
+        <member name="T:YAF.Classes.Core.Services.AntiSpamTypePadClient">
+            <summary>
+            The AntiSpam TypePad client: http://antispam.typepad.com
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.AntiSpamTypePadClient.#ctor(System.String,System.Uri,YAF.Classes.Core.Services.HttpClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.AntiSpamTypePadClient"/> class.
+            </summary>
+            <param name="apiKey">
+            The api key.
+            </param>
+            <param name="blogUrl">
+            The blog url.
+            </param>
+            <param name="httpClient">
+            The http client.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.AntiSpamTypePadClient.#ctor(System.String,System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.AntiSpamTypePadClient"/> class.
+            </summary>
+            <param name="apiKey">
+            The api key.
+            </param>
+            <param name="rootUrl">
+            The root url.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AntiSpamTypePadClient.CheckUrlFormat">
+            <summary>
+            Gets CheckUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AntiSpamTypePadClient.SubmitHamUrlFormat">
+            <summary>
+            Gets SubmitHamUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AntiSpamTypePadClient.SubmitSpamUrlFormat">
+            <summary>
+            Gets SubmitSpamUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AntiSpamTypePadClient.SubmitVerifyKeyFormat">
+            <summary>
+            Gets SubmitVerifyKeyFormat.
+            </summary>
+        </member>
         <member name="T:YAF.Modules.ProviderSettingsModule">
             <summary>
             The provider settings module.
@@ -7081,6 +7640,56 @@
             Gets or sets ForumControlObj.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Services.AkismetSpamClient">
+            <summary>
+            The akismet spam client.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.AkismetSpamClient.#ctor(System.String,System.Uri,YAF.Classes.Core.Services.HttpClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.AkismetSpamClient"/> class.
+            </summary>
+            <param name="apiKey">
+            The api key.
+            </param>
+            <param name="blogUrl">
+            The blog url.
+            </param>
+            <param name="httpClient">
+            The http client.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.AkismetSpamClient.#ctor(System.String,System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.AkismetSpamClient"/> class.
+            </summary>
+            <param name="apiKey">
+            The api key.
+            </param>
+            <param name="rootUrl">
+            The root url.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AkismetSpamClient.CheckUrlFormat">
+            <summary>
+            Gets CheckUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AkismetSpamClient.SubmitHamUrlFormat">
+            <summary>
+            Gets SubmitHamUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AkismetSpamClient.SubmitSpamUrlFormat">
+            <summary>
+            Gets SubmitSpamUrlFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.AkismetSpamClient.SubmitVerifyKeyFormat">
+            <summary>
+            Gets SubmitVerifyKeyFormat.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.BBCode.ReplaceRulesCreator">
             <summary>
             Gets an instance of replace rules and uses
@@ -7346,50 +7955,36 @@
             The dataTable.
             </param>
         </member>
-        <member name="T:YAF.Classes.Core.YafRssFeeds">
-            <summary>
-            The yaf rss feeds.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.LatestPosts">
-            <summary>
-            The latest posts.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.LatestAnnouncements">
-            <summary>
-            The latest announcements.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.Posts">
-            <summary>
-            The posts.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.Forum">
-            <summary>
-            The forum.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.Topics">
-            <summary>
-            The topics.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.Active">
-            <summary>
-            The active.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.YafRssFeeds.Favorite">
-            <summary>
-            The favorite.
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Core.SyndicationItemExtensions">
             <summary>
             The syndication item extensions.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,System.String)">
+            <summary>
+            The add syndication item.
+            </summary>
+            <param name="currentList">
+            The current list.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="content">
+            The content.
+            </param>
+            <param name="link">
+            The alternate link.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="posted">
+            The posted.
+            </param>
+            <param name="author">
+            The author.
+            </param> 
         </member>
         <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
             <summary>
@@ -7419,13 +8014,7 @@
             Summary description for YafSyndicationFeed.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafSyndicationFeed"/> class. 
-            Initializes a new instance of the <see cref="!:RssFeed"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor(System.String)">
+        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor(System.String,YAF.Classes.YafRssFeeds,System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafSyndicationFeed"/> class. 
             </summary>
@@ -8238,7 +8827,7 @@
             Subject of PM user is notified about.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafSendNotification.ToWatchingUsers(System.Int64)">
+        <member name="M:YAF.Classes.Core.YafSendNotification.ToWatchingUsers(System.Int32)">
             <summary>
             The to watching users.
             </summary>
@@ -8826,6 +9415,90 @@
             <param name="message">
             The message.
             </param>
+        </member>
+        <member name="T:YAF.Classes.Core.Services.Comment">
+            <summary>
+            The comment.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.Comment.ipAddress">
+            <summary>
+            The ip address.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.Comment.serverEnvironmentVariables">
+            <summary>
+            The server environment variables.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Services.Comment.userAgent">
+            <summary>
+            The user agent.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Services.Comment.#ctor(System.Net.IPAddress,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Services.Comment"/> class.
+            </summary>
+            <param name="authorIpAddress">
+            The author ip address.
+            </param>
+            <param name="authorUserAgent">
+            The author user agent.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.Author">
+            <summary>
+              The name submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.AuthorEmail">
+            <summary>
+              The email submitted with the comment.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.AuthorUrl">
+            <summary>
+              The url submitted if provided.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.CommentType">
+            <summary>
+              May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
+              like "registration".
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.Content">
+            <summary>
+              Content of the comment
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.IPAddress">
+            <summary>
+              IPAddress of the submitter
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.Permalink">
+            <summary>
+              Permanent location of the entry the comment was 
+              submitted to.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.Referrer">
+            <summary>
+              The HTTP_REFERER header value of the 
+              originating comment.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.ServerEnvironmentVariables">
+            <summary>
+              Optional collection of various server environment variables.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Services.Comment.UserAgent">
+            <summary>
+              User agent of the requester. (Required)
+            </summary>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.Newsgroup">
             <summary>

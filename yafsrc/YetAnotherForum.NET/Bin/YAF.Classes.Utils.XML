@@ -1490,6 +1490,16 @@
             The is search engine spider.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.UserAgentHelper.IsFeedReader(System.String)">
+            <summary>
+            Validates if the useragent owner is a feed reader
+            </summary>
+            <param name="userAgent">
+            </param>
+            <returns>
+            The is feed reader.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.UserAgentHelper.IsIgnoredForDisplay(System.String)">
             <summary>
             Validates if the useragent is a known ignored UA string
@@ -2455,6 +2465,21 @@
             The db helper.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.SelectTypedList``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary>
+            Selects a typed list of rows using the <paramref name="createNew"/> delegate.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="createNew">
+            The create new.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.DBHelper.GetColumnAsList``1(System.Data.DataTable,System.String)">
             <summary>
             Converts <paramref name="columnName"/> in a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
@@ -2524,19 +2549,6 @@
             </param>
             <returns>
             The is <see langword="null"/> or empty db field.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.ToListObject``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
-            <summary>
-            Converts a <see cref="T:System.Data.DataTable"/> to a List of type T using the convert function.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="dt">
-            </param>
-            <param name="convertFunction">
-            </param>
-            <returns>
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.DoubleLinkedList">

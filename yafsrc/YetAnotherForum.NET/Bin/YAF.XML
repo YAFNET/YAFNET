@@ -922,33 +922,44 @@
         </member>
         <member name="F:YAF.Install._default._appPasswordKey">
             <summary>
-            The _app password key.
+              The _app password key.
             </summary>
         </member>
         <member name="F:YAF.Install._default._bbcodeImport">
             <summary>
-            The _bbcode import.
+              The _bbcode import.
             </summary>
         </member>
         <member name="F:YAF.Install._default._fileImport">
             <summary>
-            The _file import.
-            </summary>
-        </member>
-        <member name="F:YAF.Install._default._config">
-            <summary>
-            The _config.
+              The _file import.
             </summary>
         </member>
         <member name="F:YAF.Install._default._dbVersionBeforeUpgrade">
             <summary>
-            The _db version before upgrade.
+              The _db version before upgrade.
+            </summary>
+        </member>
+        <member name="F:YAF.Install._default._config">
+            <summary>
+              The _config.
             </summary>
         </member>
         <member name="F:YAF.Install._default._loadMessage">
             <summary>
-            The _load message.
+              The _load message.
             </summary>
+        </member>
+        <member name="M:YAF.Install._default.GetMembershipErrorMessage(System.Web.Security.MembershipCreateStatus)">
+            <summary>
+            The get membership error message.
+            </summary>
+            <param name="status">
+            The status.
+            </param>
+            <returns>
+            The get membership error message.
+            </returns>
         </member>
         <member name="M:YAF.Install._default.Page_Init(System.Object,System.EventArgs)">
             <summary>
@@ -961,9 +972,28 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Install._default.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.Parameter11_Value_CheckChanged(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The parameter 11_ value_ check changed.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Install._default.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Install._default.UpdateStatusTimer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            The update status timer_ tick.
             </summary>
             <param name="sender">
             The sender.
@@ -983,31 +1013,20 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Install._default.Wizard_FinishButtonClick(System.Object,System.Web.UI.WebControls.WizardNavigationEventArgs)">
-            <summary>
-            The wizard_ finish button click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Install._default.Wizard_PreviousButtonClick(System.Object,System.Web.UI.WebControls.WizardNavigationEventArgs)">
-            <summary>
-            The wizard_ previous button click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Install._default.Wizard_ActiveStepChanged(System.Object,System.EventArgs)">
             <summary>
             The wizard_ active step changed.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Install._default.Wizard_FinishButtonClick(System.Object,System.Web.UI.WebControls.WizardNavigationEventArgs)">
+            <summary>
+            The wizard_ finish button click.
             </summary>
             <param name="sender">
             The sender.
@@ -1029,20 +1048,9 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
-        <member name="M:YAF.Install._default.rblYAFDatabase_SelectedIndexChanged(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.Wizard_PreviousButtonClick(System.Object,System.Web.UI.WebControls.WizardNavigationEventArgs)">
             <summary>
-            The rbl yaf database_ selected index changed.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Install._default.btnTestDBConnection_Click(System.Object,System.EventArgs)">
-            <summary>
-            The btn test db connection_ click.
+            The wizard_ previous button click.
             </summary>
             <param name="sender">
             The sender.
@@ -1062,9 +1070,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Install._default.Parameter11_Value_CheckChanged(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.btnTestDBConnection_Click(System.Object,System.EventArgs)">
             <summary>
-            The parameter 11_ value_ check changed.
+            The btn test db connection_ click.
             </summary>
             <param name="sender">
             The sender.
@@ -1095,9 +1103,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Install._default.UpdateStatusTimer_Tick(System.Object,System.EventArgs)">
+        <member name="M:YAF.Install._default.rblYAFDatabase_SelectedIndexChanged(System.Object,System.EventArgs)">
             <summary>
-            The update status timer_ tick.
+            The rbl yaf database_ selected index changed.
             </summary>
             <param name="sender">
             The sender.
@@ -1105,6 +1113,16 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Install._default.DirectoryHasWritePermission(System.String)">
+            <summary>
+            Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
+            </summary>
+            <param name="directory">
+            </param>
+            <returns>
+            The directory has write permission.
+            </returns>
         </member>
         <member name="M:YAF.Install._default.TestDatabaseConnection(System.String@)">
             <summary>
@@ -1114,13 +1132,6 @@
             </param>
             <returns>
             The test database connection.
-            </returns>
-        </member>
-        <member name="M:YAF.Install._default.UpdateDatabaseConnection">
-            <summary>
-            The update database connection.
-            </summary>
-            <returns>
             </returns>
         </member>
         <member name="M:YAF.Install._default.UpdateInfoPanel(System.Web.UI.Control,System.Web.UI.WebControls.Label,System.String,System.String)">
@@ -1151,31 +1162,13 @@
             The status.
             </param>
         </member>
-        <member name="M:YAF.Install._default.FillWithConnectionStrings">
+        <member name="M:YAF.Install._default.AddLoadMessage(System.String)">
             <summary>
-            The fill with connection strings.
+            The add load message.
             </summary>
-        </member>
-        <member name="M:YAF.Install._default.DirectoryHasWritePermission(System.String)">
-            <summary>
-            Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
-            </summary>
-            <param name="directory">
+            <param name="msg">
+            The msg.
             </param>
-            <returns>
-            The directory has write permission.
-            </returns>
-        </member>
-        <member name="M:YAF.Install._default.UpgradeDatabase(System.Boolean)">
-            <summary>
-            The upgrade database.
-            </summary>
-            <param name="fullText">
-            The full text.
-            </param>
-            <returns>
-            The upgrade database.
-            </returns>
         </member>
         <member name="M:YAF.Install._default.CreateForum">
             <summary>
@@ -1184,44 +1177,6 @@
             <returns>
             The create forum.
             </returns>
-        </member>
-        <member name="M:YAF.Install._default.IndexOfWizardID(System.String)">
-            <summary>
-            The index of wizard id.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The index of wizard id.
-            </returns>
-        </member>
-        <member name="M:YAF.Install._default.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Install._default.GetMembershipErrorMessage(System.Web.Security.MembershipCreateStatus)">
-            <summary>
-            The get membership error message.
-            </summary>
-            <param name="status">
-            The status.
-            </param>
-            <returns>
-            The get membership error message.
-            </returns>
-        </member>
-        <member name="M:YAF.Install._default.AddLoadMessage(System.String)">
-            <summary>
-            The add load message.
-            </summary>
-            <param name="msg">
-            The msg.
-            </param>
         </member>
         <member name="M:YAF.Install._default.ExecuteScript(System.String,System.Boolean)">
             <summary>
@@ -1236,6 +1191,11 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
+        <member name="M:YAF.Install._default.FillWithConnectionStrings">
+            <summary>
+            The fill with connection strings.
+            </summary>
+        </member>
         <member name="M:YAF.Install._default.FixAccess(System.Boolean)">
             <summary>
             The fix access.
@@ -1243,6 +1203,46 @@
             <param name="bGrant">
             The b grant.
             </param>
+        </member>
+        <member name="M:YAF.Install._default.IndexOfWizardID(System.String)">
+            <summary>
+            The index of wizard id.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The index of wizard id.
+            </returns>
+        </member>
+        <member name="M:YAF.Install._default.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Install._default.UpdateDatabaseConnection">
+            <summary>
+            The update database connection.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Install._default.UpgradeDatabase(System.Boolean)">
+            <summary>
+            The upgrade database.
+            </summary>
+            <param name="fullText">
+            The full text.
+            </param>
+            <returns>
+            The upgrade database.
+            </returns>
         </member>
         <member name="F:YAF.Install._default.YafHead">
             <summary>
@@ -2153,24 +2153,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="P:YAF.Install._default.IsInstalled">
+        <member name="P:YAF.Install._default.CurrentConnString">
             <summary>
-            Gets a value indicating whether IsInstalled.
-            </summary>
-        </member>
-        <member name="P:YAF.Install._default.PageBoardID">
-            <summary>
-            Gets PageBoardID.
+              Gets CurrentConnString.
             </summary>
         </member>
         <member name="P:YAF.Install._default.CurrentWizardStepID">
             <summary>
-            Gets or sets CurrentWizardStepID.
+              Gets or sets CurrentWizardStepID.
             </summary>
         </member>
-        <member name="P:YAF.Install._default.CurrentConnString">
+        <member name="P:YAF.Install._default.IsInstalled">
             <summary>
-            Gets CurrentConnString.
+              Gets a value indicating whether IsInstalled.
+            </summary>
+        </member>
+        <member name="P:YAF.Install._default.PageBoardID">
+            <summary>
+              Gets PageBoardID.
             </summary>
         </member>
         <member name="T:YAF.Install._default.UpdateDBFailureType">
@@ -2180,17 +2180,17 @@
         </member>
         <member name="F:YAF.Install._default.UpdateDBFailureType.None">
             <summary>
-            The none.
+              The none.
             </summary>
         </member>
         <member name="F:YAF.Install._default.UpdateDBFailureType.AppSettingsWrite">
             <summary>
-            The app settings write.
+              The app settings write.
             </summary>
         </member>
         <member name="F:YAF.Install._default.UpdateDBFailureType.ConnectionStringWrite">
             <summary>
-            The connection string write.
+              The connection string write.
             </summary>
         </member>
         <member name="T:YAF.Controls.ReportedPosts">
@@ -3478,6 +3478,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.ForumActiveDiscussion.AtomFeed">
+            <summary>
+            AtomFeed control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.ForumActiveDiscussion.lastPostToolTip">
             <summary>
               The last post tooltip string.
@@ -4405,9 +4414,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.PostOptions.AddPollPlaceHolder">
+        <member name="F:YAF.Controls.PostOptions.liAddPoll">
             <summary>
-            AddPollPlaceHolder control.
+            liAddPoll control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -4432,9 +4441,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.PostOptions.PersistencyHolder">
+        <member name="F:YAF.Controls.PostOptions.liQuestion">
             <summary>
-            PersistencyHolder control.
+            liQuestion control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.PostOptions.chkIsQuestion">
+            <summary>
+            chkIsQuestion control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.PostOptions.IsQuestionLael">
+            <summary>
+            IsQuestionLael control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.PostOptions.liPersistency">
+            <summary>
+            liPersistency control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -4468,9 +4504,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.PostOptions.PersistantAttachBr">
+        <member name="F:YAF.Controls.PostOptions.liTopicWatch">
             <summary>
-            PersistantAttachBr control.
+            liTopicWatch control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -4495,9 +4531,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.PostOptions.TopicAttachBr">
+        <member name="F:YAF.Controls.PostOptions.liTopicAttach">
             <summary>
-            TopicAttachBr control.
+            liTopicAttach control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -4535,42 +4571,52 @@
         </member>
         <member name="P:YAF.Controls.PostOptions.AttachChecked">
             <summary>
-            Gets or sets a value indicating whether AttachChecked.
+              Gets or sets a value indicating whether AttachChecked.
             </summary>
         </member>
         <member name="P:YAF.Controls.PostOptions.AttachOptionVisible">
             <summary>
-            Gets or sets a value indicating whether AttachOptionVisible.
+              Gets or sets a value indicating whether AttachOptionVisible.
             </summary>
         </member>
-        <member name="P:YAF.Controls.PostOptions.PollOptionVisible">
+        <member name="P:YAF.Controls.PostOptions.IsQuestionChecked">
             <summary>
-            Gets or sets a value indicating whether Poll Option is Visible.
+            Gets or sets a value indicating whether IsQuestionChecked.
             </summary>
         </member>
-        <member name="P:YAF.Controls.PostOptions.PollChecked">
+        <member name="P:YAF.Controls.PostOptions.IsQuestionVisible">
             <summary>
-            Gets or sets a value indicating whether Poll Option is Visible.
+            Gets or sets a value indicating whether IsQuestionVisible.
             </summary>
         </member>
         <member name="P:YAF.Controls.PostOptions.PersistantChecked">
             <summary>
-            Gets or sets a value indicating whether PersistantChecked.
+              Gets or sets a value indicating whether PersistantChecked.
             </summary>
         </member>
         <member name="P:YAF.Controls.PostOptions.PersistantOptionVisible">
             <summary>
-            Gets or sets a value indicating whether PersistantOptionVisible.
+              Gets or sets a value indicating whether PersistantOptionVisible.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.PostOptions.PollChecked">
+            <summary>
+              Gets or sets a value indicating whether Poll Option is Visible.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.PostOptions.PollOptionVisible">
+            <summary>
+              Gets or sets a value indicating whether Poll Option is Visible.
             </summary>
         </member>
         <member name="P:YAF.Controls.PostOptions.WatchChecked">
             <summary>
-            Gets or sets a value indicating whether WatchChecked.
+              Gets or sets a value indicating whether WatchChecked.
             </summary>
         </member>
         <member name="P:YAF.Controls.PostOptions.WatchOptionVisible">
             <summary>
-            Gets or sets a value indicating whether WatchOptionVisible.
+              Gets or sets a value indicating whether WatchOptionVisible.
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumIconLegend">
@@ -8691,7 +8737,7 @@
         </member>
         <member name="T:YAF.Pages.rsstopic">
             <summary>
-            Summary description for rss.
+            Summary description for rss topic.
             </summary>
         </member>
         <member name="M:YAF.Pages.rsstopic.#ctor">
@@ -8709,6 +8755,83 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetPostLatestContent(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            The method to return latest topic content to display in a feed.
+            </summary>
+            <param name="link">A linkt to an active topic.</param>
+            <param name="imgUrl">A latest topic icon Url.</param>
+            <param name="imgAlt">A latest topic icon Alt text.</param>
+            <param name="linkName">A latest topic displayed link name</param>
+            <param name="text">An active topic first message content/partial content.</param>
+            <returns>An Html formatted first message content string.</returns>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetPostLatestFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean,System.String,System.String)">
+            <summary>
+            The method creates YafSyndicationFeed for topics in a forum.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="lastPostIcon">The icon for last post link.</param>
+            <param name="lastPostName">The last post name.</param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetLatestAnnouncementsFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean)">
+            <summary>
+            The method creates YafSyndicationFeed for topic announcements.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetPostsFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean,System.Int32)">
+            <summary>
+            The method creates YafSyndicationFeed for posts.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetForumFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean,System.Object)">
+            <summary>
+            The method creates YafSyndicationFeed for forums in a category.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="categoryId">The category id.</param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetTopicsFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            The method creates YafSyndicationFeed for topics in a forum.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="lastPostIcon">The icon for last post link.</param>
+            <param name="lastPostName">The last post name.</param>
+            <param name="forumId">The forum id.</param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetActiveFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean,System.String,System.String,System.Object)">
+            <summary>
+            The method creates YafSyndicationFeed for Active topics.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="lastPostIcon">The icon for last post link.</param>
+            <param name="lastPostName">The last post name.</param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetFavoriteFeed(YAF.Classes.Core.YafSyndicationFeed@,YAF.Classes.YafRssFeeds,System.Boolean,System.String,System.String,System.Object)">
+            <summary>
+            The method creates YafSyndicationFeed for Favorite topics.
+            </summary>
+            <param name="feed">The YafSyndicationFeed.</param>
+            <param name="feedType">The FeedType.</param>
+            <param name="atomFeedByVar">The Atom feed checker.</param>
+            <param name="lastPostIcon">The icon for last post link.</param>
+            <param name="lastPostName">The last post name.</param>
         </member>
         <member name="T:YAF.Pages.profile">
             <summary>
@@ -15642,6 +15765,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.polledit.IsClosedBoundExplainLabel">
+            <summary>
+            IsClosedBoundExplainLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.polledit.IsClosedBoundCheckBox">
             <summary>
             IsClosedBoundCheckBox control.
@@ -16844,6 +16976,15 @@
         <member name="F:YAF.Pages.topics.RssFeed">
             <summary>
             RssFeed control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.topics.AtomFeed">
+            <summary>
+            AtomFeed control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -18887,6 +19028,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ShowRSSLink">
             <summary>
             ShowRSSLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowAtomLink">
+            <summary>
+            ShowAtomLink control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21655,6 +21805,7 @@
         <member name="M:YAF.controls.PollList.CanRemoveGroupCompletely">
             <summary>
             Checks if  a user can remove all polls in a group completely.
+            
             </summary>
             <returns>
             The can remove group completely.
@@ -21662,7 +21813,7 @@
         </member>
         <member name="M:YAF.controls.PollList.CanRemoveGroupEverywhere">
             <summary>
-            Checks if a user can delete group from all places but not completely
+            Checks if a user can delete group from all places, but not completely
             </summary>
             <returns>
             The can remove group everywhere.
@@ -21680,7 +21831,7 @@
         </member>
         <member name="M:YAF.controls.PollList.CanRemovePollCompletely(System.Object)">
             <summary>
-            Checks if a user can delete poll completely
+            Checks if a user can delete poll completely from database.
             </summary>
             <param name="pollId">
             </param>
@@ -22937,45 +23088,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.MyTopicsList.TopicsLabel">
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel6">
             <summary>
-            TopicsLabel control.
+            LocalizedLabel6 control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.MyTopicsList.StarterLabel">
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel8">
             <summary>
-            StarterLabel control.
+            LocalizedLabel8 control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.MyTopicsList.RepliesLabel">
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel9">
             <summary>
-            RepliesLabel control.
+            LocalizedLabel9 control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.MyTopicsList.ViewsLabel">
+        <member name="F:YAF.Controls.MyTopicsList.LocalizedLabel10">
             <summary>
-            ViewsLabel control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.MyTopicsList.LastPostLabel">
-            <summary>
-            LastPostLabel control.
+            LocalizedLabel10 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -22994,6 +23136,15 @@
         <member name="F:YAF.Controls.MyTopicsList.RssFeed">
             <summary>
             RssFeed control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.MyTopicsList.AtomFeed">
+            <summary>
+            AtomFeed control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28793,6 +28944,14 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.posts.PollGroupId">
+            <summary>
+            The poll group id.
+            </summary>
+            <returns>
+            The poll group id.
+            </returns>
+        </member>
         <member name="M:YAF.Pages.posts.PostReplyLink_Click(System.Object,System.EventArgs)">
             <summary>
             The post reply link_ click.
@@ -28825,6 +28984,14 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Pages.posts.ShowPollButtons">
+            <summary>
+            The show poll buttons.
+            </summary>
+            <returns>
+            The show poll buttons.
+            </returns>
         </member>
         <member name="M:YAF.Pages.posts.TrackTopic_Click(System.Object,System.EventArgs)">
             <summary>

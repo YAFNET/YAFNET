@@ -104,6 +104,61 @@
               The topics i subscribe to.
             </summary>
         </member>
+        <member name="T:YAF.Classes.YafRssFeeds">
+            <summary>
+            The yaf rss feeds.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.LatestPosts">
+            <summary>
+            The latest posts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.LatestAnnouncements">
+            <summary>
+            The latest announcements.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.Posts">
+            <summary>
+            The posts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.Forum">
+            <summary>
+            The forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.Topics">
+            <summary>
+            The topics.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.Active">
+            <summary>
+            The active.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafRssFeeds.Favorite">
+            <summary>
+            The favorite.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.YafSyndicationFormats">
+            <summary>
+            The yaf syndication formats.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafSyndicationFormats.Rss">
+            <summary>
+            The RSS format.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafSyndicationFormats.Atom">
+            <summary>
+            The atom format.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1">
             <summary>
             The type application factory instance.
@@ -2934,6 +2989,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.ShowRSSLink">
             <summary>
             Gets or sets a value indicating whether ShowRSSLink.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowAtomLink">
+            <summary>
+            Gets or sets a value indicating whether ShowAtomLink.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowPageGenerationTime">

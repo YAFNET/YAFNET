@@ -3665,6 +3665,11 @@
             Gets or Sets if a spacer should be inserted after the link. (Default <see langword="false"/>)
             </summary>
         </member>
+        <member name="P:YAF.Controls.RssFeedLink.IsAtomFeed">
+            <summary>
+            Gets or Sets if this is a link to atom feed. (Default <see langword="false"/>)
+            </summary>
+        </member>
         <member name="P:YAF.Controls.RssFeedLink.AdditionalParameters">
             <summary>
             Gets or Sets additional rss feed url parameters.
