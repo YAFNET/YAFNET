@@ -3055,6 +3055,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 	declare	@UserID		int
 	declare	@ForumID	int
 	declare	@TopicID	int
+	declare	@Flags	    int
 	declare @Posted		datetime
 	declare	@UserName	nvarchar(255)
 
@@ -3063,7 +3064,8 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 		@TopicID = a.TopicID,
 		@ForumID = b.ForumID,
 		@Posted = a.Posted,
-		@UserName = a.UserName
+		@UserName = a.UserName,
+		@Flags	= a.Flags
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a
 		inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
@@ -3095,7 +3097,8 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 		LastPosted = @Posted,
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
-		LastUserName = @UserName,
+		LastUserName = @UserName,		
+		LastMessageFlags = @Flags | 16,
 		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where TopicID = @TopicID
 	
@@ -3120,13 +3123,15 @@ begin
 			inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
 		where
 			a.MessageID=@MessageID
+   
 
 	-- Update LastMessageID in Topic
 	update [{databaseOwner}].[{objectQualifier}Topic] set 
 		LastPosted = null,
 		LastMessageID = null,
 		LastUserID = null,
-		LastUserName = null
+		LastUserName = null,
+		LastMessageFlags = null
 	where LastMessageID = @MessageID
 
 	-- Update LastMessageID in Forum
@@ -3427,12 +3432,12 @@ BEGIN
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
 
 	INSERT [{databaseOwner}].[{objectQualifier}Message] ( UserID, [Message], TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID)
-	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID)
-
+	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID)	
+	
 	SET @MessageID = SCOPE_IDENTITY()
 
 	IF ((@ForumFlags & 8) = 0) OR ((@Flags & 16) = 16)
-		EXEC [{databaseOwner}].[{objectQualifier}message_approve] @MessageID
+		EXEC [{databaseOwner}].[{objectQualifier}message_approve] @MessageID	
 END
 	
 GO
@@ -4183,7 +4188,7 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@Up
 begin
 		set nocount on
 	if @UpdateViewCount>0
-		update [{databaseOwner}].[{objectQualifier}Topic] set Views = Views + 1 where TopicID = @TopicID
+		update [{databaseOwner}].[{objectQualifier}Topic] set [Views] = [Views] + 1 where TopicID = @TopicID
 	select
 		d.TopicID,
 		TopicFlags	= d.Flags,
@@ -4204,7 +4209,7 @@ begin
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
-		b.Signature,
+		b.[Signature],
 		Posts		= b.NumPosts,
 		b.Points,
 		d.[Views],
@@ -5161,14 +5166,16 @@ begin
 			LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
+			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastMessageFlags = (select top 1 x.Flags from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
 		where TopicID = @TopicID
 	else
 		update [{databaseOwner}].[{objectQualifier}Topic] set
 			LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
 			LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
+			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastMessageFlags = (select top 1 x.Flags from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
 		where TopicMovedID is null
 		and (@ForumID is null or ForumID=@ForumID)
 
@@ -6400,7 +6407,8 @@ begin
 		LastPosted = null,
 		LastMessageID = null,
 		LastUserID = null,
-		LastUserName = null
+		LastUserName = null,
+		LastMessageFlags = null
 	where LastMessageID = @MessageID
 
 	update [{databaseOwner}].[{objectQualifier}Forum] set
@@ -6507,12 +6515,16 @@ update [{databaseOwner}].[{objectQualifier}Message] set
 		Position = Position-1
 	 WHERE     (TopicID = @OldTopicID) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
+	
+
+
 	-- Update LastMessageID in Topic and Forum
 	update [{databaseOwner}].[{objectQualifier}Topic] set
 		LastPosted = null,
 		LastMessageID = null,
 		LastUserID = null,
-		LastUserName = null
+		LastUserName = null,
+		LastMessageFlags = null 
 	where LastMessageID = @MessageID
 
 	update [{databaseOwner}].[{objectQualifier}Forum] set

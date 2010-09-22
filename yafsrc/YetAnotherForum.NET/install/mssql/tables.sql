@@ -70,7 +70,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		BoardID			int NOT NULL ,
 		UserID			int NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
-		Login			datetime NOT NULL ,
+		[Login]			datetime NOT NULL ,
 		LastActive		datetime NOT NULL ,
 		Location		nvarchar (50) NOT NULL ,
 		ForumID			int NULL ,
@@ -109,7 +109,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		UserID			int NOT NULL ,
 		Email			nvarchar (50) NOT NULL ,
 		Created			datetime NOT NULL ,
-		Hash			nvarchar (32) NOT NULL 
+		[Hash]			nvarchar (32) NOT NULL 
 	)
 GO
 
@@ -307,7 +307,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		Flags			int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
 		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0)),
 		[IsQuestion]    AS (CONVERT([bit],sign([Flags]&(1024)),(0))),
-		[AnswerMessageId] [int] NULL
+		[AnswerMessageId] [int] NULL,
+		[LastMessageFlags]	[int] NULL
 	)
 GO
 
@@ -1356,8 +1357,6 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [UserName] nvarchar (255) NULL
 end
 GO
-
-
 		
 -- Topic Table
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
@@ -1384,6 +1383,16 @@ GO
 if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastUserName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [LastUserName]	nvarchar (255) NULL 
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastMessageFlags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add [LastMessageFlags] int null
+	grant update on [{databaseOwner}].[{objectQualifier}Topic] to public
+	-- vzrus : we don't migrate flags to not slow down update and possible timeouts. Users can run maintenance scripts? Else use cursors.
+	exec('update [{databaseOwner}].[{objectQualifier}Topic] set LastMessageFlags = 22 WHERE LastMessageFlags IS NULL')
+	revoke update on [{databaseOwner}].[{objectQualifier}Topic] from public	
 end
 GO
 
