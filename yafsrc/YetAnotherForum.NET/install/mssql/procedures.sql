@@ -2603,9 +2603,11 @@ begin
 		Subforums		= [{databaseOwner}].[{objectQualifier}forum_subforums](b.ForumID, @UserID),
 		LastPosted		= t.LastPosted,
 		LastMessageID	= t.LastMessageID,
+		LastMessageFlags = t.LastMessageFlags,
 		LastUserID		= t.LastUserID,
 		LastUser		= IsNull(t.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.LastUserID)),
 		LastTopicID		= t.TopicID,
+		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
 		b.Flags,
 		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
@@ -4190,7 +4192,7 @@ begin
 	if @UpdateViewCount>0
 		update [{databaseOwner}].[{objectQualifier}Topic] set [Views] = [Views] + 1 where TopicID = @TopicID
 	select
-		d.TopicID,
+		d.TopicID,		
 		TopicFlags	= d.Flags,
 		ForumFlags	= g.Flags,
 		a.MessageID,
@@ -4568,9 +4570,10 @@ begin
 		select
 		c.ForumID,
 		c.TopicID,
+		c.TopicMovedID,
 		c.Posted,
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
-		Subject = c.Topic,
+		[Subject] = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
@@ -4580,6 +4583,7 @@ begin
 		LastUserID = c.LastUserID,
 		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
+		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
 		TopicFlags = c.Flags,
 		c.Priority,
@@ -4844,10 +4848,10 @@ AS
 BEGIN
 		DECLARE @SQL nvarchar(500)
 
-	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID FROM'
+	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageIDLast, t.LastMessageFlags FROM'
 	SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
 	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}vaccess] v on v.ForumID=f.ForumID'
-	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
 
 	EXEC(@SQL)	
 
@@ -4873,9 +4877,11 @@ BEGIN
 		f.Name as Forum,
 		t.Topic,
 		t.TopicID,
+		t.TopicMovedID,
 		t.UserID,
 		t.UserName,		
 		t.LastMessageID,
+		t.LastMessageFlags,
 		t.LastUserID,
 		t.NumPosts,
 		t.Posted,		
@@ -7715,6 +7721,7 @@ begin
 		select
 		c.ForumID,
 		c.TopicID,
+		c.TopicMovedID,
 		c.Posted,
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 		[Subject] = c.Topic,
@@ -7727,6 +7734,7 @@ begin
 		LastUserID = c.LastUserID,
 		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
+		LastMessageFlags = c.LastMessageFlags,
 		LastTopicID = c.TopicID,
 		TopicFlags = c.Flags,
 		c.Priority,
