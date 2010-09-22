@@ -672,15 +672,16 @@ namespace YAF.Pages
             categoryActiveId,
             false))
         {
+            feed =
+                     new YafSyndicationFeed(
+                         "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS"),
+                                                toFavText), feedType,
+                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
+
             foreach (DataRow row in dt.Rows)
             {
                 if (row["TopicMovedID"].IsNullOrEmptyDBField())
                 {
-                    feed =
-                        new YafSyndicationFeed(
-                            "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS"),
-                                                   toFavText), feedType,
-                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
 
                     DateTime lastPosted = !row["LastPosted"].IsNullOrEmptyDBField()
                                               ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset
