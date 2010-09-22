@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System;
 using System.Text.RegularExpressions;
 
 namespace YAF.Classes.Utils
@@ -65,7 +66,19 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsValidURL(string url)
     {
-      return Regex.IsMatch(url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$");
+          try
+          {
+              new Uri(url, UriKind.Absolute);
+              return true;
+          }
+          catch (Exception)
+          {
+              
+          }
+
+          return false;
+        
+      //return Regex.IsMatch(url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$");
     }
 
     /// <summary>

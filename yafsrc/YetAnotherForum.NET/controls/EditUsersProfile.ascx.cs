@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Text.RegularExpressions;
+
 namespace YAF.Controls
 {
   #region Using
@@ -213,29 +215,23 @@ namespace YAF.Controls
     /// </param>
     protected void UpdateProfile_Click(object sender, EventArgs e)
     {
+  
         if (this.HomePage.Text.IsSet())
         {
-            if (!this.HomePage.Text.StartsWith("http://"))
+            // add http:// by default
+            if (!Regex.IsMatch(this.Weblog.Text.Trim(), @"^(http|https|ftp|ftps)\://.*"))
             {
-                this.HomePage.Text = "http://" + this.HomePage.Text;
+                this.HomePage.Text = "http://" + this.HomePage.Text.Trim();
             }
         }
 
-        if (this.Weblog.Text.IsSet())
-      {
-          if (!this.Weblog.Text.StartsWith("http://"))
-          {
-              this.Weblog.Text = "http://" + this.HomePage.Text;
-          }
-      }
-
-      if (this.HomePage.Text.IsSet() && (!ValidationHelper.IsValidURL(this.HomePage.Text)))
+        if (this.HomePage.Text.IsSet() && (!ValidationHelper.IsValidURL(this.HomePage.Text)))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
         return;
       }
 
-      if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text))
+      if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_WEBLOG"));
         return;
