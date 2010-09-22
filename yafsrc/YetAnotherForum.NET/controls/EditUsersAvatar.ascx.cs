@@ -279,6 +279,8 @@ namespace YAF.Controls
 
         Stream resized = null;
 
+        ImageFormat format = null;
+
         try
         {
           using (Image img = Image.FromStream(this.File.PostedFile.InputStream))
@@ -303,10 +305,17 @@ namespace YAF.Controls
                 newHeight = y;
               }
 
-              using (var bitmap = new Bitmap(img, new Size((int) newWidth, (int) newHeight)))
+              /*using (var bitmap = new Bitmap(img, new Size((int) newWidth, (int) newHeight)))
               {
                 resized = new MemoryStream();
                 bitmap.Save(resized, ImageFormat.Jpeg);
+              }*/
+
+              using (var bitmap = img.GetThumbnailImage((int)newWidth,(int) newHeight, null, IntPtr.Zero))
+              {
+                  resized = new MemoryStream();
+                  bitmap.Save(resized, bitmap.RawFormat);
+                  format = bitmap.RawFormat;
               }
             }
 
@@ -323,7 +332,8 @@ namespace YAF.Controls
             }
             else
             {
-              DB.user_saveavatar(this._currentUserID, null, resized, "image/jpeg");
+                //DB.user_saveavatar(this._currentUserID, null, resized, bitmap.RawFormat);
+                DB.user_saveavatar(this._currentUserID, null, resized, format);
             }
 
             // clear the cache for this user...
