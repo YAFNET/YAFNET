@@ -215,7 +215,7 @@ namespace YAF.Classes.Core
 
         // remove empty categories...
         foreach (DataRow row in
-          categoryTable.AsEnumerable().Select(
+          categoryTable.SelectTypedList(
             row => new { row, childRows = row.GetChildRows("FK_Forum_Category") }).Where(@t => !@t.childRows.Any())
             .Select(@t => @t.row))
         {
@@ -314,13 +314,13 @@ namespace YAF.Classes.Core
         key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
 
       return
-        moderator.ToListObject(
-          (row) =>
+        moderator.SelectTypedList(
+          row =>
           new SimpleModerator(
-            Convert.ToInt64(row["ForumID"]), 
-            Convert.ToInt64(row["ModeratorID"]), 
-            row["ModeratorName"].ToString(), 
-            SqlDataLayerConverter.VerifyBool(row["IsGroup"])));
+            row.Field<long>("ForumID"),
+            row.Field<long>("ModeratorID"),
+            row.Field<string>("ModeratorName"),
+            SqlDataLayerConverter.VerifyBool(row["IsGroup"]))).ToList();
     }
 
     /// <summary>
@@ -337,20 +337,15 @@ namespace YAF.Classes.Core
     public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
     {
       var forumData =
-        DB.forum_listall(boardId, userId).AsEnumerable().Select(
-          x => new SimpleForum() { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") }).ToList();
+        DB.forum_listall(boardId, userId).SelectTypedList(x => new SimpleForum() { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") }).ToList();
 
       // get topics for all forums...
       foreach (var forum in forumData)
       {
-        // add announcements
+        // add topics
         var topics =
-          DB.topic_list(forum.ForumID, userId, true, timeFrame, 0, maxCount, false).AsEnumerable().Select(
-            x => this.LoadSimpleTopic(x, forum)).ToList();
-
-        // add all other topics...
-        topics.AddRange(DB.topic_list(forum.ForumID, userId, false, timeFrame, 0, maxCount, false).AsEnumerable().Select(
-            x => this.LoadSimpleTopic(x, forum)).ToList());
+          DB.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false).SelectTypedList(
+            x => this.LoadSimpleTopic(x, forum)).Where(x => x.LastPostDate >= timeFrame).ToList();
 
         forum.Topics = topics;
       }
@@ -358,6 +353,17 @@ namespace YAF.Classes.Core
       return forumData;
     }
 
+    /// <summary>
+    /// </summary>
+    /// Creates a Simple Topic item.
+    /// <param name="row">
+    /// The row.
+    /// </param>
+    /// <param name="forum">
+    /// The forum.
+    /// </param>
+    /// <returns>
+    /// </returns>
     [NotNull]
     private SimpleTopic LoadSimpleTopic([NotNull] DataRow row, [NotNull] SimpleForum forum)
     {
@@ -377,7 +383,7 @@ namespace YAF.Classes.Core
           LastUserName = UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),
           LastMessageID = row.Field<int>("LastMessageID"),
           FirstMessage = row.Field<string>("FirstMessage"),
-          LastMessage = DB.message_list(row.Field<int>("LastMessageID")).AsEnumerable().First().Field<string>("Message"),
+          LastMessage = DB.MessageList(row.Field<int>("LastMessageID")).First().Message,
           Forum = forum
         };
     }

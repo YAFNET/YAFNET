@@ -25,6 +25,8 @@ namespace YAF.Classes.Utils
   using System.Data;
   using System.Linq;
 
+  using YAF.Classes.Pattern;
+
   #endregion
 
   /// <summary>
@@ -33,6 +35,29 @@ namespace YAF.Classes.Utils
   public static class DBHelper
   {
     #region Public Methods
+
+    /// <summary>
+    /// Selects a typed list of rows using the <paramref name="createNew"/> delegate.
+    /// </summary>
+    /// <param name="dataTable">
+    /// The data table.
+    /// </param>
+    /// <param name="createNew">
+    /// The create new.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    public static IEnumerable<T> SelectTypedList<T>(
+      [NotNull] this DataTable dataTable, [NotNull] Func<DataRow, T> createNew)
+    {
+      CodeContracts.ArgumentNotNull(dataTable, "dataTable");
+      CodeContracts.ArgumentNotNull(createNew, "createNew");
+
+      return dataTable.AsEnumerable().Select(createNew);
+    }
 
     /// <summary>
     /// Converts <paramref name="columnName"/> in a <see cref="DataTable"/> to a generic List of type T.
@@ -45,7 +70,8 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static List<T> GetColumnAsList<T>(this DataTable dataTable, string columnName)
+    [NotNull]
+    public static List<T> GetColumnAsList<T>([NotNull] this DataTable dataTable, [NotNull] string columnName)
     {
       return (from x in dataTable.AsEnumerable() select x.Field<T>(columnName)).ToList();
     }
@@ -59,7 +85,8 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static List<T> GetFirstColumnAsList<T>(this DataTable dataTable)
+    [NotNull]
+    public static List<T> GetFirstColumnAsList<T>([NotNull] this DataTable dataTable)
     {
       return (from x in dataTable.AsEnumerable() select x.Field<T>(0)).ToList();
     }
@@ -71,7 +98,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataRow GetFirstRow(this DataTable dt)
+    public static DataRow GetFirstRow([NotNull] this DataTable dt)
     {
       if (dt.Rows.Count > 0)
       {
@@ -98,7 +125,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static T GetFirstRowColumnAsValue<T>(this DataTable dt, string columnName, T defaultValue)
+    public static T GetFirstRowColumnAsValue<T>([NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
     {
       if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
       {
@@ -118,7 +145,8 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataRow GetFirstRowOrInvalid(DataTable dt)
+    [CanBeNull]
+    public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
     {
       DataRow row = dt.GetFirstRow();
 
@@ -141,7 +169,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is <see langword="null"/> or empty db field.
     /// </returns>
-    public static bool IsNullOrEmptyDBField(this object columnValue)
+    public static bool IsNullOrEmptyDBField([NotNull] this object columnValue)
     {
       if (columnValue == DBNull.Value)
       {
@@ -153,22 +181,6 @@ namespace YAF.Classes.Utils
       }
 
       return false;
-    }
-
-    /// <summary>
-    /// Converts a <see cref="DataTable"/> to a List of type T using the convert function.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <param name="dt">
-    /// </param>
-    /// <param name="convertFunction">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static List<T> ToListObject<T>(this DataTable dt, Func<DataRow, T> convertFunction)
-    {
-      return (from x in dt.AsEnumerable() select convertFunction(x)).ToList();
     }
 
     #endregion

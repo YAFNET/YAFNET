@@ -3932,6 +3932,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
+    [Obsolete("Use MessageList(int messageId) instead")]
     public static DataTable message_list(object messageID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_list"))
@@ -3939,6 +3940,25 @@ namespace YAF.Classes.Data
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
         return YafDBAccess.Current.GetData(cmd);
+      }
+    }
+
+    /// <summary>
+    /// The message_list.
+    /// </summary>
+    /// <param name="messageID">
+    /// The message id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static IEnumerable<TypedMessageList> MessageList(int messageID)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("message_list"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("MessageID", messageID);
+
+        return YafDBAccess.Current.GetData(cmd).AsEnumerable().Select(t => new TypedMessageList(t));
       }
     }
 

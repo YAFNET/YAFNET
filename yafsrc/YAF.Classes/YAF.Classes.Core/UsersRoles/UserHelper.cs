@@ -36,7 +36,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// language file name. If null -- use default language
     /// </returns>
-    public static string GetUserLanguageFile(long userId)
+    public static string GetUserLanguageFile(int userId)
     {
       // get the user information...
       DataRow row = UserMembershipHelper.GetUserRowForID(userId);
@@ -56,7 +56,7 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public static string GetUserThemeFile(long userId)
+    public static string GetUserThemeFile(int userId)
     {
       DataRow row = UserMembershipHelper.GetUserRowForID(userId);
       

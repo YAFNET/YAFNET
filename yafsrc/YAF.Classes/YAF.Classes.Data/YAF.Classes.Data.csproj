@@ -104,6 +104,7 @@
     <Compile Include="Object\SimpleForum.cs" />
     <Compile Include="Object\SimpleTopic.cs" />
     <Compile Include="Object\TypedAllThanks.cs" />
+    <Compile Include="Object\TypedMessageList.cs" />
     <Compile Include="Object\TypedPollGroup.cs" />
     <Compile Include="Object\TypedUserFind.cs" />
     <Compile Include="PollSaveList.cs" />
