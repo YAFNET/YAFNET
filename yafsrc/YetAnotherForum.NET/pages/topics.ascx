@@ -97,7 +97,7 @@
                         <asp:LinkButton runat="server" ID="MarkRead" />
                         <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true"
                             Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />  
-                          <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Topics" IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />                            
+                          <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true" IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />                            
                     </td>
                 </tr>
             </table>

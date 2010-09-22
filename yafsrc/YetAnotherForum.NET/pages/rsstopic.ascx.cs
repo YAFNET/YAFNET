@@ -127,19 +127,27 @@ namespace YAF.Pages
             
             if (this.Request.QueryString.GetFirstOrDefault("t") != null)
             {
-                GetPostsFeed(ref feed, feedType, atomFeedByVar);
+                int topicId;   
+                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("t"), out topicId))
+                {
+                    GetPostsFeed(ref feed, feedType, atomFeedByVar, topicId);
+                }
             }
 
           break;
 
         // Forum Feed
         case YafRssFeeds.Forum:
-            int icategoryId = 0;
+            
             object categoryId = null;
             
-            if (this.Request.QueryString.GetFirstOrDefault("c") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("c"), out icategoryId))
+            if (this.Request.QueryString.GetFirstOrDefault("c") != null)
             {
-                categoryId = icategoryId;
+               int icategoryId = 0;
+               if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("c"), out icategoryId))
+                {
+                    categoryId = icategoryId;
+                }
             }
             
             GetForumFeed(ref feed, feedType,atomFeedByVar, categoryId);
@@ -153,9 +161,12 @@ namespace YAF.Pages
             }
             
             int forumId;
-            if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
+            if (this.Request.QueryString.GetFirstOrDefault("f") != null)
             {
-                GetTopicsFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, forumId);
+                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
+                {
+                    GetTopicsFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, forumId);
+                }
             }
             break;
 
@@ -321,12 +332,12 @@ namespace YAF.Pages
     /// <param name="feed">The YafSyndicationFeed.</param>
     /// <param name="feedType">The FeedType.</param>
     /// <param name="atomFeedByVar">The Atom feed checker.</param>
-    private void GetPostsFeed(ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar)
+    private void GetPostsFeed(ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar, int topicId)
     {
         var syndicationItems = new List<SyndicationItem>();
         using (
              DataTable dt = DB.post_list(
-               this.PageContext.PageTopicID, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
+               topicId, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
         {
             // get max 500 rows
             var dataRows = dt.AsEnumerable().Take(500);
@@ -453,8 +464,12 @@ namespace YAF.Pages
                         // Alternate Link
                         //  feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
                     }
-
-                    feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["LastUserID"])));
+                    if (!row["LastUserID"].IsNullOrEmptyDBField())
+                    {
+                        feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
+                                                                                             Convert.ToInt64(
+                                                                                                 row["LastUserID"])));
+                    }
 
                     syndicationItems.AddSyndicationItem(
                     row["Topic"].ToString(),

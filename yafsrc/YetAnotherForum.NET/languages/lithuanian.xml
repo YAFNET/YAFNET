@@ -956,9 +956,10 @@
     <Resource tag="POLL_WILLEXPIRE_HOURS">Last hours to vote!</Resource>
     <Resource tag="POLLADD">Add Poll</Resource>
     <Resource tag="POLLGROUP_ATTACHED">Can't attach the group. A group is already attached.</Resource>
-    <Resource tag="POLLGROUP_BOUND">Bound voting</Resource>
     <Resource tag="POLLGROUP_BOUNDWARN">You should vote in all polls to see results.</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND">Bound voting</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND">Don't show results if group is open</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results if group is open for voting</Resource>
     <Resource tag="POLLGROUP_LIST">Choose an existing poll group:</Resource>
     <Resource tag="POLLGROUPISBOUND">Your vote will be counted when you'll vote in all the polls.</Resource>
     <Resource tag="POLLHEADER">Create Or Edit Poll</Resource>

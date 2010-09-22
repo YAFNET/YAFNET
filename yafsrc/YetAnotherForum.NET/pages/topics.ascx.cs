@@ -91,7 +91,7 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
       Mession.UnreadTopics = 0;
-
+      this.AtomFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
       this.RssFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
       this.MarkRead.Text = GetText("MARKREAD");
       this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
