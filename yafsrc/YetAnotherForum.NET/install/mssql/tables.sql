@@ -149,6 +149,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
+		[IsHidden]		AS (CONVERT([bit],sign([Flags]&(2)),(0))),
 		Flags			int not null constraint [DF_{objectQualifier}Forum_Flags] default (0),
 		ThemeURL		nvarchar(50) NULL,
 		PollGroupID     int null 
@@ -1309,6 +1310,12 @@ GO
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsDeleted')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsHidden')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 end
 GO
 
