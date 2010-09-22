@@ -38,7 +38,7 @@ namespace YAF.Controls
     /// <summary>
     /// The admin edit mode.
     /// </summary>
-    private bool _adminEditMode = false;
+    private bool _adminEditMode;
 
     /// <summary>
     /// The current user id.
@@ -278,9 +278,7 @@ namespace YAF.Controls
         int nAvatarSize = PageContext.BoardSettings.AvatarSize;
 
         Stream resized = null;
-
-        ImageFormat format = null;
-
+          
         try
         {
           using (Image img = Image.FromStream(this.File.PostedFile.InputStream))
@@ -305,18 +303,11 @@ namespace YAF.Controls
                 newHeight = y;
               }
 
-              /*using (var bitmap = new Bitmap(img, new Size((int) newWidth, (int) newHeight)))
-              {
-                resized = new MemoryStream();
-                bitmap.Save(resized, ImageFormat.Jpeg);
-              }*/
+             // TODO : Save an Animated Gif
+              var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
 
-              using (var bitmap = img.GetThumbnailImage((int)newWidth,(int) newHeight, null, IntPtr.Zero))
-              {
-                  resized = new MemoryStream();
-                  bitmap.Save(resized, bitmap.RawFormat);
-                  format = bitmap.RawFormat;
-              }
+              resized = new MemoryStream();
+              bitmap.Save(resized, img.RawFormat);
             }
 
             if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
@@ -326,28 +317,21 @@ namespace YAF.Controls
               return;
             }
 
-            if (resized == null)
-            {
-              DB.user_saveavatar(this._currentUserID, null, this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
-            }
-            else
-            {
-                //DB.user_saveavatar(this._currentUserID, null, resized, bitmap.RawFormat);
-                DB.user_saveavatar(this._currentUserID, null, resized, format);
-            }
+              DB.user_saveavatar(this._currentUserID, null, resized ?? this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
 
-            // clear the cache for this user...
+              // clear the cache for this user...
             UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
           }
         }
-        catch
+        catch (Exception)
         {
           // image is probably invalid...
-          PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "INVALID_FILE"));
+         PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "INVALID_FILE"));
         }
 
         BindData();
       }
+       
     }
   }
 }
