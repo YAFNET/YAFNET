@@ -1416,6 +1416,11 @@
             Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.UrlRewritingPrefix">
+            <summary>
+            Prefix used for Url Rewriting -- default is "yaf_"
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.ServerFileRoot">
             <summary>
             Gets ServerFileRoot.
