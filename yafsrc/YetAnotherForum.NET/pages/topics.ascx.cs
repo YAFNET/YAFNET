@@ -144,7 +144,7 @@ namespace YAF.Pages
 
       this._forumFlags = new ForumFlags(this._forum["Flags"]);
 
-      this.PageTitle.Text = (string)this._forum["Name"];
+      this.PageTitle.Text = HtmlEncode((string)this._forum["Name"]);
 
       BindData(); // Always because of yaf:TopicLine
 
@@ -451,7 +451,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetSubForumTitle()
     {
-      return GetTextFormatted("SUBFORUMS", PageContext.PageForumName);
+      return GetTextFormatted("SUBFORUMS", HtmlEncode(PageContext.PageForumName));
     }
 
     #region Web Form Designer generated code

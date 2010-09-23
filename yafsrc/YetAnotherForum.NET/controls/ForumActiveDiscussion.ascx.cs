@@ -97,7 +97,7 @@ namespace YAF.Controls
                                        : "ICON_LATEST";
         }
 
-        forumLink.Text = currentRow["Forum"].ToString();
+        forumLink.Text = Page.HtmlEncode(currentRow["Forum"].ToString());
         forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
       }
     }

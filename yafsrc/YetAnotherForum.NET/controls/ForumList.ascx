@@ -18,7 +18,7 @@
 					<%# GetViewing(Container.DataItem) %>
 				</div>
 				<div class="subforumheading">
-					<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
+					<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
 				</div>
 				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
 					Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />

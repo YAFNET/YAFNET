@@ -36,7 +36,7 @@
                                 <%# Eval( "EventTime") %>
                             </td>
                             <td>
-                                <%# Eval( "Source") %>
+                                <%# HtmlEncode(Eval( "Source")) %>
                             </td>
                             <td>
                                 <asp:LinkButton runat="server" ID="showbutton" CommandName="show">Show</asp:LinkButton>

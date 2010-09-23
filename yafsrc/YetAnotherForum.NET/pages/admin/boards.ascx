@@ -25,7 +25,7 @@
 						<%# Eval( "BoardID") %>
 					</td>
 					<td>
-						<%# Eval( "Name") %>
+						<%# HtmlEncode(Eval( "Name")) %>
 					</td>
 					<td align="center">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "BoardID") %>'>Edit</asp:LinkButton>

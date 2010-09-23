@@ -11,7 +11,7 @@
 			<ItemTemplate>
 				<tr>
 					<td class="header2">
-						<%# Eval( "Name") %>
+						<%# HtmlEncode(Eval( "Name"))%>
 					</td>
 					<td class="header2" width="10%" align="center">
 						<%# Eval( "SortOrder") %>
@@ -29,8 +29,8 @@
 						<tr class="post">
 							<td align="left">
 								<strong>
-									<%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></strong><br />
-								<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
+									<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %></strong><br />
+								<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
 							</td>
 							<td align="center">
 								<%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>

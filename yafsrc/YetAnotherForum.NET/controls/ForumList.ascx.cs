@@ -272,7 +272,7 @@ namespace YAF.Controls
 
       if (int.Parse(row["ReadAccess"].ToString()) > 0)
       {
-        output = "<a href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), output);
+        output = "<a href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), Page.HtmlEncode(output));
       }
       else
       {

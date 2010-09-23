@@ -321,7 +321,7 @@ namespace YAF.Controls
     /// </returns>
     protected string PrintForumName(DataRowView row)
     {
-      var forumName = (string)row["ForumName"];
+      var forumName = Page.HtmlEncode((string)row["ForumName"]);
       string html = string.Empty;
       if (forumName != this._lastForumName)
       {
