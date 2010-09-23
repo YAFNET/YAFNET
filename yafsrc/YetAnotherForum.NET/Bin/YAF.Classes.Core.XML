@@ -1561,6 +1561,20 @@
             Returns a string containing a forbidden BBCode or a null string
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.FormatSyndicationMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean,System.Int32)">
+            <summary>
+            The format syndication message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="messageFlags">
+            The message flags.
+            </param>
+            <returns>
+            The formatted message.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.FormatMessage(System.String,YAF.Classes.Data.MessageFlags)">
             <summary>
             The format message.
@@ -1661,6 +1675,20 @@
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.RepairHtml(System.String,System.Boolean)">
+            <summary>
+            The repair html.
+            </summary>
+            <param name="html">
+            The html.
+            </param>
+            <param name="allowHtml">
+            The allow html.
+            </param>
+            <returns>
+            The repaired html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.RepairHtmlFeeds(System.String,System.Boolean)">
             <summary>
             The repair html.
             </summary>

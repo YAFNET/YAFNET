@@ -4957,7 +4957,7 @@
             The topic_prune.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_list.
             </summary>

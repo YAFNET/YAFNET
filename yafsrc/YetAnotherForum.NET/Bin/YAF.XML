@@ -19043,6 +19043,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowPostsFeeds">
+            <summary>
+            ShowPostsFeeds control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ShowForumJump">
             <summary>
             ShowForumJump control.
@@ -24643,6 +24652,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.movetopic.trLeaveLink">
+            <summary>
+            trLeaveLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.movetopic.LocalizedLabel3">
             <summary>
             LocalizedLabel3 control.
@@ -29456,6 +29474,33 @@
         <member name="F:YAF.Pages.posts.QuickReply">
             <summary>
             QuickReply control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.posts.tbFeeds">
+            <summary>
+            tbFeeds control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.posts.RssFeed">
+            <summary>
+            RssFeed control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.posts.AtomFeed">
+            <summary>
+            AtomFeed control.
             </summary>
             <remarks>
             Auto-generated field.

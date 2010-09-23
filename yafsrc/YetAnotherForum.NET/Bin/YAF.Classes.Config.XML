@@ -2996,6 +2996,11 @@
             Gets or sets a value indicating whether ShowAtomLink.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowPostsFeeds">
+            <summary>
+            Gets or sets a value indicating whether ShowPostsFeeds.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowPageGenerationTime">
             <summary>
             Gets or sets a value indicating whether ShowPageGenerationTime.
