@@ -614,13 +614,14 @@ namespace YAF.Pages
           YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
         }
 
+        // 't' variable is required only for poll and this is a attach poll token for attachments page
+        if (!this.PostOptions1.PollChecked)
+        {
+            attachp = string.Empty;
+        }
+
         if (this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess)
         {
-            // 't' variable is required only for poll and this is a attach poll token for attachments page
-            if (!this.PostOptions1.PollChecked)
-            {
-                attachp = string.Empty;
-            }
           // redirect to the attachment page...
             YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1{1}{2}", messageId, attachp, retforum);          
         }
