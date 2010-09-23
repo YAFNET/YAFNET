@@ -9943,24 +9943,26 @@
         </member>
         <member name="T:YAF.Controls.ForumList">
             <summary>
-            		Summary description for ForumList.
+            Summary description for ForumList.
             </summary>
         </member>
         <member name="F:YAF.Controls.ForumList._altLastPost">
             <summary>
-            The Go to last post Image ToolTip.
+              The Go to last post Image ToolTip.
             </summary>
         </member>
-        <member name="M:YAF.Controls.ForumList.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.ForumList.GetForumLink(System.Data.DataRow)">
             <summary>
-            The page_ load.
+            Provides the "Forum Link Text" for the ForumList control.
+              Automatically disables the link if the current user doesn't
+              have proper permissions.
             </summary>
-            <param name="sender">
-            The sender.
+            <param name="row">
+            Current data row
             </param>
-            <param name="e">
-            The e.
-            </param>
+            <returns>
+            Forum link text
+            </returns>
         </member>
         <member name="M:YAF.Controls.ForumList.ForumList1_ItemCreated(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
@@ -9973,15 +9975,15 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.ForumList.GetModeratorsFooter(System.Web.UI.WebControls.Repeater)">
+        <member name="M:YAF.Controls.ForumList.GetModerated(System.Object)">
             <summary>
-            The get moderators footer.
+            The get moderated.
             </summary>
-            <param name="sender">
-            The sender.
+            <param name="o">
+            The o.
             </param>
             <returns>
-            The get moderators footer.
+            The get moderated.
             </returns>
         </member>
         <member name="M:YAF.Controls.ForumList.GetModeratorLink(System.Data.DataRow)">
@@ -9995,39 +9997,25 @@
             The get moderator link.
             </returns>
         </member>
-        <member name="M:YAF.Controls.ForumList.GetForumLink(System.Data.DataRow)">
+        <member name="M:YAF.Controls.ForumList.GetModeratorsFooter(System.Web.UI.WebControls.Repeater)">
             <summary>
-            Provides the "Forum Link Text" for the ForumList control.
-            Automatically disables the link if the current user doesn't
-            have proper permissions.
+            The get moderators footer.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <returns>
+            The get moderators footer.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ForumList.GetSubforums(System.Data.DataRow)">
+            <summary>
+            The get subforums.
             </summary>
             <param name="row">
-            Current data row
+            The row.
             </param>
             <returns>
-            Forum link text
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ForumList.Topics(System.Object)">
-            <summary>
-            The topics.
-            </summary>
-            <param name="_o">
-            The _o.
-            </param>
-            <returns>
-            The topics.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ForumList.Posts(System.Object)">
-            <summary>
-            The posts.
-            </summary>
-            <param name="_o">
-            The _o.
-            </param>
-            <returns>
-            The posts.
             </returns>
         </member>
         <member name="M:YAF.Controls.ForumList.GetViewing(System.Object)">
@@ -10041,17 +10029,6 @@
             The get viewing.
             </returns>
         </member>
-        <member name="M:YAF.Controls.ForumList.GetModerated(System.Object)">
-            <summary>
-            The get moderated.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The get moderated.
-            </returns>
-        </member>
         <member name="M:YAF.Controls.ForumList.HasSubforums(System.Data.DataRow)">
             <summary>
             The has subforums.
@@ -10063,14 +10040,37 @@
             The has subforums.
             </returns>
         </member>
-        <member name="M:YAF.Controls.ForumList.GetSubforums(System.Data.DataRow)">
+        <member name="M:YAF.Controls.ForumList.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The get subforums.
+            The page_ load.
             </summary>
-            <param name="row">
-            The row.
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ForumList.Posts(System.Object)">
+            <summary>
+            The posts.
+            </summary>
+            <param name="_o">
+            The _o.
             </param>
             <returns>
+            The posts.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ForumList.Topics(System.Object)">
+            <summary>
+            The topics.
+            </summary>
+            <param name="_o">
+            The _o.
+            </param>
+            <returns>
+            The topics.
             </returns>
         </member>
         <member name="F:YAF.Controls.ForumList.ForumList1">
@@ -10084,12 +10084,12 @@
         </member>
         <member name="P:YAF.Controls.ForumList.AltLastPost">
             <summary>
-            Gets or sets Alt.
+              Gets or sets Alt.
             </summary>
         </member>
         <member name="P:YAF.Controls.ForumList.DataSource">
             <summary>
-            Sets DataSource.
+              Sets DataSource.
             </summary>
         </member>
         <member name="T:YAF.Pages.im_xmpp">

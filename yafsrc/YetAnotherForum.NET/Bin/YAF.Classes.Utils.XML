@@ -1480,14 +1480,12 @@
             Helper for Figuring out the User Agent.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.UserAgentHelper.IsSearchEngineSpider(System.String)">
+        <member name="M:YAF.Classes.Utils.UserAgentHelper.IsBrowserIE6">
             <summary>
-            Validates if the useragent is a search engine spider
+            Is this user agent IE v6?
             </summary>
-            <param name="userAgent">
-            </param>
             <returns>
-            The is search engine spider.
+            The is browser i e 6.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.UserAgentHelper.IsFeedReader(System.String)">
@@ -1510,14 +1508,6 @@
             The true if the UA string patterrn should not be displayed in active users.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.UserAgentHelper.IsBrowserIE6">
-            <summary>
-            Is this user agent IE v6?
-            </summary>
-            <returns>
-            The is browser i e 6.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Utils.UserAgentHelper.IsMobileDevice(System.String)">
             <summary>
             Tests if the user agent is a mobile device.
@@ -1526,6 +1516,16 @@
             </param>
             <returns>
             The is mobile device.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.UserAgentHelper.IsSearchEngineSpider(System.String)">
+            <summary>
+            Validates if the useragent is a search engine spider
+            </summary>
+            <param name="userAgent">
+            </param>
+            <returns>
+            The is search engine spider.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.UserAgentHelper.Platform(System.String,System.Boolean,System.String@,System.Boolean@,System.Boolean@)">
@@ -1542,9 +1542,6 @@
             </param>
             <param name="isIgnoredForDisplay">
             </param>
-            <returns>
-            The void.
-            </returns>
         </member>
         <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.ToSimpleDictionary(System.Collections.Specialized.NameValueCollection)">
             <summary>
