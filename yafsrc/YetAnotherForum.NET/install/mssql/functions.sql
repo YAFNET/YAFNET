@@ -187,7 +187,6 @@ BEGIN
 		WHERE
 			a.ForumID=@ForumID and
 			(
-				(@UserID is null and a.IsHidden=0) or 
 				(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
 			)
 	end
@@ -207,7 +206,6 @@ BEGIN
 			WHERE
 				a.ParentID=@ForumID and
 				(
-					(@UserID is null and a.IsHidden=0) or 
 					(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
 				)
 			
@@ -285,7 +283,6 @@ BEGIN
 		WHERE
 			a.ForumID=@ForumID and
 			(
-				(@UserID is null and a.IsHidden=0) or 
 				(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
 			)
 	end
@@ -305,7 +302,6 @@ BEGIN
 			WHERE
 				a.ParentID=@ForumID and
 				(
-					(@UserID is null and a.IsHidden=0) or 
 					(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
 				)
 			
