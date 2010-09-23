@@ -16,49 +16,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Linq;
-using System.Web;
-
 namespace YAF.Classes.Utils
 {
+  #region Using
+
+  using System;
+  using System.Linq;
+  using System.Web;
+
+  using YAF.Classes.Pattern;
+
+  #endregion
+
   /// <summary>
   /// Helper for Figuring out the User Agent.
   /// </summary>
   public static class UserAgentHelper
   {
+    #region Public Methods
+
     /// <summary>
-    /// Validates if the useragent is a search engine spider
+    /// Is this user agent IE v6?
     /// </summary>
-    /// <param name="userAgent">
-    /// </param>
     /// <returns>
-    /// The is search engine spider.
+    /// The is browser i e 6.
     /// </returns>
-    public static bool IsSearchEngineSpider(string userAgent)
+    public static bool IsBrowserIE6()
     {
-      if (userAgent.IsSet())
-      {
-        string[] spiderContains = {
-                                  "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", "AltaVista-Intranet", "Acoon Robot", "Atomz", 
-                                  "Arachnoidea","AESOP_com_SpiderMan","AxmoRobot","ArchitextSpider","AlkalineBOT","Aranha", "asterias", "Buscaplus Robi",
-                                  "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "CrawlerBoy", "DeepIndex","DefaultCrawler", "DittoSpyder", "DIIbot", 
-                                  "EZResult", "EARTHCOM.info", "EuripBot","ESISmartSpider", "FAST-WebCrawler", "FyberSearch", "Findexa Crawler", 
-                                  "Fluffy", "Googlebot", "geckobot", "GenCrawler","GeonaBot", "getRAX", "Gulliver", "Hubater", "ia_archiver",
-                                  "Slurp", "Scooter", "Mercator", "RaBot",  "Jack", "Speedy Spider", "moget", "Toutatis", "IlTrovatore-Setaccio", 
-                                  "IncyWincy", "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", 
-                                  "Linknzbot", "lookbot", "MantraAgent", "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", 
-                                  "mozDex", "MSNBOT", "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", 
-                                  "nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler", "SeznamBot", "Search-10",  "Scrubby",  
-                                  "speedfind ramBot xtreme", "Kototoi", "SearchByUsa", "Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", "teoma", 
-                                  "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", 
-                                  "Yellopet-Spider", "YBSbot", "OceanSpiders", "MozSpider" 
-                                };
-
-        return spiderContains.Any(x => String.Equals(x, userAgent, StringComparison.InvariantCultureIgnoreCase));
-      }
-
-      return false;
+      return HttpContext.Current.Request.Browser.Browser.Contains("IE") &&
+             HttpContext.Current.Request.Browser.Version.StartsWith("6.");
     }
 
     /// <summary>
@@ -69,17 +55,17 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is feed reader.
     /// </returns>
-    public static bool IsFeedReader(string userAgent)
-          {
-              string[] agentContains = {
-                                        "Windows-RSS-Platform", "FeedDemon", "Feedreader","Apple-PubSub"
-                                    };
- 
-              return userAgent.IsSet() ? agentContains.Any(agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant())) : false;
-          }
+    public static bool IsFeedReader([NotNull] string userAgent)
+    {
+      string[] agentContains = { "Windows-RSS-Platform", "FeedDemon", "Feedreader", "Apple-PubSub" };
 
+      return userAgent.IsSet()
+               ? agentContains.Any(
+                 agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant()))
+               : false;
+    }
 
-      /// <summary>
+    /// <summary>
     /// Validates if the useragent is a known ignored UA string
     /// </summary>
     /// <param name="userAgent">
@@ -87,7 +73,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The true if the UA string patterrn should not be displayed in active users.
     /// </returns>
-    public static bool IsIgnoredForDisplay(string userAgent)
+    public static bool IsIgnoredForDisplay([NotNull] string userAgent)
     {
       if (userAgent.IsSet())
       {
@@ -101,17 +87,6 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Is this user agent IE v6?
-    /// </summary>
-    /// <returns>
-    /// The is browser i e 6.
-    /// </returns>
-    public static bool IsBrowserIE6()
-    {
-        return HttpContext.Current.Request.Browser.Browser.Contains("IE") && HttpContext.Current.Request.Browser.Version.StartsWith("6.");
-    }
-
-      /// <summary>
     /// Tests if the user agent is a mobile device.
     /// </summary>
     /// <param name="userAgent">
@@ -119,14 +94,54 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is mobile device.
     /// </returns>
-    public static bool IsMobileDevice(string userAgent)
+    public static bool IsMobileDevice([NotNull] string userAgent)
     {
-        string[] mobileContains = {
-                                      "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm",
-                                      "portable", "webos"
-                                   };
-        
-        return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
+      string[] mobileContains = {
+                                  "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", 
+                                  "portable", "webos"
+                                };
+
+      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
+    }
+
+    /// <summary>
+    /// Validates if the useragent is a search engine spider
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The is search engine spider.
+    /// </returns>
+    public static bool IsSearchEngineSpider([NotNull] string userAgent)
+    {
+      if (userAgent.IsSet())
+      {
+        string[] spiderContains = {
+                                    "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", 
+                                    "AltaVista-Intranet", "Acoon Robot", "Atomz", "Arachnoidea", "AESOP_com_SpiderMan", 
+                                    "AxmoRobot", "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias", 
+                                    "Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "CrawlerBoy", 
+                                    "DeepIndex", "DefaultCrawler", "DittoSpyder", "DIIbot", "EZResult", "EARTHCOM.info", 
+                                    "EuripBot", "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", "Findexa Crawler", 
+                                    "Fluffy", "Googlebot", "geckobot", "GenCrawler", "GeonaBot", "getRAX", "Gulliver", 
+                                    "Hubater", "ia_archiver", "Slurp", "Scooter", "Mercator", "RaBot", "Jack", 
+                                    "Speedy Spider", "moget", "Toutatis", "IlTrovatore-Setaccio", "IncyWincy", 
+                                    "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot"
+                                    , "LNSpiderguy", "Linknzbot", "lookbot", "MantraAgent", "NetResearchServer", "Lycos"
+                                    , "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex", "MSNBOT", 
+                                    "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", 
+                                    "nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler"
+                                    , "SeznamBot", "Search-10", "Scrubby", "speedfind ramBot xtreme", "Kototoi", 
+                                    "SearchByUsa", "Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", 
+                                    "teoma", "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", 
+                                    "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
+                                    "MozSpider"
+                                  };
+
+        return spiderContains.Any(x => String.Equals(x, userAgent, StringComparison.InvariantCultureIgnoreCase));
+      }
+
+      return false;
     }
 
     /// <summary>
@@ -142,68 +157,72 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <param name="isIgnoredForDisplay">
     /// </param>
-    /// <returns>
-    /// The void.
-    /// </returns>
-    public static void Platform(string userAgent, bool isCrawler, ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
+    public static void Platform([NotNull] string userAgent, bool isCrawler, [NotNull] ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
     {
       isSearchEngine = false;
       isIgnoredForDisplay = false;
 
-      if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+      if (userAgent.IsNotSet())
       {
-          platform = "Win7";
+        platform = "[Empty]";
+        isIgnoredForDisplay = true;
+      }
+      else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+      {
+        platform = "Win7";
       }
       else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
       {
-          platform = "Vista";
+        platform = "Vista";
       }
       else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
       {
-          platform = "WinXP";
+        platform = "WinXP";
       }
       else if (userAgent.IndexOf("Linux") >= 0)
       {
-          platform = "Linux";
+        platform = "Linux";
       }
       else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
       {
-          platform = "Win2003";
+        platform = "Win2003";
       }
       else if (userAgent.IndexOf("FreeBSD") >= 0)
       {
-          platform = "FreeBSD";
+        platform = "FreeBSD";
       }
       else if (userAgent.IndexOf("iPad") >= 0)
       {
-          platform = "iPad(iOS)";
+        platform = "iPad(iOS)";
       }
       else if (userAgent.IndexOf("iPhone") >= 0)
       {
-          platform = "iPhone(iOS)";
+        platform = "iPhone(iOS)";
       }
       else if (userAgent.IndexOf("iPod") >= 0)
       {
-          platform = "iPod(iOS)";
+        platform = "iPod(iOS)";
       }
       else if (userAgent.IndexOf("WindowsMobile") >= 0)
       {
-          platform = "WindowsMobile";
+        platform = "WindowsMobile";
       }
       else if (userAgent.IndexOf("webOS") >= 0)
       {
-          platform = "WebOS";
+        platform = "WebOS";
       }
       else if (userAgent.IndexOf("Android") >= 0)
       {
-          platform = "Android";
+        platform = "Android";
       }
       else
       {
-          // check if it's a search engine spider or an ignored UI string...
-          isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
-          isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
+        // check if it's a search engine spider or an ignored UI string...
+        isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
+        isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
       }
     }
+
+    #endregion
   }
 }
