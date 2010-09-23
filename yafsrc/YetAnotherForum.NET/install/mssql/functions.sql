@@ -177,36 +177,59 @@ BEGIN
 	declare @Posted datetime
 
 	-- try to retrieve last direct topic posed in forums if not supplied as argument 
-	if (@LastTopicID is null or @LastPosted is null) begin
-		SELECT 
-			@LastTopicID=a.LastTopicID,
-			@LastPosted=a.LastPosted
-		FROM
-			[{databaseOwner}].[{objectQualifier}Forum] a
-			JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
-		WHERE
-			a.ForumID=@ForumID and
-			(
-				(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
-			)
-	end
+	if (@LastTopicID is null or @LastPosted is null) BEGIN
+		IF (@UserID IS NULL)
+		BEGIN	
+				SELECT TOP 1 
+					@LastTopicID=a.LastTopicID,
+					@LastPosted=a.LastPosted
+				FROM
+					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				WHERE
+					a.ForumID = @ForumID AND a.IsHidden = 0
+		END			
+		ELSE
+		BEGIN	
+				SELECT TOP 1
+					@LastTopicID=a.LastTopicID,
+					@LastPosted=a.LastPosted
+				FROM
+					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				WHERE
+					(a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
+		END	
+	END
 
 	-- look for newer topic/message in subforums
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
-
 	begin
-		declare c cursor for
-			SELECT 
+		declare c cursor FORWARD_ONLY READ_ONLY for
+			SELECT
 				a.ForumID,
 				a.LastTopicID,
 				a.LastPosted
 			FROM
-				[{databaseOwner}].[{objectQualifier}Forum] a
-				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
+				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
-				(
-					(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
+				(					
+					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+				)	
+			UNION ALL			
+			SELECT
+				a.ForumID,
+				a.LastTopicID,
+				a.LastPosted
+			FROM
+				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+				JOIN [{databaseOwner}].[{objectQualifier}vaccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
+			WHERE
+				a.ParentID=@ForumID and
+				(					
+					(@UserID is null and (a.Flags & 2)=0)
 				)
 			
 		open c
@@ -273,36 +296,60 @@ BEGIN
 	declare @Posted datetime
 
 	-- try to retrieve last direct topic posed in forums if not supplied as argument 
-	if (@LastTopicID is null or @LastPosted is null) begin
-		SELECT 
-			@LastTopicID=a.LastTopicID,
-			@LastPosted=a.LastPosted
-		FROM
-			[{databaseOwner}].[{objectQualifier}Forum] a
-			JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
-		WHERE
-			a.ForumID=@ForumID and
-			(
-				(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
-			)
-	end
+	if (@LastTopicID is null or @LastPosted is null) BEGIN
+		IF (@UserID IS NULL)
+		BEGIN	
+				SELECT TOP 1 
+					@LastTopicID=a.LastTopicID,
+					@LastPosted=a.LastPosted
+				FROM
+					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				WHERE
+					a.ForumID = @ForumID AND a.IsHidden = 0
+		END			
+		ELSE
+		BEGIN	
+				SELECT TOP 1
+					@LastTopicID=a.LastTopicID,
+					@LastPosted=a.LastPosted
+				FROM
+					[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+					INNER JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
+				WHERE
+					(a.IsHidden = 0 or x.ReadAccess <> 0) AND a.ForumID=@ForumID and x.UserID=@UserID
+		END	
+	END
 
 	-- look for newer topic/message in subforums
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
 
 	begin
-		declare c cursor for
-			SELECT 
+		declare c cursor FORWARD_ONLY READ_ONLY for
+			SELECT
 				a.ForumID,
 				a.LastTopicID,
 				a.LastPosted
 			FROM
-				[{databaseOwner}].[{objectQualifier}Forum] a
-				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
+				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x WITH(NOLOCK) ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
-				(
-					(x.UserID=@UserID and (a.IsHidden=0 or x.ReadAccess<>0))
+				(					
+					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+				)	
+			UNION ALL			
+			SELECT
+				a.ForumID,
+				a.LastTopicID,
+				a.LastPosted
+			FROM
+				[{databaseOwner}].[{objectQualifier}Forum] a WITH(NOLOCK)
+				JOIN [{databaseOwner}].[{objectQualifier}vaccess]x WITH(NOLOCK) ON a.ForumID=x.ForumID
+			WHERE
+				a.ParentID=@ForumID and
+				(					
+					(@UserID is null and (a.Flags & 2)=0)
 				)
 			
 		open c
