@@ -153,7 +153,7 @@ namespace YAF.Controls
     {
       get
       {
-        return this.AddPollCheckBox.Visible;
+          return this.liAddPoll.Visible;
       }
 
       set

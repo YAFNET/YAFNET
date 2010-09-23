@@ -105,7 +105,7 @@ namespace YAF.Controls
         {
           this.LastPosted.Text = YafServices.DateTime.FormatDateTimeTopic(DataRow["LastPosted"]);
           this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", DataRow["LastTopicID"]);
-          this.topicLink.Text = StringHelper.Truncate(YafServices.BadWordReplace.Replace(DataRow["LastTopicName"].ToString()), 50);
+          this.topicLink.Text = StringHelper.Truncate(YafServices.BadWordReplace.Replace(this.HtmlEncode(DataRow["LastTopicName"].ToString())), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(DataRow["LastUserID"]);
           if (string.IsNullOrEmpty(this.Alt)) 
           {
