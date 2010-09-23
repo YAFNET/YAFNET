@@ -97,7 +97,7 @@ namespace YAF.Classes
         var parser = new SimpleURLParameterParser(url);
 
         // create "rewritten" url...
-        newUrl = before + "yaf_";
+        newUrl = before + Config.UrlRewritingPrefix;
 
         string useKey = string.Empty;
         string description = string.Empty;

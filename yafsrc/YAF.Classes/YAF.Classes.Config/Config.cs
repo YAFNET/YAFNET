@@ -87,6 +87,17 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Prefix used for Url Rewriting -- default is "yaf_"
+    /// </summary>
+    public static string UrlRewritingPrefix
+    {
+      get
+      {
+        return GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
+      }
+    }
+
+    /// <summary>
     /// Gets a Provider type string from the config.
     /// </summary>
     /// <param name="providerName"></param>
