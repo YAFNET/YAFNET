@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Erişim İzni</Resource>
     <Resource tag="BY">{0} Tarafından </Resource>
     <Resource tag="CONFIRM_DELETE">Bu Konuyu Sil?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Konu Silindi.</Resource>
     <Resource tag="EDIT">Düzenle</Resource>
     <Resource tag="INVITE">Kullanıcı Davet Et</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Cevaplar</Resource>
     <Resource tag="TITLE">Yönet</Resource>
     <Resource tag="TOPIC_STARTER">Konuyu Başlatan</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Konular</Resource>
     <Resource tag="USER">Üye</Resource>
     <Resource tag="VIEWS">Görüntüleme</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Mesajı Düzenle</Resource>
     <Resource tag="EDITREASON">Düzenleme Sebebi:</Resource>
     <Resource tag="FROM">Kimden:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Son 10 E-posta (Ters sıralamayla)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>
     <Resource tag="NEED_SUBJECT">Lütfen mesaj için bir konu giriniz.</Resource>

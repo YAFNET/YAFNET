@@ -823,6 +823,7 @@
     <Resource tag="ACCESSMASK">Prieiga kaukė </Resource>
     <Resource tag="BY">iš {0} </Resource>
     <Resource tag="CONFIRM_DELETE">Ištrinti šią temą? </Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Tema ištrinta. </Resource>
     <Resource tag="EDIT">Redaguoti </Resource>
     <Resource tag="INVITE">Kviesti Vartotojas </Resource>
@@ -833,6 +834,7 @@
     <Resource tag="REPLIES">Atsakymai </Resource>
     <Resource tag="TITLE">Vidutiniškas </Resource>
     <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Temos </Resource>
     <Resource tag="USER">Vartotojas </Resource>
     <Resource tag="VIEWS">Žiūrėti </Resource>
@@ -983,6 +985,7 @@
     <Resource tag="EDIT">Redaguoti pranešimą </Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Nuo: </Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Paskutiniai 10 komentarų (atvirkštine tvarka) </Resource>
     <Resource tag="MESSAGE">Žinutė: </Resource>
     <Resource tag="NEED_SUBJECT">Įveskite tema tema. </Resource>

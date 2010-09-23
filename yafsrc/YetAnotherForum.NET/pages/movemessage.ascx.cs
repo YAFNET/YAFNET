@@ -104,7 +104,7 @@ namespace YAF.Pages
     /// </param>
     protected void ForumList_SelectedIndexChanged(object sender, EventArgs e)
     {
-      this.TopicsList.DataSource = DB.topic_list(this.ForumList.SelectedValue, null, 0, null, 0, 32762,false);
+      this.TopicsList.DataSource = DB.topic_list(this.ForumList.SelectedValue, null, 0, null, 0, 32762,false,false);
       this.TopicsList.DataTextField = "Subject";
       this.TopicsList.DataValueField = "TopicID";
       this.TopicsList.DataBind();

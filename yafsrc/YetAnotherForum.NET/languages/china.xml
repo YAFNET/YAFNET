@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">权限模块</Resource>
     <Resource tag="BY">由 {0}</Resource>
     <Resource tag="CONFIRM_DELETE">删除此话题？</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">话题已删除.</Resource>
     <Resource tag="EDIT">编辑</Resource>
     <Resource tag="INVITE">Invite User</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">回复</Resource>
     <Resource tag="TITLE">版主审核</Resource>
     <Resource tag="TOPIC_STARTER">话题发起人</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">话题</Resource>
     <Resource tag="USER">用户</Resource>
     <Resource tag="VIEWS">浏览</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">发信人:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">最后 10 个新贴（倒序）</Resource>
     <Resource tag="MESSAGE">信息:</Resource>
     <Resource tag="NEED_SUBJECT">标题必须输入.</Resource>

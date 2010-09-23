@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">سطح دسترسی</Resource>
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="CONFIRM_DELETE">آیا این عنوان حذف شود?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">عنوان حذف شد.</Resource>
     <Resource tag="EDIT">ویرایش</Resource>
     <Resource tag="INVITE">دعوت کاربر</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">پاسخها</Resource>
     <Resource tag="TITLE">مدیریت</Resource>
     <Resource tag="TOPIC_STARTER">شروع کننده عنوان</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">عناوین</Resource>
     <Resource tag="USER">کاربر</Resource>
     <Resource tag="VIEWS">مشاهدات</Resource>
@@ -865,6 +867,7 @@
     <Resource tag="EDIT">ویرایش ارسال</Resource>
     <Resource tag="EDITREASON">دلیل ویرایش:</Resource>
     <Resource tag="FROM">از طرف:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">10 ارسال آخر با ترتیب برعکس</Resource>
     <Resource tag="MESSAGE">پیغام:</Resource>
     <Resource tag="NEED_SUBJECT">موضوعی را برای این عنوان تعیین کنید.</Resource>

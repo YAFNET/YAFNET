@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Tilgang</Resource>
     <Resource tag="BY">av {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Slett emne?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Innlegg slettet.</Resource>
     <Resource tag="EDIT">Rediger</Resource>
     <Resource tag="INVITE">Inviter bruker</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="TITLE">Moderer</Resource>
     <Resource tag="TOPIC_STARTER">Emnestart</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Emner</Resource>
     <Resource tag="USER">Bruker</Resource>
     <Resource tag="VIEWS">Visninger</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Rediger innlegg</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Fra:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Siste 10 innlegg</Resource>
     <Resource tag="MESSAGE">Melding:</Resource>
     <Resource tag="NEED_SUBJECT">Vennligst skriv inn et emne for innlegget.</Resource>

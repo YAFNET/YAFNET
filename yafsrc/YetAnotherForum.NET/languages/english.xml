@@ -634,7 +634,9 @@
 		<Resource tag="ACCESSMASK">Access Mask</Resource>
 		<Resource tag="BY">by {0}</Resource>
 		<Resource tag="CONFIRM_DELETE">Delete this topic?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
 		<Resource tag="DELETED">Topic deleted.</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
 		<Resource tag="EDIT">Edit</Resource>
 		<Resource tag="INVITE">Invite User</Resource>
 		<Resource tag="LASTPOST">Last Post</Resource>

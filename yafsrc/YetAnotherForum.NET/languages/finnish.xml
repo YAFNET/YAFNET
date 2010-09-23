@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Pääsyoikeudet</Resource>
     <Resource tag="BY">kirjoittaja {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Poista aihe?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Aihe poistettu.</Resource>
     <Resource tag="EDIT">Muokkaa</Resource>
     <Resource tag="INVITE">Kutsu käyttäjä</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Vastauksia</Resource>
     <Resource tag="TITLE">Moderointi</Resource>
     <Resource tag="TOPIC_STARTER">Aloittaja</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Aiheet</Resource>
     <Resource tag="USER">Käyttäjä</Resource>
     <Resource tag="VIEWS">Katsottu</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Muokkaa viestiä</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Keneltä:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
     <Resource tag="MESSAGE">Viesti:</Resource>
     <Resource tag="NEED_SUBJECT">Anna aiheelle otsikko.</Resource>

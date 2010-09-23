@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Adgangsmaske</Resource>
     <Resource tag="BY">af {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Slet dette emne?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Emne slettet.</Resource>
     <Resource tag="EDIT">Ret</Resource>
     <Resource tag="INVITE">Inviter bruger</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="TITLE">Moderer</Resource>
     <Resource tag="TOPIC_STARTER">Emne Starter</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Emner</Resource>
     <Resource tag="USER">Bruger</Resource>
     <Resource tag="VIEWS">Visninger</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Rediger indlæg</Resource>
     <Resource tag="EDITREASON">Grund for redigering:</Resource>
     <Resource tag="FROM">Fra:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Sidste 10 Indlæg (Med det nyeste først)</Resource>
     <Resource tag="MESSAGE">Indlæg:</Resource>
     <Resource tag="NEED_SUBJECT">Skriv venligst indlæggets overskrift.</Resource>

@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Åtkomtsmaskk</Resource>
     <Resource tag="BY">av {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Radera denna konversation?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Konversationen raderades.</Resource>
     <Resource tag="EDIT">Ändra</Resource>
     <Resource tag="INVITE">Bjud in användare</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="TITLE">Moderera</Resource>
     <Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Konversationer</Resource>
     <Resource tag="USER">Användare</Resource>
     <Resource tag="VIEWS">Visningar</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Ändra meddelande</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Från:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">De senaste 10 meddelandena (i omvänd ordning)</Resource>
     <Resource tag="MESSAGE">Meddelande:</Resource>
     <Resource tag="NEED_SUBJECT">Ange ett ärende för konversationen.</Resource>

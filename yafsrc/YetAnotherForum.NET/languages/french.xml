@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Masque d'accès</Resource>
     <Resource tag="BY">par {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Effacer ce sujet ?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Sujet effacé.</Resource>
     <Resource tag="EDIT">Edition</Resource>
     <Resource tag="INVITE">Inviter l'Utilisateur</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Réponses</Resource>
     <Resource tag="TITLE">Modérer</Resource>
     <Resource tag="TOPIC_STARTER">Initiateur du Sujet</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Sujets</Resource>
     <Resource tag="USER">Utilisateur</Resource>
     <Resource tag="VIEWS">Vus</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Éditer le message</Resource>
     <Resource tag="EDITREASON">Raison pour édition:</Resource>
     <Resource tag="FROM">De&amp;nbsp;:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">10 Derniers Messages (en ordre inversé)</Resource>
     <Resource tag="MESSAGE">Message&amp;nbsp;:</Resource>
     <Resource tag="NEED_SUBJECT">Veillez entrer un objet pour ce sujet.</Resource>

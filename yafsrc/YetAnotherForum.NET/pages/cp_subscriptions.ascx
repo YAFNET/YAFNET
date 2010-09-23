@@ -76,7 +76,7 @@
                     <asp:Label ID="tfid" runat="server" Text='<%# Eval("WatchForumID") %>' Visible="false" />
                     <tr>
                         <td class="post">
-                            <%# Eval("ForumName") %>
+                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}",  Eval("WatchForumID"))%>" ><%# HtmlEncode(Eval("ForumName"))%></a>                        
                         </td>
                         <td class="post" align="center">
                             <%# Eval("Topics") %>
@@ -128,7 +128,7 @@
                     <asp:Label ID="ttid" runat="server" Text='<%# Eval("WatchTopicID") %>' Visible="false" />
                     <tr>
                         <td class="post">
-                            <%# Eval("TopicName") %>
+                           <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}",  Eval("WatchTopicID"))%>" ><%# HtmlEncode(Eval("TopicName"))%></a> 
                         </td>
                         <td class="post" align="center">
                             <%# Eval("Replies") %>

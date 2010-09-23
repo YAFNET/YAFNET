@@ -4611,6 +4611,7 @@ begin
 		e.BoardID = @BoardID and
 		(@CategoryID is null or e.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
+		and	c.TopicMovedID is null 
 	order by
 		d.Name asc,
 		Priority desc,
@@ -4666,6 +4667,7 @@ BEGIN
 		DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
+		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicMovedID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
@@ -4919,7 +4921,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
 	@Date datetime=null,
 	@Offset int,
 	@Count int,
-	@StyledNicks bit = 0
+	@StyledNicks bit = 0,
+	@ShowMoved  bit = 0
 )
 AS
 begin
@@ -4930,11 +4933,10 @@ begin
 			TopicID	int not null
 	)
 
-	DECLARE	@RowCount int
-	DECLARE @ShowMoved BIT
+	DECLARE	@RowCount int	 
 
 	-- Step 1: Does the host setting show moved topic pointers?
-	SELECT @ShowMoved = CASE WHEN CAST(Value as NVarChar) = 'True' THEN 1 ELSE 0 END FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE Name='showmoved'
+	-- SELECT @ShowMoved = CASE WHEN CAST(Value as NVarChar) = 'True' THEN 1 ELSE 0 END FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE Name='showmoved'
 	
 	-- Step 2: Get the "root" topics (i.e. non-moved)
 	INSERT #data(TopicID)
@@ -5001,8 +5003,8 @@ begin
 			[Subject] = c.Topic,
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
-			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
 			Replies = c.NumPosts - 1,
+			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),			
 			[Views] = c.[Views],
 			LastPosted = c.LastPosted,
 			LastUserID = c.LastUserID,
@@ -5027,7 +5029,7 @@ begin
 		JOIN #data e 
 			ON e.TopicID=c.TopicID
 		WHERE e.RowNo BETWEEN @Offset+1 AND @Offset + @Count
-			AND c.TopicMovedID IS NULL
+			AND c.TopicMovedID IS NULL 
 		ORDER BY e.RowNo
 end
 GO
@@ -5050,13 +5052,15 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_move](@TopicID int,@ForumID int,@ShowMoved bit) AS
 begin
-		declare @OldForumID int
+		declare @OldForumID int		
 
 	select @OldForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 
-	if @ShowMoved<>0 begin
+	if @ShowMoved <> 0 begin
+        -- delete an old link if exists
+	    delete from [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID = @TopicID
 		-- create a moved message
-		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,Views,Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
+		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,[Views],Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
 		select ForumID,UserID,UserName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0
 		from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 	end

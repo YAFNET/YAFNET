@@ -13,7 +13,7 @@
 		<td class="post" width="50%">
 			<asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" />
 		</td>
-		<tr>
+		<tr id="trLeaveLink" runat="server" visible="<%# PageContext.BoardSettings.ShowMoved %>">
 			<td class="postheader" width="50%">
 				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LEAVE_POINTER" />
 			</td>

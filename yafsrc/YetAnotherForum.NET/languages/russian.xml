@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Маска доступа</Resource>
     <Resource tag="BY">автор {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить эту тему?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Удалить эту ссылку на тему? Сама тема удалена не будет.</Resource>
     <Resource tag="DELETED">Тема удалена.</Resource>
     <Resource tag="EDIT">Изменить</Resource>
     <Resource tag="INVITE">Пригласить пользователя</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
     <Resource tag="TOPIC_STARTER">Автор темы</Resource>
+    <Resource tag="TOPICLINK_DELETED">Ссылка на тему удалена.</Resource>
     <Resource tag="TOPICS">Темы</Resource>
     <Resource tag="USER">Пользователь</Resource>
     <Resource tag="VIEWS">Просмотры</Resource>
@@ -866,6 +868,7 @@
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
     <Resource tag="FROM">Автор:</Resource>
+    <Resource tag="ISQUESTION">Эта тема в формате вопрос/ответ?</Resource>
     <Resource tag="LAST10">Последние 10 сообщений(В обратном порядке)</Resource>
     <Resource tag="MESSAGE">Текст сообщения:</Resource>
     <Resource tag="NEED_SUBJECT">Пожалуйста введите название темы.</Resource>

@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Toegangsmasker</Resource>
     <Resource tag="BY">door {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Dit onderwerp verwijderen?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Onderwerp verwijderd.</Resource>
     <Resource tag="EDIT">Bewerken</Resource>
     <Resource tag="INVITE">Gebruiker uitnodigen</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Reacties</Resource>
     <Resource tag="TITLE">Moderatie</Resource>
     <Resource tag="TOPIC_STARTER">Auteur</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Onderwerp</Resource>
     <Resource tag="USER">Gebruiker</Resource>
     <Resource tag="VIEWS">Gelezen</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Bericht wijzigen</Resource>
     <Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
     <Resource tag="FROM">Van:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Laatste 10 berichten (van nieuw naar oud)</Resource>
     <Resource tag="MESSAGE">Bericht:</Resource>
     <Resource tag="NEED_SUBJECT">Gelieve een onderwerp op te geven.</Resource>

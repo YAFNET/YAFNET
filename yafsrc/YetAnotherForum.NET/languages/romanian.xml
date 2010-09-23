@@ -708,6 +708,7 @@
     <Resource tag="ACCESSMASK">Masca de acces</Resource>
     <Resource tag="BY">de {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Stergi acesta tema?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Tema stearsa.</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="INVITE">Invita utilizator</Resource>
@@ -718,6 +719,7 @@
     <Resource tag="REPLIES">Raspunsuri</Resource>
     <Resource tag="TITLE">Moderat</Resource>
     <Resource tag="TOPIC_STARTER">Cine a propus tema</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Teme</Resource>
     <Resource tag="USER">Utilizator</Resource>
     <Resource tag="VIEWS">Vizualizari</Resource>
@@ -868,6 +870,7 @@
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Motivul pentru editare:</Resource>
     <Resource tag="FROM">De la :</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Ultimile 10 postari (In ordinea inversa)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>
     <Resource tag="NEED_SUBJECT">Introduceti un subiect la mesaj.</Resource>

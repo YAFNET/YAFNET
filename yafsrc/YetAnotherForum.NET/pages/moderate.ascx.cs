@@ -129,7 +129,7 @@ namespace YAF.Pages
       pds.AllowPaging = true;
       pds.PageSize = this.PagerTop.PageSize;
 
-      DataTable dt = DB.topic_list(PageContext.PageForumID, null, -1, null, 0, 999999,false);
+      DataTable dt = DB.topic_list(PageContext.PageForumID, null, -1, null, 0, 999999,false,true);
       DataView dv = dt.DefaultView;
 
       this.PagerTop.Count = dv.Count;

@@ -730,6 +730,7 @@
     <Resource tag="ACCESSMASK">מסכת גישה</Resource>
     <Resource tag="BY">ע"י {0}</Resource>
     <Resource tag="CONFIRM_DELETE">האם ברצונך למחוק דיון זה?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">הדיון נמחק.</Resource>
     <Resource tag="EDIT">ערוך</Resource>
     <Resource tag="INVITE">הזמנת משתמש</Resource>
@@ -740,6 +741,7 @@
     <Resource tag="REPLIES">תגובות</Resource>
     <Resource tag="TITLE">ניהול</Resource>
     <Resource tag="TOPIC_STARTER">מחבר הדיון</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">דיונים</Resource>
     <Resource tag="USER">משתמש</Resource>
     <Resource tag="VIEWS">צפיות</Resource>
@@ -900,6 +902,7 @@
     <Resource tag="EDIT">ערוך הודעה</Resource>
     <Resource tag="EDITREASON">סיבת עריכה:</Resource>
     <Resource tag="FROM">מאת:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">10 הודעות אחרונות (בסדר הפוך)</Resource>
     <Resource tag="MESSAGE">הודעה:</Resource>
     <Resource tag="NEED_CHOICES">הסקר חייב לכלול לפחות שתי בחירות.</Resource>

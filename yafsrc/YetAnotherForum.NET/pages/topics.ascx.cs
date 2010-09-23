@@ -282,7 +282,7 @@ namespace YAF.Pages
         }
       }
 
-      DataTable dt = StyleTransformDataTable(DB.topic_list(PageContext.PageForumID, userId, 1, null, 0, 10, PageContext.BoardSettings.UseStyledNicks));
+      DataTable dt = StyleTransformDataTable(DB.topic_list(PageContext.PageForumID, userId, 1, null, 0, 10, PageContext.BoardSettings.UseStyledNicks, true));
 
       int nPageSize = Math.Max(5, this.Pager.PageSize - dt.Rows.Count);
       this.Announcements.DataSource = dt;
@@ -304,7 +304,7 @@ namespace YAF.Pages
       {
         dtTopics =
           StyleTransformDataTable(
-            DB.topic_list(PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks));
+            DB.topic_list(PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks,true));
       }
       else
       {
@@ -339,7 +339,7 @@ namespace YAF.Pages
 
         dtTopics =
           StyleTransformDataTable(
-            DB.topic_list(PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks));
+            DB.topic_list(PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks,true));
       }
 
       int nRowCount = 0;

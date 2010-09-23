@@ -6679,7 +6679,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable topic_list(object forumID, object userId, object announcement, object date, object offset, object count, object useStyledNicks)
+    public static DataTable topic_list(object forumID, object userId, object announcement, object date, object offset, object count, object useStyledNicks, object showMoved)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("topic_list"))
       {
@@ -6690,7 +6690,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Date", date);
         cmd.Parameters.AddWithValue("Offset", offset);
         cmd.Parameters.AddWithValue("Count", count);
-        cmd.Parameters.AddWithValue("@StyledNicks", useStyledNicks);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+        cmd.Parameters.AddWithValue("ShowMoved", showMoved);
         return YafDBAccess.Current.GetData(cmd, true);
       }
     }

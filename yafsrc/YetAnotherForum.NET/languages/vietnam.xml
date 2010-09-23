@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Access Mask</Resource>
     <Resource tag="BY">bởi {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Xóa chủ đề?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Chủ đề đã xóa.</Resource>
     <Resource tag="EDIT">Sửa</Resource>
     <Resource tag="INVITE">Mời thành viên</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Trả lời</Resource>
     <Resource tag="TITLE">Điều hành</Resource>
     <Resource tag="TOPIC_STARTER">Tác giả</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Chủ đề</Resource>
     <Resource tag="USER">Thành viên</Resource>
     <Resource tag="VIEWS">Xem</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Sửa bài</Resource>
     <Resource tag="EDITREASON">Lý do chỉnh sửa:</Resource>
     <Resource tag="FROM">Từ:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
     <Resource tag="MESSAGE">Nội dung:</Resource>
     <Resource tag="NEED_SUBJECT">Chưa nhập tên chủ đề.</Resource>

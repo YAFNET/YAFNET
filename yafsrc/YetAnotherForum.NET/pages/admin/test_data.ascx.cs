@@ -300,7 +300,7 @@ namespace YAF.Pages.Admin
       if (int.TryParse(PostsForum.SelectedValue, out _forumID))
       {
         DataTable topics = DB.topic_list(
-          Convert.ToInt32(PostsForum.SelectedValue), this.PageContext.PageUserID, 0, null, 0, 100, false);
+          Convert.ToInt32(PostsForum.SelectedValue), this.PageContext.PageUserID, 0, null, 0, 100, false, false);
         PostsTopic.DataSource = topics;
         PostsTopic.DataBind();
       }

@@ -707,6 +707,7 @@
     <Resource tag="ACCESSMASK">Přístupová maska</Resource>
     <Resource tag="BY">od {0}</Resource>
     <Resource tag="CONFIRM_DELETE">Odstranit toto téma?</Resource>
+    <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
     <Resource tag="DELETED">Téma bylo odstraněno.</Resource>
     <Resource tag="EDIT">Upravit</Resource>
     <Resource tag="INVITE">Přizvat dalšího uživatele</Resource>
@@ -717,6 +718,7 @@
     <Resource tag="REPLIES">Odpovědí</Resource>
     <Resource tag="TITLE">Moderovat</Resource>
     <Resource tag="TOPIC_STARTER">Téma zahájil</Resource>
+    <Resource tag="TOPICLINK_DELETED">The topic link is deleted.</Resource>
     <Resource tag="TOPICS">Témata</Resource>
     <Resource tag="USER">Uživatel</Resource>
     <Resource tag="VIEWS">Zhlédnutí</Resource>
@@ -867,6 +869,7 @@
     <Resource tag="EDIT">Upravit zprávu</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
     <Resource tag="FROM">Od:</Resource>
+    <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Posledních 10 zpráv (v obráceném pořadí)</Resource>
     <Resource tag="MESSAGE">Zpráva:</Resource>
     <Resource tag="NEED_SUBJECT">Zadejte prosím název tématu.</Resource>
