@@ -275,7 +275,7 @@ namespace YAF.Classes.Core
 #endif
       }
 
-      if (hashCode.HasValue)
+      if (hashCode.HasValue && strReturn.IsSet())
       {
         cache[hashCode.Value] = strReturn;
       }
