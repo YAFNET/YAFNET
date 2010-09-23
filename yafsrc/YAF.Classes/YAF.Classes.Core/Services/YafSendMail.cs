@@ -252,6 +252,8 @@ namespace YAF.Classes.Core
               string textBody = dt.Rows[i]["Body"].ToString();
               string htmlBody = dt.Rows[i]["BodyHtml"].ToString();
 
+              Exception exceptionThrown = null;
+
               try
               {
                 // send the email message now...
@@ -259,23 +261,28 @@ namespace YAF.Classes.Core
                 Send(fromEmailAddress, toEmailAddress, subject, textBody, htmlBody);
                 Debug.WriteLine("Sent");
               }
-
-                // Mek: Removed as possibly redundant
-              // catch (System.Net.Mail.SmtpFailedRecipientException)
-              // {
-              // // only try maximum of 5 times...
-              // if (Convert.ToInt32(dt.Rows[i]["SendTries"]) < 5) deleteEmail = false;
-              // }
-              catch (SmtpException x)
+              catch (System.Net.Mail.SmtpFailedRecipientException ex)
               {
-                // only try maximum of 5 times...
-                if (Convert.ToInt32(dt.Rows[i]["SendTries"]) < 5)
+                exceptionThrown = ex;
+              }
+              catch (System.FormatException ex)
+              {
+                exceptionThrown = ex;
+              }
+              catch (SmtpException ex)
+              {
+                exceptionThrown = ex;
+              }
+
+              if (exceptionThrown != null)
+              {
+                if (dt.Rows[i]["SendTries"].ToType<int>() < 5)
                 {
                   deleteEmail = false;
                 }
                 else
                 {
-                  DB.eventlog_create(1, "SendMailThread", x);
+                  DB.eventlog_create(1, "SendMailThread", exceptionThrown);
                 }
               }
             }

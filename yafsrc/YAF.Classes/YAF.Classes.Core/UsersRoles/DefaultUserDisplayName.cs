@@ -111,6 +111,11 @@ namespace YAF.Classes.Core
     {
       int? userId = null;
 
+      if (name.IsNotSet())
+      {
+        return userId;
+      }
+
       if (this.UserDisplayNameCollection.Any(x => x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
       {
         userId =
