@@ -812,6 +812,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Show Posts Feeds:</strong><br />
+                            Enable or disable display of posts feeds for a topic.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowPostsFeeds" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <strong>Show Forum Jump Box:</strong><br />
                             Enable or disable display of the Forum Jump Box throughout the forum.
                         </td>

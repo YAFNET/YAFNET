@@ -355,6 +355,33 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Button QuickReply;
         
         /// <summary>
+        /// tbFeeds control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tbFeeds;
+        
+        /// <summary>
+        /// RssFeed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.RssFeedLink RssFeed;
+        
+        /// <summary>
+        /// AtomFeed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.RssFeedLink AtomFeed;
+        
+        /// <summary>
         /// ForumUsers1 control.
         /// </summary>
         /// <remarks>

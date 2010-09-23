@@ -424,6 +424,9 @@ namespace YAF.Pages
           messageFlags.IsBBCode = this._editor.UsesBBCode;
 
           DB.pmessage_save(YafContext.Current.PageUserID, userId, this.Subject.Text, body, messageFlags.BitValue);
+         
+          // reset reciever's lazy data as he should be informed at once
+          PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {

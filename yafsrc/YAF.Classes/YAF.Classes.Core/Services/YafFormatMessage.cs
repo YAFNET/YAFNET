@@ -216,6 +216,23 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The format syndication message.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="messageFlags">
+    /// The message flags.
+    /// </param>
+    /// <returns>
+    /// The formatted message.
+    /// </returns>
+    public static string FormatSyndicationMessage(string message, MessageFlags messageFlags, bool altItem, int charsToFetch)
+    {
+        return @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(altItem ? "content postContainer" : "content postContainer_Alt", YafFormatMessage.FormatMessage(message, messageFlags, false));
+    }
+
+    /// <summary>
     /// The format message.
     /// </summary>
     /// <param name="message">
@@ -643,6 +660,47 @@ namespace YAF.Classes.Core
       }
 
       return html;
+    }
+
+    /// <summary>
+    /// The repair html.
+    /// </summary>
+    /// <param name="html">
+    /// The html.
+    /// </param>
+    /// <param name="allowHtml">
+    /// The allow html.
+    /// </param>
+    /// <returns>
+    /// The repaired html.
+    /// </returns>
+    public static string RepairHtmlFeeds(string html, bool allowHtml)
+    {
+        // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
+        // These are '\n\r' things related to multiline regexps.
+        MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+        for (int i = mc1.Count - 1; i >= 0; i--)
+        {
+            html = html.Insert(mc1[i].Index + 1, " \r");
+        }
+
+        MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+        for (int i = mc2.Count - 1; i >= 0; i--)
+        {
+            html = html.Insert(mc2[i].Index + 1, " \r");
+        }
+
+        if (!allowHtml)
+        {
+            html = YafBBCode.EncodeHTML(html);
+        }
+        else
+        {
+            // get allowable html tags       
+            html = RemoveHtmlByList(html, new string[] {"a"});
+        }
+
+        return html;
     }
 
     /// <summary>

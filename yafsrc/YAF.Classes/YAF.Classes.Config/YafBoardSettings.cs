@@ -1696,6 +1696,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether ShowPostsFeeds.
+    /// </summary>
+    public bool ShowPostsFeeds
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowPostsFeeds", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowPostsFeeds", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether ShowPageGenerationTime.
     /// </summary>
     public bool ShowPageGenerationTime
