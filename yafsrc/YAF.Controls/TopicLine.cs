@@ -24,12 +24,11 @@ namespace YAF.Controls
   using System.Data;
   using System.Text;
   using System.Web.UI;
-  using System.Data.DataSetExtensions;
 
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.UI;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -43,26 +42,43 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The _is alt.
+    ///   The last post tooltip string.
     /// </summary>
-    private bool _isAlt;
+    private string _altLastPost;
 
     /// <summary>
-    /// The last post tooltip string. 
+    ///   The _row.
     /// </summary>
-    private string _altLastPost; 
-
-    /// <summary>
-    /// The _row.
-    /// </summary>
-    private DataRowView _row = null;
+    private DataRowView _row;
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Sets DataRow.
+    ///   Gets or sets Alt.
+    /// </summary>
+    [NotNull]
+    public string AltLastPost
+    {
+      get
+      {
+        if (string.IsNullOrEmpty(this._altLastPost))
+        {
+          return string.Empty;
+        }
+
+        return this._altLastPost;
+      }
+
+      set
+      {
+        this._altLastPost = value;
+      }
+    }
+
+    /// <summary>
+    ///   Sets DataRow.
     /// </summary>
     public object DataRow
     {
@@ -73,27 +89,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Alt.
-    /// </summary>
-    public string AltLastPost
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(this._altLastPost))
-            {
-                return string.Empty;
-            }
-            return this._altLastPost;
-        }
-
-        set
-        {
-            this._altLastPost = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether FindUnread.
+    ///   Gets or sets a value indicating whether FindUnread.
     /// </summary>
     public bool FindUnread
     {
@@ -109,20 +105,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsAlt.
+    ///   Gets or sets a value indicating whether IsAlt.
     /// </summary>
-    public bool IsAlt
-    {
-      get
-      {
-        return this._isAlt;
-      }
-
-      set
-      {
-        this._isAlt = value;
-      }
-    }
+    public bool IsAlt { get; set; }
 
     #endregion
 
@@ -238,8 +223,10 @@ namespace YAF.Controls
     /// <returns>
     /// Topic status text
     /// </returns>
-    protected string GetPriorityMessage(DataRowView row)
+    protected string GetPriorityMessage([NotNull] DataRowView row)
     {
+      CodeContracts.ArgumentNotNull(row, "row");
+
       string strReturn = string.Empty;
 
       if (row["TopicMovedID"].ToString().Length > 0)
@@ -283,8 +270,11 @@ namespace YAF.Controls
     /// <returns>
     /// The get topic image.
     /// </returns>
-    protected string GetTopicImage(object o, ref string imgTitle)
+    protected string GetTopicImage([NotNull] object o, [NotNull] ref string imgTitle)
     {
+      CodeContracts.ArgumentNotNull(o, "o");
+      CodeContracts.ArgumentNotNull(imgTitle, "imgTitle");
+
       var row = (DataRowView)o;
       DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : new DateTime(2000, 1, 1);
       var topicFlags = new TopicFlags(row["TopicFlags"]);
@@ -382,7 +372,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       var html = new StringBuilder(2000);
 
@@ -402,19 +392,19 @@ namespace YAF.Controls
       // Topic
       writer.WriteBeginTD("topicMain");
 
-      if (PageContext.BoardSettings.ShowAvatarsInTopic)
+      if (this.PageContext.BoardSettings.ShowAvatarsInTopic)
       {
-        var avatarUrl = GetAvatarUrlFromID(Convert.ToInt32(_row["UserID"]));
+        var avatarUrl = this.GetAvatarUrlFromID(Convert.ToInt32(this._row["UserID"]));
         writer.RenderImgTag(avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
       }
 
-      int actualPostCount = RenderTopic(writer);
+      int actualPostCount = this.RenderTopic(writer);
 
-      RenderTopicStarter(writer);
+      this.RenderTopicStarter(writer);
 
-      RenderPosted(writer);
+      this.RenderPosted(writer);
 
-      RenderPostPager(writer, actualPostCount);
+      this.RenderPostPager(writer, actualPostCount);
 
       writer.WriteEndTD();
 
@@ -445,7 +435,174 @@ namespace YAF.Controls
       writer.WriteLine();
     }
 
-    private int RenderTopic(HtmlTextWriter writer)
+    /// <summary>
+    /// Formats the Last Post for the Topic Line
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <returns>
+    /// The render last post.
+    /// </returns>
+    protected string RenderLastPost([NotNull] HtmlTextWriter writer)
+    {
+      string strReturn = this.PageContext.Localization.GetText("no_posts");
+      DataRowView row = this._row;
+
+      if (row["LastMessageID"].ToString().Length > 0)
+      {
+        int userID = Convert.ToInt32(row["LastUserID"]);
+
+        if (this.PageContext.BoardSettings.ShowAvatarsInTopic)
+        {
+          string avatarUrl = this.GetAvatarUrlFromID(userID);
+          writer.RenderImgTag(avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
+        }
+
+        string strMiniPost = this.PageContext.Theme.GetItem(
+          "ICONS",
+          (DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)this._row["TopicID"]))
+            ? "ICON_NEWEST"
+            : "ICON_LATEST");
+
+        // writer.Write(this.PageContext.Localization.GetText("by").FormatWith(string.Empty));
+        var byLink = new UserLink { UserID = userID, Style = row["LastUserStyle"].ToString() };
+
+        byLink.RenderControl(writer);
+
+        writer.Write("&nbsp;");
+
+        writer.WriteBeginTag("a");
+        if (string.IsNullOrEmpty(this.AltLastPost))
+        {
+          this.AltLastPost = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+        }
+
+        writer.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]));
+        writer.WriteAttribute("title", this.AltLastPost);
+        writer.Write(HtmlTextWriter.TagRightChar);
+
+        writer.RenderImgTag(strMiniPost, this.AltLastPost, this.AltLastPost);
+
+        writer.WriteEndTag("a");
+
+        writer.WriteBreak();
+
+        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
+      }
+
+      return strReturn;
+    }
+
+    /// <summary>
+    /// The format views.
+    /// </summary>
+    /// <returns>
+    /// The format views.
+    /// </returns>
+    private string FormatViews()
+    {
+      int nViews = Convert.ToInt32(this._row["Views"]);
+      return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
+    }
+
+    /// <summary>
+    /// The get avatar url from id.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The get avatar url from id.
+    /// </returns>
+    private string GetAvatarUrlFromID(int userID)
+    {
+      string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(userID);
+
+      if (avatarUrl.IsNotSet())
+      {
+        avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+      }
+
+      return avatarUrl;
+    }
+
+    /// <summary>
+    /// The make link.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="link">
+    /// The link.
+    /// </param>
+    /// <returns>
+    /// The make link.
+    /// </returns>
+    private string MakeLink([NotNull] string text, [NotNull] string link)
+    {
+      return "<a href=\"{0}\">{1}</a>".FormatWith(link, text);
+    }
+
+    /// <summary>
+    /// The render post pager.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="actualPostCount">
+    /// The actual post count.
+    /// </param>
+    private void RenderPostPager([NotNull] HtmlTextWriter writer, int actualPostCount)
+    {
+      string tPager = this.CreatePostPager(
+        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, Convert.ToInt32(this._row["LinkTopicID"]));
+
+      if (tPager != String.Empty)
+      {
+        writer.WriteLine();
+        writer.WriteBeginTag("span");
+        writer.WriteAttribute("class", "topicPager smallfont");
+        writer.Write(HtmlTextWriter.TagRightChar);
+
+        writer.Write(" - ");
+
+        // more then one page to show
+        writer.Write(this.PageContext.Localization.GetText("GOTO_POST_PAGER").FormatWith(tPager));
+        writer.WriteEndTag("span");
+        writer.WriteLine();
+      }
+    }
+
+    /// <summary>
+    /// The render posted.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    private void RenderPosted([NotNull] HtmlTextWriter writer)
+    {
+      writer.WriteLine();
+      writer.WriteBeginTag("span");
+      writer.WriteAttribute("class", "topicPosted");
+      writer.Write(HtmlTextWriter.TagRightChar);
+
+      writer.Write(YafServices.DateTime.FormatDateTimeTopic(this._row.Row.Field<DateTime>("Posted")));
+
+      writer.WriteEndTag("span");
+      writer.WriteLine();
+    }
+
+    /// <summary>
+    /// The render topic.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <returns>
+    /// The render topic.
+    /// </returns>
+    private int RenderTopic([NotNull] HtmlTextWriter writer)
     {
       string priorityMessage = this.GetPriorityMessage(this._row);
       if (priorityMessage.IsSet())
@@ -478,44 +635,17 @@ namespace YAF.Controls
         // add deleted posts not included in replies...
         actualPostCount += Convert.ToInt32(this._row["NumPostsDeleted"]);
       }
+
       return actualPostCount;
     }
 
-    private void RenderPostPager(HtmlTextWriter writer, int actualPostCount)
-    {
-      string tPager = this.CreatePostPager(
-        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, Convert.ToInt32(this._row["LinkTopicID"]));
-
-      if (tPager != String.Empty)
-      {
-        writer.WriteLine();
-        writer.WriteBeginTag("span");
-        writer.WriteAttribute("class", "topicPager smallfont");
-        writer.Write(HtmlTextWriter.TagRightChar);
-
-        writer.Write(" - ");
-
-        // more then one page to show
-        writer.Write(this.PageContext.Localization.GetText("GOTO_POST_PAGER").FormatWith(tPager));
-        writer.WriteEndTag("span");
-        writer.WriteLine();
-      }
-    }
-
-    private void RenderPosted(HtmlTextWriter writer)
-    {
-      writer.WriteLine();
-      writer.WriteBeginTag("span");
-      writer.WriteAttribute("class", "topicPosted");
-      writer.Write(HtmlTextWriter.TagRightChar);
-
-      writer.Write(YafServices.DateTime.FormatDateTimeTopic(this._row.Row.Field<DateTime>("Posted")));
-
-      writer.WriteEndTag("span");
-      writer.WriteLine();
-    }
-
-    private void RenderTopicStarter(HtmlTextWriter writer)
+    /// <summary>
+    /// The render topic starter.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    private void RenderTopicStarter([NotNull] HtmlTextWriter writer)
     {
       writer.WriteLine();
       writer.WriteBreak();
@@ -530,116 +660,13 @@ namespace YAF.Controls
       topicStarterLink.Style = this._row["StarterStyle"].ToString();
 
       // render the user link control
-      //this.WriteBeginTD(writer, "topicStarter");
+      // this.WriteBeginTD(writer, "topicStarter");
       topicStarterLink.RenderControl(writer);
 
       writer.Write(",");
 
       writer.WriteEndTag("span");
       writer.WriteLine();
-    }
-
-    /// <summary>
-    /// Formats the Last Post for the Topic Line
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <returns>
-    /// The render last post.
-    /// </returns>
-    protected string RenderLastPost(HtmlTextWriter writer)
-    {
-      string strReturn = this.PageContext.Localization.GetText("no_posts");
-      DataRowView row = this._row;
-
-      if (row["LastMessageID"].ToString().Length > 0)
-      {
-        int userID = Convert.ToInt32(row["LastUserID"]);
-
-        if (PageContext.BoardSettings.ShowAvatarsInTopic)
-        {
-          string avatarUrl = GetAvatarUrlFromID(userID);
-          writer.RenderImgTag(avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
-        }
-
-        string strMiniPost = this.PageContext.Theme.GetItem(
-          "ICONS", 
-          (DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)this._row["TopicID"]))
-            ? "ICON_NEWEST"
-            : "ICON_LATEST");
-        
-        //writer.Write(this.PageContext.Localization.GetText("by").FormatWith(string.Empty));
-
-        var byLink = new UserLink { UserID = userID, Style = row["LastUserStyle"].ToString() };
-
-        byLink.RenderControl(writer);
-
-        writer.Write("&nbsp;");
-
-        writer.WriteBeginTag("a");
-        if (string.IsNullOrEmpty(this.AltLastPost))
-        {
-            this.AltLastPost = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
-        }
-
-        writer.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]));
-        writer.WriteAttribute("title", this.AltLastPost);
-        writer.Write(HtmlTextWriter.TagRightChar);
-
-        writer.RenderImgTag(
-          strMiniPost, 
-          this.AltLastPost, 
-          this.AltLastPost);
-
-        writer.WriteEndTag("a");
-
-        writer.WriteBreak();
-
-        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
-      }
-
-      return strReturn;
-    }
-
-    private string GetAvatarUrlFromID(int userID)
-    {
-      string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(userID);
-
-      if (avatarUrl.IsNotSet())
-      {
-        avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-      }
-      return avatarUrl;
-    }
-
-    /// <summary>
-    /// The format views.
-    /// </summary>
-    /// <returns>
-    /// The format views.
-    /// </returns>
-    private string FormatViews()
-    {
-      int nViews = Convert.ToInt32(this._row["Views"]);
-      return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
-    }
-
-    /// <summary>
-    /// The make link.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="link">
-    /// The link.
-    /// </param>
-    /// <returns>
-    /// The make link.
-    /// </returns>
-    private string MakeLink(string text, string link)
-    {
-      return "<a href=\"{0}\">{1}</a>".FormatWith(link, text);
     }
 
     #endregion

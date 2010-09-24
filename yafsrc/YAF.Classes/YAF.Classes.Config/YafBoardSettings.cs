@@ -231,7 +231,7 @@ namespace YAF.Classes
     {
       get
       {
-        return this._regBoard.GetValue<string>("MobileTheme", "yafmobile.xml");
+        return this._regBoard.GetValue<string>("MobileTheme", string.Empty);
       }
 
       set
