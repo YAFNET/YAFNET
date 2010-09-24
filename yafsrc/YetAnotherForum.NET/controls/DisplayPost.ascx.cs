@@ -467,8 +467,7 @@ namespace YAF.Controls
         else
         {
           this.ThanksDataLiteral.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(
-            thanksNumber, 
-            this.HtmlEncode(this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId))));
+            thanksNumber, this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId)));
         }
 
         this.ThanksDataLiteral.Visible = true;
@@ -502,10 +501,7 @@ namespace YAF.Controls
             this.PopMenu1.AddClientScriptItemWithPostback(
               this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
               "removebuddy", 
-              String.Format(
-                "if (confirm('{0}')) {1}", 
-                this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), 
-                "{postbackcode}"));
+              "if (confirm('{0}')) {1}".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
           }
           else
           {
