@@ -7,6 +7,8 @@ namespace YAF.Classes.Utils
   using System.Collections.Specialized;
   using System.Text;
 
+  using YAF.Classes.Pattern;
+
   #endregion
 
   /// <summary>
@@ -133,10 +135,12 @@ namespace YAF.Classes.Utils
     /// <param name="key">
     /// The key.
     /// </param>
-    public object this[object key]
+    public object this[[NotNull] object key]
     {
       get
       {
+        CodeContracts.ArgumentNotNull(key, "key");
+
         var item = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
         if (item == null)
@@ -151,6 +155,9 @@ namespace YAF.Classes.Utils
 
       set
       {
+        CodeContracts.ArgumentNotNull(key, "key");
+        CodeContracts.ArgumentNotNull(value, "value");
+
         DoubleLinkedList.LinkItem link = null;
 
         if (this.Dictionary.Contains(key))
@@ -185,8 +192,11 @@ namespace YAF.Classes.Utils
     /// <param name="value">
     /// The value.
     /// </param>
-    public void Add(object key, object value)
+    public void Add([NotNull] object key, [NotNull] object value)
     {
+      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.ArgumentNotNull(value, "value");
+
       DoubleLinkedList.LinkItem link = this.m_list.Prepend(value);
 
       this.Dictionary.Add(key, link);
@@ -204,8 +214,10 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The contains.
     /// </returns>
-    public bool Contains(object key)
+    public bool Contains([NotNull] object key)
     {
+      CodeContracts.ArgumentNotNull(key, "key");
+
       bool hasKey = this.Dictionary.Contains(key);
 
       // Update the reference for this link
@@ -223,8 +235,10 @@ namespace YAF.Classes.Utils
     /// <param name="key">
     /// The key.
     /// </param>
-    public void Remove(object key)
+    public void Remove([NotNull] object key)
     {
+      CodeContracts.ArgumentNotNull(key, "key");
+
       var link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
       this.Dictionary.Remove(key);
@@ -278,8 +292,11 @@ namespace YAF.Classes.Utils
     /// <param name="value">
     /// The value.
     /// </param>
-    protected override void OnInsert(object key, object value)
+    protected override void OnInsert([NotNull] object key, [NotNull] object value)
     {
+      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.ArgumentNotNull(value, "value");
+
       if (this.Dictionary.Keys.Count >= this.m_max)
       {
         // Purge an item from the cache
@@ -289,13 +306,16 @@ namespace YAF.Classes.Utils
         {
           object purgeKey = this.m_linkToKey[tail];
 
-          // Fire the event
-          if (this.OnPurgedFromCache != null && this.OnPurgedFromCache.GetInvocationList().Length > 0)
+          if (purgeKey != null)
           {
-            this.OnPurgedFromCache(purgeKey, tail.Item);
-          }
+            // Fire the event
+            if (this.OnPurgedFromCache != null && this.OnPurgedFromCache.GetInvocationList().Length > 0)
+            {
+              this.OnPurgedFromCache(purgeKey, tail.Item);
+            }
 
-          this.Remove(purgeKey);
+            this.Remove(purgeKey);
+          }
         }
       }
     }
