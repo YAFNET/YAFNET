@@ -56,6 +56,27 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
+    /// Gets or sets a value indicating whether ShowTopicPosted.
+    /// </summary>
+    public bool ShowTopicPosted
+    {
+      get
+      {
+        if (ViewState["ShowTopicPosted"] == null)
+        {
+          return true;
+        }
+
+        return (bool)ViewState["ShowTopicPosted"];
+      }
+
+      set
+      {
+        ViewState["ShowTopicPosted"] = value;
+      }
+    }
+
+    /// <summary>
     ///   Gets or sets Alt.
     /// </summary>
     [NotNull]
@@ -402,7 +423,14 @@ namespace YAF.Controls
 
       this.RenderTopicStarter(writer);
 
-      this.RenderPosted(writer);
+      if (this.ShowTopicPosted)
+      {
+        writer.WriteBeginTag("span");
+        writer.WriteAttribute("class", "topicStarterPostedSeparator");
+        writer.Write(",");
+        writer.WriteEndTag("span");
+        this.RenderPosted(writer);
+      }
 
       this.RenderPostPager(writer, actualPostCount);
 
@@ -662,8 +690,6 @@ namespace YAF.Controls
       // render the user link control
       // this.WriteBeginTD(writer, "topicStarter");
       topicStarterLink.RenderControl(writer);
-
-      writer.Write(",");
 
       writer.WriteEndTag("span");
       writer.WriteLine();
