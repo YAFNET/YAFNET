@@ -7542,5 +7542,39 @@
             The is moderator.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.TypedTopicSimpleList">
+            <summary>
+            The typed topic simple list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Nullable{System.Int32},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            </summary>
+            <param name="topicid">
+            The topicid.
+            </param>
+            <param name="topic">
+            The topic.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.Topic">
+            <summary>
+            Gets or sets Topic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.TopicID">
+            <summary>
+            Gets or sets TopicID.
+            </summary>
+        </member>
     </members>
 </doc>
