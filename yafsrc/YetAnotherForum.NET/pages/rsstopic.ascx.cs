@@ -373,8 +373,21 @@ namespace YAF.Pages
              DataTable dt = DB.post_list(
                topicId, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
         {
+            // convert to linq...
+            var rowList = dt.AsEnumerable();
+
+            // see if the deleted messages need to be edited out...
+            if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
+                !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
+            {
+                // remove posts that are deleted and do not belong to this user...
+                rowList =
+                rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
+            }
+
             // last page posts
-            var dataRows = dt.AsEnumerable().Take(PageContext.BoardSettings.PostsPerPage);
+            var dataRows = rowList.Take(PageContext.BoardSettings.PostsPerPage);
+          
             var altItem = false;
  
             // load the missing message test
