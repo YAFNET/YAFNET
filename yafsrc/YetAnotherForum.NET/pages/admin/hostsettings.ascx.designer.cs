@@ -499,13 +499,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowPollChangesAfterFirstVote;
         
         /// <summary>
-        /// AllowUsersViewPollVotesBefore control.
+        /// AllowUsersHidePollResults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowUsersViewPollVotesBefore;
+        protected global::System.Web.UI.WebControls.CheckBox AllowUsersHidePollResults;
         
         /// <summary>
         /// AllowGuestsViewPollOptions control.
@@ -974,6 +974,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AcceptedHTML;
+        
+        /// <summary>
+        /// AcceptedHeadersHTML control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AcceptedHeadersHTML;
         
         /// <summary>
         /// UseStyledNicks control.

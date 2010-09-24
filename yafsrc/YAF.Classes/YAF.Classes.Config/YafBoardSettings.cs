@@ -1535,9 +1535,9 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets or sets AllowUsersViewPollVotesBefore. 
+    /// Gets or sets AllowUsersHidePollResults. 
     /// </summary>
-    public bool AllowUsersViewPollVotesBefore
+    public bool AllowUsersHidePollResults
     {
         get
         {

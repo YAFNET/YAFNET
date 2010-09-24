@@ -602,6 +602,30 @@ namespace YAF.Classes.Core
 
       return null;
     }
+ 
+    /// <summary>
+    /// The method used to get response string, if a forbidden tag is detected. 
+    /// </summary>
+    /// <param name="checkString">The string to check.</param>
+    /// <param name="acceptedTags">The list of accepted tags.</param>
+    /// <param name="delim">The delimeter in a tags list.</param>
+    /// <returns>A message string.</returns>
+    public static string CheckHtmlTags(string checkString, string acceptedTags, char delim)
+    {
+        string detectedHtmlTag = YafFormatMessage.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
+          if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
+          {
+              return YafContext.Current.Localization.GetTextFormatted("HTMLTAG_WRONG_TOPICNAME", HttpUtility.HtmlEncode(detectedHtmlTag));
+             
+          }
+          else if (detectedHtmlTag == "ALL")
+          {
+
+              return YafContext.Current.Localization.GetText("HTMLTAG_FORBIDDEN_TOPICNAME");
+          }
+
+          return string.Empty;
+    }
 
     /// <summary>
     /// Removes nested YafBBCode quotes from the given message body.

@@ -531,20 +531,14 @@ namespace YAF.Pages
       // vzrus: Common users should not use HTML tags in a topic header if not allowed
       if (!(PageContext.IsModerator || PageContext.IsForumModerator || PageContext.IsAdmin))
       {
-          string detectedHtmlTag = YafFormatMessage.HtmlTagForbiddenDetector(this.Subject.Text,
-                                                                             PageContext.BoardSettings.
-                                                                                 AcceptedHeadersHTML, ',');
-          if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
+          string tag = YafFormatMessage.CheckHtmlTags(this.Subject.Text, PageContext.BoardSettings.AcceptedHeadersHTML, ',');
+          
+          if (tag.IsSet())
           {
-              this.PageContext.AddLoadMessage(
-                  this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG_TOPICNAME", this.HtmlEncode(detectedHtmlTag)));
+              this.PageContext.AddLoadMessage(tag);
               return;
           }
-          else if (detectedHtmlTag == "ALL")
-          {
-              this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTMLTAG_FORBIDDEN_TOPICNAME"));
-              return;
-          }
+         
       }
 
         // update the last post time...

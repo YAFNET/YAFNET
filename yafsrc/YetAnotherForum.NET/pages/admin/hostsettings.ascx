@@ -502,11 +502,11 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Users View Poll Votes Before:</strong><br />
-                            If enabled Users can see results before voting.
+                            <strong>Allow Users Hide Poll Results:</strong><br />
+                            If enabled a poll creator can hide results before voting end or if not all polls in a group are voted.
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="AllowUsersViewPollVotesBefore" runat="server"></asp:CheckBox>
+                            <asp:CheckBox ID="AllowUsersHidePollResults" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>

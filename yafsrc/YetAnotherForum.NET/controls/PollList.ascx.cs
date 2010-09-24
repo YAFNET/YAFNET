@@ -774,7 +774,7 @@ namespace YAF.controls
         }
         else
         {
-          if (!this.isClosedBound && this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore)
+          if (!this.isClosedBound)
           {
             this._showResults = true;
           }
@@ -818,18 +818,7 @@ namespace YAF.controls
           {
             pollVotesLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
           }
-
-          if (!this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore)
-          {
-            if (!this.PageContext.IsGuest)
-            {
-              pollVotesLabel.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN");
-            }
-            else
-            {
-              pollVotesLabel.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_GUEST");
-            }
-          }
+          
         }
 
         if (this.PageContext.IsGuest)
@@ -853,11 +842,7 @@ namespace YAF.controls
           }
         }
 
-        pollVotesLabel.Visible = this.isBound ||
-                                 (this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore
-                                    ? false
-                                    : (isNotVoted || (daystorun == null)));
-        if (pollVotesLabel.Visible)
+        if (this.isBound)
         {
           showWarningsRow = true;
         }
@@ -986,8 +971,7 @@ namespace YAF.controls
         this.Response.Cookies.Add(c);
         string msg = this.PageContext.Localization.GetText("INFO_VOTED");
 
-        if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count &&
-            (!this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore))
+        if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
         {
           msg += this.PageContext.Localization.GetText("POLLGROUP_BOUNDWARN");
         }

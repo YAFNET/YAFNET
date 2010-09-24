@@ -279,37 +279,66 @@ namespace YAF.Pages
     {
       if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) <= 0)
       {
-        if (this.Question.Text.Trim().Length == 0)
-        {
-          YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_QUESTION"));
-          return false;
-        }
-
-        int notNullcount = 0;
-        foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
-        {
-          if (!string.IsNullOrEmpty(((TextBox)ri.FindControl("PollChoice")).Text.Trim()))
+          if (this.Question.Text.Trim().Length == 0)
           {
-            notNullcount++;
+              YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_QUESTION"));
+              return false;
           }
-        }
 
-        if (notNullcount < 2)
-        {
-          YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_CHOICES"));
-          return false;
-        }
+          // If it's admin or moderator we don't check tags
+          if (!PageContext.IsAdmin || PageContext.IsForumModerator)
+          {
+              string tagPoll = YafFormatMessage.CheckHtmlTags(this.Question.Text.Trim(),
+                                                              PageContext.BoardSettings.AcceptedHeadersHTML, ',');
 
-        int dateVerified = 0;
-        if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) &&
-            (this.PollExpire.Text.Trim().IsSet()))
-        {
-          YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "EXPIRE_BAD"));
-          return false;
-        }
+              if (tagPoll.IsSet())
+              {
+                  this.PageContext.AddLoadMessage(tagPoll);
+                  return false;
+              }
+          }
+
+
+          int notNullcount = 0;
+          foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
+          {
+              string value = ((TextBox) ri.FindControl("PollChoice")).Text.Trim();
+
+              if (!string.IsNullOrEmpty(value))
+              {
+                  notNullcount++;
+
+                  // If it's admin or moderator we don't check tags
+                  if (!PageContext.IsAdmin || PageContext.IsForumModerator)
+                  {
+                      string tagChoice = YafFormatMessage.CheckHtmlTags(value,
+                                                                        PageContext.BoardSettings.AcceptedHeadersHTML,
+                                                                        ',');
+                      if (tagChoice.IsSet())
+                      {
+                          this.PageContext.AddLoadMessage(tagChoice);
+                          return false;
+                      }
+                  }
+              }
+          }
+
+          if (notNullcount < 2)
+          {
+              YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_CHOICES"));
+              return false;
+          }
+
+          int dateVerified = 0;
+          if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) &&
+              (this.PollExpire.Text.Trim().IsSet()))
+          {
+              YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "EXPIRE_BAD"));
+              return false;
+          }
       }
 
-      return true;
+        return true;
     }
 
     /// <summary>
@@ -728,8 +757,8 @@ namespace YAF.Pages
       this.ChoiceRepeater.Visible = true;
 
       this.ChangePollShowStatus(true);
-      this.IsBound.Visible = true;
-      this.IsClosedBound.Visible = true;
+      this.IsBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
+      this.IsClosedBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
     }
 
     /// <summary>

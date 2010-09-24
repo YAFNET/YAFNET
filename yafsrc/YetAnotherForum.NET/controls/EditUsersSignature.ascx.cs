@@ -228,18 +228,15 @@ namespace YAF.Controls
         }
 
         // find forbidden HTMLTags in signature
-        string detectedHtmlTag = YafFormatMessage.HtmlTagForbiddenDetector(
-          body, sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim(), ',');
-        if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
+        if (!PageContext.IsAdmin)
         {
-          this.PageContext.AddLoadMessage(
-          this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", this.HtmlEncode(detectedHtmlTag)));
-          return;
-        }
-        else if (detectedHtmlTag == "ALL")
-        {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTMLTAG_FORBIDDEN"));
-          return;
+            string detectedHtmlTag = YafFormatMessage.CheckHtmlTags(
+                body, sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim(), ',');
+            if (detectedHtmlTag.IsSet())
+            {
+                this.PageContext.AddLoadMessage(detectedHtmlTag);
+                return;
+            }
         }
       }
 
