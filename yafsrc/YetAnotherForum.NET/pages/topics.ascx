@@ -4,29 +4,29 @@
 <div class="DivTopSeparator">
 </div>
 <asp:PlaceHolder runat="server" ID="SubForums" Visible="false">
-    <table class="content" cellspacing="1" cellpadding="0" width="100%">
-        <tr class="header1">
-            <td colspan="6" class="headersub">
+    <table class="content subForum" width="100%">
+        <tr class="topicTitle">
+            <th colspan="6" class="header1">
                 <%=GetSubForumTitle()%>
-            </td>
+            </th>
         </tr>
-        <tr class="header2">
-            <th width="1%">
+        <tr class="topicSubTitle">
+            <th width="1%" class="header2">
                 &nbsp;
             </th>
-            <th align="left" class="headerForum">
+            <th align="left" class="header2 headerForum">
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUM" />
             </th>
-            <th width="15%" runat="server" class="headerModerators" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
+            <th width="15%" runat="server" class="header2 headerModerators" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="moderators" />
             </th>
-            <th width="4%" class="headerTopics">
+            <th width="4%" class="header2 headerTopics">
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="topics" />
             </th>
-            <th width="4%" class="headerPosts">
+            <th width="4%" class="header2 headerPosts">
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="posts" />
             </th>
-            <th width="25%" class="headerLastPost">
+            <th width="25%" class="header2 headerLastPost">
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="lastpost" />
             </th>
         </tr>
@@ -48,26 +48,26 @@
 </table>
 <table class="content" width="100%">
     <tr class="topicTitle">
-        <td class="header1" colspan="6">
+        <th class="header1" colspan="6">
             <asp:Label ID="PageTitle" runat="server"></asp:Label>
-        </td>
+        </th>
     </tr>
     <tr class="topicSubTitle">
-        <td class="header2" width="1%">
+        <th class="header2" width="1%">
             &nbsp;
-        </td>
-        <td class="header2" align="left">
+        </th>
+        <th class="header2 headerTopic" align="left">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
-        </td>
-        <td class="header2" align="right" width="7%">
+        </th>
+        <th class="header2 headerReplies" align="right" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
-        </td>
-        <td class="header2" align="right" width="7%">
+        </th>
+        <th class="header2 headerViews" align="right" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
-        </td>
-        <td class="header2" align="left" width="15%">
+        </th>
+        <th class="header2 headerLastPost" align="left" width="15%">
             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
-        </td>
+        </th>
     </tr>
     <asp:Repeater ID="Announcements" runat="server">
         <ItemTemplate>
