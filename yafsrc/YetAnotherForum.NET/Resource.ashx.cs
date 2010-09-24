@@ -1189,11 +1189,6 @@ namespace YAF
     /// </param>
     private void GetResponseRemoteAvatar(HttpContext context)
     {
-      var wc = new WebClient();
-      Image img = null;
-      Bitmap bmp = null;
-      Graphics gfx = null;
-
       if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.Medium)
       {
         // don't bother... not supported.
@@ -1205,78 +1200,73 @@ namespace YAF
         return;
       }
 
-      string wb = context.Request.QueryString.GetFirstOrDefault("url");
+      string avatarUrl = context.Request.QueryString.GetFirstOrDefault("url");
 
-      try
+      int maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
+      int maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
+
+      string eTag =
+        @"""{0}""".FormatWith(
+          (context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
+
+      if (CheckETag(context, eTag))
       {
-        int maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
-        int maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
+        // found eTag... no need to download this image...
+        return;
+      }
 
-        string eTag = @"""{0}""".FormatWith((context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
+      var webClient = new WebClient();
 
-        if (CheckETag(context, eTag))
+      using (var avatarStream = webClient.OpenRead(avatarUrl))
+      {
+        if (avatarStream == null)
         {
-          // found eTag... no need to download this image...
           return;
         }
 
-        Stream input = wc.OpenRead(wb);
-        img = new Bitmap(input);
-        input.Close();
-        int width = img.Width;
-        int height = img.Height;
-
-        if (width <= maxwidth && height <= maxheight)
+        using (var img = new Bitmap(avatarStream))
         {
-          context.Response.Redirect(wb);
-        }
+          int width = img.Width;
+          int height = img.Height;
 
-        if (width > maxwidth)
-        {
-          height = Convert.ToInt32(height / (double)width * maxwidth);
-          width = maxwidth;
-        }
+          if (width <= maxwidth && height <= maxheight)
+          {
+            context.Response.Redirect(avatarUrl);
+          }
 
-        if (height > maxheight)
-        {
-          width = Convert.ToInt32(width / (double)height * maxheight);
-          height = maxheight;
-        }
+          if (width > maxwidth)
+          {
+            height = Convert.ToInt32(height / (double)width * maxwidth);
+            width = maxwidth;
+          }
 
-        // Create the target bitmap
-        bmp = new Bitmap(width, height);
+          if (height > maxheight)
+          {
+            width = Convert.ToInt32(width / (double)height * maxheight);
+            height = maxheight;
+          }
 
-        // Create the graphics object to do the high quality resizing
-        gfx = Graphics.FromImage(bmp);
-        gfx.CompositingQuality = CompositingQuality.HighQuality;
-        gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        gfx.SmoothingMode = SmoothingMode.HighQuality;
+          // Create the target bitmap
+          using (var bmp = new Bitmap(width, height))
+          {
+            // Create the graphics object to do the high quality resizing
+            using (var gfx = Graphics.FromImage(bmp))
+            {
+              gfx.CompositingQuality = CompositingQuality.HighQuality;
+              gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+              gfx.SmoothingMode = SmoothingMode.HighQuality;
 
-        // Draw the source image
-        gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
+              // Draw the source image
+              gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
+            }
 
-        // Output the data
-        context.Response.ContentType = "image/jpeg";
-        context.Response.Cache.SetCacheability(HttpCacheability.Public);
-        context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-        context.Response.Cache.SetETag(eTag);
-        bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
-      }
-      finally
-      {
-        if (gfx != null)
-        {
-          gfx.Dispose();
-        }
-
-        if (img != null)
-        {
-          img.Dispose();
-        }
-
-        if (bmp != null)
-        {
-          bmp.Dispose();
+            // Output the data
+            context.Response.ContentType = "image/jpeg";
+            context.Response.Cache.SetCacheability(HttpCacheability.Public);
+            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+            context.Response.Cache.SetETag(eTag);
+            bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+          }
         }
       }
     }
