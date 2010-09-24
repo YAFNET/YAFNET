@@ -28609,18 +28609,18 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.DisplayPost.Literal1">
+        <member name="F:YAF.Controls.DisplayPost.ThanksDataLiteral">
             <summary>
-            Literal1 control.
+            ThanksDataLiteral control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.DisplayPost.Literal2">
+        <member name="F:YAF.Controls.DisplayPost.thanksDataExtendedLiteral">
             <summary>
-            Literal2 control.
+            thanksDataExtendedLiteral control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28638,32 +28638,22 @@
         </member>
         <member name="F:YAF.Controls.DisplayPost._forumFlags">
             <summary>
-            The _forum flags.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.DisplayPost._isAlt">
-            <summary>
-            The _is alt.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.DisplayPost._isThreaded">
-            <summary>
-            The _is threaded.
+              The _forum flags.
             </summary>
         </member>
         <member name="F:YAF.Controls.DisplayPost._messageFlags">
             <summary>
-            The _message flags.
+              The _message flags.
             </summary>
         </member>
         <member name="F:YAF.Controls.DisplayPost._postDataHelperWrapper">
             <summary>
-            The current Post Data for this post.
+              The current Post Data for this post.
             </summary>
         </member>
         <member name="F:YAF.Controls.DisplayPost._topicFlags">
             <summary>
-            The _topic flags.
+              The _topic flags.
             </summary>
         </member>
         <member name="M:YAF.Controls.DisplayPost.FormatThanksInfo(System.String)">
@@ -28739,6 +28729,11 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Controls.DisplayPost.FormatThanksRow">
+            <summary>
+            Do thanks row formatting.
+            </summary>
+        </member>
         <member name="M:YAF.Controls.DisplayPost.PopMenu1_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>
             The pop menu 1_ item click.
@@ -28752,27 +28747,27 @@
         </member>
         <member name="P:YAF.Controls.DisplayPost.DataRow">
             <summary>
-            Gets or sets the DataRow.
+              Gets or sets the DataRow.
             </summary>
         </member>
         <member name="P:YAF.Controls.DisplayPost.IsAlt">
             <summary>
-            Gets or sets a value indicating whether IsAlt.
+              Gets or sets a value indicating whether IsAlt.
             </summary>
         </member>
         <member name="P:YAF.Controls.DisplayPost.IsGuest">
             <summary>
-            Gets a value indicating whether IsGuest.
+              Gets a value indicating whether IsGuest.
             </summary>
         </member>
         <member name="P:YAF.Controls.DisplayPost.IsThreaded">
             <summary>
-            Gets or sets a value indicating whether IsThreaded.
+              Gets or sets a value indicating whether IsThreaded.
             </summary>
         </member>
         <member name="P:YAF.Controls.DisplayPost.PostData">
             <summary>
-            Gets Post Data helper functions.
+              Gets Post Data helper functions.
             </summary>
         </member>
         <member name="T:YAF.Pages.posts">
