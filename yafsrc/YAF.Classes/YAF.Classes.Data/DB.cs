@@ -30,6 +30,8 @@ using System.Web.Security;
 
 namespace YAF.Classes.Data
 {
+  using System.Web;
+
   using YAF.Classes.Extensions;
   using YAF.Classes.Utils;
 
@@ -6596,6 +6598,17 @@ namespace YAF.Classes.Data
 
     #region Topic
 
+    public static void topic_updatetopic(int topicId, string topic)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("topic_updatetopic"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("TopicID", topicId);
+        cmd.Parameters.AddWithValue("Topic", topic);
+        YafDBAccess.Current.ExecuteNonQuery(cmd);
+      }      
+    }
+
     /// <summary>
     /// The topic_poll_update.
     /// </summary>
@@ -10132,5 +10145,24 @@ namespace YAF.Classes.Data
       }
     }
     #endregion
+
+    public static void unencode_all_topics_subjects(Func<string,string> decodeTopicFunc)
+    {
+      var topics = DB.topic_simplelist(0, 99999999).SelectTypedList(r => new TypedTopicSimpleList(r)).ToList();
+
+      foreach (var topic in topics.Where(t => t.TopicID.HasValue && t.Topic.IsSet()))
+      {
+        try
+        {
+          // unencode it and update.
+          DB.topic_updatetopic(topic.TopicID.Value, decodeTopicFunc(topic.Topic));
+
+        }
+        catch
+        {
+          // soft-fail...
+        }
+      }
+    }
   }
 }
