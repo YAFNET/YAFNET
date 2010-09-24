@@ -75,10 +75,10 @@ namespace YAF.Pages
     protected bool AlbumsTabIsVisible()
     {
       int albumUser = this.PageContext.PageUserID;
-      this.PageContext.QueryIDs = new QueryStringIDHelper("u");
-      if (this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+
+      if (this.PageContext.IsAdmin && this.UserId > 0)
       {
-        albumUser = (int)this.PageContext.QueryIDs["u"];
+        albumUser = this.UserId;
       }
 
       // Add check if Albums Tab is visible 
@@ -91,23 +91,18 @@ namespace YAF.Pages
         {
           return true;
         }
-        else
-        {
-          // If this is the album owner we show him the tab, else it should be hidden 
-          if ((albumUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin)
-          {
-            // Check if a user have permissions to have albums, even if he has no albums at all.
-            var usrAlbums =
-              DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
-                "UsrAlbums", null);
 
-            if (usrAlbums.HasValue)
-            {
-              if (usrAlbums > 0)
-              {
-                return true;
-              }
-            }
+        // If this is the album owner we show him the tab, else it should be hidden 
+        if ((albumUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin)
+        {
+          // Check if a user have permissions to have albums, even if he has no albums at all.
+          var usrAlbums =
+            DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+              "UsrAlbums", null);
+
+          if (usrAlbums.HasValue && usrAlbums > 0)
+          {
+            return true;
           }
         }
       }
@@ -130,6 +125,27 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// Gets or sets UserId.
+    /// </summary>
+    public int UserId
+    {
+      get
+      {
+        if (ViewState["UserId"] == null)
+        {
+          return 0;
+        }
+
+        return (int)ViewState["UserId"];
+      }
+
+      set
+      {
+        ViewState["UserId"] = value;
+      }
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -143,27 +159,25 @@ namespace YAF.Pages
       this.lnkThanks.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
       this.lnkThanks.Visible = YafContext.Current.BoardSettings.EnableThanksMod;
 
-      if (this.Request.QueryString.GetFirstOrDefault("u") == null)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
       // admin or moderator, set edit control to moderator mode...
       if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
       {
         this.SignatureEditControl.InModeratorMode = true;
       }
-
-      this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
+      
       if (!this.IsPostBack)
       {
+        this.UserId = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
         this.userGroupsRow.Visible = this.PageContext.BoardSettings.ShowGroupsProfile || this.PageContext.IsAdmin;
-        this.BindData();
       }
-      else
+
+      if (this.UserId == 0)
       {
-        this.BindData();
+        YafBuildLink.AccessDenied( /*No such user exists*/);
       }
+
+      this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
+      this.BindData();
     }
 
     /// <summary>
@@ -209,11 +223,9 @@ namespace YAF.Pages
     /// </param>
     protected void lnk_AddBuddy(object sender, CommandEventArgs e)
     {
-      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-
       if (e.CommandArgument.ToString() == "addbuddy")
       {
-        string[] strBuddyRequest = YafBuddies.AddBuddyRequest(userID);
+        string[] strBuddyRequest = YafBuddies.AddBuddyRequest(UserId);
 
         var linkButton = (LinkButton)this.AboutTab.FindControl("lnkBuddy");
 
@@ -234,7 +246,7 @@ namespace YAF.Pages
       else
       {
         this.PageContext.AddLoadMessage(
-          this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(userID)));
+          this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(UserId)));
       }
 
       this.BindData();
@@ -251,8 +263,7 @@ namespace YAF.Pages
     /// </param>
     protected void lnk_ViewThanks(object sender, CommandEventArgs e)
     {
-      var userId = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-      YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", userId);
+      YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", UserId);
     }
 
     /// <summary>
@@ -278,22 +289,20 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-
-      MembershipUser user = UserMembershipHelper.GetMembershipUserById(userID);
+      MembershipUser user = UserMembershipHelper.GetMembershipUserById(UserId);
 
       if (user == null)
       {
         YafBuildLink.AccessDenied( /*No such user exists*/);
       }
 
-      var userData = new CombinedUserDataHelper(user, userID);
+      var userData = new CombinedUserDataHelper(user, UserId);
 
       // populate user information controls...      
       // Is BuddyList feature enabled?
       if (YafContext.Current.BoardSettings.EnableBuddyList)
       {
-        this.SetupBuddyList(userID, userData);
+        this.SetupBuddyList(UserId, userData);
       }
       else
       {
@@ -305,16 +314,16 @@ namespace YAF.Pages
       // Is album feature enabled?
       if (YafContext.Current.BoardSettings.EnableAlbum)
       {
-        this.AlbumList1.UserID = userID;
+        this.AlbumList1.UserID = UserId;
       }
       else
       {
         this.AlbumList1.Dispose();
       }
 
-      string userDisplayName = this.PageContext.UserDisplayName.GetName(userID);
+      string userDisplayName = this.PageContext.UserDisplayName.GetName(UserId);
 
-      this.SetupUserProfileInfo(userID, user, userData, userDisplayName);
+      this.SetupUserProfileInfo(UserId, user, userData, userDisplayName);
 
       this.AddPageLinks(userDisplayName);
 
@@ -326,9 +335,9 @@ namespace YAF.Pages
       // localize tab titles...
       this.LocalizeTabTitles();
 
-      this.SetupAvatar(userID, userData);
+      this.SetupAvatar(UserId, userData);
 
-      this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(userID));
+      this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(UserId));
 
       // EmailRow.Visible = PageContext.IsAdmin;
       this.ProfileTabs.Views["ModerateTab"].Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
@@ -338,7 +347,7 @@ namespace YAF.Pages
       if (this.LastPosts.Visible)
       {
         this.LastPosts.DataSource =
-          DB.post_alluser(this.PageContext.PageBoardID, userID, this.PageContext.PageUserID, 10).AsEnumerable();
+          DB.post_alluser(this.PageContext.PageBoardID, UserId, this.PageContext.PageUserID, 10).AsEnumerable();
         this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userDisplayName);
       }
 
@@ -555,9 +564,9 @@ namespace YAF.Pages
       this.Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);
 
       this.ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
-      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
-      this.ThanksToTimes.Text = ThanksToArray[0].ToString();
-      this.ThanksToPosts.Text = ThanksToArray[1].ToString();
+      int[] thanksToArray = DB.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+      this.ThanksToTimes.Text = thanksToArray[0].ToString();
+      this.ThanksToPosts.Text = thanksToArray[1].ToString();
       this.OnlineStatusImage1.UserID = userID;
       this.OnlineStatusImage1.Visible = this.PageContext.BoardSettings.ShowUserOnlineStatus;
 
@@ -617,17 +626,20 @@ namespace YAF.Pages
     /// </param>
     private void SetupUserStatistics(CombinedUserDataHelper userData)
     {
-      double dAllPosts = 0.0;
+      double allPosts = 0.0;
 
       if (SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]) > 0)
       {
-        dAllPosts = 100.0 * SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
+        allPosts = 100.0 * SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
                     SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
       }
 
-      this.Stats.InnerHtml = "{0:N0}<br/>[{1} / {2}]".FormatWith(userData.DBRow["NumPosts"], this.GetTextFormatted("NUMALL", dAllPosts), this.GetTextFormatted(
-        "NUMDAY", 
-        (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
+      this.Stats.InnerHtml = "{0:N0}<br/>[{1} / {2}]".FormatWith(
+        userData.DBRow["NumPosts"],
+        this.GetTextFormatted("NUMALL", allPosts),
+        this.GetTextFormatted(
+          "NUMDAY",
+          (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
         SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"])));
     }
 

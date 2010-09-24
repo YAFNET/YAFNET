@@ -17,9 +17,6 @@
                 OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
                 OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false"
                 Spinner="">
-                <Animations>
-                    <DotNetAge:AnimationAttribute Name="HeightTransition" AnimationType="height" Value="toggle" />
-                </Animations>
                 <Views>
                     <DotNetAge:View runat="server" ID="BuddyListTab" NavigateUrl=""
                         HeaderCssClass="" HeaderStyle="" Target="_blank">

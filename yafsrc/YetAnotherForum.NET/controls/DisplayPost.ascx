@@ -65,11 +65,11 @@
 <tr class="<%#GetPostClass()%>">
     <td style="padding: 5px;" colspan="2" valign="top">
         <div style="font-weight: bold;" id="<%# "dvThanksInfo" + DataRow["MessageID"] %>">
-            <asp:Literal runat="server"  Visible="false" ID="Literal1"></asp:Literal></div>
+            <asp:Literal runat="server"  Visible="false" ID="ThanksDataLiteral"></asp:Literal></div>
     </td>
     <td class="message" style="padding: 5px;" valign="top">
         <div id="<%# "dvThanks" + DataRow["MessageID"] %>">
-            <asp:Literal runat="server" Visible="false" ID="Literal2"></asp:Literal>
+            <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
         </div>
     </td>
 </tr>

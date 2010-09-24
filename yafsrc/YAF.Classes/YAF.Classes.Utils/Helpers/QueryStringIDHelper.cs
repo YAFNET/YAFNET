@@ -207,24 +207,21 @@ namespace YAF.Classes.Utils
 
       for (int i = 0; i < idNames.Length; i++)
       {
-        if (!this.Params.ContainsKey(idNames[i]))
+        if (this.Params.ContainsKey(idNames[i]))
         {
-          long idConverted = -1;
+          continue;
+        }
 
-          if (HttpContext.Current.Request.QueryString[idNames[i]].IsSet() &&
-              long.TryParse(HttpContext.Current.Request.QueryString[idNames[i]], out idConverted))
-          {
-            this.Params.Add(idNames[i], idConverted);
-          }
-          else
-          {
-            // fail, see if it should be valid...
-            if (errorOnInvalid[i])
-            {
-              // redirect to invalid id information...
-              YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-            }
-          }
+        long idConverted = -1;
+
+        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]).IsSet() && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out idConverted))
+        {
+          this.Params.Add(idNames[i], idConverted);
+        }
+        else if (errorOnInvalid[i])
+        {
+          // fail, see if it should be valid...
+          YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
         }
       }
     }

@@ -30,6 +30,7 @@ namespace YAF.Controls
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Utilities;
 
@@ -43,32 +44,22 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The _forum flags.
+    ///   The _forum flags.
     /// </summary>
     private ForumFlags _forumFlags;
 
     /// <summary>
-    /// The _is alt.
-    /// </summary>
-    private bool _isAlt = false;
-
-    /// <summary>
-    /// The _is threaded.
-    /// </summary>
-    private bool _isThreaded = false;
-
-    /// <summary>
-    /// The _message flags.
+    ///   The _message flags.
     /// </summary>
     private MessageFlags _messageFlags;
 
     /// <summary>
-    /// The current Post Data for this post.
+    ///   The current Post Data for this post.
     /// </summary>
-    private PostDataHelperWrapper _postDataHelperWrapper = null;
+    private PostDataHelperWrapper _postDataHelperWrapper;
 
     /// <summary>
-    /// The _topic flags.
+    ///   The _topic flags.
     /// </summary>
     private TopicFlags _topicFlags;
 
@@ -77,8 +68,9 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets or sets the DataRow.
+    ///   Gets or sets the DataRow.
     /// </summary>
+    [CanBeNull]
     public DataRow DataRow
     {
       get
@@ -98,23 +90,12 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsAlt.
+    ///   Gets or sets a value indicating whether IsAlt.
     /// </summary>
-    public bool IsAlt
-    {
-      get
-      {
-        return this._isAlt;
-      }
-
-      set
-      {
-        this._isAlt = value;
-      }
-    }
+    public bool IsAlt { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether IsGuest.
+    ///   Gets a value indicating whether IsGuest.
     /// </summary>
     public bool IsGuest
     {
@@ -132,23 +113,12 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsThreaded.
+    ///   Gets or sets a value indicating whether IsThreaded.
     /// </summary>
-    public bool IsThreaded
-    {
-      get
-      {
-        return this._isThreaded;
-      }
-
-      set
-      {
-        this._isThreaded = value;
-      }
-    }
+    public bool IsThreaded { get; set; }
 
     /// <summary>
-    /// Gets Post Data helper functions.
+    ///   Gets Post Data helper functions.
     /// </summary>
     public PostDataHelperWrapper PostData
     {
@@ -171,7 +141,8 @@ namespace YAF.Controls
     /// <returns>
     /// The format thanks info.
     /// </returns>
-    protected string FormatThanksInfo(string rawStr)
+    [NotNull]
+    protected string FormatThanksInfo([NotNull] string rawStr)
     {
       var sb = new StringBuilder();
       string strDate = string.Empty;
@@ -192,19 +163,19 @@ namespace YAF.Controls
         }
 
         // Get the username related to this User ID
-        string strUserName = this.PageContext.UserDisplayName.GetName(userId);
+        string displayName = this.PageContext.UserDisplayName.GetName(userId);
 
         sb.AppendFormat(
-          @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
-          userId,
-          YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
-          this.HtmlEncode(strUserName));
+          @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", 
+          userId, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId), 
+          this.HtmlEncode(displayName));
 
         // If showing thanks date is enabled, add it to the formatted string.
         if (showDate)
         {
           sb.AppendFormat(
-            @" {0}",
+            @" {0}", 
             YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(
               YafServices.DateTime.FormatDateShort(thanksDate)));
         }
@@ -230,7 +201,8 @@ namespace YAF.Controls
       if (indent > 0)
       {
         return
-          @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>".FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
+          @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
+            .FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
       }
       else
       {
@@ -244,6 +216,7 @@ namespace YAF.Controls
     /// <returns>
     /// The get indent span.
     /// </returns>
+    [NotNull]
     protected string GetIndentSpan()
     {
       if (!this.IsThreaded || (int)this.DataRow["Indent"] == 0)
@@ -262,6 +235,7 @@ namespace YAF.Controls
     /// <returns>
     /// The get post class.
     /// </returns>
+    [NotNull]
     protected string GetPostClass()
     {
       if (this.IsAlt)
@@ -282,6 +256,7 @@ namespace YAF.Controls
     /// <returns>
     /// The get user box height.
     /// </returns>
+    [NotNull]
     protected string GetUserBoxHeight()
     {
       if (this.PostData.PostDeleted)
@@ -298,9 +273,9 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
-      this.PreRender += new EventHandler(this.DisplayPost_PreRender);
+      this.PreRender += this.DisplayPost_PreRender;
       base.OnInit(e);
     }
 
@@ -313,28 +288,30 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (PageContext.BoardSettings.EnableThanksMod)
-        {
-            Utility.RegisterTypeForAjax(typeof(ThankYou));
+      if (this.PageContext.BoardSettings.EnableThanksMod)
+      {
+        Utility.RegisterTypeForAjax(typeof(ThankYou));
 
-            string addThankBoxHTML =
-              "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+        string addThankBoxHTML =
+          "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
-            string removeThankBoxHTML =
-              "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+        string removeThankBoxHTML =
+          "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-              "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-              "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
-            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-        }
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+      }
+
       this.PopMenu1.Visible = !this.IsGuest;
       if (this.PopMenu1.Visible)
       {
-        this.PopMenu1.ItemClick += new PopEventHandler(this.PopMenu1_ItemClick);
+        this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
         this.PopMenu1.AddPostBackItem("userprofile", this.PageContext.Localization.GetText("POSTS", "USERPROFILE"));
 
         if (YafContext.Current.BoardSettings.EnableThanksMod)
@@ -369,14 +346,13 @@ namespace YAF.Controls
           {
             this.PopMenu1.AddPostBackItem("addbuddy", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
           }
-            
-          // Are the users approved buddies? Add the "Remove buddy" item.
           else if (YafBuddies.IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
           {
+            // Are the users approved buddies? Add the "Remove buddy" item.
             this.PopMenu1.AddClientScriptItemWithPostback(
-               this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
-              "removebuddy",
-              String.Format("if (confirm('{0}')) {1}", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"),"{postbackcode}"));
+              this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
+              "removebuddy", 
+              "if (confirm('{0}')) {1}".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
           }
         }
 
@@ -408,7 +384,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void DisplayPost_PreRender(object sender, EventArgs e)
+    private void DisplayPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.PageContext.IsGuest)
       {
@@ -418,7 +394,8 @@ namespace YAF.Controls
       {
         this.panMessage.Attributes["style"] = "display:none";
         this.PostFooter.TogglePost.Visible = true;
-        this.PostFooter.TogglePost.Attributes["onclick"] = "toggleMessage('{0}'); return false;".FormatWith(this.panMessage.ClientID);
+        this.PostFooter.TogglePost.Attributes["onclick"] =
+          "toggleMessage('{0}'); return false;".FormatWith(this.panMessage.ClientID);
       }
       else if (!YafServices.UserIgnored.IsIgnored(this.PostData.UserId))
       {
@@ -446,39 +423,55 @@ namespace YAF.Controls
         this.PageContext.PageTopicID, 
         this.PageContext.PageForumID, 
         this.PostData.MessageId);
-      if (PageContext.BoardSettings.EnableThanksMod)
+
+      if (this.PageContext.BoardSettings.EnableThanksMod)
       {
-          this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
-                         YafContext.Current.BoardSettings.EnableThanksMod;
+        this.FormatThanksRow();
+      }
+    }
 
-          if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
-          {
-              this.Thank.NavigateUrl = "javascript:removeThanks(" + this.DataRow["MessageID"] + ");";
-              this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
-              this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
-          }
-          else
-          {
-              this.Thank.NavigateUrl = "javascript:addThanks(" + this.DataRow["MessageID"] + ");";
-              this.Thank.TextLocalizedTag = "BUTTON_THANKS";
-              this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
-          }
+    /// <summary>
+    /// Do thanks row formatting.
+    /// </summary>
+    private void FormatThanksRow()
+    {
+      this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
+                           YafContext.Current.BoardSettings.EnableThanksMod;
 
-          int thanksNumber = Convert.ToInt32(this.DataRow["MessageThanksNumber"]);
-          if (thanksNumber != 0)
-          {
-              this.Literal2.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
-              this.Literal2.Visible = true;
-              if (thanksNumber == 1)
-              {
-                  this.Literal1.Text = this.PageContext.Localization.GetText("THANKSINFOSINGLE").FormatWith(this.HtmlEncode(this.PostData.UserProfile.UserName));
-              }
-              else
-              {
-                  this.Literal1.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(thanksNumber, this.HtmlEncode(this.PostData.UserProfile.UserName));
-              }
-              this.Literal1.Visible = true;
-          }
+      if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
+      {
+        this.Thank.NavigateUrl = "javascript:removeThanks(" + this.DataRow["MessageID"] + ");";
+        this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
+        this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
+      }
+      else
+      {
+        this.Thank.NavigateUrl = "javascript:addThanks(" + this.DataRow["MessageID"] + ");";
+        this.Thank.TextLocalizedTag = "BUTTON_THANKS";
+        this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
+      }
+
+      int thanksNumber = Convert.ToInt32(this.DataRow["MessageThanksNumber"]);
+
+      if (thanksNumber != 0)
+      {
+        this.thanksDataExtendedLiteral.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
+        this.thanksDataExtendedLiteral.Visible = true;
+
+        if (thanksNumber == 1)
+        {
+          this.ThanksDataLiteral.Text =
+            this.PageContext.Localization.GetText("THANKSINFOSINGLE").FormatWith(
+              this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId)));
+        }
+        else
+        {
+          this.ThanksDataLiteral.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(
+            thanksNumber, 
+            this.HtmlEncode(this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId))));
+        }
+
+        this.ThanksDataLiteral.Visible = true;
       }
     }
 
@@ -491,7 +484,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void PopMenu1_ItemClick(object sender, PopEventArgs e)
+    private void PopMenu1_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
     {
       switch (e.Item)
       {
@@ -509,8 +502,11 @@ namespace YAF.Controls
             this.PopMenu1.AddClientScriptItemWithPostback(
               this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
               "removebuddy", 
-                String.Format("if (confirm('{0}')) {1}", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"),"{postbackcode}"));
-           }
+              String.Format(
+                "if (confirm('{0}')) {1}", 
+                this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), 
+                "{postbackcode}"));
+          }
           else
           {
             this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
@@ -522,7 +518,8 @@ namespace YAF.Controls
             this.PopMenu1.RemovePostBackItem("removebuddy");
             this.PopMenu1.AddPostBackItem("addbuddy", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(this.PostData.UserId)));
+              this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
+                YafBuddies.RemoveBuddy(this.PostData.UserId)));
             break;
           }
 

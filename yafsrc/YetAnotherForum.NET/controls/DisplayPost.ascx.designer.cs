@@ -157,22 +157,22 @@ namespace YAF.Controls {
         protected global::YAF.Controls.DisplayPostFooter PostFooter;
         
         /// <summary>
-        /// Literal1 control.
+        /// ThanksDataLiteral control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal1;
+        protected global::System.Web.UI.WebControls.Literal ThanksDataLiteral;
         
         /// <summary>
-        /// Literal2 control.
+        /// thanksDataExtendedLiteral control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal2;
+        protected global::System.Web.UI.WebControls.Literal thanksDataExtendedLiteral;
         
         /// <summary>
         /// PopMenu1 control.
