@@ -1408,6 +1408,12 @@ namespace YAF.Install
           }
         }
 
+        if (DB.IsForumInstalled && prevVersion < 42)
+        {
+          // un-html encode all topic subject names...
+          DB.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
+        }
+        
         // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
         // DB.system_deleteinstallobjects();
       }

@@ -616,6 +616,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_updatelastpost]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_updatetopic]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_updatetopic]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_accessmasks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_accessmasks]
 GO
@@ -5190,6 +5194,16 @@ begin
 		and (@ForumID is null or ForumID=@ForumID)
 
 	exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_updatetopic]
+(@TopicID int,@Topic nvarchar (100)) as
+begin
+		if @TopicID is not null
+		update [{databaseOwner}].[{objectQualifier}Topic] set
+			Topic = @Topic
+		where TopicID = @TopicID
 end
 GO
 
