@@ -10154,8 +10154,13 @@ namespace YAF.Classes.Data
       {
         try
         {
-          // unencode it and update.
-          DB.topic_updatetopic(topic.TopicID.Value, decodeTopicFunc(topic.Topic));
+          var decodedTopic = decodeTopicFunc(topic.Topic);
+
+          if (!decodedTopic.Equals(topic.Topic))
+          {
+            // unencode it and update.
+            DB.topic_updatetopic(topic.TopicID.Value, decodedTopic);
+          }
 
         }
         catch
