@@ -35,9 +35,10 @@
 	color: #fef4e9;
 	border: solid 1px #da7c0c;
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 }
 .yafnet .pbutton:hover
 {
@@ -47,17 +48,19 @@
 	border-radius: 0.4em;
 	
 	background: url('ButtonHover.png') #f47c20;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+	
 }
 .yafnet .pbutton:active
 {
-    background: url('ButtonActive.png') #f47a20;
 	color: #fcd3a5;
+	 background: url('ButtonActive.png') #f47a20;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
 	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+	
 	}
 .yafnet img {
 	border: 0;
@@ -80,9 +83,10 @@
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 }
 .yafnet tr.forumRowTitle th {color: #ffffff;}
 .yafnet tr.header1 a {
@@ -92,13 +96,15 @@
 .yafnet tr.header1 a:hover {
 	color: #eeffee;
 	text-decoration: underline;
-}	
+}
+.yafnet .topicTitle th,
 .yafnet td.header1 {
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	background: url('HeaderBack.png') #f78d1d;
+	background: url('HeaderBack.png') bottom #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 	
 	color: #ffffff;
 	font-weight: bold;
@@ -112,9 +118,10 @@
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;	
@@ -131,53 +138,39 @@
 	color: #55a055;
 	font-weight: bold;
 }
-.yafnet tr.header2 td,
 .yafnet tr.header2 th,
-.yafnet td.header2 {
+.yafnet tr.header2 th,
+.yafnet th.header2 {
 	border-top:1px solid #555;
 	line-height: 20px;
 	background: url('Header2Back.png') repeat-x #ffffff;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
 	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#e3e3e3', endColorstr='#ffffff');
+	
 	color: black;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	font-weight: bold;
 }
-.postForumUsers tr.header2 td,
-#DataPanel1_Table td.header2,
-#yafprofilecontent td.header2,
-#yafprofilecontainer  tr.header2 td {border-top:none;}
+.postForumUsers tr.header2 th,
+#DataPanel1_Table th.header2,
+#yafprofilecontent th.header2,
+#yafprofilecontainer  tr.header2 th {border-top:none;}
 
-.yafnet tr.header2 td a {color:black;font-weight: bold;font-size:9pt;}
+.yafnet tr.header2 td a,
+.yafnet tr.header2 th a {color:black;font-weight: bold;font-size:9pt;}
+
 .yafnet tr.topicRow a.post_link,
 .yafnet tr.topicRow_Alt a.post_link
 {
 	font-size:9pt;
 	font-weight: bold;
 }
-.yafnet tr.topicRow .topicLastPost img.avatarimage,
-.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
-{
-	width: 40px;
-	height: 40px;
-	float: left;
-	padding: 3px;
-}
 
-.yafnet tr.topicRow .topicMain img.avatarimage,
-.yafnet tr.topicRow_Alt .topicMain img.avatarimage
-{
-	width: 40px;
-	height: 40px;
-	float: left;
-	padding: 3px;	
-	padding-right: 8px;
-}
-.yafnet td.header2 a:link,
-.yafnet td.header2 a:visited,
-.yafnet td.header2 a:active,
-.yafnet td.header2 a:hover { color: black; text-decoration: underline; }
+.yafnet th.header2 a:link,
+.yafnet th.header2 a:visited,
+.yafnet th.header2 a:active,
+.yafnet th.header2 a:hover { color: black; text-decoration: underline; }
 
 .yafnet td.infoTable {
 	background-color: #FAFAFA;
@@ -204,9 +197,10 @@
 	font-size: 7pt;
 	height: 28px;
 	background:  url('FooterBack.png') repeat-x #f4f4f4;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f4f4f4));
 	background: -moz-linear-gradient(top,  #ffffff,  #f4f4f4);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4');
+	
 }
 .yafnet .footer1 select,
 .yafnet .footer1 td {
@@ -225,9 +219,10 @@
 /* Header of posts */
 .yafnet .postheader {
 	background: url('PostHeader.png') repeat-x #e3e3e3;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e3e3e3));
 	background: -moz-linear-gradient(top,  #ffffff,  #e3e3e3);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e3e3e3');
+	
 }
 #yafprofilecontent .postheader {
 	background: #fefefe;
@@ -250,11 +245,10 @@
 .topicRow_Alt td{
 	background-color: #fff;
 }
-.yafnet tr.post:hover {
-	background-color: #f7b269;	
-}
+.yafnet tr.post:hover,
 .yafnet tr.post_alt:hover,
-.yafnet tr.topicRow_Alt:hover td {
+.yafnet tr.topicRow_Alt:hover td,
+.yafnet tr.post_alt:hover td {
 	background-color: #f7b269;	
 }
 /* Footer of posts */
@@ -569,16 +563,18 @@ This CSS already works on FireFox.
 	color: #fef4e9;
 	border: solid 1px #da7c0c;
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 }
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
 	background: url('ButtonHover.png') #f47c20;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+	
 
 	text-decoration: none;
 	color: #ffffff;
@@ -586,10 +582,11 @@ This CSS already works on FireFox.
 .yafnet a.yaflittlebutton:active,
 .yafnet a.yafcssimagebutton:active {
     background: url('ButtonActive.png') #f47a20;
+	
 	color: #fcd3a5;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
 	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+	
 	
 	text-decoration: none;
 }
@@ -621,9 +618,10 @@ This CSS already works on FireFox.
 	color: #fef4e9;
 	border: solid 1px #da7c0c;
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 }
 .yafnet a.yafcssbigbutton span{
     display: block;
@@ -640,16 +638,18 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	
 	background: url('ButtonHover.png') #f47c20;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
 	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+	
 }
 .yafnet a.yafcssbigbutton:active{
        background: url('ButtonActive.png') #f47a20;
+	   
 	color: #fcd3a5;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
 	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+	
 }
 .yafnet a.yafcssbigbutton:active img{
     padding: 0px 4px 0px 0px;
@@ -768,9 +768,10 @@ This CSS already works on FireFox.
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 	
 	color: #ffffff;
 	font-weight: bold;
@@ -839,9 +840,10 @@ This CSS already works on FireFox.
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	background: url('HeaderBack.png') #f78d1d;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
 	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	
 	
 	color: #ffffff;
 	font-weight: bold;	
@@ -994,3 +996,35 @@ height:80em;
 
 .message, .UserBox {vertical-align:top;}
 .UserBox {border-right: 1px solid #ccc}
+
+.avatarimage {
+	display: inline-block;
+	border: solid 1px #000;
+	overflow: hidden;
+	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	}
+
+.topicLastPost .avatarimage,
+.topicMain .avatarimage {
+	float: left;
+	
+	width: 40px;
+	height: 40px;
+	border: solid 1px #000;
+	margin-right:5px;
+	
+	display: inline-block;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+	-moz-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+}

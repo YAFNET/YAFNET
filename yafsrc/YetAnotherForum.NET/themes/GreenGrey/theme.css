@@ -35,9 +35,10 @@
 	color: #e8f0de;
 	border: solid 1px #538312;
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 }
 .yafnet .pbutton:hover
 {
@@ -47,16 +48,18 @@
 	border-radius: 0.4em;
 	
 	background: url('ButtonHover.png') #538018;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
 	background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+	
 }
 .yafnet .pbutton:active
 {
     background: url('ButtonActive.png') #7db72f;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
 	background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+	
 	}
 .yafnet img {
 	border: 0;
@@ -82,7 +85,7 @@
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 }
 .yafnet tr.forumRowTitle th {color: #ffffff;}
 .yafnet tr.header1 a {
@@ -93,12 +96,14 @@
 	color: #eeffee;
 	text-decoration: underline;
 }	
-.yafnet td.header1 {
+.yafnet td.header1,	
+.yafnet th.header1 {
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 	
 	color: #ffffff;
 	font-weight: bold;
@@ -112,9 +117,10 @@
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;	
@@ -137,9 +143,10 @@
 	border-top:1px solid #555;
 	line-height: 20px;
 	background: url('Header2Back.png') repeat-x #ffffff;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
 	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#e3e3e3', endColorstr='#ffffff');
+	
 	color: black;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	font-weight: bold;
@@ -149,7 +156,8 @@
 #yafprofilecontent td.header2,
 #yafprofilecontainer  tr.header2 td {border-top:none;}
 
-.yafnet tr.header2 td a {color:black;font-weight: bold;font-size:9pt;}
+.yafnet tr.header2 td a,
+.yafnet tr.header2 th a {color:black;font-weight: bold;font-size:9pt;}
 
 .yafnet tr.topicRow a.post_link,
 .yafnet tr.topicRow_Alt a.post_link
@@ -157,33 +165,16 @@
 	font-size:9pt;
 	font-weight: bold;
 }
-.yafnet tr.topicRow .topicLastPost img.avatarimage,
-.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
-{
-	width: 40px;
-	height: 40px;
-	float: left;
-	padding: 3px;
-}
 
-.yafnet tr.topicRow .topicMain img.avatarimage,
-.yafnet tr.topicRow_Alt .topicMain img.avatarimage
-{
-	width: 40px;
-	height: 40px;
-	float: left;
-	padding: 3px;	
-	padding-right: 8px;
-}
 /* all links */
 .yafnet .content a			{ color: #001090; text-decoration: none; }
 .yafnet .content a:hover	{ color: #001090; text-decoration: underline; }
 
-.yafnet td.header2 a:link,
-.yafnet td.header2 a:visited,
-.yafnet td.header2 a:active,
-.yafnet td.header2 a:hover { color: black; text-decoration: underline; }
-.yafnet td.infoTable {
+.yafnet th.header2 a:link,
+.yafnet th.header2 a:visited,
+.yafnet th.header2 a:active,
+.yafnet th.header2 a:hover { color: black; text-decoration: underline; }
+.yafnet th.infoTable {
 	background-color: #FAFAFA;
 	padding: 10px;
 	border: 1px solid #F2F2F2;
@@ -196,9 +187,10 @@
 	font-size: 7pt;
 	height: 28px;
 	background:  url('FooterBack.png') repeat-x #f4f4f4;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f4f4f4));
 	background: -moz-linear-gradient(top,  #ffffff,  #f4f4f4);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4');
+	
 }
 .yafnet .footer1 select,
 .yafnet .footer1 td {
@@ -217,9 +209,10 @@
 /* Header of posts */
 .yafnet .postheader {
 	background: url('PostHeader.png') repeat-x #e3e3e3;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e3e3e3));
 	background: -moz-linear-gradient(top,  #ffffff,  #e3e3e3);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e3e3e3');
+	
 }
 #yafprofilecontent .postheader {
 	background: #fefefe;
@@ -240,11 +233,10 @@
 .topicRow_Alt td{
 	background-color: #fff;
 }
-.yafnet tr.post:hover {
-	background-color: #badc77;	
-}
+.yafnet tr.post:hover,
 .yafnet tr.post_alt:hover,
-.yafnet tr.topicRow_Alt:hover td {
+.yafnet tr.topicRow_Alt:hover td,
+.yafnet tr.post_alt:hover td {
 	background-color: #badc77;	
 }
 /* Footer of posts */
@@ -559,16 +551,18 @@ This CSS already works on FireFox.
 	color: #e8f0de;
 	border: solid 1px #538312;
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 }
 .yafnet a.yaflittlebutton:hover,
 .yafnet a.yafcssimagebutton:hover {
 	background: url('ButtonHover.png') #538018;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
 	background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+	
 
 	text-decoration: none;
 	color: #ffffff;
@@ -577,9 +571,10 @@ This CSS already works on FireFox.
 .yafnet a.yafcssimagebutton:active {
     color: #ffffff;
 	background: url('ButtonActive.png') #7db72f;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#4e7d0e), to(#7db72f));
 	background: -moz-linear-gradient(top,  #4e7d0e,  #7db72f);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e7d0e', endColorstr='#7db72f');
+	
 	
 	text-decoration: none;
 }
@@ -611,9 +606,10 @@ This CSS already works on FireFox.
 	color: #e8f0de;
 	border: solid 1px #538312;
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 }
 .yafnet a.yafcssbigbutton span{
     display: block;
@@ -630,16 +626,18 @@ This CSS already works on FireFox.
 	text-decoration: none;
 	
 	background: url('ButtonHover.png') #538018;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#6b9d28), to(#436b0c));
 	background: -moz-linear-gradient(top,  #6b9d28,  #436b0c);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#6b9d28', endColorstr='#436b0c');
+	
 }
 .yafnet a.yafcssbigbutton:active{
     color: #ffffff;
 	background: url('ButtonActive.png') #7db72f;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#4e7d0e), to(#7db72f));
 	background: -moz-linear-gradient(top,  #4e7d0e,  #7db72f);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e7d0e', endColorstr='#7db72f');
+	
 }
 .yafnet a.yafcssbigbutton:active img{
     padding: 0px 4px 0px 0px;
@@ -758,9 +756,10 @@ This CSS already works on FireFox.
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 	
 	color: #ffffff;
 	font-weight: bold;
@@ -829,9 +828,10 @@ This CSS already works on FireFox.
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	background: url('HeaderBack.png') #9eda29;
+	
 	background: -webkit-gradient(linear, left top, left bottom, from(#9eda29), to(#6ca300));
 	background: -moz-linear-gradient(top,  #9eda29,  #6ca300);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9eda29', endColorstr='#6ca300');
+	
 	
 	color: #ffffff;
 	font-weight: bold;	
@@ -984,3 +984,35 @@ height:80em;
 
 .message, .UserBox {vertical-align:top;}
 .UserBox {border-right: 1px solid #ccc}
+
+.avatarimage {
+	display: inline-block;
+	border: solid 1px #000;
+	overflow: hidden;
+	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	}
+
+.topicLastPost .avatarimage,
+.topicMain .avatarimage {
+	float: left;
+	
+	width: 40px;
+	height: 40px;
+	border: solid 1px #000;
+	margin-right:5px;
+	
+	display: inline-block;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+	-moz-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+}
