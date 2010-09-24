@@ -3393,7 +3393,7 @@
             The mail id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.mail_list(System.Object)">
+        <member name="M:YAF.Classes.Data.DB.MailList(System.Int64)">
             <summary>
             The mail_list.
             </summary>
@@ -6956,6 +6956,40 @@
             Gets a value indicating whether PanelShrink.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.TypedTopicSimpleList">
+            <summary>
+            The typed topic simple list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Nullable{System.Int32},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            </summary>
+            <param name="topicid">
+            The topicid.
+            </param>
+            <param name="topic">
+            The topic.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.Topic">
+            <summary>
+            Gets or sets Topic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.TopicID">
+            <summary>
+            Gets or sets TopicID.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.TypedMessageList">
             <summary>
             The typed message list.
@@ -7542,38 +7576,118 @@
             The is moderator.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.TypedTopicSimpleList">
+        <member name="T:YAF.Classes.Data.TypedMailList">
             <summary>
-            The typed topic simple list.
+            The typed mail list.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Data.DataRow)">
+        <member name="M:YAF.Classes.Data.TypedMailList.#ctor(System.Data.DataRow)">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedMailList"/> class.
             </summary>
             <param name="row">
             The row.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Nullable{System.Int32},System.String)">
+        <member name="M:YAF.Classes.Data.TypedMailList.#ctor(System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.DateTime},System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32})">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedMailList"/> class.
             </summary>
-            <param name="topicid">
-            The topicid.
+            <param name="mailid">
+            The mailid.
             </param>
-            <param name="topic">
-            The topic.
+            <param name="fromuser">
+            The fromuser.
+            </param>
+            <param name="touser">
+            The touser.
+            </param>
+            <param name="created">
+            The created.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="body">
+            The body.
+            </param>
+            <param name="fromusername">
+            The fromusername.
+            </param>
+            <param name="tousername">
+            The tousername.
+            </param>
+            <param name="bodyhtml">
+            The bodyhtml.
+            </param>
+            <param name="sendtries">
+            The sendtries.
+            </param>
+            <param name="sendattempt">
+            The sendattempt.
+            </param>
+            <param name="processid">
+            The processid.
             </param>
         </member>
-        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.Topic">
+        <member name="P:YAF.Classes.Data.TypedMailList.Body">
             <summary>
-            Gets or sets Topic.
+            Gets or sets Body.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.TopicID">
+        <member name="P:YAF.Classes.Data.TypedMailList.BodyHtml">
             <summary>
-            Gets or sets TopicID.
+            Gets or sets BodyHtml.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.Created">
+            <summary>
+            Gets or sets Created.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.FromUser">
+            <summary>
+            Gets or sets FromUser.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.FromUserName">
+            <summary>
+            Gets or sets FromUserName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.MailID">
+            <summary>
+            Gets or sets MailID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.ProcessID">
+            <summary>
+            Gets or sets ProcessID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.SendAttempt">
+            <summary>
+            Gets or sets SendAttempt.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.SendTries">
+            <summary>
+            Gets or sets SendTries.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.Subject">
+            <summary>
+            Gets or sets Subject.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.ToUser">
+            <summary>
+            Gets or sets ToUser.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMailList.ToUserName">
+            <summary>
+            Gets or sets ToUserName.
             </summary>
         </member>
     </members>

@@ -1796,6 +1796,11 @@
             The writer.
             </param>
         </member>
+        <member name="P:YAF.Controls.TopicLine.ShowTopicPosted">
+            <summary>
+            Gets or sets a value indicating whether ShowTopicPosted.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.TopicLine.AltLastPost">
             <summary>
               Gets or sets Alt.

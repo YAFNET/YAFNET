@@ -1663,6 +1663,15 @@
             Returns a forbidden HTML tag or a null string
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.CheckHtmlTags(System.String,System.String,System.Char)">
+            <summary>
+            The method used to get response string, if a forbidden tag is detected. 
+            </summary>
+            <param name="checkString">The string to check.</param>
+            <param name="acceptedTags">The list of accepted tags.</param>
+            <param name="delim">The delimeter in a tags list.</param>
+            <returns>A message string.</returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.RemoveNestedQuotes(System.String)">
             <summary>
             Removes nested YafBBCode quotes from the given message body.
@@ -3975,20 +3984,6 @@
             The body html.
             </param>
         </member>
-        <member name="T:YAF.Classes.Core.YafSendMailThreaded">
-            <summary>
-            Separate class since SendThreaded isn't needed functionality
-            for any instance except the <see cref="!:HttpModule"/> instance.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMailThreaded.SendThreaded(System.Int32)">
-            <summary>
-            The send threaded.
-            </summary>
-            <param name="uniqueId">
-            The unique id.
-            </param>
-        </member>
         <member name="T:YAF.Classes.Core.CaptchaHelper">
             <summary>
             The captcha helper.
@@ -6227,80 +6222,91 @@
         </member>
         <member name="F:YAF.Classes.Core.YafDateTime.timeZoneName">
             <summary>
-            Time zone suffix for Guests
+              Time zone suffix for Guests
             </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTime(System.Object)">
-            <summary>
-            Formats a datetime value into 07.03.2003 22:32:34
-            </summary>
-            <param name="objectDateTime"> 
-            The date to be formatted
-            </param>    
-            <returns>
-            Formatted  <see cref="T:System.String"/> of the formatted <see cref="T:System.DateTime"/> Object.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTimeTopic(System.Object)">
-            <summary>
-            Formats a datatime value into 07.03.2003 00:00:00 except if 
-            the date is yesterday or today -- in which case it says that.
-            </summary>
-            <param name="objectDateTime">
-            The datetime to be formatted
-            </param>
-            <returns>
-            Formatted string of DateTime object
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTimeShort(System.Object)">
-            <summary>
-            This formats a DateTime into a short string
-            </summary>
-            <param name="objectDateTime">
-            The DateTime like object you wish to make a formatted string.
-            </param>
-            <returns>
-            The formatted string created from the DateTime object.
-            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateLong(System.DateTime)">
             <summary>
             Formats a datetime value into 7. february 2003
             </summary>
-            <param name="dt">
+            <param name="dateTime">
             The date to be formatted
             </param>
             <returns>
             The format date long.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateShort(System.Object)">
+        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateShort(System.DateTime)">
             <summary>
             Formats a datetime value into 07.03.2003
             </summary>
-            <param name="objectDateTime">
-            This formats the date.
+            <param name="dateTime">
+            The date Time.
             </param>
             <returns>
             Short formatted date.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTime(System.DateTime)">
+            <summary>
+            Formats a datetime value into 07.03.2003 22:32:34
+            </summary>
+            <param name="dateTime">
+            The date Time.
+            </param>
+            <returns>
+            Formatted  <see cref="T:System.String"/> of the formatted <see cref="T:System.DateTime"/> Object.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTimeShort(System.DateTime)">
+            <summary>
+            This formats a DateTime into a short string
+            </summary>
+            <param name="dateTime">
+            The date Time.
+            </param>
+            <returns>
+            The formatted string created from the DateTime object.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTimeTopic(System.DateTime)">
+            <summary>
+            Formats a datatime value into 07.03.2003 00:00:00 except if 
+              the date is yesterday or today -- in which case it says that.
+            </summary>
+            <param name="dateTime">
+            The date Time.
+            </param>
+            <returns>
+            Formatted string of DateTime object
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatTime(System.DateTime)">
             <summary>
             Formats a datetime value into 22:32:34
             </summary>
-            <param name="dt">
+            <param name="dateTime">
             The date to be formatted
             </param>
             <returns>
             The format time.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafDateTime.AccountForDST(System.DateTime)">
+            <summary>
+            Determines if the given date falls during DST and updates accordingly if the user chosen to allow for DST.
+            </summary>
+            <param name="dtCurrent">
+            The date to be checked
+            </param>
+            <returns>
+            DateTime object account for DST (if required).
+            </returns>
+        </member>
         <member name="P:YAF.Classes.Core.YafDateTime.TimeOffset">
             <summary>
-            Gets the time zone offset 
-            for the current user.
+              Gets the time zone offset 
+              for the current user.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.BadWordReplaceItem">
@@ -9654,6 +9660,107 @@
             <summary>
             Gets ThisControl.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafSendMailThreaded">
+            <summary>
+            Separate class since SendThreaded isn't needed functionality
+            for any instance except the <see cref="!:HttpModule"/> instance.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailThreaded.SendThreaded(System.Int32)">
+            <summary>
+            The send threaded.
+            </summary>
+            <param name="uniqueId">
+            The unique id.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Core.YafDateTimeExtensions">
+            <summary>
+            The yaf date time extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateLong(YAF.Classes.Core.YafDateTime,System.Object)">
+            <summary>
+            Format a date long -- using an object conversion.
+            </summary>
+            <param name="yafDateTime">
+            </param>
+            <param name="objectDateTime">
+            </param>
+            <returns>
+            The format date long.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateShort(YAF.Classes.Core.YafDateTime,System.Object)">
+            <summary>
+            The format date short.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            The format date short.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateTime(YAF.Classes.Core.YafDateTime,System.Object)">
+            <summary>
+            The format date time.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            The format date time.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateTimeShort(YAF.Classes.Core.YafDateTime,System.Object)">
+            <summary>
+            The format date time short.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            The format date time short.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateTimeTopic(YAF.Classes.Core.YafDateTime,System.Object)">
+            <summary>
+            The format date time topic.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            The format date time topic.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatTime(YAF.Classes.Core.YafDateTime,System.Object)">
+            <summary>
+            The format time.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            The format time.
+            </returns>
         </member>
     </members>
 </doc>

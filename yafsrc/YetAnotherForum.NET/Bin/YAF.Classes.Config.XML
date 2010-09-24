@@ -2951,9 +2951,9 @@
             Gets or sets AllowPollChangesAfterFirstVote. A poll creator can't change choices after the first vote.
             </summary>
         </member>
-        <member name="P:YAF.Classes.YafBoardSettings.AllowUsersViewPollVotesBefore">
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUsersHidePollResults">
             <summary>
-            Gets or sets AllowUsersViewPollVotesBefore. 
+            Gets or sets AllowUsersHidePollResults. 
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowGuestsViewPollOptions">
@@ -3276,6 +3276,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.AcceptedHTML">
             <summary>
             Gets or sets AcceptedHTML.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AcceptedHeadersHTML">
+            <summary>
+            Gets or sets AcceptedHeadersHTML.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AdPost">

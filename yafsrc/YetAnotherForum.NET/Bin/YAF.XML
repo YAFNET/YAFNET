@@ -18764,9 +18764,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowUsersViewPollVotesBefore">
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowUsersHidePollResults">
             <summary>
-            AllowUsersViewPollVotesBefore control.
+            AllowUsersHidePollResults control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -19235,6 +19235,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AcceptedHTML">
             <summary>
             AcceptedHTML control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AcceptedHeadersHTML">
+            <summary>
+            AcceptedHeadersHTML control.
             </summary>
             <remarks>
             Auto-generated field.
