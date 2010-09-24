@@ -3619,13 +3619,14 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable mail_list(object processId)
+    public static IEnumerable<TypedMailList> MailList(long processId)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("mail_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ProcessID", processId);
-        return YafDBAccess.Current.GetData(cmd);
+
+        return YafDBAccess.Current.GetData(cmd).SelectTypedList(x => new TypedMailList(x));
       }
     }
 

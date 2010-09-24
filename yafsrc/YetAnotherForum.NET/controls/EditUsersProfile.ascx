@@ -8,10 +8,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <strong>
+            <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="aboutyou" />
-            </strong>
+            </b>
         </td>
     </tr>
     <asp:PlaceHolder ID="DisplayNamePlaceholder" runat="server" Visible="false">
@@ -84,10 +84,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <strong>
+            <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="location" />
-            </strong>
+            </b>
         </td>
     </tr>
     <tr>
@@ -101,10 +101,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <strong>
+            <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="homepage" />
-            </strong>
+            </b>
         </td>
     </tr>
     <tr>
@@ -128,10 +128,10 @@
     <asp:PlaceHolder runat="server" ID="MetaWeblogAPI" Visible="true">
         <tr>
             <td colspan="2" class="header2">
-                <strong>
+                <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedPage="CP_EDITPROFILE"
                         LocalizedTag="METAWEBLOG_TITLE" />
-                </strong>
+                </b>
             </td>
         </tr>
         <tr>
@@ -167,10 +167,10 @@
     </asp:PlaceHolder>
     <tr>
         <td colspan="2" class="header2">
-            <strong>
+            <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="messenger" />
-            </strong>
+            </b>
         </td>
     </tr>
     <tr>
@@ -229,10 +229,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <strong>
+            <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="timezone" />
-            </strong>
+            </b>
         </td>
     </tr>
     <tr>
@@ -255,10 +255,10 @@
     </tr>
     <tr runat="server" id="ForumSettingsRows">
         <td colspan="2" class="header2">
-            <strong>
+            <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="FORUM_SETTINGS" />
-            </strong>
+            </b>
         </td>
     </tr>
     <tr runat="server" id="UserThemeRow">

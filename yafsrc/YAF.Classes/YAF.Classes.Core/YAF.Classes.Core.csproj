@@ -139,7 +139,9 @@
     <Compile Include="Services\CheckForSpam\ICheckForSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
+    <Compile Include="Extensions\YafDateTimeExtensions.cs" />
     <Compile Include="Services\YafFormatMessage.cs" />
+    <Compile Include="Services\YafSendMailThreaded.cs" />
     <Compile Include="Services\YafSendNotification.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
     <Compile Include="Tasks\BackgroundTaskExtensions.cs" />

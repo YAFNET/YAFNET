@@ -16,22 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Diagnostics;
-using System.Net.Mail;
-using System.Text;
-using System.Threading;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System.Net.Mail;
+  using System.Text;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// Functions to send email via SMTP
   /// </summary>
   public class YafSendMail
   {
+    #region Public Methods
+
     /// <summary>
     /// Queues an e-mail message for asynchronous delivery
     /// </summary>
@@ -56,7 +61,7 @@ namespace YAF.Classes.Core
     /// <param name="bodyHtml">
     /// The body Html.
     /// </param>
-    public void Queue(string fromEmail, string fromName, string toEmail, string toName, string subject, string bodyText, string bodyHtml)
+    public void Queue([NotNull] string fromEmail, [NotNull] string fromName, [NotNull] string toEmail, [NotNull] string toName, [NotNull] string subject, [NotNull] string bodyText, [NotNull] string bodyHtml)
     {
       DB.mail_create(fromEmail, fromName, toEmail, toName, subject, bodyText, bodyHtml);
     }
@@ -72,7 +77,7 @@ namespace YAF.Classes.Core
     /// </param>
     /// <param name="body">
     /// </param>
-    public void Queue(string fromEmail, string toEmail, string subject, string body)
+    public void Queue([NotNull] string fromEmail, [NotNull] string toEmail, [NotNull] string subject, [NotNull] string body)
     {
       DB.mail_create(fromEmail, null, toEmail, null, subject, body, null);
     }
@@ -92,11 +97,13 @@ namespace YAF.Classes.Core
     /// <param name="body">
     /// The body.
     /// </param>
-    public void Send(string fromEmail, string toEmail, string subject, string body)
+    public void Send(
+      [NotNull] string fromEmail, [NotNull] string toEmail, [CanBeNull] string subject, [CanBeNull] string body)
     {
-      Debug.Assert(!string.IsNullOrEmpty(toEmail));
-      Debug.Assert(!string.IsNullOrEmpty(fromEmail));
-      Send(new MailAddress(fromEmail), new MailAddress(toEmail), subject, body);
+      CodeContracts.ArgumentNotNull(fromEmail, "fromEmail");
+      CodeContracts.ArgumentNotNull(toEmail, "toEmail");
+
+      this.Send(new MailAddress(fromEmail), new MailAddress(toEmail), subject, body);
     }
 
     /// <summary>
@@ -120,9 +127,9 @@ namespace YAF.Classes.Core
     /// <param name="body">
     /// The body.
     /// </param>
-    public void Send(string fromEmail, string fromName, string toEmail, string toName, string subject, string body)
+    public void Send([NotNull] string fromEmail, [NotNull] string fromName, [NotNull] string toEmail, [NotNull] string toName, [NotNull] string subject, [NotNull] string body)
     {
-      Send(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName), subject, body);
+      this.Send(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName), subject, body);
     }
 
     /// <summary>
@@ -140,9 +147,9 @@ namespace YAF.Classes.Core
     /// <param name="bodyText">
     /// The body text.
     /// </param>
-    public void Send(MailAddress fromAddress, MailAddress toAddress, string subject, string bodyText)
+    public void Send([NotNull] MailAddress fromAddress, [NotNull] MailAddress toAddress, [NotNull] string subject, [NotNull] string bodyText)
     {
-      Send(fromAddress, toAddress, subject, bodyText, null);
+      this.Send(fromAddress, toAddress, subject, bodyText, null);
     }
 
     /// <summary>
@@ -163,8 +170,16 @@ namespace YAF.Classes.Core
     /// <param name="bodyHtml">
     /// The body html.
     /// </param>
-    public void Send(MailAddress fromAddress, MailAddress toAddress, string subject, string bodyText, string bodyHtml)
+    public void Send(
+      [NotNull] MailAddress fromAddress, 
+      [NotNull] MailAddress toAddress, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string bodyText, 
+      [CanBeNull] string bodyHtml)
     {
+      CodeContracts.ArgumentNotNull(fromAddress, "fromAddress");
+      CodeContracts.ArgumentNotNull(toAddress, "toAddress");
+
       using (var emailMessage = new MailMessage())
       {
         emailMessage.To.Add(toAddress);
@@ -183,12 +198,14 @@ namespace YAF.Classes.Core
         */
 
         // add text view...
-        emailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyText, textEncoding, "text/plain"));
+        emailMessage.AlternateViews.Add(
+          AlternateView.CreateAlternateViewFromString(bodyText, textEncoding, "text/plain"));
 
         // see if html alternative is also desired...
         if (bodyHtml.IsSet())
         {
-          emailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, "text/html"));
+          emailMessage.AlternateViews.Add(
+            AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, "text/html"));
         }
 
         // Wes : Changed to use settings from configuration file's standard <smtp> section. 
@@ -199,115 +216,7 @@ namespace YAF.Classes.Core
         smtpSend.Send(emailMessage);
       }
     }
-  }
 
-  /// <summary>
-  /// Separate class since SendThreaded isn't needed functionality
-  /// for any instance except the <see cref="HttpModule"/> instance.
-  /// </summary>
-  public class YafSendMailThreaded : YafSendMail
-  {
-    /// <summary>
-    /// The send threaded.
-    /// </summary>
-    /// <param name="uniqueId">
-    /// The unique id.
-    /// </param>
-    public void SendThreaded(int uniqueId)
-    {
-      try
-      {
-        Debug.WriteLine("Retrieving queued mail...");
-        Thread.BeginCriticalRegion();
-
-        using (DataTable dt = DB.mail_list(uniqueId))
-        {
-          for (int i = 0; i < dt.Rows.Count; i++)
-          {
-            string toEmail = dt.Rows[i]["ToUser"].ToString().Trim();
-            string fromEmail = dt.Rows[i]["FromUser"].ToString().Trim();
-
-            bool deleteEmail = true;
-
-            // Build a MailMessage
-            if (fromEmail.IsSet() && toEmail.IsSet())
-            {
-              MailAddress toEmailAddress;
-
-              MailAddress fromEmailAddress = !dt.Rows[i]["FromUserName"].IsNullOrEmptyDBField()
-                                               ? new MailAddress(fromEmail, dt.Rows[i]["FromUserName"].ToString().Trim())
-                                               : new MailAddress(fromEmail);
-
-              // create the TO email address...
-              if (!dt.Rows[i]["ToUserName"].IsNullOrEmptyDBField())
-              {
-                toEmailAddress = new MailAddress(toEmail, dt.Rows[i]["ToUserName"].ToString().Trim());
-              }
-              else
-              {
-                toEmailAddress = new MailAddress(toEmail);
-              }
-
-              string subject = dt.Rows[i]["Subject"].ToString();
-              string textBody = dt.Rows[i]["Body"].ToString();
-              string htmlBody = dt.Rows[i]["BodyHtml"].ToString();
-
-              Exception exceptionThrown = null;
-
-              try
-              {
-                // send the email message now...
-                Debug.WriteLine("Sending");
-                Send(fromEmailAddress, toEmailAddress, subject, textBody, htmlBody);
-                Debug.WriteLine("Sent");
-              }
-              catch (System.Net.Mail.SmtpFailedRecipientException ex)
-              {
-                exceptionThrown = ex;
-              }
-              catch (System.FormatException ex)
-              {
-                exceptionThrown = ex;
-              }
-              catch (SmtpException ex)
-              {
-                exceptionThrown = ex;
-              }
-
-              if (exceptionThrown != null)
-              {
-                if (dt.Rows[i]["SendTries"].ToType<int>() < 5)
-                {
-                  deleteEmail = false;
-                }
-                else
-                {
-                  DB.eventlog_create(1, "SendMailThread", exceptionThrown);
-                }
-              }
-            }
-
-            // if all is well, delete this message...
-            if (deleteEmail)
-            {
-              DB.mail_delete(dt.Rows[i]["MailID"]);
-            }
-          }
-        }
-      }
-			catch (Exception e)
-			{
-        //YAF.Classes.Data.DB.eventlog_create(1, "SendMailThread", x);
-
-				// debug the exception
-				Debug.WriteLine("Exception Thrown in SendMail Thread: " + e.ToString());
-			}
-      finally
-      {
-        Thread.EndCriticalRegion();
-      }
-
-      Debug.WriteLine("SendMailThread exiting");
-    }
+    #endregion
   }
 }
