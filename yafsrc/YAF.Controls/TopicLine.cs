@@ -425,10 +425,6 @@ namespace YAF.Controls
 
       if (this.ShowTopicPosted)
       {
-        writer.WriteBeginTag("span");
-        writer.WriteAttribute("class", "topicStarterPostedSeparator");
-        writer.Write(",");
-        writer.WriteEndTag("span");
         this.RenderPosted(writer);
       }
 
@@ -479,7 +475,7 @@ namespace YAF.Controls
 
       if (row["LastMessageID"].ToString().Length > 0)
       {
-        int userID = Convert.ToInt32(row["LastUserID"]);
+        int userID = row["LastUserID"].ToType<int>();
 
         if (this.PageContext.BoardSettings.ShowAvatarsInTopic)
         {
@@ -530,7 +526,7 @@ namespace YAF.Controls
     /// </returns>
     private string FormatViews()
     {
-      int nViews = Convert.ToInt32(this._row["Views"]);
+      int nViews = this._row["Views"].ToType<int>();
       return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
     }
 
@@ -584,7 +580,7 @@ namespace YAF.Controls
     private void RenderPostPager([NotNull] HtmlTextWriter writer, int actualPostCount)
     {
       string tPager = this.CreatePostPager(
-        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, Convert.ToInt32(this._row["LinkTopicID"]));
+        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, this._row["LinkTopicID"].ToType<int>());
 
       if (tPager != String.Empty)
       {
@@ -610,11 +606,11 @@ namespace YAF.Controls
     /// </param>
     private void RenderPosted([NotNull] HtmlTextWriter writer)
     {
-      writer.WriteLine();
       writer.WriteBeginTag("span");
       writer.WriteAttribute("class", "topicPosted");
       writer.Write(HtmlTextWriter.TagRightChar);
 
+      writer.Write(", ");
       writer.Write(YafServices.DateTime.FormatDateTimeTopic(this._row.Row.Field<DateTime>("Posted")));
 
       writer.WriteEndTag("span");
@@ -656,12 +652,12 @@ namespace YAF.Controls
       writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this.HtmlEncode(this._row["Subject"]))));
       writer.WriteEndTag("a");
 
-      int actualPostCount = Convert.ToInt32(this._row["Replies"]) + 1;
+      int actualPostCount = this._row["Replies"].ToType<int>() + 1;
 
       if (this.PageContext.BoardSettings.ShowDeletedMessages)
       {
         // add deleted posts not included in replies...
-        actualPostCount += Convert.ToInt32(this._row["NumPostsDeleted"]);
+        actualPostCount += this._row["NumPostsDeleted"].ToType<int>();
       }
 
       return actualPostCount;
@@ -682,17 +678,18 @@ namespace YAF.Controls
       writer.Write(HtmlTextWriter.TagRightChar);
 
       // Topic Starter
-      var topicStarterLink = new UserLink();
-      topicStarterLink.ID = this.GetUniqueID("topicStarterLink");
-      topicStarterLink.UserID = Convert.ToInt32(this._row["UserID"]);
-      topicStarterLink.Style = this._row["StarterStyle"].ToString();
+      var topicStarterLink = new UserLink
+        {
+          ID = this.GetUniqueID("topicStarterLink"),
+          UserID = this._row["UserID"].ToType<int>(),
+          Style = this._row["StarterStyle"].ToString()
+        };
 
       // render the user link control
       // this.WriteBeginTD(writer, "topicStarter");
       topicStarterLink.RenderControl(writer);
 
       writer.WriteEndTag("span");
-      writer.WriteLine();
     }
 
     #endregion
