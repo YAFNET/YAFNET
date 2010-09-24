@@ -432,8 +432,8 @@
 		<Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
 		<Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
 		<Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-		<Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
-		<Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
+		<Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>   
+    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
 		<Resource tag="TITLE">Edit Signature</Resource>
 	</page>
 	<page name="CP_SUBSCRIPTIONS">
@@ -795,6 +795,8 @@
 		<Resource tag="EDIT">Edit post</Resource>
 		<Resource tag="EDITREASON">Reason for edit:</Resource>
 		<Resource tag="FROM">From:</Resource>
+    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
 		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
 		<Resource tag="MESSAGE">Message:</Resource>
 		<Resource tag="NEED_SUBJECT">Please enter a subject for the topic.</Resource>

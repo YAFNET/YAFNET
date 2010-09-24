@@ -480,6 +480,7 @@
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Din signatur må ikke indeholde BBKoder.</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Din signatur må ikke indeholde HTML kode.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Din signatur indeholder forbudte {0} HTML koder.</Resource>
     <Resource tag="SIGNATURE">Signatur:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Din signatur indeholder forbudte {0} BBKoder.</Resource>
@@ -869,6 +870,8 @@
     <Resource tag="EDIT">Rediger indlæg</Resource>
     <Resource tag="EDITREASON">Grund for redigering:</Resource>
     <Resource tag="FROM">Fra:</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Sidste 10 Indlæg (Med det nyeste først)</Resource>
     <Resource tag="MESSAGE">Indlæg:</Resource>

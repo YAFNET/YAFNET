@@ -481,6 +481,7 @@
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Semnatura nu trebuie sa contina BBCodes.</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Semnatura nu trebuie sa contina HTML tags.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Semnatura contine element interzis {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE">Semnatura:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Semnatura contine element interzis {0} BBCode.</Resource>
@@ -870,6 +871,8 @@
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Motivul pentru editare:</Resource>
     <Resource tag="FROM">De la :</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Ultimile 10 postari (In ordinea inversa)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>

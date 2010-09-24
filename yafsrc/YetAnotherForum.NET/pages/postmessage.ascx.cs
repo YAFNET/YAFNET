@@ -537,12 +537,12 @@ namespace YAF.Pages
           if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
           {
               this.PageContext.AddLoadMessage(
-                  this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", this.HtmlEncode(detectedHtmlTag)));
+                  this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG_TOPICNAME", this.HtmlEncode(detectedHtmlTag)));
               return;
           }
           else if (detectedHtmlTag == "ALL")
           {
-              this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTMLTAG_FORBIDDEN"));
+              this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTMLTAG_FORBIDDEN_TOPICNAME"));
               return;
           }
       }
