@@ -9035,10 +9035,11 @@ namespace YAF.Classes.Data
 
       StringBuilder sb = new StringBuilder();
 
-      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted, LastPosted = a.LastPosted, LastUserID = a.LastUserID, LastMessageID=a.LastMessageID, LastMessageFlags = a.LastMessageFlags ", topicLimit);
-      //sb.Append(", message = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) ");
+      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, LastPosted = IsNull(a.LastPosted,a.Posted), LastUserID = IsNull(a.LastUserID, a.UserID), LastMessageID= IsNull(a.LastMessageID,(select top 1 m.MessageID ", topicLimit);
+      sb.Append("from {databaseOwner}.{objectQualifier}Message m where m.TopicID = a.TopicID order by m.Posted desc)), LastMessageFlags = IsNull(a.LastMessageFlags,22) ");
+        //sb.Append(", message = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) ");
       sb.Append("from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID = @ForumID and b.ForumID = a.ForumID and a.TopicMovedID is null and a.IsDeleted = 0");
-      sb.Append(" ORDER BY a.Posted DESC");
+      sb.Append(" order by a.Posted desc");
 
       using (SqlCommand cmd = YafDBAccess.GetCommand(sb.ToString(), true))
       {

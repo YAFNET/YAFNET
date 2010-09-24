@@ -2597,6 +2597,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets AcceptedHeadersHTML.
+    /// </summary>
+    public string AcceptedHeadersHTML
+    {
+        get
+        {
+            return this._reg.GetValue<string>("AcceptedHeadersHTML", String.Empty);
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("AcceptedHeadersHTML", value.ToLower());
+        }
+    }
+
+    /// <summary>
     /// Gets or sets AdPost.
     /// </summary>
     public string AdPost

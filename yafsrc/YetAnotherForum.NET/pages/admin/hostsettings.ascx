@@ -1018,6 +1018,16 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Accepted Header HTML Tags:</strong><br />
+                            Comma seperated list (no spaces) of HTML tags that are allowed in posts headers for common users
+                            editors.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AcceptedHeadersHTML" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <strong>Use styled nicks:</strong><br />
                             If checked, you can use colors, font size change etc. for active users nicks.
                         </td>

@@ -527,8 +527,27 @@ namespace YAF.Pages
           this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
         return;
       }
+      
+      // vzrus: Common users should not use HTML tags in a topic header if not allowed
+      if (!(PageContext.IsModerator || PageContext.IsForumModerator || PageContext.IsAdmin))
+      {
+          string detectedHtmlTag = YafFormatMessage.HtmlTagForbiddenDetector(this.Subject.Text,
+                                                                             PageContext.BoardSettings.
+                                                                                 AcceptedHeadersHTML, ',');
+          if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
+          {
+              this.PageContext.AddLoadMessage(
+                  this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", this.HtmlEncode(detectedHtmlTag)));
+              return;
+          }
+          else if (detectedHtmlTag == "ALL")
+          {
+              this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTMLTAG_FORBIDDEN"));
+              return;
+          }
+      }
 
-      // update the last post time...
+        // update the last post time...
       Mession.LastPost = DateTime.UtcNow.AddSeconds(30);
 
       long messageId = 0;
