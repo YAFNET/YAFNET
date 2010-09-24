@@ -30,13 +30,19 @@
 }
 
 .yafnet tr.forumRowTitle,
-.yafnet td.header1
+.yafnet td.header1,
+.yafnet th.header1
 {
     background-color: #ee6943;
     background-image: url('titlebg.jpg');
     color: #ffffff;
     font-weight: bold;
     font-size: 10.5pt;	
+}
+.yafnet th.header1
+{
+	text-align: left;
+	padding: 10px;
 }
 /* custom forum images special styles */
 .yafnet .forum_customimage_locked
@@ -69,6 +75,7 @@
 
 .yafnet tr.forumRowCat,
 .yafnet td.header2,
+.yafnet th.header2,
 .yafnet tr.header2,
 .yafnet .header
 {
@@ -76,6 +83,11 @@
     font-weight: bold;    
     font-size:10pt;
     color: #222;
+}
+
+.yafnet th.header2
+{
+	padding: 5px;
 }
 
 .yafnet .forumLinkCol div.forumheading a,
