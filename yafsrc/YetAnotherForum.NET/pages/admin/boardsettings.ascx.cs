@@ -23,8 +23,6 @@ namespace YAF.Pages.Admin
   #region Using
 
   using System;
-  using System.Collections;
-  using System.Collections.Generic;
   using System.Data;
   using System.Linq;
   using System.Web.UI.WebControls;
@@ -32,6 +30,7 @@ namespace YAF.Pages.Admin
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -52,7 +51,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.IsPostBack)
       {
@@ -80,7 +79,8 @@ namespace YAF.Pages.Admin
         }
 
         this.Culture.DataSource =
-          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
+          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable(
+            );
         this.Culture.DataTextField = "CultureNativeName";
         this.Culture.DataValueField = "CultureTag";
 
@@ -102,7 +102,8 @@ namespace YAF.Pages.Admin
         pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
 
         // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
-        this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+        this.PollGroupListDropDown.Items.AddRange(
+          pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
         // population default notification setting options...
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
@@ -115,24 +116,34 @@ namespace YAF.Pages.Admin
 
         var notificationItems =
           items.Select(
-            x => new ListItem(HtmlHelper.StripHtml(PageContext.Localization.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString())).ToArray();
+            x =>
+            new ListItem(
+              HtmlHelper.StripHtml(this.PageContext.Localization.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
+            .ToArray();
 
         this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
         // Get first default full culture from a language file tag.
-        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ?? "en";
+        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ??
+                                 "en";
 
         SetSelectedOnList(ref this.Theme, this.PageContext.BoardSettings.Theme);
         SetSelectedOnList(ref this.MobileTheme, this.PageContext.BoardSettings.MobileTheme);
 
         // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-        SetSelectedOnList(ref this.Culture, langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture ? this.PageContext.BoardSettings.Culture : langFileCulture);
+        SetSelectedOnList(
+          ref this.Culture, 
+          langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
+            ? this.PageContext.BoardSettings.Culture
+            : langFileCulture);
 
         SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
         SetSelectedOnList(
           ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
-        SetSelectedOnList(ref this.DefaultNotificationSetting, this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt().ToString());
+        SetSelectedOnList(
+          ref this.DefaultNotificationSetting, 
+          this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt().ToString());
 
         this.NotificationOnUserRegisterEmailList.Text =
           this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
@@ -141,13 +152,13 @@ namespace YAF.Pages.Admin
         this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
         this.DefaultSendDigestEmail.Checked = this.PageContext.BoardSettings.DefaultSendDigestEmail;
 
-if (this.PageContext.BoardSettings.BoardPollID > 0)
+        if (this.PageContext.BoardSettings.BoardPollID > 0)
         {
-            PollGroupListDropDown.SelectedValue = this.PageContext.BoardSettings.BoardPollID.ToString();
+          this.PollGroupListDropDown.SelectedValue = this.PageContext.BoardSettings.BoardPollID.ToString();
         }
         else
         {
-            PollGroupListDropDown.SelectedIndex = 0;
+          this.PollGroupListDropDown.SelectedIndex = 0;
         }
 
         this.PollGroupList.Visible = true;
@@ -163,11 +174,13 @@ if (this.PageContext.BoardSettings.BoardPollID > 0)
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       string languageFile = "english.xml";
 
-      var cultures = StaticDataHelper.Cultures().AsEnumerable().Where(c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
+      var cultures =
+        StaticDataHelper.Cultures().AsEnumerable().Where(
+          c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
 
       if (cultures.Any())
       {
@@ -175,19 +188,24 @@ if (this.PageContext.BoardSettings.BoardPollID > 0)
       }
 
       DB.board_save(
-        this.PageContext.PageBoardID, languageFile, this.Culture.SelectedValue, this.Name.Text, this.AllowThreaded.Checked);
+        this.PageContext.PageBoardID, 
+        languageFile, 
+        this.Culture.SelectedValue, 
+        this.Name.Text, 
+        this.AllowThreaded.Checked);
 
       // save poll group
-      this.PageContext.BoardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0 ? this.PollGroupListDropDown.SelectedValue.ToType<int>() : 0;
+      this.PageContext.BoardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
+                                                     ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
+                                                     : 0;
 
       this.PageContext.BoardSettings.Language = languageFile;
       this.PageContext.BoardSettings.Culture = this.Culture.SelectedValue;
       this.PageContext.BoardSettings.Theme = this.Theme.SelectedValue;
-      if (this.MobileTheme.SelectedValue.IsSet())
-      {
-        this.PageContext.BoardSettings.MobileTheme = this.MobileTheme.SelectedValue;
-      }
 
+      // allow null/empty as a mobile theme many not be desired.
+      this.PageContext.BoardSettings.MobileTheme = this.MobileTheme.SelectedValue ?? String.Empty;
+      
       this.PageContext.BoardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
       this.PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
       this.PageContext.BoardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>() == 0
@@ -199,7 +217,8 @@ if (this.PageContext.BoardSettings.BoardPollID > 0)
       this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
       this.PageContext.BoardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
       this.PageContext.BoardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
-      this.PageContext.BoardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
+      this.PageContext.BoardSettings.DefaultNotificationSetting =
+        this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
       // save the settings to the database
       ((YafLoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
@@ -221,7 +240,7 @@ if (this.PageContext.BoardSettings.BoardPollID > 0)
     /// <param name="value">
     /// The value.
     /// </param>
-    private static void SetSelectedOnList(ref DropDownList list, string value)
+    private static void SetSelectedOnList([NotNull] ref DropDownList list, [NotNull] string value)
     {
       ListItem selItem = list.Items.FindByValue(value);
 

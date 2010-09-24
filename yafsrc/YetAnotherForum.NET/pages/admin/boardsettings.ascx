@@ -39,6 +39,7 @@
 				The mobile theme to use on this board.</td>
 			<td class="post">
 				<asp:DropDownList ID="MobileTheme" runat="server">
+                    <asp:ListItem Text="[None Selected]" Value=""></asp:ListItem>
 				</asp:DropDownList></td>
 		</tr>
 		<tr>
