@@ -281,6 +281,8 @@
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Chuyển tới trang...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Đang tải...</Resource>
     <Resource tag="MAX_ONLINE">Thành viên trực tuyến kỷ lục nhiều nhất là {0}, vào {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Thông báo</Resource>
@@ -478,10 +480,7 @@
     <Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>   
     <Resource tag="SIGNATURE">Chữ ký:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -869,9 +868,7 @@
     <Resource tag="ASK_POLL_DELETE">Bạn thật sự muốn xoá bình chọn của chủ đề này?</Resource>
     <Resource tag="EDIT">Sửa bài</Resource>
     <Resource tag="EDITREASON">Lý do chỉnh sửa:</Resource>
-    <Resource tag="FROM">Từ:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">Từ:</Resource>   
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
     <Resource tag="MESSAGE">Nội dung:</Resource>

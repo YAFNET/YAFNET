@@ -265,6 +265,8 @@
 		<Resource tag="GO">GO</Resource>
 		<Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
 		<Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
 		<Resource tag="LOADING">Loading...</Resource>
 		<Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
 		<Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
@@ -431,9 +433,7 @@
 		<Resource tag="SIGNATURE">Signature:</Resource>
 		<Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
 		<Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
-		<Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-		<Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>   
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
+		<Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>		
 		<Resource tag="TITLE">Edit Signature</Resource>
 	</page>
 	<page name="CP_SUBSCRIPTIONS">
@@ -794,9 +794,7 @@
 		<Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
 		<Resource tag="EDIT">Edit post</Resource>
 		<Resource tag="EDITREASON">Reason for edit:</Resource>
-		<Resource tag="FROM">From:</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
+		<Resource tag="FROM">From:</Resource>  
 		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
 		<Resource tag="MESSAGE">Message:</Resource>
 		<Resource tag="NEED_SUBJECT">Please enter a subject for the topic.</Resource>

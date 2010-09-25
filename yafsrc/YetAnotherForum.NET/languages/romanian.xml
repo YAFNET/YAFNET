@@ -281,6 +281,8 @@
     <Resource tag="GO">Mergi</Resource>
     <Resource tag="GOTOPAGE_HEADER">Mergi la pagina...</Resource>
     <Resource tag="HIDDEN">Invizibil</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Se incarca...</Resource>
     <Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notificare</Resource>
@@ -479,10 +481,7 @@
     <Resource tag="YOUR_USERNAME">Numele:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Semnatura nu trebuie sa contina BBCodes.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Semnatura nu trebuie sa contina HTML tags.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">Semnatura contine element interzis {0} HTML tag.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">Semnatura nu trebuie sa contina BBCodes.</Resource>  
     <Resource tag="SIGNATURE">Semnatura:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Semnatura contine element interzis {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -870,9 +869,7 @@
     <Resource tag="ASK_POLL_DELETE">Sigur doriti sa inlaturati sondajul din acest topic?</Resource>
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Motivul pentru editare:</Resource>
-    <Resource tag="FROM">De la :</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">De la :</Resource>  
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Ultimile 10 postari (In ordinea inversa)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>

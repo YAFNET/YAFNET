@@ -281,6 +281,8 @@
     <Resource tag="GO">IR</Resource>
     <Resource tag="GOTOPAGE_HEADER">Ir a la pagina...</Resource>
     <Resource tag="HIDDEN">Oculto</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Cargando...</Resource>
     <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Aviso</Resource>
@@ -478,10 +480,7 @@
     <Resource tag="YOUR_USERNAME">Tu nombre de usuario:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>    
     <Resource tag="SIGNATURE">Firma:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -869,9 +868,7 @@
     <Resource tag="ASK_POLL_DELETE">De verdad desea remover la encuesta de este tema?</Resource>
     <Resource tag="EDIT">Editar mensaje</Resource>
     <Resource tag="EDITREASON">Razon para editar:</Resource>
-    <Resource tag="FROM">De:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">De:</Resource>   
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Ultimos 10 mensajes (en orden inverso)</Resource>
     <Resource tag="MESSAGE">Mensaje:</Resource>

@@ -304,6 +304,8 @@
     <Resource tag="GO">אישור</Resource>
     <Resource tag="GOTOPAGE_HEADER">לך לעמוד...</Resource>
     <Resource tag="HIDDEN">מוסתר</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">טוען...</Resource>
     <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">הודעה</Resource>
@@ -501,10 +503,7 @@
     <Resource tag="YOUR_USERNAME">שם המשתמש שלך:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>   
     <Resource tag="SIGNATURE">חתימה:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -902,9 +901,7 @@
     <Resource tag="CREATEPOLL">צור סקר</Resource>
     <Resource tag="EDIT">ערוך הודעה</Resource>
     <Resource tag="EDITREASON">סיבת עריכה:</Resource>
-    <Resource tag="FROM">מאת:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">מאת:</Resource>   
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">10 הודעות אחרונות (בסדר הפוך)</Resource>
     <Resource tag="MESSAGE">הודעה:</Resource>

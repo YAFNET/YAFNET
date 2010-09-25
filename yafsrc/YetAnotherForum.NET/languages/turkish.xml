@@ -281,6 +281,8 @@
     <Resource tag="GO">Git</Resource>
     <Resource tag="GOTOPAGE_HEADER">Sayfaya Git...</Resource>
     <Resource tag="HIDDEN">Gizli</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Yükleniyor...</Resource>
     <Resource tag="MAX_ONLINE">Şimdiye kadar en fazla {0} ( Üye ) {1} tarihinde aktif oldu. </Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Bildirim</Resource>
@@ -478,10 +480,7 @@
     <Resource tag="YOUR_USERNAME">Kullanıcı adınız:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">İmzanız BBCodes içermemeli.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">İmzanız HTML tag içermemeli.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">İmzanız {0} HTML tag içeriyor.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">İmzanız BBCodes içermemeli.</Resource>   
     <Resource tag="SIGNATURE">İmza:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">İmzanız {0} BBCode içeriyor.</Resource>
     <Resource tag="SIGNATURE_MAX">İmzanız çok uzun. {0} karakterden fazla olamaz.</Resource>
@@ -869,9 +868,7 @@
     <Resource tag="ASK_POLL_DELETE">Bu konudan anketi kaldırmak istediğinizden emin misiniz?</Resource>
     <Resource tag="EDIT">Mesajı Düzenle</Resource>
     <Resource tag="EDITREASON">Düzenleme Sebebi:</Resource>
-    <Resource tag="FROM">Kimden:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">Kimden:</Resource>  
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Son 10 E-posta (Ters sıralamayla)</Resource>
     <Resource tag="MESSAGE">Mesaj:</Resource>

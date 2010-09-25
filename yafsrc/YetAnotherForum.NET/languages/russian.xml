@@ -281,6 +281,8 @@
     <Resource tag="GO">Перейти</Resource>
     <Resource tag="GOTOPAGE_HEADER">Перейти на страницу...</Resource>
     <Resource tag="HIDDEN">Скрыт</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены  HTML тэги.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Введённые данные содержат запрещённый  HTML тег {0}.</Resource>
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
@@ -478,10 +480,7 @@
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены  HTML тэги в подписи.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">В Вашей подписи содержится запрещённый администрацией HTML тэг {0}.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>    
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
@@ -868,9 +867,7 @@
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить опрос из этой темы?</Resource>
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
-    <Resource tag="FROM">Автор:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Название темы не должно содержать тегов HTML.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Название темы содержит запрещённый {0} тег HTML.</Resource>
+    <Resource tag="FROM">Автор:</Resource>  
     <Resource tag="ISQUESTION">Эта тема в формате вопрос/ответ?</Resource>
     <Resource tag="LAST10">Последние 10 сообщений(В обратном порядке)</Resource>
     <Resource tag="MESSAGE">Текст сообщения:</Resource>

@@ -281,6 +281,8 @@
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Loading...</Resource>
     <Resource tag="MAX_ONLINE">Maksimalt antall brukere innlogget var {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
@@ -479,9 +481,6 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE">Signatur:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -869,9 +868,7 @@
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="EDIT">Rediger innlegg</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
-    <Resource tag="FROM">Fra:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">Fra:</Resource>   
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Siste 10 innlegg</Resource>
     <Resource tag="MESSAGE">Melding:</Resource>

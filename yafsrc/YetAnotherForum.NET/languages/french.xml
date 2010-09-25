@@ -281,6 +281,8 @@
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Aller à la page...</Resource>
     <Resource tag="HIDDEN">Masquer</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Chargement...</Resource>
     <Resource tag="MAX_ONLINE">Le plus grand nombre d'utilisateurs en ligne a été {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
@@ -478,10 +480,7 @@
     <Resource tag="YOUR_USERNAME">Votre Nom&amp;nbsp;:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_SIGNATURE">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>   
     <Resource tag="SIGNATURE">Signature&amp;nbsp;:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -869,9 +868,7 @@
     <Resource tag="ASK_POLL_DELETE">Etes-vous sur de vouloir supprimer le sondage de ce sujet ?</Resource>
     <Resource tag="EDIT">Éditer le message</Resource>
     <Resource tag="EDITREASON">Raison pour édition:</Resource>
-    <Resource tag="FROM">De&amp;nbsp;:</Resource>
-    <Resource tag="HTMLTAG_FORBIDDEN_TOPICNAME">Your topic name should not contain HTML tags.</Resource>
-    <Resource tag="HTMLTAG_WRONG_TOPICNAME">Your topic name forbidden {0} HTML tag.</Resource>
+    <Resource tag="FROM">De&amp;nbsp;:</Resource>   
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">10 Derniers Messages (en ordre inversé)</Resource>
     <Resource tag="MESSAGE">Message&amp;nbsp;:</Resource>

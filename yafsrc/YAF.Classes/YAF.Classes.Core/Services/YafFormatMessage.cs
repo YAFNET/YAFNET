@@ -615,13 +615,13 @@ namespace YAF.Classes.Core
         string detectedHtmlTag = YafFormatMessage.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
           if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
           {
-              return YafContext.Current.Localization.GetTextFormatted("HTMLTAG_WRONG_TOPICNAME", HttpUtility.HtmlEncode(detectedHtmlTag));
+              return YafContext.Current.Localization.GetTextFormatted("HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
              
           }
           else if (detectedHtmlTag == "ALL")
           {
 
-              return YafContext.Current.Localization.GetText("HTMLTAG_FORBIDDEN_TOPICNAME");
+              return YafContext.Current.Localization.GetText("HTMLTAG_FORBIDDEN");
           }
 
           return string.Empty;
