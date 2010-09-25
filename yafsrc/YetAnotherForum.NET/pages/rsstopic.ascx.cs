@@ -445,46 +445,44 @@ namespace YAF.Pages
 
             foreach (DataRow row in dt.Rows)
             {
-                if (row["TopicMovedID"].IsNullOrEmptyDBField())
+                if ((row["TopicMovedID"].IsNullOrEmptyDBField() && row["LastPosted"].IsNullOrEmptyDBField())) continue;
+                DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
+
+                if (syndicationItems.Count <= 0)
                 {
-                    DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
-
-                    if (syndicationItems.Count <= 0)
+                    if (row["LastUserID"].IsNullOrEmptyDBField() || row["LastUserID"].IsNullOrEmptyDBField())
                     {
-                        if (row["LastUserID"].IsNullOrEmptyDBField() || row["LastUserID"].IsNullOrEmptyDBField())
-                        {
-                            break;
-                        }
-
-                        feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(
-                            String.Empty,
-                            Convert.ToInt64(row["LastUserID"])));
-
-                        feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
-
-                        // Alternate Link
-                        // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
+                        break;
                     }
 
-                    if (!row["LastUserID"].IsNullOrEmptyDBField())
-                    {
-                        feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(
-                            String.Empty,
-                            Convert.ToInt64(row["LastUserID"])));
-                    }
+                    feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(
+                        String.Empty,
+                        Convert.ToInt64(row["LastUserID"])));
 
-                    syndicationItems.AddSyndicationItem(
-                        row["Forum"].ToString(),
-                        row["Description"].ToString(),
-                        null,
-                        YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                        YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                        /*"{0}FeedType{1}ForumID{2}".FormatWith(YafContext.Current.BoardSettings.Name.Replace(" ", ""),
+                    feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+
+                    // Alternate Link
+                    // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
+                }
+
+                if (!row["LastUserID"].IsNullOrEmptyDBField())
+                {
+                    feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(
+                        String.Empty,
+                        Convert.ToInt64(row["LastUserID"])));
+                }
+
+                syndicationItems.AddSyndicationItem(
+                    row["Forum"].ToString(),
+                    row["Description"].ToString(),
+                    null,
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
+                    /*"{0}FeedType{1}ForumID{2}".FormatWith(YafContext.Current.BoardSettings.Name.Replace(" ", ""),
                                                               feedType,
                                                               Convert.ToInt32(row["ForumID"])),*/
-                        lastPosted,
-                        feed.Contributors[feed.Contributors.Count - 1].Name);
-                }
+                    lastPosted,
+                    feed.Contributors[feed.Contributors.Count - 1].Name);
             }
 
             feed.Items = syndicationItems;
