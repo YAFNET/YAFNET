@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.IO;
+
 namespace YAF.Classes.Core
 {
   #region Using
@@ -68,9 +70,8 @@ namespace YAF.Classes.Core
             // Alternate Link
             new Uri(link),
             id,
-            new DateTimeOffset(posted));
-       
-        si.PublishDate = new DateTimeOffset(posted);
+            new DateTimeOffset(posted)) {PublishDate = new DateTimeOffset(posted)};
+
         si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
        
         if (summary.IsNotSet())
@@ -152,20 +153,30 @@ namespace YAF.Classes.Core
         this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
         // Alternate link
-        this.Links.Add(
+        /*this.Links.Add(
             SyndicationLink.CreateAlternateLink(
-                new Uri(YafContext.Current.CurrentForumPage.ForumURL)));
+                new Uri(YafContext.Current.CurrentForumPage.ForumURL)));*/
+
+       this.Links.Add(
+            SyndicationLink.CreateAlternateLink(
+                new Uri(BaseUrlBuilder.BaseUrl)));
+
         // Self Link
         this.Links.Add(
             SyndicationLink.CreateSelfLink(
                 new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)))));
+
         this.Generator = "YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"));
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
-        this.ImageUrl = new Uri("{0}{1}/YAFLogo.jpg".FormatWith(YafContext.Current.CurrentForumPage.ForumURL, YafBoardFolders.Current.Images));
+
+        this.ImageUrl = new Uri("{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
+        
         this.Id =YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt()));
+
         
         this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
+
        
         this.Categories.Add(new SyndicationCategory(FeedCategories));
      
