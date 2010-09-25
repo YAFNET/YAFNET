@@ -209,21 +209,20 @@ namespace YAF.Pages
           {
               var rssFormatter = new Rss20FeedFormatter(feed);
               rssFormatter.WriteTo(writer);
-             // this.Response.ContentType = "text/rss+xml";
+              this.Response.ContentType = "application/rss+xml";
           }
           else
           {
               var atomFormatter = new Atom10FeedFormatter(feed);
               atomFormatter.WriteTo(writer);
 
-             // this.Response.ContentType = "text/atom+xml";
+              this.Response.ContentType = "application/atom+xml";
           }
         
           writer.WriteEndDocument();
           writer.Close();
 
           this.Response.ContentEncoding = Encoding.UTF8;
-          this.Response.ContentType = "text/xml";
           this.Response.Cache.SetCacheability(HttpCacheability.Public);
 
           this.Response.End();
