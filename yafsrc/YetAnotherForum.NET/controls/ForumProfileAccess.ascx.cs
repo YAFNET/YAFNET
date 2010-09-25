@@ -58,7 +58,7 @@ namespace YAF.Controls
                 html.AppendFormat("</td></tr>");
               }
 
-              html.AppendFormat("<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", row["ForumName"]);
+              html.AppendFormat("<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", this.HtmlEncode(row["ForumName"]));
               nLastForumID = Convert.ToInt32(row["ForumID"]);
             }
             else
