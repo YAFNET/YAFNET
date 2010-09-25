@@ -37,31 +37,34 @@ namespace YAF.Classes.Core
   {
     #region Public Methods
 
-    /// <summary>
-    /// The add syndication item.
-    /// </summary>
-    /// <param name="currentList">
-    /// The current list.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="content">
-    /// The content.
-    /// </param>
-    /// <param name="link">
-    /// The alternate link.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="posted">
-    /// The posted.
-    /// </param>
-    /// <param name="author">
-    /// The author.
-    /// </param> 
-    public static void AddSyndicationItem(
+      /// <summary>
+      /// The add syndication item.
+      /// </summary>
+      /// <param name="currentList">
+      /// The current list.
+      /// </param>
+      /// <param name="title">
+      /// The title.
+      /// </param>
+      /// <param name="content">
+      /// The content.
+      /// </param>
+      /// <param name="summary">
+      /// The summary.
+      /// </param>
+      /// <param name="link">
+      /// The alternate link.
+      /// </param>
+      /// <param name="id">
+      /// The id.
+      /// </param>
+      /// <param name="posted">
+      /// The posted.
+      /// </param>
+      /// <param name="author">
+      /// The author.
+      /// </param> 
+      public static void AddSyndicationItem(
       this List<SyndicationItem> currentList, string title, string content, string summary,string link, string id, DateTime posted, string  author)
     {
         var si = new SyndicationItem(
@@ -143,11 +146,13 @@ namespace YAF.Classes.Core
 
    #region Constructors and Destructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafSyndicationFeed"/> class. 
-    /// </summary>
-    /// <param name="subTitle"></param>
-    public YafSyndicationFeed(string subTitle, YafRssFeeds feedType, int sf)
+      /// <summary>
+      /// Initializes a new instance of the <see cref="YafSyndicationFeed"/> class. 
+      /// </summary>
+      /// <param name="subTitle"></param>
+      /// <param name="feedType">FeedType Atom/Rss</param>
+      /// <param name="sf"></param>
+      public YafSyndicationFeed(string subTitle, YafRssFeeds feedType, int sf)
     {
         this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
 
@@ -173,7 +178,8 @@ namespace YAF.Classes.Core
 
         this.ImageUrl = new Uri("{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
         
-        this.Id =YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt()));
+        //this.Id =YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt()));
+        this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
 
         
         this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
