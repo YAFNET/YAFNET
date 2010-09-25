@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="1.94.13638">
+    <package name="YetAnotherForumDotNet" type="Module" version="1.94.13721">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -362,7 +362,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.Dnn.WhatsNew" type="Module" version="1.94.13638">
+    <package name="YAF.WhatsNew" type="Module" version="1.94.13638">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
@@ -382,8 +382,8 @@
       <components>
         <component type="Module">
           <desktopModule>
-            <moduleName>YAF.Dnn.WhatsNew</moduleName>
-            <foldername>YAF.Dnn.WhatsNew</foldername>
+            <moduleName>YAF.WhatsNew</moduleName>
+            <foldername>YAF.WhatsNew</foldername>
             <moduleDefinitions>
               <moduleDefinition>
                 <friendlyName>YAF What's New</friendlyName>
@@ -391,7 +391,7 @@
                 <moduleControls>
                   <moduleControl>
                     <controlKey />
-                    <controlSrc>DesktopModules/YAF.Dnn.WhatsNew/YafDnnWhatsNew.ascx</controlSrc>
+                    <controlSrc>DesktopModules/YAF.WhatsNew/YafDnnWhatsNew.ascx</controlSrc>
                     <supportsPartialRendering>False</supportsPartialRendering>
                     <controlTitle></controlTitle>
                     <controlType>View</controlType>
@@ -400,7 +400,7 @@
                   </moduleControl>
                   <moduleControl>
                     <controlKey>Settings</controlKey>
-                    <controlSrc>DesktopModules/YAF.Dnn.WhatsNew/YafDnnWhatsNewSettings.ascx</controlSrc>
+                    <controlSrc>DesktopModules/YAF.WhatsNew/YafDnnWhatsNewSettings.ascx</controlSrc>
                     <supportsPartialRendering>False</supportsPartialRendering>
                     <controlTitle>YAF What's New Settings</controlTitle>
                     <controlType>Edit</controlType>
@@ -414,7 +414,7 @@
         </component>
         <component type="File">
           <files>
-            <basePath>DesktopModules\YAF.Dnn.WhatsNew</basePath>
+            <basePath>DesktopModules\YAF.WhatsNew</basePath>
             <file>
               <name>YafDnnWhatsNewSettings.ascx</name>
               <sourceFileName>YafDnnWhatsNewSettings.ascx</sourceFileName>
@@ -427,7 +427,7 @@
         </component>
         <component type="ResourceFile">
           <resourceFiles>
-            <basePath>DesktopModules\YAF.Dnn.WhatsNew</basePath>
+            <basePath>DesktopModules\YAF.WhatsNew</basePath>
             <resourceFile>
               <path></path>
               <name>YafDnnWhatsNewResources.zip</name>

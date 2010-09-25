@@ -1652,3 +1652,7 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_viewallthanks') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_user_viewallthanks
 GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatetopic') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatetopic
+GO
