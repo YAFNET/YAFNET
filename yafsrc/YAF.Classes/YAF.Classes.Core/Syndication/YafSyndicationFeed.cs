@@ -150,6 +150,7 @@ namespace YAF.Classes.Core
     public YafSyndicationFeed(string subTitle, YafRssFeeds feedType, int sf)
     {
         this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
+
         this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
         // Alternate link
@@ -177,10 +178,13 @@ namespace YAF.Classes.Core
         
         this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
 
-       
+        SyndicationPerson sp = new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl);
+
+        this.Authors.Add(sp);
+
         this.Categories.Add(new SyndicationCategory(FeedCategories));
-     
-       
+
+
         // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
     #endregion
