@@ -781,7 +781,7 @@ namespace YAF.controls
         }
 
         // The poll expired. We show results  
-        if (this.isClosedBound && isPollClosed)
+        if (isPollClosed)
         {
           this._showResults = true;
         }
