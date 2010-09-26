@@ -147,7 +147,7 @@ namespace YAF.Controls
                 writer.Write(@"<div class=""imgtitle"">");
                 writer.Write(
                   this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
-                    Convert.ToString(this.UserName)));
+                   this.HtmlEncode(Convert.ToString(this.UserName))));
                 writer.Write("</div>");
                 bFirstItem = false;
               }
