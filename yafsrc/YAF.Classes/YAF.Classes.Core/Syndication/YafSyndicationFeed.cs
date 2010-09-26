@@ -154,9 +154,9 @@ namespace YAF.Classes.Core
       /// <param name="sf"></param>
       public YafSyndicationFeed(string subTitle, YafRssFeeds feedType, int sf)
     {
-        this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
+        this.Copyright = new TextSyndicationContent("Copyright {0} {1}".FormatWith(DateTime.Now.Year, YafContext.Current.BoardSettings.Name));
 
-        this.Description = new TextSyndicationContent("YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED")));
+        this.Description = new TextSyndicationContent("{0} - {1}".FormatWith(YafContext.Current.BoardSettings.Name, sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
         // Alternate link
         /*this.Links.Add(
@@ -172,7 +172,7 @@ namespace YAF.Classes.Core
             SyndicationLink.CreateSelfLink(
                 new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)))));
 
-        this.Generator = "YetAnotherForum.NET - {0}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"));
+        this.Generator = "YetAnotherForum.NET";
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
 
