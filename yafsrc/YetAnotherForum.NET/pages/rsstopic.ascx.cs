@@ -377,15 +377,15 @@ namespace YAF.Pages
                    topicId, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
             {
                 // convert to linq...
-                var rowList = dt.AsEnumerable();
-
-                // see if the deleted messages need to be edited out...
+                var rowList = dt.AsEnumerable().OrderByDescending(x => x.Field<DateTime>("Posted"));
+               
+                // see if the deleted messages need to be edited out...)
                 if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
                     !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
                 {
                     // remove posts that are deleted and do not belong to this user...
                     rowList =
-                    rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
+                    rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID)).OrderByDescending(y => (y.Field<DateTime>("Posted")));
                 }
 
                 // last page posts
