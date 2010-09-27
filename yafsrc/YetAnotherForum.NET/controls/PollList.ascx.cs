@@ -566,10 +566,12 @@ namespace YAF.controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      // Only if this control is in a topic we find the topic creator
+        // Only if this control is in a topic we find the topic creator
       if (this.TopicId > 0)
       {
-        this.topicUser = Convert.ToInt32(DB.topic_info(this.TopicId)["UserID"]);
+        DataRow dti = DB.topic_info(this.TopicId);
+        this.topicUser = Convert.ToInt32(dti["UserID"]);
+        this.PollGroupId = Convert.ToInt32(dti["PollID"]);
       }
 
       // We check here various variants if a poll exists, as we don't know from which place comes the call
@@ -582,11 +584,11 @@ namespace YAF.controls
       bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
       bool boardPoll = this.PageContext.BoardVoteAccess &&
                        (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
-
       
-      this.NewPollRow.Visible = this.ShowButtons && this.HasOwnerExistingGroupAccess() && (!existingPoll) &&
-                                (topicPoll || forumPoll || categoryPoll || boardPoll);
       
+      this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) && this.HasOwnerExistingGroupAccess() && (!existingPoll);
+      
+     
       // if this is > 0 then we already have a poll and will display all buttons
       if (this.PollGroupId > 0)
       {
@@ -594,7 +596,7 @@ namespace YAF.controls
       }
       else
       {
-        if (this.NewPollRow.Visible)
+          if (this.NewPollRow.Visible)
         {
           this.BindCreateNewPollRow();
         }
