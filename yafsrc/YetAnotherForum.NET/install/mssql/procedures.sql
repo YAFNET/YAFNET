@@ -3762,8 +3762,8 @@ begin
 	
 	set implicit_transactions off
 	set @CurrentTime = GETUTCDATE()
-	-- set IsActiveNow ActiveFlag
-	set @ActiveFlags = 0 | 1;
+	-- set IsActiveNow ActiveFlag - it's a default
+	set @ActiveFlags = 1;
 	if @UserKey is null
 	begin
 		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
@@ -3773,22 +3773,26 @@ begin
 			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
 		end
 		set @IsGuest = 1
-		-- set IsGuest ActiveFlag
-		set @ActiveFlags = 0 | 2
+		-- set IsGuest ActiveFlag  1 | 2
+		set @ActiveFlags = 3
 		set @UserBoardID = @BoardID
+		-- crawlers are always guests 
+		if	@IsCrawler = 1
+			begin
+				-- set IsCrawler ActiveFlag
+				set @ActiveFlags =  @ActiveFlags | 8
+			end 
 	end else	
 	begin
 		select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@UserKey
 		set @IsGuest = 0
+		-- make sure that registered users are not crawlers
+		set @IsCrawler = 0
 		-- set IsRegistered ActiveFlag
-		set @ActiveFlags = 0 | 4
+		set @ActiveFlags = @ActiveFlags | 4
 	end
 
-	if	@IsCrawler = 1
-	begin
-	-- set IsCrawler ActiveFlag
-	SET @ActiveFlags =  @ActiveFlags | 8
-	end 
+	
 	-- Check valid ForumID
 	if @ForumID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID) begin
 		set @ForumID = null
@@ -3871,11 +3875,11 @@ begin
 				Browser = @Browser,
 				[Platform] = @Platform,
 				ForumPage = @ForumPage		
-			where SessionID = @SessionID
+			where SessionID = @SessionID			
 			end
 			else
 			begin
-			-- search crawler by other parameters then seesion id
+			-- search crawler by other parameters then session id
 			update [{databaseOwner}].[{objectQualifier}Active] set
 				UserID = @UserID,
 				IP = @IP,
@@ -3887,11 +3891,12 @@ begin
 				[Platform] = @Platform,
 				ForumPage = @ForumPage	
 			where Browser = @Browser AND IP = @IP
-			set @ActiveUpdate = 1
+			-- trace crawler: the cache is reset every time crawler moves to next page ? Disabled as cache reset will overload server 
+			-- set @ActiveUpdate = 1			
 			end
 		end
 		else begin	
-		   -- we set @ActiveFlags ready flags if it's a crawler		
+		   -- we set @ActiveFlags ready flags 	
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,[Platform],Flags)
 			values(@SessionID,@BoardID,@UserID,@IP,@CurrentTime,@CurrentTime,@Location,@ForumID,@TopicID,@Browser,@Platform,@ActiveFlags)			
 
