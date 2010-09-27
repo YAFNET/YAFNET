@@ -54,17 +54,14 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.ViewState["View"] != null)
+          if (this.ViewState["View"] != null)
         {
           return (PMView)this.ViewState["View"];
         }
-        else
-        {
           return PMView.Inbox;
-        }
       }
 
-      set
+        set
       {
         this.ViewState["View"] = value;
       }
@@ -149,15 +146,10 @@ namespace YAF.Controls
 
       this.BindData();
 
-      if (archivedCount == 1)
-      {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("MSG_ARCHIVED"));
-      }
-      else
-      {
-        this.PageContext.AddLoadMessage(
-          this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
-      }
+        this.PageContext.AddLoadMessage(archivedCount == 1
+                                            ? this.PageContext.Localization.GetText("MSG_ARCHIVED")
+                                            : this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(
+                                                archivedCount));
     }
 
     /// <summary>
@@ -282,14 +274,10 @@ namespace YAF.Controls
       }
 
       this.BindData();
-      if (nItemCount == 1)
-      {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("msgdeleted1"));
-      }
-      else
-      {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
-      }
+
+        this.PageContext.AddLoadMessage(nItemCount == 1
+                                            ? this.PageContext.Localization.GetText("msgdeleted1")
+                                            : this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
     }
 
     /// <summary>
@@ -425,19 +413,12 @@ namespace YAF.Controls
     /// </param>
     protected void FromLink_Click(object sender, EventArgs e)
     {
-      if (this.View == PMView.Outbox)
-      {
-        this.SetSort("ToUser", true);
-      }
-      else
-      {
-        this.SetSort("FromUser", true);
-      }
+        this.SetSort(this.View == PMView.Outbox ? "ToUser" : "FromUser", true);
 
-      this.BindData();
+        this.BindData();
     }
 
-    /// <summary>
+      /// <summary>
     /// The get image.
     /// </summary>
     /// <param name="o">
@@ -544,21 +525,18 @@ namespace YAF.Controls
     /// </returns>
     protected string GetTitle()
     {
-      if (this.View == PMView.Outbox)
-      {
-        return this.GetLocalizedText("SENTITEMS");
-      }
-      else if (this.View == PMView.Inbox)
-      {
-        return this.GetLocalizedText("INBOX");
-      }
-      else
-      {
-        return this.GetLocalizedText("ARCHIVE");
-      }
+        switch (this.View)
+        {
+            case PMView.Outbox:
+                return this.GetLocalizedText("SENTITEMS");
+            case PMView.Inbox:
+                return this.GetLocalizedText("INBOX");
+            default:
+                return this.GetLocalizedText("ARCHIVE");
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The mark as read_ click.
     /// </summary>
     /// <param name="source">
@@ -756,21 +734,32 @@ namespace YAF.Controls
 
       using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
       {
-        if (this.View == PMView.Inbox)
+        switch (this.View)
         {
-          dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-        }
-        else if (this.View == PMView.Outbox)
-        {
-          dv.RowFilter = "IsInOutbox = True";
-        }
-        else if (this.View == PMView.Archive)
-        {
-          dv.RowFilter = "IsArchived = True";
+            case PMView.Inbox:
+                dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+                break;
+            case PMView.Outbox:
+                dv.RowFilter = "IsInOutbox = True";
+                break;
+            case PMView.Archive:
+                dv.RowFilter = "IsArchived = True";
+                break;
         }
 
         dv.Sort = "{0} {1}".FormatWith(this.ViewState["SortField"], (bool)this.ViewState["SortAsc"] ? "asc" : "desc");
         this.PagerTop.Count = dv.Count;
+
+        if (dv.Count > 0)
+        {
+            lblExportType.Visible = true;
+            ExportType.Visible = true;
+        }
+        else
+        {
+            lblExportType.Visible = false;
+            ExportType.Visible = false;
+        }
 
         this.MessagesView.PageIndex = this.PagerTop.CurrentPageIndex;
         this.MessagesView.DataSource = dv;
