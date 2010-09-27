@@ -227,7 +227,7 @@ namespace YAF.controls
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
                 (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) &&
-                 this.PollHasNoVotes(pollId) || (!this.IsPollClosed(pollId))));
+                ( this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
       }
       // we don't call PollHasNoVotes method here
       return this.ShowButtons &&

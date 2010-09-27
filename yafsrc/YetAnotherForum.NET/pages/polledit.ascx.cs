@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Collections;
+
 namespace YAF.Pages
 {
   #region Using
@@ -690,6 +692,12 @@ namespace YAF.Pages
       }
       else
       {
+         // A new topic is created
+         // below check currently if works for topics only, but will do as some things are not enabled 
+         if (!CanCreatePoll())
+         {
+             YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+         }
         // Get isBound value using page variables. They are initialized here.
         int pgidt = 0;
 
@@ -701,7 +709,9 @@ namespace YAF.Pages
           {
             pgidt = (int)this._topicInfo["PollID"];
 
-            if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsBound"]) == 2)
+            DataTable pollGroupData = DB.pollgroup_stats(pgidt);
+
+            if (Convert.ToInt32(pollGroupData.Rows[0]["IsBound"]) == 2)
             {
               this.IsBoundCheckBox.Checked = true;
             }
@@ -984,6 +994,63 @@ namespace YAF.Pages
           YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
           break;
       }
+    }
+
+    /// <summary>
+    /// Checks if a user can create poll.
+    /// </summary>
+    /// <returns>
+    /// The can create poll.
+    /// </returns>
+    private bool CanCreatePoll()
+    {
+        if (this.topicId > 0)
+        {
+            // admins can add any number of polls
+            if (PageContext.IsAdmin || PageContext.IsForumModerator)
+            {
+                return true;
+            }
+
+            int? pollGroupId = null;
+            DataRow dti = DB.topic_info(this.topicId);
+            if (!dti["PollID"].IsNullOrEmptyDBField())
+            {
+                pollGroupId = Convert.ToInt32(dti["PollID"]);
+            }
+
+            // TODO: repeating code
+            // Remove repeating PollID values   
+            var hTable = new Hashtable();
+            var duplicateList = new ArrayList();
+            DataTable dtPollGroup = DB.pollgroup_stats(pollGroupId);
+
+            foreach (DataRow drow in dtPollGroup.Rows)
+            {
+                if (hTable.Contains(drow["PollID"]))
+                {
+                    duplicateList.Add(drow);
+                }
+                else
+                {
+                    hTable.Add(drow["PollID"], string.Empty);
+                }
+            }
+
+            foreach (DataRow dRow in duplicateList)
+            {
+                dtPollGroup.Rows.Remove(dRow);
+            }
+
+            dtPollGroup.AcceptChanges();
+
+            // frequently used
+            int pollNumber = dtPollGroup.Rows.Count;
+
+            return (pollNumber < this.PageContext.BoardSettings.AllowedPollNumber) &&
+                   (this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0);
+        }
+        return true;
     }
 
     #endregion
