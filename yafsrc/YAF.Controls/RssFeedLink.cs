@@ -56,7 +56,7 @@ namespace YAF.Controls
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RssIconLink"/> class.
+    /// Initializes a new instance of the <see cref="RssFeedLink"/> class.
     /// </summary>
     public RssFeedLink()
       : base()

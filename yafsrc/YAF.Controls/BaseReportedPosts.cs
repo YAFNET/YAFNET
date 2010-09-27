@@ -39,7 +39,7 @@ namespace YAF.Controls
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReportedPosts"/> class.
+    /// Initializes a new instance of the <see cref="BaseReportedPosts"/> class.
     /// </summary>
     public BaseReportedPosts()
       : base()

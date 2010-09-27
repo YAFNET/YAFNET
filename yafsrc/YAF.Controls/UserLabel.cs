@@ -25,6 +25,9 @@ namespace YAF.Controls
   using Classes.Core;
   using Classes.Utils;
 
+  ///<summary>
+  /// The UserLabel
+  ///</summary>
   public class UserLabel : BaseControl
   {
     #region Constructors and Destructors

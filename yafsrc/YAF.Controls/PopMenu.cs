@@ -120,7 +120,7 @@ namespace YAF.Controls
     /// <summary>
     /// The remove post back item.
     /// </summary>
-    /// <param name="argument">
+    /// <param name="Argument">
     /// The argument.
     /// </param>
     public void RemovePostBackItem(string Argument)

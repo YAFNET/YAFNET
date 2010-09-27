@@ -242,7 +242,11 @@ namespace YAF.Controls
         }
       }
     }
-
+    /// <summary>
+    /// Highlight a Message
+    /// </summary>
+    /// <param name="message">The Message to Hightlight</param>
+    /// <returns>The Message with the Span Tag and Css Class "highlight" that Hightlights it</returns>
     protected virtual string HighlightMessage(string message)
     {
       if (this.HighlightWords.Count > 0)

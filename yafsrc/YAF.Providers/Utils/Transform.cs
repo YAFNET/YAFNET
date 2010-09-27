@@ -106,16 +106,17 @@ namespace YAF.Providers.Utils
       return ToBool(obj, false);
     }
 
-    /// <summary>
-    /// Convert object to a boolean.
-    /// </summary>
-    /// <param name="obj">
-    /// The obj.
-    /// </param>
-    /// <returns>
-    /// The boolean.
-    /// </returns>
-    public static bool ToBool(this object obj, bool defaultValue)
+      /// <summary>
+      /// Convert object to a boolean.
+      /// </summary>
+      /// <param name="obj">
+      /// The object that will be converted
+      /// </param>
+      /// <param name="defaultValue">The defaultValue</param>
+      /// <returns>
+      /// The boolean.
+      /// </returns>
+      public static bool ToBool(this object obj, bool defaultValue)
     {
       bool value;
 
