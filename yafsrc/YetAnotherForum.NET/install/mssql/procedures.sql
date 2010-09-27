@@ -3856,11 +3856,8 @@ begin
 	end
 	-- update active
 	if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
-	  if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID OR ( Browser = @Browser AND (Flags & 8) = 8 )) and BoardID=@BoardID)
-		begin
-		  -- user is not a crawler - use his session id
-		  if @IsCrawler != 1
-		  begin		   
+	  if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where SessionID=@SessionID and BoardID=@BoardID)
+		begin		   
 			update [{databaseOwner}].[{objectQualifier}Active] set
 				UserID = @UserID,
 				IP = @IP,
@@ -3872,26 +3869,12 @@ begin
 				[Platform] = @Platform,
 				ForumPage = @ForumPage		
 			where SessionID = @SessionID
-			end
-			else
-			begin
-
-			-- search crawler by other parameters then seesion id
-			update [{databaseOwner}].[{objectQualifier}Active] set
-				UserID = @UserID,
-				IP = @IP,
-				LastActive = @CurrentTime ,
-				Location = @Location,
-				ForumID = @ForumID,
-				TopicID = @TopicID,
-				Browser = @Browser,
-				[Platform] = @Platform,
-				ForumPage = @ForumPage	
-			where [Platform] = @Platform AND Browser = @Browser AND IP = @IP
-			set @ActiveUpdate = 1
-			end
-		end
-		else begin	
+		end		
+		else 
+		begin
+		-- delete crawlers first to not duplicate them 
+		delete from [{databaseOwner}].[{objectQualifier}Active] where (Browser = @Browser AND (Flags & 8) = 8)
+			 
 		   -- we set @ActiveFlags ready flags if it's a crawler		
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,[Platform],Flags)
 			values(@SessionID,@BoardID,@UserID,@IP,@CurrentTime,@CurrentTime,@Location,@ForumID,@TopicID,@Browser,@Platform,@ActiveFlags)			
@@ -3899,7 +3882,7 @@ begin
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 			-- parameter to update active users cache if this is a new user
-			if @IsGuest=0
+			if @IsGuest=0 and @IsCrawler = 0
 				  begin
 				  set @ActiveUpdate = 1
 				  end
