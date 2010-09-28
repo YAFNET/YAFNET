@@ -180,7 +180,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void RegisterJQuery(Control element)
     {
-      if (this.PageElementExists("jquery"))
+      if (this.PageElementExists("jquery") || Config.DisableJQuery)
       {
         return;
       }
@@ -209,7 +209,7 @@ namespace YAF.Classes.Core
       {
         // load jQuery
         element.Controls.Add(
-          ControlHelper.MakeJsIncludeControl(YafForumInfo.GetURLToResource("js/jquery-1.4.2.min.js")));
+          ControlHelper.MakeJsIncludeControl(YafForumInfo.GetURLToResource(Config.JQueryFile)));
       }
 
       this.AddPageElement("jquery");
@@ -231,7 +231,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void RegisterJQueryUI(Control element)
     {
-      if (this.PageElementExists("jqueryui"))
+      if (this.PageElementExists("jqueryui") || Config.DisableJQuery) // If registered or told not to register, don't bother
       {
         return;
       }
@@ -244,7 +244,7 @@ namespace YAF.Classes.Core
 
       // load jQuery UI from google...
       element.Controls.Add(
-        ControlHelper.MakeJsIncludeControl("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"));
+        ControlHelper.MakeJsIncludeControl(Config.JQueryUIFile));
 
       this.AddPageElement("jqueryui");
     }

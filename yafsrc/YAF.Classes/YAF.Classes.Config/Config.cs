@@ -65,6 +65,39 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Is Jquery Registration disabled? -- default is false.
+    /// </summary>
+    public static bool DisableJQuery
+    {
+        get
+        {
+            return GetConfigValueAsBool("YAF.DisableJQuery", false);
+        }
+    }
+
+    /// <summary>
+    /// Gets JQuery File Name.
+    /// </summary>
+    public static string JQueryFile
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.4.2.min.js";
+        }
+    }
+
+    /// <summary>
+    /// Gets JQuery UI File Name.
+    /// </summary>
+    public static string JQueryUIFile
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.JQueryUI") ?? "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js";
+        }
+    }
+
+    /// <summary>
     /// Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
     /// </summary>
     public static string ForceScriptName
