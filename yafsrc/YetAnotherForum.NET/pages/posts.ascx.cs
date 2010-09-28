@@ -149,17 +149,6 @@ namespace YAF.Pages
       }
     }
 
-    /// <summary>
-    ///   Gets VotingCookieName.
-    /// </summary>
-    protected string VotingCookieName
-    {
-      get
-      {
-        return "poll#{0}".FormatWith(this._topic["PollID"]);
-      }
-    }
-
     #endregion
 
     #region Methods
@@ -814,21 +803,6 @@ namespace YAF.Pages
       this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
       this.PostReplyLink1.Visible = this.PageContext.ForumReplyAccess;
       this.PostReplyLink2.Visible = this.PageContext.ForumReplyAccess;
-    }
-
-    /// <summary>
-    /// The vote width.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The vote width.
-    /// </returns>
-    protected int VoteWidth([NotNull] object o)
-    {
-      var row = (DataRowView)o;
-      return (int)row.Row["Stats"] * 80 / 100;
     }
 
     /// <summary>

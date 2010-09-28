@@ -57,11 +57,6 @@ namespace YAF.controls
     private bool _canVote;
 
     /// <summary>
-    ///   The _data bound.
-    /// </summary>
-    private bool _dataBound;
-
-    /// <summary>
     ///   The _dt poll.
     /// </summary>
     private DataTable _dtPoll;
@@ -101,74 +96,74 @@ namespace YAF.controls
     #region Properties
 
     /// <summary>
-    ///   Returns BoardId
+    /// Gets or sets BoardId
     /// </summary>
     public int BoardId { get; set; }
 
     /// <summary>
-    ///   Returns CategoryId
+    /// Gets or sets CategoryId
     /// </summary>
     public int CategoryId { get; set; }
 
     /// <summary>
-    ///   Returns EditBoardId.
-    ///   Used to return to edit board page.
-    ///   Currently is not implemented.
+    /// Gets or sets EditBoardId.
+    /// Used to return to edit board page.
+    /// Currently is not implemented.
     /// </summary>
     public int EditBoardId { get; set; }
 
     /// <summary>
-    ///   Returns EditCategoryId
+    /// Gets or sets EditCategoryId
     /// </summary>
     public int EditCategoryId { get; set; }
 
     /// <summary>
-    ///   Returns EditForumId
+    /// Gets or sets EditForumId
     /// </summary>
     public int EditForumId { get; set; }
 
     /// <summary>
-    ///   Returns EditMessageId.
+    /// Gets or sets EditMessageId.
     /// </summary>
     public int EditMessageId { get; set; }
 
     /// <summary>
-    ///   Returns ForumId
+    /// Gets or sets ForumId
     /// </summary>
     public int ForumId { get; set; }
 
     /// <summary>
-    ///   Returns IsLocked
+    /// Gets or sets IsLocked
     /// </summary>
     public bool IsLocked { get; set; }
 
     /// <summary>
-    ///   Returns MaxImageAspect. Stores max aspect to get rows of equal height.
+    /// Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
     /// </summary>
     public decimal MaxImageAspect { get; set; }
 
     /// <summary>
-    ///   Returns PollGroupID
+    /// Gets or sets PollGroupID
     /// </summary>
     public int? PollGroupId { get; set; }
 
     /// <summary>
-    ///   Returns PollNumber
+    /// Gets or sets PollNumber
     /// </summary>
     public int PollNumber { get; set; }
 
     /// <summary>
-    ///   Returns If we are editing a post
+    /// Gets or sets if we are editing a post
     /// </summary>
     public bool PostEdit { get; set; }
 
     /// <summary>
-    ///   Returns ShowButtons
+    /// Gets or sets ShowButtons
     /// </summary>
     public bool ShowButtons { get; set; }
 
     /// <summary>
-    ///   Returns TopicId
+    /// Gets or sets TopicId
     /// </summary>
     public int TopicId { get; set; }
 
@@ -227,13 +222,14 @@ namespace YAF.controls
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
                 (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) &&
-                ( this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
+                (this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
       }
+
       // we don't call PollHasNoVotes method here
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-              this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) &&
-              (!this.IsPollClosed(pollId)));
+              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) &&
+              (!this.IsPollClosed(pollId))));
     }
 
     /// <summary>
@@ -264,30 +260,14 @@ namespace YAF.controls
     }
 
     /// <summary>
-    /// Checks if  a user can remove all polls in a group completely.
-    /// 
+    /// Checks if  a user can remove all polls in a group completely. 
     /// </summary>
     /// <returns>
     /// The can remove group completely.
     /// </returns>
     protected bool CanRemoveGroupCompletely()
     {
-      bool hasNoVotes = true;
-      foreach (DataRow dr in this._dtPoll.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["Votes"]) > 0))
-      {
-          hasNoVotes = false;
-      }
-
-      if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
-      {
-        return this.ShowButtons &&
-               (this.PageContext.IsAdmin ||
-                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) && hasNoVotes));
-      }
-
-      return this.ShowButtons &&
-             (this.PageContext.IsAdmin ||
-              this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]));
+      return this.ShowButtons && this.PageContext.IsAdmin;
     }
 
     /// <summary>
@@ -354,47 +334,8 @@ namespace YAF.controls
         {
             return this.IsNotVoted(pollId);
         }
+
         return false;
-    }
-
-    private bool HasVoteAccess(object pollId)
-    {
-
-        // rule out users without voting rights
-        // If you come here from topics or edit TopicId should be > 0
-        if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
-        {
-            return false;
-        }
-
-        if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
-        {
-            return false;
-        }
-
-        if (this.IsPollClosed(pollId))
-        {
-            return false;
-        }
-
-        return true;
-
-    }
-
-      /// <summary>
-    /// The change poll show status.
-    /// </summary>
-    /// <param name="newStatus">
-    /// The new status.
-    /// </param>
-    protected void ChangePollShowStatus(bool newStatus)
-    {
-      /*  var pollRow = (HtmlTableRow)FindControl(String.Format("PollRow{0}", 1));
-
-            if (pollRow != null)
-            {
-                pollRow.Visible = newStatus;
-            }*/
     }
 
     /// <summary>
@@ -553,7 +494,7 @@ namespace YAF.controls
     protected bool IsPollClosed(object pollId)
     {
         bool soon;
-        int? dtr = DaysToRun(pollId, out soon);
+        int? dtr = this.DaysToRun(pollId, out soon);
         return dtr == 0;
     }
 
@@ -567,17 +508,17 @@ namespace YAF.controls
     protected void Page_Load(object sender, EventArgs e)
     {
       // Only if this control is in a topic we find the topic creator
-      if (this.TopicId > 0)
-      {
-        DataRow dti = DB.topic_info(this.TopicId);
-        this.topicUser = Convert.ToInt32(dti["UserID"]);
-        if (!dti["PollID"].IsNullOrEmptyDBField())
-        {
-            this.PollGroupId = Convert.ToInt32(dti["PollID"]);
-        }
-      }
+            if (this.TopicId > 0)
+            {
+                DataRow dti = DB.topic_info(this.TopicId);
+                this.topicUser = Convert.ToInt32(dti["UserID"]);
+                if (!dti["PollID"].IsNullOrEmptyDBField())
+                {
+                    this.PollGroupId = Convert.ToInt32(dti["PollID"]);
+                }
+            }
 
-      // We check here various variants if a poll exists, as we don't know from which place comes the call
+        // We check here various variants if a poll exists, as we don't know from which place comes the call
       bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
  
       // Here we'll find whether we should display create new poll button only 
@@ -585,12 +526,10 @@ namespace YAF.controls
                        (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
       bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
       bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
-      bool boardPoll = this.PageContext.BoardVoteAccess &&
-                       (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
-      
+        bool boardPoll = this.PageContext.BoardVoteAccess &&
+                         (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
       
       this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) && this.HasOwnerExistingGroupAccess() && (!existingPoll);
-      
      
       // if this is > 0 then we already have a poll and will display all buttons
       if (this.PollGroupId > 0)
@@ -604,7 +543,6 @@ namespace YAF.controls
           this.BindCreateNewPollRow();
         }
       }
-      
     }
 
     /// <summary>
@@ -759,38 +697,52 @@ namespace YAF.controls
 
         polloll.DataSource = _choiceRow;
 
+
+        // returns number of day to run - null if poll has no expiration date 
+        bool soon;
+        int? daystorun = this.DaysToRun(pollId, out soon);
+
         bool isNotVoted = this.IsNotVoted(pollId);
         bool isPollClosed = this.IsPollClosed(pollId);
 
         this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
+     
+        // Show results section
+        // The poll expired. We show results anyway  
+       
+     
+            // Poll voting is bounded - you can't see results before voting in each poll
+            if (this.isBound)
+            {
+                // compare a number of voted polls with number of polls
+                if ((this._dtPollGroup.Rows.Cast<DataRow>().Count(
+                        dr => !this.IsNotVoted(dr["PollID"]) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
+                {
+                    if (this.isClosedBound)
+                    {
+                        if (isPollClosed)
+                        {
+                            this._showResults = true;
+                        }
+                    }
+                    else
+                    {
+                        this._showResults = true;
+                    }
+                    
+                }
+            }
+            else if (!this.isBound && this.isClosedBound && isPollClosed) 
+            {
+                    this._showResults = true;
+            }
+            if (!this.isClosedBound && !this.isBound)
+            {
+                this._showResults = true;
+            }
         
-        
-        // Poll voting is bounded - you can't see results before voting in each poll
-        if (this.isBound)
-        {
-          int voteCount =
-            this._dtPollGroup.Rows.Cast<DataRow>().Count(
-              dr => !this.IsNotVoted(dr["PollID"]) && !this.IsPollClosed(dr["PollID"]));
 
-          if (!isPollClosed && voteCount >= this.PollNumber)
-          {
-            this._showResults = true;
-          }
-        }
-        else
-        {
-          if (!this.isClosedBound)
-          {
-            this._showResults = true;
-          }
-        }
-
-        // The poll expired. We show results  
-        if (isPollClosed)
-        {
-          this._showResults = true;
-        }
-
+        // bind data
         polloll.DataBind();
 
         // Clear the fields after the child repeater is bound
@@ -809,11 +761,8 @@ namespace YAF.controls
         removePoll.Visible = this.CanRemovePoll(pollId);
 
         // Poll warnings section
-        bool soon;
+        // Here warning labels are treated
         bool showWarningsRow = false;
-
-        // returns number of day to run - null if nothing 
-        int? daystorun = this.DaysToRun(pollId, out soon);
 
         var pollVotesLabel = item.FindControlRecursiveAs<Label>("PollVotesLabel");
         bool cvote = this.CanVote(pollId);
@@ -884,8 +833,6 @@ namespace YAF.controls
         }
 
         item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
-
-        DisplayButtons();
       }
 
       // Populate PollGroup Repeater footer
@@ -939,7 +886,7 @@ namespace YAF.controls
           return;
         }
 
-        foreach (DataRow drow  in this._dtPoll.Rows)
+        foreach (DataRow drow in this._dtPoll.Rows)
         {
           if ((int)drow["ChoiceID"] == Convert.ToInt32(e.CommandArgument))
           {
@@ -1114,14 +1061,6 @@ namespace YAF.controls
     }
 
     /// <summary>
-    /// The display buttons.
-    /// </summary>
-    private static void DisplayButtons()
-    {
-      // PollGroup.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = ShowButtons;
-    }
-
-    /// <summary>
     /// Returns an image width|height ratio.
     /// </summary>
     /// <param name="mimeType">
@@ -1160,7 +1099,6 @@ namespace YAF.controls
     /// </summary>
     private void BindData()
     {
-      this._dataBound = true;
       this.PollNumber = 0;
       this._dtPoll = DB.pollgroup_stats(this.PollGroupId);
 
@@ -1232,7 +1170,6 @@ namespace YAF.controls
 
         // we hide new poll row if a poll exist
         this.NewPollRow.Visible = false;
-        this.ChangePollShowStatus(true);
       }
 
       this.DataBind();
@@ -1277,7 +1214,7 @@ namespace YAF.controls
     /// </returns>
     private string ParamsToSend()
     {
-      String sb = string.Empty;
+      String sb = String.Empty;
 
       if (this.TopicId > 0)
       {
@@ -1419,6 +1356,34 @@ namespace YAF.controls
 
       YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
     }
+
+    /// <summary>
+    /// The method to return if a user already voted
+    /// </summary>
+    /// <param name="pollId">The pollId value.</param>
+    /// <returns>Return True if a user has voted.</returns>
+    private bool HasVoteAccess(object pollId)
+    {
+        // rule out users without voting rights
+        // If you come here from topics or edit TopicId should be > 0
+        if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
+        {
+            return false;
+        }
+
+        if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
+        {
+            return false;
+        }
+
+        if (this.IsPollClosed(pollId))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 
     #endregion
   }
