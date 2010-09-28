@@ -4,225 +4,109 @@
         <name>YAF.Classes.Utils</name>
     </assembly>
     <members>
-        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.AsString(System.IO.Stream)">
+        <member name="T:YAF.Classes.Utils.Platform">
             <summary>
-            Converts a Stream to a String.
+            The class gets common system info. Used in data layers other than MSSQL.
             </summary>
-            <param name="theStream">
+        </member>
+        <member name="T:YAF.Classes.Utils.General">
+            <summary>
+            Summary description for General Utils.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.General.CompareMessage(System.Object,System.Object)">
+            <summary>
+            Compares two messages.
+            </summary>
+            <param name="originalMessage">
+            Original message text.
+            </param>
+            <param name="newMessage">
+            New message text.
             </param>
             <returns>
-            The stream to string.
+            True if messages differ, <see langword="false"/> if they are identical.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.CopyTo(System.IO.Stream,System.IO.Stream)">
+        <member name="M:YAF.Classes.Utils.General.EncodeMessage(System.String)">
             <summary>
-            The copy stream.
+            The encode message.
             </summary>
-            <param name="input">
-            The input.
+            <param name="message">
+            The message.
             </param>
-            <param name="output">
-            The output.
-            </param>
+            <returns>
+            The encode message.
+            </returns>
         </member>
-        <member name="T:YAF.Classes.Utils.YafUserProfile">
+        <member name="M:YAF.Classes.Utils.General.GetCurrentTrustLevel">
             <summary>
-            The yaf user profile.
+            Gets the current ASP.NET Hosting Security Level.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.IYafUserProfile">
-            <summary>
-            The yaf user profile interface.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.AIM">
-            <summary>
-            Gets or sets AIM.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Birthday">
-            <summary>
-            Gets or sets Birthday.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Blog">
-            <summary>
-            Gets or sets Blog.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServicePassword">
-            <summary>
-            Gets or sets BlogServicePassword.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServiceUrl">
-            <summary>
-            Gets or sets BlogServiceUrl.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServiceUsername">
-            <summary>
-            Gets or sets BlogServiceUsername.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Gender">
-            <summary>
-            Gets or sets Gender.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.GoogleTalk">
-            <summary>
-            Gets or sets GoogleTalk.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Homepage">
-            <summary>
-            Gets or sets Homepage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.ICQ">
-            <summary>
-            Gets or sets ICQ.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Interests">
-            <summary>
-            Gets or sets Interests.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Location">
-            <summary>
-            Gets or sets Location.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.MSN">
-            <summary>
-            Gets or sets MSN.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Occupation">
-            <summary>
-            Gets or sets Occupation.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.RealName">
-            <summary>
-            Gets or sets RealName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.Skype">
-            <summary>
-            Gets or sets Skype.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.XMPP">
-            <summary>
-            Gets or sets XMPP.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.IYafUserProfile.YIM">
-            <summary>
-            Gets or sets YIM.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafUserProfile.GetProfile(System.String)">
-            <summary>
-            Helper function to get a profile from the system
-            </summary>
-            <param name="userName">
-            </param>
             <returns>
             </returns>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.AIM">
+        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl">
             <summary>
-            Gets or sets AIM.
+            The get safe raw url.
+            </summary>
+            <returns>
+            The get safe raw url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl(System.String)">
+            <summary>
+            Cleans up a URL so that it doesn't contain any problem characters.
+            </summary>
+            <param name="url">
+            </param>
+            <returns>
+            The get safe raw url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.General.TraceResources">
+            <summary>
+            The trace resources.
+            </summary>
+            <returns>
+            The trace resources.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.Security">
+            <summary>
+            The security.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Birthday">
+        <member name="M:YAF.Classes.Utils.Security.StringToLongOrRedirect(System.String)">
             <summary>
-            Gets or sets Birthday.
+            Function that verifies a string is an integer value or it redirects to invalid "info" page.
+            Used as a security feature against invalid values submitted to the page.
             </summary>
+            <param name="longValue">
+            The string value to test
+            </param>
+            <returns>
+            The converted long value
+            </returns>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Blog">
+        <member name="M:YAF.Classes.Utils.Security.CreatePassword(System.Int32)">
             <summary>
-            Gets or sets Blog.
+            The create password.
             </summary>
+            <param name="length">
+            The length.
+            </param>
+            <returns>
+            The create password.
+            </returns>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServicePassword">
+        <member name="M:YAF.Classes.Utils.Security.CheckRequestValidity(System.Web.HttpRequest)">
             <summary>
-            Gets or sets BlogServicePassword.
+            This method validates request whether it comes from same server in case it's HTTP POST.
             </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServiceUrl">
-            <summary>
-            Gets or sets BlogServiceUrl.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServiceUsername">
-            <summary>
-            Gets or sets BlogServiceUsername.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Gender">
-            <summary>
-            Gets or sets Gender.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.GoogleTalk">
-            <summary>
-            Gets or sets GoogleTalk.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Homepage">
-            <summary>
-            Gets or sets Homepage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.ICQ">
-            <summary>
-            Gets or sets ICQ.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Interests">
-            <summary>
-            Gets or sets Interests.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Location">
-            <summary>
-            Gets or sets Location.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.MSN">
-            <summary>
-            Gets or sets MSN.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Occupation">
-            <summary>
-            Gets or sets Occupation.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.RealName">
-            <summary>
-            Gets or sets RealName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Skype">
-            <summary>
-            Gets or sets Skype.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.XMPP">
-            <summary>
-            Gets or sets XMPP.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.YIM">
-            <summary>
-            Gets or sets YIM.
-            </summary>
+            <param name="request">
+            Request to validate.
+            </param>
         </member>
         <member name="T:YAF.Classes.Utils.JsAndCssHelper">
             <summary>
@@ -248,6 +132,259 @@
             <returns>
             The compress css.
             </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.DBHelper">
+            <summary>
+            The db helper.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.SelectTypedList``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary>
+            Selects a typed list of rows using the <paramref name="createNew"/> delegate.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="createNew">
+            The create new.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetColumnAsList``1(System.Data.DataTable,System.String)">
+            <summary>
+            Converts <paramref name="columnName"/> in a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="dataTable">
+            </param>
+            <param name="columnName">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstColumnAsList``1(System.Data.DataTable)">
+            <summary>
+            Converts the first column of a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="dataTable">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRow(System.Data.DataTable)">
+            <summary>
+            Gets the first row (<see cref="T:System.Data.DataRow"/>) of a <see cref="T:System.Data.DataTable"/>.
+            </summary>
+            <param name="dt">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowColumnAsValue``1(System.Data.DataTable,System.String,``0)">
+            <summary>
+            Gets the specified column of the first row as the type specified. If not available returns default value.
+            </summary>
+            <typeparam name="T">
+            Type if column to return
+            </typeparam>
+            <param name="dt">
+            <see cref="T:System.Data.DataTable"/> to pull from
+            </param>
+            <param name="columnName">
+            Name of column to convert
+            </param>
+            <param name="defaultValue">
+            value to return if something is not available
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowOrInvalid(System.Data.DataTable)">
+            <summary>
+            Gets the first row of the data table or redirects to invalid request
+            </summary>
+            <param name="dt">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.IsNullOrEmptyDBField(System.Object)">
+            <summary>
+            Tests if an DB object (in <see cref="T:System.Data.DataRow"/>) is <see cref="T:System.DBNull"/>.Value, <see langword="null"/> or empty.
+            </summary>
+            <param name="columnValue">
+            </param>
+            <returns>
+            The is <see langword="null"/> or empty db field.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
+            <summary>
+            Helps parse URLs
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._nameValues">
+            <summary>
+              The _name values.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlParameters">
+            <summary>
+              The _url parameters.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlAnchor">
+            <summary>
+              The _url anchor.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.SimpleURLParameterParser"/> class.
+            </summary>
+            <param name="urlParameters">
+            The url parameters.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.CreateQueryString(System.String[])">
+            <summary>
+            The create query string.
+            </summary>
+            <param name="excludeValues">
+            The exclude values.
+            </param>
+            <returns>
+            The create query string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.ParseURLParameters">
+            <summary>
+            The parse url parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Anchor">
+            <summary>
+              Gets Anchor.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Count">
+            <summary>
+              Gets Count.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.HasAnchor">
+            <summary>
+              Gets a value indicating whether HasAnchor.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Parameters">
+            <summary>
+              Gets Parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.String)">
+            <summary>
+              The this.
+            </summary>
+            <param name = "name">
+              The name.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.Int32)">
+            <summary>
+              The this.
+            </summary>
+            <param name = "index">
+              The index.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.AsString(System.IO.Stream)">
+            <summary>
+            Converts a Stream to a String.
+            </summary>
+            <param name="theStream">
+            </param>
+            <returns>
+            The stream to string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            The copy stream.
+            </summary>
+            <param name="input">
+            The input.
+            </param>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.ToSimpleDictionary(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Flattens a <see cref="T:System.Collections.Specialized.NameValueCollection"/> to a simple string <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <param name="collection">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.GetValueList(System.Collections.Specialized.NameValueCollection,System.String)">
+            <summary>
+            Gets the value as an <see cref="T:System.Collections.IEnumerable"/> handling splitting the string if needed.
+            </summary>
+            <param name="collection"></param>
+            <returns>Does not return null.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.GetFirstOrDefault(System.Collections.Specialized.NameValueCollection,System.String)">
+            <summary>
+            Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
+            </summary>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Iterates through a generic list type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachFirst``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Boolean})">
+            <summary>
+            Iterates through a list with a isFirst flag.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachIndex``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary>
+            Iterates through a list with a index.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ToHashSet``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Converts an <see cref="!:IEnumerable"/> to a HashSet -- similar to ToList()
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
         </member>
         <member name="T:YAF.Classes.Utils.ControlHelper">
             <summary>
@@ -531,634 +668,6 @@
             The message.
             </param>
         </member>
-        <member name="T:YAF.Classes.Utils.BBCodeHelper">
-            <summary>
-            The bb code helper.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.BBCodeHelper.StripBBCode(System.String)">
-            <summary>
-            The strip bb code.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <returns>
-            The strip bb code.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.Security">
-            <summary>
-            The security.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.Security.StringToLongOrRedirect(System.String)">
-            <summary>
-            Function that verifies a string is an integer value or it redirects to invalid "info" page.
-            Used as a security feature against invalid values submitted to the page.
-            </summary>
-            <param name="longValue">
-            The string value to test
-            </param>
-            <returns>
-            The converted long value
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.Security.CreatePassword(System.Int32)">
-            <summary>
-            The create password.
-            </summary>
-            <param name="length">
-            The length.
-            </param>
-            <returns>
-            The create password.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.Security.CheckRequestValidity(System.Web.HttpRequest)">
-            <summary>
-            This method validates request whether it comes from same server in case it's HTTP POST.
-            </summary>
-            <param name="request">
-            Request to validate.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
-            <summary>
-            Helps parse URLs
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._nameValues">
-            <summary>
-              The _name values.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlParameters">
-            <summary>
-              The _url parameters.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlAnchor">
-            <summary>
-              The _url anchor.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.SimpleURLParameterParser"/> class.
-            </summary>
-            <param name="urlParameters">
-            The url parameters.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.CreateQueryString(System.String[])">
-            <summary>
-            The create query string.
-            </summary>
-            <param name="excludeValues">
-            The exclude values.
-            </param>
-            <returns>
-            The create query string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.ParseURLParameters">
-            <summary>
-            The parse url parameters.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Anchor">
-            <summary>
-              Gets Anchor.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Count">
-            <summary>
-              Gets Count.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.HasAnchor">
-            <summary>
-              Gets a value indicating whether HasAnchor.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Parameters">
-            <summary>
-              Gets Parameters.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.String)">
-            <summary>
-              The this.
-            </summary>
-            <param name = "name">
-              The name.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.Int32)">
-            <summary>
-              The this.
-            </summary>
-            <param name = "index">
-              The index.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
-            <summary>
-            The data container extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
-            <summary>
-            The data item to field.
-            </summary>
-            <param name="container">
-            The container.
-            </param>
-            <param name="fieldName">
-            The field name.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
-            <summary>
-            The to data item type.
-            </summary>
-            <param name="container">
-            The container.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemClass``1(System.Web.UI.IDataItemContainer)">
-            <summary>
-            Converts DataItem to a class.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="container"></param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.YafForumInfo">
-            <summary>
-            Class provides helper functions related to the forum path and urls as well as forum version information.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafForumInfo.GetURLToResource(System.String)">
-            <summary>
-            Helper function that creates the the url of a resource.
-            </summary>
-            <param name="resourceName">
-            </param>
-            <returns>
-            The get url to resource.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafForumInfo.AppVersionNameFromCode(System.Int64)">
-            <summary>
-            Creates a string that is the YAF Application Version from a long value
-            </summary>
-            <param name="code">
-            Value of Current Version
-            </param>
-            <returns>
-            Application Version String
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumClientFileRoot">
-            <summary>
-            Gets the forum path (client-side).
-            May not be the actual URL of the forum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumServerFileRoot">
-            <summary>
-            Gets the forum path (server-side).
-            May not be the actual URL of the forum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumBaseUrl">
-            <summary>
-            Gets complete application external (client-side) URL of the forum. (e.g. http://myforum.com/forum
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumURL">
-            <summary>
-            Gets full URL to the Root of the Forum
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.IsLocal">
-            <summary>
-            Gets <see langword="true"/> if the current site is localhost.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionName">
-            <summary>
-            Get the Current YAF Application Version string
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersion">
-            <summary>
-            Get the Current YAF Database Version
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionCode">
-            <summary>
-            Gets the Current YAF Application Version
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionDate">
-            <summary>
-            Gets the Current YAF Build Date
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.InfoMessage">
-            <summary>
-            Enumerates forum info messages.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.Moderated">
-            <summary>
-            after posting to moderated forum
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.Suspended">
-            <summary>
-            informs user he's suspended
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.RegistrationEmail">
-            <summary>
-            informs user about registration email being sent
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.AccessDenied">
-            <summary>
-            access was denied
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.Disabled">
-            <summary>
-            informs user about feature being disabled by admin 
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.Invalid">
-            <summary>
-            informs user about invalid input/request
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.Failure">
-            <summary>
-            system error
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.RequiresCookies">
-            <summary>
-            requires cookies
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.RequiresEcmaScript">
-            <summary>
-            requires JS
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.InfoMessage.EcmaScriptVersionUnsupported">
-            <summary>
-            unsupported JS version
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.YafBuildLink">
-            <summary>
-            Static class with link building functions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.AccessDenied">
-            <summary>
-            Redirects response to the access denied page.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean)">
-            <summary>
-            Gets link to the page.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <param name="fullUrl">
-            </param>
-            <returns>
-            URL to the given page.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages)">
-            <summary>
-            Gets link to the page.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <returns>
-            URL to the given page.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean,System.String,System.Object[])">
-            <summary>
-            Gets link to the page with given parameters.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <param name="fullUrl">
-            </param>
-            <param name="format">
-            Format of parameters.
-            </param>
-            <param name="args">
-            Array of page parameters.
-            </param>
-            <returns>
-            URL to the given page with parameters.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.String,System.Object[])">
-            <summary>
-            Gets link to the page with given parameters.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <param name="format">
-            Format of parameters.
-            </param>
-            <param name="args">
-            Array of page parameters.
-            </param>
-            <returns>
-            URL to the given page with parameters.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.Boolean)">
-            <summary>
-            Unescapes ampersands in the link to the given page.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <param name="fullUrl">
-            </param>
-            <returns>
-            URL to the given page with unescaped ampersands.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages)">
-            <summary>
-            Unescapes ampersands in the link to the given page.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <returns>
-            URL to the given page with unescaped ampersands.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.Boolean,System.String,System.Object[])">
-            <summary>
-            Unescapes ampersands in the link to the given page with parameters.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <param name="fullUrl">
-            </param>
-            <param name="format">
-            Format of parameters.
-            </param>
-            <param name="args">
-            Array of page parameters.
-            </param>
-            <returns>
-            URL to the given page with parameters and unescaped ampersands.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.String,System.Object[])">
-            <summary>
-            Unescapes ampersands in the link to the given page with parameters.
-            </summary>
-            <param name="page">
-            Page to which to create a link.
-            </param>
-            <param name="format">
-            Format of parameters.
-            </param>
-            <param name="args">
-            Array of page parameters.
-            </param>
-            <returns>
-            URL to the given page with parameters and unescaped ampersands.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages)">
-            <summary>
-            Redirects to the given page.
-            </summary>
-            <param name="page">
-            Page to which to redirect response.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages,System.String,System.Object[])">
-            <summary>
-            Redirects to the given page with parameters.
-            </summary>
-            <param name="page">
-            Page to which to redirect response.
-            </param>
-            <param name="format">
-            Format of parameters.
-            </param>
-            <param name="args">
-            Array of page parameters.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.RedirectInfoPage(YAF.Classes.Utils.InfoMessage)">
-            <summary>
-            Redirects response to the info page.
-            </summary>
-            <param name="infoMessage">
-            The info Message.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.Smiley(System.String)">
-            <summary>
-            Gets URL of given smilie.
-            </summary>
-            <param name="icon">
-            Name of icon image file.
-            </param>
-            <returns>
-            URL of a smilie.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.Mession">
-            <summary>
-            All references to session should go into this class
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.GetForumRead(System.Int32)">
-            <summary>
-            Gets the last time the forum was read.
-            </summary>
-            <param name="forumID">
-            This is the ID of the forum you wish to get the last read date from.
-            </param>
-            <returns>
-            A DateTime object of when the forum was last read.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.SetForumRead(System.Int32,System.DateTime)">
-            <summary>
-            Sets the time that the forum was read.
-            </summary>
-            <param name="forumID">
-            The forum ID that was read.
-            </param>
-            <param name="date">
-            The DateTime you wish to set the read to.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.GetTopicRead(System.Int32)">
-            <summary>
-            Returns the last time that the topicID was read.
-            </summary>
-            <param name="topicID">
-            The topicID you wish to find the DateTime object for.
-            </param>
-            <returns>
-            The DateTime object from the topicID.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.SetTopicRead(System.Int32,System.DateTime)">
-            <summary>
-            Sets the time that the <paramref name="topicID"/> was read.
-            </summary>
-            <param name="topicID">
-            The topic ID that was read.
-            </param>
-            <param name="date">
-            The DateTime you wish to set the read to.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.PanelState">
-            <summary>
-            Gets PanelState.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.LastVisit">
-            <summary>
-            Gets or sets LastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.LastPm">
-            <summary>
-            Gets or sets LastPm.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.LastPendingBuddies">
-            <summary>
-            Gets or sets LastPm.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.HasLastVisit">
-            <summary>
-            Gets or sets a value indicating whether HasLastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.LastPost">
-            <summary>
-            Gets or sets LastPost.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.TopicRead">
-            <summary>
-            Gets or sets TopicRead.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.ForumRead">
-            <summary>
-            Gets or sets ForumRead.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.ShowList">
-            <summary>
-            Gets or sets ShowList.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.UnreadTopics">
-            <summary>
-            Gets or sets UnreadTopics.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.SearchData">
-            <summary>
-            Gets or sets SearchData.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.ActiveTopicSince">
-            <summary>
-            Gets or sets ActiveTopicSince.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.Mession.FavoriteTopicSince">
-            <summary>
-            Gets or sets FavoriteTopicSince.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.PanelSessionState">
-            <summary>
-            The panel session state.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.PanelSessionState.TogglePanelState(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
-            <summary>
-            The toggle panel state.
-            </summary>
-            <param name="panelID">
-            The panel id.
-            </param>
-            <param name="defaultState">
-            The default state.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.PanelSessionState.Item(System.String)">
-            <summary>
-            Gets panel session state.
-            </summary>
-            <param name="panelID">panelID</param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState">
-            <summary>
-            The collapsible panel state.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.None">
-            <summary>
-            The none.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Expanded">
-            <summary>
-            The expanded.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Collapsed">
-            <summary>
-            The collapsed.
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Utils.ConfigHelper">
             <summary>
             The config helper.
@@ -1265,215 +774,45 @@
             Gets AppSettingsFull.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Utils.StyleTransform">
+        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
             <summary>
-            Transforms the style.
+            The data container extensions.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.StyleTransform._theme">
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
             <summary>
-            The _theme.
+            The data item to field.
             </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.#ctor(YAF.Classes.Interfaces.IYafTheme)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.StyleTransform"/> class.
-            </summary>
-            <param name="theme">
-            The theme.
+            <param name="container">
+            The container.
             </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.String,System.Boolean)">
-            <summary>
-            The decode style by row.
-            </summary>
-            <param name="dr">
-            The dr.
-            </param>
-            <param name="columnName">
-            the style column name
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@)">
-            <summary>
-            The decode style by row.
-            </summary>
-            <param name="dr">
-            The dr.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.Boolean)">
-            <summary>
-            The decode style by row.
-            </summary>
-            <param name="dr">
-            The dr.
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean)">
-            <summary>
-            The decode style by string.
-            </summary>
-            <param name="styleStr">
-            The style str.
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-            <returns>
-            The decode style by string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@)">
-            <summary>
-            The decode style by table.
-            </summary>
-            <param name="dt">
-            The dt.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean)">
-            <summary>
-            The decode style by table.
-            </summary>
-            <param name="dt">
-            The dt.
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean,System.String[])">
-            <summary>
-            The decode style by table.
-            </summary>
-            <param name="dt">
-            The dt.
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-            <param name="styleColumns">
-            The styleColumns can contain param array to handle several style columns.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean,System.String[])">
-            <summary>
-            The decode style by string.
-            </summary>
-            <param name="styleStr">
-            The style str.
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-            <param name="pair">
-            The pair.
-            </param>
-            <returns>
-            The decode style by string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.GetColorOnly(System.String)">
-            <summary>
-            The get color only.
-            </summary>
-            <param name="styleString">
-            The style string.
-            </param>
-            <returns>
-            The get color only.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Utils.StyleTransform.CurrentThemeFile">
-            <summary>
-            Gets CurrentThemeFile.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
-            <summary>
-            Iterates through a generic list type
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="list"></param>
-            <param name="action"></param>
-        </member>
-        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachFirst``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Boolean})">
-            <summary>
-            Iterates through a list with a isFirst flag.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="list"></param>
-            <param name="action"></param>
-        </member>
-        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachIndex``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
-            <summary>
-            Iterates through a list with a index.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="list"></param>
-            <param name="action"></param>
-        </member>
-        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ToHashSet``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>
-            Converts an <see cref="!:IEnumerable"/> to a HashSet -- similar to ToList()
-            </summary>
-            <param name="list">
-            The list.
+            <param name="fieldName">
+            The field name.
             </param>
             <typeparam name="T">
             </typeparam>
             <returns>
             </returns>
-            <exception cref="T:System.ArgumentNullException">
-            </exception>
         </member>
-        <member name="T:YAF.Classes.Utils.IPHelper">
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
             <summary>
-            The ip helper.
+            The to data item type.
             </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.IPHelper.IPStrToLong(System.String)">
-            <summary>
-            The ip str to long.
-            </summary>
-            <param name="ipAddress">
-            The ip address.
+            <param name="container">
+            The container.
             </param>
+            <typeparam name="T">
+            </typeparam>
             <returns>
-            The ip str to long.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.IPHelper.IsBanned(System.String,System.String)">
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemClass``1(System.Web.UI.IDataItemContainer)">
             <summary>
-            Verifies that an ip and mask aren't banned
+            Converts DataItem to a class.
             </summary>
-            <param name="ban">
-            Banned IP
-            </param>
-            <param name="chk">
-            IP to Check
-            </param>
-            <returns>
-            true if it's banned
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.IPHelper.Str2IP(System.String[])">
-            <summary>
-            Converts an array of strings into a ulong representing a 4 byte IP address
-            </summary>
-            <param name="ip">
-            string array of numbers
-            </param>
-            <returns>
-            ulong represending an encoding IP address
-            </returns>
+            <typeparam name="T"></typeparam>
+            <param name="container"></param>
+            <returns></returns>
         </member>
         <member name="T:YAF.Classes.Utils.UserAgentHelper">
             <summary>
@@ -1543,111 +882,6 @@
             <param name="isIgnoredForDisplay">
             </param>
         </member>
-        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.ToSimpleDictionary(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Flattens a <see cref="T:System.Collections.Specialized.NameValueCollection"/> to a simple string <see cref="T:System.Collections.Generic.IDictionary`2"/>.
-            </summary>
-            <param name="collection">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.GetValueList(System.Collections.Specialized.NameValueCollection,System.String)">
-            <summary>
-            Gets the value as an <see cref="T:System.Collections.IEnumerable"/> handling splitting the string if needed.
-            </summary>
-            <param name="collection"></param>
-            <returns>Does not return null.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.GetFirstOrDefault(System.Collections.Specialized.NameValueCollection,System.String)">
-            <summary>
-            Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
-            </summary>
-            <param name="collection"></param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.ValidationHelper">
-            <summary>
-            The validation helper.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidEmail(System.String)">
-            <summary>
-            The is valid email.
-            </summary>
-            <param name="email">
-            The email.
-            </param>
-            <returns>
-            The is valid email.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidXmpp(System.String)">
-            <summary>
-            The is valid xmpp.
-            </summary>
-            <param name="xmpp">
-            The xmpp.
-            </param>
-            <returns>
-            The is valid xmpp.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidURL(System.String)">
-            <summary>
-            The is valid url.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The is valid url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidInt(System.String)">
-            <summary>
-            The is valid int.
-            </summary>
-            <param name="intstr">
-            The intstr.
-            </param>
-            <returns>
-            The is valid int.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidInt(System.String,System.Int32,System.Int32)">
-            <summary>
-            The is valid int.
-            </summary>
-            <param name="intstr">
-            The intstr.
-            </param>
-            <param name="lowerBound">
-            The lower Bound.
-            </param>
-            <param name="upperBound">
-            The upper Bound.
-            </param>
-            <returns>
-            The is valid int.
-            </returns> 
-        </member>
-        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidPosShort(System.String)">
-            <summary>
-            The value is a valid positive Int16.
-            </summary>
-            <param name="intstr">
-            The intstr.
-            </param>
-            <returns>
-            A bool value indicating whether the value is a positive valid Int16.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.Platform">
-            <summary>
-            The class gets common system info. Used in data layers other than MSSQL.
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Utils.HtmlHelper">
             <summary>
             The html helper.
@@ -1687,130 +921,6 @@
             <returns>
             The is valid tag.
             </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.MostRecentlyUsed">
-            <summary>
-            The most recently used.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_linkToKey">
-            <summary>
-            The m_link to key.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_list">
-            <summary>
-            The m_list.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_max">
-            <summary>
-            The m_max.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.MostRecentlyUsed"/> class. 
-              Default constructor for the most recently used items using the default size (50)
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.#ctor(System.UInt32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.MostRecentlyUsed"/> class. 
-            Construct a most recently used items list with the maximum number of items
-              allowed in the list.
-            </summary>
-            <param name="maxItems">
-            Maximum number of items allowed
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Add(System.Object,System.Object)">
-            <summary>
-            The add.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Contains(System.Object)">
-            <summary>
-            The contains.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-            <returns>
-            The contains.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Remove(System.Object)">
-            <summary>
-            The remove.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.ToString">
-            <summary>
-            The to string.
-            </summary>
-            <returns>
-            The to string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.OnInsert(System.Object,System.Object)">
-            <summary>
-            The on insert.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-        </member>
-        <member name="E:YAF.Classes.Utils.MostRecentlyUsed.OnPurgedFromCache">
-            <summary>
-              Event that is fired when an item falls outside of the cache
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Capacity">
-            <summary>
-              The maximum capacity of the list
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Keys">
-            <summary>
-            Gets Keys.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Values">
-            <summary>
-            Gets Values.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Item(System.Object)">
-            <summary>
-            The this.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Utils.MostRecentlyUsed.PurgedFromCacheDelegate">
-            <summary>
-            The purged from cache delegate.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-            <param name="value">
-            The value.
-            </param>
         </member>
         <member name="T:YAF.Classes.Utils.EnumExtensions">
             <summary>
@@ -1998,6 +1108,281 @@
             <returns>
             </returns>
         </member>
+        <member name="T:YAF.Classes.Utils.Mession">
+            <summary>
+            All references to session should go into this class
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.GetForumRead(System.Int32)">
+            <summary>
+            Gets the last time the forum was read.
+            </summary>
+            <param name="forumID">
+            This is the ID of the forum you wish to get the last read date from.
+            </param>
+            <returns>
+            A DateTime object of when the forum was last read.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.SetForumRead(System.Int32,System.DateTime)">
+            <summary>
+            Sets the time that the forum was read.
+            </summary>
+            <param name="forumID">
+            The forum ID that was read.
+            </param>
+            <param name="date">
+            The DateTime you wish to set the read to.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.GetTopicRead(System.Int32)">
+            <summary>
+            Returns the last time that the topicID was read.
+            </summary>
+            <param name="topicID">
+            The topicID you wish to find the DateTime object for.
+            </param>
+            <returns>
+            The DateTime object from the topicID.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.SetTopicRead(System.Int32,System.DateTime)">
+            <summary>
+            Sets the time that the <paramref name="topicID"/> was read.
+            </summary>
+            <param name="topicID">
+            The topic ID that was read.
+            </param>
+            <param name="date">
+            The DateTime you wish to set the read to.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.PanelState">
+            <summary>
+            Gets PanelState.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.LastVisit">
+            <summary>
+            Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.LastPm">
+            <summary>
+            Gets or sets LastPm.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.LastPendingBuddies">
+            <summary>
+            Gets or sets LastPm.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.HasLastVisit">
+            <summary>
+            Gets or sets a value indicating whether HasLastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.LastPost">
+            <summary>
+            Gets or sets LastPost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.TopicRead">
+            <summary>
+            Gets or sets TopicRead.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.ForumRead">
+            <summary>
+            Gets or sets ForumRead.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.ShowList">
+            <summary>
+            Gets or sets ShowList.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.UnreadTopics">
+            <summary>
+            Gets or sets UnreadTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.SearchData">
+            <summary>
+            Gets or sets SearchData.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.ActiveTopicSince">
+            <summary>
+            Gets or sets ActiveTopicSince.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.FavoriteTopicSince">
+            <summary>
+            Gets or sets FavoriteTopicSince.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.PanelSessionState">
+            <summary>
+            The panel session state.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.PanelSessionState.TogglePanelState(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
+            <summary>
+            The toggle panel state.
+            </summary>
+            <param name="panelID">
+            The panel id.
+            </param>
+            <param name="defaultState">
+            The default state.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.PanelSessionState.Item(System.String)">
+            <summary>
+            Gets panel session state.
+            </summary>
+            <param name="panelID">panelID</param>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState">
+            <summary>
+            The collapsible panel state.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.None">
+            <summary>
+            The none.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Expanded">
+            <summary>
+            The expanded.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Collapsed">
+            <summary>
+            The collapsed.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.ValidationHelper">
+            <summary>
+            The validation helper.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidEmail(System.String)">
+            <summary>
+            The is valid email.
+            </summary>
+            <param name="email">
+            The email.
+            </param>
+            <returns>
+            The is valid email.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidXmpp(System.String)">
+            <summary>
+            The is valid xmpp.
+            </summary>
+            <param name="xmpp">
+            The xmpp.
+            </param>
+            <returns>
+            The is valid xmpp.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidURL(System.String)">
+            <summary>
+            The is valid url.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The is valid url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidInt(System.String)">
+            <summary>
+            The is valid int.
+            </summary>
+            <param name="intstr">
+            The intstr.
+            </param>
+            <returns>
+            The is valid int.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidInt(System.String,System.Int32,System.Int32)">
+            <summary>
+            The is valid int.
+            </summary>
+            <param name="intstr">
+            The intstr.
+            </param>
+            <param name="lowerBound">
+            The lower Bound.
+            </param>
+            <param name="upperBound">
+            The upper Bound.
+            </param>
+            <returns>
+            The is valid int.
+            </returns> 
+        </member>
+        <member name="M:YAF.Classes.Utils.ValidationHelper.IsValidPosShort(System.String)">
+            <summary>
+            The value is a valid positive Int16.
+            </summary>
+            <param name="intstr">
+            The intstr.
+            </param>
+            <returns>
+            A bool value indicating whether the value is a positive valid Int16.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.IPHelper">
+            <summary>
+            The ip helper.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.IPHelper.IPStrToLong(System.String)">
+            <summary>
+            The ip str to long.
+            </summary>
+            <param name="ipAddress">
+            The ip address.
+            </param>
+            <returns>
+            The ip str to long.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.IPHelper.IsBanned(System.String,System.String)">
+            <summary>
+            Verifies that an ip and mask aren't banned
+            </summary>
+            <param name="ban">
+            Banned IP
+            </param>
+            <param name="chk">
+            IP to Check
+            </param>
+            <returns>
+            true if it's banned
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.IPHelper.Str2IP(System.String[])">
+            <summary>
+            Converts an array of strings into a ulong representing a 4 byte IP address
+            </summary>
+            <param name="ip">
+            string array of numbers
+            </param>
+            <returns>
+            ulong represending an encoding IP address
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchor(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
             <summary>
             The render anchor.
@@ -2141,677 +1526,204 @@
             The writer.
             </param>
         </member>
-        <member name="T:YAF.Classes.Utils.QueryStringIDHelper">
+        <member name="T:YAF.Classes.Utils.YafUserProfile">
             <summary>
-            The query string id helper.
+            The yaf user profile.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.QueryStringIDHelper._idDictionary">
+        <member name="T:YAF.Classes.Utils.IYafUserProfile">
             <summary>
-              The _id dictionary.
+            The yaf user profile interface.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String)">
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.AIM">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class. 
-              False to ErrorOnInvalid
-            </summary>
-            <param name="idName">
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class. 
-              False on ErrorOnInvalid
-            </summary>
-            <param name="idNames">
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class.
-            </summary>
-            <param name="idName">
-            The id name.
-            </param>
-            <param name="errorOnInvalid">
-            The error on invalid.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[],System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class.
-            </summary>
-            <param name="idNames">
-            The id names.
-            </param>
-            <param name="errorOnInvalid">
-            The error on invalid.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[],System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class.
-            </summary>
-            <param name="idNames">
-            The id names.
-            </param>
-            <param name="errorOnInvalid">
-            The error on invalid.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.ContainsKey(System.String)">
-            <summary>
-            The contains key.
-            </summary>
-            <param name="idName">
-            The id name.
-            </param>
-            <returns>
-            The contains key.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.InitIDs(System.String[],System.Boolean[])">
-            <summary>
-            The init i ds.
-            </summary>
-            <param name="idNames">
-            The id names.
-            </param>
-            <param name="errorOnInvalid">
-            The error on invalid.
-            </param>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="P:YAF.Classes.Utils.QueryStringIDHelper.Params">
-            <summary>
-              Gets Params.
+            Gets or sets AIM.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.QueryStringIDHelper.Item(System.String)">
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Birthday">
             <summary>
-              The this.
-            </summary>
-            <param name = "idName">
-              The id name.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Utils.ObjectExtensions">
-            <summary>
-            The object extensions.
+            Gets or sets Birthday.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Blog">
             <summary>
-            Converts an object to a type.
+            Gets or sets Blog.
             </summary>
-            <param name="value">
-            Object to convert
-            </param>
-            <param name="type">
-            Type to convert to e.g. System.Guid
-            </param>
-            <returns>
-            The convert object to type.
-            </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServicePassword">
             <summary>
-            The get custom attributes.
+            Gets or sets BlogServicePassword.
             </summary>
-            <param name="objectType">
-            The object type.
-            </param>
-            <param name="attributeType">
-            The attribute type.
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServiceUrl">
+            <summary>
+            Gets or sets BlogServiceUrl.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServiceUsername">
+            <summary>
+            Gets or sets BlogServiceUsername.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Gender">
+            <summary>
+            Gets or sets Gender.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.GoogleTalk">
+            <summary>
+            Gets or sets GoogleTalk.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Homepage">
+            <summary>
+            Gets or sets Homepage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.ICQ">
+            <summary>
+            Gets or sets ICQ.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Interests">
+            <summary>
+            Gets or sets Interests.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Location">
+            <summary>
+            Gets or sets Location.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.MSN">
+            <summary>
+            Gets or sets MSN.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Occupation">
+            <summary>
+            Gets or sets Occupation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.RealName">
+            <summary>
+            Gets or sets RealName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Skype">
+            <summary>
+            Gets or sets Skype.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.XMPP">
+            <summary>
+            Gets or sets XMPP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.YIM">
+            <summary>
+            Gets or sets YIM.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafUserProfile.GetProfile(System.String)">
+            <summary>
+            Helper function to get a profile from the system
+            </summary>
+            <param name="userName">
             </param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.AIM">
             <summary>
-            Converts the object to the class (T) or returns null if it's not 
-            an instance of that class or instance is null.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
-            <summary>
-            Converts an object to a different object (class) by copying fields (if they exist).
-            Used to convert annonomous objects to strongly typed objects.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="obj">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
-            <summary>
-            The to generic list.
-            </summary>
-            <param name="listObjects">
-            The list objects.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
-            <summary>
-            Enables you to get a string representation of the object using string 
-            formatting with property names, rather than index based values.
-            </summary>
-            <param name="anObject">
-            The object being extended.
-            </param>
-            <param name="aFormat">
-            The formatting string, like "Hi, my name 
-            is {FirstName} {LastName}".
-            </param>
-            <returns>
-            A formatted string with the values from the object replaced 
-            in the format string.
-            </returns>
-            <remarks>
-            To embed a pair of {} on the string, simply double them: 
-            "I am a {{Literal}}".
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
-            <summary>
-            Enables you to get a string representation of the object using string 
-            formatting with property names, rather than index based values.
-            </summary>
-            <param name="anObject">
-            The object being extended.
-            </param>
-            <param name="aFormat">
-            The formatting string, like "Hi, my name is 
-            {FirstName} {LastName}".
-            </param>
-            <param name="formatProvider">
-            An System.<see cref="T:System.IFormatProvider"/> that 
-            provides culture-specific formatting information.
-            </param>
-            <returns>
-            A formatted string with the values from the object replaced in 
-            the format string.
-            </returns>
-            <remarks>
-            To embed a pair of {} on the string, simply double them: 
-            "I am a {{Literal}}".
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
-            <summary>
-            Converts an object to Type using the Convert.ChangeType() call.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
-            <summary>
-            Gets an Int from an Object value
-            </summary>
-            <param name="expression">
-            </param>
-            <returns>
-            The valid int.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.General">
-            <summary>
-            Summary description for General Utils.
+            Gets or sets AIM.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.General.CompareMessage(System.Object,System.Object)">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Birthday">
             <summary>
-            Compares two messages.
-            </summary>
-            <param name="originalMessage">
-            Original message text.
-            </param>
-            <param name="newMessage">
-            New message text.
-            </param>
-            <returns>
-            True if messages differ, <see langword="false"/> if they are identical.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.EncodeMessage(System.String)">
-            <summary>
-            The encode message.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-            <returns>
-            The encode message.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.GetCurrentTrustLevel">
-            <summary>
-            Gets the current ASP.NET Hosting Security Level.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl">
-            <summary>
-            The get safe raw url.
-            </summary>
-            <returns>
-            The get safe raw url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl(System.String)">
-            <summary>
-            Cleans up a URL so that it doesn't contain any problem characters.
-            </summary>
-            <param name="url">
-            </param>
-            <returns>
-            The get safe raw url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.TraceResources">
-            <summary>
-            The trace resources.
-            </summary>
-            <returns>
-            The trace resources.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.DBHelper">
-            <summary>
-            The db helper.
+            Gets or sets Birthday.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.SelectTypedList``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Blog">
             <summary>
-            Selects a typed list of rows using the <paramref name="createNew"/> delegate.
-            </summary>
-            <param name="dataTable">
-            The data table.
-            </param>
-            <param name="createNew">
-            The create new.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetColumnAsList``1(System.Data.DataTable,System.String)">
-            <summary>
-            Converts <paramref name="columnName"/> in a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="dataTable">
-            </param>
-            <param name="columnName">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstColumnAsList``1(System.Data.DataTable)">
-            <summary>
-            Converts the first column of a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="dataTable">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRow(System.Data.DataTable)">
-            <summary>
-            Gets the first row (<see cref="T:System.Data.DataRow"/>) of a <see cref="T:System.Data.DataTable"/>.
-            </summary>
-            <param name="dt">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowColumnAsValue``1(System.Data.DataTable,System.String,``0)">
-            <summary>
-            Gets the specified column of the first row as the type specified. If not available returns default value.
-            </summary>
-            <typeparam name="T">
-            Type if column to return
-            </typeparam>
-            <param name="dt">
-            <see cref="T:System.Data.DataTable"/> to pull from
-            </param>
-            <param name="columnName">
-            Name of column to convert
-            </param>
-            <param name="defaultValue">
-            value to return if something is not available
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowOrInvalid(System.Data.DataTable)">
-            <summary>
-            Gets the first row of the data table or redirects to invalid request
-            </summary>
-            <param name="dt">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.IsNullOrEmptyDBField(System.Object)">
-            <summary>
-            Tests if an DB object (in <see cref="T:System.Data.DataRow"/>) is <see cref="T:System.DBNull"/>.Value, <see langword="null"/> or empty.
-            </summary>
-            <param name="columnValue">
-            </param>
-            <returns>
-            The is <see langword="null"/> or empty db field.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.DoubleLinkedList">
-            <summary>
-            Class that represents a doubly linked list (I can't believe that .NET didn't 
-              have one of these).  The primary usage for this class is with the MostRecenlyUsed class,
-              but can be used in a variety of scenarios.
+            Gets or sets Blog.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.HeadLink">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServicePassword">
             <summary>
-            The head link.
+            Gets or sets BlogServicePassword.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.TailLink">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServiceUrl">
             <summary>
-            The tail link.
+            Gets or sets BlogServiceUrl.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.m_syncRoot">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServiceUsername">
             <summary>
-            The m_sync root.
+            Gets or sets BlogServiceUsername.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.m_count">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Gender">
             <summary>
-            The m_count.
+            Gets or sets Gender.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Append(System.Object)">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.GoogleTalk">
             <summary>
-            Append the specified value to the tail of the list (not a LinkItem)
-            </summary>
-            <param name="value">
-            The value to append to the list
-            </param>
-            <returns>
-            The new LinkItem which points to the value
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.MoveToHead(YAF.Classes.Utils.DoubleLinkedList.LinkItem)">
-            <summary>
-            Move the specified LinkItem to the head of the list
-            </summary>
-            <param name="item">
-            The existing LinkItem in the list
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Prepend(System.Object)">
-            <summary>
-            Prepend the specified value to the head of the list
-            </summary>
-            <param name="value">
-            Value to prepend to the list (not a LinkItem)
-            </param>
-            <returns>
-            The LinkItem which points to this new value
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.RemoveLink(YAF.Classes.Utils.DoubleLinkedList.LinkItem)">
-            <summary>
-            Remove the specified link from the list
-            </summary>
-            <param name="item">
-            Item to remove 
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.CopyTo(System.Array,System.Int32)">
-            <summary>
-            The copy to.
-            </summary>
-            <param name="array">
-            The array.
-            </param>
-            <param name="index">
-            The index.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.GetEnumerator">
-            <summary>
-            The get enumerator.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Add(System.Object)">
-            <summary>
-            The add.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <returns>
-            The add.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Clear">
-            <summary>
-            The clear.
+            Gets or sets GoogleTalk.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Contains(System.Object)">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Homepage">
             <summary>
-            The contains.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <returns>
-            The contains.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.IndexOf(System.Object)">
-            <summary>
-            The index of.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <returns>
-            The index of.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Insert(System.Int32,System.Object)">
-            <summary>
-            The insert.
-            </summary>
-            <param name="index">
-            The index.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Remove(System.Object)">
-            <summary>
-            The remove.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.RemoveAt(System.Int32)">
-            <summary>
-            The remove at.
-            </summary>
-            <param name="index">
-            The index.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.Count">
-            <summary>
-            Gets Count.
+            Gets or sets Homepage.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsFixedSize">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.ICQ">
             <summary>
-            Gets a value indicating whether IsFixedSize.
+            Gets or sets ICQ.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsReadOnly">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Interests">
             <summary>
-            Gets a value indicating whether IsReadOnly.
+            Gets or sets Interests.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsSynchronized">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Location">
             <summary>
-            Gets a value indicating whether IsSynchronized.
+            Gets or sets Location.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.SyncRoot">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.MSN">
             <summary>
-            Gets SyncRoot.
+            Gets or sets MSN.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.Item(System.Int32)">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Occupation">
             <summary>
-            The this.
-            </summary>
-            <param name="index">
-            The index.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList">
-            <summary>
-            Public class to enumerate the items in the list
+            Gets or sets Occupation.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.m_list">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.RealName">
             <summary>
-            The m_list.
+            Gets or sets RealName.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.m_current">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Skype">
             <summary>
-            The m_current.
+            Gets or sets Skype.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.#ctor(YAF.Classes.Utils.DoubleLinkedList)">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.XMPP">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList"/> class.
-            </summary>
-            <param name="list">
-            The list.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.MoveNext">
-            <summary>
-            The move next.
-            </summary>
-            <returns>
-            The move next.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.Reset">
-            <summary>
-            The reset.
+            Gets or sets XMPP.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.Current">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.YIM">
             <summary>
-            Gets Current.
+            Gets or sets YIM.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.DoubleLinkedList.LinkItem">
-            <summary>
-            Class that represents an element in the doubly linked list
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Item">
-            <summary>
-              Current item that this node points to (ie the value)
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Next">
-            <summary>
-              Next item in the list
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Previous">
-            <summary>
-              Previous item in the list
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.LinkItem.#ctor(YAF.Classes.Utils.DoubleLinkedList.LinkItem,YAF.Classes.Utils.DoubleLinkedList.LinkItem,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.DoubleLinkedList.LinkItem"/> class. 
-            Build a new LinkItem pointing to the next, previous and current value
-            </summary>
-            <param name="next">
-            The next LinkItem in the list
-            </param>
-            <param name="previous">
-            The previous LinkItem in the list
-            </param>
-            <param name="item">
-            The current value that this item points to
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.DoubleLinkedList.LinkItem.ToString">
-            <summary>
-            The to string.
-            </summary>
-            <returns>
-            The to string.
-            </returns>
         </member>
         <member name="T:YAF.Classes.Utils.ViewStateExtensions">
             <summary>
@@ -3139,6 +2051,1094 @@
             </param>
             <returns>
             truncated string
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.YafForumInfo">
+            <summary>
+            Class provides helper functions related to the forum path and urls as well as forum version information.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafForumInfo.GetURLToResource(System.String)">
+            <summary>
+            Helper function that creates the the url of a resource.
+            </summary>
+            <param name="resourceName">
+            </param>
+            <returns>
+            The get url to resource.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafForumInfo.AppVersionNameFromCode(System.Int64)">
+            <summary>
+            Creates a string that is the YAF Application Version from a long value
+            </summary>
+            <param name="code">
+            Value of Current Version
+            </param>
+            <returns>
+            Application Version String
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumClientFileRoot">
+            <summary>
+            Gets the forum path (client-side).
+            May not be the actual URL of the forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumServerFileRoot">
+            <summary>
+            Gets the forum path (server-side).
+            May not be the actual URL of the forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumBaseUrl">
+            <summary>
+            Gets complete application external (client-side) URL of the forum. (e.g. http://myforum.com/forum
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumURL">
+            <summary>
+            Gets full URL to the Root of the Forum
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.IsLocal">
+            <summary>
+            Gets <see langword="true"/> if the current site is localhost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionName">
+            <summary>
+            Get the Current YAF Application Version string
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersion">
+            <summary>
+            Get the Current YAF Database Version
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionCode">
+            <summary>
+            Gets the Current YAF Application Version
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionDate">
+            <summary>
+            Gets the Current YAF Build Date
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.InfoMessage">
+            <summary>
+            Enumerates forum info messages.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.Moderated">
+            <summary>
+            after posting to moderated forum
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.Suspended">
+            <summary>
+            informs user he's suspended
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.RegistrationEmail">
+            <summary>
+            informs user about registration email being sent
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.AccessDenied">
+            <summary>
+            access was denied
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.Disabled">
+            <summary>
+            informs user about feature being disabled by admin 
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.Invalid">
+            <summary>
+            informs user about invalid input/request
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.Failure">
+            <summary>
+            system error
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.RequiresCookies">
+            <summary>
+            requires cookies
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.RequiresEcmaScript">
+            <summary>
+            requires JS
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.InfoMessage.EcmaScriptVersionUnsupported">
+            <summary>
+            unsupported JS version
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.YafBuildLink">
+            <summary>
+            Static class with link building functions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.AccessDenied">
+            <summary>
+            Redirects response to the access denied page.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean)">
+            <summary>
+            Gets link to the page.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <param name="fullUrl">
+            </param>
+            <returns>
+            URL to the given page.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages)">
+            <summary>
+            Gets link to the page.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <returns>
+            URL to the given page.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean,System.String,System.Object[])">
+            <summary>
+            Gets link to the page with given parameters.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <param name="fullUrl">
+            </param>
+            <param name="format">
+            Format of parameters.
+            </param>
+            <param name="args">
+            Array of page parameters.
+            </param>
+            <returns>
+            URL to the given page with parameters.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.String,System.Object[])">
+            <summary>
+            Gets link to the page with given parameters.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <param name="format">
+            Format of parameters.
+            </param>
+            <param name="args">
+            Array of page parameters.
+            </param>
+            <returns>
+            URL to the given page with parameters.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.Boolean)">
+            <summary>
+            Unescapes ampersands in the link to the given page.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <param name="fullUrl">
+            </param>
+            <returns>
+            URL to the given page with unescaped ampersands.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages)">
+            <summary>
+            Unescapes ampersands in the link to the given page.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <returns>
+            URL to the given page with unescaped ampersands.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.Boolean,System.String,System.Object[])">
+            <summary>
+            Unescapes ampersands in the link to the given page with parameters.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <param name="fullUrl">
+            </param>
+            <param name="format">
+            Format of parameters.
+            </param>
+            <param name="args">
+            Array of page parameters.
+            </param>
+            <returns>
+            URL to the given page with parameters and unescaped ampersands.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.String,System.Object[])">
+            <summary>
+            Unescapes ampersands in the link to the given page with parameters.
+            </summary>
+            <param name="page">
+            Page to which to create a link.
+            </param>
+            <param name="format">
+            Format of parameters.
+            </param>
+            <param name="args">
+            Array of page parameters.
+            </param>
+            <returns>
+            URL to the given page with parameters and unescaped ampersands.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages)">
+            <summary>
+            Redirects to the given page.
+            </summary>
+            <param name="page">
+            Page to which to redirect response.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages,System.String,System.Object[])">
+            <summary>
+            Redirects to the given page with parameters.
+            </summary>
+            <param name="page">
+            Page to which to redirect response.
+            </param>
+            <param name="format">
+            Format of parameters.
+            </param>
+            <param name="args">
+            Array of page parameters.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.RedirectInfoPage(YAF.Classes.Utils.InfoMessage)">
+            <summary>
+            Redirects response to the info page.
+            </summary>
+            <param name="infoMessage">
+            The info Message.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.Smiley(System.String)">
+            <summary>
+            Gets URL of given smilie.
+            </summary>
+            <param name="icon">
+            Name of icon image file.
+            </param>
+            <returns>
+            URL of a smilie.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.MostRecentlyUsed">
+            <summary>
+            The most recently used.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_linkToKey">
+            <summary>
+            The m_link to key.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_list">
+            <summary>
+            The m_list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.MostRecentlyUsed.m_max">
+            <summary>
+            The m_max.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.MostRecentlyUsed"/> class. 
+              Default constructor for the most recently used items using the default size (50)
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.#ctor(System.UInt32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.MostRecentlyUsed"/> class. 
+            Construct a most recently used items list with the maximum number of items
+              allowed in the list.
+            </summary>
+            <param name="maxItems">
+            Maximum number of items allowed
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Add(System.Object,System.Object)">
+            <summary>
+            The add.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Contains(System.Object)">
+            <summary>
+            The contains.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The contains.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.Remove(System.Object)">
+            <summary>
+            The remove.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>
+            The to string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.MostRecentlyUsed.OnInsert(System.Object,System.Object)">
+            <summary>
+            The on insert.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="E:YAF.Classes.Utils.MostRecentlyUsed.OnPurgedFromCache">
+            <summary>
+              Event that is fired when an item falls outside of the cache
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Capacity">
+            <summary>
+              The maximum capacity of the list
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Keys">
+            <summary>
+            Gets Keys.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Values">
+            <summary>
+            Gets Values.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.MostRecentlyUsed.Item(System.Object)">
+            <summary>
+            The this.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.MostRecentlyUsed.PurgedFromCacheDelegate">
+            <summary>
+            The purged from cache delegate.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.QueryStringIDHelper">
+            <summary>
+            The query string id helper.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.QueryStringIDHelper._idDictionary">
+            <summary>
+              The _id dictionary.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class. 
+              False to ErrorOnInvalid
+            </summary>
+            <param name="idName">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class. 
+              False on ErrorOnInvalid
+            </summary>
+            <param name="idNames">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class.
+            </summary>
+            <param name="idName">
+            The id name.
+            </param>
+            <param name="errorOnInvalid">
+            The error on invalid.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[],System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class.
+            </summary>
+            <param name="idNames">
+            The id names.
+            </param>
+            <param name="errorOnInvalid">
+            The error on invalid.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[],System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class.
+            </summary>
+            <param name="idNames">
+            The id names.
+            </param>
+            <param name="errorOnInvalid">
+            The error on invalid.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.ContainsKey(System.String)">
+            <summary>
+            The contains key.
+            </summary>
+            <param name="idName">
+            The id name.
+            </param>
+            <returns>
+            The contains key.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.QueryStringIDHelper.InitIDs(System.String[],System.Boolean[])">
+            <summary>
+            The init i ds.
+            </summary>
+            <param name="idNames">
+            The id names.
+            </param>
+            <param name="errorOnInvalid">
+            The error on invalid.
+            </param>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.Utils.QueryStringIDHelper.Params">
+            <summary>
+              Gets Params.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.QueryStringIDHelper.Item(System.String)">
+            <summary>
+              The this.
+            </summary>
+            <param name = "idName">
+              The id name.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.ObjectExtensions">
+            <summary>
+            The object extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
+            <summary>
+            Converts an object to a type.
+            </summary>
+            <param name="value">
+            Object to convert
+            </param>
+            <param name="type">
+            Type to convert to e.g. System.Guid
+            </param>
+            <returns>
+            The convert object to type.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
+            <summary>
+            The get custom attributes.
+            </summary>
+            <param name="objectType">
+            The object type.
+            </param>
+            <param name="attributeType">
+            The attribute type.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
+            <summary>
+            Converts the object to the class (T) or returns null if it's not 
+            an instance of that class or instance is null.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
+            <summary>
+            Converts an object to a different object (class) by copying fields (if they exist).
+            Used to convert annonomous objects to strongly typed objects.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="obj">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
+            <summary>
+            The to generic list.
+            </summary>
+            <param name="listObjects">
+            The list objects.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name 
+            is {FirstName} {LastName}".
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced 
+            in the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name is 
+            {FirstName} {LastName}".
+            </param>
+            <param name="formatProvider">
+            An System.<see cref="T:System.IFormatProvider"/> that 
+            provides culture-specific formatting information.
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced in 
+            the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
+            <summary>
+            Converts an object to Type using the Convert.ChangeType() call.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
+            <summary>
+            Gets an Int from an Object value
+            </summary>
+            <param name="expression">
+            </param>
+            <returns>
+            The valid int.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.StyleTransform">
+            <summary>
+            Transforms the style.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.StyleTransform._theme">
+            <summary>
+            The _theme.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.#ctor(YAF.Classes.Interfaces.IYafTheme)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.StyleTransform"/> class.
+            </summary>
+            <param name="theme">
+            The theme.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.String,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="columnName">
+            the style column name
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean)">
+            <summary>
+            The decode style by string.
+            </summary>
+            <param name="styleStr">
+            The style str.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <returns>
+            The decode style by string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@)">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean)">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean,System.String[])">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <param name="styleColumns">
+            The styleColumns can contain param array to handle several style columns.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean,System.String[])">
+            <summary>
+            The decode style by string.
+            </summary>
+            <param name="styleStr">
+            The style str.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <param name="pair">
+            The pair.
+            </param>
+            <returns>
+            The decode style by string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.GetColorOnly(System.String)">
+            <summary>
+            The get color only.
+            </summary>
+            <param name="styleString">
+            The style string.
+            </param>
+            <returns>
+            The get color only.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Utils.StyleTransform.CurrentThemeFile">
+            <summary>
+            Gets CurrentThemeFile.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.DoubleLinkedList">
+            <summary>
+            Class that represents a doubly linked list (I can't believe that .NET didn't 
+              have one of these).  The primary usage for this class is with the MostRecenlyUsed class,
+              but can be used in a variety of scenarios.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.HeadLink">
+            <summary>
+            The head link.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.TailLink">
+            <summary>
+            The tail link.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.m_syncRoot">
+            <summary>
+            The m_sync root.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.m_count">
+            <summary>
+            The m_count.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Append(System.Object)">
+            <summary>
+            Append the specified value to the tail of the list (not a LinkItem)
+            </summary>
+            <param name="value">
+            The value to append to the list
+            </param>
+            <returns>
+            The new LinkItem which points to the value
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.MoveToHead(YAF.Classes.Utils.DoubleLinkedList.LinkItem)">
+            <summary>
+            Move the specified LinkItem to the head of the list
+            </summary>
+            <param name="item">
+            The existing LinkItem in the list
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Prepend(System.Object)">
+            <summary>
+            Prepend the specified value to the head of the list
+            </summary>
+            <param name="value">
+            Value to prepend to the list (not a LinkItem)
+            </param>
+            <returns>
+            The LinkItem which points to this new value
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.RemoveLink(YAF.Classes.Utils.DoubleLinkedList.LinkItem)">
+            <summary>
+            Remove the specified link from the list
+            </summary>
+            <param name="item">
+            Item to remove 
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.CopyTo(System.Array,System.Int32)">
+            <summary>
+            The copy to.
+            </summary>
+            <param name="array">
+            The array.
+            </param>
+            <param name="index">
+            The index.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.GetEnumerator">
+            <summary>
+            The get enumerator.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Add(System.Object)">
+            <summary>
+            The add.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The add.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Clear">
+            <summary>
+            The clear.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Contains(System.Object)">
+            <summary>
+            The contains.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The contains.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.IndexOf(System.Object)">
+            <summary>
+            The index of.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The index of.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Insert(System.Int32,System.Object)">
+            <summary>
+            The insert.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.Remove(System.Object)">
+            <summary>
+            The remove.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.RemoveAt(System.Int32)">
+            <summary>
+            The remove at.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.Count">
+            <summary>
+            Gets Count.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsFixedSize">
+            <summary>
+            Gets a value indicating whether IsFixedSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsReadOnly">
+            <summary>
+            Gets a value indicating whether IsReadOnly.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.IsSynchronized">
+            <summary>
+            Gets a value indicating whether IsSynchronized.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.SyncRoot">
+            <summary>
+            Gets SyncRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.Item(System.Int32)">
+            <summary>
+            The this.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList">
+            <summary>
+            Public class to enumerate the items in the list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.m_list">
+            <summary>
+            The m_list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.m_current">
+            <summary>
+            The m_current.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.#ctor(YAF.Classes.Utils.DoubleLinkedList)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList"/> class.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.MoveNext">
+            <summary>
+            The move next.
+            </summary>
+            <returns>
+            The move next.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.Reset">
+            <summary>
+            The reset.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.DoubleLinkedList.EnumLinkList.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.DoubleLinkedList.LinkItem">
+            <summary>
+            Class that represents an element in the doubly linked list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Item">
+            <summary>
+              Current item that this node points to (ie the value)
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Next">
+            <summary>
+              Next item in the list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.DoubleLinkedList.LinkItem.Previous">
+            <summary>
+              Previous item in the list
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.LinkItem.#ctor(YAF.Classes.Utils.DoubleLinkedList.LinkItem,YAF.Classes.Utils.DoubleLinkedList.LinkItem,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.DoubleLinkedList.LinkItem"/> class. 
+            Build a new LinkItem pointing to the next, previous and current value
+            </summary>
+            <param name="next">
+            The next LinkItem in the list
+            </param>
+            <param name="previous">
+            The previous LinkItem in the list
+            </param>
+            <param name="item">
+            The current value that this item points to
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.DoubleLinkedList.LinkItem.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>
+            The to string.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.BBCodeHelper">
+            <summary>
+            The bb code helper.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.BBCodeHelper.StripBBCode(System.String)">
+            <summary>
+            The strip bb code.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The strip bb code.
             </returns>
         </member>
     </members>

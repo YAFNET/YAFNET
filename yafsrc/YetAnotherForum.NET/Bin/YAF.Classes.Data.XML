@@ -4,1075 +4,38 @@
         <name>YAF.Classes.Data</name>
     </assembly>
     <members>
-        <member name="T:YAF.Classes.Data.AccessFlags">
+        <member name="T:YAF.Classes.Data.TypedTopicSimpleList">
             <summary>
-            The access flags.
+            The typed topic simple list.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.FlagsBase">
+        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Data.DataRow)">
             <summary>
-            Abstract class as a foundation for various flags implementations
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
             </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.FlagsBase._bitValue">
-            <summary>
-            integer value stores up to 64 flags/bits
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.FlagsBase"/> class. 
-            Creates new instance with all bits set to false (integer 0).
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.FlagsBase"/> class. 
-            Creates new instance and initialize it with value of bitValue parameter.
-            </summary>
-            <param name="bitValue">
-            Initialize integer value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.FlagsBase"/> class. 
-            Creates new instance with bits set according to param array.
-            </summary>
-            <param name="bits">
-            Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.GetObjectData(System.Object,System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            The get object data.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <param name="info">
-            The info.
-            </param>
-            <param name="context">
-            The context.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.SetObjectData(System.Object,System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext,System.Runtime.Serialization.ISurrogateSelector)">
-            <summary>
-            The set object data.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <param name="info">
-            The info.
-            </param>
-            <param name="context">
-            The context.
-            </param>
-            <param name="selector">
-            The selector.
-            </param>
-            <returns>
-            The set object data.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.GetBitAsBool(System.Int32,System.Int32)">
-            <summary>
-            Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
-            </summary>
-            <param name="bitValue">
-            Integer value.
-            </param>
-            <param name="bitShift">
-            Zero-based position of bit to get.
-            </param>
-            <returns>
-            Returns boolean indicating whether bit at bitShift position is set or not.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.SetBitFromBool(System.Int32,System.Int32,System.Boolean)">
-            <summary>
-            Sets or unsets bit of bitValue integer at position specified by bitShift, depending on value parameter.
-            </summary>
-            <param name="bitValue">
-            Integer value.
-            </param>
-            <param name="bitShift">
-            Zero-based position of bit to set.
-            </param>
-            <param name="value">
-            New boolean value of bit.
-            </param>
-            <returns>
-            Returns new integer value with bit at position specified by bitShift parameter set to value.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.GetIntFromBoolArray(System.Boolean[])">
-            <summary>
-            Creates an integer value from an array of booleans.
-            </summary>
-            <param name="arrayBool">
-            array of boolean
-            </param>
-            <returns>
-            bit field of the array
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.FlagsBase.EnumToIndex(System.Enum)">
-            <summary>
-            Converts a Flag Enum to the associated index value.
-            </summary>
-            <param name="theEnum">
-            </param>
-            <returns>
-            The enum to index.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.FlagsBase.Item(System.Int32)">
-            <summary>
-            Gets or sets bit at position specified by index.
-            </summary>
-            <param name="index">Zero-based index of bit to get or set.</param>
-            <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
-        </member>
-        <member name="P:YAF.Classes.Data.FlagsBase.BitValue">
-            <summary>
-            Gets or sets integer value of flags.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(YAF.Classes.Data.AccessFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.op_Implicit(System.Int32)~YAF.Classes.Data.AccessFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="newBitValue">
-            The new bit value.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.AccessFlags.op_Implicit(YAF.Classes.Data.AccessFlags.Flags)~YAF.Classes.Data.AccessFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.ReadAccess">
-            <summary>
-            Gets or sets read access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.PostAccess">
-            <summary>
-            Gets or sets post access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.ReplyAccess">
-            <summary>
-            Gets or sets reply access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.PriorityAccess">
-            <summary>
-            Gets or sets priority access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.PollAccess">
-            <summary>
-            Gets or sets poll access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.VoteAccess">
-            <summary>
-            Gets or sets vote access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.ModeratorAccess">
-            <summary>
-            Gets or sets moderator access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.EditAccess">
-            <summary>
-            Gets or sets edit access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.DeleteAccess">
-             <summary>
-            Gets or sets delete access right.
-             </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.UploadAccess">
-            <summary>
-            Gets or sets upload access right.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.AccessFlags.DownloadAccess">
-            <summary>
-            Gets or sets download access right.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.AccessFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.ReadAccess">
-            <summary>
-            The read access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.PostAccess">
-            <summary>
-            The post access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.ReplyAccess">
-            <summary>
-            The reply access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.PriorityAccess">
-            <summary>
-            The priority access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.PollAccess">
-            <summary>
-            The poll access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.VoteAccess">
-            <summary>
-            The vote access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess">
-            <summary>
-            The moderator access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.EditAccess">
-            <summary>
-            The edit access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.DeleteAccess">
-            <summary>
-            The delete access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.UploadAccess">
-            <summary>
-            The upload access.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.AccessFlags.Flags.DownloadAccess">
-            <summary>
-            The download access.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBAccess">
-            <summary>
-            The yaf db access for SQL Server.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.IYafDBAccess">
-            <summary>
-            DBAccess Interface
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Gets a whole dataset out of the database
-            </summary>
-            <param name="cmd">
-            The SQL Command
-            </param>
-            <returns>
-            Dataset with the results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The get dataset.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Gets data out of the database
-            </summary>
-            <param name="cmd">
-            The SQL Command
-            </param>
-            <returns>
-            DataTable with the results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.String)">
-            <summary>
-            Gets data out of database using a plain text string command
-            </summary>
-            <param name="commandText">
-            command text to be executed
-            </param>
-            <returns>
-            DataTable with results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.String,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="commandText">
-            The command text.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Executes a NonQuery
-            </summary>
-            <param name="cmd">
-            NonQuery to execute
-            </param>
-            <remarks>
-            Without transaction
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The execute non query.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.IYafDBAccess.ResultFilterList">
-            <summary>
-            Filter list of result filters.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._isolationLevel">
-            <summary>
-            The _isolation level.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._connectionManagerType">
-            <summary>
-            The _connection manager type.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._resultFilterList">
-            <summary>
-            Result filter list
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean)">
-            <summary>
-            Creates new SqlCommand based on command text applying all qualifiers to the name.
-            </summary>
-            <param name="commandText">
-            Command text to qualify.
-            </param>
-            <param name="isText">
-            Determines whether command text is text or stored procedure.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
-            <summary>
-            Creates new SqlCommand based on command text applying all qualifiers to the name.
-            </summary>
-            <param name="commandText">
-            Command text to qualify.
-            </param>
-            <param name="isText">
-            Determines whether command text is text or stored procedure.
-            </param>
-            <param name="connection">
-            Connection to use with command.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String)">
-            <summary>
-            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-            </summary>
-            <param name="storedProcedure">
-            Base of stored procedure name.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
-            <summary>
-            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-            </summary>
-            <param name="storedProcedure">
-            Base of stored procedure name.
-            </param>
-            <param name="connection">
-            Connection to use with command.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommandTextReplaced(System.String)">
-            <summary>
-            Gets command text replaced with {databaseOwner} and {objectQualifier}.
-            </summary>
-            <param name="commandText">
-            Test to transform.
-            </param>
-            <returns>
-            The get command text replaced.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.CleanForSQLServerVersion(System.String,System.UInt16)">
-            <summary>
-            A method to handle custom scripts execution tags 
-            </summary>
-            <param name="scriptChunk">Input string</param>
-            <param name="versionSQL">SQL server version as ushort</param>
-            <returns>Returns an empty string if condition was not and cleanedfrom tags string if was.</returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
-            <summary>
-            Creates a Connection String from the parameters. 
-            </summary>
-            <param name="parm1">
-            </param>
-            <param name="parm2">
-            </param>
-            <param name="parm3">
-            </param>
-            <param name="parm4">
-            </param>
-            <param name="parm5">
-            </param>
-            <param name="parm6">
-            </param>
-            <param name="parm7">
-            </param>
-            <param name="parm8">
-            </param>
-            <param name="parm9">
-            </param>
-            <param name="parm10">
-            </param>
-            <param name="parm11">
-            </param>
-            <param name="parm12">
-            </param>
-            <param name="parm13">
-            </param>
-            <param name="parm14">
-            </param>
-            <param name="parm15">
-            </param>
-            <param name="parm16">
-            </param>
-            <param name="parm17">
-            </param>
-            <param name="parm18">
-            </param>
-            <param name="parm19">
-            </param>
-            <param name="userID">
-            </param>
-            <param name="userPassword">
-            </param>
-            <returns>
-            The get connection string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetObjectName(System.String)">
-            <summary>
-            Gets qualified object name
-            </summary>
-            <param name="name">
-            Base name of an object
-            </param>
-            <returns>
-            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.TestConnection(System.String@)">
-            <summary>
-            Test the DB Connection.
-            </summary>
-            <param name="exceptionMessage">
-            outbound ExceptionMessage
-            </param>
-            <returns>
-            true if successfully connected
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionManager">
-            <summary>
-            The get connection manager.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.SetConnectionManagerAdapter``1">
-            <summary>
-            Change the Connection Manager used in all DB operations.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Executes a NonQuery
-            </summary>
-            <param name="cmd">
-            NonQuery to execute
-            </param>
-            <remarks>
-            Without transaction
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The execute non query.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Gets data out of the database
-            </summary>
-            <param name="cmd">
-            The SQL Command
-            </param>
-            <returns>
-            DataTable with the results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String)">
-            <summary>
-            Gets data out of database using a plain text string command
-            </summary>
-            <param name="commandText">
-            command text to be executed
-            </param>
-            <returns>
-            DataTable with results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="commandText">
-            The command text.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Gets a whole dataset out of the database
-            </summary>
-            <param name="cmd">
-            The SQL Command
-            </param>
-            <returns>
-            Dataset with the results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The get dataset.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
-            <summary>
-            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
-            </summary>
-            <param name="dataTable">data table to process</param>
-            <param name="sqlCommand"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDatasetBasic(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            Used internally to get data for all the other functions
-            </summary>
-            <param name="cmd">
-            </param>
-            <param name="transaction">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.Current">
-            <summary>
-            Gets Current.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.IsolationLevel">
-            <summary>
-            Gets IsolationLevel.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.ResultFilterList">
-            <summary>
-            Gets the Result Filter List.
-            </summary>
-            <exception cref="T:System.NotImplementedException">
-            </exception>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs">
-            <summary>
-            The yaf db conn info message event args.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBConnInfoMessageEventArgs._message">
-            <summary>
-            The _message.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs"/> class.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.Message">
-            <summary>
-            Gets or sets Message.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.UserFlags">
-            <summary>
-            User flags manipulation class from the DB.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.#ctor(YAF.Classes.Data.UserFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.op_Implicit(System.Int32)~YAF.Classes.Data.UserFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="newBitValue">
-            The new bit value.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.UserFlags.op_Implicit(YAF.Classes.Data.UserFlags.Flags)~YAF.Classes.Data.UserFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.UserFlags.IsHostAdmin">
-            <summary>
-            Gets or sets whether user is host administrator.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.UserFlags.IsApproved">
-            <summary>
-            Gets or sets whether user is approved for posting.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.UserFlags.IsGuest">
-            <summary>
-            Gets or sets whether user is guest, i.e. not registered and logged in.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.UserFlags.IsCaptchaExcluded">
-            <summary>
-            Gets or sets whether user is guest, i.e. not registered and logged in.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.UserFlags.IsActiveExcluded">
-            <summary>
-            Gets or sets whether user is excluded from the "Active Users" list on the forum pages.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.UserFlags.IsDST">
-            <summary>
-            Gets or sets whether a user is enabled the DST correction.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.UserFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsHostAdmin">
-            <summary>
-            The is host admin.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsApproved">
-            <summary>
-            The is approved.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsGuest">
-            <summary>
-            The is guest.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsCaptchaExcluded">
-            <summary>
-            The is captcha excluded.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsActiveExcluded">
-            <summary>
-            The is active excluded.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsDST">
-            <summary>
-            The Daylight Saving Time is Enabled.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.RankFlags">
-            <summary>
-            The rank flags.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.RankFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.RankFlags.#ctor(YAF.Classes.Data.RankFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.RankFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.RankFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.RankFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.RankFlags.op_Implicit(System.Int32)~YAF.Classes.Data.RankFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="newBitValue">
-            The new bit value.
+            <param name="row">
+            The row.
             </param>
-            <returns>
-            </returns>
         </member>
-        <member name="M:YAF.Classes.Data.RankFlags.op_Implicit(YAF.Classes.Data.RankFlags.Flags)~YAF.Classes.Data.RankFlags">
+        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Nullable{System.Int32},System.String)">
             <summary>
-            The op_ implicit.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
             </summary>
-            <param name="flags">
-            The flags.
+            <param name="topicid">
+            The topicid.
             </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.RankFlags.IsStart">
-            <summary>
-            Gets or sets whether rank is default starting rank of new users.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.RankFlags.IsLadder">
-            <summary>
-            Gets or sets whether rank is ladder rank.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.RankFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.RankFlags.Flags.IsStart">
-            <summary>
-            The is start.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.RankFlags.Flags.IsLadder">
-            <summary>
-            The is ladder.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.SimpleModerator">
-            <summary>
-            The moderator.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SimpleModerator.#ctor(System.Int64,System.Int64,System.String,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.SimpleModerator"/> class.
-            </summary>
-            <param name="forumID">
-            The forum id.
-            </param>
-            <param name="moderatorID">
-            The moderator id.
+            <param name="topic">
+            The topic.
             </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="isGroup">
-            The is group.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleModerator.ForumID">
-            <summary>
-            Gets or sets ForumID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleModerator.ModeratorID">
-            <summary>
-            Gets or sets ModeratorID.
-            </summary>
         </member>
-        <member name="P:YAF.Classes.Data.SimpleModerator.Name">
+        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.Topic">
             <summary>
-            Gets or sets Name.
+            Gets or sets Topic.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.SimpleModerator.IsGroup">
+        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.TopicID">
             <summary>
-            Gets or sets a value indicating whether IsGroup.
+            Gets or sets TopicID.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
@@ -1136,964 +99,6 @@
         <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
             <summary>
             Gets or sets SqlCommandStartsWith.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.TypedUserFind">
-            <summary>
-            The typed user find.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.TypedUserFind.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedUserFind"/> class.
-            </summary>
-            <param name="row">
-            The row.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.AutoWatchTopics">
-            <summary>
-            Gets or sets AutoWatchTopics.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Avatar">
-            <summary>
-            Gets or sets Avatar.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.AvatarImage">
-            <summary>
-            Gets or sets AvatarImage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.AvatarImageType">
-            <summary>
-            Gets or sets AvatarImageType.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.BoardID">
-            <summary>
-            Gets or sets BoardID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Culture">
-            <summary>
-            Gets or sets Culture.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.DailyDigest">
-            <summary>
-            Gets or sets DailyDigest.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.DisplayName">
-            <summary>
-            Gets or sets DisplayName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Email">
-            <summary>
-            Gets or sets Email.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Flags">
-            <summary>
-            Gets or sets Flags.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.IP">
-            <summary>
-            Gets or sets IP.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.IsActiveExcluded">
-            <summary>
-            Gets or sets IsActiveExcluded.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.IsApproved">
-            <summary>
-            Gets or sets IsApproved.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.IsGuest">
-            <summary>
-            Gets or sets IsGuest.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Joined">
-            <summary>
-            Gets or sets Joined.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.LanguageFile">
-            <summary>
-            Gets or sets LanguageFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.LastVisit">
-            <summary>
-            Gets or sets LastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Name">
-            <summary>
-            Gets or sets Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.NotificationType">
-            <summary>
-            Gets or sets NotificationType.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.NumPosts">
-            <summary>
-            Gets or sets NumPosts.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.OverrideDefaultThemes">
-            <summary>
-            Gets or sets OverrideDefaultThemes.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.PMNotification">
-            <summary>
-            Gets or sets PMNotification.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Password">
-            <summary>
-            Gets or sets Password.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Points">
-            <summary>
-            Gets or sets Points.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.ProviderUserKey">
-            <summary>
-            Gets or sets ProviderUserKey.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.RankID">
-            <summary>
-            Gets or sets RankID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Signature">
-            <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.Suspended">
-            <summary>
-            Gets or sets Suspended.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.ThemeFile">
-            <summary>
-            Gets or sets ThemeFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.TimeZone">
-            <summary>
-            Gets or sets TimeZone.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.UserID">
-            <summary>
-            Gets or sets UserID.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.TopicFlags">
-            <summary>
-            The topic flags.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.TopicFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(YAF.Classes.Data.TopicFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.TopicFlags.IsLocked">
-            <summary>
-            Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TopicFlags.IsDeleted">
-            <summary>
-            Gets or sets whether topic is deleted.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TopicFlags.IsPersistent">
-            <summary>
-            Gets or sets whether topic is persistent. Persistent topics cannot be purged.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TopicFlags.IsQuestion">
-            <summary>
-            Gets or sets whether topic is a question.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.TopicFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsLocked">
-            <summary>
-            The is locked.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsDeleted">
-            <summary>
-            The is deleted.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsPersistent">
-            <summary>
-            The is persistent.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsQuestion">
-            <summary>
-            The is question.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.ActiveFlags">
-            <summary>
-            The access flags.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(YAF.Classes.Data.ActiveFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.op_Implicit(System.Int32)~YAF.Classes.Data.ActiveFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="newBitValue">
-            The new bit value.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.ActiveFlags.op_Implicit(YAF.Classes.Data.ActiveFlags.Flags)~YAF.Classes.Data.ActiveFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.ActiveFlags.IsActiveNow">
-            <summary>
-            Gets or sets the user is active right now.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.ActiveFlags.IsGuest">
-            <summary>
-            Gets or sets that user is a guest.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.ActiveFlags.IsRegistered">
-            <summary>
-            Gets or sets the user is a registered one.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.ActiveFlags.IsCrawler">
-            <summary>
-            Gets or sets that user is a crawler.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.ActiveFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsActiveNow">
-            <summary>
-            The Is Active Now.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsGuest">
-            <summary>
-            The Is Guest.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsRegistered">
-            <summary>
-            The Is Registered.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsCrawler">
-            <summary>
-            The Is Crawler.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnManager">
-            <summary>
-            Provides open/close management for DB Connections
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBConnManager.InitConnection">
-            <summary>
-            The init connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.IYafDBConnManager.CloseConnection">
-            <summary>
-            The close connection.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.IYafDBConnManager.ConnectionString">
-            <summary>
-            Gets ConnectionString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.IYafDBConnManager.DBConnection">
-            <summary>
-            Gets the current DB Connection in any state.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.IYafDBConnManager.OpenDBConnection">
-            <summary>
-            Gets an open connection to the DB. Can be called any number of times.
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Data.IYafDBConnManager.InfoMessage">
-            <summary>
-            The info message.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBConnManager._connection">
-            <summary>
-            The _connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnManager"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.Dispose">
-            <summary>
-            The dispose.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.CloseConnection">
-            <summary>
-            The close connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
-            <summary>
-            The init connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
-            <summary>
-            The connection_ info message.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
-            <summary>
-            The info message.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.ConnectionString">
-            <summary>
-            Gets ConnectionString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.DBConnection">
-            <summary>
-            Gets the current DB Connection in any state.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
-            <summary>
-            Gets an open connection to the DB. Can be called any number of times.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.MessageFlags">
-            <summary>
-            The message flags.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MessageFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(YAF.Classes.Data.MessageFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsHtml">
-            <summary>
-            Gets or sets whether message allows HTML.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsBBCode">
-            <summary>
-            Gets or sets whether message allows BB code.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsSmilies">
-            <summary>
-            Gets or sets whether message allows smilies.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsDeleted">
-            <summary>
-            Gets or sets whether message is deleted.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsApproved">
-            <summary>
-            Gets or sets whether message is approved for publishing.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsLocked">
-            <summary>
-            Gets or sets whether message is locked. Locked messages cannot be modified/deleted/replied to.
-            </summary>
-            <remarks>
-            Used for "ghost" posts that don't really exist, such as advertisement posts.
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.NotFormatted">
-            <summary>
-            Gets or sets whether message is not formatted.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsReported">
-            <summary>
-            Gets or sets whether message is reported as abusive.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsReportedSpam">
-             <summary>
-            Gets or sets whether message is reported as spam.
-             </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsPersistent">
-            <summary>
-            Gets or sets whether message is persistent. Persistent messages cannot be purged.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.MessageFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsHtml">
-            <summary>
-            The is html.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsBBCode">
-            <summary>
-            The is bb code.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsSmilies">
-            <summary>
-            The is smilies.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsDeleted">
-            <summary>
-            The is deleted.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsApproved">
-            <summary>
-            The is approved.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsLocked">
-            <summary>
-            The is locked.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.NotFormatted">
-            <summary>
-            The not formatted.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReported">
-            <summary>
-            The is reported .
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReportedSpam">
-            <summary>
-            Legacy flag not in use.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsPersistant">
-            <summary>
-            Is Message Persistant
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.PollSaveList">
-            <summary>
-            Class to hold polls and questions data to save
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.PollSaveList.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[0:,0:],System.Nullable{System.DateTime},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
-            </summary>
-            <param name="pollQuestion">
-            The poll question.
-            </param>
-            <param name="pollChoices">
-            The poll choices.
-            </param>
-            <param name="pollCloses">
-            The poll closes.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.Choice">
-            <summary>
-              Gets or Sets value for Question text
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.Closes">
-            <summary>
-              Gets or Sets value indicatiing when a poll (question) closes
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.Question">
-            <summary>
-              Gets or Sets value for Question text
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.UserId">
-            <summary>
-              Gets or Sets value for UserId 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.TopicId">
-            <summary>
-              Gets or Sets value for TopicId 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.ForumId">
-            <summary>
-              Gets or Sets value for ForumId 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.CategoryId">
-            <summary>
-              Gets or Sets value for CategoryId 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.BoardId">
-            <summary>
-              Gets or Sets value for BoardId 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.QuestionObjectPath">
-            <summary>
-              Gets or Sets value for ObjectPath 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.QuestionMimeType">
-            <summary>
-              Gets or Sets value for MimeType 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.IsBound">
-            <summary>
-              Gets or Sets value for IsBound. The polls in a group are bounded by voting. 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.IsClosedBound">
-            <summary>
-              Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.ForumFlags">
-            <summary>
-            The forum flags.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(YAF.Classes.Data.ForumFlags.Flags)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
-            </summary>
-            <param name="bitValue">
-            The bit value.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(System.Boolean[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
-            </summary>
-            <param name="bits">
-            The bits.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.op_Implicit(System.Int32)~YAF.Classes.Data.ForumFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="newBitValue">
-            The new bit value.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.ForumFlags.op_Implicit(YAF.Classes.Data.ForumFlags.Flags)~YAF.Classes.Data.ForumFlags">
-            <summary>
-            The op_ implicit.
-            </summary>
-            <param name="flags">
-            The flags.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.ForumFlags.IsLocked">
-            <summary>
-            Gets or sets whether forum allows locked. No posting/activity can be made in locked forums.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.ForumFlags.IsHidden">
-            <summary>
-            Gets or sets whether forum is hidden to users without read access.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.ForumFlags.IsTest">
-            <summary>
-            Gets or sets whether forum does not count to users' postcount.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.ForumFlags.IsModerated">
-            <summary>
-            Gets or sets whether forum is moderated. Posts in moderated posts has to be approved by moderator before they are published.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.ForumFlags.Flags">
-            <summary>
-            Use for bit comparisons
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsLocked">
-            <summary>
-            The is locked.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsHidden">
-            <summary>
-            The is hidden.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsTest">
-            <summary>
-            The is test.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsModerated">
-            <summary>
-            The is moderated.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.TypedPollGroup">
-            <summary>
-            The typed poll group.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.TypedPollGroup.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedPollGroup"/> class.
-            </summary>
-            <param name="row">
-            The row.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.TypedPollGroup.#ctor(System.String,System.Nullable{System.Int32})">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedPollGroup"/> class.
-            </summary>
-            <param name="question">
-            The question.
-            </param>
-            <param name="pollgroupid">
-            The pollgroupid.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedPollGroup.PollGroupID">
-            <summary>
-            Gets or sets PollGroupID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedPollGroup.Question">
-            <summary>
-            Gets or sets Question.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
-            <summary>
-            The sql data layer converter.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.Import.DataImport">
-            <summary>
-            The data import.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
-            <summary>
-            The bb code extension import.
-            </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The bb code extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
-            <summary>
-            The file extension import.
-            </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The file extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="T:YAF.Classes.Data.TypedAllThanks">
-            <summary>
-            The typed all thanks.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.TypedAllThanks.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedAllThanks"/> class.
-            </summary>
-            <param name="row">
-            The row.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.TypedAllThanks.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedAllThanks"/> class.
-            </summary>
-            <param name="messageid">
-            The messageid.
-            </param>
-            <param name="fromuserid">
-            The fromuserid.
-            </param>
-            <param name="thanksdate">
-            The thanksdate.
-            </param>
-            <param name="thanksfromusernumber">
-            The thanksfromusernumber.
-            </param>
-            <param name="thankstousernumber">
-            The thankstousernumber.
-            </param>
-            <param name="thankstouserpostsnumber">
-            The thankstouserpostsnumber.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedAllThanks.FromUserID">
-            <summary>
-            Gets or sets FromUserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedAllThanks.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksDate">
-            <summary>
-            Gets or sets ThanksDate.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksFromUserNumber">
-            <summary>
-            Gets or sets ThanksFromUserNumber.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksToUserNumber">
-            <summary>
-            Gets or sets ThanksToUserNumber.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksToUserPostsNumber">
-            <summary>
-            Gets or sets ThanksToUserPostsNumber.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.DB">
@@ -6956,327 +4961,211 @@
             Gets a value indicating whether PanelShrink.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.TypedTopicSimpleList">
+        <member name="T:YAF.Classes.Data.DataRowConvert">
             <summary>
-            The typed topic simple list.
+            Helper class to do basic data conversion for a DataRow.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Data.DataRow)">
+        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+              The _db row.
             </summary>
-            <param name="row">
-            The row.
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
+            </summary>
+            <param name="dbRow">
+            The db row.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.TypedTopicSimpleList.#ctor(System.Nullable{System.Int32},System.String)">
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedTopicSimpleList"/> class.
+            The as bool.
             </summary>
-            <param name="topicid">
-            The topicid.
+            <param name="columnName">
+            The column name.
             </param>
-            <param name="topic">
-            The topic.
+            <returns>
+            The as bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+            <summary>
+            The as date time.
+            </summary>
+            <param name="columnName">
+            The column name.
             </param>
+            <returns>
+            </returns>
         </member>
-        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.Topic">
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
             <summary>
-            Gets or sets Topic.
+            The as int 32.
             </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedTopicSimpleList.TopicID">
-            <summary>
-            Gets or sets TopicID.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.TypedMessageList">
-            <summary>
-            The typed message list.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.TypedMessageList.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedMessageList"/> class.
-            </summary>
-            <param name="row">
-            The row.
+            <param name="columnName">
+            The column name.
             </param>
+            <returns>
+            </returns>
         </member>
-        <member name="M:YAF.Classes.Data.TypedMessageList.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Int16},YAF.Classes.Data.MessageFlags,System.Nullable{System.Int32},System.Nullable{System.DateTime},YAF.Classes.Data.TopicFlags,YAF.Classes.Data.ForumFlags,System.String,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Int32},System.String)">
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedMessageList"/> class.
+            The as int 64.
             </summary>
-            <param name="messageid">
-            The messageid.
+            <param name="columnName">
+            The column name.
             </param>
-            <param name="userid">
-            The userid.
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="columnName">
+            The column name.
             </param>
-            <param name="username">
-            The username.
-            </param>
-            <param name="message">
-            The message.
-            </param>
-            <param name="topicid">
-            The topicid.
-            </param>
-            <param name="forumid">
-            The forumid.
-            </param>
-            <param name="topic">
-            The topic.
-            </param>
-            <param name="priority">
-            The priority.
-            </param>
-            <param name="flags">
-            The flags.
-            </param>
-            <param name="topicownerid">
-            The topicownerid.
-            </param>
-            <param name="edited">
-            The edited.
-            </param>
-            <param name="topicflags">
-            The topicflags.
-            </param>
-            <param name="forumflags">
-            The forumflags.
-            </param>
-            <param name="editreason">
-            The editreason.
-            </param>
-            <param name="position">
-            The position.
-            </param>
-            <param name="ismoderatorchanged">
-            The ismoderatorchanged.
-            </param>
-            <param name="deletereason">
-            The deletereason.
-            </param>
-            <param name="blogpostid">
-            The blogpostid.
-            </param>
-            <param name="pollid">
-            The pollid.
-            </param>
-            <param name="ip">
-            The ip.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.BlogPostID">
-            <summary>
-            Gets or sets BlogPostID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.DeleteReason">
-            <summary>
-            Gets or sets DeleteReason.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.EditReason">
-            <summary>
-            Gets or sets EditReason.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.Edited">
-            <summary>
-            Gets or sets Edited.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.Flags">
-            <summary>
-            Gets or sets Flags.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.ForumFlags">
-            <summary>
-            Gets or sets ForumFlags.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.ForumID">
-            <summary>
-            Gets or sets ForumID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.IP">
-            <summary>
-            Gets or sets IP.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.IsModeratorChanged">
-            <summary>
-            Gets or sets IsModeratorChanged.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.Message">
-            <summary>
-            Gets or sets Message.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.PollID">
-            <summary>
-            Gets or sets PollID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.Position">
-            <summary>
-            Gets or sets Position.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.Priority">
-            <summary>
-            Gets or sets Priority.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.Topic">
-            <summary>
-            Gets or sets Topic.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.TopicFlags">
-            <summary>
-            Gets or sets TopicFlags.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.TopicID">
-            <summary>
-            Gets or sets TopicID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.TopicOwnerID">
-            <summary>
-            Gets or sets TopicOwnerID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.UserID">
-            <summary>
-            Gets or sets UserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedMessageList.UserName">
-            <summary>
-            Gets or sets UserName.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.SimpleTopic">
-            <summary>
-            The simple topic.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.CreatedDate">
-            <summary>
-            Gets or sets CreatedDate.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.FirstMessage">
-            <summary>
-            Gets or sets FirstMessage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.Forum">
-            <summary>
-            Gets or sets Forum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.LastMessage">
-            <summary>
-            Gets or sets LastMessage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.LastMessageID">
-            <summary>
-            Gets or sets LastMessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.LastPostDate">
-            <summary>
-            Gets or sets LastPostDate.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.LastUserID">
-            <summary>
-            Gets or sets LastUserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.LastUserName">
-            <summary>
-            Gets or sets LastUserName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.Replies">
-            <summary>
-            Gets or sets Replies.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.StartedUserID">
-            <summary>
-            Gets or sets StartedUserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.StartedUserName">
-            <summary>
-            Gets or sets StartedUserName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.Subject">
-            <summary>
-            Gets or sets Subject.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleTopic.TopicID">
-            <summary>
-            Gets or sets TopicID.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.SimpleForum">
-            <summary>
-            The simple forum.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.SimpleForum._topics">
-            <summary>
-            The _topics.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleForum.ForumID">
-            <summary>
-            Gets or sets ForumID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleForum.Name">
-            <summary>
-            Gets or sets Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SimpleForum.Topics">
-            <summary>
-            Gets or sets Topics.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">
-            <summary>
-            The yaf db conn info message event handler.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
+            <returns>
+            The as string.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Data.MedalFlags">
             <summary>
             The medal flags.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.FlagsBase">
+            <summary>
+            Abstract class as a foundation for various flags implementations
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.FlagsBase._bitValue">
+            <summary>
+            integer value stores up to 64 flags/bits
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.FlagsBase"/> class. 
+            Creates new instance with all bits set to false (integer 0).
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.FlagsBase"/> class. 
+            Creates new instance and initialize it with value of bitValue parameter.
+            </summary>
+            <param name="bitValue">
+            Initialize integer value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.FlagsBase"/> class. 
+            Creates new instance with bits set according to param array.
+            </summary>
+            <param name="bits">
+            Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.GetObjectData(System.Object,System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            The get object data.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <param name="info">
+            The info.
+            </param>
+            <param name="context">
+            The context.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.SetObjectData(System.Object,System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext,System.Runtime.Serialization.ISurrogateSelector)">
+            <summary>
+            The set object data.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <param name="info">
+            The info.
+            </param>
+            <param name="context">
+            The context.
+            </param>
+            <param name="selector">
+            The selector.
+            </param>
+            <returns>
+            The set object data.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.GetBitAsBool(System.Int32,System.Int32)">
+            <summary>
+            Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
+            </summary>
+            <param name="bitValue">
+            Integer value.
+            </param>
+            <param name="bitShift">
+            Zero-based position of bit to get.
+            </param>
+            <returns>
+            Returns boolean indicating whether bit at bitShift position is set or not.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.SetBitFromBool(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Sets or unsets bit of bitValue integer at position specified by bitShift, depending on value parameter.
+            </summary>
+            <param name="bitValue">
+            Integer value.
+            </param>
+            <param name="bitShift">
+            Zero-based position of bit to set.
+            </param>
+            <param name="value">
+            New boolean value of bit.
+            </param>
+            <returns>
+            Returns new integer value with bit at position specified by bitShift parameter set to value.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.GetIntFromBoolArray(System.Boolean[])">
+            <summary>
+            Creates an integer value from an array of booleans.
+            </summary>
+            <param name="arrayBool">
+            array of boolean
+            </param>
+            <returns>
+            bit field of the array
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.EnumToIndex(System.Enum)">
+            <summary>
+            Converts a Flag Enum to the associated index value.
+            </summary>
+            <param name="theEnum">
+            </param>
+            <returns>
+            The enum to index.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.FlagsBase.Item(System.Int32)">
+            <summary>
+            Gets or sets bit at position specified by index.
+            </summary>
+            <param name="index">Zero-based index of bit to get or set.</param>
+            <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
+        </member>
+        <member name="P:YAF.Classes.Data.FlagsBase.BitValue">
+            <summary>
+            Gets or sets integer value of flags.
             </summary>
         </member>
         <member name="M:YAF.Classes.Data.MedalFlags.#ctor">
@@ -7381,92 +5270,740 @@
             The allow re ordering.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.DataRowConvert">
+        <member name="T:YAF.Classes.Data.AccessFlags">
             <summary>
-            Helper class to do basic data conversion for a DataRow.
+            The access flags.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
+        <member name="M:YAF.Classes.Data.AccessFlags.#ctor">
             <summary>
-              The _db row.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
+        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(YAF.Classes.Data.AccessFlags.Flags)">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
             </summary>
-            <param name="dbRow">
-            The db row.
+            <param name="flags">
+            The flags.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
+        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(System.Object)">
             <summary>
-            The as bool.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="bitValue">
+            The bit value.
             </param>
-            <returns>
-            The as bool.
-            </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(System.Int32)">
             <summary>
-            The as date time.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="bitValue">
+            The bit value.
             </param>
-            <returns>
-            </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+        <member name="M:YAF.Classes.Data.AccessFlags.#ctor(System.Boolean[])">
             <summary>
-            The as int 32.
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.AccessFlags"/> class.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="bits">
+            The bits.
             </param>
-            <returns>
-            </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
+        <member name="M:YAF.Classes.Data.AccessFlags.op_Implicit(System.Int32)~YAF.Classes.Data.AccessFlags">
             <summary>
-            The as int 64.
+            The op_ implicit.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="newBitValue">
+            The new bit value.
             </param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
+        <member name="M:YAF.Classes.Data.AccessFlags.op_Implicit(YAF.Classes.Data.AccessFlags.Flags)~YAF.Classes.Data.AccessFlags">
             <summary>
-            The as string.
+            The op_ implicit.
             </summary>
-            <param name="columnName">
-            The column name.
+            <param name="flags">
+            The flags.
             </param>
             <returns>
-            The as string.
             </returns>
         </member>
-        <member name="T:YAF.Classes.Data.QueryCounter">
+        <member name="P:YAF.Classes.Data.AccessFlags.ReadAccess">
             <summary>
-            The query counter.
+            Gets or sets read access right.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.QueryCounter.#ctor(System.String)">
+        <member name="P:YAF.Classes.Data.AccessFlags.PostAccess">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.QueryCounter"/> class.
+            Gets or sets post access right.
             </summary>
-            <param name="sql">
-            The sql.
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.ReplyAccess">
+            <summary>
+            Gets or sets reply access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.PriorityAccess">
+            <summary>
+            Gets or sets priority access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.PollAccess">
+            <summary>
+            Gets or sets poll access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.VoteAccess">
+            <summary>
+            Gets or sets vote access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.ModeratorAccess">
+            <summary>
+            Gets or sets moderator access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.EditAccess">
+            <summary>
+            Gets or sets edit access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.DeleteAccess">
+             <summary>
+            Gets or sets delete access right.
+             </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.UploadAccess">
+            <summary>
+            Gets or sets upload access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.DownloadAccess">
+            <summary>
+            Gets or sets download access right.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.AccessFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.ReadAccess">
+            <summary>
+            The read access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.PostAccess">
+            <summary>
+            The post access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.ReplyAccess">
+            <summary>
+            The reply access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.PriorityAccess">
+            <summary>
+            The priority access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.PollAccess">
+            <summary>
+            The poll access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.VoteAccess">
+            <summary>
+            The vote access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess">
+            <summary>
+            The moderator access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.EditAccess">
+            <summary>
+            The edit access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.DeleteAccess">
+            <summary>
+            The delete access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.UploadAccess">
+            <summary>
+            The upload access.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.AccessFlags.Flags.DownloadAccess">
+            <summary>
+            The download access.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBAccess">
+            <summary>
+            The yaf db access for SQL Server.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.IYafDBAccess">
+            <summary>
+            DBAccess Interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets a whole dataset out of the database
+            </summary>
+            <param name="cmd">
+            The SQL Command
+            </param>
+            <returns>
+            Dataset with the results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The get dataset.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets data out of the database
+            </summary>
+            <param name="cmd">
+            The SQL Command
+            </param>
+            <returns>
+            DataTable with the results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.String)">
+            <summary>
+            Gets data out of database using a plain text string command
+            </summary>
+            <param name="commandText">
+            command text to be executed
+            </param>
+            <returns>
+            DataTable with results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.String,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="commandText">
+            The command text.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes a NonQuery
+            </summary>
+            <param name="cmd">
+            NonQuery to execute
+            </param>
+            <remarks>
+            Without transaction
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute non query.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.QueryCounter.Dispose">
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
             <summary>
-            The dispose.
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBAccess.ResultFilterList">
+            <summary>
+            Filter list of result filters.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBAccess._isolationLevel">
+            <summary>
+            The _isolation level.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBAccess._connectionManagerType">
+            <summary>
+            The _connection manager type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBAccess._resultFilterList">
+            <summary>
+            Result filter list
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">
+            Command text to qualify.
+            </param>
+            <param name="isText">
+            Determines whether command text is text or stored procedure.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">
+            Command text to qualify.
+            </param>
+            <param name="isText">
+            Determines whether command text is text or stored procedure.
+            </param>
+            <param name="connection">
+            Connection to use with command.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">
+            Base of stored procedure name.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">
+            Base of stored procedure name.
+            </param>
+            <param name="connection">
+            Connection to use with command.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommandTextReplaced(System.String)">
+            <summary>
+            Gets command text replaced with {databaseOwner} and {objectQualifier}.
+            </summary>
+            <param name="commandText">
+            Test to transform.
+            </param>
+            <returns>
+            The get command text replaced.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.CleanForSQLServerVersion(System.String,System.UInt16)">
+            <summary>
+            A method to handle custom scripts execution tags 
+            </summary>
+            <param name="scriptChunk">Input string</param>
+            <param name="versionSQL">SQL server version as ushort</param>
+            <returns>Returns an empty string if condition was not and cleanedfrom tags string if was.</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
+            <summary>
+            Creates a Connection String from the parameters. 
+            </summary>
+            <param name="parm1">
+            </param>
+            <param name="parm2">
+            </param>
+            <param name="parm3">
+            </param>
+            <param name="parm4">
+            </param>
+            <param name="parm5">
+            </param>
+            <param name="parm6">
+            </param>
+            <param name="parm7">
+            </param>
+            <param name="parm8">
+            </param>
+            <param name="parm9">
+            </param>
+            <param name="parm10">
+            </param>
+            <param name="parm11">
+            </param>
+            <param name="parm12">
+            </param>
+            <param name="parm13">
+            </param>
+            <param name="parm14">
+            </param>
+            <param name="parm15">
+            </param>
+            <param name="parm16">
+            </param>
+            <param name="parm17">
+            </param>
+            <param name="parm18">
+            </param>
+            <param name="parm19">
+            </param>
+            <param name="userID">
+            </param>
+            <param name="userPassword">
+            </param>
+            <returns>
+            The get connection string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetObjectName(System.String)">
+            <summary>
+            Gets qualified object name
+            </summary>
+            <param name="name">
+            Base name of an object
+            </param>
+            <returns>
+            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.TestConnection(System.String@)">
+            <summary>
+            Test the DB Connection.
+            </summary>
+            <param name="exceptionMessage">
+            outbound ExceptionMessage
+            </param>
+            <returns>
+            true if successfully connected
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionManager">
+            <summary>
+            The get connection manager.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.SetConnectionManagerAdapter``1">
+            <summary>
+            Change the Connection Manager used in all DB operations.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes a NonQuery
+            </summary>
+            <param name="cmd">
+            NonQuery to execute
+            </param>
+            <remarks>
+            Without transaction
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute non query.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets data out of the database
+            </summary>
+            <param name="cmd">
+            The SQL Command
+            </param>
+            <returns>
+            DataTable with the results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String)">
+            <summary>
+            Gets data out of database using a plain text string command
+            </summary>
+            <param name="commandText">
+            command text to be executed
+            </param>
+            <returns>
+            DataTable with results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="commandText">
+            The command text.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets a whole dataset out of the database
+            </summary>
+            <param name="cmd">
+            The SQL Command
+            </param>
+            <returns>
+            Dataset with the results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The get dataset.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
+            <summary>
+            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
+            </summary>
+            <param name="dataTable">data table to process</param>
+            <param name="sqlCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDatasetBasic(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            Used internally to get data for all the other functions
+            </summary>
+            <param name="cmd">
+            </param>
+            <param name="transaction">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBAccess.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBAccess.IsolationLevel">
+            <summary>
+            Gets IsolationLevel.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBAccess.ResultFilterList">
+            <summary>
+            Gets the Result Filter List.
+            </summary>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="T:YAF.Classes.Data.SimpleModerator">
+            <summary>
+            The moderator.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SimpleModerator.#ctor(System.Int64,System.Int64,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.SimpleModerator"/> class.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="moderatorID">
+            The moderator id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="isGroup">
+            The is group.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.ModeratorID">
+            <summary>
+            Gets or sets ModeratorID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.IsGroup">
+            <summary>
+            Gets or sets a value indicating whether IsGroup.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.TypedPollGroup">
+            <summary>
+            The typed poll group.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedPollGroup.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedPollGroup"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedPollGroup.#ctor(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedPollGroup"/> class.
+            </summary>
+            <param name="question">
+            The question.
+            </param>
+            <param name="pollgroupid">
+            The pollgroupid.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedPollGroup.PollGroupID">
+            <summary>
+            Gets or sets PollGroupID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedPollGroup.Question">
+            <summary>
+            Gets or sets Question.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.GroupFlags">
@@ -7688,6 +6225,1469 @@
         <member name="P:YAF.Classes.Data.TypedMailList.ToUserName">
             <summary>
             Gets or sets ToUserName.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.TypedAllThanks">
+            <summary>
+            The typed all thanks.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedAllThanks.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedAllThanks"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedAllThanks.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedAllThanks"/> class.
+            </summary>
+            <param name="messageid">
+            The messageid.
+            </param>
+            <param name="fromuserid">
+            The fromuserid.
+            </param>
+            <param name="thanksdate">
+            The thanksdate.
+            </param>
+            <param name="thanksfromusernumber">
+            The thanksfromusernumber.
+            </param>
+            <param name="thankstousernumber">
+            The thankstousernumber.
+            </param>
+            <param name="thankstouserpostsnumber">
+            The thankstouserpostsnumber.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.FromUserID">
+            <summary>
+            Gets or sets FromUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksDate">
+            <summary>
+            Gets or sets ThanksDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksFromUserNumber">
+            <summary>
+            Gets or sets ThanksFromUserNumber.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksToUserNumber">
+            <summary>
+            Gets or sets ThanksToUserNumber.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedAllThanks.ThanksToUserPostsNumber">
+            <summary>
+            Gets or sets ThanksToUserPostsNumber.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
+            <summary>
+            The sql data layer converter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.TypedUserFind">
+            <summary>
+            The typed user find.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedUserFind.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedUserFind"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.AutoWatchTopics">
+            <summary>
+            Gets or sets AutoWatchTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Avatar">
+            <summary>
+            Gets or sets Avatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.AvatarImage">
+            <summary>
+            Gets or sets AvatarImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.AvatarImageType">
+            <summary>
+            Gets or sets AvatarImageType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Culture">
+            <summary>
+            Gets or sets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.DailyDigest">
+            <summary>
+            Gets or sets DailyDigest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.DisplayName">
+            <summary>
+            Gets or sets DisplayName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Email">
+            <summary>
+            Gets or sets Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Flags">
+            <summary>
+            Gets or sets Flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsActiveExcluded">
+            <summary>
+            Gets or sets IsActiveExcluded.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsApproved">
+            <summary>
+            Gets or sets IsApproved.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsGuest">
+            <summary>
+            Gets or sets IsGuest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Joined">
+            <summary>
+            Gets or sets Joined.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.LanguageFile">
+            <summary>
+            Gets or sets LanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.LastVisit">
+            <summary>
+            Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.NotificationType">
+            <summary>
+            Gets or sets NotificationType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.NumPosts">
+            <summary>
+            Gets or sets NumPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.OverrideDefaultThemes">
+            <summary>
+            Gets or sets OverrideDefaultThemes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.PMNotification">
+            <summary>
+            Gets or sets PMNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Password">
+            <summary>
+            Gets or sets Password.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Points">
+            <summary>
+            Gets or sets Points.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.ProviderUserKey">
+            <summary>
+            Gets or sets ProviderUserKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.RankID">
+            <summary>
+            Gets or sets RankID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Suspended">
+            <summary>
+            Gets or sets Suspended.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.ThemeFile">
+            <summary>
+            Gets or sets ThemeFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.TimeZone">
+            <summary>
+            Gets or sets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.UserID">
+            <summary>
+            Gets or sets UserID.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.ActiveFlags">
+            <summary>
+            The access flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(YAF.Classes.Data.ActiveFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ActiveFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.op_Implicit(System.Int32)~YAF.Classes.Data.ActiveFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.ActiveFlags.op_Implicit(YAF.Classes.Data.ActiveFlags.Flags)~YAF.Classes.Data.ActiveFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsActiveNow">
+            <summary>
+            Gets or sets the user is active right now.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsGuest">
+            <summary>
+            Gets or sets that user is a guest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsRegistered">
+            <summary>
+            Gets or sets the user is a registered one.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ActiveFlags.IsCrawler">
+            <summary>
+            Gets or sets that user is a crawler.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.ActiveFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsActiveNow">
+            <summary>
+            The Is Active Now.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsGuest">
+            <summary>
+            The Is Guest.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsRegistered">
+            <summary>
+            The Is Registered.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ActiveFlags.Flags.IsCrawler">
+            <summary>
+            The Is Crawler.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">
+            <summary>
+            The yaf db conn info message event handler.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Data.QueryCounter">
+            <summary>
+            The query counter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.QueryCounter.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.QueryCounter"/> class.
+            </summary>
+            <param name="sql">
+            The sql.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.QueryCounter.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs">
+            <summary>
+            The yaf db conn info message event args.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBConnInfoMessageEventArgs._message">
+            <summary>
+            The _message.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MessageFlags">
+            <summary>
+            The message flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MessageFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(YAF.Classes.Data.MessageFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.MessageFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.MessageFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsHtml">
+            <summary>
+            Gets or sets whether message allows HTML.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsBBCode">
+            <summary>
+            Gets or sets whether message allows BB code.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsSmilies">
+            <summary>
+            Gets or sets whether message allows smilies.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsDeleted">
+            <summary>
+            Gets or sets whether message is deleted.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsApproved">
+            <summary>
+            Gets or sets whether message is approved for publishing.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsLocked">
+            <summary>
+            Gets or sets whether message is locked. Locked messages cannot be modified/deleted/replied to.
+            </summary>
+            <remarks>
+            Used for "ghost" posts that don't really exist, such as advertisement posts.
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.NotFormatted">
+            <summary>
+            Gets or sets whether message is not formatted.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsReported">
+            <summary>
+            Gets or sets whether message is reported as abusive.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsReportedSpam">
+             <summary>
+            Gets or sets whether message is reported as spam.
+             </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsPersistent">
+            <summary>
+            Gets or sets whether message is persistent. Persistent messages cannot be purged.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MessageFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsHtml">
+            <summary>
+            The is html.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsBBCode">
+            <summary>
+            The is bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsSmilies">
+            <summary>
+            The is smilies.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsDeleted">
+            <summary>
+            The is deleted.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsApproved">
+            <summary>
+            The is approved.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsLocked">
+            <summary>
+            The is locked.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.NotFormatted">
+            <summary>
+            The not formatted.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReported">
+            <summary>
+            The is reported .
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReportedSpam">
+            <summary>
+            Legacy flag not in use.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsPersistant">
+            <summary>
+            Is Message Persistant
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBConnManager.InitConnection">
+            <summary>
+            The init connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBConnManager.CloseConnection">
+            <summary>
+            The close connection.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBConnManager.ConnectionString">
+            <summary>
+            Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBConnManager.DBConnection">
+            <summary>
+            Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBConnManager.OpenDBConnection">
+            <summary>
+            Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Data.IYafDBConnManager.InfoMessage">
+            <summary>
+            The info message.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.TopicFlags">
+            <summary>
+            The topic flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TopicFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(YAF.Classes.Data.TopicFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TopicFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TopicFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsLocked">
+            <summary>
+            Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsDeleted">
+            <summary>
+            Gets or sets whether topic is deleted.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsPersistent">
+            <summary>
+            Gets or sets whether topic is persistent. Persistent topics cannot be purged.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsQuestion">
+            <summary>
+            Gets or sets whether topic is a question.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.TopicFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsLocked">
+            <summary>
+            The is locked.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsDeleted">
+            <summary>
+            The is deleted.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsPersistent">
+            <summary>
+            The is persistent.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.TopicFlags.Flags.IsQuestion">
+            <summary>
+            The is question.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.Import.DataImport">
+            <summary>
+            The data import.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
+            <summary>
+            The bb code extension import.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
+            </param>
+            <returns>
+            The bb code extension import.
+            </returns>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
+            <summary>
+            The file extension import.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="imputStream">
+            The imput stream.
+            </param>
+            <returns>
+            The file extension import.
+            </returns>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="T:YAF.Classes.Data.TypedMessageList">
+            <summary>
+            The typed message list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedMessageList.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedMessageList"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedMessageList.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.Int16},YAF.Classes.Data.MessageFlags,System.Nullable{System.Int32},System.Nullable{System.DateTime},YAF.Classes.Data.TopicFlags,YAF.Classes.Data.ForumFlags,System.String,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.String,System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedMessageList"/> class.
+            </summary>
+            <param name="messageid">
+            The messageid.
+            </param>
+            <param name="userid">
+            The userid.
+            </param>
+            <param name="username">
+            The username.
+            </param>
+            <param name="message">
+            The message.
+            </param>
+            <param name="topicid">
+            The topicid.
+            </param>
+            <param name="forumid">
+            The forumid.
+            </param>
+            <param name="topic">
+            The topic.
+            </param>
+            <param name="priority">
+            The priority.
+            </param>
+            <param name="flags">
+            The flags.
+            </param>
+            <param name="topicownerid">
+            The topicownerid.
+            </param>
+            <param name="edited">
+            The edited.
+            </param>
+            <param name="topicflags">
+            The topicflags.
+            </param>
+            <param name="forumflags">
+            The forumflags.
+            </param>
+            <param name="editreason">
+            The editreason.
+            </param>
+            <param name="position">
+            The position.
+            </param>
+            <param name="ismoderatorchanged">
+            The ismoderatorchanged.
+            </param>
+            <param name="deletereason">
+            The deletereason.
+            </param>
+            <param name="blogpostid">
+            The blogpostid.
+            </param>
+            <param name="pollid">
+            The pollid.
+            </param>
+            <param name="ip">
+            The ip.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.BlogPostID">
+            <summary>
+            Gets or sets BlogPostID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.DeleteReason">
+            <summary>
+            Gets or sets DeleteReason.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.EditReason">
+            <summary>
+            Gets or sets EditReason.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.Edited">
+            <summary>
+            Gets or sets Edited.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.Flags">
+            <summary>
+            Gets or sets Flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.ForumFlags">
+            <summary>
+            Gets or sets ForumFlags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.IsModeratorChanged">
+            <summary>
+            Gets or sets IsModeratorChanged.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.PollID">
+            <summary>
+            Gets or sets PollID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.Position">
+            <summary>
+            Gets or sets Position.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.Priority">
+            <summary>
+            Gets or sets Priority.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.Topic">
+            <summary>
+            Gets or sets Topic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.TopicFlags">
+            <summary>
+            Gets or sets TopicFlags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.TopicID">
+            <summary>
+            Gets or sets TopicID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.TopicOwnerID">
+            <summary>
+            Gets or sets TopicOwnerID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.UserID">
+            <summary>
+            Gets or sets UserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedMessageList.UserName">
+            <summary>
+            Gets or sets UserName.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.UserFlags">
+            <summary>
+            User flags manipulation class from the DB.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.#ctor(YAF.Classes.Data.UserFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.UserFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.op_Implicit(System.Int32)~YAF.Classes.Data.UserFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.UserFlags.op_Implicit(YAF.Classes.Data.UserFlags.Flags)~YAF.Classes.Data.UserFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsHostAdmin">
+            <summary>
+            Gets or sets whether user is host administrator.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsApproved">
+            <summary>
+            Gets or sets whether user is approved for posting.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsGuest">
+            <summary>
+            Gets or sets whether user is guest, i.e. not registered and logged in.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsCaptchaExcluded">
+            <summary>
+            Gets or sets whether user is guest, i.e. not registered and logged in.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsActiveExcluded">
+            <summary>
+            Gets or sets whether user is excluded from the "Active Users" list on the forum pages.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsDST">
+            <summary>
+            Gets or sets whether a user is enabled the DST correction.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.UserFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsHostAdmin">
+            <summary>
+            The is host admin.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsApproved">
+            <summary>
+            The is approved.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsGuest">
+            <summary>
+            The is guest.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsCaptchaExcluded">
+            <summary>
+            The is captcha excluded.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsActiveExcluded">
+            <summary>
+            The is active excluded.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.UserFlags.Flags.IsDST">
+            <summary>
+            The Daylight Saving Time is Enabled.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnManager">
+            <summary>
+            Provides open/close management for DB Connections
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBConnManager._connection">
+            <summary>
+            The _connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnManager"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.CloseConnection">
+            <summary>
+            The close connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
+            <summary>
+            The init connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
+            <summary>
+            The connection_ info message.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
+            <summary>
+            The info message.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.ConnectionString">
+            <summary>
+            Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.DBConnection">
+            <summary>
+            Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
+            <summary>
+            Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.RankFlags">
+            <summary>
+            The rank flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.#ctor(YAF.Classes.Data.RankFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.RankFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.op_Implicit(System.Int32)~YAF.Classes.Data.RankFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.RankFlags.op_Implicit(YAF.Classes.Data.RankFlags.Flags)~YAF.Classes.Data.RankFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.RankFlags.IsStart">
+            <summary>
+            Gets or sets whether rank is default starting rank of new users.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.RankFlags.IsLadder">
+            <summary>
+            Gets or sets whether rank is ladder rank.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.RankFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.RankFlags.Flags.IsStart">
+            <summary>
+            The is start.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.RankFlags.Flags.IsLadder">
+            <summary>
+            The is ladder.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.ForumFlags">
+            <summary>
+            The forum flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(YAF.Classes.Data.ForumFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.ForumFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.op_Implicit(System.Int32)~YAF.Classes.Data.ForumFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.ForumFlags.op_Implicit(YAF.Classes.Data.ForumFlags.Flags)~YAF.Classes.Data.ForumFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsLocked">
+            <summary>
+            Gets or sets whether forum allows locked. No posting/activity can be made in locked forums.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsHidden">
+            <summary>
+            Gets or sets whether forum is hidden to users without read access.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsTest">
+            <summary>
+            Gets or sets whether forum does not count to users' postcount.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsModerated">
+            <summary>
+            Gets or sets whether forum is moderated. Posts in moderated posts has to be approved by moderator before they are published.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.ForumFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsLocked">
+            <summary>
+            The is locked.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsHidden">
+            <summary>
+            The is hidden.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsTest">
+            <summary>
+            The is test.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsModerated">
+            <summary>
+            The is moderated.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.PollSaveList">
+            <summary>
+            Class to hold polls and questions data to save
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollSaveList.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[0:,0:],System.Nullable{System.DateTime},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
+            </summary>
+            <param name="pollQuestion">
+            The poll question.
+            </param>
+            <param name="pollChoices">
+            The poll choices.
+            </param>
+            <param name="pollCloses">
+            The poll closes.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Choice">
+            <summary>
+              Gets or Sets value for Question text
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Closes">
+            <summary>
+              Gets or Sets value indicatiing when a poll (question) closes
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Question">
+            <summary>
+              Gets or Sets value for Question text
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.UserId">
+            <summary>
+              Gets or Sets value for UserId 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.TopicId">
+            <summary>
+              Gets or Sets value for TopicId 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.ForumId">
+            <summary>
+              Gets or Sets value for ForumId 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.CategoryId">
+            <summary>
+              Gets or Sets value for CategoryId 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.BoardId">
+            <summary>
+              Gets or Sets value for BoardId 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.QuestionObjectPath">
+            <summary>
+              Gets or Sets value for ObjectPath 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.QuestionMimeType">
+            <summary>
+              Gets or Sets value for MimeType 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.IsBound">
+            <summary>
+              Gets or Sets value for IsBound. The polls in a group are bounded by voting. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.IsClosedBound">
+            <summary>
+              Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SimpleTopic">
+            <summary>
+            The simple topic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.CreatedDate">
+            <summary>
+            Gets or sets CreatedDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.FirstMessage">
+            <summary>
+            Gets or sets FirstMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.Forum">
+            <summary>
+            Gets or sets Forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.LastMessage">
+            <summary>
+            Gets or sets LastMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.LastMessageID">
+            <summary>
+            Gets or sets LastMessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.LastPostDate">
+            <summary>
+            Gets or sets LastPostDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.LastUserID">
+            <summary>
+            Gets or sets LastUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.LastUserName">
+            <summary>
+            Gets or sets LastUserName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.Replies">
+            <summary>
+            Gets or sets Replies.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.StartedUserID">
+            <summary>
+            Gets or sets StartedUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.StartedUserName">
+            <summary>
+            Gets or sets StartedUserName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.Subject">
+            <summary>
+            Gets or sets Subject.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleTopic.TopicID">
+            <summary>
+            Gets or sets TopicID.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SimpleForum">
+            <summary>
+            The simple forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SimpleForum._topics">
+            <summary>
+            The _topics.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleForum.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleForum.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleForum.Topics">
+            <summary>
+            Gets or sets Topics.
             </summary>
         </member>
     </members>
