@@ -1019,36 +1019,43 @@ namespace YAF.Pages
                 pollGroupId = Convert.ToInt32(dti["PollID"]);
             }
 
-            // TODO: repeating code
-            // Remove repeating PollID values   
-            var hTable = new Hashtable();
-            var duplicateList = new ArrayList();
-            DataTable dtPollGroup = DB.pollgroup_stats(pollGroupId);
-
-            foreach (DataRow drow in dtPollGroup.Rows)
+            if (pollGroupId == null && PageContext.BoardSettings.AllowedPollNumber > 0 && PageContext.ForumPollAccess)
             {
-                if (hTable.Contains(drow["PollID"]))
-                {
-                    duplicateList.Add(drow);
-                }
-                else
-                {
-                    hTable.Add(drow["PollID"], string.Empty);
-                }
+                return true;
             }
-
-            foreach (DataRow dRow in duplicateList)
+            else
             {
-                dtPollGroup.Rows.Remove(dRow);
+                // TODO: repeating code
+                // Remove repeating PollID values   
+                var hTable = new Hashtable();
+                var duplicateList = new ArrayList();
+                DataTable dtPollGroup = DB.pollgroup_stats(pollGroupId);
+
+                foreach (DataRow drow in dtPollGroup.Rows)
+                {
+                    if (hTable.Contains(drow["PollID"]))
+                    {
+                        duplicateList.Add(drow);
+                    }
+                    else
+                    {
+                        hTable.Add(drow["PollID"], string.Empty);
+                    }
+                }
+
+                foreach (DataRow dRow in duplicateList)
+                {
+                    dtPollGroup.Rows.Remove(dRow);
+                }
+
+                dtPollGroup.AcceptChanges();
+
+                // frequently used
+                int pollNumber = dtPollGroup.Rows.Count;
+
+                return (pollNumber < this.PageContext.BoardSettings.AllowedPollNumber) &&
+                       (this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0);
             }
-
-            dtPollGroup.AcceptChanges();
-
-            // frequently used
-            int pollNumber = dtPollGroup.Rows.Count;
-
-            return (pollNumber < this.PageContext.BoardSettings.AllowedPollNumber) &&
-                   (this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0);
         }
         return true;
     }
