@@ -1,8 +1,7 @@
 <%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
-<YAF:adminmenu runat="server" id="Adminmenu1">
+<YAF:AdminMenu runat="server" id="Adminmenu1">
   <table class="content" width="100%" cellspacing="0" cellpadding="0">
     <tr>
       <td class="header1" colspan="3"> 
@@ -29,14 +28,14 @@
 			  <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  <ItemStyle HorizontalAlign="Center" CssClass="post"></ItemStyle>
 			  <ItemTemplate>
-			    <asp:Label id="lblResourceName" runat="server" Text='<%# Eval("sResourceName") %>'></asp:Label>
+			    <asp:Label id="lblResourceName" runat="server" Text='<%# Eval("ResourceName") %>'></asp:Label>
 			  </ItemTemplate>
 		    </asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Original Ressource">
 			  <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  <ItemStyle HorizontalAlign="Center" CssClass="post"></ItemStyle>
 			  <ItemTemplate>
-			    <asp:TextBox id="txtResource" runat="server" Text='<%# Eval("sResourceValue") %>' Width="300px" Height="30px" Enabled="false">
+			    <asp:TextBox id="txtResource" runat="server" Text='<%# Eval("ResourceValue") %>' Width="300px" Height="30px" Enabled="false">
                 </asp:TextBox>
 			  </ItemTemplate>
 			</asp:TemplateColumn>
@@ -44,7 +43,7 @@
 			  <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" CssClass="header2"></HeaderStyle>
 			  <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" CssClass="post"></ItemStyle>
 			  <ItemTemplate>
-			    <asp:TextBox id="txtLocalized" runat="server" OnTextChanged="TextBoxTextChanged" AutoPostBack="true" Text='<%# Eval("sLocalizedValue") %>' Width="300px" Height="30px" ToolTip='<%# Eval("sResourceValue") %>'>
+			    <asp:TextBox id="txtLocalized" runat="server" OnTextChanged="TextBoxTextChanged" AutoPostBack="true" Text='<%# Eval("LocalizedValue") %>' Width="300px" Height="30px" ToolTip='<%# Eval("ResourceValue") %>'>
                 </asp:TextBox>
 			  </ItemTemplate>
 		    </asp:TemplateColumn>
@@ -59,5 +58,5 @@
       </td>
     </tr>
   </table>
-</YAF:adminmenu>
+</YAF:AdminMenu>
 <YAF:SmartScroller id="SmartScroller1" runat = "server" />
