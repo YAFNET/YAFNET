@@ -284,27 +284,16 @@ namespace YAF.DotNetNuke
                 
                 YafCultureInfo yafCultureInfo = GetYafCultureInfo(Localization.GetPageLocale(CurrentPortalSettings));
 
-                DB.board_create(
-                    dnnUserInfo.Username, 
-                    dnnUserInfo.Email, 
-                    dnnUser.ProviderUserKey, 
-                    newBoardName, 
+                int largestBoardId = DB.board_create(
+                    dnnUserInfo.Username,
+                    dnnUserInfo.Email,
+                    dnnUser.ProviderUserKey,
+                    newBoardName,
                     yafCultureInfo.sCulture,
                                 yafCultureInfo.sLanguageFile,
                     "DotNetNuke",
                     "DotNetNuke");
 
-                //The newly created board will be the last one in the DB and have the highest BoardID
-                DataTable tbl = DB.board_list(null);
-
-                int largestBoardId = 0;
-
-                int id = largestBoardId;
-                foreach (DataRow row in
-                    tbl.Rows.Cast<DataRow>().Where(row => Convert.ToInt32(row["BoardID"]) > id))
-                {
-                    largestBoardId = Convert.ToInt32(row["BoardID"]);
-                }
                 //Assign the new forum to this module
                 ModuleController objForumSettings = new ModuleController();
                 objForumSettings.UpdateModuleSetting(ModuleId, "forumboardid", largestBoardId.ToString());
@@ -317,14 +306,19 @@ namespace YAF.DotNetNuke
         {
            BasePage.Title = e.Title + " - " + BasePage.Title;
         }*/
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();            
 
             base.OnInit(e);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitializeComponent()
         {
             if (AJAX.IsInstalled())
