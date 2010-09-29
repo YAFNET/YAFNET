@@ -1178,6 +1178,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">تمام انجمنها</Resource>
     <Resource tag="BTNSEARCH">جستجو</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">بوسیله</Resource>
     <Resource tag="LOADING_SEARCH">در حال بارگذاری نتایج جستجو...</Resource>
     <Resource tag="MATCH_ALL">فقط کلمات وارد شده جستجو شوند</Resource>

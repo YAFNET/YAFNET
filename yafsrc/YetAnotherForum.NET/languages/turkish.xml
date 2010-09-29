@@ -1180,6 +1180,7 @@ Siz foruma otomatik bilgisayar programlarını kullanarak üye olmayacağınız�
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Tüm Forumlar</Resource>
     <Resource tag="BTNSEARCH">Ara</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">Tarafından </Resource>
     <Resource tag="LOADING_SEARCH">Arama Sonuçları Yükleniyor...</Resource>
     <Resource tag="MATCH_ALL">Tüm Kelimeleri Bul</Resource>

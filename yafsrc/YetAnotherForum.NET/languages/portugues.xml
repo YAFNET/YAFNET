@@ -1180,6 +1180,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Todos os Fóruns</Resource>
     <Resource tag="BTNSEARCH">Pesquisar</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">por</Resource>
     <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
     <Resource tag="MATCH_ALL">Localizar Todas as Palavras</Resource>

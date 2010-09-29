@@ -865,7 +865,6 @@
     <Resource tag="POLLGROUP_ATTACHED">Can't attach the group. A group is already attached.</Resource>
     <Resource tag="POLLGROUP_BOUNDWARN">You should vote in all polls to see results.</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND">Bound voting</Resource>
-    <Resource tag="POLLGROUP_CLOSEDBOUND">Don't show results if group is open</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results if group is open for voting</Resource>
     <Resource tag="POLLGROUP_LIST">Choose an existing poll group:</Resource>
     <Resource tag="POLLGROUPISBOUND">Your vote will be counted when you'll vote in all the polls.</Resource>
@@ -1180,6 +1179,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Ve všech fórech</Resource>
     <Resource tag="BTNSEARCH">Hledat</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">od</Resource>
     <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
     <Resource tag="MATCH_ALL">Všechna slova musí souhlasit</Resource>

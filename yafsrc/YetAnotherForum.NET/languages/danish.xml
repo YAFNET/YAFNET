@@ -1169,6 +1169,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Alle fora</Resource>
     <Resource tag="BTNSEARCH">Søg</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">af</Resource>
     <Resource tag="LOADING_SEARCH">Søger...</Resource>
     <Resource tag="MATCH_ALL">Søg på alle ord</Resource>

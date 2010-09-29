@@ -1219,6 +1219,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">כל הפורומים</Resource>
     <Resource tag="BTNSEARCH">חפש</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">ע"י</Resource>
     <Resource tag="LOADING_SEARCH">טוען תוצאות חיפוש...</Resource>
     <Resource tag="MATCH_ALL">התאם לכל המילים</Resource>

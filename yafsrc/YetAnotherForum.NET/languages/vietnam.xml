@@ -1194,6 +1194,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Tất cả diễn đàn</Resource>
     <Resource tag="BTNSEARCH">Tìm kiếm</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">Bởi</Resource>
     <Resource tag="LOADING_SEARCH">Đang tải kết quả tìm kiếm...</Resource>
     <Resource tag="MATCH_ALL">Chính xác</Resource>

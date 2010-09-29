@@ -1332,6 +1332,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Visi forumai </Resource>
     <Resource tag="BTNSEARCH">Ieškoti </Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">prie </Resource>
     <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
     <Resource tag="MATCH_ALL">Atitikti Visi žodžiai </Resource>

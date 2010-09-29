@@ -1169,6 +1169,7 @@
 	<page name="SEARCH">
 		<Resource tag="ALLFORUMS">All Forums</Resource>
 		<Resource tag="BTNSEARCH">Search</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
 		<Resource tag="BY">by</Resource>
 		<Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
 		<Resource tag="MATCH_ALL">Match All Words</Resource>

@@ -1180,6 +1180,7 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Alle Foren</Resource>
     <Resource tag="BTNSEARCH">Suchen</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">von</Resource>
     <Resource tag="LOADING_SEARCH">Suchergebnisse werden geladen ...</Resource>
     <Resource tag="MATCH_ALL">Alle Begriffe müssen vorkommen</Resource>

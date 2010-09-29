@@ -1181,6 +1181,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Toate forumurile</Resource>
     <Resource tag="BTNSEARCH">Cauta</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">de</Resource>
     <Resource tag="LOADING_SEARCH">Incarca rezultate...</Resource>
     <Resource tag="MATCH_ALL">Potrivire toate cuvintele</Resource>

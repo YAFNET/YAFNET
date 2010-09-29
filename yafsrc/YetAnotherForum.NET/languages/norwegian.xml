@@ -1180,6 +1180,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Alle forum</Resource>
     <Resource tag="BTNSEARCH">Søk</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">av</Resource>
     <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
     <Resource tag="MATCH_ALL">Treff på alle ord</Resource>

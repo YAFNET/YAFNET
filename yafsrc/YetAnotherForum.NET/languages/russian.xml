@@ -1179,6 +1179,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Все форумы</Resource>
     <Resource tag="BTNSEARCH">Найти</Resource>
+    <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">по</Resource>
     <Resource tag="LOADING_SEARCH">Загрузка результатов поиска...</Resource>
     <Resource tag="MATCH_ALL">Искать все слова</Resource>
