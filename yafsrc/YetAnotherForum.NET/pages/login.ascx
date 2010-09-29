@@ -44,7 +44,8 @@
                                         <td align="center" colspan="2" class="postfooter" style="height: 24px">
                                             <asp:Button ID="LoginButton" runat="server" class="pbutton" CommandName="Login" ValidationGroup="Login1" />
                                             |
-                                            <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="pbutton"  OnClick="PasswordRecovery_Click" />
+                                            <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="pbutton"
+                                                OnClick="PasswordRecovery_Click" />
                                         </td>
                                     </tr>
                                 </table>

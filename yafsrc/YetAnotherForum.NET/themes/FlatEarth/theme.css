@@ -11,6 +11,33 @@
 	font-size: 9pt;
 	color: #3B3E39;
 }
+.yafnet #yafheader
+{
+    border: 1px solid #eee;
+    padding: 5px;
+}
+
+.yafnet #yafheader .currentUser
+{
+    font-weight: bold;
+}
+
+.yafnet #yafheader li
+{
+    padding: 0 3px 0 5px;
+    border-right: 1px solid #999;
+    margin: 0;
+}
+
+.yafnet #yafheader li.menuMy
+{
+    font-weight: bold;
+}
+
+.yafnet #yafheader li:last-child 
+{
+    border-right: none;
+}
 .yafnet input,
 .yafnet select {
 	font-family: Arial, Helvetica, sans-serif;

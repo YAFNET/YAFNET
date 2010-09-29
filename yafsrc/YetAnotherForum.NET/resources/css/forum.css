@@ -86,10 +86,38 @@
 {
 	margin-left: 5px;
 }
+.yafnet #yafhelpmenu ul
+{
+    list-style: none;
+}
 .yafnet #yafprofilemenu
 {
 	width: 19%; float: left; clear: left;
 }
+
+.yafnet .menuContainer
+{
+    float:right;
+}
+
+.yafnet #yafheader ul
+{
+    list-style: none;
+    display: inline;    
+}
+
+.yafnet #yafheader .loggedInUser,
+.yafnet #yafheader .menuContainer
+{
+    display: inline;
+}
+
+.yafnet #yafheader li
+{
+    display: inline;
+    padding: 2px 3px 2px 3px;    
+}
+
 .yafnet #yafprofilecontent
 {
 	margin: 5px 0px 5px 0px;

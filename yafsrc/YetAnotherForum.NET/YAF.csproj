@@ -227,6 +227,13 @@
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\YafHeader.ascx.cs">
+      <DependentUpon>YafHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\YafHeader.ascx.designer.cs">
+      <DependentUpon>YafHeader.ascx</DependentUpon>
+    </Compile>
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
     </Compile>
@@ -244,6 +251,7 @@
     <Compile Include="Modules\PageRssFeedLinkModule.cs" />
     <Compile Include="Modules\PageSecurityModule.cs" />
     <Compile Include="Modules\PageTitleModule.cs" />
+    <Compile Include="Modules\SearchDataCleanupModule.cs" />
     <Compile Include="Modules\SimpleBaseModule.cs" />
     <Compile Include="Modules\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\SuspendCheckModule.cs" />
@@ -685,6 +693,7 @@
       <SubType>UserControl</SubType>
     </Content>
     <Content Include="controls\ViewThanksList.ascx" />
+    <Content Include="controls\YafHeader.ascx" />
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="defs\asm.def" />

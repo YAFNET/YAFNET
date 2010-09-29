@@ -6,6 +6,35 @@
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-size: 8.5pt;
 }
+
+.yafnet #yafheader
+{
+    border: 1px solid #eee;
+    padding: 5px;
+}
+
+.yafnet #yafheader .currentUser
+{
+    font-weight: bold;
+}
+
+.yafnet #yafheader li
+{
+    padding: 0 3px 0 5px;
+    border-right: 1px solid #999;
+    margin: 0;
+}
+
+.yafnet #yafheader li.menuMy
+{
+    font-weight: bold;
+}
+
+.yafnet #yafheader li:last-child 
+{
+    border-right: none;
+}
+
 .yafnet input{font:8pt Verdana,Arial,Helvetica,sans-serif}
 .yafnet select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
 .yafnet textarea{background:#ffffff;border:1px solid #000000;font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}

@@ -24,6 +24,7 @@ namespace YAF
   using System;
   using System.IO;
   using System.Web.UI;
+  using System.Web.UI.WebControls;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -127,22 +128,14 @@ namespace YAF
     /// <summary>
     /// The _footer.
     /// </summary>
-    private Footer _footer;
+    private Control _footer;
+
+    private Control _header;
 
     /// <summary>
-    /// The _header.
+    /// The _topControl.
     /// </summary>
-    private Header _header;
-
-    /// <summary>
-    /// The _orig footer client id.
-    /// </summary>
-    private string _origFooterClientID;
-
-    /// <summary>
-    /// The _orig header client id.
-    /// </summary>
-    private string _origHeaderClientID;
+    private PlaceHolder _topControl;
 
     /// <summary>
     /// The _page.
@@ -161,12 +154,6 @@ namespace YAF
       this.Load += new EventHandler(this.Forum_Load);
       this.Init += new EventHandler(this.Forum_Init);
       this.Unload += new EventHandler(this.Forum_Unload);
-
-      // setup header/footer
-      this._header = new Header();
-      this._footer = new Footer();
-      this._origHeaderClientID = this._header.ClientID;
-      this._origFooterClientID = this._footer.ClientID;
 
       // init the modules and run them immediately...
       YafContext.Current.BaseModuleManager.Load();
@@ -231,7 +218,7 @@ namespace YAF
     /// <summary>
     /// The forum footer control
     /// </summary>
-    public Footer Footer
+    public Control Footer
     {
       get
       {
@@ -247,7 +234,7 @@ namespace YAF
     /// <summary>
     /// The forum header control
     /// </summary>
-    public Header Header
+    public Control Header
     {
       get
       {
@@ -403,18 +390,26 @@ namespace YAF
       // "forum load" should be done by now, load the user and page...
       int userId = YafContext.Current.PageUserID;
 
+      // add the forum header control...
+      this._topControl = new PlaceHolder();
+      this.Controls.AddAt(0, this._topControl);
+
       // get the current page...
       string src = this.GetPageSource();
 
       try
       {
         this._currentForumPage = (ForumPage)this.LoadControl(src);
+        this._header =
+          this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
+        this._footer = new Footer();
       }
       catch (FileNotFoundException)
       {
         throw new ApplicationException("Failed to load " + src + ".");
       }
 
+      this._currentForumPage.ForumTopControl = this._topControl;
       this._currentForumPage.ForumFooter = this._footer;
       this._currentForumPage.ForumHeader = this._header;
 
@@ -428,17 +423,15 @@ namespace YAF
       YafContext.Current.CurrentForumPage = this._currentForumPage;
 
       // add the header control before the page rendering...
-      if (!this.Popup && YafContext.Current.Settings.LockedForum == 0 &&
-          this._origHeaderClientID == this._header.ClientID)
+      if (!this.Popup && YafContext.Current.Settings.LockedForum == 0)
       {
-        this.Controls.AddAt(0, this._header);
+        this.Controls.AddAt(1, this._header);
       }
 
       this.Controls.Add(this._currentForumPage);
 
       // add the footer control after the page...
-      if (!this.Popup && YafContext.Current.Settings.LockedForum == 0 &&
-          this._origFooterClientID == this._footer.ClientID)
+      if (!this.Popup && YafContext.Current.Settings.LockedForum == 0)
       {
         this.Controls.Add(this._footer);
       }
@@ -473,8 +466,6 @@ namespace YAF
     /// </returns>
     private string GetPageSource()
     {
-      string m_baseDir = YafForumInfo.ForumServerFileRoot;
-
       if (this.Request.QueryString.GetFirstOrDefault("g") != null)
       {
         try
@@ -496,7 +487,7 @@ namespace YAF
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
       }
 
-      string src = "{0}pages/{1}.ascx".FormatWith(m_baseDir, this._page);
+      string src = "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page);
 
       string controlOverride = YafContext.Current.Theme.GetItem("PAGE_OVERRIDE", this._page.ToString(), null);
 

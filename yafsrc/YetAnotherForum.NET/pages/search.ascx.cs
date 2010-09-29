@@ -409,7 +409,7 @@ namespace YAF.Pages
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-        this.btnSearch.Text = "{0} YAF".FormatWith(this.GetText("btnsearch"));
+        this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
 
         if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
         {
@@ -425,8 +425,8 @@ namespace YAF.Pages
             this.btnSearchExt1.Visible = true;
             this.btnSearchExt1.Text =
               this.btnSearchExt1.ToolTip =
-              this.PageContext.Localization.GetText("btnsearch") + " " +
-              this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0];
+              this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
+                this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0]);
           }
 
           if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2) &&
@@ -435,8 +435,8 @@ namespace YAF.Pages
             this.btnSearchExt2.Visible = true;
             this.btnSearchExt2.Text =
               this.btnSearchExt2.ToolTip =
-              this.PageContext.Localization.GetText("btnsearch") + " " +
-              this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0];
+              this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
+                this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0]);
           }
         }
 

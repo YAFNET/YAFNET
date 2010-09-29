@@ -15,6 +15,33 @@
 	padding-bottom:2px;
 	padding-left:2px
 }
+.yafnet #yafheader
+{
+    border: 1px solid #eee;
+    padding: 5px;
+}
+
+.yafnet #yafheader .currentUser
+{
+    font-weight: bold;
+}
+
+.yafnet #yafheader li
+{
+    padding: 0 3px 0 5px;
+    border-right: 1px solid #999;
+    margin: 0;
+}
+
+.yafnet #yafheader li.menuMy
+{
+    font-weight: bold;
+}
+
+.yafnet #yafheader li:last-child 
+{
+    border-right: none;
+}
 .yafnet form{display:inline}
 .yafnet input{border:1px solid #404040;font-size:8pt;}
 .yafnet input.pbutton{background:#EEEEEE;}

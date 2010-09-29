@@ -830,7 +830,7 @@ namespace YAF.Pages
 
           string content = "{0}: {1}".FormatWith(this._topic["Topic"], message.MessageTruncated);
 
-          if (meta.Exists(x => x.Name.Equals("description")))
+          if (meta.Any(x => x.Name.Equals("description")))
           {
             // use existing...
             descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
@@ -861,7 +861,7 @@ namespace YAF.Pages
 
           var keywordStr = message.MessageKeywords.Where(x => x.IsSet()).ToList().ToDelimitedString(",");
 
-          if (meta.Exists(x => x.Name.Equals("keywords")))
+          if (meta.Any(x => x.Name.Equals("keywords")))
           {
             // use existing...
             keywordMeta = meta.Where(x => x.Name.Equals("keywords")).FirstOrDefault();
