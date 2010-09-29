@@ -1870,6 +1870,21 @@
             Is Url Rewriting enabled? -- default is false.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.DisableJQuery">
+            <summary>
+            Is Jquery Registration disabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryFile">
+            <summary>
+            Gets JQuery File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryUIFile">
+            <summary>
+            Gets JQuery UI File Name.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.ForceScriptName">
             <summary>
             Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
@@ -2325,11 +2340,6 @@
         <member name="F:YAF.Classes.ForumPages.help_index">
             <summary>
             The help_index.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.ForumPages.help_recover">
-            <summary>
-            The help_recover.
             </summary>
         </member>
         <member name="F:YAF.Classes.ForumPages.lastposts">

@@ -572,7 +572,7 @@
         </member>
         <member name="T:YAF.Controls.HelpMenu">
             <summary>
-            Summary description for AdminMenu.
+            Summary description for HelpMenu.
             </summary>
         </member>
         <member name="M:YAF.Controls.HelpMenu.Render(System.Web.UI.HtmlTextWriter)">
@@ -2024,26 +2024,6 @@
             Summary description for Header.
             </summary>
         </member>
-        <member name="F:YAF.Controls.Header._refreshTime">
-            <summary>
-            The _refresh time.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Header._refreshURL">
-            <summary>
-            The _refresh url.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Header._simpleRender">
-            <summary>
-            The _simple render.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Header.Reset">
-            <summary>
-            The reset.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.Header.GetReturnUrl">
             <summary>
             The get return url.
@@ -2067,26 +2047,6 @@
             <param name="writer">
             The writer.
             </param>
-        </member>
-        <member name="P:YAF.Controls.Header.RefreshTime">
-            <summary>
-            Gets or sets RefreshTime.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Header.RefreshURL">
-            <summary>
-            Gets or sets RefreshURL.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Header.SimpleRender">
-            <summary>
-            Gets or sets a value indicating whether SimpleRender.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Header.ThisControl">
-            <summary>
-            Gets ThisControl.
-            </summary>
         </member>
         <member name="T:YAF.Controls.AdminMenu">
             <summary>

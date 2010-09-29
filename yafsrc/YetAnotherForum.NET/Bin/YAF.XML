@@ -2689,19 +2689,9 @@
             The _footer.
             </summary>
         </member>
-        <member name="F:YAF.Forum._header">
+        <member name="F:YAF.Forum._topControl">
             <summary>
-            The _header.
-            </summary>
-        </member>
-        <member name="F:YAF.Forum._origFooterClientID">
-            <summary>
-            The _orig footer client id.
-            </summary>
-        </member>
-        <member name="F:YAF.Forum._origHeaderClientID">
-            <summary>
-            The _orig header client id.
+            The _topControl.
             </summary>
         </member>
         <member name="F:YAF.Forum._page">
@@ -3965,10 +3955,23 @@
             Summary description for main.
             </summary>
         </member>
+        <member name="F:YAF.Pages.help.index.helpContents">
+            <summary>
+              List with the Help Content
+            </summary>
+        </member>
         <member name="M:YAF.Pages.help.index.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.help.index"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Pages.help.index"/> class.
             </summary>
+        </member>
+        <member name="M:YAF.Pages.help.index.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.help.index.Page_Load(System.Object,System.EventArgs)">
             <summary>
@@ -3986,14 +3989,6 @@
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.Pages.help.index.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Pages.help.index.DoSearch_Click(System.Object,System.EventArgs)">
             <summary>
             The do search_ click.
@@ -4007,9 +4002,59 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
+        <member name="M:YAF.Pages.help.index.LoadHelpContent">
+            <summary>
+            Load the Complete Help Pages From the language File.
+            </summary>
+        </member>
         <member name="F:YAF.Pages.help.index.PageLinks">
             <summary>
             PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.help.index.Title">
+            <summary>
+            Title control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.help.index.HelpList">
+            <summary>
+            HelpList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.help.index.SearchHolder">
+            <summary>
+            SearchHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.help.index.SubTitle">
+            <summary>
+            SubTitle control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.help.index.HelpContent">
+            <summary>
+            HelpContent control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -4042,6 +4087,26 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
+        </member>
+        <member name="T:YAF.Pages.help.index.YafHelpContent">
+            <summary>
+            Class that Can store the Help Content
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.help.index.YafHelpContent.HelpContent">
+            <summary>
+              The Content of the Help page
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.help.index.YafHelpContent.HelpPage">
+            <summary>
+              The Help page Name
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.help.index.YafHelpContent.HelpTitle">
+            <summary>
+              The Title of the Help page
+            </summary>
         </member>
         <member name="T:YAF.Pages.Admin.version">
             <summary>
@@ -6070,58 +6135,6 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
-        </member>
-        <member name="T:YAF.Pages.help.recover">
-            <summary>
-            Summary description for main.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.help.recover.PageLinks">
-            <summary>
-            PageLinks control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.help.recover.SmartScroller1">
-            <summary>
-            SmartScroller1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="M:YAF.Pages.help.recover.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.help.recover"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.help.recover.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.help.recover.BindData">
-            <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.help.recover.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
         </member>
         <member name="T:YAF.Pages.cp_signature">
             <summary>
@@ -13336,17 +13349,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.posts.VoteWidth(System.Object)">
-            <summary>
-            The vote width.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The vote width.
-            </returns>
-        </member>
         <member name="M:YAF.Pages.posts.AddMetaData(System.Object)">
             <summary>
             Adds meta data: description and keywords to the page header.
@@ -13449,11 +13451,6 @@
         <member name="P:YAF.Pages.posts.CurrentMessage">
             <summary>
               Gets or sets CurrentMessage.
-            </summary>
-        </member>
-        <member name="P:YAF.Pages.posts.VotingCookieName">
-            <summary>
-              Gets VotingCookieName.
             </summary>
         </member>
         <member name="T:YAF.Pages.Admin.replacewords_import">
@@ -16940,11 +16937,6 @@
               The _canVote. Used to store data from parent repeater.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dataBound">
-            <summary>
-              The _data bound.
-            </summary>
-        </member>
         <member name="F:YAF.controls.PollList._dtPoll">
             <summary>
               The _dt poll.
@@ -17022,8 +17014,7 @@
         </member>
         <member name="M:YAF.controls.PollList.CanRemoveGroupCompletely">
             <summary>
-            Checks if  a user can remove all polls in a group completely.
-            
+            Checks if  a user can remove all polls in a group completely. 
             </summary>
             <returns>
             The can remove group completely.
@@ -17067,14 +17058,6 @@
             <returns>
             The can vote.
             </returns>
-        </member>
-        <member name="M:YAF.controls.PollList.ChangePollShowStatus(System.Boolean)">
-            <summary>
-            The change poll show status.
-            </summary>
-            <param name="newStatus">
-            The new status.
-            </param>
         </member>
         <member name="M:YAF.controls.PollList.DaysToRun(System.Object,System.Boolean@)">
             <summary>
@@ -17251,11 +17234,6 @@
             The voting cookie name.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.DisplayButtons">
-            <summary>
-            The display buttons.
-            </summary>
-        </member>
         <member name="M:YAF.controls.PollList.GetImageAspect(System.Object)">
             <summary>
             Returns an image width|height ratio.
@@ -17308,6 +17286,13 @@
             Returns user to the original call page.
             </summary>
         </member>
+        <member name="M:YAF.controls.PollList.HasVoteAccess(System.Object)">
+            <summary>
+            The method to return if a user already voted
+            </summary>
+            <param name="pollId">The pollId value.</param>
+            <returns>Return True if a user has voted.</returns>
+        </member>
         <member name="F:YAF.controls.PollList.PollGroup">
             <summary>
             PollGroup control.
@@ -17337,74 +17322,74 @@
         </member>
         <member name="P:YAF.controls.PollList.BoardId">
             <summary>
-              Returns BoardId
+            Gets or sets BoardId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.CategoryId">
             <summary>
-              Returns CategoryId
+            Gets or sets CategoryId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditBoardId">
             <summary>
-              Returns EditBoardId.
-              Used to return to edit board page.
-              Currently is not implemented.
+            Gets or sets EditBoardId.
+            Used to return to edit board page.
+            Currently is not implemented.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditCategoryId">
             <summary>
-              Returns EditCategoryId
+            Gets or sets EditCategoryId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditForumId">
             <summary>
-              Returns EditForumId
+            Gets or sets EditForumId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditMessageId">
             <summary>
-              Returns EditMessageId.
+            Gets or sets EditMessageId.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.ForumId">
             <summary>
-              Returns ForumId
+            Gets or sets ForumId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.IsLocked">
             <summary>
-              Returns IsLocked
+            Gets or sets IsLocked
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.MaxImageAspect">
             <summary>
-              Returns MaxImageAspect. Stores max aspect to get rows of equal height.
+            Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PollGroupId">
             <summary>
-              Returns PollGroupID
+            Gets or sets PollGroupID
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PollNumber">
             <summary>
-              Returns PollNumber
+            Gets or sets PollNumber
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PostEdit">
             <summary>
-              Returns If we are editing a post
+            Gets or sets if we are editing a post
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.ShowButtons">
             <summary>
-              Returns ShowButtons
+            Gets or sets ShowButtons
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.TopicId">
             <summary>
-              Returns TopicId
+            Gets or sets TopicId
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumWelcome">
@@ -22189,30 +22174,64 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.editlanguage._resourcesNamespaces">
-            <summary>
-            List of namespaces for  Resources  in destination translation file, backing store for property
-            </summary>
-        </member>
         <member name="F:YAF.Pages.Admin.editlanguage._resourcesAttributes">
             <summary>
-            List of attributes for Resources in destination translation file, backing store for property
+              List of attributes for Resources in destination translation file, backing store for property
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.editlanguage.sLangPath">
+        <member name="F:YAF.Pages.Admin.editlanguage._resourcesNamespaces">
             <summary>
-            Pysical Path to The languages folder
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.Admin.editlanguage.sXmlFile">
-            <summary>
-            Xml File Name of Current Language
+              List of namespaces for  Resources  in destination translation file, backing store for property
             </summary>
         </member>
         <member name="F:YAF.Pages.Admin.editlanguage.bUpdate">
             <summary>
-            Indicates if Xml File is Syncronized
+              Indicates if Xml File is Syncronized
             </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.sLangPath">
+            <summary>
+              Pysical Path to The languages folder
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.sXmlFile">
+            <summary>
+              Xml File Name of Current Language
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.Admin.editlanguage.translations">
+            <summary>
+            The translations.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.RemoveDuplicateSections``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Remove all Resources with the same Name and Page
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="list">
+            </param>
+            <returns>
+            The Cleaned List
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.TextBoxTextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
+            </summary>
+            <param name="sender">
+            </param>
+            <param name="e">
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.Page_Load(System.Object,System.EventArgs)">
             <summary>
@@ -22225,56 +22244,67 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.ListToDataTable(System.Collections.IList)">
+        <member name="M:YAF.Pages.Admin.editlanguage.CancelClick(System.Object,System.EventArgs)">
             <summary>
-             Converts an Generics List to a DataTable
+            Returns Back to The Languages Page
             </summary>
-            <param name="list">List to Convert</param>
-            <returns>The New Created DataTable</returns>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.PopulateTranslations(System.String,System.String)">
+        <member name="M:YAF.Pages.Admin.editlanguage.GrdLocalsItemDataBound(System.Object,System.Web.UI.WebControls.DataGridItemEventArgs)">
             <summary>
-            Wraps creation of translation controls.
+            Checks if Resources are translated and handle Size of the Textboxes based on the Content Length
             </summary>
-            <param name="srcFile"></param>
-            <param name="dstFile"></param>
+            <param name="sender">
+            </param>
+            <param name="e">
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceControl(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates controls for column 1 (Resource tag) and column 2 (Resource value).
+            </summary>
+            <param name="sPageName">
+            </param>
+            <param name="resourceName">
+            </param>
+            <param name="srcResourceValue">
+            </param>
+            <param name="dstResourceValue">
+            </param>
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceHeader(System.String)">
             <summary>
             Creates a header row in the Ressource Page DropDown Header text is page section name in XML file.
             </summary>
-            <param name="sPageName"></param>
+            <param name="sPageName">
+            </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceControl(System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Pages.Admin.editlanguage.InitializeComponent">
             <summary>
-            
-            Creates controls for column 1 (Resource tag) and column 2 (Resource value).
+            The initialize component.
             </summary>
-            <param name="sPageName"></param>
-            <param name="resourceName"></param>
-            <param name="srcResourceValue"></param>
-            <param name="dstResourceValue"></param>
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.LoadPageLocalization(System.Object,System.EventArgs)">
             <summary>
             Load Selected Page Ressources
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.TextBoxTextChanged(System.Object,System.EventArgs)">
-            <summary>
-            Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
+            <param name="sender">
+            </param>
             <param name="e">
-            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editlanguage.PopulateTranslations(System.String,System.String)">
+            <summary>
+            Wraps creation of translation controls.
+            </summary>
+            <param name="srcFile">
+            </param>
+            <param name="dstFile">
             </param>
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.SaveClick(System.Object,System.EventArgs)">
@@ -22293,50 +22323,19 @@
             Save the Updated Xml File.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.RemoveDuplicateSections``1(System.Collections.Generic.List{``0})">
-            <summary>
-            Remove all Resources with the same Name and Page
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="list"></param>
-            <returns>The Cleaned List</returns>
-        </member>
         <member name="M:YAF.Pages.Admin.editlanguage.UpdateLocalizedValues">
             <summary>
             Update Localizated Values in the Generics List
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.GrdLocalsItemDataBound(System.Object,System.Web.UI.WebControls.DataGridItemEventArgs)">
+        <member name="P:YAF.Pages.Admin.editlanguage.ResourcesAttributes">
             <summary>
-            Checks if Resources are translated and handle Size of the Textboxes based on the Content Length
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.CancelClick(System.Object,System.EventArgs)">
-            <summary>
-            Returns Back to The Languages Page
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.InitializeComponent">
-            <summary>
-            The initialize component.
+              List of attributes for Resources in destination translation file
             </summary>
         </member>
         <member name="P:YAF.Pages.Admin.editlanguage.ResourcesNamespaces">
             <summary>
-             List of namespaces for Resources in destination translation file
-            </summary>
-        </member>
-        <member name="P:YAF.Pages.Admin.editlanguage.ResourcesAttributes">
-            <summary>
-             List of attributes for Resources in destination translation file
+              List of namespaces for Resources in destination translation file
             </summary>
         </member>
         <member name="T:YAF.Pages.Admin.editlanguage.Translation">
@@ -22344,20 +22343,24 @@
             Support class for TextBox.Tag property value
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sPageName">
+        <member name="P:YAF.Pages.Admin.editlanguage.Translation.LocalizedValue">
             <summary>
+            The s localized value.
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sResourceName">
+        <member name="P:YAF.Pages.Admin.editlanguage.Translation.PageName">
             <summary>
+            The s page name.
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sResourceValue">
+        <member name="P:YAF.Pages.Admin.editlanguage.Translation.ResourceName">
             <summary>
+            The s resource name.
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.editlanguage.Translation.sLocalizedValue">
+        <member name="P:YAF.Pages.Admin.editlanguage.Translation.ResourceValue">
             <summary>
+            The s resource value.
             </summary>
         </member>
         <member name="T:YAF.Modules.PagePermissionModule">
@@ -30066,6 +30069,30 @@
             <summary>
             Gets Description.
             </summary>
+        </member>
+        <member name="T:YAF.Controls.YafHeader">
+            <summary>
+            The yaf header.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.GetReturnUrl">
+            <summary>
+            The get return url.
+            </summary>
+            <returns>
+            The get return url.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
     </members>
 </doc>

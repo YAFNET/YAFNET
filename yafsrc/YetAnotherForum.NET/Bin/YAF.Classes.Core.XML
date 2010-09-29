@@ -223,7 +223,7 @@
             If current localization culture is neutral, it's not used in formatting.
             </remarks>
         </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.GetNodesUsingQuery(System.String,System.Func{YAF.Classes.Core.ResourcesPageResource,System.Boolean})">
+        <member name="M:YAF.Classes.Core.YafLocalization.GetNodesUsingQuery(System.String,System.Func{YAF.Classes.Core.LanuageResourcesPageResource,System.Boolean})">
             <summary>
             The get nodes using query.
             </summary>
@@ -2912,123 +2912,6 @@
             Gets or sets Children.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Core.Resources">
-            <summary>
-            The resources.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.Classes.Core.Resources.codeField">
-            <summary>
-            The code field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Resources.languageField">
-            <summary>
-            The language field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Resources.pageField">
-            <summary>
-            The page field.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Resources.code">
-            <summary>
-            The code.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.Resources.language">
-            <summary>
-            The language.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.Resources.page">
-            <summary>
-            The page.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.Classes.Core.ResourcesPage">
-            <summary>
-            The resources page.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.Classes.Core.ResourcesPage.nameField">
-            <summary>
-            The name field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.ResourcesPage.resourceField">
-            <summary>
-            The resource field.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ResourcesPage.Resource">
-            <summary>
-            The resource.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.ResourcesPage.name">
-            <summary>
-            The name.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.Classes.Core.ResourcesPageResource">
-            <summary>
-            The resources page resource.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.Classes.Core.ResourcesPageResource.editTypeField">
-            <summary>
-            The edit type field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.ResourcesPageResource.tagField">
-            <summary>
-            The tag field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.ResourcesPageResource.valueField">
-            <summary>
-            The value field.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ResourcesPageResource.Value">
-            <summary>
-            The value.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.ResourcesPageResource.editType">
-            <summary>
-            The edit type.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.ResourcesPageResource.tag">
-            <summary>
-            The tag.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
         <member name="T:YAF.Classes.Core.ControlExtensions">
             <summary>
             The control extensions.
@@ -3541,6 +3424,11 @@
               Gets or sets ForumHeader.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.ForumPage.ForumTopControl">
+            <summary>
+              Gets or sets ForumTopControl.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.ForumPage.ForumURL">
             <summary>
               Gets ForumURL.
@@ -3734,7 +3622,7 @@
             The yaf language node comparer.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafLanguageNodeComparer.Compare(YAF.Classes.Core.ResourcesPageResource,YAF.Classes.Core.ResourcesPageResource)">
+        <member name="M:YAF.Classes.Core.YafLanguageNodeComparer.Compare(YAF.Classes.Core.LanuageResourcesPageResource,YAF.Classes.Core.LanuageResourcesPageResource)">
             <summary>
             The compare.
             </summary>
@@ -4634,31 +4522,6 @@
         <member name="P:YAF.Classes.Core.BBCode.ReplaceBlocksCollection.ReplacementDictionary">
             <summary>
               Gets ReplacementDictionary.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.IYafHeader">
-            <summary>
-            Yaf Header Interface
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.IYafHeader.SimpleRender">
-            <summary>
-            Gets or sets a value indicating whether SimpleRender.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.IYafHeader.RefreshURL">
-            <summary>
-            Gets or sets RefreshURL.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.IYafHeader.RefreshTime">
-            <summary>
-            Gets or sets RefreshTime.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.IYafHeader.ThisControl">
-            <summary>
-            Gets ThisControl.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.CombinedUserDataHelper">
@@ -5829,7 +5692,7 @@
             The localizer loader.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.LocalizerLoader.LoadSiteFile(System.String,System.String)">
+        <member name="M:YAF.Classes.Core.LocalizerLoader.LoadLanguageFile(System.String,System.String)">
             <summary>
             The attempt load language file.
             </summary>
@@ -5931,7 +5794,7 @@
               The _file name.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Core.Localizer._localizationResources">
+        <member name="F:YAF.Classes.Core.Localizer._localizationLanguageResources">
             <summary>
             The _localization resources.
             </summary>
@@ -5949,7 +5812,7 @@
             The file name.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.Localizer.GetNodesUsingQuery(System.Func{YAF.Classes.Core.ResourcesPageResource,System.Boolean})">
+        <member name="M:YAF.Classes.Core.Localizer.GetNodesUsingQuery(System.Func{YAF.Classes.Core.LanuageResourcesPageResource,System.Boolean})">
             <summary>
             The get nodes using query.
             </summary>
@@ -6230,11 +6093,11 @@
             The resources extensions.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.ResourcesExtensions.GetHoursOffset(YAF.Classes.Core.ResourcesPageResource)">
+        <member name="M:YAF.Classes.Utils.ResourcesExtensions.GetHoursOffset(YAF.Classes.Core.LanuageResourcesPageResource)">
             <summary>
             The get hours offset.
             </summary>
-            <param name="resource">
+            <param name="lanuageResource">
             The resource.
             </param>
             <returns>
@@ -8752,21 +8615,6 @@
             Gets TaskName.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Core.IYafFooter">
-            <summary>
-            Yaf Footer Interface
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.IYafFooter.SimpleRender">
-            <summary>
-            Gets or sets a value indicating whether SimpleRender.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.IYafFooter.ThisControl">
-            <summary>
-            Gets ThisControl.
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Core.MigrateUsersTask">
             <summary>
             Run when we want to do migration of users in the background...
@@ -9766,6 +9614,123 @@
             <summary>
               Gets a value indicating whether any rules have been added.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.LanguageResources">
+            <summary>
+            The resources.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResources.codeField">
+            <summary>
+            The code field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResources.languageField">
+            <summary>
+            The language field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResources.pageField">
+            <summary>
+            The page field.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResources.code">
+            <summary>
+            The code.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResources.language">
+            <summary>
+            The language.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResources.page">
+            <summary>
+            The page.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YAF.Classes.Core.LanguageResourcesPage">
+            <summary>
+            The resources page.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResourcesPage.nameField">
+            <summary>
+            The name field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResourcesPage.resourceField">
+            <summary>
+            The resource field.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResourcesPage.Resource">
+            <summary>
+            The resource.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResourcesPage.name">
+            <summary>
+            The name.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YAF.Classes.Core.LanuageResourcesPageResource">
+            <summary>
+            The resources page resource.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.editTypeField">
+            <summary>
+            The edit type field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.tagField">
+            <summary>
+            The tag field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.valueField">
+            <summary>
+            The value field.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.Value">
+            <summary>
+            The value.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.editType">
+            <summary>
+            The edit type.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.tag">
+            <summary>
+            The tag.
+            </summary>
+            <remarks>
+            </remarks>
         </member>
     </members>
 </doc>
