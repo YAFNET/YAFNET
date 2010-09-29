@@ -26,6 +26,7 @@ namespace YAF.Classes.Core
   using System.Web.Security;
   using System.Web.UI;
   using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
@@ -133,12 +134,17 @@ namespace YAF.Classes.Core
     /// <summary>
     ///   Gets or sets ForumFooter.
     /// </summary>
-    public IYafFooter ForumFooter { get; set; }
+    public Control ForumFooter { get; set; }
 
     /// <summary>
     ///   Gets or sets ForumHeader.
     /// </summary>
-    public IYafHeader ForumHeader { get; set; }
+    public Control ForumHeader { get; set; }
+
+    /// <summary>
+    ///   Gets or sets ForumTopControl.
+    /// </summary>
+    public PlaceHolder ForumTopControl { get; set; }
 
     /// <summary>
     ///   Gets ForumURL.
@@ -209,50 +215,12 @@ namespace YAF.Classes.Core
     /// <summary>
     ///   Gets or sets RefreshTime.
     /// </summary>
-    public int RefreshTime
-    {
-      get
-      {
-        if (this.ForumHeader != null)
-        {
-          return this.ForumHeader.RefreshTime;
-        }
+    public int RefreshTime { get; set; }
 
-        return 0;
-      }
-
-      set
-      {
-        if (this.ForumHeader != null)
-        {
-          this.ForumHeader.RefreshTime = value;
-        }
-      }
-    }
-
-      /// <summary>
-      ///   Adds a message that is displayed to the user when the page is loaded.
-      /// </summary>
-      public string RefreshURL
-    {
-      get
-      {
-        if (this.ForumHeader != null)
-        {
-          return this.ForumHeader.RefreshURL;
-        }
-
-        return null;
-      }
-
-      set
-      {
-        if (this.ForumHeader != null)
-        {
-          this.ForumHeader.RefreshURL = value;
-        }
-      }
-    }
+    /// <summary>
+    ///   Adds a message that is displayed to the user when the page is loaded.
+    /// </summary>
+    public string RefreshURL { get; set; }
 
     /// <summary>
     ///   Gets or sets a value indicating whether ShowFooter.
@@ -301,7 +269,7 @@ namespace YAF.Classes.Core
           }
           else
           {
-            this._topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumHeader.ThisControl;
+            this._topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
           }
         }
 
@@ -509,11 +477,10 @@ namespace YAF.Classes.Core
       addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToResource("css/forum.css")));
       addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafContext.Current.Theme.BuildThemePath("theme.css")));
 
-      if (this.ForumHeader.RefreshURL != null && this.ForumHeader.RefreshTime >= 0)
+      if (this.RefreshURL != null && this.RefreshTime >= 0)
       {
-        var refresh = new HtmlMeta();
-        refresh.HttpEquiv = "Refresh";
-        refresh.Content = "{1};url={0}".FormatWith(this.ForumHeader.RefreshURL, this.ForumHeader.RefreshTime);
+        var refresh = new HtmlMeta
+          { HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) };
 
         addTo.Controls.Add(refresh);
       }
@@ -541,6 +508,14 @@ namespace YAF.Classes.Core
     protected void SetupHeaderElements()
     {
       this.InsertCssRefresh(this.TopPageControl);
+      string themeHeader = this.PageContext.Theme.GetItem("THEME", "HEADER", string.Empty);
+
+      if (themeHeader.IsSet())
+      {
+        var themeLiterial = new Literal();
+        themeLiterial.Text = themeHeader.Replace("~", this.PageContext.Theme.ThemeDir);
+        TopPageControl.Controls.Add(themeLiterial);
+      }
     }
 
     /// <summary>
@@ -622,8 +597,8 @@ namespace YAF.Classes.Core
       this.SetupHeaderElements();
 
       // setup the forum control header & footer properties
-      this.ForumHeader.SimpleRender = !this.ShowToolBar;
-      this.ForumFooter.SimpleRender = !this.ShowFooter;
+      this.ForumHeader.Visible = this.ShowToolBar;
+      this.ForumFooter.Visible = this.ShowFooter;
     }
 
     /// <summary>
