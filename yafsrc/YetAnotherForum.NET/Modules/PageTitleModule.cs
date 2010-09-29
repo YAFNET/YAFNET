@@ -144,9 +144,9 @@ namespace YAF.Modules
         // setup the title...
         string addition = string.Empty;
 
-        if (head.Title.Trim().Length > 0)
+        if (head.Title.IsSet())
         {
-          addition = " - " + head.Title;
+          addition = " - " + head.Title.Trim();
         }
 
         head.Title = this._forumPageTitle + addition;
