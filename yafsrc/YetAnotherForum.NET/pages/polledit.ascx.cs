@@ -367,23 +367,23 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        this.AddPageLinks();
-      }
+          this.AddPageLinks();
 
-      // Admin can attach anexisting group if it's a new poll - this.pollID <= 0
-      if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
-      {
-        var pollGroup =
-          DB.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
-            new AreEqualFunc<TypedPollGroup>((id1, id2) => id1.PollGroupID == id2.PollGroupID)).ToList();
+          // Admin can attach an existing group if it's a new poll - this.pollID <= 0
+          if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
+          {
+              var pollGroup =
+                  DB.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+                      new AreEqualFunc<TypedPollGroup>((id1, id2) => id1.PollGroupID == id2.PollGroupID)).ToList();
 
-        pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
+              pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
 
-        this.PollGroupListDropDown.Items.AddRange(
-          pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+              this.PollGroupListDropDown.Items.AddRange(
+                  pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
-        this.PollGroupListDropDown.DataBind();
-        this.PollGroupList.Visible = true;
+              this.PollGroupListDropDown.DataBind();
+              this.PollGroupList.Visible = true;
+          }
       }
     }
 
@@ -1013,10 +1013,9 @@ namespace YAF.Pages
             }
 
             int? pollGroupId = null;
-            DataRow dti = DB.topic_info(this.topicId);
-            if (!dti["PollID"].IsNullOrEmptyDBField())
+            if (!_topicInfo["PollID"].IsNullOrEmptyDBField())
             {
-                pollGroupId = Convert.ToInt32(dti["PollID"]);
+                pollGroupId = Convert.ToInt32(_topicInfo["PollID"]);
             }
 
             if (pollGroupId == null && PageContext.BoardSettings.AllowedPollNumber > 0 && PageContext.ForumPollAccess)
