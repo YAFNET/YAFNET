@@ -29,7 +29,7 @@ namespace YAF.Controls
   /// <summary>
   /// Summary description for Footer.
   /// </summary>
-  public class Footer : BaseControl, IYafFooter
+  public class Footer : BaseControl
   {
     /// <summary>
     /// The _simple render.
@@ -75,9 +75,9 @@ namespace YAF.Controls
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      if (!SimpleRender)
+      if (!this.SimpleRender)
       {
-        RenderRegular(ref writer);
+        this.RenderRegular(ref writer);
       }
 
       base.Render(writer);

@@ -82,7 +82,7 @@ namespace YAF.Controls
     {
       string displayName = PageContext.UserDisplayName.GetName(this.UserID);
 
-      if (this.UserID != -1 && !displayName.IsNotSet())
+      if (this.UserID != -1 && displayName.IsSet())
       {
         // is this the guest user? If so, guest's don't have a profile.
         bool isGuest = UserMembershipHelper.IsGuestUser(this.UserID);
@@ -110,23 +110,9 @@ namespace YAF.Controls
         RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
-        if (this.ReplaceName.IsNotSet())
-          {
-              output.WriteEncodedText(displayName);
-          }
-        else
-          {
-              output.WriteEncodedText(this.ReplaceName);
-          }
+        output.WriteEncodedText(this.ReplaceName.IsNotSet() ? displayName : this.ReplaceName);
 
-          if (!isGuest)
-        {
-          output.WriteEndTag("a");
-        }
-        else
-        {
-          output.WriteEndTag("span");
-        }
+        output.WriteEndTag(!isGuest ? "a" : "span");
 
         if (this.PostfixText.IsSet())
         {

@@ -168,6 +168,7 @@ namespace YAF.Controls
         this.ViewState["UserID"] = value;
       }
     }
+
     /// <summary>
     /// The replace name of this user for the link
     /// </summary>
@@ -212,17 +213,10 @@ namespace YAF.Controls
         this.RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
-        if (this.ReplaceName.IsNotSet())
-        {
-            output.WriteEncodedText(displayName);
-        }
-        else
-        {
-            output.WriteEncodedText(this.ReplaceName);
-        }
 
+        output.WriteEncodedText(this.ReplaceName.IsNotSet() ? displayName : this.ReplaceName);
 
-          output.WriteEndTag("span");
+        output.WriteEndTag("span");
 
         if (this.PostfixText.IsSet())
         {

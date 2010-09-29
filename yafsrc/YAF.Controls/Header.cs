@@ -36,103 +36,8 @@ namespace YAF.Controls
   /// <summary>
   /// Summary description for Header.
   /// </summary>
-  public class Header : BaseControl, IYafHeader
+  public class Header : BaseControl
   {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _refresh time.
-    /// </summary>
-    private int _refreshTime = 10;
-
-    /// <summary>
-    /// The _refresh url.
-    /// </summary>
-    private string _refreshURL = null;
-
-    /// <summary>
-    /// The _simple render.
-    /// </summary>
-    private bool _simpleRender = false;
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets RefreshTime.
-    /// </summary>
-    public int RefreshTime
-    {
-      get
-      {
-        return this._refreshTime;
-      }
-
-      set
-      {
-        this._refreshTime = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets RefreshURL.
-    /// </summary>
-    public string RefreshURL
-    {
-      get
-      {
-        return this._refreshURL;
-      }
-
-      set
-      {
-        this._refreshURL = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether SimpleRender.
-    /// </summary>
-    public bool SimpleRender
-    {
-      get
-      {
-        return this._simpleRender;
-      }
-
-      set
-      {
-        this._simpleRender = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets ThisControl.
-    /// </summary>
-    public Control ThisControl
-    {
-      get
-      {
-        return this;
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The reset.
-    /// </summary>
-    public void Reset()
-    {
-      this.RefreshURL = null;
-      this.RefreshTime = 10;
-    }
-
-    #endregion
-
     #region Methods
 
     /// <summary>
@@ -172,10 +77,7 @@ namespace YAF.Controls
     protected override void Render(HtmlTextWriter writer)
     {
       base.Render(writer);
-      if (!this._simpleRender)
-      {
-        this.RenderRegular(ref writer);
-      }
+      this.RenderRegular(ref writer);
     }
 
     /// <summary>
@@ -188,14 +90,6 @@ namespace YAF.Controls
     {
       // BEGIN HEADER
       var buildHeader = new StringBuilder();
-
-      // get the theme header -- usually used for javascript
-      string themeHeader = this.PageContext.Theme.GetItem("THEME", "HEADER", string.Empty);
-
-      if (themeHeader.IsSet())
-      {
-        buildHeader.Append(themeHeader.Replace("~", this.PageContext.Theme.ThemeDir));
-      }
 
       buildHeader.AppendFormat(
         @"<table width=""100%"" cellspacing=""0"" class=""content"" cellpadding=""0"" id=""yafheader""><tr>");
@@ -256,18 +150,6 @@ namespace YAF.Controls
         {
           buildHeader.AppendFormat(
             "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.search), this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")));
-        }
-
-        if (this.PageContext.IsAdmin)
-        {
-          buildHeader.AppendFormat(
-            "	<a target='_top' href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.admin_admin), this.PageContext.Localization.GetText("TOOLBAR", "ADMIN")));
-        }
-
-        if (this.PageContext.IsModerator || this.PageContext.IsForumModerator)
-        {
-          buildHeader.AppendFormat(
-            "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.moderate_index), this.PageContext.Localization.GetText("TOOLBAR", "MODERATE")));
         }
 
         if (!this.PageContext.IsGuest)
