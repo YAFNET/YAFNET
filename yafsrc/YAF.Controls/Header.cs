@@ -250,10 +250,7 @@ namespace YAF.Controls
             buildHeader.AppendFormat("	<a target='_top' href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID), this.PageContext.Localization.GetText("TOOLBAR", "MYALBUMS")));          
         }
 
-        /* TODO: help is currently useless...
-				if ( IsAdmin )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );
-				*/
+        buildHeader.AppendFormat(String.Format("	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.help_index), this.PageContext.Localization.GetText("TOOLBAR", "HELP")));
 
         if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
         {
@@ -336,6 +333,7 @@ namespace YAF.Controls
           }
         }
       }
+
       buildHeader.ToString().TrimEnd(' ', '|');
       buildHeader.AppendFormat("</td></tr></table>");
       buildHeader.AppendFormat("<br />");

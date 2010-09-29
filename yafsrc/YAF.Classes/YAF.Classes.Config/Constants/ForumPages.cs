@@ -301,11 +301,6 @@ namespace YAF.Classes
     help_index, 
 
     /// <summary>
-    /// The help_recover.
-    /// </summary>
-    help_recover, 
-
-    /// <summary>
     /// The lastposts.
     /// </summary>
     lastposts, 

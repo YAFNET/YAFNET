@@ -19,14 +19,11 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -145,81 +142,8 @@ namespace YAF.Pages.Admin
                 lblInfo.Visible = false;
             }
 
-            grdLocals.DataSource = ListToDataTable(translations.FindAll(check => (check.sPageName.Equals("DEFAULT"))));
+            grdLocals.DataSource = ListTableHelper.ListToDataTable(translations.FindAll(check => (check.sPageName.Equals("DEFAULT"))));
             grdLocals.DataBind();
-        }
-
-        ///<summary>
-        /// Converts an Generics List to a DataTable
-        ///</summary>
-        ///<param name="list">List to Convert</param>
-        ///<returns>The New Created DataTable</returns>
-        public static DataTable ListToDataTable(IList list)
-        {
-
-            DataTable dt = null;
-            Type listType = list.GetType();
-
-            if (listType.IsGenericType)
-            {
-                Type elementType = listType.GetGenericArguments()[0];
-
-                dt = new DataTable(elementType.Name + "List");
-
-                MemberInfo[] miArray = elementType.GetMembers(
-                    BindingFlags.Public | BindingFlags.Instance);
-
-                foreach (MemberInfo mi in miArray)
-                {
-                    switch (mi.MemberType)
-                    {
-                        case MemberTypes.Property:
-                            {
-                                PropertyInfo pi = mi as PropertyInfo;
-                                dt.Columns.Add(pi.Name, pi.PropertyType);
-                            }
-                            break;
-                        case MemberTypes.Field:
-                            {
-                                FieldInfo fi = mi as FieldInfo;
-                                dt.Columns.Add(fi.Name, fi.FieldType);
-                            }
-                            break;
-                    }
-                }
-
-                IList il = list;
-
-                foreach (object record in il)
-                {
-                    int i = 0;
-                    object[] fieldValues = new object[dt.Columns.Count];
-
-                    foreach (MemberInfo mi in
-                        from DataColumn c in dt.Columns select elementType.GetMember(c.ColumnName)[0])
-                    {
-                        switch (mi.MemberType)
-                        {
-                            case MemberTypes.Property:
-                                {
-                                    PropertyInfo pi = mi as PropertyInfo;
-                                    fieldValues[i] = pi.GetValue(record, null);
-                                }
-                                break;
-                            case MemberTypes.Field:
-                                {
-                                    FieldInfo fi = mi as FieldInfo;
-                                    fieldValues[i] = fi.GetValue(record);
-                                }
-                                break;
-                        }
-                        i++;
-                    }
-                    dt.Rows.Add(fieldValues);
-                }
-            }
-            return dt;
-
         }
         /// <summary>
         /// Wraps creation of translation controls.
@@ -359,7 +283,7 @@ namespace YAF.Pages.Admin
         {
             lblPageName.Text = dDLPages.SelectedValue;
 
-            grdLocals.DataSource = ListToDataTable(translations.FindAll(check => (check.sPageName.Equals(dDLPages.SelectedValue))));
+            grdLocals.DataSource = ListTableHelper.ListToDataTable(translations.FindAll(check => (check.sPageName.Equals(dDLPages.SelectedValue))));
             grdLocals.DataBind();
         }
 

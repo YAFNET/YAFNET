@@ -1,25 +1,50 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.help.index" Codebehind="index.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.help.index" Codebehind="help.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:HelpMenu runat="server">
-	<table class="content" width="100%" cellspacing="0" cellpadding="0">
-		<tr>
-			<td class="post" valign="top">
-				<table width="100%" cellspacing="0" cellpadding="0">
-					<tr>
-						<td nowrap class="header2">
-							<b>Search Help Topics</b>
-						</td>
-					</tr>
-					<tr>
-						<td nowrap class="post">
-							Enter keywords to search for:
-							<asp:TextBox runat="server" ID="search" />
-							<asp:Button runat="server" ID="DoSearch" Text="Search" />
-						</td>
-					</tr>
-				</table>
+	<table class="content" width="100%" cellspacing="1" cellpadding="0">
+        <tr>
+			<td class="header1">
+                <YAF:LocalizedLabel ID="Title" runat="server" LocalizedTag="title" />
 			</td>
 		</tr>
+        <asp:Repeater runat="server" ID="HelpList">
+			<ItemTemplate>
+				<tr>
+					<td class="header2">
+						<%# Eval("HelpTitle") %>
+					</td>
+                </tr>
+                <tr>
+					<td class="post">
+						<%# Eval("HelpContent") %>
+					</td>
+				</tr>
+			</ItemTemplate>
+        </asp:Repeater>
+        <asp:PlaceHolder ID="SearchHolder" runat="server">
+        <tr>
+            <td class="header2">
+				 <asp:Label id="SubTitle" runat="server" />
+			</td>
+        </tr>
+		<tr>
+			<td class="post">
+               <asp:Label ID="HelpContent" runat="server" />
+			</td>
+		</tr>
+        <tr>
+            <td class="header2">
+				Search Help Topics
+			</td>
+        </tr>
+		<tr>
+			<td class="post">
+			    Enter keywords to search for:
+				<asp:TextBox runat="server" ID="search" />
+				<asp:Button runat="server" ID="DoSearch" Text="Search" />
+			</td>
+		</tr>
+        </asp:PlaceHolder>
 	</table>
 </YAF:HelpMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

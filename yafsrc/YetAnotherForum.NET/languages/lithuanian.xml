@@ -560,7 +560,7 @@
     <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>   
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">Parašas: </Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
@@ -673,6 +673,27 @@
     <Resource tag="SUBJECT">Tema: </Resource>
     <Resource tag="TITLE">Siųsti puslapį draugui </Resource>
     <Resource tag="TO">Siųsti (elektroninio pašto adresas): </Resource>
+  </page>
+  <page name="HELP_INDEX">
+    <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
+&lt;p&gt;Announcement threads are displayed at the top of forum listing pages, above regular and sticky threads.&lt;/p&gt;
+        </Resource>
+    <Resource tag="ANOUNCETITLE">Announcements</Resource>
+    <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
+    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "Lost Password" 
+  link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
+&lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
+  be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
+&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password. 
+  This option provides you with the ability to reset your password.  &lt;/p&gt;
+&lt;p&gt;You must be able to receive emails to your registered email address for this to 
+  work. You may need to check your spam filters and folder if you do not see this 
+  email in a few minutes. &lt;/p&gt;</Resource>
+    <Resource tag="RECOVERTITLE">Recover lost password</Resource>
+    <Resource tag="SEARCHHELP">Search Help</Resource>
+    <Resource tag="SUBTITLE">Forum Help</Resource>
+    <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
+    <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
   </page>
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">Reklama </Resource>
@@ -984,7 +1005,7 @@
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="EDIT">Redaguoti pranešimą </Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
-    <Resource tag="FROM">Nuo: </Resource>  
+    <Resource tag="FROM">Nuo: </Resource>
     <Resource tag="ISQUESTION">Is this topic in question and answer format?</Resource>
     <Resource tag="LAST10">Paskutiniai 10 komentarų (atvirkštine tvarka) </Resource>
     <Resource tag="MESSAGE">Žinutė: </Resource>

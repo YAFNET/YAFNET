@@ -22,6 +22,51 @@ namespace YAF.Pages.help {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
+        /// Title control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel Title;
+        
+        /// <summary>
+        /// HelpList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater HelpList;
+        
+        /// <summary>
+        /// SearchHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SearchHolder;
+        
+        /// <summary>
+        /// SubTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SubTitle;
+        
+        /// <summary>
+        /// HelpContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label HelpContent;
+        
+        /// <summary>
         /// search control.
         /// </summary>
         /// <remarks>

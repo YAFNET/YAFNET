@@ -1,5 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
+    <page name="HELP_INDEX">
+		<Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
+		<Resource tag="SUBTITLE">Forum Help</Resource>
+		<Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
+		<Resource tag="RECOVERTITLE">Recover lost password</Resource>
+		<Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the &quot;Lost Password&quot; 
+  link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
+&lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
+  be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
+&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password. 
+  This option provides you with the ability to reset your password.  &lt;/p&gt;
+&lt;p&gt;You must be able to receive emails to your registered email address for this to 
+  work. You may need to check your spam filters and folder if you do not see this 
+  email in a few minutes. &lt;/p&gt;</Resource>
+		<Resource tag="ANOUNCETITLE">Announcements</Resource>  
+		<Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can&#39;t reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
+&lt;p&gt;Announcement threads are displayed at the top of forum listing pages, above regular and sticky threads.&lt;/p&gt;
+        </Resource>
+		<Resource tag="GENERALTOPICS">General Forum Usage</Resource>
+		<Resource tag="SEARCHHELP">Search Help</Resource>
+	</page>
 	<page name="DIGEST">
 		<Resource tag="NEWTOPICS">New Topics</Resource>
 		<Resource tag="ACTIVETOPICS">Topics Active Today</Resource>

@@ -506,9 +506,6 @@
     <Compile Include="pages\help\index.ascx.designer.cs">
       <DependentUpon>index.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\help\recover.ascx.designer.cs">
-      <DependentUpon>recover.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\im_aim.ascx.designer.cs">
       <DependentUpon>im_aim.ascx</DependentUpon>
     </Compile>
@@ -866,7 +863,6 @@
     <Content Include="pages\error.ascx" />
     <Content Include="pages\forum.ascx" />
     <Content Include="pages\help\index.ascx" />
-    <Content Include="pages\help\recover.ascx" />
     <Content Include="pages\im_aim.ascx" />
     <Content Include="pages\im_email.ascx" />
     <Content Include="pages\im_icq.ascx" />
@@ -1393,10 +1389,6 @@
     </Compile>
     <Compile Include="pages\help\index.ascx.cs">
       <DependentUpon>index.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\help\recover.ascx.cs">
-      <DependentUpon>recover.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_aim.ascx.cs">
