@@ -221,8 +221,8 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public IEnumerable<ResourcesPageResource> GetNodesUsingQuery(
-      string page, Func<ResourcesPageResource, bool> predicate)
+    public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(
+      string page, Func<LanuageResourcesPageResource, bool> predicate)
     {
       this.LoadTranslation();
 

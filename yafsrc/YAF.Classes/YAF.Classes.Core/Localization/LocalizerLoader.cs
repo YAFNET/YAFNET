@@ -51,9 +51,9 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public Resources LoadSiteFile(string languageFileName, string cacheName)
+    public LanguageResources LoadSiteFile(string languageFileName, string cacheName)
     {
-      var file = HttpRuntime.Cache.Get(cacheName) as Resources;
+      var file = HttpRuntime.Cache.Get(cacheName) as LanguageResources;
 
       if (file != null)
       {
@@ -64,12 +64,12 @@ namespace YAF.Classes.Core
       {
         lock (this)
         {
-          var serializer = new XmlSerializer(typeof(Resources));
+          var serializer = new XmlSerializer(typeof(LanguageResources));
           var sourceEncoding = this.GetEncodingForXmlFile(languageFileName);
 
           using (var sourceReader = new StreamReader(languageFileName, sourceEncoding))
           {
-            var resources = (Resources)serializer.Deserialize(sourceReader);
+            var resources = (LanguageResources)serializer.Deserialize(sourceReader);
 
             if (cacheName.IsSet())
             {

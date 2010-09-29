@@ -57,7 +57,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The _localization resources.
     /// </summary>
-    private Resources _localizationResources;
+    private LanguageResources _localizationLanguageResources;
 
     #endregion
 
@@ -112,12 +112,12 @@ namespace YAF.Classes.Core
     /// </returns>
     /// <exception cref="Exception">
     /// </exception>
-    public IEnumerable<ResourcesPageResource> GetNodesUsingQuery(Func<ResourcesPageResource, bool> predicate)
+    public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
     {
       var pagePointer =
-        this._localizationResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
+        this._localizationLanguageResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
 
-      return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationResources.page.SelectMany(p => p.Resource).Where(predicate);
+      return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
     }
 
     /// <summary>
@@ -139,9 +139,9 @@ namespace YAF.Classes.Core
       tag = tag.ToUpper(this._currentCulture);
 
       var pagePointer =
-        this._localizationResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
+        this._localizationLanguageResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
 
-      ResourcesPageResource pageResource = null;
+      LanuageResourcesPageResource pageResource = null;
 
       if (pagePointer != null)
       {
@@ -153,7 +153,7 @@ namespace YAF.Classes.Core
       {
         // attempt to find the tag anywhere...
         pageResource =
-          this._localizationResources.page.SelectMany(p => p.Resource).Where(r => r.tag.ToUpper().Equals(tag)).
+          this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(r => r.tag.ToUpper().Equals(tag)).
             FirstOrDefault();
       }
 
@@ -260,11 +260,11 @@ namespace YAF.Classes.Core
         throw new ApplicationException("Invalid language file " + this._fileName);
       }
 
-      this._localizationResources = new LocalizerLoader().LoadSiteFile(
+      this._localizationLanguageResources = new LocalizerLoader().LoadSiteFile(
         this._fileName, "LOCALIZATIONFILE{0}".FormatWith(this._fileName));
 
       this._currentCulture =
-        new CultureInfo(this._localizationResources.code.IsSet() ? this._localizationResources.code : "en-US");
+        new CultureInfo(this._localizationLanguageResources.code.IsSet() ? this._localizationLanguageResources.code : "en-US");
     }
 
     #endregion
