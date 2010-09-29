@@ -121,7 +121,7 @@
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Localization\LocalizerLoader.cs" />
-    <Compile Include="Localization\Resources.cs" />
+    <Compile Include="Localization\LanguageResources.cs" />
     <Compile Include="Nntp\Article.cs" />
     <Compile Include="Nntp\ArticleBody.cs" />
     <Compile Include="Nntp\ArticleHeader.cs" />

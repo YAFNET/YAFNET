@@ -98,7 +98,6 @@
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ViewStateExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Helpers\ListTableHelper.cs" />
     <Compile Include="IYafUserProfile.cs" />
     <Compile Include="SimpleURLParameterParser.cs" />
     <Compile Include="Structures\DoubleLinkedList.cs" />

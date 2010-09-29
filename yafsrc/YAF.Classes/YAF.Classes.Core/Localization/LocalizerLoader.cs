@@ -51,7 +51,7 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public LanguageResources LoadSiteFile(string languageFileName, string cacheName)
+    public LanguageResources LoadLanguageFile(string languageFileName, string cacheName)
     {
       var file = HttpRuntime.Cache.Get(cacheName) as LanguageResources;
 

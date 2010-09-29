@@ -260,7 +260,7 @@ namespace YAF.Classes.Core
         throw new ApplicationException("Invalid language file " + this._fileName);
       }
 
-      this._localizationLanguageResources = new LocalizerLoader().LoadSiteFile(
+      this._localizationLanguageResources = new LocalizerLoader().LoadLanguageFile(
         this._fileName, "LOCALIZATIONFILE{0}".FormatWith(this._fileName));
 
       this._currentCulture =

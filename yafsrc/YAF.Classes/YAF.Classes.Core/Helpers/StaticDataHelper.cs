@@ -351,7 +351,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The yaf language node comparer.
   /// </summary>
-  public class YafLanguageNodeComparer : IComparer<ResourcesPageResource>
+  public class YafLanguageNodeComparer : IComparer<LanuageResourcesPageResource>
   {
     #region IComparer<XmlNode>
 
@@ -367,7 +367,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The compare.
     /// </returns>
-    public int Compare(ResourcesPageResource x, ResourcesPageResource y)
+    public int Compare(LanuageResourcesPageResource x, LanuageResourcesPageResource y)
     {
       return x.GetHoursOffset().CompareTo(y.GetHoursOffset());
     }

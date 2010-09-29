@@ -37,25 +37,25 @@ namespace YAF.Classes.Utils
     /// <summary>
     /// The get hours offset.
     /// </summary>
-    /// <param name="resource">
+    /// <param name="lanuageResource">
     /// The resource.
     /// </param>
     /// <returns>
     /// The get hours offset.
     /// </returns>
-    public static decimal GetHoursOffset(this ResourcesPageResource resource)
+    public static decimal GetHoursOffset(this LanuageResourcesPageResource lanuageResource)
     {
       // calculate hours -- can use prefix of either UTC or GMT...
       decimal hours = 0;
 
       try
       {
-        hours = Convert.ToDecimal(resource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
+        hours = Convert.ToDecimal(lanuageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
       }
       catch (FormatException)
       {
         hours =
-          Convert.ToDecimal(resource.tag.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
+          Convert.ToDecimal(lanuageResource.tag.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
       }
 
       return hours;
