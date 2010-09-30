@@ -104,6 +104,7 @@
     <Compile Include="Object\SimpleForum.cs" />
     <Compile Include="Object\SimpleTopic.cs" />
     <Compile Include="Object\TypedAllThanks.cs" />
+    <Compile Include="Object\TypedForumListAll.cs" />
     <Compile Include="Object\TypedMailList.cs" />
     <Compile Include="Object\TypedMessageList.cs" />
     <Compile Include="Object\TypedPollGroup.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="IYafDBAccess.cs" />
     <Compile Include="IYafDBConnManager.cs" />
     <Compile Include="Object\SimpleModerator.cs" />
+    <Compile Include="SearchBuilder.cs" />
     <Compile Include="SqlDataLayerConverter.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />

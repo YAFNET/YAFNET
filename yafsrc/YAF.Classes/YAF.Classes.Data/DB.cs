@@ -1034,257 +1034,19 @@ namespace YAF.Classes.Data
       bool useFullText,
      bool searchDisplayName)
     {
-      bool bFirst = true;
-
-      string forumIds = string.Empty;
-
       if (toSearchWhat == "*")
       {
         toSearchWhat = string.Empty;
       }
 
+      IEnumerable<int> forumIds = new List<int>();
+
       if (forumIDToStartAt != 0)
       {
-        DataTable dt = forum_listall_sorted(boardId, userID, null, false, forumIDToStartAt);
-
-        var ids =
-          dt.AsEnumerable().Where(c => !c["ForumID"].IsNullOrEmptyDBField()).Select(x => x.Field<int>("ForumID"));
-
-        forumIds = ids.ToDelimitedString(",");
+        forumIds = ForumListAll(boardId, userID, forumIDToStartAt).Select(f => f.ForumID ?? 0).Distinct();
       }
 
-      // fix quotes for SQL insertion...
-      toSearchWhat = toSearchWhat.Replace("'", "''").Trim();
-      toSearchFromWho = toSearchFromWho.Replace("'", "''").Trim();
-
-      string searchSql = (maxResults == 0) ? "SELECT" : ("SELECT TOP " + maxResults);
-
-      searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, [Message] = '', c.Flags ";
-      searchSql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
-      searchSql += "where x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0 ".FormatWith(userID);
-
-      string[] words;
-
-      if (toSearchFromWho.IsSet())
-      {
-        searchSql += "AND (";
-        bFirst = true;
-
-        int userId;
-
-        // generate user search sql...
-        switch (searchFromWhoMethod)
-        {
-          case SearchWhatFlags.AllWords:
-            words = toSearchFromWho.Replace("\"", string.Empty).Split(' ');
-            foreach (string word in words)
-            {
-              if (!bFirst)
-              {
-                searchSql += " AND ";
-              }
-              else
-              {
-                bFirst = false;
-              }
-
-              if (int.TryParse(word, out userId))
-              {
-                searchSql +=
-                  string.Format(" (c.UserID IN ({0}))", userId);
-              }
-              else
-              {
-                if (searchDisplayName)
-                {
-                  searchSql +=
-                   string.Format(" ((c.Username IS NULL AND b.DisplayName LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
-                }
-                else
-                {
-                  searchSql +=
-                   string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
-                }
-              }
-            }
-
-            break;
-          case SearchWhatFlags.AnyWords:
-            words = toSearchFromWho.Split(' ');
-            foreach (string word in words)
-            {
-              if (!bFirst)
-              {
-                searchSql += " OR ";
-              }
-              else
-              {
-                bFirst = false;
-              }
-
-              if (int.TryParse(word, out userId))
-              {
-                searchSql +=
-                  string.Format(" (c.UserID IN ({0}))", userId);
-              }
-              else
-              {
-                if (searchDisplayName)
-                {
-                  searchSql +=
-                   string.Format(" ((c.Username IS NULL AND b.DisplayName LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
-                }
-                else
-                {
-                  searchSql +=
-                   string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
-                }
-              }
-            }
-
-            break;
-          case SearchWhatFlags.ExactMatch:
-            if (int.TryParse(toSearchFromWho, out userId))
-            {
-              searchSql +=
-                string.Format(" (c.UserID IN ({0}))", userId);
-            }
-            else
-            {
-              if (searchDisplayName)
-              {
-                searchSql += string.Format(
-                  " ((c.Username IS NULL AND b.DisplayName = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
-              }
-              else
-              {
-                searchSql += string.Format(
-                  " ((c.Username IS NULL AND b.Name = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
-              }
-            }
-            break;
-        }
-
-        searchSql += ") ";
-      }
-
-
-      if (toSearchWhat.IsSet())
-      {
-        searchSql += "AND (";
-        bFirst = true;
-
-        // generate message and topic search sql...
-        switch (searchWhatMethod)
-        {
-          case SearchWhatFlags.AllWords:
-            words = toSearchWhat.Replace("\"", string.Empty).Split(' ');
-            if (useFullText)
-            {
-              string ftInner = string.Empty;
-
-              // make the inner FULLTEXT search
-              foreach (string word in words)
-              {
-                if (!bFirst)
-                {
-                  ftInner += " AND ";
-                }
-                else
-                {
-                  bFirst = false;
-                }
-
-                ftInner += String.Format(@"""{0}""", word);
-              }
-
-              // make final string...
-              searchSql += string.Format("( CONTAINS (c.Message, N' {0} ') OR CONTAINS (a.Topic, N' {0} ') )", ftInner);
-            }
-            else
-            {
-              foreach (string word in words)
-              {
-                if (!bFirst)
-                {
-                  searchSql += " AND ";
-                }
-                else
-                {
-                  bFirst = false;
-                }
-
-                searchSql += String.Format("(c.Message like N'%{0}%' OR a.Topic LIKE N'%{0}%')", word);
-              }
-            }
-
-            break;
-          case SearchWhatFlags.AnyWords:
-            words = toSearchWhat.Split(' ');
-
-            if (useFullText)
-            {
-              string ftInner = string.Empty;
-
-              // make the inner FULLTEXT search
-              foreach (string word in words)
-              {
-                if (!bFirst)
-                {
-                  ftInner += " OR ";
-                }
-                else
-                {
-                  bFirst = false;
-                }
-
-                ftInner += String.Format(@"""{0}""", word);
-              }
-
-              // make final string...
-              searchSql += string.Format("( CONTAINS (c.Message, N' {0} ') OR CONTAINS (a.Topic, N' {0} ') )", ftInner);
-            }
-            else
-            {
-              foreach (string word in words)
-              {
-                if (!bFirst)
-                {
-                  searchSql += " OR ";
-                }
-                else
-                {
-                  bFirst = false;
-                }
-
-                searchSql += String.Format("c.Message LIKE N'%{0}%' OR a.Topic LIKE N'%{0}%'", word);
-              }
-            }
-
-            break;
-          case SearchWhatFlags.ExactMatch:
-            if (useFullText)
-            {
-              searchSql += string.Format("( CONTAINS (c.Message, N' \"{0}\" ') OR CONTAINS (a.Topic, N' \"{0}\" ') )", toSearchWhat);
-            }
-            else
-            {
-              searchSql += string.Format("c.Message LIKE N'%{0}%' OR a.Topic LIKE N'%{0}%' ", toSearchWhat);
-            }
-
-            break;
-        }
-
-        searchSql += ") ";
-      }
-
-      // Ederon : 6/16/2007 - forum IDs start above 0, if forum id is 0, there is no forum filtering
-      if (forumIDToStartAt > 0 && forumIds.IsSet())
-      {
-        searchSql += string.Format("AND a.ForumID IN ({0})", forumIds);
-      }
-
-      searchSql += " ORDER BY c.Posted DESC";
+      string searchSql = new SearchBuilder().BuildSearchSql(toSearchWhat, toSearchFromWho, searchFromWhoMethod, searchWhatMethod, userID, searchDisplayName, boardId, maxResults, useFullText, forumIds);
 
       using (SqlCommand cmd = YafDBAccess.GetCommand(searchSql, true))
       {
@@ -2715,6 +2477,41 @@ namespace YAF.Classes.Data
     public static DataTable forum_listall(object boardID, object userID)
     {
       return forum_listall(boardID, userID, 0);
+    }
+
+    public static IEnumerable<TypedForumListAll> ForumListAll(int boardId, int userId)
+    {
+      return forum_listall(boardId, userId, 0).AsEnumerable().Select(r => new TypedForumListAll(r));
+    }
+
+    public static IEnumerable<TypedForumListAll> ForumListAll(int boardId, int userId, int startForumId)
+    {
+      var allForums = ForumListAll(boardId, userId);
+
+      var forumIds = new List<int>();
+      var tempForumIds = new List<int>();
+
+      forumIds.Add(startForumId);
+      tempForumIds.Add(startForumId);
+
+      while (true)
+      {
+        var temp = allForums.Where(f => tempForumIds.Contains(f.ParentID ?? 0));
+
+        if (!temp.Any())
+        {
+          break;
+        }
+
+        // replace temp forum ids with these...
+        tempForumIds = temp.Select(f => f.ForumID ?? 0).Distinct().ToList();
+
+        // add them...
+        forumIds.AddRange(tempForumIds);
+      }
+
+      // return filtered forums...
+      return allForums.Where(f => forumIds.Contains(f.ForumID ?? 0)).Distinct();
     }
 
     /// <summary>
