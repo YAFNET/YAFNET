@@ -34,13 +34,13 @@
 		</tr>
         <tr>
             <td class="header2">
-				Search Help Topics
+				<YAF:LocalizedLabel ID="SearchHelpTitle" runat="server" LocalizedTag="searchhelptitle" />
 			</td>
         </tr>
 		<tr>
 			<td class="post">
-			    Enter keywords to search for:
-				<asp:TextBox runat="server" ID="search" />
+			    <YAF:LocalizedLabel ID="SearchFor" runat="server" LocalizedTag="searchfor" />&nbsp;
+				<asp:TextBox runat="server" ID="search" />&nbsp;
 				<asp:Button runat="server" ID="DoSearch" Text="Search" />
 			</td>
 		</tr>

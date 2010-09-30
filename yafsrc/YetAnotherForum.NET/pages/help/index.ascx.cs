@@ -18,252 +18,260 @@
  */
 namespace YAF.Pages.help
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for main.
-  /// </summary>
-  public partial class index : ForumPage
-  {
-    #region Constants and Fields
-
-    ///<summary>
-    ///  List with the Help Content
-    ///</summary>
-    public List<YafHelpContent> helpContents = new List<YafHelpContent>();
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Pattern;
+    using YAF.Classes.Utils;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "index" /> class.
+    /// Summary description for main.
     /// </summary>
-    public index()
-      : base(null)
+    public partial class index : ForumPage
     {
-    }
+        #region Constants and Fields
 
-    #endregion
+        ///<summary>
+        ///  List with the Help Content
+        ///</summary>
+        public List<YafHelpContent> helpContents = new List<YafHelpContent>();
 
-    #region Methods
+        #endregion
 
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      this.DoSearch.Click += this.DoSearch_Click;
-      base.OnInit(e);
-    }
+        #region Constructors and Destructors
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.LoadHelpContent();
-
-      if (!this.IsPostBack)
-      {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("subtitle"), YafBuildLink.GetLink(ForumPages.help_index));
-
-        if (this.Request.QueryString.GetFirstOrDefault("faq").IsSet())
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "index" /> class.
+        /// </summary>
+        public index()
+            : base(null)
         {
-          this.BindData();
         }
-        else
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
         {
-          // Load Index and Search
-          this.SearchHolder.Visible = true;
-
-          this.SubTitle.Text = this.GetText("subtitle");
-          this.HelpContent.Text = this.GetText("welcome");
+            this.DoSearch.Click += this.DoSearch_Click;
+            base.OnInit(e);
         }
-      }
-    }
 
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      string sFaqPage = this.Request.QueryString.GetFirstOrDefault("faq");
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.LoadHelpContent();
 
-      switch (sFaqPage)
-      {
-        case "index":
-          {
-            // Load Index and Search
-            this.SearchHolder.Visible = true;
-            this.HelpList.Visible = false;
+            if (!this.IsPostBack)
+            {
+                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(this.PageContext.Localization.GetText("subtitle"), YafBuildLink.GetLink(ForumPages.help_index));
 
-            this.SubTitle.Text = this.GetText("subtitle");
-            this.HelpContent.Text = this.GetText("welcome");
-          }
+                this.DoSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
 
-          break;
-        case "recover":
-          {
-            // Load Lost Password
+                if (this.Request.QueryString.GetFirstOrDefault("faq").IsSet())
+                {
+                    this.BindData();
+                }
+                else
+                {
+                    // Load Index and Search
+                    this.SearchHolder.Visible = true;
+
+                    this.SubTitle.Text = this.GetText("subtitle");
+                    this.HelpContent.Text = this.GetText("welcome");
+                }
+            }
+        }
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            string FaqPage = this.Request.QueryString.GetFirstOrDefault("faq");
+
+            switch (FaqPage)
+            {
+                case "index":
+                    {
+                        // Load Index and Search
+                        this.SearchHolder.Visible = true;
+                        this.HelpList.Visible = false;
+
+                        this.SubTitle.Text = this.GetText("subtitle");
+                        this.HelpContent.Text = this.GetText("welcome");
+                    }
+
+                    break;
+                case "recover":
+                    {
+                        // Load Lost Password
+                        this.SearchHolder.Visible = false;
+                        this.HelpList.Visible = true;
+
+                        this.HelpList.DataSource = this.helpContents.FindAll(check => check.HelpPage.Equals(FaqPage));
+                    }
+
+                    break;
+                case "anounce":
+                    {
+                        // Load Lost Password
+                        this.SearchHolder.Visible = false;
+                        this.HelpList.Visible = true;
+
+                        this.HelpList.DataSource = this.helpContents.FindAll(check => check.HelpPage.Equals(FaqPage));
+                    }
+
+                    break;
+                default:
+                    {
+                        // Load Index and Search
+                        this.SearchHolder.Visible = true;
+                        this.HelpList.Visible = false;
+
+                        this.SubTitle.Text = this.GetText("subtitle");
+                        this.HelpContent.Text = this.GetText("welcome");
+                    }
+
+                    break;
+            }
+
+            this.HelpList.DataBind();
+
+            this.DataBind();
+        }
+
+        /// <summary>
+        /// The do search_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        /// <exception cref="ApplicationException">
+        /// </exception>
+        private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.search.Text))
+            {
+                return;
+            }
+
+            if (this.search.Text.Length <= 3)
+            {
+                this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("SEARCHLONGER"));
+
+                return;
+            }
+
+            IList<string> highlightWords = new List<string> { this.search.Text };
+
+            List<YafHelpContent> searchlist =
+              this.helpContents.FindAll(
+                check =>
+                check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
+                check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
+
+            foreach (YafHelpContent item in searchlist)
+            {
+                item.HelpContent = YafFormatMessage.SurroundWordList(
+                  item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
+                item.HelpTitle = YafFormatMessage.SurroundWordList(
+                  item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
+            }
+
+            if (searchlist.Count.Equals(0))
+            {
+                this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NORESULTS"));
+
+                return;
+            }
+
+            this.HelpList.DataSource = searchlist;
+            this.HelpList.DataBind();
+
             this.SearchHolder.Visible = false;
             this.HelpList.Visible = true;
+        }
 
-            this.HelpList.DataSource = this.helpContents.FindAll(check => check.HelpPage.Equals(sFaqPage));
-          }
-
-          break;
-        case "anounce":
-          {
-            // Load Lost Password
-            this.SearchHolder.Visible = false;
-            this.HelpList.Visible = true;
-
-            this.HelpList.DataSource = this.helpContents.FindAll(check => check.HelpPage.Equals(sFaqPage));
-          }
-
-          break;
-        default:
-          {
-            // Load Index and Search
-            this.SearchHolder.Visible = true;
-            this.HelpList.Visible = false;
-
-            this.SubTitle.Text = this.GetText("subtitle");
-            this.HelpContent.Text = this.GetText("welcome");
-          }
-
-          break;
-      }
-
-      this.HelpList.DataBind();
-
-      this.DataBind();
-    }
-
-    /// <summary>
-    /// The do search_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <exception cref="ApplicationException">
-    /// </exception>
-    private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (string.IsNullOrEmpty(this.search.Text))
-      {
-        return;
-      }
-
-      if (this.search.Text.Length <= 3)
-      {
-        // TODO : Show Message
-        return;
-      }
-
-      IList<string> highlightWords = new List<string> { this.search.Text };
-
-      List<YafHelpContent> searchlist =
-        this.helpContents.FindAll(
-          check =>
-          check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
-          check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
-
-      foreach (YafHelpContent item in searchlist)
-      {
-        item.HelpContent = YafFormatMessage.SurroundWordList(
-          item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
-        item.HelpTitle = YafFormatMessage.SurroundWordList(
-          item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
-      }
-
-      if (searchlist.Count.Equals(0))
-      {
-        // TODO : Show Message
-        return;
-      }
-
-      this.HelpList.DataSource = searchlist;
-      this.HelpList.DataBind();
-
-      this.SearchHolder.Visible = false;
-      this.HelpList.Visible = true;
-    }
-
-    /// <summary>
-    /// Load the Complete Help Pages From the language File.
-    /// </summary>
-    private void LoadHelpContent()
-    {
-      if (!this.helpContents.Count.Equals(0))
-      {
-        return;
-      }
-
-      var itemRecover = new YafHelpContent
+        /// <summary>
+        /// Load the Complete Help Pages From the language File.
+        /// </summary>
+        private void LoadHelpContent()
         {
-           HelpPage = "recover", HelpTitle = this.GetText("RECOVERTITLE"), HelpContent = this.GetText("RECOVERCONTENT") 
-        };
+            if (!this.helpContents.Count.Equals(0))
+            {
+                return;
+            }
 
-      var itemAnounce = new YafHelpContent
+            var itemRecover = new YafHelpContent
+              {
+                  HelpPage = "recover",
+                  HelpTitle = this.GetText("RECOVERTITLE"),
+                  HelpContent = this.GetText("RECOVERCONTENT")
+              };
+
+            var itemAnounce = new YafHelpContent
+              {
+                  HelpPage = "anounce",
+                  HelpTitle = this.GetText("ANOUNCETITLE"),
+                  HelpContent = this.GetText("ANOUNCECONTENT")
+              };
+
+            this.helpContents.Add(itemRecover);
+
+            this.helpContents.Add(itemAnounce);
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Class that Can store the Help Content
+        /// </summary>
+        public class YafHelpContent
         {
-           HelpPage = "anounce", HelpTitle = this.GetText("ANOUNCETITLE"), HelpContent = this.GetText("ANOUNCECONTENT") 
-        };
+            #region Constants and Fields
 
-      this.helpContents.Add(itemRecover);
+            /// <summary>
+            ///   The Content of the Help page
+            /// </summary>
+            public string HelpContent { get; set; }
 
-      this.helpContents.Add(itemAnounce);
+            /// <summary>
+            ///   The Help page Name
+            /// </summary>
+            public string HelpPage { get; set; }
+
+            /// <summary>
+            ///   The Title of the Help page
+            /// </summary>
+            public string HelpTitle { get; set; }
+
+            #endregion
+        }
     }
-
-    #endregion
-
-    /// <summary>
-    /// Class that Can store the Help Content
-    /// </summary>
-    public class YafHelpContent
-    {
-      #region Constants and Fields
-
-      /// <summary>
-      ///   The Content of the Help page
-      /// </summary>
-      public string HelpContent { get; set; }
-
-      /// <summary>
-      ///   The Help page Name
-      /// </summary>
-      public string HelpPage { get; set; }
-
-      /// <summary>
-      ///   The Title of the Help page
-      /// </summary>
-      public string HelpTitle { get; set; }
-
-      #endregion
-    }
-  }
 }

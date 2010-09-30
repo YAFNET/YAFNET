@@ -680,6 +680,7 @@
         </Resource>
     <Resource tag="ANOUNCETITLE">Announcements</Resource>
     <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
+    <Resource tag="NORESULTS">No Results found.</Resource>
     <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "Lost Password" 
   link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
 &lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
@@ -690,7 +691,10 @@
   work. You may need to check your spam filters and folder if you do not see this 
   email in a few minutes. &lt;/p&gt;</Resource>
     <Resource tag="RECOVERTITLE">Recover lost password</Resource>
+    <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
     <Resource tag="SEARCHHELP">Search Help</Resource>
+    <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
+    <Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
     <Resource tag="SUBTITLE">Forum Help</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
     <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>

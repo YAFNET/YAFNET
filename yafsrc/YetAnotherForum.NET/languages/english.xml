@@ -20,6 +20,10 @@
         </Resource>
 		<Resource tag="GENERALTOPICS">General Forum Usage</Resource>
 		<Resource tag="SEARCHHELP">Search Help</Resource>
+		<Resource tag="NORESULTS">No Results found.</Resource>
+		<Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
+		<Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
+		<Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
 	</page>
 	<page name="DIGEST">
 		<Resource tag="NEWTOPICS">New Topics</Resource>
