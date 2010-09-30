@@ -100,7 +100,7 @@ namespace YAF.Controls
       {
         string displayName = this.PageContext.CurrentUserData.DisplayName;
         buildHeader.AppendFormat(
-          @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0} <span id=""nick_{1}"" style =""{2}"" >{1}</span></strong></td>",         
+          @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0}&nbsp;<span id=""nick_{1}"" style =""{2}"" >{1}</span></strong></td>",         
           this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith(string.Empty),
             HttpContext.Current.Server.HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName),
             this.PageContext.BoardSettings.UseStyledNicks
@@ -115,7 +115,7 @@ namespace YAF.Controls
           {
             string unreadText = this.PageContext.Localization.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate);
             buildHeader.AppendFormat(
-              "	<a target='_top' href=\"{0}\">{1}</a> <span class=\"unread\">{2}</span> | ".FormatWith(YafBuildLink.GetLink(ForumPages.cp_pm), this.PageContext.Localization.GetText("CP_PM", "INBOX"), unreadText));
+              "	<a target='_top' href=\"{0}\">{1}</a>&nbsp;<span class=\"unread\">{2}</span> | ".FormatWith(YafBuildLink.GetLink(ForumPages.cp_pm), this.PageContext.Localization.GetText("CP_PM", "INBOX"), unreadText));
           }
           else
           {
@@ -130,7 +130,7 @@ namespace YAF.Controls
           {
             string pendingBuddiesText = this.PageContext.Localization.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(this.PageContext.PendingBuddies);
             buildHeader.AppendFormat(
-              "	<a target='_top' href=\"{0}\">{1}</a> <span class=\"unread\">{2}</span> | ".FormatWith(YafBuildLink.GetLink(ForumPages.cp_editbuddies), this.PageContext.Localization.GetText("TOOLBAR", "BUDDIES"), pendingBuddiesText));
+              "	<a target='_top' href=\"{0}\">{1}</a>&nbsp;<span class=\"unread\">{2}</span> | ".FormatWith(YafBuildLink.GetLink(ForumPages.cp_editbuddies), this.PageContext.Localization.GetText("TOOLBAR", "BUDDIES"), pendingBuddiesText));
           }
           else
           {             

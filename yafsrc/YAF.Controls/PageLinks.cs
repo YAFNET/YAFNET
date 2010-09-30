@@ -214,7 +214,7 @@ namespace YAF.Controls
       {
         if (!bFirst)
         {
-          writer.WriteLine(@"<span class=""linkSeperator"">&#187;</span>");
+            writer.WriteLine(@"<span class=""linkSeperator"">&nbsp;&#187;&nbsp;</span>");
         }
         else
         {
