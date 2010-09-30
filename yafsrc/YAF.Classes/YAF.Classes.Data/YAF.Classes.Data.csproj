@@ -120,7 +120,10 @@
     <Compile Include="IYafDBAccess.cs" />
     <Compile Include="IYafDBConnManager.cs" />
     <Compile Include="Object\SimpleModerator.cs" />
-    <Compile Include="SearchBuilder.cs" />
+    <Compile Include="Search\SearchBuilder.cs" />
+    <Compile Include="Search\SearchBuilderExtensions.cs" />
+    <Compile Include="Search\SearchCondition.cs" />
+    <Compile Include="Search\SearchConditionType.cs" />
     <Compile Include="SqlDataLayerConverter.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />

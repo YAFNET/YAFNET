@@ -1,69 +1,37 @@
-﻿namespace YAF.Classes.Data
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+namespace YAF.Classes.Data
 {
   #region Using
 
-  using System;
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
-  using System.Text;
 
-  using YAF.Classes.Extensions;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
 
-  public static class SearchBuilderExtensions
-  {
-    public static string BuildSql(this IEnumerable<SearchCondition> conditions, bool surroundWithParathesis)
-    {
-      var sb = new StringBuilder();
+  #region Enums
 
-      conditions.ForEachFirst(
-        (item,
-        isFirst) =>
-          {
-            sb.Append(" ");
-            if (!isFirst)
-            {
-              sb.Append(item.ConditionType.GetStringValue());
-              sb.Append(" ");
-            }
-
-            if (surroundWithParathesis)
-            {
-              sb.AppendFormat("({0})", item.Condition);
-            }
-            else
-            {
-              sb.Append(item.Condition);
-            }
-          });
-
-      return sb.ToString();
-    }
-  }
-
-    #region Enums
-
-    /// <summary>
-    /// The search condition type.
-    /// </summary>
-    public enum SearchConditionType
-    {
-      /// <summary>
-      /// The and.
-      /// </summary>
-      AND, 
-
-      /// <summary>
-      /// The or.
-      /// </summary>
-      OR
-    }
-
-    #endregion
+  #endregion
 
   /// <summary>
   /// The search builder.
@@ -108,16 +76,23 @@
     /// <returns>
     /// The build search sql.
     /// </returns>
-    public string BuildSearchSql([NotNull] string toSearchWhat, [NotNull] string toSearchFromWho, 
-                                 SearchWhatFlags searchFromWhoMethod, 
-                                 SearchWhatFlags searchWhatMethod, 
-                                 int userID, 
-                                 bool searchDisplayName, 
-                                 int boardId, 
-                                 int maxResults, 
-                                 bool useFullText, [NotNull] IEnumerable<int> forumIds)
+    public string BuildSearchSql(
+      [NotNull] string toSearchWhat, 
+      [NotNull] string toSearchFromWho, 
+      SearchWhatFlags searchFromWhoMethod, 
+      SearchWhatFlags searchWhatMethod, 
+      int userID, 
+      bool searchDisplayName, 
+      int boardId, 
+      int maxResults, 
+      bool useFullText, 
+      [NotNull] IEnumerable<int> forumIds)
     {
-      List<string> builtStatements = new List<string>();
+      CodeContracts.ArgumentNotNull(toSearchWhat, "toSearchWhat");
+      CodeContracts.ArgumentNotNull(toSearchFromWho, "toSearchFromWho");
+      CodeContracts.ArgumentNotNull(forumIds, "forumIds");
+
+      var builtStatements = new List<string>();
 
       if (maxResults > 0)
       {
@@ -181,21 +156,26 @@
     /// <summary>
     /// The build search who conditions.
     /// </summary>
-    /// <param name="toSearchFromWho">
-    /// The to search from who.
+    /// <param name="toSearchWhat">
+    /// The to Search What.
     /// </param>
-    /// <param name="searchFromWhoMethod">
-    /// The search from who method.
+    /// <param name="searchWhatMethod">
+    /// The search What Method.
     /// </param>
-    /// <param name="searchDisplayName">
-    /// The search display name.
+    /// <param name="dbField">
+    /// The db Field.
+    /// </param>
+    /// <param name="useFullText">
+    /// The use Full Text.
     /// </param>
     /// <returns>
     /// </returns>
     [NotNull]
-    protected IEnumerable<SearchCondition> BuildWhatConditions([NotNull] string toSearchWhat, SearchWhatFlags searchWhatMethod, string dbField, bool useFullText)
+    protected IEnumerable<SearchCondition> BuildWhatConditions(
+      [NotNull] string toSearchWhat, SearchWhatFlags searchWhatMethod, [NotNull] string dbField, bool useFullText)
     {
       CodeContracts.ArgumentNotNull(toSearchWhat, "toSearchWhat");
+      CodeContracts.ArgumentNotNull(dbField, "dbField");
 
       toSearchWhat = toSearchWhat.Replace("'", "''").Trim();
 
@@ -226,10 +206,9 @@
             word => new SearchCondition { Condition = @"""{0}""".FormatWith(word), ConditionType = conditionType }));
 
         conditions.Add(
-          new SearchCondition()
+          new SearchCondition
             {
-              Condition =
-                "CONTAINS ({1}, N' {0} ')".FormatWith(list.BuildSql(false), dbField),
+              Condition = "CONTAINS ({1}, N' {0} ')".FormatWith(list.BuildSql(false), dbField), 
               ConditionType = conditionType
             });
       }
@@ -240,8 +219,7 @@
             word =>
             new SearchCondition
               {
-                Condition = "{1} LIKE N'%{0}%'".FormatWith(word, dbField),
-                ConditionType = conditionType
+                 Condition = "{1} LIKE N'%{0}%'".FormatWith(word, dbField), ConditionType = conditionType 
               }));
       }
 
@@ -263,7 +241,8 @@
     /// <returns>
     /// </returns>
     [NotNull]
-    protected IEnumerable<SearchCondition> BuildWhoConditions([NotNull] string toSearchFromWho, SearchWhatFlags searchFromWhoMethod, bool searchDisplayName)
+    protected IEnumerable<SearchCondition> BuildWhoConditions(
+      [NotNull] string toSearchFromWho, SearchWhatFlags searchFromWhoMethod, bool searchDisplayName)
     {
       CodeContracts.ArgumentNotNull(toSearchFromWho, "toSearchFromWho");
 
@@ -317,36 +296,4 @@
 
     #endregion
   }
-
-    /// <summary>
-    /// The search condition.
-    /// </summary>
-    public class SearchCondition
-    {
-      #region Constructors and Destructors
-
-      /// <summary>
-      /// Initializes a new instance of the <see cref="SearchCondition"/> class.
-      /// </summary>
-      public SearchCondition()
-      {
-        this.ConditionType = SearchConditionType.AND;
-      }
-
-      #endregion
-
-      #region Properties
-
-      /// <summary>
-      /// Gets or sets Condition.
-      /// </summary>
-      public string Condition { get; set; }
-
-      /// <summary>
-      /// Gets or sets ConditionType.
-      /// </summary>
-      public SearchConditionType ConditionType { get; set; }
-
-      #endregion
-    }
 }
