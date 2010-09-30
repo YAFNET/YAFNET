@@ -94,18 +94,25 @@
 {
 	width: 19%; float: left; clear: left;
 }
-
+.yafnet #yafheaderEnd
+{
+    clear:both;
+}
+.yafnet .loggedInUser
+{
+    float: left;
+}
 .yafnet .menuContainer
 {
-    float:right;
+    float: right;
 }
-
 .yafnet #yafheader ul
-{
+{   
+    display: inline; 
     list-style: none;
-    display: inline;    
+    margin: 0;
+    padding:0;
 }
-
 .yafnet #yafheader .loggedInUser,
 .yafnet #yafheader .menuContainer
 {
@@ -126,6 +133,15 @@
 .yafnet td.forumIconCol
 {
 	width: 1%;
+}
+.yafnet .threadedRowCondensed .avatarimage
+{
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    padding: 1px;	
+    border: 1px solid #666;
+    margin-right: 8px;    
 }
 .yafnet .forumLinkCol .forumheading,
 .yafnet .forumLinkCol .forumviewing

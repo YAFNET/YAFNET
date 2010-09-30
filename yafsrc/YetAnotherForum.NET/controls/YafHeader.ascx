@@ -15,7 +15,7 @@
             <% if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)
                {%>
             <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.cp_pm)%>">
-                <%=this.PageContext.Localization.GetText("CP_PM", "INBOX")%>
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "INBOX")%>
             </a>
                 <%
                     if (this.PageContext.UnreadPrivate > 0)
@@ -126,4 +126,5 @@
                 }%>
         </ul>
     </div>
+    <div id="yafheaderEnd"></div>
 </div>
