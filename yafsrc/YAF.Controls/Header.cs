@@ -146,6 +146,18 @@ namespace YAF.Controls
 
         buildHeader.AppendFormat(String.Format("	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.help_index), this.PageContext.Localization.GetText("TOOLBAR", "HELP")));
 
+        if (this.PageContext.IsAdmin)
+        {
+            buildHeader.AppendFormat(
+              "	<a target='_top' href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.admin_admin), this.PageContext.Localization.GetText("TOOLBAR", "ADMIN")));
+        }
+
+        if (this.PageContext.IsModerator || this.PageContext.IsForumModerator)
+        {
+            buildHeader.AppendFormat(
+              "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.moderate_index), this.PageContext.Localization.GetText("TOOLBAR", "MODERATE")));
+        }
+
         if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
         {
           buildHeader.AppendFormat(
