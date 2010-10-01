@@ -12,6 +12,8 @@
 
 namespace YAF.RegisterForum
 {
+  #region Using
+
   using System;
   using System.CodeDom.Compiler;
   using System.ComponentModel;
@@ -21,49 +23,59 @@ namespace YAF.RegisterForum
   using System.Web.Services.Description;
   using System.Web.Services.Protocols;
 
+  using YAF.Classes.Pattern;
+
+  #endregion
+
   /// <summary>
   /// The register.
   /// </summary>
   /// <remarks>
   /// </remarks>
   [GeneratedCode("System.Web.Services", "2.0.50727.42")]
-  [DebuggerStepThrough()]
+  [DebuggerStepThrough]
   [DesignerCategory("code")]
-  [WebServiceBinding(Name = "RegisterSoap", Namespace = "http://www.yetanotherforum.net/Register")]
-  public partial class Register : SoapHttpClientProtocol
+  [WebServiceBinding(Name = "RegisterSoap", Namespace = "http://yetanotherforum.net/Register")]
+  public class Register : SoapHttpClientProtocol
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The latest version date operation completed.
+    ///   The latest version date operation completed.
     /// </summary>
     private SendOrPostCallback LatestVersionDateOperationCompleted;
 
     /// <summary>
-    /// The latest version operation completed.
+    ///   The latest version operation completed.
     /// </summary>
     private SendOrPostCallback LatestVersionOperationCompleted;
 
     /// <summary>
-    /// The register forum operation completed.
+    ///   The register forum operation completed.
     /// </summary>
     private SendOrPostCallback RegisterForumOperationCompleted;
 
     /// <summary>
-    /// The use default credentials set explicitly.
+    ///   The use default credentials set explicitly.
     /// </summary>
     private bool useDefaultCredentialsSetExplicitly;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="Register"/> class. 
-    /// The register.
+    ///   Initializes a new instance of the <see cref = "Register" /> class. 
+    ///   The register.
     /// </summary>
     /// <remarks>
     /// </remarks>
     public Register()
     {
-      Url = "http://www.yetanotherforum.net/Register.asmx";
-      if (IsLocalFileSystemWebService(Url) == true)
+      this.Url = "http://yetanotherforum.net/Register.asmx";
+      if (this.IsLocalFileSystemWebService(this.Url))
       {
-        UseDefaultCredentials = true;
+        this.UseDefaultCredentials = true;
         this.useDefaultCredentialsSetExplicitly = false;
       }
       else
@@ -72,8 +84,37 @@ namespace YAF.RegisterForum
       }
     }
 
+    #endregion
+
+    #region Events
+
     /// <summary>
-    /// Gets or sets Url.
+    ///   The latest version completed.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    public event LatestVersionCompletedEventHandler LatestVersionCompleted;
+
+    /// <summary>
+    ///   The latest version date completed.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    public event LatestVersionDateCompletedEventHandler LatestVersionDateCompleted;
+
+    /// <summary>
+    ///   The register forum completed.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    public event RegisterForumCompletedEventHandler RegisterForumCompleted;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Url.
     /// </summary>
     public new string Url
     {
@@ -84,8 +125,8 @@ namespace YAF.RegisterForum
 
       set
       {
-        if (((IsLocalFileSystemWebService(base.Url) == true) && (this.useDefaultCredentialsSetExplicitly == false)) &&
-             (IsLocalFileSystemWebService(value) == false))
+        if ((this.IsLocalFileSystemWebService(base.Url) && (this.useDefaultCredentialsSetExplicitly == false)) &&
+            (this.IsLocalFileSystemWebService(value) == false))
         {
           base.UseDefaultCredentials = false;
         }
@@ -95,7 +136,7 @@ namespace YAF.RegisterForum
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether UseDefaultCredentials.
+    ///   Gets or sets a value indicating whether UseDefaultCredentials.
     /// </summary>
     public new bool UseDefaultCredentials
     {
@@ -111,55 +152,42 @@ namespace YAF.RegisterForum
       }
     }
 
-    /// <summary>
-    /// The register forum completed.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    public event RegisterForumCompletedEventHandler RegisterForumCompleted;
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
-    /// The latest version completed.
+    /// The begin latest version.
     /// </summary>
-    /// <remarks>
-    /// </remarks>
-    public event LatestVersionCompletedEventHandler LatestVersionCompleted;
-
-    /// <summary>
-    /// The latest version date completed.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    public event LatestVersionDateCompletedEventHandler LatestVersionDateCompleted;
-
-    /// <summary>
-    /// The register forum.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
+    /// <param name="callback">
+    /// The callback.
     /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="address">
-    /// The address.
+    /// <param name="asyncState">
+    /// The async State.
     /// </param>
     /// <remarks>
     /// </remarks>
-    /// <returns>
-    /// The register forum.
-    /// </returns>
-    [SoapDocumentMethod("http://www.yetanotherforum.net/Register/RegisterForum", RequestNamespace = "http://www.yetanotherforum.net/Register", 
-      ResponseNamespace = "http://www.yetanotherforum.net/Register", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
-    public long RegisterForum(long id, string name, string address)
+    [NotNull]
+    public IAsyncResult BeginLatestVersion([NotNull] AsyncCallback callback, [NotNull] object asyncState)
     {
-      object[] results = Invoke(
-        "RegisterForum", 
-        new object[]
-          {
-            id, name, address
-          });
-      return (long) (results[0]);
+      return this.BeginInvoke("LatestVersion", new object[0], callback, asyncState);
+    }
+
+    /// <summary>
+    /// The begin latest version date.
+    /// </summary>
+    /// <param name="callback">
+    /// The callback.
+    /// </param>
+    /// <param name="asyncState">
+    /// The async State.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    [NotNull]
+    public IAsyncResult BeginLatestVersionDate([NotNull] AsyncCallback callback, [NotNull] object asyncState)
+    {
+      return this.BeginInvoke("LatestVersionDate", new object[0], callback, asyncState);
     }
 
     /// <summary>
@@ -182,280 +210,11 @@ namespace YAF.RegisterForum
     /// </param>
     /// <remarks>
     /// </remarks>
-    public IAsyncResult BeginRegisterForum(long id, string name, string address, AsyncCallback callback, object asyncState)
+    [NotNull]
+    public IAsyncResult BeginRegisterForum(
+      long id, [NotNull] string name, [NotNull] string address, [NotNull] AsyncCallback callback, [NotNull] object asyncState)
     {
-      return BeginInvoke(
-        "RegisterForum", 
-        new object[]
-          {
-            id, name, address
-          }, 
-        callback, 
-        asyncState);
-    }
-
-    /// <summary>
-    /// The end register forum.
-    /// </summary>
-    /// <param name="asyncResult">
-    /// The async Result.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    /// <returns>
-    /// The end register forum.
-    /// </returns>
-    public long EndRegisterForum(IAsyncResult asyncResult)
-    {
-      object[] results = EndInvoke(asyncResult);
-      return (long) (results[0]);
-    }
-
-    /// <summary>
-    /// The register forum async.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="address">
-    /// The address.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public void RegisterForumAsync(long id, string name, string address)
-    {
-      RegisterForumAsync(id, name, address, null);
-    }
-
-    /// <summary>
-    /// The register forum async.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="address">
-    /// The address.
-    /// </param>
-    /// <param name="userState">
-    /// The user State.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public void RegisterForumAsync(long id, string name, string address, object userState)
-    {
-      if (this.RegisterForumOperationCompleted == null)
-      {
-        this.RegisterForumOperationCompleted = new SendOrPostCallback(OnRegisterForumOperationCompleted);
-      }
-
-      InvokeAsync(
-        "RegisterForum", 
-        new object[]
-          {
-            id, name, address
-          }, 
-        this.RegisterForumOperationCompleted, 
-        userState);
-    }
-
-    /// <summary>
-    /// The on register forum operation completed.
-    /// </summary>
-    /// <param name="arg">
-    /// The arg.
-    /// </param>
-    private void OnRegisterForumOperationCompleted(object arg)
-    {
-      if (RegisterForumCompleted != null)
-      {
-        var invokeArgs = ((InvokeCompletedEventArgs) (arg));
-        RegisterForumCompleted(this, new RegisterForumCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-      }
-    }
-
-    /// <summary>
-    /// The latest version.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <returns>
-    /// The latest version.
-    /// </returns>
-    [SoapDocumentMethod("http://www.yetanotherforum.net/Register/LatestVersion", RequestNamespace = "http://www.yetanotherforum.net/Register", 
-      ResponseNamespace = "http://www.yetanotherforum.net/Register", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
-    public long LatestVersion()
-    {
-      object[] results = Invoke("LatestVersion", new object[0]);
-      return (long) (results[0]);
-    }
-
-    /// <summary>
-    /// The begin latest version.
-    /// </summary>
-    /// <param name="callback">
-    /// The callback.
-    /// </param>
-    /// <param name="asyncState">
-    /// The async State.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public IAsyncResult BeginLatestVersion(AsyncCallback callback, object asyncState)
-    {
-      return BeginInvoke("LatestVersion", new object[0], callback, asyncState);
-    }
-
-    /// <summary>
-    /// The end latest version.
-    /// </summary>
-    /// <param name="asyncResult">
-    /// The async Result.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    /// <returns>
-    /// The end latest version.
-    /// </returns>
-    public long EndLatestVersion(IAsyncResult asyncResult)
-    {
-      object[] results = EndInvoke(asyncResult);
-      return (long) (results[0]);
-    }
-
-    /// <summary>
-    /// The latest version async.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    public void LatestVersionAsync()
-    {
-      LatestVersionAsync(null);
-    }
-
-    /// <summary>
-    /// The latest version async.
-    /// </summary>
-    /// <param name="userState">
-    /// The user State.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public void LatestVersionAsync(object userState)
-    {
-      if (this.LatestVersionOperationCompleted == null)
-      {
-        this.LatestVersionOperationCompleted = new SendOrPostCallback(OnLatestVersionOperationCompleted);
-      }
-
-      InvokeAsync("LatestVersion", new object[0], this.LatestVersionOperationCompleted, userState);
-    }
-
-    /// <summary>
-    /// The on latest version operation completed.
-    /// </summary>
-    /// <param name="arg">
-    /// The arg.
-    /// </param>
-    private void OnLatestVersionOperationCompleted(object arg)
-    {
-      if (LatestVersionCompleted != null)
-      {
-        var invokeArgs = ((InvokeCompletedEventArgs) (arg));
-        LatestVersionCompleted(this, new LatestVersionCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-      }
-    }
-
-    /// <summary>
-    /// The latest version date.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    [SoapDocumentMethod("http://www.yetanotherforum.net/Register/LatestVersionDate", RequestNamespace = "http://www.yetanotherforum.net/Register", 
-      ResponseNamespace = "http://www.yetanotherforum.net/Register", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
-    public DateTime LatestVersionDate()
-    {
-      object[] results = Invoke("LatestVersionDate", new object[0]);
-      return (DateTime) (results[0]);
-    }
-
-    /// <summary>
-    /// The begin latest version date.
-    /// </summary>
-    /// <param name="callback">
-    /// The callback.
-    /// </param>
-    /// <param name="asyncState">
-    /// The async State.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public IAsyncResult BeginLatestVersionDate(AsyncCallback callback, object asyncState)
-    {
-      return BeginInvoke("LatestVersionDate", new object[0], callback, asyncState);
-    }
-
-    /// <summary>
-    /// The end latest version date.
-    /// </summary>
-    /// <param name="asyncResult">
-    /// The async Result.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public DateTime EndLatestVersionDate(IAsyncResult asyncResult)
-    {
-      object[] results = EndInvoke(asyncResult);
-      return (DateTime) (results[0]);
-    }
-
-    /// <summary>
-    /// The latest version date async.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    public void LatestVersionDateAsync()
-    {
-      LatestVersionDateAsync(null);
-    }
-
-    /// <summary>
-    /// The latest version date async.
-    /// </summary>
-    /// <param name="userState">
-    /// The user State.
-    /// </param>
-    /// <remarks>
-    /// </remarks>
-    public void LatestVersionDateAsync(object userState)
-    {
-      if (this.LatestVersionDateOperationCompleted == null)
-      {
-        this.LatestVersionDateOperationCompleted = new SendOrPostCallback(OnLatestVersionDateOperationCompleted);
-      }
-
-      InvokeAsync("LatestVersionDate", new object[0], this.LatestVersionDateOperationCompleted, userState);
-    }
-
-    /// <summary>
-    /// The on latest version date operation completed.
-    /// </summary>
-    /// <param name="arg">
-    /// The arg.
-    /// </param>
-    private void OnLatestVersionDateOperationCompleted(object arg)
-    {
-      if (LatestVersionDateCompleted != null)
-      {
-        var invokeArgs = ((InvokeCompletedEventArgs) (arg));
-        LatestVersionDateCompleted(
-          this, new LatestVersionDateCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-      }
+      return this.BeginInvoke("RegisterForum", new object[] { id, name, address }, callback, asyncState);
     }
 
     /// <summary>
@@ -466,10 +225,225 @@ namespace YAF.RegisterForum
     /// </param>
     /// <remarks>
     /// </remarks>
-    public new void CancelAsync(object userState)
+    public new void CancelAsync([NotNull] object userState)
     {
       base.CancelAsync(userState);
     }
+
+    /// <summary>
+    /// The end latest version.
+    /// </summary>
+    /// <param name="asyncResult">
+    /// The async Result.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    /// <returns>
+    /// The end latest version.
+    /// </returns>
+    public long EndLatestVersion([NotNull] IAsyncResult asyncResult)
+    {
+      object[] results = this.EndInvoke(asyncResult);
+      return (long)results[0];
+    }
+
+    /// <summary>
+    /// The end latest version date.
+    /// </summary>
+    /// <param name="asyncResult">
+    /// The async Result.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    public DateTime EndLatestVersionDate([NotNull] IAsyncResult asyncResult)
+    {
+      object[] results = this.EndInvoke(asyncResult);
+      return (DateTime)results[0];
+    }
+
+    /// <summary>
+    /// The end register forum.
+    /// </summary>
+    /// <param name="asyncResult">
+    /// The async Result.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    /// <returns>
+    /// The end register forum.
+    /// </returns>
+    public long EndRegisterForum([NotNull] IAsyncResult asyncResult)
+    {
+      object[] results = this.EndInvoke(asyncResult);
+      return (long)results[0];
+    }
+
+    /// <summary>
+    /// The latest version.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    /// <returns>
+    /// The latest version.
+    /// </returns>
+    [SoapDocumentMethod("http://yetanotherforum.net/Register/LatestVersion", 
+      RequestNamespace = "http://yetanotherforum.net/Register", 
+      ResponseNamespace = "http://yetanotherforum.net/Register", Use = SoapBindingUse.Literal, 
+      ParameterStyle = SoapParameterStyle.Wrapped)]
+    public long LatestVersion()
+    {
+      object[] results = this.Invoke("LatestVersion", new object[0]);
+      return (long)results[0];
+    }
+
+    /// <summary>
+    /// The latest version async.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    public void LatestVersionAsync()
+    {
+      this.LatestVersionAsync(null);
+    }
+
+    /// <summary>
+    /// The latest version async.
+    /// </summary>
+    /// <param name="userState">
+    /// The user State.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    public void LatestVersionAsync([NotNull] object userState)
+    {
+      if (this.LatestVersionOperationCompleted == null)
+      {
+        this.LatestVersionOperationCompleted = new SendOrPostCallback(this.OnLatestVersionOperationCompleted);
+      }
+
+      this.InvokeAsync("LatestVersion", new object[0], this.LatestVersionOperationCompleted, userState);
+    }
+
+    /// <summary>
+    /// The latest version date.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    [SoapDocumentMethod("http://yetanotherforum.net/Register/LatestVersionDate", 
+      RequestNamespace = "http://yetanotherforum.net/Register", 
+      ResponseNamespace = "http://yetanotherforum.net/Register", Use = SoapBindingUse.Literal, 
+      ParameterStyle = SoapParameterStyle.Wrapped)]
+    public DateTime LatestVersionDate()
+    {
+      object[] results = this.Invoke("LatestVersionDate", new object[0]);
+      return (DateTime)results[0];
+    }
+
+    /// <summary>
+    /// The latest version date async.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    public void LatestVersionDateAsync()
+    {
+      this.LatestVersionDateAsync(null);
+    }
+
+    /// <summary>
+    /// The latest version date async.
+    /// </summary>
+    /// <param name="userState">
+    /// The user State.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    public void LatestVersionDateAsync([NotNull] object userState)
+    {
+      if (this.LatestVersionDateOperationCompleted == null)
+      {
+        this.LatestVersionDateOperationCompleted = new SendOrPostCallback(this.OnLatestVersionDateOperationCompleted);
+      }
+
+      this.InvokeAsync("LatestVersionDate", new object[0], this.LatestVersionDateOperationCompleted, userState);
+    }
+
+    /// <summary>
+    /// The register forum.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="address">
+    /// The address.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    /// <returns>
+    /// The register forum.
+    /// </returns>
+    [SoapDocumentMethod("http://yetanotherforum.net/Register/RegisterForum", 
+      RequestNamespace = "http://yetanotherforum.net/Register", 
+      ResponseNamespace = "http://yetanotherforum.net/Register", Use = SoapBindingUse.Literal, 
+      ParameterStyle = SoapParameterStyle.Wrapped)]
+    public long RegisterForum(long id, [NotNull] string name, [NotNull] string address)
+    {
+      object[] results = this.Invoke("RegisterForum", new object[] { id, name, address });
+      return (long)results[0];
+    }
+
+    /// <summary>
+    /// The register forum async.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="address">
+    /// The address.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    public void RegisterForumAsync(long id, [NotNull] string name, [NotNull] string address)
+    {
+      this.RegisterForumAsync(id, name, address, null);
+    }
+
+    /// <summary>
+    /// The register forum async.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="address">
+    /// The address.
+    /// </param>
+    /// <param name="userState">
+    /// The user State.
+    /// </param>
+    /// <remarks>
+    /// </remarks>
+    public void RegisterForumAsync(long id, [NotNull] string name, [NotNull] string address, [NotNull] object userState)
+    {
+      if (this.RegisterForumOperationCompleted == null)
+      {
+        this.RegisterForumOperationCompleted = new SendOrPostCallback(this.OnRegisterForumOperationCompleted);
+      }
+
+      this.InvokeAsync(
+        "RegisterForum", new object[] { id, name, address }, this.RegisterForumOperationCompleted, userState);
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The is local file system web service.
@@ -480,9 +454,9 @@ namespace YAF.RegisterForum
     /// <returns>
     /// The is local file system web service.
     /// </returns>
-    private bool IsLocalFileSystemWebService(string url)
+    private bool IsLocalFileSystemWebService([NotNull] string url)
     {
-      if ((url == null) || (url == string.Empty))
+      if (string.IsNullOrEmpty(url))
       {
         return false;
       }
@@ -495,6 +469,62 @@ namespace YAF.RegisterForum
 
       return false;
     }
+
+    /// <summary>
+    /// The on latest version date operation completed.
+    /// </summary>
+    /// <param name="arg">
+    /// The arg.
+    /// </param>
+    private void OnLatestVersionDateOperationCompleted([NotNull] object arg)
+    {
+      if (this.LatestVersionDateCompleted != null)
+      {
+        var invokeArgs = (InvokeCompletedEventArgs)(arg);
+        this.LatestVersionDateCompleted(
+          this, 
+          new LatestVersionDateCompletedEventArgs(
+            invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+      }
+    }
+
+    /// <summary>
+    /// The on latest version operation completed.
+    /// </summary>
+    /// <param name="arg">
+    /// The arg.
+    /// </param>
+    private void OnLatestVersionOperationCompleted([NotNull] object arg)
+    {
+      if (this.LatestVersionCompleted != null)
+      {
+        var invokeArgs = (InvokeCompletedEventArgs)(arg);
+        this.LatestVersionCompleted(
+          this, 
+          new LatestVersionCompletedEventArgs(
+            invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+      }
+    }
+
+    /// <summary>
+    /// The on register forum operation completed.
+    /// </summary>
+    /// <param name="arg">
+    /// The arg.
+    /// </param>
+    private void OnRegisterForumOperationCompleted([NotNull] object arg)
+    {
+      if (this.RegisterForumCompleted != null)
+      {
+        var invokeArgs = (InvokeCompletedEventArgs)(arg);
+        this.RegisterForumCompleted(
+          this, 
+          new RegisterForumCompletedEventArgs(
+            invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+      }
+    }
+
+    #endregion
   }
 
   /// <summary>
@@ -511,14 +541,20 @@ namespace YAF.RegisterForum
   /// <remarks>
   /// </remarks>
   [GeneratedCode("System.Web.Services", "2.0.50727.42")]
-  [DebuggerStepThrough()]
+  [DebuggerStepThrough]
   [DesignerCategory("code")]
-  public partial class RegisterForumCompletedEventArgs : AsyncCompletedEventArgs
+  public class RegisterForumCompletedEventArgs : AsyncCompletedEventArgs
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The results.
+    ///   The results.
     /// </summary>
-    private object[] results;
+    private readonly object[] results;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RegisterForumCompletedEventArgs"/> class.
@@ -535,14 +571,18 @@ namespace YAF.RegisterForum
     /// <param name="userState">
     /// The user state.
     /// </param>
-    internal RegisterForumCompletedEventArgs(object[] results, Exception exception, bool cancelled, object userState)
+    internal RegisterForumCompletedEventArgs([NotNull] object[] results, [NotNull] Exception exception, bool cancelled, [NotNull] object userState)
       : base(exception, cancelled, userState)
     {
       this.results = results;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// The result.
+    ///   The result.
     /// </summary>
     /// <remarks>
     /// </remarks>
@@ -550,10 +590,12 @@ namespace YAF.RegisterForum
     {
       get
       {
-        RaiseExceptionIfNecessary();
-        return (long) (this.results[0]);
+        this.RaiseExceptionIfNecessary();
+        return (long)this.results[0];
       }
     }
+
+    #endregion
   }
 
   /// <summary>
@@ -570,14 +612,20 @@ namespace YAF.RegisterForum
   /// <remarks>
   /// </remarks>
   [GeneratedCode("System.Web.Services", "2.0.50727.42")]
-  [DebuggerStepThrough()]
+  [DebuggerStepThrough]
   [DesignerCategory("code")]
-  public partial class LatestVersionCompletedEventArgs : AsyncCompletedEventArgs
+  public class LatestVersionCompletedEventArgs : AsyncCompletedEventArgs
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The results.
+    ///   The results.
     /// </summary>
-    private object[] results;
+    private readonly object[] results;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LatestVersionCompletedEventArgs"/> class.
@@ -594,14 +642,18 @@ namespace YAF.RegisterForum
     /// <param name="userState">
     /// The user state.
     /// </param>
-    internal LatestVersionCompletedEventArgs(object[] results, Exception exception, bool cancelled, object userState)
+    internal LatestVersionCompletedEventArgs([NotNull] object[] results, [NotNull] Exception exception, bool cancelled, [NotNull] object userState)
       : base(exception, cancelled, userState)
     {
       this.results = results;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// The result.
+    ///   The result.
     /// </summary>
     /// <remarks>
     /// </remarks>
@@ -609,10 +661,12 @@ namespace YAF.RegisterForum
     {
       get
       {
-        RaiseExceptionIfNecessary();
-        return (long) (this.results[0]);
+        this.RaiseExceptionIfNecessary();
+        return (long)this.results[0];
       }
     }
+
+    #endregion
   }
 
   /// <summary>
@@ -629,14 +683,20 @@ namespace YAF.RegisterForum
   /// <remarks>
   /// </remarks>
   [GeneratedCode("System.Web.Services", "2.0.50727.42")]
-  [DebuggerStepThrough()]
+  [DebuggerStepThrough]
   [DesignerCategory("code")]
-  public partial class LatestVersionDateCompletedEventArgs : AsyncCompletedEventArgs
+  public class LatestVersionDateCompletedEventArgs : AsyncCompletedEventArgs
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The results.
+    ///   The results.
     /// </summary>
-    private object[] results;
+    private readonly object[] results;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LatestVersionDateCompletedEventArgs"/> class.
@@ -653,14 +713,18 @@ namespace YAF.RegisterForum
     /// <param name="userState">
     /// The user state.
     /// </param>
-    internal LatestVersionDateCompletedEventArgs(object[] results, Exception exception, bool cancelled, object userState)
+    internal LatestVersionDateCompletedEventArgs([NotNull] object[] results, [NotNull] Exception exception, bool cancelled, [NotNull] object userState)
       : base(exception, cancelled, userState)
     {
       this.results = results;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// The result.
+    ///   The result.
     /// </summary>
     /// <remarks>
     /// </remarks>
@@ -668,10 +732,12 @@ namespace YAF.RegisterForum
     {
       get
       {
-        RaiseExceptionIfNecessary();
-        return (DateTime) (this.results[0]);
+        this.RaiseExceptionIfNecessary();
+        return (DateTime)this.results[0];
       }
     }
+
+    #endregion
   }
 }
 
