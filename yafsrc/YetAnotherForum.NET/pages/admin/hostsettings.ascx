@@ -179,7 +179,8 @@
                     <tr>
                         <td class="postheader">
                             <strong>Custom Login Redirect Url:</strong><br />
-                            If login is disabled, this is the URL users will be redirected to when they need
+                            If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to "false"),
+                            this is the URL users will be redirected to when they need
                             to access the forum. Optionally add "{0}" to the URL to pass the return URL to the
                             custom Url. E.g. "http://mydomain.com/login.aspx?PreviousUrl={0}"
                         </td>
