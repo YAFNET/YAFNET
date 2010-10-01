@@ -349,7 +349,7 @@ namespace YAF.Controls
           if (key.ToLower() == "onclick")
           {
             // special handling... add to it...
-            output.WriteAttribute(key, "{0};{1}".FormatWith(this._attributeCollection[key], "this.blur();"));
+            output.WriteAttribute(key, "{0};{1}".FormatWith(this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
             wroteOnClick = true;
           }
           else if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
@@ -363,7 +363,7 @@ namespace YAF.Controls
       // IE fix
       if (!wroteOnClick)
       {
-        output.WriteAttribute("onclick", "this.blur();");
+        output.WriteAttribute("onclick", "this.blur(); this.onclick = function() { return false; }; return true;");
       }
 
       output.Write(HtmlTextWriter.TagRightChar);
