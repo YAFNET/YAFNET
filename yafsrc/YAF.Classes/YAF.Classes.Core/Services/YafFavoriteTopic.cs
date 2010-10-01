@@ -49,20 +49,65 @@ namespace YAF.Classes.Core
     #region Public Methods
 
     /// <summary>
+    /// Checks if this topic is watched, if not, adds it.
+    /// </summary>
+    /// <param name="userId"></param>
+    private void WatchTopic(int userId, int topicId)
+    {
+      if (!this.TopicWatchedId(userId, topicId).HasValue)
+      {
+        // subscribe to this forum
+        DB.watchtopic_add(userId, topicId);
+      }
+    }
+
+    /// <summary>
+    /// Checks if this topic is watched, if not, adds it.
+    /// </summary>
+    /// <param name="userId"></param>
+    private void UnwatchTopic(int userId, int topicId)
+    {
+      var watchedId = this.TopicWatchedId(userId, topicId);
+
+      if (watchedId.HasValue)
+      {
+        // subscribe to this forum
+        DB.watchtopic_delete(watchedId);
+      }
+    }
+
+    /// <summary>
+    /// Returns true if the topic is set to watch for userId
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns></returns>
+    private int? TopicWatchedId(int userId, int topicId)
+    {
+      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+    }
+
+    /// <summary>
     /// The add favorite topic.
     /// </summary>
-    /// <param name="topicID">
+    /// <param name="topicId">
     /// The topic ID.
     /// </param>
     /// <returns>
     /// The add favorite topic.
     /// </returns>
     [AjaxMethod]
-    public int AddFavoriteTopic(int topicID)
+    public int AddFavoriteTopic(int topicId)
     {
-      DB.topic_favorite_add(YafContext.Current.PageUserID, topicID);
+      DB.topic_favorite_add(YafContext.Current.PageUserID, topicId);
       this.ClearFavoriteTopicCache();
-      return topicID;
+
+      if (YafContext.Current.CurrentUserData.NotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
+      {
+        // add to watches...
+        this.WatchTopic(YafContext.Current.PageUserID, topicId);
+      }
+
+      return topicId;
     }
 
     /// <summary>
@@ -119,18 +164,25 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The remove favorite topic.
     /// </summary>
-    /// <param name="topicID">
+    /// <param name="topicId">
     /// The favorite topic id.
     /// </param>
     /// <returns>
     /// The remove favorite topic.
     /// </returns>
     [AjaxMethod]
-    public int RemoveFavoriteTopic(int topicID)
+    public int RemoveFavoriteTopic(int topicId)
     {
-      DB.topic_favorite_remove(YafContext.Current.PageUserID, topicID);
+      DB.topic_favorite_remove(YafContext.Current.PageUserID, topicId);
       this.ClearFavoriteTopicCache();
-      return topicID;
+
+      if (YafContext.Current.CurrentUserData.NotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
+      {
+        // no longer watching this topic...
+        this.UnwatchTopic(YafContext.Current.PageUserID, topicId);
+      }
+
+      return topicId;
     }
 
     #endregion
