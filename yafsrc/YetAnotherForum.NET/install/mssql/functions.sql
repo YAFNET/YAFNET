@@ -218,7 +218,7 @@ BEGIN
 				(					
 					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
 				)	
-			UNION ALL			
+			UNION			
 			SELECT
 				a.ForumID,
 				a.LastTopicID,
@@ -338,7 +338,7 @@ BEGIN
 				(					
 					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
 				)	
-			UNION ALL			
+			UNION			
 			SELECT
 				a.ForumID,
 				a.LastTopicID,

@@ -5440,7 +5440,7 @@ BEGIN
 	
 	DECLARE @Password nvarchar(255), @IsApproved bit, @LastActivity datetime, @Joined datetime
 	
-	UPDATE {objectQualifier}User SET ProviderUserKey = @ProviderUserKey where UserID = @UserID
+	UPDATE [{databaseOwner}].[{objectQualifier}User] SET ProviderUserKey = @ProviderUserKey where UserID = @UserID
 
 	IF (@UpdateProvider = 1)
 	BEGIN
@@ -5450,12 +5450,12 @@ BEGIN
 			@LastActivity = LastVisit,
 			@Joined = Joined
 		FROM
-			{objectQualifier}User
+			[{databaseOwner}].[{objectQualifier}User]
 		WHERE
 			UserID = @UserID
 		
 		UPDATE
-			{objectQualifier}prov_Membership
+			[{databaseOwner}].[{objectQualifier}prov_Membership]
 		SET
 			[Password] = @Password,
 			PasswordFormat = '1',
