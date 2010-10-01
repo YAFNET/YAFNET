@@ -4061,6 +4061,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.help.index.SearchHelpTitle">
+            <summary>
+            SearchHelpTitle control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.help.index.SearchFor">
+            <summary>
+            SearchFor control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.help.index.search">
             <summary>
             search control.
@@ -22384,6 +22402,30 @@
             The e.
             </param>
         </member>
+        <member name="T:YAF.Controls.YafHeader">
+            <summary>
+            The yaf header.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.GetReturnUrl">
+            <summary>
+            The get return url.
+            </summary>
+            <returns>
+            The get return url.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="T:YAF.Pages.mod_forumuser">
             <summary>
             Control handling user invitations to forum (i.e. granting permissions by admin/moderator).
@@ -30069,30 +30111,6 @@
             <summary>
             Gets Description.
             </summary>
-        </member>
-        <member name="T:YAF.Controls.YafHeader">
-            <summary>
-            The yaf header.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.YafHeader.GetReturnUrl">
-            <summary>
-            The get return url.
-            </summary>
-            <returns>
-            The get return url.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.YafHeader.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
         </member>
     </members>
 </doc>

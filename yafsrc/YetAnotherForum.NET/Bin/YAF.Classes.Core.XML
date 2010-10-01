@@ -1824,6 +1824,123 @@
             Gets Message.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.LanguageResources">
+            <summary>
+            The resources.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResources.codeField">
+            <summary>
+            The code field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResources.languageField">
+            <summary>
+            The language field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResources.pageField">
+            <summary>
+            The page field.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResources.code">
+            <summary>
+            The code.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResources.language">
+            <summary>
+            The language.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResources.page">
+            <summary>
+            The page.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YAF.Classes.Core.LanguageResourcesPage">
+            <summary>
+            The resources page.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResourcesPage.nameField">
+            <summary>
+            The name field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanguageResourcesPage.resourceField">
+            <summary>
+            The resource field.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResourcesPage.Resource">
+            <summary>
+            The resource.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanguageResourcesPage.name">
+            <summary>
+            The name.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YAF.Classes.Core.LanuageResourcesPageResource">
+            <summary>
+            The resources page resource.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.editTypeField">
+            <summary>
+            The edit type field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.tagField">
+            <summary>
+            The tag field.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.valueField">
+            <summary>
+            The value field.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.Value">
+            <summary>
+            The value.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.editType">
+            <summary>
+            The edit type.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.tag">
+            <summary>
+            The tag.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
         <member name="T:YAF.Modules.InitServicesModule">
             <summary>
             The init services module.
@@ -9614,123 +9731,6 @@
             <summary>
               Gets a value indicating whether any rules have been added.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.LanguageResources">
-            <summary>
-            The resources.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.Classes.Core.LanguageResources.codeField">
-            <summary>
-            The code field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.LanguageResources.languageField">
-            <summary>
-            The language field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.LanguageResources.pageField">
-            <summary>
-            The page field.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.LanguageResources.code">
-            <summary>
-            The code.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.LanguageResources.language">
-            <summary>
-            The language.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.LanguageResources.page">
-            <summary>
-            The page.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.Classes.Core.LanguageResourcesPage">
-            <summary>
-            The resources page.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.Classes.Core.LanguageResourcesPage.nameField">
-            <summary>
-            The name field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.LanguageResourcesPage.resourceField">
-            <summary>
-            The resource field.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.LanguageResourcesPage.Resource">
-            <summary>
-            The resource.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.LanguageResourcesPage.name">
-            <summary>
-            The name.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.Classes.Core.LanuageResourcesPageResource">
-            <summary>
-            The resources page resource.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.editTypeField">
-            <summary>
-            The edit type field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.tagField">
-            <summary>
-            The tag field.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.LanuageResourcesPageResource.valueField">
-            <summary>
-            The value field.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.Value">
-            <summary>
-            The value.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.editType">
-            <summary>
-            The edit type.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.LanuageResourcesPageResource.tag">
-            <summary>
-            The tag.
-            </summary>
-            <remarks>
-            </remarks>
         </member>
     </members>
 </doc>

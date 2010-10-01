@@ -5031,6 +5031,84 @@
             The as string.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Data.SearchBuilder">
+            <summary>
+            The search builder.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilder.BuildSearchSql(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Boolean,System.Int32,System.Int32,System.Boolean,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            The build search sql.
+            </summary>
+            <param name="toSearchWhat">
+            The to search what.
+            </param>
+            <param name="toSearchFromWho">
+            The to search from who.
+            </param>
+            <param name="searchFromWhoMethod">
+            The search from who method.
+            </param>
+            <param name="searchWhatMethod">
+            The search what method.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="searchDisplayName">
+            The search display name.
+            </param>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="maxResults">
+            The max results.
+            </param>
+            <param name="useFullText">
+            The use full text.
+            </param>
+            <param name="forumIds">
+            The forum ids.
+            </param>
+            <returns>
+            The build search sql.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilder.BuildWhatConditions(System.String,YAF.Classes.SearchWhatFlags,System.String,System.Boolean)">
+            <summary>
+            The build search who conditions.
+            </summary>
+            <param name="toSearchWhat">
+            The to Search What.
+            </param>
+            <param name="searchWhatMethod">
+            The search What Method.
+            </param>
+            <param name="dbField">
+            The db Field.
+            </param>
+            <param name="useFullText">
+            The use Full Text.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilder.BuildWhoConditions(System.String,YAF.Classes.SearchWhatFlags,System.Boolean)">
+            <summary>
+            The build search who conditions.
+            </summary>
+            <param name="toSearchFromWho">
+            The to search from who.
+            </param>
+            <param name="searchFromWhoMethod">
+            The search from who method.
+            </param>
+            <param name="searchDisplayName">
+            The search display name.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Data.MedalFlags">
             <summary>
             The medal flags.
@@ -6227,6 +6305,80 @@
             Gets or sets ToUserName.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.TypedForumListAll">
+            <summary>
+            The typed forum list all.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedForumListAll.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedForumListAll"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedForumListAll.#ctor(System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedForumListAll"/> class.
+            </summary>
+            <param name="categoryid">
+            The categoryid.
+            </param>
+            <param name="category">
+            The category.
+            </param>
+            <param name="forumid">
+            The forumid.
+            </param>
+            <param name="forum">
+            The forum.
+            </param>
+            <param name="indent">
+            The indent.
+            </param>
+            <param name="parentid">
+            The parentid.
+            </param>
+            <param name="pollgroupid">
+            The pollgroupid.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.Category">
+            <summary>
+            Gets or sets Category.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.CategoryID">
+            <summary>
+            Gets or sets CategoryID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.Forum">
+            <summary>
+            Gets or sets Forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.Indent">
+            <summary>
+            Gets or sets Indent.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.ParentID">
+            <summary>
+            Gets or sets ParentID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedForumListAll.PollGroupID">
+            <summary>
+            Gets or sets PollGroupID.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.TypedAllThanks">
             <summary>
             The typed all thanks.
@@ -6486,6 +6638,26 @@
         <member name="P:YAF.Classes.Data.TypedUserFind.UserID">
             <summary>
             Gets or sets UserID.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchCondition">
+            <summary>
+            The search condition.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
+            <summary>
+              Gets or sets Condition.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
+            <summary>
+              Gets or sets ConditionType.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.ActiveFlags">
@@ -7510,6 +7682,40 @@
             <summary>
             The is moderated.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchConditionType">
+            <summary>
+            The search condition type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SearchConditionType.AND">
+            <summary>
+              The and.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.SearchConditionType.OR">
+            <summary>
+              The or.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
+            <summary>
+            The search builder extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
+            <summary>
+            The build sql.
+            </summary>
+            <param name="conditions">
+            The conditions.
+            </param>
+            <param name="surroundWithParathesis">
+            The surround with parathesis.
+            </param>
+            <returns>
+            The build sql.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Data.PollSaveList">
             <summary>
