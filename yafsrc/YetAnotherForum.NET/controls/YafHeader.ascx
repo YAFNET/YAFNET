@@ -81,7 +81,7 @@
             <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.help_index) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "HELP")%></a> </li>
             <%
-                if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+                if (this.PageContext.IsGuest && !YAF.Classes.Config.IsAnyPortal && YAF.Classes.Config.AllowLoginAndLogoff)
                 {
                     string returnUrl = this.GetReturnUrl().IsSet()
                                          ? "ReturnUrl={0}".FormatWith(
@@ -105,7 +105,7 @@
             <%
                 }%>
             <%
-                if (!this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+                if (!this.PageContext.IsGuest && !YAF.Classes.Config.IsAnyPortal && YAF.Classes.Config.AllowLoginAndLogoff)
                 {%>
             <li class="menuAccount"><a href="<%=YafBuildLink.GetLink(ForumPages.logout)%>" onclick="return confirm('<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION")%>');">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT")%></a></li>
