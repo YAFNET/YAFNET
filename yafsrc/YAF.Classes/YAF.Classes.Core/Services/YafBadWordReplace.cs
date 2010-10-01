@@ -277,7 +277,14 @@ namespace YAF.Classes.Core
 
       if (hashCode.HasValue && strReturn.IsSet())
       {
-        cache[hashCode.Value] = strReturn;
+        try
+        {
+          cache[hashCode.Value] = strReturn;
+        }
+        catch
+        {
+          // not the best solution -- but currently better then making MostRecentlyUsed ThreadSafe -- really not a major problem if we get here.
+        }
       }
 
       return strReturn;
