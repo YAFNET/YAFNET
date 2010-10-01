@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
+<%@ Import Namespace="YAF.Classes.Utils" %>
+<%@ Import Namespace="YAF.Classes" %>
 <div id="yafheader">
     <div class="loggedInUser">
         <%=this.PageContext.Localization.GetText("TOOLBAR", this.PageContext.IsGuest ? "WELCOME_GUEST" : "LOGGED_IN_AS").FormatWith(String.Empty) %>
