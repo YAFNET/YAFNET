@@ -1209,6 +1209,7 @@
     <Resource tag="CLEAR">Strege</Resource>
     <Resource tag="FLYOUT">Iesire</Resource>
     <Resource tag="HEADING">Comunicati cu alti utilizatori</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Transmite</Resource>
     <Resource tag="TITLE">Fereastra chat</Resource>
   </page>

@@ -47,7 +47,8 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      this.ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox;
+      this.ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox && !PageContext.IsGuest;
+      this.MustBeLoggedIn.Visible = PageContext.IsGuest;
     }
   }
 }

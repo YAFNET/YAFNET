@@ -1222,6 +1222,7 @@
     <Resource tag="CLEAR">Xóa</Resource>
     <Resource tag="FLYOUT">Thoát</Resource>
     <Resource tag="HEADING">Chat with other members</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TITLE">Chat box</Resource>
   </page>

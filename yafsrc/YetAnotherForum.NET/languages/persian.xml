@@ -1206,6 +1206,7 @@
     <Resource tag="CLEAR">پاکسازی</Resource>
     <Resource tag="FLYOUT">پنجره مجزا</Resource>
     <Resource tag="HEADING">گفتگو با کاربران دیگر</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">ارسال</Resource>
     <Resource tag="TITLE">گفتگو</Resource>
   </page>

@@ -478,7 +478,7 @@
 		<Resource tag="NONOTIFICATION">Turn off notifications</Resource>
 		<Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
 		<Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
-		<Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b] or watched</Resource>
+		<Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b], watched or marked as favorite</Resource>
 		<Resource tag="TOPICSISUBSCRIBETO">Notification for topics or forums you've selectively watched (listed below)</Resource>
 		<Resource tag="SAVED_NOTIFICATION_SETTING">Notification Email Settings Updated</Resource>
 	</page>
@@ -1206,6 +1206,7 @@
 		<Resource tag="SUBMIT">Submit</Resource>
 		<Resource tag="CLEAR">Clear</Resource>
 		<Resource tag="FLYOUT">Fly Out</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
 	</page>
 	<page name="TEMPLATES">
 		<Resource tag="CHANGEEMAIL_HTML">

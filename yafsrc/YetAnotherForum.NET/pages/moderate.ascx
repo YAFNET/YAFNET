@@ -49,7 +49,7 @@
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
-		<td class="header1" colspan="7">
+		<td class="header1" colspan="6">
 			<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="title" />
 		</td>
 	</tr>
@@ -58,9 +58,6 @@
 			&nbsp;</td>
 		<td class="header2" align="left">
 			<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
-		</td>
-		<td class="header2" align="left" width="15%">
-			<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="topic_starter" />
 		</td>
 		<td class="header2" align="center" width="7%">
 			<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
@@ -86,7 +83,7 @@
 		</ItemTemplate>
 	</asp:Repeater>
 	<tr>
-		<td class="footer1" colspan="7">
+		<td class="footer1" colspan="6">
 			&nbsp;</td>
 	</tr>
 </table>

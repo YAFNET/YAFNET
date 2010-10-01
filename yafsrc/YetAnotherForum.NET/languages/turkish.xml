@@ -1208,6 +1208,7 @@ Siz foruma otomatik bilgisayar programlarını kullanarak üye olmayacağınız�
     <Resource tag="CLEAR">Temizle</Resource>
     <Resource tag="FLYOUT">Yeni Pencere</Resource>
     <Resource tag="HEADING">Üyelerle muhabbet et</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Gönder</Resource>
     <Resource tag="TITLE">Muhabbet Penceresi</Resource>
   </page>

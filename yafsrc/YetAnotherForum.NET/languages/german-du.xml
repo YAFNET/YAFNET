@@ -1208,6 +1208,7 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
     <Resource tag="CLEAR">Eingabe Löschen</Resource>
     <Resource tag="FLYOUT">Chat in eigenem Fenster öffnen</Resource>
     <Resource tag="HEADING">Mit anderen Mitgliedern Chatten</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Absenden</Resource>
     <Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
   </page>

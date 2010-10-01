@@ -1197,6 +1197,7 @@
     <Resource tag="CLEAR">Nulstil</Resource>
     <Resource tag="FLYOUT">Flyv ud</Resource>
     <Resource tag="HEADING">Chat med andre brugere</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Send</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
   </page>

@@ -1360,6 +1360,7 @@
     <Resource tag="CLEAR">Clear</Resource>
     <Resource tag="FLYOUT">Fly Out</Resource>
     <Resource tag="HEADING">Chat with other members</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
   </page>

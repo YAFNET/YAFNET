@@ -1207,6 +1207,7 @@
     <Resource tag="CLEAR">Очистить</Resource>
     <Resource tag="FLYOUT">Открепить</Resource>
     <Resource tag="HEADING">Поговорите с другими пользователями!</Resource>
+    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TITLE">Чат</Resource>
   </page>
