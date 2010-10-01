@@ -100,11 +100,16 @@
 }
 .yafnet .loggedInUser
 {
-    float: left;
+    float: right;
 }
 .yafnet .menuContainer
 {
-    float: right;
+	line-height:20px;
+    float: left;
+}
+.yafnet .menuMyContainer
+{
+	float: right;
 }
 .yafnet #yafheader ul
 {   

@@ -1032,3 +1032,66 @@ height:80em;
     background-color: Yellow;
     color: Black;
 }
+
+.yafnet .menuList li a
+{
+    font-weight: bold;
+	text-transform:uppercase;
+	font-size: 93%;
+	color: black;
+	font-weight: bold;
+	text-shadow: 0 1px 1px rgba(0,0,0,.2);
+}
+
+.yafnet .menuMyList
+{
+    margin-bottom: 10px;
+}
+
+.yafnet .menuMyList li a
+{
+    font-weight: bold;
+	font-size: 90%;
+	color: black;
+	font-weight: bold;
+	
+}
+
+.yafnet .menuMyList li
+{
+    display: inline;
+    padding:0px;
+}
+
+.yafnet .currentUser{font-weight:bold;}
+
+.guestUser { 
+background: url("error.png") #f3dddd no-repeat center left;
+
+color: #281b1b;
+font-size: 1.1em;
+width:96.5%;
+line-height: 150%;
+margin-bottom: 10px;
+border: 1px solid #deb7b7;
+padding:5px  0 5px 30px;
+-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.yafnet .menuContainer {
+	border-spacing: 0;
+	border: solid 1px #777777;
+	-moz-border-radius: 0.4em; 
+	-webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+	margin-top:10px;
+	margin-bottom:10px;
+	color: #000000;	
+	width:100%;
+	
+	-moz-box-shadow: 2px 2px 2px #c3c3c3;
+    -webkit-box-shadow: 2px 2px 2px #c3c3c3;
+    box-shadow: 2px 2px 2px #c3c3c3;
+}

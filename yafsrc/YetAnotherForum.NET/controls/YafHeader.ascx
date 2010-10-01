@@ -2,19 +2,17 @@
 <%@ Import Namespace="YAF.Classes.Utils" %>
 <%@ Import Namespace="YAF.Classes" %>
 <div id="yafheader">
-    <div class="loggedInUser">
-        <%=this.PageContext.Localization.GetText("TOOLBAR", this.PageContext.IsGuest ? "WELCOME_GUEST" : "LOGGED_IN_AS").FormatWith(String.Empty) %>
-        <%= new UserLabel()
-{
-    ID = "UserLoggedIn",
-    Visible = !this.PageContext.IsGuest,
-    UserID =  this.PageContext.PageUserID,
-    CssClass = "currentUser"
-}.RenderToString() %>
+   <% if (this.PageContext.IsGuest) {%>
+    <div class="guestUser">
+      <%=this.PageContext.Localization.GetText("TOOLBAR", this.PageContext.IsGuest ? "WELCOME_GUEST" : "LOGGED_IN_AS").FormatWith("&nbsp;")%>
     </div>
-    <div class="menuContainer">
-        <ul class="menuList">
-            <% if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)
+    <%
+     }%>
+      
+   
+    <div class="menuMyContainer">
+      <ul class="menuMyList">
+       <% if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)
                {%>
             <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.cp_pm)%>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "INBOX")%>
@@ -53,14 +51,40 @@
             <%
                 }                    
             %>
-            <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">
-                <%=this.PageContext.Localization.GetText("TOOLBAR", "MYTOPICS")%></a> </li>
+           
             <%if (!this.PageContext.IsGuest)
               {%>
+
+            <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "MYTOPICS")%></a> </li>
             <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.cp_profile) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MYPROFILE")%></a> </li>
             <%
                 }%>
+      </ul>
+    </div>
+    <% if (!this.PageContext.IsGuest) {%>
+    <div class="loggedInUser">
+     
+        <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith("&nbsp;")%>
+        <%= new UserLabel()
+{
+    ID = "UserLoggedIn",
+    Visible = !this.PageContext.IsGuest,
+    UserID =  this.PageContext.PageUserID,
+    CssClass = "currentUser"
+}.RenderToString() %>
+ </div>
+ <%
+     }%>
+    <div class="menuContainer">
+        <ul class="menuList">
+           <%if (this.PageContext.IsGuest)
+              {%>
+             <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "MYTOPICS")%></a> </li>
+                 <%
+                 }%>
             <%
                 if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
                 {%>
@@ -96,7 +120,7 @@
             <%
                 }%>
             <%
-                if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations)
+                if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !YAF.Classes.Config.IsAnyPortal)
                 {%>
             <li class="menuAccount"><a href="<%=this.PageContext.BoardSettings.ShowRulesForRegistration
                                                         ? YafBuildLink.GetLink(ForumPages.rules)
