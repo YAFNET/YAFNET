@@ -82,7 +82,7 @@
            <%if (this.PageContext.IsGuest)
               {%>
              <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">
-                <%=this.PageContext.Localization.GetText("TOOLBAR", "MYTOPICS")%></a> </li>
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")%></a> </li>
                  <%
                  }%>
             <%

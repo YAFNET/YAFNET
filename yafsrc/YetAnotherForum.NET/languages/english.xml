@@ -1372,6 +1372,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="BUDDIES">My Buddies</Resource>
 		<Resource tag="BUDDYREQUEST">({0} pending)</Resource>
 		<Resource tag="MYTOPICS">My Topics</Resource>
+		<Resource tag="ACTIVETOPICS">Active Topics</Resource>
 		<Resource tag="ADMIN">Admin</Resource>
 		<Resource tag="HELP">Help</Resource>
 		<Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>
@@ -1384,7 +1385,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="NEWPM">({0} Unread)</Resource>
 		<Resource tag="REGISTER">Register</Resource>
 		<Resource tag="SEARCH">Search</Resource>
-		<Resource tag="WELCOME_GUEST">Welcome Guest</Resource>
+		<Resource tag="WELCOME_GUEST">Welcome Guest! To enable all features please try to register or login.</Resource>
 	</page>
 	<page name="TOPICS">
 		<Resource tag="ALL">All</Resource>
