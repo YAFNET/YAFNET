@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 0x01094100;
+        return 0x01095032;
       }
     }
 
@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 9, 29);
+        return new DateTime(2010, 9, 30);
       }
     }
 
@@ -165,33 +165,37 @@ namespace YAF.Classes.Utils
       {
         var value = (code >> 4) & 0x0F;
 
-        switch (value)
-        {
-          case 1:
-            version += " ALPHA ";
-            break;
-          case 2:
-            version += " BETA ";
-            break;
-          case 3:
-            version += " RC";
-            break;
-          case 4:
-            version += " RTM ";
-            break;
-          case 5:
-            version += " CTM";
-            break;
-        }
+        var number = String.Empty;
 
         if ((code & 0x0F) > 1)
         {
-          version += "{0}".FormatWith((code & 0x0F).ToType<int>().ToString("00"));
+          number = ((code & 0x0F).ToType<int>() - 1).ToString();
         }
         else if ((code & 0x0F) == 1)
         {
-          version += "{0}".FormatWith(AppVersionDate.ToString("yyyyMMdd"));
+          number = AppVersionDate.ToString("yyyyMMdd");
         }
+
+        switch (value)
+        {
+          case 1:
+            version += " ALPHA {0}".FormatWith(number);
+            break;
+          case 2:
+            version += " BETA {0} ".FormatWith(number);
+            break;
+          case 3:
+            version += " RC{0}".FormatWith(number);
+            break;
+          case 4:
+            version += " RTM.{0}".FormatWith(number);
+            break;
+          case 5:
+            version += " CTM.{0}".FormatWith(number);
+            break;
+        }
+
+
       }
 
       return version;
