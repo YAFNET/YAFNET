@@ -977,10 +977,6 @@ namespace YAF.Pages
             (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
         }
       }
-      else
-      {
-        this.CurrentMessage = rowList.Last().Field<int>("MessageID");
-      }
 
       var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
 
@@ -997,6 +993,12 @@ namespace YAF.Pages
       {
         // handle add description/keywords for SEO
         this.AddMetaData(pagedData.First()["Message"]);
+      }
+
+      if (pagedData.Any() && this.CurrentMessage == 0)
+      {
+        // set it to the first...
+        this.CurrentMessage = pagedData.First().Field<int>("MessageID");
       }
 
       this.MessageList.DataSource = pagedData;
