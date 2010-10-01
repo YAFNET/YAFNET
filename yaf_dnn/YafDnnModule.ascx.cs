@@ -63,6 +63,9 @@ namespace YAF.DotNetNuke
 
         #region IActionable Members
 
+        /// <summary>
+        /// Add Menu Entries to Module Container
+        /// </summary>
         public ModuleActionCollection ModuleActions
         {
             get
@@ -301,11 +304,15 @@ namespace YAF.DotNetNuke
                 forum1.BoardID = largestBoardId;
             }
         }
-
-        /*private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
+        /// <summary>
+        /// Change Page Title
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
-           BasePage.Title = e.Title + " - " + BasePage.Title;
-        }*/
+            this.BasePage.Title = this.BasePage.Title.Replace(this.ModuleConfiguration.ModuleTitle, string.Empty);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -331,7 +338,7 @@ namespace YAF.DotNetNuke
             pnlModuleContent.Controls.Add(forum1);
             
             Load += DotNetNukeModule_Load;
-            //forum1.PageTitleSet += Forum1_PageTitleSet;
+            forum1.PageTitleSet += Forum1_PageTitleSet;
 
             //Get current BoardID
             try
