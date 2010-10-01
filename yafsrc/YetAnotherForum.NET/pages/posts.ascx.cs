@@ -241,11 +241,11 @@ namespace YAF.Pages
         return string.Empty;
       }
 
-      var iIndent = (int)o;
-      if (iIndent > 0)
+      var currentIndex = (int)o;
+      if (currentIndex > 0)
       {
         return "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>".FormatWith(
-          iIndent * 32, YafForumInfo.ForumClientFileRoot);
+          currentIndex * 32, YafForumInfo.ForumClientFileRoot);
       }
 
       return string.Empty;
@@ -264,55 +264,48 @@ namespace YAF.Pages
     protected string GetThreadedRow([NotNull] object o)
     {
       var row = (DataRow)o;
-      if (!this.IsThreaded || this.CurrentMessage == (int)row["MessageID"])
+      int messageId = (int)row["MessageID"];
+
+      if (!this.IsThreaded || this.CurrentMessage == messageId)
       {
         return string.Empty;
       }
 
-      var html = new StringBuilder(1000);
+      var html = new StringBuilder();
 
       // Threaded
-      string brief = row["Message"].ToString();
+      string brief =
+        StringHelper.RemoveMultipleWhitespace(
+          BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString()))));
 
-      RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
-      options |= RegexOptions.Singleline;
-      while (Regex.IsMatch(brief, @"\[quote=(.*?)\](.*)\[/quote\]", options))
-      {
-        brief = Regex.Replace(brief, @"\[quote=(.*?)\](.*)\[/quote\]", string.Empty, options);
-      }
-
-      while (Regex.IsMatch(brief, @"\[quote\](.*)\[/quote\]", options))
-      {
-        brief = Regex.Replace(brief, @"\[quote\](.*)\[/quote\]", string.Empty, options);
-      }
-
-      while (Regex.IsMatch(brief, @"<.*?>", options))
-      {
-        brief = Regex.Replace(brief, @"<.*?>", string.Empty, options);
-      }
-
-      while (Regex.IsMatch(brief, @"\[.*?\]", options))
-      {
-        brief = Regex.Replace(brief, @"\[.*?\]", string.Empty, options);
-      }
-
-      brief = YafServices.BadWordReplace.Replace(brief);
-
-      if (brief.Length > 42)
-      {
-        brief = brief.Substring(0, 40) + "...";
-      }
-
+      brief = StringHelper.Truncate(YafServices.BadWordReplace.Replace(brief), 100);
       brief = YafFormatMessage.AddSmiles(brief);
 
-      html.AppendFormat("<tr class='post'><td colspan='3' nowrap>");
+      if (brief.IsNotSet())
+      {
+        brief = "...";
+      }
+
+      html.AppendFormat(@"<tr class=""post""><td colspan=""3"" style=""white-space:nowrap;"">");
       html.AppendFormat(this.GetIndentImage(row["Indent"]));
-      html.AppendFormat(
-        "\n<a href='{0}'>{2} ({1}", 
-        YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", row["MessageID"]), 
-        row["UserName"], 
-        brief);
-      html.AppendFormat(" - {0})</a>", YafServices.DateTime.FormatDateTimeShort(row["Posted"]));
+
+      string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(row.Field<int>("UserID"));
+
+      if (avatarUrl.IsNotSet())
+      {
+        avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+      }
+
+      html.Append(@"<span class=""threadedRowCollapsed"">");
+      html.AppendFormat(@"<img src=""{0}"" alt="""" class=""avatarimage"" />", avatarUrl);
+      html.AppendFormat(@"<a href=""{0}"" class=""threadUrl"">{1}</a>", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId), brief);
+
+      html.Append(" (");
+      html.Append(
+        new UserLink() { ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID") }.
+          RenderToString());
+
+      html.AppendFormat(" - {0})</span>", YafServices.DateTime.FormatDateTimeShort(row["Posted"]));
       html.AppendFormat("</td></tr>");
 
       return html.ToString();
@@ -329,6 +322,8 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsCurrentMessage([NotNull] object o)
     {
+      CodeContracts.ArgumentNotNull(o, "o");
+
       var row = (DataRow)o;
 
       return !this.IsThreaded || this.CurrentMessage == (int)row["MessageID"];

@@ -1379,6 +1379,7 @@ Der Bestätigungscode lautet
     <Resource tag="BUDDIES">Freunde</Resource>
     <Resource tag="BUDDYREQUEST">({0} Austehend)</Resource>
     <Resource tag="HELP">Hilfe</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Eingeloggt als: {0}</Resource>
     <Resource tag="LOGIN">Einloggen</Resource>
     <Resource tag="LOGOUT">Ausloggen</Resource>

@@ -1385,6 +1385,7 @@ Vizitati forumul {forumname} la adresa {forumlink}
     <Resource tag="BUDDIES">Prieteni</Resource>
     <Resource tag="BUDDYREQUEST">({0} neconfirmate)</Resource>
     <Resource tag="HELP">Ajutor</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Logat ca: {0}</Resource>
     <Resource tag="LOGIN">Intrare</Resource>
     <Resource tag="LOGOUT">Iesire</Resource>

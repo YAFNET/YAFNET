@@ -1379,6 +1379,7 @@
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Ayuda</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Sesión iniciada como: {0}</Resource>
     <Resource tag="LOGIN">Iniciar sesión</Resource>
     <Resource tag="LOGOUT">Cerrar sesión</Resource>

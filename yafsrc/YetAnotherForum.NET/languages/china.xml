@@ -1379,6 +1379,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">帮助</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">欢迎回来，{0}</Resource>
     <Resource tag="LOGIN">登录</Resource>
     <Resource tag="LOGOUT">注销</Resource>

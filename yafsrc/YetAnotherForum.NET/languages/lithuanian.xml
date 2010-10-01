@@ -1531,6 +1531,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Padėti </Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Prisijungęs kaip: {0} </Resource>
     <Resource tag="LOGIN">Prisijungti </Resource>
     <Resource tag="LOGOUT">Išsiregistruoti </Resource>

@@ -1367,10 +1367,10 @@ Visit {forumname} at {forumlink}
 	</page>
 	<page name="TOOLBAR">
 		<Resource tag="MYALBUMS">My Albums</Resource>
-		<Resource tag="BUDDIES">Buddies</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
+		<Resource tag="BUDDIES">My Buddies</Resource>
 		<Resource tag="BUDDYREQUEST">({0} pending)</Resource>
 		<Resource tag="MYTOPICS">My Topics</Resource>
-		<Resource tag="ACTIVETOPICS">Active Topics</Resource>
 		<Resource tag="ADMIN">Admin</Resource>
 		<Resource tag="HELP">Help</Resource>
 		<Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>

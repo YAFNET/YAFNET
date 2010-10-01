@@ -84,7 +84,7 @@
             <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         </table>
     </ItemTemplate>
-    <AlternatingItemTemplate>
+    <AlternatingItemTemplate>        
         <table class="content postContainer_Alt" width="100%">
             <%# GetThreadedRow(Container.DataItem) %>
             <YAF:DisplayPost ID="DisplayPostAlt" runat="server" DataRow="<%# Container.DataItem %>"

@@ -28,6 +28,7 @@ namespace YAF.Classes
   using System.Web.Hosting;
 
   using YAF.Classes.Interfaces;
+  using YAF.Classes.Pattern;
 
   #endregion
 
@@ -183,6 +184,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get base url from variables.
     /// </returns>
+    [NotNull]
     public static string GetBaseUrlFromVariables()
     {
       var url = new StringBuilder();

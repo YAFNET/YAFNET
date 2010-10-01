@@ -1379,6 +1379,7 @@ Visita il forum {forumname} in {forumlink}
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Aiuto</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Log-in effettuato come: {0}</Resource>
     <Resource tag="LOGIN">Log In</Resource>
     <Resource tag="LOGOUT">Logout</Resource>

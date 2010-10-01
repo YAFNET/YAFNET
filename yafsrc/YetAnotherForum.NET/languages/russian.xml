@@ -1378,6 +1378,7 @@
     <Resource tag="BUDDIES">Друзья</Resource>
     <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
     <Resource tag="HELP">Справка</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Добро пожаловать, {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
     <Resource tag="LOGOUT">Выход</Resource>

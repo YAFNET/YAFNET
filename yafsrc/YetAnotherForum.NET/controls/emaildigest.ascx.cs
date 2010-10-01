@@ -7,6 +7,7 @@
   using System.Linq;
   using System.Web.UI;
 
+  using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
@@ -182,6 +183,13 @@
 
       if (token.IsNotSet() || !token.Equals(YafContext.Current.BoardSettings.WebServiceToken))
       {
+        this.Response.End();
+        return;
+      }
+
+      if (Config.BaseUrlMask.IsNotSet())
+      {
+        // fail... BaseUrlMask required for Digest.
         this.Response.End();
         return;
       }

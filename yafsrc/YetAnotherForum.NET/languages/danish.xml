@@ -1368,6 +1368,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="BUDDIES">Venner</Resource>
     <Resource tag="BUDDYREQUEST">({0} venter)</Resource>
     <Resource tag="HELP">Hjælp</Resource>
+    <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Logget ind som : {0}</Resource>
     <Resource tag="LOGIN">Log ind</Resource>
     <Resource tag="LOGOUT">Log ud</Resource>

@@ -32,6 +32,7 @@ namespace YAF.Classes.Core
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
   using YAF.Classes.Extensions;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -403,17 +404,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The get cleaned topic message.
     /// </returns>
-    public static MessageCleaned GetCleanedTopicMessage(object topicMessage, object topicId)
+    public static MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId)
     {
-      if (topicMessage == null)
-      {
-        throw new ArgumentNullException("topicMessage", "topicMessage is null.");
-      }
-
-      if (topicId == null)
-      {
-        throw new ArgumentNullException("topicId", "topicId is null.");
-      }
+      CodeContracts.ArgumentNotNull(topicMessage, "topicMessage");
+      CodeContracts.ArgumentNotNull(topicId, "topicId");
 
       // get the common words for the language -- should be all lower case.
       List<string> commonWords = YafContext.Current.Localization.GetText("COMMON", "COMMON_WORDS").StringToList(',');
@@ -433,8 +427,6 @@ namespace YAF.Classes.Core
 
             if (returnMsg.IsSet())
             {
-              var flags = new MessageFlags { IsBBCode = true, IsSmilies = true };
-
               // process message... clean html, strip html, remove bbcode, etc...
               returnMsg =
                 StringHelper.RemoveMultipleWhitespace(
@@ -737,8 +729,11 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    private static string RemoveHtmlByList(string text, IEnumerable<string> matchList)
+    private static string RemoveHtmlByList([NotNull] string text, [NotNull] IEnumerable<string> matchList)
     {
+      CodeContracts.ArgumentNotNull(text, "text");
+      CodeContracts.ArgumentNotNull(matchList, "matchList");
+
       MatchAndPerformAction(
         "<.*?>",
         text,
@@ -763,8 +758,12 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    private static IList<string> MakeMatchList(string matchRegEx, string text)
+    [NotNull]
+    private static IList<string> MakeMatchList([NotNull] string matchRegEx, [NotNull] string text)
     {
+      CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
+      CodeContracts.ArgumentNotNull(text, "text");
+
       var matchList = new List<string>();
 
       MatchAndPerformAction(matchRegEx, text, (match, index, length) => matchList.Add(match));
@@ -785,9 +784,13 @@ namespace YAF.Classes.Core
       /// </param>
       /// <returns>
       /// </returns>
-      private static void MatchAndPerformAction(string matchRegEx, string text, Action<string, int, int> MatchAction)
+      private static void MatchAndPerformAction([NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> MatchAction)
     {
-      const RegexOptions options = RegexOptions.IgnoreCase;
+        CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
+        CodeContracts.ArgumentNotNull(text, "text");
+        CodeContracts.ArgumentNotNull(MatchAction, "MatchAction");
+
+        const RegexOptions options = RegexOptions.IgnoreCase;
 
       var matches = Regex.Matches(text, matchRegEx, options).Cast<Match>().OrderByDescending(x => x.Index);
 
@@ -812,8 +815,13 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The surround word list.
     /// </returns>
-    public static string SurroundWordList(string message, IList<string> wordList, string prefix, string postfix)
+    public static string SurroundWordList([NotNull] string message, [NotNull] IList<string> wordList, [NotNull] string prefix, [NotNull] string postfix)
     {
+      CodeContracts.ArgumentNotNull(message, "message");
+      CodeContracts.ArgumentNotNull(wordList, "wordList");
+      CodeContracts.ArgumentNotNull(prefix, "prefix");
+      CodeContracts.ArgumentNotNull(postfix, "postfix");
+
       const RegexOptions regexOptions = RegexOptions.IgnoreCase;
 
       foreach (string word in wordList.Where(w => w.Length > 3))

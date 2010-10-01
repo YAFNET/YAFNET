@@ -196,6 +196,11 @@
     color: #333333;
 }
 
+.yafnet .threadedRowCollapsed .threadUrl
+{
+    font-weight: bold;
+}
+
 /* Unresolved post in Moderation Reports */
 .yafnet .post_res
 {
