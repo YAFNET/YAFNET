@@ -48,7 +48,7 @@ namespace YAF.Modules
     private void CurrentForumPage_PreLoad(object sender, EventArgs e)
     {
       // no security features for login/logout pages
-      if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout)
+      if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout || ForumPageType == ForumPages.recoverpassword)
       {
         return;
       }
@@ -76,13 +76,6 @@ namespace YAF.Modules
       // handle security features...
       switch (ForumPageType)
       {
-        case ForumPages.recoverpassword:
-          if (PageContext.BoardSettings.DisableRegistrations)
-          {
-            YafBuildLink.AccessDenied();
-          }
-
-          break;
         default:
           if (PageContext.IsPrivate && CurrentForumPage.User == null)
           {
