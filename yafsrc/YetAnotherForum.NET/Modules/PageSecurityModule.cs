@@ -76,6 +76,13 @@ namespace YAF.Modules
       // handle security features...
       switch (ForumPageType)
       {
+        case ForumPages.register:
+          if (PageContext.BoardSettings.DisableRegistrations)
+          {
+            YafBuildLink.AccessDenied();
+          }
+
+          break;
         default:
           if (PageContext.IsPrivate && CurrentForumPage.User == null)
           {
