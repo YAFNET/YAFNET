@@ -6,7 +6,7 @@ namespace YAF.Classes.Utils
    /// <summary>
    /// The class gets common system info. Used in data layers other than MSSQL.
    /// </summary>
-    internal static class Platform
+    public static class Platform
     {
         private static bool inited;
         private static bool isMono;
