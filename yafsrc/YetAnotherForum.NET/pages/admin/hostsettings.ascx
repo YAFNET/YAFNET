@@ -902,6 +902,15 @@
                             <asp:CheckBox ID="ShowYAFVersion" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
+                     <tr>
+                        <td class="postheader">
+                            <strong>Show Help:</strong><br />
+                            Enable or disable display the Help Link in the Header that Shows the Help Files Pages
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowHelp" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="postheader">
                             <strong>Show Join Date:</strong><br />

@@ -103,9 +103,14 @@
             <%
                 }                    
             %>
-
+             <%
+                if (this.PageContext.BoardSettings.ShowHelp)
+                {%>
             <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.help_index) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "HELP")%></a> </li>
+                 <%
+                }                    
+            %>
             <%
                 if (this.PageContext.IsGuest && !YAF.Classes.Config.IsAnyPortal && YAF.Classes.Config.AllowLoginAndLogoff)
                 {

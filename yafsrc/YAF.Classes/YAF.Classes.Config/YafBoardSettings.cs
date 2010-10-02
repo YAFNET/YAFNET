@@ -2414,6 +2414,19 @@ namespace YAF.Classes
       }
     }
 
+    public bool ShowHelp
+    {
+      get
+      {
+          return this._reg.GetValue<bool>("ShowHelp", true);
+      }
+
+      set
+      {
+          this._reg.SetValue<bool>("ShowHelp", value);
+      }
+    }
+
     #endregion
 
     #region string settings
