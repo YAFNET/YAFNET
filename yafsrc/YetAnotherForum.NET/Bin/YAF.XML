@@ -2211,50 +2211,57 @@
         </member>
         <member name="F:YAF.RegisterForum.Register.LatestVersionDateOperationCompleted">
             <summary>
-            The latest version date operation completed.
+              The latest version date operation completed.
             </summary>
         </member>
         <member name="F:YAF.RegisterForum.Register.LatestVersionOperationCompleted">
             <summary>
-            The latest version operation completed.
+              The latest version operation completed.
             </summary>
         </member>
         <member name="F:YAF.RegisterForum.Register.RegisterForumOperationCompleted">
             <summary>
-            The register forum operation completed.
+              The register forum operation completed.
             </summary>
         </member>
         <member name="F:YAF.RegisterForum.Register.useDefaultCredentialsSetExplicitly">
             <summary>
-            The use default credentials set explicitly.
+              The use default credentials set explicitly.
             </summary>
         </member>
         <member name="M:YAF.RegisterForum.Register.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.RegisterForum.Register"/> class. 
-            The register.
+              Initializes a new instance of the <see cref="T:YAF.RegisterForum.Register"/> class. 
+              The register.
             </summary>
             <remarks>
             </remarks>
         </member>
-        <member name="M:YAF.RegisterForum.Register.RegisterForum(System.Int64,System.String,System.String)">
+        <member name="M:YAF.RegisterForum.Register.BeginLatestVersion(System.AsyncCallback,System.Object)">
             <summary>
-            The register forum.
+            The begin latest version.
             </summary>
-            <param name="id">
-            The id.
+            <param name="callback">
+            The callback.
             </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="address">
-            The address.
+            <param name="asyncState">
+            The async State.
             </param>
             <remarks>
             </remarks>
-            <returns>
-            The register forum.
-            </returns>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.BeginLatestVersionDate(System.AsyncCallback,System.Object)">
+            <summary>
+            The begin latest version date.
+            </summary>
+            <param name="callback">
+            The callback.
+            </param>
+            <param name="asyncState">
+            The async State.
+            </param>
+            <remarks>
+            </remarks>
         </member>
         <member name="M:YAF.RegisterForum.Register.BeginRegisterForum(System.Int64,System.String,System.String,System.AsyncCallback,System.Object)">
             <summary>
@@ -2278,6 +2285,39 @@
             <remarks>
             </remarks>
         </member>
+        <member name="M:YAF.RegisterForum.Register.CancelAsync(System.Object)">
+            <summary>
+            The cancel async.
+            </summary>
+            <param name="userState">
+            The user State.
+            </param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.EndLatestVersion(System.IAsyncResult)">
+            <summary>
+            The end latest version.
+            </summary>
+            <param name="asyncResult">
+            The async Result.
+            </param>
+            <remarks>
+            </remarks>
+            <returns>
+            The end latest version.
+            </returns>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.EndLatestVersionDate(System.IAsyncResult)">
+            <summary>
+            The end latest version date.
+            </summary>
+            <param name="asyncResult">
+            The async Result.
+            </param>
+            <remarks>
+            </remarks>
+        </member>
         <member name="M:YAF.RegisterForum.Register.EndRegisterForum(System.IAsyncResult)">
             <summary>
             The end register forum.
@@ -2289,6 +2329,76 @@
             </remarks>
             <returns>
             The end register forum.
+            </returns>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.LatestVersion">
+            <summary>
+            The latest version.
+            </summary>
+            <remarks>
+            </remarks>
+            <returns>
+            The latest version.
+            </returns>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.LatestVersionAsync">
+            <summary>
+            The latest version async.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.LatestVersionAsync(System.Object)">
+            <summary>
+            The latest version async.
+            </summary>
+            <param name="userState">
+            The user State.
+            </param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.LatestVersionDate">
+            <summary>
+            The latest version date.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.LatestVersionDateAsync">
+            <summary>
+            The latest version date async.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.LatestVersionDateAsync(System.Object)">
+            <summary>
+            The latest version date async.
+            </summary>
+            <param name="userState">
+            The user State.
+            </param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:YAF.RegisterForum.Register.RegisterForum(System.Int64,System.String,System.String)">
+            <summary>
+            The register forum.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="address">
+            The address.
+            </param>
+            <remarks>
+            </remarks>
+            <returns>
+            The register forum.
             </returns>
         </member>
         <member name="M:YAF.RegisterForum.Register.RegisterForumAsync(System.Int64,System.String,System.String)">
@@ -2326,140 +2436,6 @@
             <remarks>
             </remarks>
         </member>
-        <member name="M:YAF.RegisterForum.Register.OnRegisterForumOperationCompleted(System.Object)">
-            <summary>
-            The on register forum operation completed.
-            </summary>
-            <param name="arg">
-            The arg.
-            </param>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersion">
-            <summary>
-            The latest version.
-            </summary>
-            <remarks>
-            </remarks>
-            <returns>
-            The latest version.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.BeginLatestVersion(System.AsyncCallback,System.Object)">
-            <summary>
-            The begin latest version.
-            </summary>
-            <param name="callback">
-            The callback.
-            </param>
-            <param name="asyncState">
-            The async State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.EndLatestVersion(System.IAsyncResult)">
-            <summary>
-            The end latest version.
-            </summary>
-            <param name="asyncResult">
-            The async Result.
-            </param>
-            <remarks>
-            </remarks>
-            <returns>
-            The end latest version.
-            </returns>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionAsync">
-            <summary>
-            The latest version async.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionAsync(System.Object)">
-            <summary>
-            The latest version async.
-            </summary>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.OnLatestVersionOperationCompleted(System.Object)">
-            <summary>
-            The on latest version operation completed.
-            </summary>
-            <param name="arg">
-            The arg.
-            </param>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionDate">
-            <summary>
-            The latest version date.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.BeginLatestVersionDate(System.AsyncCallback,System.Object)">
-            <summary>
-            The begin latest version date.
-            </summary>
-            <param name="callback">
-            The callback.
-            </param>
-            <param name="asyncState">
-            The async State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.EndLatestVersionDate(System.IAsyncResult)">
-            <summary>
-            The end latest version date.
-            </summary>
-            <param name="asyncResult">
-            The async Result.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionDateAsync">
-            <summary>
-            The latest version date async.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.LatestVersionDateAsync(System.Object)">
-            <summary>
-            The latest version date async.
-            </summary>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.OnLatestVersionDateOperationCompleted(System.Object)">
-            <summary>
-            The on latest version date operation completed.
-            </summary>
-            <param name="arg">
-            The arg.
-            </param>
-        </member>
-        <member name="M:YAF.RegisterForum.Register.CancelAsync(System.Object)">
-            <summary>
-            The cancel async.
-            </summary>
-            <param name="userState">
-            The user State.
-            </param>
-            <remarks>
-            </remarks>
-        </member>
         <member name="M:YAF.RegisterForum.Register.IsLocalFileSystemWebService(System.String)">
             <summary>
             The is local file system web service.
@@ -2471,36 +2447,60 @@
             The is local file system web service.
             </returns>
         </member>
-        <member name="P:YAF.RegisterForum.Register.Url">
+        <member name="M:YAF.RegisterForum.Register.OnLatestVersionDateOperationCompleted(System.Object)">
             <summary>
-            Gets or sets Url.
+            The on latest version date operation completed.
             </summary>
+            <param name="arg">
+            The arg.
+            </param>
         </member>
-        <member name="P:YAF.RegisterForum.Register.UseDefaultCredentials">
+        <member name="M:YAF.RegisterForum.Register.OnLatestVersionOperationCompleted(System.Object)">
             <summary>
-            Gets or sets a value indicating whether UseDefaultCredentials.
+            The on latest version operation completed.
             </summary>
+            <param name="arg">
+            The arg.
+            </param>
         </member>
-        <member name="E:YAF.RegisterForum.Register.RegisterForumCompleted">
+        <member name="M:YAF.RegisterForum.Register.OnRegisterForumOperationCompleted(System.Object)">
             <summary>
-            The register forum completed.
+            The on register forum operation completed.
             </summary>
-            <remarks>
-            </remarks>
+            <param name="arg">
+            The arg.
+            </param>
         </member>
         <member name="E:YAF.RegisterForum.Register.LatestVersionCompleted">
             <summary>
-            The latest version completed.
+              The latest version completed.
             </summary>
             <remarks>
             </remarks>
         </member>
         <member name="E:YAF.RegisterForum.Register.LatestVersionDateCompleted">
             <summary>
-            The latest version date completed.
+              The latest version date completed.
             </summary>
             <remarks>
             </remarks>
+        </member>
+        <member name="E:YAF.RegisterForum.Register.RegisterForumCompleted">
+            <summary>
+              The register forum completed.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YAF.RegisterForum.Register.Url">
+            <summary>
+              Gets or sets Url.
+            </summary>
+        </member>
+        <member name="P:YAF.RegisterForum.Register.UseDefaultCredentials">
+            <summary>
+              Gets or sets a value indicating whether UseDefaultCredentials.
+            </summary>
         </member>
         <member name="T:YAF.RegisterForum.RegisterForumCompletedEventHandler">
             <summary>
@@ -2518,7 +2518,7 @@
         </member>
         <member name="F:YAF.RegisterForum.RegisterForumCompletedEventArgs.results">
             <summary>
-            The results.
+              The results.
             </summary>
         </member>
         <member name="M:YAF.RegisterForum.RegisterForumCompletedEventArgs.#ctor(System.Object[],System.Exception,System.Boolean,System.Object)">
@@ -2540,7 +2540,7 @@
         </member>
         <member name="P:YAF.RegisterForum.RegisterForumCompletedEventArgs.Result">
             <summary>
-            The result.
+              The result.
             </summary>
             <remarks>
             </remarks>
@@ -2561,7 +2561,7 @@
         </member>
         <member name="F:YAF.RegisterForum.LatestVersionCompletedEventArgs.results">
             <summary>
-            The results.
+              The results.
             </summary>
         </member>
         <member name="M:YAF.RegisterForum.LatestVersionCompletedEventArgs.#ctor(System.Object[],System.Exception,System.Boolean,System.Object)">
@@ -2583,7 +2583,7 @@
         </member>
         <member name="P:YAF.RegisterForum.LatestVersionCompletedEventArgs.Result">
             <summary>
-            The result.
+              The result.
             </summary>
             <remarks>
             </remarks>
@@ -2604,7 +2604,7 @@
         </member>
         <member name="F:YAF.RegisterForum.LatestVersionDateCompletedEventArgs.results">
             <summary>
-            The results.
+              The results.
             </summary>
         </member>
         <member name="M:YAF.RegisterForum.LatestVersionDateCompletedEventArgs.#ctor(System.Object[],System.Exception,System.Boolean,System.Object)">
@@ -2626,7 +2626,7 @@
         </member>
         <member name="P:YAF.RegisterForum.LatestVersionDateCompletedEventArgs.Result">
             <summary>
-            The result.
+              The result.
             </summary>
             <remarks>
             </remarks>
@@ -4962,6 +4962,15 @@
         <member name="F:YAF.Pages.shoutbox.ShoutBox1">
             <summary>
             ShoutBox1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.shoutbox.MustBeLoggedIn">
+            <summary>
+            MustBeLoggedIn control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -7699,15 +7708,6 @@
         <member name="F:YAF.Pages.moderate0.LocalizedLabel6">
             <summary>
             LocalizedLabel6 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.moderate0.LocalizedLabel7">
-            <summary>
-            LocalizedLabel7 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28650,6 +28650,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ShowYAFVersion">
             <summary>
             ShowYAFVersion control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowHelp">
+            <summary>
+            ShowHelp control.
             </summary>
             <remarks>
             Auto-generated field.

@@ -8839,11 +8839,30 @@
             The _favorite Topic list.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.WatchTopic(System.Int32,System.Int32)">
+            <summary>
+            Checks if this topic is watched, if not, adds it.
+            </summary>
+            <param name="userId"></param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.UnwatchTopic(System.Int32,System.Int32)">
+            <summary>
+            Checks if this topic is watched, if not, adds it.
+            </summary>
+            <param name="userId"></param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.TopicWatchedId(System.Int32,System.Int32)">
+            <summary>
+            Returns true if the topic is set to watch for userId
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafFavoriteTopic.AddFavoriteTopic(System.Int32)">
             <summary>
             The add favorite topic.
             </summary>
-            <param name="topicID">
+            <param name="topicId">
             The topic ID.
             </param>
             <returns>
@@ -8881,7 +8900,7 @@
             <summary>
             The remove favorite topic.
             </summary>
-            <param name="topicID">
+            <param name="topicId">
             The favorite topic id.
             </param>
             <returns>
