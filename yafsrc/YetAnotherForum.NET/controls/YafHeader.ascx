@@ -79,6 +79,8 @@
      }%>
     <div class="menuContainer">
         <ul class="menuList">
+           <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.forum) %>">
+                Forum</a> </li>
            <%if (this.PageContext.IsGuest)
               {%>
              <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">
@@ -136,6 +138,9 @@
             <%
                 }    
             %>
+
+        </ul>
+        <ul class="menuAdminList">
 
             <%
                 if (this.PageContext.IsAdmin)

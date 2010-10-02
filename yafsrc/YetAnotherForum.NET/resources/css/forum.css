@@ -111,6 +111,10 @@
 {
 	float: right;
 }
+.yafnet .menuAdminList 
+{
+	float: right;
+}
 .yafnet #yafheader ul
 {   
     display: inline; 

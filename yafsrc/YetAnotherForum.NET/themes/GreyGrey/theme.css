@@ -1033,7 +1033,8 @@ height:80em;
     color: Black;
 }
 
-.yafnet .menuList li a
+.yafnet .menuList li a,
+.yafnet .menuAdminList li a
 {
     font-weight: bold;
 	text-transform:uppercase;
