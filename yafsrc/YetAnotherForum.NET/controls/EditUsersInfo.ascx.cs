@@ -78,7 +78,8 @@ namespace YAF.Controls
         DataRow row = dt.Rows[0];
         var userFlags = new UserFlags(row["Flags"]);
 
-        this.Name.Text = (string) row["Name"];
+        this.Name.Text = (string)row["Name"];
+        this.DisplayName.Text = row.Field<string>("DisplayName");
         this.Email.Text = row["Email"].ToString();
         this.IsHostAdminX.Checked = userFlags.IsHostAdmin;
         this.IsApproved.Checked = userFlags.IsApproved;
@@ -110,7 +111,7 @@ namespace YAF.Controls
       // Update the Membership
       if (!this.IsGuestX.Checked)
       {
-        MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text);
+        MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
 
         if (this.Email.Text.Trim() != user.Email)
         {
@@ -132,7 +133,10 @@ namespace YAF.Controls
           IsApproved = this.IsApproved.Checked
         };
 
-      DB.user_adminsave(PageContext.PageBoardID, CurrentUserID, this.Name.Text, this.Email.Text, userFlags.BitValue, this.RankID.SelectedValue);
+      DB.user_adminsave(this.PageContext.PageBoardID, this.CurrentUserID, this.Name.Text.Trim(), this.DisplayName.Text.Trim(), this.Email.Text.Trim(), userFlags.BitValue, this.RankID.SelectedValue);
+
+      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
+
       BindData();
     }
   }

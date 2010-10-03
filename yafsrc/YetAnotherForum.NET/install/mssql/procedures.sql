@@ -5325,11 +5325,12 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_adminsave]
-(@BoardID int,@UserID int,@Name nvarchar(255),@Email nvarchar(50),@Flags int,@RankID int) as
+(@BoardID int,@UserID int,@Name nvarchar(255),@DisplayName nvarchar(255), @Email nvarchar(50),@Flags int,@RankID int) as
 begin
 		
 	update [{databaseOwner}].[{objectQualifier}User] set
 		Name = @Name,
+		DisplayName = @DisplayName,
 		Email = @Email,
 		RankID = @RankID,
 		Flags = @Flags
