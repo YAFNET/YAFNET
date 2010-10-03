@@ -10,57 +10,145 @@
 	font-size: 9pt;
 	color: #3b3b3b;
 }
+
 .yafnet input,
 .yafnet select {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 9pt; 
-	color: #3b3b3b;	
-	background-color: #FFF;	
-	border: 1px solid #aaaaaa;	
+    font-family: verdana,sans-serif;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;		
+    font-size: 9pt;
+    color: #3b3b3b;	
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #aaaaaa;	
 }
 
+.yafnet input[type="image"]
+{
+    padding: 0px;
+    border: 0px;
+}
+
+.yafnet input[type="checkbox"]
+{
+    border: 0px;
+    padding: 0px;
+    margin: 5px;
+}
+
+.yafnet input:hover,
+.yafnet select:hover
+{
+    background-color: #f5f5f5;
+    border: 1px solid #333;	
+}
+
+
+.yafForumWelcome
+{
+	float:right;
+	color: #555;
+	margin: 2px;
+	font-size: 95%;
+	margin-bottom: 5px;
+	padding: 6px;
+	border: 1px solid #a1b6e6;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;	
+}
+.yafForumWelcome div
+{
+	text-align:right;
+	display:inline;
+}
+
+.yafnet img {
+	border: 0;
+}
+
+/* yaf header */
 .yafnet #yafheader
 {
-    border: 1px solid #eee;
-    padding: 5px;
+	font-size: 90%;
 }
-
+.yafnet #yafheader .outerMenuContainer
+{
+    border: 1px solid #ddd;
+	line-height: 20px;
+	padding: 3px;
+}
+.yafnet #yafheader ul li a
+{
+	font-weight: bold;
+	padding: 2px
+}
+.yafnet #yafheader ul.menuAdminList
+{
+    margin-left: 10px !important;
+}
+.yafnet #yafheader ul.menuAdminList li a
+{
+    color: #999;
+}
+.yafnet #yafheader ul li
+{
+	padding: 0 0px 0 5px;
+	margin: 0;
+	border-left: 1px solid #ddd;
+}
+.yafnet #yafheader ul li:first-child 
+{
+    border-left: none;
+}
+.yafnet .menuMyContainer
+{
+    float: none !important;
+    display: inline;
+}
+.yafnet .menuContainer
+{
+    float: right !important;
+    display: inline;
+}
+.yafnet .menuMyList
+{
+    margin-bottom: 10px;
+}
+.yafnet .menuMyList li a
+{
+	font-weight: bold;	
+}
+.yafnet .menuMyList li
+{
+    display: inline;
+    padding: 0;
+}
+.yafnet #yafheader .loggedInUser
+{
+    float: left !important;
+    margin-right: 10px;
+}
 .yafnet #yafheader .currentUser
 {
     font-weight: bold;
 }
-
-.yafnet #yafheader li
-{
-    padding: 0 3px 0 5px;
-    border-right: 1px solid #999;
-    margin: 0;
-}
-
-.yafnet #yafheader li.menuMy
-{
+.yafnet #yafheader .guestUser  
+{    
+    background: url("error.png") #fdd no-repeat 8px 50%;
+    color: #281b1b;
+    font-size: 1em;
     font-weight: bold;
+    line-height: 150%;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid #deb7b7;
+    padding: 5px 10px 5px 30px;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
-.yafnet #yafheader li:last-child 
-{
-    border-right: none;
-}
-
-.yafnet .pbutton
-{
-    color: #ffffff;
-    background-color: #323453;
-    font-size: 8.5pt;
-    font-weight: bold;
-    border: solid 1px #444;
-    padding: 1px 6px 1px 6px;
-}
-.yafnet .pbutton:hover
-{
-    background-color: #656694;
-    border: solid 1px #000;
-}
 .yafnet img {
 	border: 0;
 }
@@ -93,12 +181,10 @@
 	color: #ffffff;
 	text-decoration: none;
 }
-.yafnet tr.header1 a:hover {
-	color: #eeffee;
-	text-decoration: underline;
-}	
 .yafnet th.header1,
-.yafnet td.header1 {
+.yafnet td.header1 
+{
+    text-align: left;
 	background-image: url('titleBack.gif');
 	color: #ffffff;
 	font-weight: bold;	
@@ -125,43 +211,53 @@
 	color: #55a055;
 	font-weight: bold;
 }
-.yafnet td.header2 {
+.yafnet td.header2,
+.yafnet th.header2 {
 	background-color: #e3e3e3;
 	color: #5555a0;
 	font-weight: bold;
 }
-
-.yafnet table.content {
-	border: solid .1em #aaa;
+.yafnet table.content 
+{
+	border: 1px solid #999;
 	padding: 0px;
 	margin: 0px;	
 	color: #000000;	
+	border-collapse: collapse;
 }
-
+.yafnet table.content:hover 
+{
+    border: 1px solid #ddd;
+}
 .yafnet .postUser
 {
 	width: 10%;
 }
-
 .yafnet .forumLinkCol div.forumheading,
 .yafnet .forumLinkCol_Alt div.forumheading
 {
     padding-bottom: 8px;
 }
-
 .yafnet .moderatorListCol,
 .yafnet .moderatorListCol a
 {
     font-size: 8pt;
     color: #000000;
 }
-
 .yafnet td.topicCountCol,
 .yafnet td.postCountCol,
 .yafnet td.lastPostCol
 {
     background-color: #f8f8f8;
     color: #333333;
+}
+
+.yafnet tr.topicRow td.topicStarter,
+.yafnet tr.topicRow_Alt td.topicStarter,
+.yafnet tr.topicRow td.topicViews,
+.yafnet tr.topicRow_Alt td.topicViews
+{
+    background-color: #f8f8f8;
 }
 
 .yafnet .forumRowTitle .headerTopics,
@@ -284,11 +380,21 @@
     
 }
 
+.yafnet .postContainer_Alt .postPosted,
+.yafnet .postContainer_Alt .message,
+.yafnet .postContainer_Alt .postTop,
+.yafnet .postContainer_Alt .postInfoBottom
+{
+    background-color: #f5f5f5;
+}
+
 .yafnet a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
-.yafnet td.header2 a { color: #000090; text-decoration: none; }
-.yafnet td.header2 a:link { color: #7f7f7f; text-decoration: none; }
-.yafnet td.header2 a:visited { color: #7f7f7f; text-decoration: none; }
+.yafnet td.header2 a { color: #009; text-decoration: none; }
+
+.yafnet td.header2 a:link,
+.yafnet td.header2 a:visited,
 .yafnet td.header2 a:active { color: #7f7f7f; text-decoration: none; }
+
 .yafnet td.header2 a:hover { color: #7f7f7f; text-decoration: underline; }
 .yafnet td.infoTable {
 	background-color: #FAFAFA;
@@ -296,8 +402,8 @@
 	border: 1px solid #F2F2F2;
 }
 /* all links */
-.yafnet .content a			{ color: #001090; text-decoration: none; }
-.yafnet .content a:hover	{ color: #001090; text-decoration: underline; }
+.yafnet  a			{ color: #019; text-decoration: none; }
+.yafnet  a:hover	{ color: #999; text-decoration: underline; }
 /* Footer1 - Bottom of tables */
 .yafnet .footer1 {
 	font-size: 7pt;
@@ -342,7 +448,7 @@
 
 /* User info and post/article */
 .yafnet .post {
-	background-color: #F5F5F5;
+	background-color: #fff;
 }
 .yafnet .post_alt {
 	background-color: #FaFaFa;
@@ -351,12 +457,6 @@
 .yafnet .post_res
 {
     background-color: #f4e941;   
-}
-.yafnet tr.post:hover {
-	background-color: #FFFFFF;	
-}
-.yafnet tr.post_alt:hover {
-	background-color: #FFFFFF;	
 }
 /* Footer of posts */
 .yafnet .postfooter {
@@ -397,11 +497,10 @@
 .yafnet .fileattach a {
 	font-weight: bold;
 }
-.yafnet table.content td {
+.yafnet table.content td, 
+.yafnet table.content th
+{    
 	padding: 5px;
-}
-.yafnet .content td table td table td {
-	padding: 0px;	
 }
 .yafnet .content .headersub {
 	color: #ffffff;

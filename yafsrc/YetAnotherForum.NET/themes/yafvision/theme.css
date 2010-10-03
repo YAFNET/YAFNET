@@ -1,5 +1,11 @@
 ﻿@import "jquery/jquery-ui.css";
 
+.yafnet .EditorDiv td
+{
+    padding: 0px !important;
+    border: 0 !important;
+}
+
 .yafnet,
 .yafnet td
 {
@@ -7,40 +13,40 @@
 	font-size: 8.5pt;
 }
 
-.yafnet #yafheader
+.yafnet input,
+.yafnet select 
 {
-    border: 1px solid #eee;
-    padding: 5px;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;		    
+    font-size: 8pt;
+    color: #3b3b3b;	
+    padding: 4px;
+    background-color: #fefefe;
+    border: 1px solid #999;	
 }
 
-.yafnet #yafheader .currentUser
+.yafnet input[type="image"]
 {
-    font-weight: bold;
+    padding: 0px;
+    border: 0px;
 }
 
-.yafnet #yafheader li
+.yafnet input[type="checkbox"]
 {
-    padding: 0 3px 0 5px;
-    border-right: 1px solid #999;
-    margin: 0;
+    border: 0px;
+    padding: 0px;
+    margin: 5px;
 }
 
-.yafnet #yafheader li.menuMy
+.yafnet input:hover,
+.yafnet select:hover
 {
-    font-weight: bold;
+    background-color: #eef;
+    border: 1px solid #333;	
 }
 
-.yafnet #yafheader li:last-child 
-{
-    border-right: none;
-}
 
-.yafnet input{font:8pt Verdana,Arial,Helvetica,sans-serif}
-.yafnet select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
-.yafnet textarea{background:#ffffff;border:1px solid #000000;font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}
-.yafnet form{display:inline}
-.yafnet input{border:1px solid #4C77B6;font-size:8pt}
-.yafnet input.pbutton{background:#EEF5FF;}
 /* For BBCode Post Buttons */
 .yafnet .ButtonOut {
 	border: #7F9DB9 1px solid;
@@ -67,8 +73,92 @@
 .yafnet li {
 	margin-left: 15px;
 }
+
+/* yaf header */
+.yafnet #yafheader
+{
+	font-size: 90%;
+}
+.yafnet #yafheader .outerMenuContainer
+{
+    border: 1px solid #ddd;
+	line-height: 20px;
+	padding: 3px;
+}
+.yafnet #yafheader ul li a
+{
+	font-weight: bold;
+	padding: 2px
+}
+.yafnet #yafheader ul.menuAdminList
+{
+    margin-left: 10px !important;
+}
+.yafnet #yafheader ul.menuAdminList li a
+{
+    color: #999;
+}
+.yafnet #yafheader ul li
+{
+	padding: 0 0px 0 5px;
+	margin: 0;
+	border-left: 1px solid #ddd;
+}
+.yafnet #yafheader ul li:first-child 
+{
+    border-left: none;
+}
+.yafnet .menuMyContainer
+{
+    float: none !important;
+    display: inline;
+}
+.yafnet .menuContainer
+{
+    float: right !important;
+    display: inline;
+}
+.yafnet .menuMyList
+{
+    margin-bottom: 10px;
+}
+.yafnet .menuMyList li a
+{
+	font-weight: bold;	
+}
+.yafnet .menuMyList li
+{
+    display: inline;
+    padding: 0;
+}
+.yafnet #yafheader .loggedInUser
+{
+    float: left !important;
+    margin-right: 10px;
+}
+.yafnet #yafheader .currentUser
+{
+    font-weight: bold;
+}
+.yafnet #yafheader .guestUser  
+{    
+    background: url("error.png") #fdd no-repeat 8px 50%;
+    color: #281b1b;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 150%;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid #deb7b7;
+    padding: 5px 10px 5px 30px;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
 /* hyperlinks */
-.yafnet a		{ text-decoration: none; color: #303030; }
+.yafnet a		{ text-decoration: none; color: #339; }
 .yafnet a:hover		{ text-decoration: underline; color: #efefb4; }
 /* custom forum images special styles */
 .yafnet .forum_customimage_locked
@@ -113,6 +203,7 @@
 	font-weight: bold;
 	line-height: 22px;
 	font-size:12px;
+	text-align: left;
 }
 /* Links in header1 */
 .yafnet tr.header1 a		{color:#FFFFFF;text-decoration:none}
@@ -212,17 +303,15 @@
 	background-color: #FFFFFF;
 	border-collapse: collapse;
 }
-.yafnet .content td {
+.yafnet .content td,
+.yafnet .content th {
 	padding: 5px;
-}
-.yafnet .content td table td table td {
-	padding: 0px;	
 }
 .yafnet #RichEdit td {
 	padding: 0px;
 }
 /* links inside content table*/
-.yafnet .content a		{ color: #000; text-decoration: none; }
+.yafnet .content a		{ color: #222; text-decoration: none; }
 .yafnet .content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
 /* used for quoting messages */
 .yafnet .quote {
@@ -281,7 +370,8 @@
 	padding: 5px;
 }
 /* p-tag at the top of pages with navigation links */
-.yafnet .yafPageLink { font-weight: bold; color: #202020; font-size: 9pt; }
+.yafnet .yafPageLink { font-weight: bold; color: #202020; font-size: 9pt;     margin-top: 10px;
+    margin-bottom: 10px;}
 .yafnet .yafPageLink a { color: #000000; text-decoration: none }
 .yafnet .yafPageLink a:hover { color: #6594D5; }
 /* for printing */
@@ -333,19 +423,6 @@ This CSS already works on FireFox.
 .yafnet .DivTopSeparator
 {
 	clear: both;
-}
-/* div at the top of pages with navigation links */
-.yafnet .yafPageLink
-{
-	border-top: solid 1px #cccccc;
-	border-left: solid 1px #cccccc;
-	border-bottom: solid 1px #cccccc;
-	border-right: solid 1px #cccccc;
-	font-weight: bold;
-	color: #000000;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 2px;
 }
 
 /* CSS Pagelinks */

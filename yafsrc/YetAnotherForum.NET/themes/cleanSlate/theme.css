@@ -47,34 +47,91 @@
 	white-space: nowrap;
 }
 
+/* yaf header */
 .yafnet #yafheader
 {
-    border: 1px solid #eee;
-    padding: 5px;
+	font-size: 90%;
 }
-
+.yafnet #yafheader .outerMenuContainer
+{
+    border: 1px solid #ddd;
+	line-height: 20px;
+	padding: 3px;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;	
+}
+.yafnet #yafheader ul li a
+{
+	font-weight: bold;
+	padding: 2px
+}
+.yafnet #yafheader ul.menuAdminList
+{
+    margin-left: 10px !important;
+}
+.yafnet #yafheader ul.menuAdminList li a
+{
+    color: #999;
+}
+.yafnet #yafheader ul li
+{
+	padding: 0 0px 0 5px;
+	margin: 0;
+	border-left: 1px solid #ddd;
+}
+.yafnet #yafheader ul li:first-child 
+{
+    border-left: none;
+}
+.yafnet .menuMyContainer
+{
+    float: none !important;
+    display: inline;
+}
+.yafnet .menuContainer
+{
+    float: right !important;
+    display: inline;
+}
+.yafnet .menuMyList
+{
+    margin-bottom: 10px;
+}
+.yafnet .menuMyList li a
+{
+	font-weight: bold;	
+}
+.yafnet .menuMyList li
+{
+    display: inline;
+    padding: 0;
+}
+.yafnet #yafheader .loggedInUser
+{
+    float: left !important;
+    margin-right: 10px;
+}
 .yafnet #yafheader .currentUser
 {
     font-weight: bold;
 }
-
-.yafnet #yafheader li
-{
-    padding: 0 3px 0 5px;
-    border-right: 1px solid #999;
-    margin: 0;
-}
-
-.yafnet #yafheader li.menuMy
-{
+.yafnet #yafheader .guestUser  
+{    
+    background: url("error.png") #fdd no-repeat 8px 50%;
+    color: #281b1b;
+    font-size: 1em;
     font-weight: bold;
+    line-height: 150%;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid #deb7b7;
+    padding: 5px 10px 5px 30px;
+    -webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
-
-.yafnet #yafheader li:last-child 
-{
-    border-right: none;
-}
-
 /* custom forum images special styles */
 .yafnet .forum_customimage_locked
 {

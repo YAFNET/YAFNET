@@ -2,6 +2,143 @@
 <Resources theme="YAF Pro" dir="yafpro">
   <page name="THEME">
     <Resource tag="CREDIT">YAFPro Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
+    <Resource tag="HEADER">&lt;script type="text/javascript" src="~/yafpro.js"&gt;&lt;/script&gt;</Resource>
+    <Resource tag="DIGESTHEAD">
+      &lt;style type="text/css"&gt;
+      #yaf_digest
+      {
+      font-family: arial,helvetica,"lucida grande",verdana,sans-serif;
+      font-size: 9.5pt;
+      color: #333333;
+      background-color: #eee;
+      }
+
+      #yaf_digest a:link {
+      color:#105CB6;
+      text-decoration:none;
+      }
+
+      #yaf_digest a {
+      color:#105CB6;
+      text-decoration:none;
+      }
+
+      #yaf_digest h1
+      {
+      font-size: 14pt;
+      }
+
+      #yaf_digest .title
+      {
+      float: left;
+      }
+
+      #yaf_digest .top
+      {
+      border: 1px solid #cbd0d4;
+      padding: 4px 40px 4px 40px;
+      background-color:#dbe1e5;
+      margin:auto;
+      width:905px;
+      }
+
+      #yaf_digest .bottom
+      {
+      border: 1px solid #cbd0d4;
+      padding: 20px 40px 20px 40px;
+      background-color:#dbe1e5;
+      margin:auto;
+      width:905px;
+      font-weight: bold;
+      }
+
+      #yaf_digest .date
+      {
+      float: right;
+      color: #999;
+      }
+
+      #yaf_digest .emailcontainer
+      {
+      }
+      #yaf_digest .main
+      {
+      clear: both;
+      padding: 5px 15px 15px 15px;
+      background-color:#FFFFFF;
+      margin:auto;
+      overflow:visible;
+      width:957px;
+      }
+      #yaf_digest br
+      {
+      clear:both;
+      }
+      #yaf_digest h1.header
+      {
+      margin-top: 10px;
+      background-image:url("titlebg.jpg");
+      background-color: #ee6943;
+      color:#FFFFFF;
+      font-weight:bold;
+      padding:8px;
+      }
+      #yaf_digest .forumTitle
+      {
+      color: #117711;
+      padding: 8px 8px 4px 8px;
+      border-bottom: 1px solid #aaa;
+      margin-top: 2px;
+      margin-bottom: 5px;
+      }
+      #yaf_digest .topic
+      {
+      padding-top: 4px;
+      padding-left: 25px;
+      padding-bottom: 4px;
+      }
+      #yaf_digest .comments
+      {
+      padding-left: 15px;
+      }
+      #yaf_digest .topic h3
+      {
+      font-size: 12pt;
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+      }
+      #yaf_digest .topic a
+      {
+      text-decoration: underline;
+      }
+      #yaf_digest .topic h5
+      {
+      font-size: 9pt;
+      padding-top: 0px;
+      margin-top: 0px;
+      }
+      #yaf_digest .topic .shortpost
+      {
+      background-color: #eee;
+      padding: 10px;
+      margin-left: 15px;
+      margin-right: 15px;
+      font-size: 10pt;
+      }
+
+      #yaf_digest .topic .link
+      {
+      display: block;
+      font-weight: bold;
+      }
+
+      #yaf_digest .topic .by
+      {
+      display: block;
+      color: #999;
+      }
+      &lt;/style&gt;
+    </Resource>
   </page>
 	<page name="ICONS">
     <Resource tag="PM">~/icon_pm.png</Resource>
