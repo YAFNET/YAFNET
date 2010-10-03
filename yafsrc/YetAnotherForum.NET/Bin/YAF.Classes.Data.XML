@@ -3593,7 +3593,7 @@
             The notification type.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_adminsave.
             </summary>
