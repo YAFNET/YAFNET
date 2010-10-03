@@ -125,34 +125,25 @@ namespace YAF.Pages.help
                     }
 
                     break;
-                case "recover":
-                    {
-                        // Load Lost Password
-                        this.SearchHolder.Visible = false;
-                        this.HelpList.Visible = true;
-
-                        this.HelpList.DataSource = this.helpContents.FindAll(check => check.HelpPage.Equals(FaqPage));
-                    }
-
-                    break;
-                case "anounce":
-                    {
-                        // Load Lost Password
-                        this.SearchHolder.Visible = false;
-                        this.HelpList.Visible = true;
-
-                        this.HelpList.DataSource = this.helpContents.FindAll(check => check.HelpPage.Equals(FaqPage));
-                    }
-
-                    break;
                 default:
                     {
-                        // Load Index and Search
-                        this.SearchHolder.Visible = true;
-                        this.HelpList.Visible = false;
+                        var HelpContentList = this.helpContents.FindAll(check => check.HelpPage.Equals(FaqPage));
 
-                        this.SubTitle.Text = this.GetText("subtitle");
-                        this.HelpContent.Text = this.GetText("welcome");
+                        if (HelpContentList.Count > 0)
+                        {
+                            this.SearchHolder.Visible = false;
+                            this.HelpList.Visible = true;
+                            this.HelpList.DataSource = HelpContentList;
+                        }
+                        else
+                        {
+                            // Load Index and Search
+                            this.SearchHolder.Visible = true;
+                            this.HelpList.Visible = false;
+
+                            this.SubTitle.Text = this.GetText("subtitle");
+                            this.HelpContent.Text = this.GetText("welcome");
+                        }
                     }
 
                     break;
@@ -228,23 +219,59 @@ namespace YAF.Pages.help
                 return;
             }
 
-            var itemRecover = new YafHelpContent
+             this.helpContents.Add(new YafHelpContent
               {
                   HelpPage = "recover",
                   HelpTitle = this.GetText("RECOVERTITLE"),
-                  HelpContent = this.GetText("RECOVERCONTENT")
-              };
+                  HelpContent = string.Format(this.GetText("RECOVERCONTENT"), YafBuildLink.GetLink(ForumPages.recoverpassword))
+              });
 
-            var itemAnounce = new YafHelpContent
-              {
-                  HelpPage = "anounce",
-                  HelpTitle = this.GetText("ANOUNCETITLE"),
-                  HelpContent = this.GetText("ANOUNCECONTENT")
-              };
+             if (!this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
+             {
+                 this.helpContents.Add(new YafHelpContent
+                 {
+                     HelpPage = "registration",
+                     HelpTitle = this.GetText("REGISTRATIONTITLE"),
+                     HelpContent = string.Format(this.GetText("REGISTRATIONCONTENT"), YafBuildLink.GetLink(ForumPages.recoverpassword))
+                 });
+             }
+            
+            // TODO : Show Only when reg ist enabled
+            IList<string> HelpPageNames = new List<string>
+                                              {
+                                                  "anounce",
+                                                  "forums",
+                                                  "searching",
+                                                  "display",
+                                                  "threadopt",
+                                                  "threadopt",
+                                                  "memberslist",
+                                                  "pm",
+                                                  "rss",
+                                                  "publicprofile",
+                                                  "mysettings",
+                                                  "mypics",
+                                                  "buddies",
+                                                  "myalbums",
+                                                  "posting",
+                                                  "replying",
+                                                  "editdelete",
+                                                  "polls",
+                                                  "attachments",
+                                                  "smilies",
+                                                  "threadstatus",
+                                                  "modsadmins"
+                                              };
 
-            this.helpContents.Add(itemRecover);
-
-            this.helpContents.Add(itemAnounce);
+            foreach (string HelpPageName in HelpPageNames)
+            {
+                this.helpContents.Add(new YafHelpContent
+                {
+                    HelpPage = HelpPageName,
+                    HelpTitle = this.GetText("{0}TITLE".FormatWith(HelpPageName.ToUpper())),
+                    HelpContent = this.GetText("{0}CONTENT".FormatWith(HelpPageName.ToUpper()))
+                });
+            }
         }
 
         #endregion

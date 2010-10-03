@@ -592,9 +592,41 @@
 &lt;p&gt;Announcement threads are displayed at the top of forum listing pages, above regular and sticky threads.&lt;/p&gt;
         </Resource>
     <Resource tag="ANOUNCETITLE">Announcements</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
+    <Resource tag="BUDDIESECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="BUDDIESETITLE">Buddies</Resource>
+    <Resource tag="DISPLAYCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
+    <Resource tag="EDITDELETECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
+    <Resource tag="FORUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="FORUMSTITLE">Forums, Threads and Posts</Resource>
     <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
+    <Resource tag="MEMBERSLISTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
+    <Resource tag="MODSADMINSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
+    <Resource tag="MYALBUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MYALBUMSTITLE">Albums</Resource>
+    <Resource tag="MYPICSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
+    <Resource tag="MYSETTINGSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MYSETTINGSTITLE">My Settings</Resource>
+    <Resource tag="NEWPOSTSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="NEWPOSTSTITLE">Viewing New Posts or Today's Posts</Resource>
     <Resource tag="NORESULTS">No Results found.</Resource>
-    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "Lost Password" 
+    <Resource tag="PMCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="PMTITLE">Contacting other Members</Resource>
+    <Resource tag="POLLSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
+    <Resource tag="POSTINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
+    <Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
+    <Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
+    <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
+    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
   link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
 &lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
   be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
@@ -604,11 +636,25 @@
   work. You may need to check your spam filters and folder if you do not see this 
   email in a few minutes. &lt;/p&gt;</Resource>
     <Resource tag="RECOVERTITLE">Recover lost password</Resource>
+    <Resource tag="REGISTRATIONCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="REGISTRATIONTITLE">Registration</Resource>
+    <Resource tag="REPLYINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="REPLYINGTITLE">Replying to a Post</Resource>
+    <Resource tag="RSSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="RSSTITLE">RSS</Resource>
     <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
     <Resource tag="SEARCHHELP">Search Help</Resource>
     <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
+    <Resource tag="SEARCHINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="SEARCHINGTITLE">Searching Forums and Threads</Resource>
     <Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
+    <Resource tag="SMILIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="SMILIESTITLE">Smilies</Resource>
     <Resource tag="SUBTITLE">Forum Help</Resource>
+    <Resource tag="THREADOPTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="THREADOPTTITLE">Thread Options</Resource>
+    <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="THREADSTATUSTITLE">Message Icons and Thread Status</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
     <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
   </page>
