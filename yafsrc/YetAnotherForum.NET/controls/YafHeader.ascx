@@ -8,8 +8,8 @@
     </div>
     <%
      }%>
-      
    
+   <div class="outerMenuContainer">   
     <div class="menuMyContainer">
       <ul class="menuMyList">
        <% if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)
@@ -161,6 +161,7 @@
             <% 
                 }%>
         </ul>
+    </div>
     </div>
     <div id="yafheaderEnd"></div>
 </div>

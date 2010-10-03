@@ -102,6 +102,11 @@
 {
     float: right;
 }
+.yafnet .outerMenuContainer
+{
+    float: left;
+    width: 100%;
+}
 .yafnet .menuContainer
 {
 	line-height:20px;
