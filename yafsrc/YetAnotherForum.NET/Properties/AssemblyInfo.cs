@@ -30,8 +30,8 @@ using System.Security;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.9.4.0")]
-[assembly: AssemblyFileVersion("1.9.4.0")]
+[assembly: AssemblyVersion("1.9.5.0")]
+[assembly: AssemblyFileVersion("1.9.5.0")]
 
 #if (!COMPACT_FRAMEWORK)
 
