@@ -647,10 +647,6 @@
       <DependentUpon>Resource.ashx</DependentUpon>
     </Compile>
     <Content Include="advanced.aspx" />
-    <Content Include="App_Data\yafnet.mdf" />
-    <Content Include="App_Data\yafnet_log.ldf">
-      <DependentUpon>yafnet.mdf</DependentUpon>
-    </Content>
     <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
@@ -731,7 +727,9 @@
     <Content Include="editors\yafEditor\unorderedlist.gif" />
     <Content Include="editors\yafEditor\yafEditor.js" />
     <Content Include="error.aspx" />
+    <Content Include="images\avatars\Common\SampleAvatar.gif" />
     <Content Include="images\blank.gif" />
+    <Content Include="images\categories\categoryImageSample.gif" />
     <Content Include="images\folder.gif" />
     <Content Include="images\forums\forumImageSample.gif" />
     <Content Include="images\medals\eusa_angel.gif" />
@@ -755,6 +753,7 @@
     <Content Include="images\medals\eusa_whistle.gif" />
     <Content Include="images\noavatar.gif" />
     <Content Include="images\noCover.png" />
+    <Content Include="images\ranks\SampleRankImage.gif" />
     <Content Include="images\spacer.gif" />
     <Content Include="images\YAFLogo.jpg" />
     <Content Include="install\BBCodeExtensions.xml" />
@@ -1531,6 +1530,7 @@
     <Content Include="themes\cleanSlate.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="themes\cleanSlate\atomfeed.png" />
     <Content Include="themes\cleanSlate\buttonBack.gif" />
     <Content Include="themes\cleanSlate\buttonBackB.gif" />
     <Content Include="themes\cleanSlate\buttonEnd.gif" />
@@ -1615,6 +1615,7 @@
     <Content Include="themes\cleanSlate\vote_rcap.gif" />
     <Content Include="themes\cleanSlate\voting_bar.gif" />
     <Content Include="themes\cleanSlate\cleanslate.js" />
+    <Content Include="themes\FlatEarth\atomfeed.png" />
     <Content Include="themes\FlatEarth\female.gif" />
     <Content Include="themes\FlatEarth\icon_search.png" />
     <Content Include="themes\FlatEarth\icon_useroffline.png" />
@@ -1652,7 +1653,10 @@
     <Content Include="themes\FlatEarth\rssfeed.gif" />
     <Content Include="themes\FlatEarth\tab-line.png" />
     <Content Include="themes\FlatEarth\tab.png" />
-    <Content Include="themes\Gray.xml" />
+    <Content Include="themes\Gray.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="themes\Gray\atomfeed.png" />
     <Content Include="themes\Gray\buttonBack.gif" />
     <Content Include="themes\Gray\buttonBackB.gif" />
     <Content Include="themes\Gray\buttonEnd.gif" />
@@ -1744,6 +1748,7 @@
     <Content Include="themes\Gray\vote_lcap.gif" />
     <Content Include="themes\Gray\vote_rcap.gif" />
     <Content Include="themes\Gray\voting_bar.gif" />
+    <Content Include="themes\soclean\atomfeed.png" />
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\icon_search.png" />
     <Content Include="themes\soclean\icon_useroffline.png" />
@@ -1842,6 +1847,7 @@
     <Content Include="themes\Yafmobile\vote_lcap.gif" />
     <Content Include="themes\Yafmobile\vote_rcap.gif" />
     <Content Include="themes\Yafmobile\voting_bar.gif" />
+    <Content Include="themes\yafpro\atomfeed.png" />
     <Content Include="themes\yafpro\female.gif" />
     <Content Include="themes\yafpro\icon_search.png" />
     <Content Include="themes\yafpro\icon_useroffline.png" />
@@ -1879,6 +1885,7 @@
     <Content Include="themes\yafpro\rssfeed.gif" />
     <Content Include="themes\yafpro\tab-line.png" />
     <Content Include="themes\yafpro\tab.png" />
+    <Content Include="themes\yafvision\atomfeed.png" />
     <Content Include="themes\yafvision\female.gif" />
     <Content Include="themes\yafvision\icon_search.png" />
     <Content Include="themes\yafvision\icon_useroffline.png" />
@@ -1917,12 +1924,17 @@
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
     <Content Include="themes\yafvision\yafvision.js" />
+    <Content Include="yaf.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="YafWebService.asmx" />
     <None Include="Classes\Register Forum\Reference.map" />
     <None Include="Classes\Register Forum\Register.wsdl" />
     <Content Include="db.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="images\emoticons\eusa.pak" />
+    <None Include="images\emoticons\ModernSmileyPack.pak" />
     <None Include="images\medals\eusa.pak" />
     <Content Include="mail.config" />
     <Content Include="themes\flatearth.xml" />
@@ -2139,10 +2151,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\avatars\" />
-    <Folder Include="images\categories\" />
-    <Folder Include="images\emoticons\" />
-    <Folder Include="images\ranks\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
