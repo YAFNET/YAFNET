@@ -10,7 +10,6 @@
 	font-size: 8pt;
 	color: #000;
 }
-}
 .yafnet input,
 .yafnet select {
 	font-family: Arial, Helvetica, sans-serif;
@@ -301,20 +300,34 @@ border-bottom-left-radius:0.3em;}
 	font-weight:bold;
 }
 .yafnet .fileattach {
-	padding: 5px;
-	background-color: #eeeeee;
-	border: solid 1px #808080;
+	padding: 4px;
+	border: 1px solid #808080;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
+	
+    font-family: "Tahoma", "Calibri", "Verdana", "Geneva", sans-serif;
+  
+    font-variant: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: normal;
+    position: relative;
+	background: #eee;
+	width:50%;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	margin: 10px;
 }
 .yafnet .fileattach .filetitle,
 .yafnet .fileattach .imgtitle {
 	font-weight: bold;
-	color: #444444;
+	color: #666;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size: 1.1em;
+	font-style: italic;
 }
 .yafnet .fileattach .attachedimg,
 .yafnet .fileattach .attachedfile {
@@ -342,23 +355,35 @@ border-bottom-left-radius:0.3em;}
 }
 /* used for quoting messages */
 .yafnet .quote {
-	padding-left: 16px;
-	margin: 5px;
-}
-.yafnet .innerquote {
-	padding: 4px;
+  padding: 4px;
 	border: 1px solid #808080;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
-	background:#fefefe;
+	
     font-family: "Tahoma", "Calibri", "Verdana", "Geneva", sans-serif;
-    font-style: italic;
+  
     font-variant: normal;
     font-weight: 400;
     font-size: 13px;
     line-height: normal;
     position: relative;
+	background: #eee;
+	width:50%;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	margin: 10px;
+}
+.yafnet .quote b,
+.yafnet .quote strong {
+	padding-bottom:2px;
+	display:block;
+	font-size:80%;
+	color:#666;
+}
+.yafnet  .innerquote {
+    font-style: italic;
 }
 /* used for code */
 .yafnet .code {
@@ -1099,4 +1124,12 @@ padding:5px  0 5px 30px;
 	-moz-box-shadow: 2px 2px 2px #c3c3c3;
     -webkit-box-shadow: 2px 2px 2px #c3c3c3;
     box-shadow: 2px 2px 2px #c3c3c3;
+}
+.yafnet .postOptions li {
+	list-style-type: none;
+}
+
+.yafnet .adminMenu
+{
+	padding: 1px 5px 5px 5px;
 }
