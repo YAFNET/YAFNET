@@ -116,10 +116,10 @@ namespace YAF.Classes.Core
         return userId;
       }
 
-      if (this.UserDisplayNameCollection.Any(x => x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
+      if (this.UserDisplayNameCollection.Any(x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
       {
         userId =
-          this.UserDisplayNameCollection.Where(x => x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).
+          this.UserDisplayNameCollection.Where(x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).
             FirstOrDefault().Key;
       }
       else

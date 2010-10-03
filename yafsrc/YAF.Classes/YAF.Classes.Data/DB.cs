@@ -7648,7 +7648,7 @@ namespace YAF.Classes.Data
     /// <param name="rankID">
     /// The rank id.
     /// </param>
-    public static void user_adminsave(object boardID, object userID, object name, object email, object flags, object rankID)
+    public static void user_adminsave(object boardID, object userID, object name, object displayName, object email, object flags, object rankID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_adminsave"))
       {
@@ -7656,6 +7656,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("Name", name);
+        cmd.Parameters.AddWithValue("DisplayName", displayName);
         cmd.Parameters.AddWithValue("Email", email);
         cmd.Parameters.AddWithValue("Flags", flags);
         cmd.Parameters.AddWithValue("RankID", rankID);
