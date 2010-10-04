@@ -299,7 +299,7 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
                            /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                           "{0}ft{1}st{2}tid{3}mid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                           "urn:publicid:{0}ft{1}st{2}tid{3}meid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
                            feedType,
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                            row["TopicID"],
@@ -354,7 +354,7 @@ namespace YAF.Pages
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}",
                                                            this.Request.QueryString.GetFirstOrDefault("t")),
                                                         /*  "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")),*/
-                            "{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
+                            "urn:publicid:{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name), 
                             feedType,
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                             this.Request.QueryString.GetFirstOrDefault("t"),
@@ -424,7 +424,7 @@ namespace YAF.Pages
                       null,
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["MessageID"]),
                      /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                       "{0}ft{1}st{2}mid{3}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
+                       "urn:publicid:{0}ft{1}st{2}meid{3}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name), 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                        row["MessageID"]),
@@ -488,7 +488,7 @@ namespace YAF.Pages
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
                        /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")),*/
-                        "{0}ft{1}st{2}fid{3}lmid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                        "urn:publicid:{0}ft{1}st{2}fid{3}lmid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
                         feedType, 
                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                         row["ForumID"], 
@@ -554,7 +554,7 @@ namespace YAF.Pages
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
                         /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                       "{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
+                       "urn:publicid:{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name), 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                        row["TopicID"], row["LastMessageID"]),
@@ -645,8 +645,8 @@ namespace YAF.Pages
                                                      : 22),
                             null,
                             messageLink,
-                            "{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
-                            HttpUtility.UrlEncode(toActText),
+                            "urn:publicid:{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
+                            HttpUtility.UrlPathEncode(toActText),
                             feedType, 
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                             row["LinkTopicID"],
@@ -740,10 +740,10 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                            /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                           "{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                           "urn:publicid:{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
                            feedType, 
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                           HttpUtility.UrlEncode(toFavText), Convert.ToInt32(row["LinkTopicID"]),
+                           HttpUtility.UrlPathEncode(toFavText), Convert.ToInt32(row["LinkTopicID"]),
                            row["LastMessageID"]),
                            lastPosted,
                            feed);
