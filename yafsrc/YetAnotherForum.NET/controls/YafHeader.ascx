@@ -61,6 +61,14 @@
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MYPROFILE")%></a> </li>
             <%
                 }%>
+                 <%
+                if (!this.PageContext.IsGuest && !YAF.Classes.Config.IsAnyPortal && YAF.Classes.Config.AllowLoginAndLogoff)
+                {%>
+            <li class="menuAccount"><a href="<%=YafBuildLink.GetLink(ForumPages.logout)%>" onclick="return confirm('<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION")%>');">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT")%></a></li>
+            <%
+                }    
+            %>
       </ul>
     </div>
     <% if (!this.PageContext.IsGuest) {%>
@@ -135,15 +143,6 @@
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "REGISTER")%></a></li>
             <%
                 }%>
-            <%
-                if (!this.PageContext.IsGuest && !YAF.Classes.Config.IsAnyPortal && YAF.Classes.Config.AllowLoginAndLogoff)
-                {%>
-            <li class="menuAccount"><a href="<%=YafBuildLink.GetLink(ForumPages.logout)%>" onclick="return confirm('<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION")%>');">
-                <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT")%></a></li>
-            <%
-                }    
-            %>
-
         </ul>
         <ul class="menuAdminList">
 
