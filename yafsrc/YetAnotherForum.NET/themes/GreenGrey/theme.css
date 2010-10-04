@@ -154,7 +154,8 @@
 .postForumUsers tr.header2 td,
 #DataPanel1_Table td.header2,
 #yafprofilecontent td.header2,
-#yafprofilecontainer  tr.header2 td {border-top:none;}
+#yafprofilecontainer  tr.header2 td,
+.content .header2 td.header1 {border-top:none;}
 
 .yafnet tr.header2 td a,
 .yafnet tr.header2 th a {color:black;font-weight: bold;font-size:9pt;}
@@ -294,7 +295,7 @@ border-bottom-left-radius:0.3em;}
 }
 .yafnet .fileattach {
 	padding: 4px;
-	border: 1px solid #808080;
+	border: 1px solid #110000;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
@@ -349,7 +350,7 @@ border-bottom-left-radius:0.3em;}
 /* used for quoting messages */
 .yafnet .quote {
   padding: 4px;
-	border: 1px solid #808080;
+	border: 1px solid #110000;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
@@ -380,22 +381,19 @@ border-bottom-left-radius:0.3em;}
 }
 /* used for code */
 .yafnet .code {
-	padding-left: 16px;	
-	margin: 5px;
+	margin: 10px;
 }
 .yafnet .innercode {
 	padding: 4px;
-	background-color: #efefef;
-	border: solid 1px #808080;
+	background-color: #f9f9f9;
+	border: solid 1px #110000;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
 	color: #000000;
 	line-height: 1.3em;
 	font-family: "courier new", "times new roman", monospace;
-    overflow: scroll;
-    width: 600px;
-	white-space: nowrap;
+    overflow-x: auto;
 }
 /* font sizes */
 .yafnet .smallfont	{ font-size: 10px; }
@@ -1082,16 +1080,16 @@ height:80em;
 .yafnet .currentUser{font-weight:bold;}
 
 .guestUser { 
-background: url("error.png") #f3dddd no-repeat center left;
-
-color: #281b1b;
-font-size: 1.1em;
-width:96.5%;
-line-height: 150%;
-margin-bottom: 10px;
-border: 1px solid #deb7b7;
-padding:5px  0 5px 30px;
--webkit-border-radius: 10px;
+    background: url("error.png") #fdd no-repeat 8px 50%;
+    font-style:italic;
+    color: #281b1b;
+    font-size: 1.1em;
+    width:96.5%;
+    line-height: 150%;
+    margin-bottom: 10px;
+    border: 1px solid #deb7b7;
+    padding:5px  0 5px 30px;
+    -webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
