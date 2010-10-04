@@ -155,15 +155,11 @@ namespace YAF.Classes.Core
       public YafSyndicationFeed(string subTitle, YafRssFeeds feedType, int sf)
     {
         this.Copyright = new TextSyndicationContent("Copyright {0} {1}".FormatWith(DateTime.Now.Year, YafContext.Current.BoardSettings.Name));
-
         this.Description = new TextSyndicationContent("{0} - {1}".FormatWith(YafContext.Current.BoardSettings.Name, sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent("{0} - {1} - {2}".FormatWith(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Localization.GetText("ATOMFEED") : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
+       
         // Alternate link
-        /*this.Links.Add(
-            SyndicationLink.CreateAlternateLink(
-                new Uri(YafContext.Current.CurrentForumPage.ForumURL)));*/
-
-       this.Links.Add(
+        this.Links.Add(
             SyndicationLink.CreateAlternateLink(
                 new Uri(BaseUrlBuilder.BaseUrl)));
 
@@ -175,21 +171,12 @@ namespace YAF.Classes.Core
         this.Generator = "YetAnotherForum.NET";
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
-
         this.ImageUrl = new Uri("{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
-        
-        //this.Id =YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}".FormatWith(feedType.ToInt()));
-        this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
-
-        
+        this.Id =YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}ft={1}".FormatWith(feedType.ToInt(), sf));
+        // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
         this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
-
-        SyndicationPerson sp = new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl);
-
-        this.Authors.Add(sp);
-
+        this.Authors.Add(new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl));
         this.Categories.Add(new SyndicationCategory(FeedCategories));
-
 
         // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }

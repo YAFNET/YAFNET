@@ -4858,7 +4858,7 @@ AS
 BEGIN
 		DECLARE @SQL nvarchar(500)
 
-	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageIDLast, t.LastMessageFlags FROM'
+	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM'
 	SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
 	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}vaccess] v on v.ForumID=f.ForumID'
 	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
