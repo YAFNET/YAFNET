@@ -80,8 +80,8 @@ namespace YAF.Modules
               HtmlLink rssLink = new HtmlLink();
 
               // defaults to the "Active" rss.
-              rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}",
-                                                  YafRssFeeds.LatestPosts.GetStringValue());
+              rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, true, "pg={0}&ft={1}",
+                                                  YafRssFeeds.LatestPosts.ToInt(), YafSyndicationFormats.Rss.ToInt());
 
               rssLink.Attributes.Add("rel", "alternate");
               rssLink.Attributes.Add("type", "application/rss+xml");
@@ -94,19 +94,19 @@ namespace YAF.Modules
           if (PageContext.BoardSettings.ShowAtomLink)
           {
               // setup the rss link...
-              HtmlLink rssLink = new HtmlLink();
+              HtmlLink atomLink = new HtmlLink();
 
               // defaults to the "Active" rss.
-              rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}&ft={1}",
-                                                  YafRssFeeds.LatestPosts.GetStringValue(), YafSyndicationFormats.Atom.ToInt());
+              atomLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic,true, "pg={0}&ft={1}",
+                                                  YafRssFeeds.LatestPosts.ToInt(), YafSyndicationFormats.Atom.ToInt());
 
-              rssLink.Attributes.Add("rel", "alternate");
-              rssLink.Attributes.Add("type", "application/atom+xml");
-              rssLink.Attributes.Add("title",
+              atomLink.Attributes.Add("rel", "alternate");
+              atomLink.Attributes.Add("type", "application/atom+xml");
+              atomLink.Attributes.Add("title",
                                      "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("ATOMFEED"),
                                                             YafContext.Current.BoardSettings.Name));
 
-              head.Controls.Add(rssLink);
+              head.Controls.Add(atomLink);
           }
       }
     }
