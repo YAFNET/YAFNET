@@ -299,13 +299,13 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
                            /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                           "{0}FType{1}SType{2}TopicID{3}MessageID{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                           "{0}ft{1}st{2}tid{3}mid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
                            feedType,
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                            row["TopicID"],
                            row["LastMessageID"]), 
                            lastPosted,
-                           feed.Contributors[feed.Contributors.Count - 1].Name);
+                           feed);
                     }
                 }
 
@@ -354,13 +354,13 @@ namespace YAF.Pages
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}",
                                                            this.Request.QueryString.GetFirstOrDefault("t")),
                                                         /*  "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")),*/
-                            "{0}FType{1}SType{2}TopicID{3}LastMessageID{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
+                            "{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
                             feedType,
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                             this.Request.QueryString.GetFirstOrDefault("t"),
                             row["LastMessageID"]),
                             lastPosted, 
-                            feed.Contributors[feed.Contributors.Count - 1].Name);
+                            feed);
                     }
                 }
 
@@ -424,12 +424,12 @@ namespace YAF.Pages
                       null,
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["MessageID"]),
                      /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                       "{0}FType{1}SType{2}MessageID{3}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
+                       "{0}ft{1}st{2}mid{3}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                        row["MessageID"]),
                       posted,
-                      feed.Contributors[feed.Contributors.Count - 1].Name);
+                      feed);
                       altItem = !altItem;
                 }
 
@@ -488,13 +488,13 @@ namespace YAF.Pages
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
                        /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")),*/
-                        "{0}FType{1}SType{2}ForumID{3}LastMessageID{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                        "{0}ft{1}st{2}fid{3}lmid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
                         feedType, 
                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                         row["ForumID"], 
                         row["LastMessageID"]),
                         lastPosted,
-                        feed.Contributors[feed.Contributors.Count - 1].Name);
+                        feed);
                 }
 
                 feed.Items = syndicationItems;
@@ -554,12 +554,12 @@ namespace YAF.Pages
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
                         /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                       "{0}FType{1}SType{2}TopicID{3}LastMessageID{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
+                       "{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name), 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                        row["TopicID"], row["LastMessageID"]),
                        lastPosted,
-                       feed.Contributors[feed.Contributors.Count - 1].Name);
+                       feed);
 
                 }
 
@@ -645,14 +645,14 @@ namespace YAF.Pages
                                                      : 22),
                             null,
                             messageLink,
-                            "{0}FType{1}SType{2}Period{3}LinkTopicID{4}LastMessageID{5}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                            "{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
                             HttpUtility.UrlEncode(toActText),
                             feedType, 
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            Convert.ToInt32(row["LinkTopicID"]),
-                            Convert.ToInt32(row["LastMessageID"])),
+                            row["LinkTopicID"],
+                            row["LastMessageID"]),
                             lastPosted, 
-                            feed.Contributors[feed.Contributors.Count - 1].Name);
+                            feed);
                     }
                 }
 
@@ -740,13 +740,13 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                            /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                           "{0}FType{1}SType{2}Period{3}LinkTopicID{4}LastMessageID{5}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
+                           "{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlEncode(YafContext.Current.BoardSettings.Name),
                            feedType, 
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                            HttpUtility.UrlEncode(toFavText), Convert.ToInt32(row["LinkTopicID"]),
-                           Convert.ToInt32(row["LastMessageID"])),
+                           row["LastMessageID"]),
                            lastPosted,
-                           feed.Contributors[feed.Contributors.Count - 1].Name);
+                           feed);
                     }
                 }
 

@@ -65,7 +65,7 @@ namespace YAF.Classes.Core
       /// The author.
       /// </param> 
       public static void AddSyndicationItem(
-      this List<SyndicationItem> currentList, string title, string content, string summary,string link, string id, DateTime posted, string  author)
+      this List<SyndicationItem> currentList, string title, string content, string summary,string link, string id, DateTime posted, YafSyndicationFeed feed)
     {
         var si = new SyndicationItem(
             YafServices.BadWordReplace.Replace(title),
@@ -74,9 +74,9 @@ namespace YAF.Classes.Core
             new Uri(link),
             id,
             new DateTimeOffset(posted)) {PublishDate = new DateTimeOffset(posted)};
-
-        si.Authors.Add(new SyndicationPerson(String.Empty, author, String.Empty));
-       
+        
+        si.Authors.Add(new SyndicationPerson(String.Empty, feed.Contributors[feed.Contributors.Count - 1].Name, String.Empty));
+        si.SourceFeed = feed;
         if (summary.IsNotSet())
         {
             si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),
