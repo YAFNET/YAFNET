@@ -31,6 +31,7 @@ namespace YAF
     using System.IO;
     using System.Net;
     using System.Web;
+    using System.Web.Caching;
     using System.Web.Security;
     using System.Web.Services;
     using System.Web.SessionState;
@@ -49,7 +50,7 @@ namespace YAF
   /// </summary>
   [WebService(Namespace = "http://www.yetanotherforum.net/")]
   [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-  public class YafResourceHandler : IHttpHandler, IRequiresSessionState
+  public class YafResourceHandler : IHttpHandler, IReadOnlySessionState
   {
     #region Properties
 
@@ -503,14 +504,7 @@ namespace YAF
             string fileName;
 
             // use the new fileName (with extension) if it exists...
-            if (File.Exists(newFileName))
-            {
-              fileName = newFileName;
-            }
-            else
-            {
-              fileName = oldFileName;
-            }
+            fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
             using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -882,10 +876,7 @@ namespace YAF
       try
       {
 #endif
-      context.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-
-        var captchaImage = new CaptchaImage(
-          context.Session["CaptchaImageText"].ToString(), 250, 50, "Century Schoolbook");
+        var captchaImage = new CaptchaImage(CaptchaHelper.GetCaptchaText(context.Session, context.Cache, true), 250, 50, "Century Schoolbook");
         context.Response.Clear();
         context.Response.ContentType = "image/jpeg";
         captchaImage.Image.Save(context.Response.OutputStream, ImageFormat.Jpeg);
