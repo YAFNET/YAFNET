@@ -1030,7 +1030,7 @@
 	<page name="CP_EDITBUDDIES">
 		<Resource tag="BUDDYLIST_TT">Buddies Control Panel</Resource>
 		<Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
-		<Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
+		<Resource tag="YOUR_BUDDYLIST">My Buddies</Resource>
 		<Resource tag="BUDDYLIST">Buddy List</Resource>
 		<Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
 		<Resource tag="POSTS">Posts</Resource>
