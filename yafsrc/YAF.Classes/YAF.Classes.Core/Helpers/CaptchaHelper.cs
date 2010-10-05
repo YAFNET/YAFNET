@@ -18,7 +18,17 @@
  */
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System;
+  using System.Web;
+  using System.Web.Caching;
+  using System.Web.SessionState;
+
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The captcha helper.
@@ -37,6 +47,64 @@ namespace YAF.Classes.Core
     {
       return StringHelper.GenerateRandomString(
         YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+    }
+
+    /// <summary>
+    /// The get captcha text.
+    /// </summary>
+    /// <param name="session">
+    /// </param>
+    /// <param name="cache">
+    /// The cache.
+    /// </param>
+    /// <param name="forceNew">
+    /// The force New.
+    /// </param>
+    /// <returns>
+    /// The get captcha text.
+    /// </returns>
+    public static string GetCaptchaText([NotNull] HttpSessionState session, [NotNull] Cache cache, bool forceNew)
+    {
+      CodeContracts.ArgumentNotNull(session, "session");
+
+      var cacheName = "Session{0}CaptchaImageText".FormatWith(session.SessionID);
+
+      if (!forceNew && cache[cacheName] != null)
+      {
+        return cache[cacheName].ToString();
+      }
+
+      var text = GetCaptchaString();
+
+      if (cache[cacheName] != null)
+      {
+        cache[cacheName] = text;
+      }
+      else
+      {
+        cache.Add(
+          cacheName, text, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10), CacheItemPriority.Low, null);
+      }
+
+      return text;
+    }
+
+    /// <summary>
+    /// The is valid.
+    /// </summary>
+    /// <param name="captchaText">
+    /// The captcha text.
+    /// </param>
+    /// <returns>
+    /// The is valid.
+    /// </returns>
+    public static bool IsValid([NotNull] string captchaText)
+    {
+      CodeContracts.ArgumentNotNull(captchaText, "captchaText");
+
+      var text = GetCaptchaText(HttpContext.Current.Session, HttpRuntime.Cache, false);
+
+      return String.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
     }
 
     #endregion
