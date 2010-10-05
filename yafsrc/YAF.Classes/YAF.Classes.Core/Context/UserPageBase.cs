@@ -769,8 +769,7 @@ namespace YAF.Classes.Core
 
           // try and get more verbose platform name by ref and other parameters             
           UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
-          dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList &&
-                                  isSearchEngine;
+          dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList && isSearchEngine;
 
           // don't track if this is a feed reader. May be to make it switchable in host settings.
           // we don't have page 'g' token for the feed page.
@@ -829,8 +828,7 @@ namespace YAF.Classes.Core
               messageID,
               // don't track if this is a search engine
               isSearchEngine,
-              dontTrack
-              );
+              dontTrack);
 
             // if the user doesn't exist...
             if (user != null && pageRow == null)
@@ -891,6 +889,8 @@ namespace YAF.Classes.Core
           {
             YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
           }
+
+          YafContext.Current.Vars["DontTrack"] = dontTrack;
 
           Page = pageRow;
 
