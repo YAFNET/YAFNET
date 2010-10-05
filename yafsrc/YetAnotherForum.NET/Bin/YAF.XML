@@ -22306,7 +22306,7 @@
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.CreatePageResourceHeader(System.String)">
             <summary>
-            Creates a header row in the Ressource Page DropDown Header text is page section name in XML file.
+            Creates a header row in the Resource Page DropDown Header text is page section name in XML file.
             </summary>
             <param name="sPageName">
             </param>
@@ -22318,7 +22318,7 @@
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.LoadPageLocalization(System.Object,System.EventArgs)">
             <summary>
-            Load Selected Page Ressources
+            Load Selected Page Resources
             </summary>
             <param name="sender">
             </param>

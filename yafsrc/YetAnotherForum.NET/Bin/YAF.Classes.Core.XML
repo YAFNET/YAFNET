@@ -1411,6 +1411,33 @@
             The get captcha string.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.CaptchaHelper.GetCaptchaText(System.Web.SessionState.HttpSessionState,System.Web.Caching.Cache,System.Boolean)">
+            <summary>
+            The get captcha text.
+            </summary>
+            <param name="session">
+            </param>
+            <param name="cache">
+            The cache.
+            </param>
+            <param name="forceNew">
+            The force New.
+            </param>
+            <returns>
+            The get captcha text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.CaptchaHelper.IsValid(System.String)">
+            <summary>
+            The is valid.
+            </summary>
+            <param name="captchaText">
+            The captcha text.
+            </param>
+            <returns>
+            The is valid.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Core.UserCleanUpTask">
             <summary>
             Does some user clean up tasks such as unsuspending users...
@@ -4340,6 +4367,59 @@
             Gets or sets Attachments.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.YafServiceExtensions">
+            <summary>
+            The yaf service extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Classes.Core.YafContext)">
+            <summary>
+            The get service -- basic service locator
+            </summary>
+            <param name="current">
+            The current.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Classes.Core.ForumPage)">
+            <summary>
+            The get service -- basic service locator
+            </summary>
+            <param name="forumPage">
+            The forum Page.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Classes.Core.BaseUserControl)">
+            <summary>
+            The get service -- basic service locator
+            </summary>
+            <param name="baseUserControl">
+            The base User Control.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Controls.BaseControl)">
+            <summary>
+            The get service -- basic service locator
+            </summary>
+            <param name="baseUserControl">
+            The base User Control.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Core.BBCode.IReplaceBlocksExtensions">
             <summary>
             The i replace blocks extensions.
@@ -5133,6 +5213,42 @@
             The forum control.
             </param>
         </member>
+        <member name="T:YAF.Modules.UnloadSessionModule">
+            <summary>
+            The unload session module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UnloadSessionModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UnloadSessionModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UnloadSessionModule.UnloadSessionModule_Unload(System.Object,System.EventArgs)">
+            <summary>
+            The unload session module_ unload.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.UnloadSessionModule.ForumControlObj">
+            <summary>
+              Gets or sets ForumControlObj.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.UnloadSessionModule.UnloadSession">
+            <summary>
+            Gets or sets a value indicating whether UnloadSession.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.CleanUpTask">
             <summary>
             Automatically cleans up the tasks if they are no longer running...
@@ -5652,6 +5768,163 @@
         <member name="E:YAF.Classes.Core.LocalizationHandler.AfterInit">
             <summary>
             The after init.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.YafSession">
+            <summary>
+            All references to session should go into this class
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafSession.GetForumRead(System.Int32)">
+            <summary>
+            Gets the last time the forum was read.
+            </summary>
+            <param name="forumID">
+            This is the ID of the forum you wish to get the last read date from.
+            </param>
+            <returns>
+            A DateTime object of when the forum was last read.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafSession.GetTopicRead(System.Int32)">
+            <summary>
+            Returns the last time that the topicID was read.
+            </summary>
+            <param name="topicID">
+            The topicID you wish to find the DateTime object for.
+            </param>
+            <returns>
+            The DateTime object from the topicID.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafSession.SetForumRead(System.Int32,System.DateTime)">
+            <summary>
+            Sets the time that the forum was read.
+            </summary>
+            <param name="forumID">
+            The forum ID that was read.
+            </param>
+            <param name="date">
+            The DateTime you wish to set the read to.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafSession.SetTopicRead(System.Int32,System.DateTime)">
+            <summary>
+            Sets the time that the <paramref name="topicID"/> was read.
+            </summary>
+            <param name="topicID">
+            The topic ID that was read.
+            </param>
+            <param name="date">
+            The DateTime you wish to set the read to.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.ActiveTopicSince">
+            <summary>
+              Gets or sets ActiveTopicSince.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.FavoriteTopicSince">
+            <summary>
+              Gets or sets FavoriteTopicSince.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.ForumRead">
+            <summary>
+              Gets or sets ForumRead.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.HasLastVisit">
+            <summary>
+              Gets or sets a value indicating whether HasLastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.LastPendingBuddies">
+            <summary>
+              Gets or sets LastPm.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.LastPm">
+            <summary>
+              Gets or sets LastPm.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.LastPost">
+            <summary>
+              Gets or sets LastPost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.LastVisit">
+            <summary>
+              Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.PanelState">
+            <summary>
+              Gets PanelState.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.SearchData">
+            <summary>
+              Gets or sets SearchData.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.ShowList">
+            <summary>
+              Gets or sets ShowList.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.TopicRead">
+            <summary>
+              Gets or sets TopicRead.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafSession.UnreadTopics">
+            <summary>
+              Gets or sets UnreadTopics.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.PanelSessionState">
+            <summary>
+            The panel session state.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.PanelSessionState.TogglePanelState(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
+            <summary>
+            The toggle panel state.
+            </summary>
+            <param name="panelID">
+            The panel id.
+            </param>
+            <param name="defaultState">
+            The default state.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.PanelSessionState.Item(System.String)">
+            <summary>
+              Gets panel session state.
+            </summary>
+            <param name = "panelID">panelID</param>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState">
+            <summary>
+            The collapsible panel state.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.None">
+            <summary>
+              The none.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Expanded">
+            <summary>
+              The expanded.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Collapsed">
+            <summary>
+              The collapsed.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.MIMEPart">
@@ -9685,252 +9958,6 @@
             <summary>
               Gets a value indicating whether any rules have been added.
             </summary>
-        </member>
-        <member name="T:YAF.Modules.UnloadSessionModule">
-            <summary>
-            The unload session module.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.UnloadSessionModule.Init">
-            <summary>
-            The init.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.UnloadSessionModule.Dispose">
-            <summary>
-            The dispose.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.UnloadSessionModule.UnloadSessionModule_Unload(System.Object,System.EventArgs)">
-            <summary>
-            The unload session module_ unload.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.Modules.UnloadSessionModule.ForumControlObj">
-            <summary>
-              Gets or sets ForumControlObj.
-            </summary>
-        </member>
-        <member name="P:YAF.Modules.UnloadSessionModule.UnloadSession">
-            <summary>
-            Gets or sets a value indicating whether UnloadSession.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.YafSession">
-            <summary>
-            All references to session should go into this class
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafSession.GetForumRead(System.Int32)">
-            <summary>
-            Gets the last time the forum was read.
-            </summary>
-            <param name="forumID">
-            This is the ID of the forum you wish to get the last read date from.
-            </param>
-            <returns>
-            A DateTime object of when the forum was last read.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafSession.GetTopicRead(System.Int32)">
-            <summary>
-            Returns the last time that the topicID was read.
-            </summary>
-            <param name="topicID">
-            The topicID you wish to find the DateTime object for.
-            </param>
-            <returns>
-            The DateTime object from the topicID.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafSession.SetForumRead(System.Int32,System.DateTime)">
-            <summary>
-            Sets the time that the forum was read.
-            </summary>
-            <param name="forumID">
-            The forum ID that was read.
-            </param>
-            <param name="date">
-            The DateTime you wish to set the read to.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafSession.SetTopicRead(System.Int32,System.DateTime)">
-            <summary>
-            Sets the time that the <paramref name="topicID"/> was read.
-            </summary>
-            <param name="topicID">
-            The topic ID that was read.
-            </param>
-            <param name="date">
-            The DateTime you wish to set the read to.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.ActiveTopicSince">
-            <summary>
-              Gets or sets ActiveTopicSince.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.FavoriteTopicSince">
-            <summary>
-              Gets or sets FavoriteTopicSince.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.ForumRead">
-            <summary>
-              Gets or sets ForumRead.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.HasLastVisit">
-            <summary>
-              Gets or sets a value indicating whether HasLastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.LastPendingBuddies">
-            <summary>
-              Gets or sets LastPm.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.LastPm">
-            <summary>
-              Gets or sets LastPm.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.LastPost">
-            <summary>
-              Gets or sets LastPost.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.LastVisit">
-            <summary>
-              Gets or sets LastVisit.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.PanelState">
-            <summary>
-              Gets PanelState.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.SearchData">
-            <summary>
-              Gets or sets SearchData.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.ShowList">
-            <summary>
-              Gets or sets ShowList.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.TopicRead">
-            <summary>
-              Gets or sets TopicRead.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafSession.UnreadTopics">
-            <summary>
-              Gets or sets UnreadTopics.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.PanelSessionState">
-            <summary>
-            The panel session state.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.PanelSessionState.TogglePanelState(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
-            <summary>
-            The toggle panel state.
-            </summary>
-            <param name="panelID">
-            The panel id.
-            </param>
-            <param name="defaultState">
-            The default state.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.PanelSessionState.Item(System.String)">
-            <summary>
-              Gets panel session state.
-            </summary>
-            <param name = "panelID">panelID</param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState">
-            <summary>
-            The collapsible panel state.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.None">
-            <summary>
-              The none.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Expanded">
-            <summary>
-              The expanded.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState.Collapsed">
-            <summary>
-              The collapsed.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.YafServiceExtensions">
-            <summary>
-            The yaf service extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Classes.Core.YafContext)">
-            <summary>
-            The get service -- basic service locator
-            </summary>
-            <param name="current">
-            The current.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Classes.Core.ForumPage)">
-            <summary>
-            The get service -- basic service locator
-            </summary>
-            <param name="forumPage">
-            The forum Page.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Classes.Core.BaseUserControl)">
-            <summary>
-            The get service -- basic service locator
-            </summary>
-            <param name="baseUserControl">
-            The base User Control.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafServiceExtensions.Get``1(YAF.Controls.BaseControl)">
-            <summary>
-            The get service -- basic service locator
-            </summary>
-            <param name="baseUserControl">
-            The base User Control.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
         </member>
     </members>
 </doc>

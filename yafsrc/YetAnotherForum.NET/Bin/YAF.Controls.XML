@@ -2717,64 +2717,61 @@
         </member>
         <member name="F:YAF.Controls.ThemeImage._alt">
             <summary>
-            The _alt.
+              The _alt.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._cssClass">
             <summary>
-            The css Class.
+              The css Class.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._enabled">
             <summary>
-            The _enabled tag.
+              The _enabled tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeImage._localizedTitle">
+            <summary>
+              The _localized title ready.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._localizedTitlePage">
             <summary>
-            The _localized title page.
+              The _localized title page.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._localizedTitleTag">
             <summary>
-            The _localized title tag.
-            </summary>   
-        </member>
-        <member name="F:YAF.Controls.ThemeImage._localizedTitle">
-            <summary>
-            The _localized title ready.
+              The _localized title tag.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._style">
             <summary>
-            The _style.
+              The _style.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._themePage">
             <summary>
-            The _theme page.
+              The _theme page.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._themeTag">
             <summary>
-            The _theme tag.
+              The _theme tag.
             </summary>
         </member>
         <member name="F:YAF.Controls.ThemeImage._useTitleForEmptyAlt">
             <summary>
-            The _use title for empty alt.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ThemeImage.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ThemeImage"/> class.
+              The _use title for empty alt.
             </summary>
         </member>
         <member name="M:YAF.Controls.ThemeImage.GetCurrentThemeItem">
             <summary>
             The get current theme item.
             </summary>
-            <returns>Current image alt value</returns>
+            <returns>
+            Current image alt value
+            </returns>
         </member>
         <member name="M:YAF.Controls.ThemeImage.GetCurrentTitleItem">
             <summary>
@@ -2794,52 +2791,52 @@
         </member>
         <member name="P:YAF.Controls.ThemeImage.Alt">
             <summary>
-            Gets or sets Alt.
+              Gets or sets Alt.
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.CssClass">
             <summary>
-            Gets or sets Style.
+              Gets or sets Style.
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.Enabled">
             <summary>
-            Gets or sets a value indicating whether the control is Active .
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeImage.LocalizedTitlePage">
-            <summary>
-            Gets or sets LocalizedTitlePage.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeImage.LocalizedTitleTag">
-            <summary>
-            Gets or sets LocalizedTitleTag.
+              Gets or sets a value indicating whether the control is Active .
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.LocalizedTitle">
             <summary>
-            Gets or sets LocalizedTitle.
+              Gets or sets LocalizedTitle.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.LocalizedTitlePage">
+            <summary>
+              Gets or sets LocalizedTitlePage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.LocalizedTitleTag">
+            <summary>
+              Gets or sets LocalizedTitleTag.
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.Style">
             <summary>
-            Gets or sets Style.
+              Gets or sets Style.
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.ThemePage">
             <summary>
-            Gets or sets the ThemePage -- Defaults to "ICONS"
+              Gets or sets the ThemePage -- Defaults to "ICONS"
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.ThemeTag">
             <summary>
-            Gets or sets the actual theme item
+              Gets or sets the actual theme item
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.UseTitleForEmptyAlt">
             <summary>
-            Gets or sets a value indicating whether UseTitleForEmptyAlt.
+              Gets or sets a value indicating whether UseTitleForEmptyAlt.
             </summary>
         </member>
         <member name="T:YAF.Controls.Statistics.MostActiveUsers">
