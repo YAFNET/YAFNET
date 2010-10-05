@@ -3056,6 +3056,11 @@
             Gets or sets a value indicating whether Enable IP Info Service.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AbandonSessionsForDontTrack">
+            <summary>
+            Gets or sets a value indicating whether EmailVerification.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.UseSSLToLogIn">
             <summary>
             Gets or sets a value indicating whether Use SSL To Log In.

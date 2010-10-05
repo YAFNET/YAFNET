@@ -15473,9 +15473,36 @@
             The init before page.
             </summary>
         </member>
+        <member name="M:YAF.Modules.PagePmPopupModule.DisplayPMPopup">
+            <summary>
+            The display pm popup.
+            </summary>
+            <returns>
+            The display pm popup.
+            </returns>
+        </member>
+        <member name="M:YAF.Modules.PagePmPopupModule.DisplayPendingBuddies">
+            <summary>
+            The last pending buddies.
+            </summary>
+            <returns>
+            whether we should display the pending buddies notification or not
+            </returns>
+        </member>
         <member name="M:YAF.Modules.PagePmPopupModule.ForumPage_Load(System.Object,System.EventArgs)">
             <summary>
             The forum page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.PagePmPopupModule.ForumPage_PreRender(System.Object,System.EventArgs)">
+            <summary>
+            The forum page_ pre render.
             </summary>
             <param name="sender">
             The sender.
@@ -15488,33 +15515,6 @@
             <summary>
             Creates this pages title and fires a PageTitleSet event if one is set
             </summary>
-        </member>
-        <member name="M:YAF.Modules.PagePmPopupModule.DisplayPendingBuddies">
-            <summary>
-            The last pending buddies.
-            </summary>
-            <returns>
-            whether we should display the pending buddies notification or not
-            </returns>
-        </member>
-        <member name="M:YAF.Modules.PagePmPopupModule.DisplayPMPopup">
-            <summary>
-            The display pm popup.
-            </summary>
-            <returns>
-            The display pm popup.
-            </returns>
-        </member>
-        <member name="M:YAF.Modules.PagePmPopupModule.ForumPage_PreRender(System.Object,System.EventArgs)">
-            <summary>
-            The forum page_ pre render.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
         </member>
         <member name="T:YAF.Controls.PMList">
             <summary>
@@ -27885,6 +27885,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.UseFileTable">
             <summary>
             UseFileTable control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AbandonSessionsForDontTrack">
+            <summary>
+            AbandonSessionsForDontTrack control.
             </summary>
             <remarks>
             Auto-generated field.

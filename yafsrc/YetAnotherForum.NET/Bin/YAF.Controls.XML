@@ -588,11 +588,6 @@
             Shows a Reporters for reported posts
             </summary>
         </member>
-        <member name="M:YAF.Controls.BaseReportedPosts.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.BaseReportedPosts"/> class.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.BaseReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
@@ -603,22 +598,22 @@
         </member>
         <member name="P:YAF.Controls.BaseReportedPosts.MessageID">
             <summary>
-            Gets or sets MessageID.
+              Gets or sets MessageID.
             </summary>
         </member>
         <member name="P:YAF.Controls.BaseReportedPosts.Resolved">
             <summary>
-            Gets or sets Resolved.
+              Gets or sets Resolved.
             </summary>
         </member>
         <member name="P:YAF.Controls.BaseReportedPosts.ResolvedBy">
             <summary>
-            Gets or sets ResolvedBy. It returns UserID as string value
+              Gets or sets ResolvedBy. It returns UserID as string value
             </summary>
         </member>
         <member name="P:YAF.Controls.BaseReportedPosts.ResolvedDate">
             <summary>
-            Gets or sets ResolvedDate.
+              Gets or sets ResolvedDate.
             </summary>
         </member>
         <member name="T:YAF.Controls.LocalizedCustomValidator">
@@ -3533,13 +3528,7 @@
         </member>
         <member name="F:YAF.Controls.Statistics.ActiveDiscussions._displayNumber">
             <summary>
-            Number of active discussions to display in a control.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.Statistics.ActiveDiscussions"/> class. 
-            The default constructor for ActiveDiscussions.
+              Number of active discussions to display in a control.
             </summary>
         </member>
         <member name="M:YAF.Controls.Statistics.ActiveDiscussions.Render(System.Web.UI.HtmlTextWriter)">
@@ -3551,7 +3540,7 @@
         </member>
         <member name="P:YAF.Controls.Statistics.ActiveDiscussions.DisplayNumber">
             <summary>
-            Gets or sets number of active discussions to display in a control.
+              Gets or sets number of active discussions to display in a control.
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumJump">
