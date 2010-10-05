@@ -54,7 +54,7 @@
 		<Resource tag="POSTS">~/MobilePages/posts.ascx</Resource>
 		<Resource tag="POSTMESSAGE">~/MobilePages/postmessage.ascx</Resource>
 		<Resource tag="PROFILE">~/mobilePages/profile.ascx</Resource>
-		<Resource tag="ADMIN_ADMIN">~/mobilepages/admin.ascx</Resource>
+		<!--Resource tag="ADMIN_ADMIN">~/mobilepages/admin.ascx</Resource-->
 		<Resource tag="MYTOPICS">~/mobilepages/mytopics.ascx</Resource>
 		<Resource tag="CP_PROFILE">~/mobilepages/cp_profile.ascx</Resource>
 		<Resource tag="DISPLAYPOST">~/MobilePages/displaypost.ascx</Resource>

@@ -8917,7 +8917,7 @@
             The syndication item extensions.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,System.String)">
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,YAF.Classes.Core.YafSyndicationFeed)">
             <summary>
             The add syndication item.
             </summary>
