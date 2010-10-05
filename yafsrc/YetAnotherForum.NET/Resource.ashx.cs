@@ -17,31 +17,30 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-
 namespace YAF
 {
   #region Using
 
-    using System;
-    using System.Data;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Imaging;
-    using System.Drawing.Text;
-    using System.IO;
-    using System.Net;
-    using System.Web;
-    using System.Web.Caching;
-    using System.Web.Security;
-    using System.Web.Services;
-    using System.Web.SessionState;
+  using System;
+  using System.Data;
+  using System.Drawing;
+  using System.Drawing.Drawing2D;
+  using System.Drawing.Imaging;
+  using System.Drawing.Text;
+  using System.IO;
+  using System.Net;
+  using System.Web;
+  using System.Web.Security;
+  using System.Web.Services;
+  using System.Web.SessionState;
 
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Data;
-    using YAF.Classes.UI;
-    using YAF.Classes.Utils;
-    using YAF.Classes.Utils.Extensions;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.UI;
+  using YAF.Classes.Utils;
+  using YAF.Classes.Utils.Extensions;
 
   #endregion
 
@@ -55,7 +54,7 @@ namespace YAF
     #region Properties
 
     /// <summary>
-    /// Gets a value indicating whether IsReusable.
+    ///   Gets a value indicating whether IsReusable.
     /// </summary>
     public bool IsReusable
     {
@@ -77,7 +76,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    public void ProcessRequest(HttpContext context)
+    public void ProcessRequest([NotNull] HttpContext context)
     {
       // resource no longer works with dynamic compile...
       if (context.Request.QueryString.GetFirstOrDefault("r") != null)
@@ -91,48 +90,51 @@ namespace YAF
         {
           GetResponseLocalAvatar(context);
         }
-        else if (context.Request.QueryString.GetFirstOrDefault("url") != null && context.Request.QueryString.GetFirstOrDefault("width") != null &&
+        else if (context.Request.QueryString.GetFirstOrDefault("url") != null &&
+                 context.Request.QueryString.GetFirstOrDefault("width") != null &&
                  context.Request.QueryString.GetFirstOrDefault("height") != null)
         {
-          GetResponseRemoteAvatar(context);
+          this.GetResponseRemoteAvatar(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("a") != null)
         {
-          GetResponseAttachment(context);
+          this.GetResponseAttachment(context);
         }
 
           // TommyB: Start MOD: Preview Images   ##########
         else if (context.Request.QueryString.GetFirstOrDefault("i") != null)
         {
-          GetResponseImage(context);
+          this.GetResponseImage(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
         {
-          GetResponseImagePreview(context);
+          this.GetResponseImagePreview(context);
         }
 
           // TommyB: End MOD: Preview Images   ##########
         else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
         {
           // captcha					
-          GetResponseCaptcha(context);
+          this.GetResponseCaptcha(context);
         }
-        else if (context.Request.QueryString.GetFirstOrDefault("cover") != null && context.Request.QueryString.GetFirstOrDefault("album") != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("cover") != null &&
+                 context.Request.QueryString.GetFirstOrDefault("album") != null)
         {
           // album cover		
-          GetAlbumCover(context);
+          this.GetAlbumCover(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("imgprv") != null)
         {
           // album image preview		
-          GetAlbumImagePreview(context);
+          this.GetAlbumImagePreview(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("image") != null)
         {
           // album image		
-          GetAlbumImage(context);
+          this.GetAlbumImage(context);
         }
-        else if (context.Request.QueryString.GetFirstOrDefault("s") != null && context.Request.QueryString.GetFirstOrDefault("lang") != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("s") != null &&
+                 context.Request.QueryString.GetFirstOrDefault("lang") != null)
         {
           GetResponseGoogleSpell(context);
         }
@@ -152,7 +154,7 @@ namespace YAF
 
     /// <summary>
     /// Check if the ETag that sent from the client is match to the current ETag.
-    /// If so, set the status code to 'Not Modified' and stop the response.
+    ///   If so, set the status code to 'Not Modified' and stop the response.
     /// </summary>
     /// <param name="context">
     /// The context.
@@ -163,7 +165,7 @@ namespace YAF
     /// <returns>
     /// The check e tag.
     /// </returns>
-    private static bool CheckETag(HttpContext context, string eTagCode)
+    private static bool CheckETag([NotNull] HttpContext context, [NotNull] string eTagCode)
     {
       string ifNoneMatch = context.Request.Headers["If-None-Match"];
       if (eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
@@ -182,6 +184,325 @@ namespace YAF
     }
 
     /// <summary>
+    /// The get cover resized.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <param name="previewWidth">
+    /// The preview width.
+    /// </param>
+    /// <param name="previewHeight">
+    /// The preview height.
+    /// </param>
+    /// <param name="localizationFile">
+    /// The localization file.
+    /// </param>
+    /// <param name="ImagesNumber">
+    /// Number of images in the album.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    private static MemoryStream GetCoverResized([NotNull] MemoryStream data, int previewWidth, int previewHeight, [NotNull] string localizationFile, [NotNull] string ImagesNumber)
+    {
+      const int paddingY = 6;
+      const int paddingX = 6;
+      const int bottomSize = 13;
+      const int topSize = 0;
+      using (var src = new Bitmap(data))
+      {
+        // default to width-based resizing...
+        int width = previewWidth;
+        var height = previewWidth / (src.Width / src.Height);
+
+        if (src.Width <= previewWidth && src.Height <= previewHeight)
+        {
+          // no resizing necessary...
+          width = src.Width;
+          height = src.Height;
+        }
+        else if (height > previewHeight)
+        {
+          // aspect is based on the height, not the width...
+          width = previewHeight / (src.Height / src.Width);
+          height = previewHeight;
+        }
+
+        using (
+          var dst = new Bitmap(width + paddingX, height + topSize + bottomSize + paddingY, PixelFormat.Format24bppRgb))
+        {
+          var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
+          var rDstImg = new Rectangle(
+            3, 3 + topSize, dst.Width - paddingX, dst.Height - topSize - paddingY - bottomSize);
+          var rDstTxt = new Rectangle(3, rDstImg.Height + 3 + topSize, previewWidth, bottomSize);
+
+          // Rectangle rDstTitle = new Rectangle(3, 3, previewWidth, topSize);
+          using (Graphics g = Graphics.FromImage(dst))
+          {
+            g.Clear(Color.FromArgb(64, 64, 64));
+            g.FillRectangle(Brushes.White, rDstImg);
+
+            g.CompositingMode = CompositingMode.SourceOver;
+            g.CompositingQuality = CompositingQuality.GammaCorrected;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+
+            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
+            {
+              using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
+              {
+                var localization = new YafLocalization("ALBUM");
+                localization.LoadTranslation(localizationFile);
+                var sf = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near };
+
+                g.DrawString(localization.GetText("ALBUM_VIEW"), f, brush, rDstTxt, sf);
+
+                sf.Alignment = StringAlignment.Near;
+                sf.LineAlignment = StringAlignment.Near;
+                g.DrawString(
+                  localization.GetText("ALBUM_IMAGES_NUMBER").FormatWith(ImagesNumber), f, brush, rDstTxt, sf);
+              }
+            }
+          }
+
+          var ms = new MemoryStream();
+
+          // save the bitmap to the stream...
+          dst.Save(ms, ImageFormat.Png);
+          ms.Position = 0;
+
+          return ms;
+        }
+      }
+    }
+
+    /// <summary>
+    /// The get image resized.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <param name="previewWidth">
+    /// The preview width.
+    /// </param>
+    /// <param name="previewHeight">
+    /// The preview height.
+    /// </param>
+    /// <param name="downloads">
+    /// The downloads.
+    /// </param>
+    /// <param name="localizationFile">
+    /// The localization file.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    private static MemoryStream GetImageResized([NotNull] MemoryStream data, int previewWidth, int previewHeight, int downloads, [NotNull] string localizationFile)
+    {
+      const int pixelPadding = 6;
+      const int bottomSize = 13;
+
+      using (var src = new Bitmap(data))
+      {
+        // default to width-based resizing...
+        int width = previewWidth;
+        var height = (int)(previewWidth / (src.Width / (double)src.Height));
+
+        if (src.Width <= previewWidth && src.Height <= previewHeight)
+        {
+          // no resizing necessary...
+          width = src.Width;
+          height = src.Height;
+        }
+        else if (height > previewHeight)
+        {
+          // aspect is based on the height, not the width...
+          width = previewHeight / (src.Height / src.Width);
+          height = previewHeight;
+        }
+
+        using (
+          var dst = new Bitmap(width + pixelPadding, height + bottomSize + pixelPadding, PixelFormat.Format24bppRgb))
+        {
+          var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
+          var rDstImg = new Rectangle(3, 3, dst.Width - pixelPadding, dst.Height - pixelPadding - bottomSize);
+          var rDstTxt = new Rectangle(3, rDstImg.Height + 3, previewWidth, bottomSize);
+          using (Graphics g = Graphics.FromImage(dst))
+          {
+            g.Clear(Color.FromArgb(64, 64, 64));
+            g.FillRectangle(Brushes.White, rDstImg);
+
+            g.CompositingMode = CompositingMode.SourceOver;
+            g.CompositingQuality = CompositingQuality.GammaCorrected;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+
+            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
+            {
+              using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
+              {
+                var localization = new YafLocalization("POSTS");
+                localization.LoadTranslation(localizationFile);
+
+                var sf = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
+                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
+
+                sf.Alignment = StringAlignment.Far;
+                g.DrawString(localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads), f, brush, rDstTxt, sf);
+              }
+            }
+          }
+
+          var ms = new MemoryStream();
+
+          // save the bitmap to the stream...
+          dst.Save(ms, ImageFormat.Png);
+          ms.Position = 0;
+
+          return ms;
+        }
+      }
+    }
+
+    /// <summary>
+    /// The get resource.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    private static void GetResource([NotNull] HttpContext context)
+    {
+      // redirect to the resource?
+      context.Response.Redirect("resources/" + context.Request.QueryString.GetFirstOrDefault("r"));
+
+      /*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
+			int lastIndex = resourceName.LastIndexOf( '.' );
+			string extension = resourceName.Substring( lastIndex, resourceName.Length - lastIndex ).ToLower();
+
+			string resourceType = "text/plain";
+
+			switch ( extension )
+			{
+				case ".js":
+					resourceType = "application/x-javascript";
+					break;
+				case ".css":
+					resourceType = "text/css";
+					break;
+			}
+
+			if ( resourceType != string.Empty )
+			{
+				context.Response.Clear();
+				context.Response.ContentType = resourceType ;
+
+				try
+				{
+					// attempt to load the resource...
+					byte [] data = null;
+
+					Stream input = GetType().Assembly.GetManifestResourceStream( resourceName );
+
+					data = new byte [input.Length];
+					input.Read( data, 0, data.Length );
+					input.Close();
+
+					context.Response.OutputStream.Write( data, 0, data.Length );
+				}
+				catch
+				{
+					YAF.Classes.Data.DB.eventlog_create( null, GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
+					context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
+				}
+			}
+			*/
+    }
+
+    /// <summary>
+    /// The get response google spell.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    private static void GetResponseGoogleSpell([NotNull] HttpContext context)
+    {
+      string url =
+        "https://www.google.com/tbproxy/spell?lang={0}".FormatWith(
+          context.Request.QueryString.GetFirstOrDefault("lang"));
+
+      var webRequest = (HttpWebRequest)WebRequest.Create(url);
+      webRequest.KeepAlive = true;
+      webRequest.Timeout = 100000;
+      webRequest.Method = "POST";
+      webRequest.ContentType = "application/x-www-form-urlencoded";
+      webRequest.ContentLength = context.Request.InputStream.Length;
+
+      Stream requestStream = webRequest.GetRequestStream();
+
+      context.Request.InputStream.CopyTo(requestStream);
+
+      requestStream.Close();
+
+      var httpWebResponse = (HttpWebResponse)webRequest.GetResponse();
+      Stream responseStream = httpWebResponse.GetResponseStream();
+
+      responseStream.CopyTo(context.Response.OutputStream);
+    }
+
+    /// <summary>
+    /// The get response local avatar.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    private static void GetResponseLocalAvatar([NotNull] HttpContext context)
+    {
+      try
+      {
+        // string eTag = String.Format( @"""{0}""", context.Request.QueryString.GetFirstOrDefault("u") );
+
+        // if ( CheckETag( context, eTag ) )
+        // {
+        // found eTag... no need to resend/create this image -- just mark another view?
+        // return;
+        // }
+
+        using (DataTable dt = DB.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
+        {
+          foreach (DataRow row in dt.Rows)
+          {
+            var data = (byte[])row["AvatarImage"];
+            string contentType = row["AvatarImageType"].ToString();
+
+            context.Response.Clear();
+            if (contentType.IsNotSet())
+            {
+              contentType = "image/jpeg";
+            }
+
+            context.Response.ContentType = contentType;
+            context.Response.Cache.SetCacheability(HttpCacheability.Public);
+            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+            // context.Response.Cache.SetETag( eTag );
+            context.Response.OutputStream.Write(data, 0, data.Length);
+            break;
+          }
+        }
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    /// <summary>
     /// The check access rights.
     /// </summary>
     /// <param name="boardID">
@@ -193,19 +514,21 @@ namespace YAF
     /// <returns>
     /// The check access rights.
     /// </returns>
-    private bool CheckAccessRights(object boardID, object messageID)
+    private bool CheckAccessRights([NotNull] object boardID, [NotNull] object messageID)
     {
       // Find user name
       MembershipUser user = Membership.GetUser();
 
-      string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
+      string browser = "{0} {1}".FormatWith(
+        HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
       string platform = HttpContext.Current.Request.Browser.Platform;
       bool isSearchEngine;
       bool dontTrack;
       string userAgent = HttpContext.Current.Request.UserAgent;
 
       // try and get more verbose platform name by ref and other parameters             
-      UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
+      UserAgentHelper.Platform(
+        userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
 
       YafContext.Current.Get<YafInitializeDb>().Run();
 
@@ -216,9 +539,20 @@ namespace YAF
         {
           DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
         }
+
         if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
         {
-          DB.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+          DB.eventlog_create(
+            YafContext.Current.PageUserID, 
+            this, 
+            "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'."
+              .FormatWith(
+                userAgent, 
+                HttpContext.Current.Request.Browser.Platform, 
+                HttpContext.Current.Request.Browser.Browser, 
+                HttpContext.Current.Request.Browser.Cookies, 
+                user != null ? user.UserName : String.Empty), 
+            EventLogTypes.Warning);
         }
       }
 
@@ -229,23 +563,23 @@ namespace YAF
         userKey = user.ProviderUserKey;
       }
 
-        DataRow pageRow = DB.pageload(
-            HttpContext.Current.Session.SessionID,
-            boardID,
-            userKey,
-            HttpContext.Current.Request.UserHostAddress,
-            HttpContext.Current.Request.FilePath,
-            HttpContext.Current.Request.QueryString.ToString(),
-            browser,
-            platform,
-            null,
-            null,
-            null,
-            messageID,
-            // don't track if this is a search engine
-            // don't track if this is a search engine
-            isSearchEngine,
-            dontTrack);
+      DataRow pageRow = DB.pageload(
+        HttpContext.Current.Session.SessionID, 
+        boardID, 
+        userKey, 
+        HttpContext.Current.Request.UserHostAddress, 
+        HttpContext.Current.Request.FilePath, 
+        HttpContext.Current.Request.QueryString.ToString(), 
+        browser, 
+        platform, 
+        null, 
+        null, 
+        null, 
+        messageID, 
+        // don't track if this is a search engine
+        // don't track if this is a search engine
+        isSearchEngine, 
+        dontTrack);
 
       DataRow auldRow;
       if (pageRow != null)
@@ -253,7 +587,7 @@ namespace YAF
         // We should be sure that all columns are added
         do
         {
-            auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+          auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
 
           foreach (DataColumn col in auldRow.Table.Columns)
           {
@@ -279,7 +613,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetAlbumCover(HttpContext context)
+    private void GetAlbumCover([NotNull] HttpContext context)
     {
       // default is 200x200
       int previewMaxWidth = 200;
@@ -301,7 +635,8 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode());
+      string eTag =
+        @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -317,7 +652,8 @@ namespace YAF
           var data = new MemoryStream();
           if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
           {
-            fileName = context.Server.MapPath("{0}/images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noCover.png"));
+            fileName =
+              context.Server.MapPath("{0}/images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noCover.png"));
           }
           else
           {
@@ -351,9 +687,9 @@ namespace YAF
 
           // reset position...
           data.Position = 0;
-          string imagesNumber = DB.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].ToString();
-          MemoryStream ms = GetCoverResized(
-            data, previewMaxWidth, previewMaxHeight, localizationFile, imagesNumber);
+          string imagesNumber =
+            DB.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].ToString();
+          MemoryStream ms = GetCoverResized(data, previewMaxWidth, previewMaxHeight, localizationFile, imagesNumber);
 
           context.Response.ContentType = "image/png";
 
@@ -369,7 +705,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -380,7 +716,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetAlbumImage(HttpContext context)
+    private void GetAlbumImage([NotNull] HttpContext context)
     {
       try
       {
@@ -442,7 +778,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -453,7 +789,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetAlbumImagePreview(HttpContext context)
+    private void GetAlbumImagePreview([NotNull] HttpContext context)
     {
       // default is 200x200
       int previewMaxWidth = 200;
@@ -475,7 +811,8 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode());
+      string eTag =
+        @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -537,253 +874,9 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
-    }
-
-    /// <summary>
-    /// The get cover resized.
-    /// </summary>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <param name="previewWidth">
-    /// The preview width.
-    /// </param>
-    /// <param name="previewHeight">
-    /// The preview height.
-    /// </param>
-    /// <param name="localizationFile">
-    /// The localization file.
-    /// </param>
-    /// <param name="ImagesNumber">
-    /// Number of images in the album.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    private static MemoryStream GetCoverResized(
-      MemoryStream data, int previewWidth, int previewHeight, string localizationFile, string ImagesNumber)
-    {
-      const int paddingY = 6;
-      const int paddingX = 6;
-      const int bottomSize = 13;
-      const int topSize = 0;
-      using (var src = new Bitmap(data))
-      {
-        // default to width-based resizing...
-        int width = previewWidth;
-        var height = previewWidth / (src.Width / src.Height);
-
-        if (src.Width <= previewWidth && src.Height <= previewHeight)
-        {
-          // no resizing necessary...
-          width = src.Width;
-          height = src.Height;
-        }
-        else if (height > previewHeight)
-        {
-          // aspect is based on the height, not the width...
-          width = previewHeight / (src.Height / src.Width);
-          height = previewHeight;
-        }
-
-        using (
-          var dst = new Bitmap(width + paddingX, height + topSize + bottomSize + paddingY, PixelFormat.Format24bppRgb))
-        {
-          var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-          var rDstImg = new Rectangle(
-            3, 3 + topSize, dst.Width - paddingX, dst.Height - topSize - paddingY - bottomSize);
-          var rDstTxt = new Rectangle(3, rDstImg.Height + 3 + topSize, previewWidth, bottomSize);
-
-          // Rectangle rDstTitle = new Rectangle(3, 3, previewWidth, topSize);
-          using (Graphics g = Graphics.FromImage(dst))
-          {
-            g.Clear(Color.FromArgb(64, 64, 64));
-            g.FillRectangle(Brushes.White, rDstImg);
-
-            g.CompositingMode = CompositingMode.SourceOver;
-            g.CompositingQuality = CompositingQuality.GammaCorrected;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-            {
-              using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-              {
-                var localization = new YafLocalization("ALBUM");
-                localization.LoadTranslation(localizationFile);
-                var sf = new StringFormat {Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near};
-
-                  g.DrawString(localization.GetText("ALBUM_VIEW"), f, brush, rDstTxt, sf);
-
-                sf.Alignment = StringAlignment.Near;
-                sf.LineAlignment = StringAlignment.Near;
-                g.DrawString(
-                  localization.GetText("ALBUM_IMAGES_NUMBER").FormatWith(ImagesNumber), f, brush, rDstTxt, sf);
-              }
-            }
-          }
-
-          var ms = new MemoryStream();
-
-          // save the bitmap to the stream...
-          dst.Save(ms, ImageFormat.Png);
-          ms.Position = 0;
-
-          return ms;
-        }
-      }
-    }
-
-    /// <summary>
-    /// The get image resized.
-    /// </summary>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <param name="previewWidth">
-    /// The preview width.
-    /// </param>
-    /// <param name="previewHeight">
-    /// The preview height.
-    /// </param>
-    /// <param name="downloads">
-    /// The downloads.
-    /// </param>
-    /// <param name="localizationFile">
-    /// The localization file.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    private static MemoryStream GetImageResized(
-      MemoryStream data, int previewWidth, int previewHeight, int downloads, string localizationFile)
-    {
-      const int pixelPadding = 6;
-      const int bottomSize = 13;
-
-      using (var src = new Bitmap(data))
-      {
-        // default to width-based resizing...
-        int width = previewWidth;
-        var height = (int)(previewWidth / (src.Width / (double)src.Height));
-
-        if (src.Width <= previewWidth && src.Height <= previewHeight)
-        {
-          // no resizing necessary...
-          width = src.Width;
-          height = src.Height;
-        }
-        else if (height > previewHeight)
-        {
-          // aspect is based on the height, not the width...
-          width = previewHeight / (src.Height / src.Width);
-          height = previewHeight;
-        }
-
-        using (
-          var dst = new Bitmap(width + pixelPadding, height + bottomSize + pixelPadding, PixelFormat.Format24bppRgb))
-        {
-          var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-          var rDstImg = new Rectangle(3, 3, dst.Width - pixelPadding, dst.Height - pixelPadding - bottomSize);
-          var rDstTxt = new Rectangle(3, rDstImg.Height + 3, previewWidth, bottomSize);
-          using (Graphics g = Graphics.FromImage(dst))
-          {
-            g.Clear(Color.FromArgb(64, 64, 64));
-            g.FillRectangle(Brushes.White, rDstImg);
-
-            g.CompositingMode = CompositingMode.SourceOver;
-            g.CompositingQuality = CompositingQuality.GammaCorrected;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-            {
-              using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-              {
-                var localization = new YafLocalization("POSTS");
-                localization.LoadTranslation(localizationFile);
-
-                var sf = new StringFormat {Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center};
-
-                  g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
-
-                sf.Alignment = StringAlignment.Far;
-                g.DrawString(
-                  localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads), f, brush, rDstTxt, sf);
-              }
-            }
-          }
-
-          var ms = new MemoryStream();
-
-          // save the bitmap to the stream...
-          dst.Save(ms, ImageFormat.Png);
-          ms.Position = 0;
-
-          return ms;
-        }
-      }
-    }
-
-    /// <summary>
-    /// The get resource.
-    /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    private static void GetResource(HttpContext context)
-    {
-      // redirect to the resource?
-      context.Response.Redirect("resources/" + context.Request.QueryString.GetFirstOrDefault("r"));
-
-      /*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
-			int lastIndex = resourceName.LastIndexOf( '.' );
-			string extension = resourceName.Substring( lastIndex, resourceName.Length - lastIndex ).ToLower();
-
-			string resourceType = "text/plain";
-
-			switch ( extension )
-			{
-				case ".js":
-					resourceType = "application/x-javascript";
-					break;
-				case ".css":
-					resourceType = "text/css";
-					break;
-			}
-
-			if ( resourceType != string.Empty )
-			{
-				context.Response.Clear();
-				context.Response.ContentType = resourceType ;
-
-				try
-				{
-					// attempt to load the resource...
-					byte [] data = null;
-
-					Stream input = GetType().Assembly.GetManifestResourceStream( resourceName );
-
-					data = new byte [input.Length];
-					input.Read( data, 0, data.Length );
-					input.Close();
-
-					context.Response.OutputStream.Write( data, 0, data.Length );
-				}
-				catch
-				{
-					YAF.Classes.Data.DB.eventlog_create( null, GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
-					context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
-				}
-			}
-			*/
     }
 
     /// <summary>
@@ -792,7 +885,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseAttachment(HttpContext context)
+    private void GetResponseAttachment([NotNull] HttpContext context)
     {
       try
       {
@@ -802,7 +895,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
+            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -820,8 +913,7 @@ namespace YAF
               string oldFileName =
                 context.Server.MapPath("{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
               string newFileName =
-                context.Server.MapPath(
-                  "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
+                context.Server.MapPath("{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
               string fileName;
 
@@ -849,8 +941,9 @@ namespace YAF
 
             context.Response.ContentType = row["ContentType"].ToString();
             context.Response.AppendHeader(
-              "Content-Disposition",
-              "attachment; filename={0}".FormatWith(HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
+              "Content-Disposition", 
+              "attachment; filename={0}".FormatWith(
+                HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
             context.Response.OutputStream.Write(data, 0, data.Length);
             DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("a"));
             break;
@@ -859,7 +952,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -870,13 +963,14 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseCaptcha(HttpContext context)
+    private void GetResponseCaptcha([NotNull] HttpContext context)
     {
 #if (!DEBUG)
       try
       {
 #endif
-        var captchaImage = new CaptchaImage(CaptchaHelper.GetCaptchaText(context.Session, context.Cache, true), 250, 50, "Century Schoolbook");
+        var captchaImage = new CaptchaImage(
+          CaptchaHelper.GetCaptchaText(context.Session, context.Cache, true), 250, 50, "Century Schoolbook");
         context.Response.Clear();
         context.Response.ContentType = "image/jpeg";
         captchaImage.Image.Save(context.Response.OutputStream, ImageFormat.Jpeg);
@@ -884,39 +978,11 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
+
 #endif
-    }
-
-    /// <summary>
-    /// The get response google spell.
-    /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    private static void GetResponseGoogleSpell(HttpContext context)
-    {
-      string url = "https://www.google.com/tbproxy/spell?lang={0}".FormatWith(context.Request.QueryString.GetFirstOrDefault("lang"));
-
-      var webRequest = (HttpWebRequest)WebRequest.Create(url);
-      webRequest.KeepAlive = true;
-      webRequest.Timeout = 100000;
-      webRequest.Method = "POST";
-      webRequest.ContentType = "application/x-www-form-urlencoded";
-      webRequest.ContentLength = context.Request.InputStream.Length;
-
-      Stream requestStream = webRequest.GetRequestStream();
-
-      context.Request.InputStream.CopyTo(requestStream);
-
-      requestStream.Close();
-
-      var httpWebResponse = (HttpWebResponse)webRequest.GetResponse();
-      Stream responseStream = httpWebResponse.GetResponseStream();
-
-      responseStream.CopyTo(context.Response.OutputStream);
     }
 
     // TommyB: Start MOD: PreviewImages   ##########
@@ -926,7 +992,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseImage(HttpContext context)
+    private void GetResponseImage([NotNull] HttpContext context)
     {
       try
       {
@@ -945,7 +1011,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
+            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -963,8 +1029,7 @@ namespace YAF
               string oldFileName =
                 context.Server.MapPath("{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
               string newFileName =
-                context.Server.MapPath(
-                  "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
+                context.Server.MapPath("{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
               string fileName;
 
@@ -1003,7 +1068,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1014,7 +1079,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseImagePreview(HttpContext context)
+    private void GetResponseImagePreview([NotNull] HttpContext context)
     {
       // default is 200x200
       int previewMaxWidth = 200;
@@ -1036,7 +1101,8 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode());
+      string eTag =
+        @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -1052,7 +1118,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
+            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -1070,8 +1136,7 @@ namespace YAF
               string oldFileName =
                 context.Server.MapPath("{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
               string newFileName =
-                context.Server.MapPath(
-                  "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
+                context.Server.MapPath("{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
               string fileName;
 
@@ -1122,53 +1187,8 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, GetType().ToString(), x, 1);
+        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
-      }
-    }
-
-    /// <summary>
-    /// The get response local avatar.
-    /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    private static void GetResponseLocalAvatar(HttpContext context)
-    {
-      try
-      {
-        // string eTag = String.Format( @"""{0}""", context.Request.QueryString.GetFirstOrDefault("u") );
-
-        // if ( CheckETag( context, eTag ) )
-        // {
-        // found eTag... no need to resend/create this image -- just mark another view?
-        // return;
-        // }
-
-        using (DataTable dt = DB.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
-        {
-          foreach (DataRow row in dt.Rows)
-          {
-            var data = (byte[])row["AvatarImage"];
-            string contentType = row["AvatarImageType"].ToString();
-
-            context.Response.Clear();
-            if (contentType.IsNotSet())
-            {
-              contentType = "image/jpeg";
-            }
-
-            context.Response.ContentType = contentType;
-            context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-            // context.Response.Cache.SetETag( eTag );
-            context.Response.OutputStream.Write(data, 0, data.Length);
-            break;
-          }
-        }
-      }
-      catch (Exception)
-      {
       }
     }
 
@@ -1178,15 +1198,15 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseRemoteAvatar(HttpContext context)
+    private void GetResponseRemoteAvatar([NotNull] HttpContext context)
     {
       if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.Medium)
       {
         // don't bother... not supported.
         DB.eventlog_create(
-          null,
-          GetType().ToString(),
-          "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",
+          null, 
+          this.GetType().ToString(), 
+          "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)", 
           0);
         return;
       }
