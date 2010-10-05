@@ -55,15 +55,24 @@
 
               Send(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
 
+              Thread.Sleep(200);
+
               Debug.WriteLine("Sent to {0}.".FormatWith(mail.ToUser));
             }
             catch (System.FormatException ex)
             {
               // email address is no good -- delete this email...
               Debug.WriteLine("Invalid Email Address: {0}".FormatWith(ex.ToString()));
+
+#if (DEBUG)
+              DB.eventlog_create(null, "Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
+#endif
             }
             catch (SmtpException ex)
             {
+#if (DEBUG)
+              DB.eventlog_create(null, "SendMailThread SmtpException", ex.ToString());
+#endif
               Debug.WriteLine("Send Exception: {0}".FormatWith(ex.ToString()));
 
               if (mail.SendTries < 5)
@@ -72,7 +81,7 @@
               }
               else
               {
-                DB.eventlog_create(1, "SendMailThread", ex);
+                DB.eventlog_create(null, "SendMailThread Failed for the 5th time:", ex.ToString());
               }
             }
           }
@@ -86,6 +95,9 @@
       {
         // debug the exception
         Debug.WriteLine("Exception Thrown in SendMail Thread: " + e.ToString());
+#if (DEBUG)
+        DB.eventlog_create(null, "SendMailThread General Exception", e.ToString());
+#endif
       }
 
       Debug.WriteLine("SendMailThread exiting");
