@@ -23153,29 +23153,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.MyTopicsList._controlMode">
+        <member name="F:YAF.Controls.MyTopicsList.lastPostImageTT">
             <summary>
-            the current mode.
+              The last post image tooltip.
             </summary>
         </member>
         <member name="F:YAF.Controls.MyTopicsList._lastForumName">
             <summary>
-            The _last forum name.
+              The _last forum name.
             </summary>
         </member>
         <member name="F:YAF.Controls.MyTopicsList.sinceDate">
             <summary>
-            default since date is now
+              default since date is now
             </summary>
         </member>
         <member name="F:YAF.Controls.MyTopicsList.sinceValue">
             <summary>
-            default since option is "since last visit"
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MyTopicsList.lastPostImageTT">
-            <summary>
-            The last post image tooltip.
+              default since option is "since last visit"
             </summary>
         </member>
         <member name="M:YAF.Controls.MyTopicsList.BindData">
@@ -23232,9 +23227,14 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Controls.MyTopicsList.BindFeeds">
+            <summary>
+            The bind feeds.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.MyTopicsList.CurrentMode">
             <summary>
-            Determines what is th current mode of the control.
+              Determines what is th current mode of the control.
             </summary>
         </member>
         <member name="T:YAF.Controls.BuddyList">
@@ -25629,6 +25629,11 @@
             Binds data to data source
             </summary>
         </member>
+        <member name="T:YAF.Pages.mytopics">
+            <summary>
+            The mytopics.
+            </summary>
+        </member>
         <member name="F:YAF.Pages.mytopics.PageLinks">
             <summary>
             PageLinks control.
@@ -25739,7 +25744,7 @@
         </member>
         <member name="M:YAF.Pages.mytopics.#ctor">
             <summary>
-            Initializes a new instance of the mytopics class.
+              Initializes a new instance of the mytopics class.
             </summary>
         </member>
         <member name="M:YAF.Pages.mytopics.Page_Load(System.Object,System.EventArgs)">
@@ -26727,6 +26732,21 @@
         <member name="F:YAF.Controls.ThanksListMode.ToUser">
             <summary>
             The to user.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.TopicListMode">
+            <summary>
+            The topic list mode.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.TopicListMode.Active">
+            <summary>
+            The active.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.TopicListMode.Favorite">
+            <summary>
+            The favorite.
             </summary>
         </member>
         <member name="T:YAF.Pages.ViewThanks">
@@ -28062,27 +28082,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ActiveListTime">
-            <summary>
-            ActiveListTime control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AddDynamicPageMetaTags">
             <summary>
             AddDynamicPageMetaTags control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.EnableDisplayName">
-            <summary>
-            EnableDisplayName control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28101,6 +28103,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AllowUserHideHimself">
             <summary>
             AllowUserHideHimself control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.EnableDisplayName">
+            <summary>
+            EnableDisplayName control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28323,6 +28334,96 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowPrivateMessages">
+            <summary>
+            AllowPrivateMessages control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowPMEmailNotification">
+            <summary>
+            AllowPMEmailNotification control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.PrivateMessageMaxRecipients">
+            <summary>
+            PrivateMessageMaxRecipients control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.EnableAlbum">
+            <summary>
+            EnableAlbum control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AlbumImagesSizeMax">
+            <summary>
+            AlbumImagesSizeMax control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AlbumsPerPage">
+            <summary>
+            AlbumsPerPage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AlbumImagesPerPage">
+            <summary>
+            AlbumImagesPerPage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowRSSLink">
+            <summary>
+            ShowRSSLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowAtomLink">
+            <summary>
+            ShowAtomLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowPostsFeeds">
+            <summary>
+            ShowPostsFeeds control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.CaptchaSize">
             <summary>
             CaptchaSize control.
@@ -28386,51 +28487,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.PrivateMessageMaxRecipients">
-            <summary>
-            PrivateMessageMaxRecipients control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.EnableAlbum">
-            <summary>
-            EnableAlbum control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AlbumImagesSizeMax">
-            <summary>
-            AlbumImagesSizeMax control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AlbumsPerPage">
-            <summary>
-            AlbumsPerPage control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AlbumImagesPerPage">
-            <summary>
-            AlbumImagesPerPage control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.MessageHistoryDaysToLog">
             <summary>
             MessageHistoryDaysToLog control.
@@ -28461,6 +28517,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.View3">
             <summary>
             View3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ActiveListTime">
+            <summary>
+            ActiveListTime control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28560,33 +28625,6 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ShowActiveDiscussions">
             <summary>
             ShowActiveDiscussions control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowRSSLink">
-            <summary>
-            ShowRSSLink control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowAtomLink">
-            <summary>
-            ShowAtomLink control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowPostsFeeds">
-            <summary>
-            ShowPostsFeeds control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28839,24 +28877,6 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AllowSignatures">
             <summary>
             AllowSignatures control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowPrivateMessages">
-            <summary>
-            AllowPrivateMessages control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowPMEmailNotification">
-            <summary>
-            AllowPMEmailNotification control.
             </summary>
             <remarks>
             Auto-generated field.
