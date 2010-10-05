@@ -100,12 +100,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static DataRow GetFirstRow([NotNull] this DataTable dt)
     {
-      if (dt.Rows.Count > 0)
-      {
-        return dt.Rows[0];
-      }
-
-      return null;
+      return dt.Rows.Count > 0 ? dt.Rows[0] : null;
     }
 
     /// <summary>
