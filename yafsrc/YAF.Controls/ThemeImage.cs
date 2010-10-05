@@ -20,9 +20,9 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
   using System.Web.UI;
 
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -35,73 +35,61 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The _alt.
+    ///   The _alt.
     /// </summary>
     protected string _alt = string.Empty;
 
     /// <summary>
-    /// The css Class.
+    ///   The css Class.
     /// </summary>
     protected string _cssClass = string.Empty;
 
     /// <summary>
-    /// The _enabled tag.
+    ///   The _enabled tag.
     /// </summary>
     protected bool _enabled = true;
 
     /// <summary>
-    /// The _localized title page.
-    /// </summary>
-    protected string _localizedTitlePage = string.Empty;
-
-    /// <summary>
-    /// The _localized title tag.
-    /// </summary>   
-    protected string _localizedTitleTag = string.Empty;
-   
-      /// <summary>
-    /// The _localized title ready.
+    ///   The _localized title ready.
     /// </summary>
     protected string _localizedTitle = string.Empty;
 
     /// <summary>
-    /// The _style.
+    ///   The _localized title page.
+    /// </summary>
+    protected string _localizedTitlePage = string.Empty;
+
+    /// <summary>
+    ///   The _localized title tag.
+    /// </summary>
+    protected string _localizedTitleTag = string.Empty;
+
+    /// <summary>
+    ///   The _style.
     /// </summary>
     protected string _style = string.Empty;
 
     /// <summary>
-    /// The _theme page.
+    ///   The _theme page.
     /// </summary>
     protected string _themePage = "ICONS";
 
     /// <summary>
-    /// The _theme tag.
+    ///   The _theme tag.
     /// </summary>
     protected string _themeTag = string.Empty;
 
     /// <summary>
-    /// The _use title for empty alt.
+    ///   The _use title for empty alt.
     /// </summary>
     protected bool _useTitleForEmptyAlt = true;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ThemeImage"/> class.
-    /// </summary>
-    public ThemeImage()
-      : base()
-    {
-    }
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets or sets Alt.
+    ///   Gets or sets Alt.
     /// </summary>
     public string Alt
     {
@@ -117,7 +105,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Style.
+    ///   Gets or sets Style.
     /// </summary>
     public string CssClass
     {
@@ -133,7 +121,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the control is Active .
+    ///   Gets or sets a value indicating whether the control is Active .
     /// </summary>
     public bool Enabled
     {
@@ -149,7 +137,23 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets LocalizedTitlePage.
+    ///   Gets or sets LocalizedTitle.
+    /// </summary>
+    public string LocalizedTitle
+    {
+      get
+      {
+        return this._localizedTitle;
+      }
+
+      set
+      {
+        this._localizedTitle = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets LocalizedTitlePage.
     /// </summary>
     public string LocalizedTitlePage
     {
@@ -165,7 +169,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets LocalizedTitleTag.
+    ///   Gets or sets LocalizedTitleTag.
     /// </summary>
     public string LocalizedTitleTag
     {
@@ -181,23 +185,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets LocalizedTitle.
-    /// </summary>
-    public string LocalizedTitle
-    {
-        get
-        {
-            return this._localizedTitle;
-        }
-
-        set
-        {
-            this._localizedTitle = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets Style.
+    ///   Gets or sets Style.
     /// </summary>
     public string Style
     {
@@ -213,7 +201,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets the ThemePage -- Defaults to "ICONS"
+    ///   Gets or sets the ThemePage -- Defaults to "ICONS"
     /// </summary>
     public string ThemePage
     {
@@ -229,7 +217,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets the actual theme item
+    ///   Gets or sets the actual theme item
     /// </summary>
     public string ThemeTag
     {
@@ -245,7 +233,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether UseTitleForEmptyAlt.
+    ///   Gets or sets a value indicating whether UseTitleForEmptyAlt.
     /// </summary>
     public bool UseTitleForEmptyAlt
     {
@@ -267,7 +255,9 @@ namespace YAF.Controls
     /// <summary>
     /// The get current theme item.
     /// </summary>
-    /// <returns>Current image alt value</returns>
+    /// <returns>
+    /// Current image alt value
+    /// </returns>
     protected string GetCurrentThemeItem()
     {
       if (this._themePage.IsSet() && this._themeTag.IsSet())
@@ -304,7 +294,7 @@ namespace YAF.Controls
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
       // vzrus: Don't render control if not enabled
       if (!this.Enabled)
@@ -316,11 +306,11 @@ namespace YAF.Controls
       string title;
       if (string.IsNullOrEmpty(this.LocalizedTitle.Trim()))
       {
-         title = this.GetCurrentTitleItem();
+        title = this.GetCurrentTitleItem();
       }
       else
       {
-          title = this.LocalizedTitle;
+        title = this.LocalizedTitle;
       }
 
       // might not be needed...
