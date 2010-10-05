@@ -35,7 +35,7 @@
 					<%# Eval("RankName") %>
 				</td>
 				<td class="post">
-					<%# YafServices.DateTime.FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
+					<%# this.Get<YafDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
 				</td>
 				<td class="post" align="center">
 					<%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>

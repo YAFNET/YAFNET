@@ -96,7 +96,7 @@
                  <%
                  }%>
             <%
-                if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+                if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {%>
             <li class="menuGeneral"><a href="<%=YafBuildLink.GetLink(ForumPages.search)%>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")%></a> </li>
@@ -104,7 +104,7 @@
                 }                    
             %>
             <%
-                if (YafServices.Permissions.Check(this.PageContext.BoardSettings.MembersListViewPermissions))
+                if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
                 {%>
             <li class="menuGeneral"><a href="<%=YafBuildLink.GetLink(ForumPages.members)%>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")%></a> </li>

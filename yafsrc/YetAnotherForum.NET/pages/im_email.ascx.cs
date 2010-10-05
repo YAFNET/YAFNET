@@ -78,7 +78,7 @@ namespace YAF.Pages // YAF.Pages
 				MembershipUser toUser = UserMembershipHelper.GetMembershipUserById( UserID );
 
 				// send it...
-				YafServices.SendMail.Send( new System.Net.Mail.MailAddress( PageContext.User.Email, PageContext.User.UserName ), new System.Net.Mail.MailAddress( toUser.Email.Trim(), toUser.UserName.Trim() ), Subject.Text.Trim(), Body.Text.Trim() );
+				this.Get<YafSendMail>().Send( new System.Net.Mail.MailAddress( PageContext.User.Email, PageContext.User.UserName ), new System.Net.Mail.MailAddress( toUser.Email.Trim(), toUser.UserName.Trim() ), Subject.Text.Trim(), Body.Text.Trim() );
 
 				// redirect to profile page...
 				YafBuildLink.Redirect( ForumPages.profile, "u={0}", UserID );

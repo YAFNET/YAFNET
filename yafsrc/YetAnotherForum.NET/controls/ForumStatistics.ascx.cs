@@ -54,7 +54,7 @@ namespace YAF.Controls
       // Active users : Call this before forum_stats to clean up active users
       string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
       DataTable activeUsers = PageContext.Cache.GetItem(
-        key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
+        key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => this.Get<YafDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
@@ -90,12 +90,12 @@ namespace YAF.Controls
       if (!userStatisticsDataRow.IsNull("MaxUsers"))
       {
         this.MostUsersCount.Text = PageContext.Localization.GetTextFormatted(
-          "MAX_ONLINE", userStatisticsDataRow["MaxUsers"], YafServices.DateTime.FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
+          "MAX_ONLINE", userStatisticsDataRow["MaxUsers"], this.Get<YafDateTime>().FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
       }
       else
       {
         this.MostUsersCount.Text = PageContext.Localization.GetTextFormatted(
-          "MAX_ONLINE", activeStats["ActiveUsers"], YafServices.DateTime.FormatDateTimeTopic(DateTime.UtcNow));
+          "MAX_ONLINE", activeStats["ActiveUsers"], this.Get<YafDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
       }
 
       // Posts and Topic Count...
@@ -110,7 +110,7 @@ namespace YAF.Controls
         this.LastPostUserLink.UserID = Convert.ToInt32(postsStatisticsDataRow["LastUserID"]);
         this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
         this.StatsLastPost.Text = PageContext.Localization.GetTextFormatted(
-          "stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime) postsStatisticsDataRow["LastPost"]));
+          "stats_lastpost", this.Get<YafDateTime>().FormatDateTimeTopic((DateTime) postsStatisticsDataRow["LastPost"]));
       }
       else
       {
@@ -149,7 +149,7 @@ namespace YAF.Controls
         activeUsers += activeHidden;      
       }
 
-      bool canViewActive = YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions);
+      bool canViewActive = this.Get<YafPermissions>().Check(PageContext.BoardSettings.ActiveUsersViewPermissions);
       bool showGuestTotal = (activeGuests > 0) && (PageContext.BoardSettings.ShowGuestsInDetailedActiveList || PageContext.BoardSettings.ShowCrawlersInActiveList);
       bool showActiveHidden = (activeHidden > 0) && PageContext.IsAdmin;
       if (canViewActive && ((showGuestTotal) || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) || (showActiveHidden && (activeMembers > 0) && showGuestTotal)))

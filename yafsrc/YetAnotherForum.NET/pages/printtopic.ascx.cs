@@ -80,7 +80,7 @@ namespace YAF.Pages
         var dataRows = dt.AsEnumerable().Take(500);
 
         // load the missing message test
-        YafServices.DBBroker.LoadMessageText(dataRows);
+        this.Get<YafDBBroker>().LoadMessageText(dataRows);
 
         this.Posts.DataSource = dataRows;
 
@@ -100,7 +100,7 @@ namespace YAF.Pages
     protected string GetPrintHeader(object o)
     {
       var row = (DataRow) o;
-      return "<strong>{2}: {0}</strong> - {1}".FormatWith(row["UserName"], YafServices.DateTime.FormatDateTime((DateTime) row["Posted"]), this.GetText("postedby"));
+      return "<strong>{2}: {0}</strong> - {1}".FormatWith(row["UserName"], this.Get<YafDateTime>().FormatDateTime((DateTime) row["Posted"]), this.GetText("postedby"));
     }
 
     /// <summary>

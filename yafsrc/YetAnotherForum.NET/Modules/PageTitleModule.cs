@@ -100,7 +100,7 @@ namespace YAF.Modules
         if (PageContext.PageTopicID != 0)
         {
           // Tack on the topic we're viewing
-          title.AppendFormat("{0} - ", YafServices.BadWordReplace.Replace(PageContext.PageTopicName));
+          title.AppendFormat("{0} - ", PageContext.Get<YafBadWordReplace>().Replace(PageContext.PageTopicName));
         }
 
         if (ForumPageType == ForumPages.posts)

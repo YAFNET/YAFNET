@@ -50,7 +50,7 @@
 						</a>
 					</td>
 					<td>
-						<%# YafServices.DateTime.FormatDateTimeShort(Eval( "Posted")) %>
+						<%# this.Get<YafDateTime>().FormatDateTimeShort(Eval( "Posted")) %>
 					</td>
 					<td>
 						<%# Eval( "FileName") %>

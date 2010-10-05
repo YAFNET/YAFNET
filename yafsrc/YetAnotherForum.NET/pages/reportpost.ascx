@@ -22,7 +22,7 @@
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
                     </strong>
-                    <%# YafServices.DateTime.FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
+                    <%# this.Get<YafDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
                 </td>
             </tr>
             <tr>

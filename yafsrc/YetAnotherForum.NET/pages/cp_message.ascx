@@ -31,7 +31,7 @@
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="posted" />
                     </strong>
-                    <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
+                    <%# this.Get<YafDateTime>().FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
                 </div>
                 <div class="rightItem postedRight">
                     <YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton" CommandName="delete"

@@ -21,7 +21,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITED" />
                     </strong>:
-                    <%# YafServices.DateTime.FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
+                    <%# this.Get<YafDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
                     <br />
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
@@ -60,7 +60,7 @@
                     &nbsp; <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                     </strong>
-                    <%# YafServices.DateTime.FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
+                    <%# this.Get<YafDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
                     &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
                             <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
@@ -99,7 +99,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITED" />
                     </strong>
-                    <%# YafServices.DateTime.FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
+                    <%# this.Get<YafDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
                     <br />
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"

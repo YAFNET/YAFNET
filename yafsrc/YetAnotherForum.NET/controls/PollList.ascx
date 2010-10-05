@@ -50,7 +50,7 @@
                         </td>
                         <td class="post">
                             <YAF:MyLinkButton ID="MyLinkButton1" Enabled="false" runat="server" CommandName="vote"
-                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(YafServices.BadWordReplace.Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
+                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
                         </td>
                         <td class="post" align="center">
                             <asp:Panel ID="VoteSpan" Visible="false" runat="server">

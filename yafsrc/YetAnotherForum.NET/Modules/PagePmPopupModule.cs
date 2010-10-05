@@ -18,8 +18,15 @@
  */
 namespace YAF.Modules
 {
+  #region Using
+
   using System;
+
+  using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for PageTitleModule
@@ -27,13 +34,15 @@ namespace YAF.Modules
   [YafModule("Page Title Module", "Tiny Gecko", 1)]
   public class PagePmPopupModule : SimpleBaseModule
   {
+    #region Public Methods
+
     /// <summary>
     /// The init after page.
     /// </summary>
     public override void InitAfterPage()
     {
-      CurrentForumPage.PreRender += ForumPage_PreRender;
-      CurrentForumPage.Load += ForumPage_Load;
+      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+      this.CurrentForumPage.Load += this.ForumPage_Load;
     }
 
     /// <summary>
@@ -41,6 +50,34 @@ namespace YAF.Modules
     /// </summary>
     public override void InitBeforePage()
     {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The display pm popup.
+    /// </summary>
+    /// <returns>
+    /// The display pm popup.
+    /// </returns>
+    protected bool DisplayPMPopup()
+    {
+      return (this.PageContext.UnreadPrivate > 0) &&
+             (this.PageContext.LastUnreadPm > YafContext.Current.Get<YafSession>().LastPm);
+    }
+
+    /// <summary>
+    /// The last pending buddies.
+    /// </summary>
+    /// <returns>
+    /// whether we should display the pending buddies notification or not
+    /// </returns>
+    protected bool DisplayPendingBuddies()
+    {
+      return (this.PageContext.PendingBuddies > 0) &&
+             (this.PageContext.LastPendingBuddies > YafContext.Current.Get<YafSession>().LastPendingBuddies);
     }
 
     /// <summary>
@@ -52,50 +89,9 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_Load(object sender, EventArgs e)
+    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      GeneratePopUp();
-    }
-
-    /// <summary>
-    /// Creates this pages title and fires a PageTitleSet event if one is set
-    /// </summary>
-    private void GeneratePopUp()
-    {
-      // This happens when user logs in
-      if (DisplayPMPopup())
-      {
-        PageContext.AddLoadMessage(this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
-        Mession.LastPm = PageContext.LastUnreadPm;
-      }
-      if (DisplayPendingBuddies())
-      {
-          PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies));
-          Mession.LastPendingBuddies = PageContext.LastPendingBuddies;
-      }
-    }
-
-
-    /// <summary>
-    /// The last pending buddies.
-    /// </summary>
-    /// <returns>
-    /// whether we should display the pending buddies notification or not
-    /// </returns>
-    protected bool DisplayPendingBuddies()
-    {
-        return (PageContext.PendingBuddies > 0) && (PageContext.LastPendingBuddies > Mession.LastPendingBuddies);
-    }
-  
-    /// <summary>
-    /// The display pm popup.
-    /// </summary>
-    /// <returns>
-    /// The display pm popup.
-    /// </returns>
-    protected bool DisplayPMPopup()
-    {
-        return (PageContext.UnreadPrivate > 0) && (PageContext.LastUnreadPm > Mession.LastPm);
+      this.GeneratePopUp();
     }
 
     /// <summary>
@@ -107,8 +103,31 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_PreRender(object sender, EventArgs e)
+    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
     }
+
+    /// <summary>
+    /// Creates this pages title and fires a PageTitleSet event if one is set
+    /// </summary>
+    private void GeneratePopUp()
+    {
+      // This happens when user logs in
+      if (this.DisplayPMPopup())
+      {
+        this.PageContext.AddLoadMessage(
+          this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
+        this.PageContext.Get<YafSession>().LastPm = this.PageContext.LastUnreadPm;
+      }
+
+      if (this.DisplayPendingBuddies())
+      {
+        this.PageContext.AddLoadMessage(
+          this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies));
+        this.PageContext.Get<YafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+      }
+    }
+
+    #endregion
   }
 }

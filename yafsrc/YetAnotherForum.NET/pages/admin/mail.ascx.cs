@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
           foreach (DataRow row in dt.Rows)
           {
             // Wes - Changed to use queue to improve scalability
-            YafServices.SendMail.Queue(PageContext.BoardSettings.ForumEmail, (string) row["Email"], this.Subject.Text.Trim(), this.Body.Text.Trim());
+            this.Get<YafSendMail>().Queue(PageContext.BoardSettings.ForumEmail, (string) row["Email"], this.Subject.Text.Trim(), this.Body.Text.Trim());
           }
         }
 

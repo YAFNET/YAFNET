@@ -47,14 +47,14 @@ namespace YAF.Controls
     /// </param>
     private void ForumWelcome_PreRender(object sender, EventArgs e)
     {
-        this.TimeNow.Text = this.PageContext.Localization.GetTextFormatted("Current_Time", YafServices.DateTime.FormatTime(DateTime.UtcNow));
+        this.TimeNow.Text = this.PageContext.Localization.GetTextFormatted("Current_Time", this.Get<YafDateTime>().FormatTime(DateTime.UtcNow));
 
-      if (Mession.LastVisit != DateTime.MinValue)
+      if (YafContext.Current.Get<YafSession>().LastVisit != DateTime.MinValue)
       {
         this.TimeLastVisit.Visible = true;
         this.TimeLastVisit.Text = this.PageContext.Localization.GetTextFormatted(
                                                                        "last_visit",
-                                                                       YafServices.DateTime.FormatDateTime(Mession.LastVisit));
+                                                                       this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit));
       }
       else
       {

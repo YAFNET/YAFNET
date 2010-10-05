@@ -347,7 +347,7 @@ namespace YAF.Pages.Admin
             // we want to filter topics since last visit
             if (sinceValue == 0)
             {
-                sinceDate = Mession.LastVisit;
+                sinceDate = YafContext.Current.Get<YafSession>().LastVisit;
             }
 
             // we are going to page results
@@ -407,7 +407,7 @@ namespace YAF.Pages.Admin
         protected void InitSinceDropdown()
         {
             // value 0, for since last visted
-            this.Since.Items.Add(new ListItem("Last visit at {0}".FormatWith(YafServices.DateTime.FormatDateTime(Mession.LastVisit)), "0"));
+            this.Since.Items.Add(new ListItem("Last visit at {0}".FormatWith(this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit)), "0"));
 
             // negative values for hours backward
             this.Since.Items.Add(new ListItem("Last hour", "-1"));

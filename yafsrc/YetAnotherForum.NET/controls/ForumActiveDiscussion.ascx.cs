@@ -76,7 +76,7 @@ namespace YAF.Controls
         var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
 
         // populate them...
-        textMessageLink.Text = YafServices.BadWordReplace.Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
+        textMessageLink.Text = this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
         textMessageLink.NavigateUrl = messageUrl;
         imageMessageLink.NavigateUrl = messageUrl;
         lastPostedImage.LocalizedTitle = this.lastPostToolTip;
@@ -90,9 +90,9 @@ namespace YAF.Controls
 
         if (currentRow["LastPosted"] != DBNull.Value)
         {
-          lastPostedDateLabel.Text = YafServices.DateTime.FormatDateTimeTopic(currentRow["LastPosted"]);
+          lastPostedDateLabel.Text = this.Get<YafDateTime>().FormatDateTimeTopic(currentRow["LastPosted"]);
           lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                      Mession.GetTopicRead(Convert.ToInt32(currentRow["TopicID"])))
+                                      YafContext.Current.Get<YafSession>().GetTopicRead(Convert.ToInt32(currentRow["TopicID"])))
                                        ? "ICON_NEWEST"
                                        : "ICON_LATEST";
         }

@@ -22,7 +22,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      DataSet ds = YafServices.DBBroker.BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null);
+      DataSet ds = this.Get<YafDBBroker>().BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null);
       this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
       this.CategoryList.DataBind();
       
@@ -39,7 +39,7 @@ namespace YAF.Controls
     /// </param>
     protected void MarkAll_Click(object sender, EventArgs e)
     {
-      Mession.LastVisit = DateTime.UtcNow;
+      YafContext.Current.Get<YafSession>().LastVisit = DateTime.UtcNow;
     }
   }
 }

@@ -145,7 +145,7 @@ namespace YAF.Controls
       // we want to filter topics since last visit
       if (sinceValue == 0)
       {
-        sinceDate = Mession.LastVisit;
+        sinceDate = YafContext.Current.Get<YafSession>().LastVisit;
       }
 
       // we want to page results
@@ -178,7 +178,7 @@ namespace YAF.Controls
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
         // we are getting favotes
-        topicList = YafServices.FavoriteTopic.FavoriteTopicDetails(sinceDate);
+        topicList = this.Get<YafFavoriteTopic>().FavoriteTopicDetails(sinceDate);
       }
 
       if (topicList != null)
@@ -223,7 +223,7 @@ namespace YAF.Controls
       this.Since.Items.Add(
         new ListItem(
           this.PageContext.Localization.GetTextFormatted(
-            "last_visit", YafServices.DateTime.FormatDateTime(Mession.LastVisit)), 
+            "last_visit", this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit)), 
           "0"));
 
       // negative values for hours backward
@@ -260,7 +260,7 @@ namespace YAF.Controls
         if (this.CurrentMode == TopicListMode.Active)
         {
           // active topics mode
-          previousSince = Mession.ActiveTopicSince;
+          previousSince = YafContext.Current.Get<YafSession>().ActiveTopicSince;
 
           // by default select "Last visited..." for active discussions
           this.Since.SelectedIndex = 0;
@@ -268,7 +268,7 @@ namespace YAF.Controls
         else if (this.CurrentMode == TopicListMode.Favorite)
         {
           // favorites mode
-          previousSince = Mession.FavoriteTopicSince;
+          previousSince = YafContext.Current.Get<YafSession>().FavoriteTopicSince;
 
           // add "Show All" option
           this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("show_all"), "9999"));
@@ -350,12 +350,12 @@ namespace YAF.Controls
       if (this.CurrentMode == TopicListMode.Active)
       {
         // for active topics
-        Mession.ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+        YafContext.Current.Get<YafSession>().ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
       }
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
         // for favorites
-        Mession.FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+        YafContext.Current.Get<YafSession>().FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
       }
 
       // re-bind data

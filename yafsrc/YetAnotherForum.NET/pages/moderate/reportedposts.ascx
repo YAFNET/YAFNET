@@ -32,7 +32,7 @@
                 <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                 </b>
-                <%# YafServices.DateTime.FormatDateShort((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+                <%# this.Get<YafDateTime>().FormatDateShort((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
                 <br />
                 <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />

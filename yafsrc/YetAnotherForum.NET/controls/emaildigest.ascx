@@ -22,7 +22,7 @@
                         </td>
                         <td width="50%" align="right">
                             <h1 class="date">
-                                <%=YafServices.DateTime.FormatDateLong(DateTime.Now)%>
+                                <%=this.Get<YafDateTime>().FormatDateLong(DateTime.Now)%>
                             </h1>
                         </td>
                     </tr>

@@ -262,7 +262,7 @@ namespace YAF.Pages
 
       // username cannot contain semi-colon or to be a bad word
       bool badWord =
-        YafServices.BadWordReplace.ReplaceItems.Exists(
+        this.Get<YafBadWordReplace>().ReplaceItems.Exists(
           i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
 
       string guestUserName = UserMembershipHelper.GuestUserName;
@@ -571,7 +571,7 @@ namespace YAF.Pages
       {
         if (email.Trim().IsSet())
         {
-          YafServices.SendMail.Queue(this.PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody);
+          this.Get<YafSendMail>().Queue(this.PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody);
         }
       }
     }

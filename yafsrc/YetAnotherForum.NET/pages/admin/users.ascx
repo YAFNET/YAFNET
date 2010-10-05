@@ -112,7 +112,7 @@
                         <%# BitSet(Eval( "Flags"),2) %>
                     </td>
                     <td class="post">
-                        <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+                        <%# this.Get<YafDateTime>().FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
                     </td>
                     <td class="post" align="center">
                         <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'

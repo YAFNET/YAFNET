@@ -25,7 +25,6 @@ namespace YAF.Pages.moderate
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.UI;
   using YAF.Classes.Utils;
   using YAF.Controls;
 
@@ -141,7 +140,7 @@ namespace YAF.Pages.moderate
           PageContext.AddLoadMessage(GetText("APPROVED"));
 
           // send notification to watching users...
-          YafServices.SendNotification.ToWatchingUsers(e.CommandArgument.ToType<int>());
+          this.Get<YafSendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
           break;
         case "delete":
 

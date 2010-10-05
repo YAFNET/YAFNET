@@ -177,7 +177,7 @@
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      YafServices.InitializeDb.Run();
+      this.Get<YafInitializeDb>().Run();
 
       var token = this.Request.QueryString.GetFirstOrDefault("token");
 
@@ -204,7 +204,7 @@
         this.BoardID = this.Request.QueryString.GetFirstOrDefault("BoardID").ToType<int>();
       }
 
-      this._forumData = YafServices.DBBroker.GetSimpleForumTopic(
+      this._forumData = this.Get<YafDBBroker>().GetSimpleForumTopic(
         this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
 
       if (!this.NewTopics.Any() && !this.ActiveTopics.Any())

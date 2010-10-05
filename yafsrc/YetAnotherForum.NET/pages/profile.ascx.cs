@@ -278,7 +278,7 @@ namespace YAF.Pages
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
       this.PageLinks.AddLink(
         this.GetText("MEMBERS"),
-        YafServices.Permissions.Check(this.PageContext.BoardSettings.MembersListViewPermissions)
+        this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions)
           ? YafBuildLink.GetLink(ForumPages.members)
           : null);
       this.PageLinks.AddLink(userDisplayName, string.Empty);
@@ -512,7 +512,7 @@ namespace YAF.Pages
         this.Name.Text = this.HtmlEncode(userDisplayName);
       }
 
-      this.Joined.Text = "{0}".FormatWith(YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
+      this.Joined.Text = "{0}".FormatWith(this.Get<YafDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined)));
 
       // vzrus: Show last visit only to admins if user is hidden
       if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
@@ -521,43 +521,43 @@ namespace YAF.Pages
       }
       else
       {
-        this.LastVisit.Text = YafServices.DateTime.FormatDateTime(userData.LastVisit);
+        this.LastVisit.Text = this.Get<YafDateTime>().FormatDateTime(userData.LastVisit);
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.RankName))
       {
         this.RankTR.Visible = true;
-        this.Rank.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.RankName));
+        this.Rank.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.RankName));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
       {
         this.LocationTR.Visible = true;
-        this.Location.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
+        this.Location.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.Location));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
       {
         this.LocationTR.Visible = true;
-        this.Location.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
+        this.Location.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.Location));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.RealName))
       {
         this.RealNameTR.Visible = true;
-        this.RealName.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
+        this.RealName.InnerHtml = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.RealName));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Interests))
       {
         this.InterestsTR.Visible = true;
-        this.Interests.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
+        this.Interests.InnerHtml = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.Interests));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Occupation))
       {
         this.OccupationTR.Visible = true;
-        this.Occupation.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
+        this.Occupation.InnerHtml = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.Occupation));
       }
 
       // Handled in localization. 
@@ -573,44 +573,44 @@ namespace YAF.Pages
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.XMPP))
       {
         this.XmppTR.Visible = true;
-        this.lblxmpp.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.XMPP));
+        this.lblxmpp.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.XMPP));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.AIM))
       {
         this.AimTR.Visible = true;
-        this.lblaim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
+        this.lblaim.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.AIM));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.ICQ))
       {
         this.IcqTR.Visible = true;
-        this.lblicq.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));
+        this.lblicq.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.ICQ));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.MSN))
       {
         this.MsnTR.Visible = true;
-        this.lblmsn.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.MSN));
+        this.lblmsn.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.MSN));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Skype))
       {
         this.SkypeTR.Visible = true;
-        this.lblskype.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Skype));
+        this.lblskype.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.Skype));
       }
 
       if (this.User != null && !string.IsNullOrEmpty(userData.Profile.YIM))
       {
         this.YimTR.Visible = true;
-        this.lblyim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.YIM));
+        this.lblyim.Text = this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(userData.Profile.YIM));
       }
 
       if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
       {
         this.BirthdayTR.Visible = true;
         this.Birthday.Text =
-          YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date.Add(-YafServices.DateTime.TimeOffset));
+          this.Get<YafDateTime>().FormatDateLong(userData.Profile.Birthday.Date.Add(-this.Get<YafDateTime>().TimeOffset));
       }
       else
       {

@@ -14,6 +14,7 @@ namespace YAF.Modules
   using System;
 
   using YAF.Classes;
+  using YAF.Classes.Core;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
@@ -56,11 +57,11 @@ namespace YAF.Modules
       }
 
       // clear out any search data in the session.... just in case...
-      if (Mession.SearchData != null)
+      if (PageContext.Get<YafSession>().SearchData != null)
       {
         // clear it...
-        Mession.SearchData.Dispose();
-        Mession.SearchData = null;
+        PageContext.Get<YafSession>().SearchData.Dispose();
+        PageContext.Get<YafSession>().SearchData = null;
       }
     }
 

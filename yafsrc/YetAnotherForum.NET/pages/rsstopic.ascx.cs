@@ -263,7 +263,7 @@ namespace YAF.Pages
         {
             var syndicationItems = new List<SyndicationItem>();
 
-            using (DataTable dataTopics = YafServices.DBBroker.GetLatestTopics(this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, "LastUserStyle"))
+            using (DataTable dataTopics = this.Get<YafDBBroker>().GetLatestTopics(this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, "LastUserStyle"))
             {
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
 
@@ -272,10 +272,10 @@ namespace YAF.Pages
                     // don't render moved topics
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
                         if (syndicationItems.Count <= 0)
                         {
-                            feed.LastUpdatedTime = lastPosted + YafServices.DateTime.TimeOffset;
+                            feed.LastUpdatedTime = lastPosted + this.Get<YafDateTime>().TimeOffset;
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
 
@@ -331,13 +331,13 @@ namespace YAF.Pages
                     // don't render moved topics
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
 
                         if (syndicationItems.Count <= 0)
                         {
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-                            feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
 
                             // Alternate Link
                             // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
@@ -400,17 +400,17 @@ namespace YAF.Pages
                 var altItem = false;
 
                 // load the missing message test
-                YafServices.DBBroker.LoadMessageText(dataRows);
+                this.Get<YafDBBroker>().LoadMessageText(dataRows);
                 feed = new YafSyndicationFeed("{0}{1} - {2}".FormatWith(this.PageContext.Localization.GetText("PROFILE", "TOPIC"), this.PageContext.PageTopicName, PageContext.BoardSettings.PostsPerPage), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt());
 
                 foreach (var row in dataRows)
                 {
-                    DateTime posted = Convert.ToDateTime(row["Edited"]) + YafServices.DateTime.TimeOffset;
+                    DateTime posted = Convert.ToDateTime(row["Edited"]) + this.Get<YafDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
-                        feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
 
                         // Alternate Link
                         // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
@@ -456,7 +456,7 @@ namespace YAF.Pages
                 foreach (DataRow row in dt.Rows)
                 {
                     if ((row["TopicMovedID"].IsNullOrEmptyDBField() && row["LastPosted"].IsNullOrEmptyDBField())) continue;
-                    DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
+                    DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -469,7 +469,7 @@ namespace YAF.Pages
                             String.Empty,
                             Convert.ToInt64(row["LastUserID"])));
 
-                        feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
 
                         // Alternate Link
                         // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
@@ -523,7 +523,7 @@ namespace YAF.Pages
                 {
 
                     DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) +
-                                          YafServices.DateTime.TimeOffset;
+                                          this.Get<YafDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -531,7 +531,7 @@ namespace YAF.Pages
                         feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                         Convert.ToInt64(
                                                                                             row["LastUserID"])));
-                        feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
 
                         // Alternate Link
                         //  feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
@@ -591,7 +591,7 @@ namespace YAF.Pages
             {
                 if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("d").ToString())), out toActDate))
                 {
-                    toActDate = Convert.ToDateTime(YafServices.DateTime.FormatDateTimeShort(DateTime.UtcNow)) + TimeSpan.FromDays(-31);
+                    toActDate = Convert.ToDateTime(this.Get<YafDateTime>().FormatDateTimeShort(DateTime.UtcNow)) + TimeSpan.FromDays(-31);
                     toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
                 }
                 else
@@ -619,13 +619,13 @@ namespace YAF.Pages
                 {
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
 
                         if (syndicationItems.Count <= 0)
                         {
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-                            feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
 
                             // Alternate Link
                             // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
@@ -713,13 +713,13 @@ namespace YAF.Pages
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
 
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
 
                         if (syndicationItems.Count <= 0)
                         {
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-                            feed.LastUpdatedTime = DateTime.UtcNow + YafServices.DateTime.TimeOffset;
+                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
 
                             // Alternate Link
                             // feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(YafContext.Current.CurrentForumPage.ForumURL)));

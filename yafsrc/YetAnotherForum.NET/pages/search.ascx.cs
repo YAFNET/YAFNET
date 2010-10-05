@@ -375,7 +375,7 @@ namespace YAF.Pages
       string[] pagerData = e.EntryName.Split('|');
 
       if (pagerData.Length >= 2 && int.TryParse(pagerData[0], out pageNumber) &&
-          int.TryParse(pagerData[1], out pageSize) && Mession.SearchData != null)
+          int.TryParse(pagerData[1], out pageSize) && YafContext.Current.Get<YafSession>().SearchData != null)
       {
         // use existing page...
         this.Pager.CurrentPageIndex = pageNumber;
@@ -384,7 +384,7 @@ namespace YAF.Pages
         this.Pager.PageSize = pageSize;
 
         // count...
-        this.Pager.Count = Mession.SearchData.AsEnumerable().Count();
+        this.Pager.Count = YafContext.Current.Get<YafSession>().SearchData.AsEnumerable().Count();
 
         // bind existing search
         this.SearchBindData(false);
@@ -411,10 +411,10 @@ namespace YAF.Pages
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
 
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
         {
           // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links. 
-          if (!YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+          if (!this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
           {
             this.listForum.Enabled = false;
           }
@@ -440,7 +440,7 @@ namespace YAF.Pages
           }
         }
 
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
         {
           this.btnSearch.Visible = true;
         }
@@ -644,7 +644,7 @@ namespace YAF.Pages
       {
         return;
       }
-      if (newSearch || Mession.SearchData == null)
+      if (newSearch || YafContext.Current.Get<YafSession>().SearchData == null)
       {
         var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
         var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
@@ -669,7 +669,7 @@ namespace YAF.Pages
           this.SetupHighlightWords(sw);
         }
 
-        Mession.SearchData = searchResults;
+        YafContext.Current.Get<YafSession>().SearchData = searchResults;
 
         this.Pager.CurrentPageIndex = 0;
         this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
@@ -683,10 +683,10 @@ namespace YAF.Pages
 
       this.UpdateHistory.AddEntry(this.Pager.CurrentPageIndex + "|" + this.Pager.PageSize);
 
-      var pagedData = Mession.SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+      var pagedData = YafContext.Current.Get<YafSession>().SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
 
       // only load required messages
-      YafServices.DBBroker.LoadMessageText(pagedData);
+      this.Get<YafDBBroker>().LoadMessageText(pagedData);
 
       this.SearchRes.DataSource = pagedData;
       this.SearchRes.DataBind();

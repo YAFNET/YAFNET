@@ -181,7 +181,7 @@ namespace YAF.Pages
               }
 
               // Ensure quoted replies have bad words removed from them
-              body = YafServices.BadWordReplace.Replace(body);
+              body = this.Get<YafBadWordReplace>().Replace(body);
 
               // Quote the original message
               body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
@@ -430,7 +430,7 @@ namespace YAF.Pages
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {
-            YafServices.SendNotification.ToPrivateMessageRecipient(userId, this.Subject.Text.Trim());
+            this.Get<YafSendNotification>().ToPrivateMessageRecipient(userId, this.Subject.Text.Trim());
           }
         }
 

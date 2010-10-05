@@ -73,9 +73,9 @@ namespace YAF.Pages
     /// </param>
     void topics_Unload(object sender, EventArgs e)
     {
-      if (Mession.UnreadTopics == 0)
+      if (YafContext.Current.Get<YafSession>().UnreadTopics == 0)
       {
-        Mession.SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
+        YafContext.Current.Get<YafSession>().SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
       }
     }
 
@@ -90,7 +90,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      Mession.UnreadTopics = 0;
+      YafContext.Current.Get<YafSession>().UnreadTopics = 0;
       this.AtomFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
       this.RssFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
       this.MarkRead.Text = GetText("MARKREAD");
@@ -111,7 +111,7 @@ namespace YAF.Pages
         this.ShowList.DataSource = StaticDataHelper.TopicTimes();
         this.ShowList.DataTextField = "TopicText";
         this.ShowList.DataValueField = "TopicValue";
-        this._showTopicListSelected = (Mession.ShowList == -1) ? PageContext.BoardSettings.ShowTopicsDefault : Mession.ShowList;
+        this._showTopicListSelected = (YafContext.Current.Get<YafSession>().ShowList == -1) ? PageContext.BoardSettings.ShowTopicsDefault : YafContext.Current.Get<YafSession>().ShowList;
 
         HandleWatchForum();
       }
@@ -124,7 +124,7 @@ namespace YAF.Pages
       if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
       {
         // attempt to get permission by redirecting to login...
-        YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
+        this.Get<YafPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
       }
       else if (!this.PageContext.ForumReadAccess)
       {
@@ -204,7 +204,7 @@ namespace YAF.Pages
     /// </param>
     void MarkRead_Click(object sender, EventArgs e)
     {
-      Mession.SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
+      YafContext.Current.Get<YafSession>().SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
       BindData();
     }
 
@@ -260,7 +260,7 @@ namespace YAF.Pages
     /// </summary>
     void BindData()
     {
-      DataSet ds = YafServices.DBBroker.BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID);
+      DataSet ds = this.Get<YafDBBroker>().BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID);
       if (ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows.Count > 0)
       {
         this.ForumList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows;
@@ -356,7 +356,7 @@ namespace YAF.Pages
 
       // setup the show topic list selection after data binding
       this.ShowList.SelectedIndex = this._showTopicListSelected;
-      Mession.ShowList = this._showTopicListSelected;
+      YafContext.Current.Get<YafSession>().ShowList = this._showTopicListSelected;
 
       this.Pager.Count = nRowCount;
     }

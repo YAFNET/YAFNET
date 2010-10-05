@@ -278,7 +278,7 @@ namespace YAF.Pages
         StringHelper.RemoveMultipleWhitespace(
           BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString()))));
 
-      brief = StringHelper.Truncate(YafServices.BadWordReplace.Replace(brief), 100);
+      brief = StringHelper.Truncate(this.Get<YafBadWordReplace>().Replace(brief), 100);
       brief = YafFormatMessage.AddSmiles(brief);
 
       if (brief.IsNotSet())
@@ -289,7 +289,7 @@ namespace YAF.Pages
       html.AppendFormat(@"<tr class=""post""><td colspan=""3"" style=""white-space:nowrap;"">");
       html.AppendFormat(this.GetIndentImage(row["Indent"]));
 
-      string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(row.Field<int>("UserID"));
+      string avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(row.Field<int>("UserID"));
 
       if (avatarUrl.IsNotSet())
       {
@@ -305,7 +305,7 @@ namespace YAF.Pages
         new UserLink() { ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID") }.
           RenderToString());
 
-      html.AppendFormat(" - {0})</span>", YafServices.DateTime.FormatDateTimeShort(row["Posted"]));
+      html.AppendFormat(" - {0})</span>", this.Get<YafDateTime>().FormatDateTimeShort(row["Posted"]));
       html.AppendFormat("</td></tr>");
 
       return html.ToString();
@@ -503,7 +503,7 @@ namespace YAF.Pages
           "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
 
         // Has the user already tagged this topic as favorite?
-        if (YafServices.FavoriteTopic.IsFavoriteTopic(this.PageContext.PageTopicID))
+        if (this.Get<YafFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))
         {
           // Generate the "Untag" theme button with appropriate JS calls for onclick event.
           this.TagFavorite1.NavigateUrl = "javascript:removeFavoriteTopic(" + this.PageContext.PageTopicID + ");";
@@ -554,7 +554,7 @@ namespace YAF.Pages
       if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
       {
         // attempt to get permission by redirecting to login...
-        YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
+        this.Get<YafPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
       }
       else if (!this.PageContext.ForumReadAccess)
       {
@@ -578,9 +578,9 @@ namespace YAF.Pages
 
         this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
         this.PageLinks.AddLink(
-          YafServices.BadWordReplace.Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)), string.Empty);
+          this.Get<YafBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)), string.Empty);
 
-        this.TopicTitle.Text = YafServices.BadWordReplace.Replace(this.HtmlEncode((string)this._topic["Topic"]));
+        this.TopicTitle.Text = this.Get<YafBadWordReplace>().Replace(this.HtmlEncode((string)this._topic["Topic"]));
 
         this.ViewOptions.Visible = this.PageContext.BoardSettings.AllowThreaded;
         this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump &&
@@ -646,7 +646,7 @@ namespace YAF.Pages
       }
 
       // Mark topic read
-      Mession.SetTopicRead(this.PageContext.PageTopicID, DateTime.UtcNow);
+      YafContext.Current.Get<YafSession>().SetTopicRead(this.PageContext.PageTopicID, DateTime.UtcNow);
 
       this.BindData();
     }
@@ -983,11 +983,11 @@ namespace YAF.Pages
       // Add thanks info and styled nicks if they are enabled
       if (YafContext.Current.BoardSettings.EnableThanksMod)
       {
-        YafServices.DBBroker.AddThanksInfo(pagedData);
+        this.Get<YafDBBroker>().AddThanksInfo(pagedData);
       }
 
       // dynamic load messages that are needed...
-      YafServices.DBBroker.LoadMessageText(pagedData);
+      this.Get<YafDBBroker>().LoadMessageText(pagedData);
 
       if (pagedData.Any())
       {
@@ -1036,7 +1036,7 @@ namespace YAF.Pages
                  this.Request.QueryString.GetFirstOrDefault("find").ToLower() == "unread")
         {
           // Find next unread
-          using (DataTable unread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
+          using (DataTable unread = DB.message_findunread(this.PageContext.PageTopicID, YafContext.Current.Get<YafSession>().LastVisit))
           {
             var unreadFirst = unread.AsEnumerable().FirstOrDefault();
 
@@ -1192,17 +1192,17 @@ namespace YAF.Pages
       if (!(this.PageContext.IsAdmin || this.PageContext.IsModerator) &&
           this.PageContext.BoardSettings.PostFloodDelay > 0)
       {
-        if (Mession.LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay))
+        if (YafContext.Current.Get<YafSession>().LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay))
         {
           this.PageContext.AddLoadMessage(
             this.GetTextFormatted(
               "wait", 
-              (Mession.LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
+              (YafContext.Current.Get<YafSession>().LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
           return;
         }
       }
 
-      Mession.LastPost = DateTime.UtcNow;
+      YafContext.Current.Get<YafSession>().LastPost = DateTime.UtcNow;
 
       // post message...
       long nMessageId = 0;
@@ -1259,7 +1259,7 @@ namespace YAF.Pages
       if (bApproved)
       {
         // send new post notification to users watching this topic/forum
-        YafServices.SendNotification.ToWatchingUsers(nMessageId.ToType<int>());
+        this.Get<YafSendNotification>().ToWatchingUsers(nMessageId.ToType<int>());
 
         // redirect to newly posted message
         YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageId);
@@ -1269,7 +1269,7 @@ namespace YAF.Pages
         if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
           // not approved, notifiy moderators
-          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(
+          this.Get<YafSendNotification>().ToModeratorsThatMessageNeedsApproval(
             this.PageContext.PageForumID, (int)nMessageId);
         }
 

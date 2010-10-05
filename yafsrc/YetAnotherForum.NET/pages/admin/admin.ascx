@@ -79,7 +79,7 @@
           <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval( "Name" ).ToString() ).Location )%>
         </td>
         <td class="post">
-          <%# YafServices.DateTime.FormatDateTime(Eval("Joined")) %>
+          <%# this.Get<YafDateTime>().FormatDateTime(Eval("Joined")) %>
         </td>
         <td class="post">
           <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'

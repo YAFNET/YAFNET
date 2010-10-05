@@ -78,7 +78,7 @@
                 <strong>
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
                 </strong>
-                <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+                <%# this.Get<YafDateTime>().FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
             </td>
         </tr>
         <tr class="post">
@@ -102,7 +102,7 @@
                 <strong>
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
                 </strong>
-                <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+                <%# this.Get<YafDateTime>().FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
             </td>
         </tr>
         <tr class="post_alt">

@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
     {
       get
       {
-        return YafServices.DateTime.FormatDateShort(this._lastVersionDate);
+        return this.Get<YafDateTime>().FormatDateShort(this._lastVersionDate);
       }
     }
 

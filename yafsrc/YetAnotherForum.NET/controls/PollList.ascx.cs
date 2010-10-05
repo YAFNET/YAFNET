@@ -426,7 +426,7 @@ namespace YAF.controls
       {
         if (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
         {
-          return this.HtmlEncode(YafServices.BadWordReplace.Replace(dr["Question"].ToString()));
+          return this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(dr["Question"].ToString()));
         }
       }
 

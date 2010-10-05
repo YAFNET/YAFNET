@@ -69,6 +69,17 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Abandon Sessions for "Don't Track" Users:</strong><br />
+                            Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots.
+                            Enable if you're having any session issues.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AbandonSessionsForDontTrack" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="postheader">
                             <strong>Maximum Number of Attachments per Post:</strong><br />
                             Maximum Number of uploaded files per Post. Set to 0 for unlimited.
                         </td>

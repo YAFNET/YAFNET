@@ -108,7 +108,7 @@
         if (Convert.ToDateTime(this.DataRow["Edited"]) >
             Convert.ToDateTime(this.DataRow["Posted"]).AddSeconds(this.PageContext.BoardSettings.EditTimeOut))
         {
-          string editedText = YafServices.DateTime.FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
+          string editedText = this.Get<YafDateTime>().FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
 
           // vzrus: Guests doesn't have right to view change history
           this.MessageHistoryHolder.Visible = true;
@@ -248,7 +248,7 @@
     private void DisplayPostFooter_PreRender(object sender, EventArgs e)
     {
       // report posts
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ReportPostPermissions) && !this.PostData.PostDeleted )
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions) && !this.PostData.PostDeleted )
         {
             if ((this.PageContext.IsGuest) ||
                 (!this.PageContext.IsGuest  && this.PageContext.User != null))

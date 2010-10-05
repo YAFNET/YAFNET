@@ -33,7 +33,7 @@
 			</td>
 			<td>
 				<b>Posted:</b>
-				<%# YafServices.DateTime.FormatDateTimeShort( Convert.ToDateTime( Eval( "Posted" ) ) )%>
+				<%# this.Get<YafDateTime>().FormatDateTimeShort( Convert.ToDateTime( Eval( "Posted" ) ) )%>
 			</td>
 		</tr>
 		<tr class="post">

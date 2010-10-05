@@ -103,9 +103,9 @@ namespace YAF.Controls
 
         if (DataRow["LastPosted"] != DBNull.Value)
         {
-          this.LastPosted.Text = YafServices.DateTime.FormatDateTimeTopic(DataRow["LastPosted"]);
+          this.LastPosted.Text = this.Get<YafDateTime>().FormatDateTimeTopic(DataRow["LastPosted"]);
           this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", DataRow["LastTopicID"]);
-          this.topicLink.Text = StringHelper.Truncate(YafServices.BadWordReplace.Replace(this.HtmlEncode(DataRow["LastTopicName"].ToString())), 50);
+          this.topicLink.Text = StringHelper.Truncate(this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(DataRow["LastTopicName"].ToString())), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(DataRow["LastUserID"]);
           if (string.IsNullOrEmpty(this.Alt)) 
           {
@@ -113,7 +113,7 @@ namespace YAF.Controls
           }
           this.LastTopicImgLink.ToolTip = this.Alt;
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", DataRow["LastMessageID"]);
-          this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(DataRow["LastPosted"])) > Mession.GetTopicRead((int) DataRow["LastTopicID"]))
+          this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(DataRow["LastPosted"])) > YafContext.Current.Get<YafSession>().GetTopicRead((int) DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
 

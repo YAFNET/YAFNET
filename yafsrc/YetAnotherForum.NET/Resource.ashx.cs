@@ -206,7 +206,7 @@ namespace YAF
       // try and get more verbose platform name by ref and other parameters             
       UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
 
-      YafServices.InitializeDb.Run();
+      YafContext.Current.Get<YafInitializeDb>().Run();
 
       // vzrus: to log unhandled UserAgent strings
       if (YafContext.Current.BoardSettings.UserAgentBadLog)

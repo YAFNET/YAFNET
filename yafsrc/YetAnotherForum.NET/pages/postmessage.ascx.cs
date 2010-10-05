@@ -226,13 +226,13 @@ namespace YAF.Pages
           this.PageContext.BoardSettings.PostFloodDelay > 0)
       {
         // see if they've past that delay point
-        if (Mession.LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) &&
+        if (YafContext.Current.Get<YafSession>().LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) &&
             this.EditMessageID == null)
         {
           this.PageContext.AddLoadMessage(
             this.GetTextFormatted(
               "wait", 
-              (Mession.LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
+              (YafContext.Current.Get<YafSession>().LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
           return true;
         }
       }
@@ -542,7 +542,7 @@ namespace YAF.Pages
       }
 
         // update the last post time...
-      Mession.LastPost = DateTime.UtcNow.AddSeconds(30);
+      YafContext.Current.Get<YafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
       long messageId = 0;
       long newTopic = 0; 
@@ -592,7 +592,7 @@ namespace YAF.Pages
       // Create notification emails
       if (isApproved)
       {
-        YafServices.SendNotification.ToWatchingUsers(messageId.ToType<int>());
+        this.Get<YafSendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
         if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
         {
@@ -624,7 +624,7 @@ namespace YAF.Pages
         if (PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
           // not approved, notifiy moderators
-          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
+          this.Get<YafSendNotification>().ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
         }
 
         // 't' variable is required only for poll and this is a attach poll token for attachments page
@@ -1096,7 +1096,7 @@ namespace YAF.Pages
       }
 
       // Ensure quoted replies have bad words removed from them
-      message = YafServices.BadWordReplace.Replace(message);
+      message = this.Get<YafBadWordReplace>().Replace(message);
 
       // Quote the original message
       this._forumEditor.Text = "[quote={0}]{1}[/quote]\n".FormatWith(this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), message).TrimStart();

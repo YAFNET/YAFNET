@@ -19,6 +19,8 @@
 namespace YAF.Modules
 {
   using System;
+
+  using YAF.Classes.Core;
   using YAF.Classes.Utils;
 
   /// <summary>
@@ -46,14 +48,14 @@ namespace YAF.Modules
     /// </param>
     private void PageContext_PagePreLoad(object sender, EventArgs e)
     {
-      if (!PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit)
+      if (!PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !PageContext.Get<YafSession>().HasLastVisit)
       {
-        Mession.LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
-        Mession.HasLastVisit = true;
+        YafContext.Current.Get<YafSession>().LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
+        YafContext.Current.Get<YafSession>().HasLastVisit = true;
       }
-      else if (Mession.LastVisit == DateTime.MinValue)
+      else if (YafContext.Current.Get<YafSession>().LastVisit == DateTime.MinValue)
       {
-        Mession.LastVisit = DateTime.UtcNow;
+        YafContext.Current.Get<YafSession>().LastVisit = DateTime.UtcNow;
       }
     }
   }

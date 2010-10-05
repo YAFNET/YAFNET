@@ -69,7 +69,7 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
                 if (this.Request.QueryString.GetFirstOrDefault("v").IsSet() &&
-                    YafServices.Permissions.Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
+                    this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
                 {
                    this.BindData();
                 }

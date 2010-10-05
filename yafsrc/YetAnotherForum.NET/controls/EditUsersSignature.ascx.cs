@@ -245,7 +245,7 @@ namespace YAF.Controls
       {
         if (this._sig.Text.Length <= Convert.ToInt32(sigData.Rows[0]["UsrSigChars"]))
         {
-          DB.user_savesignature(this.CurrentUserID, YafServices.BadWordReplace.Replace(body));
+          DB.user_savesignature(this.CurrentUserID, this.Get<YafBadWordReplace>().Replace(body));
         }
         else
         {

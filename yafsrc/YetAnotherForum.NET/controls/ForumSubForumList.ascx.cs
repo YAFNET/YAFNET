@@ -64,7 +64,7 @@ namespace YAF.Controls
       if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
       {
         var row = (DataRow) e.Item.DataItem;
-        DateTime lastRead = Mession.GetForumRead((int) row["ForumID"]);
+        DateTime lastRead = YafContext.Current.Get<YafSession>().GetForumRead((int) row["ForumID"]);
         DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : lastRead;
 
         var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;

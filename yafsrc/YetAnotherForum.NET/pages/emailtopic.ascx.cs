@@ -124,7 +124,7 @@ namespace YAF.Pages
         }
 
         // send the email...
-        YafServices.SendMail.Send(
+        this.Get<YafSendMail>().Send(
           senderEmail, this.EmailAddress.Text.Trim(), this.Subject.Text.Trim(), this.Message.Text.Trim());
 
         YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
