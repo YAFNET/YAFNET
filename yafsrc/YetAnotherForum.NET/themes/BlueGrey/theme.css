@@ -442,10 +442,11 @@ border-bottom-left-radius:0.3em;}
 	margin-bottom: 10px;
 	padding: 2px;
 }
-.yafnet .yafPageLink .currentPageLink { color: #001090; }
+.yafnet .yafPageLink a{ color: #000000; text-decoration: none; }
+.yafnet .yafPageLink a:first-child{ padding-left:13px; }
+.yafnet .yafPageLink .currentPageLink { color: blue; }
 .yafnet .yafPageLink .linkSeperator { color: #666666; }
-.yafnet .yafPageLink a { color: #000000; text-decoration: none }
-.yafnet .yafPageLink a:hover {color: #666666; }
+.yafnet .yafPageLink a:hover {color: red; }
 /* for printing */
 .yafnet table.print {
 	border: solid 1px #C0C0C0;
@@ -1091,7 +1092,7 @@ height:80em;
     padding:0px;
 }
 
-.yafnet .currentUser{font-weight:bold;}
+.yafnet .currentUser{font-weight:bold;color:blue;}
 
 .guestUser { 
     background: url("error.png") #fdd no-repeat 8px 50%;
@@ -1130,4 +1131,10 @@ height:80em;
 .yafnet .adminMenu
 {
 	padding: 1px 5px 5px 5px;
+}
+.yafnet .outerMenuContainer a {
+	text-decoration: none;
+}
+.yafnet .outerMenuContainer a:hover {
+	color:blue;
 }
