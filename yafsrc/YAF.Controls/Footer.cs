@@ -178,7 +178,7 @@ namespace YAF.Controls
           @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
           QueryCounter.Count, 
           QueryCounter.Duration, 
-          (100*QueryCounter.Duration)/this.Get<StopWatch>().Duration, 
+          (100*QueryCounter.Duration)/this.Get<YafStopWatch>().Duration, 
           QueryCounter.Commands);
         footer.Append("</div>");
       }
