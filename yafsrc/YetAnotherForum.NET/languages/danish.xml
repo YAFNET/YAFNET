@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">Skjul afsløring</Resource>
     <Resource tag="SPOILERMOD_SHOW">Vis afsløring</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Klik her for at vise eller skjule den gemte tekst (afsløringen)</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Skriv din YouTube URL her</Resource>
   </page>
   <page name="BUDDY">

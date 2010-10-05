@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">Spoiler Gizle</Resource>
     <Resource tag="SPOILERMOD_SHOW">Spoiler Göster</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Gizli yazıyı göstermek/saklamak için buraya tıklayınız (spoiler)</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Youtube adresini buraya yazın</Resource>
   </page>
   <page name="BUDDY">

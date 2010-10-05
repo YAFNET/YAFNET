@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>
     <Resource tag="SPOILERMOD_SHOW">"Spoiler"-Text anzeigen</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Hier klicken, um den verborgenen Text ("Spoiler") anzuzeigen oder auszublenden</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Hier deine YouTube-URL eintragen</Resource>
   </page>
   <page name="BUDDY">

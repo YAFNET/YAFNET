@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">Ascunde Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Arata Spoiler</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Clic aici pentru a vizualiza,ascunde textul ascuns (denumit ca text spoiler)</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Introduce aici adresa YouTube</Resource>
   </page>
   <page name="BUDDY">

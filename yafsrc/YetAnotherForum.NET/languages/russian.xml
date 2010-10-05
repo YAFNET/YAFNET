@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Нажмите здесь, чтобы просмотреть/скрыть текст (применить спойлер)</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите сюда адрес ссылки (URL) YouTube </Resource>
   </page>
   <page name="BUDDY">

@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">مخفي كردن</Resource>
     <Resource tag="SPOILERMOD_SHOW">نمايش</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">براي نمايش و يا مخفي كردن بخش پنهان شونده اينجا را كليك كنيد.</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">آدرس فيلم يوتيوب را اينجا قرار دهيد.</Resource>
   </page>
   <page name="BUDDY">

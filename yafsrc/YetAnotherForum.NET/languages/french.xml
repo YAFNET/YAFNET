@@ -173,6 +173,7 @@
     <Resource tag="SPOILERMOD_HIDE">Masquer spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Afficher spoiler</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Cliquez ici pour afficher ou masquer le texte caché (aussi appellé spoiler)</Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Indiquez l'url YouTube ici</Resource>
   </page>
   <page name="BUDDY">

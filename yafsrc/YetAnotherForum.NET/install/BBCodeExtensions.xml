@@ -67,4 +67,36 @@
     <ModuleClass>YAF.Modules.SpoilerBBCodeModule</ModuleClass>
     <ExecOrder>50</ExecOrder>
   </YafBBCode>
+  <YafBBCode>
+    <Name>USERLINK</Name>
+    <Description>[USERLINK][localization=USERLINKMOD_DESCRIPTION]Put User Name Here[/localization][/USERLINK]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS>.yafnet .userLinkContainer
+{
+    background: url(resources/icons/user.png) #fff no-repeat 4px 50%;
+    border: 1px solid #eee;
+    padding: 4px 2px 4px 25px;
+    margin: 3px;
+    font-size: 80%;
+    font-weight: bold;    
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	    
+}
+
+.yafnet .userLinkContainer:hover
+{
+    border: 1px solid #ddd;
+    background-color: #eee;
+}</DisplayCSS>
+    <SearchRegex>\[userlink\](?&lt;inner&gt;.+?)\[\/userlink\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.UserLinkBBCodeModule</ModuleClass>
+    <ExecOrder>75</ExecOrder>
+  </YafBBCode>
 </YafBBCodeList>
