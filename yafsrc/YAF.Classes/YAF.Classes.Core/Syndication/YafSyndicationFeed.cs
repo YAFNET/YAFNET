@@ -16,14 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.IO;
-
 namespace YAF.Classes.Core
 {
   #region Using
 
   using System;
   using System.Collections.Generic;
+  using System.IO;
   using System.ServiceModel.Syndication;
 
   using YAF.Classes.Utils;
@@ -172,7 +171,7 @@ namespace YAF.Classes.Core
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
         this.ImageUrl = new Uri("{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
-        this.Id = "urn:uri:{0}".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}ft={1}".FormatWith(feedType.ToInt(), sf)));
+        this.Id = "urn:uri:{0}".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)));
         // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
         this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
         this.Authors.Add(new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl));
