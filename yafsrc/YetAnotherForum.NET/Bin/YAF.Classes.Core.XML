@@ -9751,5 +9751,41 @@
               Gets a value indicating whether any rules have been added.
             </summary>
         </member>
+        <member name="T:YAF.Modules.UnloadSessionModule">
+            <summary>
+            The unload session module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UnloadSessionModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UnloadSessionModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UnloadSessionModule.UnloadSessionModule_Unload(System.Object,System.EventArgs)">
+            <summary>
+            The unload session module_ unload.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.UnloadSessionModule.ForumControlObj">
+            <summary>
+              Gets or sets ForumControlObj.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.UnloadSessionModule.UnloadSession">
+            <summary>
+            Gets or sets a value indicating whether UnloadSession.
+            </summary>
+        </member>
     </members>
 </doc>
