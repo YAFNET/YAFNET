@@ -209,7 +209,7 @@ namespace YAF.Pages.Admin
       {
         this.lblInfo.Visible = true;
 
-        this.lblInfo.Text = "Missing Translation Ressources are Automatically Syncronized and Updated.";
+        this.lblInfo.Text = "Missing Translation Resources are Automatically Syncronized and Updated.";
 
         this.SaveLanguageFile();
       }
@@ -295,7 +295,7 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// Creates a header row in the Ressource Page DropDown Header text is page section name in XML file.
+    /// Creates a header row in the Resource Page DropDown Header text is page section name in XML file.
     /// </summary>
     /// <param name="sPageName">
     /// </param>
@@ -317,7 +317,7 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// Load Selected Page Ressources
+    /// Load Selected Page Resources
     /// </summary>
     /// <param name="sender">
     /// </param>
