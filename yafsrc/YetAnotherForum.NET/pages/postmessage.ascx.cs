@@ -270,11 +270,10 @@ namespace YAF.Pages
         return false;
       }
 
-       
+
 
       if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
-           (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) &&
-          String.Compare(Session["CaptchaImageText"].ToString(), tbCaptcha.Text.Trim(), StringComparison.InvariantCultureIgnoreCase) != 0)
+           (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
         return false;

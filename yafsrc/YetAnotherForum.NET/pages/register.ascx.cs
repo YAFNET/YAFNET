@@ -317,8 +317,7 @@ namespace YAF.Pages
       }
 
       // verify captcha if enabled
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 &&
-          String.Compare(Session["CaptchaImageText"].ToString(), yafCaptchaText.Text.Trim(), StringComparison.InvariantCultureIgnoreCase) != 0)
+      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 && !CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
         e.Cancel = true;
