@@ -244,7 +244,7 @@ namespace YAF.Classes
     /// <returns>
     /// The clean string for url.
     /// </returns>
-    private static string CleanStringForURL(string str)
+    protected static string CleanStringForURL(string str)
     {
       var sb = new StringBuilder();
 
@@ -287,7 +287,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get cache name.
     /// </returns>
-    private string GetCacheName(string type, int id)
+    protected string GetCacheName(string type, int id)
     {
       return @"urlRewritingDT-{0}-Range-{1}-to-{2}".FormatWith(type, this.HighRange(id), this.LowRange(id));
     }
@@ -301,7 +301,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get category name.
     /// </returns>
-    private string GetCategoryName(int id)
+    protected string GetCategoryName(int id)
     {
       string type = "Category";
       string primaryKey = "CategoryID";
@@ -337,7 +337,7 @@ namespace YAF.Classes
     /// </param>
     /// <returns>
     /// </returns>
-    private DataRow GetDataRowFromCache(string type, int id)
+    protected DataRow GetDataRowFromCache(string type, int id)
     {
       // get the datatable and find the value
       var list = HttpContext.Current.Cache[this.GetCacheName(type, id)] as DataTable;
@@ -370,7 +370,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get forum name.
     /// </returns>
-    private string GetForumName(int id)
+    protected string GetForumName(int id)
     {
       string type = "Forum";
       string primaryKey = "ForumID";
@@ -404,7 +404,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get profile name.
     /// </returns>
-    private string GetProfileName(int id)
+    protected string GetProfileName(int id)
     {
       string type = "Profile";
       string primaryKey = "UserID";
@@ -438,7 +438,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get topic name.
     /// </returns>
-    private string GetTopicName(int id)
+    protected string GetTopicName(int id)
     {
       string type = "Topic";
       string primaryKey = "TopicID";
@@ -472,7 +472,7 @@ namespace YAF.Classes
     /// <returns>
     /// The get topic name from message.
     /// </returns>
-    private string GetTopicNameFromMessage(int id)
+    protected string GetTopicNameFromMessage(int id)
     {
       string type = "Message";
       string primaryKey = "MessageID";
@@ -513,7 +513,7 @@ namespace YAF.Classes
     /// </param>
     /// <returns>
     /// </returns>
-    private DataRow SetupDataToCache(ref DataTable list, string type, int id, string primaryKey)
+    protected DataRow SetupDataToCache(ref DataTable list, string type, int id, string primaryKey)
     {
       DataRow row = null;
 
