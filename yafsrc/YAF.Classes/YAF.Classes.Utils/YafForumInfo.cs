@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 9, 30);
+        return new DateTime(2010, 10, 5);
       }
     }
 
@@ -194,8 +194,6 @@ namespace YAF.Classes.Utils
             version += " CTM.{0}".FormatWith(number);
             break;
         }
-
-
       }
 
       return version;
