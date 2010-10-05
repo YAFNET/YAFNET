@@ -265,15 +265,6 @@ namespace YAF.Pages.Admin {
         protected global::DNA.UI.JQuery.View View2;
         
         /// <summary>
-        /// ActiveListTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ActiveListTime;
-        
-        /// <summary>
         /// AddDynamicPageMetaTags control.
         /// </summary>
         /// <remarks>
@@ -281,15 +272,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AddDynamicPageMetaTags;
-        
-        /// <summary>
-        /// EnableDisplayName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableDisplayName;
         
         /// <summary>
         /// AllowGenderInUserBox control.
@@ -308,6 +290,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AllowUserHideHimself;
+        
+        /// <summary>
+        /// EnableDisplayName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnableDisplayName;
         
         /// <summary>
         /// AllowDisplayNameModification control.
@@ -526,6 +517,96 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowGuestsViewPollOptions;
         
         /// <summary>
+        /// AllowPrivateMessages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowPrivateMessages;
+        
+        /// <summary>
+        /// AllowPMEmailNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowPMEmailNotification;
+        
+        /// <summary>
+        /// PrivateMessageMaxRecipients control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PrivateMessageMaxRecipients;
+        
+        /// <summary>
+        /// EnableAlbum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnableAlbum;
+        
+        /// <summary>
+        /// AlbumImagesSizeMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AlbumImagesSizeMax;
+        
+        /// <summary>
+        /// AlbumsPerPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AlbumsPerPage;
+        
+        /// <summary>
+        /// AlbumImagesPerPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AlbumImagesPerPage;
+        
+        /// <summary>
+        /// ShowRSSLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowRSSLink;
+        
+        /// <summary>
+        /// ShowAtomLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowAtomLink;
+        
+        /// <summary>
+        /// ShowPostsFeeds control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowPostsFeeds;
+        
+        /// <summary>
         /// CaptchaSize control.
         /// </summary>
         /// <remarks>
@@ -589,51 +670,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList CaptchaTypeRegister;
         
         /// <summary>
-        /// PrivateMessageMaxRecipients control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PrivateMessageMaxRecipients;
-        
-        /// <summary>
-        /// EnableAlbum control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableAlbum;
-        
-        /// <summary>
-        /// AlbumImagesSizeMax control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumImagesSizeMax;
-        
-        /// <summary>
-        /// AlbumsPerPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumsPerPage;
-        
-        /// <summary>
-        /// AlbumImagesPerPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumImagesPerPage;
-        
-        /// <summary>
         /// MessageHistoryDaysToLog control.
         /// </summary>
         /// <remarks>
@@ -668,6 +704,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DNA.UI.JQuery.View View3;
+        
+        /// <summary>
+        /// ActiveListTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ActiveListTime;
         
         /// <summary>
         /// ShowAvatarsInTopic control.
@@ -767,33 +812,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowActiveDiscussions;
-        
-        /// <summary>
-        /// ShowRSSLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowRSSLink;
-        
-        /// <summary>
-        /// ShowAtomLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowAtomLink;
-        
-        /// <summary>
-        /// ShowPostsFeeds control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowPostsFeeds;
         
         /// <summary>
         /// ShowForumJump control.
@@ -1046,24 +1064,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AllowSignatures;
-        
-        /// <summary>
-        /// AllowPrivateMessages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowPrivateMessages;
-        
-        /// <summary>
-        /// AllowPMEmailNotification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowPMEmailNotification;
         
         /// <summary>
         /// AllowEmailSending control.

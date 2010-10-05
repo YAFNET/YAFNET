@@ -260,16 +260,7 @@
                         <td class="header1" colspan="2">
                             Features
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Active Users Time:</strong><br />
-                            Number of minutes to display users in Active Users list.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="ActiveListTime" runat="server" />
-                        </td>
-                    </tr>
+                    </tr>                   
                     <tr>
                         <td class="postheader">
                             <strong>Add Dynamic Page Meta Tags:</strong><br />
@@ -279,16 +270,7 @@
                         <td class="post">
                             <asp:CheckBox ID="AddDynamicPageMetaTags" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Enable Display Name:</strong><br />
-                            If checked, YAF uses an alternative "Display Name" instead of the UserName.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="EnableDisplayName" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
+                    </tr>                   
                     <tr>
                         <td class="postheader">
                             <strong>Allow Display Gender:</strong><br />
@@ -305,6 +287,15 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowUserHideHimself" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <strong>Enable Display Name:</strong><br />
+                            If checked, YAF uses an alternative "Display Name" instead of the UserName.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableDisplayName" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>
@@ -529,8 +520,114 @@
                         <td class="post">
                             <asp:CheckBox ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
                         </td>
+                    </tr>                   
+                    <tr>
+                        <td class="header1" colspan="2">
+                            Private Messages
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
+                            <strong>Allow Private Messages:</strong><br />
+                            Allow users to access and send private messages.
+                            You should explicitly give permission for each group and/or rank too to enable them for users.                               
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowPrivateMessages" runat="server"></asp:CheckBox>
+                        </td>
                     </tr>
                     <tr>
+                        <td class="postheader">
+                            <strong>Allow Private Message Notifications:</strong><br />
+                            Allow users email notifications when new private messages arrive.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowPMEmailNotification" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Max no. of PM Recipients:</strong><br />
+                            Maximum allowed recipients per on PM sent (0 = unlimited)
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            Album Settings
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Enable Album Feature:</strong><br />
+                            If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature. 
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableAlbum" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Maximum Image Size:</strong><br />
+                            Maximum size of image in bytes a user can upload.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Albums Per Page:</strong><br />
+                            Number of albums to show per page.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AlbumsPerPage" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Images Per Page:</strong><br />
+                            Number of images to show per page.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            Syndication Feed Settings
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Show RSS Links:</strong><br />
+                            Enable or disable display of RSS links throughout the forum.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowRSSLink" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Show Atom Links:</strong><br />
+                            Enable or disable display of Atom links throughout the forum.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowAtomLink" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Show Posts Feeds:</strong><br />
+                            Enable or disable display of posts feeds for a topic.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowPostsFeeds" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                     <tr>
                         <td class="header1" colspan="2">
                             CAPTCHA Settings
                         </td>
@@ -606,61 +703,6 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Private Messages
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Max no. of PM Recipients:</strong><br />
-                            Maximum allowed recipients per on PM sent (0 = unlimited)
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="header1" colspan="2">
-                            Album Settings
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Enable Album Feature:</strong><br />
-                            If checked, album feature is enabled.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="EnableAlbum" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Maximum Image Size:</strong><br />
-                            Maximum size of image in bytes a user can upload.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Albums Per Page:</strong><br />
-                            Number of albums to show per page.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="AlbumsPerPage" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Images Per Page:</strong><br />
-                            Number of images to show per page.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="header1" colspan="2">
                             Log settings
                         </td>
                     </tr>
@@ -699,6 +741,15 @@
                     <tr>
                         <td class="header1" colspan="2">
                             Display Settings
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Active Users Time:</strong><br />
+                            Number of minutes to display users in Active Users list.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="ActiveListTime" runat="server" />
                         </td>
                     </tr>
                     <tr>
@@ -803,34 +854,7 @@
                         <td class="post">
                             <asp:CheckBox ID="ShowActiveDiscussions" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Show RSS Links:</strong><br />
-                            Enable or disable display of RSS links throughout the forum.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="ShowRSSLink" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Show Atom Links:</strong><br />
-                            Enable or disable display of Atom links throughout the forum.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="ShowAtomLink" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Show Posts Feeds:</strong><br />
-                            Enable or disable display of posts feeds for a topic.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="ShowPostsFeeds" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
+                    </tr>                    
                     <tr>
                         <td class="postheader">
                             <strong>Show Forum Jump Box:</strong><br />
@@ -1087,30 +1111,12 @@
                     <tr>
                         <td class="postheader">
                             <strong>Allow Signatures:</strong><br />
-                            Allow users to create signatures.
+                            Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowSignatures" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Allow Private Messages:</strong><br />
-                            Allow users to access and send private messages.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="AllowPrivateMessages" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Allow Private Message Notifications:</strong><br />
-                            Allow users email notifications when new private messages arrive.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="AllowPMEmailNotification" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
+                    </tr>                   
                     <tr>
                         <td class="postheader">
                             <strong>Allow Email Sending:</strong><br />
