@@ -227,7 +227,7 @@ namespace YAF.Classes.Core
     /// </summary>
     private void InitCulture()
     {
-      if (YafServices.InitializeDb.Initialized)
+      if (YafContext.Current.Get<YafInitializeDb>().Initialized)
       {
         // vzrus: Culture code is missing for a user until he saved his profile.
         // First set it to board culture              

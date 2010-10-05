@@ -47,7 +47,7 @@ namespace YAF.Classes.Core
         public static ReturnClass ChangeAlbumTitle(int albumID, string newTitle)
         {
             // load the DB so YafContext can work...
-            YafServices.InitializeDb.Run();
+            YafContext.Current.Get<YafInitializeDb>().Run();
 
            // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
             DB.album_save(albumID, null, newTitle, null);
@@ -76,7 +76,7 @@ namespace YAF.Classes.Core
         public static ReturnClass ChangeImageCaption(int imageID, string newCaption)
         {
             // load the DB so YafContext can work...
-            YafServices.InitializeDb.Run();
+            YafContext.Current.Get<YafInitializeDb>().Run();
            // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
             DB.album_image_save(imageID, null, newCaption, null, null, null);
             var returnObject = new ReturnClass();

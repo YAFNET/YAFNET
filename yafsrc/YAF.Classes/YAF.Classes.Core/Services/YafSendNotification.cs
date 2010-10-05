@@ -52,7 +52,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId)
     {
-      var moderatorsFiltered = YafServices.DBBroker.GetAllModerators().Where(f => f.ForumID.Equals(forumId));
+      var moderatorsFiltered = YafContext.Current.Get<YafDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
       var moderatorUserNames = new List<string>();
 
       foreach (var moderator in moderatorsFiltered)

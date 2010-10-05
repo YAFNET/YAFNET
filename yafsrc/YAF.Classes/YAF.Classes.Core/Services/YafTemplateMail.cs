@@ -258,7 +258,7 @@ namespace YAF.Classes.Core
       else
       {
         // just send directly
-        YafServices.SendMail.Send(fromAddress, toAddress, subject, textBody, htmlBody);
+        YafContext.Current.Get<YafSendMail>().Send(fromAddress, toAddress, subject, textBody, htmlBody);
       }
     }
 

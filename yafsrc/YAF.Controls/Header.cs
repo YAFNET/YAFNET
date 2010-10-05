@@ -158,7 +158,7 @@ namespace YAF.Controls
               "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.moderate_index), this.PageContext.Localization.GetText("TOOLBAR", "MODERATE")));
         }
 
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
         {
           buildHeader.AppendFormat(
             "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.search), this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")));
@@ -177,7 +177,7 @@ namespace YAF.Controls
             "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.mytopics), this.PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")));
         }
 
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.MembersListViewPermissions))
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
         {
           buildHeader.AppendFormat(
             "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.members), this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")));
@@ -195,7 +195,7 @@ namespace YAF.Controls
           @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0}</strong></td>".FormatWith(this.PageContext.Localization.GetText("TOOLBAR", "WELCOME_GUEST")));
 
         buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
         {
           buildHeader.AppendFormat(
             "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.search), this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")));
@@ -203,7 +203,7 @@ namespace YAF.Controls
 
         buildHeader.AppendFormat(
           "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.mytopics), this.PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")));
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.MembersListViewPermissions))
+        if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
         {
           buildHeader.AppendFormat(
             "	<a href=\"{0}\">{1}</a> | ".FormatWith(YafBuildLink.GetLink(ForumPages.members), this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")));

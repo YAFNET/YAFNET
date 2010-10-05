@@ -68,8 +68,8 @@ namespace YAF.Classes.Core
       this List<SyndicationItem> currentList, string title, string content, string summary,string link, string id, DateTime posted, YafSyndicationFeed feed)
     {
         var si = new SyndicationItem(
-            YafServices.BadWordReplace.Replace(title),
-            new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),TextSyndicationContentKind.Html),
+            YafContext.Current.Get<YafBadWordReplace>().Replace(title),
+            new TextSyndicationContent(YafContext.Current.Get<YafBadWordReplace>().Replace(content),TextSyndicationContentKind.Html),
             // Alternate Link
             new Uri(link),
             id,
@@ -79,12 +79,12 @@ namespace YAF.Classes.Core
         si.SourceFeed = feed;
         if (summary.IsNotSet())
         {
-            si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(content),
+            si.Summary = new TextSyndicationContent(YafContext.Current.Get<YafBadWordReplace>().Replace(content),
                                                     TextSyndicationContentKind.Html);
         }
         else
         {
-            si.Summary = new TextSyndicationContent(YafServices.BadWordReplace.Replace(summary),
+            si.Summary = new TextSyndicationContent(YafContext.Current.Get<YafBadWordReplace>().Replace(summary),
                                                      TextSyndicationContentKind.Html);  
         }
 
@@ -123,8 +123,8 @@ namespace YAF.Classes.Core
       this List<SyndicationItem> currentList, string title, string content, string link, string id, DateTime posted)
     {
         var si = new SyndicationItem(
-            YafServices.BadWordReplace.Replace(title),
-            new TextSyndicationContent(YafServices.BadWordReplace.Replace(content)),
+            YafContext.Current.Get<YafBadWordReplace>().Replace(title),
+            new TextSyndicationContent(YafContext.Current.Get<YafBadWordReplace>().Replace(content)),
             new Uri(link),
             id,
             new DateTimeOffset(posted));

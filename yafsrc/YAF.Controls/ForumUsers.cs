@@ -78,7 +78,7 @@ namespace YAF.Controls
       if (this._activeUsers.ActiveUserTable == null)
       {
         this._activeUsers.ActiveUserTable =
-          YafServices.DBBroker.StyleTransformDataTable(
+          this.Get<YafDBBroker>().StyleTransformDataTable(
             bTopic
               ? DB.active_listtopic(PageContext.PageTopicID, PageContext.BoardSettings.UseStyledNicks)
               : DB.active_listforum(PageContext.PageForumID, PageContext.BoardSettings.UseStyledNicks));

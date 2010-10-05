@@ -98,7 +98,7 @@ namespace YAF.Controls
       // it's not really an error if it doesn't exist
       string themeCredit = PageContext.Theme.GetItem("THEME", "CREDIT", null);
 
-      YafServices.StopWatch.Stop();
+      this.Get<YafStopWatch>().Stop();
 
       footer.Append(@"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
@@ -162,7 +162,7 @@ namespace YAF.Controls
       if (PageContext.BoardSettings.ShowPageGenerationTime)
       {
         footer.Append("<br/>");
-        footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), YafServices.StopWatch.Duration);
+        footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<YafStopWatch>().Duration);
       }
 
       footer.Append(@"</div>");
@@ -178,7 +178,7 @@ namespace YAF.Controls
           @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
           QueryCounter.Count, 
           QueryCounter.Duration, 
-          (100*QueryCounter.Duration)/YafServices.StopWatch.Duration, 
+          (100*QueryCounter.Duration)/this.Get<StopWatch>().Duration, 
           QueryCounter.Commands);
         footer.Append("</div>");
       }

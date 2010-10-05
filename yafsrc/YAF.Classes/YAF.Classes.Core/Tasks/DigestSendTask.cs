@@ -83,7 +83,7 @@ namespace YAF.Classes.Core
     public override void RunOnce()
     {
       // validate DB run...
-      YafServices.InitializeDb.Run();
+      YafContext.Current.Get<YafInitializeDb>().Run();
 
       this.SendDigest();
     }
@@ -240,7 +240,7 @@ namespace YAF.Classes.Core
           }
 
           // queue to send...
-          YafServices.SendMail.Queue(
+          YafContext.Current.Get<YafSendMail>().Queue(
             YafContext.Current.BoardSettings.ForumEmail, 
             YafContext.Current.BoardSettings.Name, 
             membershipUser.Email, 

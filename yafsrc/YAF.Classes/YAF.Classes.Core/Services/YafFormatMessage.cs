@@ -386,7 +386,7 @@ namespace YAF.Classes.Core
       // process...
       ruleEngine.Process(ref message);
 
-      message = YafServices.BadWordReplace.Replace(message);
+      message = YafContext.Current.Get<YafBadWordReplace>().Replace(message);
 
       return message;
     }

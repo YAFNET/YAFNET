@@ -196,7 +196,7 @@ namespace YAF.Classes.Core
     {
       if (this._favoriteTopicList == null)
       {
-        this._favoriteTopicList = YafServices.DBBroker.FavoriteTopicList(YafContext.Current.PageUserID);
+        this._favoriteTopicList = YafContext.Current.Get<YafDBBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
       }
     }
 

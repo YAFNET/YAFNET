@@ -16,18 +16,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Text;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls.Statistics
 {
-  using Classes.UI;
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Text;
+  using System.Web.UI;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Control to display last active topics.
@@ -35,31 +39,19 @@ namespace YAF.Controls.Statistics
   [ToolboxData("<{0}:ActiveDiscussions runat=\"server\"></{0}:ActiveDiscussions>")]
   public class ActiveDiscussions : BaseControl
   {
-    #region Data
+    #region Constants and Fields
 
     /// <summary>
-    /// Number of active discussions to display in a control.
+    ///   Number of active discussions to display in a control.
     /// </summary>
     private int _displayNumber = 10;
 
     #endregion
 
-    #region Constructors
+    #region Properties
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ActiveDiscussions"/> class. 
-    /// The default constructor for ActiveDiscussions.
-    /// </summary>
-    public ActiveDiscussions()
-    {
-    }
-
-    #endregion
-
-    #region Control Properties
-
-    /// <summary>
-    /// Gets or sets number of active discussions to display in a control.
+    ///   Gets or sets number of active discussions to display in a control.
     /// </summary>
     public int DisplayNumber
     {
@@ -76,41 +68,52 @@ namespace YAF.Controls.Statistics
 
     #endregion
 
-    #region Control Rendering
+    #region Methods
 
     /// <summary>
     /// Renders the ActiveDiscussions control.
     /// </summary>
     /// <param name="writer">
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       // for HTML code string representing the control
       var html = new StringBuilder();
 
       // try to get data from the cache first
       string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ActiveDiscussions);
-      var dt = PageContext.Cache[cacheKey] as DataTable;
+      var dt = this.PageContext.Cache[cacheKey] as DataTable;
 
       if (dt == null)
       {
         // nothing was cached, retrieve it from the database
-          dt = DB.topic_latest(PageContext.PageBoardID, this._displayNumber, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks, PageContext.BoardSettings.NoCountForumsInActiveDiscussions);
+        dt = DB.topic_latest(
+          this.PageContext.PageBoardID, 
+          this._displayNumber, 
+          this.PageContext.PageUserID, 
+          this.PageContext.BoardSettings.UseStyledNicks, 
+          this.PageContext.BoardSettings.NoCountForumsInActiveDiscussions);
 
         // Set colorOnly parameter to true, as we get all but color from css in the place
-        if (PageContext.BoardSettings.UseStyledNicks)
+        if (this.PageContext.BoardSettings.UseStyledNicks)
         {
           var styleTransform = new StyleTransform(YafContext.Current.Theme);
           styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
         }
 
         // and cache it
-        PageContext.Cache.Insert(cacheKey, dt, null, DateTime.UtcNow.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+        this.PageContext.Cache.Insert(
+          cacheKey, 
+          dt, 
+          null, 
+          DateTime.UtcNow.AddMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), 
+          TimeSpan.Zero);
       }
 
       // render head of control
       html.Append("<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">");
-      html.AppendFormat("<tr><td class=\"header1\">{0}</td></tr>", PageContext.Localization.GetText("LATEST_POSTS"));
+      html.AppendFormat(
+        "<tr><td class=\"header1\">{0}</td></tr>", this.PageContext.Localization.GetText("LATEST_POSTS"));
 
       // now container for posts themselves
       html.Append("<tr><td class=\"post\">");
@@ -123,10 +126,10 @@ namespace YAF.Controls.Statistics
       {
         // Output Topic Link
         html.AppendFormat(
-          "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})",
-          YafServices.BadWordReplace.Replace(this.HtmlEncode(Convert.ToString(r["Topic"]))),
-          YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]),
-          currentPost,
+          "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})", 
+          this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(Convert.ToString(r["Topic"]))), 
+          YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]), 
+          currentPost, 
           r["NumPosts"]);
 
         // new line after topic link

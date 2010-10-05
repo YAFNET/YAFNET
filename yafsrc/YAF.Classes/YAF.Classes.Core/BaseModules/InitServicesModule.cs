@@ -56,9 +56,9 @@ namespace YAF.Modules
     public void Init()
     {
       // initialize the base services before anyone notices...
-      YafServices.StopWatch.Start();
-      YafServices.InitializeDb.Run();
-      YafServices.BannedIps.Run();
+      YafContext.Current.Get<YafStopWatch>().Start();
+      YafContext.Current.Get<YafInitializeDb>().Run();
+      YafContext.Current.Get<YafCheckBannedIps>().Run();
 
       // hook unload...
       YafContext.Current.PageUnload += Current_PageUnload;
@@ -85,7 +85,7 @@ namespace YAF.Modules
     private void Current_PageUnload(object sender, EventArgs e)
     {
       // stop the stop watch in case the footer did not...
-      YafServices.StopWatch.Stop();
+      YafContext.Current.Get<YafStopWatch>().Stop();
     }
   }
 }

@@ -70,7 +70,7 @@ namespace YAF.Classes.Core
     protected void LoadBoardSettingsFromDB()
     {
       // verify DB is initialized...
-      if (!YafServices.InitializeDb.Initialized)
+      if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
       {
         throw new Exception("Database is not initialized.");
       }

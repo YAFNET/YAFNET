@@ -742,10 +742,10 @@ namespace YAF.Classes.Core
           }
 
           // verify db is initialized...
-          if (!YafServices.InitializeDb.Initialized)
+          if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
           {
             // just init the DB from here...
-            YafServices.InitializeDb.Run();
+            YafContext.Current.Get<YafInitializeDb>().Run();
           }
 
           DataRow pageRow;

@@ -92,7 +92,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public static DataTable BuddyList()
     {
-      return YafServices.DBBroker.UserBuddyList(YafContext.Current.PageUserID);
+      return YafContext.Current.Get<YafDBBroker>().UserBuddyList(YafContext.Current.PageUserID);
     }
 
     /// <summary>
@@ -156,7 +156,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public static DataTable GetBuddiesForUser(int UserID)
     {
-      return YafServices.DBBroker.UserBuddyList(UserID);
+      return YafContext.Current.Get<YafDBBroker>().UserBuddyList(UserID);
     }
 
     /// <summary>
@@ -178,7 +178,7 @@ namespace YAF.Classes.Core
         return true;
       }
 
-      DataTable userBuddyList = YafServices.DBBroker.UserBuddyList(YafContext.Current.PageUserID);
+      DataTable userBuddyList = YafContext.Current.Get<YafDBBroker>().UserBuddyList(YafContext.Current.PageUserID);
 
       if ((userBuddyList != null) && (userBuddyList.Rows.Count > 0))
       {

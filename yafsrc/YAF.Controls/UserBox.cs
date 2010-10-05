@@ -336,7 +336,7 @@ namespace YAF.Controls
 
       if (!this.PostDeleted)
       {
-        string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(this.UserId);
+        string avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(this.UserId);
 
         if (avatarUrl.IsSet())
         {
@@ -511,7 +511,7 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.DisplayJoinDate)
       {
-        filler = this.PageContext.BoardSettings.UserBoxJoinDate.FormatWith(this.PageContext.Localization.GetText("joined"), YafServices.DateTime.FormatDateShort((DateTime)this.DataRow["Joined"]));
+        filler = this.PageContext.BoardSettings.UserBoxJoinDate.FormatWith(this.PageContext.Localization.GetText("joined"), this.Get<YafDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]));
       }
 
       // replaces template placeholder with actual join date
@@ -559,7 +559,7 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.ShowMedals)
       {
-        DataTable dt = YafServices.DBBroker.UserMedals(this.UserId);
+        DataTable dt = this.Get<YafDBBroker>().UserMedals(this.UserId);
 
         // vzrus: If user doesn't have we shouldn't render this waisting resources
         if (dt.Rows.Count <= 0)

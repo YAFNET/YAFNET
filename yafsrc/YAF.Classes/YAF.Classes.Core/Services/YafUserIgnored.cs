@@ -50,7 +50,7 @@ namespace YAF.Classes.Core
     {
       if (this._userIgnoreList == null)
       {
-        this._userIgnoreList = YafServices.DBBroker.UserIgnoredList(YafContext.Current.PageUserID);
+        this._userIgnoreList = YafContext.Current.Get<YafDBBroker>().UserIgnoredList(YafContext.Current.PageUserID);
       }
 
       if (this._userIgnoreList.Count > 0)

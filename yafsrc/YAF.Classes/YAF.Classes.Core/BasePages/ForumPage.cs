@@ -450,7 +450,7 @@ namespace YAF.Classes.Core
     /// </summary>
     public void RedirectNoAccess()
     {
-      YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
+      YafContext.Current.Get<YafPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
     }
 
     #endregion

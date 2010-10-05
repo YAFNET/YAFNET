@@ -315,8 +315,8 @@ namespace YAF.Controls
           return this.PageContext.Theme.GetItem("ICONS", "TOPIC_MOVED");
         }
 
-        DateTime lastRead = Mession.GetTopicRead((int)row["TopicID"]);
-        DateTime lastReadForum = Mession.GetForumRead((int)row["ForumID"]);
+        DateTime lastRead = YafContext.Current.Get<YafSession>().GetTopicRead((int)row["TopicID"]);
+        DateTime lastReadForum = YafContext.Current.Get<YafSession>().GetForumRead((int)row["ForumID"]);
         if (lastReadForum > lastRead)
         {
           lastRead = lastReadForum;
@@ -324,7 +324,7 @@ namespace YAF.Controls
 
         if (lastPosted > lastRead)
         {
-          Mession.UnreadTopics++;
+          YafContext.Current.Get<YafSession>().UnreadTopics++;
 
           if (row["PollID"] != DBNull.Value)
           {
@@ -485,7 +485,7 @@ namespace YAF.Controls
 
         string strMiniPost = this.PageContext.Theme.GetItem(
           "ICONS",
-          (DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)this._row["TopicID"]))
+          (DateTime.Parse(row["LastPosted"].ToString()) > YafContext.Current.Get<YafSession>().GetTopicRead((int)this._row["TopicID"]))
             ? "ICON_NEWEST"
             : "ICON_LATEST");
 
@@ -512,7 +512,7 @@ namespace YAF.Controls
 
         writer.WriteBreak();
 
-        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
+        writer.Write(this.Get<YafDateTime>().FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
       }
 
       return strReturn;
@@ -541,7 +541,7 @@ namespace YAF.Controls
     /// </returns>
     private string GetAvatarUrlFromID(int userID)
     {
-      string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(userID);
+      string avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(userID);
 
       if (avatarUrl.IsNotSet())
       {
@@ -611,7 +611,7 @@ namespace YAF.Controls
       writer.Write(HtmlTextWriter.TagRightChar);
 
       writer.Write(", ");
-      writer.Write(YafServices.DateTime.FormatDateTimeTopic(this._row.Row.Field<DateTime>("Posted")));
+      writer.Write(this.Get<YafDateTime>().FormatDateTimeTopic(this._row.Row.Field<DateTime>("Posted")));
 
       writer.WriteEndTag("span");
       writer.WriteLine();
@@ -649,7 +649,7 @@ namespace YAF.Controls
         "post_link", 
         YafFormatMessage.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
 
-      writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this.HtmlEncode(this._row["Subject"]))));
+      writer.WriteLine(this.Get<YafBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this._row["Subject"]))));
       writer.WriteEndTag("a");
 
       int actualPostCount = this._row["Replies"].ToType<int>() + 1;

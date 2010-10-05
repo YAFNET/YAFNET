@@ -116,6 +116,7 @@
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\ResourcesExtensions.cs" />
+    <Compile Include="Extensions\YafServiceExtensions.cs" />
     <Compile Include="Handlers\CantLoadThemeException.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
     <Compile Include="Extensions\YafDateTimeExtensions.cs" />
+    <Compile Include="Services\YafSession.cs" />
     <Compile Include="Services\YafFormatMessage.cs" />
     <Compile Include="Services\YafSendMailThreaded.cs" />
     <Compile Include="Services\YafSendNotification.cs" />
@@ -209,7 +211,6 @@
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />
     <Compile Include="Services\YafSendMail.cs" />
-    <Compile Include="Services\YafServices.cs" />
     <Compile Include="Services\YafStopWatch.cs" />
     <Compile Include="Tasks\CleanUpTask.cs" />
     <Compile Include="Tasks\MailSendTask.cs" />

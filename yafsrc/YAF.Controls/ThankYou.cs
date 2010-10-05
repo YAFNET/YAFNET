@@ -131,7 +131,7 @@ namespace YAF.Controls
     private ThankYou CreateThankYou(string username, string textTag, string titleTag)
     {
       // load the DB so YafContext can work...
-      YafServices.InitializeDb.Run();
+      YafContext.Current.Get<YafInitializeDb>().Run();
 
       // return thank you object...
       return new ThankYou
@@ -175,7 +175,7 @@ namespace YAF.Controls
           if (YafContext.Current.BoardSettings.ShowThanksDate)
           {
             filler.AppendFormat(
-              @" {0}", YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(YafServices.DateTime.FormatDateShort(dr["ThanksDate"])));
+              @" {0}", YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(YafContext.Current.Get<YafDateTime>().FormatDateShort(dr["ThanksDate"])));
           }
         }
       }

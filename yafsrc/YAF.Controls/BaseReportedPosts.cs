@@ -27,6 +27,7 @@ namespace YAF.Controls
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -36,22 +37,10 @@ namespace YAF.Controls
   /// </summary>
   public class BaseReportedPosts : BaseUserControl
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BaseReportedPosts"/> class.
-    /// </summary>
-    public BaseReportedPosts()
-      : base()
-    {
-    }
-
-    #endregion
-
     #region Properties
 
     /// <summary>
-    /// Gets or sets MessageID.
+    ///   Gets or sets MessageID.
     /// </summary>
     public virtual int MessageID
     {
@@ -72,8 +61,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Resolved.
+    ///   Gets or sets Resolved.
     /// </summary>
+    [NotNull]
     public virtual string Resolved
     {
       get
@@ -88,8 +78,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets ResolvedBy. It returns UserID as string value
+    ///   Gets or sets ResolvedBy. It returns UserID as string value
     /// </summary>
+    [NotNull]
     public virtual string ResolvedBy
     {
       get
@@ -104,8 +95,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets ResolvedDate.
+    ///   Gets or sets ResolvedDate.
     /// </summary>
+    [NotNull]
     public virtual string ResolvedDate
     {
       get
@@ -129,7 +121,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       // TODO: Needs better commentting.
       writer.WriteLine(@"<div id=""{0}"" class=""yafReportedPosts"">".FormatWith(this.ClientID));
@@ -146,7 +138,7 @@ namespace YAF.Controls
           string howMany = null;
           if (Convert.ToInt32(reporter["ReportedNumber"]) > 1)
           {
-            howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
+            howMany = "(" + reporter["ReportedNumber"] + ")";
           }
 
           writer.WriteLine(
@@ -156,27 +148,29 @@ namespace YAF.Controls
           // and can add an info about last user who resolved the message
           if (!string.IsNullOrEmpty(this.ResolvedDate))
           {
-              string resolvedByName = DB.user_list(this.PageContext.PageBoardID, Convert.ToInt32(this.ResolvedBy), true).Rows[0]["Name"].ToString();
-           
-              writer.Write(@"<tr><td class=""header2"">");
-              writer.Write(
+            string resolvedByName =
+              DB.user_list(this.PageContext.PageBoardID, Convert.ToInt32(this.ResolvedBy), true).Rows[0]["Name"].
+                ToString();
+
+            writer.Write(@"<tr><td class=""header2"">");
+            writer.Write(
               @"<span class=""postheader"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>", 
               this.PageContext.Localization.GetText("RESOLVEDBY"), 
-              YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)),
-              !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy))) 
-              ? Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy)))
-              : Server.HtmlEncode(resolvedByName),             
-              YafServices.DateTime.FormatDateTimeTopic(this.ResolvedDate));
+              YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)), 
+              !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy)))
+                ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy)))
+                : this.Server.HtmlEncode(resolvedByName), 
+              this.Get<YafDateTime>().FormatDateTimeTopic(this.ResolvedDate));
             writer.WriteLine(@"</td></tr>");
           }
 
           writer.Write(@"<tr><td class=""post"">");
           writer.Write(@"<tr><td class=""header2"">");
           writer.Write(
-            @"<span class=""YafReported_Complainer"">{3}</span><a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>",
+            @"<span class=""YafReported_Complainer"">{3}</span><a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>", 
             !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])))
-              ? Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])))
-              : Server.HtmlEncode(reporter["UserName"].ToString()), 
+              ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])))
+              : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), 
             howMany, 
             this.PageContext.Localization.GetText("REPORTEDBY"));
@@ -190,13 +184,13 @@ namespace YAF.Controls
             writer.Write(@"<tr><td class=""post"">");
             writer.Write(
               @"<span class=""YafReported_DateTime"">{0}:</span>", 
-              YafServices.DateTime.FormatDateTimeTopic(textString[0]));
+              this.Get<YafDateTime>().FormatDateTimeTopic(textString[0]));
 
             // Apply style if a post was previously resolved
             string resStyle = "post_res";
             try
             {
-              if (!(string.IsNullOrEmpty(textString[0].ToString()) && string.IsNullOrEmpty(this.ResolvedDate)))
+              if (!(string.IsNullOrEmpty(textString[0]) && string.IsNullOrEmpty(this.ResolvedDate)))
               {
                 if (Convert.ToDateTime(textString[0]) < Convert.ToDateTime(this.ResolvedDate))
                 {
@@ -225,10 +219,10 @@ namespace YAF.Controls
 
           writer.WriteLine(@"<tr><td class=""postfooter"">");
           writer.Write(
-            @"<a class=""YafReported_Link"" href=""{1}"">{2} {0}</a>",
-              !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])))
-              ? Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])))
-              : Server.HtmlEncode(reporter["UserName"].ToString()),             
+            @"<a class=""YafReported_Link"" href=""{1}"">{2} {0}</a>", 
+            !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])))
+              ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])))
+              : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
             YafBuildLink.GetLink(
               ForumPages.pmessage, "u={0}&r={1}", Convert.ToInt32(reporter["UserID"]), this.MessageID), 
             this.PageContext.Localization.GetText("REPLYTO"));
