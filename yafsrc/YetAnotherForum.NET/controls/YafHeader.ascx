@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
-<%@ Import Namespace="YAF.Classes.Utils" %>
 <%@ Import Namespace="YAF.Classes" %>
 <div id="yafheader">
    <% if (this.PageContext.IsGuest) {%>
@@ -12,6 +11,12 @@
    <div class="outerMenuContainer">   
     <div class="menuMyContainer">
       <ul class="menuMyList">
+      <% if (!this.PageContext.IsGuest)
+               {%>
+       <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.cp_profile) %>">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "MYPROFILE")%></a> </li>
+                 <%
+                    }%>
        <% if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)
                {%>
             <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.cp_pm)%>">
@@ -57,8 +62,6 @@
 
             <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MYTOPICS")%></a> </li>
-            <li class="menuMy"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.cp_profile) %>">
-                <%=this.PageContext.Localization.GetText("TOOLBAR", "MYPROFILE")%></a> </li>
             <%
                 }%>
                  <%
