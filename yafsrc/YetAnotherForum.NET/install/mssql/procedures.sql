@@ -1981,8 +1981,10 @@ BEGIN
 			FROM 
 				[{databaseOwner}].[{objectQualifier}User]
 			WHERE 
+			   -- is approved
 				(Flags & 2) = 2
-				AND (Flags & 4) = 0
+				-- is not a guest
+				AND (Flags & 4) <> 4
 				AND BoardID = @BoardID 
 			ORDER BY 
 				Joined DESC
@@ -8237,7 +8239,7 @@ begin
 		UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
 		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
 		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
-		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0) ELSE NULL END,
+		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0 ORDER BY Requested DESC) ELSE NULL END,
 		UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN (ISNULL(@G_Style, @R_Style))  
 			else ''	 end,
 		NumAlbums  = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
