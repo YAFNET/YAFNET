@@ -15032,7 +15032,7 @@
         <member name="M:YAF.YafResourceHandler.CheckETag(System.Web.HttpContext,System.String)">
             <summary>
             Check if the ETag that sent from the client is match to the current ETag.
-            If so, set the status code to 'Not Modified' and stop the response.
+              If so, set the status code to 'Not Modified' and stop the response.
             </summary>
             <param name="context">
             The context.
@@ -15043,44 +15043,6 @@
             <returns>
             The check e tag.
             </returns>
-        </member>
-        <member name="M:YAF.YafResourceHandler.CheckAccessRights(System.Object,System.Object)">
-            <summary>
-            The check access rights.
-            </summary>
-            <param name="boardID">
-            The board id.
-            </param>
-            <param name="messageID">
-            The message id.
-            </param>
-            <returns>
-            The check access rights.
-            </returns>
-        </member>
-        <member name="M:YAF.YafResourceHandler.GetAlbumCover(System.Web.HttpContext)">
-            <summary>
-            The get album cover.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
-        </member>
-        <member name="M:YAF.YafResourceHandler.GetAlbumImage(System.Web.HttpContext)">
-            <summary>
-            The get album image.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
-        </member>
-        <member name="M:YAF.YafResourceHandler.GetAlbumImagePreview(System.Web.HttpContext)">
-            <summary>
-            The get album image preview.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
         </member>
         <member name="M:YAF.YafResourceHandler.GetCoverResized(System.IO.MemoryStream,System.Int32,System.Int32,System.String,System.String)">
             <summary>
@@ -15134,6 +15096,60 @@
             The context.
             </param>
         </member>
+        <member name="M:YAF.YafResourceHandler.GetResponseGoogleSpell(System.Web.HttpContext)">
+            <summary>
+            The get response google spell.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+        </member>
+        <member name="M:YAF.YafResourceHandler.GetResponseLocalAvatar(System.Web.HttpContext)">
+            <summary>
+            The get response local avatar.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+        </member>
+        <member name="M:YAF.YafResourceHandler.CheckAccessRights(System.Object,System.Object)">
+            <summary>
+            The check access rights.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="messageID">
+            The message id.
+            </param>
+            <returns>
+            The check access rights.
+            </returns>
+        </member>
+        <member name="M:YAF.YafResourceHandler.GetAlbumCover(System.Web.HttpContext)">
+            <summary>
+            The get album cover.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+        </member>
+        <member name="M:YAF.YafResourceHandler.GetAlbumImage(System.Web.HttpContext)">
+            <summary>
+            The get album image.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+        </member>
+        <member name="M:YAF.YafResourceHandler.GetAlbumImagePreview(System.Web.HttpContext)">
+            <summary>
+            The get album image preview.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+        </member>
         <member name="M:YAF.YafResourceHandler.GetResponseAttachment(System.Web.HttpContext)">
             <summary>
             The get response attachment.
@@ -15145,14 +15161,6 @@
         <member name="M:YAF.YafResourceHandler.GetResponseCaptcha(System.Web.HttpContext)">
             <summary>
             The get response captcha.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
-        </member>
-        <member name="M:YAF.YafResourceHandler.GetResponseGoogleSpell(System.Web.HttpContext)">
-            <summary>
-            The get response google spell.
             </summary>
             <param name="context">
             The context.
@@ -15174,14 +15182,6 @@
             The context.
             </param>
         </member>
-        <member name="M:YAF.YafResourceHandler.GetResponseLocalAvatar(System.Web.HttpContext)">
-            <summary>
-            The get response local avatar.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
-        </member>
         <member name="M:YAF.YafResourceHandler.GetResponseRemoteAvatar(System.Web.HttpContext)">
             <summary>
             The get response remote avatar.
@@ -15192,7 +15192,7 @@
         </member>
         <member name="P:YAF.YafResourceHandler.IsReusable">
             <summary>
-            Gets a value indicating whether IsReusable.
+              Gets a value indicating whether IsReusable.
             </summary>
         </member>
         <member name="T:YAF.Pages.cp_editprofile">
@@ -30158,6 +30158,19 @@
             <summary>
             Gets Description.
             </summary>
+        </member>
+        <member name="M:YAF.Modules.UserLinkBBCodeModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.UserLinkBBCodeModule"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UserLinkBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
         </member>
     </members>
 </doc>
