@@ -1308,6 +1308,22 @@ namespace YAF.Classes
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether EmailVerification.
+    /// </summary>
+    public bool AbandonSessionsForDontTrack
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("AbadonSessionsForDontTrack", false);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("AbadonSessionsForDontTrack", value);
+      }
+    }
+
     // vzrus: 10/4/10 SSL registration and login options
     /// <summary>
     /// Gets or sets a value indicating whether Use SSL To Log In.
