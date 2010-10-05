@@ -72,7 +72,7 @@ namespace YAF.Classes.Core
       // verify DB is initialized...
       if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
       {
-        throw new Exception("Database is not initialized.");
+        YafContext.Current.Get<YafInitializeDb>().Run();
       }
 
       DataTable dataTable;
