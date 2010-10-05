@@ -47,6 +47,26 @@
 	white-space: nowrap;
 }
 
+.yafnet .userLinkContainer
+{
+    background: url("user.png") #fff no-repeat 4px 50%;
+    border: 1px solid #eee;
+    padding: 4px 2px 4px 25px;
+    margin: 3px;
+    font-size: 80%;
+    font-weight: bold;    
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	    
+}
+
+.yafnet .userLinkContainer:hover
+{
+    border: 1px solid #ddd;
+    background-color: #eee;
+}
+
 /* yaf header */
 .yafnet #yafheader
 {
