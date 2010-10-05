@@ -1,28 +1,39 @@
-using System;
-
 namespace YAF.DotNetNuke
 {
+  #region Using
+
+  using System;
+
+  #endregion
+
+  /// <summary>
+  /// Topics List
+  /// </summary>
+  public class Topics
+  {
+    #region Constants and Fields
+
     /// <summary>
-    /// Topics List
+    ///   The Creation Date 
+    ///   of the Topic
     /// </summary>
-    public class Topics
-    {
-        /// <summary>
-        /// The Topic Name
-        /// </summary>
-        public string sTopic;
-        /// <summary>
-        /// The Forum Id
-        /// </summary>
-        public int iForumId;
-        /// <summary>
-        /// The Topic Id
-        /// </summary>
-        public int iTopicId;
-        /// <summary>
-        /// The Creation Date 
-        /// of the Topic
-        /// </summary>
-        public DateTime dtPosted;
-    }
+    public DateTime Posted { get; set; }
+
+    /// <summary>
+    ///   The Forum Id
+    /// </summary>
+    public int ForumId { get; set; }
+
+    /// <summary>
+    ///   The Topic Id
+    /// </summary>
+    public int TopicId { get; set; }
+
+    /// <summary>
+    ///   The Topic Name
+    /// </summary>
+    public string TopicName { get; set; }
+
+    #endregion
+  }
 }

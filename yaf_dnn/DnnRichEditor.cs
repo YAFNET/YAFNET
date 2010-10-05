@@ -1,14 +1,4 @@
-﻿#region Usings
-
-using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using DotNetNuke.Modules.HTMLEditorProvider;
-using YAF.Classes;
-using YAF.Classes.Data;
-
-#endregion
-/* YetAnotherForum.NET
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -29,150 +19,276 @@ using YAF.Classes.Data;
 
 namespace YAF.Editors
 {
+  #region Using
+
+  using System;
+  using System.Web.UI;
+  using System.Web.UI.WebControls;
+
+  using global::DotNetNuke.Modules.HTMLEditorProvider;
+
+  using YAF.Classes;
+  using YAF.Classes.Data;
+
+  #endregion
+
+  /// <summary>
+  /// Adds Support for the DNN Editors
+  ///   Code provided by Balbes
+  ///   http://forum.yetanotherforum.net/yaf_postst8907_DotNetNuke-HTMLEditorProvider-integration-UPDATED-to-YAF-1-9-4.aspx
+  /// </summary>
+  public class DnnRichEditor : BaseForumEditor
+  {
+    #region Constants and Fields
+
     /// <summary>
-    /// Adds Support for the DNN Editors
-    /// Code provided by Balbes
-    /// http://forum.yetanotherforum.net/yaf_postst8907_DotNetNuke-HTMLEditorProvider-integration-UPDATED-to-YAF-1-9-4.aspx
+    /// The _editor loaded.
     /// </summary>
-    public class DnnRichEditor : BaseForumEditor
+    private readonly bool _editorLoaded;
+
+    /// <summary>
+    /// The _editor.
+    /// </summary>
+    private HtmlEditorProvider _editor;
+
+    /// <summary>
+    /// The _style sheet.
+    /// </summary>
+    private string _styleSheet;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DnnRichEditor"/> class.
+    /// </summary>
+    public DnnRichEditor()
     {
-        private readonly bool _editorLoaded;
-        private HtmlEditorProvider _editor;
-        private string _styleSheet;
-
-        public DnnRichEditor()
-        {
-            _styleSheet = string.Empty;
-            _editorLoaded = InitDnnEditor();
-        }
-
-        public override string Text
-        {
-            get { return !_editorLoaded ? string.Empty : _editor.Text; }
-            set
-            {
-                if (!_editorLoaded)
-                    return;
-
-                _editor.Text = value;
-            }
-        }
-
-        public override string StyleSheet
-        {
-            get { return _styleSheet; }
-            set { _styleSheet = value; }
-        }
-
-        public override bool UsesHTML
-        {
-            get { return true; }
-        }
-
-        public override bool UsesBBCode
-        {
-            get { return false; }
-        }
-
-        public override bool Active
-        {
-            get { return _editorLoaded; }
-        }
-
-        public override string Description
-        {
-            get { return "Dotnetnuke Text Editor (Html)"; }
-        }
-
-        public override int ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return 9;
-            }
-        }
-
-        protected override void OnInit(EventArgs e)
-        {
-            if (!_editorLoaded)
-                return;
-
-            _editor.ControlID = "yafDnnRichEditor";
-            _editor.Initialize();
-            Load += Editor_Load;
-            base.OnInit(e);
-        }
-
-        protected virtual void Editor_Load(object sender, EventArgs e)
-        {
-            if (!_editorLoaded || !_editor.Visible)
-                return;
-
-            _editor.Height = Unit.Pixel(400);
-            _editor.Width = Unit.Percentage(100);
-
-            //Controls.Add(_editor.HtmlEditorControl);
-
-            this.AddEditorControl(_editor.HtmlEditorControl);
-            
-            RegisterSmilieyScript();
-        }
-
-        protected virtual void RegisterSmilieyScript()
-        {
-            Type editorType = _editor.GetType();
-            Control editor = FindControl(_editor.ControlID);
-            if (editor == null)
-                return;
-
-            switch (editorType.ToString())
-            {
-                case "Telerik.DNN.Providers.RadEditorProvider":
-                    Page.ClientScript.RegisterClientScriptBlock(Page.GetType(),
-                                                                "insertsmiley",
-                                                                string.Format(
-                                                                    "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>",
-                                                                    editor.ClientID));
-                    break;
-                case "DotNetNuke.HtmlEditor.FckHtmlEditorProvider.FckHtmlEditorProvider":
-                    Page.ClientScript.RegisterClientScriptBlock(Page.GetType(),
-                                                                "insertsmiley",
-                                                                string.Format(
-                                                                    "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar oEditor = FCKeditorAPI.GetInstance('{0}');\nif ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {{\noEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n",
-                                                                    editor.ClientID.Replace("$", "_")));
-                    break;
-                case "WatchersNET.CKEditor.CKHtmlEditorProvider":
-                    Page.ClientScript.RegisterClientScriptBlock(Page.GetType(),
-                                                                "insertsmiley",
-                                                                string.Format(
-                                                                    "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n",
-                                                                    editor.ClientID));
-                    break;
-                case "DotNetNuke.HtmlEditor.TelerikEditorProvider.EditorProvider":
-                    Page.ClientScript.RegisterClientScriptBlock(Page.GetType(),
-                                                                "insertsmiley",
-                                                                string.Format(
-                                                                    "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>",
-                                                                    editor.ClientID));
-                    break;
-            }
-        }
-
-        private bool InitDnnEditor()
-        {
-            if (!Config.IsDotNetNuke)
-                return false;
-            try
-            {
-                _editor = HtmlEditorProvider.Instance();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                DB.eventlog_create(null, GetType().ToString(), ex, EventLogTypes.Error);
-            }
-            return false;
-        }
+      this._styleSheet = string.Empty;
+      this._editorLoaded = this.InitDnnEditor();
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets a value indicating whether Active.
+    /// </summary>
+    public override bool Active
+    {
+      get
+      {
+        return this._editorLoaded;
+      }
+    }
+
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "DotNetNuke Text Editor (HTML)";
+      }
+    }
+
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 9;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets StyleSheet.
+    /// </summary>
+    public override string StyleSheet
+    {
+      get
+      {
+        return this._styleSheet;
+      }
+
+      set
+      {
+        this._styleSheet = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        return !this._editorLoaded ? string.Empty : this._editor.Text;
+      }
+
+      set
+      {
+        if (!this._editorLoaded)
+        {
+          return;
+        }
+
+        this._editor.Text = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return true;
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      if (!this._editorLoaded || !this._editor.Visible)
+      {
+        return;
+      }
+
+      this._editor.Height = Unit.Pixel(400);
+      this._editor.Width = Unit.Percentage(100);
+
+      // Controls.Add(_editor.HtmlEditorControl);
+      this.AddEditorControl(this._editor.HtmlEditorControl);
+
+      this.RegisterSmilieyScript();
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      if (!this._editorLoaded)
+      {
+        return;
+      }
+
+      this._editor.ControlID = "yafDnnRichEditor";
+      this._editor.Initialize();
+      this.Load += this.Editor_Load;
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected virtual void RegisterSmilieyScript()
+    {
+      Type editorType = this._editor.GetType();
+      Control editor = this.FindControl(this._editor.ControlID);
+      if (editor == null)
+      {
+        return;
+      }
+
+      switch (editorType.ToString())
+      {
+        case "Telerik.DNN.Providers.RadEditorProvider":
+          this.Page.ClientScript.RegisterClientScriptBlock(
+            this.Page.GetType(), 
+            "insertsmiley", 
+            string.Format(
+              "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>", 
+              editor.ClientID));
+          break;
+        case "DotNetNuke.HtmlEditor.FckHtmlEditorProvider.FckHtmlEditorProvider":
+          this.Page.ClientScript.RegisterClientScriptBlock(
+            this.Page.GetType(), 
+            "insertsmiley", 
+            string.Format(
+              "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar oEditor = FCKeditorAPI.GetInstance('{0}');\nif ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {{\noEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n", 
+              editor.ClientID.Replace("$", "_")));
+          break;
+        case "WatchersNET.CKEditor.CKHtmlEditorProvider":
+          this.Page.ClientScript.RegisterClientScriptBlock(
+            this.Page.GetType(), 
+            "insertsmiley", 
+            string.Format(
+              "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n", 
+              editor.ClientID));
+          break;
+        case "DotNetNuke.HtmlEditor.TelerikEditorProvider.EditorProvider":
+          this.Page.ClientScript.RegisterClientScriptBlock(
+            this.Page.GetType(), 
+            "insertsmiley", 
+            string.Format(
+              "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>", 
+              editor.ClientID));
+          break;
+      }
+    }
+
+    /// <summary>
+    /// The init dnn editor.
+    /// </summary>
+    /// <returns>
+    /// The init dnn editor.
+    /// </returns>
+    private bool InitDnnEditor()
+    {
+      if (!Config.IsDotNetNuke)
+      {
+        return false;
+      }
+
+      try
+      {
+        this._editor = HtmlEditorProvider.Instance();
+        return true;
+      }
+      catch (Exception ex)
+      {
+        DB.eventlog_create(null, this.GetType().ToString(), ex, EventLogTypes.Error);
+      }
+
+      return false;
+    }
+
+    #endregion
+  }
 }

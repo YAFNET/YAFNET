@@ -223,6 +223,7 @@ namespace YAF.DotNetNuke
             DB.user_adminsave(forum1.BoardID,
                               yafUserId,
                               row["Name"],
+                              row["DisplayName"],
                               row["Email"],
                               userFlags.BitValue,
                               row["RankID"]);

@@ -24,10 +24,10 @@ namespace YAF.DotNetNuke
                 {
                     Messages message = new Messages
                     {
-                        sMessage = Convert.ToString(dr["Message"]),
-                        iMessageId = Convert.ToInt32(dr["MessageID"]),
-                        iTopicId = Convert.ToInt32(dr["TopicID"]),
-                        dtPosted = Convert.ToDateTime(dr["Posted"])
+                        Message = Convert.ToString(dr["Message"]),
+                        MessageId = Convert.ToInt32(dr["MessageID"]),
+                        TopicId = Convert.ToInt32(dr["TopicID"]),
+                        Posted = Convert.ToDateTime(dr["Posted"])
                     };
 
                     messagesList.Add(message);
@@ -49,10 +49,10 @@ namespace YAF.DotNetNuke
                 {
                     Topics topic = new Topics
                     {
-                        sTopic = Convert.ToString(dr["Topic"]),
-                        iTopicId = Convert.ToInt32(dr["TopicID"]),
-                        iForumId = Convert.ToInt32(dr["ForumID"]),
-                        dtPosted = Convert.ToDateTime(dr["Posted"])
+                        TopicName = Convert.ToString(dr["Topic"]),
+                        TopicId = Convert.ToInt32(dr["TopicID"]),
+                        ForumId = Convert.ToInt32(dr["ForumID"]),
+                        Posted = Convert.ToDateTime(dr["Posted"])
                     };
 
                     topicsList.Add(topic);
