@@ -5,6 +5,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Web.UI;
 
 [assembly: AssemblyTitle("DNA Common UI Framework")]
@@ -20,3 +21,11 @@ using System.Web.UI;
 [assembly: AssemblyVersion("1.1.15.0")]
 [assembly: AssemblyFileVersion("1.1.15.0")]
 [assembly: WebResource("DNA.UI.ClientScripts.CallBack.js", "text/javascript")]
+
+#if (!COMPACT_FRAMEWORK)
+
+[assembly: AllowPartiallyTrustedCallers]
+#endif
+
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]

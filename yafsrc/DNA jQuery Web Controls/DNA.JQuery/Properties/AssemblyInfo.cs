@@ -5,6 +5,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Web.UI;
 [assembly: AssemblyTitle("DJ - DNA jQuery for .net")]
 [assembly: AssemblyDescription("jQuery Web Contorls for ASP.NET makes it easier for developer to using jQuery and jQuery ui on ASP.NET developing.It not only provides cool web controls for jQuery but also provides a lightweight framework to write jQuery plugin Server Controls super fast!")]
@@ -19,3 +20,11 @@ using System.Web.UI;
 [assembly: AssemblyVersion("1.1.15.0")]
 [assembly: AssemblyFileVersion("1.1.15.0")]
 [assembly: TagPrefix("DNA.UI.JQuery", "DotNetAge")]
+
+#if (!COMPACT_FRAMEWORK)
+
+[assembly: AllowPartiallyTrustedCallers]
+#endif
+
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Web.UI;
 
 // General Information about an assembly is controlled through the following 
@@ -17,6 +18,14 @@ using System.Web.UI;
 [assembly: Guid("8d7616b5-4296-4f5a-8c93-dbbe72f4a47a")]
 [assembly: AssemblyVersion("1.3.2.0")]
 [assembly: AssemblyFileVersion("1.3.2.0")]
+
+#if (!COMPACT_FRAMEWORK)
+
+[assembly: AllowPartiallyTrustedCallers]
+#endif
+
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]
 
 #region plugins
 [assembly: WebResource("jQueryNet.plugins.bgiframe.js", "text/javascript")]
