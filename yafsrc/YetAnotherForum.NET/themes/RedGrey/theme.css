@@ -245,6 +245,12 @@
 .yafnet tr.post_alt:hover td {
 	background-color: #e5777b;	
 }
+.yafnet tr.post:hover .message {
+	background-color: #ffffff;
+}
+.yafnet tr.post_alt:hover .message {
+	background-color: #e3e3e3;
+}
 /* Footer of posts */
 .yafnet .postfooter {
 	background-color: #f3f3f3;
