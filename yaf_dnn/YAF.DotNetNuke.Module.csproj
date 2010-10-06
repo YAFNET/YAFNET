@@ -29,14 +29,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>DnnModule\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetNuke">
-      <HintPath>..\..\bin 5.2\DotNetNuke.dll</HintPath>
+      <HintPath>Libaries\DotNetNuke.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

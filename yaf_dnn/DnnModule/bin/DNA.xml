@@ -1,0 +1,991 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DNA</name>
+    </assembly>
+    <members>
+        <member name="P:DNA.UI.SimpleListView.DataTargetField">
+            <summary>
+            Gets/Sets the Target field name on databinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataCssClassField">
+            <summary>
+            Gets/Sets the CssClassField Name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataImageUrlField">
+            <summary>
+            Gets/Sets the ImageUrl field Name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataNavigateUrlField">
+            <summary>
+            Get/Sets the NavigateUrl field name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataTextField">
+            <summary>
+            Gets/Sets the Text field name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.ItemCssClass">
+            <summary>
+            Gets/Sets the item style class name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.Target">
+            <summary>
+            Gets/Sets when click the item which the window open to
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.Items">
+            <summary>
+            Gets the Items collection instance of this view
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQuerySelector">
+            <summary>
+            JQuerySelector this a class that define the jQuery selector string build rules,this class can build jQuery selector
+            string for html elements or write the selector string in Selector property directly. Or use TargetID,TargetIDs to 
+            get the server controls client id for render.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQuerySelector.Clear">
+            <summary>
+            Clear the selector and the IsEmpty will be return true.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQuerySelector.ToString">
+            <summary>
+            Format the selector to string in jQuery format.
+            </summary>
+            <remarks>
+             this method will not transfer the targetid or targetids to ClientID
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQuerySelector.ToString(System.Web.UI.Page)">
+            <summary>
+            Format the selector to string in jQuery format
+            </summary>
+            <remarks>
+             If targetID,targetIDs sets this method will get their ClientID into the output string.
+            </remarks>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQuerySelector.ExpressionOnly">
+            <summary>
+             Gets/Sets whether the selector output append "$()"
+            </summary>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.Clone">
+            <summary>
+            Creates a new object that is a copy of the current instance.
+            </summary>
+            <returns>A new object that is a copy of this instance.</returns>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.System#Web#UI#IStateManager#LoadViewState(System.Object)">
+            <summary>
+            Loads the node's previously saved view state.
+            </summary>
+            <param name="state">An Object that contains the saved view state values for the node.</param>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.LoadViewState(System.Object)">
+            <summary>
+            Loads the node's previously saved view state.
+            </summary>
+            <param name="state">An Object that contains the saved view state values for the node.</param>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.System#Web#UI#IStateManager#SaveViewState">
+            <summary>
+            Saves the changes to the node's view state to an Object.
+            </summary>
+            <returns>The Object that contains the view state changes.</returns>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.SaveViewState">
+            <summary>
+            Saves the changes to the node's view state to an Object.
+            </summary>
+            <returns>The Object that contains the view state changes.</returns>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.System#Web#UI#IStateManager#TrackViewState">
+            <summary>
+            Instructs the node to track changes to its view state.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.StateManagedObject.TrackViewState">
+            <summary>
+            Instructs the node to track changes to its view state.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.StateManagedObject.ViewState">
+            <summary>
+            An instance of the StateBag class that contains the view state information.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.StateManagedObject.System#Web#UI#IStateManager#IsTrackingViewState">
+            <summary>
+            Gets a value indicating whether a server control is tracking its view state changes.
+            </summary>
+        </member>
+        <member name="T:DNA.UI.CollapsablePanel">
+            <summary>
+             CollapsablePanel is a Panel Control can be collapse and expand.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.CollapsablePanel.UsingDefaultStyle">
+            <summary>
+            Gets/Sets whether using the default styles
+            </summary>
+        </member>
+        <member name="P:DNA.UI.CollapsablePanel.Title">
+            <summary>
+            Gets/Sets the Header Title text
+            </summary>
+        </member>
+        <member name="T:DNA.UI.Design.ItemCollectionEditor">
+            <summary>
+            Designer editor for Item collections.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.Design.ItemCollectionEditor.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the ItemCollectionEditor class.
+            </summary>
+            <param name="type">The type of collection this object is to edit.</param>
+        </member>
+        <member name="M:DNA.UI.Design.ItemCollectionEditor.CreateCollectionForm">
+            <summary>
+            Creates a new form to show the current collection.
+            </summary>
+            <returns>The form.</returns>
+        </member>
+        <member name="M:DNA.UI.Design.ItemCollectionEditor.InitializeForm(System.ComponentModel.Design.CollectionEditor.CollectionForm)">
+            <summary>
+            Initialize the CollectionForm. Called from CreateCollectionForm().
+            </summary>
+            <param name="form">The CollectionForm to initialize.</param>
+        </member>
+        <member name="M:DNA.UI.Design.ItemCollectionEditor.InitializePropertyGrid(System.Windows.Forms.PropertyGrid)">
+            <summary>
+            Initialize the PropertyGrid. Called from InitializeForm().
+            </summary>
+            <param name="propGrid">The PropertyGrid.</param>
+        </member>
+        <member name="M:DNA.UI.Design.ItemCollectionEditor.EditValue(System.ComponentModel.ITypeDescriptorContext,System.IServiceProvider,System.Object)">
+            <summary>
+            Edits the value of the specified object using the specified service provider and context.
+            </summary>
+            <param name="context">A type descriptor context that can be used to gain additional context information.</param>
+            <param name="provider">A service provider object through which editing services may be obtained.</param>
+            <param name="value">The object to edit the value of.</param>
+            <returns>The new value of the object. If the value of the object hasn't changed, this should return the same object it was passed.</returns>
+        </member>
+        <member name="M:DNA.UI.Design.ItemCollectionEditor.DestroyInstance(System.Object)">
+            <summary>
+            Destroys the specified instance of the object.
+            </summary>
+            <param name="instance">The object to destroy.</param>
+        </member>
+        <member name="T:DNA.UI.ScriptBuilder">
+            <summary>
+            ScriptBuilder is a helper class to build script string
+            </summary>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendSysLoadScript(System.String,System.Boolean)">
+            <summary>
+            Add the script as anonymouse function to Sys.Application.Load event
+            </summary>
+            <remarks>
+            This method will auto append "function(){...}" to wrap the script
+            </remarks>
+            <param name="script">script body which need to register</param>
+            <param name="anonymousFunction">Whether generate the "function()" wrapper</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendSysLoadScript(System.String)">
+            <summary>
+            Add the script to Sys.Application.Load event
+            </summary>
+            <param name="script">script body which need to register</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendSysUnloadScript(System.String,System.Boolean)">
+            <summary>
+            Add the script as anonymouse function to Sys.Application.Unload event
+            </summary>
+            <remarks>
+            This method will auto append "function(){...}" to wrap the script
+            </remarks>
+            <param name="script">script body which need to register</param>
+            <param name="anonymousFunction">Whether generate the "function()" wrapper</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendSysUnloadScript(System.String)">
+            <summary>
+            Add the script to Sys.Application.Unload event
+            </summary>
+            <param name="script">script body which need to register</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendSysInitScript(System.String,System.Boolean)">
+            <summary>
+            Add the script as anonymouse function to Sys.Application.Init event
+            </summary>
+            <remarks>
+            This method will auto append "function(){...}" to wrap the script
+            </remarks>
+            <param name="script">script body which need to register</param>
+            <param name="anonymousFunction">Whether generate the "function()" wrapper</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendSysInitScript(System.String)">
+            <summary>
+            Add the script to Sys.Application.Init event
+            </summary>
+            <param name="script"></param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendDocumentReadyScript(System.String)">
+            <summary>
+            Add the script to document.ready event
+            </summary>
+            <param name="script">script body which need to register</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendGetShortCut(System.Web.UI.Control)">
+            <summary>
+             Generate the "$get" shortcut for the control
+            </summary>
+            <param name="control">Control instance</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendFindShortCut(System.Web.UI.Control)">
+            <summary>
+            Generate the "$find" shortcut for the control
+            </summary>
+            <param name="control">Control instance</param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendFunctionWrapper(System.String,System.String)">
+            <summary>
+            Add the function wrapper to the script
+            </summary>
+            <param name="functionName"></param>
+            <param name="script"></param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendFunctionWrapper(System.String)">
+            <summary>
+            Add the function wrapper to the script
+            </summary>
+            <param name="script"></param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.AppendFunctionWrapper(System.String,System.String[],System.String)">
+            <summary>
+            Add the function wrapper to the script
+            </summary>
+            <param name="functionName"></param>
+            <param name="functionParams"></param>
+            <param name="script"></param>
+        </member>
+        <member name="M:DNA.UI.ScriptBuilder.ToString">
+            <summary>
+            Get the script's result
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DNA.UI.ScriptBuilder.Scripts">
+            <summary>
+            Gets StringBuilder that store the script result
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQueryAttribute">
+            <summary>
+            JQueryAttribute for jQuery Web Control
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.DisposeMethod">
+            <summary>
+            Gets/Sets the jQuery dispose method name.
+            </summary>
+            <remarks>
+            if this property sets the dispose method for jquery will invoke when application.unload.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.ScriptResourceBaseName">
+            <summary>
+            Gets/Sets the jQuery scriptResource file base name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.Assembly">
+            <summary>
+            Gets/Sets the script resource 's assembly name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.ScriptResources">
+            <summary>
+            Gets/Sets the script resource name array
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.StartEvent">
+            <summary>
+            Gets/Sets the client register event for jQuery 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.Name">
+            <summary>
+            Gets/Sets the jQuery (plugins/widgets) 's name
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.MultiJQueryScriptBuilder">
+            <summary>
+            Handling the WebControl has more than one JQueryAttribute define 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.Text">
+            <summary>
+            Gets/Sets the item's text
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.NavigateUrl">
+            <summary>
+            Gets/Sets when set the item's naviage url
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.Target">
+            <summary>
+            Gets/Sets when click the item which the window open to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.ImageUrl">
+            <summary>
+            Gets/Sets the item's image icon url
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.CssClass">
+            <summary>
+            Gets/Sets the item's class name
+            </summary>
+        </member>
+        <member name="T:DNA.UI.FilterControlBuilder">
+            <summary>
+            Subclass this class to create a ControlBuilder that
+            only allows specific child types/tags and strips out any
+            literal strings as well.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.FillTagTypeTable">
+            <summary> 
+            Implement this method and use Add to add
+            key value pairs that translate a tag name to
+            a type.
+            </summary>
+            <example>Add("tagname", typeof(TagType));</example>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.#ctor">
+            <summary>
+            Initializes a new instance of a FilterControlBuilder.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.Add(System.String,System.Type)">
+            <summary>
+            Adds a tagname to type entry.
+            </summary>
+            <param name="tagName">The tag name.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.GetChildControlType(System.String,System.Collections.IDictionary)">
+            <summary>
+            Determines a type given a tag name.
+            </summary>
+            <param name="tagName">The tagname.</param>
+            <param name="attribs">Attributes.</param>
+            <returns>The type of the tag.</returns>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.AppendLiteralString(System.String)">
+            <summary>
+            Rejects appending literal strings.
+            </summary>
+            <param name="s">The string.</param>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.AllowLiterals">
+            <summary>
+            Allows subclasses to override the rejection of literal strings.
+            </summary>
+            <returns>false to reject literals.</returns>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.AllowWhitespaceLiterals">
+            <summary>
+            Rejects whitespace.
+            </summary>
+            <returns>false to reject whitespace.</returns>
+        </member>
+        <member name="T:DNA.UI.JQuery.Position">
+            <summary>
+            Position is the class define the control's bounds
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQueryScriptBuilder">
+            <summary>
+             JQueryScriptBuilder provides the methods to builder the jQuery scripts
+            </summary>
+            <remarks>
+            Roles: One control has one builder
+            </remarks>
+            <example>
+               JQueryScriptBuilder jBuilder=new JQueryScriptBuilder(this);
+               jQueryScript.AddOption("range",true);
+               .....
+               ClientScriptManager.RegisterJQueryControl(ths,jBuilder);
+            </example>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AppendSelector(System.Web.UI.Control)">
+            <summary>
+            Append the jQuery selector string of Control
+            </summary>
+            <remarks>
+             this function will get the control's clientId to build the selector string.
+            </remarks>
+            <example>
+             AppendJQuerySelector(TextBox1);
+             //Result: $('#TextBox1')
+            </example>
+            <param name="control"></param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AppendOptionsToResult">
+            <summary>
+            Append all option to the result string and the option cache will be clear.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.String)">
+            <summary>
+            Append the name and string value to option string
+            </summary>
+            <remarks>
+            the value will be convert to 'value' format
+            </remarks>
+            <param name="name">option name</param>
+            <param name="value">option value of string</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Int32)">
+            <summary>
+             Append the name and int value to option string
+            </summary>
+            <param name="name">option name</param>
+            <param name="value">option value of integer</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Single)">
+            <summary>
+             Append the name and float value to option string
+            </summary>
+            <param name="name">option name</param>
+            <param name="value">option value of float</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Decimal)">
+            <summary>
+             Append the name and decimal value to option string
+            </summary>
+            <param name="name">option name</param>
+            <param name="value">option value of decimal</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Boolean)">
+            <summary>
+             Append the name and bool value to option string
+            </summary>
+            <remarks>
+             the value will be convert to low case string.
+            </remarks>
+            <param name="name">option name</param>
+            <param name="value">option value of bool</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.String[])">
+            <summary>
+             Append the name and string array value to option string
+            </summary>
+            <param name="name">option name</param>
+            <param name="value">option value of string array</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Int32[])">
+            <summary>
+             Append the name and int array value to option string
+            </summary>
+            <param name="name">option name</param>
+            <param name="value">option value of int array</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Single[])">
+            <summary>
+             Append the name and float array value to option string
+            </summary>
+            <param name="name">option name</param>
+            <param name="value">option value of float array</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AddOption(System.String,System.Enum)">
+            <summary>
+            Append the name and Enum object value to option string
+            </summary>
+            <remarks>
+            the Enum object will be convert to low case string.
+            </remarks>
+            <param name="name">option name</param>
+            <param name="value">option value of Enum object</param>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQueryScriptBuilder.AppendCssStyle(System.Web.UI.Control,System.String[])">
+            <summary>
+            Generate then css style for jQuery object
+            </summary>
+            <param name="control"></param>
+            <param name="styles">
+             sets the style string to jQuery object. this param must be using 'key':'name' format;
+            </param>
+        </member>
+        <member name="F:DNA.UI.JQuery.JQueryEffectMethods.show">
+            <summary>
+            The enhanced show method optionally accepts jQuery UI advanced effects.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Click">
+            <summary>
+            Fires when the user clicks the left mouse button on the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Abort">
+            <summary>
+            Fires when the user aborts the download of an image.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Active">
+            <summary>
+            Fires when the object is set as the active element.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.AfterPrint">
+            <summary>
+            Fires on the object immediately after its associated document prints or previews for printing.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.AfterUpdate">
+            <summary>
+            Fires on a databound object after successfully updating the associated data in the data source object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeActive">
+            <summary>
+            Fires immediately before the object is set as the active element.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeCopy">
+            <summary>
+            Fires on the source object before the selection is copied to the system clipboard.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeCut">
+            <summary>
+            Fires on the source object before the selection is deleted from the document.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeDeactivate">
+            <summary>
+            Fires immediately before the activeElement is changed from the current object to another object in the parent document.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeEditFocus">
+            <summary>
+            Fires before an object contained in an editable element enters a UI-activated state or when an editable container object is control selected.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforePaste">
+            <summary>
+            Fires on the target object before the selection is pasted from the system clipboard to the document.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforePrint">
+            <summary>
+            Fires on the object before its associated document prints or previews for printing.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeUnload">
+            <summary>
+            Fires prior to a page being unloaded.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.BeforeUpdate">
+            <summary>
+            Fires on a databound object before updating the associated data in the data source object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Blur">
+            <summary>
+            Fires when the object loses the input focus.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Bounce">
+            <summary>
+            Fires when the behavior property of the marquee object is set to "alternate" and the contents of the marquee reach one side of the window.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.CellChange">
+            <summary>
+            Fires when data changes in the data provider.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ContextMenu">
+            <summary>
+            Fires when the user clicks the right mouse button in the client area, opening the context menu.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ContorlSelect">
+            <summary>
+            Fires when the user is about to make a control selection of the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Copy">
+            <summary>
+            Fires on the source element when the user copies the object or selection, adding it to the system clipboard.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Cut">
+            <summary>
+            Fires on the source element when the object or selection is removed from the document and added to the system clipboard.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Change">
+            <summary>
+            Fires when the contents of the object or selection have changed.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DblClick">
+            <summary>
+            Fires when the user double-clicks the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DataAvailable">
+            <summary>
+            Fires periodically as data arrives from data source objects that asynchronously transmit their data.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DateSetChanged">
+            <summary>
+            Fires when the data set exposed by a data source object changes.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Deactivate">
+            <summary>
+            Fires when the activeElement is changed from the current object to another object in the parent document.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Drag">
+            <summary>
+            Fires on the source object continuously during a drag operation.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DragEnd">
+            <summary>
+            Fires on the source object when the user releases the mouse at the close of a drag operation.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DragEnter">
+            <summary>
+            Fires on the target element when the user drags the object to a valid drop target.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DragLeave">
+            <summary>
+            Fires on the target object when the user moves the mouse out of a valid drop target during a drag operation.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DragOver">
+            <summary>
+            Fires on the target element continuously while the user drags the object over a valid drop target.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.DragStart">
+            <summary>
+            Fires on the source object when the user starts to drag a text selection or selected object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Drop">
+            <summary>
+            Fires on the target object when the mouse button is released during a drag-and-drop operation.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ErrorUpdate">
+            <summary>
+            Fires on a databound object when an error occurs while updating the associated data in the data source object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Error">
+            <summary>
+            Raised when there is an error that prevents the completion of the cross-domain request.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.FilterChange">
+            <summary>
+            Fires when a visual filter changes state or completes a transition.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Finish">
+            <summary>
+            Fires when marquee looping is complete.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Focus">
+            <summary>
+            Fires when the object receives focus.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.FocusIn">
+            <summary>
+            Fires for an element just prior to setting focus on that element.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.FocusOut">
+            <summary>
+            Fires for the current element with focus immediately after moving focus to another element.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.HashChange">
+            <summary>
+            Raised when there are changes to the portion of a URL that follows the number sign (#).
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Help">
+            <summary>
+            Fires when the user presses the F1 key while the browser is the active window.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.KeyDown">
+            <summary>
+            Fires when the user presses a key.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.KeyPress">
+            <summary>
+            Fires when the user presses an alphanumeric key.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.KeyUp">
+            <summary>
+            Fires when the user releases a key.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Load">
+            <summary>
+            Raised when the object has been completely received from the server.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.LayoutComplete">
+            <summary>
+            Fires when the print or print preview layout process finishes filling the current LayoutRect object with content from the source document.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.LoseCapture">
+            <summary>
+            Fires when the object loses the mouse capture.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Message">
+            <summary>
+            Fires when the user sends a cross-document message with postMessage.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseDown">
+            <summary>
+            Fires when the user clicks the object with either mouse button.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseUp">
+            <summary>
+            Fires when the user releases a mouse button while the mouse is over the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseOver">
+            <summary>
+            Fires when the user moves the mouse pointer into the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseMove">
+            <summary>
+            Fires when the user moves the mouse over the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseOut">
+            <summary>
+            Fires when the user moves the mouse pointer outside the boundaries of the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseLeave">
+            <summary>
+            Fires when the user moves the mouse pointer outside the boundaries of the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MouseWheel">
+            <summary>
+            Fires when the wheel button is rotated.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Move">
+            <summary>
+            Fires when the object moves.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MoveEnd">
+            <summary>
+            Fires when the object stops moving.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.MoveStart">
+            <summary>
+            Fires when the object starts to move.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Offline">
+            <summary>
+            Raised when Windows Internet Explorer is working offline.(IE Only)
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Online">
+            <summary>
+            Raised when Internet Explorer is working online.(IE Only)
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Paste">
+            <summary>
+            Fires on the target object when the user pastes data, transferring the data from the system clipboard to the document.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Progress">
+            <summary>
+            Raised when the browser starts receiving data from the server.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ProgressChange">
+            <summary>
+            Fires when a property changes on the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ReadStateChange">
+            <summary>
+            Sets or retrieves the event handler for asynchronous requests.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Reset">
+            <summary>
+            Fires when the user resets a form.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Resize">
+            <summary>
+            Fires when the size of the object is about to change.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ResizeEnd">
+            <summary>
+            Fires when the user finishes changing the dimensions of the object in a control selection.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.ResizeStart">
+            <summary>
+            Fires when the user begins to change the dimensions of the object in a control selection.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.RowEnter">
+            <summary>
+            Fires to indicate that the current row has changed in the data source and new data values are available on the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.RowExit">
+            <summary>
+            Fires just before the data source control changes the current row in the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.RowsDelete">
+            <summary>
+            Fires when rows are about to be deleted from the recordset.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.RowsInstered">
+            <summary>
+            Fires just after new rows are inserted in the current recordset.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Scroll">
+            <summary>
+            Fires when the user repositions the scroll box in the scroll bar on the object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Select">
+            <summary>
+            Fires when the current selection changes.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.SelectionChange">
+            <summary>
+            Fires when the selection state of a document changes.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.SelectStart">
+            <summary>
+            Fires when the object is being selected.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Start">
+            <summary>
+            Fires at the beginning of every loop of the marquee object.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Stop">
+            <summary>
+            Fires when the user clicks the Stop button or leaves the Web page.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Storage">
+            <summary>
+            Fires when a DOM Storage area is updated.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.StorageCommit">
+            <summary>
+            Fires when a local DOM Storage area is written to disk.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Submit">
+            <summary>
+            Fires when a FORM is about to be submitted.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.Unload">
+            <summary>
+            Fires immediately before the object is unloaded.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.DomEvents.TimeOut">
+            <summary>
+            Raised when there is an error that prevents the completion of the request.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.ClientScriptManager.AddCompositeScript(System.Web.UI.Control,System.String,System.String)">
+            <summary>
+            This method will add the scripts to ScriptMaanger.CompositeScript
+            </summary>
+            <param name="control"></param>
+            <param name="assembly"></param>
+            <param name="scriptResource"></param>
+        </member>
+        <member name="M:DNA.UI.ClientScriptManager.FindControl(System.Web.UI.Control,System.String)">
+            <summary>
+            Find the control instance in page
+            </summary>
+            <param name="container"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DNA.UI.NameValueAttribute">
+            <summary>
+             Name Value pair attribute object
+            </summary>
+        </member>
+        <member name="P:DNA.UI.NameValueAttribute.Name">
+            <summary>
+            Gets/Sets the name of the attribute
+            </summary>
+        </member>
+        <member name="P:DNA.UI.NameValueAttribute.Value">
+            <summary>
+            Gets/Sets the value of the attribute
+            </summary>
+        </member>
+    </members>
+</doc>
