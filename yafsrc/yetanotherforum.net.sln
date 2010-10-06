@@ -20,6 +20,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Core", "YAF.Cla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF", "YetAnotherForum.NET\YAF.csproj", "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNA Controls", "DNA Controls", "{C38E8E75-464D-47D8-AA1F-4EEDBFD8A81E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNA", "DNA jQuery Web Controls\DNA\DNA.csproj", "{5418193D-42DB-4D27-B795-9C9D79ED5018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNA.UI.JQuery", "DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj", "{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jQueryNet", "DNA jQuery Web Controls\jQuery\jQueryNet.csproj", "{96818757-3B53-48AE-96A0-74D2A1C0870D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,8 +116,37 @@ Global
 		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Release|Any CPU.Build.0 = Release NET v3.5|Any CPU
 		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Release|Mixed Platforms.ActiveCfg = Release NET v3.5|Any CPU
 		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Release|Mixed Platforms.Build.0 = Release NET v3.5|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5418193D-42DB-4D27-B795-9C9D79ED5018}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{96818757-3B53-48AE-96A0-74D2A1C0870D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5418193D-42DB-4D27-B795-9C9D79ED5018} = {C38E8E75-464D-47D8-AA1F-4EEDBFD8A81E}
+		{EC9963C8-76A6-46B3-857C-531B0C4DE2D2} = {C38E8E75-464D-47D8-AA1F-4EEDBFD8A81E}
+		{96818757-3B53-48AE-96A0-74D2A1C0870D} = {C38E8E75-464D-47D8-AA1F-4EEDBFD8A81E}
 	EndGlobalSection
 EndGlobal
