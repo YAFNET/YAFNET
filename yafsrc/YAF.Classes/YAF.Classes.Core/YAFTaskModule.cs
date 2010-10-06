@@ -16,64 +16,81 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System;
+  using System.Collections.Generic;
+  using System.Diagnostics;
+  using System.Linq;
+  using System.Web;
+
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Runs Tasks in the background -- controlled by the context.
   /// </summary>
   public class YafTaskModule : IHttpModule
   {
-    /// <summary>
-    /// The _module app name.
-    /// </summary>
-    private const string _moduleAppName = "YafTaskModule";
+    #region Constants and Fields
 
     /// <summary>
-    /// The _app instance.
+    ///   The _app instance.
     /// </summary>
     protected static HttpApplication _appInstance;
 
     /// <summary>
-    /// The _lock object.
+    ///   The _lock object.
     /// </summary>
     protected static object _lockObject = new object();
 
     /// <summary>
-    /// The _lock task manager object.
+    ///   The _lock task manager object.
     /// </summary>
     protected static object _lockTaskManagerObject = new object();
 
     /// <summary>
-    /// The _module initialized.
+    ///   The _module initialized.
     /// </summary>
     protected static bool _moduleInitialized;
 
     /// <summary>
-    /// The _task manager.
+    ///   The _task manager.
     /// </summary>
     protected static Dictionary<string, IBackgroundTask> _taskManager = new Dictionary<string, IBackgroundTask>();
 
     /// <summary>
-    /// Current Page Instance of the Module Manager
+    ///   The _module app name.
     /// </summary>
-    public Dictionary<string, IBackgroundTask> TaskManager
+    private const string _moduleAppName = "YafTaskModule";
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets Current.
+    /// </summary>
+    [CanBeNull]
+    public static YafTaskModule Current
     {
       get
       {
-        return _taskManager;
+        if (YafContext.Application[_moduleAppName] != null)
+        {
+          return YafContext.Application[_moduleAppName] as YafTaskModule;
+        }
+
+        return null;
       }
     }
 
     /// <summary>
-    /// Gets TaskCount.
+    ///   Gets TaskCount.
     /// </summary>
     public int TaskCount
     {
@@ -84,8 +101,35 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets TaskManagerSnapshot.
+    ///   Current Page Instance of the Module Manager
     /// </summary>
+    public Dictionary<string, IBackgroundTask> TaskManager
+    {
+      get
+      {
+        return _taskManager;
+      }
+    }
+
+    /// <summary>
+    ///   All the names of tasks running.
+    /// </summary>
+    [NotNull]
+    public List<string> TaskManagerInstances
+    {
+      get
+      {
+        lock (_lockTaskManagerObject)
+        {
+          return this.TaskManager.Keys.ToList();
+        }
+      }
+    }
+
+    /// <summary>
+    ///   Gets TaskManagerSnapshot.
+    /// </summary>
+    [NotNull]
     public Dictionary<string, IBackgroundTask> TaskManagerSnapshot
     {
       get
@@ -101,37 +145,122 @@ namespace YAF.Classes.Core
       }
     }
 
+    #endregion
+
+    #region Public Methods
+
     /// <summary>
-    /// All the names of tasks running.
+    /// Check if a Task is Running.
     /// </summary>
-    public List<string> TaskManagerInstances
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// The is task running.
+    /// </returns>
+    public bool IsTaskRunning([NotNull] string instanceName)
     {
-      get
+      lock (_lockTaskManagerObject)
       {
-        lock (_lockTaskManagerObject)
+        if (this.TaskManager.ContainsKey(instanceName) && this.TaskManager[instanceName].IsRunning)
         {
-          return TaskManager.Keys.ToList();
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
+    /// </summary>
+    /// <param name="instanceName">
+    /// Unique name of this task
+    /// </param>
+    /// <param name="start">
+    /// Task to run
+    /// </param>
+    public void StartTask([NotNull] string instanceName, [NotNull] IBackgroundTask start)
+    {
+      if (_moduleInitialized)
+      {
+        // add and start this module...
+        if (!start.IsRunning && !this.TaskExists(instanceName))
+        {
+          Debug.WriteLine("Starting Task {0} Under User {1}...".FormatWith(instanceName, Environment.UserName));
+
+          // setup and run...
+          start.AppContext = _appInstance;
+          start.Run();
+
+          // add it after so that IsRunning is set first...
+          this.AddTask(instanceName, start);
         }
       }
     }
 
     /// <summary>
-    /// Gets Current.
+    /// Stops a task from running if it's not critical
     /// </summary>
-    public static YafTaskModule Current
+    /// <param name="instanceName">
+    /// </param>
+    public void StopTask([NotNull] string instanceName)
     {
-      get
+      if (_moduleInitialized)
       {
-        if (YafContext.Application[_moduleAppName] != null)
-        {
-          return YafContext.Application[_moduleAppName] as YafTaskModule;
-        }
+        var task = this.TryGetTask(instanceName);
 
-        return null;
+        if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
+        {
+          if (this.TryRemoveTask(instanceName))
+          {
+            Debug.WriteLine("Stopped Task {0}...".FormatWith(instanceName));
+            task.Dispose();
+          }
+        }
       }
     }
 
-    #region IHttpModule Members
+    /// <summary>
+    /// Check if a task exists in the task manager. May not be running.
+    /// </summary>
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// The task exists.
+    /// </returns>
+    public bool TaskExists([NotNull] string instanceName)
+    {
+      lock (_lockTaskManagerObject)
+      {
+        return this.TaskManager.ContainsKey(instanceName);
+      }
+    }
+
+    /// <summary>
+    /// Attempt to get the instance of the task.
+    /// </summary>
+    /// <param name="instanceName">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public IBackgroundTask TryGetTask([NotNull] string instanceName)
+    {
+      lock (_lockTaskManagerObject)
+      {
+        if (this.TaskManager.ContainsKey(instanceName))
+        {
+          return this.TaskManager[instanceName];
+        }
+      }
+
+      return null;
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IHttpModule
 
     /// <summary>
     /// The i http module. dispose.
@@ -146,7 +275,7 @@ namespace YAF.Classes.Core
     /// <param name="httpApplication">
     /// The http application.
     /// </param>
-    void IHttpModule.Init(HttpApplication httpApplication)
+    void IHttpModule.Init([NotNull] HttpApplication httpApplication)
     {
       if (!_moduleInitialized)
       {
@@ -163,76 +292,19 @@ namespace YAF.Classes.Core
             _moduleInitialized = true;
 
             // create intermittent cleanup task...
-            StartTask(
-              "CleanUpTask", 
-              new CleanUpTask
-                {
-                  Module = this
-                });
+            this.StartTask("CleanUpTask", new CleanUpTask { Module = this });
           }
         }
- // now lock is released and the static variable is true..
+
+        // now lock is released and the static variable is true..
       }
     }
 
     #endregion
 
-    /// <summary>
-    /// Attempt to get the instance of the task.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public IBackgroundTask TryGetTask(string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        if (TaskManager.ContainsKey(instanceName))
-        {
-          return TaskManager[instanceName];
-        }
-      }
+    #endregion
 
-      return null;
-    }
-
-    /// <summary>
-    /// Check if a task exists in the task manager. May not be running.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// The task exists.
-    /// </returns>
-    public bool TaskExists(string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        return TaskManager.ContainsKey(instanceName);
-      }
-    }
-
-    /// <summary>
-    /// Check if a Task is Running.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// The is task running.
-    /// </returns>
-    public bool IsTaskRunning(string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        if (TaskManager.ContainsKey(instanceName) && TaskManager[instanceName].IsRunning)
-        {
-          return true;
-        }
-      }
-
-      return false;
-    }
+    #region Methods
 
     /// <summary>
     /// The try remove task.
@@ -243,13 +315,13 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The try remove task.
     /// </returns>
-    internal bool TryRemoveTask(string instanceName)
+    internal bool TryRemoveTask([NotNull] string instanceName)
     {
       lock (_lockTaskManagerObject)
       {
-        if (TaskManager.ContainsKey(instanceName))
+        if (this.TaskManager.ContainsKey(instanceName))
         {
-          TaskManager.Remove(instanceName);
+          this.TaskManager.Remove(instanceName);
           return true;
         }
       }
@@ -266,68 +338,21 @@ namespace YAF.Classes.Core
     /// <param name="newTask">
     /// The new task.
     /// </param>
-    protected void AddTask(string instanceName, IBackgroundTask newTask)
+    protected void AddTask([NotNull] string instanceName, [NotNull] IBackgroundTask newTask)
     {
       lock (_lockTaskManagerObject)
       {
-        if (!TaskManager.ContainsKey(instanceName))
+        if (!this.TaskManager.ContainsKey(instanceName))
         {
-          TaskManager.Add(instanceName, newTask);
+          this.TaskManager.Add(instanceName, newTask);
         }
         else
         {
-          TaskManager[instanceName] = newTask;
+          this.TaskManager[instanceName] = newTask;
         }
       }
     }
 
-    /// <summary>
-    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
-    /// </summary>
-    /// <param name="instanceName">
-    /// Unique name of this task
-    /// </param>
-    /// <param name="start">
-    /// Task to run
-    /// </param>
-    public void StartTask(string instanceName, IBackgroundTask start)
-    {
-      if (_moduleInitialized)
-      {
-        // add and start this module...
-        if (!start.IsRunning && !TaskExists(instanceName))
-        {
-          Debug.WriteLine("Starting Task {0}...".FormatWith(instanceName));
-
-          // setup and run...
-          start.AppContext = _appInstance;
-          start.Run();
-
-          // add it after so that IsRunning is set first...
-          AddTask(instanceName, start);
-        }
-      }
-    }
-
-    /// <summary>
-    /// Stops a task from running if it's not critical
-    /// </summary>
-    /// <param name="instanceName"></param>
-    public void StopTask(string instanceName)
-    {
-      if (_moduleInitialized)
-      {
-        var task = this.TryGetTask(instanceName);
-
-        if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
-        {
-          if (this.TryRemoveTask(instanceName))
-          {
-            Debug.WriteLine("Stopped Task {0}...".FormatWith(instanceName));
-            task.Dispose();
-          }
-        }
-      }      
-    }
+    #endregion
   }
 }

@@ -16,28 +16,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Diagnostics;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System;
+  using System.Diagnostics;
+
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// Sends Email in the background.
   /// </summary>
   public class MailSendTask : IntermittentBackgroundTask
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _send mail threaded.
+    ///   The _send mail threaded.
     /// </summary>
     protected YafSendMailThreaded _sendMailThreaded = new YafSendMailThreaded();
 
     /// <summary>
-    /// The _unique id.
+    ///   The _unique id.
     /// </summary>
-    protected int _uniqueId = 0;
+    protected int _uniqueId;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MailSendTask"/> class.
+    ///   Initializes a new instance of the <see cref = "MailSendTask" /> class.
     /// </summary>
     public MailSendTask()
     {
@@ -46,19 +58,25 @@ namespace YAF.Classes.Core
       this._uniqueId = rand.Next();
 
       // set interval values...
-      RunPeriodMs = (rand.Next(10) + 5)*1000;
-      StartDelayMs = (rand.Next(10) + 5)*1000;
+      this.RunPeriodMs = (rand.Next(10) + 5) * 1000;
+      this.StartDelayMs = (rand.Next(10) + 5) * 1000;
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The run once.
     /// </summary>
     public override void RunOnce()
     {
-      Debug.WriteLine("Running Send Mail Thread...");
+      Debug.WriteLine("Running Send Mail Thread Under {0}...".FormatWith(Environment.UserName));
 
       // send thread handles it's own exception...
       this._sendMailThreaded.SendThreaded(this._uniqueId);
     }
+
+    #endregion
   }
 }

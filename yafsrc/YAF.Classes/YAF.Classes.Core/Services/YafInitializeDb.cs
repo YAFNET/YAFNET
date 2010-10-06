@@ -16,21 +16,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System.Web;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The yaf initialize db.
   /// </summary>
   public class YafInitializeDb : BaseYafService
   {
+    #region Properties
+
     /// <summary>
-    /// Gets InitVarName.
+    ///   Gets InitVarName.
     /// </summary>
+    [NotNull]
     protected override string InitVarName
     {
       get
@@ -38,6 +46,10 @@ namespace YAF.Classes.Core
         return "YafInitializeDb_Init";
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The run service.
@@ -55,22 +67,27 @@ namespace YAF.Classes.Core
       debugging = true;
 #endif
 
-      // attempt to init the db...
-      if (!DB.forumpage_initdb(out errorStr, debugging))
+      if (HttpContext.Current != null)
       {
-        // unable to connect to the DB...
-        HttpContext.Current.Session["StartupException"] = errorStr;
-        HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
-      }
+        // attempt to init the db...
+        if (!DB.forumpage_initdb(out errorStr, debugging))
+        {
+          // unable to connect to the DB...
+          HttpContext.Current.Session["StartupException"] = errorStr;
+          HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+        }
 
-      // step 2: validate the database version...
-      string redirectStr = DB.forumpage_validateversion(YafForumInfo.AppVersion);
-      if (redirectStr.IsSet())
-      {
-        HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
+        // step 2: validate the database version...
+        string redirectStr = DB.forumpage_validateversion(YafForumInfo.AppVersion);
+        if (redirectStr.IsSet())
+        {
+          HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
+        }
       }
 
       return true;
     }
+
+    #endregion
   }
 }

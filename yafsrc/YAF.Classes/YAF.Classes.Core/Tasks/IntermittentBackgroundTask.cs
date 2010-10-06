@@ -19,6 +19,7 @@
 namespace YAF.Classes.Core
 {
   using System;
+  using System.Security.Principal;
   using System.Threading;
 
   /// <summary>
@@ -40,6 +41,8 @@ namespace YAF.Classes.Core
     /// The _start delay ms.
     /// </summary>
     private long _startDelayMs;
+
+    private WindowsIdentity _primaryThreadIdentity;
 
     /// <summary>
     /// Gets or sets StartDelayMs.
@@ -91,6 +94,9 @@ namespace YAF.Classes.Core
       {
         YafContext.Application = this.AppContext.Application;
 
+        // keep the context...
+        this._primaryThreadIdentity = WindowsIdentity.GetCurrent();
+
         // we're running this thread now...
         this.IsRunning = true;
 
@@ -109,6 +115,13 @@ namespace YAF.Classes.Core
     {
       if (Monitor.TryEnter(this))
       {
+        WindowsImpersonationContext impersonationContext = null;
+
+        if (this._primaryThreadIdentity != null)
+        {
+          impersonationContext = this._primaryThreadIdentity.Impersonate();
+        }
+
         try
         {
           this.RunOnce();
@@ -116,6 +129,11 @@ namespace YAF.Classes.Core
         finally
         {
           Monitor.Exit(this);
+
+          if (impersonationContext != null)
+          {
+            impersonationContext.Undo();
+          }
         }
       }
     }
