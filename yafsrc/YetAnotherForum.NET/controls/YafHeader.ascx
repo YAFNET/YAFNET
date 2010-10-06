@@ -91,7 +91,7 @@
     <div class="menuContainer">
         <ul class="menuList">
            <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.forum) %>">
-                Forum</a> </li>
+                 <%=this.PageContext.Localization.GetText("DEFAULT", "FORUM")%></a> </li>
            <%if (this.PageContext.IsGuest)
               {%>
              <li class="menuGeneral"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.mytopics) %>">

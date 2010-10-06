@@ -171,7 +171,7 @@ namespace YAF.Classes.Core
         this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
         this.ImageUrl = new Uri("{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
-        this.Id = "urn:uri:{0}".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)));
+        this.Id = System.Web.HttpUtility.UrlPathEncode(YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)));
         // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
         this.BaseUri = new Uri(YafContext.Current.CurrentForumPage.ForumURL);
         this.Authors.Add(new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl));
