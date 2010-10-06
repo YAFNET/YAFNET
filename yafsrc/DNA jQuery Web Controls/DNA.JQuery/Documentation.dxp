@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DocumentXProject Version="5.0" CompileHelpFile="True" RefreshIfExists="False" DocumentSourceCode="False" AlwaysCopySupportFiles="True" PropertyCommentsFrom="0" RelationshipsFrom="2" DefaultRelsOnlyForCollections="True" ProjectGroupName="" HTMLHelpVersion="1" HHNamespace="DNA" HHIdentifier="" H2PlugIn="False" H2PlugInNamespace="" LocaleID="0" ExcludeFiltersRegExp="False" OutputFileExtension=".html">
+    <OutputLocation OutputFolder="..\Documents\" HelpFileName="..\DNA\bin\Debug\DNA.chm" UseFilenameAliases="False" StripMetadata="False" ClearBeforeBuild="True" RemoveOutputFilesAfterCompile="False"/>
+    <HTMLHelpOptions UseALinkMenus="False"/>
+    <OtherOptions CreateContextLinks="True" WriteHelpDescriptions="True" CopySourceCode="False" CreateWinHelpStub="False" Language="English"/>
+    <IncludeFilters IncludePrivate="False" IncludeFriend="False" IncludeProtected="True" IdentifyVisibility="False">
+        <Namespaces>
+            <Property Name="DX.NET:Method">True</Property>
+            <Property Name="DX.NET:Property">True</Property>
+            <Property Name="DX.NET:Field">True</Property>
+            <Property Name="DX.NET:Event">True</Property>
+            <Property Name="DX.NET:Constructor">True</Property>
+            <Property Name="DX.NET:Operator">True</Property>
+        </Namespaces>
+    </IncludeFilters>
+    <CommentExtraction UnTaggedBlocks="False" UnTaggedEnumerations="False" UnTaggedEvents="False" UnTaggedModules="False" UnTaggedUDTs="False" UnTaggedVariables="False" HelpDescriptionImport="1"/>
+    <Diagrams PageNestingLevels="2" OverviewNestingLevels="3" SupressSingleObjectDiagrams="True" DiagramStyleSource="0" ObjFillColor="0" ObjTextColor="0" ObjBorderColor="0" ColFillColor="0" ColTextColor="0" ColBorderColor="0" UseDropShadow="False" CenterCaptions="False" DiagramBold="False" BorderWidth="0" UseDiagramShapes="False"/>
+    <VariableValues>
+        <VariableValue Name="IsNewDate" Value="2009/6/2"/>
+        <VariableValue Name="CopyrightNotice" Value="@copyright 2009 Ray Liang (http://www.dotnetage.com)"/>
+        <VariableValue Name="FeedbackLink" Value="&lt;a href=&quot;mailto:support@company.com?subject=Documentation Feedback: %%FileName%%&quot;&gt;Send Feedback&lt;/a&gt;"/>
+    </VariableValues>
+    <AdditionalFiles/>
+    <ModelComments/>
+    <IgnoreRelationships/>
+    <NamespaceExclusions>
+        <e>DNA.UI.JQuery~DNA.UI.JQuery.Design.LanguageDropDownEditor+LanguageListBox</e>
+        <e>DNA.UI.JQuery~DNA.UI.JQuery.Design.DateFormatEditor+DateFormatListBox</e>
+        <e>DNA.UI.JQuery~DNA.UI.JQuery.Design.TabDesignerActionList</e>
+        <e>DNA.UI.JQuery~DNA.UI.JQuery.Design.AccordionDesignerActionList</e>
+        <e>DNA.UI.JQuery~DNA.UI.JQuery.Design.AccordionAnimationEditor+AnimationListBox</e>
+        <e>DNA.UI.JQuery~__Delegates</e>
+        <e>DNA.UI.JQuery~DNA.UI.JQuery.Design.AnimationForShowEditor+AnimationsListBox</e>
+    </NamespaceExclusions>
+    <DotNetProperties IncludeRelationshipDiagrams="True" IncludeInheritanceHierarchies="True" IncludeBaseMembers="False" StandardInterfaces="System.*,Microsoft.*" OnlyLinkInherited="True" ExternalDocs="True" UseCommentFiles="True" DrillCommentFiles="True" GenerateXMLLinks="False" XMLIsland="" NoInheritedTopics="True" NoInheritedInLists="False" CreateXMLCommentFile="True" ExcludedLanguages="Delphi,JScript,Ajax,Ajax_Usage" GenerateAttributes="True" AttributeFilter="" AttributeFilterInclude="False" VBNETDefaultConstructor="False" LinkOverridenMembersToBaseImplementation="False" UseOverloadSummaryForMasterSummary="True" ExcludeEditorBrowsable="True" GenerateBreadCrumbs="True" IncludeAssemblyBreadCrumb="False"/>
+    <DatabaseProperties DocumentViewSource="True" DocumentTriggerSource="True" DocumentProcedureSource="True" RetainTaggedComments="False"/>
+    <XSDProperties UseCustomSettings="False" PageNestingLevels="2" SuppressSingleObjectDiagrams="True" ElementFillColor="15780518" ElementTextColor="0" ElementBorderColor="10789024" ElementBorders="True" ElementRefFillColor="12648447" ElementRefTextColor="0" ElementRefBorderColor="10789024" ElementRefBorders="True" ComplexTypeFillColor="15780518" ComplexTypeTextColor="0" ComplexTypeBorderColor="10789024" ComplexTypeBorders="True" AnyFillColor="13421772" AnyTextColor="0" AnyBorderColor="10789024" AnyBorders="True" NotationTextColor="8421504" RootLinesColor="10789024" DropShadows="False" BoldCaptions="True" GroupParticleSequenceImageFilename="C:\Program Files\Innovasys\documentx5\Configuration\Templates\XMLSchema\xDiagramImages\sequence.gif" GroupParticleChoiceImageFilename="C:\Program Files\Innovasys\documentx5\Configuration\Templates\XMLSchema\xDiagramImages\choice.gif" GroupParticleAllImageFilename="C:\Program Files\Innovasys\documentx5\Configuration\Templates\XMLSchema\xDiagramImages\all.gif"/>
+    <CommentFiles>
+        <CommentFile FileName="DNA.dxc" DocType="dx.net" ItemMoniker="..\DNA\bin\Debug\DNA.dll"/>
+        <CommentFile FileName="DNA.UI.JQuery.dxc" DocType="dx.net" ItemMoniker="bin\Debug\DNA.UI.JQuery.dll"/>
+    </CommentFiles>
+    <CommunityExtensions CommunityProjectKey="" Enabled="false" ServerType="0" URL="" HostingId="" UseLocalProxyURL="false" LocalProxyURL=""/>
+    <DocType Name="dx.net" Template="Visual Studio 2008 Style" UseHelpTemplates="False">
+        <TOCSource TOCSource="0" SpecificTOCName=""/>
+        <ModelCommentProfile Version="6.0" Namespace="dx.net" Name="" Description=""/>
+    </DocType>
+    <NetAssemblies RootAssemblyName="">
+        <Assembly Version="5.0" FileName="..\DNA\bin\Debug\DNA.dll" mRootModule="" AssemblyName="DNA" AssemblyType="1" ExamplesOnly="False" LoadIncludeFilter="" LoadExcludeFilter="" LoadPrivateItems="True"/>
+        <Assembly Version="5.0" FileName="bin\Debug\DNA.UI.JQuery.dll" mRootModule="" AssemblyName="DNA.UI.JQuery" AssemblyType="1" ExamplesOnly="False" LoadIncludeFilter="" LoadExcludeFilter="" LoadPrivateItems="True"/>
+    </NetAssemblies>
+    <PropertyBag/>
+</DocumentXProject>

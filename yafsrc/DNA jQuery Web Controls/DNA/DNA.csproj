@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5418193D-42DB-4D27-B795-9C9D79ED5018}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DNA</RootNamespace>
+    <AssemblyName>DNA</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DNA.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="jQueryNet, Version=1.3.2.0, Culture=neutral, PublicKeyToken=39745d972c57ba6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\jQueryNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\CallBackMethodAttribute.cs" />
+    <Compile Include="Attributes\ClientPropertyAttribute.cs" />
+    <Compile Include="Attributes\ScriptReferenceAttribute.cs" />
+    <Compile Include="CollapsablePanel.cs" />
+    <Compile Include="DomEvents.cs" />
+    <Compile Include="EasingMethods.cs" />
+    <Compile Include="Enums\ClientPropertyTypes.cs" />
+    <Compile Include="Enums\ClientRegisterEvents.cs" />
+    <Compile Include="FilterControlBuilder.cs" />
+    <Compile Include="IScriptBuilder.cs" />
+    <Compile Include="ItemCollectionEditor.cs" />
+    <Compile Include="JavaScriptTypes.cs" />
+    <Compile Include="JQueryAttribute.cs" />
+    <Compile Include="JQueryEffectMethods.cs" />
+    <Compile Include="JQueryEffects.cs" />
+    <Compile Include="JQueryOptionAttribute.cs" />
+    <Compile Include="JQueryOptionTypes.cs" />
+    <Compile Include="JQueryScriptBuilder.cs" />
+    <Compile Include="JQuerySelector.cs" />
+    <Compile Include="MultiJQueryScriptBuilder.cs" />
+    <Compile Include="NameValueAttribute.cs" />
+    <Compile Include="NameValueAttributeCollection.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClientScriptManager.cs" />
+    <Compile Include="ScriptBuilder.cs" />
+    <Compile Include="SimpleButton.cs" />
+    <Compile Include="SimpleListItem.cs" />
+    <Compile Include="SimpleListItemContainer.cs" />
+    <Compile Include="SimpleListView.cs" />
+    <Compile Include="Speeds.cs" />
+    <Compile Include="StateManagedObject.cs" />
+    <Compile Include="StateManagedObjectCollection.cs" />
+    <Compile Include="TypeCode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientScripts\CallBack.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DNA.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

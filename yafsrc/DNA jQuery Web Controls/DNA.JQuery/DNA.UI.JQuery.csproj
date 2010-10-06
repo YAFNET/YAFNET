@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DNA.UI.JQuery</RootNamespace>
+    <AssemblyName>DNA.UI.JQuery</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DNA.UI.JQuery.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="jQueryNet, Version=1.3.2.0, Culture=neutral, PublicKeyToken=39745d972c57ba6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\jQueryNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accordion\Accordion.cs" />
+    <Compile Include="Accordion\CollapseAnimations.cs" />
+    <Compile Include="Accordion\AccordionSizeModes.cs" />
+    <Compile Include="Accordion\NavItemEventArgs.cs" />
+    <Compile Include="Animation\Animate.cs" />
+    <Compile Include="Animation\FadeTo.cs" />
+    <Compile Include="Animation\FadeIn.cs" />
+    <Compile Include="Animation\FadeOut.cs" />
+    <Compile Include="Animation\Move.cs" />
+    <Compile Include="Animation\Resize.cs" />
+    <Compile Include="DraggableBase.cs" />
+    <Compile Include="DraggingOrientation.cs" />
+    <Compile Include="Containers.cs" />
+    <Compile Include="Design\AccordionAnimationEditor.cs" />
+    <Compile Include="Design\AccordionDesigner.cs" />
+    <Compile Include="Design\AccordionDesignerActionList.cs" />
+    <Compile Include="Accordion\NavItem.cs" />
+    <Compile Include="Accordion\NavItemCollection.cs" />
+    <Compile Include="Design\AnimationForShowEditor.cs" />
+    <Compile Include="Design\DateFormatEditor.cs" />
+    <Compile Include="Design\DatePickerDesigner.cs" />
+    <Compile Include="Design\LanguageDropDownEditor.cs" />
+    <Compile Include="Design\NavItemCollectionEditor.cs" />
+    <Compile Include="Accordion\NavView.cs" />
+    <Compile Include="Animation\Animation.cs" />
+    <Compile Include="Animation\AnimationAttribute.cs" />
+    <Compile Include="Animation\AnimationAttributeNames.cs" />
+    <Compile Include="Design\NoneUIControlDesigner.cs" />
+    <Compile Include="DatePicker\DateIconShowModes.cs" />
+    <Compile Include="DatePicker\DateName.cs" />
+    <Compile Include="DatePicker\DatePickerDisplayModes.cs" />
+    <Compile Include="Design\TabDesignerActionList.cs" />
+    <Compile Include="Dialog\DialogButton.cs" />
+    <Compile Include="Dialog\DialogButtons.cs" />
+    <Compile Include="Design\DialogDesigner.cs" />
+    <Compile Include="Dialog\DialogIcons.cs" />
+    <Compile Include="Dialog\DialogPositions.cs" />
+    <Compile Include="Draggable\Draggable.cs" />
+    <Compile Include="Draggable\DragHelpers.cs" />
+    <Compile Include="Draggable\SnapModes.cs" />
+    <Compile Include="Droppable\Droppable.cs" />
+    <Compile Include="Droppable\DroppableTolerances.cs" />
+    <Compile Include="EffectBase.cs" />
+    <Compile Include="Effect\Effect.cs" />
+    <Compile Include="JQueryMultiViewControl.cs" />
+    <Compile Include="JQueryPlugin\JQueryOption.cs" />
+    <Compile Include="JQueryPlugin\JQueryPlugin.cs" />
+    <Compile Include="DatePicker\DatePicker.cs" />
+    <Compile Include="Dialog\Dialog.cs" />
+    <Compile Include="Progressbar\Progressbar.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resizable\Resizable.cs" />
+    <Compile Include="Reverts.cs" />
+    <Compile Include="Selectable\SelectableTolerances.cs" />
+    <Compile Include="Selectable\Selectable.cs" />
+    <Compile Include="Slider\Slider.cs" />
+    <Compile Include="Slider\SliderRanges.cs" />
+    <Compile Include="Sortable\Sortable.cs" />
+    <Compile Include="Sortable\SortableTolerances.cs" />
+    <Compile Include="Tabs\Tabs.cs" />
+    <Compile Include="Design\TabsDesigner.cs" />
+    <Compile Include="View.cs" />
+    <Compile Include="ViewCollection.cs" />
+    <Compile Include="Design\ViewDesigner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DNA\DNA.csproj">
+      <Project>{5418193D-42DB-4D27-B795-9C9D79ED5018}</Project>
+      <Name>DNA</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Accordion\Accordion.ico" />
+    <EmbeddedResource Include="Dialog\Dialog.ico" />
+    <EmbeddedResource Include="DatePicker\DatePicker.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JQueryPlugin\JQueryPlugin.ico" />
+    <EmbeddedResource Include="Progressbar\Progressbar.ico" />
+    <EmbeddedResource Include="Slider\Slider.ico" />
+    <EmbeddedResource Include="DatePicker\DatePicker.gif" />
+    <EmbeddedResource Include="Effect\Effect.ico" />
+    <EmbeddedResource Include="Animation\Animation.ico" />
+    <EmbeddedResource Include="Accordion\NavView.ico" />
+    <EmbeddedResource Include="Tabs\Tabs.ico" />
+    <EmbeddedResource Include="View.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DatePicker\DatePicker.cd" />
+    <None Include="DJ.pfx" />
+    <None Include="Documentation.dxp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dialog\Error.gif" />
+    <EmbeddedResource Include="Dialog\Info.gif" />
+    <EmbeddedResource Include="Dialog\Question.gif" />
+    <EmbeddedResource Include="Dialog\Stop.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Draggable\Draggable.ico" />
+    <EmbeddedResource Include="Droppable\Droppable.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resizable\Resizable.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sortable\Sortable.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Selectable\Selectable.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

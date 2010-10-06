@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{96818757-3B53-48AE-96A0-74D2A1C0870D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>jQueryNet</RootNamespace>
+    <AssemblyName>jQueryNet</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Res.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ar.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\bg.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ca.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\cs.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\da.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\de.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\el.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\eo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\es.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\fa.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\fi.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\fr.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\he.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\hr.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\hu.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\hy.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\id.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\is.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\it.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ja.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ko.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\lt.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\lv.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ms.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\nl.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\no.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\pl.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\pt-BR.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ro.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\ru.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\sk.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\sl.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\sq.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\sv.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\th.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\tr.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\uk.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\zh-CN.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lang\zh-TW.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\tabs.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\blind.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\bounce.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\clip.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\core.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\drop.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\explode.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\fold.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\highlight.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\pulsate.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\scale.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\shake.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\slide.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="effects\transfer.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="core.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\bgiframe.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\cookie.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\easing.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\lightbox.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\simulate.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\all.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\jsdiff.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\testrunner.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\accordion.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\core.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\datepicker.loc.all.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\dialog.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\draggable.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\droppable.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\progressbar.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\resizable.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\selectable.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\slider.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ui\sortable.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jQuery.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\pngFix.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="plugins\easing.1.3.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lang\af.js" />
+    <Content Include="lang\az.js" />
+    <Content Include="lang\bs.js" />
+    <Content Include="lang\en-GB.js" />
+    <Content Include="lang\et.js" />
+    <Content Include="lang\eu.js" />
+    <Content Include="lang\fo.js" />
+    <Content Include="lang\fr-CH.js" />
+    <Content Include="lang\sr-SR.js" />
+    <Content Include="lang\sr.js" />
+    <Content Include="lang\ta.js" />
+    <Content Include="lang\vi.js" />
+    <Content Include="lang\zh-HK.js" />
+    <Content Include="ui\autocomplete.js" />
+    <Content Include="ui\button.js" />
+    <EmbeddedResource Include="ui\datepicker.js" />
+    <Content Include="ui\mouse.js" />
+    <Content Include="ui\position.js" />
+    <Content Include="ui\widget.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
