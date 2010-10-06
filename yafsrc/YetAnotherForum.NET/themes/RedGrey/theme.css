@@ -307,6 +307,7 @@ border-bottom-left-radius:0.3em;}
 .yafnet .fileattach {
 	padding: 4px;
 	border: 1px solid #110000;
+	border-left: 4px solid blue;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
@@ -358,6 +359,7 @@ border-bottom-left-radius:0.3em;}
 .yafnet .quote {
   padding: 4px;
 	border: 1px solid #110000;
+	border-left: 4px solid green;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
@@ -370,18 +372,18 @@ border-bottom-left-radius:0.3em;}
     line-height: normal;
     position: relative;
 	background: #eee;
-	width:50%;
+	width:90%;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	margin: 10px;
 }
-.yafnet .quote b,
-.yafnet .quote strong {
+.yafnet .quotetitle {
 	padding-bottom:2px;
 	display:block;
 	font-size:80%;
 	color:#666;
+	font-weight:bold;
 }
 .yafnet  .innerquote {
     font-style: italic;
@@ -389,14 +391,16 @@ border-bottom-left-radius:0.3em;}
 /* used for code */
 .yafnet .code {
 	margin: 10px;
-}
-.yafnet .innercode {
-	padding: 4px;
 	background-color: #f9f9f9;
 	border: solid 1px #110000;
+	border-left: 4px solid red;
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
+}
+.yafnet .innercode {
+	padding: 4px;
+	
 	color: #000000;
 	line-height: 1.3em;
 	font-family: "courier new", "times new roman", monospace;

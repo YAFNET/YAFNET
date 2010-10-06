@@ -446,7 +446,7 @@ namespace YAF.Classes.Core.BBCode
       {
         // "quote" handling...
 
-          string tmpReplaceStr = @"<div class=""quote""><strong>{0}</strong><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+          string tmpReplaceStr = @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
 
         ruleEngine.AddRule(
           new VariableRegexReplaceRule(
@@ -457,7 +457,7 @@ namespace YAF.Classes.Core.BBCode
                 "quote"
               }));
 
-        tmpReplaceStr = @"<div class=""quote""><strong>{0}</strong><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteStr, "${inner}");
+        tmpReplaceStr = @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteStr, "${inner}");
 
         ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr));
       }
