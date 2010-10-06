@@ -240,6 +240,7 @@
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\UserLinkBBCodeModule.cs" />
     <Compile Include="Modules\ExampleBBCodeModule.cs" />
     <Compile Include="Modules\LastVisitModule.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
