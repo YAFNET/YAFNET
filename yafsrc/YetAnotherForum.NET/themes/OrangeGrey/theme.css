@@ -437,7 +437,7 @@ border-bottom-left-radius:0.3em;}
 /* div at the top of pages with navigation links */
 .yafnet .yafPageLink
 {
-	border: solid 1px #cccccc;
+	border: solid 1px #666;
     -moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
@@ -446,9 +446,15 @@ border-bottom-left-radius:0.3em;}
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 2px;
+	text-align: center;
+	font-style:italic;
+	background: url('Header2Back.png') repeat-x #ffffff;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
+	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
 }
 .yafnet .yafPageLink a{ color: #000000; text-decoration: none; }
-.yafnet .yafPageLink a:first-child{ padding-left:13px; }
+
 .yafnet .yafPageLink .currentPageLink { color: blue; }
 .yafnet .yafPageLink .linkSeperator { color: #666666; }
 .yafnet .yafPageLink a:hover {color: red; }
