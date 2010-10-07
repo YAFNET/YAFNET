@@ -586,8 +586,7 @@
     <Resource tag="SUBJECT">标题:</Resource>
     <Resource tag="TITLE">发送此页给朋友</Resource>
     <Resource tag="TO">收件人（电子邮件地址）:</Resource>
-  </page>
-  </page>
+  </page> 
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">公告</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">公告 (有新贴)</Resource>

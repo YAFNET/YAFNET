@@ -8023,14 +8023,7 @@ DECLARE   @GroupData TABLE
 							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
 							  ON b.GroupID = c.GroupID 
 							  WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
-		        
-        open c
-       
-        fetch next from c into  @ust, @usbbc , @ushtmlt
-        while @@FETCH_STATUS = 0
-        begin
-		if not exists (select 1 from @GroupData)
-		begin
+		
 		-- first check ranks
 		SELECT TOP 1 @rust = ISNULL(c.UsrSigChars,0), @rusbbc = c.UsrSigBBCodes, 
 		@rushtmlt = c.UsrSigHTMLTags
@@ -8038,7 +8031,14 @@ DECLARE   @GroupData TABLE
 								JOIN [{databaseOwner}].[{objectQualifier}User] d
 								  ON c.RankID = d.RankID
 								   WHERE d.UserID = @UserID AND c.BoardID = @BoardID 
-								   ORDER BY c.RankID DESC
+								   ORDER BY c.RankID DESC        
+        open c
+       
+        fetch next from c into  @ust, @usbbc , @ushtmlt
+        while @@FETCH_STATUS = 0
+        begin
+		if not exists (select 1 from @GroupData)
+		begin	
 
         -- insert first row and compare with ranks data
 	INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
