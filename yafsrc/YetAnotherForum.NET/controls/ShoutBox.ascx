@@ -69,7 +69,7 @@
 					<asp:PlaceHolder ID="phShoutText" runat="server" Visible="true">
 						<tr id="shoutBoxFooter" runat="server">
 							<td class="footer1" style="padding-left: 5px;">
-								<asp:TextBox ID="messageTextBox" Width="99%" MaxLength="150" Visible="true" runat="server" />
+								<asp:TextBox ID="messageTextBox" Width="99%" MaxLength="150" Visible="true" runat="server" AutoCompleteType="Disabled" autocomplete="off" />
 							</td>
 							<td class="footer1" style="text-align: center;white-space:nowrap;">
 								<asp:Button ID="btnButton" OnClick="btnButton_Click" CssClass="pbutton" Text="Submit" Visible="true"
