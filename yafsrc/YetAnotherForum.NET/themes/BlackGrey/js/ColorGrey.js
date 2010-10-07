@@ -2,21 +2,19 @@
 jQuery(document).ready(function() {
 	
   // TipTip
-  if(!$.browser.msie)
+  if(!jQuery.browser.msie)
   {
-    $("a, img, input").tipTip();
+    jQuery("a, img, input").tipTip();
   }
   else
   {
-	  // $ Corner Test
-	  /*$('.section').corner();
-      $('.yaflittlebutton').corner();
-	  $('.yafcssimagebutton').corner();
-      $('.yafcssbigbutton').corner();
-	  $('.pbutton').corner();
-	  $('.yafPageLink').corner();*/
+	  // jQuery Corner Test
+	  /*jQuery('.section').corner();
+      jQuery('.yaflittlebutton').corner();
+	  jQuery('.yafcssimagebutton').corner();
+      jQuery('.yafcssbigbutton').corner();
+	  jQuery('.pbutton').corner();
+	  jQuery('.yafPageLink').corner();*/
   }
-  $("img.avatarimage").load(function() {$(this).wrap('<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat ;background-size:100%; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />');$(this).css("opacity","0");});
-  
-
+  jQuery("img.avatarimage").wrap('<span class="' + jQuery("img.avatarimage").attr('class') + '" style="background:url(' + jQuery("img.avatarimage").attr('src') + ') no-repeat ;background-size:100%; width: ' + jQuery("img.avatarimage").width() + 'px; height: ' + jQuery("img.avatarimage").height() + 'px;" />');jQuery("img.avatarimage").css("opacity","0");
 });
