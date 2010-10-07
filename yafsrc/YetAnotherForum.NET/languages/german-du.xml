@@ -592,20 +592,34 @@
 &lt;p&gt;Announcement threads are displayed at the top of forum listing pages, above regular and sticky threads.&lt;/p&gt;
         </Resource>
     <Resource tag="ANOUNCETITLE">Announcements</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
+&lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
+&lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
+&lt;p&gt;Once the upload is completed the file name will appear over the Upload Section. You can click 'Back' to return to the Topic.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+&lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
     <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
     <Resource tag="BUDDIESECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="BUDDIESETITLE">Buddies</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
-    <Resource tag="EDITDELETECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you currently registered and logged in, you may be able to edit and delete your messages (if the  administrator doesnt  turned off this option). &lt;/p&gt;
+&lt;p&gt;To edit or delete your posts, click the 'Edit'  button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
+&lt;p&gt;Once you've made your modifications, a note may appear to inform other users that you have edited your post.&lt;/p&gt;
+&lt;p&gt;Please also Enter in The Field 'Reason for edit' an Reason why you edit this Message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
     <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
     <Resource tag="FORUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="FORUMSTITLE">Forums, Threads and Posts</Resource>
+    <Resource tag="FORUMSTITLE">Forums, Threads and Messages</Resource>
     <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
     <Resource tag="MEMBERSLISTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
-    <Resource tag="MODSADMINSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move threads, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
+&lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
     <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
     <Resource tag="MYALBUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="MYALBUMSTITLE">Albums</Resource>
@@ -620,7 +634,16 @@
     <Resource tag="PMTITLE">Contacting other Members</Resource>
     <Resource tag="POLLSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
-    <Resource tag="POSTINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
+&lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Using clickable controls similar to those found in most word processors&lt;/li&gt;
+  &lt;li&gt;Typing formatting commands in BB code&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.&lt;/p&gt;
+&lt;p&gt;Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.&lt;/p&gt;
+&lt;p&gt;To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.&lt;/p&gt;
+&lt;p&gt;BB code is a special set of codes similar to HTML that can be used in posts to the board.&lt;/p&gt;</Resource>
     <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
     <Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
     <Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
@@ -638,8 +661,10 @@
     <Resource tag="RECOVERTITLE">Recover lost password</Resource>
     <Resource tag="REGISTRATIONCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="REGISTRATIONTITLE">Registration</Resource>
-    <Resource tag="REPLYINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="REPLYINGTITLE">Replying to a Post</Resource>
+    <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
+&lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
+&lt;p&gt;If you want to Reply a Message hit the 'Quote' Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
+    <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
     <Resource tag="RSSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="RSSTITLE">RSS</Resource>
     <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
@@ -648,14 +673,17 @@
     <Resource tag="SEARCHINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Searching Forums and Threads</Resource>
     <Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
-    <Resource tag="SMILIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
     <Resource tag="SMILIESTITLE">Smilies</Resource>
-    <Resource tag="SUBTITLE">Forum Hilfe</Resource>
+    <Resource tag="SUBTITLE">Forum Help</Resource>
     <Resource tag="THREADOPTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="THREADOPTTITLE">Thread Options</Resource>
     <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="THREADSTATUSTITLE">Message Icons and Thread Status</Resource>
-    <Resource tag="TITLE">YetAnotherForum.NET Hilfe</Resource>
+    <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
     <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
   </page>
   <page name="ICONLEGEND">
