@@ -1220,6 +1220,8 @@ namespace YAF
         @"""{0}""".FormatWith(
           (context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
 
+      context.Response.ContentType = "image/jpeg";
+
       if (CheckETag(context, eTag))
       {
         // found eTag... no need to download this image...
