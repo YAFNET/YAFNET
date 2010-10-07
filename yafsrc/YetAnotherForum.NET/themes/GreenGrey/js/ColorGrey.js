@@ -1,6 +1,6 @@
 ﻿
-function pageLoad(){
-
+jQuery(document).ready(function() {
+	
   // TipTip
   if(!$.browser.msie)
   {
@@ -18,4 +18,5 @@ function pageLoad(){
   }
   $("img.avatarimage").load(function() {$(this).wrap('<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat ;background-size:100%; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />');$(this).css("opacity","0");});
   
-}
+
+});
