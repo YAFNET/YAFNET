@@ -281,8 +281,7 @@ namespace YAF.DotNetNuke
             else
             {
                 // This is an admin adding a new forum.
-
-                string newBoardName = string.Format("New Forum - Module {0}", ModuleId);
+                string newBoardName = "{0} Forums".FormatWith(PortalSettings.PortalName);
 
                 //Create the board
                 
