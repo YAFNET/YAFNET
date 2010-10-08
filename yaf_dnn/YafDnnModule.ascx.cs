@@ -311,7 +311,7 @@ namespace YAF.DotNetNuke
         /// <param name="e"></param>
         private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
-            this.BasePage.Title = this.BasePage.Title.Replace(this.ModuleConfiguration.ModuleTitle, string.Empty);
+            this.BasePage.Title = this.BasePage.Title.Replace(this.PortalSettings.ActiveTab.TabName, string.Empty);
         }
         /// <summary>
         /// 

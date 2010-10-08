@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Text;
+
 namespace YAF.DotNetNuke
 {
   #region Using
@@ -35,7 +37,7 @@ namespace YAF.DotNetNuke
   #endregion
 
   /// <summary>
-  /// The dot net nuke url builder.
+  /// The dotnetnuke url builder.
   /// </summary>
   public class DotNetNukeUrlBuilder : RewriteUrlBuilder
   {
@@ -52,7 +54,7 @@ namespace YAF.DotNetNuke
     /// </returns>
     public override string BuildUrl(string sUrl)
     {
-      string sNewURL;
+      StringBuilder newUrl = null;
 
       PortalSettings curPortalSettings = PortalController.GetCurrentPortalSettings();
 
@@ -70,18 +72,20 @@ namespace YAF.DotNetNuke
 
       try
       {
-        sNewURL = Globals.NavigateURL(curTab.TabID);
+        string oldUrl = Globals.NavigateURL(curTab.TabID);
 
-        if (sNewURL.Contains("Default.aspx"))
+        if (oldUrl.Contains("Default.aspx"))
         {
-          sNewURL = sNewURL.Replace("Default.aspx", string.Empty);
+          oldUrl = oldUrl.Replace("Default.aspx", string.Empty);
         }
 
         // Fix For DNN 4
-        if (sNewURL.Contains(".aspx"))
+        if (oldUrl.Contains(".aspx"))
         {
-          sNewURL = Globals.ResolveUrl(string.Format("~/tabid/{0}/", curTab.TabID));
+          oldUrl = Globals.ResolveUrl(string.Format("~/tabid/{0}/", curTab.TabID));
         }
+          
+          newUrl.Append(oldUrl);
 
         var parser = new SimpleURLParameterParser(sUrl);
 
@@ -93,8 +97,7 @@ namespace YAF.DotNetNuke
             {
               useKey = "f";
 
-              sNewURL += string.Format(
-                "g/{2}/f/{0}/{1}", parser[useKey], this.GetForumName(Convert.ToInt32(parser[useKey])), parser["g"]);
+              newUrl.AppendFormat("g/{2}/f/{0}/{1}", parser[useKey], this.GetForumName(Convert.ToInt32(parser[useKey])), parser["g"]);
             }
 
             break;
@@ -104,14 +107,14 @@ namespace YAF.DotNetNuke
               {
                 useKey = "t";
 
-                sNewURL += string.Format(
+                newUrl.AppendFormat(
                   "g/{2}/t/{0}/{1}", parser["t"], this.GetTopicName(Convert.ToInt32(parser["t"])), parser["g"]);
               }
               else if (!String.IsNullOrEmpty(parser["m"]))
               {
                 useKey = "m";
 
-                sNewURL += string.Format(
+                newUrl.AppendFormat(
                   "g/{2}/m/{0}/{1}", 
                   parser["m"], 
                   this.GetTopicNameFromMessage(Convert.ToInt32(parser["m"])), 
@@ -124,7 +127,7 @@ namespace YAF.DotNetNuke
             {
               useKey = "u";
 
-              sNewURL += string.Format(
+              newUrl.AppendFormat(
                 "g/{2}/u/{0}/{1}", parser[useKey], this.GetProfileName(Convert.ToInt32(parser[useKey])), parser["g"]);
             }
 
@@ -135,12 +138,12 @@ namespace YAF.DotNetNuke
               {
                 useKey = "c";
 
-                sNewURL += string.Format(
+                newUrl.AppendFormat(
                   "g/{2}/c/{0}/{1}", parser[useKey], this.GetCategoryName(Convert.ToInt32(parser[useKey])), parser["g"]);
               }
               else
               {
-                sNewURL += YafContext.Current.BoardSettings.Name;
+               newUrl.Append(YafContext.Current.BoardSettings.Name.Replace(" ", "-"));
               }
             }
 
@@ -149,7 +152,7 @@ namespace YAF.DotNetNuke
             {
               useKey = "v";
 
-              sNewURL += string.Format("g/{1}/v/{0}/{1}", parser[useKey], parser["g"]);
+              newUrl.AppendFormat("g/{1}/v/{0}/{1}", parser[useKey], parser["g"]);
             }
 
             break;
@@ -159,11 +162,11 @@ namespace YAF.DotNetNuke
 
               if (parser[useKey] != null)
               {
-                sNewURL += string.Format("g/{1}/f/{0}/{1}", parser[useKey], parser["g"]);
+                  newUrl.AppendFormat("g/{1}/f/{0}/{1}", parser[useKey], parser["g"]);
               }
               else
               {
-                sNewURL += string.Format("g/{0}/{0}", parser["g"]);
+                  newUrl.AppendFormat("g/{0}/{0}", parser["g"]);
               }
             }
 
@@ -171,30 +174,30 @@ namespace YAF.DotNetNuke
 
           default:
             {
-              sNewURL += string.Format("g/{0}/{0}", parser["g"]);
+                newUrl.AppendFormat("g/{0}/{0}", parser["g"]);
             }
 
             break;
         }
 
-        sNewURL += ".aspx";
+         newUrl.Append(".aspx");
 
         string restURL = parser.CreateQueryString(new[] { "g", useKey });
 
         // append to the url if there are additional (unsupported) parameters
         if (restURL.Length > 0)
         {
-          sNewURL += string.Format("?{0}", restURL);
+            newUrl.AppendFormat("?{0}", restURL);
         }
 
         // add anchor
         if (parser.HasAnchor)
         {
-          sNewURL += string.Format("#{0}", parser.Anchor);
+            newUrl.AppendFormat("#{0}", parser.Anchor);
         }
 
         // just make sure & is &amp; ...
-        sNewURL = sNewURL.Replace("&amp;", "&").Replace("&", "&amp;");
+       // sNewURL = sNewURL.Replace("&amp;", "&").Replace("&", "&amp;");
       }
       catch (Exception)
       {
@@ -203,7 +206,7 @@ namespace YAF.DotNetNuke
         return string.Format("{0}?tabid={1}&{2}", sScriptName, curTab.TabID, sUrl);
       }
 
-      return sNewURL;
+      return newUrl.ToString();
     }
 
     #endregion
