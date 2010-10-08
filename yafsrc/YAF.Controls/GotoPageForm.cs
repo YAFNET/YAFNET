@@ -196,8 +196,8 @@ namespace YAF.Controls
       this._divInner.Controls.Add(this._gotoButton);
 
       this.PageContext.PageElements.RegisterJsBlockStartup(
-        @"GotoPageFormKeyUp_{0}".FormatWith(this.ClientID), 
-        @"Sys.Application.add_load(function() {{ jQuery('#{0}').bind('keydown', function(e) {{ if(e.keyCode == 13) {{ jQuery('#{1}').click(); return false; }} }}); }});"
+        @"GotoPageFormKeyUp_{0}".FormatWith(this.ClientID),
+        @"jQuery.noConflict();Sys.Application.add_load(function() {{ jQuery('#{0}').bind('keydown', function(e) {{ if(e.keyCode == 13) {{ jQuery('#{1}').click(); return false; }} }}); }});"
           .FormatWith(this._gotoTextBox.ClientID, this._gotoButton.ClientID));
 
       // add enter key support...
