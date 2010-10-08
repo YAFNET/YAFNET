@@ -598,13 +598,58 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowAtomLink;
         
         /// <summary>
-        /// ShowPostsFeeds control.
+        /// PostsFeedAccess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowPostsFeeds;
+        protected global::System.Web.UI.WebControls.DropDownList PostsFeedAccess;
+        
+        /// <summary>
+        /// PostLatestFeedAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PostLatestFeedAccess;
+        
+        /// <summary>
+        /// ForumFeedAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ForumFeedAccess;
+        
+        /// <summary>
+        /// TopicsFeedAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList TopicsFeedAccess;
+        
+        /// <summary>
+        /// ActiveTopicFeedAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ActiveTopicFeedAccess;
+        
+        /// <summary>
+        /// FavoriteTopicFeedAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList FavoriteTopicFeedAccess;
         
         /// <summary>
         /// CaptchaSize control.

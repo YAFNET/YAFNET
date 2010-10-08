@@ -131,11 +131,11 @@
         </tr>
     </table>
 </asp:PlaceHolder>
-<table class="content postHeader" width="100%"  id="tbFeeds" runat="server" visible="<%# PageContext.BoardSettings.ShowPostsFeeds %>">
+<table class="header2 postNavigation" width="100%"  id="tbFeeds" runat="server" visible="<%# this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess) %>">
 <tr>
 <td class="post">
-    <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Posts"  AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' TitleLocalizedTag="RSSICONTOOLTIPACTIVE" Visible="<%# PageContext.BoardSettings.ShowRSSLink && PageContext.BoardSettings.ShowPostsFeeds %>" />&nbsp; 
-    <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Posts" AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink && PageContext.BoardSettings.ShowPostsFeeds %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />
+    <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Posts"  AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' TitleLocalizedTag="RSSICONTOOLTIPACTIVE" Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess) %>" />&nbsp; 
+    <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Posts" AdditionalParameters='<%# "t={0}".FormatWith(PageContext.PageTopicID) %>' IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess) %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />
 </td>
 </tr>
 </table>                           

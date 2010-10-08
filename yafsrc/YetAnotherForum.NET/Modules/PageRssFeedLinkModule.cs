@@ -74,7 +74,8 @@ namespace YAF.Modules
 
       if (head != null)
       {
-          if (PageContext.BoardSettings.ShowRSSLink)
+          bool groupAccess = new YafPermissions().Check(PageContext.BoardSettings.PostLatestFeedAccess);
+          if (PageContext.BoardSettings.ShowRSSLink && groupAccess)
           {
               // setup the rss link...
               HtmlLink rssLink = new HtmlLink();
@@ -91,7 +92,7 @@ namespace YAF.Modules
 
               head.Controls.Add(rssLink);
           }
-          if (PageContext.BoardSettings.ShowAtomLink)
+          if (PageContext.BoardSettings.ShowAtomLink && groupAccess)
           {
               // setup the rss link...
               HtmlLink atomLink = new HtmlLink();

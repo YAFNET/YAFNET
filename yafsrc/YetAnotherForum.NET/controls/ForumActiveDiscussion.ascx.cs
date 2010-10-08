@@ -150,8 +150,9 @@ namespace YAF.Controls
         }
       }
 
-      this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink;
-      this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
+      bool groupAccess = this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostLatestFeedAccess);
+      this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink && groupAccess;
+      this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink && groupAccess;
 
       this.lastPostToolTip = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
       this.LatestPosts.DataSource = activeTopics;

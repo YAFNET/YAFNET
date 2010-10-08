@@ -435,6 +435,103 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets PostLatestFeedAccess.
+    /// </summary>
+    public int PostLatestFeedAccess
+    {
+        get
+        {
+            return this._reg.GetValue<int>("PostLatestFeedAccess", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("PostLatestFeedAccess", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets PostsFeedAccess.
+    /// </summary>
+    public int PostsFeedAccess
+    {
+        get
+        {
+            return this._reg.GetValue<int>("PostsFeedAccess", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("PostsFeedAccess", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets TopicsFeedAccess.
+    /// </summary>
+    public int TopicsFeedAccess
+    {
+        get
+        {
+            return this._reg.GetValue<int>("TopicsFeedAccess", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("TopicsFeedAccess", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets ForumFeedAccess.
+    /// </summary>
+    public int ForumFeedAccess
+    {
+        get
+        {
+            return this._reg.GetValue<int>("ForumFeedAccess", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("ForumFeedAccess", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets ActiveTopicFeedAccess.
+    /// </summary>
+    public int ActiveTopicFeedAccess
+    {
+        get
+        {
+            return this._reg.GetValue<int>("ActiveTopicFeedAccess", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("ActiveTopicFeedAccess", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets FavoriteTopicFeedAccess.
+    /// </summary>
+    public int FavoriteTopicFeedAccess
+    {
+        get
+        {
+            return this._reg.GetValue<int>("FavoriteTopicFeedAccess", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("FavoriteTopicFeedAccess", value);
+        }
+    }
+
+
+    /// <summary>
     /// Gets or sets AvatarWidth.
     /// </summary>
     public int AvatarWidth
@@ -1708,22 +1805,6 @@ namespace YAF.Classes
         set
         {
             this._reg.SetValue<bool>("ShowAtomLink", value);
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowPostsFeeds.
-    /// </summary>
-    public bool ShowPostsFeeds
-    {
-        get
-        {
-            return this._reg.GetValue<bool>("ShowPostsFeeds", true);
-        }
-
-        set
-        {
-            this._reg.SetValue<bool>("ShowPostsFeeds", value);
         }
     }
 

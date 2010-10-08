@@ -100,7 +100,7 @@ namespace YAF.Pages
             {
                 // Latest posts feed
                 case YafRssFeeds.LatestPosts:
-                    if (!this.PageContext.BoardSettings.ShowActiveDiscussions)
+                    if (!(this.PageContext.BoardSettings.ShowActiveDiscussions && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostLatestFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -110,7 +110,7 @@ namespace YAF.Pages
 
                 // Latest Announcements feed
                 case YafRssFeeds.LatestAnnouncements:
-                    if (!this.PageContext.ForumReadAccess)
+                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -120,7 +120,7 @@ namespace YAF.Pages
 
                 // Posts Feed
                 case YafRssFeeds.Posts:
-                    if (!(this.PageContext.ForumReadAccess && PageContext.BoardSettings.ShowPostsFeeds))
+                    if (!(this.PageContext.ForumReadAccess && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -138,6 +138,10 @@ namespace YAF.Pages
 
                 // Forum Feed
                 case YafRssFeeds.Forum:
+                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess))
+                    {
+                        YafBuildLink.AccessDenied();
+                    }
 
                     object categoryId = null;
 
@@ -155,7 +159,7 @@ namespace YAF.Pages
 
                 // Topics Feed
                 case YafRssFeeds.Topics:
-                    if (!this.PageContext.ForumReadAccess)
+                    if (!(this.PageContext.ForumReadAccess && this.Get<YafPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -172,6 +176,11 @@ namespace YAF.Pages
 
                 // Active Topics
                 case YafRssFeeds.Active:
+                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess))
+                    {
+                        YafBuildLink.AccessDenied();
+                    }
+
                     int categoryActiveIntId;
                     object categoryActiveId = null;
                     if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out categoryActiveIntId))
@@ -183,6 +192,10 @@ namespace YAF.Pages
 
                     break;
                 case YafRssFeeds.Favorite:
+                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.FavoriteTopicFeedAccess))
+                    {
+                        YafBuildLink.AccessDenied();
+                    }
                     int categoryFavIntId;
                     object categoryFavId = null;
                     if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out categoryFavIntId))
@@ -411,9 +424,15 @@ namespace YAF.Pages
                     {
                         feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                       
+                    }
+                 
+                    List<SyndicationLink> attachementLinks = null;
 
-                        // Alternate Link
-                        // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                    // if the user doesn't have download access we simply don't show enclosure links.
+                    if (PageContext.ForumDownloadAccess)
+                    {
+                        attachementLinks = GetMediaLinks(row["MessageID"].ToType<int>());
                     }
 
                     feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
@@ -429,14 +448,14 @@ namespace YAF.Pages
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                        row["MessageID"]),
                       posted,
-                      feed);
+                      feed, attachementLinks);
                       altItem = !altItem;
                 }
 
                 feed.Items = syndicationItems;
             }
         }
-
+       
         /// <summary>
         /// The method creates YafSyndicationFeed for forums in a category.
         /// </summary>
@@ -752,6 +771,37 @@ namespace YAF.Pages
 
                 feed.Items = syndicationItems;
             }
+        }
+
+        /// <summary>
+        /// The helper function gets media enclosure links for a post
+        /// </summary>
+        /// <param name="messageId">The MessageId with attached files.</param>
+        /// <returns></returns>
+        private List<SyndicationLink> GetMediaLinks(int messageId)
+        {
+            var attachementLinks = new List<SyndicationLink>();
+            using (var attList = DB.attachment_list(messageId, null, PageContext.PageBoardID))
+            {
+                if (attList.Rows.Count > 0)
+                {
+                    foreach (DataRow attachLink in attList.Rows)
+                    {
+                        if (!attachLink["FileName"].IsNullOrEmptyDBField())
+                        {
+                            attachementLinks.Add(new SyndicationLink(
+                                    new Uri("{0}{1}resource.ashx?a={2}".FormatWith(
+                                        YafForumInfo.ForumBaseUrl,
+                                        YafForumInfo.ForumClientFileRoot.TrimStart('/'), attachLink["AttachmentID"])), "enclosure", attachLink["FileName"].ToString(), attachLink["ContentType"].ToString(), attachLink["Bytes"].ToType<long>()));
+
+                        }
+
+                    }
+
+                }
+
+            }
+            return attachementLinks;
         }
 
         #endregion

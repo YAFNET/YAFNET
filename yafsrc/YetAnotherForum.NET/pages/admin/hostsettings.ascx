@@ -620,11 +620,80 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Posts Feeds:</strong><br />
-                            Enable or disable display of posts feeds for a topic.
-                        </td>
+                            <strong>Posts Feeds Access:</strong><br />
+                            Restrict display of posts feeds for a topic.
+                        </td>              
                         <td class="post">
-                            <asp:CheckBox ID="ShowPostsFeeds" runat="server"></asp:CheckBox>
+                              <asp:DropDownList ID="PostsFeedAccess" runat="server">
+                                <asp:ListItem Value="0" Text="Forbidden" />
+                                <asp:ListItem Value="1" Text="Registered Users" />
+                                <asp:ListItem Value="2" Text="All Users" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Post Latest Feeds Access:</strong><br />
+                            Restrict display of posts feeds for latest posts.
+                        </td>              
+                        <td class="post">
+                              <asp:DropDownList ID="PostLatestFeedAccess" runat="server">
+                                <asp:ListItem Value="0" Text="Forbidden" />
+                                <asp:ListItem Value="1" Text="Registered Users" />
+                                <asp:ListItem Value="2" Text="All Users" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Forum Feeds Access:</strong><br />
+                            Restrict display of forum feeds.
+                        </td>              
+                        <td class="post">
+                              <asp:DropDownList ID="ForumFeedAccess" runat="server">
+                                <asp:ListItem Value="0" Text="Forbidden" />
+                                <asp:ListItem Value="1" Text="Registered Users" />
+                                <asp:ListItem Value="2" Text="All Users" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Topics Feeds Access:</strong><br />
+                            Restrict display of topics feeds.
+                        </td>              
+                        <td class="post">
+                              <asp:DropDownList ID="TopicsFeedAccess" runat="server">
+                                <asp:ListItem Value="0" Text="Forbidden" />
+                                <asp:ListItem Value="1" Text="Registered Users" />
+                                <asp:ListItem Value="2" Text="All Users" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Active Topics Feeds Access:</strong><br />
+                            Restrict display of active topics feeds.
+                        </td>              
+                        <td class="post">
+                              <asp:DropDownList ID="ActiveTopicFeedAccess" runat="server">
+                                <asp:ListItem Value="0" Text="Forbidden" />
+                                <asp:ListItem Value="1" Text="Registered Users" />
+                                <asp:ListItem Value="2" Text="All Users" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Favorite Topics Feeds Access:</strong><br />
+                            Restrict display of active topics feeds.
+                        </td>              
+                        <td class="post">
+                              <asp:DropDownList ID="FavoriteTopicFeedAccess" runat="server">
+                                <asp:ListItem Value="0" Text="Forbidden" />
+                                <asp:ListItem Value="1" Text="Registered Users" />
+                                <asp:ListItem Value="2" Text="All Users" />
+                            </asp:DropDownList>
                         </td>
                     </tr>
                      <tr>
