@@ -916,7 +916,7 @@ namespace YAF.controls
         DB.choice_vote(e.CommandArgument, userID, remoteIP);
 
         // save the voting cookie...
-        var c = new HttpCookie(this.VotingCookieName(Convert.ToInt32(e.CommandArgument)), e.CommandArgument.ToString())
+        var c = new HttpCookie(this.VotingCookieName(Convert.ToInt32(this._dtPoll.Rows[0]["PollID"])), e.CommandArgument.ToString())
           {
              Expires = DateTime.UtcNow.AddYears(1) 
           };
