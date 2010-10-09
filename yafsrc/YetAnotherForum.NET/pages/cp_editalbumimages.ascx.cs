@@ -158,7 +158,18 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+        //DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+
+
+
+          var UsrAlbumImages =
+                 DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+                   "UsrAlbumImages", null);
+
+          var usrAlbums =
+                 DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+                   "UsrAlbums", null);
+
         int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
         int userID;
         switch (this.Request.QueryString.GetFirstOrDefault("a"))
@@ -173,11 +184,11 @@ namespace YAF.Pages
             }
 
             // Has the user created maximum number of albums?
-            if (sigData.Rows.Count > 0)
+            if (usrAlbums.HasValue && usrAlbums > 0)
             {
               // Albums count. If we reached limit then we go to info page.
-              if ((Convert.ToInt32(sigData.Rows[0]["UsrAlbums"]) > 0) &&
-                  (albumSize[0] > Convert.ToInt32(sigData.Rows[0]["UsrAlbums"]) - 1))
+              if (usrAlbums > 0 &&
+                  (albumSize[0] > usrAlbums - 1))
               {
                 YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
               }
@@ -205,11 +216,11 @@ namespace YAF.Pages
 
         // Has the user uploaded maximum number of images?   
         // vzrus: changed for DB check
-        if (sigData.Rows.Count > 0)
+        if (UsrAlbumImages.HasValue && UsrAlbumImages > 0)
         {
-          if (Convert.ToInt32(sigData.Rows[0]["UsrAlbumImages"]) > 0)
+            if (UsrAlbumImages > 0)
           {
-            if (albumSize[1] > (Convert.ToInt32(sigData.Rows[0]["UsrAlbumImages"]) - 1))
+            if (albumSize[1] > UsrAlbumImages - 1)
             {
               this.uploadtitletr.Visible = false;
             }
@@ -382,60 +393,65 @@ namespace YAF.Pages
       }
 
       // vzrus: the checks here are useless but in a case...
-      DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-      if (sigData.Rows.Count > 0)
-      {
+      //DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+
+         var usrAlbums =
+                 DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+                   "UsrAlbums", null);
+
+        //if (!usrAlbums.HasValue || usrAlbums <= 0) return;
+
         if (this.Request.QueryString.GetFirstOrDefault("a") == "new")
         {
-          int[] alstats = DB.album_getstats(this.PageContext.PageUserID, null);
+            int[] alstats = DB.album_getstats(this.PageContext.PageUserID, null);
 
-          // Albums count. If we reached limit then we exit.
-          if (alstats[0] >= Convert.ToInt32(sigData.Rows[0]["UsrAlbums"]))
-          {
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", sigData.Rows[0]["UsrAlbums"]));
-            return;
-          }
 
-          int albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
-          file.PostedFile.SaveAs(
-            "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
-          DB.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
-          YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
+            // Albums count. If we reached limit then we exit.
+            if (alstats[0] >= usrAlbums)
+            {
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbums));
+                return;
+            }
+
+            int albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
+            file.PostedFile.SaveAs(
+                "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
+            DB.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
+            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
         }
         else
         {
-          // vzrus: the checks here are useless but in a case...
-          int[] alstats = DB.album_getstats(
-            this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"));
+            // vzrus: the checks here are useless but in a case...
+            int[] alstats = DB.album_getstats(
+                this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"));
+            /*
+            // Albums count. If we reached limit then we exit. 
+            // Check it first as user could be in other group or prev YAF version was used;
+            if (DB.album_getstats(this.PageContext.PageUserID, null)[0] >= usrAlbums)
+            {
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbums));
+               return;
+            }*/
 
-          // Albums count. If we reached limit then we exit. 
-          // Check it first as user could be in other group or prev YAF version was used;
-          if (alstats[0] >= Convert.ToInt32(sigData.Rows[0]["UsrAlbumImages"]))
-          {
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", sigData.Rows[0]["UsrAlbums"]));
-            return;
-          }
+            // Images count. If we reached limit then we exit.
+            if (alstats[1] >= this.PageContext.BoardSettings.AlbumImagesNumberMax)
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetTextFormatted("IMAGES_COUNT_LIMIT", this.PageContext.BoardSettings.AlbumImagesNumberMax));
+                return;
+            }
 
-          // Images count. If we reached limit then we exit.
-          if (alstats[1] >= Convert.ToInt32(sigData.Rows[0]["UsrAlbumImages"]))
-          {
-            this.PageContext.AddLoadMessage(
-              this.GetTextFormatted("IMAGES_COUNT_LIMIT", sigData.Rows[0]["UsrAlbumImages"]));
-            return;
-          }
-
-          file.PostedFile.SaveAs(
-            "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-              sUpDir, this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"), filename));
-          DB.album_image_save(
-            null, 
-            this.Request.QueryString.GetFirstOrDefault("a"), 
-            null, 
-            filename, 
-            file.PostedFile.ContentLength, 
-            file.PostedFile.ContentType);
+            file.PostedFile.SaveAs(
+                "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
+                    sUpDir, this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"), filename));
+            DB.album_image_save(
+                null, 
+                this.Request.QueryString.GetFirstOrDefault("a"), 
+                null, 
+                filename, 
+                file.PostedFile.ContentLength, 
+                file.PostedFile.ContentType);
         }
-      }
     }
 
     #endregion

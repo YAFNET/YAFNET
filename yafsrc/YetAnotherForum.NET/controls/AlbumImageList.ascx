@@ -15,9 +15,9 @@
         </td>
     </tr>
 </table>
-<div class="fileattach">
     <asp:Repeater runat="server" ID="AlbumImages" OnItemDataBound="AlbumImages_ItemDataBound"
         OnItemCommand="AlbumImages_ItemCommand">
+         <HeaderTemplate><div class="fileattach"></HeaderTemplate>
         <ItemTemplate>
             <div class="attachedimg" style="display: inline;">
                 <table class="albumtable" style="display: inline" width='<%# YafContext.Current.BoardSettings.ImageAttachmentResizeWidth %>'>
@@ -45,8 +45,8 @@
                 </table>
             </div>
         </ItemTemplate>
+        <FooterTemplate></div></FooterTemplate>
     </asp:Repeater>
-</div>
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td>
