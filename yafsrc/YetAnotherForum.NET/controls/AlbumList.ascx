@@ -14,7 +14,7 @@
     </tr>
 </table>
 
-    <asp:Repeater runat="server" ID="Albums" OnItemCommand="Albums_ItemCommand">
+    <asp:Repeater runat="server" ID="Albums" OnItemCommand="Albums_ItemCommand" OnItemDataBound="Albums_ItemDataBound">
         <HeaderTemplate><div class="fileattach"></HeaderTemplate>
         <ItemTemplate>
             <div class="attachedimg" style="display: inline;">
@@ -23,9 +23,8 @@
                         <td class="albumimagebox">
                             <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", Eval("UserID"), Eval("AlbumID")) %>'
                                 target="_parent" title='<%# this.HtmlEncode(Eval("Title"))%>'>
-                                <img src='<%# String.Format("{0}resource.ashx?album={1}&cover={2}",YafForumInfo.ForumClientFileRoot, Eval("AlbumID"), (Eval("CoverImageID").ToString() == string.Empty ? "0" : Eval("CoverImageID")) ) %>'
-                                    alt='<%# this.HtmlEncode(Eval("Title")) %>' />
-                            </a>
+                                <asp:Image runat="server" ID="coverImage" 
+                                ImageUrl='<%# String.Format("{0}resource.ashx?album={1}&cover={2}",YafForumInfo.ForumClientFileRoot, Eval("AlbumID"), (Eval("CoverImageID").ToString() == string.Empty ? "0" : Eval("CoverImageID")) ) %>' ToolTip='<%# this.HtmlEncode(Eval("Title")) %>' runat="server" AlternateText='<%# Eval("AlbumID") %>' />
                         </td>
                     </tr>
                     <tr>

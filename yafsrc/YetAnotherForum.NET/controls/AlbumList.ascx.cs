@@ -142,13 +142,13 @@ namespace YAF.Controls
                                           this.UserID == this.PageContext.PageUserID)
                                              ? true
                                              : false;
-                 
+
                         /* this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] <
                                      this.PageContext.BoardSettings.AlbumsMax &&
                                      this.UserID == this.PageContext.PageUserID)
                                         ? true
                                         : false; */
-               /* }*/
+               // }*/
                
               
                 if (this.AddAlbum.Visible)
@@ -193,6 +193,31 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Show a Random Cover if none is Set
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Albums_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            var coverImage = (Image)e.Item.FindControl("coverImage");
+
+            if (coverImage == null) return;
+
+            var curAlbum = DB.album_image_list(coverImage.AlternateText, null);
+
+            Random random = new Random();
+
+            if ((curAlbum != null) && (curAlbum.Rows.Count > 0))
+            {
+                coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", YafForumInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
+            }
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
@@ -207,11 +232,14 @@ namespace YAF.Controls
                 this.PagerTop.Count = albumListDT.Rows.Count;
 
                 // create paged data source for the albumlist
-                var pds = new PagedDataSource();
-                pds.DataSource = albumListDT.DefaultView;
-                pds.AllowPaging = true;
-                pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-                pds.PageSize = this.PagerTop.PageSize;
+                var pds = new PagedDataSource
+                              {
+                                  DataSource = albumListDT.DefaultView,
+                                  AllowPaging = true,
+                                  CurrentPageIndex = this.PagerTop.CurrentPageIndex,
+                                  PageSize = this.PagerTop.PageSize
+                              };
+
                 this.Albums.DataSource = pds;
                 this.DataBind();
             }
