@@ -216,20 +216,21 @@ namespace YAF.Pages
             break;
         }
 
+        var UsrAlbumImages =
+               DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+                 "UsrAlbumImages", null);
         // Has the user uploaded maximum number of images?   
-        // vzrus: changed for DB check
-        /*if (UsrAlbumImages.HasValue && UsrAlbumImages > 0)
+        // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
+        if (UsrAlbumImages.HasValue && UsrAlbumImages > 0)
         {
-            if (UsrAlbumImages > 0)
-          {
-            if (albumSize[1] > UsrAlbumImages - 1)
+            if (albumSize[1] >= UsrAlbumImages)
             {
-              this.uploadtitletr.Visible = false;
+                this.uploadtitletr.Visible = false;
+                this.selectfiletr.Visible = false;
             }
-          }
-        }*/
-
-        if (albumSize[1] > this.PageContext.BoardSettings.AlbumImagesNumberMax - 1)
+           
+        }
+        else
         {
             this.uploadtitletr.Visible = false;
             this.selectfiletr.Visible = false;
