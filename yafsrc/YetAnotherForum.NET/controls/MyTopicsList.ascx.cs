@@ -362,7 +362,9 @@ namespace YAF.Controls
     private void BindFeeds()
     {
         bool groupAccess = this.Get<YafPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess);
+        
         this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink && groupAccess;
+        this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink && groupAccess;
       
       // RSS link setup 
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
