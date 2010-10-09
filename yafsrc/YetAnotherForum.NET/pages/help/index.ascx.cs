@@ -236,14 +236,13 @@ namespace YAF.Pages.help
                  });
              }
             
-            // TODO : Show Only when reg ist enabled
             IList<string> HelpPageNames = new List<string>
                                               {
                                                   "anounce",
                                                   "forums",
                                                   "searching",
+                                                  "newposts",
                                                   "display",
-                                                  "threadopt",
                                                   "threadopt",
                                                   "memberslist",
                                                   "pm",
@@ -259,7 +258,7 @@ namespace YAF.Pages.help
                                                   "polls",
                                                   "attachments",
                                                   "smilies",
-                                                  "threadstatus",
+                                                 // "threadstatus",
                                                   "modsadmins"
                                               };
 

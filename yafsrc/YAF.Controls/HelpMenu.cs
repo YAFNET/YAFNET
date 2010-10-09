@@ -102,7 +102,7 @@ namespace YAF.Controls
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=polls"), PageContext.Localization.GetText("HELP_INDEX", "POLLSTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=attachments"), PageContext.Localization.GetText("HELP_INDEX", "ATTACHMENTSTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=smilies"), PageContext.Localization.GetText("HELP_INDEX", "SMILIESTITLE"));
-        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=threadstatus"), PageContext.Localization.GetText("HELP_INDEX", "THREADSTATUSTITLE"));
+        //html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=threadstatus"), PageContext.Localization.GetText("HELP_INDEX", "THREADSTATUSTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=modsadmins"), PageContext.Localization.GetText("HELP_INDEX", "MODSADMINSTITLE"));
 
         html.AppendFormat(@"</ul></td></tr>");
