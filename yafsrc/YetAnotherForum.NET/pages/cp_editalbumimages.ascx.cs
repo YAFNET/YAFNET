@@ -216,14 +216,14 @@ namespace YAF.Pages
             break;
         }
 
-        var UsrAlbumImages =
+        var usrAlbumImagesAllowed =
                DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
                  "UsrAlbumImages", null);
         // Has the user uploaded maximum number of images?   
         // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
-        if (UsrAlbumImages.HasValue && UsrAlbumImages > 0)
+        if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
         {
-            if (albumSize[1] >= UsrAlbumImages)
+            if (albumSize[1] >= usrAlbumImagesAllowed)
             {
                 this.uploadtitletr.Visible = false;
                 this.selectfiletr.Visible = false;
@@ -402,11 +402,14 @@ namespace YAF.Pages
       }
 
       // vzrus: the checks here are useless but in a case...
-      //DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+      DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-         var usrAlbums =
-                 DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+         var usrAlbumsAllowed =
+                 sigData.GetFirstRowColumnAsValue<int?>(
                    "UsrAlbums", null);
+        var usrAlbumImagesAllowed =
+                  sigData.GetFirstRowColumnAsValue<int?>(
+                    "UsrAlbumImages", null);
 
         //if (!usrAlbums.HasValue || usrAlbums <= 0) return;
 
@@ -416,9 +419,9 @@ namespace YAF.Pages
 
 
             // Albums count. If we reached limit then we exit.
-            if (alstats[0] >= usrAlbums)
+            if (alstats[0] >= usrAlbumsAllowed)
             {
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbums));
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed));
                 return;
             }
 
@@ -443,10 +446,10 @@ namespace YAF.Pages
             }*/
 
             // Images count. If we reached limit then we exit.
-            if (alstats[1] >= this.PageContext.BoardSettings.AlbumImagesNumberMax)
+            if (alstats[1] >= usrAlbumImagesAllowed)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("IMAGES_COUNT_LIMIT", this.PageContext.BoardSettings.AlbumImagesNumberMax));
+                    this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed));
                 return;
             }
 

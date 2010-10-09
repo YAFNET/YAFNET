@@ -2403,38 +2403,6 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets or sets AlbumsMax.
-    /// </summary>
-    public int AlbumsMax
-    {
-        get
-        {
-            return this._regBoard.GetValue<int>("AlbumsMax", 10);
-        }
-
-        set
-        {
-            this._regBoard.SetValue<int>("AlbumsMax", value);
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets AlbumImagesNumberMax.
-    /// </summary>
-    public int AlbumImagesNumberMax
-    {
-        get
-        {
-            return this._regBoard.GetValue<int>("AlbumImagesNumberMax", 50);
-        }
-
-        set
-        {
-            this._regBoard.SetValue<int>("AlbumImagesNumberMax", value);
-        }
-    }
-
-    /// <summary>
     /// Gets or sets AlbumImagesSizeMax.
     /// </summary>
     public int AlbumImagesSizeMax
