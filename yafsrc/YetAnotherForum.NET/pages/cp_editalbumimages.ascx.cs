@@ -162,14 +162,11 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        //DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+       DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-/* var UsrAlbumImages =
-                 DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
-                   "UsrAlbumImages", null);*/
 
-          var usrAlbums =
-                 DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+          var usrAlbumsAllowed =
+                 sigData.GetFirstRowColumnAsValue<int?>(
                    "UsrAlbums", null);
 
         int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
@@ -186,11 +183,11 @@ namespace YAF.Pages
             }
 
             // Has the user created maximum number of albums?
-            if (usrAlbums.HasValue && usrAlbums > 0)
+            if (usrAlbumsAllowed.HasValue && usrAlbumsAllowed > 0)
             {
               // Albums count. If we reached limit then we go to info page.
-              if (usrAlbums > 0 &&
-                  (albumSize[0] > usrAlbums - 1))
+                if (usrAlbumsAllowed > 0 &&
+                  (albumSize[0] >= usrAlbumsAllowed))
               {
                 YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
               }
@@ -217,16 +214,15 @@ namespace YAF.Pages
         }
 
         var usrAlbumImagesAllowed =
-               DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+               sigData.GetFirstRowColumnAsValue<int?>(
                  "UsrAlbumImages", null);
         // Has the user uploaded maximum number of images?   
         // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
         if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
         {
-            if (albumSize[1] >= usrAlbumImagesAllowed)
+            if (albumSize[0] >= usrAlbumsAllowed)
             {
                 this.uploadtitletr.Visible = false;
-                this.selectfiletr.Visible = false;
             }
            
         }
