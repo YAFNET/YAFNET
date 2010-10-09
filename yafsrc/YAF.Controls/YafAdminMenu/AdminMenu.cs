@@ -195,8 +195,13 @@ namespace YAF.Controls
           if (item.Image.IsSet())
           {
             // add icon...
-            view.AddItem(
-              @"<img alt="""" src=""{1}"" /> {0}".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);
+           /* view.AddItem(
+              @"<img alt=""{0}"" src=""{1}"" />&nbsp;{0}".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);*/
+
+              view.AddItem(
+              @"<img alt=""{0}"" src=""{1}"" /><span style=""margin-left:3px;"">{0}</span>".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);
+              
+              //view.AddItem(item.Title, url, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image)));
           }
           else
           {
