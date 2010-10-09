@@ -570,6 +570,24 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Max Albums:</strong><br />
+                            Number of max. Albums allowed for a User.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AlbumsMax" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Max. Images per Albums:</strong><br />
+                            Number of maximum Images for an album.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="AlbumImagesNumberMax" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <strong>Maximum Image Size:</strong><br />
                             Maximum size of image in bytes a user can upload.
                         </td>

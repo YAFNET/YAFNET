@@ -553,6 +553,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EnableAlbum;
         
         /// <summary>
+        /// AlbumsMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AlbumsMax;
+        
+        /// <summary>
+        /// AlbumImagesNumberMax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AlbumImagesNumberMax;
+        
+        /// <summary>
         /// AlbumImagesSizeMax control.
         /// </summary>
         /// <remarks>
