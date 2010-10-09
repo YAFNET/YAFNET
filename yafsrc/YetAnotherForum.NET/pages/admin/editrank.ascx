@@ -79,12 +79,10 @@
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 80px" ID="UsrAlbums" runat="server" /></td>
 		</tr>
-			</tr>
-				</tr>
-			<tr>
+		<tr>
 			<td class="postheader" colspan="4">
-				<strong>Total Album Images Number:</strong><br />
-				Integer value for a user allowed images number in ALL albums.</td>
+				<strong>Album Images Number:</strong><br />
+				Integer value for a user allowed images number per album.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" /></td>
 		</tr>
@@ -108,11 +106,11 @@
 				This image will be shown next to users of this rank.</td>
 			<td class="post" colspan="7">
 				<asp:DropDownList ID="RankImage" runat="server" />
-				<img style="vertical-align:middle" runat="server" id="Preview" />
+				<img style="vertical-align:middle" src="" alt="Rank Image" runat="server" id="Preview" />
 			</td>
 		</tr>
 		<tr>
-			<td class="postfooter" align="middle" colspan="11">
+			<td class="postfooter"  align="center" colspan="11">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>&nbsp;
 				<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button></td>
 		</tr>

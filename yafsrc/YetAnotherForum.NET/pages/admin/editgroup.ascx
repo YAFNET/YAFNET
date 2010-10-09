@@ -102,8 +102,8 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>Total Album Images Number:</strong><br />
-                Integer value for a user allowed images number in ALL albums.
+                <strong>Album Images Number:</strong><br />
+                Integer value for a user allowed images per album.
             </td>
             <td class="post" width="50%">
                 <asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" Text="0" />
