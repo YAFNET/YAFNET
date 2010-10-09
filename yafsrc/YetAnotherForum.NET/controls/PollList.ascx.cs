@@ -874,7 +874,7 @@ namespace YAF.controls
           ((this.PageContext.ForumVoteAccess && this.TopicId > 0) ||
            (this.PageContext.BoardVoteAccess && this.BoardId > 0)))
       {
-        if (!this.CanVote(Convert.ToInt32(e.CommandArgument)))
+          if (!this.CanVote(Convert.ToInt32(this._dtPoll.Rows[0]["PollID"])))
         {
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
           return;
