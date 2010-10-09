@@ -134,8 +134,12 @@ namespace YAF.Pages
           string sUpDir =
             this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
           YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID, Convert.ToInt32(e.CommandArgument));
+          
           this.BindData();
+          
           this.uploadtitletr.Visible = true;
+          this.selectfiletr.Visible = true;
+          
           break;
       }
     }
@@ -160,11 +164,9 @@ namespace YAF.Pages
       {
         //DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-
-
-          var UsrAlbumImages =
+/* var UsrAlbumImages =
                  DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
-                   "UsrAlbumImages", null);
+                   "UsrAlbumImages", null);*/
 
           var usrAlbums =
                  DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
@@ -216,7 +218,7 @@ namespace YAF.Pages
 
         // Has the user uploaded maximum number of images?   
         // vzrus: changed for DB check
-        if (UsrAlbumImages.HasValue && UsrAlbumImages > 0)
+        /*if (UsrAlbumImages.HasValue && UsrAlbumImages > 0)
         {
             if (UsrAlbumImages > 0)
           {
@@ -225,6 +227,12 @@ namespace YAF.Pages
               this.uploadtitletr.Visible = false;
             }
           }
+        }*/
+
+        if (albumSize[1] > this.PageContext.BoardSettings.AlbumImagesNumberMax - 1)
+        {
+            this.uploadtitletr.Visible = false;
+            this.selectfiletr.Visible = false;
         }
 
         string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
