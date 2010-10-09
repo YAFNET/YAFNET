@@ -584,6 +584,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}rss_topic_latest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_list]
 GO
@@ -4870,6 +4874,56 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
+(
+	@BoardID int,
+	@NumPosts int,
+	@UserID int,
+	@StyledNicks bit = 0,
+	@ShowNoCountPosts  bit = 0
+)
+AS
+BEGIN	
+	
+	SET ROWCOUNT @NumPosts
+	SELECT
+	    LastMessage = m.[Message],
+		t.LastPosted,
+		t.ForumID,
+		f.Name as Forum,
+		t.Topic,
+		t.TopicID,
+		t.TopicMovedID,
+		t.UserID,
+		t.UserName,		
+		t.LastMessageID,
+		t.LastMessageFlags,
+		t.LastUserID,	
+		t.Posted,		
+		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))		
+	FROM
+	    [{databaseOwner}].[{objectQualifier}Message] m 
+	INNER JOIN	
+		[{databaseOwner}].[{objectQualifier}Topic] t  ON t.LastMessageID = m.MessageID
+	INNER JOIN
+		[{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID	
+	INNER JOIN
+		[{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
+	JOIN
+		[{databaseOwner}].[{objectQualifier}vaccess] v ON v.ForumID=f.ForumID
+	WHERE	
+		c.BoardID = @BoardID
+		AND t.TopicMovedID is NULL
+		AND v.UserID=@UserID
+		AND (v.ReadAccess <> 0)
+		AND t.IsDeleted != 1
+		AND t.LastPosted IS NOT NULL
+		AND
+		f.Flags & 4 <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 4 END)
+	ORDER BY
+		t.LastPosted DESC;
+END
+GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 (

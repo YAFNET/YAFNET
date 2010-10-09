@@ -6609,6 +6609,37 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// The rss_topic_latest.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="numOfPostsToRetrieve">
+    /// The num of posts to retrieve.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="useStyledNicks">
+    /// If true returns string for userID style.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable rss_topic_latest(object boardID, object numOfPostsToRetrieve, object userID, bool useStyledNicks, bool showNoCountPosts)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("rss_topic_latest"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+            cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
     /// The topic_active.
     /// </summary>
     /// <param name="boardID">

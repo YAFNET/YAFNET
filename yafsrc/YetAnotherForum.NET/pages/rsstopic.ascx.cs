@@ -233,7 +233,7 @@ namespace YAF.Pages
 
                     this.Response.ContentType = "application/atom+xml";
                 }
-
+               
                 writer.WriteEndDocument();
                 writer.Close();
 
@@ -258,12 +258,11 @@ namespace YAF.Pages
         /// <param name="text">An active topic first message content/partial content.</param>
         /// <param name="flags"></param>
         /// <returns>An Html formatted first message content string.</returns>
-        private static string GetPostLatestContent(string link, string imgUrl, string imgAlt, string linkName, string text, int flags)
+        private static string GetPostLatestContent(string link, string imgUrl, string imgAlt, string linkName, string text, int flags, bool altItem)
         {
-            // this stub should be replaced by something more usable
-            return @"<a href=""{0}"" ><img src=""{1}"" alt =""{2}"" title =""{2}"" />&nbsp;{3}</a>".FormatWith(link, imgUrl, imgAlt, linkName);
-            /* return YafFormatMessage.FormatMessage(text, new MessageFlags{IsBBCode = true}) + @"<br /><a href=""" + link + @""" >" + @"<img src=""{0}"" alt =""{1}"" />".FormatWith(imgUrl, imgAlt) + linkName +
-                   "</a>"; */
+            text = YafFormatMessage.FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
+            return @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" />&nbsp;{4}</a></td></tr><table>".FormatWith(text, link, imgUrl, imgAlt, linkName);
+          
         }
 
         /// <summary>
@@ -278,12 +277,12 @@ namespace YAF.Pages
         {
             var syndicationItems = new List<SyndicationItem>();
 
-            using (DataTable dataTopics = this.Get<YafDBBroker>().GetLatestTopics(this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, "LastUserStyle"))
+            using (DataTable dataTopics = DB.rss_topic_latest(this.PageContext.PageBoardID, this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks, PageContext.BoardSettings.NoCountForumsInActiveDiscussions))
             {
                 string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
-
+                bool altItem = false;
                 foreach (DataRow row in dataTopics.Rows)
                 {
                     // don't render moved topics
@@ -307,10 +306,10 @@ namespace YAF.Pages
 
                         syndicationItems.AddSyndicationItem(
                             row["Topic"].ToString(),
-                            GetPostLatestContent(messageLink, lastPostIcon, lastPostName, lastPostName, String.Empty,
+                            GetPostLatestContent(messageLink, lastPostIcon, lastPostName, lastPostName, row["LastMessage"].ToString(),
                                                  !row["LastMessageFlags"].IsNullOrEmptyDBField()
                                                      ? Convert.ToInt32(row["LastMessageFlags"])
-                                                     : 22),
+                                                     : 22, altItem),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
                            "urn:{0}-ft{1}-st{2}-tid{3}-mid{4}:{5}".FormatWith(urlAlphaNum,
@@ -321,6 +320,8 @@ namespace YAF.Pages
                            lastPosted,
                            feed);
                     }
+
+                    altItem = !altItem;
                 }
 
                 feed.Items = syndicationItems;
@@ -442,7 +443,7 @@ namespace YAF.Pages
 
                     syndicationItems.AddSyndicationItem(
                       row["Subject"].ToString(),
-                      YafFormatMessage.FormatSyndicationMessage(row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 32000),
+                      YafFormatMessage.FormatSyndicationMessage(row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 4000),
                       null,
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["MessageID"]),
                        "urn:{0}-ft{1}-st{2}-meid{3}:{4}".FormatWith(
@@ -578,7 +579,7 @@ namespace YAF.Pages
                             lastPostName, String.Empty,
                             !row["LastMessageFlags"].IsNullOrEmptyDBField()
                                 ? Convert.ToInt32(row["LastMessageFlags"])
-                                : 22),
+                                : 22, false),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
                         "urn:{0}-ft{1}-st{2}-tid{3}-lmid{4}:{5}".FormatWith(urlAlphaNum, 
@@ -670,7 +671,7 @@ namespace YAF.Pages
                             GetPostLatestContent(messageLink, lastPostIcon, lastPostName, lastPostName, String.Empty,
                                                  !row["LastMessageFlags"].IsNullOrEmptyDBField()
                                                      ? Convert.ToInt32(row["LastMessageFlags"])
-                                                     : 22),
+                                                     : 22, false),
                             null,
                             messageLink,
                             "urn:{0}-ft{1}-st{2}-span{3}-ltid{4}-lmid{5}:{6}".FormatWith(urlAlphaNum,
@@ -764,7 +765,7 @@ namespace YAF.Pages
                                 lastPostIcon, lastPostName, lastPostName, String.Empty,
                                 !row["LastMessageFlags"].IsNullOrEmptyDBField()
                                     ? Convert.ToInt32(row["LastMessageFlags"])
-                                    : 22),
+                                    : 22, false),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                            "urn:{0}-ft{1}-st{2}-span{3}-ltid{4}lmid{5}:{6}".FormatWith(urlAlphaNum,
