@@ -108,20 +108,17 @@ namespace YAF.Controls
     /// </param>
     protected void AlbumImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-      if (this.UserID == this.PageContext.PageUserID)
-      {
-        // Get current Image's image id.
-        string imageID = ((DataRowView)e.Item.DataItem).Row["ImageID"].ToString();
+        if (this.UserID != this.PageContext.PageUserID) return;
 
         var setCover = (Button)e.Item.FindControl("SetCover");
-        if (this.UserID == this.PageContext.PageUserID)
+
+        if (setCover != null)
         {
-          // Is this the cover image?
-          setCover.Text = imageID == this._coverImageID
-                            ? this.PageContext.Localization.GetText("BUTTON_RESETCOVER")
-                            : this.PageContext.Localization.GetText("BUTTON_SETCOVER");
+            // Is this the cover image?
+            setCover.Text = setCover.CommandArgument == this._coverImageID
+                                ? this.PageContext.Localization.GetText("BUTTON_RESETCOVER")
+                                : this.PageContext.Localization.GetText("BUTTON_SETCOVER");
         }
-      }
     }
 
     /// <summary>
