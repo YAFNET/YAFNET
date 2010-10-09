@@ -173,8 +173,8 @@
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Нажмите здесь, чтобы просмотреть/скрыть текст (применить спойлер)</Resource>
-    <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
-    <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите сюда адрес ссылки (URL) YouTube </Resource>
+    <Resource tag="UERLINKMOD_DESCRIPTION">Введите сюда имя пользователя</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите сюда адрес ссылки (URL) YouTube</Resource>
   </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">Добавить к друзьям</Resource>
@@ -402,7 +402,7 @@
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
-    <Resource tag="LOCATION">Место</Resource>
+    <Resource tag="LOCATION">Страна, город...</Resource>
     <Resource tag="MAIL_SENT">Сообщение по электронной почте было отправлено {0}.\n\nВам необходимо подтвердить ваш адерс электронной почты перейдя по ссылке в сообщении перед тем, как адрес электронной почты будет изменён.</Resource>
     <Resource tag="MESSENGER">Службы мгновенных сообщений</Resource>
     <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
@@ -497,11 +497,11 @@
     <Resource tag="NONOTIFICATION">Отключить уведомления</Resource>
     <Resource tag="NOTIFICATIONSELECTION">Выберите предпочтения для уведомлений по email:</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
-    <Resource tag="SAVED_NOTIFICATION_SETTING">Ностройки уведомления по Email обновлены</Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">Настройки уведомления по Email обновлены</Resource>
     <Resource tag="TITLE">Подписки</Resource>
     <Resource tag="TOPIC">Tема</Resource>
     <Resource tag="TOPICS">Темы</Resource>
-    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Уведомления о темах  [b]в которых вы оставляли сообщения[/b] или отслеживали</Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Уведомления о темах, [b]в которых вы оставляли сообщения[/b] или отслеживали</Resource>
     <Resource tag="TOPICSISUBSCRIBETO">Уведомления о темах или форумах которые Вы выбрали для отслеживания (список ниже)</Resource>
     <Resource tag="UNSUBSCRIBE">Отменить подписку</Resource>
     <Resource tag="VIEWS">Просмотров</Resource>
@@ -591,7 +591,7 @@
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
 &lt;p&gt;Announcement threads are displayed at the top of forum listing pages, above regular and sticky threads.&lt;/p&gt;
         </Resource>
-    <Resource tag="ANOUNCETITLE">Announcements</Resource>
+    <Resource tag="ANOUNCETITLE">Объявления</Resource>
     <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
 &lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
 &lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
@@ -601,7 +601,7 @@
 &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
-    <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
+    <Resource tag="ATTACHMENTSTITLE">Вложения и изображения</Resource>
     <Resource tag="BUDDIESECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="BUDDIESETITLE">Buddies</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
@@ -647,7 +647,7 @@
     <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
     <Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
     <Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
+    <Resource tag="PUBLICPROFILETITLE">Мой профиль</Resource>
     <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
     <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
   link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
@@ -658,17 +658,17 @@
 &lt;p&gt;You must be able to receive emails to your registered email address for this to 
   work. You may need to check your spam filters and folder if you do not see this 
   email in a few minutes. &lt;/p&gt;</Resource>
-    <Resource tag="RECOVERTITLE">Recover lost password</Resource>
+    <Resource tag="RECOVERTITLE">Восстановление потерянного пароля</Resource>
     <Resource tag="REGISTRATIONCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="REGISTRATIONTITLE">Registration</Resource>
+    <Resource tag="REGISTRATIONTITLE">Регистрация</Resource>
     <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
 &lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
 &lt;p&gt;If you want to Reply a Message hit the 'Quote' Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
     <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
     <Resource tag="RSSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="RSSTITLE">RSS</Resource>
-    <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
-    <Resource tag="SEARCHHELP">Search Help</Resource>
+    <Resource tag="SEARCHFOR">Введите ключевые слова для поиска:</Resource>
+    <Resource tag="SEARCHHELP">Поиск по справке</Resource>
     <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
     <Resource tag="SEARCHINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Searching Forums and Threads</Resource>
@@ -677,13 +677,13 @@
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
-    <Resource tag="SMILIESTITLE">Smilies</Resource>
-    <Resource tag="SUBTITLE">Forum Help</Resource>
+    <Resource tag="SMILIESTITLE">Смайлики</Resource>
+    <Resource tag="SUBTITLE">Справка форума</Resource>
     <Resource tag="THREADOPTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="THREADOPTTITLE">Thread Options</Resource>
     <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="THREADSTATUSTITLE">Message Icons and Thread Status</Resource>
-    <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
+    <Resource tag="THREADSTATUSTITLE">Иконки сообщений и статус темы</Resource>
+    <Resource tag="TITLE">Справка YetAnotherForum.NET</Resource>
     <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
   </page>
   <page name="ICONLEGEND">
@@ -756,7 +756,7 @@
     <Resource tag="TITLE_SUSPENDED">Временно отключено</Resource>
   </page>
   <page name="LANGUAGE">
-    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЫЮЯ</Resource>
   </page>
   <page name="LOGIN">
     <Resource tag="AUTO">Запомните меня</Resource>
@@ -1282,7 +1282,7 @@
     <Resource tag="CLEAR">Очистить</Resource>
     <Resource tag="FLYOUT">Открепить</Resource>
     <Resource tag="HEADING">Поговорите с другими пользователями!</Resource>
-    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
+    <Resource tag="MUSTBELOGGEDIN">Вы должны зарегистрироваться, чтобы использовать чат.</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TITLE">Чат</Resource>
   </page>
@@ -1454,7 +1454,7 @@
     <Resource tag="BUDDIES">Друзья</Resource>
     <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
     <Resource tag="HELP">Справка</Resource>
-    <Resource tag="INBOX">My Inbox</Resource>
+    <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="LOGGED_IN_AS">Добро пожаловать, {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
     <Resource tag="LOGOUT">Выход</Resource>

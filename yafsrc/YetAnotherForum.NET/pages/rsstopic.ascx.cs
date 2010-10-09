@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Text.RegularExpressions;
+
 namespace YAF.Pages
 {
     // YAF.Pages
@@ -291,9 +293,7 @@ namespace YAF.Pages
                             feed.LastUpdatedTime = lastPosted + this.Get<YafDateTime>().TimeOffset;
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-
-                            // Alternate Link for feed
-                            // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                        
                         }
 
                         feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
@@ -311,12 +311,11 @@ namespace YAF.Pages
                                                      : 22),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
-                           /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                           "urn:publicid:{0}ft{1}st{2}tid{3}meid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
+                           "urn:{0}-ft{1}-st{2}-tid{3}-mid{4}:{5}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty),
                            feedType,
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                            row["TopicID"],
-                           row["LastMessageID"]), 
+                           row["LastMessageID"], PageContext.PageBoardID), 
                            lastPosted,
                            feed);
                     }
@@ -351,9 +350,7 @@ namespace YAF.Pages
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
                             feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
-
-                            // Alternate Link
-                            // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                            
                         }
 
                         feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
@@ -366,12 +363,11 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}",
                                                            this.Request.QueryString.GetFirstOrDefault("t")),
-                                                        /*  "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")),*/
-                            "urn:publicid:{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name), 
+                            "urn:{0}-ft{1}-st{2}-tid{3}-lmid{4}:{5}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty), 
                             feedType,
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                             this.Request.QueryString.GetFirstOrDefault("t"),
-                            row["LastMessageID"]),
+                            row["LastMessageID"], PageContext.PageBoardID),
                             lastPosted, 
                             feed);
                     }
@@ -442,11 +438,10 @@ namespace YAF.Pages
                       YafFormatMessage.FormatSyndicationMessage(row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 32000),
                       null,
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["MessageID"]),
-                     /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                       "urn:publicid:{0}ft{1}st{2}meid{3}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name), 
+                       "urn:{0}-ft{1}-st{2}-meid{3}:{4}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty), 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                       row["MessageID"]),
+                       row["MessageID"], PageContext.PageBoardID),
                       posted,
                       feed, attachementLinks);
                       altItem = !altItem;
@@ -506,12 +501,11 @@ namespace YAF.Pages
                         HtmlEncode(row["Description"].ToString()),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                       /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")),*/
-                        "urn:publicid:{0}ft{1}st{2}fid{3}lmid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
+                        "urn:{0}-ft{1}-st{2}-fid{3}-lmid{4}:{5}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty),
                         feedType, 
                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                         row["ForumID"], 
-                        row["LastMessageID"]),
+                        row["LastMessageID"], PageContext.PageBoardID),
                         lastPosted,
                         feed);
                 }
@@ -572,11 +566,10 @@ namespace YAF.Pages
                                 : 22),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
-                        /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                       "urn:publicid:{0}ft{1}st{2}tid{3}lmid{4}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name), 
+                        "urn:{0}-ft{1}-st{2}-tid{3}-lmid{4}:{5}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty), 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                       row["TopicID"], row["LastMessageID"]),
+                       row["TopicID"], row["LastMessageID"], PageContext.PageBoardID),
                        lastPosted,
                        feed);
 
@@ -645,9 +638,7 @@ namespace YAF.Pages
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
                             feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
-
-                            // Alternate Link
-                            // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
+                           
                         }
 
                         feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
@@ -664,12 +655,12 @@ namespace YAF.Pages
                                                      : 22),
                             null,
                             messageLink,
-                            "urn:publicid:{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
-                            HttpUtility.UrlPathEncode(toActText),
+                            "urn:{0}-ft{1}-st{2}-span{3}-ltid{4}-lmid{5}:{6}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty),
+                            new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toActText.ToString(), String.Empty),
                             feedType, 
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                             row["LinkTopicID"],
-                            row["LastMessageID"]),
+                            row["LastMessageID"], PageContext.PageBoardID),
                             lastPosted, 
                             feed);
                     }
@@ -739,9 +730,7 @@ namespace YAF.Pages
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
                             feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
-
-                            // Alternate Link
-                            // feed.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(YafContext.Current.CurrentForumPage.ForumURL)));
+                        
                         }
 
                         feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
@@ -758,12 +747,12 @@ namespace YAF.Pages
                                     : 22),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
-                           /* "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D")), */
-                           "urn:publicid:{0}ft{1}st{2}span{3}ltid{4}lmid{5}".FormatWith(HttpUtility.UrlPathEncode(YafContext.Current.BoardSettings.Name),
+                           "urn:{0}-ft{1}-st{2}-span{3}-ltid{4}lmid{5}:{6}".FormatWith(new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty),
                            feedType, 
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                           HttpUtility.UrlPathEncode(toFavText), Convert.ToInt32(row["LinkTopicID"]),
-                           row["LastMessageID"]),
+                           new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText.ToString(), String.Empty), 
+                           Convert.ToInt32(row["LinkTopicID"]),
+                           row["LastMessageID"], PageContext.PageBoardID),
                            lastPosted,
                            feed);
                     }
