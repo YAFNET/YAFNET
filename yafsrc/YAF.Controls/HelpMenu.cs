@@ -56,9 +56,6 @@ namespace YAF.Controls
 
         html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpgeneral"">");
 
-        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=anounce"), PageContext.Localization.GetText("HELP_INDEX", "ANOUNCETITLE"));
-        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=recover"), PageContext.Localization.GetText("HELP_INDEX", "RECOVERTITLE"));
-
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=forums"), PageContext.Localization.GetText("HELP_INDEX", "FORUMSTITLE"));
 
         if (!this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
@@ -69,9 +66,11 @@ namespace YAF.Controls
         }
 
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=searching"), PageContext.Localization.GetText("HELP_INDEX", "SEARCHINGTITLE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=anounce"), PageContext.Localization.GetText("HELP_INDEX", "ANOUNCETITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=display"), PageContext.Localization.GetText("HELP_INDEX", "DISPLAYTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=newposts"), PageContext.Localization.GetText("HELP_INDEX", "NEWPOSTSTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=threadopt"), PageContext.Localization.GetText("HELP_INDEX", "THREADOPTTITLE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=recover"), PageContext.Localization.GetText("HELP_INDEX", "RECOVERTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=memberslist"), PageContext.Localization.GetText("HELP_INDEX", "MEMBERSLISTTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=pm"), PageContext.Localization.GetText("HELP_INDEX", "PMTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=rss"), PageContext.Localization.GetText("HELP_INDEX", "RSSTITLE"));

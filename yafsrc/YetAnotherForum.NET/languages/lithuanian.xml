@@ -708,7 +708,27 @@
         <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
         <Resource tag="PMTITLE">Contacting other Members</Resource>
         <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
-		<Resource tag="FORUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+		<Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft&#39;s .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A Forums contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
+&lt;p&gt;The forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member messageed the most recent message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I find my way around?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you click on a forum&#39;s name, you are taken to the list of topics it contains. A topic is a conversation between members or guests. Each topic starts out as a single message and grows as more individual messages are added by different users. &lt;/p&gt;
+&lt;p&gt;To start a new Topic simply click on the &#39;New Topic&#39; button  (If you have access to it).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Paging&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When there are more Topic to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
+&lt;p&gt;This method of splitting lists of items over many pages is used throughout the board.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What are sticky topics?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&#39;Sticky&#39; Topics can be created by moderators or administrators, and remain &#39;stuck&#39; to the top of the listing, even if they haven&#39;t had any messages recently. Their purpose is to keep important information visible and accessible at all times.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I read a topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To read a topic, click on its title. Each message in a topic is created by a member or a guest. You&#39;ll see some brief information about the member who created the topic on the left side of the message.&lt;/p&gt;
+&lt;p&gt;To message a reply to an existing topic, click on the &#39;Post Reply&#39;  button. If the &#39;Post Reply&#39; button does not appear, it could mean that you are not logged in as a member, or that you do not have permission to reply, or that the topic has been closed for new replies.&lt;/p&gt;
+&lt;p&gt;If enabled, there will also be a &#39;Quick Reply&#39; box where you can quickly enter a reply without having to go to the &#39;Post Reply&#39; page. You need to click the &#39;Quick Reply&#39; button  in a message to activate the quick reply box before you can type into it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I find out more about members?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To view information about a particular member, click on the user name. This will take you to their public profile page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is the Header?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Header on top of every page has links to help you move around. A form on the right allows you to quickly login. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
         <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
 &lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
 &lt;ul&gt;
