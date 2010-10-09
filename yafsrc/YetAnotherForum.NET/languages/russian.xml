@@ -602,8 +602,8 @@
 &lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
     <Resource tag="ATTACHMENTSTITLE">Вложения и изображения</Resource>
-    <Resource tag="BUDDIESECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="BUDDIESETITLE">Buddies</Resource>
+    <Resource tag="BUDDIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="BUDDIESTITLE">Buddies</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
     <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
     <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you currently registered and logged in, you may be able to edit and delete your messages (if the  administrator doesnt  turned off this option). &lt;/p&gt;

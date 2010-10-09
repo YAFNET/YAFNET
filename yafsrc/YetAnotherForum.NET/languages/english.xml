@@ -16,7 +16,7 @@
   email in a few minutes. &lt;/p&gt;</Resource>
 		<Resource tag="ANOUNCETITLE">Announcements</Resource>  
 		<Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can&#39;t reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
-&lt;p&gt;Announcement threads are displayed at the top of forum listing pages, above regular and sticky threads.&lt;/p&gt;
+&lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
         </Resource>
 		<Resource tag="GENERALTOPICS">General Forum Usage</Resource>
 		<Resource tag="SEARCHHELP">Search Help</Resource>
@@ -24,33 +24,73 @@
 		<Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
 		<Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
 		<Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
-		<Resource tag="FORUMSTITLE">Forums, Threads and Messages</Resource>
+		<Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
         <Resource tag="REGISTRATIONTITLE">Registration</Resource>
-        <Resource tag="SEARCHINGTITLE">Searching Forums and Threads</Resource>
+        <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
         <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
-        <Resource tag="NEWPOSTSTITLE">Viewing New Posts or Today's Posts</Resource>
-        <Resource tag="THREADOPTTITLE">Thread Options</Resource> 
+        <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
+        <Resource tag="THREADOPTTITLE">Topic Options</Resource> 
         <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
         <Resource tag="PMTITLE">Contacting other Members</Resource>
-        <Resource tag="RSSTITLE">RSS</Resource>
+        <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
 		<Resource tag="FORUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="REGISTRATIONCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="SEARCHINGCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="DISPLAYCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="NEWPOSTSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="THREADOPTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource> 
-        <Resource tag="MEMBERSLISTCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="PMCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="RSSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+        <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
+&lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Posting new Topics&lt;/li&gt;
+  &lt;li&gt;Replying to other peoples&#39; Topics&lt;/li&gt;
+  &lt;li&gt;Editing your messages&lt;/li&gt;
+  &lt;li&gt;Receiving email notification of replies to messages and topics you specify&lt;/li&gt;
+  &lt;li&gt;Sending private messages to other members&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;How do I register?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You register by clicking on the &#39;Register&#39; in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator has enabled it enter the Shown Captcha Code.&lt;/p&gt;
+</Resource>
+        <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the &#39;Search&#39; link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
+&lt;p&gt;For more control over the search, you to restrict your search to individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
+        <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you&#39;re in a thread, look at the top bar. On the right hand side you&#39;ll see &#39;View&#39;. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
+&lt;p&gt;You have two choices:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Posts are displayed chronologically, usually from oldest to newest. Posts are shown in a flat mode so that many posts can be viewed simultaneously. &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - A tree is shown along with every post. This shows you the relationship each post has to the others. It&#39;s easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.&lt;/li&gt;
+&lt;/ul&gt;
+</Resource>
+        <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the &#39;Active Topics&#39; link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
+&lt;p&gt;If you are logged in, the &#39;Active Topics&#39; link will change to &#39;My Topics&#39;, which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
+&lt;p&gt;The administrator can also set up the forums so that each thread you read is marked in the database. If this option is set, then new topic (or topics with new posts) will not be marked as read until you have actually read them.&lt;/p&gt;
+&lt;p&gt;There will be also an Second Tab &#39;Favorite Topics&#39; which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
+        <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  &#39;Options&#39;. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Email this Topic&lt;/strong&gt; - If you think the thread may be interesting to someone else, you can forward a link to it to their email address.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Print this topic&lt;/strong&gt; - This will show you a page with the thread post content in a reduced graphics format that is more &#39;printer friendly&#39;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
+&lt;/ul&gt;
+</Resource> 
+        <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name.&lt;/p&gt;
+&lt;p&gt;To view the members list, click on &#39;Members&#39; on main Header at the top of the page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Are all members listed?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some members may not be on the list. The administrator has options over who is shown on the list. They may, for example, omit members who have not made many posts or who belong to certain user groups.&lt;/p&gt;</Resource>
+        <Resource tag="PMCONTENT">&lt;p&gt;You can contact another by sending an E-Mail, you find them on the member list.&lt;/p&gt;
+&lt;p&gt;This will usually open a page that contains a form where you can enter your message. When you have finished typing your message, press the &#39;Send E-mail&#39; button and your message will be sent instantly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can I see e-mail addresses?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For privacy reasons, the recipient&#39;s e-mail address is not revealed to you during this process, or at any other location in the forums.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why can&#39;t I send an e-mail to someone?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you cannot find an e-mail button or link for a member, it means either that the administrator has disabled e-mail functions for this forum, or that the member has said that they do not wish to receive e-mail from other members.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is private messaging?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Registered members may also be able to send messages to other members of this forum using the private messaging system.&lt;/p&gt;</Resource>
+        <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
+&lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
+&lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
         <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
         <Resource tag="MYSETTINGSTITLE">My Settings</Resource>
         <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
-        <Resource tag="BUDDIESETITLE">Buddies</Resource>
+        <Resource tag="BUDDIESTITLE">Buddies</Resource>
         <Resource tag="MYALBUMSTITLE">Albums</Resource>
 		<Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
         <Resource tag="MYSETTINGSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
         <Resource tag="MYPICSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="BUDDIESECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+        <Resource tag="BUDDIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
         <Resource tag="MYALBUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
         <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
         <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
@@ -94,7 +134,7 @@
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some smilies can be accessed from the &#39;Post Reply&#39; or &#39;New Topic&#39; pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
         <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move threads, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
+        <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
 		<Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
 		<Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
