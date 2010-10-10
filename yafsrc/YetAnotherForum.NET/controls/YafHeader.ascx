@@ -154,12 +154,10 @@
           <asp:TextBox ID="searchInput" runat="server"></asp:TextBox>&nbsp;<asp:Button ID="doQuickSearch" runat="server" OnClick="QuickSearchClick" />
         </div>
          <%
-                }%>
-        <ul class="menuAdminList">
-
-            <%
+                }
                 if (this.PageContext.IsAdmin)
                 {%>
+        <ul class="menuAdminList">    
             <li class="menuAdmin"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.admin_admin) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "ADMIN")%></a> </li>
             <%
@@ -168,9 +166,9 @@
               {%>
             <li class="menuAdmin"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.moderate_index) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MODERATE")%></a> </li>
-            <% 
-                }%>
         </ul>
+         <% 
+                }%>
     </div>
     </div>
     <div id="yafheaderEnd"></div>
