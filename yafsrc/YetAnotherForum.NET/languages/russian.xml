@@ -1440,7 +1440,7 @@
     <Resource tag="NEWPM">({0} непрочитанных)</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
     <Resource tag="SEARCH">Поиск</Resource>
-    <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
+    <Resource tag="SEARCHKEYWORD">Введите слово...</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
   </page>
   <page name="TOPICS">

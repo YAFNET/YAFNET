@@ -900,7 +900,7 @@
                     <tr>
                         <td class="postheader">
                             <strong>Show 'no-count' Forum Posts in Active Discussions :</strong><br />
-                            If this is checked, posts from no-count forums will be displayed in Active Topics.
+                            If this is checked, posts from 'no-count' forums will be displayed in Active Discussions.
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="NoCountForumsInActiveDiscussions" runat="server"></asp:CheckBox>
@@ -1744,6 +1744,15 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ExternalSearchInNewWindow" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Show Quick Search:</strong><br />
+                            Show Quick Search field and button in toolbar.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowQuickSearch" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                 </table>

@@ -1921,6 +1921,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Enable Quick Search.
+    /// </summary>
+    public bool ShowQuickSearch 
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowQuickSearch", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowQuickSearch", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether RemoveNestedQuotes.
     /// </summary>
     public bool RemoveNestedQuotes
