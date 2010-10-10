@@ -226,6 +226,7 @@ namespace YAF.Controls
 
       this.BindData();
       this.PageContext.AddLoadMessage(this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
     }
 
     /// <summary>
@@ -278,6 +279,7 @@ namespace YAF.Controls
         this.PageContext.AddLoadMessage(nItemCount == 1
                                             ? this.PageContext.Localization.GetText("msgdeleted1")
                                             : this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
     }
 
     /// <summary>
