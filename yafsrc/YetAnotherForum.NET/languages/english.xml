@@ -2,6 +2,8 @@
 <Resources xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
     <page name="HELP_INDEX">
 		<Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
+    <Resource tag="NAVIGATION">Navigation</Resource>
+    <Resource tag="INDEX">Index</Resource>
 		<Resource tag="SUBTITLE">Forum Help</Resource>
 		<Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
 		<Resource tag="RECOVERTITLE">Recover lost password</Resource>

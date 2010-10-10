@@ -40,9 +40,9 @@ namespace YAF.Controls
 
         html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafhelpmenu"">");
 
-        html.Append(@"<tr><td class=""header1"">Navigation</td></tr>");
+        html.Append(@"<tr><td class=""header1"">{0}</td></tr>".FormatWith(PageContext.Localization.GetText("HELP_INDEX", "NAVIGATION")));
 
-        html.Append(@"<tr class=""header2""><td>Index</td></tr>");
+        html.Append(@"<tr class=""header2""><td>{0}</td></tr>".FormatWith(PageContext.Localization.GetText("HELP_INDEX", "INDEX")));
 
         html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpindex"">");
 
