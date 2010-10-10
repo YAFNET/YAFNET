@@ -42,10 +42,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnPopulateTranslations = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.checkPendingOnly = new System.Windows.Forms.CheckBox();
             this.btnAutoTranslate = new System.Windows.Forms.Button();
-            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -188,6 +188,11 @@
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // progressBar
+            // 
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(400, 16);
+            // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
@@ -207,6 +212,7 @@
             // 
             // btnAutoTranslate
             // 
+            this.btnAutoTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAutoTranslate.Enabled = false;
             this.btnAutoTranslate.Location = new System.Drawing.Point(539, 622);
             this.btnAutoTranslate.Name = "btnAutoTranslate";
@@ -215,11 +221,6 @@
             this.btnAutoTranslate.Text = "Auto Translate Pending ";
             this.btnAutoTranslate.UseVisualStyleBackColor = true;
             this.btnAutoTranslate.Click += new System.EventHandler(this.AutoTranslateAll);
-            // 
-            // progressBar
-            // 
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(400, 16);
             // 
             // TranslateForm
             // 
@@ -269,7 +270,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.CheckBox checkPendingOnly;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAutoTranslate;
         private System.Windows.Forms.ToolStripProgressBar progressBar;
     }

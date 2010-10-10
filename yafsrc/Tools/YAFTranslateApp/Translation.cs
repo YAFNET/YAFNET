@@ -24,17 +24,24 @@ namespace YAF.TranslateApp
     /// </summary>
     public class Translation
     {
+        #region Constants and Fields
+        
         ///<summary>
+        /// Resource Page Name
         ///</summary>
-        public string sPageName;
+        public string sPageName { get; set; }
         ///<summary>
+        /// Resource Name
         ///</summary>
-        public string sResourceName;
+        public string sResourceName { get; set; }
         ///<summary>
+        /// Resource Original Value
         ///</summary>
-        public string sResourceValue;
+        public string sResourceValue { get; set; }
         ///<summary>
+        /// Resource Localized Value
         ///</summary>
-        public string sLocalizedValue;
+        public string sLocalizedValue { get; set; }
+        #endregion
     }
 }

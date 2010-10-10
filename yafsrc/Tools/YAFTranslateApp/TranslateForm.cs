@@ -30,35 +30,35 @@ using System.Xml.XPath;
 
 namespace YAF.TranslateApp
 {
-     public partial class TranslateForm : Form
+    public partial class TranslateForm : Form
     {
         #region Private instance variables
 
         // Header separator row font style, backing store for property
-         readonly Font _pageHeaderFont = new Font(SystemFonts.DefaultFont, FontStyle.Bold);
+        readonly Font _pageHeaderFont = new Font(SystemFonts.DefaultFont, FontStyle.Bold);
 
         // Column 1 (Resource tag) font style, backing store for property
-         readonly Font _resourceHeaderFont = new Font(SystemFonts.DefaultFont, FontStyle.Bold);
+        readonly Font _resourceHeaderFont = new Font(SystemFonts.DefaultFont, FontStyle.Bold);
 
         // List of namespaces for <Resources> in destination translation file, backing store for property
-         readonly StringDictionary _resourcesNamespaces = new StringDictionary();
+        readonly StringDictionary _resourcesNamespaces = new StringDictionary();
 
         // List of attributes for <Resources> in destination translation file, backing store for property
-         readonly StringDictionary _resourcesAttributes = new StringDictionary();
+        readonly StringDictionary _resourcesAttributes = new StringDictionary();
 
         private List<Translation> translations = new List<Translation>();
 
-         /// <summary>
-         /// Language Code of the Source 
-         /// Translation File
-         /// </summary>
-         private string sLangCodeSrc;
+        /// <summary>
+        /// Language Code of the Source 
+        /// Translation File
+        /// </summary>
+        private string sLangCodeSrc;
 
-         /// <summary>
-         /// Language Code of the Destionation 
-         /// Translation File
-         /// </summary>
-         private string sLangCodeDest;
+        /// <summary>
+        /// Language Code of the Destionation 
+        /// Translation File
+        /// </summary>
+        private string sLangCodeDest;
 
         #endregion
 
@@ -107,7 +107,7 @@ namespace YAF.TranslateApp
             public string pageName;
             public string resourceName;
             public string srcResourceValue;
-           // public string dstResourceValue;
+            // public string dstResourceValue;
         }
 
         #endregion
@@ -268,12 +268,14 @@ namespace YAF.TranslateApp
         void TbxTextChanged(object sender, EventArgs e)
         {
             btnSave.Enabled = true;
+
+            tlpTranslations.Focus();
         }
-         /// <summary>
-         /// Auto Translate The Selected Resource via Google Translator
-         /// </summary>
-         /// <param name="sender"></param>
-         /// <param name="e"></param>
+        /// <summary>
+        /// Auto Translate The Selected Resource via Google Translator
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MenuItemClick(object sender, EventArgs e)
         {
             MenuItem menuItem = (MenuItem)sender;
@@ -285,22 +287,17 @@ namespace YAF.TranslateApp
 
             tbx.Text = Translator.TranslateText(tbx.Text, string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
 
-            if (tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase))
-            {
-                tbx.ForeColor = Color.Red;
-            }
-            else
-            {
-                tbx.ForeColor = Color.Black;
-            }
+            tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
 
             // Update Translations List
             translations.Find(check =>
                               check.sPageName.Equals(tbt.pageName) && check.sResourceName.Equals(tbt.resourceName)).
                 sLocalizedValue = tbx.Text;
+
+            tlpTranslations.Focus();
         }
 
-         /// <summary>
+        /// <summary>
         /// Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
         /// </summary>
         /// <param name="sender"></param>
@@ -310,19 +307,14 @@ namespace YAF.TranslateApp
             TextBox tbx = (TextBox)sender;
             TextBoxTranslation tbt = (TextBoxTranslation)tbx.Tag;
 
-            if (tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase))
-            {
-                tbx.ForeColor = Color.Red;
-            }
-            else
-            {
-                tbx.ForeColor = Color.Black;
-            }
+            tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
 
             // Update Translations List
             translations.Find(check =>
                               check.sPageName.Equals(tbt.pageName) && check.sResourceName.Equals(tbt.resourceName)).
                 sLocalizedValue = tbx.Text;
+
+            tlpTranslations.Focus();
 
         }
 
@@ -330,14 +322,14 @@ namespace YAF.TranslateApp
 
         #region Methods
 
-         /// <summary>
-         /// Wraps creation of translation controls.
-         /// </summary>
-         /// <param name="srcFile"></param>
-         /// <param name="dstFile"></param>
-         private void PopulateTranslations(string srcFile, string dstFile)
-         {
-             tlpTranslations.Controls.Clear();
+        /// <summary>
+        /// Wraps creation of translation controls.
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <param name="dstFile"></param>
+        private void PopulateTranslations(string srcFile, string dstFile)
+        {
+            tlpTranslations.Controls.Clear();
 
             Cursor = Cursors.WaitCursor;
 
@@ -376,19 +368,22 @@ namespace YAF.TranslateApp
             tlpTranslations.Padding = pad;
             tlpTranslations.PerformLayout();
 
+            tlpTranslations.Focus();
+
+
             Cursor = Cursors.Default;
 
-             btnSave.Enabled = true;
-             btnAutoTranslate.Enabled = true;
-         }
+            btnSave.Enabled = true;
+            btnAutoTranslate.Enabled = true;
+        }
 
 
-         /// <summary>
-         /// Creates and populates the translation controls given source and destination file names.
-         /// </summary>
-         /// <param name="srcFile"></param>
-         /// <param name="dstFile"></param>
-         private void CreateTranslateControls(string srcFile, string dstFile)
+        /// <summary>
+        /// Creates and populates the translation controls given source and destination file names.
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <param name="dstFile"></param>
+        private void CreateTranslateControls(string srcFile, string dstFile)
         {
             try
             {
@@ -409,7 +404,7 @@ namespace YAF.TranslateApp
                 {
                     do
                     {
-                       ResourcesNamespaces.Add(navDst.Name, navDst.Value);
+                        ResourcesNamespaces.Add(navDst.Name, navDst.Value);
                     } while (navDst.MoveToNextNamespace());
                 }
 
@@ -545,16 +540,16 @@ namespace YAF.TranslateApp
         }
 
 
-         /// <summary>
-         /// Creates controls for column 1 (Resource tag) and column 2 (Resource value).
-         /// </summary>
-         /// <param name="pageName"></param>
-         /// <param name="resourceName"></param>
-         /// <param name="srcResourceValue"></param>
-         /// <param name="dstResourceValue"></param>
-         /// <param name="rowNum"></param>
-         private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue, int rowNum)
-         {
+        /// <summary>
+        /// Creates controls for column 1 (Resource tag) and column 2 (Resource value).
+        /// </summary>
+        /// <param name="pageName"></param>
+        /// <param name="resourceName"></param>
+        /// <param name="srcResourceValue"></param>
+        /// <param name="dstResourceValue"></param>
+        /// <param name="rowNum"></param>
+        private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue, int rowNum)
+        {
             Label lbl = new Label();
             Label lblSource = new Label();
             TextBox tbx = new TextBox();
@@ -565,6 +560,7 @@ namespace YAF.TranslateApp
             lblSource.Font = ResourceHeaderFont;
             lblSource.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblSource.AutoEllipsis = true;
+            lblSource.TextAlign = ContentAlignment.TopCenter;
             ////
 
             lbl.Text = srcResourceValue;
@@ -572,17 +568,30 @@ namespace YAF.TranslateApp
             lbl.Font = ResourceHeaderFont;
             lbl.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lbl.AutoEllipsis = true;
+            lbl.TextAlign = ContentAlignment.TopCenter;
 
             tbx.Text = dstResourceValue;
             tbx.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            tbx.Multiline = true;
+
+            if (tbx.Text.Length > 30)
+            {
+                int height = 60 * (tbx.Text.Length / 60);
+                tbx.Height = height;
+                lbl.Height = height;
+                lblSource.Height = height;
+               
+                //tbx.Height = Unit.Pixel(80);
+            }
+
 
             Translation translation = new Translation
-            {
-                sPageName = pageName,
-                sResourceName = resourceName,
-                sResourceValue = srcResourceValue,
-                sLocalizedValue = dstResourceValue
-            };
+                                          {
+                                              sPageName = pageName,
+                                              sResourceName = resourceName,
+                                              sResourceValue = srcResourceValue,
+                                              sLocalizedValue = dstResourceValue
+                                          };
 
             translations.Add(translation);
 
@@ -603,17 +612,17 @@ namespace YAF.TranslateApp
             tbx.LostFocus += TbxLostFocus;
             tbx.TextChanged += TbxTextChanged;
 
-             MenuItem menuItem = new MenuItem {Text = "Auto Translate"};
+            MenuItem menuItem = new MenuItem { Text = "Auto Translate" };
 
-             menuItem.Click += MenuItemClick;
+            menuItem.Click += MenuItemClick;
 
-             ContextMenu contextMenu = new ContextMenu();
+            ContextMenu contextMenu = new ContextMenu();
 
-             contextMenu.MenuItems.Add(menuItem);
+            contextMenu.MenuItems.Add(menuItem);
 
-             tbx.ContextMenu = contextMenu;
+            tbx.ContextMenu = contextMenu;
 
-           
+
 
             tbx.Tag = new TextBoxTranslation { pageName = pageName, resourceName = resourceName, srcResourceValue = srcResourceValue };
 
@@ -625,8 +634,9 @@ namespace YAF.TranslateApp
 
             lbl.Text = lbl.Text;
 
-           
+
         }
+
         /// <summary>
         /// Save translations back to original file.
         /// </summary>
@@ -636,7 +646,7 @@ namespace YAF.TranslateApp
             bool result = true;
 
             int iOldCount = translations.Count;
-            
+
             translations = RemoveDuplicateSections(translations);
 
             int iDuplicates = iOldCount - translations.Count;
@@ -723,7 +733,7 @@ namespace YAF.TranslateApp
 
                 result = false;
             }
-            
+
             Cursor = Cursors.Default;
 
             return result;
@@ -737,7 +747,7 @@ namespace YAF.TranslateApp
         /// <returns>The Cleaned List</returns>
         public static List<T> RemoveDuplicateSections<T>(List<T> list) where T : Translation
         {
-           List<T> finalList = new List<T>();
+            List<T> finalList = new List<T>();
 
             /*foreach (T item1 in
                 list.Where(item1 => finalList.Find(check => check.sPageName.Equals(item1.sPageName) && check.sResourceName.Equals(item1.sResourceName) && check.sResourceValue.Equals(item1.sResourceValue) && check.sLocalizedValue.Equals(item1.sLocalizedValue)) == null))
@@ -821,14 +831,7 @@ namespace YAF.TranslateApp
 
                 tbx.Text = Translator.TranslateText(tbx.Text, string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
 
-                if (tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase))
-                {
-                    tbx.ForeColor = Color.Red;
-                }
-                else
-                {
-                    tbx.ForeColor = Color.Black;
-                }
+                tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
 
                 // Update Translations List
                 translations.Find(check =>
