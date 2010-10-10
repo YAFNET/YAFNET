@@ -79,9 +79,10 @@ namespace YAF.Controls
     {
         doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");
 
-
         searchInput.Attributes["onfocus"] = string.Format("if (this.value == '{0}') {{this.value = '';}}", this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
         searchInput.Attributes["onblur"] = string.Format("if (this.value == '') {{this.value = '{0}';}}", this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+
+         searchInput.Text = this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD");
     }
 
     /// <summary>
