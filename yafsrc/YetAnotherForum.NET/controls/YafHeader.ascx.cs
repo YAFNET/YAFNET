@@ -77,6 +77,30 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
+        doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");
+
+
+        searchInput.Attributes["onfocus"] = string.Format("if (this.value == '{0}') {{this.value = '';}}", this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+        searchInput.Attributes["onblur"] = string.Format("if (this.value == '') {{this.value = '{0}';}}", this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+    }
+
+    /// <summary>
+    /// Do Quick Search
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void QuickSearchClick(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(searchInput.Text)) return;
+
+        YafBuildLink.Redirect(
+            ForumPages.search,
+            "search={0}",
+            searchInput.Text);
     }
 
     #endregion

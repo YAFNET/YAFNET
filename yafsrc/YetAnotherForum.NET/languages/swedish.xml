@@ -588,126 +588,94 @@
     <Resource tag="TO">Skicka til (e-postadress):</Resource>
   </page>
   <page name="HELP_INDEX">
-		<Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
-		<Resource tag="SUBTITLE">Forum Help</Resource>
-		<Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
-		<Resource tag="RECOVERTITLE">Recover lost password</Resource>
-		<Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the &quot;&lt;a href=&quot;{0}&quot;&gt;Lost Password&lt;/a&gt;&quot; 
-  link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
-&lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
-  be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
-&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password. 
-  This option provides you with the ability to reset your password.  &lt;/p&gt;
-&lt;p&gt;You must be able to receive emails to your registered email address for this to 
-  work. You may need to check your spam filters and folder if you do not see this 
-  email in a few minutes. &lt;/p&gt;</Resource>
-		<Resource tag="ANOUNCETITLE">Announcements</Resource>  
-		<Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can&#39;t reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
+    <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
 &lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
         </Resource>
-		<Resource tag="GENERALTOPICS">General Forum Usage</Resource>
-		<Resource tag="SEARCHHELP">Search Help</Resource>
-		<Resource tag="NORESULTS">No Results found.</Resource>
-		<Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
-		<Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
-		<Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
-		<Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
-        <Resource tag="REGISTRATIONTITLE">Registration</Resource>
-        <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
-        <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
-        <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
-        <Resource tag="THREADOPTTITLE">Topic Options</Resource> 
-        <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
-        <Resource tag="PMTITLE">Contacting other Members</Resource>
-        <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
-		<Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft&#39;s .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
+    <Resource tag="ANOUNCETITLE">Announcements</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
+&lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
+&lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
+&lt;p&gt;Once the upload is completed the file name will appear over the Upload Section. You can click 'Back' to return to the Topic.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+&lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
+    <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
+    <Resource tag="BUDDIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="BUDDIESTITLE">Buddies</Resource>
+    <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
+&lt;p&gt;You have two choices:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Posts are displayed chronologically, usually from oldest to newest. Posts are shown in a flat mode so that many posts can be viewed simultaneously. &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - A tree is shown along with every post. This shows you the relationship each post has to the others. It's easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.&lt;/li&gt;
+&lt;/ul&gt;
+</Resource>
+    <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
+    <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you currently registered and logged in, you may be able to edit and delete your messages (if the  administrator doesnt  turned off this option). &lt;/p&gt;
+&lt;p&gt;To edit or delete your posts, click the 'Edit'  button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
+&lt;p&gt;Once you've made your modifications, a note may appear to inform other users that you have edited your post.&lt;/p&gt;
+&lt;p&gt;Please also Enter in The Field 'Reason for edit' an Reason why you edit this Message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
+    <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
+    <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;A Forums contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
 &lt;p&gt;The forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member messageed the most recent message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I find my way around?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When you click on a forum&#39;s name, you are taken to the list of topics it contains. A topic is a conversation between members or guests. Each topic starts out as a single message and grows as more individual messages are added by different users. &lt;/p&gt;
-&lt;p&gt;To start a new Topic simply click on the &#39;New Topic&#39; button  (If you have access to it).&lt;/p&gt;
+&lt;p&gt;When you click on a forum's name, you are taken to the list of topics it contains. A topic is a conversation between members or guests. Each topic starts out as a single message and grows as more individual messages are added by different users. &lt;/p&gt;
+&lt;p&gt;To start a new Topic simply click on the 'New Topic' button  (If you have access to it).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Paging&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When there are more Topic to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
 &lt;p&gt;This method of splitting lists of items over many pages is used throughout the board.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What are sticky topics?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&#39;Sticky&#39; Topics can be created by moderators or administrators, and remain &#39;stuck&#39; to the top of the listing, even if they haven&#39;t had any messages recently. Their purpose is to keep important information visible and accessible at all times.&lt;/p&gt;
+&lt;p&gt;'Sticky' Topics can be created by moderators or administrators, and remain 'stuck' to the top of the listing, even if they haven't had any messages recently. Their purpose is to keep important information visible and accessible at all times.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I read a topic?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To read a topic, click on its title. Each message in a topic is created by a member or a guest. You&#39;ll see some brief information about the member who created the topic on the left side of the message.&lt;/p&gt;
-&lt;p&gt;To message a reply to an existing topic, click on the &#39;Post Reply&#39;  button. If the &#39;Post Reply&#39; button does not appear, it could mean that you are not logged in as a member, or that you do not have permission to reply, or that the topic has been closed for new replies.&lt;/p&gt;
-&lt;p&gt;If enabled, there will also be a &#39;Quick Reply&#39; box where you can quickly enter a reply without having to go to the &#39;Post Reply&#39; page. You need to click the &#39;Quick Reply&#39; button  in a message to activate the quick reply box before you can type into it.&lt;/p&gt;
+&lt;p&gt;To read a topic, click on its title. Each message in a topic is created by a member or a guest. You'll see some brief information about the member who created the topic on the left side of the message.&lt;/p&gt;
+&lt;p&gt;To message a reply to an existing topic, click on the 'Post Reply'  button. If the 'Post Reply' button does not appear, it could mean that you are not logged in as a member, or that you do not have permission to reply, or that the topic has been closed for new replies.&lt;/p&gt;
+&lt;p&gt;If enabled, there will also be a 'Quick Reply' box where you can quickly enter a reply without having to go to the 'Post Reply' page. You need to click the 'Quick Reply' button  in a message to activate the quick reply box before you can type into it.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I find out more about members?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To view information about a particular member, click on the user name. This will take you to their public profile page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What is the Header?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Header on top of every page has links to help you move around. A form on the right allows you to quickly login. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
-        <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
-&lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Posting new Topics&lt;/li&gt;
-  &lt;li&gt;Replying to other peoples&#39; Topics&lt;/li&gt;
-  &lt;li&gt;Editing your messages&lt;/li&gt;
-  &lt;li&gt;Receiving email notification of replies to messages and topics you specify&lt;/li&gt;
-  &lt;li&gt;Sending private messages to other members&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;How do I register?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;You register by clicking on the &#39;Register&#39; in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator has enabled it enter the Shown Captcha Code.&lt;/p&gt;
-</Resource>
-        <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the &#39;Search&#39; link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
-&lt;p&gt;For more control over the search, you to restrict your search to individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
-        <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you&#39;re in a thread, look at the top bar. On the right hand side you&#39;ll see &#39;View&#39;. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
-&lt;p&gt;You have two choices:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Posts are displayed chronologically, usually from oldest to newest. Posts are shown in a flat mode so that many posts can be viewed simultaneously. &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - A tree is shown along with every post. This shows you the relationship each post has to the others. It&#39;s easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.&lt;/li&gt;
-&lt;/ul&gt;
-</Resource>
-        <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the &#39;Active Topics&#39; link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;If you are logged in, the &#39;Active Topics&#39; link will change to &#39;My Topics&#39;, which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
-&lt;p&gt;The administrator can also set up the forums so that each thread you read is marked in the database. If this option is set, then new topic (or topics with new posts) will not be marked as read until you have actually read them.&lt;/p&gt;
-&lt;p&gt;There will be also an Second Tab &#39;Favorite Topics&#39; which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
-        <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  &#39;Options&#39;. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Email this Topic&lt;/strong&gt; - If you think the thread may be interesting to someone else, you can forward a link to it to their email address.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Print this topic&lt;/strong&gt; - This will show you a page with the thread post content in a reduced graphics format that is more &#39;printer friendly&#39;.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
-&lt;/ul&gt;
-</Resource> 
-        <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name.&lt;/p&gt;
-&lt;p&gt;To view the members list, click on &#39;Members&#39; on main Header at the top of the page.&lt;/p&gt;
+    <Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
+    <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
+    <Resource tag="INDEX">Index</Resource>
+    <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name.&lt;/p&gt;
+&lt;p&gt;To view the members list, click on 'Members' on main Header at the top of the page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Are all members listed?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some members may not be on the list. The administrator has options over who is shown on the list. They may, for example, omit members who have not made many posts or who belong to certain user groups.&lt;/p&gt;</Resource>
-        <Resource tag="PMCONTENT">&lt;p&gt;You can contact another by sending an E-Mail, you find them on the member list.&lt;/p&gt;
-&lt;p&gt;This will usually open a page that contains a form where you can enter your message. When you have finished typing your message, press the &#39;Send E-mail&#39; button and your message will be sent instantly.&lt;/p&gt;
+    <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
+    <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
+&lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
+    <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
+    <Resource tag="MYALBUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MYALBUMSTITLE">Albums</Resource>
+    <Resource tag="MYPICSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
+    <Resource tag="MYSETTINGSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="MYSETTINGSTITLE">My Settings</Resource>
+    <Resource tag="NAVIGATION">Navigation</Resource>
+    <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the 'Active Topics' link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
+&lt;p&gt;If you are logged in, the 'Active Topics' link will change to 'My Topics', which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
+&lt;p&gt;The administrator can also set up the forums so that each thread you read is marked in the database. If this option is set, then new topic (or topics with new posts) will not be marked as read until you have actually read them.&lt;/p&gt;
+&lt;p&gt;There will be also an Second Tab 'Favorite Topics' which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
+    <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
+    <Resource tag="NORESULTS">No Results found.</Resource>
+    <Resource tag="PMCONTENT">&lt;p&gt;You can contact another by sending an E-Mail, you find them on the member list.&lt;/p&gt;
+&lt;p&gt;This will usually open a page that contains a form where you can enter your message. When you have finished typing your message, press the 'Send E-mail' button and your message will be sent instantly.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Can I see e-mail addresses?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;For privacy reasons, the recipient&#39;s e-mail address is not revealed to you during this process, or at any other location in the forums.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why can&#39;t I send an e-mail to someone?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For privacy reasons, the recipient's e-mail address is not revealed to you during this process, or at any other location in the forums.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why can't I send an e-mail to someone?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you cannot find an e-mail button or link for a member, it means either that the administrator has disabled e-mail functions for this forum, or that the member has said that they do not wish to receive e-mail from other members.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What is private messaging?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Registered members may also be able to send messages to other members of this forum using the private messaging system.&lt;/p&gt;</Resource>
-        <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
-&lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
-&lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
-        <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
-        <Resource tag="MYSETTINGSTITLE">My Settings</Resource>
-        <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
-        <Resource tag="BUDDIESTITLE">Buddies</Resource>
-        <Resource tag="MYALBUMSTITLE">Albums</Resource>
-		<Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MYSETTINGSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MYPICSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="BUDDIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MYALBUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
-        <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
-        <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
-        <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
-        <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
-        <Resource tag="SMILIESTITLE">Smilies</Resource> 
-        <Resource tag="THREADSTATUSTITLE">Message Icons and Thread Status</Resource>
-        <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
-		<Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
+    <Resource tag="PMTITLE">Contacting other Members</Resource>
+    <Resource tag="POLLSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
+    <Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Using clickable controls similar to those found in most word processors&lt;/li&gt;
@@ -717,35 +685,69 @@
 &lt;p&gt;Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.&lt;/p&gt;
 &lt;p&gt;To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.&lt;/p&gt;
 &lt;p&gt;BB code is a special set of codes similar to HTML that can be used in posts to the board.&lt;/p&gt;</Resource>
-        <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
-&lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the &#39;Post Reply&#39; button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
-&lt;p&gt;If you want to Reply a Message hit the &#39;Quote&#39; Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
-        <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you currently registered and logged in, you may be able to edit and delete your messages (if the  administrator doesnt  turned off this option). &lt;/p&gt;
-&lt;p&gt;To edit or delete your posts, click the &#39;Edit&#39;  button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
-&lt;p&gt;Once you&#39;ve made your modifications, a note may appear to inform other users that you have edited your post.&lt;/p&gt;
-&lt;p&gt;Please also Enter in The Field &#39;Reason for edit&#39; an Reason why you edit this Message.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
-        <Resource tag="POLLSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main &#39;Post Reply&#39; or &#39;New Topic&#39; page and not &#39;Quick Reply&#39;, or Click the &#39;Attach&#39; Button to on an existing Message.&lt;/p&gt;
-&lt;p&gt;On this page, below the message box, you will find a Check box &#39;Attach files to this post?&#39;. When you Click on the &#39;Post&#39; Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
-&lt;p&gt;To upload a file from your computer, click the &#39;Browse&#39; button and locate the file. Once you have selected a file, click &#39;Upload&#39;.&lt;/p&gt;
-&lt;p&gt;Once the upload is completed the file name will appear over the Upload Section. You can click &#39;Back&#39; to return to the Topic.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
-&lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the &#39;Insert Image&#39; icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
-        <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing &#39;this is a joke&#39;.
+    <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
+    <Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
+    <Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
+    <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
+    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
+  link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
+&lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
+  be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
+&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password. 
+  This option provides you with the ability to reset your password.  &lt;/p&gt;
+&lt;p&gt;You must be able to receive emails to your registered email address for this to 
+  work. You may need to check your spam filters and folder if you do not see this 
+  email in a few minutes. &lt;/p&gt;</Resource>
+    <Resource tag="RECOVERTITLE">Recover lost password</Resource>
+    <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
+&lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Posting new Topics&lt;/li&gt;
+  &lt;li&gt;Replying to other peoples' Topics&lt;/li&gt;
+  &lt;li&gt;Editing your messages&lt;/li&gt;
+  &lt;li&gt;Receiving email notification of replies to messages and topics you specify&lt;/li&gt;
+  &lt;li&gt;Sending private messages to other members&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;How do I register?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You register by clicking on the 'Register' in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator has enabled it enter the Shown Captcha Code.&lt;/p&gt;
+</Resource>
+    <Resource tag="REGISTRATIONTITLE">Registration</Resource>
+    <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
+&lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
+&lt;p&gt;If you want to Reply a Message hit the 'Quote' Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
+    <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
+    <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
+&lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
+&lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
+    <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
+    <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
+    <Resource tag="SEARCHHELP">Search Help</Resource>
+    <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
+    <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
+&lt;p&gt;For more control over the search, you to restrict your search to individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
+    <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
+    <Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
+    <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Some smilies can be accessed from the &#39;Post Reply&#39; or &#39;New Topic&#39; pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
-        <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
-&lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
-		<Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
-		<Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
-	</page>
+&lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
+    <Resource tag="SMILIESTITLE">Smilies</Resource>
+    <Resource tag="SUBTITLE">Forum Help</Resource>
+    <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Email this Topic&lt;/strong&gt; - If you think the thread may be interesting to someone else, you can forward a link to it to their email address.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Print this topic&lt;/strong&gt; - This will show you a page with the thread post content in a reduced graphics format that is more 'printer friendly'.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
+&lt;/ul&gt;
+</Resource>
+    <Resource tag="THREADOPTTITLE">Topic Options</Resource>
+    <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+    <Resource tag="THREADSTATUSTITLE">Message Icons and Thread Status</Resource>
+    <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
+    <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
+  </page>
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">Tillkännagivande</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Tillkännagivande (Nya meddelanden)</Resource>
@@ -1528,6 +1530,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Registrera dig</Resource>
     <Resource tag="SEARCH">Sök</Resource>
+    <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="WELCOME_GUEST">Välkommen gäst</Resource>
   </page>
   <page name="TOPICS">

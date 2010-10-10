@@ -4,6 +4,7 @@
 .PopupBody
 {
 	margin: 0;
+	padding: 0;
 }
 .yafnet
 {
@@ -109,7 +110,7 @@
 }
 .yafnet .menuContainer
 {
-	line-height:20px;
+	line-height:30px;
     float: left;
 }
 .yafnet .menuMyContainer
@@ -139,6 +140,12 @@
     padding: 2px 3px 2px 3px;    
 }
 
+.yafnet #quickSearch
+{
+	display:inline;
+	float:right;
+	padding: 0px 4px 0px 4px;
+}
 .yafnet #yafprofilecontent
 {
 	margin: 5px 0px 5px 0px;

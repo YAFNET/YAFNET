@@ -1522,6 +1522,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="NEWPM">({0} Unread)</Resource>
 		<Resource tag="REGISTER">Register</Resource>
 		<Resource tag="SEARCH">Search</Resource>
+		<Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
 		<Resource tag="WELCOME_GUEST">Welcome Guest! To enable all features please try to register or login.</Resource>
 	</page>
 	<page name="TOPICS">
