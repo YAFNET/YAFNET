@@ -8,7 +8,7 @@
 		YAF.Classes.Data.DB.eventlog_create(YafContext.Current.Get<YafInitializeDb>().Initialized ? (int?)YafContext.Current.PageUserID : null , this, x );
 	}		
 </script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="YafHead" runat="server">
     <meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server" name="scriptlanguage" content="text/javascript" />
