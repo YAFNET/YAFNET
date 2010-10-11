@@ -314,6 +314,8 @@ namespace YAF.Controls
         this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
         this.PopMenu1.AddPostBackItem("userprofile", this.PageContext.Localization.GetText("POSTS", "USERPROFILE"));
 
+        this.PopMenu1.AddPostBackItem("lastposts", this.PageContext.Localization.GetText("PROFILE", "SEARCHUSER"));
+
         if (YafContext.Current.BoardSettings.EnableThanksMod)
         {
           this.PopMenu1.AddPostBackItem("viewthanks", this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
@@ -489,6 +491,9 @@ namespace YAF.Controls
       {
         case "userprofile":
           YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.PostData.UserId);
+          break;
+        case "lastposts":
+          YafBuildLink.Redirect(ForumPages.search, "postedby={0}", this.PostData.UserProfile.UserName);
           break;
         case "addbuddy":
           var strBuddyRequest = new string[2];
