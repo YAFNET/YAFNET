@@ -269,7 +269,7 @@
       YafContext.Current.Cache.Clear();
 
       // setup roles
-      // RoleMembershipHelper.SetupUserRoles(Forum1.BoardID, dnnUser.UserName);
+      RoleMembershipHelper.SetupUserRoles(this.iBoardId, dnnUser.UserName);
 
       // create the user in the YAF DB so profile can ge created...
       int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, this.iBoardId);

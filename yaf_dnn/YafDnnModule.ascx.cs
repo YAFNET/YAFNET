@@ -233,7 +233,7 @@ namespace YAF.DotNetNuke
         {
             YafContext.Current.Cache.Clear();
             // setup roles
-            //RoleMembershipHelper.SetupUserRoles(forum1.BoardID, dnnUser.UserName);
+            RoleMembershipHelper.SetupUserRoles(forum1.BoardID, dnnUser.UserName);
 
             // create the user in the YAF DB so profile can ge created...
             int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, forum1.BoardID);
