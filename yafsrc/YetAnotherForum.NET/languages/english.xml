@@ -104,23 +104,122 @@
         <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
 &lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
 &lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
+        <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
         <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
-        <Resource tag="MYSETTINGSTITLE">My Settings</Resource>
+		<Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
+        <Resource tag="MYSETTINGSTITLE">My Settings (User Control Panel)</Resource>
         <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
         <Resource tag="BUDDIESTITLE">Buddies</Resource>
         <Resource tag="MYALBUMSTITLE">Albums</Resource>
-		<Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MYSETTINGSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MYPICSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="BUDDIESCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-        <Resource tag="MYALBUMSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+		<Resource tag="THANKSTITLE">Thanks Feature</Resource>
+		<Resource tag="THANKSCONTENT">&lt;p&gt;The &#39;Thanks&#39; - System is a function that allows you to gave back an other user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
+&lt;p&gt;How to gave a User a Thanks?&lt;/p&gt;
+&lt;p&gt;If you want to gave an User an &#39;Thank&#39; press the &#39;Thank&#39; Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;View all Thanks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you want to view all Posts you gave Thank, or show the list of posts you received thanks got to the page  Personal Profile -&amp;gt; &#39;View Thanks&#39; from within the User Control Panel. There you see Two Tabs...&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt; &lt;strong&gt;Your Name thanked&lt;/strong&gt; - Shows the List of Messages where you gave a thank.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Your Name was thanked -&lt;/strong&gt; Shows the List your Messages where you received thanks.&lt;/li&gt;
+&lt;/ul&gt;</Resource>
+		<Resource tag="MESSENGERCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+		<Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;As member you have an publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;There are a multiple ways to view an members profile...&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;When you see an username click on the name and you will see a dropdown menu which contains an Link &#39;User Profile&#39; to view the Profile..&lt;/li&gt;
+  &lt;li&gt;The members list allows you to browse all registered members, and quickly click through to public profiles.&lt;/li&gt;
+  &lt;li&gt;When logged in, you can also view your own public profile by logging into the forums and clicking on The &#39;My Profile&#39; Link in the header at the top of the page, to open the User Control Panel.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Which Informations are shown on that Page?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Public Profile Page is grouped into 5 Tabs.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;About&lt;/strong&gt; - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked  								and Number of posts for which this user was thanked.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Buddies - &lt;/strong&gt;Shows the Buddies the User has in the Forum.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the if enabled the Albums the User has Generated.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Personal informations such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
+        <Resource tag="MYSETTINGSCONTENT">&lt;p&gt;The &lt;strong&gt;User Control Panel&lt;/strong&gt; is where you control your personal settings, options and preferences.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main will show your Account Summary including your user name, your email address, Number of posts, Member of Groups you ar in and since when you are member.&lt;/p&gt;
+&lt;p&gt;On the Left Side you find the Links to all Sub Pages and forms allow you to control:..&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Messenger&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Inbox&lt;/li&gt;
+  &lt;li&gt;Sent Items&lt;/li&gt;
+  &lt;li&gt;Archive&lt;/li&gt;
+  &lt;li&gt;New Message&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Personal Profile&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;View Profile&lt;/li&gt;
+  &lt;li&gt;Edit Profile&lt;/li&gt;
+  &lt;li&gt;View Thanks&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;Edit Albums&lt;/li&gt;
+  &lt;li&gt;Modify Avatar&lt;/li&gt;
+  &lt;li&gt;Signature&lt;/li&gt;
+  &lt;li&gt;Email Notification Preferences&lt;/li&gt;
+  &lt;li&gt;Change Password&lt;/li&gt;
+&lt;/ul&gt;</Resource>
+        <Resource tag="MYPICSCONTENT">&lt;p&gt;&lt;strong&gt;What are avatars?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Avatars are small images that people use to identify or distinguish themselves to other forum members. These avatars will be displayed as part of the user info in posts, as well as in the public profile.&lt;/p&gt;
+&lt;p&gt;You can Modify your Avatar by  click on &#39;Modify Avatar&#39; under the &#39;Personal Profile&#39; area of the navigation bar within the User CP.&lt;/p&gt;
+&lt;p&gt;There are three ways to add ann Avatar...&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If Available in the forum you can choose from an existing collection of avatars&lt;/li&gt;
+  &lt;li&gt;Enter an existing URL to an Image on a Remote Server&lt;/li&gt;
+  &lt;li&gt;Select an Image from Your Computer and Upload it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Be aware that the Administrator can set the Allowed Image File types, Image Size, and Image Dimensions (Max Width and Height of an Image).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What are signatures?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&#39;Signatures&#39; contain information that you want to include at the bottom of all your posts. This might include pictures, links to your site(s), quotes, etc.&lt;/p&gt;
+&lt;p&gt;For Modify signatures, click on &#39;Signature&#39; under the &#39;Personal Profile&#39; area of the navigation bar within the User CP. You are only allowed to enter BB Code formatted Signatures.&lt;/p&gt;</Resource>
+        <Resource tag="EDITPROFILECONTENT">&lt;p&gt;You can change your account information using Personal Profile -&amp;gt; &#39;Edit Profile&#39; option from within the User CP. If you want to change your Password there is an extra Page (Change Password) for that in the User CP, where you can set a new Password.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Edit Profile&lt;/strong&gt; Page&lt;/p&gt;
+&lt;p&gt;This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;About You&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;These are the Basic Information about you&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Location&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter the Place where you live&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local Time. And set if the Daylight Saving Time should be automatically adjusted.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here you change your E-mail Address.&lt;/p&gt;
+&lt;p&gt;And if the Administrator has enabled it you can change the Forum &lt;strong&gt;Language&lt;/strong&gt; and the &lt;strong&gt;Theme&lt;/strong&gt; of the Site.&lt;/p&gt;
+
+</Resource>
+		<Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a  two-way relationship between two users. It is initiated by one user and accepted by the other.
+&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Where is list of Buddies displayed?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Your Buddies are displayed on the &#39;My Buddies&#39; you can access this Page From The Header Link &#39;My Buddies&#39;, or from the User CP Link &#39;Edit Buddies&#39;. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: If you don&#39;t See this Links you didn&#39;t have any Buddies,  didn&#39;t send any Request or you didn&#39;t have any Pending Buddy Requests.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Your buddies are also displayed in your profile page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How can I request a User as Buddy or accept an Buddy Request?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To request a user as Buddy, view the profile page of the person you want to become friends with and click the &#39;Add as Buddy&#39; link.&lt;/p&gt;
+&lt;p&gt;To accept an Buddy request friend, go to your &#39;My Buddies&#39; page. On the Tab &#39;Pending Requests&#39; you see The List of Users(s) with pending requests. There you have three choices...&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Approve&lt;/strong&gt; - You Become Buddy of the User who requests it &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Deny&lt;/strong&gt; - Reject the Request&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt; Approve and Add - &lt;/strong&gt;You Become Buddy of the User who requests it, and also the User Becomes a Body in your List.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Remove Buddy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To remove a Buddy from Your List  go to your &#39;My Buddies&#39; page. On the Tab &#39;Buddy List&#39; Click on the Button &#39;Remove Buddy&#39; of the User you want to remove&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Third Tab of the &#39;My Buddies&#39; Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
+        <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member which has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the User Control Panel, and clicking on the &#39;Edit Albums&#39; link, and then clicking on &#39;Add New Album&#39;. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
+&lt;p&gt;Each album can have a title and you can Set a Cover for it (Image from the Album), or use random. And you can choose a Description for every Image.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I upload pictures?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you are on the Add/Edit Album Page you select an Image on your Computer and Click Upload to Add it to the Album.&lt;/p&gt;
+&lt;p&gt;You&#39;ll have the option to give each picture a caption, and to set one image as the Album cover, which will be displayed on the public profile. To delete an album or edit the title, add image(s) or delete(s) image, click on &#39;Edit&#39;. To edit or add a caption of an image click on the text bellow the image. If you want to Set an Cover or Remove the Cover Click on the Button Bellow the Cover.&lt;/p&gt;</Resource>
         <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
         <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
         <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
         <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
         <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
         <Resource tag="SMILIESTITLE">Smilies</Resource> 
-        <Resource tag="THREADSTATUSTITLE">Message Icons and Thread Status</Resource>
         <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
 		<Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
@@ -141,7 +240,25 @@
 &lt;p&gt;Please also Enter in The Field &#39;Reason for edit&#39; an Reason why you edit this Message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
-        <Resource tag="POLLSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+        <Resource tag="POLLSCONTENT">&lt;p&gt;Polls are an Option to vote on an issue or a question.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option &#39;Add Poll?&#39; to create a new poll. If you don&#39;t see that Option you don have access to that Option.&lt;/p&gt;
+&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;you can choose Images as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Blue&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Red&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Yellow&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You may also want to specify a time limit for the poll, so that (for example) run poll for 10 Days, you can also set it to never expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box &#39;You should vote in all polls to see results.&lt;em&gt;&#39;&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;&#39;Bound voting&#39; Option doesn&#39;t show results if group is open for voting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
+&lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;
+</Resource>
         <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main &#39;Post Reply&#39; or &#39;New Topic&#39; page and not &#39;Quick Reply&#39;, or Click the &#39;Attach&#39; Button to on an existing Message.&lt;/p&gt;
 &lt;p&gt;On this page, below the message box, you will find a Check box &#39;Attach files to this post?&#39;. When you Click on the &#39;Post&#39; Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
 &lt;p&gt;To upload a file from your computer, click the &#39;Browse&#39; button and locate the file. Once you have selected a file, click &#39;Upload&#39;.&lt;/p&gt;
@@ -155,7 +272,7 @@
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some smilies can be accessed from the &#39;Post Reply&#39; or &#39;New Topic&#39; pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
-        <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
+        
         <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
 		<Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>

@@ -247,7 +247,10 @@ namespace YAF.Pages.help
                                                   "memberslist",
                                                   "pm",
                                                   "rss",
+                                                  "thanks",
+                                                  "messenger",
                                                   "publicprofile",
+                                                  "editprofile",
                                                   "mysettings",
                                                   "mypics",
                                                   "buddies",
@@ -258,7 +261,6 @@ namespace YAF.Pages.help
                                                   "polls",
                                                   "attachments",
                                                   "smilies",
-                                                 // "threadstatus",
                                                   "modsadmins"
                                               };
 
