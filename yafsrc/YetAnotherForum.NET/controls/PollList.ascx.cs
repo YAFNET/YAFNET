@@ -54,7 +54,7 @@ namespace YAF.controls
     /// <summary>
     ///   The _canVote. Used to store data from parent repeater.
     /// </summary>
-    private bool _canVote;
+    // private bool _canVote;
 
     /// <summary>
     ///   The _dt poll.
@@ -634,15 +634,15 @@ namespace YAF.controls
         // We don't display poll command row to everyone 
         item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
                                                                               this.ShowButtons;
-        var polloll = item.FindControlRecursiveAs<Repeater>("Poll");
+        var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
 
         string pollId = drowv.Row["PollID"].ToString();
        
-        polloll.Visible = !this.CanVote(pollId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
+        pollChoiceList.Visible = !this.CanVote(pollId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
                           this.PageContext.IsGuest
                             ? false
                             : true;
-
+        
         // Poll Choice image
         var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
         var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
@@ -650,43 +650,43 @@ namespace YAF.controls
         // The image is not from theme
         if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
         {
-          questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-          questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
-                                  ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                  : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-          questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+            questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+            questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
+                                    ? this.GetThemeContents("VOTE", "POLL_CHOICE")
+                                    : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+            questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
-          questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-         
-          if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
-          {
-            decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
+            questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
-            // hardcoded - bad
-            questionImage.Width = 80;
-            questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
-          }
+            if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
+            {
+                decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
+
+                // hardcoded - bad
+                questionImage.Width = 80;
+                questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
+            }
         }
         else
         {
-          // image from theme no need to resize it
-          questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-          questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
-          questionAnchor.HRef = string.Empty;
+            // image from theme no need to resize it
+            questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+            questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
+            questionAnchor.HRef = string.Empty;
         }
-
-        DataTable _choiceRow = this._dtPoll.Copy();
-        foreach (DataRow drr in _choiceRow.Rows)
+        
+        DataTable thisPollTable = this._dtPoll.Copy();
+        foreach (DataRow thisPollTableRow in thisPollTable.Rows)
         {
-          if (Convert.ToInt32(drr["PollID"]) != Convert.ToInt32(pollId))
+          if (Convert.ToInt32(thisPollTableRow["PollID"]) != Convert.ToInt32(pollId))
           {
-            drr.Delete();
+            thisPollTableRow.Delete();
           }
           else
           {
-            if (!drr["MimeType"].IsNullOrEmptyDBField())
+            if (!thisPollTableRow["MimeType"].IsNullOrEmptyDBField())
             {
-              decimal currentAspect = GetImageAspect(drr["MimeType"]);
+              decimal currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
               if (currentAspect > this.MaxImageAspect)
               {
                 this.MaxImageAspect = currentAspect;
@@ -694,9 +694,12 @@ namespace YAF.controls
             }
           }
         }
+          thisPollTable.AcceptChanges();
+          this.isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
 
-        polloll.DataSource = _choiceRow;
-
+          pollChoiceList.DataSource = thisPollTable;
+          pollChoiceList.PollId = pollId.ToType<int>();
+          pollChoiceList.MaxImageAspect = this.MaxImageAspect;
 
         // returns number of day to run - null if poll has no expiration date 
         bool soon;
@@ -705,11 +708,7 @@ namespace YAF.controls
         bool isNotVoted = this.IsNotVoted(pollId);
         bool isPollClosed = this.IsPollClosed(pollId);
 
-        this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
-     
-        // Show results section
-        // The poll expired. We show results anyway  
-       
+        // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
      
             // Poll voting is bounded - you can't see results before voting in each poll
             if (this.isBound)
@@ -740,14 +739,12 @@ namespace YAF.controls
             {
                 this._showResults = true;
             }
-        
 
-        // bind data
-        polloll.DataBind();
+        pollChoiceList.HideResults = !_showResults;
 
         // Clear the fields after the child repeater is bound
         this._showResults = false;
-        this._canVote = false;
+       // this._canVote = false;
 
         // Add confirmations to delete buttons
         var removePollAll = item.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
@@ -771,6 +768,7 @@ namespace YAF.controls
           if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
           {
             pollVotesLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
+            pollVotesLabel.Visible = true;
           }
           
         }
@@ -832,6 +830,10 @@ namespace YAF.controls
           showWarningsRow = pollExpired.Visible = true;
         }
 
+        pollChoiceList.CanVote = cvote;
+        pollChoiceList.DaysToRun = daystorun;
+        
+
         item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
       }
 
@@ -859,147 +861,6 @@ namespace YAF.controls
       }
     }
 
-    /// <summary>
-    /// The poll_ item command.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      if (e.CommandName == "vote" && e.CommandArgument != null &&
-          ((this.PageContext.ForumVoteAccess && this.TopicId > 0) ||
-           (this.PageContext.BoardVoteAccess && this.BoardId > 0)))
-      {
-          if (!this.CanVote(Convert.ToInt32(this._dtPoll.Rows[0]["PollID"])))
-        {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
-          return;
-        }
-
-        if (this.IsLocked)
-        {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
-          return;
-        }
-
-        foreach (DataRow drow in this._dtPoll.Rows)
-        {
-          if ((int)drow["ChoiceID"] == Convert.ToInt32(e.CommandArgument))
-          {
-            if (this.IsPollClosed(Convert.ToInt32(drow["PollID"])))
-            {
-              this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
-              return;
-            }
-
-            break;
-          }
-        }
-
-        object userID = null;
-        object remoteIP = null;
-
-        if (this.PageContext.BoardSettings.PollVoteTiedToIP)
-        {
-          remoteIP = IPHelper.IPStrToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
-        }
-
-        if (!this.PageContext.IsGuest)
-        {
-          userID = this.PageContext.PageUserID;
-        }
-
-        DB.choice_vote(e.CommandArgument, userID, remoteIP);
-
-        // save the voting cookie...
-        var c = new HttpCookie(this.VotingCookieName(Convert.ToInt32(this._dtPoll.Rows[0]["PollID"])), e.CommandArgument.ToString())
-          {
-             Expires = DateTime.UtcNow.AddYears(1) 
-          };
-        this.Response.Cookies.Add(c);
-        string msg = this.PageContext.Localization.GetText("INFO_VOTED");
-
-        if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
-        {
-          msg += this.PageContext.Localization.GetText("POLLGROUP_BOUNDWARN");
-        }
-
-        this.PageContext.AddLoadMessage(msg);
-        this.BindData();
-      }
-    }
-
-    /// <summary>
-    /// The poll_ on item data bound.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Poll_OnItemDataBound(object source, RepeaterItemEventArgs e)
-    {
-      RepeaterItem item = e.Item;
-      var drowv = (DataRowView)e.Item.DataItem;
-      var trow = item.FindControlRecursiveAs<HtmlTableRow>("VoteTr");
-
-      if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
-      {
-        // Voting link 
-        var myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
-        string pollId = drowv.Row["PollID"].ToString();
-
-        myLinkButton.Enabled = this._canVote;
-        myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-        myLinkButton.Visible = true;
-
-        // Poll Choice image
-        var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
-        var choiceAnchor = item.FindControlRecursiveAs<HtmlAnchor>("ChoiceAnchor");
-
-        // Don't render if it's a standard image
-        if (!drowv.Row["ObjectPath"].IsNullOrEmptyDBField())
-        {
-          choiceAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-          choiceAnchor.HRef = drowv.Row["ObjectPath"].IsNullOrEmptyDBField()
-                                ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                : this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
-          choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
-
-          choiceImage.Src = choiceImage.Alt = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
-         
-
-          if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
-          {
-            decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
-
-            // hardcoded - bad
-            const int imageWidth = 80;
-            choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
-              imageWidth, choiceImage.Width / aspect);
-
-            // reserved to get equal row heights
-            string height = (this.MaxImageAspect * choiceImage.Width).ToString();
-            trow.Attributes["style"] = "height:{0}px;".FormatWith(height);
-          }
-        }
-        else
-        {
-          choiceImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-          choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
-          choiceAnchor.HRef = string.Empty;
-        }
-
-        item.FindControlRecursiveAs<Panel>("MaskSpan").Visible = !this._showResults;
-        item.FindControlRecursiveAs<Panel>("resultsSpan").Visible =
-          item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = this._showResults;
-      }
-    }
 
     /// <summary>
     /// The remove poll_ completely load.
@@ -1164,7 +1025,6 @@ namespace YAF.controls
         this._dtVotes = DB.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
 
         this.isBound = Convert.ToInt32(this._dtPollGroup.Rows[0]["IsBound"]) == 2;
-        this.isClosedBound = Convert.ToInt32(this._dtPollGroup.Rows[0]["IsClosedBound"]) == 4;
 
         this.PollGroup.DataSource = this._dtPollGroup;
 

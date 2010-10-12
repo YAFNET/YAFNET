@@ -1,12 +1,13 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
     Inherits="YAF.controls.PollList" %>
+ <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
 <table cellpadding="0" cellspacing="1" class="content" width="100%">
     <asp:Repeater ID="PollGroup" OnItemCommand="PollGroup_ItemCommand" OnItemDataBound="PollGroup_OnItemDataBound"
         runat="server" Visible="true">
         <HeaderTemplate>
         </HeaderTemplate>
         <ItemTemplate>
-            <tr>
+               <tr>
                 <td class="header1" style="width: 1">
                     <div class="attachedimg" style="display: inline; height: 50px">
                         <a id="QuestionAnchor" runat="server">
@@ -35,48 +36,8 @@
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
                 </td>
             </tr>
-            <asp:Repeater ID="Poll" runat="server" OnItemDataBound="Poll_OnItemDataBound" OnItemCommand="Poll_ItemCommand"
-                Visible="false">
-                <HeaderTemplate>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <tr id="VoteTr" runat="server">
-                        <td class="post" width="1">
-                            <div class="attachedimg" style="display: inline; height: 50px">
-                                <a id="ChoiceAnchor" runat="server">
-                                    <img id="ChoiceImage" src="" alt="" runat="server" />
-                                </a>
-                            </div>
-                        </td>
-                        <td class="post">
-                            <YAF:MyLinkButton ID="MyLinkButton1" Enabled="false" runat="server" CommandName="vote"
-                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
-                        </td>
-                        <td class="post" align="center">
-                            <asp:Panel ID="VoteSpan" Visible="false" runat="server">
-                                <%# DataBinder.Eval(Container.DataItem, "Votes") %>
-                            </asp:Panel>
-                            <asp:Panel ID="MaskSpan" Visible="false" runat="server">
-                                <img alt='<%# PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
-                                    title='<%# PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
-                                    src='<%# GetThemeContents("VOTE","POLL_MASK") %>' />
-                            </asp:Panel>
-                        </td>
-                        <td class="post">
-                            <asp:Panel ID="resultsSpan" Visible="false" runat="server">
-                                <nobr>               
-					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>" /><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
-						height="12" width='<%# VoteWidth(Container.DataItem) %>%' /><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>' /></nobr>
-                                <%# DataBinder.Eval(Container.DataItem,"Stats") %>
-                                %
-                            </asp:Panel>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-                <FooterTemplate>
-                </FooterTemplate>
-            </asp:Repeater>
-            <tr>
+        <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
+          <tr>
                 <td class="header2">
                 </td>
                 <td class="header2">
@@ -89,7 +50,7 @@
                     100%
                 </td>
             </tr>
-            <tr id="PollInfoTr" runat="server" visible="false">
+                 <tr id="PollInfoTr" runat="server" visible="false">
                 <td class="post" colspan="4" align="center">
                     <asp:Label ID="PollVotesLabel" Visible="false" runat="server" />
                     <asp:Label ID="GuestOptionsHidden" Visible="false" runat="server" />
@@ -97,8 +58,8 @@
                     <asp:Label ID="PollWillExpire" Visible="false" runat="server" />
                     <asp:Label ID="PollExpired" Visible="false" runat="server" />
                 </td>
-            </tr>
-            <tr id="PollCommandRow" runat="server">
+            </tr>   
+           <tr id="PollCommandRow" runat="server">
                 <td class="command" width="100%" colspan="4">
                     <YAF:ThemeButton ID="RemovePollAll" runat="server" Visible="false" CommandName="removeall"
                         CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' CssClass="yafcssbigbutton rightItem"

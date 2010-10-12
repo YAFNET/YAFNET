@@ -261,7 +261,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
 		PollGroupID int IDENTITY (1, 1) NOT NULL,
 		UserID	int not NULL,
-		Flags int NOT NULL 		
+		[Flags] int NOT NULL 		
 	)
 GO
 
@@ -273,7 +273,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		PollGroupID int NULL,
 		UserID int not NULL,	
 		[ObjectPath] nvarchar(255) NULL,
-		[MimeType] varchar(50) NULL
+		[MimeType] varchar(50) NULL,
+		[Flags] int NULL
 	)
 GO
 
@@ -1602,6 +1603,11 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
+end
+GO
 
 -- Choice Table
 -- this is a dummy it doesn't work

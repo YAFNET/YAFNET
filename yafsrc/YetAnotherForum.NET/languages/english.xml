@@ -34,6 +34,7 @@
         <Resource tag="THREADOPTTITLE">Topic Options</Resource> 
         <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
         <Resource tag="PMTITLE">Contacting other Members</Resource>
+        <Resource tag="POLLSTITLE">Polls</Resource>
         <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
 		<Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft&#39;s .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
@@ -221,6 +222,7 @@
         <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
         <Resource tag="SMILIESTITLE">Smilies</Resource> 
         <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
+      <Resource tag="POLLSCONTENT">&lt;em&gt;You can create one or many polls in your topic, hide polls resultes until all polls in a topic are voted, hide polls results until a poll will expire(expiration date should be set). All the features should be enabled by the site administrator. You can remove polls or edit them. Poll editing may be switched off, if your poll already has votes. The site administrator can attach remote images to a poll question or poll choices too. &lt;/em&gt;</Resource>
 		<Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
 &lt;ol&gt;
@@ -1088,7 +1090,7 @@
 		<Resource tag="POLLGROUP_BOUNDWARN">You should vote in all polls to see results.</Resource>
 		<Resource tag="POLLGROUP_ATTACHED">Can't attach the group. A group is already attached.</Resource>
 		<Resource tag="POLLGROUPISBOUND">Your vote will be counted when you'll vote in all the polls.</Resource>
-		<Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results if group is open for voting</Resource>
+		<Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results, if the poll didn't expire.</Resource>
 		<Resource tag="POLLGROUP_LIST">Choose an existing poll group:</Resource>
 		<Resource tag="REMOVEPOLL">Remove Poll</Resource>
 		<Resource tag="REMOVEPOLL_ALL">Remove Poll Completely</Resource>

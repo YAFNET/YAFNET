@@ -4078,7 +4078,7 @@ BEGIN
 		a.Choice,
 		a.Votes,
 		IsBound = convert(int,pg.Flags & 2), 
-		IsClosedBound = convert(int,pg.Flags & 4), 
+		IsClosedBound = convert(int, isnull((b.Flags & 4),0)), 
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
@@ -4109,7 +4109,7 @@ BEGIN
 		QuestionObjectPath = b.[ObjectPath],
 		QuestionMimeType = b.[MimeType],
 		IsBound = convert(int,pg.Flags & 2),
-		IsClosedBound = convert(int,pg.Flags & 4),
+		IsClosedBound = convert([bit], isnull((b.Flags & 4),0)), 
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
@@ -6961,11 +6961,19 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
 ) as
 begin
 	declare @pgid int
+
+		update [{databaseOwner}].[{objectQualifier}Poll]
+		set Flags	= 0 where PollID = @PollID AND Flags IS NULL;
+
 	update [{databaseOwner}].[{objectQualifier}Poll]
 		set Question	=	@Question,
 			Closes		=	@Closes,
 			ObjectPath = @QuestionObjectPath,
-		    MimeType = @QuestionMimeType
+		    MimeType = @QuestionMimeType,
+			Flags	= (CASE				
+		WHEN @IsClosedBounded > 0 AND (Flags & 4) <> 4 THEN Flags | 4		
+		WHEN @IsClosedBounded <= 0 AND (Flags & 4) = 4  THEN Flags ^ 4
+		ELSE Flags END)
 		where PollID = @PollID
 
       SELECT  @pgid = PollGroupID FROM [{databaseOwner}].[{objectQualifier}Poll]
@@ -6975,13 +6983,6 @@ begin
 		set Flags	= (CASE 
 		WHEN @IsBounded > 0 AND (Flags & 2) <> 2 THEN Flags | 2 		
 		WHEN @IsBounded <= 0 AND (Flags & 2) = 2 THEN Flags ^ 2 		
-		ELSE Flags END)		
-		where PollGroupID = @pgid
-
-	update [{databaseOwner}].[{objectQualifier}PollGroupCluster]
-		set Flags	= (CASE		
-		WHEN @IsClosedBounded > 0 AND (Flags & 4) <> 4 THEN Flags | 4		
-		WHEN @IsClosedBounded <= 0 AND (Flags & 4) = 4 THEN Flags ^ 4
 		ELSE Flags END)		
 		where PollGroupID = @pgid
 end

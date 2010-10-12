@@ -157,6 +157,13 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="controls\PollChoiceList.ascx.cs">
+      <DependentUpon>PollChoiceList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PollChoiceList.ascx.designer.cs">
+      <DependentUpon>PollChoiceList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\DisplayAd.ascx.designer.cs">
       <DependentUpon>DisplayAd.ascx</DependentUpon>
     </Compile>
@@ -652,6 +659,7 @@
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
+    <Content Include="controls\PollChoiceList.ascx" />
     <Content Include="controls\DisplayAd.ascx" />
     <Content Include="controls\DisplayPost.ascx">
       <SubType>UserControl</SubType>
@@ -773,7 +781,9 @@
     <Content Include="install\mssql\tables.sql" />
     <Content Include="install\mssql\triggers.sql" />
     <Content Include="install\mssql\views.sql" />
-    <Content Include="languages\china.xml" />
+    <Content Include="languages\china.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="languages\czech.xml" />
     <Content Include="languages\danish.xml" />
     <Content Include="languages\dutch.xml" />
@@ -1937,7 +1947,9 @@
     <None Include="images\emoticons\eusa.pak" />
     <None Include="images\emoticons\ModernSmileyPack.pak" />
     <None Include="images\medals\eusa.pak" />
-    <Content Include="mail.config" />
+    <Content Include="mail.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="themes\flatearth.xml" />
     <Content Include="themes\FlatEarth\bg_header2.png" />
     <Content Include="themes\FlatEarth\bg_header5.png" />
@@ -2116,10 +2128,8 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="Resource.ashx" />
-    <Content Include="web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="UrlRewriter.config" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

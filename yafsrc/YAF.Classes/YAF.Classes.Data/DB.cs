@@ -5552,11 +5552,11 @@ namespace YAF.Classes.Data
 
         if (question.Closes > DateTime.MinValue)
         {
-            sb.Append("(Question,Closes, UserID,PollGroupID,ObjectPath,MimeType) ");
+            sb.Append("(Question,Closes, UserID,PollGroupID,ObjectPath,MimeType,Flags) ");
         }
         else
         {
-            sb.Append("(Question,UserID, PollGroupID, ObjectPath, MimeType) ");
+            sb.Append("(Question,UserID, PollGroupID, ObjectPath, MimeType,Flags) ");
         }
 
         sb.Append(" VALUES(");
@@ -5566,7 +5566,7 @@ namespace YAF.Classes.Data
         {
           sb.Append(",@Closes");
         }
-        sb.Append(",@UserID, (CASE WHEN  @NewPollGroupID IS NULL THEN @PollGroupID ELSE @NewPollGroupID END), @QuestionObjectPath,@QuestionMimeType");
+        sb.Append(",@UserID, (CASE WHEN  @NewPollGroupID IS NULL THEN @PollGroupID ELSE @NewPollGroupID END), @QuestionObjectPath,@QuestionMimeType,@PollFlags");
         sb.Append("); ");
         sb.Append("SET @PollID = SCOPE_IDENTITY(); ");
      
@@ -5653,7 +5653,7 @@ namespace YAF.Classes.Data
             {
                 groupFlags = groupFlags | 2;
             }
-                 if (question.IsClosedBound)
+            if (question.IsClosedBound)
             {
                 groupFlags = groupFlags | 4;
             }
@@ -5667,6 +5667,11 @@ namespace YAF.Classes.Data
                                           string.IsNullOrEmpty(question.QuestionMimeType)
                                               ? String.Empty
                                               : question.QuestionMimeType);
+
+          cmd.Parameters.AddWithValue("@PollFlags",
+                                      question.IsClosedBound
+                                          ? 0 | 4
+                                          : 0);
          
             for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1); choiceCount1++)
           {
