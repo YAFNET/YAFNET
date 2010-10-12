@@ -235,7 +235,7 @@ namespace YAF.Pages.help
                      HelpContent = string.Format(this.GetText("REGISTRATIONCONTENT"), YafBuildLink.GetLink(ForumPages.recoverpassword))
                  });
              }
-            
+
             IList<string> HelpPageNames = new List<string>
                                               {
                                                   "anounce",
@@ -245,6 +245,7 @@ namespace YAF.Pages.help
                                                   "display",
                                                   "threadopt",
                                                   "memberslist",
+                                                  "popups",
                                                   "pm",
                                                   "rss",
                                                   "thanks",
@@ -255,6 +256,8 @@ namespace YAF.Pages.help
                                                   "mypics",
                                                   "buddies",
                                                   "myalbums",
+                                                  "subscriptions",
+                                                  "mailsettings",
                                                   "posting",
                                                   "replying",
                                                   "editdelete",

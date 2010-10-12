@@ -767,6 +767,14 @@
     <Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
     <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
     <Resource tag="INDEX">Index</Resource>
+    <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification' Preferences Page inside your User Control Panel you can set Up, what type of Email Notifications you want to receive.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you wont receive any emails.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or an forum.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics or forums you've selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive an private message.&lt;/p&gt;
+</Resource>
+    <Resource tag="MAILSETTINGSTITLE">Email Notification Preferences</Resource>
     <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name.&lt;/p&gt;
 &lt;p&gt;To view the members list, click on 'Members' on main Header at the top of the page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Are all members listed?&lt;/strong&gt;&lt;/p&gt;
@@ -855,6 +863,17 @@
 &lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;
 </Resource>
     <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
+    <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may Receive an Pop Up Notification on the Center of your Browser Window.&lt;/p&gt;
+&lt;p&gt;This will inform you about serval actions...&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;New Private Message(s)&lt;/li&gt;
+  &lt;li&gt;New Buddy Requests&lt;/li&gt;
+  &lt;li&gt;Approved Buddy Requests&lt;/li&gt;
+  &lt;li&gt;Denied Buddy Requests&lt;br /&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;You will also Receive Couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
+    <Resource tag="POPUPSTITLE">PopUp Notifications</Resource>
     <Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
 &lt;ol&gt;
@@ -929,6 +948,15 @@
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
     <Resource tag="SMILIESTITLE">Smilies</Resource>
+    <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates - for example by having them listed in your User CP and receiving e-mail updates for each one.&lt;/p&gt;
+&lt;p&gt;Or if you don't want to manually subscribe to an topic you want to follow you can turn on the Option 'Notification for topics &lt;strong&gt;you've posted to&lt;/strong&gt;, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User CP. There you can select which subscriptions you wish to delete by Clicking on the Unwatch Button.&lt;/p&gt;</Resource>
+    <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
     <Resource tag="SUBTITLE">Forum Help</Resource>
     <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to gave back an other user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
 &lt;p&gt;How to gave a User a Thanks?&lt;/p&gt;

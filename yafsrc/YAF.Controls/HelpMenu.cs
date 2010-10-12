@@ -72,6 +72,7 @@ namespace YAF.Controls
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=threadopt"), PageContext.Localization.GetText("HELP_INDEX", "THREADOPTTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=recover"), PageContext.Localization.GetText("HELP_INDEX", "RECOVERTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=memberslist"), PageContext.Localization.GetText("HELP_INDEX", "MEMBERSLISTTITLE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=popups"), PageContext.Localization.GetText("HELP_INDEX", "POPUPSTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=pm"), PageContext.Localization.GetText("HELP_INDEX", "PMTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=rss"), PageContext.Localization.GetText("HELP_INDEX", "RSSTITLE"));
         
@@ -90,6 +91,8 @@ namespace YAF.Controls
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=buddies"), PageContext.Localization.GetText("HELP_INDEX", "BUDDIESTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=myalbums"), PageContext.Localization.GetText("HELP_INDEX", "MYALBUMSTITLE"));
         html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=mypics"), PageContext.Localization.GetText("HELP_INDEX", "MYPICSTITLE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=mailsettings"), PageContext.Localization.GetText("HELP_INDEX", "MAILSETTINGSTITLE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.help_index, "faq=subscriptions"), PageContext.Localization.GetText("HELP_INDEX", "SUBSCRIPTIONSTITLE"));
 
         html.AppendFormat(@"</ul></td></tr>");
         //////////////

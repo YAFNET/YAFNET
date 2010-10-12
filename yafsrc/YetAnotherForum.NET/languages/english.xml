@@ -277,6 +277,34 @@
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
 		<Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
 		<Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
+		<Resource tag="MAILSETTINGSTITLE">Email Notification Preferences</Resource>
+		<Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the &#39;Email Notification&#39; Preferences Page inside your User Control Panel you can set Up, what type of Email Notifications you want to receive.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you wont receive any emails.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics you&#39;ve posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or an forum.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics or forums you&#39;ve selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive an private message.&lt;/p&gt;
+</Resource>
+		<Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
+		<Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates - for example by having them listed in your User CP and receiving e-mail updates for each one.&lt;/p&gt;
+&lt;p&gt;Or if you don&#39;t want to manually subscribe to an topic you want to follow you can turn on the Option &#39;Notification for topics &lt;strong&gt;you&#39;ve posted to&lt;/strong&gt;, watched or marked as favorite&#39; in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a topic, click the &#39;Options&#39; link at the top of the list of posts then click &#39;Watch this topic&#39;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a forum, click on the &#39;Watch Forum&#39; link bellow the  list of topics.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can see the List of &#39;Watched Forums&#39; and &#39;Watched Topics&#39; from the &#39;Email Notification Preferences&#39; Page of your User CP. There you can select which subscriptions you wish to delete by Clicking on the Unwatch Button.&lt;/p&gt;</Resource>
+		<Resource tag="POPUPSTITLE">PopUp Notifications</Resource>
+		<Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may Receive an Pop Up Notification on the Center of your Browser Window.&lt;/p&gt;
+&lt;p&gt;This will inform you about serval actions...&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;New Private Message(s)&lt;/li&gt;
+  &lt;li&gt;New Buddy Requests&lt;/li&gt;
+  &lt;li&gt;Approved Buddy Requests&lt;/li&gt;
+  &lt;li&gt;Denied Buddy Requests&lt;br /&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;You will also Receive Couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
 	</page>
 	<page name="DIGEST">
 		<Resource tag="NEWTOPICS">New Topics</Resource>
