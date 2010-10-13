@@ -34,7 +34,7 @@
         <Resource tag="THREADOPTTITLE">Topic Options</Resource> 
         <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
         <Resource tag="PMTITLE">Contacting other Members</Resource>
-        <Resource tag="POLLSTITLE">Polls</Resource>
+        <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
         <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
 		<Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft&#39;s .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
@@ -221,8 +221,27 @@
         <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
         <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
         <Resource tag="SMILIESTITLE">Smilies</Resource> 
-        <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
-      <Resource tag="POLLSCONTENT">&lt;em&gt;You can create one or many polls in your topic, hide polls resultes until all polls in a topic are voted, hide polls results until a poll will expire(expiration date should be set). All the features should be enabled by the site administrator. You can remove polls or edit them. Poll editing may be switched off, if your poll already has votes. The site administrator can attach remote images to a poll question or poll choices too. &lt;/em&gt;</Resource>
+        <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource> <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option &#39;Add Poll?&#39; to create a new poll. If you don&#39;t see that Option you may don&#39;t have access to that Option.&lt;/p&gt;
+&lt;p&gt;You can also add new Polls to existing ones. a Topic can have as many Polls you want.&lt;/p&gt;
+&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Blue&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Red&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Yellow&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You may also want to specify a time limit for the poll, so that (for example) run poll for 10 Days, you can also set it to never expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box &#39;You should vote in all polls to see results.&lt;em&gt;&#39;&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;&#39;Bound voting&#39; Option don&#39;t show results, if the poll didn&#39;t expire.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Grouping Polls&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can group polls together and display them in other topics, every Poll is alsways a new Group of Polls.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
+&lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;</Resource>
 		<Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
 &lt;ol&gt;

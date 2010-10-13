@@ -843,10 +843,11 @@
 &lt;p&gt;&lt;strong&gt;What is private messaging?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Registered members may also be able to send messages to other members of this forum using the private messaging system.&lt;/p&gt;</Resource>
     <Resource tag="PMTITLE">Contacting other Members</Resource>
-    <Resource tag="POLLSCONTENT">&lt;p&gt;Polls are an Option to vote on an issue or a question.&lt;/p&gt;
+    <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you don have access to that Option.&lt;/p&gt;
-&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;you can choose Images as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you may don't have access to that Option.&lt;/p&gt;
+&lt;p&gt;You can also add new Polls to existing ones. a Topic can have as many Polls you want.&lt;/p&gt;
+&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -857,7 +858,9 @@
 &lt;/ul&gt;
 &lt;p&gt;You may also want to specify a time limit for the poll, so that (for example) run poll for 10 Days, you can also set it to never expire.&lt;/p&gt;
 &lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
-&lt;p&gt;'Bound voting' Option doesn't show results if group is open for voting.&lt;/p&gt;
+&lt;p&gt;'Bound voting' Option don't show results, if the poll didn't expire.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Grouping Polls&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can group polls together and display them in other topics, every Poll is alsways a new Group of Polls.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
 &lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;
