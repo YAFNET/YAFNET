@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Télécharger un Avatar depuis votre ordinateur:</Resource>
     <Resource tag="INVALID_FILE">Le fichier envoyé n'est pas une image valide.</Resource>
     <Resource tag="NOAVATAR">[ Pas d'Avatar ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Choisir l'Avatar dans notre Collection:</Resource>
     <Resource tag="OURAVATAR_SELECT">Cliquez ici pour choisir l'Avatar</Resource>
     <Resource tag="TITLE">Modifier l'Avatar</Resource>

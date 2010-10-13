@@ -40,7 +40,8 @@
                 LocalizedTag="avatarremote" />
         </td>
         <td class="post">
-            <asp:TextBox CssClass="edit" ID="Avatar" runat="server" /></td>
+            <asp:TextBox CssClass="edit" ID="Avatar" runat="server" /> <br />
+             <em><asp:Label id="noteRemote" runat="server"></asp:Label></em></td>
         <td class="post">
             <asp:Button ID="UpdateRemote" CssClass="pbutton" runat="server" OnClick="RemoteUpdate_Click" /></td>
     </tr>
@@ -50,7 +51,8 @@
                 LocalizedTag="avatarupload" />
         </td>
         <td class="post">
-            <input type="file" id="File" runat="server" /></td>
+            <input type="file" id="File" runat="server" /> <br />
+             <em><asp:Label id="noteLocal" runat="server"></asp:Label></em></td>
         <td class="post">
             <asp:Button ID="UpdateUpload" CssClass="pbutton" runat="server" OnClick="UploadUpdate_Click" /></td>
     </tr>

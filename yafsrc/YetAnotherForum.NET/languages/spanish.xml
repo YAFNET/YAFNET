@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Subir Avatar desde tu ordenador:</Resource>
     <Resource tag="INVALID_FILE">El archivo no es un archivo de imagen apropiado.</Resource>
     <Resource tag="NOAVATAR">[ Sin Avatar ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Elije tu Avatar de nuestra colección:</Resource>
     <Resource tag="OURAVATAR_SELECT">Pincha aquí para seleccionar un Avatar</Resource>
     <Resource tag="TITLE">Modificar Avatar</Resource>

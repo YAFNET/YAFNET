@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Upload hình:</Resource>
     <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
     <Resource tag="NOAVATAR">[ Không có hình ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Chọn hình từ thư viện:</Resource>
     <Resource tag="OURAVATAR_SELECT">Click vào đây để chọn</Resource>
     <Resource tag="TITLE">Sửa hình đại diện</Resource>

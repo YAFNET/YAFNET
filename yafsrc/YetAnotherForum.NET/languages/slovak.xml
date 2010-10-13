@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Nahraj personifikáciu z tvojho počítača:</Resource>
     <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
     <Resource tag="NOAVATAR">[ Žiadna personifikácia ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Vyber tvoju personifikáciu z našej kolekcie:</Resource>
     <Resource tag="OURAVATAR_SELECT">Klikni sem pre výber personifikácie</Resource>
     <Resource tag="TITLE">Uprav personifikáciu</Resource>

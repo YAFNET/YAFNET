@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Lade ein Avatar von deinem Computer hoch.</Resource>
     <Resource tag="INVALID_FILE">Die hochgeladene Datei war kein gültiges Bildformat</Resource>
     <Resource tag="NOAVATAR">[ Kein Bild ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Unsere Avatarsammlung.</Resource>
     <Resource tag="OURAVATAR_SELECT">Wähle einen Avatar aus unserem Verzeichnis aus.</Resource>
     <Resource tag="TITLE">Avatar bearbeiten</Resource>

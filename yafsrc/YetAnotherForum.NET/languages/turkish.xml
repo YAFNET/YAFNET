@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Kendi bilgisarınızdan yükleyin</Resource>
     <Resource tag="INVALID_FILE">Yüklenen resim uygun biçimde değil.</Resource>
     <Resource tag="NOAVATAR">[ Avatar Yok ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Koleksiyonumuzdan avatar seçin:</Resource>
     <Resource tag="OURAVATAR_SELECT">Avatar seçmek için tıklayın</Resource>
     <Resource tag="TITLE">Avatar Güncelle</Resource>

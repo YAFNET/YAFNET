@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using DNA.UI.JQuery;
+
 namespace YAF.Controls
 {
   using System;
   using System.Data;
   using System.Drawing;
-  using System.Drawing.Imaging;
   using System.IO;
   using System.Security.Cryptography;
   using System.Text;
@@ -108,11 +109,16 @@ namespace YAF.Controls
         string addAdminParam = string.Empty;
         if (this._adminEditMode)
         {
-          addAdminParam = "u=" + this._currentUserID.ToString();
+          addAdminParam = string.Format("u={0}", this._currentUserID);
         }
 
         this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
         this.OurAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
+
+        this.noteRemote.Text = PageContext.Localization.GetTextFormatted("NOTE_REMOTE", PageContext.BoardSettings.AvatarWidth, PageContext.BoardSettings.AvatarHeight);
+        this.noteLocal.Text = PageContext.Localization.GetTextFormatted("NOTE_LOCAL", PageContext.BoardSettings.AvatarWidth, PageContext.BoardSettings.AvatarHeight, PageContext.BoardSettings.AvatarSize / 1024);
+
+          
       }
 
       BindData();
@@ -333,5 +339,6 @@ namespace YAF.Controls
       }
        
     }
+
   }
 }

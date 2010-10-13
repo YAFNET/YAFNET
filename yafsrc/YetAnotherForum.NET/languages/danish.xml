@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">Upload avatar fra din computer:</Resource>
     <Resource tag="INVALID_FILE">Filen der er uploaded er ikke et korrekt billede format.</Resource>
     <Resource tag="NOAVATAR">[ Ingen avatar ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Vælg den avatar fra vores samling:</Resource>
     <Resource tag="OURAVATAR_SELECT">Klik her for at vælge en avatar</Resource>
     <Resource tag="TITLE">Ændre avatar</Resource>

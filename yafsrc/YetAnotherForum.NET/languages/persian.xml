@@ -353,6 +353,8 @@
     <Resource tag="AVATARUPLOAD">عکس مورد نظر را ارسال کنید:</Resource>
     <Resource tag="INVALID_FILE">فایلی که دریافت شد ، فایل تصویری معتبری نمی باشد.</Resource>
     <Resource tag="NOAVATAR">[ بدون عکس ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">عکس دلخواه خود را از کلکسیون سایت انتخاب کنید:</Resource>
     <Resource tag="OURAVATAR_SELECT">برای انتخاب عکس اینجا را کلیک کنید</Resource>
     <Resource tag="TITLE">تغییر عکس</Resource>

@@ -130,6 +130,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.TextBox Avatar;
         
         /// <summary>
+        /// noteRemote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label noteRemote;
+        
+        /// <summary>
         /// UpdateRemote control.
         /// </summary>
         /// <remarks>
@@ -164,6 +173,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
+        
+        /// <summary>
+        /// noteLocal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label noteLocal;
         
         /// <summary>
         /// UpdateUpload control.

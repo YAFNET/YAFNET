@@ -376,6 +376,8 @@
     <Resource tag="AVATARUPLOAD">העלאת דמות מהמחשב שלך:</Resource>
     <Resource tag="INVALID_FILE">הקובץ שהועלה אינו קובץ תמונה תקין.</Resource>
     <Resource tag="NOAVATAR">[ ללא דמות ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">בחר דמות מהאוסף שלנו:</Resource>
     <Resource tag="OURAVATAR_SELECT">לחץ כאן על מנת לבחור דמות</Resource>
     <Resource tag="TITLE">עדכון דמות</Resource>

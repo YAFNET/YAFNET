@@ -659,6 +659,8 @@
 		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
 		<Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
 		<Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+		<Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
+	    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
 	</page>
 	<page name="CP_EDITPROFILE">
 		<Resource tag="ABOUTYOU">About You</Resource>
