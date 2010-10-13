@@ -222,7 +222,8 @@ namespace YAF.Controls
         /// </param>
         protected void Albums_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            var coverImage = (Image)e.Item.FindControl("coverImage");
+            // tha_watcha: TODO: Currently disabled this funtion, until yaf 2.0 build
+            /*var coverImage = (Image)e.Item.FindControl("coverImage");
 
             if (coverImage == null) return;
 
@@ -233,7 +234,7 @@ namespace YAF.Controls
             if ((curAlbum != null) && (curAlbum.Rows.Count > 0))
             {
                 coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", YafForumInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
-            }
+            }*/
         }
 
         /// <summary>
