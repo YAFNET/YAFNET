@@ -169,14 +169,15 @@ namespace YAF.Classes.Data
     /// </returns>
     public static SqlCommand GetCommand(string storedProcedure, SqlConnection connection)
     {
-      var cmd = new SqlCommand();
+      var cmd = new SqlCommand
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        CommandText = GetObjectName(storedProcedure),
+                        Connection = connection,
+                        CommandTimeout = int.Parse(Config.SqlCommandTimeout)
+                    };
 
-      cmd.CommandType = CommandType.StoredProcedure;
-      cmd.CommandText = GetObjectName(storedProcedure);
-      cmd.Connection = connection;
-      cmd.CommandTimeout = 99999;
-
-      return cmd;
+        return cmd;
     }
 
     /// <summary>

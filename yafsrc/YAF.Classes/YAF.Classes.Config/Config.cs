@@ -390,6 +390,7 @@ namespace YAF.Classes
       }
     }
 
+
     #region Telerik Rad Editor Settings
 
     /// <summary>
@@ -524,6 +525,17 @@ namespace YAF.Classes
       {
         return GetConfigValueAsString("YAF.DatabaseWithOIDs");
       }
+    }
+
+    /// <summary>
+    /// Current BoardID -- default is 1.
+    /// </summary>
+    public static string SqlCommandTimeout
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.SqlCommandTimeout") ?? "99999";
+        }
     }
 
     #endregion

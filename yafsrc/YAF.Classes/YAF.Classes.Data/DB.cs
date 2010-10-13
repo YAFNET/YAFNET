@@ -6464,7 +6464,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Days", days);
         cmd.Parameters.AddWithValue("PermDelete", permDelete);
 
-        cmd.CommandTimeout = 99999;
+        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
         return (int)YafDBAccess.Current.ExecuteScalar(cmd);
       }
     }
@@ -8927,7 +8927,7 @@ namespace YAF.Classes.Data
         cmd.Connection = connMan.DBConnection;
 
         // up the command timeout...
-        cmd.CommandTimeout = 9999;
+        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
 
         // run it...
         cmd.ExecuteNonQuery();
@@ -8982,7 +8982,7 @@ namespace YAF.Classes.Data
         cmd.Connection = connMan.DBConnection;
 
         // up the command timeout...
-        cmd.CommandTimeout = 9999;
+        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
 
         // run it...
         cmd.ExecuteNonQuery();
@@ -9231,7 +9231,7 @@ namespace YAF.Classes.Data
                   using (var cmd = new SqlCommand())
                   {
                     // added so command won't timeout anymore...
-                    cmd.CommandTimeout = 99999;
+                      cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
                     cmd.Transaction = trans;
                     cmd.Connection = connMan.DBConnection;
                     cmd.CommandType = CommandType.Text;
@@ -9576,7 +9576,7 @@ namespace YAF.Classes.Data
       using (var cmd = new SqlCommand(ShrinkSql, DBName.OpenDBConnection))
       {
         cmd.Connection = DBName.DBConnection;
-        cmd.CommandTimeout = 9999;
+        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
         cmd.ExecuteNonQuery();
       }
     }
@@ -9616,7 +9616,7 @@ namespace YAF.Classes.Data
       using (var cmd = new SqlCommand(RecoveryMode, DBName.OpenDBConnection))
       {
         cmd.Connection = DBName.DBConnection;
-        cmd.CommandTimeout = 9999;
+        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
         cmd.ExecuteNonQuery();
       }
     }
