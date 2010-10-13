@@ -2199,12 +2199,12 @@ BEGIN
 	BEGIN
 		IF @RemoteIP != NULL
 		BEGIN
-			INSERT INTO [{databaseOwner}].[{objectQualifier}PollVote] (PollID, UserID, RemoteIP) VALUES (@PollID,NULL,@RemoteIP)	
+			INSERT INTO [{databaseOwner}].[{objectQualifier}PollVote] (PollID, UserID, RemoteIP, ChoiceID) VALUES (@PollID,NULL,@RemoteIP, @ChoiceID)	
 		END
 	END
 	ELSE
 	BEGIN
-		INSERT INTO [{databaseOwner}].[{objectQualifier}PollVote] (PollID, UserID, RemoteIP) VALUES (@PollID,@UserID,@RemoteIP)
+		INSERT INTO [{databaseOwner}].[{objectQualifier}PollVote] (PollID, UserID, RemoteIP, ChoiceID) VALUES (@PollID,@UserID,@RemoteIP,@ChoiceID)
 	END
 
 	UPDATE [{databaseOwner}].[{objectQualifier}Choice] SET Votes = Votes + 1 WHERE ChoiceID = @ChoiceID
@@ -4147,18 +4147,18 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_votecheck](@PollG
 		IF @RemoteIP IS NOT NULL
 		BEGIN
 			-- check by remote IP
-			SELECT PollID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
+			SELECT PollID, ChoiceID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
 		END
 		ELSE
 		BEGIN
 		-- to get structure
-		    SELECT PollID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
+		    SELECT PollID, ChoiceID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
 		END
 	  END
 	ELSE
 	  BEGIN
 		-- check by userid or remote IP
-		SELECT PollID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND (UserID = @UserID OR RemoteIP = @RemoteIP)
+		SELECT PollID, ChoiceID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND (UserID = @UserID OR RemoteIP = @RemoteIP)
 	   END
 GO
 

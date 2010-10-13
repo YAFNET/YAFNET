@@ -328,13 +328,13 @@ namespace YAF.controls
     /// <returns>
     /// The can vote.
     /// </returns>
-    protected bool CanVote(object pollId)
+    protected bool CanVote(object pollId, out int choiceId)
     {
         if (HasVoteAccess(pollId))
         {
-            return this.IsNotVoted(pollId);
+            return this.IsNotVoted(pollId, out choiceId);
         }
-
+        choiceId = 0;
         return false;
     }
 
@@ -464,14 +464,16 @@ namespace YAF.controls
     /// <returns>
     /// The is not voted.
     /// </returns>
-    protected bool IsNotVoted(object pollId)
+    protected bool IsNotVoted(object pollId, out int choiceId)
     {
+     
       // check for voting cookie
-      if (this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(pollId))] != null)
+      HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(pollId))];
+      if (httpCookie != null && int.TryParse(httpCookie.Value, out choiceId))
       {
         return false;
       }
-
+      choiceId = 0;
       // voting is not tied to IP and they are a guest...
       if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
       {
@@ -479,7 +481,14 @@ namespace YAF.controls
       }
 
       // Check if a user already voted
-      return this._dtVotes.Rows.Cast<DataRow>().All(dr => Convert.ToInt32(dr["PollID"]) != Convert.ToInt32(pollId));
+        foreach (DataRow drow in
+            _dtVotes.Rows.Cast<DataRow>().Where(drow => Convert.ToInt32(drow["PollID"]) == Convert.ToInt32(pollId)))
+        {
+            choiceId = drow["ChoiceID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(drow["ChoiceID"]);
+            return false;
+        }
+    
+        return true;
     }
 
     /// <summary>
@@ -526,7 +535,7 @@ namespace YAF.controls
                        (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
       bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
       bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
-        bool boardPoll = this.PageContext.BoardVoteAccess &&
+      bool boardPoll = this.PageContext.BoardVoteAccess &&
                          (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
       
       this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) && this.HasOwnerExistingGroupAccess() && (!existingPoll);
@@ -582,7 +591,6 @@ namespace YAF.controls
         {
           DB.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true, false);
           this.ReturnToPage();
-
           // BindData();
         }
       }
@@ -637,8 +645,8 @@ namespace YAF.controls
         var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
 
         string pollId = drowv.Row["PollID"].ToString();
-       
-        pollChoiceList.Visible = !this.CanVote(pollId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
+        int choicePId = 0;
+        pollChoiceList.Visible = !this.CanVote(pollId, out choicePId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
                           this.PageContext.IsGuest
                             ? false
                             : true;
@@ -705,7 +713,7 @@ namespace YAF.controls
         bool soon;
         int? daystorun = this.DaysToRun(pollId, out soon);
 
-        bool isNotVoted = this.IsNotVoted(pollId);
+        bool isNotVoted = this.IsNotVoted(pollId, out choicePId);
         bool isPollClosed = this.IsPollClosed(pollId);
 
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
@@ -715,7 +723,7 @@ namespace YAF.controls
             {
                 // compare a number of voted polls with number of polls
                 if ((this._dtPollGroup.Rows.Cast<DataRow>().Count(
-                        dr => !this.IsNotVoted(dr["PollID"]) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
+                        dr => !this.IsNotVoted(dr["PollID"], out choicePId) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
                 {
                     if (this.isClosedBound)
                     {
@@ -760,9 +768,9 @@ namespace YAF.controls
         // Poll warnings section
         // Here warning labels are treated
         bool showWarningsRow = false;
-
+        int choicePId2 = 0;
         var pollVotesLabel = item.FindControlRecursiveAs<Label>("PollVotesLabel");
-        bool cvote = this.CanVote(pollId);
+        bool cvote = this.CanVote(pollId, out choicePId2);
         if (cvote)
         {
           if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
@@ -832,7 +840,7 @@ namespace YAF.controls
 
         pollChoiceList.CanVote = cvote;
         pollChoiceList.DaysToRun = daystorun;
-        
+        pollChoiceList.ChoiceId = choicePId2;
 
         item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
       }

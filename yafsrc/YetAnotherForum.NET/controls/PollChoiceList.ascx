@@ -14,8 +14,12 @@
                             </div>
                         </td>
                         <td class="post">
-                            <YAF:MyLinkButton ID="MyLinkButton1" Enabled="false" runat="server" CommandName="vote"
+                         <img id="YourChoice" visible="false" runat="server" alt='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
+                                   title='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
+                                   width="16" height="16" src='<%# GetThemeContents("ICONS","GENDER_MALE") %>' />&nbsp; 
+                          <YAF:MyLinkButton ID="MyLinkButton1" Enabled="false" runat="server" CommandName="vote"
                                 CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
+                                
                         </td>
                         <td class="post" align="center">
                             <asp:Panel ID="VoteSpan" Visible="false" runat="server">

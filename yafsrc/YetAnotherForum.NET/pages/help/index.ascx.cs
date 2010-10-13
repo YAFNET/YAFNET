@@ -236,6 +236,8 @@ namespace YAF.Pages.help
                  });
              }
 
+            // vzrus tip: some features can be disabled and users shouldn't normally see them in help.
+            // The list can include some limitations based on host settings when features are enabled.  
             IList<string> HelpPageNames = new List<string>
                                               {
                                                   "anounce",

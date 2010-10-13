@@ -129,7 +129,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		[PollVoteID] [int] IDENTITY (1, 1) NOT NULL ,
 		[PollID] [int] NOT NULL ,
 		[UserID] [int] NULL ,
-		[RemoteIP] [varchar] (57) NULL 
+		[RemoteIP] [varchar] (57) NULL,
+		[ChoiceID] [int] NULL
 	)
 GO
 
@@ -1706,6 +1707,13 @@ if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] alter column [RemoteIP] varchar(39) null
 	end
 GO	
+
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') AND name = N'ChoiceID')
+BEGIN
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}PollVote] ADD [ChoiceID] int  null 
+END
+GO
+
 
 -- MessageHistory Table
 

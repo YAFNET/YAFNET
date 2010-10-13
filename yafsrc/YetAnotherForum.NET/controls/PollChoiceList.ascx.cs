@@ -83,6 +83,11 @@ namespace YAF.controls
     public int PollId { get; set; }
 
     /// <summary>
+    ///   The ChoiceId.
+    /// </summary>
+    public int ChoiceId { get; set; }
+
+    /// <summary>
     ///   The DaysToRun.
     /// </summary>
     public int? DaysToRun { get; set; }
@@ -223,7 +228,7 @@ namespace YAF.controls
         DB.choice_vote(e.CommandArgument, userID, remoteIP);
 
         // save the voting cookie...
-        var c = new HttpCookie(this.VotingCookieName(PollId), PollId.ToString())
+        var c = new HttpCookie(this.VotingCookieName(PollId), e.CommandArgument.ToString())
           {
              Expires = DateTime.UtcNow.AddYears(1) 
           };
@@ -231,7 +236,6 @@ namespace YAF.controls
 
         // show an info that the user is voted 
         string msg = this.PageContext.Localization.GetText("INFO_VOTED");
-
         this.BindData();
         // show the notification  window to user
         this.PageContext.AddLoadMessage(msg);
@@ -265,6 +269,8 @@ namespace YAF.controls
         myLinkButton.Enabled = this.CanVote;
         myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
         myLinkButton.Visible = true;
+        item.FindControlRecursiveAs<HtmlImage>("YourChoice").Visible = (int) drowv.Row["ChoiceID"] == this.ChoiceId;
+        
 
         // Poll Choice image
         var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
@@ -302,7 +308,7 @@ namespace YAF.controls
           choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
           choiceAnchor.HRef = string.Empty;
         }
-
+         
         item.FindControlRecursiveAs<Panel>("MaskSpan").Visible = this.HideResults;
         item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
         item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = !this.HideResults;
@@ -381,9 +387,6 @@ namespace YAF.controls
     /// <summary>
     /// The get poll is closed.
     /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
     /// <returns>
     /// The get poll is closed.
     /// </returns>
