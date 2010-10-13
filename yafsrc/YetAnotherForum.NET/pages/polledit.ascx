@@ -40,7 +40,7 @@
                         </td>
                         <td class="post" width="80%">
                              <asp:HiddenField ID="PollChoiceID"  Value='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' runat="server" />
-                             <asp:TextBox ID="PollChoice" runat="server" Text='<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "Choice")) %>' CssClass="edit" MaxLength="50" Width="400" />
+                             <asp:TextBox ID="PollChoice" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>' CssClass="edit" MaxLength="50" Width="400" />
                         </td>
                    </tr>
                    <tr id="ChoiceRow1" visible="<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>" runat="server" >
@@ -50,7 +50,7 @@
                           </em>
                      </td>
                      <td class="post" width="80%">
-                     <asp:TextBox ID="ObjectPath" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' Text='<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "ObjectPath")) %>' CssClass="edit" MaxLength="255" Width="400" />
+                     <asp:TextBox ID="ObjectPath" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' Text='<%# DataBinder.Eval(Container.DataItem, "ObjectPath") %>' CssClass="edit" MaxLength="255" Width="400" />
                      </td>
                   </tr>
 </ItemTemplate>

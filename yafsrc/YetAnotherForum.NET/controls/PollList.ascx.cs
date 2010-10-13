@@ -644,7 +644,7 @@ namespace YAF.controls
                                                                               this.ShowButtons;
         var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
 
-        string pollId = drowv.Row["PollID"].ToString();
+        int pollId = drowv.Row["PollID"].ToType<int>();
         int choicePId = 0;
         pollChoiceList.Visible = !this.CanVote(pollId, out choicePId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
                           this.PageContext.IsGuest
@@ -755,15 +755,8 @@ namespace YAF.controls
        // this._canVote = false;
 
         // Add confirmations to delete buttons
-        var removePollAll = item.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
-        removePollAll.Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
-        removePollAll.Visible = this.CanRemovePollCompletely(pollId);
-
-        var removePoll = item.FindControlRecursiveAs<ThemeButton>("RemovePoll");
-        removePoll.Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
-        removePoll.Visible = this.CanRemovePoll(pollId);
+        AddPollButtonConfirmations(item, pollId);
+       
 
         // Poll warnings section
         // Here warning labels are treated
@@ -848,24 +841,7 @@ namespace YAF.controls
       // Populate PollGroup Repeater footer
       if (item.ItemType == ListItemType.Footer)
       {
-        var pgcr = item.FindControlRecursiveAs<HtmlTableRow>("PollGroupCommandRow");
-        pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
-        
-        // return confirmations for poll group 
-        if (pgcr.Visible)
-        {
-          item.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
-            "return confirm('{0}');".FormatWith(
-              this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DELETE"));
-
-          item.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
-            "return confirm('{0}');".FormatWith(
-              this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
-
-          item.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
-            "return confirm('{0}');".FormatWith(
-              this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_EVR"));
-        }
+          AddPollGroupButtonConfirmations(item);
       }
     }
 
@@ -898,21 +874,6 @@ namespace YAF.controls
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
-    }
-
-    /// <summary>
-    /// The vote width.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The vote width.
-    /// </returns>
-    protected int VoteWidth(object o)
-    {
-      var row = (DataRowView)o;
-      return (int)row.Row["Stats"] * 80 / 100;
     }
 
     /// <summary>
@@ -1250,6 +1211,43 @@ namespace YAF.controls
         }
 
         return true;
+    }
+
+     private void AddPollGroupButtonConfirmations(RepeaterItem ri)
+    {
+        var pgcr = ri.FindControlRecursiveAs<HtmlTableRow>("PollGroupCommandRow");
+        pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
+        // return confirmations for poll group 
+        if (pgcr.Visible)
+        {
+            ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
+                "return confirm('{0}');".FormatWith(
+                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DELETE"));
+
+            ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
+                "return confirm('{0}');".FormatWith(
+                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+
+            ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
+                "return confirm('{0}');".FormatWith(
+                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_EVR"));
+        }
+
+    }
+
+    private void AddPollButtonConfirmations(RepeaterItem ri, int pollId)
+    {
+        // Add confirmations to delete buttons
+        var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
+        removePollAll.Attributes["onclick"] =
+          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+      removePollAll.Visible = this.CanRemovePollCompletely(pollId);
+
+        var removePoll = ri.FindControlRecursiveAs<ThemeButton>("RemovePoll");
+        removePoll.Attributes["onclick"] =
+          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+        removePoll.Visible = this.CanRemovePoll(pollId);
+        
     }
 
 
