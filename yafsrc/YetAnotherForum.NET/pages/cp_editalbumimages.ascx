@@ -68,6 +68,11 @@
         </td>
     </tr>
     <tr class="footer1">
+        <td colspan="3">
+            <em><asp:Label ID="imagesInfo" runat="server"></asp:Label></em>
+        </td>
+    </tr>
+    <tr class="footer1">
         <td colspan="3" align="center">
             <asp:Button runat="server" CssClass="pbutton" ID="Back" OnClick="Back_Click" />
         </td>

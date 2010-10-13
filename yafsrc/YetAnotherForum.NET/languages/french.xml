@@ -140,6 +140,8 @@
     <Resource tag="ALBUM_VIEW">Cliquez pour afficher l'album</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">Albums de {0}</Resource>
+    <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
+    <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">Album {0} : {1}</Resource>
     <Resource tag="TITLE">Images Album</Resource>
   </page>
@@ -341,6 +343,7 @@
     <Resource tag="ERROR_MAXALBUMS">Vous ne pouvez pas ajouter d'album supplémentaire sur ce compte.</Resource>
     <Resource tag="ERROR_TOOBIG">Vous ne pouvez pas envoyer d'image d'un tel poids.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
     <Resource tag="TITLE">Ajouter/modifier album</Resource>
   </page>
   <page name="CP_EDITAVATAR">

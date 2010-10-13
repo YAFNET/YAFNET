@@ -4,8 +4,10 @@
    <YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" LocalizedTag="ALBUMS_HEADER_TEXT" Param0="" />
 </div>
 <br />
+<p><em><asp:Label ID="albumsInfo" runat="server"></asp:Label></em></p>
+<div>
 <asp:Button ID="AddAlbum" CssClass="pbutton" runat="server" OnClick="AddAlbum_Click" />
-<br />
+</div>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td>

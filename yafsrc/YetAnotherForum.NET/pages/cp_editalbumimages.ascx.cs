@@ -46,6 +46,7 @@ namespace YAF.Pages
 
     #region Methods
 
+
     /// <summary>
     /// The back button click event handler.
     /// </summary>
@@ -128,23 +129,54 @@ namespace YAF.Pages
     /// </param>
     protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
-      switch (e.CommandName)
-      {
-        case "delete":
-          string sUpDir =
-            this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-          YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID, Convert.ToInt32(e.CommandArgument));
-          
-          this.BindData();
-          
-          this.uploadtitletr.Visible = true;
-          this.selectfiletr.Visible = true;
-          
-          break;
-      }
+        switch (e.CommandName)
+        {
+            case "delete":
+                string sUpDir =
+                    this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID,
+                                            Convert.ToInt32(e.CommandArgument));
+
+                this.BindData();
+
+                DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+
+
+                int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
+
+                var usrAlbumImagesAllowed =
+                    sigData.GetFirstRowColumnAsValue<int?>(
+                        "UsrAlbumImages", null);
+                // Has the user uploaded maximum number of images?   
+                // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
+                if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+                {
+                    if (List.Items.Count >= usrAlbumImagesAllowed)
+                    {
+                        this.uploadtitletr.Visible = false;
+                        this.selectfiletr.Visible = false;
+                    }
+                    else
+                    {
+                        this.uploadtitletr.Visible = true;
+                        this.selectfiletr.Visible = true;
+                    }
+
+                   this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted("IMAGES_INFO",
+                                                                                     List.Items.Count, usrAlbumImagesAllowed);
+
+                }
+                else
+                {
+                    this.uploadtitletr.Visible = false;
+                    this.selectfiletr.Visible = false;
+                }
+
+                break;
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// the page load event.
     /// </summary>
     /// <param name="sender">
@@ -213,25 +245,6 @@ namespace YAF.Pages
             break;
         }
 
-        var usrAlbumImagesAllowed =
-               sigData.GetFirstRowColumnAsValue<int?>(
-                 "UsrAlbumImages", null);
-        // Has the user uploaded maximum number of images?   
-        // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
-        if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
-        {
-            if (albumSize[0] >= usrAlbumsAllowed)
-            {
-                this.uploadtitletr.Visible = false;
-            }
-           
-        }
-        else
-        {
-            this.uploadtitletr.Visible = false;
-            this.selectfiletr.Visible = false;
-        }
-
         string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
 
         // Add the page links.
@@ -247,6 +260,34 @@ namespace YAF.Pages
         this.Upload.Text = this.GetText("UPLOAD");
 
         this.BindData();
+
+        var usrAlbumImagesAllowed =
+             sigData.GetFirstRowColumnAsValue<int?>(
+               "UsrAlbumImages", null);
+        // Has the user uploaded maximum number of images?   
+        // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
+        if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+        {
+            if (List.Items.Count >= usrAlbumImagesAllowed)
+            {
+                this.uploadtitletr.Visible = false;
+                this.selectfiletr.Visible = false;
+            }
+            else
+            {
+                this.uploadtitletr.Visible = true;
+                this.selectfiletr.Visible = true;
+            }
+
+            this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted("IMAGES_INFO",
+                                                                                        List.Items.Count, usrAlbumImagesAllowed);
+
+        }
+        else
+        {
+            this.uploadtitletr.Visible = false;
+            this.selectfiletr.Visible = false;
+        }
       }
     }
 
@@ -294,6 +335,38 @@ namespace YAF.Pages
         }
 
         this.BindData();
+
+        DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+
+
+        int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
+
+        var usrAlbumImagesAllowed =
+            sigData.GetFirstRowColumnAsValue<int?>(
+                "UsrAlbumImages", null);
+        // Has the user uploaded maximum number of images?   
+        // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
+        if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+        {
+            if (List.Items.Count >= usrAlbumImagesAllowed)
+            {
+                this.uploadtitletr.Visible = false;
+                this.selectfiletr.Visible = false;
+            }
+            else
+            {
+                this.uploadtitletr.Visible = true;
+                this.selectfiletr.Visible = true;
+            }
+
+            this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted("IMAGES_INFO",
+                                                                            List.Items.Count, usrAlbumImagesAllowed);
+        }
+        else
+        {
+            this.uploadtitletr.Visible = false;
+            this.selectfiletr.Visible = false;
+        }
       }
       catch (Exception x)
       {

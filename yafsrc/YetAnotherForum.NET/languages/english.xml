@@ -1159,7 +1159,8 @@
 		<Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
 		<Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
 		<Resource tag="ALBUMS_COUNT_LIMIT">You can't create more than {0} albums.</Resource>
-		<Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images to each album.</Resource>
+		<Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images for each album.</Resource>
+		<Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
 	</page>
 	<page name="ALBUM">
 		<Resource tag="ALBUMS">Albums</Resource>
@@ -1170,6 +1171,8 @@
 		<Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
 		<Resource tag="ALBUM_CHANGE_TITLE">Add Title</Resource>
 		<Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Add Caption</Resource>
+		<Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
+		<Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
 	</page>
 	<page name="POSTS">
 		<Resource tag="THANKSFROM">Thanks: {0} times</Resource>

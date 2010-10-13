@@ -140,6 +140,8 @@
     <Resource tag="ALBUM_VIEW">Click ptr. vizualizare Album</Resource>
     <Resource tag="ALBUMS">Albume</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">{0}'s albume</Resource>
+    <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
+    <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
     <Resource tag="TITLE">Imagini Albume</Resource>
   </page>
@@ -341,6 +343,7 @@
     <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
     <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
     <Resource tag="TITLE">Add/Editeaza Album</Resource>
   </page>
   <page name="CP_EDITAVATAR">

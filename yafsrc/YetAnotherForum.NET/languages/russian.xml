@@ -140,6 +140,8 @@
     <Resource tag="ALBUM_VIEW">Просмотр</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">Альбомы пользователя {0}</Resource>
+    <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
+    <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">Альбом пользователя {0}: {1}</Resource>
     <Resource tag="TITLE">Изображения из альбома</Resource>
   </page>
@@ -341,6 +343,7 @@
     <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
     <Resource tag="ERROR_TOOBIG">Размер изображения слишком большой.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
   <page name="CP_EDITAVATAR">

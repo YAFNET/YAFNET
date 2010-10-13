@@ -109,8 +109,7 @@ namespace YAF.Controls
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);                    
-                    
+                        "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
                 }
 
                 string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
@@ -161,6 +160,26 @@ namespace YAF.Controls
                 HttpContext.Current.Session["imagePreviewHeight"] =
                     this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
                 HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
+
+                // Show Albums Max Info
+                if (this.UserID == this.PageContext.PageUserID)
+                {
+                    if (usrAlbums.HasValue && usrAlbums > 0)
+                    {
+                        albumsInfo.Text = this.PageContext.Localization.GetTextFormatted("ALBUMS_INFO",
+                                                                                         Albums.Items.Count, usrAlbums);
+                    }
+                    else if (usrAlbums.HasValue && usrAlbums.Equals(0) || !usrAlbums.HasValue)
+                    {
+                        albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
+                    }
+
+                    albumsInfo.Visible = true;
+                }
+                else
+                {
+                    albumsInfo.Visible = false;
+                }
             }
         }
 

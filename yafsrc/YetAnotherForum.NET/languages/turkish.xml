@@ -140,6 +140,8 @@
     <Resource tag="ALBUM_VIEW">Albümü görüntülemek için tıklayın</Resource>
     <Resource tag="ALBUMS">Albümler</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">{0} kullanıcısının albümleri</Resource>
+    <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
+    <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} Albüm: {1}</Resource>
     <Resource tag="TITLE">Albüm Fotoğrafları</Resource>
   </page>
@@ -341,6 +343,7 @@
     <Resource tag="ERROR_MAXALBUMS">Bu hesabınıza daha fazla albüm eklemeyezsiniz.</Resource>
     <Resource tag="ERROR_TOOBIG">Bu büyüklükteki resmi ekleyemezsiniz.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Resim limitine ulaşıldı. {0} 'den fazla resim ekleyemezsiniz.</Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
     <Resource tag="TITLE">Albüm Ekle/Düzenle</Resource>
   </page>
   <page name="CP_EDITAVATAR">
