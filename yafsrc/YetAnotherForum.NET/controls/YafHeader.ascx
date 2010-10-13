@@ -150,7 +150,7 @@
          <%
              if (this.PageContext.BoardSettings.ShowQuickSearch && this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {%>
-        <div id="quickSearch">
+        <div id="quickSearch" runat="server">
           <asp:TextBox ID="searchInput" runat="server"></asp:TextBox>&nbsp;<asp:Button ID="doQuickSearch" runat="server" OnClick="QuickSearchClick" />
         </div>
          <%
