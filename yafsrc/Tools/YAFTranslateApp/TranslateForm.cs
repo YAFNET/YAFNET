@@ -268,8 +268,6 @@ namespace YAF.TranslateApp
         void TbxTextChanged(object sender, EventArgs e)
         {
             btnSave.Enabled = true;
-
-            tlpTranslations.Focus();
         }
         /// <summary>
         /// Auto Translate The Selected Resource via Google Translator
@@ -443,7 +441,7 @@ namespace YAF.TranslateApp
                 int totalResourceCount = 0;
                 int resourcesNotTranslated = 0;
                 //int pageNodeCount = 0;
-                int resourceMissingCount = 0;
+                //int resourceMissingCount = 0;
 
                 navDst.MoveToRoot();
                 navDst.MoveToFirstChild();
@@ -476,11 +474,11 @@ namespace YAF.TranslateApp
                         if (iteratorSe.Count <= 0)
                         {
                             pageResourceCount++;
-                            resourceMissingCount++;
+                            //resourceMissingCount++;
 
                             DestinationTranslationFileChanged = true;
 
-                            CreatePageResourceControl(pageNameAttributeValue, resourceTagAttributeValue, resourceItem.Value, resourceItem.Value, pageResourceCount);
+                            CreatePageResourceControl(pageNameAttributeValue, resourceTagAttributeValue, resourceItem.Value, resourceItem.Value);
                         }
 
                         while (iteratorSe.MoveNext())
@@ -495,7 +493,7 @@ namespace YAF.TranslateApp
                                 resourcesNotTranslated++;
                             }
 
-                            CreatePageResourceControl(pageNameAttributeValue, resourceTagAttributeValue, resourceItem.Value, iteratorSe.Current.Value, pageResourceCount);
+                            CreatePageResourceControl(pageNameAttributeValue, resourceTagAttributeValue, resourceItem.Value, iteratorSe.Current.Value);
 
                         }
 
@@ -547,8 +545,7 @@ namespace YAF.TranslateApp
         /// <param name="resourceName"></param>
         /// <param name="srcResourceValue"></param>
         /// <param name="dstResourceValue"></param>
-        /// <param name="rowNum"></param>
-        private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue, int rowNum)
+        private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue)
         {
             Label lbl = new Label();
             Label lblSource = new Label();
@@ -653,7 +650,7 @@ namespace YAF.TranslateApp
 
             if (iDuplicates >= 1)
             {
-                MessageBox.Show(string.Format("{0} - Duplicate Entries Removed.", iDuplicates));
+                //MessageBox.Show(string.Format("{0} - Duplicate Entries Removed.", iDuplicates));
             }
 
             Cursor = Cursors.WaitCursor;

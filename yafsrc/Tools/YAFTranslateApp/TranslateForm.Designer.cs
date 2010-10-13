@@ -243,7 +243,7 @@
             this.Controls.Add(this.btnQuit);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TranslateForm";
-            this.Text = "YAF Translation 1.04";
+            this.Text = "YAF Translation 1.05";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TranslateFormFormClosing);
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
