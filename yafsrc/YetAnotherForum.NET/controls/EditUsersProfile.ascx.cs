@@ -219,7 +219,7 @@ namespace YAF.Controls
         if (this.HomePage.Text.IsSet())
         {
             // add http:// by default
-            if (!Regex.IsMatch(this.Weblog.Text.Trim(), @"^(http|https|ftp|ftps)\://.*"))
+            if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps)\://.*"))
             {
                 this.HomePage.Text = "http://" + this.HomePage.Text.Trim();
             }

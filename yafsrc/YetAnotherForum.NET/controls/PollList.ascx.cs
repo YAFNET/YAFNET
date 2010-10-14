@@ -82,11 +82,6 @@ namespace YAF.controls
     private bool isBound;
 
     /// <summary>
-    ///   The isClosedBound.
-    /// </summary>
-    private bool isClosedBound;
-
-    /// <summary>
     ///   The topic User.
     /// </summary>
     private int? topicUser;
@@ -317,25 +312,6 @@ namespace YAF.controls
       return this.PollHasNoVotes(pollId) && this.ShowButtons &&
              (this.PageContext.IsAdmin ||
               this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]));
-    }
-
-    /// <summary>
-    /// Property to verify if the current user can vote in this poll.
-    /// </summary>
-    /// <param name="pollId">
-    /// The poll Id.
-    /// </param>
-    /// <returns>
-    /// The can vote.
-    /// </returns>
-    protected bool CanVote(object pollId, out int choiceId)
-    {
-        if (HasVoteAccess(pollId))
-        {
-            return this.IsNotVoted(pollId, out choiceId);
-        }
-        choiceId = 0;
-        return false;
     }
 
     /// <summary>
@@ -642,80 +618,68 @@ namespace YAF.controls
         // We don't display poll command row to everyone 
         item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
                                                                               this.ShowButtons;
+        // Binding question image
+        BindPollQuestionImage(item, drowv);
+          
         var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
 
+       
         int pollId = drowv.Row["PollID"].ToType<int>();
         int choicePId = 0;
-        pollChoiceList.Visible = !this.CanVote(pollId, out choicePId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
-                          this.PageContext.IsGuest
-                            ? false
-                            : true;
+        bool isNotVoted = this.IsNotVoted(pollId, out choicePId);
+        bool cvote = HasVoteAccess(pollId) ? isNotVoted : false;
         
-        // Poll Choice image
-        var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
-        var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
 
-        // The image is not from theme
-        if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
+        // If guest are not allowed to view options we don't render them
+        pollChoiceList.Visible = !cvote && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
+                         this.PageContext.IsGuest
+                           ? false
+                           : true;
+
+        bool isClosedBound = false;
+
+        // This is not a guest w/o poll option view permissions, we bind the control.
+        if (pollChoiceList.Visible)
         {
-            questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-            questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
-                                    ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                    : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-            questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+            pollChoiceList.ChoiceId = choicePId;
 
-            questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-
-            if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
+            DataTable thisPollTable = this._dtPoll.Copy();
+            foreach (DataRow thisPollTableRow in thisPollTable.Rows)
             {
-                decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
-
-                // hardcoded - bad
-                questionImage.Width = 80;
-                questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
+                if (Convert.ToInt32(thisPollTableRow["PollID"]) != Convert.ToInt32(pollId))
+                {
+                    thisPollTableRow.Delete();
+                }
+                else
+                {
+                    // in this section we get a custom image aspect, the option is argueable
+                    if (!thisPollTableRow["MimeType"].IsNullOrEmptyDBField())
+                    {
+                        decimal currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
+                        if (currentAspect > this.MaxImageAspect)
+                        {
+                            this.MaxImageAspect = currentAspect;
+                        }
+                    }
+                }
             }
-        }
-        else
-        {
-            // image from theme no need to resize it
-            questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-            questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
-            questionAnchor.HRef = string.Empty;
-        }
-        
-        DataTable thisPollTable = this._dtPoll.Copy();
-        foreach (DataRow thisPollTableRow in thisPollTable.Rows)
-        {
-          if (Convert.ToInt32(thisPollTableRow["PollID"]) != Convert.ToInt32(pollId))
-          {
-            thisPollTableRow.Delete();
-          }
-          else
-          {
-            if (!thisPollTableRow["MimeType"].IsNullOrEmptyDBField())
-            {
-              decimal currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
-              if (currentAspect > this.MaxImageAspect)
-              {
-                this.MaxImageAspect = currentAspect;
-              }
-            }
-          }
-        }
-          thisPollTable.AcceptChanges();
-          this.isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
 
-          pollChoiceList.DataSource = thisPollTable;
+            thisPollTable.AcceptChanges();
+            pollChoiceList.DataSource = thisPollTable;
+            isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
+        }
+         
           pollChoiceList.PollId = pollId.ToType<int>();
           pollChoiceList.MaxImageAspect = this.MaxImageAspect;
 
         // returns number of day to run - null if poll has no expiration date 
         bool soon;
         int? daystorun = this.DaysToRun(pollId, out soon);
-
-        bool isNotVoted = this.IsNotVoted(pollId, out choicePId);
         bool isPollClosed = this.IsPollClosed(pollId);
 
+        // *************************
+        // Show|hide results section
+        // *************************
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
      
             // Poll voting is bounded - you can't see results before voting in each poll
@@ -725,7 +689,7 @@ namespace YAF.controls
                 if ((this._dtPollGroup.Rows.Cast<DataRow>().Count(
                         dr => !this.IsNotVoted(dr["PollID"], out choicePId) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
                 {
-                    if (this.isClosedBound)
+                    if (isClosedBound)
                     {
                         if (isPollClosed)
                         {
@@ -739,11 +703,11 @@ namespace YAF.controls
                     
                 }
             }
-            else if (!this.isBound && this.isClosedBound && isPollClosed) 
+            else if (!this.isBound && isClosedBound && isPollClosed) 
             {
                     this._showResults = true;
             }
-            if (!this.isClosedBound && !this.isBound)
+            if (!isClosedBound && !this.isBound)
             {
                 this._showResults = true;
             }
@@ -757,13 +721,14 @@ namespace YAF.controls
         // Add confirmations to delete buttons
         AddPollButtonConfirmations(item, pollId);
        
-
+        // *************************
         // Poll warnings section
+        // *************************
+     
         // Here warning labels are treated
         bool showWarningsRow = false;
-        int choicePId2 = 0;
         var pollVotesLabel = item.FindControlRecursiveAs<Label>("PollVotesLabel");
-        bool cvote = this.CanVote(pollId, out choicePId2);
+       
         if (cvote)
         {
           if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
@@ -833,7 +798,7 @@ namespace YAF.controls
 
         pollChoiceList.CanVote = cvote;
         pollChoiceList.DaysToRun = daystorun;
-        pollChoiceList.ChoiceId = choicePId2;
+       
 
         item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
       }
@@ -1249,6 +1214,39 @@ namespace YAF.controls
         removePoll.Visible = this.CanRemovePoll(pollId);
         
     }
+
+     private void BindPollQuestionImage(RepeaterItem item, DataRowView drowv)
+{
+     var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
+     var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
+
+     // The image is not from theme
+     if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
+     {
+         questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+         questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
+                                 ? this.GetThemeContents("VOTE", "POLL_CHOICE")
+                                 : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+         questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+
+         questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
+         {
+             decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
+
+             // hardcoded - bad
+             questionImage.Width = 80;
+             questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
+         }
+     }
+     else
+     {
+         // image from theme no need to resize it
+         questionImage.Alt =  this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+         questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
+         questionAnchor.HRef = string.Empty;
+     }
+ }
 
 
     #endregion
