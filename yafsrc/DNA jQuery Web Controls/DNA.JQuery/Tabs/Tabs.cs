@@ -4,6 +4,7 @@
 ///  http://www.gnu.org/licenses/gpl.html
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -73,7 +74,7 @@ namespace DNA.UI.JQuery
     /// </DotNetAge:Tabs>]]>
     /// 	</code>
     /// </example>
-    [JQuery(Name = "tabs", Assembly = "jQueryNet", DisposeMethod = "destroy", ScriptResources = new string[] { "ui.core.js", "ui.tabs.js", "ui.sortable.js" }, StartEvent = ClientRegisterEvents.ApplicationLoad)]
+    [JQuery(Name = "tabs", Assembly = "jQueryNet", DisposeMethod = "destroy", ScriptResources = new string[] { "ui.core.js", "ui.tabs.js", }, StartEvent = ClientRegisterEvents.ApplicationLoad)]
     [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Minimal)]
     [AspNetHostingPermission(SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
     [ToolboxData("<{0}:Tabs runat=\"server\" ID=\"Tabs1\"></{0}:Tabs>")]
@@ -431,7 +432,7 @@ namespace DNA.UI.JQuery
             }
 
             StringBuilder onSelectedScript = new StringBuilder();
-            onSelectedScript.AppendLine("$get('" + HiddenKey + "').value=$(this).tabs('option','selected');");
+            onSelectedScript.AppendLine("$get('" + HiddenKey + "').value=jQuery(this).tabs('option','selected');");
 
             if (AutoPostBack)
             {
@@ -470,10 +471,10 @@ namespace DNA.UI.JQuery
 
             //#region other options
             //StringBuilder loadScripts = new StringBuilder();
-            //loadScripts.Append("jQuery('#" + this.ClientID + "').css({'display':'block'});");
+            //loadScripts.Append("$('#" + this.ClientID + "').css({'display':'block'});");
 
             //if (Sortable)
-            //    loadScripts.AppendLine("jQuery('#" + this.ClientID + "').tabs().find('.ui-tabs-nav').sortable({axis:'x'});");
+            //    loadScripts.AppendLine("$('#" + this.ClientID + "').tabs().find('.ui-tabs-nav').sortable({axis:'x'});");
 
             //#region  disabled option
 
@@ -509,7 +510,7 @@ namespace DNA.UI.JQuery
 
             //onSelectedScript.Insert(0, "function(event,ui){");
             //onSelectedScript.Append("}");
-            //loadScripts.AppendLine("jQuery('#" + ClientID + "').bind('tabsshow'," + onSelectedScript.ToString() + ");");
+            //loadScripts.AppendLine("$('#" + ClientID + "').bind('tabsshow'," + onSelectedScript.ToString() + ");");
             // ClientScriptManager.RegisterClientApplicationLoadScript(this, ClientID + "_sys_reload", loadScripts.ToString());
 
             //#endregion
@@ -520,29 +521,25 @@ namespace DNA.UI.JQuery
         {
             writer.WriteFullBeginTag("ul");
 
-            foreach (DNA.UI.JQuery.View view in Views)
+            foreach (View view in Views.Cast<View>().Where(view => view.Visible))
             {
-                if (view.Visible)
-                {
-                    writer.WriteFullBeginTag("li");
-                    writer.WriteBeginTag("a");
-                    if (string.IsNullOrEmpty(view.NavigateUrl))
-                        writer.WriteAttribute("href", "#" + view.ClientID);
-                    else
-                        writer.WriteAttribute("href", Page.ResolveUrl(view.NavigateUrl));
-                    writer.Write(HtmlTextWriter.TagRightChar);
-                    writer.Write(view.Text);
-                    writer.WriteEndTag("a");
-                    writer.WriteEndTag("li");
-                }
+                writer.WriteFullBeginTag("li");
+                writer.WriteBeginTag("a");
+
+                if (string.IsNullOrEmpty(view.NavigateUrl))
+                    writer.WriteAttribute("href", "#" + view.ClientID);
+                else
+                    writer.WriteAttribute("href", Page.ResolveUrl(view.NavigateUrl));
+
+                writer.Write(HtmlTextWriter.TagRightChar);
+                writer.Write(view.Text);
+                writer.WriteEndTag("a");
+                writer.WriteEndTag("li");
             }
             writer.WriteEndTag("ul");
 
-            foreach (DNA.UI.JQuery.View view in Views)
+            foreach (View view in Views.Cast<View>().Where(view => view.Visible))
             {
-                if (view.Visible == false)
-                    continue;
-
                 view.ShowHeader = false;
                 if (string.IsNullOrEmpty(view.NavigateUrl))
                     view.RenderControl(writer);
