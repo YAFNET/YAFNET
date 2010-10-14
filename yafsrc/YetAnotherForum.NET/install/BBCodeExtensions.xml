@@ -99,4 +99,26 @@
     <ModuleClass>YAF.Modules.UserLinkBBCodeModule</ModuleClass>
     <ExecOrder>75</ExecOrder>
   </YafBBCode>
+  <YafBBCode>
+    <Name>VIMEO</Name>
+    <Description>[VIMEO]http://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[vimeo\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
+    <ReplaceRegex>
+      &lt;object width="425" height="350"&gt;
+      &lt;param name="allowfullscreen" value="true" /&gt;
+      &lt;param name="allowscriptaccess" value="always" /&gt;
+      &lt;param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=${vimeoId}&amp;amp;server=www.vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1" /&gt;
+      &lt;embed src="http://www.vimeo.com/moogaloop.swf?clip_id=${vimeoId}&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="425" height="350"&gt;
+      &lt;/embed&gt;
+      &lt;/object&gt;
+    </ReplaceRegex>
+    <Variables>prefix;vimeoId</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
 </YafBBCodeList>
