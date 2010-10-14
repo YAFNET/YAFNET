@@ -86,6 +86,11 @@ namespace YAF.controls
     /// </summary>
     private int? topicUser;
 
+    /// <summary>
+    /// The group Notification String.
+    ///  </summary>
+    string _groupNotificationString = string.Empty;
+
     #endregion
 
     #region Properties
@@ -683,36 +688,36 @@ namespace YAF.controls
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
      
             // Poll voting is bounded - you can't see results before voting in each poll
-            if (this.isBound)
+        if (this.isBound)
+        {
+            // compare a number of voted polls with number of polls
+            if ((this._dtPollGroup.Rows.Cast<DataRow>().Count(
+                    dr => !this.IsNotVoted(dr["PollID"], out choicePId) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
             {
-                // compare a number of voted polls with number of polls
-                if ((this._dtPollGroup.Rows.Cast<DataRow>().Count(
-                        dr => !this.IsNotVoted(dr["PollID"], out choicePId) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
+                if (isClosedBound)
                 {
-                    if (isClosedBound)
-                    {
-                        if (isPollClosed)
-                        {
-                            this._showResults = true;
-                        }
-                    }
-                    else
+                    if (isPollClosed)
                     {
                         this._showResults = true;
                     }
-                    
                 }
-            }
-            else if (!this.isBound && isClosedBound && isPollClosed) 
-            {
+                else
+                {
                     this._showResults = true;
-            }
-            if (!isClosedBound && !this.isBound)
-            {
-                this._showResults = true;
-            }
+                }
 
-        pollChoiceList.HideResults = !_showResults;
+            }
+        }
+        else if (!this.isBound && isClosedBound && isPollClosed)
+        {
+            this._showResults = true;
+        }
+        if (!isClosedBound && !this.isBound)
+        {
+            this._showResults = true;
+        }
+
+          pollChoiceList.HideResults = !_showResults;
 
         // Clear the fields after the child repeater is bound
         this._showResults = false;
@@ -724,88 +729,87 @@ namespace YAF.controls
         // *************************
         // Poll warnings section
         // *************************
-     
+        string notificationString = string.Empty;
         // Here warning labels are treated
-        bool showWarningsRow = false;
-        var pollVotesLabel = item.FindControlRecursiveAs<Label>("PollVotesLabel");
+ 
+       
        
         if (cvote)
         {
           if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
           {
-            pollVotesLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
-            pollVotesLabel.Visible = true;
+              notificationString += this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
           }
           
         }
 
         if (this.PageContext.IsGuest)
         {
-          var guestOptionsHidden = item.FindControlRecursiveAs<Label>("GuestOptionsHidden");
             if (!cvote)
             {
                 if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
                 {
-                    guestOptionsHidden.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST");
-                    guestOptionsHidden.Visible = true;
-                    showWarningsRow = true;
+                    notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
                 }
                 if (isNotVoted)
                 {
-                    guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST");
-                    guestOptionsHidden.Visible = true;
-                    showWarningsRow = true;
+                    notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST"));
                 }
                 
           }
-        }
-
-        if (this.isBound)
-        {
-          showWarningsRow = true;
         }
 
         if (!isNotVoted &&
             (this.PageContext.ForumVoteAccess ||
              (this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0))))
         {
-          var alreadyVotedLabel = item.FindControlRecursiveAs<Label>("AlreadyVotedLabel");
-          alreadyVotedLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED");
-          showWarningsRow = alreadyVotedLabel.Visible = true;
+          notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED"));
         }
 
         // Poll has expiration date
         if (daystorun > 0)
         {
-          var pollWillExpire = item.FindControlRecursiveAs<Label>("PollWillExpire");
           if (!soon)
           {
-            pollWillExpire.Text = this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun);
+            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
           }
           else
           {
-            pollWillExpire.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
+            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
           }
-
-          showWarningsRow = pollWillExpire.Visible = true;
+          
         }
         else if (daystorun == 0)
         {
-          var pollExpired = item.FindControlRecursiveAs<Label>("PollExpired");
-          pollExpired.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");
-          showWarningsRow = pollExpired.Visible = true;
+         
+          notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
         }
 
         pollChoiceList.CanVote = cvote;
         pollChoiceList.DaysToRun = daystorun;
        
-
-        item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
+        // we don't display warnings row if no info
+            if (notificationString.IsSet())
+            {
+                item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+                var pn = item.FindControlRecursiveAs<Label>("PollNotification");
+                pn.Text = notificationString;
+                pn.Visible = true;
+            }
+        
       }
 
       // Populate PollGroup Repeater footer
       if (item.ItemType == ListItemType.Footer)
       {
+          if (_groupNotificationString.IsSet())
+          {
+              // we don't display warnings row if no info
+              item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+              var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
+              pgn.Text = _groupNotificationString;
+              pgn.Visible = true;
+          }
           AddPollGroupButtonConfirmations(item);
       }
     }

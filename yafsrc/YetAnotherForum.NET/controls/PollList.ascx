@@ -50,14 +50,10 @@
                     100%
                 </td>
             </tr>
-                 <tr id="PollInfoTr" runat="server" visible="false">
-                <td class="post" colspan="4" align="center">
-                    <asp:Label ID="PollVotesLabel" Visible="false" runat="server" />
-                    <asp:Label ID="GuestOptionsHidden" Visible="false" runat="server" />
-                    <asp:Label ID="AlreadyVotedLabel" Visible="false" runat="server" />
-                    <asp:Label ID="PollWillExpire" Visible="false" runat="server" />
-                    <asp:Label ID="PollExpired" Visible="false" runat="server" />
-                </td>
+            <tr id="PollInfoTr" runat="server" visible="false">
+               <td class="post" colspan="4" align="center">
+                <asp:Label ID="PollNotification" Visible="false" runat="server" />                   
+               </td>
             </tr>   
            <tr id="PollCommandRow" runat="server">
                 <td class="command" width="100%" colspan="4">
@@ -76,6 +72,11 @@
             </tr>
         </ItemTemplate>
         <FooterTemplate>
+            <tr id="PollGroupInfoTr" runat="server" visible="false">
+               <td class="post" colspan="4" align="center">                         
+                <asp:Label ID="PollGroupNotification" Visible="false" runat="server" />          
+               </td>
+            </tr>   
             <tr id="PollGroupCommandRow" runat="server">
                 <td class="command" width="100%" colspan="4">
                     <YAF:ThemeButton ID="RemoveGroupAll" runat="server" Visible='<%# CanRemoveGroupCompletely() %>'
