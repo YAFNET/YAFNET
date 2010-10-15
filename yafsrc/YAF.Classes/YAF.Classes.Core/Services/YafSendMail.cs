@@ -213,6 +213,11 @@ namespace YAF.Classes.Core
         // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
         // Configuration settings are cached automatically.
         var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
+
+        // Tommy: solve random failure problem. Don't set this value to 1.
+        // See this: http://stackoverflow.com...tem-net-mail-has-issues 
+        smtpSend.ServicePoint.MaxIdleTime = 2;
+
         smtpSend.Send(emailMessage);
       }
     }

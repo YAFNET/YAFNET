@@ -54,9 +54,7 @@
               Debug.WriteLine("Sending to {0}...".FormatWith(mail.ToUser));
 
               Send(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
-
-              Thread.Sleep(200);
-
+              
               Debug.WriteLine("Sent to {0}.".FormatWith(mail.ToUser));
             }
             catch (System.FormatException ex)
