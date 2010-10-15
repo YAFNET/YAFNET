@@ -27,11 +27,9 @@ namespace YAF.Classes.Core
   using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web;
-
-  using YAF.Classes.Core;
+ 
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.Extensions;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 

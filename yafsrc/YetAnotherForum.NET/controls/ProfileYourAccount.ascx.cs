@@ -23,8 +23,6 @@ namespace YAF.Controls
   using System;
   using System.Data;
 
-  using Classes;
-
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;

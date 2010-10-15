@@ -23,7 +23,6 @@ namespace YAF.Controls
   #region Using
 
   using System;
-  using System.Collections.Generic;
   using System.Data;
   using System.Data.SqlTypes;
   using System.Web.UI.WebControls;

@@ -26,7 +26,6 @@ namespace YAF.controls
   using System.Collections;
   using System.Data;
   using System.Linq;
-  using System.Text;
   using System.Web;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
@@ -595,6 +594,7 @@ namespace YAF.controls
           // BindData();
         }
       }
+      
 
       if (e.CommandName == "removegroup" && this.PageContext.ForumVoteAccess)
       {
@@ -1238,7 +1238,7 @@ namespace YAF.controls
         var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
         removePollAll.Attributes["onclick"] =
           "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
-      removePollAll.Visible = this.CanRemovePollCompletely(pollId);
+        removePollAll.Visible = this.CanRemovePollCompletely(pollId);
 
         var removePoll = ri.FindControlRecursiveAs<ThemeButton>("RemovePoll");
         removePoll.Attributes["onclick"] =

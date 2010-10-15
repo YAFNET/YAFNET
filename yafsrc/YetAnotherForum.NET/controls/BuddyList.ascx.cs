@@ -25,12 +25,9 @@ namespace YAF.Controls
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
-    using YAF.Classes;
     using YAF.Classes.Core;
-    using YAF.Classes.Data;
-    using YAF.Classes.UI;
     using YAF.Classes.Utils;
-    using YAF.Utilities;
+ 
     /// <summary>
     /// Summary description for buddies.
     /// </summary>

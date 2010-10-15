@@ -6,11 +6,9 @@
   using System.Data;
   using System.Text;
   using System.Web;
-  using System.Web.UI.WebControls;
 
   using YAF.Classes;
   using YAF.Classes.Core;
-  using YAF.Classes.UI;
   using YAF.Classes.Utils;
 
   #endregion

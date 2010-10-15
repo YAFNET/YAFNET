@@ -23,7 +23,6 @@ namespace YAF.Controls
   #region Using
 
   using System;
-  using System.Data;
   using System.Web.UI.WebControls;
 
   using AjaxPro;
