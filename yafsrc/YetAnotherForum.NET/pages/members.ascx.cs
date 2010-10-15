@@ -23,7 +23,6 @@ namespace YAF.Pages
   // YAF.Pages
   using System;
   using System.Data;
-  using System.Data.DataSetExtensions;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;

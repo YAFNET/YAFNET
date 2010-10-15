@@ -28,7 +28,6 @@ namespace YAF.Pages
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.UI;
   using YAF.Classes.Utils;
   using YAF.Editors;
 

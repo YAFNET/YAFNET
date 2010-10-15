@@ -31,7 +31,6 @@ namespace YAF.Pages
   using YAF.Classes.Core;
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.UI;
   using YAF.Classes.Utils;
   using YAF.Controls;
 

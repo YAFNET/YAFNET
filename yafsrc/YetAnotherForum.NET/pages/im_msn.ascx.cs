@@ -1,17 +1,11 @@
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages // YAF.Pages
 {
+    using System;
+    using System.Web.Security;
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Utils;
+
 	public partial class im_msn : YAF.Classes.Core.ForumPage
 	{
 		public int UserID

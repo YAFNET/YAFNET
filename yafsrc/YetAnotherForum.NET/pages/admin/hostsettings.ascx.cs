@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Core.BBCode;
-  using YAF.Classes.UI;
   using YAF.Classes.Utils;
 
   /// <summary>
