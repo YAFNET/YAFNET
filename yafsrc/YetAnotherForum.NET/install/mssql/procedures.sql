@@ -4627,6 +4627,8 @@ begin
 		c.IsDeleted = 0
 		and	c.TopicMovedID is null 
 	order by
+		e.SortOrder asc,
+		d.SortOrder asc,
 		d.Name asc,
 		Priority desc,
 		LastPosted desc
