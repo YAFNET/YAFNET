@@ -3050,6 +3050,25 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.rss_topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            The rss_topic_latest.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="numOfPostsToRetrieve">
+            The num of posts to retrieve.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="useStyledNicks">
+            If true returns string for userID style.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_active.

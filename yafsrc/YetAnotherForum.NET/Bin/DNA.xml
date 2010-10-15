@@ -4,82 +4,6 @@
         <name>DNA</name>
     </assembly>
     <members>
-        <member name="P:DNA.UI.SimpleListView.DataTargetField">
-            <summary>
-            Gets/Sets the Target field name on databinding
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.DataCssClassField">
-            <summary>
-            Gets/Sets the CssClassField Name on DataBinding
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.DataImageUrlField">
-            <summary>
-            Gets/Sets the ImageUrl field Name on DataBinding
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.DataNavigateUrlField">
-            <summary>
-            Get/Sets the NavigateUrl field name on DataBinding
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.DataTextField">
-            <summary>
-            Gets/Sets the Text field name on DataBinding
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.ItemCssClass">
-            <summary>
-            Gets/Sets the item style class name
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.Target">
-            <summary>
-            Gets/Sets when click the item which the window open to
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListView.Items">
-            <summary>
-            Gets the Items collection instance of this view
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.JQuerySelector">
-            <summary>
-            JQuerySelector this a class that define the jQuery selector string build rules,this class can build jQuery selector
-            string for html elements or write the selector string in Selector property directly. Or use TargetID,TargetIDs to 
-            get the server controls client id for render.
-            </summary>
-        </member>
-        <member name="M:DNA.UI.JQuery.JQuerySelector.Clear">
-            <summary>
-            Clear the selector and the IsEmpty will be return true.
-            </summary>
-        </member>
-        <member name="M:DNA.UI.JQuery.JQuerySelector.ToString">
-            <summary>
-            Format the selector to string in jQuery format.
-            </summary>
-            <remarks>
-             this method will not transfer the targetid or targetids to ClientID
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.JQuerySelector.ToString(System.Web.UI.Page)">
-            <summary>
-            Format the selector to string in jQuery format
-            </summary>
-            <remarks>
-             If targetID,targetIDs sets this method will get their ClientID into the output string.
-            </remarks>
-            <param name="page"></param>
-            <returns></returns>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQuerySelector.ExpressionOnly">
-            <summary>
-             Gets/Sets whether the selector output append "$()"
-            </summary>
-        </member>
         <member name="M:DNA.UI.StateManagedObject.Clone">
             <summary>
             Creates a new object that is a copy of the current instance.
@@ -128,21 +52,6 @@
         <member name="P:DNA.UI.StateManagedObject.System#Web#UI#IStateManager#IsTrackingViewState">
             <summary>
             Gets a value indicating whether a server control is tracking its view state changes.
-            </summary>
-        </member>
-        <member name="T:DNA.UI.CollapsablePanel">
-            <summary>
-             CollapsablePanel is a Panel Control can be collapse and expand.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.CollapsablePanel.UsingDefaultStyle">
-            <summary>
-            Gets/Sets whether using the default styles
-            </summary>
-        </member>
-        <member name="P:DNA.UI.CollapsablePanel.Title">
-            <summary>
-            Gets/Sets the Header Title text
             </summary>
         </member>
         <member name="T:DNA.UI.Design.ItemCollectionEditor">
@@ -292,132 +201,6 @@
             Gets StringBuilder that store the script result
             </summary>
         </member>
-        <member name="T:DNA.UI.JQuery.JQueryAttribute">
-            <summary>
-            JQueryAttribute for jQuery Web Control
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryAttribute.DisposeMethod">
-            <summary>
-            Gets/Sets the jQuery dispose method name.
-            </summary>
-            <remarks>
-            if this property sets the dispose method for jquery will invoke when application.unload.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryAttribute.ScriptResourceBaseName">
-            <summary>
-            Gets/Sets the jQuery scriptResource file base name
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryAttribute.Assembly">
-            <summary>
-            Gets/Sets the script resource 's assembly name
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryAttribute.ScriptResources">
-            <summary>
-            Gets/Sets the script resource name array
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryAttribute.StartEvent">
-            <summary>
-            Gets/Sets the client register event for jQuery 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryAttribute.Name">
-            <summary>
-            Gets/Sets the jQuery (plugins/widgets) 's name
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.MultiJQueryScriptBuilder">
-            <summary>
-            Handling the WebControl has more than one JQueryAttribute define 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListItem.Text">
-            <summary>
-            Gets/Sets the item's text
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListItem.NavigateUrl">
-            <summary>
-            Gets/Sets when set the item's naviage url
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListItem.Target">
-            <summary>
-            Gets/Sets when click the item which the window open to.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListItem.ImageUrl">
-            <summary>
-            Gets/Sets the item's image icon url
-            </summary>
-        </member>
-        <member name="P:DNA.UI.SimpleListItem.CssClass">
-            <summary>
-            Gets/Sets the item's class name
-            </summary>
-        </member>
-        <member name="T:DNA.UI.FilterControlBuilder">
-            <summary>
-            Subclass this class to create a ControlBuilder that
-            only allows specific child types/tags and strips out any
-            literal strings as well.
-            </summary>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.FillTagTypeTable">
-            <summary> 
-            Implement this method and use Add to add
-            key value pairs that translate a tag name to
-            a type.
-            </summary>
-            <example>Add("tagname", typeof(TagType));</example>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.#ctor">
-            <summary>
-            Initializes a new instance of a FilterControlBuilder.
-            </summary>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.Add(System.String,System.Type)">
-            <summary>
-            Adds a tagname to type entry.
-            </summary>
-            <param name="tagName">The tag name.</param>
-            <param name="type">The type.</param>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.GetChildControlType(System.String,System.Collections.IDictionary)">
-            <summary>
-            Determines a type given a tag name.
-            </summary>
-            <param name="tagName">The tagname.</param>
-            <param name="attribs">Attributes.</param>
-            <returns>The type of the tag.</returns>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.AppendLiteralString(System.String)">
-            <summary>
-            Rejects appending literal strings.
-            </summary>
-            <param name="s">The string.</param>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.AllowLiterals">
-            <summary>
-            Allows subclasses to override the rejection of literal strings.
-            </summary>
-            <returns>false to reject literals.</returns>
-        </member>
-        <member name="M:DNA.UI.FilterControlBuilder.AllowWhitespaceLiterals">
-            <summary>
-            Rejects whitespace.
-            </summary>
-            <returns>false to reject whitespace.</returns>
-        </member>
-        <member name="T:DNA.UI.JQuery.Position">
-            <summary>
-            Position is the class define the control's bounds
-            </summary>
-        </member>
         <member name="T:DNA.UI.JQuery.JQueryScriptBuilder">
             <summary>
              JQueryScriptBuilder provides the methods to builder the jQuery scripts
@@ -534,6 +317,31 @@
         <member name="F:DNA.UI.JQuery.JQueryEffectMethods.show">
             <summary>
             The enhanced show method optionally accepts jQuery UI advanced effects.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.Text">
+            <summary>
+            Gets/Sets the item's text
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.NavigateUrl">
+            <summary>
+            Gets/Sets when set the item's naviage url
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.Target">
+            <summary>
+            Gets/Sets when click the item which the window open to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.ImageUrl">
+            <summary>
+            Gets/Sets the item's image icon url
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListItem.CssClass">
+            <summary>
+            Gets/Sets the item's class name
             </summary>
         </member>
         <member name="F:DNA.UI.DomEvents.Click">
@@ -956,6 +764,117 @@
             Raised when there is an error that prevents the completion of the request.
             </summary>
         </member>
+        <member name="T:DNA.UI.FilterControlBuilder">
+            <summary>
+            Subclass this class to create a ControlBuilder that
+            only allows specific child types/tags and strips out any
+            literal strings as well.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.FillTagTypeTable">
+            <summary> 
+            Implement this method and use Add to add
+            key value pairs that translate a tag name to
+            a type.
+            </summary>
+            <example>Add("tagname", typeof(TagType));</example>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.#ctor">
+            <summary>
+            Initializes a new instance of a FilterControlBuilder.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.Add(System.String,System.Type)">
+            <summary>
+            Adds a tagname to type entry.
+            </summary>
+            <param name="tagName">The tag name.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.GetChildControlType(System.String,System.Collections.IDictionary)">
+            <summary>
+            Determines a type given a tag name.
+            </summary>
+            <param name="tagName">The tagname.</param>
+            <param name="attribs">Attributes.</param>
+            <returns>The type of the tag.</returns>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.AppendLiteralString(System.String)">
+            <summary>
+            Rejects appending literal strings.
+            </summary>
+            <param name="s">The string.</param>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.AllowLiterals">
+            <summary>
+            Allows subclasses to override the rejection of literal strings.
+            </summary>
+            <returns>false to reject literals.</returns>
+        </member>
+        <member name="M:DNA.UI.FilterControlBuilder.AllowWhitespaceLiterals">
+            <summary>
+            Rejects whitespace.
+            </summary>
+            <returns>false to reject whitespace.</returns>
+        </member>
+        <member name="T:DNA.UI.CollapsablePanel">
+            <summary>
+             CollapsablePanel is a Panel Control can be collapse and expand.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.CollapsablePanel.UsingDefaultStyle">
+            <summary>
+            Gets/Sets whether using the default styles
+            </summary>
+        </member>
+        <member name="P:DNA.UI.CollapsablePanel.Title">
+            <summary>
+            Gets/Sets the Header Title text
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.MultiJQueryScriptBuilder">
+            <summary>
+            Handling the WebControl has more than one JQueryAttribute define 
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQueryAttribute">
+            <summary>
+            JQueryAttribute for jQuery Web Control
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.DisposeMethod">
+            <summary>
+            Gets/Sets the jQuery dispose method name.
+            </summary>
+            <remarks>
+            if this property sets the dispose method for jquery will invoke when application.unload.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.ScriptResourceBaseName">
+            <summary>
+            Gets/Sets the jQuery scriptResource file base name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.Assembly">
+            <summary>
+            Gets/Sets the script resource 's assembly name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.ScriptResources">
+            <summary>
+            Gets/Sets the script resource name array
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.StartEvent">
+            <summary>
+            Gets/Sets the client register event for jQuery 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryAttribute.Name">
+            <summary>
+            Gets/Sets the jQuery (plugins/widgets) 's name
+            </summary>
+        </member>
         <member name="M:DNA.UI.ClientScriptManager.AddCompositeScript(System.Web.UI.Control,System.String,System.String)">
             <summary>
             This method will add the scripts to ScriptMaanger.CompositeScript
@@ -972,6 +891,51 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:DNA.UI.JQuery.Position">
+            <summary>
+            Position is the class define the control's bounds
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataTargetField">
+            <summary>
+            Gets/Sets the Target field name on databinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataCssClassField">
+            <summary>
+            Gets/Sets the CssClassField Name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataImageUrlField">
+            <summary>
+            Gets/Sets the ImageUrl field Name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataNavigateUrlField">
+            <summary>
+            Get/Sets the NavigateUrl field name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.DataTextField">
+            <summary>
+            Gets/Sets the Text field name on DataBinding
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.ItemCssClass">
+            <summary>
+            Gets/Sets the item style class name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.Target">
+            <summary>
+            Gets/Sets when click the item which the window open to
+            </summary>
+        </member>
+        <member name="P:DNA.UI.SimpleListView.Items">
+            <summary>
+            Gets the Items collection instance of this view
+            </summary>
+        </member>
         <member name="T:DNA.UI.NameValueAttribute">
             <summary>
              Name Value pair attribute object
@@ -985,6 +949,42 @@
         <member name="P:DNA.UI.NameValueAttribute.Value">
             <summary>
             Gets/Sets the value of the attribute
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQuerySelector">
+            <summary>
+            JQuerySelector this a class that define the jQuery selector string build rules,this class can build jQuery selector
+            string for html elements or write the selector string in Selector property directly. Or use TargetID,TargetIDs to 
+            get the server controls client id for render.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQuerySelector.Clear">
+            <summary>
+            Clear the selector and the IsEmpty will be return true.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQuerySelector.ToString">
+            <summary>
+            Format the selector to string in jQuery format.
+            </summary>
+            <remarks>
+             this method will not transfer the targetid or targetids to ClientID
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.JQuerySelector.ToString(System.Web.UI.Page)">
+            <summary>
+            Format the selector to string in jQuery format
+            </summary>
+            <remarks>
+             If targetID,targetIDs sets this method will get their ClientID into the output string.
+            </remarks>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQuerySelector.ExpressionOnly">
+            <summary>
+             Gets/Sets whether the selector output append "jQuery()"
             </summary>
         </member>
     </members>

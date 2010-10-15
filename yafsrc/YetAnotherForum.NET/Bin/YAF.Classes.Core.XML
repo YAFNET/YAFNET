@@ -7014,17 +7014,17 @@
         </member>
         <member name="F:YAF.Classes.Core.MailSendTask._sendMailThreaded">
             <summary>
-            The _send mail threaded.
+              The _send mail threaded.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.MailSendTask._uniqueId">
             <summary>
-            The _unique id.
+              The _unique id.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.MailSendTask.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.MailSendTask"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.MailSendTask"/> class.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.MailSendTask.RunOnce">
@@ -7266,33 +7266,80 @@
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._moduleAppName">
             <summary>
-            The _module app name.
+              The _module app name.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._appInstance">
             <summary>
-            The _app instance.
+              The _app instance.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._lockObject">
             <summary>
-            The _lock object.
+              The _lock object.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._lockTaskManagerObject">
             <summary>
-            The _lock task manager object.
+              The _lock task manager object.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._moduleInitialized">
             <summary>
-            The _module initialized.
+              The _module initialized.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._taskManager">
             <summary>
-            The _task manager.
+              The _task manager.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.IsTaskRunning(System.String)">
+            <summary>
+            Check if a Task is Running.
+            </summary>
+            <param name="instanceName">
+            </param>
+            <returns>
+            The is task running.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.StartTask(System.String,YAF.Classes.Core.IBackgroundTask)">
+            <summary>
+            Start a non-running task -- will set the <see cref="T:System.Web.HttpApplication"/> instance.
+            </summary>
+            <param name="instanceName">
+            Unique name of this task
+            </param>
+            <param name="start">
+            Task to run
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.StopTask(System.String)">
+            <summary>
+            Stops a task from running if it's not critical
+            </summary>
+            <param name="instanceName">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.TaskExists(System.String)">
+            <summary>
+            Check if a task exists in the task manager. May not be running.
+            </summary>
+            <param name="instanceName">
+            </param>
+            <returns>
+            The task exists.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.TryGetTask(System.String)">
+            <summary>
+            Attempt to get the instance of the task.
+            </summary>
+            <param name="instanceName">
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.System#Web#IHttpModule#Dispose">
             <summary>
@@ -7306,35 +7353,6 @@
             <param name="httpApplication">
             The http application.
             </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.TryGetTask(System.String)">
-            <summary>
-            Attempt to get the instance of the task.
-            </summary>
-            <param name="instanceName">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.TaskExists(System.String)">
-            <summary>
-            Check if a task exists in the task manager. May not be running.
-            </summary>
-            <param name="instanceName">
-            </param>
-            <returns>
-            The task exists.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.IsTaskRunning(System.String)">
-            <summary>
-            Check if a Task is Running.
-            </summary>
-            <param name="instanceName">
-            </param>
-            <returns>
-            The is task running.
-            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.TryRemoveTask(System.String)">
             <summary>
@@ -7358,46 +7376,29 @@
             The new task.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.StartTask(System.String,YAF.Classes.Core.IBackgroundTask)">
+        <member name="P:YAF.Classes.Core.YafTaskModule.Current">
             <summary>
-            Start a non-running task -- will set the <see cref="T:System.Web.HttpApplication"/> instance.
-            </summary>
-            <param name="instanceName">
-            Unique name of this task
-            </param>
-            <param name="start">
-            Task to run
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.StopTask(System.String)">
-            <summary>
-            Stops a task from running if it's not critical
-            </summary>
-            <param name="instanceName"></param>
-        </member>
-        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManager">
-            <summary>
-            Current Page Instance of the Module Manager
+              Gets Current.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskCount">
             <summary>
-            Gets TaskCount.
+              Gets TaskCount.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerSnapshot">
+        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManager">
             <summary>
-            Gets TaskManagerSnapshot.
+              Current Page Instance of the Module Manager
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerInstances">
             <summary>
-            All the names of tasks running.
+              All the names of tasks running.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.YafTaskModule.Current">
+        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerSnapshot">
             <summary>
-            Gets Current.
+              Gets TaskManagerSnapshot.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafDateTime">
@@ -7509,7 +7510,7 @@
         </member>
         <member name="P:YAF.Classes.Core.YafInitializeDb.InitVarName">
             <summary>
-            Gets InitVarName.
+              Gets InitVarName.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.AdminPage">
@@ -9125,6 +9126,32 @@
             The syndication item extensions.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,YAF.Classes.Core.YafSyndicationFeed,System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationLink})">
+            <summary>
+            The add syndication item.
+            </summary>
+            <param name="currentList">
+            The current list.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="content">
+            The content.
+            </param>
+            <param name="summary">
+            The summary.
+            </param>
+            <param name="link">
+            The alternate link.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="posted">
+            The posted.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,YAF.Classes.Core.YafSyndicationFeed)">
             <summary>
             The add syndication item.
@@ -9150,9 +9177,14 @@
             <param name="posted">
             The posted.
             </param>
-            <param name="author">
-            The author.
-            </param> 
+        </member>
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.NewSyndicationPerson(System.String,System.Int64)">
+            <summary>
+            Add a new syndication person.
+            </summary>
+            <param name="userEmail">The email.</param>
+            <param name="userId">The user Id.</param>
+            <returns>The SyndicationPerson.</returns>
         </member>
         <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
             <summary>
@@ -9182,13 +9214,14 @@
             Summary description for YafSyndicationFeed.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor(System.String,YAF.Classes.YafRssFeeds,System.Int32)">
+        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor(System.String,YAF.Classes.YafRssFeeds,System.Int32,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafSyndicationFeed"/> class. 
             </summary>
             <param name="subTitle"></param>
-            <param name="feedType">FeedType Atom/Rss</param>
-            <param name="sf"></param>
+            <param name="feedType">The feed source.</param>
+            <param name="sf">The feed type Atom/Rss.</param>
+            <param name="urlAlphaNum">The alphanumerically encoded base site Url.</param>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.NntpConnection">
             <summary>
