@@ -53,7 +53,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string CleanHtmlString(string text)
     {
-      text = text.Replace("<br/>", " ");
+      text = text.Replace("<br />", " ");
       text = text.Replace("&quot;", "\"");
       text = text.Replace("&nbsp;", " ");
 

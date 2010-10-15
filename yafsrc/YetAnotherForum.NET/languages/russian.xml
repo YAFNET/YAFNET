@@ -140,8 +140,8 @@
     <Resource tag="ALBUM_VIEW">Просмотр</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">Альбомы пользователя {0}</Resource>
-    <Resource tag="ALBUMS_INFO">Currently you have {0} Album(s). You can have max. {1} Album(s).</Resource>
-    <Resource tag="ALBUMS_NOTALLOWED">You are not allowed to have Albums.</Resource>
+    <Resource tag="ALBUMS_INFO">Сейчас у вас {0} альбомов. Вы можете создать {1} альбомов.</Resource>
+    <Resource tag="ALBUMS_NOTALLOWED">Вам не разрешены альбомы.</Resource>
     <Resource tag="ALBUMS_TITLE">Альбом пользователя {0}: {1}</Resource>
     <Resource tag="TITLE">Изображения из альбома</Resource>
   </page>

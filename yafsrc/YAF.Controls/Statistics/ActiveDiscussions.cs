@@ -133,7 +133,7 @@ namespace YAF.Controls.Statistics
           r["NumPosts"]);
 
         // new line after topic link
-        html.Append("<br/>");
+        html.Append("<br />");
 
         // moving onto next position
         currentPost++;

@@ -230,7 +230,10 @@ namespace YAF.Classes.Core
     /// </returns>
     public static string FormatSyndicationMessage(string message, MessageFlags messageFlags, bool altItem, int charsToFetch)
     {
-        return @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(altItem ? "content postContainer" : "content postContainer_Alt", YafFormatMessage.FormatMessage(message, messageFlags, false));
+        message = @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(altItem ? "content postContainer" : "content postContainer_Alt", YafFormatMessage.FormatMessage(message, messageFlags, false));
+       message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
+        return message;
+       // <span class=\"quotetitle\">tester1 написал:</span><div class=\"innerquote\">gfhgfhdf</div></div><br />vcxvxcvzcxv</td></tr></tab
     }
 
     /// <summary>

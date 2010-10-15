@@ -694,7 +694,7 @@ namespace YAF.Install
         UpdateInfoPanel(
           this.ManualConnectionInfoHolder, 
           this.lblConnectionDetailsManual, 
-          "Failed to connect:<br/><br/>" + message, 
+          "Failed to connect:<br /><br />" + message, 
           "errorinfo");
       }
       else
@@ -722,7 +722,7 @@ namespace YAF.Install
       if (!TestDatabaseConnection(out message))
       {
         UpdateInfoPanel(
-          this.ConnectionInfoHolder, this.lblConnectionDetails, "Failed to connect:<br/><br/>" + message, "errorinfo");
+          this.ConnectionInfoHolder, this.lblConnectionDetails, "Failed to connect:<br /><br />" + message, "errorinfo");
       }
       else
       {
@@ -787,7 +787,7 @@ namespace YAF.Install
       catch (Exception x)
       {
         UpdateInfoPanel(
-          this.SmtpInfoHolder, this.lblSmtpTestDetails, "Failed to connect:<br/><br/>" + x.Message, "errorinfo");
+          this.SmtpInfoHolder, this.lblSmtpTestDetails, "Failed to connect:<br /><br />" + x.Message, "errorinfo");
       }
     }
 

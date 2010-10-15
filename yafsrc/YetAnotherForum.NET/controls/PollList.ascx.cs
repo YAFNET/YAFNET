@@ -82,9 +82,16 @@ namespace YAF.controls
     private bool isBound;
 
     /// <summary>
+    /// The IsVoteEvent
+    /// </summary>
+    private bool IsVoteEvent;
+
+    /// <summary>
     ///   The topic User.
     /// </summary>
     private int? topicUser;
+
+    protected PollChoiceList PollChoiceList1;
 
     /// <summary>
     /// The group Notification String.
@@ -488,6 +495,13 @@ namespace YAF.controls
         return dtr == 0;
     }
 
+    protected void VoteBubbleEvent(object sender, EventArgs e)
+    {
+        IsVoteEvent = true;
+        LoadData();
+    }
+
+
     /// <summary>
     /// Page_Load
     /// </summary>
@@ -497,43 +511,49 @@ namespace YAF.controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      // Only if this control is in a topic we find the topic creator
-            if (this.TopicId > 0)
-            {
-                DataRow dti = DB.topic_info(this.TopicId);
-                this.topicUser = Convert.ToInt32(dti["UserID"]);
-                if (!dti["PollID"].IsNullOrEmptyDBField())
-                {
-                    this.PollGroupId = Convert.ToInt32(dti["PollID"]);
-                }
-            }
-
-        // We check here various variants if a poll exists, as we don't know from which place comes the call
-      bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
- 
-      // Here we'll find whether we should display create new poll button only 
-      bool topicPoll = this.PageContext.ForumPollAccess &&
-                       (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
-      bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
-      bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
-      bool boardPoll = this.PageContext.BoardVoteAccess &&
-                         (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
+        LoadData();
       
-      this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) && this.HasOwnerExistingGroupAccess() && (!existingPoll);
-     
-      // if this is > 0 then we already have a poll and will display all buttons
-      if (this.PollGroupId > 0)
-      {
-        this.BindData();
-      }
-      else
-      {
-          if (this.NewPollRow.Visible)
-        {
-          this.BindCreateNewPollRow();
-        }
-      }
     }
+      private void LoadData()
+
+      {
+          // Only if this control is in a topic we find the topic creator
+          if (this.TopicId > 0)
+          {
+              DataRow dti = DB.topic_info(this.TopicId);
+              this.topicUser = Convert.ToInt32(dti["UserID"]);
+              if (!dti["PollID"].IsNullOrEmptyDBField())
+              {
+                  this.PollGroupId = Convert.ToInt32(dti["PollID"]);
+              }
+          }
+
+          // We check here various variants if a poll exists, as we don't know from which place comes the call
+          bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
+
+          // Here we'll find whether we should display create new poll button only 
+          bool topicPoll = this.PageContext.ForumPollAccess &&
+                           (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
+          bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
+          bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
+          bool boardPoll = this.PageContext.BoardVoteAccess &&
+                             (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
+
+          this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) && this.HasOwnerExistingGroupAccess() && (!existingPoll);
+
+          // if this is > 0 then we already have a poll and will display all buttons
+          if (this.PollGroupId > 0)
+          {
+              this.BindData();
+          }
+          else
+          {
+              if (this.NewPollRow.Visible)
+              {
+                  this.BindCreateNewPollRow();
+              }
+          }
+      }
 
     /// <summary>
     /// PollGroup_ItemCommand
@@ -633,7 +653,7 @@ namespace YAF.controls
         int choicePId = 0;
         bool isNotVoted = this.IsNotVoted(pollId, out choicePId);
         bool cvote = HasVoteAccess(pollId) ? isNotVoted : false;
-        
+        pollChoiceList.ChoiceId = choicePId;
 
         // If guest are not allowed to view options we don't render them
         pollChoiceList.Visible = !cvote && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
@@ -646,7 +666,7 @@ namespace YAF.controls
         // This is not a guest w/o poll option view permissions, we bind the control.
         if (pollChoiceList.Visible)
         {
-            pollChoiceList.ChoiceId = choicePId;
+            
 
             DataTable thisPollTable = this._dtPoll.Copy();
             foreach (DataRow thisPollTableRow in thisPollTable.Rows)
@@ -787,7 +807,14 @@ namespace YAF.controls
 
         pollChoiceList.CanVote = cvote;
         pollChoiceList.DaysToRun = daystorun;
-       
+
+        // we should double bind if it is not a vote event bubble. 
+        if (IsVoteEvent)
+        {
+            pollChoiceList.DataBind();
+        }
+
+          pollChoiceList.ChoiceVoted += this.VoteBubbleEvent;
         // we don't display warnings row if no info
             if (notificationString.IsSet())
             {
@@ -898,6 +925,7 @@ namespace YAF.controls
     /// </summary>
     private void BindData()
     {
+ 
       this.PollNumber = 0;
       this._dtPoll = DB.pollgroup_stats(this.PollGroupId);
 
@@ -906,7 +934,7 @@ namespace YAF.controls
                         this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
       // check if we should hide pollgroup repeater when a message is posted
-      if (this.Parent.Page.ClientQueryString.Contains("postmessage"))
+      if (this.PageContext.ForumPageType == ForumPages.postmessage)
       {
         this.PollGroup.Visible = ((this.EditMessageId > 0) && (!this._canChange)) || this._canChange;
       }

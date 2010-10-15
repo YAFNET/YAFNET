@@ -92,7 +92,7 @@ namespace YAF.Classes.Core.BBCode
       innerValue = innerValue.Replace("]", "&#93;");
       innerValue = innerValue.Replace("<", "&lt;");
       innerValue = innerValue.Replace(">", "&gt;");
-      innerValue = innerValue.Replace("\r\n", "<br/>");
+      innerValue = innerValue.Replace("\r\n", "<br />");
       return innerValue;
     }
 

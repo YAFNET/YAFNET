@@ -69,8 +69,8 @@ namespace YAF.Pages
         // 2. New Password length minimum: {0}.
         // 3. Non-alphanumeric characters required: {1}.
         string failureText = GetText( "PASSWORD_INCORRECT" );
-        failureText += "<br/>" + GetText( "PASSWORD_BAD_LENGTH" );
-        failureText += "<br/>" + GetText( "PASSWORD_NOT_COMPLEX" );
+        failureText += "<br />" + GetText( "PASSWORD_BAD_LENGTH" );
+        failureText += "<br />" + GetText( "PASSWORD_NOT_COMPLEX" );
 
         ChangePassword1.ChangePasswordFailureText = failureText;
 

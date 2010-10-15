@@ -100,7 +100,7 @@ namespace YAF.Controls
 
       this.Get<YafStopWatch>().Stop();
 
-      footer.Append(@"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">");
+      footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
       bool br = false;
 
@@ -126,7 +126,7 @@ namespace YAF.Controls
 
       if (br)
       {
-        footer.Append("<br/>");
+        footer.Append("<br />");
       }
 
       footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
@@ -161,7 +161,7 @@ namespace YAF.Controls
 
       if (PageContext.BoardSettings.ShowPageGenerationTime)
       {
-        footer.Append("<br/>");
+        footer.Append("<br />");
         footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<YafStopWatch>().Duration);
       }
 
@@ -171,7 +171,7 @@ namespace YAF.Controls
       if (PageContext.IsAdmin)
       {
         footer.AppendFormat(
-          @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br/>Recompile in <strong>RELEASE MODE</strong> to remove this information:");
+          @"<br /><br /><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
         footer.Append(@"<br></br><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
         footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br></br>");
         footer.AppendFormat(

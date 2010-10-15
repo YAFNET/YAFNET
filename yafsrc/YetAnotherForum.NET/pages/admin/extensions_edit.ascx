@@ -6,7 +6,7 @@
 			<td class="header1" colspan="2">Add/Edit Allowed File Extensions</td>
 		</tr>
 		<tr>
-			<td class="postheader" width="50%"><strong>File Extension:</strong><br/>(Example: Enter "jpg" for a JPEG graphic file.)</td>
+			<td class="postheader" width="50%"><strong>File Extension:</strong><br />(Example: Enter "jpg" for a JPEG graphic file.)</td>
 			<td class="post" width="50%">
 				<asp:textbox id="extension" runat="server"></asp:textbox></td>
 		</tr>

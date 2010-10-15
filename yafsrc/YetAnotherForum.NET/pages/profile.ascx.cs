@@ -415,7 +415,7 @@ namespace YAF.Pages
             {
                 this.lnkBuddy.Visible = false;
             }
-            else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], true))
+            else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], true) && !PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
@@ -430,10 +430,13 @@ namespace YAF.Pages
             }
             else
             {
-                this.lnkBuddy.Visible = true;
-                this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
-                this.lnkBuddy.CommandArgument = "addbuddy";
-                this.lnkBuddy.Attributes["onclick"] = string.Empty;
+                if (!PageContext.IsGuest)
+                {
+                    this.lnkBuddy.Visible = true;
+                    this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+                    this.lnkBuddy.CommandArgument = "addbuddy";
+                    this.lnkBuddy.Attributes["onclick"] = string.Empty;
+                }
             }
 
             this.BuddyList.CurrentUserID = userID;
@@ -640,7 +643,7 @@ namespace YAF.Pages
                             SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
             }
 
-            this.Stats.InnerHtml = "{0:N0}<br/>[{1} / {2}]".FormatWith(
+            this.Stats.InnerHtml = "{0:N0}<br />[{1} / {2}]".FormatWith(
               userData.DBRow["NumPosts"],
               this.GetTextFormatted("NUMALL", allPosts),
               this.GetTextFormatted(

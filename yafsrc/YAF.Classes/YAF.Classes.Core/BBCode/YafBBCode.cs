@@ -432,7 +432,7 @@ namespace YAF.Classes.Core.BBCode
 
         // basic hr and br rules
         var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr/>", _options | RegexOptions.Multiline); // Multiline, since ^ must match beginning of line
-        var brRule = new SingleRegexReplaceRule(_rgxBr, "<br/>", _options) {RuleRank = hrRule.RuleRank + 1};
+        var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) {RuleRank = hrRule.RuleRank + 1};
 
           // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
         ruleEngine.AddRule(hrRule);

@@ -9,7 +9,7 @@
 			<td class="header1" colspan="2">Import Replace Word List</td>
 		</tr>
 		<tr>
-			<td class="postheader" width="50%"><strong>Select Import File:</strong><br/>(Must be *.xml file)</td>
+			<td class="postheader" width="50%"><strong>Select Import File:</strong><br />(Must be *.xml file)</td>
 			
 			
 			

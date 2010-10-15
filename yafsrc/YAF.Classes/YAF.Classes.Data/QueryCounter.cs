@@ -100,7 +100,7 @@ namespace YAF.Classes.Data
         }
         else
         {
-          HttpContext.Current.Items["CmdQueries"] += "<br/>" + this._cmd;
+          HttpContext.Current.Items["CmdQueries"] += "<br />" + this._cmd;
         }
       }
 

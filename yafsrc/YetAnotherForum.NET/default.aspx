@@ -19,7 +19,7 @@
 </head>
 <body style="margin:0; padding:5px">
     <a href="/"><img src="~/forumlogo.jpg" runat="server" alt="logo" style="border: 0;" id="imgBanner" /></a>
-    <br/>    
+    <br />    
     <form id="form1" runat="server" enctype="multipart/form-data">
         <YAF:Forum runat="server" ID="forum"></YAF:Forum>
     </form>

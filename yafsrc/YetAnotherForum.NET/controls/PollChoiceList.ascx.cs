@@ -97,6 +97,11 @@ namespace YAF.controls
     /// </summary>
     public int Votes { get; set; }
 
+    /// <summary>
+    /// The event bubbles info to parent control to rebind repeater. 
+    /// </summary>
+    public event EventHandler ChoiceVoted;
+
     #endregion
 
     #region Protected Methods
@@ -226,6 +231,9 @@ namespace YAF.controls
         }
 
         DB.choice_vote(e.CommandArgument, userID, remoteIP);
+       
+       // this.ChoiceId = Convert.ToInt32(e.CommandArgument.ToString());
+       // this.CanVote = false;
 
         // save the voting cookie...
         var c = new HttpCookie(this.VotingCookieName(PollId), e.CommandArgument.ToString())
@@ -233,10 +241,15 @@ namespace YAF.controls
              Expires = DateTime.UtcNow.AddYears(1) 
           };
         this.Response.Cookies.Add(c);
-
+        
         // show an info that the user is voted 
         string msg = this.PageContext.Localization.GetText("INFO_VOTED");
+      
         this.BindData();
+
+        if (ChoiceVoted != null)
+            ChoiceVoted(source, e);
+
         // show the notification  window to user
         this.PageContext.AddLoadMessage(msg);
        

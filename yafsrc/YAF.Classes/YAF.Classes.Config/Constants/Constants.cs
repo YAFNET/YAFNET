@@ -187,7 +187,7 @@ namespace YAF.Classes
       /// The display template default.
       /// </summary>
       public const string DisplayTemplateDefault =
-        @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:gender /><yaf:location /></div><br/><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
+        @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:gender /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
 
       /// <summary>
       /// The groups.

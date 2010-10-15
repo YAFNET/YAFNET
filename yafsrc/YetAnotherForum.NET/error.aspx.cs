@@ -49,7 +49,7 @@ namespace YAF
           Session ["StartupException"] = null;
         }
 
-        ErrorMsg.Text = errorMessage + "<br/><br/>" + "Please contact the administrator if this message persists.";
+        ErrorMsg.Text = errorMessage + "<br /><br />" + "Please contact the administrator if this message persists.";
       }
 		}
 	}
