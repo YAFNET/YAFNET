@@ -278,7 +278,7 @@ namespace YAF.Pages
 
             using (DataTable dataTopics = DB.rss_topic_latest(this.PageContext.PageBoardID, this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50 ? this.PageContext.BoardSettings.ActiveDiscussionsCount : 50, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks, PageContext.BoardSettings.NoCountForumsInActiveDiscussions))
             {
-                string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+                string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
                 bool altItem = false;
@@ -311,7 +311,7 @@ namespace YAF.Pages
                                                      : 22, altItem),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
-                           "urn:{0}-ft{1}-st{2}-tid{3}-mid{4}:{5}".FormatWith(urlAlphaNum,
+                           "urn:{0}:ft{1}:st{2}:tid{3}:mid{4}:{5}".FormatWith(urlAlphaNum,
                            feedType,
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                            row["TopicID"],
@@ -338,7 +338,7 @@ namespace YAF.Pages
             var syndicationItems = new List<SyndicationItem>();
             using (DataTable dt = DB.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
             {
-                string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+                string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
 
@@ -367,7 +367,7 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}",
                                                            this.Request.QueryString.GetFirstOrDefault("t")),
-                            "urn:{0}-ft{1}-st{2}-tid{3}-lmid{4}:{5}".FormatWith(urlAlphaNum, 
+                            "urn:{0}:ft{1}:st{2}:tid{3}:lmid{4}:{5}".FormatWith(urlAlphaNum, 
                             feedType,
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                             this.Request.QueryString.GetFirstOrDefault("t"),
@@ -415,7 +415,7 @@ namespace YAF.Pages
                 // load the missing message test
                 this.Get<YafDBBroker>().LoadMessageText(dataRows);
 
-                string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+                string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed("{0}{1} - {2}".FormatWith(this.PageContext.Localization.GetText("PROFILE", "TOPIC"), this.PageContext.PageTopicName, PageContext.BoardSettings.PostsPerPage), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
 
@@ -445,7 +445,7 @@ namespace YAF.Pages
                       YafFormatMessage.FormatSyndicationMessage(row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 4000),
                       null,
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["MessageID"]),
-                       "urn:{0}-ft{1}-st{2}-meid{3}:{4}".FormatWith(
+                       "urn:{0}:ft{1}:st{2}:meid{3}:{4}".FormatWith(
                        urlAlphaNum, 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
@@ -476,7 +476,7 @@ namespace YAF.Pages
                DataTable dt = DB.forum_listread(
                  this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null))
             {
-                string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+                string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"), feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
 
@@ -514,7 +514,7 @@ namespace YAF.Pages
                         HtmlEncode(row["Description"].ToString()),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                        "urn:{0}-ft{1}-st{2}-fid{3}-lmid{4}:{5}".FormatWith(urlAlphaNum,
+                        "urn:{0}:ft{1}:st{2}:fid{3}:lmid{4}:{5}".FormatWith(urlAlphaNum,
                         feedType, 
                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                         row["ForumID"], 
@@ -543,7 +543,7 @@ namespace YAF.Pages
             // vzrus changed to separate DLL specific code
             using (DataTable dt = DB.rsstopic_list(forumId))
             {
-                string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+                string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName, feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
 
@@ -581,7 +581,7 @@ namespace YAF.Pages
                                 : 22, false),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
-                        "urn:{0}-ft{1}-st{2}-tid{3}-lmid{4}:{5}".FormatWith(urlAlphaNum, 
+                        "urn:{0}:ft{1}:st{2}:tid{3}:lmid{4}:{5}".FormatWith(urlAlphaNum, 
                        feedType,
                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                        row["TopicID"], row["LastMessageID"], PageContext.PageBoardID),
@@ -632,7 +632,7 @@ namespace YAF.Pages
                 }
             }
 
-            string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+            string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
             string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toActText.ToString(),
                                                                                                   String.Empty);
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText, feedType, atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), urlAlphaNum);
@@ -673,7 +673,7 @@ namespace YAF.Pages
                                                      : 22, false),
                             null,
                             messageLink,
-                            "urn:{0}-ft{1}-st{2}-span{3}-ltid{4}-lmid{5}:{6}".FormatWith(urlAlphaNum,
+                            "urn:{0}:ft{1}:st{2}:span{3}:ltid{4}:lmid{5}:{6}".FormatWith(urlAlphaNum,
                             feedNameAlphaNum,
                             feedType, 
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
@@ -730,7 +730,7 @@ namespace YAF.Pages
                 categoryActiveId,
                 false))
             {
-                string urlAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(YafForumInfo.ForumBaseUrl, String.Empty);
+                string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
                 string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText.ToString(), String.Empty);
                 feed =
                          new YafSyndicationFeed(
@@ -767,7 +767,7 @@ namespace YAF.Pages
                                     : 22, false),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
-                           "urn:{0}-ft{1}-st{2}-span{3}-ltid{4}lmid{5}:{6}".FormatWith(urlAlphaNum,
+                           "urn:{0}:ft{1}:st{2}:span{3}:ltid{4}:lmid{5}:{6}".FormatWith(urlAlphaNum,
                            feedType, 
                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                            feedNameAlphaNum, 
@@ -780,6 +780,34 @@ namespace YAF.Pages
 
                 feed.Items = syndicationItems;
             }
+        }
+
+        /// <summary>
+        /// Format the Url to an URN compatible string
+        /// </summary>
+        /// <param name="InputUrl">Input Url to format</param>
+        /// <returns>Formatted url</returns>
+        private static string FormatUrlForFeed(string InputUrl)
+        {
+            string formatedUrl = InputUrl;
+
+            if (formatedUrl.Contains(@"http://www."))
+            {
+                formatedUrl = formatedUrl.Replace("http://www.", String.Empty);
+            }
+            else if (formatedUrl.Contains(@"http://"))
+            {
+                formatedUrl = formatedUrl.Replace("http://", String.Empty);
+            }
+
+            formatedUrl = formatedUrl.Replace(".", "-").Replace("/", "-");
+
+            if (formatedUrl.EndsWith("/"))
+            {
+                formatedUrl = formatedUrl.Remove(formatedUrl.Length - 1);
+            }
+
+            return formatedUrl;
         }
 
         /// <summary>

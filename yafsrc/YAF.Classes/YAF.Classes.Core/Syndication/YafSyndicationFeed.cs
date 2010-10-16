@@ -220,11 +220,14 @@ namespace YAF.Classes.Core
        
        
           this.Id =
-              "urn:{0}-{1}-{2}-{3}:{4}".FormatWith(urlAlphaNum,
+              "urn:{0}:{1}:{2}:{3}:{4}".FormatWith(urlAlphaNum,
                   sf == YafSyndicationFormats.Atom.ToInt()
                       ? YafContext.Current.Localization.GetText("ATOMFEED")
                       : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name,
                   subTitle, YafContext.Current.PageBoardID);
+
+          this.Id = this.Id.Replace(" ", String.Empty);
+
         // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
         this.BaseUri = slink;
         this.Authors.Add(new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl));
