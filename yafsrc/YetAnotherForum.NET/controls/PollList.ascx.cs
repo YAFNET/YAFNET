@@ -299,7 +299,7 @@ namespace YAF.controls
     {
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"])));
+              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]))); 
     }
 
     /// <summary>
@@ -797,7 +797,11 @@ namespace YAF.controls
           {
             notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
           }
-          
+          if (isClosedBound)
+          {
+              notificationString +=
+                  " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
+          }
         }
         else if (daystorun == 0)
         {
@@ -1139,48 +1143,81 @@ namespace YAF.controls
     /// </summary>
     private void ReturnToPage()
     {
-      // We simply return here to the page where the control is put. It can be made other way.
-      if (this.TopicId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
-      }
 
-      if (this.EditMessageId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
-      }
+        // We simply return here to the page where the control is put. It can be made other way.
+        switch  (this.PageContext.ForumPageType)
+        {
+            case  ForumPages.posts:
+                if (this.TopicId > 0)
+                {
+                    YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
+                }
 
-      if (this.ForumId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
-      }
+                break;
+            case ForumPages.forum:
+            
+                // This is a poll on the coard main page
+                if (this.BoardId > 0)
+                {
+                    YafBuildLink.Redirect(ForumPages.forum);
+                }
+                // This is a poll in a category list 
+                if (this.CategoryId > 0)
+                {
+                    YafBuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
 
-      if (this.EditForumId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
-      }
+                }
+                break;
+            case ForumPages.topics:
+            
+                // this is a poll in forums topic view
+                if (this.ForumId > 0)
+                {
+                    YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
+                }
 
-      if (this.CategoryId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
-      }
+                break;
+            case ForumPages.postmessage:
+               if (this.EditMessageId > 0)
+               {
+                   YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
+               }
+               
+               break;
+            case ForumPages.admin_editforum:
 
-      if (this.EditCategoryId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
-      }
+               // This is a poll on edit forum page
+               if (this.EditForumId > 0)
+               {
+                   YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
+               }
+               
+               break;
+           
+            case ForumPages.admin_editcategory:
 
-      if (this.BoardId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.forum);
-      }
+               // this is a poll on edit category page
+               if (this.EditCategoryId > 0)
+               {
+                   YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
+               }
 
-      if (this.EditBoardId > 0)
-      {
-        YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
-      }
+               break;
+               
+            case ForumPages.admin_editboard:
 
-      YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+               // this is a poll on edit board page
+                if (this.EditBoardId > 0)
+                {
+                    YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
+                }
+                break;
+
+            default:
+                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                break;
+
+        }
     }
 
     /// <summary>

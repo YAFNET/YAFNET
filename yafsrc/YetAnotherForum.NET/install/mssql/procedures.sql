@@ -4701,14 +4701,14 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pollgroup_remove](@PollGroupID int, @TopicID int =null, @ForumID int= null, @CategoryID int = null, @BoardID int = null, @RemoveCompletely bit, @RemoveEverywhere bit)
  as
-  begin
-   
-	 declare @polllist table
-	( PollID int)
+  begin   
+	declare @polllist table( PollID int)
 	declare @tmp int
 
-
-		 if @RemoveEverywhere <> 1 
+	
+	
+			 -- we delete poll from the place only it persists in other places 
+		 if @RemoveEverywhere <> 1
 			 begin
 				   if @TopicID > 0
 				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where TopicID = @TopicID                 
@@ -4719,45 +4719,44 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_remove](@PollGrou
 	               if @CategoryID > 0
                    Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where CategoryID = @CategoryID
                 
-		           end
-	
-	      if ( @RemoveEverywhere = 1 OR @RemoveCompletely = 1)
+		     end        
+		    
+	      -- we remove poll group links from all places where they are
+	     if ( @RemoveEverywhere = 1 OR @RemoveCompletely = 1)
 		 begin
 				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID 
                    Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
 				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where PollGroupID = @PollGroupID				 
          end
 
-	        	-- all polls in the group 
+		 -- simply remove all polls
 	if @RemoveCompletely = 1 
-	begin
-
+	begin	
 	insert into @polllist (PollID)
 	select PollID from [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID   
-
-	
 			DELETE FROM  [{databaseOwner}].[{objectQualifier}pollvote] WHERE PollID IN (SELECT PollID FROM @polllist)
-			DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID IN (SELECT PollID FROM @polllist)
-			UPDATE [{databaseOwner}].[{objectQualifier}poll] SET PollGroupID = NULL WHERE PollGroupID = @PollGroupID
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID IN (SELECT PollID FROM @polllist)	
 			DELETE FROM  [{databaseOwner}].[{objectQualifier}poll] WHERE PollGroupID = @PollGroupID 
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID		
     end
-	else
-	begin
-	UPDATE [{databaseOwner}].[{objectQualifier}poll] SET PollGroupID = NULL WHERE   PollGroupID = @PollGroupID
-	end
 
-
-				    
-	-- this is the last one
-	IF NOT EXISTS (select 1 from [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID)
-	begin	 
-        DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID		
+	-- don't remove cluster if the polls are not removed from db 
 	end
-		end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pollgroup_attach](@PollGroupID int, @TopicID int = null, @ForumID int = null, @CategoryID int = null, @BoardID int = null) as
 begin
+                   -- this deletes possible polls without choices it should not normally happen
+				   DECLARE @tablett table (PollID int) 
+				   INSERT INTO @tablett(PollID)
+				   SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = NULL
+                  
+				   DELETE FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN (select PollID FROM @tablett)
+				   DELETE FROM [{databaseOwner}].[{objectQualifier}Choice] WHERE PollID IN (select PollID FROM @tablett)
+				   DELETE FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollID IN (select PollID FROM @tablett)
+				   				   
+                   if NOT EXISTS (SELECT 1 FROM @tablett)
+				   begin
 	               if @TopicID > 0
 				   begin
 				   if exists (select 1 from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID  and PollID is not null)
@@ -4796,6 +4795,8 @@ begin
                    SELECT 0
 				   end
 				   end
+				   end
+				   SELECT 1
 		               
 
 end
@@ -4805,6 +4806,7 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_list](@UserID int
 begin
 	select distinct(p.Question), p.PollGroupID from [{databaseOwner}].[{objectQualifier}Poll] p
 	LEFT JOIN 	[{databaseOwner}].[{objectQualifier}PollGroupCluster] pgc ON pgc.PollGroupID = p.PollGroupID
+	WHERE p.PollGroupID is not null
 	-- WHERE p.Closes IS NULL OR p.Closes > GETUTCDATE()
 	order by Question asc
 end
@@ -7005,13 +7007,6 @@ declare @groupcount int
 	-- delete poll
 	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID
 	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 	
-	end
-	else
-	begin    
-	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID	                         
-	end
-  
-
 	if  NOT EXISTS (SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID) 
         begin	
 			  
@@ -7029,6 +7024,13 @@ declare @groupcount int
 		 
         DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID	
 		end  	
+	end
+	else
+	begin    
+	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID	                         
+	end 
+
+	
 		
 
 end

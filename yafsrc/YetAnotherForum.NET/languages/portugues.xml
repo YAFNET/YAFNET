@@ -762,7 +762,7 @@
     <Resource tag="PMTITLE">Contacting other Members</Resource>
     <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When you post a new Topic, you have the Option &#39;Add Poll?&#39; to create a new poll. If you don&#39;t see that Option you may don&#39;t have access to that Option.&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you may don't have access to that Option.&lt;/p&gt;
 &lt;p&gt;You can also add new Polls to existing ones. a Topic can have as many Polls you want.&lt;/p&gt;
 &lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
@@ -774,8 +774,8 @@
   &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You may also want to specify a time limit for the poll, so that (for example) run poll for 10 Days, you can also set it to never expire.&lt;/p&gt;
-&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box &#39;You should vote in all polls to see results.&lt;em&gt;&#39;&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
-&lt;p&gt;&#39;Bound voting&#39; Option don&#39;t show results, if the poll didn&#39;t expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;'Bound voting' Option don't show results, if the poll didn't expire.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Grouping Polls&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;All Polls attached to an Topic are automatically combined as a Group. You can display this Group with Polls on any other Topic you want.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
@@ -1145,11 +1145,12 @@
     <Resource tag="EXPIRE_BAD">Incorrect expiration date</Resource>
     <Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
     <Resource tag="NEED_QUESTION">You must enter a poll question.</Resource>
+    <Resource tag="POLL_CLOSEDBOUND">You can't see results before the poll expires.</Resource>
     <Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
     <Resource tag="POLL_EXPIRED">The poll is expired.</Resource>
     <Resource tag="POLL_IMGWIDTH">Image width in px:</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote or see results. Try and register.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Click to vote</Resource>
     <Resource tag="POLL_VOTED">You already voted.</Resource>
     <Resource tag="POLL_WILLEXPIRE">The poll will be closed in {0} days.</Resource>

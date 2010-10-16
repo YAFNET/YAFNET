@@ -32,7 +32,7 @@
       <p style="color:#990000;">
       <asp:Label ID="ErrorMsg" Enabled="true" runat="server" />
       </p>
-      <hr/>
+      <hr />
       <p style="font-size:9pt">
       Note: If you are the administrator, and need help with this problem, please visit this url:
       <a href="http://wiki.yetanotherforum.net/TroubleShooting%20CustomErrors.ashx">Turn off CustomErrors in your web.config</a>.

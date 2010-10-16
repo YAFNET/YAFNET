@@ -343,7 +343,7 @@
     <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
     <Resource tag="ERROR_TOOBIG">Размер изображения слишком большой.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
-    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you allowed to have {1} images for each album.</Resource>
+    <Resource tag="IMAGES_INFO">Примечание: В данный момент у Вас {0} изображений, Вам разрешены {1} iизображений в каждом альбоме.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -356,8 +356,8 @@
     <Resource tag="AVATARUPLOAD">Загрузите аватар с вашего компьютера:</Resource>
     <Resource tag="INVALID_FILE">Загруженный тип файла не является допустимым форматом для изображения.</Resource>
     <Resource tag="NOAVATAR">[ Нет аватара  ]</Resource>
-    <Resource tag="NOTE_LOCAL">Note If the Image is larger then {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
-    <Resource tag="NOTE_REMOTE">Note: If the Image is larger then {0}x{1} pixels, it will be automatically resized.</Resource>
+    <Resource tag="NOTE_LOCAL">Примечание: Если размер изображения более чем {0}x{1} пикс., оно будет автоматически изменено до допустимого размера. Предельный размер файла изображения {2} КБ.</Resource>
+    <Resource tag="NOTE_REMOTE">Примечание: Если размер изображения более чем {0}x{1} пикс., оно будет автоматически изменено до допустимого размера.</Resource>
     <Resource tag="OURAVATAR">Выберите аватар из нашей коллекции:</Resource>
     <Resource tag="OURAVATAR_SELECT">Нажмите здесь, чтобы выбрать аватар</Resource>
     <Resource tag="TITLE">Изменить аватар</Resource>
@@ -763,7 +763,7 @@
     <Resource tag="PMTITLE">Связь с другими участниками</Resource>
     <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When you post a new Topic, you have the Option &#39;Add Poll?&#39; to create a new poll. If you don&#39;t see that Option you may don&#39;t have access to that Option.&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you may don't have access to that Option.&lt;/p&gt;
 &lt;p&gt;You can also add new Polls to existing ones. a Topic can have as many Polls you want.&lt;/p&gt;
 &lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set Up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
@@ -775,8 +775,8 @@
   &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You may also want to specify a time limit for the poll, so that (for example) run poll for 10 Days, you can also set it to never expire.&lt;/p&gt;
-&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box &#39;You should vote in all polls to see results.&lt;em&gt;&#39;&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
-&lt;p&gt;&#39;Bound voting&#39; Option don&#39;t show results, if the poll didn&#39;t expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without make a vote or if You enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;'Bound voting' Option don't show results, if the poll didn't expire.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Grouping Polls&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;All Polls attached to an Topic are automatically combined as a Group. You can display this Group with Polls on any other Topic you want.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
@@ -885,7 +885,7 @@
   &lt;li&gt; &lt;strong&gt;Your Name thanked&lt;/strong&gt; - Shows the List of Messages where you gave a thank.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Your Name was thanked -&lt;/strong&gt; Shows the List your Messages where you received thanks.&lt;/li&gt;
 &lt;/ul&gt;</Resource>
-    <Resource tag="THANKSTITLE">Thanks Feature</Resource>
+    <Resource tag="THANKSTITLE">Кнопка «Спасибо»</Resource>
     <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
@@ -1143,11 +1143,12 @@
     <Resource tag="EXPIRE_BAD">Неверная дата окончания опроса</Resource>
     <Resource tag="NEED_CHOICES">Опрос должен иметь по меньшей мере два варианта ответа.</Resource>
     <Resource tag="NEED_QUESTION">Необходимо ввести вопрос.</Resource>
+    <Resource tag="POLL_CLOSEDBOUND">Результаты скрыты пока срок вопроса не истёк.</Resource>
     <Resource tag="POLL_EXPIRE">Проводить опрос в течение:</Resource>
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]дней[/b] [ Оставьте пустым в случае бессрочного опроса ]</Resource>
     <Resource tag="POLL_EXPIRED">Опрос завершён.</Resource>
     <Resource tag="POLL_IMGWIDTH">Ширина изображения в пикс.:</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Гости не могут голосовать. Попробуйте зарегистрироваться.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Гости не могут голосовать и видеть результаты. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Кликните чтобы проголосовать</Resource>
     <Resource tag="POLL_VOTED">Вы уже голосовали.</Resource>
     <Resource tag="POLL_WILLEXPIRE">Опрос завершится через {0} дней.</Resource>
@@ -1156,9 +1157,9 @@
     <Resource tag="POLLGROUP_ATTACHED">Нельзя добавить группу. Другая группа уже добавлена.</Resource>
     <Resource tag="POLLGROUP_BOUNDWARN">Для просмотра результатов проголосуйте во всех опросах.</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND">Связанное голосование</Resource>
-    <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Не показывать результаты опрос пока он не истёк.</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Не показывать результаты опроса пока он не истёк.</Resource>
     <Resource tag="POLLGROUP_LIST">Выберите существующую группу опросов:</Resource>
-    <Resource tag="POLLGROUPISBOUND">Результаты вашего голосования будут видны, когда Вы проголосуете во всех опросах.</Resource>
+    <Resource tag="POLLGROUPISBOUND">Результаты Вашего голосования будут видны, когда Вы проголосуете во всех опросах.</Resource>
     <Resource tag="POLLHEADER">Создание и редактирование опроса</Resource>
     <Resource tag="POLLIMAGE_INVALID">Изображение или его путь недействительны для {0}.</Resource>
     <Resource tag="POLLIMAGE_TEXT">Адрес изображения:</Resource>

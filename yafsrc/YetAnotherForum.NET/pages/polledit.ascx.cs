@@ -123,6 +123,11 @@ namespace YAF.Pages
     /// </summary>
     protected bool topicUnapproved;
 
+    /// <summary>
+    /// The currentSelection.
+    /// </summary>
+    protected int currentSelection;
+
     #endregion
 
     #region Constructors and Destructors
@@ -380,7 +385,7 @@ namespace YAF.Pages
 
               this.PollGroupListDropDown.Items.AddRange(
                   pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
-
+              
               this.PollGroupListDropDown.DataBind();
               this.PollGroupList.Visible = true;
           }
