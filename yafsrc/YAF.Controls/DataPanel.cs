@@ -1,18 +1,17 @@
-#region References
-
-using System;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Drawing;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using YAF.Classes.Utils;
-
-#endregion References
-
 namespace YAF.Controls
 {
+  #region References
+
+    using System;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+    using YAF.Classes.Utils;
+
+    #endregion References
 
   #region DataPanel Class
 

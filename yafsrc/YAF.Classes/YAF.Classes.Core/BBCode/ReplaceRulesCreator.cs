@@ -20,8 +20,6 @@ namespace YAF.Classes.Core.BBCode
 {
   #region Using
 
-  using System;
-
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
 

@@ -20,8 +20,7 @@ namespace YAF.Controls
 {
   using System;
   using System.Web.UI;
-
-  using Classes;
+  
   using Classes.Core;
   using Classes.Utils;
 

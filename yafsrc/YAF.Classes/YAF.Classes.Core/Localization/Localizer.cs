@@ -26,7 +26,6 @@ namespace YAF.Classes.Core
   using System.Globalization;
   using System.IO;
   using System.Linq;
-  using System.Xml;
 
   using YAF.Classes.Utils;
 

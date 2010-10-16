@@ -19,12 +19,10 @@
 namespace YAF.Classes.Utils
 {
   #region Using
-
-  using System;
+  
   using System.Reflection;
   using System.Security;
   using System.Web;
-  using System.Xml;
 
   #endregion
 

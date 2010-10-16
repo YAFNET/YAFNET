@@ -1,6 +1,5 @@
 namespace YAF.Classes.Utils
 {
-  using System;
   using System.Web;
   using System.Web.UI;
 

@@ -28,7 +28,6 @@ namespace YAF.Classes.Core
   using YAF.Classes.Data;
   using YAF.Classes.Extensions;
   using YAF.Classes.Interfaces;
-  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion

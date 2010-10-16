@@ -21,7 +21,6 @@ namespace YAF.Classes.Core
 {
   using System;
   using System.Data;
-  using System.Linq;
   using System.Web;
   using System.Web.Security;
   using YAF.Classes.Data;

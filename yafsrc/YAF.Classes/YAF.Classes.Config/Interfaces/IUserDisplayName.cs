@@ -18,7 +18,6 @@
  */
 namespace YAF.Classes.Interfaces
 {
-  using System;
   using System.Collections.Generic;
 
   /// <summary>

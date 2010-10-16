@@ -17,13 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
-using System.Web;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {

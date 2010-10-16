@@ -23,8 +23,6 @@ namespace YAF.Classes.Core.BBCode
   using System.Text;
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Core.BBCode;
-
   #endregion
 
   /// <summary>

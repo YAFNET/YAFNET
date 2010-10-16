@@ -19,8 +19,7 @@
 namespace YAF.Classes.Core
 {
   #region Using
-
-  using System;
+ 
   using System.IO;
   using System.Net;
   using System.Text;

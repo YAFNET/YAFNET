@@ -20,9 +20,7 @@ namespace YAF.Editors
 {
   using System;
   using System.Linq;
-  using System.Collections.Generic;
   using System.Data;
-  using System.Diagnostics;
   using System.Web.Compilation;
 
   using Modules;

@@ -1,12 +1,13 @@
-using System;
-using System.ComponentModel;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes.Core;
-
 namespace YAF.Controls
 {
-  using YAF.Classes.Utils;
+  
+    using System;
+    using System.ComponentModel;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using YAF.Classes.Core;
+    using YAF.Classes.Utils;
 
   /// <summary>
   /// Rendered DIV container

@@ -18,7 +18,6 @@
  */
 namespace YAF.Classes.Core
 {
-  using System;
   using System.Security.Principal;
   using System.Threading;
 

@@ -19,8 +19,7 @@
 namespace YAF.Classes.Utils
 {
   #region Using
-
-  using System;
+ 
   using System.Web;
 
   #endregion

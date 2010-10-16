@@ -18,7 +18,6 @@
  */
 namespace YAF.Classes.Core.BBCode
 {
-  using System;
   using System.Text;
   using System.Text.RegularExpressions;
 
