@@ -336,12 +336,19 @@ namespace YAF.Pages
               return false;
           }
 
+         
           int dateVerified = 0;
           if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) &&
               (this.PollExpire.Text.Trim().IsSet()))
           {
               YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "EXPIRE_BAD"));
               return false;
+          }
+
+          // Set default value
+          if (this.PollExpire.Text.Trim().IsNotSet() && this.IsClosedBoundCheckBox.Checked)
+          {
+              this.PollExpire.Text = "1";
           }
       }
 

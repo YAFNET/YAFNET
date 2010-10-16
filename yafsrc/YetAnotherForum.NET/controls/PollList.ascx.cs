@@ -711,9 +711,18 @@ namespace YAF.controls
             // Poll voting is bounded - you can't see results before voting in each poll
         if (this.isBound)
         {
+            int cnt = 0;
             // compare a number of voted polls with number of polls
-            if ((this._dtPollGroup.Rows.Cast<DataRow>().Count(
-                    dr => !this.IsNotVoted(dr["PollID"], out choicePId) && !this.IsPollClosed(dr["PollID"]))) >= this.PollNumber)
+            foreach (DataRow dr in this._dtPollGroup.Rows)
+            {
+                // Voted or expired polls are counted
+                if (!this.IsNotVoted(dr["PollID"], out choicePId) || (!dr["Closes"].IsNullOrEmptyDBField() ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow : true))
+                {
+                    cnt++;
+                }
+            }
+
+           if (cnt  >= this.PollNumber)
             {
                 if (isClosedBound)
                 {
@@ -734,6 +743,13 @@ namespace YAF.controls
             this._showResults = true;
         }
         if (!isClosedBound && !this.isBound)
+        {
+            this._showResults = true;
+        }
+
+        // The poll had an expiration date and expired without voting 
+        // show results anyway if poll has no expiration date daystorun is null  
+        if (daystorun == 0)
         {
             this._showResults = true;
         }
@@ -933,8 +949,14 @@ namespace YAF.controls
  
       this.PollNumber = 0;
       this._dtPoll = DB.pollgroup_stats(this.PollGroupId);
+     
+      // Here should be a poll group, remove the value to avoid exception if a deletion was not safe. 
+      if (!(this._dtPoll.Rows.Count > 0))
+      {
+          DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+      }
 
-      // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   
+        // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
       this._canChange = (Convert.ToInt32(this._dtPoll.Rows[0]["GroupUserID"]) == this.PageContext.PageUserID) ||
                         this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
