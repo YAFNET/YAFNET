@@ -297,9 +297,10 @@ namespace YAF.controls
     /// </returns>
     protected bool CanRemovePoll(object pollId)
     {
-      return this.ShowButtons &&
+      return false;
+      /*return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]))); 
+              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]))); */
     }
 
     /// <summary>
