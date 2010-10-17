@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using DNA.UI.JQuery;
 
 namespace YAF.Controls
 {
@@ -228,17 +227,10 @@ namespace YAF.Controls
     /// </param>
     protected void Back_Click(object sender, EventArgs e)
     {
-      if (this._adminEditMode)
-      {
-        YafBuildLink.Redirect(ForumPages.admin_users);
-      }
-      else
-      {
-        YafBuildLink.Redirect(ForumPages.cp_profile);
-      }
+        YafBuildLink.Redirect(this._adminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
     }
 
-    /// <summary>
+      /// <summary>
     /// The remote update_ click.
     /// </summary>
     /// <param name="sender">
@@ -277,8 +269,9 @@ namespace YAF.Controls
     /// </param>
     protected void UploadUpdate_Click(object sender, EventArgs e)
     {
-      if (this.File.PostedFile != null && this.File.PostedFile.FileName.Trim().Length > 0 && this.File.PostedFile.ContentLength > 0)
-      {
+        if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0 ||
+            this.File.PostedFile.ContentLength <= 0) return;
+
         long x = PageContext.BoardSettings.AvatarWidth;
         long y = PageContext.BoardSettings.AvatarHeight;
         int nAvatarSize = PageContext.BoardSettings.AvatarSize;
@@ -287,57 +280,59 @@ namespace YAF.Controls
           
         try
         {
-          using (Image img = Image.FromStream(this.File.PostedFile.InputStream))
-          {
-            if (img.Width > x || img.Height > y)
+            using (Image img = Image.FromStream(this.File.PostedFile.InputStream))
             {
-              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
-              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
-              PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
+                if (img.Width > x || img.Height > y)
+                {
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
+                    PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
 
-              double newWidth = img.Width;
-              double newHeight = img.Height;
-              if (newWidth > x)
-              {
-                newHeight = newHeight * x / newWidth;
-                newWidth = x;
-              }
+                    double newWidth = img.Width;
+                    double newHeight = img.Height;
+                    if (newWidth > x)
+                    {
+                        newHeight = newHeight * x / newWidth;
+                        newWidth = x;
+                    }
 
-              if (newHeight > y)
-              {
-                newWidth = newWidth * y / newHeight;
-                newHeight = y;
-              }
+                    if (newHeight > y)
+                    {
+                        newWidth = newWidth * y / newHeight;
+                        newHeight = y;
+                    }
 
-             // TODO : Save an Animated Gif
-              var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
+                    // TODO : Save an Animated Gif
+                    var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
 
-              resized = new MemoryStream();
-              bitmap.Save(resized, img.RawFormat);
+                    resized = new MemoryStream();
+                    bitmap.Save(resized, img.RawFormat);
+                }
+
+                // Delete old first...
+                DB.user_deleteavatar(this._currentUserID);
+
+                DB.user_saveavatar(this._currentUserID, null, resized ?? this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
+
+                // clear the cache for this user...
+                UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+
+                if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
+                {
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
+                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(this.File.PostedFile.ContentLength));
+                }
+
+                this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&upd={2}".FormatWith(YafForumInfo.ForumClientFileRoot, this._currentUserID, DateTime.Now.Ticks);
             }
-
-            if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
-            {
-              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
-              PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(this.File.PostedFile.ContentLength));
-              return;
-            }
-
-              DB.user_saveavatar(this._currentUserID, null, resized ?? this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
-
-              // clear the cache for this user...
-            UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
-          }
         }
         catch (Exception)
         {
-          // image is probably invalid...
-         PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "INVALID_FILE"));
+            // image is probably invalid...
+            PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "INVALID_FILE"));
         }
 
-        BindData();
-      }
-       
+       // this.BindData();
     }
 
   }
