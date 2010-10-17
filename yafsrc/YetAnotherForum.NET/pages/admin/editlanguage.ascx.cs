@@ -42,7 +42,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// Administrative Page for the editting of forum properties.
+  /// Administrative Page for the editing of forum properties.
   /// </summary>
   public partial class editlanguage : AdminPage
   {
@@ -186,10 +186,12 @@ namespace YAF.Pages.Admin
 
       if (this.Request.QueryString.GetFirstOrDefault("x") != null)
       {
-        this.sXmlFile = this.Request.QueryString.GetFirstOrDefault("x");
+          this.sXmlFile = this.Request.QueryString.GetFirstOrDefault("x");
 
-        this.PopulateTranslations(
-          Path.Combine(this.sLangPath, "english.xml"), Path.Combine(this.sLangPath, this.sXmlFile));
+          this.dDLPages.Items.Clear();
+
+          this.PopulateTranslations(
+              Path.Combine(this.sLangPath, "english.xml"), Path.Combine(this.sLangPath, this.sXmlFile));
       }
 
       if (this.IsPostBack)
@@ -425,9 +427,9 @@ namespace YAF.Pages.Admin
           }
         }
       }
-      catch (Exception)
+      catch (Exception exception)
       {
-        // MessageBox.Show("Error loading files. " + ex.Message, "Error", MessageBoxButtons.OK);
+          Classes.Data.DB.eventlog_create(null, GetType().ToString(), "Error loading files. {0}".FormatWith(exception.Message), 1);
       }
     }
 
