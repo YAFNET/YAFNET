@@ -715,8 +715,8 @@ namespace YAF.controls
             // compare a number of voted polls with number of polls
             foreach (DataRow dr in this._dtPollGroup.Rows)
             {
-                // Voted or expired polls are counted
-                if (!this.IsNotVoted(dr["PollID"], out choicePId) || (!dr["Closes"].IsNullOrEmptyDBField() ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow : true))
+                bool isclosedbound =  (!dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow : false);
+                if (!this.IsNotVoted(dr["PollID"], out choicePId) || isclosedbound)
                 {
                     cnt++;
                 }
