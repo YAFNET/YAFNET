@@ -292,7 +292,7 @@ namespace YAF.TranslateApp
                               check.sPageName.Equals(tbt.pageName) && check.sResourceName.Equals(tbt.resourceName)).
                 sLocalizedValue = tbx.Text;
 
-            tlpTranslations.Focus();
+           // tlpTranslations.Focus();
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace YAF.TranslateApp
                               check.sPageName.Equals(tbt.pageName) && check.sResourceName.Equals(tbt.resourceName)).
                 sLocalizedValue = tbx.Text;
 
-            tlpTranslations.Focus();
+            //tlpTranslations.Focus();
 
         }
 
