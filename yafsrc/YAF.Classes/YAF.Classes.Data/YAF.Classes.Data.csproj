@@ -101,6 +101,8 @@
   <ItemGroup>
     <Compile Include="BaseDataTableResultFilter.cs" />
     <Compile Include="Flags\ActiveFlags.cs" />
+    <Compile Include="Flags\PollFlags.cs" />
+    <Compile Include="Flags\PollGroupFlags.cs" />
     <Compile Include="Object\SimpleForum.cs" />
     <Compile Include="Object\SimpleTopic.cs" />
     <Compile Include="Object\TypedAllThanks.cs" />

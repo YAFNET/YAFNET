@@ -4077,8 +4077,10 @@ BEGIN
 		a.ChoiceID,
 		a.Choice,
 		a.Votes,
-		IsBound = convert(int,pg.Flags & 2), 
-		IsClosedBound = convert(int, isnull((b.Flags & 4),0)), 
+		pg.IsBound, 
+		b.IsClosedBound, 
+		b.IsExpired,
+		b.AllowMultipleChoices,
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
@@ -4108,8 +4110,10 @@ BEGIN
 		a.MimeType,
 		QuestionObjectPath = b.[ObjectPath],
 		QuestionMimeType = b.[MimeType],
-		IsBound = convert(int,pg.Flags & 2),
-		IsClosedBound = convert([bit], isnull((b.Flags & 4),0)), 
+		pg.IsBound,
+		b.IsClosedBound, 
+		b.IsExpired,
+		b.AllowMultipleChoices,
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM

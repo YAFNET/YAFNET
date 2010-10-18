@@ -1178,6 +1178,8 @@
 	</page>
 	<page name="POSTS">
 		<Resource tag="THANKSFROM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSFROM_MUSC">Thanks: {0} times</Resource>
+    <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
 		<Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
 		<Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
 		<Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>

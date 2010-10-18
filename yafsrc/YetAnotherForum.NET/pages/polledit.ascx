@@ -1,7 +1,7 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="polledit.ascx.cs" Inherits="YAF.Pages.polledit" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="polledit.ascx.cs" Inherits="YAF.Pages.polledit" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <table align="center" cellpadding="4" cellspacing="1" class="content" 
-    width="100%" style="height: 223px">
+    width="100%" style="height: 223px" >
     <tr>
         <td class="header1" colspan="2">
             <YAF:LocalizedLabel ID="PollNameLabel" runat="server" LocalizedPage="POLLEDIT" LocalizedTag="POLLHEADER" />
@@ -57,6 +57,16 @@
 <FooterTemplate>	
 </FooterTemplate>
 </asp:Repeater>
+    <tr id="tr_AllowMultipleChoices" runat="server" visible="false">	
+       	<td class="postformheader" width="20%">
+			<em>
+				 <YAF:LocalizedLabel ID="AllowMultipleChoicesLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
+			</em>
+		</td>
+		<td class="post" width="80%">
+                 <asp:CheckBox ID="AllowMultipleChoicesCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
+	    </td>		
+	</tr> 
      <tr id="PollRowExpire" runat="server" visible="false">
 		<td class="postformheader" width="20%">
 			<em>

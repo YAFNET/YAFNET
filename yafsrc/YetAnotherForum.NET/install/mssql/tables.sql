@@ -262,7 +262,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
 		PollGroupID int IDENTITY (1, 1) NOT NULL,
 		UserID	int not NULL,
-		[Flags] int NOT NULL 		
+		[Flags] int NOT NULL,
+		[IsBound]		AS (CONVERT([bit],sign([Flags]&(2)),(0)))	
 	)
 GO
 
@@ -275,7 +276,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		UserID int not NULL,	
 		[ObjectPath] nvarchar(255) NULL,
 		[MimeType] varchar(50) NULL,
-		[Flags] int NULL
+		[Flags] int NULL,		
+		[IsClosedBound]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
+		[AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
 	)
 GO
 
@@ -1508,6 +1511,7 @@ GO
 
 --vzrus: eof migrate to independent multiple polls
 
+
 -- Poll Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Closes')
 begin
@@ -1609,6 +1613,25 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
 end
 GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'IsClosedBound')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [IsClosedBound] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'AllowMultipleChoices')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+-- PollGroupTable
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name=N'IsBound')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add [IsBound]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+end
+GO	
 
 -- Choice Table
 -- this is a dummy it doesn't work

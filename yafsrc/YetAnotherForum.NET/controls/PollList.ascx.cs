@@ -511,8 +511,10 @@ namespace YAF.controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        LoadData();
-      
+   
+            LoadData();
+       
+
     }
       private void LoadData()
 
@@ -1017,7 +1019,7 @@ namespace YAF.controls
 
         this._dtVotes = DB.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
 
-        this.isBound = Convert.ToInt32(this._dtPollGroup.Rows[0]["IsBound"]) == 2;
+        this.isBound = this._dtPollGroup.Rows[0]["IsBound"].ToType<bool>();
 
         this.PollGroup.DataSource = this._dtPollGroup;
 

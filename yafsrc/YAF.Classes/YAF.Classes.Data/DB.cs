@@ -5667,11 +5667,16 @@ namespace YAF.Classes.Data
                                           string.IsNullOrEmpty(question.QuestionMimeType)
                                               ? String.Empty
                                               : question.QuestionMimeType);
-
-          cmd.Parameters.AddWithValue("@PollFlags",
-                                      question.IsClosedBound
-                                          ? 0 | 4
-                                          : 0);
+            
+            int pollFlags = question.IsClosedBound
+                               ? 0 | 4
+                                : 0;
+            pollFlags = question.AllowMultipleChoices
+                                ? pollFlags | 8
+                                : pollFlags;
+            cmd.Parameters.AddWithValue("@PollFlags",
+                                    pollFlags);
+     
          
             for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1); choiceCount1++)
           {

@@ -457,7 +457,7 @@ namespace YAF.Pages
           this._topicInfo["Topic"].ToString(), YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this.editMessageId));
       }
 
-      this.PageLinks.AddLink(this.GetText("POLLEDIT", "TITLE"), string.Empty);
+      this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
     }
 
     /// <summary>
@@ -626,7 +626,8 @@ namespace YAF.Pages
               questionPath, 
               questionMime, 
               this.IsBoundCheckBox.Checked, 
-              this.IsClosedBoundCheckBox.Checked));
+              this.IsClosedBoundCheckBox.Checked,
+              this.AllowMultipleChoicesCheckBox.Checked));
           DB.poll_save(pollList);
           return true;
         }
@@ -660,15 +661,10 @@ namespace YAF.Pages
           YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        if (Convert.ToInt32(this.choices.Rows[0]["IsBound"]) == 2)
-        {
-          this.IsBoundCheckBox.Checked = true;
-        }
 
-        if (Convert.ToInt32(this.choices.Rows[0]["IsClosedBound"]) == 4)
-        {
-          this.IsClosedBoundCheckBox.Checked = true;
-        }
+            this.IsBoundCheckBox.Checked = this.choices.Rows[0]["IsBound"].ToType<bool>();
+            this.IsClosedBoundCheckBox.Checked = this.choices.Rows[0]["IsClosedBound"].ToType<bool>();
+            this.AllowMultipleChoicesCheckBox.Checked = this.choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
 
         this.Question.Text = this.choices.Rows[0]["Question"].ToString();
         this.QuestionObjectPath.Text = this.choices.Rows[0]["QuestionObjectPath"].ToString();

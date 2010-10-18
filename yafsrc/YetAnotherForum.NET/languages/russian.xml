@@ -1272,6 +1272,8 @@
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="THANKSFROM">Сказал(а) «Спасибо»: {0} раз</Resource>
+    <Resource tag="THANKSFROM_MUSC">Сказал «Спасибо»: {0} раз</Resource>
+    <Resource tag="THANKSFROM_FEM">Сказала «Спасибо»: {0} раз</Resource>
     <Resource tag="THANKSINFO">{0} пользователей поблагодарили {1} за этот пост.</Resource>
     <Resource tag="THANKSINFOSINGLE">1 пользователь поблагодарил {0} за этот пост.</Resource>
     <Resource tag="THANKSTO">Поблагодарили: {0} раз в {1} постах</Resource>

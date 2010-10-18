@@ -53,7 +53,7 @@ namespace YAF.Classes.Data
     /// </param>
     public PollSaveList(string pollQuestion, string[,] pollChoices, DateTime? pollCloses, 
         int userId, int? topicId, int? forumId, int? categoryId, int? boardId,
-        string questionObjectPath, string questionMimeType, bool isBound, bool isClosedBound)
+        string questionObjectPath, string questionMimeType, bool isBound, bool isClosedBound, bool allowMultipleChoices)
     {
         this.Question = pollQuestion;
         this.Choice = pollChoices;
@@ -67,6 +67,7 @@ namespace YAF.Classes.Data
         this.QuestionMimeType = questionMimeType;
         this.IsBound = isBound;
         this.IsClosedBound = isClosedBound;
+        this.AllowMultipleChoices = allowMultipleChoices;
     }
 
     #endregion
@@ -132,6 +133,11 @@ namespace YAF.Classes.Data
     ///   Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
     /// </summary>
     public bool IsClosedBound { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for AllowMultipleChoices. Users can vote for many choices. 
+    /// </summary>
+    public bool AllowMultipleChoices { get; set; }
 
     #endregion
   }

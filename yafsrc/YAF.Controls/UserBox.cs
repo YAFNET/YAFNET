@@ -786,8 +786,7 @@ namespace YAF.Controls
       {
        if ((int)this.DataRow["ThanksFromUserNumber"] > 0 )
        {
-     
-          filler = this.PageContext.BoardSettings.UserBoxThanksFrom.FormatWith(String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
+          filler = this.PageContext.BoardSettings.UserBoxThanksFrom.FormatWith(String.Format(this.UserProfile.Gender == 1 ? this.PageContext.Localization.GetText("thanksfrom_musc") : (this.UserProfile.Gender == 2 ? this.PageContext.Localization.GetText("thanksfrom_fem") : this.PageContext.Localization.GetText("thanksfrom")), this.DataRow["ThanksFromUserNumber"]));
        }
      }
      
