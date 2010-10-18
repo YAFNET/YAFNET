@@ -7320,6 +7320,83 @@
             Gets or sets UserName.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.PollGroupFlags">
+            <summary>
+            The poll group flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(YAF.Classes.Data.PollGroupFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.op_Implicit(System.Int32)~YAF.Classes.Data.PollGroupFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.op_Implicit(YAF.Classes.Data.PollGroupFlags.Flags)~YAF.Classes.Data.PollGroupFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.PollGroupFlags.IsBound">
+            <summary>
+            Gets or sets whether poll group is bound
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.PollGroupFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollGroupFlags.Flags.IsBound">
+            <summary>
+            The is bound.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.UserFlags">
             <summary>
             User flags manipulation class from the DB.
@@ -7736,6 +7813,88 @@
             The build sql.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Data.PollFlags">
+            <summary>
+            The poll flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(YAF.Classes.Data.PollFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.op_Implicit(System.Int32)~YAF.Classes.Data.PollFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.op_Implicit(YAF.Classes.Data.PollFlags.Flags)~YAF.Classes.Data.PollFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.PollFlags.IsClosedBound">
+            <summary>
+            Gets or sets whether the poll is closed bound.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.PollFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollFlags.Flags.IsClosedBound">
+            <summary>
+            The is start.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollFlags.Flags.AllowMultipleChoices">
+            <summary>
+            The allow multiple choices.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.PollSaveList">
             <summary>
             Class to hold polls and questions data to save
@@ -7746,7 +7905,7 @@
             Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[0:,0:],System.Nullable{System.DateTime},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[0:,0:],System.Nullable{System.DateTime},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
             </summary>
@@ -7818,6 +7977,11 @@
         <member name="P:YAF.Classes.Data.PollSaveList.IsClosedBound">
             <summary>
               Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.AllowMultipleChoices">
+            <summary>
+              Gets or Sets value for AllowMultipleChoices. Users can vote for many choices. 
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.SimpleTopic">

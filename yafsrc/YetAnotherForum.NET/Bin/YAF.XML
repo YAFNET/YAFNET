@@ -5621,6 +5621,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.polledit.tr_AllowMultipleChoices">
+            <summary>
+            tr_AllowMultipleChoices control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.polledit.AllowMultipleChoicesLabel">
+            <summary>
+            AllowMultipleChoicesLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.polledit.AllowMultipleChoicesCheckBox">
+            <summary>
+            AllowMultipleChoicesCheckBox control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.polledit.PollRowExpire">
             <summary>
             PollRowExpire control.
@@ -5838,6 +5865,11 @@
         <member name="F:YAF.Pages.polledit.topicUnapproved">
             <summary>
             The topic unapproved.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.polledit.currentSelection">
+            <summary>
+            The currentSelection.
             </summary>
         </member>
         <member name="M:YAF.Pages.polledit.#ctor">
@@ -6907,6 +6939,13 @@
             <param name="lastPostIcon">The icon for last post link.</param>
             <param name="lastPostName">The last post name.</param>
             <param name="categoryActiveId"></param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.FormatUrlForFeed(System.String)">
+            <summary>
+            Format the Url to an URN compatible string
+            </summary>
+            <param name="InputUrl">Input Url to format</param>
+            <returns>Formatted url</returns>
         </member>
         <member name="M:YAF.Pages.rsstopic.GetMediaLinks(System.Int32)">
             <summary>
@@ -22313,7 +22352,7 @@
         </member>
         <member name="T:YAF.Pages.Admin.editlanguage">
             <summary>
-            Administrative Page for the editting of forum properties.
+            Administrative Page for the editing of forum properties.
             </summary>
         </member>
         <member name="F:YAF.Pages.Admin.editlanguage.PageLinks">

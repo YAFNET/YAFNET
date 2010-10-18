@@ -1466,7 +1466,7 @@
         <member name="T:YAF.Classes.Core.YafSendMailThreaded">
             <summary>
             Separate class since SendThreaded isn't needed functionality
-            for any instance except the <see cref="!:HttpModule"/> instance.
+              for any instance except the <see cref="!:HttpModule"/> instance.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafSendMail">
@@ -1474,120 +1474,23 @@
             Functions to send email via SMTP
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Queue(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Classes.Core.YafSendMail.SendAll(System.Collections.Generic.IEnumerable{System.Net.Mail.MailMessage})">
             <summary>
-            Queues an e-mail message for asynchronous delivery
+            The send all.
             </summary>
-            <param name="fromEmail">
-            The from Email.
-            </param>
-            <param name="fromName">
-            The from Name.
-            </param>
-            <param name="toEmail">
-            The to Email.
-            </param>
-            <param name="toName">
-            The to Name.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="bodyText">
-            The body Text.
-            </param>
-            <param name="bodyHtml">
-            The body Html.
+            <param name="messages">
+            The messages.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Queue(System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Classes.Core.YafSendMail.SendAllIsolated(System.Collections.Generic.IEnumerable{System.Net.Mail.MailMessage},System.Action{System.Net.Mail.MailMessage,System.Exception})">
             <summary>
-            Queues an e-mail messagage for asynchronous delivery
+            The send all isolated.
             </summary>
-            <param name="fromEmail">
+            <param name="messages">
+            The messages.
             </param>
-            <param name="toEmail">
-            </param>
-            <param name="subject">
-            </param>
-            <param name="body">
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.String,System.String,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromEmail">
-            The from email.
-            </param>
-            <param name="toEmail">
-            The to email.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="body">
-            The body.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromEmail">
-            The from email.
-            </param>
-            <param name="fromName">
-            The from name.
-            </param>
-            <param name="toEmail">
-            The to email.
-            </param>
-            <param name="toName">
-            The to name.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="body">
-            The body.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromAddress">
-            The from address.
-            </param>
-            <param name="toAddress">
-            The to address.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="bodyText">
-            The body text.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromAddress">
-            The from address.
-            </param>
-            <param name="toAddress">
-            The to address.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="bodyText">
-            The body text.
-            </param>
-            <param name="bodyHtml">
-            The body html.
+            <param name="handleExceptionAction">
+            The handle exception action.
             </param>
         </member>
         <member name="M:YAF.Classes.Core.YafSendMailThreaded.SendThreaded(System.Int32)">
@@ -9991,6 +9894,175 @@
             <summary>
               Gets a value indicating whether any rules have been added.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.MailMessageExtensions">
+            <summary>
+            The mail message extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.MailMessageExtensions.Populate(System.Net.Mail.MailMessage,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
+            <summary>
+            The populate.
+            </summary>
+            <param name="mailMessage">
+            The mail message.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.YafSendMailExtensions">
+            <summary>
+            The yaf send mail extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Queue(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Queues an e-mail message for asynchronous delivery
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            The from Email.
+            </param>
+            <param name="fromName">
+            The from Name.
+            </param>
+            <param name="toEmail">
+            The to Email.
+            </param>
+            <param name="toName">
+            The to Name.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body Text.
+            </param>
+            <param name="bodyHtml">
+            The body Html.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Queue(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String)">
+            <summary>
+            Queues an e-mail messagage for asynchronous delivery
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            </param>
+            <param name="toEmail">
+            </param>
+            <param name="subject">
+            </param>
+            <param name="body">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            The from email.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="body">
+            The body.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            The from email.
+            </param>
+            <param name="fromName">
+            The from name.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="toName">
+            The to name.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="body">
+            The body.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send mail.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
+            </param>
         </member>
     </members>
 </doc>
