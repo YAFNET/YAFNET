@@ -21,12 +21,12 @@ namespace YAF.Classes.Core
 {
   #region Using
 
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using System.Net.Mail;
-  using System.Text;
 
-  using YAF.Classes.Data;
   using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
 
   #endregion
 
@@ -38,187 +38,69 @@ namespace YAF.Classes.Core
     #region Public Methods
 
     /// <summary>
-    /// Queues an e-mail message for asynchronous delivery
+    /// The send all.
     /// </summary>
-    /// <param name="fromEmail">
-    /// The from Email.
+    /// <param name="messages">
+    /// The messages.
     /// </param>
-    /// <param name="fromName">
-    /// The from Name.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to Email.
-    /// </param>
-    /// <param name="toName">
-    /// The to Name.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="bodyText">
-    /// The body Text.
-    /// </param>
-    /// <param name="bodyHtml">
-    /// The body Html.
-    /// </param>
-    public void Queue([NotNull] string fromEmail, [NotNull] string fromName, [NotNull] string toEmail, [NotNull] string toName, [NotNull] string subject, [NotNull] string bodyText, [NotNull] string bodyHtml)
+    public void SendAll([NotNull] IEnumerable<MailMessage> messages)
     {
-      DB.mail_create(fromEmail, fromName, toEmail, toName, subject, bodyText, bodyHtml);
-    }
+      // Wes : Changed to use settings from configuration file's standard <smtp> section. 
+      // Reason for change: The host smtp settings are redundant and
+      // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
+      // Configuration settings are cached automatically.
+      CodeContracts.ArgumentNotNull(messages, "messages");
 
-    /// <summary>
-    /// Queues an e-mail messagage for asynchronous delivery
-    /// </summary>
-    /// <param name="fromEmail">
-    /// </param>
-    /// <param name="toEmail">
-    /// </param>
-    /// <param name="subject">
-    /// </param>
-    /// <param name="body">
-    /// </param>
-    public void Queue([NotNull] string fromEmail, [NotNull] string toEmail, [NotNull] string subject, [NotNull] string body)
-    {
-      DB.mail_create(fromEmail, null, toEmail, null, subject, body, null);
-    }
+      var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
 
-    /// <summary>
-    /// The send.
-    /// </summary>
-    /// <param name="fromEmail">
-    /// The from email.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="body">
-    /// The body.
-    /// </param>
-    public void Send(
-      [NotNull] string fromEmail, [NotNull] string toEmail, [CanBeNull] string subject, [CanBeNull] string body)
-    {
-      CodeContracts.ArgumentNotNull(fromEmail, "fromEmail");
-      CodeContracts.ArgumentNotNull(toEmail, "toEmail");
+      // Tommy: solve random failure problem. Don't set this value to 1.
+      // See this: http://stackoverflow.com...tem-net-mail-has-issues 
+      smtpSend.ServicePoint.MaxIdleTime = 2;
+      smtpSend.ServicePoint.ConnectionLimit = 1;
 
-      this.Send(new MailAddress(fromEmail), new MailAddress(toEmail), subject, body);
-    }
-
-    /// <summary>
-    /// The send.
-    /// </summary>
-    /// <param name="fromEmail">
-    /// The from email.
-    /// </param>
-    /// <param name="fromName">
-    /// The from name.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="body">
-    /// The body.
-    /// </param>
-    public void Send([NotNull] string fromEmail, [NotNull] string fromName, [NotNull] string toEmail, [NotNull] string toName, [NotNull] string subject, [NotNull] string body)
-    {
-      this.Send(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName), subject, body);
-    }
-
-    /// <summary>
-    /// The send.
-    /// </summary>
-    /// <param name="fromAddress">
-    /// The from address.
-    /// </param>
-    /// <param name="toAddress">
-    /// The to address.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="bodyText">
-    /// The body text.
-    /// </param>
-    public void Send([NotNull] MailAddress fromAddress, [NotNull] MailAddress toAddress, [NotNull] string subject, [NotNull] string bodyText)
-    {
-      this.Send(fromAddress, toAddress, subject, bodyText, null);
-    }
-
-    /// <summary>
-    /// The send.
-    /// </summary>
-    /// <param name="fromAddress">
-    /// The from address.
-    /// </param>
-    /// <param name="toAddress">
-    /// The to address.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="bodyText">
-    /// The body text.
-    /// </param>
-    /// <param name="bodyHtml">
-    /// The body html.
-    /// </param>
-    public void Send(
-      [NotNull] MailAddress fromAddress, 
-      [NotNull] MailAddress toAddress, 
-      [CanBeNull] string subject, 
-      [CanBeNull] string bodyText, 
-      [CanBeNull] string bodyHtml)
-    {
-      CodeContracts.ArgumentNotNull(fromAddress, "fromAddress");
-      CodeContracts.ArgumentNotNull(toAddress, "toAddress");
-
-      using (var emailMessage = new MailMessage())
+      foreach (var message in messages.ToList())
       {
-        emailMessage.To.Add(toAddress);
-        emailMessage.From = fromAddress;
-        emailMessage.Subject = subject;
+        smtpSend.Send(message);
+      }
+    }
 
-        Encoding textEncoding = Encoding.UTF8;
+    /// <summary>
+    /// The send all isolated.
+    /// </summary>
+    /// <param name="messages">
+    /// The messages.
+    /// </param>
+    /// <param name="handleExceptionAction">
+    /// The handle exception action.
+    /// </param>
+    public void SendAllIsolated([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction)
+    {
+      // Wes : Changed to use settings from configuration file's standard <smtp> section. 
+      // Reason for change: The host smtp settings are redundant and
+      // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
+      // Configuration settings are cached automatically.
+      CodeContracts.ArgumentNotNull(messages, "messages");
 
-        // TODO: Add code that figures out encoding...
-        /*
-        if ( !Regex.IsMatch( bodyText, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
-                !Regex.IsMatch( subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
+      var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
+
+      // Tommy: solve random failure problem. Don't set this value to 1.
+      // See this: http://stackoverflow.com...tem-net-mail-has-issues 
+      smtpSend.ServicePoint.MaxIdleTime = 2;
+      smtpSend.ServicePoint.ConnectionLimit = 1;
+
+      foreach (var message in messages.ToList())
+      {
+        try
         {
-          textEncoding = Encoding.Unicode;
+          smtpSend.Send(message);
         }
-        */
-
-        // add text view...
-        emailMessage.AlternateViews.Add(
-          AlternateView.CreateAlternateViewFromString(bodyText, textEncoding, "text/plain"));
-
-        // see if html alternative is also desired...
-        if (bodyHtml.IsSet())
+        catch (Exception ex)
         {
-          emailMessage.AlternateViews.Add(
-            AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, "text/html"));
+          if (handleExceptionAction != null)
+          {
+            handleExceptionAction(message, ex);
+          }
         }
-
-        // Wes : Changed to use settings from configuration file's standard <smtp> section. 
-        // Reason for change: The host smtp settings are redundant and
-        // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
-        // Configuration settings are cached automatically.
-        var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
-
-        // Tommy: solve random failure problem. Don't set this value to 1.
-        // See this: http://stackoverflow.com...tem-net-mail-has-issues 
-        smtpSend.ServicePoint.MaxIdleTime = 2;
-
-        smtpSend.Send(emailMessage);
       }
     }
 

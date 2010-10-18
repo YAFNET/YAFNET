@@ -1,20 +1,27 @@
 ﻿namespace YAF.Classes.Core
 {
+  #region Using
+
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
+  using System.Linq;
   using System.Net.Mail;
   using System.Threading;
 
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
 
+  #endregion
+
   /// <summary>
   /// Separate class since SendThreaded isn't needed functionality
-  /// for any instance except the <see cref="HttpModule"/> instance.
+  ///   for any instance except the <see cref="HttpModule"/> instance.
   /// </summary>
   public class YafSendMailThreaded : YafSendMail
   {
+    #region Public Methods
+
     /// <summary>
     /// The send threaded.
     /// </summary>
@@ -39,65 +46,87 @@
           Thread.EndCriticalRegion();
         }
 
+        var mailMessages = new Dictionary<MailMessage, TypedMailList>();
+
+        // construcct mail message list...
         foreach (var mail in mailList)
         {
           // Build a MailMessage
-          if (mail.FromUser.IsSet() && mail.ToUser.IsSet())
+          if (!mail.FromUser.IsSet() || !mail.ToUser.IsSet())
           {
-            try
-            {
-              MailAddress toEmailAddress = mail.ToUserName.IsSet() ? new MailAddress(mail.ToUser, mail.ToUserName) : new MailAddress(mail.ToUser);
-              MailAddress fromEmailAddress = mail.FromUserName.IsSet() ? new MailAddress(mail.FromUser, mail.FromUserName) : new MailAddress(mail.FromUser);
+            continue;
+          }
 
-              // send the email message now...
-              Debug.WriteLine("Sending to {0}...".FormatWith(mail.ToUser));
+          MailAddress toEmailAddress = mail.ToUserName.IsSet()
+                                         ? new MailAddress(mail.ToUser, mail.ToUserName)
+                                         : new MailAddress(mail.ToUser);
+          MailAddress fromEmailAddress = mail.FromUserName.IsSet()
+                                           ? new MailAddress(mail.FromUser, mail.FromUserName)
+                                           : new MailAddress(mail.FromUser);
 
-              Send(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
-              
-              Debug.WriteLine("Sent to {0}.".FormatWith(mail.ToUser));
-            }
-            catch (System.FormatException ex)
+          var newMessage = new MailMessage();
+          newMessage.Populate(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
+          mailMessages.Add(newMessage, mail);
+        }
+
+        this.SendAllIsolated(
+          mailMessages.Select(x => x.Key),
+          (message, ex) =>
+          {
+            if (ex is FormatException)
             {
               // email address is no good -- delete this email...
               Debug.WriteLine("Invalid Email Address: {0}".FormatWith(ex.ToString()));
-
 #if (DEBUG)
               DB.eventlog_create(null, "Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
 #endif
             }
-            catch (SmtpException ex)
+            else if (ex is SmtpException)
             {
 #if (DEBUG)
               DB.eventlog_create(null, "SendMailThread SmtpException", ex.ToString());
 #endif
               Debug.WriteLine("Send Exception: {0}".FormatWith(ex.ToString()));
 
-              if (mail.SendTries < 5)
+              if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 5)
               {
-                continue;
+                // remove from the collection so it doesn't get deleted...
+                mailMessages.Remove(message);
               }
               else
               {
                 DB.eventlog_create(null, "SendMailThread Failed for the 5th time:", ex.ToString());
               }
             }
-          }
+            else
+            {
+              // general exception...
+              Debug.WriteLine("Exception Thrown in SendMail Thread: " + ex.ToString());
+#if (DEBUG)
+              DB.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
+#endif
+            }
+          });
 
+        foreach (var message in mailMessages.Values)
+        {
           // all is well, delete this message...
-          Debug.WriteLine("Deleting email to {0} (ID: {1})".FormatWith(mail.ToUser, mail.MailID));
-          DB.mail_delete(mail.MailID);
+          Debug.WriteLine("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.MailID));
+          DB.mail_delete(message.MailID);
         }
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-        // debug the exception
-        Debug.WriteLine("Exception Thrown in SendMail Thread: " + e.ToString());
+        // general exception...
+        Debug.WriteLine("Exception Thrown in SendMail Thread: " + ex.ToString());
 #if (DEBUG)
-        DB.eventlog_create(null, "SendMailThread General Exception", e.ToString());
+        DB.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
 #endif
       }
 
       Debug.WriteLine("SendMailThread exiting");
     }
+
+    #endregion
   }
 }

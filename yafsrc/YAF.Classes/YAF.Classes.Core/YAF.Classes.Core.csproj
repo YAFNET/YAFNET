@@ -115,6 +115,7 @@
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
+    <Compile Include="Extensions\MailMessageExtensions.cs" />
     <Compile Include="Extensions\ResourcesExtensions.cs" />
     <Compile Include="Extensions\YafServiceExtensions.cs" />
     <Compile Include="Handlers\CantLoadThemeException.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
     <Compile Include="Extensions\YafDateTimeExtensions.cs" />
+    <Compile Include="Extensions\YafSendMailExtensions.cs" />
     <Compile Include="Services\YafSession.cs" />
     <Compile Include="Services\YafFormatMessage.cs" />
     <Compile Include="Services\YafSendMailThreaded.cs" />
