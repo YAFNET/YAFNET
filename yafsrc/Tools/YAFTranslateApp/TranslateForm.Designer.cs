@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslateForm));
-            this.tlpTranslations = new System.Windows.Forms.TableLayoutPanel();
             this.btnQuit = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblSourceTranslationFile = new System.Windows.Forms.Label();
@@ -46,32 +45,15 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.checkPendingOnly = new System.Windows.Forms.CheckBox();
             this.btnAutoTranslate = new System.Windows.Forms.Button();
+            this.grid1 = new SourceGrid.Grid();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tlpTranslations
-            // 
-            this.tlpTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpTranslations.AutoScroll = true;
-            this.tlpTranslations.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tlpTranslations.ColumnCount = 3;
-            this.tlpTranslations.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.19039F));
-            this.tlpTranslations.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.18991F));
-            this.tlpTranslations.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.6197F));
-            this.tlpTranslations.Location = new System.Drawing.Point(3, 3);
-            this.tlpTranslations.Name = "tlpTranslations";
-            this.tlpTranslations.RowCount = 1;
-            this.tlpTranslations.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpTranslations.Size = new System.Drawing.Size(860, 499);
-            this.tlpTranslations.TabIndex = 1;
-            // 
             // btnQuit
             // 
             this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuit.Location = new System.Drawing.Point(805, 622);
+            this.btnQuit.Location = new System.Drawing.Point(831, 622);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(75, 23);
             this.btnQuit.TabIndex = 0;
@@ -83,7 +65,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(684, 622);
+            this.btnSave.Location = new System.Drawing.Point(710, 622);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(115, 23);
             this.btnSave.TabIndex = 3;
@@ -161,10 +143,10 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.tlpTranslations);
+            this.panel1.Controls.Add(this.grid1);
             this.panel1.Location = new System.Drawing.Point(12, 109);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(868, 507);
+            this.panel1.Size = new System.Drawing.Size(894, 507);
             this.panel1.TabIndex = 12;
             // 
             // btnPopulateTranslations
@@ -184,7 +166,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 651);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(892, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(918, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -214,19 +196,35 @@
             // 
             this.btnAutoTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAutoTranslate.Enabled = false;
-            this.btnAutoTranslate.Location = new System.Drawing.Point(539, 622);
+            this.btnAutoTranslate.Location = new System.Drawing.Point(565, 622);
             this.btnAutoTranslate.Name = "btnAutoTranslate";
             this.btnAutoTranslate.Size = new System.Drawing.Size(139, 23);
             this.btnAutoTranslate.TabIndex = 16;
             this.btnAutoTranslate.Text = "Auto Translate Pending ";
             this.btnAutoTranslate.UseVisualStyleBackColor = true;
+            this.btnAutoTranslate.Visible = false;
             this.btnAutoTranslate.Click += new System.EventHandler(this.AutoTranslateAll);
+            // 
+            // grid1
+            // 
+            this.grid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grid1.EnableSort = true;
+            this.grid1.Location = new System.Drawing.Point(3, 3);
+            this.grid1.Name = "grid1";
+            this.grid1.OptimizeMode = SourceGrid.CellOptimizeMode.ForRows;
+            this.grid1.SelectionMode = SourceGrid.GridSelectionMode.Cell;
+            this.grid1.Size = new System.Drawing.Size(886, 499);
+            this.grid1.TabIndex = 5;
+            this.grid1.TabStop = true;
+            this.grid1.ToolTipText = "";
             // 
             // TranslateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 673);
+            this.ClientSize = new System.Drawing.Size(918, 673);
             this.Controls.Add(this.btnAutoTranslate);
             this.Controls.Add(this.checkPendingOnly);
             this.Controls.Add(this.statusStrip1);
@@ -243,7 +241,7 @@
             this.Controls.Add(this.btnQuit);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TranslateForm";
-            this.Text = "YAF Translation 1.05";
+            this.Text = "YAF Translation 1.10 - BETA";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TranslateFormFormClosing);
             this.panel1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -255,7 +253,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tlpTranslations;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblSourceTranslationFile;
@@ -272,6 +269,7 @@
         private System.Windows.Forms.CheckBox checkPendingOnly;
         private System.Windows.Forms.Button btnAutoTranslate;
         private System.Windows.Forms.ToolStripProgressBar progressBar;
+        private SourceGrid.Grid grid1;
     }
 }
 

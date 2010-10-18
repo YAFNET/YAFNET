@@ -27,6 +27,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.XPath;
+using SourceGrid;
+using SourceGrid.Cells.Views;
+using BorderStyle = System.Windows.Forms.BorderStyle;
 
 namespace YAF.TranslateApp
 {
@@ -59,6 +62,8 @@ namespace YAF.TranslateApp
         /// Translation File
         /// </summary>
         private string sLangCodeDest;
+
+        private int RowCount;
 
         #endregion
 
@@ -95,6 +100,10 @@ namespace YAF.TranslateApp
         // List of attributes for <Resources> in destination translation file
         public StringDictionary ResourcesAttributes { get { return _resourcesAttributes; } }
 
+        private readonly Cell cellLocalResource;
+
+        private readonly Cell cellLocalResourceRed;
+
         #endregion
 
         #region Classes
@@ -119,25 +128,27 @@ namespace YAF.TranslateApp
         /// </summary>
         public TranslateForm()
         {
+            cellLocalResourceRed = new Cell
+                                       {
+                                           Font = ResourceHeaderFont,
+                                           TextAlignment =
+                                               DevAge.Drawing.ContentAlignment.TopCenter,
+                                           ForeColor = Color.Red,
+                                           WordWrap = true,
+                                       };
+            cellLocalResource = new Cell
+                                    {
+                                        Font = ResourceHeaderFont,
+                                        TextAlignment =
+                                            DevAge.Drawing.ContentAlignment.TopCenter,
+                                        WordWrap = true
+                                    };
             InitializeComponent();
         }
 
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// OnLoad
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            tlpTranslations.DoubleBuffered(true);
-
-        }
-
 
         /// <summary>
         /// Populate translation tables
@@ -238,24 +249,23 @@ namespace YAF.TranslateApp
         /// <param name="e"></param>
         void TranslateFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            if (DestinationTranslationFileChanged)
+            if (!DestinationTranslationFileChanged) return;
+
+            switch (MessageBox.Show("Save changes before exiting?", "Save", MessageBoxButtons.YesNoCancel))
             {
-                switch (MessageBox.Show("Save changes before exiting?", "Save", MessageBoxButtons.YesNoCancel))
-                {
-                    case DialogResult.Cancel:
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+                case DialogResult.No:
+                    break;
+                case DialogResult.Yes:
+                    if (!SaveTransalation())
+                    {
                         e.Cancel = true;
-                        break;
-                    case DialogResult.No:
-                        break;
-                    case DialogResult.Yes:
-                        if (!SaveTransalation())
-                        {
-                            e.Cancel = true;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -280,12 +290,20 @@ namespace YAF.TranslateApp
 
             ContextMenu contextMenu = (ContextMenu)menuItem.Parent;
 
+
             TextBox tbx = (TextBox)contextMenu.SourceControl;
             TextBoxTranslation tbt = (TextBoxTranslation)tbx.Tag;
 
             tbx.Text = Translator.TranslateText(tbx.Text, string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
 
-            tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
+            RangeRegion region = grid1.Selection.GetSelectionRegion();
+            PositionCollection poss = region.GetCellsPositions();
+
+            foreach (Position t in
+                from t in poss let cell = grid1.GetCell(t) as SourceGrid.Cells.Cell where cell != null select t)
+            {
+                GetCell(grid1, t).View = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? cellLocalResourceRed : cellLocalResource;
+            }
 
             // Update Translations List
             translations.Find(check =>
@@ -305,7 +323,17 @@ namespace YAF.TranslateApp
             TextBox tbx = (TextBox)sender;
             TextBoxTranslation tbt = (TextBoxTranslation)tbx.Tag;
 
+
             tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
+
+           RangeRegion region = grid1.Selection.GetSelectionRegion();
+           PositionCollection poss = region.GetCellsPositions();
+
+            foreach (Position t in
+                from t in poss let cell = grid1.GetCell(t) as SourceGrid.Cells.Cell where cell != null select t)
+            {
+                GetCell(grid1, t).View = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? cellLocalResourceRed : cellLocalResource;
+            }
 
             // Update Translations List
             translations.Find(check =>
@@ -314,6 +342,17 @@ namespace YAF.TranslateApp
 
             //tlpTranslations.Focus();
 
+        }
+
+        /// <summary>
+        /// cast cell on position pos to Cell
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        private static SourceGrid.Cells.Cell GetCell(Grid grid, Position pos)
+        {
+            return grid.GetCell(pos) as SourceGrid.Cells.Cell;
         }
 
         #endregion
@@ -327,22 +366,28 @@ namespace YAF.TranslateApp
         /// <param name="dstFile"></param>
         private void PopulateTranslations(string srcFile, string dstFile)
         {
-            tlpTranslations.Controls.Clear();
-
+            
             Cursor = Cursors.WaitCursor;
 
-            tlpTranslations.SuspendLayout();
-            SuspendLayout();
+            RowCount = 0;
 
-            tlpTranslations.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            grid1.Rows.Clear();
+            grid1.Columns.Clear();
 
-            tlpTranslations.ColumnStyles.Clear();
-            tlpTranslations.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 280F));
-            tlpTranslations.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-            tlpTranslations.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            grid1.BorderStyle = BorderStyle.FixedSingle;
+            grid1.ColumnsCount = 3;
 
-            tlpTranslations.RowStyles.Clear();
-            tlpTranslations.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            grid1.Columns[0].AutoSizeMode = SourceGrid.AutoSizeMode.MinimumSize | SourceGrid.AutoSizeMode.Default;
+            grid1.Columns[1].AutoSizeMode = SourceGrid.AutoSizeMode.MinimumSize | SourceGrid.AutoSizeMode.Default;
+            grid1.Columns[2].AutoSizeMode = SourceGrid.AutoSizeMode.MinimumSize | SourceGrid.AutoSizeMode.Default;
+
+            grid1.MinimumWidth = 100;
+
+            grid1.AutoStretchColumnsToFitWidth = true;
+            grid1.AutoSizeCells();
+            grid1.Columns.StretchToFit();
+            grid1.Columns.AutoSizeView();
+
 
             SourceTranslationFileName = srcFile;
             DestinationTranslationFileName = dstFile;
@@ -354,25 +399,10 @@ namespace YAF.TranslateApp
 
             CreateTranslateControls(SourceTranslationFileName, DestinationTranslationFileName);
 
-            tlpTranslations.ResumeLayout(false);
-            tlpTranslations.PerformLayout();
-            ResumeLayout(false);
-
-            // Fix TableLayoutPanel bug, always visible horizontal scrollbar
-            Padding pad = tlpTranslations.Padding;
-            tlpTranslations.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
-
-            tlpTranslations.PerformLayout();
-            tlpTranslations.Padding = pad;
-            tlpTranslations.PerformLayout();
-
-            tlpTranslations.Focus();
-
-
             Cursor = Cursors.Default;
 
             btnSave.Enabled = true;
-            btnAutoTranslate.Enabled = true;
+            btnAutoTranslate.Enabled = false;
         }
 
 
@@ -502,17 +532,20 @@ namespace YAF.TranslateApp
                     //pageNodeCount++;
                 }
 
+                grid1.Columns.SetWidth(1, 100);
+                grid1.Columns.StretchToFit();
+               
+
                 // Show Info
                 toolStripStatusLabel1.Text =
                     string.Format("Total Resources: {0}; Resources Not Translated: {1}",
                                   totalResourceCount, resourcesNotTranslated);
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading files. " + ex.Message, "Error", MessageBoxButtons.OK);
             }
-
-
         }
 
 
@@ -522,19 +555,29 @@ namespace YAF.TranslateApp
         /// <param name="pageName"></param>
         private void CreatePageResourceHeader(string pageName)
         {
-            Label lbl = new Label
-                            {
-                                AutoSize = false,
-                                Height = 30,
-                                Text = pageName,
-                                TextAlign = ContentAlignment.MiddleLeft,
-                                Font = PageHeaderFont,
-                                Anchor = AnchorStyles.Left | AnchorStyles.Right,
-                                BackColor = Color.Azure
-                            };
+           var pageHeader = new Cell
+                                                         {
+                                                             BackColor = Color.Azure,
+                                                             Font = PageHeaderFont,
+                                                             TextAlignment = DevAge.Drawing.ContentAlignment.MiddleLeft,
+                                                         };
 
-            tlpTranslations.Controls.Add(lbl);
-            tlpTranslations.SetColumnSpan(lbl, 3);
+            grid1.Rows.Insert(RowCount);
+
+
+            grid1[RowCount, 0] = new SourceGrid.Cells.Cell(pageName) {View = pageHeader, ColumnSpan = 3};
+            grid1[RowCount, 1].AddController(new SourceGrid.Cells.Controllers.Unselectable());
+            grid1.Rows[RowCount].Height = 50;
+
+            RowCount++;
+
+            grid1.Rows.Insert(RowCount);
+            grid1[RowCount, 0] = new SourceGrid.Cells.ColumnHeader("Original Resource");
+            grid1[RowCount, 1] = new SourceGrid.Cells.ColumnHeader("Resource Name");
+            grid1[RowCount, 2] = new SourceGrid.Cells.ColumnHeader("Localized Resource");
+
+
+            RowCount++;
         }
 
 
@@ -547,38 +590,16 @@ namespace YAF.TranslateApp
         /// <param name="dstResourceValue"></param>
         private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue)
         {
-            Label lbl = new Label();
-            Label lblSource = new Label();
-            TextBox tbx = new TextBox();
+            SourceGrid.Cells.Editors.TextBox tbx = new SourceGrid.Cells.Editors.TextBox(typeof (string));
 
-            ////
-            lblSource.Text = resourceName;
-            lblSource.TextAlign = ContentAlignment.MiddleLeft;
-            lblSource.Font = ResourceHeaderFont;
-            lblSource.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblSource.AutoEllipsis = true;
-            lblSource.TextAlign = ContentAlignment.TopCenter;
-            ////
+            tbx.Control.Text = dstResourceValue;
+            tbx.Control.Multiline = true;
 
-            lbl.Text = srcResourceValue;
-            lbl.TextAlign = ContentAlignment.MiddleLeft;
-            lbl.Font = ResourceHeaderFont;
-            lbl.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lbl.AutoEllipsis = true;
-            lbl.TextAlign = ContentAlignment.TopCenter;
-
-            tbx.Text = dstResourceValue;
-            tbx.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            tbx.Multiline = true;
-
-            if (tbx.Text.Length > 30)
+            if (tbx.Control.Text.Length > 30)
             {
-                int height = 60 * (tbx.Text.Length / 60);
-                tbx.Height = height;
-                lbl.Height = height;
-                lblSource.Height = height;
-               
-                //tbx.Height = Unit.Pixel(80);
+                int height = 60*(tbx.Control.Text.Length/60);
+                tbx.Control.Height = height;
+
             }
 
 
@@ -595,7 +616,7 @@ namespace YAF.TranslateApp
 
             if (srcResourceValue.Equals(dstResourceValue, StringComparison.OrdinalIgnoreCase))
             {
-                tbx.ForeColor = Color.Red;
+                tbx.Control.ForeColor = Color.Red;
             }
             else
             {
@@ -606,10 +627,10 @@ namespace YAF.TranslateApp
                 }
             }
 
-            tbx.LostFocus += TbxLostFocus;
-            tbx.TextChanged += TbxTextChanged;
+            tbx.Control.LostFocus += TbxLostFocus;
+            tbx.Control.TextChanged += TbxTextChanged;
 
-            MenuItem menuItem = new MenuItem { Text = "Auto Translate" };
+            MenuItem menuItem = new MenuItem {Text = "Auto Translate"};
 
             menuItem.Click += MenuItemClick;
 
@@ -617,21 +638,63 @@ namespace YAF.TranslateApp
 
             contextMenu.MenuItems.Add(menuItem);
 
-            tbx.ContextMenu = contextMenu;
+            tbx.Control.ContextMenu = contextMenu;
 
 
 
-            tbx.Tag = new TextBoxTranslation { pageName = pageName, resourceName = resourceName, srcResourceValue = srcResourceValue };
-
-            tlpTranslations.Controls.Add(lbl);
-            ////
-            tlpTranslations.Controls.Add(lblSource);
-            ////
-            tlpTranslations.Controls.Add(tbx);
-
-            lbl.Text = lbl.Text;
+            tbx.Control.Tag = new TextBoxTranslation
+                                  {
+                                      pageName = pageName,
+                                      resourceName = resourceName,
+                                      srcResourceValue = srcResourceValue
+                                  };
 
 
+            Cell cellResourceValue = new Cell
+                                         {
+                                             Font = ResourceHeaderFont,
+                                             TextAlignment =
+                                                 DevAge.Drawing.ContentAlignment.TopLeft,
+                                             WordWrap = true
+                                         };
+
+            Cell cellResourceName = new Cell
+                                        {
+                                            Font = ResourceHeaderFont,
+                                            TextAlignment =
+                                                DevAge.Drawing.ContentAlignment.TopCenter,
+                                            WordWrap = true
+                                        };
+
+            grid1.Rows.Insert(RowCount);
+            grid1[RowCount, 0] = new SourceGrid.Cells.Cell(srcResourceValue, typeof (string)) {View = cellResourceValue};
+            grid1[RowCount, 0].AddController(new SourceGrid.Cells.Controllers.Unselectable());
+
+            grid1[RowCount, 1] = new SourceGrid.Cells.Cell(resourceName, typeof (string)) {View = cellResourceName};
+            grid1[RowCount, 1].AddController(new SourceGrid.Cells.Controllers.Unselectable());
+
+            if (tbx.Control.ForeColor.Equals(Color.Red))
+            {
+                grid1[RowCount, 2] = new SourceGrid.Cells.Cell(tbx.Control.Text)
+                                         {View = cellLocalResourceRed, Editor = tbx};
+            }
+            else
+            {
+                grid1[RowCount, 2] = new SourceGrid.Cells.Cell(tbx.Control.Text)
+                                         {View = cellLocalResource, Editor = tbx};
+            }
+
+
+
+            if (tbx.Control.Text.Length > 30)
+            {
+                int height = 60*(tbx.Control.Text.Length/60);
+
+                grid1.Rows[RowCount].Height = height;
+            }
+
+
+            RowCount++;
         }
 
         /// <summary>
@@ -810,7 +873,7 @@ namespace YAF.TranslateApp
         /// <param name="e"></param>
         private void AutoTranslateAll(object sender, EventArgs e)
         {
-            progressBar.Maximum = tlpTranslations.Controls.Count;
+           /* progressBar.Maximum = grid1.Rows.Count;
             progressBar.Minimum = 0;
 
             progressBar.Value = 0;
@@ -835,7 +898,7 @@ namespace YAF.TranslateApp
                                   check.sPageName.Equals(tbt.pageName) &&
                                   check.sResourceName.Equals(tbt.resourceName)).
                     sLocalizedValue = tbx.Text;
-            }
+            }*/
         }
     }
 
