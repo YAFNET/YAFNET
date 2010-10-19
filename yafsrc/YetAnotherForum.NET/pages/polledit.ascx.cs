@@ -523,6 +523,7 @@ namespace YAF.Pages
           this.datePollExpire, 
           this.IsBoundCheckBox.Checked, 
           this.IsClosedBoundCheckBox.Checked, 
+          this.AllowMultipleChoicesCheckBox.Checked,
           questionPath, 
           questionMime);
 

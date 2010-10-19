@@ -1275,6 +1275,8 @@
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
     <Resource tag="THANKSFROM">Cảm ơn: {0} lần</Resource>
+    <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSFROM_MUSC">Thanks: {0} times</Resource>
     <Resource tag="THANKSINFO">{0} người cảm ơn {1} cho bài viết.</Resource>
     <Resource tag="THANKSINFOSINGLE">1 người cảm ơn {0} cho bài viết.</Resource>
     <Resource tag="THANKSTO">Được cảm ơn: {0} lần trong {1} bài viết</Resource>

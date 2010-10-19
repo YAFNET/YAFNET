@@ -5733,7 +5733,22 @@ namespace YAF.Classes.Data
     /// <param name="closes">
     /// The closes.
     /// </param>
-    public static void poll_update(object pollID, object question, object closes, object isBounded, bool isClosedBounded, object questionPath, object questionMime)
+    /// <param name="isBounded">
+    /// The is bounded.
+    /// </param>
+    /// <param name="isClosedBounded">
+    /// The is closed bounded.
+    /// </param>
+    /// <param name="allowMultipleChoices">
+    /// The allow Multiple Choices option.
+    /// </param>
+    /// <param name="questionPath">
+    /// The question file path.
+    /// </param>
+    /// <param name="questionMime">
+    /// The question file mime type.
+    /// </param>
+    public static void poll_update(object pollID, object question, object closes, object isBounded, bool isClosedBounded, bool allowMultipleChoices, object questionPath, object questionMime)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("poll_update"))
       {
@@ -5745,7 +5760,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("QuestionMimeType", questionMime);
         cmd.Parameters.AddWithValue("IsBounded", isBounded);
         cmd.Parameters.AddWithValue("IsClosedBounded", isClosedBounded);
-       
+        cmd.Parameters.AddWithValue("AllowMultipleChoices", allowMultipleChoices);
 
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }

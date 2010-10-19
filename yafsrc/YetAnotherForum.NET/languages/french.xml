@@ -1275,6 +1275,8 @@
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistiques</Resource>
     <Resource tag="THANKSFROM">Merci : {0} fois</Resource>
+    <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSFROM_MUSC">Thanks: {0} times</Resource>
     <Resource tag="THANKSINFO">{0} utilisateur ont remercié {1} pour l'utilité de ce message.</Resource>
     <Resource tag="THANKSINFOSINGLE">1 utilisateur a remercié {0} pour l'utilité de ce message.</Resource>
     <Resource tag="THANKSTO">A été remercié : {0} fois sur {1} message(s)</Resource>

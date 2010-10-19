@@ -1275,6 +1275,8 @@
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">İstatistikler</Resource>
     <Resource tag="THANKSFROM">{0} Kere Teşekkür Etti.</Resource>
+    <Resource tag="THANKSFROM_FEM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSFROM_MUSC">Thanks: {0} times</Resource>
     <Resource tag="THANKSINFO">{1}: {0} Kişi mesajın için Teşekkür Etti.</Resource>
     <Resource tag="THANKSINFOSINGLE">{0}: 1 Kişi mesajın için Teşekkür Etti.</Resource>
     <Resource tag="THANKSTO">{1} Mesajına Toplam {0} Kere Teşekkür Edildi.</Resource>

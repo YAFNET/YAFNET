@@ -4103,7 +4103,7 @@ BEGIN
 		b.PollGroupID,
 		b.Question,
 		b.Closes,
-		a.ChoiceID,
+		a.ChoiceID,		
 		a.Choice,
 		a.Votes,
 		a.ObjectPath,
@@ -4121,7 +4121,7 @@ BEGIN
 	INNER JOIN 
 		[{databaseOwner}].[{objectQualifier}Poll] b ON b.PollID = a.PollID
 	INNER JOIN  
-		[{databaseOwner}].[{objectQualifier}PollGroupCluster] pg ON pg.PollGroupID = b.PollGroupID			
+		[{databaseOwner}].[{objectQualifier}PollGroupCluster] pg ON pg.PollGroupID = b.PollGroupID	  
 	WHERE
 		pg.PollGroupID = @PollGroupID
 		ORDER BY b.PollGroupID
@@ -6964,24 +6964,38 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
 	@QuestionObjectPath nvarchar(255), 
     @QuestionMimeType varchar(50),
 	@IsBounded  bit,
-	@IsClosedBounded  bit
+	@IsClosedBounded  bit,
+	@AllowMultipleChoices bit
 
 ) as
 begin
 	declare @pgid int
+	declare @flags int
 
 		update [{databaseOwner}].[{objectQualifier}Poll]
 		set Flags	= 0 where PollID = @PollID AND Flags IS NULL;
 
-	update [{databaseOwner}].[{objectQualifier}Poll]
+		SELECT @flags = Flags FROM [{databaseOwner}].[{objectQualifier}Poll]		
+		where PollID = @PollID
+
+		-- is closed bound flag
+		SET @flags = (CASE				
+		WHEN @IsClosedBounded > 0 AND (@flags & 4) <> 4 THEN @flags | 4		
+		WHEN @IsClosedBounded <= 0 AND (@flags & 4) = 4  THEN @flags ^ 4
+		ELSE @flags END)
+
+		-- allow multiple choices flag
+		SET @flags = (CASE				
+		WHEN @AllowMultipleChoices > 0 AND (@flags & 8) <> 8 THEN @flags | 8		
+		WHEN @AllowMultipleChoices <= 0 AND (@flags & 8) = 8  THEN @flags ^ 8
+		ELSE @flags END)
+
+	  update [{databaseOwner}].[{objectQualifier}Poll]
 		set Question	=	@Question,
 			Closes		=	@Closes,
 			ObjectPath = @QuestionObjectPath,
 		    MimeType = @QuestionMimeType,
-			Flags	= (CASE				
-		WHEN @IsClosedBounded > 0 AND (Flags & 4) <> 4 THEN Flags | 4		
-		WHEN @IsClosedBounded <= 0 AND (Flags & 4) = 4  THEN Flags ^ 4
-		ELSE Flags END)
+			Flags	= @flags
 		where PollID = @PollID
 
       SELECT  @pgid = PollGroupID FROM [{databaseOwner}].[{objectQualifier}Poll]
