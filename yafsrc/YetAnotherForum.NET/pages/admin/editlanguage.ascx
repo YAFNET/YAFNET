@@ -24,14 +24,14 @@
       <td class="post" style="padding:0;margin:0;">
 	    <asp:DataGrid id="grdLocals" Width="100%" BorderStyle="None" GridLines="None" BorderWidth="0px" runat="server" AutoGenerateColumns="False">
 		  <Columns>
-		    <asp:TemplateColumn HeaderText="Ressource Name">
+		    <asp:TemplateColumn HeaderText="Resource Name">
 			  <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  <ItemStyle HorizontalAlign="Center" CssClass="post"></ItemStyle>
 			  <ItemTemplate>
 			    <asp:Label id="lblResourceName" runat="server" Text='<%# Eval("ResourceName") %>'></asp:Label>
 			  </ItemTemplate>
 		    </asp:TemplateColumn>
-			<asp:TemplateColumn HeaderText="Original Ressource">
+			<asp:TemplateColumn HeaderText="Original Resource">
 			  <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  <ItemStyle HorizontalAlign="Center" CssClass="post"></ItemStyle>
 			  <ItemTemplate>
@@ -39,12 +39,13 @@
                 </asp:TextBox>
 			  </ItemTemplate>
 			</asp:TemplateColumn>
-		    <asp:TemplateColumn HeaderText="Localized Ressource">
+		    <asp:TemplateColumn HeaderText="Localized Resource">
 			  <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" CssClass="header2"></HeaderStyle>
 			  <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" CssClass="post"></ItemStyle>
 			  <ItemTemplate>
-			    <asp:TextBox id="txtLocalized" runat="server" OnTextChanged="TextBoxTextChanged" AutoPostBack="true" Text='<%# Eval("LocalizedValue") %>' Width="300px" Height="30px" ToolTip='<%# Eval("ResourceValue") %>'>
+			    <asp:TextBox id="txtLocalized" runat="server" Text='<%# Eval("LocalizedValue") %>' Width="300px" Height="30px" ToolTip='<%# Eval("ResourceValue") %>'>
                 </asp:TextBox>
+                 <asp:CustomValidator runat="server" id="custTextLocalized" ControlToValidate="txtLocalized" OnServerValidate="LocalizedTextCheck"></asp:CustomValidator>
 			  </ItemTemplate>
 		    </asp:TemplateColumn>
 		  </Columns>

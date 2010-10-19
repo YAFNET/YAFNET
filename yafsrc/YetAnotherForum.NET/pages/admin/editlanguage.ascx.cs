@@ -144,18 +144,24 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
     /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    public void TextBoxTextChanged([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    public void LocalizedTextCheck([NotNull]object sender, [NotNull] ServerValidateEventArgs args)
     {
-      var tbx = (TextBox)sender;
+        foreach (TextBox tbx in
+            grdLocals.Items.Cast<DataGridItem>().Select(item => (TextBox) item.FindControl("txtLocalized")).Where(tbx => args.Value.Equals(tbx.Text)))
+        {
+            tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase)
+                                ? Color.Red
+                                : Color.Black;
+            break;
+        }
 
-      tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
+
+        args.IsValid = true;
     }
 
-    #endregion
+      #endregion
 
     #region Methods
 
@@ -327,13 +333,19 @@ namespace YAF.Pages.Admin
     /// </param>
     private void LoadPageLocalization([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.lblPageName.Text = this.dDLPages.SelectedValue;
+        // Save Values
+        this.UpdateLocalizedValues();
 
-      this.grdLocals.DataSource = this.translations.FindAll(check => check.PageName.Equals(this.dDLPages.SelectedValue));
-      this.grdLocals.DataBind();
+        this.SaveLanguageFile();
+
+        this.lblPageName.Text = this.dDLPages.SelectedValue;
+
+        this.grdLocals.DataSource =
+            this.translations.FindAll(check => check.PageName.Equals(this.dDLPages.SelectedValue));
+        this.grdLocals.DataBind();
     }
 
-    /// <summary>
+      /// <summary>
     /// Wraps creation of translation controls.
     /// </summary>
     /// <param name="srcFile">
