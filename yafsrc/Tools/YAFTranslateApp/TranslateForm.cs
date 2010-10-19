@@ -128,6 +128,9 @@ namespace YAF.TranslateApp
         /// </summary>
         public TranslateForm()
         {
+            DevAge.Drawing.BorderLine border = new DevAge.Drawing.BorderLine(Color.Black, 1);
+            DevAge.Drawing.RectangleBorder cellBorder = new DevAge.Drawing.RectangleBorder(border, border);
+
             cellLocalResourceRed = new Cell
                                        {
                                            Font = ResourceHeaderFont,
@@ -135,13 +138,15 @@ namespace YAF.TranslateApp
                                                DevAge.Drawing.ContentAlignment.TopCenter,
                                            ForeColor = Color.Red,
                                            WordWrap = true,
+                                           Border = cellBorder
                                        };
             cellLocalResource = new Cell
                                     {
                                         Font = ResourceHeaderFont,
                                         TextAlignment =
                                             DevAge.Drawing.ContentAlignment.TopCenter,
-                                        WordWrap = true
+                                        WordWrap = true,
+                                        Border = cellBorder
                                     };
             InitializeComponent();
         }
@@ -375,6 +380,7 @@ namespace YAF.TranslateApp
             grid1.Columns.Clear();
 
             grid1.BorderStyle = BorderStyle.FixedSingle;
+           
             grid1.ColumnsCount = 3;
 
             grid1.Columns[0].AutoSizeMode = SourceGrid.AutoSizeMode.MinimumSize | SourceGrid.AutoSizeMode.Default;
@@ -558,7 +564,7 @@ namespace YAF.TranslateApp
         {
             var pageHeader = new Cell
                                                           {
-                                                              BackColor = Color.Azure,
+                                                              BackColor = Color.LightBlue,
                                                               Font = PageHeaderFont,
                                                               TextAlignment = DevAge.Drawing.ContentAlignment.MiddleLeft,
                                                           };
@@ -641,7 +647,8 @@ namespace YAF.TranslateApp
 
             tbx.Control.ContextMenu = contextMenu;
 
-
+            DevAge.Drawing.BorderLine border = new DevAge.Drawing.BorderLine(Color.Black, 1);
+            DevAge.Drawing.RectangleBorder cellBorder = new DevAge.Drawing.RectangleBorder(border, border);
 
             tbx.Control.Tag = new TextBoxTranslation
                                   {
@@ -656,7 +663,9 @@ namespace YAF.TranslateApp
                                              Font = ResourceHeaderFont,
                                              TextAlignment =
                                                  DevAge.Drawing.ContentAlignment.TopLeft,
-                                             WordWrap = true
+                                             WordWrap = true,
+                                             Border = cellBorder,
+                                             BackColor = Color.LightGray
                                          };
 
             Cell cellResourceName = new Cell
@@ -664,9 +673,12 @@ namespace YAF.TranslateApp
                                             Font = ResourceHeaderFont,
                                             TextAlignment =
                                                 DevAge.Drawing.ContentAlignment.TopCenter,
-                                            WordWrap = true
+                                            WordWrap = true,
+                                            Border = cellBorder,
+                                            BackColor = Color.LightGray
                                         };
 
+            
             grid1.Rows.Insert(RowCount);
             grid1[RowCount, 0] = new SourceGrid.Cells.Cell(srcResourceValue, typeof(string)) { View = cellResourceValue };
             grid1[RowCount, 0].AddController(new SourceGrid.Cells.Controllers.Unselectable());
