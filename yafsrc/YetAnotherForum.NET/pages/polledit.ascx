@@ -57,7 +57,7 @@
 <FooterTemplate>	
 </FooterTemplate>
 </asp:Repeater>
-    <tr id="tr_AllowMultipleChoices" runat="server" visible="true">	
+    <tr id="tr_AllowMultipleChoices" runat="server" visible="false">	
        	<td class="postformheader" width="20%">
 			<em>
 				 <YAF:LocalizedLabel ID="AllowMultipleChoicesLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
