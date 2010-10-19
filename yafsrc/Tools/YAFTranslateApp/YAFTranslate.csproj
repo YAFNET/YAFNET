@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TranslateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +85,7 @@
     <EmbeddedResource Include="TranslateForm.resx">
       <DependentUpon>TranslateForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

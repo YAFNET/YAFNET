@@ -82,12 +82,12 @@ namespace YAF.TranslateApp
         /// <summary>
         /// Source translation file name (e.g. english.xml)
         /// </summary>
-        public string SourceTranslationFileName { get; set; }
+        //public string SourceTranslationFileName { get; set; }
 
         /// <summary>
         /// Destionation, target, translated file name
         /// </summary>
-        public string DestinationTranslationFileName { get; set; }
+        //public string DestinationTranslationFileName { get; set; }
 
         /// <summary>
         /// Destination file changed flag
@@ -310,7 +310,7 @@ namespace YAF.TranslateApp
                               check.sPageName.Equals(tbt.pageName) && check.sResourceName.Equals(tbt.resourceName)).
                 sLocalizedValue = tbx.Text;
 
-           // tlpTranslations.Focus();
+            // tlpTranslations.Focus();
         }
 
         /// <summary>
@@ -326,8 +326,8 @@ namespace YAF.TranslateApp
 
             tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
 
-           RangeRegion region = grid1.Selection.GetSelectionRegion();
-           PositionCollection poss = region.GetCellsPositions();
+            RangeRegion region = grid1.Selection.GetSelectionRegion();
+            PositionCollection poss = region.GetCellsPositions();
 
             foreach (Position t in
                 from t in poss let cell = grid1.GetCell(t) as SourceGrid.Cells.Cell where cell != null select t)
@@ -350,7 +350,7 @@ namespace YAF.TranslateApp
         /// <param name="grid"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        private static SourceGrid.Cells.Cell GetCell(Grid grid, Position pos)
+        private static SourceGrid.Cells.Cell GetCell(GridVirtual grid, Position pos)
         {
             return grid.GetCell(pos) as SourceGrid.Cells.Cell;
         }
@@ -366,7 +366,7 @@ namespace YAF.TranslateApp
         /// <param name="dstFile"></param>
         private void PopulateTranslations(string srcFile, string dstFile)
         {
-            
+
             Cursor = Cursors.WaitCursor;
 
             RowCount = 0;
@@ -388,21 +388,22 @@ namespace YAF.TranslateApp
             grid1.Columns.StretchToFit();
             grid1.Columns.AutoSizeView();
 
+            Properties.Settings.Default.SourceTranslation = srcFile;
+            Properties.Settings.Default.DestinationTranslation = dstFile;
 
-            SourceTranslationFileName = srcFile;
-            DestinationTranslationFileName = dstFile;
+            Properties.Settings.Default.Save();
 
             tbxSourceTranslationFile.Text = srcFile;
             tbxDestinationTranslationFile.Text = dstFile;
 
             translations.Clear();
 
-            CreateTranslateControls(SourceTranslationFileName, DestinationTranslationFileName);
+            CreateTranslateControls(Properties.Settings.Default.SourceTranslation, Properties.Settings.Default.DestinationTranslation);
 
             Cursor = Cursors.Default;
 
             btnSave.Enabled = true;
-            btnAutoTranslate.Enabled = false;
+            btnAutoTranslate.Enabled = true;
         }
 
 
@@ -479,7 +480,7 @@ namespace YAF.TranslateApp
                 foreach (XPathNavigator pageItemNavigator in navSrc.Select("page"))
                 {
                     //pageNodeCount++;
-                    int pageResourceCount = 0;
+                    // int pageResourceCount = 0;
 
                     string pageNameAttributeValue = pageItemNavigator.GetAttribute("name", String.Empty);
 
@@ -503,7 +504,7 @@ namespace YAF.TranslateApp
 
                         if (iteratorSe.Count <= 0)
                         {
-                            pageResourceCount++;
+                            //pageResourceCount++;
                             //resourceMissingCount++;
 
                             DestinationTranslationFileChanged = true;
@@ -513,7 +514,7 @@ namespace YAF.TranslateApp
 
                         while (iteratorSe.MoveNext())
                         {
-                            pageResourceCount++;
+                            //pageResourceCount++;
 
                             if (!iteratorSe.Current.Value.Equals(resourceItem.Value, StringComparison.OrdinalIgnoreCase))
                             {
@@ -534,7 +535,7 @@ namespace YAF.TranslateApp
 
                 grid1.Columns.SetWidth(1, 100);
                 grid1.Columns.StretchToFit();
-               
+
 
                 // Show Info
                 toolStripStatusLabel1.Text =
@@ -555,17 +556,17 @@ namespace YAF.TranslateApp
         /// <param name="pageName"></param>
         private void CreatePageResourceHeader(string pageName)
         {
-           var pageHeader = new Cell
-                                                         {
-                                                             BackColor = Color.Azure,
-                                                             Font = PageHeaderFont,
-                                                             TextAlignment = DevAge.Drawing.ContentAlignment.MiddleLeft,
-                                                         };
+            var pageHeader = new Cell
+                                                          {
+                                                              BackColor = Color.Azure,
+                                                              Font = PageHeaderFont,
+                                                              TextAlignment = DevAge.Drawing.ContentAlignment.MiddleLeft,
+                                                          };
 
             grid1.Rows.Insert(RowCount);
 
 
-            grid1[RowCount, 0] = new SourceGrid.Cells.Cell(pageName) {View = pageHeader, ColumnSpan = 3};
+            grid1[RowCount, 0] = new SourceGrid.Cells.Cell(pageName) { View = pageHeader, ColumnSpan = 3 };
             grid1[RowCount, 1].AddController(new SourceGrid.Cells.Controllers.Unselectable());
             grid1.Rows[RowCount].Height = 50;
 
@@ -590,14 +591,14 @@ namespace YAF.TranslateApp
         /// <param name="dstResourceValue"></param>
         private void CreatePageResourceControl(string pageName, string resourceName, string srcResourceValue, string dstResourceValue)
         {
-            SourceGrid.Cells.Editors.TextBox tbx = new SourceGrid.Cells.Editors.TextBox(typeof (string));
+            SourceGrid.Cells.Editors.TextBox tbx = new SourceGrid.Cells.Editors.TextBox(typeof(string));
 
             tbx.Control.Text = dstResourceValue;
             tbx.Control.Multiline = true;
 
             if (tbx.Control.Text.Length > 30)
             {
-                int height = 60*(tbx.Control.Text.Length/60);
+                int height = 60 * (tbx.Control.Text.Length / 60);
                 tbx.Control.Height = height;
 
             }
@@ -630,7 +631,7 @@ namespace YAF.TranslateApp
             tbx.Control.LostFocus += TbxLostFocus;
             tbx.Control.TextChanged += TbxTextChanged;
 
-            MenuItem menuItem = new MenuItem {Text = "Auto Translate"};
+            MenuItem menuItem = new MenuItem { Text = "Auto Translate" };
 
             menuItem.Click += MenuItemClick;
 
@@ -667,28 +668,26 @@ namespace YAF.TranslateApp
                                         };
 
             grid1.Rows.Insert(RowCount);
-            grid1[RowCount, 0] = new SourceGrid.Cells.Cell(srcResourceValue, typeof (string)) {View = cellResourceValue};
+            grid1[RowCount, 0] = new SourceGrid.Cells.Cell(srcResourceValue, typeof(string)) { View = cellResourceValue };
             grid1[RowCount, 0].AddController(new SourceGrid.Cells.Controllers.Unselectable());
 
-            grid1[RowCount, 1] = new SourceGrid.Cells.Cell(resourceName, typeof (string)) {View = cellResourceName};
+            grid1[RowCount, 1] = new SourceGrid.Cells.Cell(resourceName, typeof(string)) { View = cellResourceName };
             grid1[RowCount, 1].AddController(new SourceGrid.Cells.Controllers.Unselectable());
 
             if (tbx.Control.ForeColor.Equals(Color.Red))
             {
-                grid1[RowCount, 2] = new SourceGrid.Cells.Cell(tbx.Control.Text)
-                                         {View = cellLocalResourceRed, Editor = tbx};
+                grid1[RowCount, 2] = new SourceGrid.Cells.Cell(tbx.Control.Text) { View = cellLocalResourceRed, Editor = tbx };
             }
             else
             {
-                grid1[RowCount, 2] = new SourceGrid.Cells.Cell(tbx.Control.Text)
-                                         {View = cellLocalResource, Editor = tbx};
+                grid1[RowCount, 2] = new SourceGrid.Cells.Cell(tbx.Control.Text) { View = cellLocalResource, Editor = tbx };
             }
 
 
 
             if (tbx.Control.Text.Length > 30)
             {
-                int height = 60*(tbx.Control.Text.Length/60);
+                int height = 60 * (tbx.Control.Text.Length / 60);
 
                 grid1.Rows[RowCount].Height = height;
             }
@@ -856,6 +855,10 @@ namespace YAF.TranslateApp
         /// <param name="e"></param>
         private void CheckPendingOnlyCheckedChanged(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ShowPendingOnly = checkPendingOnly.Checked;
+
+            Properties.Settings.Default.Save();
+
             if (!String.IsNullOrEmpty(tbxSourceTranslationFile.Text) &&
                !String.IsNullOrEmpty(tbxDestinationTranslationFile.Text))
             {
@@ -873,33 +876,63 @@ namespace YAF.TranslateApp
         /// <param name="e"></param>
         private void AutoTranslateAll(object sender, EventArgs e)
         {
-           /* progressBar.Maximum = grid1.Rows.Count;
+            progressBar.Maximum = grid1.Rows.Count;
             progressBar.Minimum = 0;
 
             progressBar.Value = 0;
 
-            foreach (Control c in tlpTranslations.Controls)
+            Cursor = Cursors.WaitCursor;
+
+            for (int i = 0; i < grid1.Rows.Count; i++)
             {
-                progressBar.Value++;
+                progressBar.Value = i;
 
-                if (!(c is TextBox)) continue;
+                if (grid1[i, 2].Editor == null) continue;
 
-                TextBox tbx = (TextBox)c;
-                TextBoxTranslation tbt = (TextBoxTranslation)c.Tag;
+                SourceGrid.Cells.Editors.TextBox tbx = (SourceGrid.Cells.Editors.TextBox)grid1[i, 2].Editor;
 
-                if (!tbx.ForeColor.Equals(Color.Red)) continue;
+                TextBoxTranslation tbt = (TextBoxTranslation)tbx.Control.Tag;
 
-                tbx.Text = Translator.TranslateText(tbx.Text, string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
+                if (!tbx.Control.ForeColor.Equals(Color.Red)) continue;
 
-                tbx.ForeColor = tbt.srcResourceValue.Equals(tbx.Text, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
+                tbx.Control.Text = Translator.TranslateText(tbx.Control.Text,
+                                                            string.Format("{0}|{1}", sLangCodeSrc, sLangCodeDest));
+
+                tbx.Control.ForeColor = tbt.srcResourceValue.Equals(tbx.Control.Text, StringComparison.OrdinalIgnoreCase)
+                                            ? Color.Red
+                                            : Color.Black;
 
                 // Update Translations List
                 translations.Find(check =>
                                   check.sPageName.Equals(tbt.pageName) &&
                                   check.sResourceName.Equals(tbt.resourceName)).
-                    sLocalizedValue = tbx.Text;
-            }*/
+                    sLocalizedValue = tbx.Control.Text;
+
+
+                grid1[i, 2].View = tbt.srcResourceValue.Equals(tbx.Control.Text, StringComparison.OrdinalIgnoreCase)
+                                       ? cellLocalResourceRed
+                                       : cellLocalResource;
+
+                grid1[i, 2].Value = tbx.Control.Text;
+            }
+
+            grid1.Update();
+
+
+            Cursor = Cursors.Default;
+        }
+
+        private void TranslateForm_Load(object sender, EventArgs e)
+        {
+            checkPendingOnly.Checked = Properties.Settings.Default.ShowPendingOnly;
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.SourceTranslation) &&
+                !string.IsNullOrEmpty(Properties.Settings.Default.DestinationTranslation))
+            {
+                PopulateTranslations(Properties.Settings.Default.SourceTranslation, Properties.Settings.Default.DestinationTranslation);
+            }
         }
     }
-
 }
+
+

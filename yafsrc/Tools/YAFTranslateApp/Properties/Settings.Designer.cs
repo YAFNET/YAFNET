@@ -22,5 +22,41 @@ namespace YAF.TranslateApp.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SourceTranslation {
+            get {
+                return ((string)(this["SourceTranslation"]));
+            }
+            set {
+                this["SourceTranslation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DestinationTranslation {
+            get {
+                return ((string)(this["DestinationTranslation"]));
+            }
+            set {
+                this["DestinationTranslation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowPendingOnly {
+            get {
+                return ((bool)(this["ShowPendingOnly"]));
+            }
+            set {
+                this["ShowPendingOnly"] = value;
+            }
+        }
     }
 }
