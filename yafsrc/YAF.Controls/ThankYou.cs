@@ -167,7 +167,6 @@ namespace YAF.Controls
           {
             filler.Append(",&nbsp;");
           }
-
           // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
           filler.AppendFormat(
               @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]).Replace("/yaf.controls.thankyou,yaf.controls.ashx", "/default.aspx"), dr["DisplayName"] != DBNull.Value ? YafContext.HttpContext.Server.HtmlEncode(dr["DisplayName"].ToString()) : YafContext.HttpContext.Server.HtmlEncode(dr["Name"].ToString()));
@@ -196,16 +195,23 @@ namespace YAF.Controls
     protected string ThanksNumber(string username)
     {
       int thanksNumber = DB.message_ThanksNumber(MessageID);
+      
+      // get the user's display name.
+      string displayName = YafContext.Current.UserDisplayName.GetName(UserMembershipHelper.GetUserIDFromProviderUserKey(
+                UserMembershipHelper.GetMembershipUserByName(username).ProviderUserKey));
 
+      // if displayname is enabled in admin section, and the user has a display name, use it instead of username.
+      displayName = (displayName != string.Empty && YafContext.Current.BoardSettings.EnableDisplayName)? displayName : username;
+      
       switch (thanksNumber)
       {
         case 0:
           return String.Empty;
         case 1:
-          return YafContext.Current.Localization.GetText("POSTS", "THANKSINFOSINGLE").FormatWith(username);
+          return YafContext.Current.Localization.GetText("POSTS", "THANKSINFOSINGLE").FormatWith(displayName);
       }
 
-      return YafContext.Current.Localization.GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, username);
+      return YafContext.Current.Localization.GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
     }
   }
 }
