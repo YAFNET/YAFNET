@@ -1079,10 +1079,10 @@
 	</page>
 	<page name="POLLEDIT">
 		<Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>
-		<Resource tag="ASK_POLL_DELETE_ALL">Do you really want to remove the poll completely?</Resource>
-		<Resource tag="ASK_POLLGROUP_DELETE">Do you really want to remove the poll group?</Resource>
-		<Resource tag="ASK_POLLROUP_DELETE_ALL">Do you really want to remove the poll group completely?</Resource>
-		<Resource tag="ASK_POLLROUP_DELETE_EVR">Do you really want to remove the poll group from every place?</Resource>
+		<Resource tag="ASK_POLL_DELETE_ALL">Do you really want to remove the poll completely?</Resource>	
+    <Resource tag="ASK_POLLGROUP_DETACH">Do you really want to detach the poll group?</Resource>
+    <Resource tag="ASK_POLLROUP_DELETE_ALL">Do you really want to remove the poll group completely?</Resource>
+    <Resource tag="ASK_POLLROUP_DETACH_EVR">Do you really want to detach the poll group from every place?</Resource>
 		<Resource tag="CHOICE">Choice {0}:</Resource>
 		<Resource tag="POLLIMAGE_INVALID">The image or its path is invalid for {0}.</Resource>
 		<Resource tag="POLLIMAGE_TEXT">Image path:</Resource>
@@ -1097,6 +1097,8 @@
 		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
 		<Resource tag="CREATEPOLL">Create Poll</Resource>
 		<Resource tag="EDITPOLL">Edit Poll</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
 		<Resource tag="POLL_EXPIRED">The poll is expired.</Resource>
 		<Resource tag="POLL_IMGWIDTH">Image width in px:</Resource>
 		<Resource tag="POLL_VOTED">You already voted.</Resource>
@@ -1106,7 +1108,7 @@
 		<Resource tag="POLLRESULTSHIDDEN">You can't see poll results before voting.</Resource>
 		<Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try and register.</Resource>
 		<Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try and register.</Resource>
-		<Resource tag="POLL_NOPERM_GUEST">Guests can't vote or see results. Try and register.</Resource>
+		<Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
 		<Resource tag="POLL_PLEASEVOTE">Click to vote</Resource>
 		<Resource tag="POLLGROUP_CLOSEDBOUND">Bound voting</Resource>
     <Resource tag="POLL_CLOSEDBOUND">You can't see results before the poll expires.</Resource>
@@ -1116,10 +1118,11 @@
 		<Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results, if the poll didn't expire.</Resource>
 		<Resource tag="POLLGROUP_LIST">Choose an existing poll group:</Resource>
 		<Resource tag="REMOVEPOLL">Remove Poll</Resource>
-		<Resource tag="REMOVEPOLL_ALL">Remove Poll Completely</Resource>
-		<Resource tag="REMOVEPOLLGROUP">Remove Group</Resource>
+    <Resource tag="DETACHPOLL">Detach Poll</Resource>
+		<Resource tag="REMOVEPOLL_ALL">Remove Poll Completely</Resource> 		
+    <Resource tag="DETACHPOLLGROUP">Detach Group</Resource>
 		<Resource tag="REMOVEPOLLGROUP_ALL">Remove Group Completely</Resource>
-		<Resource tag="REMOVEPOLLGROUP_EVERYWHERE">Remove Group Everywhere</Resource>
+    <Resource tag="DETACHGROUP_EVERYWHERE">Detach Group Everywhere</Resource>		
 	</page>
 	<page name="POSTMESSAGE">
 		<Resource tag="ANNOUNCEMENT">Announcement</Resource>

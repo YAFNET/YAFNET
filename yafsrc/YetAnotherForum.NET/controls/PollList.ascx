@@ -82,9 +82,9 @@
                     <YAF:ThemeButton ID="RemoveGroupAll" runat="server" Visible='<%# CanRemoveGroupCompletely() %>'
                         CommandName="removegroupall" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="REMOVEPOLLGROUP_ALL" />
                     <YAF:ThemeButton ID="RemoveGroupEverywhere" runat="server" Visible='<%# CanRemoveGroupEverywhere() %>'
-                        CommandName="removegroupevery" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="REMOVEPOLLGROUP_EVERYWHERE" />
+                        CommandName="removegroupevery" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="DETACHGROUP_EVERYWHERE" />
                     <YAF:ThemeButton ID="RemoveGroup" runat="server" Visible='<%# CanRemoveGroup() %>'
-                        CommandName="removegroup" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="REMOVEPOLLGROUP" />
+                        CommandName="removegroup" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="DETACHPOLLGROUP" />
                 </td>
             </tr>
         </FooterTemplate>

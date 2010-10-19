@@ -57,7 +57,7 @@
 <FooterTemplate>	
 </FooterTemplate>
 </asp:Repeater>
-    <tr id="tr_AllowMultipleChoices" runat="server" visible="false">	
+    <tr id="tr_AllowMultipleChoices" runat="server" visible="true">	
        	<td class="postformheader" width="20%">
 			<em>
 				 <YAF:LocalizedLabel ID="AllowMultipleChoicesLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
@@ -91,12 +91,12 @@
     <tr id="IsClosedBound" runat="server" visible="false">
     	<td class="postformheader" width="20%">
 			<em>
-				 <YAF:LocalizedLabel ID="IsClosedBoundLabel" runat="server" LocalizedTag="pollgroup_closedbound" />
-                ( <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server" LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" /> )
+				 <YAF:LocalizedLabel ID="IsClosedBoundLabel" runat="server" LocalizedTag="pollgroup_closedbound" />&nbsp;:&nbsp;
+                 <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server" LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" /> 
 			</em>
 		</td>
 		<td class="post" width="80%">
-                 <asp:CheckBox ID="IsClosedBoundCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
+                 <asp:CheckBox ID="IsClosedBoundCheckBox"  runat="server"  CssClass="edit" MaxLength="10" Width="400" />					
 		</td>	
 	</tr> 
     <tr id="PollGroupList" runat="server" visible="false">

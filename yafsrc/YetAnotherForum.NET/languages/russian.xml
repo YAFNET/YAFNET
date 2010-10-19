@@ -1135,10 +1135,15 @@
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить этот опрос?</Resource>
     <Resource tag="ASK_POLL_DELETE_ALL">Вы действительно желаете полностью удалить этот опрос (из базы данных)?</Resource>
     <Resource tag="ASK_POLLGROUP_DELETE">Вы действительно желаете удалить эту группу опросов?</Resource>
+    <Resource tag="ASK_POLLGROUP_DETACH">Вы действительно желаете открепить этот опрос?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_ALL">Вы действительно желаете полностью удалить эту группу опросов (из базы данных)?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_EVR">Вы действительно желаете удалить эту группу опросов из всех мест?</Resource>
+    <Resource tag="ASK_POLLROUP_DETACH_EVR">Вы действительно желаете открепить эту группу опросов отовсюду?</Resource>
     <Resource tag="CHOICE">Вариант {0}:</Resource>
     <Resource tag="CREATEPOLL">Создать опрос</Resource>
+    <Resource tag="DETACHGROUP_EVERYWHERE">Открепить группу везде</Resource>
+    <Resource tag="DETACHPOLL">Открепить опрос</Resource>
+    <Resource tag="DETACHPOLLGROUP">Открепить группу</Resource>
     <Resource tag="EDITPOLL">Редактировать опрос</Resource>
     <Resource tag="EXPIRE_BAD">Неверная дата окончания опроса</Resource>
     <Resource tag="NEED_CHOICES">Опрос должен иметь по меньшей мере два варианта ответа.</Resource>
@@ -1148,7 +1153,9 @@
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]дней[/b] [ Оставьте пустым в случае бессрочного опроса ]</Resource>
     <Resource tag="POLL_EXPIRED">Опрос завершён.</Resource>
     <Resource tag="POLL_IMGWIDTH">Ширина изображения в пикс.:</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Гости не могут голосовать и видеть результаты. Попробуйте зарегистрироваться.</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES">Разрешить голосовать за несколько вариантов:</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES_INFO">Вы можете голосовать за несколько вариантов.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Гости не могут голосовать. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Кликните чтобы проголосовать</Resource>
     <Resource tag="POLL_VOTED">Вы уже голосовали.</Resource>
     <Resource tag="POLL_WILLEXPIRE">Опрос завершится через {0} дней.</Resource>

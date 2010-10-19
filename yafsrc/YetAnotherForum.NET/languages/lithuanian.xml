@@ -1253,10 +1253,15 @@
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove the poll?</Resource>
     <Resource tag="ASK_POLL_DELETE_ALL">Do you really want to remove the poll completely?</Resource>
     <Resource tag="ASK_POLLGROUP_DELETE">Do you really want to remove the poll group?</Resource>
+    <Resource tag="ASK_POLLGROUP_DETACH">Do you really want to detach the poll group?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_ALL">Do you really want to remove the poll group completely?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_EVR">Do you really want to remove the poll group from every place?</Resource>
+    <Resource tag="ASK_POLLROUP_DETACH_EVR">Do you really want to detach the poll group from every place?</Resource>
     <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CREATEPOLL">Create Poll</Resource>
+    <Resource tag="DETACHGROUP_EVERYWHERE">Detach Group Everywhere</Resource>
+    <Resource tag="DETACHPOLL">Detach Poll</Resource>
+    <Resource tag="DETACHPOLLGROUP">Detach Group</Resource>
     <Resource tag="EDITPOLL">Edit Poll</Resource>
     <Resource tag="EXPIRE_BAD">Incorrect expiration date</Resource>
     <Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
@@ -1266,7 +1271,9 @@
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
     <Resource tag="POLL_EXPIRED">The poll is expired.</Resource>
     <Resource tag="POLL_IMGWIDTH">Image width in px:</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote or see results. Try and register.</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Click to vote</Resource>
     <Resource tag="POLL_VOTED">You already voted.</Resource>
     <Resource tag="POLL_WILLEXPIRE">The poll will be closed in {0} days.</Resource>

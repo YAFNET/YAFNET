@@ -82,7 +82,7 @@ namespace YAF.controls
     /// <summary>
     ///   The ChoiceId.
     /// </summary>
-    public int ChoiceId { get; set; }
+    public int?[] ChoiceId { get; set; }
 
     /// <summary>
     ///   The DaysToRun.
@@ -228,19 +228,25 @@ namespace YAF.controls
         }
 
         DB.choice_vote(e.CommandArgument, userID, remoteIP);
-       
-       // this.ChoiceId = Convert.ToInt32(e.CommandArgument.ToString());
-       // this.CanVote = false;
 
         // save the voting cookie...
-        var c = new HttpCookie(this.VotingCookieName(PollId), e.CommandArgument.ToString())
-          {
-             Expires = DateTime.UtcNow.AddYears(1) 
-          };
+        String cookieCurrent = String.Empty;
+
+        if (this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(PollId))] != null)
+        {
+            cookieCurrent = "{0},".FormatWith(this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(PollId))].Value);
+            this.Request.Cookies.Remove(this.VotingCookieName(Convert.ToInt32(PollId)));
+        }
+
+        var c = new HttpCookie(this.VotingCookieName(PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
+        {
+            Expires = DateTime.UtcNow.AddYears(1) 
+        };
+
         this.Response.Cookies.Add(c);
         
         // show an info that the user is voted 
-        string msg = this.PageContext.Localization.GetText("INFO_VOTED");
+        String msg = this.PageContext.Localization.GetText("INFO_VOTED");
       
         this.BindData();
 
@@ -276,13 +282,23 @@ namespace YAF.controls
         var myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
         string pollId = drowv.Row["PollID"].ToString();
 
-        myLinkButton.Enabled = this.CanVote;
+        var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
+        if (this.ChoiceId != null)
+        {
+            foreach (var mychoice in this.ChoiceId)
+            {
+                if ((int)drowv.Row["ChoiceID"] == mychoice)
+                {
+                    myChoiceMarker.Visible = true;
+                }
+            }
+        }
+
+        myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
         myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
         myLinkButton.Visible = true;
-        item.FindControlRecursiveAs<HtmlImage>("YourChoice").Visible = (int) drowv.Row["ChoiceID"] == this.ChoiceId;
-        
 
-        // Poll Choice image
+          // Poll Choice image
         var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
         var choiceAnchor = item.FindControlRecursiveAs<HtmlAnchor>("ChoiceAnchor");
 

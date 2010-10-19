@@ -452,16 +452,64 @@ namespace YAF.controls
     /// <returns>
     /// The is not voted.
     /// </returns>
-    protected bool IsNotVoted(object pollId, out int choiceId)
+    protected bool IsNotVoted(int pollId, bool allowManyChoices, out int?[] pollChoices)
     {
-     
+      pollChoices = null;
+      
       // check for voting cookie
       HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(pollId))];
-      if (httpCookie != null && int.TryParse(httpCookie.Value, out choiceId))
+      if (httpCookie != null && httpCookie.Value != null)
       {
-        return false;
+       
+          int pchcntr1 = 0;
+          int choicescount = 0;
+          string[] choiceArray = httpCookie.Value.Split(',');
+          if (choiceArray.GetLength(0) > 0)
+          {
+
+              pollChoices = new int?[choiceArray.GetLength(0)];
+              foreach (DataRow drch in this._dtPoll.Rows)
+              {
+                  if ((int)drch["PollID"] == pollId)
+                  {
+                      for (int j = 0; j < choiceArray.GetLength(0); j++)
+                      {
+                          int pollChoicesFromCookie = 0;
+                          if (int.TryParse(choiceArray[j], out pollChoicesFromCookie))
+                          {
+                              if (pollChoicesFromCookie == (int) drch["ChoiceID"])
+                              {
+                                  pollChoices[pchcntr1] = pollChoicesFromCookie;
+                                  pchcntr1++;
+                              }
+                          }
+                      }
+
+                      choicescount++;
+                  }
+              }
+
+          }
+          if (pchcntr1 > 0)
+          {
+              if (allowManyChoices) 
+              {
+                  if (pchcntr1 < choicescount)
+                  {
+                      return true;
+                  }
+              }
+                  return false;
+             
+          }
+
+
       }
-      choiceId = 0;
+
+        
+           
+     
+      
       // voting is not tied to IP and they are a guest...
       if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
       {
@@ -469,12 +517,51 @@ namespace YAF.controls
       }
 
       // Check if a user already voted
-        foreach (DataRow drow in
-            _dtVotes.Rows.Cast<DataRow>().Where(drow => Convert.ToInt32(drow["PollID"]) == Convert.ToInt32(pollId)))
-        {
-            choiceId = drow["ChoiceID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(drow["ChoiceID"]);
-            return false;
+      
+        int pchcntr = 0;
+        foreach (DataRow drch in this._dtVotes.Rows)
+        { 
+            if ((int)drch["PollID"] == pollId)
+            {
+                pchcntr++;
+            }
         }
+        if (pchcntr == 0)
+        {
+            return true;
+        }
+        pollChoices = new int?[pchcntr];
+        int choicescount1 = 0;
+        pchcntr = 0;
+        foreach (DataRow drch in this._dtPoll.Rows)
+          {
+              if ((int)drch["PollID"] == pollId)
+              {
+
+                  foreach (DataRow drch1 in this._dtVotes.Rows)
+                  {
+                      if ((int)drch["ChoiceID"] == (int)drch1["ChoiceID"])
+                      {
+                          pollChoices[pchcntr] = (int) drch["ChoiceID"];
+                          pchcntr++;
+                      }
+                  }
+                  choicescount1++;
+              }
+          }
+
+          if (pchcntr > 0)
+          {
+              if (allowManyChoices)
+              {
+                  if (pchcntr < choicescount1)
+                  {
+                      return true;
+                  }
+              }
+                  return false;
+             
+          }
     
         return true;
     }
@@ -653,8 +740,8 @@ namespace YAF.controls
 
        
         int pollId = drowv.Row["PollID"].ToType<int>();
-        int choicePId = 0;
-        bool isNotVoted = this.IsNotVoted(pollId, out choicePId);
+        int?[] choicePId = null;
+        bool isNotVoted = this.IsNotVoted(pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId);
         bool cvote = HasVoteAccess(pollId) ? isNotVoted : false;
         pollChoiceList.ChoiceId = choicePId;
 
@@ -718,7 +805,7 @@ namespace YAF.controls
             foreach (DataRow dr in this._dtPollGroup.Rows)
             {
                 bool isclosedbound =  (!dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow : false);
-                if (!this.IsNotVoted(dr["PollID"], out choicePId) || isclosedbound)
+                if (!this.IsNotVoted((int)dr["PollID"], dr["AllowMultipleChoices"].ToType<bool>(), out choicePId) || isclosedbound)
                 {
                     cnt++;
                 }
@@ -1281,7 +1368,7 @@ namespace YAF.controls
         {
             ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
                 "return confirm('{0}');".FormatWith(
-                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DELETE"));
+                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
 
             ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
                 "return confirm('{0}');".FormatWith(
@@ -1289,7 +1376,7 @@ namespace YAF.controls
 
             ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
                 "return confirm('{0}');".FormatWith(
-                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_EVR"));
+                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
         }
 
     }
@@ -1341,6 +1428,28 @@ namespace YAF.controls
          questionAnchor.HRef = string.Empty;
      }
  }
+  /// <summary>
+  /// Compares 2 arrays and returns true if all options are voted 
+  /// </summary>
+  /// <param name="choiceIds"></param>
+  /// <param name="pollChoices"></param>
+  /// <returns></returns>
+   private bool  VotedAllOptions(int[] choiceIds, int[] pollChoices)
+   {
+       int count = 0;
+       foreach (var choice in pollChoices)
+       {
+           foreach(var pollChoice in choiceIds)
+           {
+               if (pollChoice == choice)
+              {
+                   count++;
+                   break;
+               }
+           }
+       }
+       return pollChoices.GetLength(0) == count;
+   }
 
 
     #endregion

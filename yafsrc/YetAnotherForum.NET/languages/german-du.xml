@@ -1137,10 +1137,15 @@
     <Resource tag="ASK_POLL_DELETE">Wollen Sie diese Umfrage wirklich löschen?</Resource>
     <Resource tag="ASK_POLL_DELETE_ALL">Wollen Sie diese Umfrage entgülitg löschen?</Resource>
     <Resource tag="ASK_POLLGROUP_DELETE">Wollen Sie diese Umfragegruppe wirklich löschen?</Resource>
+    <Resource tag="ASK_POLLGROUP_DETACH">Do you really want to detach the poll group?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_ALL">Wollen Sie wirklich die Umfragegruppe Komplett Löschen?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_EVR">Wollen Sie wirklich die Umfragegruppe überall Löschen?</Resource>
+    <Resource tag="ASK_POLLROUP_DETACH_EVR">Do you really want to detach the poll group from every place?</Resource>
     <Resource tag="CHOICE">Wahl {0}:</Resource>
     <Resource tag="CREATEPOLL">Umfrage Erstellen</Resource>
+    <Resource tag="DETACHGROUP_EVERYWHERE">Detach Group Everywhere</Resource>
+    <Resource tag="DETACHPOLL">Detach Poll</Resource>
+    <Resource tag="DETACHPOLLGROUP">Detach Group</Resource>
     <Resource tag="EDITPOLL">Umfrage bearbeiten</Resource>
     <Resource tag="EXPIRE_BAD">Falsche Ablaufdatum</Resource>
     <Resource tag="NEED_CHOICES">Eine Umfrage muss mindestens zwei Möglichkeiten haben.</Resource>
@@ -1150,6 +1155,8 @@
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Tage[/b] [ Freilassen damit Umfrage nie abläuft ]</Resource>
     <Resource tag="POLL_EXPIRED">Die Umfrage ist abgelaufen.</Resource>
     <Resource tag="POLL_IMGWIDTH">Bildbreite in px:</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
+    <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
     <Resource tag="POLL_NOPERM_GUEST">Gäste können nicht wählen, Sie müssen Sich registrieren.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Hier klicken zur Abstimmung</Resource>
     <Resource tag="POLL_VOTED">Sie haben bereits abgestimmt.</Resource>

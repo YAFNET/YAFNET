@@ -538,14 +538,14 @@ namespace YAF.Pages
           // update choice
           if (objectPath.IsSet())
           {
-            parametrs = this.GetImageParameters(new Uri(objectPath));
-            if (parametrs == null)
-            {
-              YafContext.Current.AddLoadMessage(
-                YafContext.Current.Localization.GetTextFormatted(
-                  "POLLIMAGE_INVALID", ri.FindControlRecursiveAs<TextBox>("ObjectPath").Text));
-              return false;
-            }
+              parametrs = this.GetImageParameters(new Uri(objectPath));
+              if (parametrs == null)
+              {
+                  YafContext.Current.AddLoadMessage(
+                    YafContext.Current.Localization.GetTextFormatted(
+                      "POLLIMAGE_INVALID", ri.FindControlRecursiveAs<TextBox>("ObjectPath").Text));
+                  return false;
+              }
           }
 
           if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
@@ -566,27 +566,26 @@ namespace YAF.Pages
 
         return true;
       }
-      else if (this.PollID == null)
+      else 
       {
         // User wishes to create a poll  
         // The value was selected, we attach an existing poll
         if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) > 0)
         {
-          int result = DB.pollgroup_attach(
-            Convert.ToInt32(this.PollGroupListDropDown.SelectedValue), 
-            this.topicId, 
-            this.forumId, 
-            this.categoryId, 
-            this.boardId);
-          if (result == 1)
-          {
-            this.PageContext.LoadMessage.Add(this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
-          }
+            int result = DB.pollgroup_attach(
+                Convert.ToInt32(this.PollGroupListDropDown.SelectedValue),
+                this.topicId,
+                this.forumId,
+                this.categoryId,
+                this.boardId);
+            if (result == 1)
+            {
+                this.PageContext.LoadMessage.Add(this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
+            }
 
-          return true;
+            return true;
         }
-        else
-        {
+
           // vzrus: always one in the current code - a number of  polls for a topic
           int questionsTotal = 1;
 
@@ -632,7 +631,6 @@ namespace YAF.Pages
           DB.poll_save(pollList);
           return true;
         }
-      }
 
       return false; // A poll was not created for this topic.
     }
