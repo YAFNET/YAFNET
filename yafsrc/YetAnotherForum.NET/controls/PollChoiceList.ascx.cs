@@ -41,16 +41,24 @@ namespace YAF.controls
   /// </summary>
   public partial class PollChoiceList : BaseUserControl
   {
+    #region Events
+
+    /// <summary>
+    /// The event bubbles info to parent control to rebind repeater. 
+    /// </summary>
+    public event EventHandler ChoiceVoted; 
+
+    #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets or sets IsLocked
+    /// Gets or sets a value indicating whether parent topic IsLocked
     /// </summary>
     public bool IsLocked { get; set; }
 
     /// <summary>
-    /// Gets or sets IsLocked
+    /// Gets or sets a value indicating whether parent topic IsClosed
     /// </summary>
     public bool IsClosed { get; set; }
 
@@ -60,44 +68,39 @@ namespace YAF.controls
     public decimal MaxImageAspect { get; set; }
 
     /// <summary>
-    /// Gets or sets Can Vote
+    /// Gets or sets a value indicating whether user can vote
     /// </summary>
     public bool CanVote { get; set; }
 
     /// <summary>
-    ///   The HideResults.
+    /// Gets or sets a value indicating whether to hide results.
     /// </summary>
     public bool HideResults { get; set; }
 
     /// <summary>
-    ///   The DataSource.
+    /// Gets or sets the data source.
     /// </summary>
     public DataTable DataSource { get; set; }
 
     /// <summary>
-    ///   The PollId.
+    /// Gets or sets the PollId for the choices.
     /// </summary>
     public int PollId { get; set; }
 
     /// <summary>
-    ///   The ChoiceId.
+    /// Gets or sets the Choice Id array.
     /// </summary>
     public int?[] ChoiceId { get; set; }
 
     /// <summary>
-    ///   The DaysToRun.
+    /// Gets or sets number of  days to run.
     /// </summary>
     public int? DaysToRun { get; set; }
 
     /// <summary>
-    ///   The Votes.
+    ///  Gets or sets number of votes.
     /// </summary>
     public int Votes { get; set; }
-
-    /// <summary>
-    /// The event bubbles info to parent control to rebind repeater. 
-    /// </summary>
-    public event EventHandler ChoiceVoted;
 
     #endregion
 
@@ -107,13 +110,13 @@ namespace YAF.controls
     /// Get Theme Contents
     /// </summary>
     /// <param name="page">
-    /// The Page
+    /// The Localization Page.
     /// </param>
     /// <param name="tag">
-    /// Tag
+    /// The Localisation Page Tag.
     /// </param>
     /// <returns>
-    /// Content
+    /// Returns Theme Content.
     /// </returns>
     protected string GetThemeContents(string page, string tag)
     {
@@ -131,7 +134,7 @@ namespace YAF.controls
     /// The mime type.
     /// </param>
     /// <returns>
-    /// The get image height.
+    /// Returnes image height.
     /// </returns>
     protected int GetImageHeight(object mimeType)
     {
@@ -143,7 +146,7 @@ namespace YAF.controls
     /// The get poll question.
     /// </summary>
     /// <returns>
-    /// The get poll question.
+    /// Returns poll question string.
     /// </returns>
     protected string GetPollQuestion()
     {
@@ -157,45 +160,41 @@ namespace YAF.controls
     /// The poll Id.
     /// </param>
     /// <returns>
-    /// The get total.
+    /// Returns total string.
     /// </returns>
     protected string GetTotal(object pollId)
     {
-
         return this.DataSource.Rows[0]["Total"].ToString();
-
-        return string.Empty;
     }
 
     /// <summary>
-    /// Page_Load
+    /// The Page_Load event.
     /// </summary>
     /// <param name="sender">
+    /// The event sender.
     /// </param>
     /// <param name="e">
+    /// The EventArgs e.
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-
         PageContext.LoadMessage.Clear();
-        BindData();
-       
+        this.BindData();
     }
 
     /// <summary>
     /// The poll_ item command.
     /// </summary>
     /// <param name="source">
-    /// The source.
+    /// The object source.
     /// </param>
     /// <param name="e">
-    /// The e.
+    /// The RepeaterCommandEventArgs e.
     /// </param>
     protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "vote")
       {
-       
           if (!this.CanVote)
         {
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
@@ -208,7 +207,7 @@ namespace YAF.controls
           return;
         }
 
-        if (IsClosed)
+        if (this.IsClosed)
         {
             this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
             return;
@@ -231,14 +230,16 @@ namespace YAF.controls
 
         // save the voting cookie...
         String cookieCurrent = String.Empty;
-
-        if (this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(PollId))] != null)
+       
+        // We check whether is a vote for an option  
+        if (this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))] != null)
         {
-            cookieCurrent = "{0},".FormatWith(this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(PollId))].Value);
-            this.Request.Cookies.Remove(this.VotingCookieName(Convert.ToInt32(PollId)));
+            // Add the voted option to cookie value string
+            cookieCurrent = "{0},".FormatWith(this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))].Value);
+            this.Request.Cookies.Remove(this.VotingCookieName(Convert.ToInt32(this.PollId)));
         }
 
-        var c = new HttpCookie(this.VotingCookieName(PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
+        var c = new HttpCookie(this.VotingCookieName(this.PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
         {
             Expires = DateTime.UtcNow.AddYears(1) 
         };
@@ -250,24 +251,25 @@ namespace YAF.controls
       
         this.BindData();
 
-        if (ChoiceVoted != null)
-            ChoiceVoted(source, e);
+        // Initialize bubble event to update parent control.
+        if (this.ChoiceVoted != null)
+        {
+            this.ChoiceVoted(source, e);
+        }
 
         // show the notification  window to user
         this.PageContext.AddLoadMessage(msg);
-       
       }
-
     }
 
     /// <summary>
     /// The poll_ on item data bound.
     /// </summary>
     /// <param name="source">
-    /// The source.
+    /// The event source.
     /// </param>
     /// <param name="e">
-    /// The e.
+    /// The RepeaterItemEventArgs e.
     /// </param>
     protected void Poll_OnItemDataBound(object source, RepeaterItemEventArgs e)
     {
@@ -277,7 +279,6 @@ namespace YAF.controls
 
       if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
       {
-
         // Voting link 
         var myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
         string pollId = drowv.Row["PollID"].ToString();
@@ -312,16 +313,15 @@ namespace YAF.controls
           choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
 
           choiceImage.Src = choiceImage.Alt = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
-         
 
           if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
           {
             decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
 
             // hardcoded - bad
-            const int imageWidth = 80;
+            const int ImageWidth = 80;
             choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
-              imageWidth, choiceImage.Width / aspect);
+              ImageWidth, choiceImage.Width / aspect);
 
             // reserved to get equal row heights
             string height = (this.MaxImageAspect * choiceImage.Width).ToString();
@@ -339,19 +339,16 @@ namespace YAF.controls
         item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
         item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = !this.HideResults;
       }
-
-
     }
-
 
     /// <summary>
     /// The remove poll_ completely load.
     /// </summary>
     /// <param name="sender">
-    /// The sender.
+    /// The object sender.
     /// </param>
     /// <param name="e">
-    /// The e.
+    /// The EventArgs e.
     /// </param>
     protected void RemovePollCompletely_Load(object sender, EventArgs e)
     {
@@ -363,10 +360,10 @@ namespace YAF.controls
     /// The remove poll_ load.
     /// </summary>
     /// <param name="sender">
-    /// The sender.
+    /// The object sender.
     /// </param>
     /// <param name="e">
-    /// The e.
+    /// The EventArgs e.
     /// </param>
     protected void RemovePoll_Load(object sender, EventArgs e)
     {
@@ -378,10 +375,10 @@ namespace YAF.controls
     /// The vote width.
     /// </summary>
     /// <param name="o">
-    /// The o.
+    /// The object o.
     /// </param>
     /// <returns>
-    /// The vote width.
+    /// Returns the vote width.
     /// </returns>
     protected int VoteWidth(object o)
     {
@@ -389,11 +386,11 @@ namespace YAF.controls
       return (int)row.Row["Stats"] * 80 / 100;
     }
 
-
     /// <summary>
     /// Returns an image width|height ratio.
     /// </summary>
     /// <param name="mimeType">
+    /// The mime type of the image.
     /// </param>
     /// <returns>
     /// The get image aspect.
@@ -414,9 +411,9 @@ namespace YAF.controls
     /// The get poll is closed.
     /// </summary>
     /// <returns>
-    /// The get poll is closed.
+    /// Returns a 'poll is closed' warning string.
     /// </returns>
-    protected string GetPollIsClosed()
+    private string GetPollIsClosed()
     {
         string strPollClosed = string.Empty;
         if (this.IsClosed)
@@ -439,6 +436,7 @@ namespace YAF.controls
     /// Checks if a poll has no votes.
     /// </summary>
     /// <param name="pollId">
+    /// The poll id.
     /// </param>
     /// <returns>
     /// The poll has no votes.
@@ -449,7 +447,6 @@ namespace YAF.controls
         this.DataSource.Rows.Cast<DataRow>().Where(dr => dr["PollID"].ToType<int>() == pollId.ToType<int>()).All(
           dr => dr["Votes"].ToType<int>() <= 0);
     }
-    
 
     /// <summary>
     /// Gets VotingCookieName.
@@ -460,7 +457,7 @@ namespace YAF.controls
     /// <returns>
     /// The voting cookie name.
     /// </returns>
-    protected string VotingCookieName(int pollId)
+    private string VotingCookieName(int pollId)
     {
         return "poll#{0}".FormatWith(pollId);
     }

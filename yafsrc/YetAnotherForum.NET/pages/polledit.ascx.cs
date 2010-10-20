@@ -586,10 +586,7 @@ namespace YAF.Pages
             return true;
         }
 
-          // vzrus: always one in the current code - a number of  polls for a topic
-          int questionsTotal = 1;
-
-          var pollList = new List<PollSaveList>(questionsTotal);
+          var pollSaveList = new List<PollSaveList>();
 
           var rawChoices = new string[3, this.ChoiceRepeater.Items.Count];
           int j = 0;
@@ -613,7 +610,7 @@ namespace YAF.Pages
             this.datePollExpire = DateTime.UtcNow.AddDays(Convert.ToInt32(this.PollExpire.Text.Trim()));
           }
 
-          pollList.Add(
+          pollSaveList.Add(
             new PollSaveList(
               this.Question.Text, 
               rawChoices, 
@@ -628,7 +625,7 @@ namespace YAF.Pages
               this.IsBoundCheckBox.Checked, 
               this.IsClosedBoundCheckBox.Checked,
               this.AllowMultipleChoicesCheckBox.Checked));
-          DB.poll_save(pollList);
+          DB.poll_save(pollSaveList);
           return true;
         }
 
