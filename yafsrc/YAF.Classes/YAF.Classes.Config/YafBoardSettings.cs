@@ -1664,6 +1664,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets AllowMultipleChoices. 
+    /// </summary>
+    public bool AllowMultipleChoices
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowMultipleChoices", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowMultipleChoices", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets AllowGuestsViewPollOptions. 
     /// </summary>
     public bool AllowGuestsViewPollOptions

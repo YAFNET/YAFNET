@@ -505,6 +505,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Allow Multiple Choices Voting:</strong><br />
+                            If enabled users can create poll questions allowing multiple choices voting.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowMultipleChoices" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <strong>Allow Users Hide Poll Results:</strong><br />
                             If enabled a poll creator can hide results before voting end or if not all polls in a group are voted.
                         </td>

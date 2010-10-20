@@ -499,6 +499,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowPollChangesAfterFirstVote;
         
         /// <summary>
+        /// AllowMultipleChoices control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowMultipleChoices;
+        
+        /// <summary>
         /// AllowUsersHidePollResults control.
         /// </summary>
         /// <remarks>

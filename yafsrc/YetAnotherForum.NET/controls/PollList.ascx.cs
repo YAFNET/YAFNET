@@ -452,10 +452,10 @@ namespace YAF.controls
     /// <returns>
     /// The is not voted.
     /// </returns>
-    protected bool IsNotVoted(int pollId, bool allowManyChoices, out int?[] pollChoices)
+    protected bool IsNotVoted(int pollId, bool allowManyChoices, out int?[] pollChoices, out bool hasVote)
     {
       pollChoices = null;
-      
+       
       // check for voting cookie
       HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(pollId))];
       if (httpCookie != null && httpCookie.Value != null)
@@ -492,6 +492,7 @@ namespace YAF.controls
           }
           if (pchcntr1 > 0)
           {
+              hasVote = true;
               if (allowManyChoices) 
               {
                   if (pchcntr1 < choicescount)
@@ -513,6 +514,7 @@ namespace YAF.controls
       // voting is not tied to IP and they are a guest...
       if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
       {
+        hasVote = false;
         return true;
       }
 
@@ -528,6 +530,7 @@ namespace YAF.controls
         }
         if (pchcntr == 0)
         {
+            hasVote = false;
             return true;
         }
         pollChoices = new int?[pchcntr];
@@ -552,6 +555,7 @@ namespace YAF.controls
 
           if (pchcntr > 0)
           {
+              hasVote = true;
               if (allowManyChoices)
               {
                   if (pchcntr < choicescount1)
@@ -562,7 +566,7 @@ namespace YAF.controls
                   return false;
              
           }
-    
+        hasVote = false;
         return true;
     }
 
@@ -741,7 +745,8 @@ namespace YAF.controls
        
         int pollId = drowv.Row["PollID"].ToType<int>();
         int?[] choicePId = null;
-        bool isNotVoted = this.IsNotVoted(pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId);
+        bool hasVote = false;
+        bool isNotVoted = this.IsNotVoted(pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVote);
         bool cvote = HasVoteAccess(pollId) ? isNotVoted : false;
         pollChoiceList.ChoiceId = choicePId;
 
@@ -752,6 +757,7 @@ namespace YAF.controls
                            : true;
 
         bool isClosedBound = false;
+        bool allowsMultipleChoices = false;  
 
         // This is not a guest w/o poll option view permissions, we bind the control.
         if (pollChoiceList.Visible)
@@ -782,6 +788,7 @@ namespace YAF.controls
             thisPollTable.AcceptChanges();
             pollChoiceList.DataSource = thisPollTable;
             isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
+            allowsMultipleChoices = Convert.ToBoolean(thisPollTable.Rows[0]["AllowMultipleChoices"]); 
         }
          
           pollChoiceList.PollId = pollId.ToType<int>();
@@ -798,20 +805,35 @@ namespace YAF.controls
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
      
             // Poll voting is bounded - you can't see results before voting in each poll
-        if (this.isBound)
+        bool warningMultiplePolls = false;
+        int hasVoteEmptyCounter = 0;
+        int cnt = 0;
+
+        // compare a number of voted polls with number of polls
+        foreach (DataRow dr in this._dtPollGroup.Rows)
         {
-            int cnt = 0;
-            // compare a number of voted polls with number of polls
-            foreach (DataRow dr in this._dtPollGroup.Rows)
+            bool hasVoteEmpty = false;
+
+            bool voted = !this.IsNotVoted((int)dr["PollID"], dr["AllowMultipleChoices"].ToType<bool>(), out choicePId,
+                            out hasVoteEmpty);
+            if (hasVoteEmpty)
             {
-                bool isclosedbound =  (!dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow : false);
-                if (!this.IsNotVoted((int)dr["PollID"], dr["AllowMultipleChoices"].ToType<bool>(), out choicePId) || isclosedbound)
-                {
-                    cnt++;
-                }
+                hasVoteEmptyCounter++;
             }
 
-           if (cnt  >= this.PollNumber)
+            bool isclosedbound = (!dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow : false);
+
+            if (voted || isclosedbound)
+            {
+                cnt++;
+            }
+        }
+
+        warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroup.Rows.Count && hasVoteEmptyCounter > 0;
+          if (this.isBound)
+        {
+            // If user is voted in all polls or the poll allows multiple votes and he's voted for 1 choice
+            if ((cnt >= this.PollNumber) || warningMultiplePolls)
             {
                 if (isClosedBound)
                 {
@@ -857,19 +879,22 @@ namespace YAF.controls
         // *************************
         string notificationString = string.Empty;
         // Here warning labels are treated
- 
-       
-       
+
+
         if (cvote)
         {
-          if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
+          if (this.isBound && this.PollNumber > 1 && hasVoteEmptyCounter < this._dtPollGroup.Rows.Count)
           {
               notificationString += this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
           }
-          
         }
 
-        if (this.PageContext.IsGuest)
+        if (cvote && hasVoteEmptyCounter > 0 && allowsMultipleChoices)
+        {
+            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
+        }
+
+          if (this.PageContext.IsGuest)
         {
             if (!cvote)
             {
@@ -1428,30 +1453,6 @@ namespace YAF.controls
          questionAnchor.HRef = string.Empty;
      }
  }
-  /// <summary>
-  /// Compares 2 arrays and returns true if all options are voted 
-  /// </summary>
-  /// <param name="choiceIds"></param>
-  /// <param name="pollChoices"></param>
-  /// <returns></returns>
-   private bool  VotedAllOptions(int[] choiceIds, int[] pollChoices)
-   {
-       int count = 0;
-       foreach (var choice in pollChoices)
-       {
-           foreach(var pollChoice in choiceIds)
-           {
-               if (pollChoice == choice)
-              {
-                   count++;
-                   break;
-               }
-           }
-       }
-       return pollChoices.GetLength(0) == count;
-   }
-
-
     #endregion
   }
 }

@@ -776,6 +776,7 @@ namespace YAF.Pages
       this.ChangePollShowStatus(true);
       this.IsBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
       this.IsClosedBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
+      this.tr_AllowMultipleChoices.Visible = PageContext.BoardSettings.AllowMultipleChoices || PageContext.IsAdmin || PageContext.IsForumModerator;  
     }
 
     /// <summary>
