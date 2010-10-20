@@ -1,13 +1,14 @@
 @import "jquery/jquery-ui.css";
 
 .yafnet {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 8pt;
+	font-size:100%;
+	font-family:georgia, 'time new romans', serif;
 	color: #000;
 }
 .yafnet td {
-	font-family: sans-serif, Helvetica, Arial;
-	font-size: 8pt;
+	font-size:16px;
+	font-family:georgia, 'time new romans', serif;
+	font-size: 100%;
 	color: #000;
 }
 .yafnet input,
@@ -367,6 +368,7 @@ border-bottom-left-radius:0.3em;}
 	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
+	border-left: 4px solid green;
 	
     font-family: "Tahoma", "Calibri", "Verdana", "Geneva", sans-serif;
   
@@ -376,7 +378,7 @@ border-bottom-left-radius:0.3em;}
     line-height: normal;
     position: relative;
 	background: #eee;
-	width:50%;
+	width:90%;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);

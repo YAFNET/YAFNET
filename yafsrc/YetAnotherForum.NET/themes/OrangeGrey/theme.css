@@ -1,13 +1,14 @@
 @import "jquery/jquery-ui.css";
 
 .yafnet {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 8pt;
+	font-size:100%;
+	font-family:georgia, 'time new romans', serif;
 	color: #000;
 }
 .yafnet td {
-	font-family: sans-serif, Helvetica, Arial;
-	font-size: 8pt;
+	font-size:16px;
+	font-family:georgia, 'time new romans', serif;
+	font-size: 100%;
 	color: #000;
 }
 .yafnet input,
