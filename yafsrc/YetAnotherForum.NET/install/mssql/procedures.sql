@@ -4078,8 +4078,7 @@ BEGIN
 		a.Choice,
 		a.Votes,
 		pg.IsBound, 
-		b.IsClosedBound, 
-		b.IsExpired,
+		b.IsClosedBound, 	
 		b.AllowMultipleChoices,
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
@@ -4111,8 +4110,7 @@ BEGIN
 		QuestionObjectPath = b.[ObjectPath],
 		QuestionMimeType = b.[MimeType],
 		pg.IsBound,
-		b.IsClosedBound, 
-		b.IsExpired,
+		b.IsClosedBound,		
 		b.AllowMultipleChoices,
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
