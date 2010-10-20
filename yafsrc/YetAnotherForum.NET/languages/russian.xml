@@ -1171,7 +1171,7 @@
     <Resource tag="POLLIMAGE_INVALID">Изображение или его путь недействительны для {0}.</Resource>
     <Resource tag="POLLIMAGE_TEXT">Адрес изображения:</Resource>
     <Resource tag="POLLOPTIONSHIDDEN_GUEST">Гости не могут видеть варианты опросов и его результаты. Попробуйте зарегистрироваться.</Resource>
-    <Resource tag="POLLQUESTION">Вопрос для опроса:</Resource>
+    <Resource tag="POLLQUESTION">Вопрос:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">Вы не можете видеть результаты опроса до голосования.</Resource>
     <Resource tag="POLLRESULTSHIDDEN_GUEST">Гости не могут видеть результаты опроса до голосования. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="POLLRESULTSHIDDEN_SHORT">Результаты скрыты</Resource>
@@ -1268,7 +1268,7 @@
     <Resource tag="POSTS">Сообщений</Resource>
     <Resource tag="PREVTOPIC">Предыдущая тема</Resource>
     <Resource tag="PRINTTOPIC">Распечатать тему</Resource>
-    <Resource tag="QUESTION">Вопрос для опроса</Resource>
+    <Resource tag="QUESTION">Вопрос</Resource>
     <Resource tag="QUICKREPLY">Быстрый ответ</Resource>
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>

@@ -47,6 +47,7 @@
 		<Resource tag="LCAP">~/vote_lcap.gif</Resource>
 		<Resource tag="RCAP">~/vote_rcap.gif</Resource>
 		<Resource tag="BAR">~/voting_bar.gif</Resource>
+    <Resource tag="POLL_VOTED">~/handpointer1.png</Resource>
 	</page>
 	<page name="PAGE_OVERRIDE">
 		<Resource tag="TOPICS">~/MobilePages/topics.ascx</Resource>

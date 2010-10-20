@@ -59,5 +59,6 @@
   <Resource tag="POLL_QUESTION">~/poll_question.png</Resource>
   <Resource tag="POLL_CHOICE">~/poll_choice.png</Resource>
   <Resource tag="POLL_MASK">~/mask.gif</Resource>
+  <Resource tag="POLL_VOTED">~/handpointer1.png</Resource>
   </page>
 </Resources>
