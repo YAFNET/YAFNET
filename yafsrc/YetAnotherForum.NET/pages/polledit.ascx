@@ -18,14 +18,14 @@
 			<asp:TextBox ID="Question" runat="server" CssClass="edit" MaxLength="255" Width="400" />            
 		</td>
 </tr>
-<tr id="PollObjectRow1" runat="server" visible="<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>" >
+<tr id="PollObjectRow1" runat="server" visible="<%# (PageContext.IsAdmin || PageContext.BoardSettings.AllowUsersImagedPoll) && PageContext.ForumPollAccess %>" >
 		<td class="header2" width="20%">
 			<em>				
-               <YAF:LocalizedLabel ID="PollQuestionObjectLabel" visible="<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>" runat="server" LocalizedTag="POLLIMAGE_TEXT" />
+               <YAF:LocalizedLabel ID="PollQuestionObjectLabel" runat="server" LocalizedTag="POLLIMAGE_TEXT" />
 			</em>
 		</td>
 		<td class="post" width="80%">			
-         <asp:TextBox ID="QuestionObjectPath" runat="server"  visible="<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>" CssClass="edit" MaxLength="255" Width="400" />
+         <asp:TextBox ID="QuestionObjectPath" runat="server" CssClass="edit" MaxLength="255" Width="400" />
 		</td>
 </tr>
     <asp:Repeater ID="ChoiceRepeater" runat="server" Visible="false" >
@@ -50,7 +50,7 @@
                           </em>
                      </td>
                      <td class="post" width="80%">
-                     <asp:TextBox ID="ObjectPath" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' Text='<%# DataBinder.Eval(Container.DataItem, "ObjectPath") %>' CssClass="edit" MaxLength="255" Width="400" />
+                     <asp:TextBox ID="ObjectPath" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ObjectPath") %>' CssClass="edit" MaxLength="255" Width="400" />
                      </td>
                   </tr>
 </ItemTemplate>
