@@ -509,7 +509,7 @@ namespace YAF.Classes.Utils
       input.ForEachChar(
         c =>
           {
-            if (!Char.IsWhiteSpace(c) && !Char.IsLetterOrDigit(c))
+            if (!Char.IsWhiteSpace(c) && !Char.IsLetterOrDigit(c) && c != '_')
             {
               sb.Append("\\");
             }

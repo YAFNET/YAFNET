@@ -157,8 +157,10 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <param name="isIgnoredForDisplay">
     /// </param>
-    public static void Platform([NotNull] string userAgent, bool isCrawler, [NotNull] ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
+    public static void Platform([CanBeNull] string userAgent, bool isCrawler, [NotNull] ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
     {
+      CodeContracts.ArgumentNotNull(platform, "platform");
+
       isSearchEngine = false;
       isIgnoredForDisplay = false;
 
@@ -166,8 +168,11 @@ namespace YAF.Classes.Utils
       {
         platform = "[Empty]";
         isIgnoredForDisplay = true;
+
+        return;
       }
-      else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+
+      if (userAgent.IndexOf("Windows NT 6.1") >= 0)
       {
         platform = "Win7";
       }
