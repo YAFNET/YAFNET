@@ -770,6 +770,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets PollImageMaxFileSize.
+    /// </summary>
+    public int PollImageMaxFileSize
+    {
+        get
+        {
+            return this._reg.GetValue<int>("PollImageMaxFileSize", 100);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("PollImageMaxFileSize", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets CaptchaTypeRegister.
     /// </summary>
     public int CaptchaTypeRegister
@@ -1692,6 +1708,22 @@ namespace YAF.Classes
         set
         {
             this._reg.SetValue<bool>("AllowGuestsViewPollOptions", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets AllowUsersImagedPoll. 
+    /// </summary>
+    public bool AllowUsersImagedPoll
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowUsersImagedPoll", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowUsersImagedPoll", value);
         }
     }
 

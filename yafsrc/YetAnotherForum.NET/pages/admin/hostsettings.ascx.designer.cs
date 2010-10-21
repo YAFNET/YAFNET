@@ -526,6 +526,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowGuestsViewPollOptions;
         
         /// <summary>
+        /// AllowUsersImagedPoll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowUsersImagedPoll;
+        
+        /// <summary>
+        /// PollImageMaxFileSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PollImageMaxFileSize;
+        
+        /// <summary>
         /// AllowPrivateMessages control.
         /// </summary>
         /// <remarks>

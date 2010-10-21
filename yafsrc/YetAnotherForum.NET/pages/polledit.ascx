@@ -43,7 +43,7 @@
                              <asp:TextBox ID="PollChoice" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>' CssClass="edit" MaxLength="50" Width="400" />
                         </td>
                    </tr>
-                   <tr id="ChoiceRow1" visible="<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>" runat="server" >
+                   <tr id="ChoiceRow1" visible="<%# (PageContext.IsAdmin || PageContext.BoardSettings.AllowUsersImagedPoll) && PageContext.ForumPollAccess %>" runat="server" >
                      <td class="header2" width="20%">
                           <em>
                           <YAF:LocalizedLabel ID="PollChoiceObjectLabel" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' LocalizedTag="POLLIMAGE_TEXT" />

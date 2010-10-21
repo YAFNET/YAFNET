@@ -281,7 +281,6 @@ namespace YAF.controls
       {
         // Voting link 
         var myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
-        string pollId = drowv.Row["PollID"].ToString();
 
         var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
         if (this.ChoiceId != null)
@@ -319,9 +318,9 @@ namespace YAF.controls
             decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
 
             // hardcoded - bad
-            const int ImageWidth = 80;
+            const int imageWidth = 80;
             choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
-              ImageWidth, choiceImage.Width / aspect);
+              imageWidth, choiceImage.Width / aspect);
 
             // reserved to get equal row heights
             string height = (this.MaxImageAspect * choiceImage.Width).ToString();

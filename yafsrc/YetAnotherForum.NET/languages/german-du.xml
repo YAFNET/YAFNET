@@ -1172,6 +1172,7 @@
     <Resource tag="POLLHEADER">Erstellen oder Umfrage bearbeiten</Resource>
     <Resource tag="POLLIMAGE_INVALID">Das Bild oder der Pfad ist für (0) ist ungültig.</Resource>
     <Resource tag="POLLIMAGE_TEXT">Imagepfad:</Resource>
+    <Resource tag="POLLIMAGE_TOOBIG">Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. </Resource>
     <Resource tag="POLLOPTIONSHIDDEN_GUEST">Gäste können keine Umfrage Ergbnisse und Wahlmöglichkeiten Sehen. Versuchen Sie sich zu registrieren.</Resource>
     <Resource tag="POLLQUESTION">Umfrage Frage:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">Sie könnnen die Ergebnisse erst Sehen nachdem Sie abgestimmt haben.</Resource>

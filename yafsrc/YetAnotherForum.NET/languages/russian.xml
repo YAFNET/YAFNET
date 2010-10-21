@@ -1170,6 +1170,7 @@
     <Resource tag="POLLHEADER">Создание и редактирование опроса</Resource>
     <Resource tag="POLLIMAGE_INVALID">Изображение или его путь недействительны для {0}.</Resource>
     <Resource tag="POLLIMAGE_TEXT">Адрес изображения:</Resource>
+    <Resource tag="POLLIMAGE_TOOBIG">Размера файла вашего изображения {0} KB, он не должен быть больше чем {1} KB. Адрес изображения: {2}. </Resource>
     <Resource tag="POLLOPTIONSHIDDEN_GUEST">Гости не могут видеть варианты опросов и его результаты. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="POLLQUESTION">Вопрос:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">Вы не можете видеть результаты опроса до голосования.</Resource>

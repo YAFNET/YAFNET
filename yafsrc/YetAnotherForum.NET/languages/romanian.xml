@@ -1174,6 +1174,7 @@
     <Resource tag="POLLHEADER">Create Or Edit Poll</Resource>
     <Resource tag="POLLIMAGE_INVALID">The image or its path is invalid for {0}.</Resource>
     <Resource tag="POLLIMAGE_TEXT">Image path:</Resource>
+    <Resource tag="POLLIMAGE_TOOBIG">Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. </Resource>
     <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try and register.</Resource>
     <Resource tag="POLLQUESTION">Poll Question:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">You can't see poll results before voting.</Resource>

@@ -173,10 +173,10 @@ namespace YAF.Pages
     /// </param>
     /// <returns>
     /// </returns>
-    public Stream GetRemoteData(Uri url)
+    public Stream GetRemoteData(Uri url, out long length)
     {
       string path = url.ToString();
-
+      length = 0;
       try
       {
         if (path.StartsWith("~/"))
@@ -187,7 +187,7 @@ namespace YAF.Pages
         WebRequest request = WebRequest.Create(new Uri(path));
 
         WebResponse response = request.GetResponse();
-
+        length =  response.ContentLength;
         return response.GetResponseStream();
       }
       catch
@@ -240,28 +240,32 @@ namespace YAF.Pages
     /// From a path, return a byte[] of the image.
     /// </summary>
     /// <param name="uriPath">
+    /// External image path.
+    /// </param>
+    /// <param name="length">
+    /// The image size in bytes.
     /// </param>
     /// <returns>
     /// The get image parameters.
     /// </returns>
-    protected string GetImageParameters(Uri uriPath)
+    protected string GetImageParameters(Uri uriPath, out long length)
     {
       string pseudoMime = string.Empty;
-      using (Stream stream = this.GetRemoteData(uriPath))
+      using (Stream stream = this.GetRemoteData(uriPath, out length))
       {
-        var data = new byte[0];
         Bitmap img = null;
         try
         {
-          pseudoMime += "image/png!";
           img = new Bitmap(stream);
+         
+          pseudoMime += "image/png!";
           pseudoMime += img.Width;
           pseudoMime += ';';
           pseudoMime += img.Height;
         }
         catch
         {
-          return null;
+            return String.Empty;
         }
         finally
         {
@@ -270,10 +274,10 @@ namespace YAF.Pages
             img.Dispose();
           }
         }
-
         stream.Close();
-        return pseudoMime;
       }
+
+        return pseudoMime;
     }
 
     /// <summary>
@@ -499,25 +503,37 @@ namespace YAF.Pages
       {
         this.datePollExpire = DateTime.UtcNow.AddDays(this.daysPollExpire);
       }
-
-      string questionPath = this.QuestionObjectPath.Text.Trim();
-      string questionMime = string.Empty;
-
-      if (questionPath.IsSet())
-      {
-        questionMime = this.GetImageParameters(new Uri(questionPath));
-        if (questionMime == null)
-        {
-          YafContext.Current.AddLoadMessage(
-            YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()));
-          return false;
-        }
-      }
-
       // we are just using existing poll
       if (this.PollID != null)
       {
-        DB.poll_update(
+         string questionPath = this.QuestionObjectPath.Text.Trim();
+         string questionMime = string.Empty;
+
+         if (questionPath.IsSet())
+         {
+             long length = 0;
+             questionMime = this.GetImageParameters(new Uri(questionPath), out length);
+             if (questionMime.IsNotSet())
+             {
+                 YafContext.Current.AddLoadMessage(
+                     YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                                                                      questionPath));
+                 return false;
+             }
+
+             if (length > PageContext.BoardSettings.PollImageMaxFileSize * 1024)
+             {
+                 YafContext.Current.AddLoadMessage(
+                       YafContext.Current.Localization.GetTextFormatted(
+                           "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize * 1024, questionPath));
+                 return false;
+             }
+
+             
+         }
+
+
+          DB.poll_update(
           this.PollID, 
           this.Question.Text, 
           this.datePollExpire, 
@@ -531,31 +547,41 @@ namespace YAF.Pages
         {
           string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
           string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
+
           string objectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
 
-          string parametrs = string.Empty;
-
+          string choiceImageMime = string.Empty;
           // update choice
           if (objectPath.IsSet())
           {
-              parametrs = this.GetImageParameters(new Uri(objectPath));
-              if (parametrs == null)
+              long length = 0;
+              choiceImageMime = this.GetImageParameters(new Uri(objectPath), out length);
+              if (choiceImageMime.IsNotSet())
               {
                   YafContext.Current.AddLoadMessage(
-                    YafContext.Current.Localization.GetTextFormatted(
-                      "POLLIMAGE_INVALID", ri.FindControlRecursiveAs<TextBox>("ObjectPath").Text));
+                      YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                                                                       objectPath.Trim()));
+                  return false;
+              }
+
+              if (length > PageContext.BoardSettings.PollImageMaxFileSize * 1024)
+              {
+                  YafContext.Current.AddLoadMessage(
+                      YafContext.Current.Localization.GetTextFormatted(
+                          "POLLIMAGE_TOOBIG", length/1024, PageContext.BoardSettings.PollImageMaxFileSize, objectPath));
                   return false;
               }
           }
 
+
           if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
             // add choice
-            DB.choice_add(this.PollID, choice, objectPath, parametrs);
+              DB.choice_add(this.PollID, choice, objectPath, choiceImageMime);
           }
           else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
-            DB.choice_update(chid, choice, objectPath, parametrs);
+              DB.choice_update(chid, choice, objectPath, choiceImageMime);
           }
           else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
           {
@@ -584,6 +610,29 @@ namespace YAF.Pages
             }
 
             return true;
+        }
+
+        string questionPath = this.QuestionObjectPath.Text.Trim();
+        string questionMime = string.Empty;
+
+        if (questionPath.IsSet())
+        {
+            long length = 0;
+            questionMime = this.GetImageParameters(new Uri(questionPath), out length);
+            if (questionMime.IsNotSet())
+            {
+                YafContext.Current.AddLoadMessage(
+                    YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                                                                     this.QuestionObjectPath.Text.Trim()));
+                return false;
+            }
+
+            if (length > PageContext.BoardSettings.PollImageMaxFileSize*1024)
+            {
+                YafContext.Current.AddLoadMessage(
+                    YafContext.Current.Localization.GetTextFormatted(
+                "POLLIMAGE_TOOBIG", length/1024, PageContext.BoardSettings.PollImageMaxFileSize, questionPath));
+            }
         }
 
           var pollSaveList = new List<PollSaveList>();
@@ -884,9 +933,6 @@ namespace YAF.Pages
     /// </param>
     private void ParamsToSend(out string retliterals, out int? retvalue)
     {
-      string ars = null;
-      int vl = 0;
-
       if (this.topicId > 0)
       {
         retliterals = "t";

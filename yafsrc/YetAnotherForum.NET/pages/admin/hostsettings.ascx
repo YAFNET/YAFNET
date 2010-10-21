@@ -529,7 +529,25 @@
                         <td class="post">
                             <asp:CheckBox ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>                   
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Allow Users Poll Images:</strong><br />
+                            If enabled Users can add images as poll options.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowUsersImagedPoll" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td class="postheader">
+                            <strong>Poll Image FileSize:</strong><br />
+                            Max file size for poll images in KB.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="PollImageMaxFileSize" MaxLength="4" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>                  
                     <tr>
                         <td class="header1" colspan="2">
                             Private Messages
@@ -1431,7 +1449,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Thanks From template:</strong><br>
+                            <strong>Thanks From template:</strong><br />
                             Template for rendering user's thanks from.
                         </td>
                         <td class="post">
@@ -1440,7 +1458,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Thanks To template:</strong><br>
+                            <strong>Thanks To template:</strong><br />
                             Template for rendering user's thanks to. aLLOW
                         </td>
                         <td class="post">
