@@ -7219,9 +7219,9 @@
             Summary description for ranks.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.nntpforums.Delete_Load(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The delete_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -7230,9 +7230,20 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.Delete_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.nntpforums.NewForum_Click(System.Object,System.EventArgs)">
             <summary>
-            The delete_ load.
+            The new forum_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.nntpforums.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -7256,31 +7267,6 @@
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.NewForum_Click(System.Object,System.EventArgs)">
-            <summary>
-            The new forum_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
         </member>
         <member name="F:YAF.Pages.Admin.nntpforums.PageLinks">
             <summary>
@@ -14616,9 +14602,9 @@
             Summary description for editgroup.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.editnntpforum.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.editnntpforum.Cancel_Click(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The cancel_ click.
             </summary>
             <param name="sender">
             The sender.
@@ -14627,14 +14613,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editnntpforum.BindData">
+        <member name="M:YAF.Pages.Admin.editnntpforum.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.editnntpforum.Cancel_Click(System.Object,System.EventArgs)">
-            <summary>
-            The cancel_ click.
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -14653,6 +14634,11 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editnntpforum.BindData">
+            <summary>
+            The bind data.
+            </summary>
         </member>
         <member name="F:YAF.Pages.Admin.editnntpforum.PageLinks">
             <summary>
