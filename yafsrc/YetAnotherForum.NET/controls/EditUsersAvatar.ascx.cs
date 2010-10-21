@@ -76,7 +76,7 @@ namespace YAF.Controls
 
       if (this._adminEditMode && PageContext.IsAdmin && PageContext.QueryIDs.ContainsKey("u"))
       {
-        this._currentUserID = (int) PageContext.QueryIDs["u"];
+        this._currentUserID = (int)PageContext.QueryIDs["u"];
       }
       else
       {
@@ -113,11 +113,8 @@ namespace YAF.Controls
 
         this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
         this.OurAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
-
-        this.noteRemote.Text = PageContext.Localization.GetTextFormatted("NOTE_REMOTE", PageContext.BoardSettings.AvatarWidth, PageContext.BoardSettings.AvatarHeight);
-        this.noteLocal.Text = PageContext.Localization.GetTextFormatted("NOTE_LOCAL", PageContext.BoardSettings.AvatarWidth, PageContext.BoardSettings.AvatarHeight, PageContext.BoardSettings.AvatarSize / 1024);
-
-          
+        this.noteRemote.Text = PageContext.Localization.GetTextFormatted("NOTE_REMOTE", PageContext.BoardSettings.AvatarWidth.ToString(), PageContext.BoardSettings.AvatarHeight.ToString());
+        this.noteLocal.Text = PageContext.Localization.GetTextFormatted("NOTE_LOCAL", PageContext.BoardSettings.AvatarWidth.ToString(), PageContext.BoardSettings.AvatarHeight, (PageContext.BoardSettings.AvatarSize / 1024).ToString());
       }
 
       BindData();
@@ -270,7 +267,10 @@ namespace YAF.Controls
     protected void UploadUpdate_Click(object sender, EventArgs e)
     {
         if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0 ||
-            this.File.PostedFile.ContentLength <= 0) return;
+            this.File.PostedFile.ContentLength <= 0)
+        {
+            return;
+        }
 
         long x = PageContext.BoardSettings.AvatarWidth;
         long y = PageContext.BoardSettings.AvatarHeight;
@@ -334,6 +334,5 @@ namespace YAF.Controls
 
        // this.BindData();
     }
-
   }
 }
