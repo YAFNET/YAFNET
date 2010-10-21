@@ -84,13 +84,10 @@ namespace YAF.Classes.Core.Nntp
           {
             if (nntpHostName != forumDataRow["Address"].ToString().ToLower() || nntpPort != (int)forumDataRow["Port"])
             {
-              if (nntpConnection != null)
-              {
-                nntpConnection.Disconnect();
-              }
+              nntpConnection.Disconnect();
 
               nntpHostName = forumDataRow["Address"].ToString().ToLower();
-              nntpPort = Convert.ToInt32(forumDataRow["Port"]);
+              nntpPort = forumDataRow["Port"].ToType<int>();
 
               // call connect server
               nntpConnection.ConnectServer(nntpHostName, nntpPort);
@@ -105,16 +102,18 @@ namespace YAF.Classes.Core.Nntp
 
             Newsgroup group = nntpConnection.ConnectGroup(forumDataRow["GroupName"].ToString());
 
-            var lastMessageNo = (int)forumDataRow["LastMessageNo"];
-            int currentMessage = lastMessageNo;
-
+            int currentMessage;
+            int lastMessageNo = (int)forumDataRow["LastMessageNo"];
+            
             // If this is first retrieve for this group, only fetch last 50
-            if (currentMessage == 0)
+            if (lastMessageNo == 0)
             {
-              currentMessage = group.High - 50;
+              currentMessage = Math.Max(group.High - 50, 1);
             }
-
-            currentMessage++;
+            else
+            {
+              currentMessage = lastMessageNo + 1;
+            }
 
             var forumID = (int)forumDataRow["ForumID"];
 
@@ -128,33 +127,33 @@ namespace YAF.Classes.Core.Nntp
                 string subject = article.Header.Subject;
                 string fromName = article.Header.From;
                 string thread = article.ArticleId.ToString();
-                DateTime dateTime = DateTime.UtcNow;
+                DateTime dateTime = article.Header.Date;
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
                   dateTime = DateTime.UtcNow;
                 }
 
-                body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
-                body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
-
                 if (createUsers)
                 {
-                    guestUserId = DB.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
+                  guestUserId = DB.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
-                body = HttpContext.Current.Server.HtmlEncode(body);
+                //body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
+                //body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
 
-                // vzrus: various wrong NNTP tags replacements
+                //body = HttpContext.Current.Server.HtmlEncode(body);
 
-                body = body.Replace("&amp;lt;", "&lt;");
-                body = body.Replace("&amp;gt;", "&gt;");
-                body = body.Replace("&lt;br&gt;", "");
-                body = body.Replace("&lt;hr&gt;", "<hr />");
+                //// vzrus: various wrong NNTP tags replacements
 
-                body = body.Replace("&amp;quot;", @"&#34;");
-                body = body.Replace("&lt;quote&gt;", @"[quote]");
-                body = body.Replace("&lt;/quote&gt;", @"[/quote]");
+                //body = body.Replace("&amp;lt;", "&lt;");
+                //body = body.Replace("&amp;gt;", "&gt;");
+                //body = body.Replace("&lt;br&gt;", "");
+                //body = body.Replace("&lt;hr&gt;", "<hr />");
+
+                //body = body.Replace("&amp;quot;", @"&#34;");
+                //body = body.Replace("&lt;quote&gt;", @"[quote]");
+                //body = body.Replace("&lt;/quote&gt;", @"[/quote]");
 
                 DB.nntptopic_savemessage(forumDataRow["NntpForumID"], subject, body, guestUserId, fromName, hostAddress, dateTime, thread);
                 lastMessageNo = currentMessage;
@@ -167,9 +166,11 @@ namespace YAF.Classes.Core.Nntp
                   break;
                 }
               }
-              catch (NntpException)
+              catch (NntpException exception)
               {
-
+#if (DEBUG)
+                YafContext.Current.AddLoadMessage("Exception: " + exception.ToString());
+#endif
               }
             }
 
@@ -185,10 +186,7 @@ namespace YAF.Classes.Core.Nntp
       }
       finally
       {
-        if (nntpConnection != null)
-        {
-          nntpConnection.Disconnect();
-        }
+        nntpConnection.Disconnect();
       }
 
       return articleCount;

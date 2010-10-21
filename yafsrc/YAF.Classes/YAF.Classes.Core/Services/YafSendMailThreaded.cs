@@ -1,4 +1,22 @@
-﻿namespace YAF.Classes.Core
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+namespace YAF.Classes.Core
 {
   #region Using
 
@@ -32,7 +50,8 @@
     {
       try
       {
-        IEnumerable<TypedMailList> mailList = new List<TypedMailList>();
+        IEnumerable<TypedMailList> mailList;
+        var mailMessages = new Dictionary<MailMessage, TypedMailList>();
 
         try
         {
@@ -40,19 +59,19 @@
           Thread.BeginCriticalRegion();
 
           mailList = DB.MailList(uniqueId);
+
+          Debug.WriteLine("Got {0} Messages...".FormatWith(mailList.Count()));
         }
         finally
         {
           Thread.EndCriticalRegion();
         }
 
-        var mailMessages = new Dictionary<MailMessage, TypedMailList>();
-
-        // construcct mail message list...
+        // construct mail message list...
         foreach (var mail in mailList)
         {
           // Build a MailMessage
-          if (!mail.FromUser.IsSet() || !mail.ToUser.IsSet())
+          if (mail.FromUser.IsNotSet() || mail.ToUser.IsNotSet())
           {
             continue;
           }
@@ -88,14 +107,14 @@
 #endif
               Debug.WriteLine("Send Exception: {0}".FormatWith(ex.ToString()));
 
-              if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 5)
+              if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
               {
                 // remove from the collection so it doesn't get deleted...
                 mailMessages.Remove(message);
               }
               else
               {
-                DB.eventlog_create(null, "SendMailThread Failed for the 5th time:", ex.ToString());
+                DB.eventlog_create(null, "SendMailThread Failed for the 2nd time:", ex.ToString());
               }
             }
             else

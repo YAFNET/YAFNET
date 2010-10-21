@@ -25,6 +25,7 @@ namespace YAF.Classes.Core
   using System.Collections.Generic;
   using System.Linq;
   using System.Net.Mail;
+  using System.Threading;
 
   using YAF.Classes.Pattern;
 
@@ -38,30 +39,16 @@ namespace YAF.Classes.Core
     #region Public Methods
 
     /// <summary>
-    /// The send all.
+    /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
     /// </summary>
     /// <param name="messages">
     /// The messages.
     /// </param>
     public void SendAll([NotNull] IEnumerable<MailMessage> messages)
     {
-      // Wes : Changed to use settings from configuration file's standard <smtp> section. 
-      // Reason for change: The host smtp settings are redundant and
-      // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
-      // Configuration settings are cached automatically.
       CodeContracts.ArgumentNotNull(messages, "messages");
 
-      var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
-
-      // Tommy: solve random failure problem. Don't set this value to 1.
-      // See this: http://stackoverflow.com...tem-net-mail-has-issues 
-      smtpSend.ServicePoint.MaxIdleTime = 2;
-      smtpSend.ServicePoint.ConnectionLimit = 1;
-
-      foreach (var message in messages.ToList())
-      {
-        smtpSend.Send(message);
-      }
+      messages.ToList().ForEach(m => m.Send());
     }
 
     /// <summary>
@@ -75,24 +62,17 @@ namespace YAF.Classes.Core
     /// </param>
     public void SendAllIsolated([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction)
     {
-      // Wes : Changed to use settings from configuration file's standard <smtp> section. 
-      // Reason for change: The host smtp settings are redundant and
-      // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
-      // Configuration settings are cached automatically.
       CodeContracts.ArgumentNotNull(messages, "messages");
-
-      var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
-
-      // Tommy: solve random failure problem. Don't set this value to 1.
-      // See this: http://stackoverflow.com...tem-net-mail-has-issues 
-      smtpSend.ServicePoint.MaxIdleTime = 2;
-      smtpSend.ServicePoint.ConnectionLimit = 1;
 
       foreach (var message in messages.ToList())
       {
         try
         {
-          smtpSend.Send(message);
+          // send the message...
+          message.Send();
+
+          // sleep for a 1/20 of a second...
+          Thread.Sleep(50);
         }
         catch (Exception ex)
         {

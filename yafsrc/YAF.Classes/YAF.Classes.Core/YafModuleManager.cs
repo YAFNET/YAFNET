@@ -311,7 +311,7 @@ namespace YAF.Modules
         this.ModuleClassTypes = new List<Type>();
       }
 
-      this.ModuleClassTypes.AddRange(assemblies.Cast<Assembly>().FindModules(this.ModuleNamespace, this.ModuleBaseType));
+      this.ModuleClassTypes.AddRange(assemblies.OfType<Assembly>().FindModules(this.ModuleNamespace, this.ModuleBaseType));
     }
 
     /// <summary>
