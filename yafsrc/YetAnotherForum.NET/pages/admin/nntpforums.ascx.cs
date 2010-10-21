@@ -20,38 +20,25 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for ranks.
   /// </summary>
   public partial class nntpforums : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("NNTP Forums", string.Empty);
-
-        BindData();
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// The delete_ load.
@@ -62,41 +49,9 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this forum?')";
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.RankList.DataSource = DB.nntpforum_list(PageContext.PageBoardID, null, null, DBNull.Value);
-      DataBind();
-    }
-
-    /// <summary>
-    /// The rank list_ item command.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void RankList_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
-          YafBuildLink.Redirect(ForumPages.admin_editnntpforum, "s={0}", e.CommandArgument);
-          break;
-        case "delete":
-          DB.nntpforum_delete(e.CommandArgument);
-          BindData();
-          break;
-      }
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this forum?')";
     }
 
     /// <summary>
@@ -108,33 +63,62 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void NewForum_Click(object sender, EventArgs e)
+    protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_editnntpforum);
     }
 
-    #region Web Form Designer generated code
-
     /// <summary>
-    /// The on init.
+    /// The page_ load.
     /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("NNTP Forums", string.Empty);
+
+        this.BindData();
+      }
     }
 
     /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    /// The bind data.
     /// </summary>
-    private void InitializeComponent()
+    private void BindData()
     {
-      this.RankList.ItemCommand += new RepeaterCommandEventHandler(this.RankList_ItemCommand);
+      this.RankList.DataSource = DB.nntpforum_list(this.PageContext.PageBoardID, null, null, DBNull.Value);
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// The rank list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void RankList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_editnntpforum, "s={0}", e.CommandArgument);
+          break;
+        case "delete":
+          DB.nntpforum_delete(e.CommandArgument);
+          this.BindData();
+          break;
+      }
     }
 
     #endregion

@@ -20,63 +20,25 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for editgroup.
   /// </summary>
   public partial class editnntpforum : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("NNTP Forums", string.Empty);
-
-        BindData();
-        if (Request.QueryString.GetFirstOrDefault("s") != null)
-        {
-          using (DataTable dt = DB.nntpforum_list(PageContext.PageBoardID, null, Request.QueryString.GetFirstOrDefault("s"), DBNull.Value))
-          {
-            DataRow row = dt.Rows[0];
-            this.NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
-            this.GroupName.Text = row["GroupName"].ToString();
-            this.ForumID.Items.FindByValue(row["ForumID"].ToString()).Selected = true;
-            this.Active.Checked = (bool) row["Active"];
-          }
-        }
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.NntpServerID.DataSource = DB.nntpserver_list(PageContext.PageBoardID, null);
-      this.NntpServerID.DataValueField = "NntpServerID";
-      this.NntpServerID.DataTextField = "Name";
-      this.ForumID.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
-      this.ForumID.DataValueField = "ForumID";
-      this.ForumID.DataTextField = "Title";
-      DataBind();
-    }
+    #region Methods
 
     /// <summary>
     /// The cancel_ click.
@@ -87,9 +49,43 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_nntpforums);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("NNTP Forums", string.Empty);
+
+        this.BindData();
+        if (this.Request.QueryString.GetFirstOrDefault("s") != null)
+        {
+          using (
+            DataTable dt = DB.nntpforum_list(
+              this.PageContext.PageBoardID, null, this.Request.QueryString.GetFirstOrDefault("s"), DBNull.Value))
+          {
+            DataRow row = dt.Rows[0];
+            this.NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
+            this.GroupName.Text = row["GroupName"].ToString();
+            this.ForumID.Items.FindByValue(row["ForumID"].ToString()).Selected = true;
+            this.Active.Checked = (bool)row["Active"];
+          }
+        }
+      }
     }
 
     /// <summary>
@@ -101,26 +97,49 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.GroupName.Text.Trim().IsNotSet())
-        {
-            this.PageContext.LoadMessage.Add("You should enter a valid group name.");
-            return;  
-        }
+      if (this.GroupName.Text.Trim().IsNotSet())
+      {
+        this.PageContext.LoadMessage.Add("You should enter a valid group name.");
+        return;
+      }
 
       object nntpForumID = null;
-      if (Request.QueryString.GetFirstOrDefault("s") != null)
+      if (this.Request.QueryString.GetFirstOrDefault("s") != null)
       {
-        nntpForumID = Request.QueryString.GetFirstOrDefault("s");
+        nntpForumID = this.Request.QueryString.GetFirstOrDefault("s");
       }
-      if (Convert.ToInt32(this.ForumID.SelectedValue) <= 0)
+
+      if (this.ForumID.SelectedValue.ToType<int>() <= 0)
       {
-          PageContext.AddLoadMessage("You must select a forum to save NNTP messages.");
-          return;
+        this.PageContext.AddLoadMessage("You must select a forum to save NNTP messages.");
+        return;
       }
-      DB.nntpforum_save(nntpForumID, this.NntpServerID.SelectedValue, this.GroupName.Text, this.ForumID.SelectedValue, this.Active.Checked);
+
+      DB.nntpforum_save(
+        nntpForumID, 
+        this.NntpServerID.SelectedValue, 
+        this.GroupName.Text,
+        this.ForumID.SelectedValue, 
+        this.Active.Checked);
       YafBuildLink.Redirect(ForumPages.admin_nntpforums);
     }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.NntpServerID.DataSource = DB.nntpserver_list(this.PageContext.PageBoardID, null);
+      this.NntpServerID.DataValueField = "NntpServerID";
+      this.NntpServerID.DataTextField = "Name";
+      this.ForumID.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+      this.ForumID.DataValueField = "ForumID";
+      this.ForumID.DataTextField = "Title";
+      this.DataBind();
+    }
+
+    #endregion
   }
 }
