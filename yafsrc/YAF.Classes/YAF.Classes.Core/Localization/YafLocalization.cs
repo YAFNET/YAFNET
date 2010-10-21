@@ -322,8 +322,11 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The get text formatted.
     /// </returns>
-    public string GetTextFormatted(string text, params object[] args)
+    public string GetTextFormatted([NotNull] string text, [NotNull] params object[] args)
     {
+      CodeContracts.ArgumentNotNull(text, "text");
+      CodeContracts.ArgumentNotNull(args, "args");
+
       string localizedText = this.GetText(this.TransPage, text);
 
       /* get the localization string parameter count...
@@ -338,20 +341,21 @@ namespace YAF.Classes.Core
 #if DEBUG
 					localizedText = String.Format( "[INVALID: {1}.{0} -- NEEDS {2} PARAMETERS HAS {3}]", text.ToUpper(), TransPage.ToUpper(), args.Length, i );
 #endif
-					// inform that the value is wrong to the admin and don't format the string...
+					 inform that the value is wrong to the admin and don't format the string...
 					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
 			*/
-      var values = new object[10];
 
-      args.CopyTo(values, 0);
-      for (int i = args.Length; i < 10; i++)
+      int arraySize = Math.Max(args.Length, 10);
+      var copiedArgs = new object[arraySize];
+      args.CopyTo(copiedArgs, 0);
+
+      for (int arrayIndex = args.Length; arrayIndex < arraySize; arrayIndex++)
       {
-        values.SetValue(
-          "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]".FormatWith(text.ToUpper(), this.TransPage.ToUpper(), i), i);
+        copiedArgs[arrayIndex] = "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]".FormatWith(text.ToUpper(), this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpper(), arrayIndex);
       }
 
       // run format command...
-      localizedText = localizedText.FormatWith(values);
+      localizedText = localizedText.FormatWith(copiedArgs);
 
       return localizedText;
     }
