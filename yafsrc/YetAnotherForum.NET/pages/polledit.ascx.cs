@@ -525,7 +525,7 @@ namespace YAF.Pages
              {
                  YafContext.Current.AddLoadMessage(
                        YafContext.Current.Localization.GetTextFormatted(
-                           "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize * 1024, questionPath));
+                           "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize, questionPath));
                  return false;
              }
 
