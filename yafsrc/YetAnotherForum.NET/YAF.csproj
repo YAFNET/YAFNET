@@ -32,7 +32,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug  NET v3.5|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
@@ -56,7 +56,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
@@ -90,18 +90,6 @@
     <Reference Include="CookComputing.XmlRpcV2, Version=2.1.0.3, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
-    <Reference Include="DNA, Version=1.1.15.22760, Culture=neutral, PublicKeyToken=f3828393ba2d803c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\DNA.dll</HintPath>
-    </Reference>
-    <Reference Include="DNA.UI.JQuery, Version=1.1.15.22761, Culture=neutral, PublicKeyToken=f3828393ba2d803c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\DNA.UI.JQuery.dll</HintPath>
-    </Reference>
-    <Reference Include="jQueryNet, Version=1.3.2.22566, Culture=neutral, PublicKeyToken=f3828393ba2d803c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\jQueryNet.dll</HintPath>
     </Reference>
     <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -295,6 +283,13 @@
     </Compile>
     <Compile Include="pages\admin\boardsettings.ascx.designer.cs">
       <DependentUpon>boardsettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\digest.ascx.cs">
+      <DependentUpon>digest.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\digest.ascx.designer.cs">
+      <DependentUpon>digest.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\editaccessmask.ascx.designer.cs">
       <DependentUpon>editaccessmask.ascx</DependentUpon>
@@ -820,6 +815,7 @@
     <Content Include="pages\admin\bbcode_import.ascx" />
     <Content Include="pages\admin\boards.ascx" />
     <Content Include="pages\admin\boardsettings.ascx" />
+    <Content Include="pages\admin\digest.ascx" />
     <Content Include="pages\admin\editaccessmask.ascx" />
     <Content Include="pages\admin\editboard.ascx" />
     <Content Include="pages\admin\editcategory.ascx" />
@@ -1626,139 +1622,6 @@
     <Content Include="themes\cleanSlate\vote_rcap.gif" />
     <Content Include="themes\cleanSlate\voting_bar.gif" />
     <Content Include="themes\cleanSlate\cleanslate.js" />
-    <Content Include="themes\FlatEarth\atomfeed.png" />
-    <Content Include="themes\FlatEarth\female.gif" />
-    <Content Include="themes\FlatEarth\icon_search.png" />
-    <Content Include="themes\FlatEarth\icon_useroffline.png" />
-    <Content Include="themes\FlatEarth\icon_useronline.png" />
-    <Content Include="themes\FlatEarth\icon_xmpp.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-icons_222222_256x240.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-icons_454545_256x240.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-icons_888888_256x240.png" />
-    <Content Include="themes\FlatEarth\jquery\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="themes\FlatEarth\jquery\jquery-ui.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.accordion.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.all.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.base.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.core.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.datepicker.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.dialog.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.progressbar.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.resizable.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.slider.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.tabs.css" />
-    <Content Include="themes\FlatEarth\jquery\ui.theme.css" />
-    <Content Include="themes\FlatEarth\male.gif" />
-    <Content Include="themes\FlatEarth\mask.gif" />
-    <Content Include="themes\FlatEarth\poll_choice.png" />
-    <Content Include="themes\FlatEarth\poll_question.png" />
-    <Content Include="themes\FlatEarth\rssfeed.gif" />
-    <Content Include="themes\FlatEarth\tab-line.png" />
-    <Content Include="themes\FlatEarth\tab.png" />
-    <Content Include="themes\Gray.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="themes\Gray\atomfeed.png" />
-    <Content Include="themes\Gray\buttonBack.gif" />
-    <Content Include="themes\Gray\buttonBackB.gif" />
-    <Content Include="themes\Gray\buttonEnd.gif" />
-    <Content Include="themes\Gray\buttonEndB.gif" />
-    <Content Include="themes\Gray\collapse.gif" />
-    <Content Include="themes\Gray\expand.gif" />
-    <Content Include="themes\Gray\female.gif" />
-    <Content Include="themes\Gray\folder_stats.png" />
-    <Content Include="themes\Gray\folder_who.png" />
-    <Content Include="themes\Gray\forum.gif" />
-    <Content Include="themes\Gray\forum_announce.gif" />
-    <Content Include="themes\Gray\forum_announce_new.gif" />
-    <Content Include="themes\Gray\forum_lock.gif" />
-    <Content Include="themes\Gray\forum_lock_new.gif" />
-    <Content Include="themes\Gray\forum_moved.gif" />
-    <Content Include="themes\Gray\forum_new.gif" />
-    <Content Include="themes\Gray\icon_aim.png" />
-    <Content Include="themes\Gray\icon_blog.png" />
-    <Content Include="themes\Gray\icon_email.png" />
-    <Content Include="themes\Gray\icon_file.gif" />
-    <Content Include="themes\Gray\icon_home.png" />
-    <Content Include="themes\Gray\icon_icq.png" />
-    <Content Include="themes\Gray\icon_latest_reply.gif" />
-    <Content Include="themes\Gray\icon_msn.png" />
-    <Content Include="themes\Gray\icon_newest_reply.gif" />
-    <Content Include="themes\Gray\icon_pm.png" />
-    <Content Include="themes\Gray\icon_search.png" />
-    <Content Include="themes\Gray\icon_skype.png" />
-    <Content Include="themes\Gray\icon_subforum.gif" />
-    <Content Include="themes\Gray\icon_subforum_new.gif" />
-    <Content Include="themes\Gray\icon_useroffline.png" />
-    <Content Include="themes\Gray\icon_useronline.png" />
-    <Content Include="themes\Gray\icon_xmpp.png" />
-    <Content Include="themes\Gray\icon_yahoo.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="themes\Gray\jquery\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="themes\Gray\jquery\images\ui-icons_222222_256x240.png" />
-    <Content Include="themes\Gray\jquery\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="themes\Gray\jquery\images\ui-icons_454545_256x240.png" />
-    <Content Include="themes\Gray\jquery\images\ui-icons_888888_256x240.png" />
-    <Content Include="themes\Gray\jquery\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="themes\Gray\jquery\jquery-ui.css" />
-    <Content Include="themes\Gray\jquery\ui.accordion.css" />
-    <Content Include="themes\Gray\jquery\ui.all.css" />
-    <Content Include="themes\Gray\jquery\ui.base.css" />
-    <Content Include="themes\Gray\jquery\ui.core.css" />
-    <Content Include="themes\Gray\jquery\ui.datepicker.css" />
-    <Content Include="themes\Gray\jquery\ui.dialog.css" />
-    <Content Include="themes\Gray\jquery\ui.progressbar.css" />
-    <Content Include="themes\Gray\jquery\ui.resizable.css" />
-    <Content Include="themes\Gray\jquery\ui.slider.css" />
-    <Content Include="themes\Gray\jquery\ui.tabs.css" />
-    <Content Include="themes\Gray\jquery\ui.theme.css" />
-    <Content Include="themes\Gray\male.gif" />
-    <Content Include="themes\Gray\mask.gif" />
-    <Content Include="themes\Gray\poll_choice.png" />
-    <Content Include="themes\Gray\poll_question.png" />
-    <Content Include="themes\Gray\reflection.js" />
-    <Content Include="themes\Gray\rssfeed.gif" />
-    <Content Include="themes\Gray\sort_down.gif" />
-    <Content Include="themes\Gray\sort_up.gif" />
-    <Content Include="themes\Gray\tab-line.png" />
-    <Content Include="themes\Gray\tab.png" />
-    <Content Include="themes\Gray\theme.css" />
-    <Content Include="themes\Gray\titleBack.gif" />
-    <Content Include="themes\Gray\titleBack.png" />
-    <Content Include="themes\Gray\topic.png" />
-    <Content Include="themes\Gray\topic_announce.png" />
-    <Content Include="themes\Gray\topic_announce_new.png" />
-    <Content Include="themes\Gray\topic_lock.png" />
-    <Content Include="themes\Gray\topic_lock_new.png" />
-    <Content Include="themes\Gray\topic_moved.png" />
-    <Content Include="themes\Gray\topic_new.png" />
-    <Content Include="themes\Gray\topic_poll.gif" />
-    <Content Include="themes\Gray\topic_poll.png" />
-    <Content Include="themes\Gray\topic_poll_new.gif" />
-    <Content Include="themes\Gray\topic_poll_new.png" />
-    <Content Include="themes\Gray\topic_sticky.gif" />
-    <Content Include="themes\Gray\topic_sticky.png" />
-    <Content Include="themes\Gray\user_rank1.gif" />
-    <Content Include="themes\Gray\user_rank2.gif" />
-    <Content Include="themes\Gray\user_rank3.gif" />
-    <Content Include="themes\Gray\vote_lcap.gif" />
-    <Content Include="themes\Gray\vote_rcap.gif" />
-    <Content Include="themes\Gray\voting_bar.gif" />
     <Content Include="themes\soclean\atomfeed.png" />
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\icon_search.png" />
@@ -1935,9 +1798,6 @@
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
     <Content Include="themes\yafvision\yafvision.js" />
-    <Content Include="yaf.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="YafWebService.asmx" />
     <None Include="Classes\Register Forum\Reference.map" />
     <None Include="Classes\Register Forum\Register.wsdl" />
@@ -1950,51 +1810,6 @@
     <Content Include="mail.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="themes\flatearth.xml" />
-    <Content Include="themes\FlatEarth\bg_header2.png" />
-    <Content Include="themes\FlatEarth\bg_header5.png" />
-    <Content Include="themes\FlatEarth\buttonBack.gif" />
-    <Content Include="themes\FlatEarth\buttonBackW.gif" />
-    <Content Include="themes\FlatEarth\ButtonEnd.gif" />
-    <Content Include="themes\FlatEarth\ButtonEndW.gif" />
-    <Content Include="themes\FlatEarth\collapse.gif" />
-    <Content Include="themes\FlatEarth\earthback.jpg" />
-    <Content Include="themes\FlatEarth\expand.gif" />
-    <Content Include="themes\FlatEarth\folder_stats.png" />
-    <Content Include="themes\FlatEarth\folder_who.png" />
-    <Content Include="themes\FlatEarth\icon_aim.png" />
-    <Content Include="themes\FlatEarth\icon_blog.png" />
-    <Content Include="themes\FlatEarth\icon_email.png" />
-    <Content Include="themes\FlatEarth\icon_file.gif" />
-    <Content Include="themes\FlatEarth\icon_home.png" />
-    <Content Include="themes\FlatEarth\icon_icq.png" />
-    <Content Include="themes\FlatEarth\icon_latest_reply.gif" />
-    <Content Include="themes\FlatEarth\icon_msn.png" />
-    <Content Include="themes\FlatEarth\icon_newest_reply.gif" />
-    <Content Include="themes\FlatEarth\icon_pm.png" />
-    <Content Include="themes\FlatEarth\icon_skype.png" />
-    <Content Include="themes\FlatEarth\icon_subforum.gif" />
-    <Content Include="themes\FlatEarth\icon_subforum_new.gif" />
-    <Content Include="themes\FlatEarth\icon_yahoo.png" />
-    <Content Include="themes\FlatEarth\sort_down.gif" />
-    <Content Include="themes\FlatEarth\sort_up.gif" />
-    <Content Include="themes\FlatEarth\theme.css" />
-    <Content Include="themes\FlatEarth\topic.png" />
-    <Content Include="themes\FlatEarth\topic_announce.png" />
-    <Content Include="themes\FlatEarth\topic_announce_new.png" />
-    <Content Include="themes\FlatEarth\topic_lock.png" />
-    <Content Include="themes\FlatEarth\topic_lock_new.png" />
-    <Content Include="themes\FlatEarth\topic_moved.png" />
-    <Content Include="themes\FlatEarth\topic_new.png" />
-    <Content Include="themes\FlatEarth\topic_poll.png" />
-    <Content Include="themes\FlatEarth\topic_poll_new.png" />
-    <Content Include="themes\FlatEarth\topic_sticky.png" />
-    <Content Include="themes\FlatEarth\user_rank1.gif" />
-    <Content Include="themes\FlatEarth\user_rank2.gif" />
-    <Content Include="themes\FlatEarth\user_rank3.gif" />
-    <Content Include="themes\FlatEarth\vote_lcap.gif" />
-    <Content Include="themes\FlatEarth\vote_rcap.gif" />
-    <Content Include="themes\FlatEarth\voting_bar.gif" />
     <Content Include="themes\soclean.xml" />
     <Content Include="themes\soclean\bg_header1.png" />
     <Content Include="themes\soclean\buttonBack.gif" />
@@ -2132,6 +1947,18 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj">
+      <Project>{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}</Project>
+      <Name>DNA.UI.JQuery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DNA jQuery Web Controls\DNA\DNA.csproj">
+      <Project>{5418193D-42DB-4D27-B795-9C9D79ED5018}</Project>
+      <Name>DNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DNA jQuery Web Controls\jQuery\jQueryNet.csproj">
+      <Project>{96818757-3B53-48AE-96A0-74D2A1C0870D}</Project>
+      <Name>jQueryNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
