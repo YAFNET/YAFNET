@@ -156,7 +156,7 @@ namespace YAF.Pages
             var subject = (string) row["Subject"];
             if (!subject.StartsWith("Re: "))
             {
-              subject = "Re: " + subject;
+              subject = string.Format("Re: {0}", subject);
             }
 
             this.Subject.Text = subject;
@@ -183,7 +183,7 @@ namespace YAF.Pages
               body = this.Get<YafBadWordReplace>().Replace(body);
 
               // Quote the original message
-              body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
+              body = "[QUOTE={0};{1}]{2}[/QUOTE]".FormatWith(displayName, Request.QueryString.GetFirstOrDefault("q"), body);
 
               // we don't want any whitespaces at the beginning of message
               this._editor.Text = body.TrimStart();
@@ -232,7 +232,7 @@ namespace YAF.Pages
                 for (int i = 0; i < quoteList.Length; i++)
                 {
                   // Add quote codes
-                  quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
+                  quoteList[i] = "[QUOTE={0};{1}]{2}[/QUOTE]".FormatWith(displayName, messagesRow.Field<int>("MessageID"), quoteList[i]);
 
                   // Replace DateTime delimiter '??' by ': ' 
                   // we don't want any whitespaces at the beginning of message

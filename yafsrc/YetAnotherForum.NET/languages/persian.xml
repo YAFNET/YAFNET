@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">نام کاربری نمی تواند حاوی نقطه و ویرگول باشد.</Resource>
     <Resource tag="BBCODE_CODE">کد:</Resource>
     <Resource tag="BBCODE_QUOTE">نقل قول:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
     <Resource tag="CAL_JQ_CULTURE">fa</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

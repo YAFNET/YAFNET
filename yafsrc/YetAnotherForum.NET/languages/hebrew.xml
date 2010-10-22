@@ -271,6 +271,7 @@
     <Resource tag="BAD_USERNAME">שם המשתמש אינו יכול להכיל נקודה-פסיק (;).</Resource>
     <Resource tag="BBCODE_CODE">קוד:</Resource>
     <Resource tag="BBCODE_QUOTE">ציטוט:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} כתב/ה:</Resource>
     <Resource tag="CAL_JQ_CULTURE">he</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

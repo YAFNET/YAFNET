@@ -54,7 +54,7 @@ namespace YAF.DotNetNuke
     /// </returns>
     public override string BuildUrl(string sUrl)
     {
-      StringBuilder newUrl = null;
+      StringBuilder newUrl = new StringBuilder();
 
       PortalSettings curPortalSettings = PortalController.GetCurrentPortalSettings();
 
@@ -70,8 +70,8 @@ namespace YAF.DotNetNuke
         return string.Format("{0}?tabid={1}&{2}", sScriptName, curTab.TabID, sUrl);
       }
 
-      try
-      {
+     // try
+      //{
         string oldUrl = Globals.NavigateURL(curTab.TabID);
 
         if (oldUrl.Contains("Default.aspx"))
@@ -114,10 +114,22 @@ namespace YAF.DotNetNuke
               {
                 useKey = "m";
 
+                  string topicName;
+
+                  try
+                  {
+                      topicName = this.GetTopicNameFromMessage(Convert.ToInt32(parser["m"]));
+                  }
+                  catch (Exception)
+                  {
+
+                      topicName = parser["g"];
+                  }
+
                 newUrl.AppendFormat(
                   "g/{2}/m/{0}/{1}", 
-                  parser["m"], 
-                  this.GetTopicNameFromMessage(Convert.ToInt32(parser["m"])), 
+                  parser["m"],
+                  topicName, 
                   parser["g"]);
               }
             }
@@ -198,13 +210,13 @@ namespace YAF.DotNetNuke
 
         // just make sure & is &amp; ...
        // sNewURL = sNewURL.Replace("&amp;", "&").Replace("&", "&amp;");
-      }
+     /* }
       catch (Exception)
       {
         string sScriptName = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"];
 
         return string.Format("{0}?tabid={1}&{2}", sScriptName, curTab.TabID, sUrl);
-      }
+      }*/
 
       return newUrl.ToString();
     }

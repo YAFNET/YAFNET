@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Numele de utilizator nu poate contine caracterul(;).</Resource>
     <Resource tag="BBCODE_CODE">Cod:</Resource>
     <Resource tag="BBCODE_QUOTE">Citat:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} a scris:</Resource>
     <Resource tag="CAL_JQ_CULTURE">ro</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YY</Resource>

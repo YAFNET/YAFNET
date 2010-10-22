@@ -558,6 +558,7 @@
 		<Resource tag="BBCODE_CODE">Code:</Resource>
 		<Resource tag="BBCODE_QUOTE">Quote:</Resource>
 		<Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+		<Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
 		<Resource tag="CAN_DELETE">You [b]can[/b] delete your posts in this forum.</Resource>
 		<Resource tag="CAN_EDIT">You [b]can[/b] edit your posts in this forum.</Resource>
 		<Resource tag="CAN_POLL">You [b]can[/b] create polls in this forum.</Resource>

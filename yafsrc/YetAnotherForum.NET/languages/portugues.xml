@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
     <Resource tag="BBCODE_CODE">Código:</Resource>
     <Resource tag="BBCODE_QUOTE">Citação:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} escreveu:</Resource>
     <Resource tag="CAL_JQ_CULTURE">pt-BR</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

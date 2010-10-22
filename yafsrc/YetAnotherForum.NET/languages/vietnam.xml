@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Tên đăng nhập không được mang dấu chấm phẩy (;).</Resource>
     <Resource tag="BBCODE_CODE">Mã:</Resource>
     <Resource tag="BBCODE_QUOTE">Trích dẫn:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} đã viết:</Resource>
     <Resource tag="CAL_JQ_CULTURE" />
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

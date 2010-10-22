@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
     <Resource tag="BBCODE_CODE">Kód:</Resource>
     <Resource tag="BBCODE_QUOTE">Citácia:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} napísal:</Resource>
     <Resource tag="CAL_JQ_CULTURE">sk</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

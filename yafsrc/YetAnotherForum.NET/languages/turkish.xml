@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Kullanıcı adı noktalı virgül içeremez(;).</Resource>
     <Resource tag="BBCODE_CODE">Kod:</Resource>
     <Resource tag="BBCODE_QUOTE">Alıntı:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} yazılan:</Resource>
     <Resource tag="CAL_JQ_CULTURE">tr</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

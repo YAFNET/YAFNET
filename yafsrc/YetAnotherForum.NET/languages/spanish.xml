@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">El nombre de usuario no puede tener puntos y comas (;).</Resource>
     <Resource tag="BBCODE_CODE">Código:</Resource>
     <Resource tag="BBCODE_QUOTE">Citar:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} escribió:</Resource>
     <Resource tag="CAL_JQ_CULTURE">es</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

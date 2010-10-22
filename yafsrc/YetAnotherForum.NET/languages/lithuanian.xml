@@ -252,6 +252,7 @@
     <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
     <Resource tag="BBCODE_CODE">Kodas: </Resource>
     <Resource tag="BBCODE_QUOTE">Citata: </Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} rašė: </Resource>
     <Resource tag="CAL_JQ_CULTURE">lt</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

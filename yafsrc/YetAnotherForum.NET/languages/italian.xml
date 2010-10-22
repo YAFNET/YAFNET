@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Lo UserName non puo` contenere il punto e virgola (;).</Resource>
     <Resource tag="BBCODE_CODE">Codice:</Resource>
     <Resource tag="BBCODE_QUOTE">Citazione:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} ha scritto:</Resource>
     <Resource tag="CAL_JQ_CULTURE">it</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

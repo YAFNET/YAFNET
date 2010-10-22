@@ -1095,7 +1095,7 @@ namespace YAF.Pages
       message = this.Get<YafBadWordReplace>().Replace(message);
 
       // Quote the original message
-      this._forumEditor.Text = "[quote={0}]{1}[/quote]\n".FormatWith(this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), message).TrimStart();
+      this._forumEditor.Text = "[quote={0};{1}]{2}[/quote]\n".FormatWith(this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), currentRow.Field<int>("MessageID"), message).TrimStart();
     }
 
     /// <summary>

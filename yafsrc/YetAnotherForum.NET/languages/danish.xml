@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Brugernavnet må ikke indholde et semi kolon (;).</Resource>
     <Resource tag="BBCODE_CODE">Kode:</Resource>
     <Resource tag="BBCODE_QUOTE">Citer:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} skrev:</Resource>
     <Resource tag="CAL_JQ_CULTURE">da</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>

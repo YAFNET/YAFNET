@@ -160,6 +160,11 @@ namespace YAF.Classes.Core.BBCode
     private static readonly Regex _rgxQuote2 = new Regex(@"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]", _options | RegexOptions.Compiled);
 
     /// <summary>
+    /// The _rgx quote 3.
+    /// </summary>
+    private static readonly Regex _rgxQuote3 = new Regex(@"\[quote=(?<quote>(.*?));(?<id>([0-9]*))\](?<inner>(.*?))\[/quote\]", _options | RegexOptions.Compiled);
+
+    /// <summary>
     /// The _rgx right.
     /// </summary>
     private static readonly string _rgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
@@ -313,161 +318,202 @@ namespace YAF.Classes.Core.BBCode
     /// </param>
     public static void CreateBBCodeRules(ref ProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes)
     {
-      string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
-      string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
+        string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride)
+                            ? "target=\"_blank\""
+                            : string.Empty;
+        string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
-      // pull localized strings
-      string localQuoteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTE");
-      string localQuoteWroteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTEWROTE");
-      string localCodeStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_CODE");
+        // pull localized strings
+        string localQuoteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTE");
+        string localQuoteWroteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTEWROTE");
+        string localQuotePostedStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTEPOSTED");
+        string localCodeStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_CODE");
 
-      // add rule for code block type with syntax highlighting			
-      ruleEngine.AddRule(
-        new SyntaxHighlightedCodeRegexReplaceRule(
-          _rgxCode2, @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
-
-      // add rule for code block type with no syntax highlighting
-      ruleEngine.AddRule(
-        new CodeRegexReplaceRule(_rgxCode1, @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
-
-      // handle font sizes -- this rule class internally handles the "size" variable
-      ruleEngine.AddRule(new FontSizeRegexReplaceRule(_rgxSize, @"<span style=""font-size:${size}"">${inner}</span>", _options));
-
-      if (doFormatting)
-      {
-          ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<strong>${inner}</strong>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<em>${inner}</em>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>", _options));
-
-        // e-mails
+        // add rule for code block type with syntax highlighting			
         ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxEmail2, 
-            "<a href=\"mailto:${email}\">${inner}</a>", 
-            new[]
-              {
-                "email"
-              }));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>"));
+            new SyntaxHighlightedCodeRegexReplaceRule(
+                _rgxCode2,
+                @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}",
+                                                                                                                 localCodeStr)));
 
-        // urls
+        // add rule for code block type with no syntax highlighting
         ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxUrl2, 
-            "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
-            new[]
-              {
-                "url", "http"
-              }, 
-            new[]
-              {
-                string.Empty, "http://"
-              }));
-        ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxUrl1, 
-            "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
-            new[]
-              {
-                "http"
-              }, 
-            new[]
-              {
-                string.Empty, "http://"
-              }, 
-            50));
+            new CodeRegexReplaceRule(_rgxCode1,
+                                     @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>"
+                                         .Replace("{0}", localCodeStr)));
 
-        // font
-        ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxFont, 
-            "<span style=\"font-family:${font}\">${inner}</span>", 
-            _options, 
-            new[]
-              {
-                "font"
-              }));
+        // handle font sizes -- this rule class internally handles the "size" variable
+        ruleEngine.AddRule(new FontSizeRegexReplaceRule(_rgxSize, @"<span style=""font-size:${size}"">${inner}</span>",
+                                                        _options));
 
-        // color
-        ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxColor, 
-            "<span style=\"color:${color}\">${inner}</span>", 
-            _options, 
-            new[]
-              {
-                "color"
-              }));
+        if (doFormatting)
+        {
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<strong>${inner}</strong>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<em>${inner}</em>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>",
+                                                          _options));
 
-        // bullets
-        ruleEngine.AddRule(new SingleRegexReplaceRule(_rgxBullet, "<li>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList4, "<ol type=\"i\">${inner}</ol>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList3, "<ol type=\"a\">${inner}</ol>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList2, "<ol>${inner}</ol>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList1, "<ul>${inner}</ul>", _options));
+            // e-mails
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxEmail2,
+                    "<a href=\"mailto:${email}\">${inner}</a>",
+                    new[]
+                        {
+                            "email"
+                        }));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>"));
 
-        // alignment
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxCenter, "<div align=\"center\">${inner}</div>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxLeft, "<div align=\"left\">${inner}</div>", _options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxRight, "<div align=\"right\">${inner}</div>", _options));
+            // urls
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxUrl2,
+                    "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).
+                        Replace("{1}", nofollow),
+                    new[]
+                        {
+                            "url", "http"
+                        },
+                    new[]
+                        {
+                            string.Empty, "http://"
+                        }));
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxUrl1,
+                    "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace(
+                        "{0}", target).Replace("{1}", nofollow),
+                    new[]
+                        {
+                            "http"
+                        },
+                    new[]
+                        {
+                            string.Empty, "http://"
+                        },
+                    50));
 
-        // image
-        ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxImg,
-            "<img src=\"${http}${inner}\" alt=\"\"/>",
-            new[]
-              {
-                "http"
-              }, 
-            new[]
-              {
-                "http://"
-              }));
+            // font
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxFont,
+                    "<span style=\"font-family:${font}\">${inner}</span>",
+                    _options,
+                    new[]
+                        {
+                            "font"
+                        }));
 
-        // handle custom YafBBCode
-        AddCustomBBCodeRules(ref ruleEngine);
+            // color
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxColor,
+                    "<span style=\"color:${color}\">${inner}</span>",
+                    _options,
+                    new[]
+                        {
+                            "color"
+                        }));
 
-        // basic hr and br rules
-        var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline); // Multiline, since ^ must match beginning of line
-        var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) {RuleRank = hrRule.RuleRank + 1};
+            // bullets
+            ruleEngine.AddRule(new SingleRegexReplaceRule(_rgxBullet, "<li>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList4, "<ol type=\"i\">${inner}</ol>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList3, "<ol type=\"a\">${inner}</ol>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList2, "<ol>${inner}</ol>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxList1, "<ul>${inner}</ul>", _options));
 
-          // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
-        ruleEngine.AddRule(hrRule);
-        ruleEngine.AddRule(brRule);
-      }
+            // alignment
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxCenter, "<div align=\"center\">${inner}</div>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxLeft, "<div align=\"left\">${inner}</div>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxRight, "<div align=\"right\">${inner}</div>", _options));
 
-      // add smilies
-      YafFormatMessage.AddSmiles(ref ruleEngine);
+            // image
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxImg,
+                    "<img src=\"${http}${inner}\" alt=\"\"/>",
+                    new[]
+                        {
+                            "http"
+                        },
+                    new[]
+                        {
+                            "http://"
+                        }));
 
-      if (convertBBQuotes)
-      {
-        // "quote" handling...
+            // handle custom YafBBCode
+            AddCustomBBCodeRules(ref ruleEngine);
 
-          string tmpReplaceStr = @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+            // basic hr and br rules
+            var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
+                // Multiline, since ^ must match beginning of line
+            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) {RuleRank = hrRule.RuleRank + 1};
 
-        ruleEngine.AddRule(
-          new VariableRegexReplaceRule(
-            _rgxQuote2, 
-            tmpReplaceStr, 
-            new[]
-              {
-                "quote"
-              }));
+            // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
+            ruleEngine.AddRule(hrRule);
+            ruleEngine.AddRule(brRule);
+        }
 
-        tmpReplaceStr = @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".FormatWith(localQuoteStr, "${inner}");
+        // add smilies
+        YafFormatMessage.AddSmiles(ref ruleEngine);
 
-        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr));
-      }
+        if (convertBBQuotes)
+        {
+            // "quote" handling...
 
-      // post and topic rules...
-      ruleEngine.AddRule(new PostTopicRegexReplaceRule(_rgxPost, @"<a {0} href=""${post}"">${inner}</a>".Replace("{0}", target), _options));
-      ruleEngine.AddRule(new PostTopicRegexReplaceRule(_rgxTopic, @"<a {0} href=""${topic}"">${inner}</a>".Replace("{0}", target), _options));
+            ForumPage fp = new ForumPage();
+
+           string tmpReplaceStr =
+                @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
+                    FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+
+            ruleEngine.AddRule(
+               new VariableRegexReplaceRule(
+                   _rgxQuote2,
+                   tmpReplaceStr,
+                   new[]
+                        {
+                            "quote"
+                        }));
+
+
+            tmpReplaceStr =
+                @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" alt=""Go to Quoted Post"" /></a></span><div class=""innerquote"">{3}</div></div>"
+                    .
+                    FormatWith(localQuotePostedStr.Replace("{0}", "${quote}"),
+                               YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
+                               fp.GetThemeContents("ICONS", "ICON_LATEST"), "${inner}");
+
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxQuote3,
+                    tmpReplaceStr,
+                    new[]
+                        {
+                            "quote", "id"
+                        }));
+
+        
+
+            tmpReplaceStr =
+                @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
+                    FormatWith(localQuoteStr, "${inner}");
+
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr));
+        }
+
+        // post and topic rules...
+        ruleEngine.AddRule(new PostTopicRegexReplaceRule(_rgxPost,
+                                                         @"<a {0} href=""${post}"">${inner}</a>".Replace("{0}", target),
+                                                         _options));
+        ruleEngine.AddRule(new PostTopicRegexReplaceRule(_rgxTopic,
+                                                         @"<a {0} href=""${topic}"">${inner}</a>".Replace("{0}", target),
+                                                         _options));
     }
 
-    /// <summary>
+      /// <summary>
     /// Applies Custom YafBBCode Rules from the YafBBCode table
     /// </summary>
     /// <param name="rulesEngine">

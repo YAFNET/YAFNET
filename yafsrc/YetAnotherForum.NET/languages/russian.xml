@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Имя пользователя не может содержать некоторые знаки препинания(;) или некоторые слова.</Resource>
     <Resource tag="BBCODE_CODE">Код:</Resource>
     <Resource tag="BBCODE_QUOTE">Цитата:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} написал:</Resource>
     <Resource tag="CAL_JQ_CULTURE">ru</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YY</Resource>

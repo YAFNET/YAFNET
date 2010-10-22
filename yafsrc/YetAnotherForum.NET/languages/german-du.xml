@@ -248,6 +248,7 @@
     <Resource tag="BAD_USERNAME">Der Benutzername darf kein Semikolon (;) enthalten.</Resource>
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Zitat:</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} schrieb:</Resource>
     <Resource tag="CAL_JQ_CULTURE">de</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
