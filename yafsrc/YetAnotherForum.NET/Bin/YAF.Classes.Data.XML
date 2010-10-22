@@ -2552,7 +2552,7 @@
             <param name="pollList">List to hold all polls data</param>
             <returns>Last saved poll id.</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.poll_update(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.poll_update(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.Object,System.Object)">
             <summary>
             The poll_update.
             </summary>
@@ -2564,6 +2564,21 @@
             </param>
             <param name="closes">
             The closes.
+            </param>
+            <param name="isBounded">
+            The is bounded.
+            </param>
+            <param name="isClosedBounded">
+            The is closed bounded.
+            </param>
+            <param name="allowMultipleChoices">
+            The allow Multiple Choices option.
+            </param>
+            <param name="questionPath">
+            The question file path.
+            </param>
+            <param name="questionMime">
+            The question file mime type.
             </param>
         </member>
         <member name="M:YAF.Classes.Data.DB.poll_remove(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">

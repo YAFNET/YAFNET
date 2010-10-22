@@ -31,26 +31,24 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\DNA.UI.JQuery.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\YetAnotherForum.NET\Bin\DNA.UI.JQuery.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="jQueryNet, Version=1.3.2.0, Culture=neutral, PublicKeyToken=39745d972c57ba6a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\YetAnotherForum.NET\Bin\jQueryNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -135,12 +133,6 @@
     <Compile Include="Design\ViewDesigner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DNA\DNA.csproj">
-      <Project>{5418193D-42DB-4D27-B795-9C9D79ED5018}</Project>
-      <Name>DNA</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Accordion\Accordion.ico" />
     <EmbeddedResource Include="Dialog\Dialog.ico" />
     <EmbeddedResource Include="DatePicker\DatePicker.ico" />
@@ -179,6 +171,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Selectable\Selectable.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DNA\DNA.csproj">
+      <Project>{5418193D-42DB-4D27-B795-9C9D79ED5018}</Project>
+      <Name>DNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\jQuery\jQueryNet.csproj">
+      <Project>{96818757-3B53-48AE-96A0-74D2A1C0870D}</Project>
+      <Name>jQueryNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

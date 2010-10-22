@@ -2617,6 +2617,11 @@
             The admin_restartapp.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.admin_digest">
+            <summary>
+            Digest Admin page
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">
             <summary>
             The type board application factory instance.
@@ -2901,6 +2906,11 @@
             Gets or sets AllowedPollNumber.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PollImageMaxFileSize">
+            <summary>
+            Gets or sets PollImageMaxFileSize.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.CaptchaTypeRegister">
             <summary>
             Gets or sets CaptchaTypeRegister.
@@ -3171,9 +3181,19 @@
             Gets or sets AllowUsersHidePollResults. 
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowMultipleChoices">
+            <summary>
+            Gets or sets AllowMultipleChoices. 
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowGuestsViewPollOptions">
             <summary>
             Gets or sets AllowGuestsViewPollOptions. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUsersImagedPoll">
+            <summary>
+            Gets or sets AllowUsersImagedPoll. 
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AvatarUpload">

@@ -1476,7 +1476,7 @@
         </member>
         <member name="M:YAF.Classes.Core.YafSendMail.SendAll(System.Collections.Generic.IEnumerable{System.Net.Mail.MailMessage})">
             <summary>
-            The send all.
+            Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
             </summary>
             <param name="messages">
             The messages.
@@ -2923,6 +2923,14 @@
             </param>
             <returns>
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.MailMessageExtensions.Send(System.Net.Mail.MailMessage)">
+            <summary>
+            Creates a SmtpClient and sends a MailMessage.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.ControlExtensions">
             <summary>
@@ -5859,6 +5867,59 @@
             <summary>
               The collapsed.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafDigest">
+            <summary>
+            The yaf digest.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDigest.GetDigestHtml(System.Int32,System.Int32)">
+            <summary>
+            The get digest html.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The get digest html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDigest.GetDigestUrl(System.Int32,System.Int32)">
+            <summary>
+            The get digest url.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The get digest url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDigest.SendDigest(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends the digest html to the email/name specified.
+            </summary>
+            <param name="digestHtml">
+            The digest html.
+            </param>
+            <param name="forumName">
+            The forum name.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="toName">
+            The to name.
+            </param>
+            <param name="sendQueued">
+            The send queued.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.MIMEPart">
             <summary>
@@ -8944,12 +9005,12 @@
             The body.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             The send.
             </summary>
             <param name="sendMail">
-            The send Mail.
+            The send mail.
             </param>
             <param name="fromEmail">
             The from email.
@@ -8966,8 +9027,11 @@
             <param name="subject">
             The subject.
             </param>
-            <param name="body">
-            The body.
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
             </param>
         </member>
         <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String)">
