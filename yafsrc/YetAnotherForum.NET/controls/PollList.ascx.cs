@@ -522,22 +522,26 @@ namespace YAF.controls
         pollChoices = new int?[pchcntr];
         int choicescount1 = 0;
         pchcntr = 0;
-        foreach (DataRow drch in this._dtPollAllChoices.Rows)
-          {
-              if ((int)drch["PollID"] == pollId)
-              {
-                  foreach (DataRow drch1 in this._dtAllPollGroupVotes.Rows)
-                  {
-                      if ((int)drch["ChoiceID"] == (int)drch1["ChoiceID"])
-                      {
-                          pollChoices[pchcntr] = (int)drch["ChoiceID"];
-                          pchcntr++;
-                      }
-                  }
 
-                  choicescount1++;
-              }
-          }
+        // tha_watcha: Added some IsNullOrEmptyDBField checks otherwise it would throw an System.InvalidCastException: Specified cast is not valid, on older polls.
+        foreach (DataRow drch in from DataRow drch in this._dtPollAllChoices.Rows
+                                 where !drch["PollID"].IsNullOrEmptyDBField()
+                                 where (int) drch["PollID"] == pollId
+                                 select drch)
+        {
+            foreach (DataRow drch1 in this._dtAllPollGroupVotes.Rows)
+            {
+                if (drch["ChoiceID"].IsNullOrEmptyDBField() || drch1["ChoiceID"].IsNullOrEmptyDBField()) continue;
+
+                if ((int) drch["ChoiceID"] != (int) drch1["ChoiceID"]) continue;
+
+                pollChoices[pchcntr] = (int) drch["ChoiceID"];
+
+                pchcntr++;
+            }
+
+            choicescount1++;
+        }
 
           if (pchcntr > 0)
           {
