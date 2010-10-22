@@ -568,6 +568,11 @@ namespace YAF.Classes
     /// <summary>
     /// The admin_restartapp.
     /// </summary>
-    admin_restartapp
+    admin_restartapp,
+
+    /// <summary>
+    /// Digest Admin page
+    /// </summary>
+    admin_digest
   }
 }

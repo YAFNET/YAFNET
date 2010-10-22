@@ -119,11 +119,12 @@ namespace YAF.Classes.Core
         // haven't sent in 24 hours or more and it's 12 to 5 am.
         sendDigest = lastSend < DateTime.Now.AddHours(-24) && DateTime.Now < DateTime.Today.AddHours(6);
 #endif
-        if (sendDigest)
+        if (sendDigest || boardSettings.ForceDigestSend)
         {
           // && DateTime.Now < DateTime.Today.AddHours(5))
           // we're good to send -- update latest send so no duplication...
           boardSettings.LastDigestSend = DateTime.Now.ToString();
+          boardSettings.ForceDigestSend = false;
           boardSettings.SaveRegistry();
 
           return true;
@@ -187,46 +188,20 @@ namespace YAF.Classes.Core
     {
       foreach (var user in usersWithDigest)
       {
-        var url = "{0}{1}{2}?{3}".FormatWith(
-          BaseUrlBuilder.BaseUrl,
-          BaseUrlBuilder.AppPath,
-          "digest.aspx",
-          "token={0}&userid={1}&boardid={2}".FormatWith(
-            YafContext.Current.BoardSettings.WebServiceToken, user.UserID ?? 0, boardId));
-
-        var request =
-          (HttpWebRequest)
-          WebRequest.Create(url);
-
         string digestHtml = string.Empty;
 
         try
         {
-          // set timeout to max 10 seconds
-          request.Timeout = 10 * 1000;
-          var response = request.GetResponse().ToClass<HttpWebResponse>();
-
-          if (response.StatusCode == HttpStatusCode.OK)
-          {
-            digestHtml = response.GetResponseStream().AsString();
-          }
+          digestHtml = YafContext.Current.Get<YafDigest>().GetDigestHtml(user.UserID ?? 0, boardId);
         }
         catch (Exception e)
         {
           DB.eventlog_create(
-            null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID ?? 0, e.ToString()));
+            null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
         }
 
         if (digestHtml.IsSet())
         {
-          string subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
-          var match = Regex.Match(digestHtml, @"\<title\>(?<inner>(.*?))\<\/title\>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-          if (match.Groups["inner"] != null)
-          {
-            subject = match.Groups["inner"].Value.Trim();
-          }
-
           if (user.ProviderUserKey == null)
           {
             continue;
@@ -239,15 +214,8 @@ namespace YAF.Classes.Core
             continue;
           }
 
-          // queue to send...
-          YafContext.Current.Get<YafSendMail>().Queue(
-            YafContext.Current.BoardSettings.ForumEmail, 
-            YafContext.Current.BoardSettings.Name, 
-            membershipUser.Email, 
-            user.DisplayName, 
-            subject, 
-            "You must have HTML Email Viewer to View.", 
-            digestHtml);
+          // send the digest...
+          YafContext.Current.Get<YafDigest>().SendDigest(digestHtml, forumName, membershipUser.Email, user.DisplayName, true);
         }
       }
     }

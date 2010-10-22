@@ -3207,6 +3207,18 @@ namespace YAF.Classes
       }
     }
 
+    public bool ForceDigestSend
+    {
+      get
+      {
+        return this._regBoard.GetValue<bool>("ForceDigestSend", false);
+      }
+      set
+      {
+        this._regBoard.SetValue<bool>("ForceDigestSend", value);
+      }
+    }
+
     #endregion
 
     #region Nested type: YafLegacyBoardSettings

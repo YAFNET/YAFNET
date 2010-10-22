@@ -1,10 +1,14 @@
 ﻿namespace YAF.Classes.Core
 {
+  #region Using
+
   using System.Collections.Generic;
   using System.Net.Mail;
 
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
+
+  #endregion
 
   /// <summary>
   /// The yaf send mail extensions.
@@ -40,14 +44,15 @@
     /// <param name="bodyHtml">
     /// The body Html.
     /// </param>
-    public static void Queue([NotNull] this YafSendMail sendMail, 
-                             [NotNull] string fromEmail, 
-                             [NotNull] string fromName, 
-                             [NotNull] string toEmail, 
-                             [NotNull] string toName,
-                             [CanBeNull] string subject,
-                             [CanBeNull] string bodyText,
-                             [CanBeNull] string bodyHtml)
+    public static void Queue(
+      [NotNull] this YafSendMail sendMail, 
+      [NotNull] string fromEmail, 
+      [CanBeNull] string fromName, 
+      [NotNull] string toEmail, 
+      [CanBeNull] string toName, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string bodyText, 
+      [CanBeNull] string bodyHtml)
     {
       DB.mail_create(fromEmail, fromName, toEmail, toName, subject, bodyText, bodyHtml);
     }
@@ -66,11 +71,12 @@
     /// </param>
     /// <param name="body">
     /// </param>
-    public static void Queue([NotNull] this YafSendMail sendMail, 
-                             [NotNull] string fromEmail, 
-                             [NotNull] string toEmail,
-                             [CanBeNull] string subject,
-                             [CanBeNull] string body)
+    public static void Queue(
+      [NotNull] this YafSendMail sendMail, 
+      [NotNull] string fromEmail, 
+      [NotNull] string toEmail, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string body)
     {
       DB.mail_create(fromEmail, null, toEmail, null, subject, body, null);
     }
@@ -93,11 +99,12 @@
     /// <param name="body">
     /// The body.
     /// </param>
-    public static void Send([NotNull] this YafSendMail sendMail, 
-                            [NotNull] string fromEmail, 
-                            [NotNull] string toEmail, 
-                            [CanBeNull] string subject, 
-                            [CanBeNull] string body)
+    public static void Send(
+      [NotNull] this YafSendMail sendMail, 
+      [NotNull] string fromEmail, 
+      [NotNull] string toEmail, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string body)
     {
       CodeContracts.ArgumentNotNull(fromEmail, "fromEmail");
       CodeContracts.ArgumentNotNull(toEmail, "toEmail");
@@ -109,7 +116,7 @@
     /// The send.
     /// </summary>
     /// <param name="sendMail">
-    /// The send Mail.
+    /// The send mail.
     /// </param>
     /// <param name="fromEmail">
     /// The from email.
@@ -126,18 +133,23 @@
     /// <param name="subject">
     /// The subject.
     /// </param>
-    /// <param name="body">
-    /// The body.
+    /// <param name="bodyText">
+    /// The body text.
     /// </param>
-    public static void Send([NotNull] this YafSendMail sendMail, 
-                            [NotNull] string fromEmail, 
-                            [NotNull] string fromName, 
-                            [NotNull] string toEmail, 
-                            [NotNull] string toName,
-                            [CanBeNull] string subject,
-                            [CanBeNull] string body)
+    /// <param name="bodyHtml">
+    /// The body html.
+    /// </param>
+    public static void Send(
+      [NotNull] this YafSendMail sendMail, 
+      [NotNull] string fromEmail, 
+      [CanBeNull] string fromName, 
+      [NotNull] string toEmail, 
+      [CanBeNull] string toName, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string bodyText, 
+      [CanBeNull] string bodyHtml)
     {
-      sendMail.Send(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName), subject, body);
+      sendMail.Send(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName), subject, bodyText, bodyHtml);
     }
 
     /// <summary>
@@ -158,11 +170,12 @@
     /// <param name="bodyText">
     /// The body text.
     /// </param>
-    public static void Send([NotNull] this YafSendMail sendMail, 
-                            [NotNull] MailAddress fromAddress, 
-                            [NotNull] MailAddress toAddress,
-                            [CanBeNull] string subject,
-                            [CanBeNull] string bodyText)
+    public static void Send(
+      [NotNull] this YafSendMail sendMail, 
+      [NotNull] MailAddress fromAddress, 
+      [NotNull] MailAddress toAddress, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string bodyText)
     {
       sendMail.Send(fromAddress, toAddress, subject, bodyText, null);
     }
@@ -188,12 +201,13 @@
     /// <param name="bodyHtml">
     /// The body html.
     /// </param>
-    public static void Send([NotNull] this YafSendMail sendMail, 
-                            [NotNull] MailAddress fromAddress, 
-                            [NotNull] MailAddress toAddress, 
-                            [CanBeNull] string subject, 
-                            [CanBeNull] string bodyText, 
-                            [CanBeNull] string bodyHtml)
+    public static void Send(
+      [NotNull] this YafSendMail sendMail, 
+      [NotNull] MailAddress fromAddress, 
+      [NotNull] MailAddress toAddress, 
+      [CanBeNull] string subject, 
+      [CanBeNull] string bodyText, 
+      [CanBeNull] string bodyHtml)
     {
       CodeContracts.ArgumentNotNull(sendMail, "sendMail");
       CodeContracts.ArgumentNotNull(fromAddress, "fromAddress");

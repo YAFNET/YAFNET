@@ -90,6 +90,11 @@
       <ForumPage>admin_mail</ForumPage>
       <Image>mail</Image>
     </YafMenuItem>
+    <YafMenuItem>
+      <Title>Digest</Title>
+      <ForumPage>admin_digest</ForumPage>
+      <Image>newspaper</Image>
+    </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="Maintenance" HostAdminOnly="false">
     <YafMenuItem>
