@@ -291,9 +291,9 @@ namespace YAF.Pages
         {
             MembershipUser user = UserMembershipHelper.GetMembershipUserById(UserId);
 
-            if (user == null)
+            if (user == null || user.ProviderUserKey.ToString() == "0")
             {
-                YafBuildLink.AccessDenied( /*No such user exists*/);
+                YafBuildLink.AccessDenied( /*No such user exists or this is an nntp user ("0") */);
             }
 
             var userData = new CombinedUserDataHelper(user, UserId);

@@ -8,7 +8,7 @@
                 NNTP Forums
             </td>
         </tr>
-        <asp:Repeater ID="RankList" runat="server">
+        <asp:Repeater ID="RankList" OnItemCommand="RankList_ItemCommand" runat="server">
             <HeaderTemplate>
                 <tr>
                     <td class="header2">
@@ -43,7 +43,7 @@
                         <%# Eval( "Active") %>
                     </td>
                     <td class="post">
-                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "NntpForumID") %>'>Edit</asp:LinkButton>
+                        <asp:LinkButton runat="server"  CommandName="edit" CommandArgument='<%# Eval( "NntpForumID") %>'>Edit</asp:LinkButton>
                         |
                         <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "NntpForumID") %>'>Delete</asp:LinkButton>
                     </td>

@@ -13,7 +13,7 @@
 	<td class=header1 colspan=6>NNTP Servers</td>
 </tr>
 
-<asp:repeater id=RankList runat="server">
+<asp:Repeater id=RankList runat="server">
 	<HeaderTemplate>
 		<tr>
 			<td class=header2>Name</td>
@@ -40,7 +40,7 @@
 			</td>
 		</tr>
 	</ItemTemplate>
-</asp:repeater>
+</asp:Repeater>
 
 <tr>
 	<td class=footer1 colspan=5><asp:linkbutton id=NewServer runat="server" text="New Server" onclick="NewServer_Click" /></td>

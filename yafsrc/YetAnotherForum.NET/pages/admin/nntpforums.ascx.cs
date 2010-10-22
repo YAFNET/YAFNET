@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void RankList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void RankList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {

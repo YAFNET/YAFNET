@@ -17,6 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Text.RegularExpressions;
+
 namespace YAF.Classes.Core.Nntp
 {
   #region Using
@@ -139,10 +141,13 @@ namespace YAF.Classes.Core.Nntp
                   guestUserId = DB.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
+                // Incorrect tags fixes which are common in nntp messages and cause display problems.
+                // These are spotted ones.
+                body = body.Replace("<br>", "<br />");
+                body = body.Replace("<hr>", "<hr />");
+
                 //body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
                 //body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
-
-                //body = HttpContext.Current.Server.HtmlEncode(body);
 
                 //// vzrus: various wrong NNTP tags replacements
 
@@ -152,6 +157,8 @@ namespace YAF.Classes.Core.Nntp
                 //body = body.Replace("&lt;hr&gt;", "<hr />");
 
                 //body = body.Replace("&amp;quot;", @"&#34;");
+                 
+                // Innerquote class in yaf terms, should be replaced while displaying     
                 //body = body.Replace("&lt;quote&gt;", @"[quote]");
                 //body = body.Replace("&lt;/quote&gt;", @"[/quote]");
 
