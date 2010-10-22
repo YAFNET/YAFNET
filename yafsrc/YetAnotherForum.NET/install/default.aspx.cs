@@ -492,7 +492,7 @@ namespace YAF.Install
       // reset the board settings...
       YafContext.Current.BoardSettings = null;
 
-      if (Config.IsDotNetNuke)
+     /* if (Config.IsDotNetNuke)
       {
         // Redirect back to the portal main page.
         string rPath = YafForumInfo.ForumClientFileRoot;
@@ -501,9 +501,9 @@ namespace YAF.Install
         this.Response.Redirect(rPath);
       }
       else
-      {
+      {*/
         this.Response.Redirect("~/");
-      }
+      //}
     }
 
     /// <summary>
