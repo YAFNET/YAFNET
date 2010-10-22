@@ -288,18 +288,21 @@ namespace YAF.Pages
       {
         var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
 
-        if (displayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+        if (displayName != null)
         {
-          this.PageContext.AddLoadMessage(
-            this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength));
-          e.Cancel = true;
-          return;
-        }
+          if (displayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+          {
+            this.PageContext.AddLoadMessage(
+              this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength));
+            e.Cancel = true;
+            return;
+          }
 
-        if (this.PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
-        {
-          this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
-          e.Cancel = true;
+          if (this.PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
+          {
+            this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
+            e.Cancel = true;
+          } 
         }
       }
 
@@ -308,8 +311,9 @@ namespace YAF.Pages
       // vzrus: Here recaptcha should be always valid. This piece of code for testing only.
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
       {
-        var reCaptcha = (RecaptchaControl)this.CreateUserWizard1.FindWizardControlRecursive("Recaptcha1");
-        if (!reCaptcha.IsValid)
+        var recaptcha = this.CreateUserWizard1.FindWizardControlRecursive("Recaptcha1").ToClass<RecaptchaControl>();
+
+        if (recaptcha != null && !recaptcha.IsValid)
         {
           this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
           e.Cancel = true;

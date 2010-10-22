@@ -3596,7 +3596,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpforum_save](@NntpForumI
 begin
 		if @NntpForumID is null
 		insert into [{databaseOwner}].[{objectQualifier}NntpForum](NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active)
-		values(@NntpServerID,@GroupName,@ForumID,0,GETUTCDATE() ,@Active)
+		values(@NntpServerID,@GroupName,@ForumID,0,DATEADD(d,-1,GETUTCDATE()),@Active)
 	else
 		update [{databaseOwner}].[{objectQualifier}NntpForum] set
 			NntpServerID = @NntpServerID,

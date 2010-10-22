@@ -18,83 +18,135 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Web.Security;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for active.
-	/// </summary>
-	public partial class im_email : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  #region Using
 
-		public int UserID
-		{
-			get
-			{
-				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-			}
-		}
+  using System;
+  using System.Net.Mail;
+  using System.Web.Security;
 
-		public im_email()
-			: base( "IM_EMAIL" )
-		{
-		}
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( User == null || !PageContext.BoardSettings.AllowEmailSending )
-				YafBuildLink.AccessDenied();
+  #endregion
 
-			if ( !IsPostBack )
-			{
-				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
+  /// <summary>
+  /// Summary description for active.
+  /// </summary>
+  public partial class im_email : ForumPage
+  {
+    #region Constructors and Destructors
 
-				if ( user == null )
-				{
-					YafBuildLink.AccessDenied(/*No such user exists*/);
-				}
-                string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
+    /// <summary>
+    /// Initializes a new instance of the <see cref="im_email"/> class.
+    /// </summary>
+    public im_email()
+      : base("IM_EMAIL")
+    {
+    }
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName,
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    #endregion
 
-				Send.Text = GetText( "SEND" );
-			}
-		}
+    #region Properties
 
-		protected void Send_Click( object sender, EventArgs e )
-		{
-			try
-			{
-				// get "to" user...
-				MembershipUser toUser = UserMembershipHelper.GetMembershipUserById( UserID );
+    /// <summary>
+    /// Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      }
+    }
 
-				// send it...
-				this.Get<YafSendMail>().Send( new System.Net.Mail.MailAddress( PageContext.User.Email, PageContext.User.UserName ), new System.Net.Mail.MailAddress( toUser.Email.Trim(), toUser.UserName.Trim() ), Subject.Text.Trim(), Body.Text.Trim() );
+    #endregion
 
-				// redirect to profile page...
-				YafBuildLink.Redirect( ForumPages.profile, "u={0}", UserID );
-			}
-			catch ( Exception x )
-			{
-				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-				if ( PageContext.IsAdmin )
-				{
-					PageContext.AddLoadMessage( x.Message );
-				}
-				else
-				{
-					PageContext.AddLoadMessage( GetText( "ERROR" ) );
-				}
-			}
-		}
-	}
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.User == null || !this.PageContext.BoardSettings.AllowEmailSending)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        // get user data...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+
+        if (user == null)
+        {
+          YafBuildLink.AccessDenied( /*No such user exists*/);
+        }
+
+        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        this.Send.Text = this.GetText("SEND");
+      }
+    }
+
+    /// <summary>
+    /// The send_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      try
+      {
+        // get "to" user...
+        MembershipUser toUser = UserMembershipHelper.GetMembershipUserById(this.UserID);
+
+        // send it...
+        this.Get<YafSendMail>().Send(
+          new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName), 
+          new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()), 
+          this.Subject.Text.Trim(), 
+          this.Body.Text.Trim());
+
+        // redirect to profile page...
+        YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.UserID);
+      }
+      catch (Exception x)
+      {
+        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+        if (this.PageContext.IsAdmin)
+        {
+          this.PageContext.AddLoadMessage(x.Message);
+        }
+        else
+        {
+          this.PageContext.AddLoadMessage(this.GetText("ERROR"));
+        }
+      }
+    }
+
+    #endregion
+  }
 }

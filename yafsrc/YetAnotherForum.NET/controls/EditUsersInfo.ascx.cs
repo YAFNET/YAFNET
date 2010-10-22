@@ -123,6 +123,14 @@ namespace YAF.Controls
         user.IsApproved = this.IsApproved.Checked;
         PageContext.CurrentMembership.UpdateUser(user);
       }
+      else
+      {
+        if (!this.IsApproved.Checked)
+        {
+          PageContext.AddLoadMessage("The Guest user must be marked as Approved or your forum will be unstable.");
+          return;
+        }
+      }
 
       var userFlags = new UserFlags
         {
