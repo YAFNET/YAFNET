@@ -138,7 +138,8 @@ namespace YAF.Controls
             this.NewestMemberUserLink.UserID = Convert.ToInt32(userStatisticsDataRow["LastMemberID"]);
 
             // Todays Birthdays
-            StatsTodaysBirthdays.Text = PageContext.Localization.GetText("stats_birthdays");// "";
+            // tha_watcha : Disabled as future feature, until its cached?!
+            /*StatsTodaysBirthdays.Text = PageContext.Localization.GetText("stats_birthdays");// "";
 
             // get users for this board...
             List<DataRow> users = DB.user_list(PageContext.PageBoardID, null, null).Rows.Cast<DataRow>().ToList();
@@ -166,7 +167,7 @@ namespace YAF.Controls
             {
                 // Remove last Separator
                 BirthdayUsers.Controls.RemoveAt(BirthdayUsers.Controls.Count - 1);
-            }
+            }*/
         }
 
         /// <summary>
