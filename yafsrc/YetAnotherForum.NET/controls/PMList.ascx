@@ -1,8 +1,4 @@
-<%@ Import Namespace="YAF.Classes.Utils" %>
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList"
-	EnableTheming="true" Codebehind="PMList.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList" EnableTheming="true" Codebehind="PMList.ascx.cs" EnableViewState="true" %>
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated"
