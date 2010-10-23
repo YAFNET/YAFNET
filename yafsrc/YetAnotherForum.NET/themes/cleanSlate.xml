@@ -197,6 +197,7 @@
 		<Resource tag="LCAP">~/vote_lcap.gif</Resource>
 		<Resource tag="RCAP">~/vote_rcap.gif</Resource>
 		<Resource tag="BAR">~/voting_bar.gif</Resource>
+    <Resource tag="POLL_CLOSED">~/lock_small.png</Resource>
     <Resource tag="POLL_QUESTION">~/poll_question.png</Resource>
     <Resource tag="POLL_CHOICE">~/poll_choice.png</Resource>
     <Resource tag="POLL_MASK">~/mask.gif</Resource>

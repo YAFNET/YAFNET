@@ -938,7 +938,10 @@ namespace YAF.controls
         }
         else if (daystorun == 0)
         {
-          notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
+            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
+       
+            var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
+            pollClosedImage.Visible = true;
         }
 
         pollChoiceList.CanVote = cvote;
@@ -1461,6 +1464,7 @@ namespace YAF.controls
          questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
          questionAnchor.HRef = string.Empty;
      }
+
  }
     #endregion
   }

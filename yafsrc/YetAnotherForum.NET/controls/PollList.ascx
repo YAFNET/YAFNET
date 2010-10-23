@@ -15,16 +15,15 @@
                         </a>
                     </div>
                 </td>
-                <td class="header1" colspan="3">
+                <td class="header1" colspan="3">                  
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
                     :
-                    <asp:Label ID="QuestionLabel" Text='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'
-                        runat="server"></asp:Label>
-                    <%# GetPollIsClosed(DataBinder.Eval(Container.DataItem, "PollID"))%>
+                    <asp:Label ID="QuestionLabel" Text='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'  runat="server"></asp:Label>          
+
                 </td>
             </tr>
             <tr>
-                <td class="header2">
+                <td class="header2">        
                 </td>
                 <td class="header2">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" />
@@ -39,6 +38,7 @@
         <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
           <tr>
                 <td class="header2">
+                <img id="PollClosedImage" src='<%# this.GetThemeContents("VOTE", "POLL_CLOSED") %>' title='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' alt='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' runat="server" />               
                 </td>
                 <td class="header2">
                     <%= PageContext.Localization.GetText("total") %>
