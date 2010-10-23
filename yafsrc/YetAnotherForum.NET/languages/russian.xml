@@ -549,6 +549,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши избранные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
     <Resource tag="STATS">Статистика</Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
     <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил</Resource>
     <Resource tag="STATS_MEMBERS">Зарегистрировано {0:N0} пользователей.</Resource>

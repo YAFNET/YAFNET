@@ -549,6 +549,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistiques</Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Le plus récent membre est</Resource>
     <Resource tag="STATS_LASTPOST">Dernier message le {0} par</Resource>
     <Resource tag="STATS_MEMBERS">Il y a {0:N0} membres inscrits.</Resource>

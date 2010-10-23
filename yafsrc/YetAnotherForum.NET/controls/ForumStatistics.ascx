@@ -52,6 +52,10 @@
                         <asp:Label ID="StatsNewestMember" runat="server" />&nbsp;<YAF:UserLink ID="NewestMemberUserLink"
                             runat="server" />
                         .
+                        <br />
+                        <asp:PlaceHolder ID="BirthdayUsers" runat="server" Visible="false">
+                          <asp:Label ID="StatsTodaysBirthdays" runat="server" />
+                        </asp:PlaceHolder>
                     </td>
                 </tr>
             </asp:PlaceHolder>

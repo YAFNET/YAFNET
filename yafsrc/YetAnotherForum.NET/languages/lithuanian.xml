@@ -637,6 +637,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistika </Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Naujausias narys yra</Resource>
     <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
     <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>

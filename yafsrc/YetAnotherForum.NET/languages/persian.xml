@@ -549,6 +549,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">اشتراک عناوین مورد علاقه تان از طریق آر اس اس</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">اشتراک عناوین انجمن از طریق آر اس اس</Resource>
     <Resource tag="STATS">آمار و ارقام</Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
     <Resource tag="STATS_LASTPOST">آخرین ارسال {0} بوسیله</Resource>
     <Resource tag="STATS_MEMBERS">تعداد {0:N0} کاربر ثبت نام کرده اند.</Resource>

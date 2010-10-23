@@ -549,6 +549,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistieken</Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Het nieuwste lid is</Resource>
     <Resource tag="STATS_LASTPOST">Laatste bericht geplaatst op {0} door {1}.</Resource>
     <Resource tag="STATS_MEMBERS">Er zijn {0:N0} geregistreerde leden.</Resource>

@@ -550,6 +550,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistici</Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Cel mai nou membru este</Resource>
     <Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>
     <Resource tag="STATS_MEMBERS">Avem {0:N0} membrii inregistrati.</Resource>
