@@ -38,7 +38,7 @@
         <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
           <tr>
                 <td class="header2">
-                <img id="PollClosedImage" src='<%# this.GetThemeContents("VOTE", "POLL_CLOSED") %>' title='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' alt='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' runat="server" />               
+                <img id="PollClosedImage" visible="false" src='<%# this.GetThemeContents("VOTE", "POLL_CLOSED") %>' title='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' alt='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' runat="server" />               
                 </td>
                 <td class="header2">
                     <%= PageContext.Localization.GetText("total") %>
