@@ -123,7 +123,16 @@ namespace YAF.Classes
             {
               useKey = "m";
               pageName += "m";
-              description = this.GetTopicNameFromMessage(Convert.ToInt32(parser[useKey]));
+
+              try
+              {
+                  description = this.GetTopicNameFromMessage(Convert.ToInt32(parser[useKey]));
+              }
+              catch (Exception)
+              {
+                  description = "posts";
+              }
+            
             }
 
             handlePage = true;
