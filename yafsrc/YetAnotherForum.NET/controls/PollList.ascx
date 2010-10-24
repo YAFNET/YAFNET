@@ -8,7 +8,7 @@
         </HeaderTemplate>
         <ItemTemplate>
                <tr>
-                <td class="header1" style="width: 1">
+                <td class="header1" align="center" style="width: 1">
                     <div class="attachedimg" style="display: inline; height: 50px">
                         <a id="QuestionAnchor" runat="server">
                             <img id="QuestionImage" src="" alt="" runat="server" />
@@ -38,7 +38,7 @@
         <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
           <tr>
                 <td class="header2">
-                <img id="PollClosedImage" visible="false" src='<%# this.GetThemeContents("VOTE", "POLL_CLOSED") %>' title='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' alt='<%# this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED") %>' runat="server" />               
+                <img id="PollClosedImage" title="Poll Status" alt="" visible="false"  runat="server" />               
                 </td>
                 <td class="header2">
                     <%= PageContext.Localization.GetText("total") %>

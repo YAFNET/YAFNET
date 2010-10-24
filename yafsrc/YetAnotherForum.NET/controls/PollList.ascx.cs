@@ -921,13 +921,18 @@ namespace YAF.controls
         // Poll has expiration date
         if (daystorun > 0)
         {
+            var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
+            pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_NOTCLOSED");
           if (!soon)
           {
             notificationString += " {0}".FormatWith(this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
+            pollClosedImage.Alt = this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun);
+            
           }
           else
           {
             notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
+            pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
           }
 
           if (isClosedBound)
@@ -935,12 +940,18 @@ namespace YAF.controls
               notificationString +=
                   " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
           }
+
+          pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
+          pollClosedImage.Visible = true;
         }
         else if (daystorun == 0)
         {
             notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
        
             var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
+            pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_CLOSED");
+            pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED"); 
+           
             pollClosedImage.Visible = true;
         }
 

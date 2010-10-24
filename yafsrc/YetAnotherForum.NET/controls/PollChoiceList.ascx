@@ -6,7 +6,7 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr id="VoteTr" runat="server">
-                        <td class="post" width="1">
+                        <td class="post" align="center" width="1">
                             <div class="attachedimg" style="display: inline; height: 50px">
                                 <a id="ChoiceAnchor" runat="server">
                                     <img id="ChoiceImage" src="" alt="" runat="server" />
