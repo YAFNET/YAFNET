@@ -23,15 +23,15 @@
                 TitleLocalizedTag="BUTTON_EDIT_TT" />
             <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
-        <a name="post<%# DataRow["MessageID"] %>" /><strong>						
+        <a name="post<%# DataRow["MessageID"] %>" /><b>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' />
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
-        </strong>
+        </b>
         <br />
         <div class="leftItem postedLeft">        
             <strong><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
                 :</strong>
-            <%# YafServices.DateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
+            <%# this.Get<YafDateTime>().FormatDateTime((System.DateTime)DataRow["Posted"]) %>
             </div>
     </td>
 </tr>

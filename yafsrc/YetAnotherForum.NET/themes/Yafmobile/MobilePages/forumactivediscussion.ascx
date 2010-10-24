@@ -20,13 +20,12 @@
                     <ItemTemplate>
                         <tr>
                             <td class="post">
-                                <b><asp:HyperLink ID="TextMessageLink" runat="server" /></b>
-                                <br />
-                                <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />                                
-                                <YAF:UserLink ID="LastUserLink" runat="server" />
-                                (<asp:HyperLink ID="ForumLink" runat="server" />)
+                                &nbsp;<strong><asp:HyperLink ID="TextMessageLink" runat="server" /></strong> &nbsp;<YAF:LocalizedLabel
+                                    ID="ByLabel" runat="server" LocalizedTag="BY" />
+                                &nbsp;<YAF:UserLink ID="LastUserLink" runat="server" />
+                                &nbsp;(<asp:HyperLink ID="ForumLink" runat="server" />)
                             </td>
-                            <asp:PlaceHolder ID="MobileHolder" runat="server" Visible="false">
+                            <asp:PlaceHolder ID="MobileNoShow" runat="server" Visible="false">
                             <td class="post" style="width: 30em; text-align: right;">
                                 <asp:Label ID="LastPostedDateLabel" runat="server" />
                                 <asp:HyperLink ID="ImageMessageLink" runat="server">
@@ -40,8 +39,10 @@
                 </asp:Repeater>
                 <tr>
                     <td class="footer1" align="right" colspan="2">
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostLatestFeedAccess) %>"
-                            TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />
+                        &nbsp;
+                        <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="LatestPosts" IsAtomFeed="true"
+                            ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPFORUM" />
                     </td>
                 </tr>
             </asp:PlaceHolder>

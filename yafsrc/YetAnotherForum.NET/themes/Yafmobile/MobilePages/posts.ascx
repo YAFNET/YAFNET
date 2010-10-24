@@ -97,7 +97,7 @@
         <tr>
             <td colspan="3" class="post" style="padding: 0px;">
                 <YAF:DataPanel runat="server" ID="DataPanel1" AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2"
-                    TitleStyle-Font-Bold="true" Collapsed="true">
+                    TitleStyle-Font-Bold="true" Collapsed="false">
                     <div class="post quickReplyLine" id="QuickReplyLine" runat="server">
                     </div>
                     <div id="CaptchaDiv" align="center" visible="false" runat="server">

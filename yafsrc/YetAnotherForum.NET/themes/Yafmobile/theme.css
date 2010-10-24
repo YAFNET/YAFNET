@@ -28,6 +28,7 @@
 }
 
 .yafnet tr.forumRowTitle,
+.yafnet th.header1,
 .yafnet td.header1,
 .yafnet tr.header1
 {
@@ -35,6 +36,11 @@
 	color: #FFFFFF;
 	font-weight: bold;
 	font-size: 9pt;
+}
+
+.yafnet th
+{
+    text-align: left;
 }
 
 .yafnet tr.forumRowFoot,
@@ -45,7 +51,9 @@
 	color: #000000;
 }
 
-.yafnet table.content td {
+.yafnet table.content td,
+.yafnet table.content th
+ {
 	padding: 10px;
 	border: solid 1px #eeeeee;	
 }
@@ -57,11 +65,13 @@
 
 .yafnet tr.forumRowCat,
 .yafnet td.header2,
+.yafnet th.header2,
 .yafnet tr.header2,
 .yafnet .header
 {
     background-color: #eeeeee;
     font-weight: bold;    
+    padding: 5px;
 }
 
 .yafnet .forumLinkCol div.forumheading a,
@@ -70,6 +80,10 @@
     color: #000000;
     font-weight: bold;
     font-size: 11.5pt;    
+}
+
+.yafnet .outerMenuContainer
+{
 }
 
 .yafnet .MessageDetails span

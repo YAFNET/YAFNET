@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="mytopicslist.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="../../../controls/mytopicslist.ascx.cs"
     Inherits="YAF.Controls.MyTopicsList" %>
 <%@ Register TagPrefix="YAFMobile" TagName="TopicLineMobile" Src="TopicLineMobile.ascx" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
@@ -26,8 +26,8 @@
     </asp:Repeater>
     <tr>
         <td class="footer1" align="right" width="100%" colspan="6">
-            <asp:HyperLink ID="RssFeed" runat="server" />
-            <YAF:LocalizedLabel ID="Last24Label" runat="server" LocalizedTag="LAST_24" />
+            <YAF:RssFeedLink ID="RssFeed" runat="server" />
+            <YAF:RssFeedLink ID="AtomFeed" runat="server" />   
         </td>
     </tr>
 </table>

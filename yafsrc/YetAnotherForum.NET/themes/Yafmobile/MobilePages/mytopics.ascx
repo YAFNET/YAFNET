@@ -1,16 +1,8 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="mytopics.ascx.cs" Inherits="YAF.Pages.mytopics" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="../../../pages/mytopics.ascx.cs" Inherits="YAF.Pages.mytopics" %>
 <%@ Register TagPrefix="YAF" TagName="MyTopicsList" Src="mytopicslist.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>
-<%--<table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
-    <tr>
-        <td align="right">
-            <YAF:LocalizedLabel ID="SinceLabel" runat="server" LocalizedTag="SINCE" />
-            <asp:DropDownList ID="Since" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" />
-        </td>
-    </tr>
-</table>--%>
 <asp:UpdatePanel ID="TopicsUpdatePanel" runat="server">
     <ContentTemplate>
         <br style="clear: both" />
@@ -34,7 +26,7 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div id="DivForumJump">
+    <div id="DivForumJump" runat="server" visible="false">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
         &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>

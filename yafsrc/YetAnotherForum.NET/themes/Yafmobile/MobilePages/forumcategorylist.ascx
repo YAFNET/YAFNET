@@ -1,16 +1,27 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="forumcategorylist.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="forumcategorylist.ascx.cs"
 	Inherits="YAF.Controls.ForumCategoryList" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
 	<ContentTemplate>
+	<table class="content" width="100%">
 		<asp:Repeater ID="CategoryList" runat="server">
-			<HeaderTemplate>
-				<table class="content" width="100%">
-	
-					<tr class="forumRowTitle">
-						<td colspan="2" align="left" class="header1">
+			<HeaderTemplate>			
+				<tr class="forumRowTitle">
+						<th colspan="2" align="left" class="header1 headerForum">
 							<YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
-						</td>
+						</th>
+<%--						<th id="Td1" class="header1 headerModerators" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
+							<YAF:LocalizedLabel ID="ModeratorsHeaderLabel" runat="server" LocalizedTag="MODERATORS" />
+						</th>
+						<th class="header1 headerTopics" width="4%">
+							<YAF:LocalizedLabel ID="TopicsHeaderLabel" runat="server" LocalizedTag="TOPICS" />
+						</th>
+						<th class="header1 headerPosts" width="4%">
+							<YAF:LocalizedLabel ID="PostsHeaderLabel" runat="server" LocalizedTag="POSTS" />
+						</th>
+						<th class="header1 headerLastPost" width="25%">
+							<YAF:LocalizedLabel ID="LastPostHeaderLabel" runat="server" LocalizedTag="LASTPOST" />
+						</th>--%>
 					</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -23,7 +34,7 @@
 							
 							<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
 							
-							<%# DataBinder.Eval(Container.DataItem, "Name") %>
+							<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
 						</a>
 					</td>
 				</tr>
@@ -33,17 +44,14 @@
 				<tr class="forumRowFoot footer1">
 					<td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right">
 						<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# PageContext.Localization.GetText("MARKALL") %>' />
-						<span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
-							|</span>
-						<asp:HyperLink ID="RssFeed" runat="server" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=forum" ) %>'
-							Visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
-							<YAF:LocalizedLabel ID="RSSFeedLabel" runat="server" LocalizedTag="RSSFEED" />							
-					</asp:HyperLink>
-					</td>
-				</tr>
-			</table>	
+						<YAF:RssFeedLink ID="RssFeed1" runat="server" FeedType="Forum" AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>' ShowSpacerBefore="true" Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<YafPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess) %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />
+					    <YAF:RssFeedLink ID="AtomFeed1" runat="server" FeedType="Forum" AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>' ShowSpacerBefore="true" IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink && this.Get<YafPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess) %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPFORUM" />                           
+                    </td>
+				</tr>				
 			</FooterTemplate>
 		</asp:Repeater>
-		
+	  </table>
 	</ContentTemplate>
 </asp:UpdatePanel>
+
+

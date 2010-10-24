@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="pmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" %>
+<%@ Control Language="c#" CodeBehind="../../../pages/pmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
