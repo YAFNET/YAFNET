@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Resources theme="YAF Mobile" dir="Yafmobile" ismobile="false">
+<Resources theme="YAF Mobile" dir="Yafmobile" ismobile="true">
 	<page name="THEME">
 		<Resource tag="CREDIT">Yaf Mobile Theme</Resource>
 	</page>
@@ -57,20 +57,20 @@
 		<Resource tag="PROFILE">~/mobilePages/profile.ascx</Resource>
 		<!--Resource tag="ADMIN_ADMIN">~/mobilepages/admin.ascx</Resource-->
 		<Resource tag="MYTOPICS">~/mobilepages/mytopics.ascx</Resource>
-		<Resource tag="CP_PROFILE">~/mobilepages/cp_profile.ascx</Resource>
+		<!--<Resource tag="CP_PROFILE">~/mobilepages/cp_profile.ascx</Resource>-->
 		<Resource tag="DISPLAYPOST">~/MobilePages/displaypost.ascx</Resource>
 		<Resource tag="FORUMCATEGORYLIST">~/MobilePages/forumcategorylist.ascx</Resource>
 		<Resource tag="FORUMLIST">~/MobilePages/forumlist.ascx</Resource>
 		<Resource tag="FORUMACTIVEDISCUSSION">~/MobilePages/forumactivediscussion.ascx</Resource>
 		<Resource tag="EMAILTOPIC">~/MobilePages/emailtopic.ascx</Resource>
 		<Resource tag="MYTOPICLIST">~/MobilePages/mytopicslist.ascx</Resource>
-		<Resource tag="BUDDYLIST">~/MobilePages/buddylist.ascx</Resource>
-		<Resource tag="CP_EDITBUDDIES">~/MobilePages/cp_editbuddies.ascx</Resource>
+		<!--<Resource tag="BUDDYLIST">~/MobilePages/buddylist.ascx</Resource>
+		<Resource tag="CP_EDITBUDDIES">~/MobilePages/cp_editbuddies.ascx</Resource>-->
 		<Resource tag="PMESSAGE">~/MobilePages/pmessage.ascx</Resource>
-		<Resource tag="CP_EDITPROFILE">~/MobilePages/cp_editprofile.ascx</Resource>
+		<!--<Resource tag="CP_EDITPROFILE">~/MobilePages/cp_editprofile.ascx</Resource>
 		<Resource tag="CP_EDITAVATAR">~/MobilePages/cp_editavatar.ascx</Resource>
 		<Resource tag="CP_SIGNATURE">~/MobilePages/cp_signature.ascx</Resource>
 		<Resource tag="CP_CHANGEPASSWORD">~/MobilePages/cp_changepassword.ascx</Resource>
-		<Resource tag="CP_SUBSCRIPTIONS">~/MobilePages/cp_subscriptions.ascx</Resource>
+		<Resource tag="CP_SUBSCRIPTIONS">~/MobilePages/cp_subscriptions.ascx</Resource>-->
 	</page>
 </Resources>
