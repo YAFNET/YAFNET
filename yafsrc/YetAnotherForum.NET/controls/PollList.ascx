@@ -38,7 +38,7 @@
         <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
           <tr>
                 <td class="header2">
-                <img id="PollClosedImage" title="Poll Status" alt="" visible="false"  runat="server" />               
+                <img id="PollClosedImage" title="" src="" alt="" visible="false"  runat="server" />               
                 </td>
                 <td class="header2">
                     <%= PageContext.Localization.GetText("total") %>

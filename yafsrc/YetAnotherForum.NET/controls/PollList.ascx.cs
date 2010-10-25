@@ -950,8 +950,8 @@ namespace YAF.controls
        
             var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
             pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_CLOSED");
-            pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED"); 
-           
+            pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED");
+            pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
             pollClosedImage.Visible = true;
         }
 
