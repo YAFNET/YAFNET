@@ -6,7 +6,7 @@
 */
 
 /* Create Thanks Table */
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Thanks]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Thanks]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [{databaseOwner}].[{objectQualifier}Thanks](
 	[ThanksID] [int] IDENTITY(1,1) NOT NULL,
 	[ThanksFromUserID] [int] NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Thanks](
 go
 
 /* YAF Buddy Table */
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Buddy]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Buddy]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [{databaseOwner}].[{objectQualifier}Buddy](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[FromUserID] [int] NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Buddy](
 go
 
 /* YAF FavoriteTopic Table */
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [{databaseOwner}].[{objectQualifier}FavoriteTopic](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}FavoriteTopic](
 GO
 
 /* YAF Album Tables*/
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [{databaseOwner}].[{objectQualifier}UserAlbum](
 	[AlbumID] [INT] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}UserAlbum](
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbumImage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbumImage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [{databaseOwner}].[{objectQualifier}UserAlbumImage](
 	[ImageID] [INT] IDENTITY(1,1) NOT NULL,
 	[AlbumID] [int] NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}UserAlbumImage](
 	constraint [PK_{objectQualifier}User_AlbumImage] primary key(ImageID)
 	)
 GO
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Active](
 		SessionID		nvarchar (24) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -81,7 +81,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 go
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}BannedIP](
 		ID				int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -92,7 +92,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 go
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Category]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Category]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Category](
 		CategoryID		int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -103,7 +103,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}CheckEmail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}CheckEmail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}CheckEmail](
 		CheckEmailID	int IDENTITY (1, 1) NOT NULL ,
 		UserID			int NOT NULL ,
@@ -113,7 +113,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Choice]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Choice]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Choice](
 		ChoiceID		int IDENTITY (1, 1) NOT NULL ,
 		PollID			int NOT NULL ,
@@ -124,7 +124,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}PollVote] (
 		[PollVoteID] [int] IDENTITY (1, 1) NOT NULL ,
 		[PollID] [int] NOT NULL ,
@@ -134,7 +134,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Forum](
 		ForumID			int IDENTITY (1, 1) NOT NULL ,
 		CategoryID		int NOT NULL ,
@@ -157,7 +157,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ForumAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ForumAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}ForumAccess](
 		GroupID			int NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -165,7 +165,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Group](
 		GroupID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -174,7 +174,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Mail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Mail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Mail](
 		[MailID] [int] IDENTITY(1,1) NOT NULL,
 		[FromUser] [nvarchar](255) NOT NULL,
@@ -191,7 +191,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Message]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Message]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Message](
 		MessageID		int IDENTITY (1, 1) NOT NULL ,
 		TopicID			int NOT NULL ,
@@ -213,7 +213,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}MessageHistory](
 		MessageHistoryID uniqueidentifier NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_MessageHistoryID] DEFAULT (newid()),
 		MessageID		int NOT NULL ,
@@ -227,7 +227,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageReported]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageReported]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}MessageReported](
 		[MessageID] [int] NOT NULL,
 		[Message] [ntext] NULL,
@@ -237,7 +237,7 @@ IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit](
 		[LogID] [int] IDENTITY(1,1) NOT NULL,
 		[UserID] [int] NULL,
@@ -247,7 +247,7 @@ IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 GO
 
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}PMessage](
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,
 		FromUserID		int NOT NULL ,
@@ -258,7 +258,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
 		PollGroupID int IDENTITY (1, 1) NOT NULL,
 		UserID	int not NULL,
@@ -267,7 +267,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Poll]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Poll]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Poll](
 		PollID			int IDENTITY (1, 1) NOT NULL ,
 		Question		nvarchar (50) NOT NULL,
@@ -282,7 +282,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Smiley]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Smiley]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Smiley](
 		SmileyID		int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -293,7 +293,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Topic](
 		TopicID			int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -318,7 +318,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}User](
 		UserID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL,
@@ -352,7 +352,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 )
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}WatchForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}WatchForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}WatchForum](
 		WatchForumID	int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -362,7 +362,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}WatchTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}WatchTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}WatchTopic](
 		WatchTopicID	int IDENTITY (1, 1) NOT NULL ,
 		TopicID			int NOT NULL ,
@@ -372,7 +372,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
 		AttachmentID	int IDENTITY (1, 1) not null,
 		MessageID		int not null,
@@ -385,14 +385,14 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserGroup]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserGroup]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}UserGroup](
 		UserID			int NOT NULL,
 		GroupID			int NOT NULL
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Rank]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Rank](
 		RankID			int IDENTITY (1, 1) NOT NULL,
 		BoardID			int NOT NULL ,
@@ -403,7 +403,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}AccessMask]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}AccessMask]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}AccessMask](
 		AccessMaskID	int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -412,7 +412,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}UserForum](
 		UserID			int NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -422,7 +422,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Board]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Board]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}Board](
 		BoardID			int IDENTITY (1, 1) NOT NULL,
@@ -434,7 +434,7 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}NntpServer](
 		NntpServerID	int IDENTITY (1, 1) not null,
 		BoardID			int NOT NULL ,
@@ -446,7 +446,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}NntpForum](
 		NntpForumID		int IDENTITY (1, 1) not null,
 		NntpServerID	int not null,
@@ -458,7 +458,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}NntpTopic](
 		NntpTopicID		int IDENTITY (1, 1) not null,
 		NntpForumID		int not null,
@@ -467,7 +467,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}UserPMessage](
 		UserPMessageID	int IDENTITY (1, 1) not null,
@@ -482,7 +482,7 @@ begin
 end
 GO
 
-if not exists (select * from dbo.sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from dbo.sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}Replace_Words](
 		ID				int IDENTITY (1, 1) NOT NULL,
@@ -494,7 +494,7 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Registry]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Registry]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}Registry](
 		RegistryID		int IDENTITY(1, 1) NOT NULL,
@@ -506,7 +506,7 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}EventLog](
 		EventLogID	int identity(1,1) not null,
@@ -520,7 +520,7 @@ end
 GO
 
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Extension]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Extension]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 BEGIN
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}Extension](
 		ExtensionID int IDENTITY(1,1) NOT NULL,
@@ -531,7 +531,7 @@ BEGIN
 END
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}BBCode](
 		[BBCodeID] [int] IDENTITY(1,1) NOT NULL,
@@ -554,7 +554,7 @@ end
 GO
 
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Medal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Medal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}Medal](
 		[BoardID] [int] NOT NULL,
@@ -578,7 +578,7 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}GroupMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}GroupMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}GroupMedal](
 		[GroupID] [int] NOT NULL,
@@ -591,7 +591,7 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}UserMedal](
 		[UserID] [int] NOT NULL,
@@ -605,7 +605,7 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}IgnoreUser]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}IgnoreUser]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}IgnoreUser]
 	(
@@ -616,7 +616,7 @@ end
 GO
 
 
-if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
 		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
@@ -635,7 +635,7 @@ GO
 */
 
 -- Mail Table
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](255) NULL
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](255) NULL
@@ -646,25 +646,25 @@ begin
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName' and prec < 255)
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName' and prec < 255)
 begin
 alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUserName] [nvarchar](255) NULL
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUser' and prec < 255)
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUser' and prec < 255)
 begin
 alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUser] [nvarchar](255) NULL
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUserName' and prec < 255)
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUserName' and prec < 255)
 begin
 alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUserName] [nvarchar](255) NULL
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUser' and prec < 255)
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUser' and prec < 255)
 begin
 alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUser] [nvarchar](255) NULL
 end
@@ -675,7 +675,7 @@ if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{o
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [Location] nvarchar(255) NOT NULL
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Active] add [ForumPage] nvarchar(255)
 end
@@ -693,42 +693,42 @@ if not exists (select * from syscolumns where id = object_id(N'[{databaseOwner}]
  	alter table [{databaseOwner}].[{objectQualifier}Active] add [Flags] int NULL 
 GO
 
-if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)    
+if exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)    
     grant delete on [{databaseOwner}].[{objectQualifier}Active] to public
 	exec('delete from [{databaseOwner}].[{objectQualifier}Active]')
 	revoke delete on [{databaseOwner}].[{objectQualifier}Active] from public
 GO
 
 -- Board Table
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='RolesAppName')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='RolesAppName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Board] add RolesAppName nvarchar(255)
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
 end
 GO
 
 -- UserPMessage Table
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='Flags')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='Flags')
 begin
 	-- add new "Flags" field to UserPMessage
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add Flags int not null DEFAULT ((0))
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsRead')
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsRead')
 BEGIN
-	if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsArchived')
+	if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsArchived')
 	BEGIN	
 		-- Copy "IsRead" value over
 		grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
@@ -751,7 +751,7 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') AND NAME='IsDeleted')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') AND NAME='IsDeleted')
 BEGIN
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
 END
@@ -764,47 +764,47 @@ begin
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsApproved')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsApproved')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] ADD NotificationType int NULL
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsActiveExcluded')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsActiveExcluded')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
 end
 GO
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'Signature' and xtype<>99)
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'Signature' and xtype<>99)
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column Signature ntext null
 go
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add Flags int not null constraint DF_{objectQualifier}User_Flags default (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsQuestion')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsQuestion')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add IsQuestion AS (CONVERT([bit],sign([Flags]&(1024)),(0)))
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='AnswerMessageId')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='AnswerMessageId')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add AnswerMessageId INT NULL
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsHostAdmin')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsHostAdmin')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}User] to public
 	exec('update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 1 where IsHostAdmin<>0')
@@ -813,7 +813,7 @@ begin
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Approved')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Approved')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}User] to public
 	exec('update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 2 where Approved<>0')
@@ -822,13 +822,13 @@ begin
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add ProviderUserKey nvarchar(64)
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='DisplayName')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='DisplayName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] ADD [DisplayName] nvarchar(255) 
 	grant update on [{databaseOwner}].[{objectQualifier}User] to public
@@ -839,7 +839,7 @@ end
 GO
 
 -- convert uniqueidentifier to nvarchar(64)
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey' and xtype='36')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey' and xtype='36')
 begin
 	-- drop the provider user key index if it exists...
 	if exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User_ProviderUserKey' and id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
@@ -851,61 +851,61 @@ begin
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PMNotification')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PMNotification')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='DailyDigest')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='DailyDigest')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [DailyDigest] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_DailyDigest] DEFAULT (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AutoWatchTopics')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AutoWatchTopics')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [AutoWatchTopics] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_AutoWatchTopics] DEFAULT (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverrideDefaultThemes')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverrideDefaultThemes')
 begin
 alter table [{databaseOwner}].[{objectQualifier}User] add  [OverrideDefaultThemes]	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Points')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Points')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [Points] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AvatarImageType')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AvatarImageType')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [AvatarImageType] nvarchar(50) NULL
 end
 GO
 
 -- make sure the gender column is nullable
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column Gender tinyint NULL
 end
 GO
 
 -- Add 4-letter Language Code column
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Culture')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Culture')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add Culture CHAR(5) NULL
 end
 GO
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'IP' and prec < 39)
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'IP' and prec < 39)
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column [IP] varchar(39) null
 go
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Name' and prec < 255)
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Name' and prec < 255)
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column [Name] nvarchar(255) not null
 end
@@ -914,62 +914,62 @@ GO
 -- Only remove User table columns if version is 30+
 IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
 BEGIN
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column Gender
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Location')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Location')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column Location
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='HomePage')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='HomePage')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column HomePage
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='MSN')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='MSN')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column MSN
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='YIM')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='YIM')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column YIM
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AIM')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AIM')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column AIM
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ICQ')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ICQ')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column ICQ
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='RealName')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='RealName')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column RealName
 	end
 
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Occupation')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Occupation')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column Occupation
 	end
 	
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Interests')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Interests')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column Interests
 	end
 	
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Weblog')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Weblog')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column Weblog
 	end
 	
-	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='WeblogUrl')
+	if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='WeblogUrl')
 	begin
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogUrl
 		alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogUsername
@@ -979,51 +979,51 @@ END
 GO
 
 -- Forum Table
-if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='RemoteURL')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='RemoteURL')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add RemoteURL nvarchar(100) null
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Flags')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add Flags int not null constraint DF_{objectQualifier}Forum_Flags default (0)
 GO
 
-if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='ThemeURL')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='ThemeURL')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add ThemeURL nvarchar(50) NULL
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Locked')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Locked')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Forum] set Flags = Flags | 1 where Locked<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] drop column Locked
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Hidden')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Hidden')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Forum] set Flags = Flags | 2 where Hidden<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] drop column Hidden
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsTest')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsTest')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Forum] set Flags = Flags | 4 where IsTest<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] drop column IsTest
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Moderated')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Moderated')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Forum] set Flags = Flags | 8 where Moderated<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] drop column Moderated
 end
 GO
 
-if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='ImageURL')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='ImageURL')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add ImageURL nvarchar(128) NULL
 GO
 
-if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Styles')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Styles')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add Styles nvarchar(255) NULL
 GO
 
@@ -1031,12 +1031,12 @@ if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{o
  	alter table [{databaseOwner}].[{objectQualifier}Forum] alter column [LastUserName]	nvarchar (255) NULL 
 GO
 
-if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add PollGroupID int NULL
 GO
 
 -- Group Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add Flags int not null constraint [DF_{objectQualifier}Group_Flags] default (0)
 end
@@ -1053,41 +1053,41 @@ end
 GO
 
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsAdmin')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsAdmin')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Group] set Flags = Flags | 1 where IsAdmin<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Group] drop column IsAdmin
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsGuest')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsGuest')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Group] set Flags = Flags | 2 where IsGuest<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Group] drop column IsGuest
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsStart')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsStart')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Group] set Flags = Flags | 4 where IsStart<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Group] drop column IsStart
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsModerator')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsModerator')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Group] set Flags = Flags | 8 where IsModerator<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Group] drop column IsModerator
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int null
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Group] set PMLimit = 30 WHERE PMLimit IS NULL')
@@ -1095,31 +1095,31 @@ grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Style')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Style')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add Style nvarchar(255) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='SortOrder')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='SortOrder')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add SortOrder smallint not null constraint [DF_{objectQualifier}Group_SortOrder] default (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Description')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Description')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add Description nvarchar(128) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigChars int not null constraint [DF_{objectQualifier}Group_UsrSigChars] default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Group] set UsrSigChars = 128 WHERE UsrSigChars = 0 AND Name != ''Guest'' ')
@@ -1128,108 +1128,108 @@ end
 GO
 
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigBBCodes')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigBBCodes')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigBBCodes nvarchar(255) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigHTMLTags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigHTMLTags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigHTMLTags nvarchar(255) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbums')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbums')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbums int not null constraint [DF_{objectQualifier}Group_UsrAlbums] default (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbumImages')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbumImages')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbumImages int not null constraint [DF_{objectQualifier}Group_UsrAlbumImages] default (0)
 end
 GO
 
 -- AccessMask Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] add Flags int not null constraint [DF_{objectQualifier}AccessMask_Flags] default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='ReadAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='ReadAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 1 where ReadAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column ReadAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='PostAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='PostAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 2 where PostAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column PostAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='ReplyAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='ReplyAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 4 where ReplyAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column ReplyAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='PriorityAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='PriorityAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 8 where PriorityAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column PriorityAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='PollAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='PollAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 16 where PollAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column PollAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='VoteAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='VoteAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 32 where VoteAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column VoteAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='ModeratorAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='ModeratorAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 64 where ModeratorAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column ModeratorAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='EditAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='EditAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 128 where EditAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column EditAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='DeleteAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='DeleteAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 256 where DeleteAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column DeleteAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='UploadAccess')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='UploadAccess')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}AccessMask] set Flags = Flags | 512 where UploadAccess<>0')
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] drop column UploadAccess
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='SortOrder')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='SortOrder')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] add SortOrder smallint not null default (0)
 end
@@ -1237,7 +1237,7 @@ GO
 
 -- NntpForum Table
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and name='Active')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and name='Active')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}NntpForum] add Active bit null
 	exec('update [{databaseOwner}].[{objectQualifier}NntpForum] set Active=1 where Active is null')
@@ -1254,21 +1254,21 @@ if exists (select * from dbo.syscolumns where id = object_id(N'[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] alter column goodword nvarchar(255) NULL
 GO	
 
-if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='BoardID')
+if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='BoardID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] add BoardID int not null constraint [DF_{objectQualifier}Replace_Words_BoardID] default (1)
 end
 GO
 
 -- ShoutboxMessage Table
-if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='BoardID')
+if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='BoardID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add BoardID int not null constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1)
 end
 GO
 
 -- BBCode Table
-if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseModule')
+if not exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseModule')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}BBCode] add UseModule bit null
 	alter table [{databaseOwner}].[{objectQualifier}BBCode] add ModuleClass nvarchar(255) null
@@ -1276,74 +1276,74 @@ end
 GO
 
 -- Registry Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and name='BoardID')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and name='BoardID')
 	alter table [{databaseOwner}].[{objectQualifier}Registry] add BoardID int
 GO
 
-if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Registry]') and name=N'Value' and xtype<>99)
+if exists (select top 1 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Registry]') and name=N'Value' and xtype<>99)
 	alter table [{databaseOwner}].[{objectQualifier}Registry] alter column Value ntext null
 GO
 
 -- PMessage Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] add Flags int not null constraint [DF_{objectQualifier}Message_Flags] default (23)
 end
 GO
 
 -- Message Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add Flags int not null constraint [DF_{objectQualifier}Topic_Flags] default (0)
 	update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags & 7
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Approved')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Approved')
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 16 where Approved<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop column Approved
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='BlogPostID')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='BlogPostID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] add BlogPostID nvarchar(50)
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsDeleted')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsDeleted')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsHidden')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsHidden')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditReason')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditReason')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add EditReason nvarchar (100) NULL
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsModeratorChanged')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsModeratorChanged')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add 	IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_{objectQualifier}Message_IsModeratorChanged] DEFAULT (0)
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='DeleteReason')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='DeleteReason')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add DeleteReason            nvarchar (100)  NULL
 GO
     
 -- an attempt to migrate the legacy report abuse and report spam features flags		
- if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
+ if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Message] to public	
 	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags  ^ POWER(2, 8) | POWER(2, 7))
@@ -1354,24 +1354,24 @@ begin
 end
 
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add [EditedBy]   int  NULL
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IP' and prec < 39)
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IP' and prec < 39)
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [IP] varchar(39) not null
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='UserName' and prec < 255)
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='UserName' and prec < 255)
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [UserName] nvarchar (255) NULL
 end
 GO
 		
 -- Topic Table
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Topic] to public
 	exec('update [{databaseOwner}].[{objectQualifier}Topic] set Flags = Flags | 1 where IsLocked<>0')
@@ -1380,25 +1380,25 @@ begin
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsDeleted')
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsDeleted')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='UserName')
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='UserName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [UserName]	nvarchar (255) NULL 
 end
 GO
 
-if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastUserName')
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastUserName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [LastUserName]	nvarchar (255) NULL 
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastMessageFlags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastMessageFlags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add [LastMessageFlags] int null
 	grant update on [{databaseOwner}].[{objectQualifier}Topic] to public
@@ -1409,19 +1409,19 @@ end
 GO
 
 -- Rank Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add Flags int not null constraint [DF_{objectQualifier}Rank_Flags] default (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 0 WHERE PMLimit IS NULL')
@@ -1429,31 +1429,31 @@ grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Style')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Style')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add Style nvarchar(255) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='SortOrder')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='SortOrder')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add SortOrder smallint not null constraint [DF_{objectQualifier}Rank_SortOrder] default (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Description')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Description')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add Description nvarchar(128) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigChars int not null constraint [DF_{objectQualifier}Rank_UsrSigChars] default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Rank] set UsrSigChars = 128 WHERE UsrSigChars = 0 AND Name != ''Guest'' ')
@@ -1461,31 +1461,31 @@ grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigBBCodes')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigBBCodes')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigBBCodes nvarchar(255) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigHTMLTags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigHTMLTags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigHTMLTags nvarchar(255) null
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbums')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbums')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbums int not null constraint [DF_{objectQualifier}Rank_UsrAlbums] default (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbumImages')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbumImages')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbumImages int not null constraint [DF_{objectQualifier}Rank_UsrAlbumImages] default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsStart')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsStart')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 	exec('update [{databaseOwner}].[{objectQualifier}Rank] set Flags = Flags | 1 where IsStart<>0')
@@ -1494,7 +1494,7 @@ begin
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsLadder')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsLadder')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 	exec('update [{databaseOwner}].[{objectQualifier}Rank] set Flags = Flags | 2 where IsLadder<>0')
@@ -1503,7 +1503,7 @@ begin
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
 end
@@ -1513,25 +1513,25 @@ GO
 
 
 -- Poll Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Closes')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Closes')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add Closes datetime null
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Question' AND prec < 255 )
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Question' AND prec < 255 )
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Question varchar(255) NOT NULL
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add PollGroupID int NULL
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'UserID')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'UserID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [UserID] int NOT NULL constraint [DF_{objectQualifier}Poll_UserID] default (1)
 end
@@ -1539,7 +1539,7 @@ GO
 
 
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT top 1 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 begin
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
 end
@@ -1579,17 +1579,17 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
 GO
 
 -- should drop it else error
-if exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if exists(select top 1 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
 go 
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
 end
 GO
 
-if (not exists (select 1 from [{databaseOwner}].[{objectQualifier}PollGroupCluster]) and exists (select 1 from [{databaseOwner}].[{objectQualifier}Poll]))
+if (not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}PollGroupCluster]) and exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Poll]))
 begin
 	--vzrus: migrate to independent multiple polls	
 	exec('[{databaseOwner}].[{objectQualifier}pollgroup_migration]')	
@@ -1602,19 +1602,19 @@ GO
 
 -- TODO: change userid to not null
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'ObjectPath')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'ObjectPath')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [ObjectPath] nvarchar(255) NULL
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'MimeType')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'MimeType')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [MimeType] varchar(50) NULL
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Poll] to public
 	exec('update [{databaseOwner}].[{objectQualifier}Poll] set Flags = 0 where Flags is null')
@@ -1625,26 +1625,26 @@ begin
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'IsClosedBound')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'IsClosedBound')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [IsClosedBound] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'AllowMultipleChoices')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'AllowMultipleChoices')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
 end
 GO
 
  -- PollGroupTable
- if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name=N'IsBound')
+ if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name=N'IsBound')
  begin
  	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add [IsBound]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
  end
 GO
  
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name='Flags')
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name='Flags')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}PollGroupCluster] to public
 	exec('update [{databaseOwner}].[{objectQualifier}PollGroupCluster] set Flags = 0 where Flags is null')
@@ -1656,64 +1656,64 @@ GO
 
 -- Choice Table
 -- this is a dummy it doesn't work
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name= N'Choice' AND prec < 255 )
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name= N'Choice' AND prec < 255 )
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Choice] alter column Choice varchar(255) NOT NULL
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'ObjectPath')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'ObjectPath')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Choice] add [ObjectPath] nvarchar(255) NULL
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'MimeType')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'MimeType')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Choice] add [MimeType] varchar(50) NULL
 end
 GO
 
 -- EventLog Table
-if not exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'Type')
+if not exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'Type')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add Type int not null constraint [DF_{objectQualifier}EventLog_Type] default (0)
 	exec('update [{databaseOwner}].[{objectQualifier}EventLog] set Type = 0')
 end
 GO
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserID' and isnullable=0)
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserID' and isnullable=0)
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] alter column UserID int null
 GO
 	
 
 -- Smiley Table
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='SortOrder')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='SortOrder')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Smiley] add SortOrder tinyint NOT NULL DEFAULT 0
 end
 GO
 
 -- Category Table
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}Category]') AND name = N'CategoryImage')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}Category]') AND name = N'CategoryImage')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD [CategoryImage] [nvarchar](255) NULL
 END
 GO
 
-if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='PollGroupID')
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='PollGroupID')
 	alter table [{databaseOwner}].[{objectQualifier}Category] add PollGroupID int NULL
 GO
 
 
 -- MessageReportedAudit Table
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') AND name = N'ReportedNumber')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') AND name = N'ReportedNumber')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] ADD [ReportedNumber] int NOT NULL DEFAULT 1
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') AND name = N'ReportText')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') AND name = N'ReportText')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] ADD [ReportText] nvarchar(4000)  NULL 
 END
@@ -1721,19 +1721,19 @@ GO
 
 -- BannedIP Table
 
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'Reason')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'Reason')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}BannedIP] ADD [Reason] nvarchar(128)  NULL 
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'UserID')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'UserID')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}BannedIP] ADD [UserID] int  null 
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'Mask' AND prec < 56)
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'Mask' AND prec < 56)
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}BannedIP] alter column [Mask] varchar(57) not  null 
 END
@@ -1741,7 +1741,7 @@ GO
 
 -- PollVote Table
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') and name=N'RemoteIP' and prec<39)
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') and name=N'RemoteIP' and prec<39)
     -- vzrus: should drop the index to change the field
     if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}PollVote]') and name='IX_{objectQualifier}PollVote_RemoteIP')
     begin
@@ -1752,7 +1752,7 @@ if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].
 	end
 GO	
 
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') AND name = N'ChoiceID')
+IF NOT exists (select top 1 1 from dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') AND name = N'ChoiceID')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}PollVote] ADD [ChoiceID] int  null 
 END
@@ -1761,12 +1761,12 @@ GO
 
 -- MessageHistory Table
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and name=N'IP' and prec<39)
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and name=N'IP' and prec<39)
 	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] alter column [IP] varchar(39) not null
 GO
 
 -- NntpServer Table
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and name=N'UserName' and prec<255)
+if exists(select top 1 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and name=N'UserName' and prec<255)
 	alter table [{databaseOwner}].[{objectQualifier}NntpServer] alter column [UserName] nvarchar(255) null
 GO
