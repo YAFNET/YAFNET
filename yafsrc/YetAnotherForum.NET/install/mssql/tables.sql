@@ -1583,6 +1583,12 @@ if exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{ob
 	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
 go 
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
+end
+GO
+
 if (not exists (select 1 from [{databaseOwner}].[{objectQualifier}PollGroupCluster]) and exists (select 1 from [{databaseOwner}].[{objectQualifier}Poll]))
 begin
 	--vzrus: migrate to independent multiple polls	
@@ -1607,13 +1613,6 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [MimeType] varchar(50) NULL
 end
 GO
-
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
-end
-GO
-
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
 begin
