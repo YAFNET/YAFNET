@@ -1614,6 +1614,18 @@ begin
 end
 GO
 
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
+begin
+	grant update on [{databaseOwner}].[{objectQualifier}Poll] to public
+	exec('update [{databaseOwner}].[{objectQualifier}Poll] set Flags = 0 where Flags is null')
+	revoke update on [{databaseOwner}].[{objectQualifier}Poll] from public
+	-- here computed columns on Flags should be dropped if exist before
+	-- alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Flags int not null
+	-- alter table [{databaseOwner}].[{objectQualifier}Poll] add constraint [DF_{objectQualifier}Poll_Flags] default(0) for Flags
+end
+GO
+
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'IsClosedBound')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [IsClosedBound] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
@@ -1626,12 +1638,22 @@ begin
 end
 GO
 
--- PollGroupTable
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name=N'IsBound')
+ -- PollGroupTable
+ if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name=N'IsBound')
+ begin
+ 	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add [IsBound]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+ end
+GO
+ 
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name='Flags')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add [IsBound]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+	grant update on [{databaseOwner}].[{objectQualifier}PollGroupCluster] to public
+	exec('update [{databaseOwner}].[{objectQualifier}PollGroupCluster] set Flags = 0 where Flags is null')
+	revoke update on [{databaseOwner}].[{objectQualifier}PollGroupCluster] from public
+	-- alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] alter column Flags int not null
+	-- alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] add constraint [DF_{objectQualifier}PollGroupCluster_Flags] default(0) for Flags
 end
-GO	
+GO
 
 -- Choice Table
 -- this is a dummy it doesn't work
