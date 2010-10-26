@@ -1567,7 +1567,7 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
 		SET @PollGroupID = SCOPE_IDENTITY()  
 		
 	            update [{databaseOwner}].[{objectQualifier}Topic] SET PollID = @PollGroupID WHERE TopicID = @ttmp
-				update [{databaseOwner}].[{objectQualifier}Poll] SET UserID = @utmp, PollGroupID = @PollGroupID WHERE PollID = @ptmp
+				update [{databaseOwner}].[{objectQualifier}Poll] SET UserID = @utmp, PollGroupID = @PollGroupID, Flags = 0 WHERE PollID = @ptmp
 		end       
         fetch next from c into @ptmp, @ttmp, @utmp
         end
