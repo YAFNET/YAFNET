@@ -316,10 +316,13 @@ namespace YAF.controls
           if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
           {
             decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
-
+            int imageWidth = 80;
             // hardcoded - bad
-            const int imageWidth = 80;
-            choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
+            if (PageContext.Theme.ThemeFile == "YafMobile.xml")
+            {
+                imageWidth = 40;
+            }
+              choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
               imageWidth, choiceImage.Width / aspect);
 
             // reserved to get equal row heights
