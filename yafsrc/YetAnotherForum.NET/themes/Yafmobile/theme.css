@@ -17,14 +17,12 @@
 .postfooter {
 	background-color: #CCCCCC;
 }
-}
 .yafnet table.content {
 	padding: 0px;
 	margin: 5px 0px 5px 0px;
 	color: #333333;
 	border-collapse: collapse;
-	border: solid 1px #eeeeee;	
-	
+	border: solid 1px #eeeeee;
 }
 
 .yafnet tr.forumRowTitle,
@@ -48,13 +46,13 @@
 .yafnet td.footer2
 {
   background-color: #eeeeee;
-	color: #000000;
+    color: #000000;
 }
 
 .yafnet table.content td,
 .yafnet table.content th
  {
-	padding: 10px;
+	padding: 6px;
 	border: solid 1px #eeeeee;	
 }
 
@@ -122,7 +120,7 @@
 .yafnet tr.topicRow .topicMain,
 .yafnet tr.topicRow_Alt .topicMain
 {
-    font-size: 11pt;
+    font-size: 9.5pt;
     font-weight: bold;
 }
 

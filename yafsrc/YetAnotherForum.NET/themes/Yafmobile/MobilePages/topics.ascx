@@ -91,11 +91,10 @@
         <td align="center" colspan="6" class="footer1">
             <table cellspacing="0" cellpadding="0" width="100%">
                 <tr>
-                    <td id="showListTd" width="1%" style="white-space: nowrap" runat="server" visible="false">
+                    <td id="showListTd">
                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />
                         <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" />
-                    </td>
-                    <td align="right">
+                    <br/><br/>
                         <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"
                             visible="false" /><span id="delimiter1" runat="server" visible="<%# this.WatchForum.Text.Length > 0 %>"> | </span>
                         <asp:LinkButton runat="server" ID="MarkRead" />

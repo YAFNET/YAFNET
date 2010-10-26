@@ -16,8 +16,8 @@
 		<Resource tag="SEARCH">~/icon_search.png</Resource>
 		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
 		<Resource tag="TOPIC">~/topic.png</Resource>
-		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.gif</Resource>
-		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.gif</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.png</Resource>
 		<Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.gif</Resource>
 		<Resource tag="TOPIC_LOCKED">~/topic_lock.gif</Resource>
 		<Resource tag="TOPIC_STICKY">~/topic_sticky.gif</Resource>
