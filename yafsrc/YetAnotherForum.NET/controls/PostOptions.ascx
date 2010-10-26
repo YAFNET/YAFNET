@@ -1,10 +1,10 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostOptions"
     CodeBehind="PostOptions.ascx.cs" %>
+
 <tr id="OptionsRow" runat="server" class="postOptions">
-    <td class="postformheader" valign="top">
-        <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
-    </td>
-    <td class="post">
+    <td class="post" colspan="2">
+        <b><YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" /></b>
+        <br />
         <ul style="list-style-type: none; padding-left: 0px;">
             <li id="liAddPoll" runat="server">
                 <asp:CheckBox ID="AddPollCheckBox" runat="server" />
