@@ -4,7 +4,7 @@
 -- Description:	MembershipProvider Tables
 -- =============================================
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Membership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF not exists (select top 1 1 from sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Membership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Membership](
 		[UserID] [nvarchar](64) NOT NULL,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
@@ -33,7 +33,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 		)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF not exists (select top 1 1 from sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[ApplicationName] [nvarchar](256) NULL,
@@ -43,7 +43,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 		)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF not exists (select top 1 1 from sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Profile]
 	(
 		[UserID] [nvarchar](64) NOT NULL,
@@ -52,7 +52,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 	)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF not exists (select top 1 1 from sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Role]
 	(
 	[RoleID] [uniqueidentifier] NOT NULL,
@@ -63,7 +63,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 	)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF not exists (select top 1 1 from sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
 	(
 	[RoleID] [uniqueidentifier] NOT NULL,
