@@ -270,7 +270,7 @@
             <asp:DropDownList runat="server" ID="Theme" />
         </td>
     </tr>
-    <tr runat="server" id="OverrideForumThemeRow">
+    <tr runat="server" id="OverrideForumThemeRow" visible="false">
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="OVERRIDE_DEFAULT_THEMES" />

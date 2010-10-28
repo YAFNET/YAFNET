@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Data;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace YAF.Controls
@@ -322,12 +324,10 @@ namespace YAF.Controls
       }
       else
       {
-          foreach (System.Data.DataRow row in StaticDataHelper.Cultures().Rows)
+          foreach (DataRow row in
+              StaticDataHelper.Cultures().Rows.Cast<DataRow>().Where(row => culture.ToString() == row["CultureTag"].ToString()))
           {
-              if (culture.ToString() == row["CultureTag"].ToString())
-              {
-                  language = row["CultureFile"].ToString();
-              }
+              language = row["CultureFile"].ToString();
           }
       }  
 
@@ -394,14 +394,7 @@ namespace YAF.Controls
         this.datePicker.AnotherFormatString = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT");
         this.datePicker.DateFormatString = Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
 
-        if (this.UserData.Profile.Birthday > DateTime.MinValue)
-        {
-          this.datePicker.Value = this.UserData.Profile.Birthday.Date;
-        }
-        else
-        {
-          this.datePicker.Value = DateTime.MinValue.Date;
-        }
+        this.datePicker.Value = this.UserData.Profile.Birthday > DateTime.MinValue ? this.UserData.Profile.Birthday.Date : DateTime.MinValue.Date;
 
         this.datePicker.ToolTip = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");
         this.datePicker.DefaultDateString = string.Empty;
@@ -440,13 +433,14 @@ namespace YAF.Controls
 
       this.DSTUser.Checked = this.UserData.DSTUser;
       this.HideMe.Checked = this.UserData.IsActiveExcluded && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin);
-      this.OverrideForumThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
+      //this.OverrideForumThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
 
       if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
       {
         // Allows to use different per-forum themes,
         // While "Allow User Change Theme" option in hostsettings is true
         string themeFile = this.PageContext.BoardSettings.Theme;
+
         if (!string.IsNullOrEmpty(this.UserData.ThemeFile))
         {
           themeFile = this.UserData.ThemeFile;
