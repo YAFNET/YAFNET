@@ -1070,7 +1070,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_addthanks] 
 	@FromUserID int,
 	@MessageID int,
-	@paramOutput nvarchar(50) = null out
+	@paramOutput nvarchar(255) = null out
 AS
 BEGIN
 IF not exists (SELECT top 1 ThanksID FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (MessageID = @MessageID AND ThanksFromUserID=@FromUserID))
@@ -1148,7 +1148,7 @@ DECLARE @ParsedMessageIDs TABLE
 	  )
 	DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
 	SET @Itr = 0
-	SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
 	WHILE LEN(@MessageIDsChunk) > 0
 	BEGIN
 			SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
@@ -1168,11 +1168,15 @@ DECLARE @ParsedMessageIDs TABLE
 						SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
 						SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
 				  END
-			END      
+
+				   -- to be sure that last value is inserted
+					IF (LEN(@MessageIDsChunk) > 0)
+						   INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDsChunk AS int))  
+			END    
 			SET @Itr = @Itr + 4000;
-			SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
-	  END
-	  
+			SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	  END	   
+
 	SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
@@ -1186,7 +1190,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_removethanks] 
 	@FromUserID int,
 	@MessageID int,
-	@paramOutput nvarchar(50) = null out
+	@paramOutput nvarchar(255) = null out
 AS
 BEGIN
 	DELETE FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (ThanksFromUserID=@FromUserID AND MessageID=@MessageID)
@@ -1200,7 +1204,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_thanksnumber]
 	@MessageID int
 AS
 BEGIN
-RETURN (SELECT Count(*) from [{databaseOwner}].[{objectQualifier}Thanks] WHERE (MessageID=@MessageID))
+RETURN (SELECT Count(1) from [{databaseOwner}].[{objectQualifier}Thanks] WHERE (MessageID=@MessageID))
 END
 Go
 
@@ -1208,7 +1212,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_from]
 	@UserID int, @PageUserID  int
 AS
 BEGIN
-SELECT Count(*) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksFromUserID=@UserID
+SELECT Count(1) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksFromUserID=@UserID
 END
 Go
 
@@ -1219,7 +1223,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to]
 	@ThanksToPostsNumber int output
 AS
 BEGIN
-SELECT @ThanksToNumber=(SELECT Count(*) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
+SELECT @ThanksToNumber=(SELECT Count(1) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
 SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
 END
 Go
@@ -1239,9 +1243,9 @@ AS
 				c.[Message],
 				c.Flags
 		        from   [{databaseOwner}].[{objectQualifier}Thanks] t
-		        join [{databaseOwner}].[{objectQualifier}message] c  on c.MessageID = t.MessageID		 
-				join [{databaseOwner}].[{objectQualifier}topic] a on a.TopicID = c.TopicID
-			    join [{databaseOwner}].[{objectQualifier}user] b on c.UserID = b.UserID
+		        join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
+				join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
+			    join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
 				join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID
 		where   x.ReadAccess <> 0
 			    AND x.UserID = @PageUserID			
@@ -1469,7 +1473,7 @@ begin
 			c.ForumID,
 			HasForumAccess = x.ReadAccess,			
 			c.TopicID,
-			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
+			ForumName = (select [Name] from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = ISNULL((select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),0),
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
@@ -1504,7 +1508,7 @@ begin
 			c.ForumID,
 			HasForumAccess = x.ReadAccess,			
 			c.TopicID,
-			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
+			ForumName = (select [Name] from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = ISNULL((select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),0),
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
@@ -2209,14 +2213,14 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description ntext,@Type int) as
 begin
-		insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,Description,Type)
+		insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,[Description],[Type])
 	values(@UserID,@Source,@Description,@Type)
 
 	-- delete entries older than 10 days
 	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventTime+10<GETUTCDATE() 
 
 	-- or if there are more then 1000	
-	if ((select count(*) from [{databaseOwner}].[{objectQualifier}eventlog]) >= 1050)
+	if ((select count(1) from [{databaseOwner}].[{objectQualifier}eventlog]) >= 1050)
 	begin
 		
 		delete from [{databaseOwner}].[{objectQualifier}EventLog] WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM [{databaseOwner}].[{objectQualifier}EventLog] ORDER BY EventTime)
@@ -2611,7 +2615,7 @@ begin
 		LastMessageID	= t.LastMessageID,
 		LastMessageFlags = t.LastMessageFlags,
 		LastUserID		= t.LastUserID,
-		LastUser		= IsNull(t.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.LastUserID)),
+		LastUser		= IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.LastUserID)),
 		LastTopicID		= t.TopicID,
 		TopicMovedID    = t.TopicMovedID,
 		LastTopicName	= t.Topic,
@@ -5802,7 +5806,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}user_getsignature](@UserID int) as
 begin
 	
-	select Signature from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
+	select [Signature] from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 end
 GO
 
@@ -8373,7 +8377,7 @@ DECLARE @ParsedMessageIDs TABLE
 	  )
 	DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
 	SET @Itr = 0
-	SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
 	WHILE LEN(@MessageIDsChunk) > 0
 	BEGIN
 			SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
@@ -8393,9 +8397,12 @@ DECLARE @ParsedMessageIDs TABLE
 						SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
 						SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
 				  END
+				    -- to be sure that last value is inserted
+					IF (LEN(@MessageIDsChunk) > 0)
+						   INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDsChunk AS int))  
 			END      
 			SET @Itr = @Itr + 4000;
-			SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+			SET @MessageIDsChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
 	  END
 	  
 		SELECT a.MessageID, d.Message

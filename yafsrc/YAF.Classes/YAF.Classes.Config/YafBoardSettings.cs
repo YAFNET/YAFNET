@@ -247,7 +247,7 @@ namespace YAF.Classes
     {
       get
       {
-        return this._regBoard.GetValue<string>("Theme", "cleanslate.xml");
+        return this._regBoard.GetValue<string>("Theme", "cleanSlate.xml");
       }
 
       set
