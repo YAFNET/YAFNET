@@ -38,6 +38,11 @@ namespace YAF.Pages
     #region Constants and Fields
 
     /// <summary>
+    ///   To save single report value.
+    /// </summary>
+    protected bool singleReport;
+
+    /// <summary>
     ///   To save forumid value.
     /// </summary>
     private int forumID;
@@ -155,11 +160,12 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      // Fill revisions list repeater. We set clean-up period to 365 days.
-      this.RevisionsList.DataSource =
-        DB.messagehistory_list(this.messageID, this.PageContext.BoardSettings.MessageHistoryDaysToLog, true).
-          AsEnumerable();
+      // Fill revisions list repeater.
+        DataTable dt = DB.messagehistory_list(this.messageID, this.PageContext.BoardSettings.MessageHistoryDaysToLog,
+                                              true);
+      this.RevisionsList.DataSource =dt.AsEnumerable();
 
+      singleReport = dt.Rows.Count <= 1;
       // Fill current message repeater
       this.CurrentMessageRpt.Visible = true;
       this.CurrentMessageRpt.DataSource = DB.message_secdata(this.messageID, this.PageContext.PageUserID).AsEnumerable();

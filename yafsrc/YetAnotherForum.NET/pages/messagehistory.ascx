@@ -10,10 +10,10 @@
     </tr>
     <asp:Repeater ID="RevisionsList" runat="server">
         <ItemTemplate>
-            <tr runat="server" id="history_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) %>'
+          <tr runat="server" id="history_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted")) %>'
                 class="postheader">
                 <td colspan="1" class="header2">
-                    &nbsp
+                    &nbsp;
                 </td>
                 <td id="history_column" colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
                     runat="server">
@@ -43,7 +43,7 @@
                     </span>
                 </td>
             </tr>
-            <tr runat="server" id="original_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) %>'
+           <tr runat="server" id="original_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) %>'
                 class="postheader">
                 <td class="header2" colspan="1">
                     <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="MESSAGEHISTORY"
@@ -75,15 +75,15 @@
                         ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModerator ? Container.DataItem : null %>">
                     </YAF:MessagePostData>
                 </td>
-            </tr>
-            <tr runat="server" id="historystart_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) %>'
+            </tr>           
+            <tr runat="server" id="historystart_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) && !singleReport %>'
                 class="postheader">
                 <td class="header2" colspan="2">
                     <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="MESSAGEHISTORY"
                         LocalizedTag="HISTORYSTART">
                     </YAF:LocalizedLabel>
-                </td>
-            </tr>
+               </td>
+           </tr>     
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="CurrentMessageRpt" Visible="false" runat="server">
