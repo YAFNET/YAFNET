@@ -215,26 +215,6 @@ namespace YAF.Pages
       this.ReturnToPage();
     }
 
-    /// <summary>
-    /// The change poll show status.
-    /// </summary>
-    /// <param name="newStatus">
-    /// The new status.
-    /// </param>
-    protected void ChangePollShowStatus(bool newStatus)
-    {
-      this.SavePoll.Visible = newStatus;
-      this.Cancel.Visible = newStatus;
-      this.PollRow1.Visible = newStatus;
-      this.PollRowExpire.Visible = newStatus;
-
-      /*  var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
-
-            if (pollRow != null)
-            {
-                pollRow.Visible = newStatus;
-            } */
-    }
 
     /// <summary>
     /// From a path, return a byte[] of the image.
@@ -374,7 +354,7 @@ namespace YAF.Pages
 
       this.InitializeVariables();
 
-      this.PollObjectRow1.Visible = this.PageContext.IsAdmin && this.PageContext.ForumPollAccess;
+      this.PollObjectRow1.Visible = (this.PageContext.IsAdmin || PageContext.BoardSettings.AllowUsersImagedPoll) && this.PageContext.ForumPollAccess;
 
       if (int.TryParse(this.PollExpire.Text.Trim(), out this.daysPollExpire))
       {
@@ -707,9 +687,9 @@ namespace YAF.Pages
         }
 
 
-            this.IsBoundCheckBox.Checked = this.choices.Rows[0]["IsBound"].ToType<bool>();
-            this.IsClosedBoundCheckBox.Checked = this.choices.Rows[0]["IsClosedBound"].ToType<bool>();
-            this.AllowMultipleChoicesCheckBox.Checked = this.choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
+        this.IsBoundCheckBox.Checked = this.choices.Rows[0]["IsBound"].ToType<bool>();
+        this.IsClosedBoundCheckBox.Checked = this.choices.Rows[0]["IsClosedBound"].ToType<bool>();
+        this.AllowMultipleChoicesCheckBox.Checked = this.choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
 
         this.Question.Text = this.choices.Rows[0]["Question"].ToString();
         this.QuestionObjectPath.Text = this.choices.Rows[0]["QuestionObjectPath"].ToString();
@@ -731,17 +711,6 @@ namespace YAF.Pages
 
           existingRowsCount++;
         }
-
-        // Get isBound value directly
-        if (Convert.ToInt32(this.choices.Rows[0]["IsBound"]) == 2)
-        {
-          this.IsBoundCheckBox.Checked = true;
-        }
-
-        if (Convert.ToInt32(this.choices.Rows[0]["IsClosedBound"]) == 4)
-        {
-          this.IsClosedBoundCheckBox.Checked = true;
-        }
       }
       else
       {
@@ -758,21 +727,14 @@ namespace YAF.Pages
         if (this.topicId > 0 && this._topicInfo != null)
         {
           // topicid should not be null here 
-          if (this._topicInfo["PollID"] != DBNull.Value)
+          if (!this._topicInfo["PollID"].IsNullOrEmptyDBField())
           {
             pgidt = (int)this._topicInfo["PollID"];
 
             DataTable pollGroupData = DB.pollgroup_stats(pgidt);
 
-            if (Convert.ToInt32(pollGroupData.Rows[0]["IsBound"]) == 2)
-            {
-              this.IsBoundCheckBox.Checked = true;
-            }
-
-            if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]) == 4)
-            {
-              this.IsClosedBoundCheckBox.Checked = true;
-            }
+            this.IsBoundCheckBox.Checked = Convert.ToBoolean(pollGroupData.Rows[0]["IsBound"]);
+            this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
           }
         }
         else if (this.forumId > 0 && (!(this.topicId > 0) || (!(this.editTopicId > 0))))
@@ -807,6 +769,7 @@ namespace YAF.Pages
         this.Question.Text = string.Empty;
       }
 
+      // we add dummy rows to data table to fill in repeater empty fields   
       int dummyRowsCount = this.PageContext.BoardSettings.AllowedPollChoiceNumber - allExistingRowsCount - 1;
       for (int i = 0; i <= dummyRowsCount; i++)
       {
@@ -815,13 +778,17 @@ namespace YAF.Pages
         this.choices.Rows.Add(drow);
       }
 
+      // Bind choices repeater
       this.ChoiceRepeater.DataSource = this.choices;
       this.ChoiceRepeater.DataBind();
       this.ChoiceRepeater.Visible = true;
 
-      this.ChangePollShowStatus(true);
-      this.IsBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
-      this.IsClosedBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
+      // Show controls
+      this.SavePoll.Visible = true;
+      this.Cancel.Visible = true;
+      this.PollRow1.Visible = true;
+      this.PollRowExpire.Visible = true;
+      this.IsClosedBound.Visible = this.IsBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
       this.tr_AllowMultipleChoices.Visible = PageContext.BoardSettings.AllowMultipleChoices || PageContext.IsAdmin || PageContext.IsForumModerator;  
     }
 
@@ -933,50 +900,51 @@ namespace YAF.Pages
     /// </param>
     private void ParamsToSend(out string retliterals, out int? retvalue)
     {
-      if (this.topicId > 0)
+      if (this.editMessageId > 0)
       {
-        retliterals = "t";
-        retvalue = this.topicId;
+          retliterals = "em";
+          retvalue = this.editMessageId;
       }
-      else if (this.editMessageId > 0)
+      else if (this.topicId > 0)
       {
-        retliterals = "em";
-        retvalue = this.editMessageId;
+          retliterals = "t";
+          retvalue = this.topicId;
       }
+      
       else if (this.forumId > 0)
       {
-        retliterals = "f";
-        retvalue = this.forumId;
+          retliterals = "f";
+          retvalue = this.forumId;
       }
       else if (this.editForumId > 0)
       {
-        retliterals = "ef";
-        retvalue = this.editForumId;
+          retliterals = "ef";
+          retvalue = this.editForumId;
       }
       else if (this.categoryId > 0)
       {
-        retliterals = "c";
-        retvalue = this.categoryId;
+          retliterals = "c";
+          retvalue = this.categoryId;
       }
       else if (this.editCategoryId > 0)
       {
-        retliterals = "ec";
-        retvalue = this.editCategoryId;
+          retliterals = "ec";
+          retvalue = this.editCategoryId;
       }
       else if (this.boardId > 0)
       {
-        retliterals = "b";
-        retvalue = this.boardId;
+          retliterals = "b";
+          retvalue = this.boardId;
       }
       else if (this.editBoardId > 0)
       {
-        retliterals = "eb";
-        retvalue = this.editBoardId;
+          retliterals = "eb";
+          retvalue = this.editBoardId;
       }
       else
       {
-        retliterals = string.Empty;
-        retvalue = 0;
+          retliterals = string.Empty;
+          retvalue = 0;
       }
 
       /* else

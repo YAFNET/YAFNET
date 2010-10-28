@@ -21,7 +21,7 @@
 <tr id="PollObjectRow1" runat="server" visible="<%# (PageContext.IsAdmin || PageContext.BoardSettings.AllowUsersImagedPoll) && PageContext.ForumPollAccess %>" >
 		<td class="header2" width="20%">
 			<em>				
-               <YAF:LocalizedLabel ID="PollQuestionObjectLabel" runat="server" LocalizedTag="POLLIMAGE_TEXT" />
+               <YAF:LocalizedLabel ID="PollQuestionObjectLabel"  runat="server" LocalizedTag="POLLIMAGE_TEXT" />
 			</em>
 		</td>
 		<td class="post" width="80%">			
@@ -46,7 +46,7 @@
                    <tr id="ChoiceRow1" visible="<%# (PageContext.IsAdmin || PageContext.BoardSettings.AllowUsersImagedPoll) && PageContext.ForumPollAccess %>" runat="server" >
                      <td class="header2" width="20%">
                           <em>
-                          <YAF:LocalizedLabel ID="PollChoiceObjectLabel" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' LocalizedTag="POLLIMAGE_TEXT" />
+                          <YAF:LocalizedLabel ID="PollChoiceObjectLabel"  runat="server" LocalizedTag="POLLIMAGE_TEXT" />
                           </em>
                      </td>
                      <td class="post" width="80%">
