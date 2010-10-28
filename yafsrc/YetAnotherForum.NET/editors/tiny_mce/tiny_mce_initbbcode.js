@@ -16,5 +16,6 @@ entity_encoding : "raw",
 add_unload_trigger : false,
 remove_linebreaks : false,
 inline_styles : false,
-convert_fonts_to_spans : false
+convert_fonts_to_spans: false,
+convert_urls : false
 });
