@@ -33,7 +33,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
 		</td>
 		<td class="post">
-			<asp:TextBox ID="Subject" Width="100%" runat="server" />
+			<asp:TextBox ID="PmSubjectTextBox" Width="100%" runat="server" />
 		</td>
 	</tr>
 	<tr>

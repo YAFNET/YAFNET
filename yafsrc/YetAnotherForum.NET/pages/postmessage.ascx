@@ -23,10 +23,10 @@
 	</tr>
 	<tr id="SubjectRow" runat="server">
 		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="subject" />
+			<YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox ID="Subject" runat="server" CssClass="edit" MaxLength="100" Width="400" />
+			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" />
 		</td>
 	</tr>
 	<tr id="BlogRow" runat="server" visible="false">

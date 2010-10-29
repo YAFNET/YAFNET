@@ -159,7 +159,7 @@ namespace YAF.Pages
               subject = string.Format("Re: {0}", subject);
             }
 
-            this.Subject.Text = subject;
+            this.PmSubjectTextBox.Text = subject;
 
             string displayName = PageContext.UserDisplayName.GetName(fromUserId);
 
@@ -213,7 +213,7 @@ namespace YAF.Pages
               if (messagesRow != null)
               {
                 // handle subject                                           
-                this.Subject.Text = this.GetText("REPORTED_SUBJECT");
+                this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
                 string displayName = PageContext.UserDisplayName.GetName(messagesRow.Field<int>("UserID"));
 
@@ -307,7 +307,7 @@ namespace YAF.Pages
       }
 
       // subject is required
-      if (this.Subject.Text.Trim().Length <= 0)
+      if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
       {
         YafContext.Current.AddLoadMessage(GetText("need_subject"));
         return;
@@ -329,7 +329,7 @@ namespace YAF.Pages
         messageFlags.IsHtml = this._editor.UsesHTML;
         messageFlags.IsBBCode = this._editor.UsesBBCode;
 
-        DB.pmessage_save(YafContext.Current.PageUserID, 0, this.Subject.Text, body, messageFlags.BitValue);
+        DB.pmessage_save(YafContext.Current.PageUserID, 0, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
 
         // redirect to outbox (sent items), not control panel
         YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
@@ -422,14 +422,14 @@ namespace YAF.Pages
           messageFlags.IsHtml = this._editor.UsesHTML;
           messageFlags.IsBBCode = this._editor.UsesBBCode;
 
-          DB.pmessage_save(YafContext.Current.PageUserID, userId, this.Subject.Text, body, messageFlags.BitValue);
+          DB.pmessage_save(YafContext.Current.PageUserID, userId, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
          
           // reset reciever's lazy data as he should be informed at once
           PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {
-            this.Get<YafSendNotification>().ToPrivateMessageRecipient(userId, this.Subject.Text.Trim());
+            this.Get<YafSendNotification>().ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
           }
         }
 

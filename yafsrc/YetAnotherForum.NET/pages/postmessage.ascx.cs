@@ -261,7 +261,7 @@ namespace YAF.Pages
         return false;
       }
 
-      if (this.SubjectRow.Visible && this.Subject.Text.Length <= 0)
+      if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.Length <= 0)
       {
         this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"));
         return false;
@@ -517,7 +517,7 @@ namespace YAF.Pages
       }
 
       // Check if the topic name is not too long
-      if (YafContext.Current.BoardSettings.MaxWordLength > 0 && this.Subject.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
+      if (YafContext.Current.BoardSettings.MaxWordLength > 0 && this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
       {
         this.PageContext.AddLoadMessage(
           this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
@@ -527,7 +527,7 @@ namespace YAF.Pages
       // vzrus: Common users should not use HTML tags in a topic header if not allowed
       if (!(PageContext.IsModerator || PageContext.IsForumModerator || PageContext.IsAdmin))
       {
-          string tag = YafFormatMessage.CheckHtmlTags(this.Subject.Text, PageContext.BoardSettings.AcceptedHeadersHTML, ',');
+          string tag = YafFormatMessage.CheckHtmlTags(this.TopicSubjectTextBox.Text, PageContext.BoardSettings.AcceptedHeadersHTML, ',');
           
           if (tag.IsSet())
           {
@@ -674,9 +674,9 @@ namespace YAF.Pages
 
       string subjectSave = string.Empty;
 
-      if (this.Subject.Enabled)
+      if (this.TopicSubjectTextBox.Enabled)
       {
-          subjectSave = this.Subject.Text;
+          subjectSave = this.TopicSubjectTextBox.Text;
       }
 
       // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -704,7 +704,7 @@ namespace YAF.Pages
 
       messageId = this.EditMessageID.Value;
 
-      this.HandlePostToBlog(this._forumEditor.Text, this.Subject.Text);
+      this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
       // remove cache if it exists...
       this.PageContext.Cache.Remove(
@@ -738,12 +738,12 @@ namespace YAF.Pages
           IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
         };
 
-      string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.Subject.Text);
+      string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
       // Save to Db
         topicId = DB.topic_save(
         this.PageContext.PageForumID, 
-        this.Subject.Text, 
+        this.TopicSubjectTextBox.Text, 
         this._forumEditor.Text, 
         this.PageContext.PageUserID, 
         this.Priority.SelectedValue, 
@@ -1043,18 +1043,18 @@ namespace YAF.Pages
         this.BlogRow.Visible = true;
       }
 
-      this.Subject.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
+      this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
 
       if ((Convert.ToInt32(currentRow["TopicOwnerID"]) == Convert.ToInt32(currentRow["UserID"])) ||
           this.PageContext.ForumModeratorAccess)
       {
         // allow editing of the topic subject
-        this.Subject.Enabled = true;
+        this.TopicSubjectTextBox.Enabled = true;
       }
       else
       {
         // disable the subject
-        this.Subject.Enabled = false;
+        this.TopicSubjectTextBox.Enabled = false;
       }
 
       this.Priority.SelectedItem.Selected = false;

@@ -76,13 +76,22 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow SubjectRow;
         
         /// <summary>
-        /// Subject control.
+        /// TopicSubjectLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Subject;
+        protected global::YAF.Controls.LocalizedLabel TopicSubjectLabel;
+        
+        /// <summary>
+        /// TopicSubjectTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TopicSubjectTextBox;
         
         /// <summary>
         /// BlogRow control.
