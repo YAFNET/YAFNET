@@ -997,12 +997,12 @@
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
   <page name="MESSAGEHISTORY">
-    <Resource tag="CURRENTMESSAGE">Текущая редакция</Resource>
+    <Resource tag="CURRENTMESSAGE">Последняя редакция</Resource>
     <Resource tag="EDITED">Дата изменения:</Resource>
     <Resource tag="EDITEDBY">Изменил:</Resource>
     <Resource tag="EDITEREASON">Причина изменения:</Resource>
     <Resource tag="GOMODERATE">Продолжить модерировать</Resource>
-    <Resource tag="HISTORYSTART">Текущие редакции</Resource>
+    <Resource tag="HISTORYSTART">Предыдущие редакции</Resource>
     <Resource tag="ORIGINALMESSAGE">Первоначальная редакция</Resource>
     <Resource tag="POSTED">Оставлено:</Resource>
     <Resource tag="TITLE">История изменений</Resource>
@@ -1265,7 +1265,7 @@
     <Resource tag="OPTIONS">Опции</Resource>
     <Resource tag="PM">ЛС</Resource>
     <Resource tag="POINTS">Баллов</Resource>
-    <Resource tag="POLL_CLOSED">(Опрос завершён)</Resource>
+    <Resource tag="POLL_CLOSED">Опрос завершён</Resource>
     <Resource tag="POST_REPLY">Ответить на сообщение</Resource>
     <Resource tag="POSTED">Оставлено</Resource>
     <Resource tag="POSTS">Сообщений</Resource>

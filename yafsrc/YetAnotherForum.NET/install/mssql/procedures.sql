@@ -8207,33 +8207,19 @@ as
 END
 GO  
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT, @ShowAll BIT = null )
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT)
 as 
 	BEGIN    
-	-- delete all message variants older then DaysToClean days Flags reserved for possible pms
-   
-	delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
-	 where DATEDIFF(day,Edited,GETUTCDATE() ) > @DaysToClean
-	
-	-- we don't return Message text and ip if it's simply a user
-	   
-	 IF @ShowAll > 0               
+	-- delete all message variants older then DaysToClean days Flags reserved for possible pms   
+	 delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
+	 where DATEDIFF(day,Edited,GETUTCDATE() ) > @DaysToClean	
+              
 	 SELECT mh.*, m.UserID, m.UserName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
 	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
 	 LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-	 WHERE mh.MessageID = @MessageID     
-	 ELSE 
-	 SELECT   
-	 MessageID,	
-	 Edited,			
-	 EditReason,
-	 EditedBy,
-	 IsModeratorChanged,
-	 Flags
-	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory]
-	 WHERE MessageID = @MessageID    
+	 WHERE mh.MessageID = @MessageID  
 	END
 GO
 
@@ -8410,4 +8396,3 @@ DECLARE @ParsedMessageIDs TABLE
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
 END
 GO
-

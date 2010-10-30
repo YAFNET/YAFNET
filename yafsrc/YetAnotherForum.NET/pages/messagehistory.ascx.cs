@@ -161,14 +161,14 @@ namespace YAF.Pages
     private void BindData()
     {
       // Fill revisions list repeater.
-        DataTable dt = DB.messagehistory_list(this.messageID, this.PageContext.BoardSettings.MessageHistoryDaysToLog,
-                                              true);
-      this.RevisionsList.DataSource =dt.AsEnumerable();
+      DataTable dt = DB.messagehistory_list(this.messageID, this.PageContext.BoardSettings.MessageHistoryDaysToLog);
+      this.RevisionsList.DataSource = dt.AsEnumerable();
 
       singleReport = dt.Rows.Count <= 1;
+
       // Fill current message repeater
-      this.CurrentMessageRpt.Visible = true;
       this.CurrentMessageRpt.DataSource = DB.message_secdata(this.messageID, this.PageContext.PageUserID).AsEnumerable();
+      this.CurrentMessageRpt.Visible = true;
 
       this.DataBind();
     }

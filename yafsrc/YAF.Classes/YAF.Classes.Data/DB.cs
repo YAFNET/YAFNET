@@ -4513,26 +4513,24 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The messagehistory_list.
     /// </summary>
-    /// <param name="messageID">
+    /// <param name="messageId">
     /// The Message ID.
     /// </param>
     /// <param name="daysToClean">
     /// Days to clean.
     /// </param>
-    /// <param name="showAll">
-    /// The Show All.
-    /// </param>
     /// <returns>
     /// List of all message changes. 
     /// </returns>
-    public static DataTable messagehistory_list(int messageID, int daysToClean, object showAll)
+    public static DataTable messagehistory_list(int messageId, int daysToClean)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("messagehistory_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("MessageID", messageID);
+
+        cmd.Parameters.AddWithValue("MessageID", messageId);
         cmd.Parameters.AddWithValue("DaysToClean", daysToClean);
-        cmd.Parameters.AddWithValue("ShowAll", showAll);
+
         return YafDBAccess.Current.GetData(cmd);
       }
     }
