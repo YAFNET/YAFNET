@@ -447,6 +447,7 @@
     <Resource tag="TIMEZONE">איזור זמן</Resource>
     <Resource tag="TIMEZONE2">על מנת להציג את הזמנים והתאריכים בזמן שלך, אנו צריכים לדעת את איזור הזמן שלך. (ישראל נמצאת ב GMT+2)</Resource>
     <Resource tag="TITLE">עריכת פרופיל</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">הבלוג שלך:</Resource>
     <Resource tag="WHERE">היכן את/ה גר/ה?</Resource>
   </page>

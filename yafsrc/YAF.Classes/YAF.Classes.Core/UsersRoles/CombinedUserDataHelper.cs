@@ -352,13 +352,13 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    ///   Gets a value indicating whether OverrideDefaultThemes.
+    ///   Gets a value indicating whether UseMobileTheme.
     /// </summary>
-    public bool OverrideDefaultThemes
+    public bool UseMobileTheme
     {
       get
       {
-        return this.RowConvert.AsBool("OverrideDefaultThemes") ?? false;
+        return this.RowConvert.AsBool("OverrideDefaultThemes") ?? true;
       }
     }
 

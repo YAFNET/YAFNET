@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Zona horaria</Resource>
     <Resource tag="TIMEZONE2">Para mostrar fechas y horas de tu ubicación es necesario saber la zona horaria.</Resource>
     <Resource tag="TITLE">Editar perfil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Tu blog:</Resource>
     <Resource tag="WHERE">¿Donde vives?</Resource>
   </page>

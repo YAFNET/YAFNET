@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">منطقه ساعتی</Resource>
     <Resource tag="TIMEZONE2">برای محاسبه تاریخ و زمان بر اساس موقیت شما ,منطقه ساعتی شما باید تعیین شود.</Resource>
     <Resource tag="TITLE">ویرایش پروفایل</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">آدرس وبلاگ شما:</Resource>
     <Resource tag="WHERE">محل زندگی شما?</Resource>
   </page>

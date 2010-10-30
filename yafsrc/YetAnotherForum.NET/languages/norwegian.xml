@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Tidssone</Resource>
     <Resource tag="TIMEZONE2">Vi må vite hvilken tidssone du befinner deg for å gi deg riktige klokkeslett.</Resource>
     <Resource tag="TITLE">Endre profil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Din blogg</Resource>
     <Resource tag="WHERE">Hvor bor du?</Resource>
   </page>

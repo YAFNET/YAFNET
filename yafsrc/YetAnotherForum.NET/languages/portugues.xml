@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Zona de Horário</Resource>
     <Resource tag="TIMEZONE2">Para fornecer a você horários e datas localizados, nós precisamos saber sua Zona de Horário.</Resource>
     <Resource tag="TITLE">Editar Perfil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Seu Weblog:</Resource>
     <Resource tag="WHERE">Onde você mora?</Resource>
   </page>

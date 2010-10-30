@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Tijdzone</Resource>
     <Resource tag="TIMEZONE2">Om data en tijden correct weer te geven, moeten we je tijdzone weten:</Resource>
     <Resource tag="TITLE">Profiel bewerken</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Jouw weblog:</Resource>
     <Resource tag="WHERE">Waar woon je?</Resource>
   </page>

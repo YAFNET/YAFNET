@@ -83,19 +83,13 @@ namespace YAF.Classes.Utils
     /// </summary>
     public Hashtable ForumRead
     {
-      get
-      {
-        if (HttpContext.Current.Session["forumread"] != null)
-        {
-          return (Hashtable)HttpContext.Current.Session["forumread"];
-        }
-        else
-        {
-          return null;
-        }
+      get {
+          return HttpContext.Current.Session["forumread"] != null
+                     ? (Hashtable) HttpContext.Current.Session["forumread"]
+                     : null;
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["forumread"] = value;
       }
@@ -108,17 +102,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["haslastvisit"] != null)
+          if (HttpContext.Current.Session["haslastvisit"] != null)
         {
           return (bool)HttpContext.Current.Session["haslastvisit"];
         }
-        else
-        {
           return false;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["haslastvisit"] = value;
       }
@@ -131,17 +122,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["lastpendingbuddies"] != null)
+          if (HttpContext.Current.Session["lastpendingbuddies"] != null)
         {
           return (DateTime)HttpContext.Current.Session["lastpendingbuddies"];
         }
-        else
-        {
           return DateTime.MinValue;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["lastpendingbuddies"] = value;
       }
@@ -154,17 +142,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["lastpm"] != null)
+          if (HttpContext.Current.Session["lastpm"] != null)
         {
           return (DateTime)HttpContext.Current.Session["lastpm"];
         }
-        else
-        {
           return DateTime.MinValue;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["lastpm"] = value;
       }
@@ -177,17 +162,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["lastpost"] != null)
+          if (HttpContext.Current.Session["lastpost"] != null)
         {
           return (DateTime)HttpContext.Current.Session["lastpost"];
         }
-        else
-        {
           return DateTime.MinValue;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["lastpost"] = value;
       }
@@ -200,17 +182,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["lastvisit"] != null)
+          if (HttpContext.Current.Session["lastvisit"] != null)
         {
           return (DateTime)HttpContext.Current.Session["lastvisit"];
         }
-        else
-        {
           return DateTime.MinValue;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["lastvisit"] = value;
       }
@@ -236,17 +215,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["SearchDataTable"] != null)
+          if (HttpContext.Current.Session["SearchDataTable"] != null)
         {
           return HttpContext.Current.Session["SearchDataTable"] as DataTable;
         }
-        else
-        {
           return null;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["SearchDataTable"] = value;
       }
@@ -263,11 +239,8 @@ namespace YAF.Classes.Utils
         {
           return (int)HttpContext.Current.Session["showlist"];
         }
-        else
-        {
           // nothing in session
           return -1;
-        }
       }
 
       set
@@ -283,17 +256,14 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (HttpContext.Current.Session["topicread"] != null)
+          if (HttpContext.Current.Session["topicread"] != null)
         {
           return (Hashtable)HttpContext.Current.Session["topicread"];
         }
-        else
-        {
           return null;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["topicread"] = value;
       }
@@ -302,21 +272,19 @@ namespace YAF.Classes.Utils
     /// <summary>
     ///   Gets or sets UnreadTopics.
     /// </summary>
+    /// </summary>
     public int UnreadTopics
     {
       get
       {
-        if (HttpContext.Current.Session["unreadtopics"] != null)
+          if (HttpContext.Current.Session["unreadtopics"] != null)
         {
           return (int)HttpContext.Current.Session["unreadtopics"];
         }
-        else
-        {
           return 0;
-        }
       }
 
-      set
+        set
       {
         HttpContext.Current.Session["unreadtopics"] = value;
       }
@@ -342,10 +310,7 @@ namespace YAF.Classes.Utils
       {
         return this.LastVisit;
       }
-      else
-      {
         return (DateTime)t[forumID];
-      }
     }
 
     /// <summary>
@@ -364,10 +329,7 @@ namespace YAF.Classes.Utils
       {
         return this.LastVisit;
       }
-      else
-      {
         return (DateTime)t[topicID];
-      }
     }
 
     /// <summary>
@@ -398,14 +360,27 @@ namespace YAF.Classes.Utils
     /// </param>
     public void SetTopicRead(int topicID, DateTime date)
     {
-      Hashtable t = this.TopicRead;
-      if (t == null)
-      {
-        t = new Hashtable();
-      }
+      Hashtable t = this.TopicRead ?? new Hashtable();
 
-      t[topicID] = date;
+        t[topicID] = date;
       this.TopicRead = t;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether if the User
+    /// currently uses a Mobile Theme
+    /// </summary>
+    public bool MobileThemeActive
+    {
+        get {
+            return HttpContext.Current.Session["mobilethemeactive"] != null &&
+                   (bool)HttpContext.Current.Session["mobilethemeactive"];
+        }
+
+        set
+        {
+            HttpContext.Current.Session["mobilethemeactive"] = value;
+        }
     }
 
     #endregion
@@ -463,29 +438,29 @@ namespace YAF.Classes.Utils
           
           
           // if no panel state info is in session state, try cookie
-        else if (HttpContext.Current.Request.Cookies[sessionPanelID] != null)
-        {
-          try
+          if (HttpContext.Current.Request.Cookies[sessionPanelID] != null)
           {
-            // we must convert string to int, better get is safe
-            if (HttpContext.Current.Request != null)
-            {
-              return (CollapsiblePanelState)int.Parse(HttpContext.Current.Request.Cookies[sessionPanelID].Value);
-            }
-          }
-          catch
-          {
-            // in case cookie has wrong value
-            if (HttpContext.Current.Request != null)
-            {
-              HttpContext.Current.Request.Cookies.Remove(sessionPanelID); // scrap wrong cookie
-            }
+              try
+              {
+                  // we must convert string to int, better get is safe
+                  if (HttpContext.Current.Request != null)
+                  {
+                      return (CollapsiblePanelState)int.Parse(HttpContext.Current.Request.Cookies[sessionPanelID].Value);
+                  }
+              }
+              catch
+              {
+                  // in case cookie has wrong value
+                  if (HttpContext.Current.Request != null)
+                  {
+                      HttpContext.Current.Request.Cookies.Remove(sessionPanelID); // scrap wrong cookie
+                  }
 
-            return CollapsiblePanelState.None;
+                  return CollapsiblePanelState.None;
+              }
           }
-        }
 
-        return CollapsiblePanelState.None;
+          return CollapsiblePanelState.None;
       }
  // Ederon : 7/14/2007
       set
@@ -495,9 +470,8 @@ namespace YAF.Classes.Utils
         HttpContext.Current.Session[sessionPanelID] = value;
 
         // create persistent cookie with visibility setting for panel
-        var c = new HttpCookie(sessionPanelID, ((int)value).ToString());
-        c.Expires = DateTime.UtcNow.AddYears(1);
-        HttpContext.Current.Response.SetCookie(c);
+        var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) {Expires = DateTime.UtcNow.AddYears(1)};
+          HttpContext.Current.Response.SetCookie(c);
       }
     }
 

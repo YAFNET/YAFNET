@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Aikavyöhyke</Resource>
     <Resource tag="TIMEZONE2">nähdäksesi ajat oikein, tarvitsemme tietoomme aikavyöhykkeesi.</Resource>
     <Resource tag="TITLE">Muokkaa profiilia</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Blogisi:</Resource>
     <Resource tag="WHERE">Missä asut?</Resource>
   </page>

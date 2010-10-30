@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Fuso Orario</Resource>
     <Resource tag="TIMEZONE2">Per dare data e orario in ora locale, è necessario conosce il tuo fuso orario.</Resource>
     <Resource tag="TITLE">Modifica il profilo</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Il tuo Weblog:</Resource>
     <Resource tag="WHERE">Dove vivi?</Resource>
   </page>

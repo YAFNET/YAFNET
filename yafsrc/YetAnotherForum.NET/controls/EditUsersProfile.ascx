@@ -270,13 +270,13 @@
             <asp:DropDownList runat="server" ID="Theme" />
         </td>
     </tr>
-    <tr runat="server" id="OverrideForumThemeRow" visible="false">
+    <tr runat="server" id="UseMobileThemeRow" visible="false">
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="OVERRIDE_DEFAULT_THEMES" />
+                LocalizedTag="USE_MOBILE_THEME" />
         </td>
         <td class="post">
-            <asp:CheckBox ID="OverrideDefaultThemes" runat="server" />
+            <asp:CheckBox ID="UseMobileTheme" runat="server" />
         </td>
     </tr>
     <tr runat="server" id="UserLanguageRow">

@@ -526,13 +526,13 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.DropDownList Theme;
         
         /// <summary>
-        /// OverrideForumThemeRow control.
+        /// UseMobileThemeRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow OverrideForumThemeRow;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow UseMobileThemeRow;
         
         /// <summary>
         /// LocalizedLabel21 control.
@@ -544,13 +544,13 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel21;
         
         /// <summary>
-        /// OverrideDefaultThemes control.
+        /// UseMobileTheme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox OverrideDefaultThemes;
+        protected global::System.Web.UI.WebControls.CheckBox UseMobileTheme;
         
         /// <summary>
         /// UserLanguageRow control.

@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Tidszone</Resource>
     <Resource tag="TIMEZONE2">Vi skal vide hvilken tidszone du befinder dig i for at vise det rigtige klokkeslet.</Resource>
     <Resource tag="TITLE">Ændre profil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Din Weblog:</Resource>
     <Resource tag="WHERE">Hvor bor du?</Resource>
   </page>

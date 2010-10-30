@@ -64,7 +64,7 @@ namespace YAF.Classes.Data
       this.Points = row.Field<int?>("Points");
       this.IsApproved = row.Field<bool?>("IsApproved");
       this.IsActiveExcluded = row.Field<bool?>("IsActiveExcluded");
-      this.OverrideDefaultThemes = row.Field<bool?>("OverrideDefaultThemes");
+      this.UseMobileTheme = row.Field<bool?>("OverrideDefaultThemes");
       this.AvatarImageType = row.Field<string>("AvatarImageType");
       this.AutoWatchTopics = row.Field<bool?>("AutoWatchTopics");
       this.DisplayName = row.Field<string>("DisplayName");
@@ -181,9 +181,9 @@ namespace YAF.Classes.Data
     public int? NumPosts { get; set; }
 
     /// <summary>
-    /// Gets or sets OverrideDefaultThemes.
+    /// Gets or sets UseMobileTheme.
     /// </summary>
-    public bool? OverrideDefaultThemes { get; set; }
+    public bool? UseMobileTheme { get; set; }
 
     /// <summary>
     /// Gets or sets PMNotification.

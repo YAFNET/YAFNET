@@ -425,6 +425,7 @@
     <Resource tag="TIMEZONE">Timpul zonei</Resource>
     <Resource tag="TIMEZONE2">Ca sa ai timpul si data ta locala, avem nevoie de timpul zonei tale.</Resource>
     <Resource tag="TITLE">Editeaza Profil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Weblogul tau:</Resource>
     <Resource tag="WHERE">Unde traiesti?</Resource>
   </page>

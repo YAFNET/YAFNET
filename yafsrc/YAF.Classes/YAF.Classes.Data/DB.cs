@@ -7578,41 +7578,44 @@ namespace YAF.Classes.Data
       }
     }
 
-    /// <summary>
-    /// The user_save.
-    /// </summary>
-    /// <param name="displayName"></param>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    /// <param name="boardID">
-    /// The board id.
-    /// </param>
-    /// <param name="userName">
-    /// The user name.
-    /// </param>
-    /// <param name="email">
-    /// The email.
-    /// </param>
-    /// <param name="timeZone">
-    /// The time zone.
-    /// </param>
-    /// <param name="languageFile">
-    /// The language file.
-    /// </param>
-    /// <param name="themeFile">
-    /// The theme file.
-    /// </param>
-    /// <param name="overrideDefaultThemes">
-    /// The override default themes.
-    /// </param>
-    /// <param name="approved">
-    /// The approved.
-    /// </param>
-    /// <param name="pmNotification">
-    /// The pm notification.
-    /// </param>
-    public static void user_save(
+      /// <summary>
+      /// The user_save.
+      /// </summary>
+      /// <param name="displayName"></param>
+      /// <param name="userID">
+      /// The user id.
+      /// </param>
+      /// <param name="boardID">
+      /// The board id.
+      /// </param>
+      /// <param name="userName">
+      /// The user name.
+      /// </param>
+      /// <param name="email">
+      /// The email.
+      /// </param>
+      /// <param name="timeZone">
+      /// The time zone.
+      /// </param>
+      /// <param name="languageFile">
+      /// The language file.
+      /// </param>
+      /// <param name="culture">
+      /// the user culture
+      /// </param>
+      /// <param name="themeFile">
+      /// The theme file.
+      /// </param>
+      /// <param name="useMobileTheme">
+      /// The override Mobile Theme.
+      /// </param>
+      /// <param name="approved">
+      /// The approved.
+      /// </param>
+      /// <param name="pmNotification">
+      /// The pm notification.
+      /// </param>
+      public static void user_save(
       object userID,
       object boardID,
       object userName,
@@ -7622,7 +7625,7 @@ namespace YAF.Classes.Data
       object languageFile,
       object culture,
       object themeFile,
-      object overrideDefaultThemes,
+      object useMobileTheme,
       object approved,
       object pmNotification,
       object autoWatchTopics,
@@ -7642,7 +7645,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("LanguageFile", languageFile);
         cmd.Parameters.AddWithValue("Culture", culture);
         cmd.Parameters.AddWithValue("ThemeFile", themeFile);
-        cmd.Parameters.AddWithValue("OverrideDefaultTheme", overrideDefaultThemes);
+        cmd.Parameters.AddWithValue("OverrideDefaultTheme", useMobileTheme);
         cmd.Parameters.AddWithValue("Approved", approved);
         cmd.Parameters.AddWithValue("PMNotification", pmNotification);
         cmd.Parameters.AddWithValue("AutoWatchTopics", autoWatchTopics);

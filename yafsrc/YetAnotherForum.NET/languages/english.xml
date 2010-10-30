@@ -688,7 +688,7 @@
 		<Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
 		<Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
 		<Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
-		<Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
+		<Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource> <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
 		<Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
 		<Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
 		<Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>

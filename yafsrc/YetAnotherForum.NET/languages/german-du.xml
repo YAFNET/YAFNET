@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Zeitzone</Resource>
     <Resource tag="TIMEZONE2">Damit Daten und Uhrzeiten im Forum richtig angezeigt werden, musst du Deine Zeitzone angeben.</Resource>
     <Resource tag="TITLE">Profil bearbeiten</Resource>
+    <Resource tag="USE_MOBILE_THEME">Mobile Forum Skin benutzen:</Resource>
     <Resource tag="WEBLOG2">Dein Blog:</Resource>
     <Resource tag="WHERE">Wo lebst du?</Resource>
   </page>

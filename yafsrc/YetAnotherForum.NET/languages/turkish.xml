@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Zaman Dilimi</Resource>
     <Resource tag="TIMEZONE2">Doğru zaman diliminizi seçiniz:</Resource>
     <Resource tag="TITLE">Profili Düzenle</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Blog Sayfanız:</Resource>
     <Resource tag="WHERE">Nerelisiniz?</Resource>
   </page>

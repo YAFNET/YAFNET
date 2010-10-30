@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Fuseau horaire</Resource>
     <Resource tag="TIMEZONE2">Pour avoir les heures dans votre heure locale, choisissez votre fuseau horaire.</Resource>
     <Resource tag="TITLE">Edition du Profil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Votre blog&amp;nbsp;:</Resource>
     <Resource tag="WHERE">Où habitez-vous ?</Resource>
   </page>

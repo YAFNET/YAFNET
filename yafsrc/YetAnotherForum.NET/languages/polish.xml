@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Strefa czasowa:</Resource>
     <Resource tag="TIMEZONE2">Aby podawać Twoje godziny i daty w Twoim lokalnym czasie, potrzebujemy znać Twoją strefę czasową.</Resource>
     <Resource tag="TITLE">Edytuj Profil</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Twój Weblog:</Resource>
     <Resource tag="WHERE">Gdzie mieszkasz?</Resource>
   </page>

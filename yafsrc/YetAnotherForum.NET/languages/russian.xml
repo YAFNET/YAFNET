@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
   </page>

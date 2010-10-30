@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Múi giờ</Resource>
     <Resource tag="TIMEZONE2">Chọn múi giờ của bạn.</Resource>
     <Resource tag="TITLE">Sửa lý lịch</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Weblog:</Resource>
     <Resource tag="WHERE">Bạn đang ở đâu?</Resource>
   </page>

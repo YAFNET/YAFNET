@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">Časová zóna</Resource>
     <Resource tag="TIMEZONE2">Abychom mohli uvádět čas a datum ve vašem místním čase, musíme znát vaši časovou zónu.</Resource>
     <Resource tag="TITLE">Úprava profilu</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Váš weblog:</Resource>
     <Resource tag="WHERE">Město</Resource>
   </page>

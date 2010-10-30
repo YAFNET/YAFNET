@@ -1464,8 +1464,8 @@ namespace YAF.controls
              decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
 
              questionImage.Width = 80;
-             // hardcoded - bad
-             if (PageContext.Theme.ThemeFile == "YafMobile.xml")
+
+             if (YafContext.Current.Get<YafSession>().MobileThemeActive)
              {
                  questionImage.Width = 40;
              }

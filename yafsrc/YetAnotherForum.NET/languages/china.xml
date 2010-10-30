@@ -424,6 +424,7 @@
     <Resource tag="TIMEZONE">时区</Resource>
     <Resource tag="TIMEZONE2">请输入您所在的时区，GMT+8:00 表示中国.</Resource>
     <Resource tag="TITLE">个人配置</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">您的博客:</Resource>
     <Resource tag="WHERE">您住在哪里?</Resource>
   </page>

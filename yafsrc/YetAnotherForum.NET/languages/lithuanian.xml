@@ -504,6 +504,7 @@
       turime žinoti savo laiko juostą. 
     </Resource>
     <Resource tag="TITLE">Redaguoti profilį </Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
     <Resource tag="WEBLOG2">Jūsų Weblog: </Resource>
     <Resource tag="WHERE">Kur jūs gyvenate? </Resource>
   </page>
