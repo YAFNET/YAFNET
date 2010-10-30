@@ -465,43 +465,42 @@ namespace YAF.Classes.Core.BBCode
 
             ForumPage fp = new ForumPage();
 
-           string tmpReplaceStr =
+            string tmpReplaceStr2 =
                 @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
                     FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
 
             ruleEngine.AddRule(
                new VariableRegexReplaceRule(
                    _rgxQuote2,
-                   tmpReplaceStr,
+                   tmpReplaceStr2,
                    new[]
                         {
                             "quote"
                         }));
 
+            string tmpReplaceStr1 =
+                @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
+                    FormatWith(localQuoteStr, "${inner}");
 
-            tmpReplaceStr =
-                @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" alt=""Go to Quoted Post"" /></a></span><div class=""innerquote"">{3}</div></div>"
-                    .
-                    FormatWith(localQuotePostedStr.Replace("{0}", "${quote}"),
-                               YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
-                               fp.GetThemeContents("ICONS", "ICON_LATEST"), "${inner}");
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr1));
+
+            string tmpReplaceStr3 =
+               @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" alt=""Go to Quoted Post"" /></a></span><div class=""innerquote"">{3}</div></div>"
+                   .
+                   FormatWith(localQuotePostedStr.Replace("{0}", "${quote}"),
+                              YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
+                              fp.GetThemeContents("ICONS", "ICON_LATEST"), "${inner}");
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     _rgxQuote3,
-                    tmpReplaceStr,
+                    tmpReplaceStr3,
                     new[]
                         {
                             "quote", "id"
                         }));
 
-        
-
-            tmpReplaceStr =
-                @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
-                    FormatWith(localQuoteStr, "${inner}");
-
-            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr));
+            
         }
 
         // post and topic rules...
