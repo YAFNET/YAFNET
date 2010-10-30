@@ -317,6 +317,17 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    ///  Gets a value indicating whether the current user uses a mobile device (True).
+    /// </summary>
+    public bool IsMobileDevice
+    {
+        get
+        {
+            return AccessNotNull("IsMobileDevice");
+        }
+    }
+
+    /// <summary>
     /// Gets PageBoardID.
     /// </summary>
     public int PageBoardID
@@ -760,6 +771,7 @@ namespace YAF.Classes.Core
 
           string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
           string platform = HttpContext.Current.Request.Browser.Platform;
+          bool isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
           bool isSearchEngine = false;
           bool dontTrack = false;
 
@@ -827,7 +839,9 @@ namespace YAF.Classes.Core
               messageID,
               // don't track if this is a search engine
               isSearchEngine,
-              dontTrack);
+              isMobileDevice,
+              dontTrack
+             );
 
             // if the user doesn't exist...
             if (user != null && pageRow == null)

@@ -3754,6 +3754,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@TopicID	int = null,
 	@MessageID	int = null,
 	@IsCrawler	bit = 0,
+	@IsMobileDevice	bit = 0,
 	@DontTrack	bit = 0
 ) as
 begin
@@ -3927,6 +3928,7 @@ begin
 		PreviousVisit		= @PreviousVisit,	   
 		x.*,
 		IsCrawler           = @IsCrawler,
+		IsMobileDevice      = @IsMobileDevice,
 		CategoryID			= @CategoryID,
 		CategoryName		= (select Name from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID),
 		ForumName			= (select Name from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),

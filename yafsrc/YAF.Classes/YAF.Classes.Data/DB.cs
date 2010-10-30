@@ -874,54 +874,57 @@ namespace YAF.Classes.Data
 
     #region Forum
 
-    /// <summary>
-    /// The pageload.
-    /// </summary>
-    /// <param name="sessionID">
-    /// The session id.
-    /// </param>
-    /// <param name="boardID">
-    /// The board id.
-    /// </param>
-    /// <param name="userKey">
-    /// The user key.
-    /// </param>
-    /// <param name="ip">
-    /// The ip.
-    /// </param>
-    /// <param name="location">
-    /// The location.
-    /// </param>
-    /// <param name="forumPage">
-    /// The forum page name.   
-    /// </param>
-    /// <param name="browser">
-    /// The browser.
-    /// </param>
-    /// <param name="platform">
-    /// The platform.
-    /// </param>
-    /// <param name="categoryID">
-    /// The category id.
-    /// </param>
-    /// <param name="forumID">
-    /// The forum id.
-    /// </param>
-    /// <param name="topicID">
-    /// The topic id.
-    /// </param>
-    /// <param name="messageID">
-    /// The message id.
-    /// </param>
-    /// <param name="donttrack">
-    /// The donttrack.
-    /// </param>
-    /// <returns>
-    /// Common User Info DataRow
-    /// </returns>
-    /// <exception cref="ApplicationException">
-    /// </exception>
-    public static DataRow pageload(
+      /// <summary>
+      /// The pageload.
+      /// </summary>
+      /// <param name="sessionID">
+      /// The session id.
+      /// </param>
+      /// <param name="boardID">
+      /// The board id.
+      /// </param>
+      /// <param name="userKey">
+      /// The user key.
+      /// </param>
+      /// <param name="ip">
+      /// The ip.
+      /// </param>
+      /// <param name="location">
+      /// The location.
+      /// </param>
+      /// <param name="forumPage">
+      /// The forum page name.   
+      /// </param>
+      /// <param name="browser">
+      /// The browser.
+      /// </param>
+      /// <param name="platform">
+      /// The platform.
+      /// </param>
+      /// <param name="categoryID">
+      /// The category id.
+      /// </param>
+      /// <param name="forumID">
+      /// The forum id.
+      /// </param>
+      /// <param name="topicID">
+      /// The topic id.
+      /// </param>
+      /// <param name="messageID">
+      /// The message id.
+      /// </param>
+      /// <param name="isMobileDevice">
+      /// The browser is a mobile device.
+      /// </param>
+      /// <param name="donttrack">
+      /// The donttrack.
+      /// </param>
+      /// <returns>
+      /// Common User Info DataRow
+      /// </returns>
+      /// <exception cref="ApplicationException">
+      /// </exception>
+      public static DataRow pageload(
       object sessionID,
       object boardID,
       object userKey,
@@ -935,6 +938,7 @@ namespace YAF.Classes.Data
       object topicID,
       object messageID,
       object isCrawler,
+      object isMobileDevice,
       object donttrack)
     {
       int nTries = 0;
@@ -958,6 +962,7 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("TopicID", topicID);
             cmd.Parameters.AddWithValue("MessageID", messageID);
             cmd.Parameters.AddWithValue("IsCrawler", isCrawler);
+            cmd.Parameters.AddWithValue("IsMobileDevice", isMobileDevice);
             cmd.Parameters.AddWithValue("DontTrack", donttrack);
 
             using (DataTable dt = YafDBAccess.Current.GetData(cmd))

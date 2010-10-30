@@ -522,6 +522,7 @@ namespace YAF
       string browser = "{0} {1}".FormatWith(
         HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
       string platform = HttpContext.Current.Request.Browser.Platform;
+      bool isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
       bool isSearchEngine;
       bool dontTrack;
       string userAgent = HttpContext.Current.Request.UserAgent;
@@ -579,7 +580,9 @@ namespace YAF
         // don't track if this is a search engine
         // don't track if this is a search engine
         isSearchEngine, 
-        dontTrack);
+        isMobileDevice,
+        dontTrack
+        );
 
       DataRow auldRow;
       if (pageRow != null)
