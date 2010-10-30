@@ -771,12 +771,12 @@ namespace YAF.Classes.Core
 
           string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
           string platform = HttpContext.Current.Request.Browser.Platform;
-          bool isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
+         
           bool isSearchEngine = false;
           bool dontTrack = false;
 
           string userAgent = HttpContext.Current.Request.UserAgent;
-
+          bool isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent) || HttpContext.Current.Request.Browser.IsMobileDevice;
 
           // try and get more verbose platform name by ref and other parameters             
           UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
