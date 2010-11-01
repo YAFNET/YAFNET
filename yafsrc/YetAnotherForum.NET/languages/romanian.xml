@@ -289,6 +289,7 @@
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Se incarca...</Resource>
     <Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
+    <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notificare</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Utilizator nou inregistrat pe forum {0} </Resource>

@@ -31,6 +31,7 @@ namespace YAF.controls
 
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Controls;
 
@@ -44,84 +45,63 @@ namespace YAF.controls
     #region Events
 
     /// <summary>
-    /// The event bubbles info to parent control to rebind repeater. 
+    ///   The event bubbles info to parent control to rebind repeater.
     /// </summary>
-    public event EventHandler ChoiceVoted; 
+    public event EventHandler ChoiceVoted;
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether parent topic IsLocked
-    /// </summary>
-    public bool IsLocked { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether parent topic IsClosed
-    /// </summary>
-    public bool IsClosed { get; set; }
-
-    /// <summary>
-    /// Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
-    /// </summary>
-    public decimal MaxImageAspect { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether user can vote
+    ///   Gets or sets a value indicating whether user can vote
     /// </summary>
     public bool CanVote { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether to hide results.
-    /// </summary>
-    public bool HideResults { get; set; }
-
-    /// <summary>
-    /// Gets or sets the data source.
-    /// </summary>
-    public DataTable DataSource { get; set; }
-
-    /// <summary>
-    /// Gets or sets the PollId for the choices.
-    /// </summary>
-    public int PollId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the Choice Id array.
+    ///   Gets or sets the Choice Id array.
     /// </summary>
     public int?[] ChoiceId { get; set; }
 
     /// <summary>
-    /// Gets or sets number of  days to run.
+    ///   Gets or sets the data source.
+    /// </summary>
+    public DataTable DataSource { get; set; }
+
+    /// <summary>
+    ///   Gets or sets number of  days to run.
     /// </summary>
     public int? DaysToRun { get; set; }
 
     /// <summary>
-    ///  Gets or sets number of votes.
+    ///   Gets or sets a value indicating whether to hide results.
     /// </summary>
-    public int Votes { get; set; }
-
-    #endregion
-
-    #region Protected Methods
+    public bool HideResults { get; set; }
 
     /// <summary>
-    /// Get Theme Contents
+    ///   Gets or sets a value indicating whether parent topic IsClosed
     /// </summary>
-    /// <param name="page">
-    /// The Localization Page.
-    /// </param>
-    /// <param name="tag">
-    /// The Localisation Page Tag.
-    /// </param>
-    /// <returns>
-    /// Returns Theme Content.
-    /// </returns>
-    protected string GetThemeContents(string page, string tag)
-    {
-      return this.PageContext.Theme.GetItem(page, tag);
-    }
+    public bool IsClosed { get; set; }
+
+    /// <summary>
+    ///   Gets or sets a value indicating whether parent topic IsLocked
+    /// </summary>
+    public bool IsLocked { get; set; }
+
+    /// <summary>
+    ///   Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
+    /// </summary>
+    public decimal MaxImageAspect { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the PollId for the choices.
+    /// </summary>
+    public int PollId { get; set; }
+
+    /// <summary>
+    ///   Gets or sets number of votes.
+    /// </summary>
+    public int Votes { get; set; }
 
     #endregion
 
@@ -136,7 +116,7 @@ namespace YAF.controls
     /// <returns>
     /// Returnes image height.
     /// </returns>
-    protected int GetImageHeight(object mimeType)
+    protected int GetImageHeight([NotNull] object mimeType)
     {
       string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
       return Convert.ToInt32(attrs[1]);
@@ -148,9 +128,27 @@ namespace YAF.controls
     /// <returns>
     /// Returns poll question string.
     /// </returns>
+    [NotNull]
     protected string GetPollQuestion()
     {
-        return this.DataSource.Rows[0]["Question"].ToString();
+      return this.DataSource.Rows[0]["Question"].ToString();
+    }
+
+    /// <summary>
+    /// Get Theme Contents
+    /// </summary>
+    /// <param name="page">
+    /// The Localization Page.
+    /// </param>
+    /// <param name="tag">
+    /// The Localisation Page Tag.
+    /// </param>
+    /// <returns>
+    /// Returns Theme Content.
+    /// </returns>
+    protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
+    {
+      return this.PageContext.Theme.GetItem(page, tag);
     }
 
     /// <summary>
@@ -162,9 +160,10 @@ namespace YAF.controls
     /// <returns>
     /// Returns total string.
     /// </returns>
-    protected string GetTotal(object pollId)
+    [NotNull]
+    protected string GetTotal([NotNull] object pollId)
     {
-        return this.DataSource.Rows[0]["Total"].ToString();
+      return this.DataSource.Rows[0]["Total"].ToString();
     }
 
     /// <summary>
@@ -176,10 +175,10 @@ namespace YAF.controls
     /// <param name="e">
     /// The EventArgs e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        PageContext.LoadMessage.Clear();
-        this.BindData();
+      this.PageContext.LoadMessage.Clear();
+      this.BindData();
     }
 
     /// <summary>
@@ -191,11 +190,11 @@ namespace YAF.controls
     /// <param name="e">
     /// The RepeaterCommandEventArgs e.
     /// </param>
-    protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Poll_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "vote")
       {
-          if (!this.CanVote)
+        if (!this.CanVote)
         {
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
           return;
@@ -209,8 +208,8 @@ namespace YAF.controls
 
         if (this.IsClosed)
         {
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
-            return;
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
+          return;
         }
 
         object userID = null;
@@ -229,32 +228,34 @@ namespace YAF.controls
         DB.choice_vote(e.CommandArgument, userID, remoteIP);
 
         // save the voting cookie...
-        String cookieCurrent = String.Empty;
-       
+        string cookieCurrent = String.Empty;
+
         // We check whether is a vote for an option  
         if (this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))] != null)
         {
-            // Add the voted option to cookie value string
-            cookieCurrent = "{0},".FormatWith(this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))].Value);
-            this.Request.Cookies.Remove(this.VotingCookieName(Convert.ToInt32(this.PollId)));
+          // Add the voted option to cookie value string
+          cookieCurrent =
+            "{0},".FormatWith(this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))].Value);
+          this.Request.Cookies.Remove(this.VotingCookieName(Convert.ToInt32(this.PollId)));
         }
 
-        var c = new HttpCookie(this.VotingCookieName(this.PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
-        {
-            Expires = DateTime.UtcNow.AddYears(1) 
-        };
+        var c = new HttpCookie(
+          this.VotingCookieName(this.PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
+          {
+             Expires = DateTime.UtcNow.AddYears(1) 
+          };
 
         this.Response.Cookies.Add(c);
-        
+
         // show an info that the user is voted 
-        String msg = this.PageContext.Localization.GetText("INFO_VOTED");
-      
+        string msg = this.PageContext.Localization.GetText("INFO_VOTED");
+
         this.BindData();
 
         // Initialize bubble event to update parent control.
         if (this.ChoiceVoted != null)
         {
-            this.ChoiceVoted(source, e);
+          this.ChoiceVoted(source, e);
         }
 
         // show the notification  window to user
@@ -271,7 +272,7 @@ namespace YAF.controls
     /// <param name="e">
     /// The RepeaterItemEventArgs e.
     /// </param>
-    protected void Poll_OnItemDataBound(object source, RepeaterItemEventArgs e)
+    protected void Poll_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
     {
       RepeaterItem item = e.Item;
       var drowv = (DataRowView)e.Item.DataItem;
@@ -285,20 +286,20 @@ namespace YAF.controls
         var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
         if (this.ChoiceId != null)
         {
-            foreach (var mychoice in this.ChoiceId)
+          foreach (var mychoice in this.ChoiceId)
+          {
+            if ((int)drowv.Row["ChoiceID"] == mychoice)
             {
-                if ((int)drowv.Row["ChoiceID"] == mychoice)
-                {
-                    myChoiceMarker.Visible = true;
-                }
+              myChoiceMarker.Visible = true;
             }
+          }
         }
 
         myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
         myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
         myLinkButton.Visible = true;
 
-          // Poll Choice image
+        // Poll Choice image
         var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
         var choiceAnchor = item.FindControlRecursiveAs<HtmlAnchor>("ChoiceAnchor");
 
@@ -318,11 +319,12 @@ namespace YAF.controls
             decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
             int imageWidth = 80;
 
-            if (YafContext.Current.Get<YafSession>().MobileThemeActive)
+            if (YafContext.Current.Get<YafSession>().UseMobileTheme ?? false)
             {
-                imageWidth = 40;
+              imageWidth = 40;
             }
-              choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
+
+            choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
               imageWidth, choiceImage.Width / aspect);
 
             // reserved to get equal row heights
@@ -336,7 +338,7 @@ namespace YAF.controls
           choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
           choiceAnchor.HRef = string.Empty;
         }
-         
+
         item.FindControlRecursiveAs<Panel>("MaskSpan").Visible = this.HideResults;
         item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
         item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = !this.HideResults;
@@ -352,7 +354,7 @@ namespace YAF.controls
     /// <param name="e">
     /// The EventArgs e.
     /// </param>
-    protected void RemovePollCompletely_Load(object sender, EventArgs e)
+    protected void RemovePollCompletely_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
@@ -367,7 +369,7 @@ namespace YAF.controls
     /// <param name="e">
     /// The EventArgs e.
     /// </param>
-    protected void RemovePoll_Load(object sender, EventArgs e)
+    protected void RemovePoll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
@@ -382,7 +384,7 @@ namespace YAF.controls
     /// <returns>
     /// Returns the vote width.
     /// </returns>
-    protected int VoteWidth(object o)
+    protected int VoteWidth([NotNull] object o)
     {
       var row = (DataRowView)o;
       return (int)row.Row["Stats"] * 80 / 100;
@@ -397,7 +399,7 @@ namespace YAF.controls
     /// <returns>
     /// The get image aspect.
     /// </returns>
-    private static decimal GetImageAspect(object mimeType)
+    private static decimal GetImageAspect([NotNull] object mimeType)
     {
       if (!mimeType.IsNullOrEmptyDBField())
       {
@@ -410,6 +412,14 @@ namespace YAF.controls
     }
 
     /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.DataBind();
+    }
+
+    /// <summary>
     /// The get poll is closed.
     /// </summary>
     /// <returns>
@@ -417,21 +427,13 @@ namespace YAF.controls
     /// </returns>
     private string GetPollIsClosed()
     {
-        string strPollClosed = string.Empty;
-        if (this.IsClosed)
-        {
-            strPollClosed = this.PageContext.Localization.GetText("POLL_CLOSED");
-        }
+      string strPollClosed = string.Empty;
+      if (this.IsClosed)
+      {
+        strPollClosed = this.PageContext.Localization.GetText("POLL_CLOSED");
+      }
 
-        return strPollClosed;
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.DataBind();
+      return strPollClosed;
     }
 
     /// <summary>
@@ -443,7 +445,7 @@ namespace YAF.controls
     /// <returns>
     /// The poll has no votes.
     /// </returns>
-    private bool PollHasNoVotes(object pollId)
+    private bool PollHasNoVotes([NotNull] object pollId)
     {
       return
         this.DataSource.Rows.Cast<DataRow>().Where(dr => dr["PollID"].ToType<int>() == pollId.ToType<int>()).All(
@@ -461,7 +463,7 @@ namespace YAF.controls
     /// </returns>
     private string VotingCookieName(int pollId)
     {
-        return "poll#{0}".FormatWith(pollId);
+      return "poll#{0}".FormatWith(pollId);
     }
 
     #endregion

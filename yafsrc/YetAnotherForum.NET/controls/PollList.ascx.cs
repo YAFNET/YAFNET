@@ -33,6 +33,7 @@ namespace YAF.controls
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Controls;
 
@@ -46,9 +47,19 @@ namespace YAF.controls
     #region Constants and Fields
 
     /// <summary>
+    ///   The group Notification String.
+    /// </summary>
+    private readonly string _groupNotificationString = string.Empty;
+
+    /// <summary>
     ///   The _canChange.
     /// </summary>
     private bool _canChange;
+
+    /// <summary>
+    ///   The _dt Votes.
+    /// </summary>
+    private DataTable _dtAllPollGroupVotes;
 
     /// <summary>
     ///   The _dt poll.
@@ -61,9 +72,14 @@ namespace YAF.controls
     private DataTable _dtPollGroupAllChoices;
 
     /// <summary>
-    ///   The _dt Votes.
+    ///   The isBound.
     /// </summary>
-    private DataTable _dtAllPollGroupVotes;
+    private bool _isBound;
+
+    /// <summary>
+    ///   The IsVoteEvent
+    /// </summary>
+    private bool _isVoteEvent;
 
     /// <summary>
     ///   The _showResults. Used to store data from parent repeater.
@@ -71,121 +87,85 @@ namespace YAF.controls
     private bool _showResults;
 
     /// <summary>
-    ///   The isBound.
-    /// </summary>
-    private bool _isBound;
-
-    /// <summary>
-    /// The IsVoteEvent
-    /// </summary>
-    private bool _isVoteEvent;
-
-    /// <summary>
-    /// The topic User.
+    ///   The topic User.
     /// </summary>
     private int? _topicUser;
-
-    /// <summary>
-    /// The group Notification String.
-    /// </summary>
-    private string _groupNotificationString = string.Empty;
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets or sets BoardId
+    ///   Gets or sets BoardId
     /// </summary>
     public int BoardId { get; set; }
 
     /// <summary>
-    /// Gets or sets CategoryId
+    ///   Gets or sets CategoryId
     /// </summary>
     public int CategoryId { get; set; }
 
     /// <summary>
-    /// Gets or sets EditBoardId.
-    /// Used to return to edit board page.
-    /// Currently is not implemented.
+    ///   Gets or sets EditBoardId.
+    ///   Used to return to edit board page.
+    ///   Currently is not implemented.
     /// </summary>
     public int EditBoardId { get; set; }
 
     /// <summary>
-    /// Gets or sets EditCategoryId
+    ///   Gets or sets EditCategoryId
     /// </summary>
     public int EditCategoryId { get; set; }
 
     /// <summary>
-    /// Gets or sets EditForumId
+    ///   Gets or sets EditForumId
     /// </summary>
     public int EditForumId { get; set; }
 
     /// <summary>
-    /// Gets or sets EditMessageId.
+    ///   Gets or sets EditMessageId.
     /// </summary>
     public int EditMessageId { get; set; }
 
     /// <summary>
-    /// Gets or sets ForumId
+    ///   Gets or sets ForumId
     /// </summary>
     public int ForumId { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the parent topic is locked.
+    ///   Gets or sets a value indicating whether the parent topic is locked.
     /// </summary>
     public bool IsLocked { get; set; }
 
     /// <summary>
-    /// Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
+    ///   Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
     /// </summary>
     public decimal MaxImageAspect { get; set; }
 
     /// <summary>
-    /// Gets or sets PollGroupID
+    ///   Gets or sets PollGroupID
     /// </summary>
     public int? PollGroupId { get; set; }
 
     /// <summary>
-    /// Gets or sets PollNumber
+    ///   Gets or sets PollNumber
     /// </summary>
     public int PollNumber { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether  we are editing a post
+    ///   Gets or sets a value indicating whether  we are editing a post
     /// </summary>
     public bool PostEdit { get; set; }
 
     /// <summary>
-    ///  Gets or sets a value indicating whether show poll management buttons.
+    ///   Gets or sets a value indicating whether show poll management buttons.
     /// </summary>
     public bool ShowButtons { get; set; }
 
     /// <summary>
-    /// Gets or sets TopicId
+    ///   Gets or sets TopicId
     /// </summary>
     public int TopicId { get; set; }
-
-    #endregion
-
-    #region Protected Methods
-
-    /// <summary>
-    /// Get Theme Contents
-    /// </summary>
-    /// <param name="page">
-    /// The Page
-    /// </param>
-    /// <param name="tag">
-    /// Tag
-    /// </param>
-    /// <returns>
-    /// Content
-    /// </returns>
-    protected string GetThemeContents(string page, string tag)
-    {
-      return this.PageContext.Theme.GetItem(page, tag);
-    }
 
     #endregion
 
@@ -212,7 +192,7 @@ namespace YAF.controls
     /// <returns>
     /// The can edit poll.
     /// </returns>
-    protected bool CanEditPoll(object pollId)
+    protected bool CanEditPoll([NotNull] object pollId)
     {
       // The host admin can forbid a user to change poll after first vote to avoid fakes.    
       if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
@@ -221,14 +201,14 @@ namespace YAF.controls
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
                 (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
-                (this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
+                 (this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
       }
 
       // we don't call PollHasNoVotes method here
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
               (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
-              (!this.IsPollClosed(pollId))));
+               (!this.IsPollClosed(pollId))));
     }
 
     /// <summary>
@@ -243,14 +223,15 @@ namespace YAF.controls
 
       foreach (DataRow dr in this._dtPollAllChoices.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["Votes"]) > 0))
       {
-          hasNoVotes = false;
+        hasNoVotes = false;
       }
 
       if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) && hasNoVotes));
+                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
+                 hasNoVotes));
       }
 
       return this.ShowButtons &&
@@ -259,7 +240,7 @@ namespace YAF.controls
     }
 
     /// <summary>
-    /// Checks if  a user can remove all polls in a group completely. 
+    /// Checks if  a user can remove all polls in a group completely.
     /// </summary>
     /// <returns>
     /// The can remove group completely.
@@ -288,9 +269,10 @@ namespace YAF.controls
     /// <returns>
     /// The can remove poll.
     /// </returns>
-    protected bool CanRemovePoll(object pollId)
+    protected bool CanRemovePoll([NotNull] object pollId)
     {
       return false;
+
       /*return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
               (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]))); */
@@ -304,14 +286,14 @@ namespace YAF.controls
     /// <returns>
     /// The can remove poll completely.
     /// </returns>
-    protected bool CanRemovePollCompletely(object pollId)
+    protected bool CanRemovePollCompletely([NotNull] object pollId)
     {
       if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsModerator ||
                 (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
-                  this.PollHasNoVotes(pollId)));
+                 this.PollHasNoVotes(pollId)));
       }
 
       return this.PollHasNoVotes(pollId) && this.ShowButtons &&
@@ -331,26 +313,26 @@ namespace YAF.controls
     /// <returns>
     /// The days to run.
     /// </returns>
-    protected int? DaysToRun(object pollId, out bool soon)
+    protected int? DaysToRun([NotNull] object pollId, out bool soon)
     {
       soon = false;
       foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
       {
         if (dr["Closes"] != DBNull.Value && Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
         {
-            TimeSpan ts = Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow;
-            if (ts.TotalDays >= 1)
-            {
-                return Convert.ToInt32(ts.TotalDays);
-            }
+          TimeSpan ts = Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow;
+          if (ts.TotalDays >= 1)
+          {
+            return Convert.ToInt32(ts.TotalDays);
+          }
 
-            if (ts.TotalSeconds > 0)
-            {
-                soon = true;
-                return 1;
-            }
-            
-            return 0;
+          if (ts.TotalSeconds > 0)
+          {
+            soon = true;
+            return 1;
+          }
+
+          return 0;
         }
       }
 
@@ -366,7 +348,7 @@ namespace YAF.controls
     /// <returns>
     /// The get image height.
     /// </returns>
-    protected int GetImageHeight(object mimeType)
+    protected int GetImageHeight([NotNull] object mimeType)
     {
       string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
       return Convert.ToInt32(attrs[1]);
@@ -381,7 +363,7 @@ namespace YAF.controls
     /// <returns>
     /// The get poll is closed.
     /// </returns>
-    protected string GetPollIsClosed(object pollId)
+    protected string GetPollIsClosed([NotNull] object pollId)
     {
       string strPollClosed = string.Empty;
       if (this.IsPollClosed(pollId))
@@ -401,7 +383,7 @@ namespace YAF.controls
     /// <returns>
     /// The get poll question.
     /// </returns>
-    protected string GetPollQuestion(object pollId)
+    protected string GetPollQuestion([NotNull] object pollId)
     {
       foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
       {
@@ -415,6 +397,23 @@ namespace YAF.controls
     }
 
     /// <summary>
+    /// Get Theme Contents
+    /// </summary>
+    /// <param name="page">
+    /// The Page
+    /// </param>
+    /// <param name="tag">
+    /// Tag
+    /// </param>
+    /// <returns>
+    /// Content
+    /// </returns>
+    protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
+    {
+      return this.PageContext.Theme.GetItem(page, tag);
+    }
+
+    /// <summary>
     /// The get total.
     /// </summary>
     /// <param name="pollId">
@@ -423,7 +422,7 @@ namespace YAF.controls
     /// <returns>
     /// The get total.
     /// </returns>
-    protected string GetTotal(object pollId)
+    protected string GetTotal([NotNull] object pollId)
     {
       foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
       {
@@ -442,60 +441,69 @@ namespace YAF.controls
     /// <param name="pollId">
     /// The poll id.
     /// </param>
+    /// <param name="allowManyChoices">
+    /// The allow Many Choices.
+    /// </param>
+    /// <param name="pollChoices">
+    /// The poll Choices.
+    /// </param>
+    /// <param name="hasVote">
+    /// The has Vote.
+    /// </param>
     /// <returns>
     /// The is not voted.
     /// </returns>
-    protected bool IsNotVoted(int pollId, bool allowManyChoices, out int?[] pollChoices, out bool hasVote)
+    protected bool IsNotVoted(int pollId, bool allowManyChoices, [NotNull] out int?[] pollChoices, out bool hasVote)
     {
       pollChoices = null;
-       
+
       // check for voting cookie
       HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(pollId))];
       if (httpCookie != null && httpCookie.Value != null)
       {
-          int pchcntr1 = 0;
-          int choicescount = 0;
-          string[] choiceArray = httpCookie.Value.Split(',');
-          if (choiceArray.GetLength(0) > 0)
+        int pchcntr1 = 0;
+        int choicescount = 0;
+        string[] choiceArray = httpCookie.Value.Split(',');
+        if (choiceArray.GetLength(0) > 0)
+        {
+          pollChoices = new int?[choiceArray.GetLength(0)];
+          foreach (DataRow drch in this._dtPollAllChoices.Rows)
           {
-              pollChoices = new int?[choiceArray.GetLength(0)];
-              foreach (DataRow drch in this._dtPollAllChoices.Rows)
+            if ((int)drch["PollID"] == pollId)
+            {
+              for (int j = 0; j < choiceArray.GetLength(0); j++)
               {
-                  if ((int)drch["PollID"] == pollId)
+                int pollChoicesFromCookie = 0;
+                if (int.TryParse(choiceArray[j], out pollChoicesFromCookie))
+                {
+                  if (pollChoicesFromCookie == (int)drch["ChoiceID"])
                   {
-                      for (int j = 0; j < choiceArray.GetLength(0); j++)
-                      {
-                          int pollChoicesFromCookie = 0;
-                          if (int.TryParse(choiceArray[j], out pollChoicesFromCookie))
-                          {
-                              if (pollChoicesFromCookie == (int)drch["ChoiceID"])
-                              {
-                                  pollChoices[pchcntr1] = pollChoicesFromCookie;
-                                  pchcntr1++;
-                              }
-                          }
-                      }
-
-                      choicescount++;
+                    pollChoices[pchcntr1] = pollChoicesFromCookie;
+                    pchcntr1++;
                   }
+                }
               }
+
+              choicescount++;
+            }
+          }
+        }
+
+        if (pchcntr1 > 0)
+        {
+          hasVote = true;
+          if (allowManyChoices)
+          {
+            if (pchcntr1 < choicescount)
+            {
+              return true;
+            }
           }
 
-          if (pchcntr1 > 0)
-          {
-              hasVote = true;
-              if (allowManyChoices) 
-              {
-                  if (pchcntr1 < choicescount)
-                  {
-                      return true;
-                  }
-              }
-              
-              return false;
-          }
+          return false;
+        }
       }
-      
+
       // voting is not tied to IP and they are a guest...
       if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
       {
@@ -503,62 +511,68 @@ namespace YAF.controls
         return true;
       }
 
-        // Check if a user already voted
-         int pchcntr = 0;
-        foreach (DataRow drch in this._dtAllPollGroupVotes.Rows)
-        { 
-            if ((int)drch["PollID"] == pollId)
-            {
-                pchcntr++;
-            }
-        }
-
-        if (pchcntr == 0)
+      // Check if a user already voted
+      int pchcntr = 0;
+      foreach (DataRow drch in this._dtAllPollGroupVotes.Rows)
+      {
+        if ((int)drch["PollID"] == pollId)
         {
-            hasVote = false;
-            return true;
+          pchcntr++;
         }
+      }
 
-        pollChoices = new int?[pchcntr];
-        int choicescount1 = 0;
-        pchcntr = 0;
-
-        // tha_watcha: Added some IsNullOrEmptyDBField checks otherwise it would throw an System.InvalidCastException: Specified cast is not valid, on older polls.
-        foreach (DataRow drch in from DataRow drch in this._dtPollAllChoices.Rows
-                                 where !drch["PollID"].IsNullOrEmptyDBField()
-                                 where (int) drch["PollID"] == pollId
-                                 select drch)
-        {
-            foreach (DataRow drch1 in this._dtAllPollGroupVotes.Rows)
-            {
-                if (drch["ChoiceID"].IsNullOrEmptyDBField() || drch1["ChoiceID"].IsNullOrEmptyDBField()) continue;
-
-                if ((int) drch["ChoiceID"] != (int) drch1["ChoiceID"]) continue;
-
-                pollChoices[pchcntr] = (int) drch["ChoiceID"];
-
-                pchcntr++;
-            }
-
-            choicescount1++;
-        }
-
-          if (pchcntr > 0)
-          {
-              hasVote = true;
-              if (allowManyChoices)
-              {
-                  if (pchcntr < choicescount1)
-                  {
-                      return true;
-                  }
-              }
-              
-              return false;
-          }
-        
+      if (pchcntr == 0)
+      {
         hasVote = false;
         return true;
+      }
+
+      pollChoices = new int?[pchcntr];
+      int choicescount1 = 0;
+      pchcntr = 0;
+
+      // tha_watcha: Added some IsNullOrEmptyDBField checks otherwise it would throw an System.InvalidCastException: Specified cast is not valid, on older polls.
+      foreach (DataRow drch in from DataRow drch in this._dtPollAllChoices.Rows
+                               where !drch["PollID"].IsNullOrEmptyDBField()
+                               where (int)drch["PollID"] == pollId
+                               select drch)
+      {
+        foreach (DataRow drch1 in this._dtAllPollGroupVotes.Rows)
+        {
+          if (drch["ChoiceID"].IsNullOrEmptyDBField() || drch1["ChoiceID"].IsNullOrEmptyDBField())
+          {
+            continue;
+          }
+
+          if ((int)drch["ChoiceID"] != (int)drch1["ChoiceID"])
+          {
+            continue;
+          }
+
+          pollChoices[pchcntr] = (int)drch["ChoiceID"];
+
+          pchcntr++;
+        }
+
+        choicescount1++;
+      }
+
+      if (pchcntr > 0)
+      {
+        hasVote = true;
+        if (allowManyChoices)
+        {
+          if (pchcntr < choicescount1)
+          {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      hasVote = false;
+      return true;
     }
 
     /// <summary>
@@ -570,15 +584,15 @@ namespace YAF.controls
     /// <returns>
     /// The is poll closed.
     /// </returns>
-    protected bool IsPollClosed(object pollId)
+    protected bool IsPollClosed([NotNull] object pollId)
     {
-        bool soon;
-        int? dtr = this.DaysToRun(pollId, out soon);
-        return dtr == 0;
+      bool soon;
+      int? dtr = this.DaysToRun(pollId, out soon);
+      return dtr == 0;
     }
 
     /// <summary>
-    /// The event initiated in PollChoiceList.
+    /// Page_Load
     /// </summary>
     /// <param name="sender">
     /// The object sender.
@@ -586,68 +600,10 @@ namespace YAF.controls
     /// <param name="e">
     /// The EventArgs e.
     /// </param>
-    protected void VoteBubbleEvent(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        _isVoteEvent = true;
-        this.LoadData();
+      this.LoadData();
     }
-
-    /// <summary>
-    /// Page_Load
-    /// </summary>
-    /// <param name="sender">
-    ///  The object sender.
-    /// </param>
-    /// <param name="e">
-    ///  The EventArgs e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        this.LoadData();
-    }
-
-    /// <summary>
-    /// Handles page controls after an event.
-    /// </summary>
-    private void LoadData()
-      {
-          // Only if this control is in a topic we find the topic creator
-          if (this.TopicId > 0)
-          {
-              DataRow dti = DB.topic_info(this.TopicId);
-              this._topicUser = Convert.ToInt32(dti["UserID"]);
-              if (!dti["PollID"].IsNullOrEmptyDBField())
-              {
-                  this.PollGroupId = Convert.ToInt32(dti["PollID"]);
-              }
-          }
-
-          // We check here various variants if a poll exists, as we don't know from which place comes the call
-          bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
-
-          // Here we'll find whether we should display create new poll button only 
-          bool topicPoll = this.PageContext.ForumPollAccess &&
-                           (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
-          bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
-          bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
-          bool boardPoll = this.PageContext.BoardVoteAccess &&
-                             (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
-
-          this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) && this.HasOwnerExistingGroupAccess() && (!existingPoll);
-
-          // if this is > 0 then we already have a poll and will display all buttons
-          if (this.PollGroupId > 0)
-          {
-              this.BindData();
-          }
-          else
-          {
-              if (this.NewPollRow.Visible)
-              {
-                  this.BindCreateNewPollRow();
-              }
-          }
-      }
 
     /// <summary>
     /// PollGroup_ItemCommand
@@ -656,7 +612,7 @@ namespace YAF.controls
     /// </param>
     /// <param name="e">
     /// </param>
-    protected void PollGroup_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void PollGroup_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
       {
@@ -725,7 +681,7 @@ namespace YAF.controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PollGroup_OnItemDataBound(object source, RepeaterItemEventArgs e)
+    protected void PollGroup_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
     {
       RepeaterItem item = e.Item;
       var drowv = (DataRowView)e.Item.DataItem;
@@ -738,59 +694,61 @@ namespace YAF.controls
         // We don't display poll command row to everyone 
         item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
                                                                               this.ShowButtons;
+
         // Binding question image
         this.BindPollQuestionImage(item, drowv);
-          
+
         var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
-       
-        int pollId = drowv.Row["PollID"].ToType<int>();
+
+        var pollId = drowv.Row["PollID"].ToType<int>();
         int?[] choicePId = null;
         bool hasVote = false;
-        bool isNotVoted = this.IsNotVoted(pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVote);
+        bool isNotVoted = this.IsNotVoted(
+          pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVote);
         bool cvote = this.HasVoteAccess(pollId) ? isNotVoted : false;
         pollChoiceList.ChoiceId = choicePId;
 
         // If guest are not allowed to view options we don't render them
         pollChoiceList.Visible = !cvote && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions &&
-                         this.PageContext.IsGuest
-                           ? false
-                           : true;
+                                 this.PageContext.IsGuest
+                                   ? false
+                                   : true;
 
         bool isClosedBound = false;
-        bool allowsMultipleChoices = false;  
+        bool allowsMultipleChoices = false;
 
         // This is not a guest w/o poll option view permissions, we bind the control.
         if (pollChoiceList.Visible)
         {
-            DataTable thisPollTable = this._dtPollAllChoices.Copy();
-            foreach (DataRow thisPollTableRow in thisPollTable.Rows)
+          DataTable thisPollTable = this._dtPollAllChoices.Copy();
+          foreach (DataRow thisPollTableRow in thisPollTable.Rows)
+          {
+            if (Convert.ToInt32(thisPollTableRow["PollID"]) != Convert.ToInt32(pollId))
             {
-                if (Convert.ToInt32(thisPollTableRow["PollID"]) != Convert.ToInt32(pollId))
-                {
-                    thisPollTableRow.Delete();
-                }
-                else
-                {
-                    // in this section we get a custom image aspect, the option is argueable
-                    if (!thisPollTableRow["MimeType"].IsNullOrEmptyDBField())
-                    {
-                        decimal currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
-                        if (currentAspect > this.MaxImageAspect)
-                        {
-                            this.MaxImageAspect = currentAspect;
-                        }
-                    }
-                }
+              thisPollTableRow.Delete();
             }
+            else
+            {
+              // in this section we get a custom image aspect, the option is argueable
+              if (!thisPollTableRow["MimeType"].IsNullOrEmptyDBField())
+              {
+                decimal currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
+                if (currentAspect > this.MaxImageAspect)
+                {
+                  this.MaxImageAspect = currentAspect;
+                }
+              }
+            }
+          }
 
-            thisPollTable.AcceptChanges();
-            pollChoiceList.DataSource = thisPollTable;
-            isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
-            allowsMultipleChoices = Convert.ToBoolean(thisPollTable.Rows[0]["AllowMultipleChoices"]); 
+          thisPollTable.AcceptChanges();
+          pollChoiceList.DataSource = thisPollTable;
+          isClosedBound = Convert.ToBoolean(thisPollTable.Rows[0]["IsClosedBound"]);
+          allowsMultipleChoices = Convert.ToBoolean(thisPollTable.Rows[0]["AllowMultipleChoices"]);
         }
-         
-          pollChoiceList.PollId = pollId.ToType<int>();
-          pollChoiceList.MaxImageAspect = this.MaxImageAspect;
+
+        pollChoiceList.PollId = pollId.ToType<int>();
+        pollChoiceList.MaxImageAspect = this.MaxImageAspect;
 
         // returns number of day to run - null if poll has no expiration date 
         bool soon;
@@ -801,8 +759,8 @@ namespace YAF.controls
         // Show|hide results section
         // *************************
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
-     
-            // Poll voting is bounded - you can't see results before voting in each poll
+
+        // Poll voting is bounded - you can't see results before voting in each poll
         bool warningMultiplePolls = false;
         int hasVoteEmptyCounter = 0;
         int cnt = 0;
@@ -810,104 +768,107 @@ namespace YAF.controls
         // compare a number of voted polls with number of polls
         foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
         {
-            bool hasVoteEmpty = false;
+          bool hasVoteEmpty = false;
 
-            bool voted = !this.IsNotVoted(
-                                         (int)dr["PollID"], 
-                                          dr["AllowMultipleChoices"].ToType<bool>(), out choicePId,
-                                          out hasVoteEmpty);
-            if (hasVoteEmpty)
-            {
-                hasVoteEmptyCounter++;
-            }
+          bool voted =
+            !this.IsNotVoted(
+              (int)dr["PollID"], dr["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVoteEmpty);
+          if (hasVoteEmpty)
+          {
+            hasVoteEmptyCounter++;
+          }
 
-            bool isclosedbound = !dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"])
-                                     ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow
-                                     : false;
+          bool isclosedbound = !dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"])
+                                 ? dr["Closes"].ToType<DateTime>() < DateTime.UtcNow
+                                 : false;
 
-            if (voted || isclosedbound)
-            {
-                cnt++;
-            }
+          if (voted || isclosedbound)
+          {
+            cnt++;
+          }
         }
 
         warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count && hasVoteEmptyCounter > 0;
-          if (this._isBound)
+        if (this._isBound)
         {
-            // If user is voted in all polls or the poll allows multiple votes and he's voted for 1 choice
-            if ((cnt >= this.PollNumber) || warningMultiplePolls)
+          // If user is voted in all polls or the poll allows multiple votes and he's voted for 1 choice
+          if ((cnt >= this.PollNumber) || warningMultiplePolls)
+          {
+            if (isClosedBound)
             {
-                if (isClosedBound)
-                {
-                    if (isPollClosed)
-                    {
-                        this._showResults = true;
-                    }
-                }
-                else
-                {
-                    this._showResults = true;
-                }
+              if (isPollClosed)
+              {
+                this._showResults = true;
+              }
             }
+            else
+            {
+              this._showResults = true;
+            }
+          }
         }
         else if (!this._isBound && isClosedBound && isPollClosed)
         {
-            this._showResults = true;
+          this._showResults = true;
         }
 
         if (!isClosedBound && !this._isBound)
         {
-            this._showResults = true;
+          this._showResults = true;
         }
 
         // The poll had an expiration date and expired without voting 
         // show results anyway if poll has no expiration date daystorun is null  
         if (daystorun == 0)
         {
-            this._showResults = true;
+          this._showResults = true;
         }
 
         pollChoiceList.HideResults = !this._showResults;
 
         // Clear the fields after the child repeater is bound
         this._showResults = false;
+
         // this._canVote = false;
 
         // Add confirmations to delete buttons
         this.AddPollButtonConfirmations(item, pollId);
-       
+
         // *************************
         // Poll warnings section
         // *************************
         string notificationString = string.Empty;
-        
+
         // Here warning labels are treated
         if (cvote)
         {
           if (this._isBound && this.PollNumber > 1 && hasVoteEmptyCounter < this._dtPollGroupAllChoices.Rows.Count)
           {
-              notificationString += this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
+            notificationString += this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
           }
         }
 
         if (cvote && hasVoteEmptyCounter > 0 && allowsMultipleChoices)
         {
-            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
+          notificationString +=
+            " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
         }
 
-          if (this.PageContext.IsGuest)
+        if (this.PageContext.IsGuest)
         {
-            if (!cvote)
+          if (!cvote)
+          {
+            if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
             {
-                if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
-                {
-                    notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
-                }
+              notificationString +=
+                " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
+            }
 
-                if (isNotVoted)
-                {
-                    notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST"));
-                }
+            if (isNotVoted)
+            {
+              notificationString +=
+                " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST"));
+            }
           }
         }
 
@@ -921,24 +882,25 @@ namespace YAF.controls
         // Poll has expiration date
         if (daystorun > 0)
         {
-            var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
-            pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_NOTCLOSED");
+          var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
+          pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_NOTCLOSED");
           if (!soon)
           {
-            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
+            notificationString +=
+              " {0}".FormatWith(this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
             pollClosedImage.Alt = this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun);
-            
           }
           else
           {
-            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
+            notificationString +=
+              " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
             pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
           }
 
           if (isClosedBound)
           {
-              notificationString +=
-                  " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
+            notificationString +=
+              " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
           }
 
           pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
@@ -946,13 +908,13 @@ namespace YAF.controls
         }
         else if (daystorun == 0)
         {
-            notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
-       
-            var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
-            pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_CLOSED");
-            pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED");
-            pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
-            pollClosedImage.Visible = true;
+          notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
+
+          var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
+          pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_CLOSED");
+          pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED");
+          pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
+          pollClosedImage.Visible = true;
         }
 
         pollChoiceList.CanVote = cvote;
@@ -961,33 +923,34 @@ namespace YAF.controls
         // we should double bind if it is not a vote event bubble. 
         if (this._isVoteEvent)
         {
-            pollChoiceList.DataBind();
+          pollChoiceList.DataBind();
         }
 
-          pollChoiceList.ChoiceVoted += this.VoteBubbleEvent;
+        pollChoiceList.ChoiceVoted += this.VoteBubbleEvent;
+
         // we don't display warnings row if no info
-            if (notificationString.IsSet())
-            {
-                item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
-                var pn = item.FindControlRecursiveAs<Label>("PollNotification");
-                pn.Text = notificationString;
-                pn.Visible = true;
-            }
+        if (notificationString.IsSet())
+        {
+          item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+          var pn = item.FindControlRecursiveAs<Label>("PollNotification");
+          pn.Text = notificationString;
+          pn.Visible = true;
+        }
       }
 
       // Populate PollGroup Repeater footer
       if (item.ItemType == ListItemType.Footer)
       {
-          if (this._groupNotificationString.IsSet())
-          {
-              // we don't display warnings row if no info
-              item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
-              var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
-              pgn.Text = this._groupNotificationString;
-              pgn.Visible = true;
-          }
+        if (this._groupNotificationString.IsSet())
+        {
+          // we don't display warnings row if no info
+          item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+          var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
+          pgn.Text = this._groupNotificationString;
+          pgn.Visible = true;
+        }
 
-          this.AddPollGroupButtonConfirmations(item);
+        this.AddPollGroupButtonConfirmations(item);
       }
     }
 
@@ -1000,7 +963,7 @@ namespace YAF.controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RemovePollCompletely_Load(object sender, EventArgs e)
+    protected void RemovePollCompletely_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
@@ -1015,10 +978,25 @@ namespace YAF.controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RemovePoll_Load(object sender, EventArgs e)
+    protected void RemovePoll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+    }
+
+    /// <summary>
+    /// The event initiated in PollChoiceList.
+    /// </summary>
+    /// <param name="sender">
+    /// The object sender.
+    /// </param>
+    /// <param name="e">
+    /// The EventArgs e.
+    /// </param>
+    protected void VoteBubbleEvent([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this._isVoteEvent = true;
+      this.LoadData();
     }
 
     /// <summary>
@@ -1043,7 +1021,7 @@ namespace YAF.controls
     /// <returns>
     /// The get image aspect.
     /// </returns>
-    private static decimal GetImageAspect(object mimeType)
+    private static decimal GetImageAspect([NotNull] object mimeType)
     {
       if (!mimeType.IsNullOrEmptyDBField())
       {
@@ -1053,6 +1031,56 @@ namespace YAF.controls
       }
 
       return 1;
+    }
+
+    /// <summary>
+    /// The methods add poll manipulatation confirmation pop-ups to button actions.
+    /// </summary>
+    /// <param name="ri">
+    /// The RepeaterItem ri.
+    /// </param>
+    /// <param name="pollId">
+    /// The poll Id.
+    /// </param>
+    private void AddPollButtonConfirmations([NotNull] RepeaterItem ri, int pollId)
+    {
+      // Add confirmations to delete buttons
+      var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
+      removePollAll.Attributes["onclick"] =
+        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+      removePollAll.Visible = this.CanRemovePollCompletely(pollId);
+
+      var removePoll = ri.FindControlRecursiveAs<ThemeButton>("RemovePoll");
+      removePoll.Attributes["onclick"] =
+        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+      removePoll.Visible = this.CanRemovePoll(pollId);
+    }
+
+    /// <summary>
+    /// The methods add poll group manipulatation confirmation pop-ups to button actions.
+    /// </summary>
+    /// <param name="ri">
+    /// The RepeaterItem ri.
+    /// </param>
+    private void AddPollGroupButtonConfirmations([NotNull] RepeaterItem ri)
+    {
+      var pgcr = ri.FindControlRecursiveAs<HtmlTableRow>("PollGroupCommandRow");
+      pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
+
+      // return confirmations for poll group 
+      if (pgcr.Visible)
+      {
+        ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
+          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
+
+        ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
+          "return confirm('{0}');".FormatWith(
+            this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+
+        ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
+          "return confirm('{0}');".FormatWith(
+            this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
+      }
     }
 
     /// <summary>
@@ -1076,11 +1104,11 @@ namespace YAF.controls
     {
       this.PollNumber = 0;
       this._dtPollAllChoices = DB.pollgroup_stats(this.PollGroupId);
-     
+
       // Here should be a poll group, remove the value to avoid exception if a deletion was not safe. 
       if (!(this._dtPollAllChoices.Rows.Count > 0))
       {
-          DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+        DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
       }
 
       // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
@@ -1156,6 +1184,53 @@ namespace YAF.controls
     }
 
     /// <summary>
+    /// Adds custom or standard image to poll question.
+    /// </summary>
+    /// <param name="item">
+    /// The RepeaterItem item.
+    /// </param>
+    /// <param name="drowv">
+    /// The DataRowView drowv.
+    /// </param>
+    private void BindPollQuestionImage([NotNull] RepeaterItem item, [NotNull] DataRowView drowv)
+    {
+      var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
+      var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
+
+      // The image is not from theme
+      if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
+      {
+        questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+        questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
+                                ? this.GetThemeContents("VOTE", "POLL_CHOICE")
+                                : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+        questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+
+        questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+        if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
+        {
+          decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
+
+          questionImage.Width = 80;
+
+          if (YafContext.Current.Get<YafSession>().UseMobileTheme ?? false)
+          {
+            questionImage.Width = 40;
+          }
+
+          questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
+        }
+      }
+      else
+      {
+        // image from theme no need to resize it
+        questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+        questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
+        questionAnchor.HRef = string.Empty;
+      }
+    }
+
+    /// <summary>
     /// The has owner existing group access.
     /// </summary>
     /// <returns>
@@ -1186,19 +1261,94 @@ namespace YAF.controls
     }
 
     /// <summary>
+    /// The method to return if a user already voted
+    /// </summary>
+    /// <param name="pollId">
+    /// The pollId value.
+    /// </param>
+    /// <returns>
+    /// Return True if a user has voted.
+    /// </returns>
+    private bool HasVoteAccess([NotNull] object pollId)
+    {
+      // rule out users without voting rights
+      // If you come here from topics or edit TopicId should be > 0
+      if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
+      {
+        return false;
+      }
+
+      if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
+      {
+        return false;
+      }
+
+      if (this.IsPollClosed(pollId))
+      {
+        return false;
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// Handles page controls after an event.
+    /// </summary>
+    private void LoadData()
+    {
+      // Only if this control is in a topic we find the topic creator
+      if (this.TopicId > 0)
+      {
+        DataRow dti = DB.topic_info(this.TopicId);
+        this._topicUser = Convert.ToInt32(dti["UserID"]);
+        if (!dti["PollID"].IsNullOrEmptyDBField())
+        {
+          this.PollGroupId = Convert.ToInt32(dti["PollID"]);
+        }
+      }
+
+      // We check here various variants if a poll exists, as we don't know from which place comes the call
+      bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
+
+      // Here we'll find whether we should display create new poll button only 
+      bool topicPoll = this.PageContext.ForumPollAccess &&
+                       (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
+      bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
+      bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
+      bool boardPoll = this.PageContext.BoardVoteAccess &&
+                       (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
+
+      this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) &&
+                                this.HasOwnerExistingGroupAccess() && (!existingPoll);
+
+      // if this is > 0 then we already have a poll and will display all buttons
+      if (this.PollGroupId > 0)
+      {
+        this.BindData();
+      }
+      else
+      {
+        if (this.NewPollRow.Visible)
+        {
+          this.BindCreateNewPollRow();
+        }
+      }
+    }
+
+    /// <summary>
     /// A method to return parameters string. 
-    /// Consrtucts parameters string to send to other forms.
+    ///   Consrtucts parameters string to send to other forms.
     /// </summary>
     /// <returns>
     /// The params to send.
     /// </returns>
     private string ParamsToSend()
     {
-      String sb = String.Empty;
+      string sb = String.Empty;
 
       if (this.TopicId > 0)
       {
-          sb += "t={0}".FormatWith(this.TopicId);
+        sb += "t={0}".FormatWith(this.TopicId);
       }
 
       if (this.EditMessageId > 0)
@@ -1207,66 +1357,66 @@ namespace YAF.controls
         {
           sb += '&';
         }
-        
-          sb += "m={0}".FormatWith(this.EditMessageId);
+
+        sb += "m={0}".FormatWith(this.EditMessageId);
       }
 
       if (this.ForumId > 0)
       {
-          if (sb.IsSet())
-          {
-              sb += '&';
-          }
+        if (sb.IsSet())
+        {
+          sb += '&';
+        }
 
         sb += "f={0}".FormatWith(this.ForumId);
       }
 
       if (this.EditForumId > 0)
       {
-          if (sb.IsSet())
-          {
-              sb += '&';
-          }
+        if (sb.IsSet())
+        {
+          sb += '&';
+        }
 
         sb += "ef={0}".FormatWith(this.EditForumId);
       }
 
       if (this.CategoryId > 0)
       {
-          if (sb.IsSet())
-          {
-              sb += '&';
-          }
+        if (sb.IsSet())
+        {
+          sb += '&';
+        }
 
         sb += "c={0}".FormatWith(this.CategoryId);
       }
 
       if (this.EditCategoryId > 0)
       {
-          if (sb.IsSet())
-          {
-              sb += '&';
-          }
+        if (sb.IsSet())
+        {
+          sb += '&';
+        }
 
         sb += "ec={0}".FormatWith(this.EditCategoryId);
       }
 
       if (this.BoardId > 0)
       {
-          if (sb.IsSet())
-          {
-              sb += '&';
-          }
+        if (sb.IsSet())
+        {
+          sb += '&';
+        }
 
         sb += "b={0}".FormatWith(this.BoardId);
       }
 
       if (this.EditBoardId > 0)
       {
-          if (sb.IsSet())
-          {
-              sb += '&';
-          }
+        if (sb.IsSet())
+        {
+          sb += '&';
+        }
 
         sb += "eb={0}".FormatWith(this.EditBoardId);
       }
@@ -1282,11 +1432,11 @@ namespace YAF.controls
     /// <returns>
     /// The poll has no votes.
     /// </returns>
-    private bool PollHasNoVotes(object pollId)
+    private bool PollHasNoVotes([NotNull] object pollId)
     {
       return
-        this._dtPollAllChoices.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["PollID"]) == Convert.ToInt32(pollId)).All(
-          dr => Convert.ToInt32(dr["Votes"]) <= 0);
+        this._dtPollAllChoices.Rows.Cast<DataRow>().Where(
+          dr => Convert.ToInt32(dr["PollID"]) == Convert.ToInt32(pollId)).All(dr => Convert.ToInt32(dr["Votes"]) <= 0);
     }
 
     /// <summary>
@@ -1294,194 +1444,80 @@ namespace YAF.controls
     /// </summary>
     private void ReturnToPage()
     {
-        // We simply return here to the page where the control is put. It can be made other way.
-        switch  (this.PageContext.ForumPageType)
-        {
-            case ForumPages.posts:
-                if (this.TopicId > 0)
-                {
-                    YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
-                }
+      // We simply return here to the page where the control is put. It can be made other way.
+      switch (this.PageContext.ForumPageType)
+      {
+        case ForumPages.posts:
+          if (this.TopicId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
+          }
 
-                break;
-            case ForumPages.forum:
-            
-                // This is a poll on the coard main page
-                if (this.BoardId > 0)
-                {
-                    YafBuildLink.Redirect(ForumPages.forum);
-                }
+          break;
+        case ForumPages.forum:
 
-                // This is a poll in a category list 
-                if (this.CategoryId > 0)
-                {
-                    YafBuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
-                }
+          // This is a poll on the coard main page
+          if (this.BoardId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.forum);
+          }
 
-                break;
-            case ForumPages.topics:
-            
-                // this is a poll in forums topic view
-                if (this.ForumId > 0)
-                {
-                    YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
-                }
+          // This is a poll in a category list 
+          if (this.CategoryId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
+          }
 
-                break;
-            case ForumPages.postmessage:
-               if (this.EditMessageId > 0)
-               {
-                   YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
-               }
-               
-               break;
-            case ForumPages.admin_editforum:
+          break;
+        case ForumPages.topics:
 
-               // This is a poll on edit forum page
-               if (this.EditForumId > 0)
-               {
-                   YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
-               }
-               
-               break;
-            case ForumPages.admin_editcategory:
+          // this is a poll in forums topic view
+          if (this.ForumId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
+          }
 
-               // this is a poll on edit category page
-               if (this.EditCategoryId > 0)
-               {
-                   YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
-               }
+          break;
+        case ForumPages.postmessage:
+          if (this.EditMessageId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
+          }
 
-               break;
-            case ForumPages.admin_editboard:
+          break;
+        case ForumPages.admin_editforum:
 
-               // this is a poll on edit board page
-                if (this.EditBoardId > 0)
-                {
-                    YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
-                }
+          // This is a poll on edit forum page
+          if (this.EditForumId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
+          }
 
-                break;
-            default:
-                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-                break;
-        }
+          break;
+        case ForumPages.admin_editcategory:
+
+          // this is a poll on edit category page
+          if (this.EditCategoryId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
+          }
+
+          break;
+        case ForumPages.admin_editboard:
+
+          // this is a poll on edit board page
+          if (this.EditBoardId > 0)
+          {
+            YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
+          }
+
+          break;
+        default:
+          YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+          break;
+      }
     }
 
-    /// <summary>
-    /// The method to return if a user already voted
-    /// </summary>
-    /// <param name="pollId">The pollId value.</param>
-    /// <returns>Return True if a user has voted.</returns>
-    private bool HasVoteAccess(object pollId)
-    {
-        // rule out users without voting rights
-        // If you come here from topics or edit TopicId should be > 0
-        if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
-        {
-            return false;
-        }
-
-        if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
-        {
-            return false;
-        }
-
-        if (this.IsPollClosed(pollId))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    /// <summary>
-    /// The methods add poll group manipulatation confirmation pop-ups to button actions.
-    /// </summary>
-    /// <param name="ri">The RepeaterItem ri.</param>
-     private void AddPollGroupButtonConfirmations(RepeaterItem ri)
-    {
-        var pgcr = ri.FindControlRecursiveAs<HtmlTableRow>("PollGroupCommandRow");
-        pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
-        // return confirmations for poll group 
-        if (pgcr.Visible)
-        {
-            ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
-                "return confirm('{0}');".FormatWith(
-                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
-
-            ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
-                "return confirm('{0}');".FormatWith(
-                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
-
-            ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
-                "return confirm('{0}');".FormatWith(
-                    this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
-        }
-    }
-
-    /// <summary>
-    ///  The methods add poll manipulatation confirmation pop-ups to button actions.
-    /// </summary>
-    /// <param name="ri">The RepeaterItem ri.</param>
-    /// <param name="pollId">The poll Id.</param>
-    private void AddPollButtonConfirmations(RepeaterItem ri, int pollId)
-    {
-        // Add confirmations to delete buttons
-        var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
-        removePollAll.Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
-        removePollAll.Visible = this.CanRemovePollCompletely(pollId);
-
-        var removePoll = ri.FindControlRecursiveAs<ThemeButton>("RemovePoll");
-        removePoll.Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
-        removePoll.Visible = this.CanRemovePoll(pollId);
-    }
-
-    /// <summary>
-    /// Adds custom or standard image to poll question. 
-    /// </summary>
-    /// <param name="item">The RepeaterItem item.</param>
-    /// <param name="drowv">The DataRowView drowv.</param>
-     private void BindPollQuestionImage(RepeaterItem item, DataRowView drowv)
-{
-     var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
-     var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
-
-     // The image is not from theme
-     if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
-     {
-         questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-         questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
-                                 ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                 : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-         questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-
-         questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
-         {
-             decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
-
-             questionImage.Width = 80;
-
-             if (YafContext.Current.Get<YafSession>().MobileThemeActive)
-             {
-                 questionImage.Width = 40;
-             }
-
-             questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
-         }
-     }
-     else
-     {
-         // image from theme no need to resize it
-         questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-         questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
-         questionAnchor.HRef = string.Empty;
-     }
-
- }
     #endregion
   }
 }

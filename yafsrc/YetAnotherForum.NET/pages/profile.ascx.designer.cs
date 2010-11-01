@@ -616,6 +616,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label LastVisit;
         
         /// <summary>
+        /// LastVisitDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.DisplayDateTime LastVisitDateTime;
+        
+        /// <summary>
         /// LocalizedLabel13 control.
         /// </summary>
         /// <remarks>

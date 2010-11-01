@@ -289,6 +289,7 @@
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Yükleniyor...</Resource>
     <Resource tag="MAX_ONLINE">Şimdiye kadar en fazla {0} ( Üye ) {1} tarihinde aktif oldu. </Resource>
+    <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Bildirim</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Yeni Kullanıcı {0} Forumuna kayıt oldu.</Resource>

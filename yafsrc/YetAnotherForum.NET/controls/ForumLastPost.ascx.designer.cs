@@ -76,13 +76,13 @@ namespace YAF.Controls {
         protected global::YAF.Controls.ThemeImage Icon;
         
         /// <summary>
-        /// LastPosted control.
+        /// LastPostDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LastPosted;
+        protected global::YAF.Controls.DisplayDateTime LastPostDate;
         
         /// <summary>
         /// NoPostsLabel control.

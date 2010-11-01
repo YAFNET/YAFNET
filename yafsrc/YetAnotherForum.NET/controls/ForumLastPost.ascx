@@ -11,6 +11,6 @@
         <YAF:ThemeImage ID="Icon" runat="server" />
     </asp:HyperLink>
     <br />
-    <asp:Label ID="LastPosted" runat="server" />
+    <YAF:DisplayDateTime ID="LastPostDate" runat="server" Format="BothTopic" />
 </asp:PlaceHolder>
 <YAF:LocalizedLabel ID="NoPostsLabel" runat="server" LocalizedTag="NO_POSTS" />

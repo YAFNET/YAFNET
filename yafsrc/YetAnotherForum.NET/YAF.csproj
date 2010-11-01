@@ -222,6 +222,13 @@
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\TopicLine.ascx.cs">
+      <DependentUpon>TopicLine.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\TopicLine.ascx.designer.cs">
+      <DependentUpon>TopicLine.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\YafHeader.ascx.cs">
       <DependentUpon>YafHeader.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -235,6 +242,7 @@
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\TimeAgoModule.cs" />
     <Compile Include="Modules\UserLinkBBCodeModule.cs" />
     <Compile Include="Modules\ExampleBBCodeModule.cs" />
     <Compile Include="Modules\LastVisitModule.cs" />
@@ -649,6 +657,10 @@
     <Compile Include="Resource.ashx.cs">
       <DependentUpon>Resource.ashx</DependentUpon>
     </Compile>
+    <Compile Include="themes\Yafmobile\MobilePages\TopicLineMobile.ascx.cs">
+      <DependentUpon>TopicLineMobile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
@@ -692,6 +704,7 @@
     <Content Include="controls\smileys.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="controls\TopicLine.ascx" />
     <Content Include="controls\ViewThanksList.ascx" />
     <Content Include="controls\YafHeader.ascx" />
     <Content Include="digest.aspx" />
@@ -969,6 +982,7 @@
     <Content Include="resources\js\jquery.lightbox.min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
+    <Content Include="resources\js\jquery.timeago.js" />
     <Content Include="resources\js\yaf.js" />
     <Content Include="resources\ProviderExceptions.xml" />
     <Compile Include="controls\AlbumImageList.ascx.cs">
@@ -1700,7 +1714,20 @@
     <Content Include="themes\Yafmobile\jquery\ui.tabs.css" />
     <Content Include="themes\Yafmobile\jquery\ui.theme.css" />
     <Content Include="themes\Yafmobile\mask.gif" />
+    <Content Include="themes\Yafmobile\MobilePages\displaypost.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\forum.ascx" />
     <Content Include="themes\Yafmobile\MobilePages\forumactivediscussion.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\forumcategorylist.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\forumList.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\forumwelcome.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\mytopics.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\mytopicslist.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\pmessage.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\postmessage.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\posts.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\profile.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\TopicLineMobile.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
     <Content Include="themes\Yafmobile\sort_down.png" />

@@ -22,16 +22,16 @@
         </tr>
         <tr>
             <td class="postheader">
-                <strong>
+                <b>
                     <YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "FromUserID" )) %>' />
-                </strong>
+                </b>
             </td>
             <td class="postheader" width="80%">
                 <div class="leftItem postedLeft">
-                    <strong>
+                    <b>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="posted" />
-                    </strong>
-                    <%# this.Get<YafDateTime>().FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
+                    </b>
+                    <YAF:DisplayDateTime ID="CreatedDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Created") %>'></YAF:DisplayDateTime>
                 </div>
                 <div class="rightItem postedRight">
                     <YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton" CommandName="delete"

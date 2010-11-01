@@ -198,7 +198,8 @@
 									<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
 								</td>
 								<td class="post">
-									<asp:Label ID="LastVisit" runat="server" />
+									<asp:Label ID="LastVisit" runat="server" Visible="false" />
+                                    <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" Visible="false"></YAF:DisplayDateTime>
 								</td>
 							</tr>
 							<tr>

@@ -18,70 +18,76 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Data;
+
   using YAF.Classes;
   using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Renders the "Last Post" part of the Forum Topics
   /// </summary>
   public partial class ForumLastPost : BaseUserControl
   {
-    /// <summary>
-    /// The _data row.
-    /// </summary>
-    private DataRow _dataRow = null;
+    #region Constants and Fields
 
     /// <summary>
-    /// The Go to last post Image ToolTip.
+    ///   The Go to last post Image ToolTip.
     /// </summary>
-    private string _alt = null;   
+    private string _alt;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForumLastPost"/> class.
+    ///   Initializes a new instance of the <see cref = "ForumLastPost" /> class.
     /// </summary>
     public ForumLastPost()
     {
-      PreRender += new EventHandler(ForumLastPost_PreRender);
+      this.PreRender += this.ForumLastPost_PreRender;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets or sets DataRow.
+    ///   Gets or sets Alt.
     /// </summary>
-    public DataRow DataRow
+    [NotNull]
+    public string Alt
     {
       get
       {
-        return this._dataRow;
+        if (string.IsNullOrEmpty(this._alt))
+        {
+          return string.Empty;
+        }
+
+        return this._alt;
       }
 
       set
       {
-        this._dataRow = value;
+        this._alt = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets Alt.
+    ///   Gets or sets DataRow.
     /// </summary>
-    public string Alt
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(this._alt))
-            {
-                return string.Empty;
-            }            
-            return this._alt;
-        }
+    public DataRow DataRow { get; set; }
 
-        set
-        {
-            this._alt = value;
-        }
-    }
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The forum last post_ pre render.
@@ -92,28 +98,34 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumLastPost_PreRender(object sender, EventArgs e)
+    private void ForumLastPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (DataRow != null)
+      if (this.DataRow != null)
       {
-        if (int.Parse(DataRow["ReadAccess"].ToString()) == 0)
+        if (int.Parse(this.DataRow["ReadAccess"].ToString()) == 0)
         {
           this.TopicInPlaceHolder.Visible = false;
         }
 
-        if (DataRow["LastPosted"] != DBNull.Value)
+        if (this.DataRow["LastPosted"] != DBNull.Value)
         {
-          this.LastPosted.Text = this.Get<YafDateTime>().FormatDateTimeTopic(DataRow["LastPosted"]);
-          this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", DataRow["LastTopicID"]);
-          this.topicLink.Text = StringHelper.Truncate(this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(DataRow["LastTopicName"].ToString())), 50);
-          this.ProfileUserLink.UserID = Convert.ToInt32(DataRow["LastUserID"]);
-          if (string.IsNullOrEmpty(this.Alt)) 
+          this.LastPostDate.DateTime = this.DataRow["LastPosted"];
+          this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
+          this.topicLink.Text =
+            StringHelper.Truncate(
+              this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
+          this.ProfileUserLink.UserID = Convert.ToInt32(this.DataRow["LastUserID"]);
+          if (string.IsNullOrEmpty(this.Alt))
           {
-              this.Alt = PageContext.Localization.GetText("GO_LAST_POST");
+            this.Alt = this.PageContext.Localization.GetText("GO_LAST_POST");
           }
+
           this.LastTopicImgLink.ToolTip = this.Alt;
-          this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", DataRow["LastMessageID"]);
-          this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(DataRow["LastPosted"])) > YafContext.Current.Get<YafSession>().GetTopicRead((int) DataRow["LastTopicID"]))
+          this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
+          this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) >
+                                YafContext.Current.Get<YafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
 
@@ -128,5 +140,7 @@ namespace YAF.Controls
         }
       }
     }
+
+    #endregion
   }
 }

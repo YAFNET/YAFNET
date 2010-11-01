@@ -95,11 +95,11 @@ namespace YAF.Pages
         }
 
         // localize controls
-        var rememberMe = ControlHelper.FindControlAs<CheckBox>(this.Login1, "RememberMe");
-        var userName = ControlHelper.FindControlAs<TextBox>(this.Login1, "UserName");
-        var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
-        var forumLogin = ControlHelper.FindControlAs<Button>(this.Login1, "LoginButton");
-        var passwordRecovery = ControlHelper.FindControlAs<Button>(this.Login1, "PasswordRecovery");
+        var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+        var userName = this.Login1.FindControlAs<TextBox>("UserName");
+        var password = this.Login1.FindControlAs<TextBox>("Password");
+        var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
+        var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
 
         userName.Focus();
 
@@ -148,10 +148,11 @@ namespace YAF.Pages
     /// </param>
     protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
     {
-      var userName = ControlHelper.FindControlAs<TextBox>(this.Login1, "UserName");
-      var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
+      var userName = this.Login1.FindControlAs<TextBox>("UserName");
+      var password = this.Login1.FindControlAs<TextBox>("Password");
 
       e.Authenticated = PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
+
       // vzrus: to clear the cache to show user in the list at once
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
     }
@@ -169,8 +170,8 @@ namespace YAF.Pages
     {
       bool emptyFields = false;
 
-      var userName = ControlHelper.FindControlAs<TextBox>(this.Login1, "UserName");
-      var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
+      var userName = this.Login1.FindControlAs<TextBox>("UserName");
+      var password = this.Login1.FindControlAs<TextBox>("Password");
 
       if (userName.Text.Trim().Length == 0)
       {

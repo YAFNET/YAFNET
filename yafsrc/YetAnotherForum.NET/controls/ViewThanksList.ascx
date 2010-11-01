@@ -14,9 +14,9 @@
     <ItemTemplate>
         <tr class="header2">
             <td colspan="2">
-                <strong>
+                <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="topic" />
-                </strong><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",Container.DataItemToField<int>("TopicID"),Container.DataItemToField<int>("MessageID")) %>">
+                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",Container.DataItemToField<int>("TopicID"),Container.DataItemToField<int>("MessageID")) %>">
                     <%# Container.DataItemToField<string>("Topic") %>
                 </a>
             </td>
@@ -26,17 +26,17 @@
                 <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
             </td>
             <td width="140px" id="NameCell" valign="top" runat="server">
-                <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><strong>
+                <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %> ' />
-                </strong>
+                </b>
                 <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
                     Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
             </td>
             <td width="80%" class="postheader">
-                <strong>
+                <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="POSTED" />
-                </strong>
-                <%# this.Get<YafDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
+                </b>
+                <YAF:DisplayDateTime ID="PostedDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
             </td>
         </tr>
         <tr class="<%# this.IsOdd() ? "post_alt" : "post" %>">

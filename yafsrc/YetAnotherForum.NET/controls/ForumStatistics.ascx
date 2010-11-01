@@ -43,15 +43,13 @@
                         <br />
                         <asp:PlaceHolder runat="server" ID="StatsLastPostHolder" Visible="False">
                             <asp:Label ID="StatsLastPost" runat="server" />&nbsp;<YAF:UserLink ID="LastPostUserLink"
-                                runat="server" />
-                            .
+                                runat="server" />.
                             <br />
                         </asp:PlaceHolder>
                         <asp:Label ID="StatsMembersCount" runat="server" />
                         <br />
                         <asp:Label ID="StatsNewestMember" runat="server" />&nbsp;<YAF:UserLink ID="NewestMemberUserLink"
-                            runat="server" />
-                        .
+                            runat="server" />.
                         <br />
                         <asp:PlaceHolder ID="BirthdayUsers" runat="server" Visible="false">
                           <asp:Label ID="StatsTodaysBirthdays" runat="server" />

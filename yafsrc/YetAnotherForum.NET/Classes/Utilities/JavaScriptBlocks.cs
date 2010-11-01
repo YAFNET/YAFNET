@@ -73,6 +73,21 @@ function toggleMessage(divId)
     }
 
     /// <summary>
+    /// Gets TimeagoLoadJs.
+    /// </summary>
+    public static string TimeagoLoadJs
+    {
+      get
+      {
+        return
+          @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+            function loadTimeAgo() {
+				      jQuery('abbr.timeago').timeago();					
+			      }";
+      }
+    }
+
+    /// <summary>
     /// Gets LightBoxLoadJs.
     /// </summary>
     public static string LightBoxLoadJs

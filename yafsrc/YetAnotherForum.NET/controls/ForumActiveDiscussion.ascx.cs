@@ -27,6 +27,7 @@ namespace YAF.Controls
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -56,7 +57,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void LatestPosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    protected void LatestPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
       // populate the controls here...
       if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -72,7 +73,7 @@ namespace YAF.Controls
         var imageMessageLink = (HyperLink)e.Item.FindControl("ImageMessageLink");
         var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
         var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
-        var lastPostedDateLabel = (Label)e.Item.FindControl("LastPostedDateLabel");
+        var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
         var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
 
         // populate them...
@@ -90,14 +91,15 @@ namespace YAF.Controls
 
         if (currentRow["LastPosted"] != DBNull.Value)
         {
-          lastPostedDateLabel.Text = this.Get<YafDateTime>().FormatDateTimeTopic(currentRow["LastPosted"]);
+          lastPostedDateLabel.DateTime = currentRow["LastPosted"];
           lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                      YafContext.Current.Get<YafSession>().GetTopicRead(Convert.ToInt32(currentRow["TopicID"])))
+                                      YafContext.Current.Get<YafSession>().GetTopicRead(
+                                        Convert.ToInt32(currentRow["TopicID"])))
                                        ? "ICON_NEWEST"
                                        : "ICON_LATEST";
         }
 
-        forumLink.Text = Page.HtmlEncode(currentRow["Forum"].ToString());
+        forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
         forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
       }
     }
@@ -111,7 +113,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Latest forum posts
       // Shows the latest n number of posts on the main forum list page
@@ -150,17 +152,14 @@ namespace YAF.Controls
         }
       }
 
-      bool groupAccess = this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostLatestFeedAccess);
-      this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink && groupAccess;
-      this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink && groupAccess;
+      bool groupAccess = this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+      this.AtomFeed.Visible = this.PageContext.BoardSettings.ShowAtomLink && groupAccess;
+      this.RssFeed.Visible = this.PageContext.BoardSettings.ShowRSSLink && groupAccess;
 
       this.lastPostToolTip = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
       this.LatestPosts.DataSource = activeTopics;
       this.LatestPosts.DataBind();
-      
-        
-
-        }
+    }
 
     #endregion
   }

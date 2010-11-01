@@ -78,7 +78,7 @@
 				<asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#GetLocalizedText("DATE") %>' />
 			</HeaderTemplate>
 			<ItemTemplate>
-				<%# this.Get<YafDateTime>().FormatDateTime((DateTime)Eval("Created"))%>
+                <YAF:DisplayDateTime ID="PostedDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Created") %>'></YAF:DisplayDateTime>
 			</ItemTemplate>
 		</asp:TemplateField>
 	</Columns>
