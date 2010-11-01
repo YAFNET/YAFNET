@@ -129,6 +129,15 @@ namespace YAF.Controls
         footer.Append("<br />");
       }
 
+      if (this.Get<YafSession>().UseMobileTheme ?? false)
+      {
+        footer.Append(
+          @"<a target=""_top"" title=""Full Site"" href=""{0}"">".FormatWith(
+            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true")));
+        footer.Append(PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE"));
+        footer.Append(@"</a> | ");        
+      }
+
       footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
       footer.Append(PageContext.Localization.GetText("COMMON", "POWERED_BY"));
       footer.Append(@" YAF");

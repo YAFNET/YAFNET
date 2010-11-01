@@ -35,6 +35,61 @@ namespace YAF.Classes.Core
     #region Public Methods
 
     /// <summary>
+    /// Format objectDateTime according to the format enum. "[error]" if the value is invalid.
+    /// </summary>
+    /// <param name="yafDateTime">
+    /// The yaf date time.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="objectDateTime">
+    /// The object date time.
+    /// </param>
+    /// <returns>
+    /// Formatted datetime or "[error]" if invalid.
+    /// </returns>
+    public static string Format([NotNull] this YafDateTime yafDateTime, DateTimeFormat format, [NotNull] object objectDateTime)
+    {
+      CodeContracts.ArgumentNotNull(yafDateTime, "yafDateTime");
+      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+
+      try
+      {
+        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+
+        switch (format)
+        {
+          case DateTimeFormat.BothDateShort:
+            return yafDateTime.FormatDateTimeShort(dateTime);
+
+          case DateTimeFormat.BothTopic:
+            return yafDateTime.FormatDateTimeTopic(dateTime);
+
+          case DateTimeFormat.DateLong:
+            return yafDateTime.FormatDateLong(dateTime);
+
+          case DateTimeFormat.DateShort:
+            return yafDateTime.FormatDateShort(dateTime);
+
+          case DateTimeFormat.Time:
+            return yafDateTime.FormatTime(dateTime);
+          
+          case DateTimeFormat.Both:
+          default:
+            return yafDateTime.FormatDateTime(dateTime);
+
+        }
+      }
+      catch
+      {
+      }
+
+      // failed convert...
+      return "[error]";
+    }
+
+    /// <summary>
     /// Format a date long -- using an object conversion.
     /// </summary>
     /// <param name="yafDateTime">

@@ -58,6 +58,27 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Gets or sets if the user wants to use the mobile theme.
+    /// </summary>
+    public bool? UseMobileTheme
+    {
+      get
+      {
+        if (HttpContext.Current.Session["UseMobileTheme"] == null)
+        {
+          return null;
+        }
+
+        return (bool)HttpContext.Current.Session["UseMobileTheme"];
+      }
+
+      set
+      {
+        HttpContext.Current.Session["UseMobileTheme"] = value;
+      }
+    }
+
+    /// <summary>
     ///   Gets or sets FavoriteTopicSince.
     /// </summary>
     public int? FavoriteTopicSince
@@ -364,23 +385,6 @@ namespace YAF.Classes.Utils
 
         t[topicID] = date;
       this.TopicRead = t;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether if the User
-    /// currently uses a Mobile Theme
-    /// </summary>
-    public bool MobileThemeActive
-    {
-        get {
-            return HttpContext.Current.Session["mobilethemeactive"] != null &&
-                   (bool)HttpContext.Current.Session["mobilethemeactive"];
-        }
-
-        set
-        {
-            HttpContext.Current.Session["mobilethemeactive"] = value;
-        }
     }
 
     #endregion

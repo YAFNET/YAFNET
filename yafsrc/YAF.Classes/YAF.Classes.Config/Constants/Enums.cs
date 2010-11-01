@@ -21,6 +21,42 @@
 namespace YAF.Classes
 {
   /// <summary>
+  /// The date time format.
+  /// </summary>
+  public enum DateTimeFormat
+  {
+    /// <summary>
+    /// The both.
+    /// </summary>
+    Both, 
+
+    /// <summary>
+    /// The both date short.
+    /// </summary>
+    BothDateShort, 
+
+    /// <summary>
+    /// The time.
+    /// </summary>
+    Time, 
+
+    /// <summary>
+    /// The date short.
+    /// </summary>
+    DateShort, 
+
+    /// <summary>
+    /// The date long.
+    /// </summary>
+    DateLong, 
+
+    /// <summary>
+    /// The both topic.
+    /// </summary>
+    BothTopic
+  }
+
+  /// <summary>
   /// The search field flags.
   /// </summary>
   public enum SearchFieldFlags
@@ -130,40 +166,40 @@ namespace YAF.Classes
   /// </summary>
   public enum YafRssFeeds
   {
-      /// <summary>
-      /// The latest posts.
-      /// </summary>
-      LatestPosts,
+    /// <summary>
+    ///   The latest posts.
+    /// </summary>
+    LatestPosts, 
 
-      /// <summary>
-      /// The latest announcements.
-      /// </summary>
-      LatestAnnouncements,
+    /// <summary>
+    ///   The latest announcements.
+    /// </summary>
+    LatestAnnouncements, 
 
-      /// <summary>
-      /// The posts.
-      /// </summary>
-      Posts,
+    /// <summary>
+    ///   The posts.
+    /// </summary>
+    Posts, 
 
-      /// <summary>
-      /// The forum.
-      /// </summary>
-      Forum,
+    /// <summary>
+    ///   The forum.
+    /// </summary>
+    Forum, 
 
-      /// <summary>
-      /// The topics.
-      /// </summary>
-      Topics,
+    /// <summary>
+    ///   The topics.
+    /// </summary>
+    Topics, 
 
-      /// <summary>
-      /// The active.
-      /// </summary>
-      Active,
+    /// <summary>
+    ///   The active.
+    /// </summary>
+    Active, 
 
-      /// <summary>
-      /// The favorite.
-      /// </summary>
-      Favorite
+    /// <summary>
+    ///   The favorite.
+    /// </summary>
+    Favorite
   }
 
   /// <summary>
@@ -171,15 +207,15 @@ namespace YAF.Classes
   /// </summary>
   public enum YafSyndicationFormats
   {
-      /// <summary>
-      /// The RSS format.
-      /// </summary>
-      Rss,
+    /// <summary>
+    ///   The RSS format.
+    /// </summary>
+    Rss, 
 
-      /// <summary>
-      /// The atom format.
-      /// </summary>
-      Atom
+    /// <summary>
+    ///   The atom format.
+    /// </summary>
+    Atom
   }
 
   /* Ederon

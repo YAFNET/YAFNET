@@ -19,14 +19,15 @@
  */
 namespace YAF.Controls
 {
-
+  using System;
   using System.Web.UI;
   using YAF.Classes.Core;
+  using YAF.Classes.Interfaces;
 
   /// <summary>
   /// Summary description for BaseControl.
   /// </summary>
-  public class BaseControl : Control
+  public class BaseControl : Control, IRaiseControlLifeCycles
   {
     /// <summary>
     /// Gets PageContext.
@@ -38,5 +39,33 @@ namespace YAF.Controls
         return this.PageContext();
       }
     }
+
+    #region Implementation of IRaiseControlLifeCycles
+
+    /// <summary>
+    /// The raise init.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseInit()
+    {
+      this.OnInit(new EventArgs());
+    }
+
+    /// <summary>
+    /// The raise load.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseLoad()
+    {
+      this.OnLoad(new EventArgs());
+    }
+
+    /// <summary>
+    /// The raise pre render.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaisePreRender()
+    {
+      this.OnPreRender(new EventArgs());
+    }
+
+    #endregion
   }
 }

@@ -16,38 +16,49 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Modules
 {
+  #region Using
+
+  using System;
+  using System.Web;
+
+  using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The mobile theme module.
   /// </summary>
   [YafModule("Mobile Theme Module", "Tiny Gecko", 1)]
   public class MobileThemeModule : IBaseModule
   {
-    #region IBaseModule Members
+    #region Properties
 
     /// <summary>
-    /// Gets or sets ForumControlObj.
+    ///   Gets or sets ForumControlObj.
     /// </summary>
-    public object ForumControlObj
-    {
-      get;
+    public object ForumControlObj { get; set; }
 
-      set;
-    }
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IBaseModule
 
     /// <summary>
     /// The init.
     /// </summary>
     public void Init()
     {
-      YafContext.Current.AfterInit += Current_AfterInit;
+      YafContext.Current.AfterInit += this.Current_AfterInit;
     }
+
+    #endregion
+
+    #region IDisposable
 
     /// <summary>
     /// The dispose.
@@ -58,6 +69,10 @@ namespace YAF.Modules
 
     #endregion
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
     /// The current_ after init.
     /// </summary>
@@ -67,46 +82,41 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_AfterInit(object sender, EventArgs e)
+    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // see if this is a mobile device...
-        if (HttpContext.Current == null ||
-            (!UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) &&
-             !HttpContext.Current.Request.Browser.IsMobileDevice))
-        {
-            YafContext.Current.Get<YafSession>().MobileThemeActive = false;
-            return;
-        }
+      if (HttpContext.Current != null &&
+          (UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) ||
+           HttpContext.Current.Request.Browser.IsMobileDevice))
+      {
+        var useMobileTheme = YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme ?? true;
+        var fullSite = HttpContext.Current.Request.QueryString.GetFirstOrDefault("fullsite");
 
-        if (!YafContext.Current.CurrentUserData.UseMobileTheme)
+        if (fullSite.IsSet() && fullSite.Equals("true"))
         {
-            YafContext.Current.Get<YafSession>().MobileThemeActive = false;
-            return;
+          useMobileTheme = false;
+          YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = false;
         }
 
         // get the current mobile theme...
         var mobileTheme = YafContext.Current.BoardSettings.MobileTheme;
 
-        if (!mobileTheme.IsSet())
+        if (mobileTheme.IsSet() && useMobileTheme)
         {
-            YafContext.Current.Get<YafSession>().MobileThemeActive = false;
-            return;
+          // create a new theme object...
+          var theme = new YafTheme(mobileTheme);
+
+          // make sure it's valid...
+          if (YafTheme.IsValidTheme(theme.ThemeFile))
+          {
+            // set new mobile theme...
+            YafContext.Current.InstanceFactory.GetInstance<ThemeHandler>().Theme = theme;
+            YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = true;
+          }
         }
-
-        // create a new theme object...
-        var theme = new YafTheme(mobileTheme);
-
-        // make sure it's valid...
-        if (!YafTheme.IsValidTheme(theme.ThemeFile))
-        {
-            YafContext.Current.Get<YafSession>().MobileThemeActive = false;
-            return;
-        }
-
-        // set new mobile theme...
-        YafContext.Current.InstanceFactory.GetInstance<ThemeHandler>().Theme = theme;
-
-        YafContext.Current.Get<YafSession>().MobileThemeActive = true;
+      }
     }
+
+    #endregion
   }
 }

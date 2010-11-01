@@ -127,7 +127,7 @@
     <Compile Include="ThankYou.cs" />
     <Compile Include="ThemeButton.cs" />
     <Compile Include="ThemeImage.cs" />
-    <Compile Include="TopicLine.cs" />
+    <Compile Include="DisplayDateTime.cs" />
     <Compile Include="UserBox.cs" />
     <Compile Include="UserLink.cs" />
   </ItemGroup>

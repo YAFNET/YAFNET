@@ -29,6 +29,7 @@ namespace YAF.Classes.Core
   using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Interfaces;
   using YAF.Classes.Utils;
 
   #endregion
@@ -36,7 +37,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The class that all YAF forum pages are derived from.
   /// </summary>
-  public class ForumPage : UserControl
+  public class ForumPage : UserControl, IRaiseControlLifeCycles
   {
     #region Constants and Fields
 
@@ -297,6 +298,34 @@ namespace YAF.Classes.Core
       {
         this._noDataBase = value;
       }
+    }
+
+    #endregion
+
+    #region IRaiseControlLifeCycles
+
+    /// <summary>
+    /// The raise init.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseInit()
+    {
+      this.OnInit(new EventArgs());
+    }
+
+    /// <summary>
+    /// The raise load.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseLoad()
+    {
+      this.OnLoad(new EventArgs());
+    }
+
+    /// <summary>
+    /// The raise pre render.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaisePreRender()
+    {
+      this.OnPreRender(new EventArgs());
     }
 
     #endregion

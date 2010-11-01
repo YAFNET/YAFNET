@@ -19,15 +19,18 @@
 namespace YAF.Classes.Core
 {
   #region Using
- 
+
+  using System;
   using System.Web.UI;
+
+  using YAF.Classes.Interfaces;
 
   #endregion
 
   /// <summary>
   /// The base user control.
   /// </summary>
-  public class BaseUserControl : UserControl
+  public class BaseUserControl : UserControl, IRaiseControlLifeCycles
   {
     #region Properties
 
@@ -41,6 +44,38 @@ namespace YAF.Classes.Core
         return this.PageContext();
       }
     }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IRaiseControlLifeCycles
+
+    /// <summary>
+    /// The raise init.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseInit()
+    {
+      this.OnInit(new EventArgs());
+    }
+
+    /// <summary>
+    /// The raise load.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaiseLoad()
+    {
+      this.OnLoad(new EventArgs());
+    }
+
+    /// <summary>
+    /// The raise pre render.
+    /// </summary>
+    void IRaiseControlLifeCycles.RaisePreRender()
+    {
+      this.OnPreRender(new EventArgs());
+    }
+
+    #endregion
 
     #endregion
   }

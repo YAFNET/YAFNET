@@ -1680,6 +1680,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets the if relative times are used on the forum.
+    /// </summary>
+    public bool ShowRelativeTime
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("ShowRelativeTime", true);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("ShowRelativeTime", value);
+      }
+    }
+
+    /// <summary>
     /// Gets or sets AllowMultipleChoices. 
     /// </summary>
     public bool AllowMultipleChoices

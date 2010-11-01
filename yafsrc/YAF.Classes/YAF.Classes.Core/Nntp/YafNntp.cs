@@ -125,9 +125,9 @@ namespace YAF.Classes.Core.Nntp
               {
                 Article article = nntpConnection.GetArticle(currentMessage);
 
-                string body = article.Body.Text;
-                string subject = article.Header.Subject;
-                string fromName = article.Header.From;
+                string body = article.Body.Text.Trim();
+                string subject = article.Header.Subject.Trim();
+                string fromName = article.Header.From.Trim();
                 string thread = article.ArticleId.ToString();
                 DateTime dateTime = article.Header.Date;
 

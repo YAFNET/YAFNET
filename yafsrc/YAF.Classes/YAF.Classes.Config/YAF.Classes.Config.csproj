@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
     <Compile Include="Pattern\Annotations.cs" />
     <Compile Include="Attributes\AltStringValueAttribute.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />
