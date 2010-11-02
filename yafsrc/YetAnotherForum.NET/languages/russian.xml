@@ -248,7 +248,7 @@
     <Resource tag="BAD_USERNAME">Имя пользователя не может содержать некоторые знаки препинания(;) или некоторые слова.</Resource>
     <Resource tag="BBCODE_CODE">Код:</Resource>
     <Resource tag="BBCODE_QUOTE">Цитата:</Resource>
-    <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED">Автор: {0}</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} написал:</Resource>
     <Resource tag="CAL_JQ_CULTURE">ru</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YY</Resource>
@@ -289,7 +289,7 @@
     <Resource tag="HTMLTAG_WRONG">Введённые данные содержат запрещённый HTML тег {0}.</Resource>
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">{1} было больше всего пользователей - {0}.</Resource>
-    <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
+    <Resource tag="MOBILE_FULLSITE">Просмотр всего сайта</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
@@ -425,7 +425,7 @@
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
-    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
+    <Resource tag="USE_MOBILE_THEME">Использовать тему для мобильного устройства:</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы живете?</Resource>
   </page>
@@ -505,7 +505,7 @@
     <Resource tag="NONOTIFICATION">Отключить уведомления</Resource>
     <Resource tag="NOTIFICATIONSELECTION">Выберите предпочтения для уведомлений по email:</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
-    <Resource tag="SAVED_NOTIFICATION_SETTING">Ностройки уведомлений по Email обновлены</Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">Настройки уведомлений по Email обновлены</Resource>
     <Resource tag="TITLE">Уведомления по Email</Resource>
     <Resource tag="TOPIC">Tема</Resource>
     <Resource tag="TOPICS">Наблюдаемые темы</Resource>
@@ -551,7 +551,7 @@
     <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши избранные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
     <Resource tag="STATS">Статистика</Resource>
-    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
+    <Resource tag="STATS_BIRTHDAYS">Дни рождения сегодня: </Resource>
     <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
     <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил</Resource>
     <Resource tag="STATS_MEMBERS">Зарегистрировано {0:N0} пользователей.</Resource>

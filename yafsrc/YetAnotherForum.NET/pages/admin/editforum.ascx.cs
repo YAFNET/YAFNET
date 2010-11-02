@@ -23,18 +23,33 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Text.RegularExpressions;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
-  
 
   /// <summary>
   /// Administrative Page for the editting of forum properties.
   /// </summary>
   public partial class editforum : AdminPage
   {
+    /// <summary>
+    /// The category_ change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void Category_Change(object sender, EventArgs e)
+    {
+        this.BindParentList();
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -53,11 +68,11 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Forums", string.Empty);
         
         // Populate Forum Images Table
-        CreateImagesDataTable();
+        this.CreateImagesDataTable();
 
         this.ForumImages.Attributes["onchange"] = "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
         
-         BindData();
+        this.BindData();
 
         if (Request.QueryString.GetFirstOrDefault("f") != null)
         {
@@ -65,8 +80,8 @@ namespace YAF.Pages.Admin
           {
             DataRow row = dt.Rows[0];
             var flags = new ForumFlags(row["Flags"]);
-            this.Name.Text = (string) row["Name"];            
-            this.Description.Text = (string) row["Description"];
+            this.Name.Text = (string)row["Name"];            
+            this.Description.Text = (string)row["Description"];
             this.SortOrder.Text = row["SortOrder"].ToString();
             this.HideNoAccess.Checked = flags.IsHidden;
             this.Locked.Checked = flags.IsLocked;
@@ -87,7 +102,7 @@ namespace YAF.Pages.Admin
             }
 
             // populate parent forums list with forums according to selected category
-            BindParentList();
+            this.BindParentList();
 
             if (!row.IsNull("ParentID"))
             {
@@ -108,23 +123,117 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+        this.CategoryList.AutoPostBack = true;
+        this.Save.Click += new EventHandler(Save_Click);
+        this.Cancel.Click += new EventHandler(Cancel_Click);
+        base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The bind data_ access mask id.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BindData_AccessMaskID(object sender, EventArgs e)
+    {
+        ((DropDownList)sender).DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
+        ((DropDownList)sender).DataValueField = "AccessMaskID";
+        ((DropDownList)sender).DataTextField = "Name";
+    }
+
+    /// <summary>
+    /// The set drop down index.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SetDropDownIndex(object sender, EventArgs e)
+    {
+        try
+        {
+            var list = (DropDownList)sender;
+            list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+        }
+        catch (Exception)
+        {
+        }
+    }
+
+    /// <summary>
+    /// The create images data table.
+    /// </summary>
+    protected void CreateImagesDataTable()
+    {
+        using (var dt = new DataTable("Files"))
+        {
+            dt.Columns.Add("FileID", typeof(long));
+            dt.Columns.Add("FileName", typeof(string));
+            dt.Columns.Add("Description", typeof(string));
+            DataRow dr = dt.NewRow();
+            dr["FileID"] = 0;
+            dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+            dr["Description"] = "None";
+            dt.Rows.Add(dr);
+
+            var dir = new System.IO.DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
+            if (dir.Exists)
+            {
+                FileInfo[] files = dir.GetFiles("*.*");
+                long nFileID = 1;
+                foreach (FileInfo file in files)
+                {
+                    string sExt = file.Extension.ToLower();
+                    if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg" && sExt != ".jpeg")
+                    {
+                        continue;
+                    }
+
+                    dr = dt.NewRow();
+                    dr["FileID"] = nFileID++;
+                    dr["FileName"] = file.Name;
+                    dr["Description"] = file.Name;
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            this.ForumImages.DataSource = dt;
+            this.ForumImages.DataValueField = "FileName";
+            this.ForumImages.DataTextField = "Description";
+            this.ForumImages.DataBind();
+        }
+    }
+
+    /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()
-    {      
-      int ForumID = 0;
+    {    
+      int forumId = 0;
       this.CategoryList.DataSource = DB.category_list(PageContext.PageBoardID, null);
       this.CategoryList.DataBind();
 
-      if (Request.QueryString.GetFirstOrDefault("f") != null)
+      if (Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(Request.QueryString.GetFirstOrDefault("f"), out forumId))
       {
-        ForumID = Convert.ToInt32(Request.QueryString.GetFirstOrDefault("f"));
-        this.AccessList.DataSource = DB.forumaccess_list(ForumID);
+        this.AccessList.DataSource = DB.forumaccess_list(forumId);
         this.AccessList.DataBind();
       }
 
       // Load forum's combo
-      BindParentList();
+      this.BindParentList();
 
       // Load forum's themes
       var listheader = new ListItem();
@@ -150,34 +259,6 @@ namespace YAF.Pages.Admin
       this.ParentList.DataValueField = "ForumID";
       this.ParentList.DataTextField = "Title";
       this.ParentList.DataBind();
-    }
-
-    /// <summary>
-    /// The category_ change.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void Category_Change(object sender, EventArgs e)
-    {
-      BindParentList();
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      this.CategoryList.AutoPostBack = true;
-      this.Save.Click += new EventHandler(Save_Click);
-      this.Cancel.Click += new EventHandler(Cancel_Click);
-      base.OnInit(e);
     }
 
     /// <summary>
@@ -228,7 +309,22 @@ namespace YAF.Pages.Admin
           PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
           return;
       }
-  
+
+      if (this.remoteurl.Text.IsSet())
+      {
+          // add http:// by default
+          if (!Regex.IsMatch(this.remoteurl.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
+          {
+              this.remoteurl.Text = "http://" + this.remoteurl.Text.Trim();
+          }
+
+          if (!ValidationHelper.IsValidURL(this.remoteurl.Text))
+          {
+              this.PageContext.AddLoadMessage("Your entered an invalid Url address.");
+              return;
+          }
+      }
+
       // Forum
       // vzrus: it's stored in the DB as int
       long ForumID = 0; 
@@ -315,18 +411,18 @@ namespace YAF.Pages.Admin
         for (int i = 0; i < this.AccessList.Items.Count; i++)
         {
           RepeaterItem item = this.AccessList.Items[i];
-          int GroupID = int.Parse(((Label) item.FindControl("GroupID")).Text);
-          DB.forumaccess_save(ForumID, GroupID, ((DropDownList) item.FindControl("AccessmaskID")).SelectedValue);
+          int groupId = int.Parse(((Label) item.FindControl("GroupID")).Text);
+          DB.forumaccess_save(ForumID, groupId, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 
           // Update statistics
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
         }
 
-        ClearCaches();
+        this.ClearCaches();
         YafBuildLink.Redirect(ForumPages.admin_forums);
       }
 
-      ClearCaches();
+      this.ClearCaches();
 
       // Done
       YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", ForumID);
@@ -359,91 +455,10 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The bind data_ access mask id.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void BindData_AccessMaskID(object sender, EventArgs e)
-    {
-      ((DropDownList) sender).DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
-      ((DropDownList) sender).DataValueField = "AccessMaskID";
-      ((DropDownList) sender).DataTextField = "Name";
-    }
-
-    /// <summary>
     /// The initialize component.
     /// </summary>
     private void InitializeComponent()
     {
-    }
-
-    /// <summary>
-    /// The set drop down index.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void SetDropDownIndex(object sender, EventArgs e)
-    {
-      try
-      {
-        var list = (DropDownList) sender;
-        list.Items.FindByValue(list.Attributes["value"]).Selected = true;
-      }
-      catch (Exception)
-      {
-      }
-    }
-
-    /// <summary>
-    /// The create images data table.
-    /// </summary>
-    protected void CreateImagesDataTable()
-    {
-        using (var dt = new DataTable("Files"))
-        {
-            dt.Columns.Add("FileID", typeof(long));
-            dt.Columns.Add("FileName", typeof(string));
-            dt.Columns.Add("Description", typeof(string));
-            DataRow dr = dt.NewRow();
-            dr["FileID"] = 0;
-            dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-            dr["Description"] = "None";
-            dt.Rows.Add(dr);
-
-            var dir = new System.IO.DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
-            if (dir.Exists)
-            {
-                FileInfo[] files = dir.GetFiles("*.*");
-                long nFileID = 1;
-                foreach (FileInfo file in files)
-                {
-                    string sExt = file.Extension.ToLower();
-                    if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
-                    {
-                        continue;
-                    }
-
-                    dr = dt.NewRow();
-                    dr["FileID"] = nFileID++;
-                    dr["FileName"] = file.Name;
-                    dr["Description"] = file.Name;
-                    dt.Rows.Add(dr);
-                }
-            }
-
-            this.ForumImages.DataSource = dt;
-            this.ForumImages.DataValueField = "FileName";
-            this.ForumImages.DataTextField = "Description";
-            this.ForumImages.DataBind();
-        }
     }
   }
 }

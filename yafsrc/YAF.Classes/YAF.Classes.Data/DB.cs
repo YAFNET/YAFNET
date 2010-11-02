@@ -30,9 +30,6 @@ using System.Web.Security;
 
 namespace YAF.Classes.Data
 {
-  using System.Web;
-
-  using YAF.Classes.Extensions;
   using YAF.Classes.Utils;
 
   /// <summary>

@@ -214,16 +214,15 @@ namespace YAF.Controls
             if (this.HomePage.Text.IsSet())
             {
                 // add http:// by default
-                if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps)\://.*"))
+                if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
                 {
                     this.HomePage.Text = "http://" + this.HomePage.Text.Trim();
                 }
-            }
-
-            if (this.HomePage.Text.IsSet() && (!ValidationHelper.IsValidURL(this.HomePage.Text)))
-            {
-                this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
-                return;
+                if (!ValidationHelper.IsValidURL(this.HomePage.Text))
+                {
+                    this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
+                    return;
+                }
             }
 
             if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
