@@ -25,16 +25,16 @@
     /// </summary>
     private string _altLastPost;
 
-    private DataRowView _theRow;
+    private DataRowView _theTopicRow;
 
     /// <summary>
-    ///   The _row.
+    ///   The TopicRow.
     /// </summary>
-    protected DataRowView _row
+    protected DataRowView TopicRow
     {
       get
       {
-        return _theRow;
+        return this._theTopicRow;
       }
     }
 
@@ -71,7 +71,7 @@
     {
       set
       {
-        this._theRow = (DataRowView)value;
+        this._theTopicRow = (DataRowView)value;
       }
     }
 
@@ -204,8 +204,8 @@
     {
       string repStr = "&nbsp;";
 
-      int nReplies = Convert.ToInt32(this._row["Replies"]);
-      int numDeleted = Convert.ToInt32(this._row["NumPostsDeleted"]);
+      int nReplies = Convert.ToInt32(this.TopicRow["Replies"]);
+      int numDeleted = Convert.ToInt32(this.TopicRow["NumPostsDeleted"]);
 
       if (nReplies >= 0)
       {
@@ -395,8 +395,8 @@
     /// </returns>
     protected string FormatViews()
     {
-      var nViews = this._row["Views"].ToType<int>();
-      return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
+      var nViews = this.TopicRow["Views"].ToType<int>();
+      return (this.TopicRow["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
     }
 
     /// <summary>

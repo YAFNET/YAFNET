@@ -1002,6 +1002,11 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_list]
 GO
 
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_list]    Script Date: 12/08/2009 18:13:20 ******/
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_favorite_count]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_count]
+GO
+
 /****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_remove]    Script Date: 12/08/2009 18:13:20 ******/
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_favorite_remove]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_remove]
@@ -7815,6 +7820,12 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_list](@UserID int) as
 BEGIN
 SELECT TopicID FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE UserID=@UserID
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_count](@TopicID int) as
+BEGIN
+	SELECT (ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = @TopicID
 END
 GO
 

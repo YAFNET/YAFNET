@@ -202,6 +202,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Button UnsubscribeForums;
         
         /// <summary>
+        /// PagerTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.Pager PagerTop;
+        
+        /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
         /// <remarks>
@@ -263,6 +272,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button UnsubscribeTopics;
+        
+        /// <summary>
+        /// PagerBottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.Pager PagerBottom;
         
         /// <summary>
         /// SmartScroller1 control.

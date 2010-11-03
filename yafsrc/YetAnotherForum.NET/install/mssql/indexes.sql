@@ -152,3 +152,17 @@ CREATE  INDEX [IX_{objectQualifier}Thanks_ThanksToUserID] ON [{databaseOwner}].[
 	[ThanksToUserID] ASC
 )
 GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]') AND name = N'IX_{objectQualifier}FavoriteTopic_TopicID')
+CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_TopicID] ON [{databaseOwner}].[{objectQualifier}FavoriteTopic] 
+(
+	[TopicID] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]') AND name = N'IX_{objectQualifier}FavoriteTopic_UserID')
+CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_UserID] ON [{databaseOwner}].[{objectQualifier}FavoriteTopic] 
+(
+	[UserID] ASC
+)
+GO

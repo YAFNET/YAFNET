@@ -31,6 +31,7 @@ namespace YAF.Pages
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -63,10 +64,16 @@ namespace YAF.Pages
     /// <returns>
     /// The format forum replies.
     /// </returns>
-    protected string FormatForumReplies(object o)
+    protected string FormatForumReplies([NotNull] object o)
     {
-      var row = (DataRowView)o;
-      return "{0}".FormatWith((int)row["Messages"] - (int)row["Topics"]);
+      var row = o as DataRow;
+
+      if (row != null)
+      {
+        return "{0}".FormatWith((int)row["Messages"] - (int)row["Topics"]);
+      }
+
+      return string.Empty;
     }
 
     /// <summary>
@@ -78,27 +85,32 @@ namespace YAF.Pages
     /// <returns>
     /// The format last posted.
     /// </returns>
-    protected string FormatLastPosted(object o)
+    protected string FormatLastPosted([NotNull] object o)
     {
-      var row = (DataRowView)o;
+      var row = o as DataRow;
 
-      if (row["LastPosted"].ToString().Length == 0)
+      if (row != null)
       {
-        return "&nbsp;";
+        if (row["LastPosted"].ToString().Length == 0)
+        {
+          return "&nbsp;";
+        }
+
+        string link =
+          "<a href=\"{0}\">{1}</a>".FormatWith(
+            YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), row["LastUserName"]);
+        string by = this.GetTextFormatted(
+          "lastpostlink", this.Get<YafDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
+
+        string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
+          by,
+          YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]),
+          this.GetThemeContents("ICONS", "ICON_LATEST"));
+
+        return html;
       }
 
-      string link =
-        "<a href=\"{0}\">{1}</a>".FormatWith(
-          YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), row["LastUserName"]);
-      string by = this.GetTextFormatted(
-        "lastpostlink", this.Get<YafDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
-
-      string html = "{0} <a href=\"{1}\"><img src=\"{2}\"'></a>".FormatWith(
-        by, 
-        YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]), 
-        this.GetThemeContents("ICONS", "ICON_LATEST"));
-
-      return html;
+      return string.Empty;
     }
 
     /// <summary>
@@ -110,7 +122,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.IsPostBack)
       {
@@ -158,6 +170,21 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // rebind
+      this.BindData();
+    }
+
+    /// <summary>
     /// The save user_ click.
     /// </summary>
     /// <param name="sender">
@@ -166,9 +193,9 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SaveUser_Click(object sender, EventArgs e)
+    protected void SaveUser_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (Page.IsValid)
+      if (this.Page.IsValid)
       {
         bool autoWatchTopicsEnabled = false;
 
@@ -191,7 +218,8 @@ namespace YAF.Pages
         UserMembershipHelper.ClearCacheForUserId(this.PageContext.PageUserID);
 
         // Clearing cache with old Active User Lazy Data ...
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+        this.PageContext.Cache.Remove(
+          YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
 
         this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"));
       }
@@ -206,7 +234,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void UnsubscribeForums_Click(object sender, EventArgs e)
+    protected void UnsubscribeForums_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       bool noneChecked = true;
 
@@ -240,7 +268,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void UnsubscribeTopics_Click(object sender, EventArgs e)
+    protected void UnsubscribeTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       bool noneChecked = true;
 
@@ -274,7 +302,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void rblNotificationType_SelectionChanged(object sender, EventArgs e)
+    protected void rblNotificationType_SelectionChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
       var selectedValue = this.rblNotificationType.SelectedItem.Value.ToEnum<UserNotificationSetting>();
 
@@ -286,8 +314,28 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      this.ForumList.DataSource = DB.watchforum_list(this.PageContext.PageUserID);
-      this.TopicList.DataSource = DB.watchtopic_list(this.PageContext.PageUserID);
+      this.ForumList.DataSource = DB.watchforum_list(this.PageContext.PageUserID).AsEnumerable();
+
+      // we are going to page results
+      var dt = DB.watchtopic_list(this.PageContext.PageUserID);
+
+      // set pager and datasource
+      this.PagerTop.Count = dt.Rows.Count;
+
+      // page to render
+      var currentPageIndex = this.PagerTop.CurrentPageIndex;
+
+      var pageCount = this.PagerTop.Count / this.PagerTop.PageSize;
+
+      // if we are above total number of pages, select last
+      if (currentPageIndex >= pageCount)
+      {
+        currentPageIndex = pageCount - 1;
+      }
+
+      // bind list
+      this.TopicList.DataSource =
+        dt.AsEnumerable().Skip(currentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize);
 
       this.PMNotificationEnabled.Checked = this.PageContext.CurrentUserData.PMNotification;
       this.DailyDigestEnabled.Checked = this.PageContext.CurrentUserData.DailyDigest;

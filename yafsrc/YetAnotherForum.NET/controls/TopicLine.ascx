@@ -2,7 +2,7 @@
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
     <td class="topicImage">
         <%  string imgTitle = string.Empty;
-            string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
+            string imgSrc = this.GetTopicImage(this.TopicRow, ref imgTitle);
         %>
         <img src="<%=imgSrc%>" alt="<%=imgTitle%>" title="<%=imgTitle%>" />
     </td>
@@ -10,13 +10,13 @@
         <%
             if (this.PageContext.BoardSettings.ShowAvatarsInTopic)
             {
-                var avatarUrl = this.GetAvatarUrlFromID(Convert.ToInt32(this._row["UserID"]));
+                var avatarUrl = this.GetAvatarUrlFromID(Convert.ToInt32(this.TopicRow["UserID"]));
         %>
         <img src="<%=avatarUrl%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>"
             class="avatarimage" />
         <%}
 
-            string priorityMessage = this.GetPriorityMessage(this._row);
+            string priorityMessage = this.GetPriorityMessage(this.TopicRow);
             if (priorityMessage.IsSet())
             {
         %>
@@ -31,16 +31,26 @@
                 linkParams += "&find=unread";
             }
         %>
-        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, linkParams, this._row["LinkTopicID"])%>"
-            class="post_link" title="<%=YafFormatMessage.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated%>">
-            <%=this.Get<YafBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this._row["Subject"])))%></a>
+        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
+            class="post_link" title="<%=YafFormatMessage.GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
+            <%=this.Get<YafBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
+        <%
+            var favoriteCount = this.Get<YafFavoriteTopic>().FavoriteTopicCount((int)this.TopicRow["LinkTopicID"]);
+            
+            if (favoriteCount > 0)
+            {
+%>
+        <span class="topicFavoriteCount">[+<%=favoriteCount%>]</span>
+        <%
+            }
+%>
         <br />
         <span class="topicStarter">
             <%= new UserLink
         {
           ID = "topicStarterLink",
-          UserID = this._row["UserID"].ToType<int>(),
-          Style = this._row["StarterStyle"].ToString()
+          UserID = this.TopicRow["UserID"].ToType<int>(),
+          Style = this.TopicRow["StarterStyle"].ToString()
         }.RenderToString() %>
         </span>
         <%    
@@ -48,21 +58,21 @@
             {
         %>
         <span class="topicPosted">,
-            <%= new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this._row["Posted"] }.RenderToString()%>
+            <%= new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this.TopicRow["Posted"] }.RenderToString()%>
         </span>            
         <%
             }
     
-            int actualPostCount = this._row["Replies"].ToType<int>() + 1;
+            int actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
 
             if (this.PageContext.BoardSettings.ShowDeletedMessages)
             {
                 // add deleted posts not included in replies...
-                actualPostCount += this._row["NumPostsDeleted"].ToType<int>();
+                actualPostCount += this.TopicRow["NumPostsDeleted"].ToType<int>();
             }     
 
       string tPager = this.CreatePostPager(
-        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, this._row["LinkTopicID"].ToType<int>());
+        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, this.TopicRow["LinkTopicID"].ToType<int>());
 
       if (tPager != String.Empty)
       {
@@ -81,9 +91,9 @@
     </td>
     <td class="topicLastPost smallfont">
         <%
-            if (!_row["LastMessageID"].IsNullOrEmptyDBField())
+            if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                int userID = _row["LastUserID"].ToType<int>();
+                int userID = this.TopicRow["LastUserID"].ToType<int>();
 
                 if (this.PageContext.BoardSettings.ShowAvatarsInTopic)
                 {%>
@@ -94,7 +104,7 @@
 
         string strMiniPost = this.PageContext.Theme.GetItem(
           "ICONS",
-          (DateTime.Parse(_row["LastPosted"].ToString()) > YafContext.Current.Get<YafSession>().GetTopicRead((int)this._row["TopicID"]))
+          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > YafContext.Current.Get<YafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
             ? "ICON_NEWEST"
             : "ICON_LATEST");
         if (string.IsNullOrEmpty(this.AltLastPost))
@@ -103,13 +113,13 @@
         }
                 
         %>
-        <%=new UserLink { UserID = userID, Style = _row["LastUserStyle"].ToString() }.RenderToString() %>
-        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, "m={0}#post{0}", _row["LastMessageID"]) %>"
+        <%=new UserLink { UserID = userID, Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
+        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, "m={0}#post{0}", this.TopicRow["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">
             <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />
         </a>
         <br />
-        <%=new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this._row["LastPosted"] }.RenderToString()%>
+        <%=new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this.TopicRow["LastPosted"] }.RenderToString()%>
         <%
             }    
         %>

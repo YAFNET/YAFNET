@@ -178,6 +178,13 @@
 	padding: 5px;
 }
 
+.yafnet .topicFavoriteCount
+{
+    color: #292;
+    font-size: 10pt;    
+    font-weight:normal;    
+}
+
 .yafnet .forumLinkCol div.forumheading a,
 .yafnet .forumLinkCol_Alt div.forumheading a
 {

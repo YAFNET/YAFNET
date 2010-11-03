@@ -73,13 +73,13 @@
             </tr>
             <asp:Repeater ID="ForumList" runat="server">
                 <ItemTemplate>
-                    <asp:Label ID="tfid" runat="server" Text='<%# Eval("WatchForumID") %>' Visible="false" />
+                    <asp:Label ID="tfid" runat="server" Text='<%# Container.DataItemToField<int>("WatchForumID") %>' Visible="false" />
                     <tr>
                         <td class="post">
-                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}",  Eval("WatchForumID"))%>" ><%# HtmlEncode(Eval("ForumName"))%></a>                        
+                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}",  Container.DataItemToField<int>("WatchForumID"))%>" ><%# HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>                        
                         </td>
                         <td class="post" align="center">
-                            <%# Eval("Topics") %>
+                            <%# Container.DataItemToField<int>("Topics")%>
                         </td>
                         <td class="post" align="center">
                             <%# FormatForumReplies(Container.DataItem) %>
@@ -100,6 +100,7 @@
             </tr>
         </table>
         <br />
+        <YAF:Pager ID="PagerTop" runat="server" PageSize="25" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
         <table class="content" cellspacing="1" cellpadding="0" width="100%">
             <tr>
                 <td class="header1" colspan="5">
@@ -125,16 +126,16 @@
             </tr>
             <asp:Repeater ID="TopicList" runat="server">
                 <ItemTemplate>
-                    <asp:Label ID="ttid" runat="server" Text='<%# Eval("WatchTopicID") %>' Visible="false" />
+                    <asp:Label ID="ttid" runat="server" Text='<%# Container.DataItemToField<int>("WatchTopicID") %>' Visible="false" />
                     <tr>
                         <td class="post">
-                           <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}",  Eval("WatchTopicID"))%>" ><%# HtmlEncode(Eval("TopicName"))%></a> 
+                           <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("WatchTopicID"))%>" ><%# HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a> 
                         </td>
                         <td class="post" align="center">
-                            <%# Eval("Replies") %>
+                            <%# Container.DataItemToField<int>("Replies")%>
                         </td>
                         <td class="post" align="center">
-                            <%# Eval("Views") %>
+                            <%# Container.DataItemToField<int>("Views")%>
                         </td>
                         <td class="post">
                             <%# FormatLastPosted(Container.DataItem) %>
@@ -151,6 +152,7 @@
                 </td>
             </tr>
         </table>
+        <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
     </asp:PlaceHolder>
     </ContentTemplate>
 </asp:UpdatePanel>
