@@ -7825,7 +7825,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_count](@TopicID int) as
 BEGIN
-	SELECT (ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = @TopicID
+	SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = @TopicID
 END
 GO
 
