@@ -81,8 +81,9 @@ function toggleMessage(divId)
       {
         return
           @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-            function loadTimeAgo() {
-				      jQuery('abbr.timeago').timeago();					
+            function loadTimeAgo() {				      	
+            " + YafContext.Current.Localization.GetText("TIMEAGO_JS") + @"
+              jQuery('abbr.timeago').timeago();	
 			      }";
       }
     }

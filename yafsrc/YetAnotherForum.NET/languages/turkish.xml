@@ -301,6 +301,9 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Kayıt Olduğunuda Belirttiğiniz e-Posta Adresine bir e-Posta Gönderilecektir. Foruma Girebilmeniz İçin Mesaj Kutunuzu Kontrol Ediniz ve e-Posta içindeki Bağlantıyı Klikleyiniz.</Resource>
     <Resource tag="SAVE">Kaydet</Resource>
     <Resource tag="SUBMIT">Gönder</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // defaults to english... no need for localization.
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Yeni mesaj atıldığında uyarı üyeliği ({0} Tarafından)</Resource>
     <Resource tag="TT_ALIGNCENTER">Ortala</Resource>
     <Resource tag="TT_ALIGNLEFT">Sola Hizala</Resource>

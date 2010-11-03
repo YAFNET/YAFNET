@@ -301,6 +301,24 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Una mail ti sarà inviata alla registrazione. Per poter effettuare il login dovresti controllare la tua casella e-mail e cliccare sul link contenuto nella mail inviata.</Resource>
     <Resource tag="SAVE">Salva</Resource>
     <Resource tag="SUBMIT">Inoltra</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // Italian
+      jQuery.timeago.settings.strings = {
+      suffixAgo: "fa",
+      suffixFromNow: "da ora",
+      seconds: "meno di un minuto",
+      minute: "circa un minuto",
+      minutes: "%d minuti",
+      hour: "circa un'ora",
+      hours: "circa %d ore",
+      day: "un giorno",
+      days: "%d giorni",
+      month: "circa un mese",
+      months: "%d mesi",
+      year: "circa un anno",
+      years: "%d anni"
+      };
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Sottoscrizione Topic Notifica Nuovo Post (Da {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Allinea in Centro</Resource>
     <Resource tag="TT_ALIGNLEFT">Allinea a Sinistra</Resource>

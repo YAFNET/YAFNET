@@ -324,6 +324,26 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">הודעת דוא"ל תישלח לאחר שתירשם. על מנת להתחבר, יש לבדוק את תיבת הדואר הנכנס וללחוץ על הקישור בהודעה.</Resource>
     <Resource tag="SAVE">שמור</Resource>
     <Resource tag="SUBMIT">שלח</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // Hebrew
+      jQuery.timeago.settings.strings = {
+      prefixAgo: "לפני",
+      prefixFromNow: "מעכשיו",
+      suffixAgo: "",
+      suffixFromNow: "",
+      seconds: "פחות מדקה",
+      minute: "דקה",
+      minutes: "%d דקות",
+      hour: "שעה",
+      hours: "%d שעות",
+      day: "יום",
+      days: "%d ימים",
+      month: "חודש",
+      months: "%d חודשים",
+      year: "שנה",
+      years: "%d שנים"
+      };
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">הודעה על הודעה חדשה בדיון רשום (From {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">הצמדה למרכז</Resource>
     <Resource tag="TT_ALIGNLEFT">הצמדה לשמאל</Resource>

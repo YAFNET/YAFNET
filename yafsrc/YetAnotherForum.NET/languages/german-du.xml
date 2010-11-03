@@ -301,6 +301,26 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Eine E-Mail wird nach der Registrierung gesendet. Bitte nutze den Link in der Nachricht, um dich einzuloggen.</Resource>
     <Resource tag="SAVE">Speichern</Resource>
     <Resource tag="SUBMIT">Abschicken</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // German
+      jQuery.timeago.settings.strings = {
+      prefixAgo: "vor",
+      prefixFromNow: "in",
+      suffixAgo: "",
+      suffixFromNow: "",
+      seconds: "wenigen Sekunden",
+      minute: "etwa einer Minute",
+      minutes: "%d Minuten",
+      hour: "etwa einer Stunde",
+      hours: "%d Stunden",
+      day: "etwa einem Tag",
+      days: "%d Tagen",
+      month: "etwa einem Monat",
+      months: "%d Monaten",
+      year: "etwa einem Jahr",
+      years: "%d Jahren"
+      };
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Mitteilung bei neuen Themen (Von {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Zentriert</Resource>
     <Resource tag="TT_ALIGNLEFT">Linksbündig</Resource>

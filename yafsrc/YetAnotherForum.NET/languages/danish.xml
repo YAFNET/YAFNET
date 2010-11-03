@@ -301,6 +301,26 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">En e-mail bliver afsendt når du tilmelder dig. For at logge ind skal du tjekke din indbakke og klikke på linket i e-mailen.</Resource>
     <Resource tag="SAVE">Gem</Resource>
     <Resource tag="SUBMIT">Indsend</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // Danish
+      jQuery.timeago.settings.strings = {
+      prefixAgo: "for",
+      prefixFromNow: "om",
+      suffixAgo: "siden",
+      suffixFromNow: "",
+      seconds: "mindre end et minut",
+      minute: "ca. et minut",
+      minutes: "%d minutter",
+      hour: "ca. en time",
+      hours: "ca. %d timer",
+      day: "en dag",
+      days: "%d dage",
+      month: "ca. en måned",
+      months: "%d måneder",
+      year: "ca. et år",
+      years: "%d år"
+      };
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Emne abonnement på nye indlæg (Fra {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Centrer</Resource>
     <Resource tag="TT_ALIGNLEFT">Venstre juster</Resource>
