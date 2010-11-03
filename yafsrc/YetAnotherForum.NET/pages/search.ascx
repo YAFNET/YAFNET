@@ -4,10 +4,10 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <script type="text/javascript">
     function EndRequestHandler(sender, args) {
-        $('#<%=LoadingModal.ClientID%>').dialog('close');
+        jQuery('#<%=LoadingModal.ClientID%>').dialog('close');
     }
     function ShowLoadingDialog() {
-        $('#<%=LoadingModal.ClientID%>').dialog('open');
+        jQuery('#<%=LoadingModal.ClientID%>').dialog('open');
     }
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
