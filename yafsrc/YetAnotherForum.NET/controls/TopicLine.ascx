@@ -31,7 +31,7 @@
                 linkParams += "&find=unread";
             }
         %>
-        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this._row["LinkTopicID"])%>"
+        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, linkParams, this._row["LinkTopicID"])%>"
             class="post_link" title="<%=YafFormatMessage.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated%>">
             <%=this.Get<YafBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this._row["Subject"])))%></a>
         <br />
@@ -48,7 +48,7 @@
             {
         %>
         <span class="topicPosted">,
-            <%= new DisplayDateTime() {Format = DateTimeFormat.BothTopic, DateTime = this._row["Posted"]}.RenderToString() %>
+            <%= new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this._row["Posted"] }.RenderToString()%>
         </span>            
         <%
             }
@@ -104,12 +104,12 @@
                 
         %>
         <%=new UserLink { UserID = userID, Style = _row["LastUserStyle"].ToString() }.RenderToString() %>
-        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", _row["LastMessageID"]) %>"
+        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, "m={0}#post{0}", _row["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">
             <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />
         </a>
         <br />
-        <%=new DisplayDateTime() { Format = DateTimeFormat.BothTopic, DateTime = this._row["LastPosted"] }.RenderToString()%>
+        <%=new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this._row["LastPosted"] }.RenderToString()%>
         <%
             }    
         %>
