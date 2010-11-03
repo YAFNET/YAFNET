@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.LastPosts"
     CodeBehind="LastPosts.ascx.cs" %>
-<%@ Register TagPrefix="YAF" TagName="DisplayDateTime" Src="DisplayDateTime.ascx" %>
 <asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="15000" OnTick="LastPostUpdateTimer_Tick">
 </asp:Timer>
 <div style="overflow: scroll; height: 400px;">
