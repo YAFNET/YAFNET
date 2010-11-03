@@ -443,6 +443,14 @@
             <param name="control"></param>
             <returns></returns>
         </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.NewUserControl``1(System.Web.UI.UserControl,System.String)">
+            <summary>
+            Renders a control to a string.
+            </summary>
+            <param name="control"></param>
+            <param name="controlPath"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.ControlListRecursive(System.Web.UI.Control,System.Func{System.Web.UI.Control,System.Boolean})">
             <summary>
             Finds a control recursively (forward only) using <paramref name="isControl"/> function.
@@ -2464,6 +2472,15 @@
             <summary>
             The object extensions.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.DoWith``1(``0,System.Action{``0})">
+            <summary>
+            Provides a chaining action with the object.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="action"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
             <summary>

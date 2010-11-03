@@ -1274,6 +1274,21 @@
             Summary description for BaseControl.
             </summary>
         </member>
+        <member name="M:YAF.Controls.BaseControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaisePreRender">
+            <summary>
+            The raise pre render.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.BaseControl.PageContext">
             <summary>
             Gets PageContext.
@@ -2277,6 +2292,11 @@
              Gets a value indicating whether the current user IsCrawler (True).
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.IsMobileDevice">
+            <summary>
+             Gets a value indicating whether the current user uses a mobile device (True).
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.UserPageBase.PageBoardID">
             <summary>
             Gets PageBoardID.
@@ -3234,6 +3254,21 @@
             The trans page.
             </param>
         </member>
+        <member name="M:YAF.Classes.Core.ForumPage.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaisePreRender">
+            <summary>
+            The raise pre render.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.ForumPage.IsNull(System.String)">
             <summary>
             The is null.
@@ -3660,6 +3695,23 @@
             <summary>
             The yaf date time extensions.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.Format(YAF.Classes.Core.YafDateTime,YAF.Classes.DateTimeFormat,System.Object)">
+            <summary>
+            Format objectDateTime according to the format enum. "[error]" if the value is invalid.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            Formatted datetime or "[error]" if invalid.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateLong(YAF.Classes.Core.YafDateTime,System.Object)">
             <summary>
@@ -4751,9 +4803,9 @@
               Gets NumPosts.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.OverrideDefaultThemes">
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.UseMobileTheme">
             <summary>
-              Gets a value indicating whether OverrideDefaultThemes.
+              Gets a value indicating whether UseMobileTheme.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.PMNotification">
@@ -5765,6 +5817,11 @@
               Gets or sets ActiveTopicSince.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Utils.YafSession.UseMobileTheme">
+            <summary>
+            Gets or sets if the user wants to use the mobile theme.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Utils.YafSession.FavoriteTopicSince">
             <summary>
               Gets or sets FavoriteTopicSince.
@@ -5820,11 +5877,7 @@
               Gets or sets TopicRead.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafSession.UnreadTopics">
-            <summary>
-              Gets or sets UnreadTopics.
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:YAF.Classes.Utils.YafSession.UnreadTopics" -->
         <member name="T:YAF.Classes.Utils.PanelSessionState">
             <summary>
             The panel session state.
@@ -6090,7 +6143,7 @@
         </member>
         <member name="P:YAF.Modules.MobileThemeModule.ForumControlObj">
             <summary>
-            Gets or sets ForumControlObj.
+              Gets or sets ForumControlObj.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Localizer">
@@ -6829,6 +6882,21 @@
         <member name="T:YAF.Classes.Core.BaseUserControl">
             <summary>
             The base user control.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaisePreRender">
+            <summary>
+            The raise pre render.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.BaseUserControl.PageContext">
@@ -7956,6 +8024,11 @@
         <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxQuote2">
             <summary>
             The _rgx quote 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxQuote3">
+            <summary>
+            The _rgx quote 3.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxRight">
@@ -9213,6 +9286,11 @@
             <returns>
             The add favorite topic.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.FavoriteTopicCount(System.Int32)">
+            <summary>
+            The clear favorite topic cache.
+            </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafFavoriteTopic.ClearFavoriteTopicCache">
             <summary>

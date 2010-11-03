@@ -132,7 +132,7 @@
             The get boolean registry value.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pageload.
             </summary>
@@ -171,6 +171,9 @@
             </param>
             <param name="messageID">
             The message id.
+            </param>
+            <param name="isMobileDevice">
+            The browser is a mobile device.
             </param>
             <param name="donttrack">
             The donttrack.
@@ -1988,18 +1991,15 @@
             The message_ remove thanks.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.messagehistory_list(System.Int32,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.messagehistory_list(System.Int32,System.Int32)">
             <summary>
             The messagehistory_list.
             </summary>
-            <param name="messageID">
+            <param name="messageId">
             The Message ID.
             </param>
             <param name="daysToClean">
             Days to clean.
-            </param>
-            <param name="showAll">
-            The Show All.
             </param>
             <returns>
             List of all message changes. 
@@ -3270,6 +3270,14 @@
             The topic id.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.DB.TopicFavoriteCount(System.Int32)">
+            <summary>
+            Get the favorite count for a topic...
+            </summary>
+            <param name="topicId">
+            The topic Id.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Data.DB.replace_words_list(System.Object,System.Object)">
             <summary>
             Gets a list of replace words
@@ -3445,6 +3453,31 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.UserList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Get the user list as a typed list.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="approved">
+            The approved.
+            </param>
+            <param name="groupID">
+            The group id.
+            </param>
+            <param name="rankID">
+            The rank id.
+            </param>
+            <param name="useStyledNicks">
+            The use styled nicks.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.user_simplelist(System.Int32,System.Int32)">
             <summary>
             For URL Rewriting
@@ -3603,11 +3636,14 @@
             <param name="languageFile">
             The language file.
             </param>
+            <param name="culture">
+            the user culture
+            </param>
             <param name="themeFile">
             The theme file.
             </param>
-            <param name="overrideDefaultThemes">
-            The override default themes.
+            <param name="useMobileTheme">
+            The override Mobile Theme.
             </param>
             <param name="approved">
             The approved.
@@ -6619,9 +6655,9 @@
             Gets or sets NumPosts.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.OverrideDefaultThemes">
+        <member name="P:YAF.Classes.Data.TypedUserFind.UseMobileTheme">
             <summary>
-            Gets or sets OverrideDefaultThemes.
+            Gets or sets UseMobileTheme.
             </summary>
         </member>
         <member name="P:YAF.Classes.Data.TypedUserFind.PMNotification">
