@@ -7008,6 +7008,23 @@ namespace YAF.Classes.Data
       }
     }
 
+    /// <summary>
+    /// Get the favorite count for a topic...
+    /// </summary>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    public static int TopicFavoriteCount(int topicId)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("topic_favorite_count"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("TopicID", topicId);
+
+        return YafDBAccess.Current.GetData(cmd).GetFirstRowColumnAsValue("FavoriteCount", 0);
+      }
+    }
+
     #endregion
 
     #region ReplaceWords

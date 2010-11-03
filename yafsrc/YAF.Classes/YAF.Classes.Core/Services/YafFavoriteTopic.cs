@@ -113,6 +113,18 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The clear favorite topic cache.
     /// </summary>
+    public int FavoriteTopicCount(int topicId)
+    {
+      string key =
+        YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
+
+      return
+        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>();
+    }
+
+    /// <summary>
+    /// The clear favorite topic cache.
+    /// </summary>
     public void ClearFavoriteTopicCache()
     {
       // clear for the session
