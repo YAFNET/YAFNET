@@ -122,7 +122,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this.RowConvert.AsBool("AutoWatchTopics") ?? false;
+        return (this.RowConvert.AsBool("AutoWatchTopics") ?? false) || this.RowConvert.AsInt32("NotificationType").ToEnum<UserNotificationSetting>() == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
       }
     }
 

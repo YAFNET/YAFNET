@@ -30,6 +30,7 @@ using System.Web.Security;
 
 namespace YAF.Classes.Data
 {
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   /// <summary>
@@ -7320,6 +7321,46 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
 
         return YafDBAccess.Current.GetData(cmd);
+      }
+    }
+
+    /// <summary>
+    /// Get the user list as a typed list.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="approved">
+    /// The approved.
+    /// </param>
+    /// <param name="groupID">
+    /// The group id.
+    /// </param>
+    /// <param name="rankID">
+    /// The rank id.
+    /// </param>
+    /// <param name="useStyledNicks">
+    /// The use styled nicks.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    public static IEnumerable<TypedUserList> UserList(int boardID, int? userID, bool? approved, int? groupID, int? rankID, bool? useStyledNicks)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("user_list"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("Approved", approved);
+        cmd.Parameters.AddWithValue("GroupID", groupID);
+        cmd.Parameters.AddWithValue("RankID", rankID);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+
+        return YafDBAccess.Current.GetData(cmd).AsEnumerable().Select(x => new TypedUserList(x));
       }
     }
 

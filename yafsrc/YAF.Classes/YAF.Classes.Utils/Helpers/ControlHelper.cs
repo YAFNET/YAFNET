@@ -26,6 +26,7 @@ namespace YAF.Classes.Utils
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes.Interfaces;
   using YAF.Classes.Pattern;
 
   /// <summary>
@@ -43,12 +44,22 @@ namespace YAF.Classes.Utils
     {
       CodeContracts.ArgumentNotNull(control, "control");
 
+      if (control is IRaiseControlLifeCycles)
+      {
+        (control as IRaiseControlLifeCycles).RaiseLoad();
+      }
+
       if (control.Visible)
       {
         using (var stringWriter = new StringWriter())
         {
           using (var writer = new HtmlTextWriter(stringWriter))
           {
+            if (control is IRaiseControlLifeCycles)
+            {
+              (control as IRaiseControlLifeCycles).RaisePreRender();
+            }
+
             control.RenderControl(writer);
             return stringWriter.ToString();
           }
@@ -56,6 +67,29 @@ namespace YAF.Classes.Utils
       }
 
       return String.Empty;
+    }
+
+    /// <summary>
+    /// Renders a control to a string.
+    /// </summary>
+    /// <param name="control"></param>
+    /// <param name="controlPath"></param>
+    /// <returns></returns>
+    [CanBeNull]
+    public static T NewUserControl<T>([NotNull] this UserControl control, [NotNull] string controlPath) where
+      T : UserControl
+    {
+      CodeContracts.ArgumentNotNull(control, "control");
+      CodeContracts.ArgumentNotNull(controlPath, "controlPath");
+
+      var loaded = control.LoadControl(controlPath).ToClass<T>();
+
+      if (loaded != null && loaded is IRaiseControlLifeCycles)
+      {
+        (loaded as IRaiseControlLifeCycles).RaiseInit();
+      }
+
+      return loaded;
     }
 
     /// <summary>

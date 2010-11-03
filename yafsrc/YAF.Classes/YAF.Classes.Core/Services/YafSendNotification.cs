@@ -104,16 +104,17 @@ namespace YAF.Classes.Core
       try
       {
         // user's PM notification setting
-        bool privateMessageNotificationEnabled;
+        bool privateMessageNotificationEnabled = false;
 
         // user's email
-        string toEMail;
+        string toEMail = string.Empty;
 
-        // read user's info from DB
-        using (DataTable dt = DB.user_list(YafContext.Current.PageBoardID, toUserId, true))
+        var userList = DB.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+
+        if (userList.Any())
         {
-          privateMessageNotificationEnabled = (bool)dt.Rows[0]["PMNotification"];
-          toEMail = (string)dt.Rows[0]["EMail"];
+          privateMessageNotificationEnabled = userList.First().PMNotification ?? false;
+          toEMail = userList.First().Email;
         }
 
         if (privateMessageNotificationEnabled)
@@ -126,10 +127,7 @@ namespace YAF.Classes.Core
           // get the PM ID
           // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
           // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-          using (DataTable dt = DB.pmessage_list(toUserId, null, null))
-          {
-            userPMessageId = (int)dt.Rows[0]["UserPMessageID"];
-          }
+          userPMessageId = DB.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
 
           // get the sender e-mail -- DISABLED: too much information...
           // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )

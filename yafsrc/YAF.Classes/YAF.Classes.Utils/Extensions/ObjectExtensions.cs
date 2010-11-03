@@ -40,6 +40,19 @@ namespace YAF.Classes.Utils
     #region Public Methods
 
     /// <summary>
+    /// Provides a chaining action with the object.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    public static T DoWith<T>(this T obj, Action<T> action)
+    {
+      action(obj);
+      return obj;
+    }
+
+    /// <summary>
     /// Converts an object to a type.
     /// </summary>
     /// <param name="value">
@@ -308,6 +321,11 @@ namespace YAF.Classes.Utils
       }
 
       if (Equals(instance, default(T)))
+      {
+        return default(T);
+      }
+
+      if (Equals(instance, DBNull.Value))
       {
         return default(T);
       }

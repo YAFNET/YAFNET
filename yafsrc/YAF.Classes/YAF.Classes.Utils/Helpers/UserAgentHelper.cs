@@ -55,7 +55,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is feed reader.
     /// </returns>
-    public static bool IsFeedReader([NotNull] string userAgent)
+    public static bool IsFeedReader([CanBeNull] string userAgent)
     {
       string[] agentContains = { "Windows-RSS-Platform", "FeedDemon", "Feedreader", "Apple-PubSub" };
 
@@ -73,7 +73,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The true if the UA string patterrn should not be displayed in active users.
     /// </returns>
-    public static bool IsIgnoredForDisplay([NotNull] string userAgent)
+    public static bool IsIgnoredForDisplay([CanBeNull] string userAgent)
     {
       if (userAgent.IsSet())
       {
@@ -94,7 +94,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is mobile device.
     /// </returns>
-    public static bool IsMobileDevice([NotNull] string userAgent)
+    public static bool IsMobileDevice([CanBeNull] string userAgent)
     {
       string[] mobileContains = {
                                   "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", 
@@ -112,7 +112,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is search engine spider.
     /// </returns>
-    public static bool IsSearchEngineSpider([NotNull] string userAgent)
+    public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
     {
       if (userAgent.IsSet())
       {
