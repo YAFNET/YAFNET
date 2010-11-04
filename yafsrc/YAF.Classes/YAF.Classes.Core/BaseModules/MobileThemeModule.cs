@@ -85,36 +85,52 @@ namespace YAF.Modules
     private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // see if this is a mobile device...
-      if (HttpContext.Current != null &&
-          (UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) ||
-           HttpContext.Current.Request.Browser.IsMobileDevice))
-      {
-        var useMobileTheme = YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme ?? true;
+        if (HttpContext.Current == null ||
+            (!UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) &&
+             !HttpContext.Current.Request.Browser.IsMobileDevice)) return;
+
+        // var useMobileTheme = YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme ?? true;
         var fullSite = HttpContext.Current.Request.QueryString.GetFirstOrDefault("fullsite");
 
-        if (fullSite.IsSet() && fullSite.Equals("true"))
+        var userData = new CombinedUserDataHelper(YafContext.Current.PageUserID);
+
+        var useMSelectedbyUser = userData.UseMobileTheme;
+
+        if (fullSite.IsSet() && fullSite.Equals("true") || !useMSelectedbyUser)
         {
-          useMobileTheme = false;
-          YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = false;
+            YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = false;
+          
+            return;
         }
 
         // get the current mobile theme...
         var mobileTheme = YafContext.Current.BoardSettings.MobileTheme;
 
-        if (mobileTheme.IsSet() && useMobileTheme)
+        if (mobileTheme.IsSet())
         {
-          // create a new theme object...
-          var theme = new YafTheme(mobileTheme);
+            // create a new theme object...
+            var theme = new YafTheme(mobileTheme);
 
-          // make sure it's valid...
-          if (YafTheme.IsValidTheme(theme.ThemeFile))
-          {
-            // set new mobile theme...
-            YafContext.Current.InstanceFactory.GetInstance<ThemeHandler>().Theme = theme;
-            YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = true;
-          }
+            // make sure it's valid...
+            if (YafTheme.IsValidTheme(theme.ThemeFile))
+            {
+                // set new mobile theme...
+                YafContext.Current.InstanceFactory.GetInstance<ThemeHandler>().Theme = theme;
+                YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = true;
+            }
+            else
+            {
+                YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = false;
+
+                return;
+            }
         }
-      }
+        else
+        {
+            YafContext.Current.InstanceFactory.GetInstance<YafSession>().UseMobileTheme = false;
+
+            return;
+        }
     }
 
     #endregion

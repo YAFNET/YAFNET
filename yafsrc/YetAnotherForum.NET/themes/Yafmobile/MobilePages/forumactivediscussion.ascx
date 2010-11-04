@@ -27,7 +27,7 @@
                             </td>
                             <asp:PlaceHolder ID="MobileNoShow" runat="server" Visible="false">
                             <td class="post" style="width: 30em; text-align: right;">
-                                <asp:Label ID="LastPostedDateLabel" runat="server" />
+                                <YAF:DisplayDateTime ID="LastPostDate" runat="server" Format="BothTopic" />
                                 <asp:HyperLink ID="ImageMessageLink" runat="server">
                                     <YAF:ThemeImage ID="LastPostedImage" runat="server" LocalizedTitlePage="DEFAULT"
                                         LocalizedTitleTag="GO_LAST_POST" Style="border: 0" />

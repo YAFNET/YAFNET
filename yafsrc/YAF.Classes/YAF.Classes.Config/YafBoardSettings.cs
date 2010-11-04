@@ -1991,7 +1991,7 @@ namespace YAF.Classes
     {
         get
         {
-            return this._reg.GetValue<bool>("ShowQuickSearch", false);
+            return this._reg.GetValue<bool>("ShowQuickSearch", true);
         }
 
         set
