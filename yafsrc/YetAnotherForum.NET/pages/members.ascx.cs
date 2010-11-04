@@ -219,6 +219,26 @@ namespace YAF.Pages
 
       return userListDataTable;
     }
+    /// <summary>
+    /// The get avatar url from id.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The get avatar url from id.
+    /// </returns>
+    protected string GetAvatarUrlFromID(int userID)
+    {
+        string avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(userID);
+
+        if (avatarUrl.IsNotSet())
+        {
+            avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+        }
+
+        return avatarUrl;
+    }
 
     /// <summary>
     /// The bind data.
@@ -270,13 +290,15 @@ namespace YAF.Pages
 
       // create paged data source for the memberlist
       userListDataView.Sort = "{0} {1}".FormatWith(this.ViewState["SortField"], (bool) this.ViewState["SortAscending"] ? "asc" : "desc");
-      var pds = new PagedDataSource();
-      pds.DataSource = userListDataView;
-      pds.AllowPaging = true;
-      pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
-      pds.PageSize = this.Pager.PageSize;
+      var pds = new PagedDataSource
+                    {
+                        DataSource = userListDataView,
+                        AllowPaging = true,
+                        CurrentPageIndex = this.Pager.CurrentPageIndex,
+                        PageSize = this.Pager.PageSize
+                    };
 
-      this.MemberList.DataSource = pds;
+        this.MemberList.DataSource = pds;
       DataBind();
 
       // handle the sort fields at the top

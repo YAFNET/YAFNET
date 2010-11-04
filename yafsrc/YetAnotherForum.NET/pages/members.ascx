@@ -5,11 +5,14 @@
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
-		<td class="header1" colspan="5">
+		<td class="header1" colspan="6">
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
 		</td>
 	</tr>
 	<tr>
+        <td class="header2">
+            Avatar
+        </td>
 		<td class="header2">
 			<img runat="server" id="SortUserName" alt="Sort User Name" style="vertical-align: middle" />
 			<asp:LinkButton runat="server" ID="UserName" OnClick="UserName_Click" /></td>
@@ -28,6 +31,9 @@
 	<asp:Repeater ID="MemberList" runat="server">
 		<ItemTemplate>
 			<tr>
+                <td class="post">
+					 <img src="<%# this.GetAvatarUrlFromID(Convert.ToInt32(Eval("UserID")))%>" alt="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Name").ToString() %>" class="avatarimage" />
+				</td>
 				<td class="post">
 					<YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' Style = '<%# Eval("Style") %>' />
 				</td>

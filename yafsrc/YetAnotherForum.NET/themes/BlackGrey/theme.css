@@ -1071,7 +1071,8 @@ height:80em;
 	}
 
 .topicLastPost .avatarimage,
-.topicMain .avatarimage {
+.topicMain .avatarimage,
+#yafpage_members .avatarimage {
 	float: left;
 	
 	width: 40px;
