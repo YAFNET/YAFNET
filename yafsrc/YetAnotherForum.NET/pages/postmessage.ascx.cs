@@ -407,13 +407,17 @@ namespace YAF.Pages
 
         if (!this.PageContext.IsGuest)
         {
-          this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
+            if (this.PageContext.PageTopicID > 0)
+            {
+                this.PostOptions1.WatchChecked =
+                  this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
+            }
+            else
+            {
+                this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
+            }
         }
-        else if (!this.PageContext.IsGuest && this.PageContext.PageTopicID > 0)
-        {
-          this.PostOptions1.WatchChecked =
-            this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
-        }
+        
 
         if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
             (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
