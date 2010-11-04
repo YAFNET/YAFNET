@@ -78,12 +78,13 @@
     <div class="loggedInUser">
      
         <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith("&nbsp;")%>
-        <%= new UserLabel()
+        <%= new UserLink()
 {
     ID = "UserLoggedIn",
     Visible = !this.PageContext.IsGuest,
     UserID =  this.PageContext.PageUserID,
     CssClass = "currentUser"
+    ,
 }.RenderToString() %>
  </div>
  <%
