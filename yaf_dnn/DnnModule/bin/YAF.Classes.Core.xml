@@ -1274,6 +1274,21 @@
             Summary description for BaseControl.
             </summary>
         </member>
+        <member name="M:YAF.Controls.BaseControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaisePreRender">
+            <summary>
+            The raise pre render.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.BaseControl.PageContext">
             <summary>
             Gets PageContext.
@@ -1466,7 +1481,7 @@
         <member name="T:YAF.Classes.Core.YafSendMailThreaded">
             <summary>
             Separate class since SendThreaded isn't needed functionality
-            for any instance except the <see cref="!:HttpModule"/> instance.
+              for any instance except the <see cref="!:HttpModule"/> instance.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafSendMail">
@@ -1474,120 +1489,23 @@
             Functions to send email via SMTP
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Queue(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Classes.Core.YafSendMail.SendAll(System.Collections.Generic.IEnumerable{System.Net.Mail.MailMessage})">
             <summary>
-            Queues an e-mail message for asynchronous delivery
+            Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
             </summary>
-            <param name="fromEmail">
-            The from Email.
-            </param>
-            <param name="fromName">
-            The from Name.
-            </param>
-            <param name="toEmail">
-            The to Email.
-            </param>
-            <param name="toName">
-            The to Name.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="bodyText">
-            The body Text.
-            </param>
-            <param name="bodyHtml">
-            The body Html.
+            <param name="messages">
+            The messages.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Queue(System.String,System.String,System.String,System.String)">
+        <member name="M:YAF.Classes.Core.YafSendMail.SendAllIsolated(System.Collections.Generic.IEnumerable{System.Net.Mail.MailMessage},System.Action{System.Net.Mail.MailMessage,System.Exception})">
             <summary>
-            Queues an e-mail messagage for asynchronous delivery
+            The send all isolated.
             </summary>
-            <param name="fromEmail">
+            <param name="messages">
+            The messages.
             </param>
-            <param name="toEmail">
-            </param>
-            <param name="subject">
-            </param>
-            <param name="body">
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.String,System.String,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromEmail">
-            The from email.
-            </param>
-            <param name="toEmail">
-            The to email.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="body">
-            The body.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromEmail">
-            The from email.
-            </param>
-            <param name="fromName">
-            The from name.
-            </param>
-            <param name="toEmail">
-            The to email.
-            </param>
-            <param name="toName">
-            The to name.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="body">
-            The body.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromAddress">
-            The from address.
-            </param>
-            <param name="toAddress">
-            The to address.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="bodyText">
-            The body text.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
-            <summary>
-            The send.
-            </summary>
-            <param name="fromAddress">
-            The from address.
-            </param>
-            <param name="toAddress">
-            The to address.
-            </param>
-            <param name="subject">
-            The subject.
-            </param>
-            <param name="bodyText">
-            The body text.
-            </param>
-            <param name="bodyHtml">
-            The body html.
+            <param name="handleExceptionAction">
+            The handle exception action.
             </param>
         </member>
         <member name="M:YAF.Classes.Core.YafSendMailThreaded.SendThreaded(System.Int32)">
@@ -2374,6 +2292,11 @@
              Gets a value indicating whether the current user IsCrawler (True).
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.IsMobileDevice">
+            <summary>
+             Gets a value indicating whether the current user uses a mobile device (True).
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.UserPageBase.PageBoardID">
             <summary>
             Gets PageBoardID.
@@ -2991,6 +2914,44 @@
             Gets or sets Children.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.MailMessageExtensions">
+            <summary>
+            The mail message extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.MailMessageExtensions.Populate(System.Net.Mail.MailMessage,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
+            <summary>
+            The populate.
+            </summary>
+            <param name="mailMessage">
+            The mail message.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.MailMessageExtensions.Send(System.Net.Mail.MailMessage)">
+            <summary>
+            Creates a SmtpClient and sends a MailMessage.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Core.ControlExtensions">
             <summary>
             The control extensions.
@@ -3292,6 +3253,21 @@
             <param name="transPage">
             The trans page.
             </param>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaisePreRender">
+            <summary>
+            The raise pre render.
+            </summary>
         </member>
         <member name="M:YAF.Classes.Core.ForumPage.IsNull(System.String)">
             <summary>
@@ -3719,6 +3695,23 @@
             <summary>
             The yaf date time extensions.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDateTimeExtensions.Format(YAF.Classes.Core.YafDateTime,YAF.Classes.DateTimeFormat,System.Object)">
+            <summary>
+            Format objectDateTime according to the format enum. "[error]" if the value is invalid.
+            </summary>
+            <param name="yafDateTime">
+            The yaf date time.
+            </param>
+            <param name="format">
+            The format.
+            </param>
+            <param name="objectDateTime">
+            The object date time.
+            </param>
+            <returns>
+            Formatted datetime or "[error]" if invalid.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTimeExtensions.FormatDateLong(YAF.Classes.Core.YafDateTime,System.Object)">
             <summary>
@@ -4810,9 +4803,9 @@
               Gets NumPosts.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.OverrideDefaultThemes">
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.UseMobileTheme">
             <summary>
-              Gets a value indicating whether OverrideDefaultThemes.
+              Gets a value indicating whether UseMobileTheme.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.PMNotification">
@@ -5824,6 +5817,11 @@
               Gets or sets ActiveTopicSince.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Utils.YafSession.UseMobileTheme">
+            <summary>
+            Gets or sets if the user wants to use the mobile theme.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Utils.YafSession.FavoriteTopicSince">
             <summary>
               Gets or sets FavoriteTopicSince.
@@ -5879,11 +5877,7 @@
               Gets or sets TopicRead.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafSession.UnreadTopics">
-            <summary>
-              Gets or sets UnreadTopics.
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:YAF.Classes.Utils.YafSession.UnreadTopics" -->
         <member name="T:YAF.Classes.Utils.PanelSessionState">
             <summary>
             The panel session state.
@@ -5926,6 +5920,59 @@
             <summary>
               The collapsed.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafDigest">
+            <summary>
+            The yaf digest.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDigest.GetDigestHtml(System.Int32,System.Int32)">
+            <summary>
+            The get digest html.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The get digest html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDigest.GetDigestUrl(System.Int32,System.Int32)">
+            <summary>
+            The get digest url.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The get digest url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDigest.SendDigest(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends the digest html to the email/name specified.
+            </summary>
+            <param name="digestHtml">
+            The digest html.
+            </param>
+            <param name="forumName">
+            The forum name.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="toName">
+            The to name.
+            </param>
+            <param name="sendQueued">
+            The send queued.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.MIMEPart">
             <summary>
@@ -6096,7 +6143,7 @@
         </member>
         <member name="P:YAF.Modules.MobileThemeModule.ForumControlObj">
             <summary>
-            Gets or sets ForumControlObj.
+              Gets or sets ForumControlObj.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Localizer">
@@ -6837,6 +6884,21 @@
             The base user control.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.YAF#Classes#Interfaces#IRaiseControlLifeCycles#RaisePreRender">
+            <summary>
+            The raise pre render.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.BaseUserControl.PageContext">
             <summary>
               Gets PageContext.
@@ -7014,17 +7076,17 @@
         </member>
         <member name="F:YAF.Classes.Core.MailSendTask._sendMailThreaded">
             <summary>
-            The _send mail threaded.
+              The _send mail threaded.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.MailSendTask._uniqueId">
             <summary>
-            The _unique id.
+              The _unique id.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.MailSendTask.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.MailSendTask"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.MailSendTask"/> class.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.MailSendTask.RunOnce">
@@ -7266,33 +7328,80 @@
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._moduleAppName">
             <summary>
-            The _module app name.
+              The _module app name.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._appInstance">
             <summary>
-            The _app instance.
+              The _app instance.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._lockObject">
             <summary>
-            The _lock object.
+              The _lock object.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._lockTaskManagerObject">
             <summary>
-            The _lock task manager object.
+              The _lock task manager object.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._moduleInitialized">
             <summary>
-            The _module initialized.
+              The _module initialized.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.YafTaskModule._taskManager">
             <summary>
-            The _task manager.
+              The _task manager.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.IsTaskRunning(System.String)">
+            <summary>
+            Check if a Task is Running.
+            </summary>
+            <param name="instanceName">
+            </param>
+            <returns>
+            The is task running.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.StartTask(System.String,YAF.Classes.Core.IBackgroundTask)">
+            <summary>
+            Start a non-running task -- will set the <see cref="T:System.Web.HttpApplication"/> instance.
+            </summary>
+            <param name="instanceName">
+            Unique name of this task
+            </param>
+            <param name="start">
+            Task to run
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.StopTask(System.String)">
+            <summary>
+            Stops a task from running if it's not critical
+            </summary>
+            <param name="instanceName">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.TaskExists(System.String)">
+            <summary>
+            Check if a task exists in the task manager. May not be running.
+            </summary>
+            <param name="instanceName">
+            </param>
+            <returns>
+            The task exists.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.TryGetTask(System.String)">
+            <summary>
+            Attempt to get the instance of the task.
+            </summary>
+            <param name="instanceName">
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.System#Web#IHttpModule#Dispose">
             <summary>
@@ -7306,35 +7415,6 @@
             <param name="httpApplication">
             The http application.
             </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.TryGetTask(System.String)">
-            <summary>
-            Attempt to get the instance of the task.
-            </summary>
-            <param name="instanceName">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.TaskExists(System.String)">
-            <summary>
-            Check if a task exists in the task manager. May not be running.
-            </summary>
-            <param name="instanceName">
-            </param>
-            <returns>
-            The task exists.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.IsTaskRunning(System.String)">
-            <summary>
-            Check if a Task is Running.
-            </summary>
-            <param name="instanceName">
-            </param>
-            <returns>
-            The is task running.
-            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.TryRemoveTask(System.String)">
             <summary>
@@ -7358,46 +7438,29 @@
             The new task.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.StartTask(System.String,YAF.Classes.Core.IBackgroundTask)">
+        <member name="P:YAF.Classes.Core.YafTaskModule.Current">
             <summary>
-            Start a non-running task -- will set the <see cref="T:System.Web.HttpApplication"/> instance.
-            </summary>
-            <param name="instanceName">
-            Unique name of this task
-            </param>
-            <param name="start">
-            Task to run
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTaskModule.StopTask(System.String)">
-            <summary>
-            Stops a task from running if it's not critical
-            </summary>
-            <param name="instanceName"></param>
-        </member>
-        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManager">
-            <summary>
-            Current Page Instance of the Module Manager
+              Gets Current.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskCount">
             <summary>
-            Gets TaskCount.
+              Gets TaskCount.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerSnapshot">
+        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManager">
             <summary>
-            Gets TaskManagerSnapshot.
+              Current Page Instance of the Module Manager
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerInstances">
             <summary>
-            All the names of tasks running.
+              All the names of tasks running.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.YafTaskModule.Current">
+        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerSnapshot">
             <summary>
-            Gets Current.
+              Gets TaskManagerSnapshot.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafDateTime">
@@ -7509,7 +7572,7 @@
         </member>
         <member name="P:YAF.Classes.Core.YafInitializeDb.InitVarName">
             <summary>
-            Gets InitVarName.
+              Gets InitVarName.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.AdminPage">
@@ -7961,6 +8024,11 @@
         <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxQuote2">
             <summary>
             The _rgx quote 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxQuote3">
+            <summary>
+            The _rgx quote 3.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxRight">
@@ -8940,6 +9008,148 @@
             Gets TaskName.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.YafSendMailExtensions">
+            <summary>
+            The yaf send mail extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Queue(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Queues an e-mail message for asynchronous delivery
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            The from Email.
+            </param>
+            <param name="fromName">
+            The from Name.
+            </param>
+            <param name="toEmail">
+            The to Email.
+            </param>
+            <param name="toName">
+            The to Name.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body Text.
+            </param>
+            <param name="bodyHtml">
+            The body Html.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Queue(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String)">
+            <summary>
+            Queues an e-mail messagage for asynchronous delivery
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            </param>
+            <param name="toEmail">
+            </param>
+            <param name="subject">
+            </param>
+            <param name="body">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromEmail">
+            The from email.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="body">
+            The body.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send mail.
+            </param>
+            <param name="fromEmail">
+            The from email.
+            </param>
+            <param name="fromName">
+            The from name.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="toName">
+            The to name.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send Mail.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMailExtensions.Send(YAF.Classes.Core.YafSendMail,System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="sendMail">
+            The send mail.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Core.MigrateUsersTask">
             <summary>
             Run when we want to do migration of users in the background...
@@ -9077,6 +9287,11 @@
             The add favorite topic.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.FavoriteTopicCount(System.Int32)">
+            <summary>
+            The clear favorite topic cache.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.YafFavoriteTopic.ClearFavoriteTopicCache">
             <summary>
             The clear favorite topic cache.
@@ -9125,6 +9340,32 @@
             The syndication item extensions.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,YAF.Classes.Core.YafSyndicationFeed,System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationLink})">
+            <summary>
+            The add syndication item.
+            </summary>
+            <param name="currentList">
+            The current list.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="content">
+            The content.
+            </param>
+            <param name="summary">
+            The summary.
+            </param>
+            <param name="link">
+            The alternate link.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="posted">
+            The posted.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.String,System.DateTime,YAF.Classes.Core.YafSyndicationFeed)">
             <summary>
             The add syndication item.
@@ -9150,9 +9391,14 @@
             <param name="posted">
             The posted.
             </param>
-            <param name="author">
-            The author.
-            </param> 
+        </member>
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.NewSyndicationPerson(System.String,System.Int64)">
+            <summary>
+            Add a new syndication person.
+            </summary>
+            <param name="userEmail">The email.</param>
+            <param name="userId">The user Id.</param>
+            <returns>The SyndicationPerson.</returns>
         </member>
         <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
             <summary>
@@ -9182,13 +9428,14 @@
             Summary description for YafSyndicationFeed.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor(System.String,YAF.Classes.YafRssFeeds,System.Int32)">
+        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor(System.String,YAF.Classes.YafRssFeeds,System.Int32,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafSyndicationFeed"/> class. 
             </summary>
             <param name="subTitle"></param>
-            <param name="feedType">FeedType Atom/Rss</param>
-            <param name="sf"></param>
+            <param name="feedType">The feed source.</param>
+            <param name="sf">The feed type Atom/Rss.</param>
+            <param name="urlAlphaNum">The alphanumerically encoded base site Url.</param>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.NntpConnection">
             <summary>

@@ -1476,6 +1476,163 @@
             The e.
             </param>
         </member>
+        <member name="T:YAF.Pages.Admin.digest">
+            <summary>
+            The digest.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.digest.ForceSend_Click(System.Object,System.EventArgs)">
+            <summary>
+            The force send_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.digest.GenerateDigest_Click(System.Object,System.EventArgs)">
+            <summary>
+            The generate digest_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.digest.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.digest.TestSend_Click(System.Object,System.EventArgs)">
+            <summary>
+            The test send_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.PageLinks">
+            <summary>
+            PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.AdminMenu1">
+            <summary>
+            AdminMenu1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.DigestEnabled">
+            <summary>
+            DigestEnabled control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.LastDigestSendLabel">
+            <summary>
+            LastDigestSendLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.Button2">
+            <summary>
+            Button2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.DigestHtmlPlaceHolder">
+            <summary>
+            DigestHtmlPlaceHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.DigestFrame">
+            <summary>
+            DigestFrame control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.GenerateDigest">
+            <summary>
+            GenerateDigest control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.TextSendEmail">
+            <summary>
+            TextSendEmail control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.SendMethod">
+            <summary>
+            SendMethod control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.TestSend">
+            <summary>
+            TestSend control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.digest.SmartScroller1">
+            <summary>
+            SmartScroller1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="T:YAF.Controls.EditUsersProfile">
             <summary>
             The edit users profile.
@@ -1994,9 +2151,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.EditUsersProfile.OverrideForumThemeRow">
+        <member name="F:YAF.Controls.EditUsersProfile.UseMobileThemeRow">
             <summary>
-            OverrideForumThemeRow control.
+            UseMobileThemeRow control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -2012,9 +2169,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.EditUsersProfile.OverrideDefaultThemes">
+        <member name="F:YAF.Controls.EditUsersProfile.UseMobileTheme">
             <summary>
-            OverrideDefaultThemes control.
+            UseMobileTheme control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -2921,10 +3078,14 @@
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.Pages.profile.LocalizeTabTitles">
+        <member name="M:YAF.Pages.profile.LocalizeTabTitles(System.Int32)">
             <summary>
             The localize tab titles.
             </summary>
+            ///
+            <param name="userID">
+            The user id.
+            </param>
         </member>
         <member name="M:YAF.Pages.profile.SetupAvatar(System.Int32,YAF.Classes.Core.CombinedUserDataHelper)">
             <summary>
@@ -3584,6 +3745,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.profile.LastVisitDateTime">
+            <summary>
+            LastVisitDateTime control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.profile.LocalizedLabel13">
             <summary>
             LocalizedLabel13 control.
@@ -3820,7 +3990,7 @@
         </member>
         <member name="P:YAF.Pages.profile.UserId">
             <summary>
-            Gets or sets UserId.
+              Gets or sets UserId.
             </summary>
         </member>
         <member name="T:YAF.Pages.movetopic">
@@ -4648,9 +4818,9 @@
             Administrative Page for the editting of forum properties.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.editforum.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.editforum.Category_Change(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The category_ change.
             </summary>
             <param name="sender">
             The sender.
@@ -4659,19 +4829,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editforum.BindData">
+        <member name="M:YAF.Pages.Admin.editforum.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.editforum.BindParentList">
-            <summary>
-            The bind parent list.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.editforum.Category_Change(System.Object,System.EventArgs)">
-            <summary>
-            The category_ change.
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -4687,6 +4847,43 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editforum.BindData_AccessMaskID(System.Object,System.EventArgs)">
+            <summary>
+            The bind data_ access mask id.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editforum.SetDropDownIndex(System.Object,System.EventArgs)">
+            <summary>
+            The set drop down index.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editforum.CreateImagesDataTable">
+            <summary>
+            The create images data table.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editforum.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.editforum.BindParentList">
+            <summary>
+            The bind parent list.
+            </summary>
         </member>
         <member name="M:YAF.Pages.Admin.editforum.Save_Click(System.Object,System.EventArgs)">
             <summary>
@@ -4715,36 +4912,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editforum.BindData_AccessMaskID(System.Object,System.EventArgs)">
-            <summary>
-            The bind data_ access mask id.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Pages.Admin.editforum.InitializeComponent">
             <summary>
             The initialize component.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.editforum.SetDropDownIndex(System.Object,System.EventArgs)">
-            <summary>
-            The set drop down index.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.editforum.CreateImagesDataTable">
-            <summary>
-            The create images data table.
             </summary>
         </member>
         <member name="F:YAF.Pages.Admin.editforum.PageLinks">
@@ -5061,9 +5231,18 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.postmessage.Subject">
+        <member name="F:YAF.Pages.postmessage.TopicSubjectLabel">
             <summary>
-            Subject control.
+            TopicSubjectLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.postmessage.TopicSubjectTextBox">
+            <summary>
+            TopicSubjectTextBox control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -5618,6 +5797,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.polledit.tr_AllowMultipleChoices">
+            <summary>
+            tr_AllowMultipleChoices control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.polledit.AllowMultipleChoicesLabel">
+            <summary>
+            AllowMultipleChoicesLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.polledit.AllowMultipleChoicesCheckBox">
+            <summary>
+            AllowMultipleChoicesCheckBox control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.polledit.PollRowExpire">
             <summary>
             PollRowExpire control.
@@ -5767,37 +5973,37 @@
               Table with choices
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.boardId">
+        <member name="F:YAF.Pages.polledit._boardId">
             <summary>
             The board id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.categoryId">
+        <member name="F:YAF.Pages.polledit._categoryId">
             <summary>
             The category id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.choices">
+        <member name="F:YAF.Pages.polledit._choices">
             <summary>
               Table with choices
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.datePollExpire">
+        <member name="F:YAF.Pages.polledit._datePollExpire">
             <summary>
             The date poll expire.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.daysPollExpire">
+        <member name="F:YAF.Pages.polledit._daysPollExpire">
             <summary>
             The days poll expire.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.editBoardId">
+        <member name="F:YAF.Pages.polledit._editBoardId">
             <summary>
             The edit board id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.editCategoryId">
+        <member name="F:YAF.Pages.polledit._editCategoryId">
             <summary>
             The edit category id.
             </summary>
@@ -5807,32 +6013,32 @@
             The edit forum id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.editMessageId">
-            <summary>
-            The edit message id.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.polledit.editTopicId">
+        <member name="F:YAF.Pages.polledit._editTopicId">
             <summary>
             The edit topic id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.forumId">
+        <member name="F:YAF.Pages.polledit._editMessageId">
+            <summary>
+            The edit message id.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.polledit._forumId">
             <summary>
             The forum id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.returnForum">
+        <member name="F:YAF.Pages.polledit._returnForum">
             <summary>
             The return forum.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.topicId">
+        <member name="F:YAF.Pages.polledit._topicId">
             <summary>
             The topic id.
             </summary>
         </member>
-        <member name="F:YAF.Pages.polledit.topicUnapproved">
+        <member name="F:YAF.Pages.polledit._topicUnapproved">
             <summary>
             The topic unapproved.
             </summary>
@@ -5851,14 +6057,21 @@
             The path.
             </param>
         </member>
-        <member name="M:YAF.Pages.polledit.GetRemoteData(System.Uri)">
+        <member name="M:YAF.Pages.polledit.GetRemoteData(System.Uri,System.Int64@,System.String@)">
             <summary>
             The get remote data.
             </summary>
             <param name="url">
             The url.
             </param>
+            <param name="length">
+            The content length in bits.
+            </param>
+            <param name="contentType">
+            The content type.
+            </param>
             <returns>
+            the Stream class.
             </returns>
         </member>
         <member name="M:YAF.Pages.polledit.Cancel_Click(System.Object,System.EventArgs)">
@@ -5872,19 +6085,15 @@
             The event args.
             </param>
         </member>
-        <member name="M:YAF.Pages.polledit.ChangePollShowStatus(System.Boolean)">
-            <summary>
-            The change poll show status.
-            </summary>
-            <param name="newStatus">
-            The new status.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.polledit.GetImageParameters(System.Uri)">
+        <member name="M:YAF.Pages.polledit.GetImageParameters(System.Uri,System.Int64@)">
             <summary>
             From a path, return a byte[] of the image.
             </summary>
             <param name="uriPath">
+            External image path.
+            </param>
+            <param name="length">
+            The image size in bytes.
             </param>
             <returns>
             The get image parameters.
@@ -5975,7 +6184,7 @@
             The can create poll.
             </returns>
         </member>
-        <member name="P:YAF.Pages.polledit.PollID">
+        <member name="P:YAF.Pages.polledit.PollId">
             <summary>
             Gets or sets PollID.
             </summary>
@@ -6162,6 +6371,38 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
+        </member>
+        <member name="M:YAF.Pages.im_email.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Pages.im_email"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.im_email.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.im_email.Send_Click(System.Object,System.EventArgs)">
+            <summary>
+            The send_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Pages.im_email.UserID">
+            <summary>
+            Gets UserID.
+            </summary>
         </member>
         <member name="T:YAF.Pages.cp_signature">
             <summary>
@@ -6731,21 +6972,28 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.ForumStatistics.BirthdayUsers">
+            <summary>
+            BirthdayUsers control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.ForumStatistics.StatsTodaysBirthdays">
+            <summary>
+            StatsTodaysBirthdays control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="M:YAF.Controls.ForumStatistics.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ForumStatistics"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Controls.ForumStatistics"/> class.
             </summary>
-        </member>
-        <member name="M:YAF.Controls.ForumStatistics.ForumStatistics_Load(System.Object,System.EventArgs)">
-            <summary>
-            The forum statistics_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
         </member>
         <member name="M:YAF.Controls.ForumStatistics.FormatActiveUsers(System.Data.DataRow)">
             <summary>
@@ -6757,6 +7005,28 @@
             <returns>
             The format active users.
             </returns>
+        </member>
+        <member name="M:YAF.Controls.ForumStatistics.GetUserAge(System.DateTime)">
+            <summary>
+            Get the Users age
+            </summary>
+            <param name="Birthdate">
+            Birthdate of the User
+            </param>
+            <returns>
+            The Age
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ForumStatistics.ForumStatistics_Load(System.Object,System.EventArgs)">
+            <summary>
+            The forum statistics_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="T:YafWebService">
             <summary>
@@ -6824,7 +7094,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.rsstopic.GetPostLatestContent(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:YAF.Pages.rsstopic.GetPostLatestContent(System.String,System.String,System.String,System.String,System.String,System.Int32,System.Boolean)">
             <summary>
             The method to return latest topic content to display in a feed.
             </summary>
@@ -6904,6 +7174,20 @@
             <param name="lastPostIcon">The icon for last post link.</param>
             <param name="lastPostName">The last post name.</param>
             <param name="categoryActiveId"></param>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.FormatUrlForFeed(System.String)">
+            <summary>
+            Format the Url to an URN compatible string
+            </summary>
+            <param name="InputUrl">Input Url to format</param>
+            <returns>Formatted url</returns>
+        </member>
+        <member name="M:YAF.Pages.rsstopic.GetMediaLinks(System.Int32)">
+            <summary>
+            The helper function gets media enclosure links for a post
+            </summary>
+            <param name="messageId">The MessageId with attached files.</param>
+            <returns></returns>
         </member>
         <member name="T:YAF.Pages.emailtopic">
             <summary>
@@ -7170,9 +7454,9 @@
             Summary description for ranks.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.nntpforums.Delete_Load(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The delete_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -7181,9 +7465,20 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.Delete_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.nntpforums.NewForum_Click(System.Object,System.EventArgs)">
             <summary>
-            The delete_ load.
+            The new forum_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.nntpforums.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -7207,31 +7502,6 @@
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.NewForum_Click(System.Object,System.EventArgs)">
-            <summary>
-            The new forum_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.nntpforums.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
         </member>
         <member name="F:YAF.Pages.Admin.nntpforums.PageLinks">
             <summary>
@@ -7451,6 +7721,15 @@
         <member name="F:YAF.Pages.Admin.editrank.PageLinks">
             <summary>
             PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.AdminMenu1">
+            <summary>
+            AdminMenu1 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -11020,6 +11299,231 @@
             The e.
             </param>
         </member>
+        <member name="T:YAF.controls.PollChoiceList">
+            <summary>
+            PollList Class
+            </summary>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.GetImageHeight(System.Object)">
+            <summary>
+            The get image height.
+            </summary>
+            <param name="mimeType">
+            The mime type.
+            </param>
+            <returns>
+            Returnes image height.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.GetPollQuestion">
+            <summary>
+            The get poll question.
+            </summary>
+            <returns>
+            Returns poll question string.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.GetThemeContents(System.String,System.String)">
+            <summary>
+            Get Theme Contents
+            </summary>
+            <param name="page">
+            The Localization Page.
+            </param>
+            <param name="tag">
+            The Localisation Page Tag.
+            </param>
+            <returns>
+            Returns Theme Content.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.GetTotal(System.Object)">
+            <summary>
+            The get total.
+            </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
+            <returns>
+            Returns total string.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event.
+            </summary>
+            <param name="sender">
+            The event sender.
+            </param>
+            <param name="e">
+            The EventArgs e.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            The poll_ item command.
+            </summary>
+            <param name="source">
+            The object source.
+            </param>
+            <param name="e">
+            The RepeaterCommandEventArgs e.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.Poll_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+            <summary>
+            The poll_ on item data bound.
+            </summary>
+            <param name="source">
+            The event source.
+            </param>
+            <param name="e">
+            The RepeaterItemEventArgs e.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.RemovePollCompletely_Load(System.Object,System.EventArgs)">
+            <summary>
+            The remove poll_ completely load.
+            </summary>
+            <param name="sender">
+            The object sender.
+            </param>
+            <param name="e">
+            The EventArgs e.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.RemovePoll_Load(System.Object,System.EventArgs)">
+            <summary>
+            The remove poll_ load.
+            </summary>
+            <param name="sender">
+            The object sender.
+            </param>
+            <param name="e">
+            The EventArgs e.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.VoteWidth(System.Object)">
+            <summary>
+            The vote width.
+            </summary>
+            <param name="o">
+            The object o.
+            </param>
+            <returns>
+            Returns the vote width.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.GetImageAspect(System.Object)">
+            <summary>
+            Returns an image width|height ratio.
+            </summary>
+            <param name="mimeType">
+            The mime type of the image.
+            </param>
+            <returns>
+            The get image aspect.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.GetPollIsClosed">
+            <summary>
+            The get poll is closed.
+            </summary>
+            <returns>
+            Returns a 'poll is closed' warning string.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.PollHasNoVotes(System.Object)">
+            <summary>
+            Checks if a poll has no votes.
+            </summary>
+            <param name="pollId">
+            The poll id.
+            </param>
+            <returns>
+            The poll has no votes.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollChoiceList.VotingCookieName(System.Int32)">
+            <summary>
+            Gets VotingCookieName.
+            </summary>
+            <param name="pollId">
+            The poll Id.
+            </param>
+            <returns>
+            The voting cookie name.
+            </returns>
+        </member>
+        <member name="F:YAF.controls.PollChoiceList.Poll">
+            <summary>
+            Poll control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="E:YAF.controls.PollChoiceList.ChoiceVoted">
+            <summary>
+              The event bubbles info to parent control to rebind repeater.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.CanVote">
+            <summary>
+              Gets or sets a value indicating whether user can vote
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.ChoiceId">
+            <summary>
+              Gets or sets the Choice Id array.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.DataSource">
+            <summary>
+              Gets or sets the data source.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.DaysToRun">
+            <summary>
+              Gets or sets number of  days to run.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.HideResults">
+            <summary>
+              Gets or sets a value indicating whether to hide results.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.IsClosed">
+            <summary>
+              Gets or sets a value indicating whether parent topic IsClosed
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.IsLocked">
+            <summary>
+              Gets or sets a value indicating whether parent topic IsLocked
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.MaxImageAspect">
+            <summary>
+              Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.PollId">
+            <summary>
+              Gets or sets the PollId for the choices.
+            </summary>
+        </member>
+        <member name="P:YAF.controls.PollChoiceList.Votes">
+            <summary>
+              Gets or sets number of votes.
+            </summary>
+        </member>
         <member name="T:YAF.Pages.search">
             <summary>
             Summary description for topics.
@@ -12409,6 +12913,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.DisplayPost.DisplayDateTime">
+            <summary>
+            DisplayDateTime control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.DisplayPost.Thank">
             <summary>
             Thank control.
@@ -13782,6 +14295,27 @@
             The bind data.
             </summary>
         </member>
+        <member name="T:YAF.Modules.TimeAgoModule">
+            <summary>
+            The time ago module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.TimeAgoModule.InitBeforePage">
+            <summary>
+            The init before page.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.TimeAgoModule.PageContext_PageLoad(System.Object,System.EventArgs)">
+            <summary>
+            The page context_ page load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="T:YAF.Controls.ForumList">
             <summary>
             Summary description for ForumList.
@@ -14346,9 +14880,9 @@
             Summary description for editgroup.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.editnntpforum.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.editnntpforum.Cancel_Click(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+            The cancel_ click.
             </summary>
             <param name="sender">
             The sender.
@@ -14357,14 +14891,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.editnntpforum.BindData">
+        <member name="M:YAF.Pages.Admin.editnntpforum.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.editnntpforum.Cancel_Click(System.Object,System.EventArgs)">
-            <summary>
-            The cancel_ click.
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -14383,6 +14912,11 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.editnntpforum.BindData">
+            <summary>
+            The bind data.
+            </summary>
         </member>
         <member name="F:YAF.Pages.Admin.editnntpforum.PageLinks">
             <summary>
@@ -15014,6 +15548,111 @@
         <member name="P:YAF.Controls.AlbumImageList._coverImageID">
             <summary>
               The _cover image id.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Mobile.TopicLine">
+            <summary>
+            The topic line.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Mobile.TopicLine._row">
+            <summary>
+              The _row.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create pager for post.
+            </summary>
+            <param name="count">
+            The count.
+            </param>
+            <param name="pageSize">
+            The page Size.
+            </param>
+            <param name="topicID">
+            The topic ID.
+            </param>
+            <returns>
+            The create post pager.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.FormatReplies">
+            <summary>
+            The format replies.
+            </summary>
+            <returns>
+            The format replies.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
+            <summary>
+            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+            </summary>
+            <param name="row">
+            Current Topic Data Row
+            </param>
+            <returns>
+            Topic status text
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.GetTopicImage(System.Object,System.String@)">
+            <summary>
+            The get topic image.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <param name="imgTitle">
+            The img title.
+            </param>
+            <returns>
+            The get topic image.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.FormatViews">
+            <summary>
+            The format views.
+            </summary>
+            <returns>
+            The format views.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.Mobile.TopicLine.MakeLink(System.String,System.String)">
+            <summary>
+            The make link.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <returns>
+            The make link.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.Mobile.TopicLine.DataRow">
+            <summary>
+              Sets DataRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Mobile.TopicLine.FindUnread">
+            <summary>
+              Gets or sets a value indicating whether FindUnread.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Mobile.TopicLine.IsAlt">
+            <summary>
+              Gets or sets a value indicating whether IsAlt.
             </summary>
         </member>
         <member name="T:YAF.YafResourceHandler">
@@ -15930,6 +16569,17 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.cp_subscriptions.PagerTop_PageChange(System.Object,System.EventArgs)">
+            <summary>
+            The pager top_ page change.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.cp_subscriptions.SaveUser_Click(System.Object,System.EventArgs)">
             <summary>
             The save user_ click.
@@ -16176,6 +16826,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.cp_subscriptions.PagerTop">
+            <summary>
+            PagerTop control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.cp_subscriptions.LocalizedLabel6">
             <summary>
             LocalizedLabel6 control.
@@ -16233,6 +16892,15 @@
         <member name="F:YAF.Pages.cp_subscriptions.UnsubscribeTopics">
             <summary>
             UnsubscribeTopics control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.PagerBottom">
+            <summary>
+            PagerBottom control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -16674,6 +17342,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.cp_editalbumimages.imagesInfo">
+            <summary>
+            imagesInfo control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.cp_editalbumimages.Back">
             <summary>
             Back control.
@@ -16954,29 +17631,39 @@
             PollList Class
             </summary>
         </member>
+        <member name="F:YAF.controls.PollList._groupNotificationString">
+            <summary>
+              The group Notification String.
+            </summary>
+        </member>
         <member name="F:YAF.controls.PollList._canChange">
             <summary>
               The _canChange.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._canVote">
+        <member name="F:YAF.controls.PollList._dtAllPollGroupVotes">
             <summary>
-              The _canVote. Used to store data from parent repeater.
+              The _dt Votes.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dtPoll">
+        <member name="F:YAF.controls.PollList._dtPollAllChoices">
             <summary>
               The _dt poll.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dtPollGroup">
+        <member name="F:YAF.controls.PollList._dtPollGroupAllChoices">
             <summary>
               The _dt PollGroup.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dtVotes">
+        <member name="F:YAF.controls.PollList._isBound">
             <summary>
-              The _dt Votes.
+              The isBound.
+            </summary>
+        </member>
+        <member name="F:YAF.controls.PollList._isVoteEvent">
+            <summary>
+              The IsVoteEvent
             </summary>
         </member>
         <member name="F:YAF.controls.PollList._showResults">
@@ -16984,34 +17671,10 @@
               The _showResults. Used to store data from parent repeater.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList.isBound">
-            <summary>
-              The isBound.
-            </summary>
-        </member>
-        <member name="F:YAF.controls.PollList.isClosedBound">
-            <summary>
-              The isClosedBound.
-            </summary>
-        </member>
-        <member name="F:YAF.controls.PollList.topicUser">
+        <member name="F:YAF.controls.PollList._topicUser">
             <summary>
               The topic User.
             </summary>
-        </member>
-        <member name="M:YAF.controls.PollList.GetThemeContents(System.String,System.String)">
-            <summary>
-            Get Theme Contents
-            </summary>
-            <param name="page">
-            The Page
-            </param>
-            <param name="tag">
-            Tag
-            </param>
-            <returns>
-            Content
-            </returns>
         </member>
         <member name="M:YAF.controls.PollList.CanCreatePoll">
             <summary>
@@ -17041,7 +17704,7 @@
         </member>
         <member name="M:YAF.controls.PollList.CanRemoveGroupCompletely">
             <summary>
-            Checks if  a user can remove all polls in a group completely. 
+            Checks if  a user can remove all polls in a group completely.
             </summary>
             <returns>
             The can remove group completely.
@@ -17073,17 +17736,6 @@
             </param>
             <returns>
             The can remove poll completely.
-            </returns>
-        </member>
-        <member name="M:YAF.controls.PollList.CanVote(System.Object)">
-            <summary>
-            Property to verify if the current user can vote in this poll.
-            </summary>
-            <param name="pollId">
-            The poll Id.
-            </param>
-            <returns>
-            The can vote.
             </returns>
         </member>
         <member name="M:YAF.controls.PollList.DaysToRun(System.Object,System.Boolean@)">
@@ -17133,6 +17785,20 @@
             The get poll question.
             </returns>
         </member>
+        <member name="M:YAF.controls.PollList.GetThemeContents(System.String,System.String)">
+            <summary>
+            Get Theme Contents
+            </summary>
+            <param name="page">
+            The Page
+            </param>
+            <param name="tag">
+            Tag
+            </param>
+            <returns>
+            Content
+            </returns>
+        </member>
         <member name="M:YAF.controls.PollList.GetTotal(System.Object)">
             <summary>
             The get total.
@@ -17144,12 +17810,21 @@
             The get total.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.IsNotVoted(System.Object)">
+        <member name="M:YAF.controls.PollList.IsNotVoted(System.Int32,System.Boolean,System.Nullable{System.Int32}[]@,System.Boolean@)">
             <summary>
             The is not voted.
             </summary>
             <param name="pollId">
             The poll id.
+            </param>
+            <param name="allowManyChoices">
+            The allow Many Choices.
+            </param>
+            <param name="pollChoices">
+            The poll Choices.
+            </param>
+            <param name="hasVote">
+            The has Vote.
             </param>
             <returns>
             The is not voted.
@@ -17171,8 +17846,10 @@
             Page_Load
             </summary>
             <param name="sender">
+            The object sender.
             </param>
             <param name="e">
+            The EventArgs e.
             </param>
         </member>
         <member name="M:YAF.controls.PollList.PollGroup_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
@@ -17187,28 +17864,6 @@
         <member name="M:YAF.controls.PollList.PollGroup_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
             The PollGroup item command.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.controls.PollList.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
-            <summary>
-            The poll_ item command.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.controls.PollList.Poll_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
-            <summary>
-            The poll_ on item data bound.
             </summary>
             <param name="source">
             The source.
@@ -17239,16 +17894,16 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.VoteWidth(System.Object)">
+        <member name="M:YAF.controls.PollList.VoteBubbleEvent(System.Object,System.EventArgs)">
             <summary>
-            The vote width.
+            The event initiated in PollChoiceList.
             </summary>
-            <param name="o">
-            The o.
+            <param name="sender">
+            The object sender.
             </param>
-            <returns>
-            The vote width.
-            </returns>
+            <param name="e">
+            The EventArgs e.
+            </param>
         </member>
         <member name="M:YAF.controls.PollList.VotingCookieName(System.Int32)">
             <summary>
@@ -17271,6 +17926,25 @@
             The get image aspect.
             </returns>
         </member>
+        <member name="M:YAF.controls.PollList.AddPollButtonConfirmations(System.Web.UI.WebControls.RepeaterItem,System.Int32)">
+            <summary>
+            The methods add poll manipulatation confirmation pop-ups to button actions.
+            </summary>
+            <param name="ri">
+            The RepeaterItem ri.
+            </param>
+            <param name="pollId">
+            The poll Id.
+            </param>
+        </member>
+        <member name="M:YAF.controls.PollList.AddPollGroupButtonConfirmations(System.Web.UI.WebControls.RepeaterItem)">
+            <summary>
+            The methods add poll group manipulatation confirmation pop-ups to button actions.
+            </summary>
+            <param name="ri">
+            The RepeaterItem ri.
+            </param>
+        </member>
         <member name="M:YAF.controls.PollList.BindCreateNewPollRow">
             <summary>
             The bind create new poll row.
@@ -17281,6 +17955,17 @@
             The bind data.
             </summary>
         </member>
+        <member name="M:YAF.controls.PollList.BindPollQuestionImage(System.Web.UI.WebControls.RepeaterItem,System.Data.DataRowView)">
+            <summary>
+            Adds custom or standard image to poll question.
+            </summary>
+            <param name="item">
+            The RepeaterItem item.
+            </param>
+            <param name="drowv">
+            The DataRowView drowv.
+            </param>
+        </member>
         <member name="M:YAF.controls.PollList.HasOwnerExistingGroupAccess">
             <summary>
             The has owner existing group access.
@@ -17289,10 +17974,26 @@
             The has owner existing group access.
             </returns>
         </member>
+        <member name="M:YAF.controls.PollList.HasVoteAccess(System.Object)">
+            <summary>
+            The method to return if a user already voted
+            </summary>
+            <param name="pollId">
+            The pollId value.
+            </param>
+            <returns>
+            Return True if a user has voted.
+            </returns>
+        </member>
+        <member name="M:YAF.controls.PollList.LoadData">
+            <summary>
+            Handles page controls after an event.
+            </summary>
+        </member>
         <member name="M:YAF.controls.PollList.ParamsToSend">
             <summary>
             A method to return parameters string. 
-            Consrtucts parameters string to send to other forms.
+              Consrtucts parameters string to send to other forms.
             </summary>
             <returns>
             The params to send.
@@ -17312,13 +18013,6 @@
             <summary>
             Returns user to the original call page.
             </summary>
-        </member>
-        <member name="M:YAF.controls.PollList.HasVoteAccess(System.Object)">
-            <summary>
-            The method to return if a user already voted
-            </summary>
-            <param name="pollId">The pollId value.</param>
-            <returns>Return True if a user has voted.</returns>
         </member>
         <member name="F:YAF.controls.PollList.PollGroup">
             <summary>
@@ -17349,74 +18043,74 @@
         </member>
         <member name="P:YAF.controls.PollList.BoardId">
             <summary>
-            Gets or sets BoardId
+              Gets or sets BoardId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.CategoryId">
             <summary>
-            Gets or sets CategoryId
+              Gets or sets CategoryId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditBoardId">
             <summary>
-            Gets or sets EditBoardId.
-            Used to return to edit board page.
-            Currently is not implemented.
+              Gets or sets EditBoardId.
+              Used to return to edit board page.
+              Currently is not implemented.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditCategoryId">
             <summary>
-            Gets or sets EditCategoryId
+              Gets or sets EditCategoryId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditForumId">
             <summary>
-            Gets or sets EditForumId
+              Gets or sets EditForumId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.EditMessageId">
             <summary>
-            Gets or sets EditMessageId.
+              Gets or sets EditMessageId.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.ForumId">
             <summary>
-            Gets or sets ForumId
+              Gets or sets ForumId
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.IsLocked">
             <summary>
-            Gets or sets IsLocked
+              Gets or sets a value indicating whether the parent topic is locked.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.MaxImageAspect">
             <summary>
-            Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
+              Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PollGroupId">
             <summary>
-            Gets or sets PollGroupID
+              Gets or sets PollGroupID
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PollNumber">
             <summary>
-            Gets or sets PollNumber
+              Gets or sets PollNumber
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.PostEdit">
             <summary>
-            Gets or sets if we are editing a post
+              Gets or sets a value indicating whether  we are editing a post
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.ShowButtons">
             <summary>
-            Gets or sets ShowButtons
+              Gets or sets a value indicating whether show poll management buttons.
             </summary>
         </member>
         <member name="P:YAF.controls.PollList.TopicId">
             <summary>
-            Gets or sets TopicId
+              Gets or sets TopicId
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumWelcome">
@@ -19597,6 +20291,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersAvatar.noteRemote">
+            <summary>
+            noteRemote control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersAvatar.UpdateRemote">
             <summary>
             UpdateRemote control.
@@ -19627,6 +20330,15 @@
         <member name="F:YAF.Controls.EditUsersAvatar.File">
             <summary>
             File control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersAvatar.noteLocal">
+            <summary>
+            noteLocal control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -20482,7 +21194,7 @@
         <member name="T:YAF.Pages.Admin.users">
             <summary>
             Summary description for members.
-            </summary>    
+            </summary>
         </member>
         <member name="F:YAF.Pages.Admin.users.PageLinks">
             <summary>
@@ -20637,44 +21349,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="M:YAF.Pages.Admin.users.CreatePageLinks">
-            <summary>
-            Creates navigation page links on top of forum (breadcrumbs).
-            </summary>       
-        </member>
-        <member name="M:YAF.Pages.Admin.users.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.users.UserList_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
-            <summary>
-            The user list_ item command.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.Admin.users.Since_SelectedIndexChanged(System.Object,System.EventArgs)">
-            <summary>
-            The since_ selected index changed.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Pages.Admin.users.Delete_Load(System.Object,System.EventArgs)">
             <summary>
             The delete_ load.
@@ -20697,6 +21371,17 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.Admin.users.UserList_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            The user list_ item command.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.Admin.users.search_Click(System.Object,System.EventArgs)">
             <summary>
             The search_ click.
@@ -20708,9 +21393,55 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.Admin.users.BitSet(System.Object,System.Int32)">
+            <summary>
+            The bit set.
+            </summary>
+            <param name="_o">
+            The _o.
+            </param>
+            <param name="bitmask">
+            The bitmask.
+            </param>
+            <returns>
+            The bit set boolean value.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.users.CreatePageLinks">
+            <summary>
+            Creates navigation page links on top of forum (breadcrumbs).
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.users.InitSinceDropdown">
+            <summary>
+            Initializes dropdown with options to filter results by date.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.users.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.Admin.users.PagerTop_PageChange(System.Object,System.EventArgs)">
             <summary>
             The pager top_ page change.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.users.Since_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            The since_ selected index changed.
             </summary>
             <param name="sender">
             The sender.
@@ -20745,25 +21476,6 @@
             <summary>
             The bind data.
             </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.users.InitSinceDropdown">
-            <summary>
-            Initializes dropdown with options to filter results by date.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.users.BitSet(System.Object,System.Int32)">
-            <summary>
-            The bit set.
-            </summary>
-            <param name="_o">
-            The _o.
-            </param>
-            <param name="bitmask">
-            The bitmask.
-            </param>
-            <returns>
-            The bit set boolean value.
-            </returns>
         </member>
         <member name="T:YAF.Pages.Admin.test_data">
             <summary>
@@ -22099,7 +22811,7 @@
         </member>
         <member name="T:YAF.Pages.Admin.editlanguage">
             <summary>
-            Administrative Page for the editting of forum properties.
+            Administrative Page for the editing of forum properties.
             </summary>
         </member>
         <member name="F:YAF.Pages.Admin.editlanguage.PageLinks">
@@ -22243,14 +22955,12 @@
             The Cleaned List
             </returns>
         </member>
-        <member name="M:YAF.Pages.Admin.editlanguage.TextBoxTextChanged(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.Admin.editlanguage.LocalizedTextCheck(System.Object,System.Web.UI.WebControls.ServerValidateEventArgs)">
             <summary>
             Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
             </summary>
-            <param name="sender">
-            </param>
-            <param name="e">
-            </param>
+            <param name="sender"></param>
+            <param name="args"></param>
         </member>
         <member name="M:YAF.Pages.Admin.editlanguage.OnInit(System.EventArgs)">
             <summary>
@@ -22416,6 +23126,33 @@
             The yaf header.
             </summary>
         </member>
+        <member name="F:YAF.Controls.YafHeader.quickSearch">
+            <summary>
+            quickSearch control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.searchInput">
+            <summary>
+            searchInput control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.YafHeader.doQuickSearch">
+            <summary>
+            doQuickSearch control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="M:YAF.Controls.YafHeader.GetReturnUrl">
             <summary>
             The get return url.
@@ -22427,6 +23164,17 @@
         <member name="M:YAF.Controls.YafHeader.Page_Load(System.Object,System.EventArgs)">
             <summary>
             The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.YafHeader.QuickSearchClick(System.Object,System.EventArgs)">
+            <summary>
+            Do Quick Search
             </summary>
             <param name="sender">
             The sender.
@@ -23647,6 +24395,17 @@
             the e.
             </param>
         </member>
+        <member name="M:YAF.Controls.AlbumList.Albums_ItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+            <summary>
+            Show a Random Cover if none is Set
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Controls.AlbumList.BindData">
             <summary>
             The bind data.
@@ -23655,6 +24414,15 @@
         <member name="F:YAF.Controls.AlbumList.AlbumHeaderLabel">
             <summary>
             AlbumHeaderLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.AlbumList.albumsInfo">
+            <summary>
+            albumsInfo control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -26089,6 +26857,140 @@
             The e.
             </param>
         </member>
+        <member name="T:YAF.Controls.TopicLine">
+            <summary>
+            The topic line.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.TopicLine._altLastPost">
+            <summary>
+              The last post tooltip string.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create pager for post.
+            </summary>
+            <param name="count">
+            The count.
+            </param>
+            <param name="pageSize">
+            The page Size.
+            </param>
+            <param name="topicID">
+            The topic ID.
+            </param>
+            <returns>
+            The create post pager.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.FormatReplies">
+            <summary>
+            The format replies.
+            </summary>
+            <returns>
+            The format replies.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
+            <summary>
+            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+            </summary>
+            <param name="row">
+            Current Topic Data Row
+            </param>
+            <returns>
+            Topic status text
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetTopicImage(System.Object,System.String@)">
+            <summary>
+            The get topic image.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <param name="imgTitle">
+            The img title.
+            </param>
+            <returns>
+            The get topic image.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.FormatViews">
+            <summary>
+            The format views.
+            </summary>
+            <returns>
+            The format views.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetAvatarUrlFromID(System.Int32)">
+            <summary>
+            The get avatar url from id.
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <returns>
+            The get avatar url from id.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String)">
+            <summary>
+            The make link.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <returns>
+            The make link.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.TopicRow">
+            <summary>
+              The TopicRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.AltLastPost">
+            <summary>
+              Gets or sets Alt.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.DataRow">
+            <summary>
+              Sets DataRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.FindUnread">
+            <summary>
+              Gets or sets a value indicating whether FindUnread.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.IsAlt">
+            <summary>
+              Gets or sets a value indicating whether IsAlt.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.ShowTopicPosted">
+            <summary>
+              Gets or sets a value indicating whether ShowTopicPosted.
+            </summary>
+        </member>
         <member name="F:YAF.Controls.EditUsersResetPass.PasswordUpdatePanel">
             <summary>
             PasswordUpdatePanel control.
@@ -26647,9 +27549,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.pmessage.Subject">
+        <member name="F:YAF.Pages.pmessage.PmSubjectTextBox">
             <summary>
-            Subject control.
+            PmSubjectTextBox control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -27024,9 +27926,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.ForumLastPost.LastPosted">
+        <member name="F:YAF.Controls.ForumLastPost.LastPostDate">
             <summary>
-            LastPosted control.
+            LastPostDate control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -27042,19 +27944,14 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.ForumLastPost._dataRow">
-            <summary>
-            The _data row.
-            </summary>
-        </member>
         <member name="F:YAF.Controls.ForumLastPost._alt">
             <summary>
-            The Go to last post Image ToolTip.
+              The Go to last post Image ToolTip.
             </summary>
         </member>
         <member name="M:YAF.Controls.ForumLastPost.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ForumLastPost"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Controls.ForumLastPost"/> class.
             </summary>
         </member>
         <member name="M:YAF.Controls.ForumLastPost.ForumLastPost_PreRender(System.Object,System.EventArgs)">
@@ -27068,14 +27965,14 @@
             The e.
             </param>
         </member>
-        <member name="P:YAF.Controls.ForumLastPost.DataRow">
-            <summary>
-            Gets or sets DataRow.
-            </summary>
-        </member>
         <member name="P:YAF.Controls.ForumLastPost.Alt">
             <summary>
-            Gets or sets Alt.
+              Gets or sets Alt.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ForumLastPost.DataRow">
+            <summary>
+              Gets or sets DataRow.
             </summary>
         </member>
         <member name="T:YAF.Pages.Albums">
@@ -28082,6 +28979,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowRelativeTime">
+            <summary>
+            ShowRelativeTime control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AddDynamicPageMetaTags">
             <summary>
             AddDynamicPageMetaTags control.
@@ -28316,6 +29222,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowMultipleChoices">
+            <summary>
+            AllowMultipleChoices control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AllowUsersHidePollResults">
             <summary>
             AllowUsersHidePollResults control.
@@ -28328,6 +29243,24 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AllowGuestsViewPollOptions">
             <summary>
             AllowGuestsViewPollOptions control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowUsersImagedPoll">
+            <summary>
+            AllowUsersImagedPoll control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.PollImageMaxFileSize">
+            <summary>
+            PollImageMaxFileSize control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28415,9 +29348,54 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowPostsFeeds">
+        <member name="F:YAF.Pages.Admin.hostsettings.PostsFeedAccess">
             <summary>
-            ShowPostsFeeds control.
+            PostsFeedAccess control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.PostLatestFeedAccess">
+            <summary>
+            PostLatestFeedAccess control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ForumFeedAccess">
+            <summary>
+            ForumFeedAccess control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.TopicsFeedAccess">
+            <summary>
+            TopicsFeedAccess control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ActiveTopicFeedAccess">
+            <summary>
+            ActiveTopicFeedAccess control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.FavoriteTopicFeedAccess">
+            <summary>
+            FavoriteTopicFeedAccess control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -29468,6 +30446,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowQuickSearch">
+            <summary>
+            ShowQuickSearch control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.Save">
             <summary>
             Save control.
@@ -29553,6 +30540,11 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
+        </member>
+        <member name="F:YAF.Pages.messagehistory.singleReport">
+            <summary>
+              To save single report value.
+            </summary>
         </member>
         <member name="F:YAF.Pages.messagehistory.forumID">
             <summary>
@@ -29733,6 +30725,11 @@
             Gets DisablePageManagerScrollJs.
             </summary>
         </member>
+        <member name="P:YAF.Utilities.JavaScriptBlocks.TimeagoLoadJs">
+            <summary>
+            Gets TimeagoLoadJs.
+            </summary>
+        </member>
         <member name="P:YAF.Utilities.JavaScriptBlocks.LightBoxLoadJs">
             <summary>
             Gets LightBoxLoadJs.
@@ -29870,6 +30867,19 @@
             </summary>
         </member>
         <member name="M:YAF.Modules.ExampleBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.UserLinkBBCodeModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.UserLinkBBCodeModule"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UserLinkBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
             </summary>
@@ -30158,19 +31168,6 @@
             <summary>
             Gets Description.
             </summary>
-        </member>
-        <member name="M:YAF.Modules.UserLinkBBCodeModule.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Modules.UserLinkBBCodeModule"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.UserLinkBBCodeModule.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
         </member>
     </members>
 </doc>

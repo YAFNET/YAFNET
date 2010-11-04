@@ -125,6 +125,41 @@
             Gets UserDisplayNameType.
             </summary>
         </member>
+        <member name="T:YAF.Classes.DateTimeFormat">
+            <summary>
+            The date time format.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.DateTimeFormat.Both">
+            <summary>
+            The both.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.DateTimeFormat.BothDateShort">
+            <summary>
+            The both date short.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.DateTimeFormat.Time">
+            <summary>
+            The time.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.DateTimeFormat.DateShort">
+            <summary>
+            The date short.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.DateTimeFormat.DateLong">
+            <summary>
+            The date long.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.DateTimeFormat.BothTopic">
+            <summary>
+            The both topic.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.SearchFieldFlags">
             <summary>
             The search field flags.
@@ -232,37 +267,37 @@
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.LatestPosts">
             <summary>
-            The latest posts.
+              The latest posts.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.LatestAnnouncements">
             <summary>
-            The latest announcements.
+              The latest announcements.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.Posts">
             <summary>
-            The posts.
+              The posts.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.Forum">
             <summary>
-            The forum.
+              The forum.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.Topics">
             <summary>
-            The topics.
+              The topics.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.Active">
             <summary>
-            The active.
+              The active.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafRssFeeds.Favorite">
             <summary>
-            The favorite.
+              The favorite.
             </summary>
         </member>
         <member name="T:YAF.Classes.YafSyndicationFormats">
@@ -272,12 +307,12 @@
         </member>
         <member name="F:YAF.Classes.YafSyndicationFormats.Rss">
             <summary>
-            The RSS format.
+              The RSS format.
             </summary>
         </member>
         <member name="F:YAF.Classes.YafSyndicationFormats.Atom">
             <summary>
-            The atom format.
+              The atom format.
             </summary>
         </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1">
@@ -669,6 +704,11 @@
             </summary>
         </member>
         <member name="F:YAF.Classes.Constants.Cache.FavoriteTopicList">
+            <summary>
+            The favorite topic list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.FavoriteTopicCount">
             <summary>
             The favorite topic list.
             </summary>
@@ -2062,6 +2102,11 @@
             Gets WithOIDs.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.SqlCommandTimeout">
+            <summary>
+            Current BoardID -- default is 1.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.ForumPages">
             <summary>
             List of all pages available in the YAF forum
@@ -2612,6 +2657,31 @@
             The admin_restartapp.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.admin_digest">
+            <summary>
+            Digest Admin page
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Interfaces.IRaiseControlLifeCycles">
+            <summary>
+            The i raise control life cycles.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IRaiseControlLifeCycles.RaiseInit">
+            <summary>
+            The raise init.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IRaiseControlLifeCycles.RaiseLoad">
+            <summary>
+            The raise load.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IRaiseControlLifeCycles.RaisePreRender">
+            <summary>
+            The raise pre render.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">
             <summary>
             The type board application factory instance.
@@ -2791,6 +2861,36 @@
             Gets or sets ServerTimeCorrection.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PostLatestFeedAccess">
+            <summary>
+            Gets or sets PostLatestFeedAccess.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PostsFeedAccess">
+            <summary>
+            Gets or sets PostsFeedAccess.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.TopicsFeedAccess">
+            <summary>
+            Gets or sets TopicsFeedAccess.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ForumFeedAccess">
+            <summary>
+            Gets or sets ForumFeedAccess.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ActiveTopicFeedAccess">
+            <summary>
+            Gets or sets ActiveTopicFeedAccess.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.FavoriteTopicFeedAccess">
+            <summary>
+            Gets or sets FavoriteTopicFeedAccess.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AvatarWidth">
             <summary>
             Gets or sets AvatarWidth.
@@ -2864,6 +2964,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.AllowedPollNumber">
             <summary>
             Gets or sets AllowedPollNumber.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PollImageMaxFileSize">
+            <summary>
+            Gets or sets PollImageMaxFileSize.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.CaptchaTypeRegister">
@@ -3136,9 +3241,24 @@
             Gets or sets AllowUsersHidePollResults. 
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowRelativeTime">
+            <summary>
+            Gets or sets the if relative times are used on the forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowMultipleChoices">
+            <summary>
+            Gets or sets AllowMultipleChoices. 
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowGuestsViewPollOptions">
             <summary>
             Gets or sets AllowGuestsViewPollOptions. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUsersImagedPoll">
+            <summary>
+            Gets or sets AllowUsersImagedPoll. 
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AvatarUpload">
@@ -3181,11 +3301,6 @@
             Gets or sets a value indicating whether ShowAtomLink.
             </summary>
         </member>
-        <member name="P:YAF.Classes.YafBoardSettings.ShowPostsFeeds">
-            <summary>
-            Gets or sets a value indicating whether ShowPostsFeeds.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowPageGenerationTime">
             <summary>
             Gets or sets a value indicating whether ShowPageGenerationTime.
@@ -3219,6 +3334,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.ExternalSearchInNewWindow">
             <summary>
             Gets or sets a value indicating whether ExternalSearchInNewWindow.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowQuickSearch">
+            <summary>
+            Gets or sets a value indicating whether Enable Quick Search.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.RemoveNestedQuotes">
@@ -3371,16 +3491,6 @@
         <member name="P:YAF.Classes.YafBoardSettings.EnableAlbum">
             <summary>
             Gets or sets a value indicating whether EnableAlbum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.AlbumsMax">
-            <summary>
-            Gets or sets AlbumsMax.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.AlbumImagesNumberMax">
-            <summary>
-            Gets or sets AlbumImagesNumberMax.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AlbumImagesSizeMax">

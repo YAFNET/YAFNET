@@ -4,849 +4,6 @@
         <name>DNA.UI.JQuery</name>
     </assembly>
     <members>
-        <member name="T:DNA.UI.JQuery.Slider">
-            <summary>
-            The Slider is a web control encapsulated the jQuery UI slider plugin.There are
-            various properties such as multiple handles, and ranges. The handle can be moved with
-            the mouse or the arrow keys.
-            </summary>
-            <remarks>
-            When a value is chosen using the Slider, it is automatically persisted during
-            full or partial postbacks. The developer can continue to reference the asp:TextBox to
-            get and set the Slider's value.
-            </remarks>
-            <example>
-            	<code lang="ASP.NET" title="Slider Properties">
-            		<![CDATA[
-            <DotNetAge:Slider ID="MySlider" 
-               AutoPostBack="false"
-               BoundControlID="Textbox1"
-               BoundControlID1="Textbox2"
-               Maximum="100"
-               Minimum="0"
-               OnClientSliding=""
-               OnClientStartSliding=""
-               OnClientStopSliding=""
-               OnClientValueChanged=""
-               Orientation="Horizontal"
-               Range="Both"
-               Step="1"
-               Value="0"
-               Value1="-1"
-               Width="300"
-            />]]>
-            	</code>
-            </example>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.BoundControlID">
-            <summary>
-            Gets/Sets the Bounding Control ID for Slider that when slider's change the bounding controls value changed too.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.BoundControlID1">
-            <summary>
-            Gets/Sets the Bounding Control ID1 for Slider that when slider's change the bounding controls value1 changed too.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.EnabledAnimate">
-            <summary>
-             Gets/Sets whether to slide handle smoothly when user click outside handle on the bar.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Maximum">
-            <summary>
-            Gets/Sets the maximum value of the slider.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Minimum">
-            <summary>
-            Gets/Sets the minimum value of the slider.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Orientation">
-            <summary>
-            Gets/Sets the Silder's Orientaion
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Step">
-            <summary>
-            Gets/Sets the size or amount of each interval or step the slider takes between min and max. 
-            </summary>
-            <remarks>
-            The full specified value range of the slider (max - min) needs to be evenly divisible by the step.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Range">
-            <summary>
-             Gets/Sets the slider's range,if this property set the slider will detect if you have two handles and 
-             create a stylable  range element between these two. Two other possible values are 'Min' and 'Max'.
-             A Min range goes from the slider Min to one handle. A max range goes from one handle to the 
-             slider max.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Value">
-            <summary>
-            Gets/Sets the value of the slider, if there's only one handle. 
-            If there is more than one handle, determines the value of the first handle.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Value1">
-            <summary>
-             This property can be used to specify multiple handles. If range is set to true, the length of 'values' should be 2.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.AutoPostBack">
-            <summary>
-            Gets/Sets the silder can be post the client changed to server
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.OnClientStartSliding">
-            <summary>
-            Gets/Sets the start client event handler.
-            </summary>
-            <remarks>This event is triggered when the user starts sliding</remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.OnClientSliding">
-            <summary>
-            Gets/Sets the slide client event handler.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.OnClientValueChanged">
-            <summary>
-            Gets/Sets the change client event handler.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.OnClientStopSliding">
-            <summary>
-            Gets/Sets the stop client event handler.
-            </summary>
-        </member>
-        <member name="E:DNA.UI.JQuery.Slider.ValueChanged">
-            <summary>
-            When slider's value changed this event will trigger.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Width">
-            <summary>
-            Gets/Sets the Slider width just only avalidable for Horizontal mode
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.Height">
-            <summary>
-            Gets/Sets the Slider height just only avalidable for Vertical mode
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Slider.ToolTip">
-            <summary>
-             Slider has no tooltip
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Animate.Easing">
-            <summary>
-            Gets/Sets the easing plugin Method of the Animation
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Animate.Attributes">
-            <summary>
-            Gets the Attribute Collection of the Animation
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Animate.Animates">
-            <summary>
-            Gets/Sets the animation sequence of this animation
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Animate.SpeedValue">
-            <summary>
-            Gets/Sets the animation/effect speed value
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Animate.Speed">
-            <summary>
-            Gets/Sets the animation/effect speed value by string
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.Tabs">
-            <summary>
-            Tabs is a ASP.NET WebControl that encapsulated the jQuery UI tabs plugin.Tabs are
-            generally used to break content into multiple sections that can be swapped to save
-            space, much like an Accordion.
-            </summary>
-            <remarks>
-            	<para>By default a Tabs will swap between tabbed sections onClick, but the events
-                can be changed to onHover through an property. Tab content can be loaded via Ajax
-                by setting an NavigateUrl on a View Control.</para>
-            </remarks>
-            <example>
-            	<code lang="ASP.NET" title="Tabs properties">
-            		<![CDATA[
-            <DotNetAge:Tabs ID="MyTabs"
-                 ActiveTabEvent="Click"
-                 AsyncLoad="false"
-                 AutoPostBack="false"
-                 Collapsible="false"
-                 ContentCssClass=""
-                 ContentStyle=""
-                 Deselectable="false"
-                 EnabledContentCache="false"
-                 HeaderCssClass=""
-                 HeaderStyle=""
-                 Height="300"
-                 OnClientTabAdd=""
-                 OnClientTabDisabled=""
-                 OnClientTabEnabled=""
-                 OnClientTabLoad=""
-                 OnClientTabRemove=""
-                 OnClientTabSelected=""
-                 OnClientTabShow=""
-                 SelectedIndex="0"
-                 Sortable="false"
-                 Spinner=""
-                 Width="300"
-            >
-               <Animations>
-                   <DotNetAge:AnimationAttribute AnimationType="opacity" Value="toggle" />
-                   <DotNetAge:AnimationAttribute AnimationType="height" Value="toggle" />
-               </Animations>
-               <Views>
-                  <DotNetAge:View Text=""
-                        ID="View1"
-                        NavigateUrl=""
-                        HeaderCssClass=""
-                        HeaderStyle=""
-                        Target="_blank">
-                        <p>View is content is here</p>
-                  </DotNetAge:View>
-                  ...
-                  <DotNetAge:View />
-               </Views>
-            </DotNetAge:Tabs>]]>
-            	</code>
-            </example>
-        </member>
-        <member name="T:DNA.UI.JQuery.JQueryMultiViewControl">
-            <summary>
-            The MultiView Base Class
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.AutoPostBack">
-            <summary>
-            Gets/Sets the ViewControl whether can post back the event to server
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.Views">
-            <summary>
-            Gets the View Colleciton of the jQueryMultiViewControl
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.HeaderStyle">
-            <summary>
-            Gets/Sets the header style for views
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.ContentStyle">
-            <summary>
-            Gets/Sets the content style
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.ContentCssClass">
-            <summary>
-            Gets/Sets the view content style class
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.HeaderCssClass">
-            <summary>
-            Ges/Sets the header style class
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.SelectedIndex">
-            <summary>
-            Gets/Sets the active view control's index
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.EnabledContentCache">
-            <summary>
-            Gets/Sets Whether or not to cache remote tabs content.
-            </summary>
-            <remarks>
-            e.g. load only once or with every click. 
-            Cached content is being lazy loaded, e.g once and only once for the first click. 
-            Note that to prevent the actual Ajax requests from being cached by the browser you need 
-            to provide an extra cache: false flag to ajaxOptions.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.AsyncLoad">
-            <summary>
-            Gets/Sets the AJAX async load mode.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.ActiveTabEvent">
-            <summary>
-            Gets/Sets the active tab's event
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.Collapsible">
-            <summary>
-            Gets/Sets whether tabs allow an already selected tab to become unselected again upon reselection.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.Sortable">
-            <summary>
-            Gets/Sets the tabs can be Sortable if this property is set the sortable plugin will be used
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.Deselectable">
-            <summary>
-            Gets/Sets whether the tabs can be select
-            </summary>
-            <remarks>deprecated in jQuery UI 1.7, use collapsible.</remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.SelectedIndex">
-            <summary>
-             Gets/Sets the current selected tab's index
-            </summary>
-            <remarks>Zero-based index of the tab to be selected on initialization. To set all tabs to nselected pass -1 as value.</remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.Spinner">
-            <summary>
-            Gets/Sets the HTML content of this string is shown in a tab title while remote content is loading. 
-            </summary>
-            <remarks>
-            Pass in empty string to deactivate that behavior.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabLoad">
-             <summary>
-            Gets/Sets the tabs client load event handler.
-             </summary>
-             <remarks>This event is triggered after the content of a remote tab has been loaded.</remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabShow">
-            <summary>
-            Gets/Sets the tabs client show event handler.
-            </summary>
-            <remarks>
-            This event is triggered when a tab is shown.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabAdd">
-            <summary>
-            Gets/Sets the tabs add event handler.
-            </summary>
-            <remarks>
-            This event is triggered when a tab is added
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabRemove">
-            <summary>
-            Gets/Sets the tab remove event handler.
-            </summary>
-            <remarks>
-            This event is triggered when a tab is removed.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabSelected">
-            <summary>
-            Gets/Sets the tabs client tab selected event handler.
-            </summary>
-            <remarks>
-            This event is triggered when a tab is selected.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabEnabled">
-            <summary>
-            Gets/Sets the tabs client enabled event handler.
-            </summary>
-            <remarks>
-            This event is triggered when a tab is enabled.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabDisabled">
-            <summary>
-            Gets/Sets the tabs client disabled event handler.
-            </summary>
-            <remarks>
-            This event is triggered when a tab is disable.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Tabs.Animations">
-            <summary>
-            Gets the animation attribute Collection of the tab hide and show
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.Sortable">
-            <summary>
-            Sortable is a ASP.NET WebControl that encapsulat the jQuery UI resizable it makes
-            selected controls sortable by dragging with the mouse.
-            </summary>
-            <remarks>
-            	<para>All ClientEvents receive two arguments: The original browser event and a
-                prepared ui object, view below for a documentation of this object:</para>
-            	<list type="bullet">
-            		<item>ui.helper - the current helper element (most often a clone of the
-                    item)</item>
-            		<item>ui.position - current position of the helper</item>
-            		<item>ui.offset - current absolute position of the helper</item>
-            		<item>ui.item - the current dragged element * ui.placeholder - the placeholder
-                    (if you defined one)</item>
-            		<item>ui.sender - the sortable where the item comes from (only exists if you
-                    move from one connected list to another)</item>
-            	</list>
-            </remarks>
-            <example>
-            	<code lang="ASP.NET" title="Sortable control's properties">
-            		<![CDATA[
-            <DotNetAge:Sortable ID="MySortable"
-                AllowDropOnEmpty="true"
-                AutoScroll="true"
-                Container="Parent"
-                Cursor="move"
-                DragHelper="Clone"
-                DragHelperOpacity="0.5"
-                DragOrientation="Both"
-                DragStartDelay="0"
-                DragStartDistance="0"
-                ForceHelperSize="true"
-                ForcePlaceholderSize="true"
-                OnClientSort="javascript puts there"
-                OnClientSortActivate=""
-                OnClientSortBeforeStop=""
-                OnClientSortChange=""
-                OnClientSortDeactivate=""
-                OnClientSortOut=""
-                OnClientSortOver=""
-                OnClientSortReceive=""
-                OnClientSortRemove=""
-                OnClientSortStart=""
-                OnClientSortStop=""
-                OnClientSortUpdate=""
-                PlaceHolderCssClass="placeholder"
-                Revert="true"
-                ScrollSensitivity="10"
-                ScrollSpeed="100"
-                SnapX="10"
-                SnapY="10"
-                Tolerance="Pointer"
-                ZIndex="1000"
-            >
-                  <Target TargetIDs="ControlID1, ... ,ControlIDn" 
-                             Selector=".ui-widget-header" TargetID="ControlID" />
-                  <ConnectWith />
-                  <ContainsIn />
-                  <CursorPosition Bottom="0" Left="0" Right="0" Top="0" />
-                  <DisableDraggingElements />
-                  <DragHandler />
-                  <DisableSortableItems />
-            </DotNetAge:Sortable>]]>
-            	</code>
-            </example>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.Target">
-            <summary>
-            Gets/Sets which control to apply draggable
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DisableDraggingElements">
-            <summary>
-            Gets/Sets prevents dragging from starting on specified Controls/Elements.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DragHandler">
-            <summary>
-             Gets/Sets restricts drag start click to the specified Controls/Elements
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DragHelper">
-            <summary>
-            Gets/Sets a helper element to be used for dragging display.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.Container">
-            <summary>
-            Constrains dragging to within the bounds of the specified element.
-            Possible string values: 'parent', 'document', 'window'
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.ContainsIn">
-            <summary>
-            Gets/Sets the Control/Element constrains dragging to within the bounds of the specified Control/Element.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.AutoScroll">
-            <summary>
-            Gets/Sets whether container auto-scrolls while dragging.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.ScrollSensitivity">
-            <summary>
-            Gets/Sets distance in pixels from the edge of the viewport after which the viewport should scroll. 
-            Distance is relative to pointer, not the draggable.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DragOrientation">
-            <summary>
-            Gets/Sets constrains dragging to either the horizontal or vertical axis or both of them.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DragStartDelay">
-            <summary>
-            Gets/Sets time in milliseconds after mousedown until dragging should start.
-            </summary>
-            <remarks>
-            This Property can be used to prevent unwanted drags when clicking on an element.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DragStartDistance">
-             <summary>
-             Gets/Sets DragDistance in pixels after mousedown the mouse must move before dragging should start. 
-             </summary>
-            <remarks>
-             This Property can be used to prevent unwanted drags when clicking on an element.
-             </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.Cursor">
-            <summary>
-            The css cursor during the drag operation.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.CursorPosition">
-            <summary>
-            Moves the dragging helper so the cursor always appears to drag from the same position. 
-            Coordinates can be given as a hash using a combination of one or two keys: { Top, Left, Right, Bottom }.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.SnapX">
-            <summary>
-            Gets/Sets snaps the dragging helper to a grid  every x pixels
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.SnapY">
-            <summary>
-            Gets/Sets snaps the dragging helper to a grid  every y pixels
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.ScrollSpeed">
-            <summary>
-            Gets/Sets the speed at which the window should scroll once the mouse pointer gets within the 
-            scrollSensitivity distance.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.DragHelperOpacity">
-            <summary>
-            Gets/Sets opacity for the helper while being dragged.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DraggableBase.ZIndex">
-            <summary>
-            Gets/Sets z-index for the helper while being dragged.
-            </summary>
-        </member>
-        <member name="M:DNA.UI.JQuery.Sortable.ApplyTo(System.Web.UI.Control)">
-            <summary>
-            Apply the jQuery sortable plugin to the target control
-            </summary>
-            <param name="control">the instance of the target control</param>
-            <returns>the Sortable instance which have been created will return.</returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.Sortable.ApplyTo(System.Web.UI.Control[])">
-            <summary>
-            Apply the jQuery sortable plugin to the target controls
-            </summary>
-            <param name="control">the instances of the target controls</param>
-            <returns>the Sortable instance which have been created will return.</returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.Sortable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
-            <summary>
-             Apply the jQuery sortable plugin to the specify WebControls/HtmlElements by jQuery server side selector
-            </summary>
-            <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
-            <param name="selector"> jQuery server side selctor instance</param>
-            <returns>the Sortable instance which have been created will return.</returns>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.DisableSortableItems">
-            <summary>
-            Specifies which items inside the element should be sortable.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.ConnectWith">
-            <summary>
-            Takes a jQuery selector with items that also have sortables applied. 
-            If used, the sortable is now connected to the other one-way, so you can drag from 
-            this sortable to the other.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.AllowDropOnEmpty">
-            <summary>
-            Gets/Sets whether empty allows for an item to be dropped from a linked selectable.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.ForceHelperSize">
-            <summary>
-            Gets/Sets whether forces the helper to have a size.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.ForcePlaceholderSize">
-            <summary>
-            Gets/Sets forces the placeholder to have a size.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.PlaceHolderCssClass">
-            <summary>
-            Gets/Sets css class that gets applied to the otherwise white space.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.Revert">
-            <summary>
-            Gets/Sets whether the item will be reverted to its new DOM position with a smooth animation.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.Tolerance">
-            <summary>
-            This is the way the reordering behaves during drag. Possible values: 'Intersect', 'Pointer'. 
-            In some setups, 'Pointer' is more natural.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortStart">
-            <summary>
-            This event is triggered when sorting starts.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSort">
-            <summary>
-            This event is triggered during sorting.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortChange">
-            <summary>
-            This event is triggered during sorting, but only when the DOM position has changed.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortBeforeStop">
-            <summary>
-            This event is triggered when sorting stops, but when the placeholder/helper is still available.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortStop">
-            <summary>
-            This event is triggered when sorting has stopped.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortUpdate">
-            <summary>
-            This event is triggered when the user stopped sorting and the DOM position has changed.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortReceive">
-            <summary>
-            This event is triggered when a connected sortable list has received an item from another list
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortRemove">
-            <summary>
-            This event is triggered when a sortable item has been dragged out from the list and into another
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortOver">
-            <summary>
-            This event is triggered when a sortable item is moved into a connected list
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortOut">
-            <summary>
-            This event is triggered when a sortable item is moved away from a connected list
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortActivate">
-            <summary>
-            This event is triggered when using connected lists, every connected list on drag start receives it
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortDeactivate">
-            <summary>
-            This event is triggered when sorting was stopped, is propagated to all possible connected lists
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.EffectBase.SpeedValue">
-            <summary>
-            Gets/Sets the animation/effect speed value
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.EffectBase.Speed">
-            <summary>
-            Gets/Sets the animation/effect speed value by string
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.EffectBase.Target">
-            <summary>
-            Gets/Sets which control that the effect apply to
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.EffectBase.Trigger">
-            <summary>
-            Gets/Sets which control to trigger the effect
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.EffectBase.TriggerEvent">
-            <summary>
-            Gets/Sets the trigger event type
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Effect.EffectMethod">
-            <summary>
-            Gets/Sets the effect method
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Effect.EffectType">
-            <summary>
-            Gets/Sets the effect type
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Effect.OnClientCallBack">
-            <summary>
-            Gets/Sets the Effect client call back event handler
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Effect.Attributes">
-            <summary>
-            Gets the Attribute Collection of the Animation
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.DroppableTolerances.Intersect">
-            <summary>
-            draggable overlaps the droppable at least 50%
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.DroppableTolerances.Pointer">
-            <summary>
-            mouse pointer overlaps the droppable
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.DroppableTolerances.Fit">
-            <summary>
-            draggable overlaps the droppable entirely
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.DroppableTolerances.Touch">
-            <summary>
-            draggable overlaps the droppable any amount
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DialogButton.CommandName">
-            <summary>
-            Gets/Sets the command name
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DialogButton.CommandArgument">
-            <summary>
-            Gets/Sets the command arguments
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DialogButton.OnClientClick">
-            <summary>
-            Gets/Sets the Button's client event handler
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.DialogButton.Text">
-            <summary>
-            Gets/Sets the display text of button
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.JQueryPlugin">
-            <summary>
-            	<para>JQueryPlugin is a WebContorl that manages the jQuery script libraries and
-                script files.It gernates the script for jQuery plugins just like this :
-                $(selector).name(options);</para>
-            	<list type="bullet">
-            		<item>Target property is <a href="http://wiki.dotnetage.com/JQueryServerSideSelector.ashx">JQuery Sever Side
-                    Selector</a> to apply the jQuery plugin to one or more WebControls.</item>
-            		<item>Name property use to specify the jQuery plugin name.</item>
-            		<item>The Options collection property hold all the option parameters of the
-                    jQuery plugin options of needs.</item>
-            		<item>StartEvent property tell JQueryPlugin when jQuery scripts run
-                    at.(ApplicationLoad,ApplicationInit,DocumentDeady)</item>
-            	</list>
-            </summary>
-            <remarks>
-            	<para>There are some suggestions of using jQuery plugin(s) in ASP.NET though
-                JQueryPlugin WebControl</para>
-            	<list type="bullet">
-            		<item></item>
-            		<item>If the jQuery plugin has a few options i suggest to use JQueryPlugin
-                    WebControl this is the best choice for you.</item>
-            		<item>When the jQuery plugins option has over more then 10,and the plugin has
-                    it own HtmlElements or need some server side function supports i suggest to
-                    using the DNA.UI framework to write a jQuery UI WebControl for this jQuery
-                    plugin.</item>
-            		<item>When the jQuery plugin options has over more than 10 and it has none ui
-                    but it using frequently,i suggest to write the jQuery None UI WebControl by
-                    using DNA.UI framework.</item>
-            	</list>
-            	<para></para>
-            </remarks>
-            <example>
-            	<code lang="ASP.NET" title="Apply jQuery.ui.resizable to a Panel Control">
-            		<![CDATA[
-            <asp:Panel id="Panel1" runat="server"></asp:Panel>
-            <DotNetAge:JQueryPlugin runat="Server"
-              ID="ResizablePlugin"
-              Name="resizable"
-            >
-              <Target TargetID="Panel1" />
-              <PlugInScripts>
-                <Script Name="jQuery.ui.resizable" Assembly="jQuery" />
-              </PlugInScripts>
-            </DotNetAge:JQueryPlugin>]]>
-            	</code>
-            </example>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryPlugin.StartEvent">
-            <summary>
-            Gets/Sets the event which the plugin start in.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryPlugin.Name">
-            <summary>
-            Gets/Sets the plugin name that jQuery script using
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryPlugin.Target">
-            <summary>
-            Gets/Sets the which control plugin apply to. 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryPlugin.Options">
-            <summary>
-            Gets/Sets the options of the plugin
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.JQueryPlugin.PlugInScripts">
-            <summary>
-            Gets/Sets the scriptreferences of the plugin use
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.AccordionSizeModes">
-            <summary>
-            The growth of the Accordion
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.AccordionSizeModes.None">
-            <summary>
-            The Accordion grows/shrinks without restriction. 
-            This can cause other elements on your page to move up and down with it.
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.AccordionSizeModes.Fill">
-            <summary>
-            The Accordion always stays the exact same size as its Height property. 
-            This will cause the content to be expanded or shrunk if it isn't the right size.
-            </summary>
-        </member>
-        <member name="F:DNA.UI.JQuery.AccordionSizeModes.Limit">
-            <summary>
-            The Accordion never grows larger than the value specified by its Height property. 
-            This will cause the content to scroll if it is too large to be displayed.
-            </summary>
-        </member>
         <member name="T:DNA.UI.JQuery.Dialog">
             <summary>
              The Dialog is a web control encapsulated the jQuery UI dialog plugin. A Dialog is a floating window that contains a title bar and a content area. 
@@ -1199,143 +356,34 @@
             When the dialog button click this event will be trigged
             </summary>
         </member>
-        <member name="T:DNA.UI.JQuery.DateName">
+        <member name="P:DNA.UI.JQuery.Animate.Easing">
             <summary>
-            DateName object reparents the name of the date
+            Gets/Sets the easing plugin Method of the Animation
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.DateName.Name">
+        <member name="P:DNA.UI.JQuery.Animate.Attributes">
             <summary>
-            Gets/Sets the name of the date
+            Gets the Attribute Collection of the Animation
             </summary>
         </member>
-        <member name="T:DNA.UI.JQuery.View">
+        <member name="P:DNA.UI.JQuery.Animate.Animates">
             <summary>
-             View Control is a Container Control can be use inside Accordion or Tab Control.
+            Gets/Sets the animation sequence of this animation
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.View.ParentContainer">
+        <member name="P:DNA.UI.JQuery.Animate.SpeedValue">
             <summary>
-            Gets the View 's Container Control
+            Gets/Sets the animation/effect speed value
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.View.IsSelected">
+        <member name="P:DNA.UI.JQuery.Animate.Speed">
             <summary>
-            Gets whether the view is selected
+            Gets/Sets the animation/effect speed value by string
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.View.HeaderStyle">
+        <member name="P:DNA.UI.JQuery.FadeTo.Opacity">
             <summary>
-            Gets/Sets the view header css style string.The ShowHeader Property must be set to true.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.View.HeaderCssClass">
-            <summary>
-            Gets/Sets the View Header's css class
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.View.ShowHeader">
-            <summary>
-            Gets/Sets if the view show's it's header
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.View.Text">
-            <summary>
-            Gets/Sets the view's header title text
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.View.NavigateUrl">
-            <summary>
-            Gets/Sets when set the view header naviage url
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.View.Target">
-            <summary>
-            Gets/Sets when click the view header which the window open to
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.AutoPostBack">
-            <summary>
-            Gets/Sets the ViewControl whether can post back the event to server
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.Items">
-            <summary>
-            Gets/Sets the NavItemCollection of the NavView
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.Target">
-            <summary>
-            Gets/Sets when click the item which the window open to.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.ItemCssClass">
-            <summary>
-            Gets/Sets the item style class
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.ItemStyle">
-            <summary>
-            Gets/Sets the item style
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.ShowItemIcon">
-            <summary>
-            Gets/Sets whether NavItem can show icon
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.ItemIconClass">
-            <summary>
-            Gets/Sets the itemicon style class
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavView.ItemHoverCssClass">
-            <summary>
-            Gets/Sets the item hover style class
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.Progressbar">
-            <summary>
-            The progress bar is designed to simply display the current % complete 
-            for a process and can be animated by updating the current values over time. 
-            The bar is coded to be flexibly sized through CSS and will scale to fit inside it's parent container by default. 
-            </summary>
-            <remarks>
-            This is a determinate progress bar, meaning that it should only be used in situations 
-            where the system can accurately update the current status complete. A determinate progress bar should
-            never fill from left to right, then loop back to empty for a single process -- if the actual percent complete status
-            cannot be calculated, an indeterminate progress bar (coming soon) or spinner animation is 
-            a better way to provide user feedback. 
-            </remarks>
-        </member>
-        <member name="E:DNA.UI.JQuery.Progressbar.ValueChanged">
-            <summary>
-            Triggered when the progressbar 's value changed
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Progressbar.Value">
-            <summary>
-            Gets/Sets the value of the progressbar.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Progressbar.OnClientValueChanged">
-            <summary>
-            Gets/Sets the client change event handler
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Progressbar.ShowPercentage">
-            <summary>
-            Gets/Sets whether the Progressbar can show the percentage label
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Progressbar.PercentageLabelStyle">
-            <summary>
-            Gets/Sets the percentage label style
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Progressbar.Resizable">
-            <summary>
-            Gets/Sets whether the Progressbar can resizable
+            Gets/Sets the opacity of the fadeTo animation
             </summary>
         </member>
         <member name="T:DNA.UI.JQuery.Accordion">
@@ -1391,6 +439,46 @@
             </DotNetAge:Accordion>]]>
             	</code>
             </example>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQueryMultiViewControl">
+            <summary>
+            The MultiView Base Class
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.AutoPostBack">
+            <summary>
+            Gets/Sets the ViewControl whether can post back the event to server
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.Views">
+            <summary>
+            Gets the View Colleciton of the jQueryMultiViewControl
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.HeaderStyle">
+            <summary>
+            Gets/Sets the header style for views
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.ContentStyle">
+            <summary>
+            Gets/Sets the content style
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.ContentCssClass">
+            <summary>
+            Gets/Sets the view content style class
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.HeaderCssClass">
+            <summary>
+            Ges/Sets the header style class
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryMultiViewControl.SelectedIndex">
+            <summary>
+            Gets/Sets the active view control's index
+            </summary>
         </member>
         <member name="M:DNA.UI.JQuery.Accordion.OnInit(System.EventArgs)">
             <summary>
@@ -1513,124 +601,1387 @@
             </summary>
             <param name="component"></param>
         </member>
-        <member name="T:DNA.UI.JQuery.Selectable">
+        <member name="M:DNA.UI.JQuery.NavItemCollection.#ctor(DNA.UI.JQuery.NavView)">
             <summary>
-            	<div id="overview-main">
-            		<para>Selectable is a ASP.NET WebControl that encapsulat the jQuery UI selectable
-                plugin.Selectable Web Control implement all functions of The jQuery UI selectable plugin.Selectable
-                allows for Controls to be selected by
-                    dragging a box (sometimes called a lasso) with the mouse over the elements.
-                    Also, elements can be selected by click or drag while holding the Ctrl/Meta
-                    key, allowing for multiple (non-contiguous) selections.</para>
-            	</div>
+            Initialize the NavItemCollection
             </summary>
+            <param name="parent"></param>
+        </member>
+        <member name="M:DNA.UI.JQuery.NavItemCollection.Add(DNA.UI.JQuery.NavItem)">
+            <summary>
+            Add the NavItem Instance to Collection
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:DNA.UI.JQuery.NavItemCollection.Remove(DNA.UI.JQuery.NavItem)">
+            <summary>
+            Remove the NavItem Instance in Collection
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavItemCollection.Parent">
+            <summary>
+             Gets the Parent of this Collections
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavItemCollection.Item(System.Int32)">
+            <summary>
+            Gets the NavItem Instance by Index
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DNA.UI.JQuery.Sortable">
+            <summary>
+            Sortable is a ASP.NET WebControl that encapsulat the jQuery UI resizable it makes
+            selected controls sortable by dragging with the mouse.
+            </summary>
+            <remarks>
+            	<para>All ClientEvents receive two arguments: The original browser event and a
+                prepared ui object, view below for a documentation of this object:</para>
+            	<list type="bullet">
+            		<item>ui.helper - the current helper element (most often a clone of the
+                    item)</item>
+            		<item>ui.position - current position of the helper</item>
+            		<item>ui.offset - current absolute position of the helper</item>
+            		<item>ui.item - the current dragged element * ui.placeholder - the placeholder
+                    (if you defined one)</item>
+            		<item>ui.sender - the sortable where the item comes from (only exists if you
+                    move from one connected list to another)</item>
+            	</list>
+            </remarks>
             <example>
-            	<code lang="ASP.NET" title="Selectable properties">
+            	<code lang="ASP.NET" title="Sortable control's properties">
             		<![CDATA[
-            <DotNetAge:Selectable ID="MySelectable"
-                AutoRefresh="false"
-                OnClientSelected="javascript puts here"
-                OnClientSelecting=""
-                OnClientSelectStart=""
-                OnClientSelectStop=""
-                OnClientUnselect=""
-                OnClientUnselecting=""
-                SelectingStartDelay="1000"
-                SelectingStartDistance="10"
-                Tolerance="Touch">
-                <Target TargetIDs="ControlID1, ... ,ControlIDn" 
+            <DotNetAge:Sortable ID="MySortable"
+                AllowDropOnEmpty="true"
+                AutoScroll="true"
+                Container="Parent"
+                Cursor="move"
+                DragHelper="Clone"
+                DragHelperOpacity="0.5"
+                DragOrientation="Both"
+                DragStartDelay="0"
+                DragStartDistance="0"
+                ForceHelperSize="true"
+                ForcePlaceholderSize="true"
+                OnClientSort="javascript puts there"
+                OnClientSortActivate=""
+                OnClientSortBeforeStop=""
+                OnClientSortChange=""
+                OnClientSortDeactivate=""
+                OnClientSortOut=""
+                OnClientSortOver=""
+                OnClientSortReceive=""
+                OnClientSortRemove=""
+                OnClientSortStart=""
+                OnClientSortStop=""
+                OnClientSortUpdate=""
+                PlaceHolderCssClass="placeholder"
+                Revert="true"
+                ScrollSensitivity="10"
+                ScrollSpeed="100"
+                SnapX="10"
+                SnapY="10"
+                Tolerance="Pointer"
+                ZIndex="1000"
+            >
+                  <Target TargetIDs="ControlID1, ... ,ControlIDn" 
                              Selector=".ui-widget-header" TargetID="ControlID" />
-                <DisableResizableElements />
-                <Filter />
-            </DotNetAge:Selectable>]]>
+                  <ConnectWith />
+                  <ContainsIn />
+                  <CursorPosition Bottom="0" Left="0" Right="0" Top="0" />
+                  <DisableDraggingElements />
+                  <DragHandler />
+                  <DisableSortableItems />
+            </DotNetAge:Sortable>]]>
             	</code>
             </example>
         </member>
-        <member name="M:DNA.UI.JQuery.Selectable.ApplyTo(System.Web.UI.Control)">
+        <member name="P:DNA.UI.JQuery.DraggableBase.Target">
             <summary>
-            Apply the jQuery selectable plugin to the target control
+            Gets/Sets which control to apply draggable
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DisableDraggingElements">
+            <summary>
+            Gets/Sets prevents dragging from starting on specified Controls/Elements.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DragHandler">
+            <summary>
+             Gets/Sets restricts drag start click to the specified Controls/Elements
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DragHelper">
+            <summary>
+            Gets/Sets a helper element to be used for dragging display.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.Container">
+            <summary>
+            Constrains dragging to within the bounds of the specified element.
+            Possible string values: 'parent', 'document', 'window'
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.ContainsIn">
+            <summary>
+            Gets/Sets the Control/Element constrains dragging to within the bounds of the specified Control/Element.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.AutoScroll">
+            <summary>
+            Gets/Sets whether container auto-scrolls while dragging.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.ScrollSensitivity">
+            <summary>
+            Gets/Sets distance in pixels from the edge of the viewport after which the viewport should scroll. 
+            Distance is relative to pointer, not the draggable.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DragOrientation">
+            <summary>
+            Gets/Sets constrains dragging to either the horizontal or vertical axis or both of them.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DragStartDelay">
+            <summary>
+            Gets/Sets time in milliseconds after mousedown until dragging should start.
+            </summary>
+            <remarks>
+            This Property can be used to prevent unwanted drags when clicking on an element.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DragStartDistance">
+             <summary>
+             Gets/Sets DragDistance in pixels after mousedown the mouse must move before dragging should start. 
+             </summary>
+            <remarks>
+             This Property can be used to prevent unwanted drags when clicking on an element.
+             </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.Cursor">
+            <summary>
+            The css cursor during the drag operation.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.CursorPosition">
+            <summary>
+            Moves the dragging helper so the cursor always appears to drag from the same position. 
+            Coordinates can be given as a hash using a combination of one or two keys: { Top, Left, Right, Bottom }.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.SnapX">
+            <summary>
+            Gets/Sets snaps the dragging helper to a grid  every x pixels
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.SnapY">
+            <summary>
+            Gets/Sets snaps the dragging helper to a grid  every y pixels
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.ScrollSpeed">
+            <summary>
+            Gets/Sets the speed at which the window should scroll once the mouse pointer gets within the 
+            scrollSensitivity distance.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.DragHelperOpacity">
+            <summary>
+            Gets/Sets opacity for the helper while being dragged.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DraggableBase.ZIndex">
+            <summary>
+            Gets/Sets z-index for the helper while being dragged.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.Sortable.ApplyTo(System.Web.UI.Control)">
+            <summary>
+            Apply the jQuery sortable plugin to the target control
             </summary>
             <param name="control">the instance of the target control</param>
-            <returns>the Selectable instance which have been created will return.</returns>
+            <returns>the Sortable instance which have been created will return.</returns>
         </member>
-        <member name="M:DNA.UI.JQuery.Selectable.ApplyTo(System.Web.UI.Control[])">
+        <member name="M:DNA.UI.JQuery.Sortable.ApplyTo(System.Web.UI.Control[])">
             <summary>
-            Apply the jQuery selectable plugin to the target controls
+            Apply the jQuery sortable plugin to the target controls
             </summary>
             <param name="control">the instances of the target controls</param>
-            <returns>the Selectable instance which have been created will return.</returns>
+            <returns>the Sortable instance which have been created will return.</returns>
         </member>
-        <member name="M:DNA.UI.JQuery.Selectable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
+        <member name="M:DNA.UI.JQuery.Sortable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
             <summary>
-             Apply the jQuery selectable plugin to the specify WebControls/HtmlElements by jQuery server side selector
+             Apply the jQuery sortable plugin to the specify WebControls/HtmlElements by jQuery server side selector
             </summary>
             <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
             <param name="selector"> jQuery server side selctor instance</param>
-            <returns>the Selectable instance which have been created will return.</returns>
+            <returns>the Sortable instance which have been created will return.</returns>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.Target">
+        <member name="P:DNA.UI.JQuery.Sortable.DisableSortableItems">
+            <summary>
+            Specifies which items inside the element should be sortable.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.ConnectWith">
+            <summary>
+            Takes a jQuery selector with items that also have sortables applied. 
+            If used, the sortable is now connected to the other one-way, so you can drag from 
+            this sortable to the other.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.AllowDropOnEmpty">
+            <summary>
+            Gets/Sets whether empty allows for an item to be dropped from a linked selectable.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.ForceHelperSize">
+            <summary>
+            Gets/Sets whether forces the helper to have a size.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.ForcePlaceholderSize">
+            <summary>
+            Gets/Sets forces the placeholder to have a size.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.PlaceHolderCssClass">
+            <summary>
+            Gets/Sets css class that gets applied to the otherwise white space.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.Revert">
+            <summary>
+            Gets/Sets whether the item will be reverted to its new DOM position with a smooth animation.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.Tolerance">
+            <summary>
+            This is the way the reordering behaves during drag. Possible values: 'Intersect', 'Pointer'. 
+            In some setups, 'Pointer' is more natural.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortStart">
+            <summary>
+            This event is triggered when sorting starts.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSort">
+            <summary>
+            This event is triggered during sorting.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortChange">
+            <summary>
+            This event is triggered during sorting, but only when the DOM position has changed.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortBeforeStop">
+            <summary>
+            This event is triggered when sorting stops, but when the placeholder/helper is still available.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortStop">
+            <summary>
+            This event is triggered when sorting has stopped.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortUpdate">
+            <summary>
+            This event is triggered when the user stopped sorting and the DOM position has changed.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortReceive">
+            <summary>
+            This event is triggered when a connected sortable list has received an item from another list
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortRemove">
+            <summary>
+            This event is triggered when a sortable item has been dragged out from the list and into another
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortOver">
+            <summary>
+            This event is triggered when a sortable item is moved into a connected list
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortOut">
+            <summary>
+            This event is triggered when a sortable item is moved away from a connected list
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortActivate">
+            <summary>
+            This event is triggered when using connected lists, every connected list on drag start receives it
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Sortable.OnClientSortDeactivate">
+            <summary>
+            This event is triggered when sorting was stopped, is propagated to all possible connected lists
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.EffectBase.SpeedValue">
+            <summary>
+            Gets/Sets the animation/effect speed value
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.EffectBase.Speed">
+            <summary>
+            Gets/Sets the animation/effect speed value by string
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.EffectBase.Target">
+            <summary>
+            Gets/Sets which control that the effect apply to
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.EffectBase.Trigger">
+            <summary>
+            Gets/Sets which control to trigger the effect
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.EffectBase.TriggerEvent">
+            <summary>
+            Gets/Sets the trigger event type
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Animation.Animates">
+            <summary>
+            Gets/Sets the animation sequence of this animation
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.Design.DialogDesigner">
+            <summary>
+            The Designer for Dialog
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.Design.DialogDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+            Initialize the DialogDesigner
+            </summary>
+            <param name="component">Target component</param>
+        </member>
+        <member name="P:DNA.UI.JQuery.Design.DialogDesigner.AllowResize">
+            <summary>
+            Gets whether the Dialog can resize
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.AnimationAttribute">
+            <summary>
+            The AnimationAttribute
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.AnimationAttribute.AnimationType">
+            <summary>
+            Gets/Sets the AnimationType
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.Droppable">
+            <summary>
+            	<para>Droppable is a ASP.NET WebControl that encapsulat the jQuery UI droppable
+                plugin.Droppable Web Control implement all functions of jQuery UI droppable
+                plugin,it makes droppable plugin not only apply to client elements but also APS.NET
+                WebControls.That is a easy way to using jQuery UI droppable plugin on
+                ASP.NET.</para>
+            	<para>Droppable WebControl makes selected WebControls droppable (meaning they
+                accept being dropped on by draggables).</para>
+            </summary>
+            <example>
+                The control above is initialized with this code
+                <code lang="ASP.NET" title="Droppable properties of ASP.NET">
+            		<![CDATA[
+            <DotNetAge:Droppable
+                 ID="MyDroppable" 
+                 runat="Server"
+                 ActiveCssClass="ui-state-active"
+                 HoverCssClass="ui-state-highlight"
+                 Cursor="pointer"
+                 CursorAt="left:50"
+                 Container="Parent"
+                 AllowAddClasses="True"
+                 Greedy="Flase"
+                 AutoScroll="True"
+                 ScrollSpeed="100"
+                 ScrollSensitivity="50"
+                 DragHelperOpacity="0.5"
+                 ZIndex="1000"
+                 SnapX="50"
+                 SnapY="50"
+                 DragGroupName="dropGroup"
+                 Tolerance="Intersect"
+                 DragStartDelay="1000"
+                 DragStartDistance="50"
+                 DragHelper="Clone"
+                 Orientation="Both"
+                 OnClientDragActive="javascript/jQuery script like this:$(this).val();do sth ..."
+                 OnClientDragDeactive="..." 
+                 OnClientDragOver="..."
+                 OnClientDragOut="..."
+                 OnClientDrop="..."
+             >
+                  <Target Selector="jQuery selector 
+                           TargetID="ServerControlID"
+                           TargetIDs="ControlID1,...,ControlIDn" />
+                  <Accept ... />
+                 <Containsin ... />
+                 <DragHandler ... />
+                 <DisableDraggingElements ... />
+            <DotNetAge:Droppable>
+            ]]>
+            	</code>
+            </example>
+            <remarks>
+                You can specify which (individually) or which kind of draggables each will accept.
+                All ClientEvents (OnClient... properties)receive two arguments(it's same of jQuery
+                droppable callbacks):
+                <para>The original browser event and a prepared ui object, view below for a
+                documentation of this object (if you name your second argument 'ui'):</para>
+            	<para class="xmldocbulletlist"></para>
+            	<list type="bullet">
+            		<item>ui.draggable - current draggable element, a jQuery object.</item>
+            		<item>ui.helper - current draggable helper, a jQuery object</item>
+            		<item>ui.position - current position of the draggable helper { top: , left: }</item>
+            		<item>ui.offset - current absolute position of the draggable helper { top: ,left: }</item>
+            	</list>
+            </remarks>
+        </member>
+        <member name="M:DNA.UI.JQuery.Droppable.ApplyTo(System.Web.UI.Control)">
+            <summary>
+            Apply the jQuery droppable plugin to the target control
+            </summary>
+            <param name="control">the instance of the target control</param>
+            <returns>the Droppable instance which have been created will return.</returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.Droppable.ApplyTo(System.Web.UI.Control[])">
+            <summary>
+            Apply the jQuery droppable plugin to the target controls
+            </summary>
+            <param name="control">the instances of the target controls</param>
+            <returns>the Droppable instance which have been created will return.</returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.Droppable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
+            <summary>
+             Apply the jQuery droppable plugin to the specify WebControls/HtmlElements by jQuery server side selctor
+            </summary>
+            <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
+            <param name="selector"> jQuery server side selctor instance</param>
+            <returns>the Droppable instance which have been created will return.</returns>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.Target">
+            <summary>
+            Gets/Sets which control to apply droppable
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.Accept">
+            <summary>
+            Gets/Sets all draggables that match the selector will be accepted. 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.ActiveCssClass">
+            <summary>
+            Gets/Sets the class will be added to the droppable while an acceptable draggable is being dragged.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.AllowAddClasses">
+            <summary>
+            Gets/Sets whether prevent the ui-droppable class from being added. 
+            </summary>
+            <remarks>
+            This may be desired as a performance optimization when calling .droppable() init on many hundreds of elements.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.Greedy">
+            <summary>
+            Gets/Sets whether prevent event propagation on nested droppables.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.HoverCssClass">
+            <summary>
+            Gets/Sets the class will be added to the droppable while an acceptable draggable is being hovered.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.DragGroupName">
+            <summary>
+            Gets/Sets the group sets of draggable and droppable items, in addition to droppable's Accept Property. 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.Tolerance">
+            <summary>
+            Gets/Sets which mode to use for testing whether a draggable is 'over' a droppable. Possible values: 'fit', 'intersect', 'pointer', 'touch'.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragActive">
+            <summary>
+            This event is triggered any time an accepted draggable starts dragging. This can be useful if you want to make the droppable 'light up' when it can be dropped on
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragDeactive">
+            <summary>
+            This event is triggered any time an accepted draggable stops dragging
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragOver">
+            <summary>
+            This event is triggered as an accepted draggable is dragged 'over' (within the tolerance of) this droppable
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragOut">
+            <summary>
+            This event is triggered when an accepted draggable is dragged out (within the tolerance of) this droppable
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Droppable.OnClientDrop">
+            <summary>
+            This event is triggered when an accepted draggable is dropped 'over'
+            (within the tolerance of) this droppable. In the callback, $(this) represents 
+            the droppable the draggable is dropped on. ui.draggable represents the draggable
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.View">
+            <summary>
+            View Control is a Container Control can be use inside Accordion or Tab Control.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.View.showHeader">
+            <summary>
+            The show header.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.View.RenderBeginTag(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render begin tag.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:DNA.UI.JQuery.View.RenderHeader(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render header.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:DNA.UI.JQuery.View.OnActive">
+            <summary>
+            The on active.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.View.OnDeactive">
+            <summary>
+            The on deactive.
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.View.SetVisible(System.Boolean)">
+            <summary>
+            The set visible.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="E:DNA.UI.JQuery.View.Active">
+            <summary>
+            The active.
+            </summary>
+        </member>
+        <member name="E:DNA.UI.JQuery.View.Deactive">
+            <summary>
+            The deactive.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.HeaderCssClass">
+            <summary>
+              Gets/Sets the View Header's css class
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.HeaderStyle">
+            <summary>
+              Gets/Sets the view header css style string.The ShowHeader Property must be set to true.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.Height">
+            <summary>
+            Gets or sets Height.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.IsSelected">
+            <summary>
+              Gets whether the view is selected
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.NavigateUrl">
+            <summary>
+              Gets/Sets when set the view header naviage url
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.ParentContainer">
+            <summary>
+              Gets the View 's Container Control
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.ShowHeader">
+            <summary>
+              Gets/Sets if the view show's it's header
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.Target">
+            <summary>
+              Gets/Sets when click the view header which the window open to
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.Text">
+            <summary>
+              Gets/Sets the view's header title text
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.Width">
+            <summary>
+            Gets or sets Width.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.Index">
+            <summary>
+            Gets or sets Index.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.View.TagKey">
+            <summary>
+            Gets TagKey.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.AutoPostBack">
+            <summary>
+            Gets/Sets the ViewControl whether can post back the event to server
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.Items">
+            <summary>
+            Gets/Sets the NavItemCollection of the NavView
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.Target">
+            <summary>
+            Gets/Sets when click the item which the window open to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.ItemCssClass">
+            <summary>
+            Gets/Sets the item style class
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.ItemStyle">
+            <summary>
+            Gets/Sets the item style
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.ShowItemIcon">
+            <summary>
+            Gets/Sets whether NavItem can show icon
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.ItemIconClass">
+            <summary>
+            Gets/Sets the itemicon style class
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavView.ItemHoverCssClass">
+            <summary>
+            Gets/Sets the item hover style class
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.Design.AccordionDesigner">
+            <summary>
+            The Control Designer for Accordion
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.Design.AccordionDesigner.#ctor">
+            <summary>
+            Initialize AccordionDesigner
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.Design.AccordionDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+            Initialize the AccordionDesigner
+            </summary>
+            <param name="component"></param>
+        </member>
+        <member name="T:DNA.UI.JQuery.Resizable">
+            <summary>
+            	<para>Resizable is a ASP.NET WebControl that encapsulat the jQuery UI resizable
+                plugin makes selected WebControls/Html Elements resizable (meaning they have
+                draggable resize handles). You can specify one or more handles as well as min and
+                max width and height.</para>
+            </summary>
+            <remarks>
+            	<para>All ClientEvents (OnClientResizeStart,OnClientResizeStop,OnClientResize)
+                receive two arguments: The original browser event and a prepared ui object. The ui
+                object has the following fields:</para>
+            	<list type="bullet">
+            		<item></item>
+            		<item>ui.helper - a jQuery object containing the helper element</item>
+            		<item>ui.originalPosition - {top, left} before resizing started</item>
+            		<item>ui.originalSize - {width, height} before resizing started</item>
+            		<item>ui.position - {top, left} current position * ui.size - {width, height}
+                    current size</item>
+            	</list>
+            </remarks>
+            <example>
+            	<code lang="ASP.NET" title="Resizable Control Properties">
+            		<![CDATA[
+            <DotNetAge:Resizable ID="MyResizable"
+              AnimateDuration="1000"
+              AnimateEasing="swing"
+              AspectRatio="0.7"
+              AutoHide="true"
+              Container="Parent"
+              EnabledAnimation="true"
+              Handles="e, s, se"
+              HelperCssClass="ui-state-highlight"
+              MaxHeight="0"
+              MinHeight="0"
+              MaxWidth="0"
+              MinWidth="0"
+              OnClientResize="javascript here."
+              OnClientResizeStart=""
+              OnClientResizeStop=""
+              ResizeStartDelay="1000"
+              ResizeStartDistance="10"
+              ShowSemiTransparentHelper="true"
+              SnapX="20"
+              SnapY="20"
+            >
+              <Target TargetIDs="ControlID1, ... ,ControlIDn" 
+                      Selector=".ui-widget-header" TargetID="ControlID" />
+              <AlsoResize />
+              <ContainsIn />
+              <DisableResizableElements />
+            </DotNetAge:Resizable>]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:DNA.UI.JQuery.Resizable.ApplyTo(System.Web.UI.Control)">
+            <summary>
+            Apply the jQuery resizable plugin to the target control
+            </summary>
+            <param name="control">the instance of the target control</param>
+            <returns>the Resizable instance which have been created will return.</returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.Resizable.ApplyTo(System.Web.UI.Control[])">
+            <summary>
+            Apply the jQuery resizable plugin to the target controls
+            </summary>
+            <param name="control">the instances of the target controls</param>
+            <returns>the Resizable instance which have been created will return.</returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.Resizable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
+            <summary>
+             Apply the jQuery droppable plugin to the specify WebControls/HtmlElements by jQuery server side selctor
+            </summary>
+            <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
+            <param name="selector"> jQuery server side selctor instance</param>
+            <returns>the Resizable instance which have been created will return.</returns>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.Target">
             <summary>
             Gets/Sets which control to apply resiable
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.DisableResizableElements">
+        <member name="P:DNA.UI.JQuery.Resizable.AlsoResize">
             <summary>
-            Gets/Sets prevents selecting  if you start on elements matching the selector.
+            Gets/Sets the resize these elements synchronous when resizing.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.Filter">
+        <member name="P:DNA.UI.JQuery.Resizable.EnabledAnimation">
             <summary>
-            Gets/Sets the matching child elements will be made selectees (able to be selected).
+            Gets/Sets whether enable animates to the final size after resizing.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.AutoRefresh">
+        <member name="P:DNA.UI.JQuery.Resizable.AnimateDuration">
             <summary>
-            Gets/Sets whether to refresh (recalculate) the position and size of each selectee at the beginning of each select operation. 
+            Gets/Sets duration time for animating, in milliseconds.
             </summary>
-            <remarks>
-            If you have many many items, you may want to set this to false and call the refresh method manually.
-            </remarks>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.SelectingStartDelay">
+        <member name="P:DNA.UI.JQuery.Resizable.AnimateEasing">
             <summary>
-            Tolerance, in milliseconds, for when selecting should start. If specified, resizing will not start until 
+            Gets/Sets the easing effect for animating.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.AspectRatio">
+            <summary>
+            Gets/Sets resizing is constrained by the original aspect ratio. Otherwise a custom aspect ratio
+            can be specified, such as 9 / 16, or 0.5.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.AutoHide">
+            <summary>
+            Get/Sets whether automatically hides the handles except when the mouse hovers over the element.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.DisableResizableElements">
+            <summary>
+            Gets/Sets prevents resizing if you start on elements matching the selector.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.Container">
+            <summary>
+            Constrains dragging to within the bounds of the specified element.
+            Possible string values: 'parent', 'document', 'window'
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.ContainsIn">
+            <summary>
+            Gets/Sets the Control/Element constrains dragging to within the bounds of the specified Control/Element.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.ResizeStartDelay">
+            <summary>
+            Tolerance, in milliseconds, for when resizing should start. If specified, resizing will not start until 
             after mouse is moved beyond duration. This can help prevent unintended resizing when clicking on an element.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.SelectingStartDistance">
+        <member name="P:DNA.UI.JQuery.Resizable.ResizeStartDistance">
             <summary>
             Tolerance, in pixels, for when resizing should start. If specified, resizing will not start until after mouse is
             moved beyond distance. This can help prevent unintended resizing when clicking on an element.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelected">
+        <member name="P:DNA.UI.JQuery.Resizable.ShowSemiTransparentHelper">
             <summary>
-            This event is triggered at the end of the select operation, on each element added to the selection.
+            Gets/Sets a semi-transparent helper element is shown for resizing.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelecting">
+        <member name="P:DNA.UI.JQuery.Resizable.SnapX">
             <summary>
-            This event is triggered during the select operation, on each element added to the selection
+            Gets/Sets snaps the resizing helper to a grid  every x pixels
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelectStart">
+        <member name="P:DNA.UI.JQuery.Resizable.SnapY">
             <summary>
-            This event is triggered at the beginning of the select operation
+            Gets/Sets snaps the resizing helper to a grid  every y pixels
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelectStop">
+        <member name="P:DNA.UI.JQuery.Resizable.Handles">
             <summary>
-            This event is triggered at the beginning of the select operation
+            If specified as a string, should be a comma-split list of any of the following: 'n, e, s, w, ne, se, sw, nw, all'. 
+            The necessary handles will be auto-generated by the plugin.
+            If specified as an object, the following keys are supported: { n, e, s, w, ne, se, sw, nw }. 
+            The value of any specified should be a jQuery selector matching the child element of the resizable to use
+            as that handle. If the handle is not a child of the resizable, you can pass in the DOMElement or a valid jQuery 
+            object directly.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.OnClientUnselect">
+        <member name="P:DNA.UI.JQuery.Resizable.HelperCssClass">
             <summary>
-            This event is triggered at the end of the select operation, on each element removed from the selection
+            Gets/Sets the css class that will be added to a proxy element to outline the resize 
+            during the drag of the resize handle. Once the resize is complete, the original element is sized.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Selectable.OnClientUnselecting">
+        <member name="P:DNA.UI.JQuery.Resizable.MaxHeight">
             <summary>
-            This event is triggered during the select operation, on each element removed from the selection
+            Gets/Sets the maximum height the resizable should be allowed to resize to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.MaxWidth">
+            <summary>
+            Gets/Sets the maximum width the resizable should be allowed to resize to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.MinHeight">
+            <summary>
+            Gets/Sets  the minimum height the resizable should be allowed to resize to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.MinWidth">
+            <summary>
+            Gets/Sets  the minimum width the resizable should be allowed to resize to.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.OnClientResizeStart">
+            <summary>
+            This event is triggered at the start of a resize operation
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.OnClientResize">
+            <summary>
+            This event is triggered during the resize, on the drag of the resize handler
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Resizable.OnClientResizeStop">
+            <summary>
+            This event is triggered at the end of a resize operation
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.Draggable">
+            <summary>
+             Draggable is a ASP.NET WebControl that encapsulated the jQuery UI drappable plugin.Draggable
+             Web Control implement all functions of jQuery UI droppable plugin,it makes selected
+             any WebControls or HTML elements draggable by mouse.
+             </summary>
+            <remarks>
+              Draggable WebControls/HtmlElements gets a class of ui-draggable. During drag the WebControls/HtmlElements also gets a class of ui-draggable-dragging. 
+              If you want not just drag, but drag-and-drop, see the Droppable WebControl, which provides a drop target for 
+              draggables.
+              All ClientEvents (OnClientDragStart, OnClientDragStop,OnClientDrag) receive two arguments: 
+              The original browser event and a prepared ui object, view below for a documentation of this object (if you name your second argument 'ui'):
+             <list>
+            		<item>ui.helper - the jQuery object representing the helper that's being dragged</item>
+            		<item>ui.position - current position of the helper as { top, left } object, relative to the offset element</item>
+            		<item>ui.offset - current absolute position of the helper as { top, left } object, relative to page</item>
+            	</list>
+            </remarks>
+            <example>
+            	<code lang="ASP.NET" title="Draggable properties of ASP.NET">
+            		<![CDATA[
+            <DotNetAge:Draggable ID="MyDraggable"
+               runat="server"
+               AllowAddClasses="true"
+               AllowSnap="true"
+               AutoScroll="true"
+               Container="Parent"
+               Cursor="pointer"
+               DragGroupMinZIndex="1000"
+               DragGroupName="myDragGroup"
+               DragHelper="Clone"
+               DragHelperOpacity="0.7"
+               DragStartDelay="1000"
+               DragStartDistance="20"
+               OnClientDrag="client script here"
+               OnClientDragStart="..."
+               OnClientDragStop="..."
+               DragOrientation="Both"
+               PreventiFrameCapturingMouseEvents="true"
+               RefreshPositions="true"
+               Revert="Auto"
+               RevertDuration="1000"
+               ScrollSensitivity="100"
+               ScrollSpeed="100"
+               SnapMode="Both"
+               SnapOffset="0"
+               SnapX="20"
+               SnapY="20"
+               ZIndex="1000"
+            >
+              <CustomHelperTemplate>
+                 <div>custom helper</div>
+              </CutomHelperTemplate>
+              <CursorPosition Left="0px" Top="0px" Right="0px" Bottom="0px"/>
+              <Target TargetIDs="ControlID1, ... ,ControlIDn" Selector=".ui-widget-header" TargetID="ControlID" />
+              <ConnectToSortable />
+              <ContainsIn />
+              <DisableDraggingElements />
+              <DragHandler />
+              <SnapTo />
+            </DotNetAge:Draggable>]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:DNA.UI.JQuery.Draggable.ApplyTo(System.Web.UI.Control)">
+            <summary>
+            Apply the jQuery draggable plugin to the target control
+            </summary>
+            <param name="control">the instance of the target control</param>
+            <returns>the Draggable instance which have been created will return.</returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.Draggable.ApplyTo(System.Web.UI.Control[])">
+            <summary>
+            Apply the jQuery draggable plugin to the target controls
+            </summary>
+            <param name="control">the instances of the target controls</param>
+            <returns>the Draggable instance which have been created will return.</returns>
+        </member>
+        <member name="M:DNA.UI.JQuery.Draggable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
+            <summary>
+             Apply the jQuery draggable plugin to the specify WebControls/HtmlElements by jQuery server side selector
+            </summary>
+            <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
+            <param name="selector"> jQuery server side selctor instance</param>
+            <returns>the Draggable instance which have been created will return.</returns>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.SnapTo">
+            <summary>
+            Gets/Sets the Server/Client Selector that the draggable will snap to the edges of the selected Controls/Elements when near an edge of the element.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.ConnectToSortable">
+            <summary>
+            Gets/Sets the Server/Client Selector allows the draggable to be dropped onto the specified sortables. 
+            If this propety is used (helper must be set to 'Clone' in order to work flawlessly), 
+            a draggable can be dropped onto a sortable list and then becomes part of it. 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.AllowAddClasses">
+            <summary>
+             Gets/Sets whether prevent the ui-draggable class from being added. 
+             </summary>
+            <remarks>
+            This may be desired as a performance optimization when using Draggable on many
+            hundreds of WebControls/HtmlElements.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.CustomHelperTemplate">
+            <summary>
+            Gets/Sets the custom helper html
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.PreventiFrameCapturingMouseEvents">
+            <summary>
+            Gets/Sets whether prevent iframes from capturing the mousemove events during a drag. 
+            </summary>
+            <remarks>
+            Useful in combination with cursorAt, or in any case, if the mouse cursor is not over the helper.
+            If set to true, transparent overlays will be placed over all iframes on the page. If a selector is supplied, 
+            the matched iframes will have an overlay placed over them.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.RefreshPositions">
+            <summary>
+            Gets/Sets whether droppable positions are calculated on every mousemove. 
+            </summary>
+            <remarks>
+            Caution: This solves issues on highly dynamic pages, but dramatically decreases performance.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.Revert">
+            <summary>
+             Gets/Sets whether the element will return to its start position when dragging stops. 
+             </summary>
+             <remarks>
+            Possible string values: 'Auto','Valid', 'Invalid'. If set to Invalid, revert will only occur if the draggable has
+            not been dropped on a droppable. For Valid, it's the other way around.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.RevertDuration">
+            <summary>
+            Gets/Sets the duration of the revert animation, in milliseconds. Ignored if Revert is NotSet.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.DragGroupName">
+            <summary>
+            Gets/Sets the group sets of draggable and droppable items, in addition to droppable's Accept Property. 
+            </summary>
+            <remarks>
+            A draggable with the same scope value as a droppable will be accepted by the droppable.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.AllowSnap">
+            <summary>
+             Get/Sets whether draggable can snap to the edges of the selected elements when near an edge of the element.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.SnapMode">
+            <summary>
+            Get/Sets determines which edges of snap elements the draggable will snap to. Ignored if AllowSnap is false. 
+            Possible values: 'Inner', 'Outer', 'Both','NotSet'
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.SnapOffset">
+            <summary>
+            Gets/Sets the offset in pixels from the snap element edges at which snapping should occur. Ignored if AllowSnap is false.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.DragGroupMinZIndex">
+            <summary>
+            Gets/Sets  the z-Index of the defined group automatically, 
+            always brings to front the dragged item. Very useful in things like window managers. 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.OnClientDragStart">
+            <summary>
+            This event is triggered when dragging starts
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.OnClientDrag">
+            <summary>
+            This event is triggered when the mouse is moved during the dragging
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Draggable.OnClientDragStop">
+            <summary>
+            This event is triggered when dragging stops
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.Design.NoneUIControlDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+            Initialize the NonUIControlDesigner
+            </summary>
+            <param name="component"></param>
+        </member>
+        <member name="T:DNA.UI.JQuery.Tabs">
+            <summary>
+            Tabs is a ASP.NET WebControl that encapsulated the jQuery UI tabs plugin.Tabs are
+            generally used to break content into multiple sections that can be swapped to save
+            space, much like an Accordion.
+            </summary>
+            <remarks>
+            	<para>By default a Tabs will swap between tabbed sections onClick, but the events
+                can be changed to onHover through an property. Tab content can be loaded via Ajax
+                by setting an NavigateUrl on a View Control.</para>
+            </remarks>
+            <example>
+            	<code lang="ASP.NET" title="Tabs properties">
+            		<![CDATA[
+            <DotNetAge:Tabs ID="MyTabs"
+                 ActiveTabEvent="Click"
+                 AsyncLoad="false"
+                 AutoPostBack="false"
+                 Collapsible="false"
+                 ContentCssClass=""
+                 ContentStyle=""
+                 Deselectable="false"
+                 EnabledContentCache="false"
+                 HeaderCssClass=""
+                 HeaderStyle=""
+                 Height="300"
+                 OnClientTabAdd=""
+                 OnClientTabDisabled=""
+                 OnClientTabEnabled=""
+                 OnClientTabLoad=""
+                 OnClientTabRemove=""
+                 OnClientTabSelected=""
+                 OnClientTabShow=""
+                 SelectedIndex="0"
+                 Sortable="false"
+                 Spinner=""
+                 Width="300"
+            >
+               <Animations>
+                   <DotNetAge:AnimationAttribute AnimationType="opacity" Value="toggle" />
+                   <DotNetAge:AnimationAttribute AnimationType="height" Value="toggle" />
+               </Animations>
+               <Views>
+                  <DotNetAge:View Text=""
+                        ID="View1"
+                        NavigateUrl=""
+                        HeaderCssClass=""
+                        HeaderStyle=""
+                        Target="_blank">
+                        <p>View is content is here</p>
+                  </DotNetAge:View>
+                  ...
+                  <DotNetAge:View />
+               </Views>
+            </DotNetAge:Tabs>]]>
+            	</code>
+            </example>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.EnabledContentCache">
+            <summary>
+            Gets/Sets Whether or not to cache remote tabs content.
+            </summary>
+            <remarks>
+            e.g. load only once or with every click. 
+            Cached content is being lazy loaded, e.g once and only once for the first click. 
+            Note that to prevent the actual Ajax requests from being cached by the browser you need 
+            to provide an extra cache: false flag to ajaxOptions.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.AsyncLoad">
+            <summary>
+            Gets/Sets the AJAX async load mode.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.ActiveTabEvent">
+            <summary>
+            Gets/Sets the active tab's event
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.Collapsible">
+            <summary>
+            Gets/Sets whether tabs allow an already selected tab to become unselected again upon reselection.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.Sortable">
+            <summary>
+            Gets/Sets the tabs can be Sortable if this property is set the sortable plugin will be used
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.Deselectable">
+            <summary>
+            Gets/Sets whether the tabs can be select
+            </summary>
+            <remarks>deprecated in jQuery UI 1.7, use collapsible.</remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.SelectedIndex">
+            <summary>
+             Gets/Sets the current selected tab's index
+            </summary>
+            <remarks>Zero-based index of the tab to be selected on initialization. To set all tabs to nselected pass -1 as value.</remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.Spinner">
+            <summary>
+            Gets/Sets the HTML content of this string is shown in a tab title while remote content is loading. 
+            </summary>
+            <remarks>
+            Pass in empty string to deactivate that behavior.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabLoad">
+             <summary>
+            Gets/Sets the tabs client load event handler.
+             </summary>
+             <remarks>This event is triggered after the content of a remote tab has been loaded.</remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabShow">
+            <summary>
+            Gets/Sets the tabs client show event handler.
+            </summary>
+            <remarks>
+            This event is triggered when a tab is shown.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabAdd">
+            <summary>
+            Gets/Sets the tabs add event handler.
+            </summary>
+            <remarks>
+            This event is triggered when a tab is added
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabRemove">
+            <summary>
+            Gets/Sets the tab remove event handler.
+            </summary>
+            <remarks>
+            This event is triggered when a tab is removed.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabSelected">
+            <summary>
+            Gets/Sets the tabs client tab selected event handler.
+            </summary>
+            <remarks>
+            This event is triggered when a tab is selected.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabEnabled">
+            <summary>
+            Gets/Sets the tabs client enabled event handler.
+            </summary>
+            <remarks>
+            This event is triggered when a tab is enabled.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.OnClientTabDisabled">
+            <summary>
+            Gets/Sets the tabs client disabled event handler.
+            </summary>
+            <remarks>
+            This event is triggered when a tab is disable.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Tabs.Animations">
+            <summary>
+            Gets the animation attribute Collection of the tab hide and show
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.Progressbar">
+            <summary>
+            The progress bar is designed to simply display the current % complete 
+            for a process and can be animated by updating the current values over time. 
+            The bar is coded to be flexibly sized through CSS and will scale to fit inside it's parent container by default. 
+            </summary>
+            <remarks>
+            This is a determinate progress bar, meaning that it should only be used in situations 
+            where the system can accurately update the current status complete. A determinate progress bar should
+            never fill from left to right, then loop back to empty for a single process -- if the actual percent complete status
+            cannot be calculated, an indeterminate progress bar (coming soon) or spinner animation is 
+            a better way to provide user feedback. 
+            </remarks>
+        </member>
+        <member name="E:DNA.UI.JQuery.Progressbar.ValueChanged">
+            <summary>
+            Triggered when the progressbar 's value changed
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Progressbar.Value">
+            <summary>
+            Gets/Sets the value of the progressbar.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Progressbar.OnClientValueChanged">
+            <summary>
+            Gets/Sets the client change event handler
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Progressbar.ShowPercentage">
+            <summary>
+            Gets/Sets whether the Progressbar can show the percentage label
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Progressbar.PercentageLabelStyle">
+            <summary>
+            Gets/Sets the percentage label style
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Progressbar.Resizable">
+            <summary>
+            Gets/Sets whether the Progressbar can resizable
+            </summary>
+        </member>
+        <member name="M:DNA.UI.JQuery.Design.DatePickerDesigner.Initialize(System.ComponentModel.IComponent)">
+            <summary>
+            Initialize the NonUIControlDesigner
+            </summary>
+            <param name="component"></param>
+        </member>
+        <member name="F:DNA.UI.JQuery.DroppableTolerances.Intersect">
+            <summary>
+            draggable overlaps the droppable at least 50%
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.DroppableTolerances.Pointer">
+            <summary>
+            mouse pointer overlaps the droppable
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.DroppableTolerances.Fit">
+            <summary>
+            draggable overlaps the droppable entirely
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.DroppableTolerances.Touch">
+            <summary>
+            draggable overlaps the droppable any amount
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.JQueryOption">
+            <summary>
+            Define the jQuery option parameters
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryOption.Name">
+            <summary>
+            Gets/Sets the option name using in script
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryOption.Value">
+            <summary>
+            Gets/Sets the option value 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryOption.Type">
+            <summary>
+            Gets/Sets the option value data type
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavItem.Index">
+            <summary>
+            Gets the index for NavItem
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavItem.OnClientClick">
+            <summary>
+            Gets/Sets the NavItem client client event handler
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.NavItem.Data">
+            <summary>
+            Gets/Sets the user data 
             </summary>
         </member>
         <member name="T:DNA.UI.JQuery.DatePicker">
@@ -2067,689 +2418,407 @@
             this refers to the associated input field.
             </summary>
         </member>
-        <member name="T:DNA.UI.JQuery.AnimationAttribute">
+        <member name="T:DNA.UI.JQuery.JQueryPlugin">
             <summary>
-            The AnimationAttribute
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.AnimationAttribute.AnimationType">
-            <summary>
-            Gets/Sets the AnimationType
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Animation.Animates">
-            <summary>
-            Gets/Sets the animation sequence of this animation
-            </summary>
-        </member>
-        <member name="M:DNA.UI.JQuery.Design.NoneUIControlDesigner.Initialize(System.ComponentModel.IComponent)">
-            <summary>
-            Initialize the NonUIControlDesigner
-            </summary>
-            <param name="component"></param>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavItem.Index">
-            <summary>
-            Gets the index for NavItem
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavItem.OnClientClick">
-            <summary>
-            Gets/Sets the NavItem client client event handler
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavItem.Data">
-            <summary>
-            Gets/Sets the user data 
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.Droppable">
-            <summary>
-            	<para>Droppable is a ASP.NET WebControl that encapsulat the jQuery UI droppable
-                plugin.Droppable Web Control implement all functions of jQuery UI droppable
-                plugin,it makes droppable plugin not only apply to client elements but also APS.NET
-                WebControls.That is a easy way to using jQuery UI droppable plugin on
-                ASP.NET.</para>
-            	<para>Droppable WebControl makes selected WebControls droppable (meaning they
-                accept being dropped on by draggables).</para>
-            </summary>
-            <example>
-                The control above is initialized with this code
-                <code lang="ASP.NET" title="Droppable properties of ASP.NET">
-            		<![CDATA[
-            <DotNetAge:Droppable
-                 ID="MyDroppable" 
-                 runat="Server"
-                 ActiveCssClass="ui-state-active"
-                 HoverCssClass="ui-state-highlight"
-                 Cursor="pointer"
-                 CursorAt="left:50"
-                 Container="Parent"
-                 AllowAddClasses="True"
-                 Greedy="Flase"
-                 AutoScroll="True"
-                 ScrollSpeed="100"
-                 ScrollSensitivity="50"
-                 DragHelperOpacity="0.5"
-                 ZIndex="1000"
-                 SnapX="50"
-                 SnapY="50"
-                 DragGroupName="dropGroup"
-                 Tolerance="Intersect"
-                 DragStartDelay="1000"
-                 DragStartDistance="50"
-                 DragHelper="Clone"
-                 Orientation="Both"
-                 OnClientDragActive="javascript/jQuery script like this:$(this).val();do sth ..."
-                 OnClientDragDeactive="..." 
-                 OnClientDragOver="..."
-                 OnClientDragOut="..."
-                 OnClientDrop="..."
-             >
-                  <Target Selector="jQuery selector 
-                           TargetID="ServerControlID"
-                           TargetIDs="ControlID1,...,ControlIDn" />
-                  <Accept ... />
-                 <Containsin ... />
-                 <DragHandler ... />
-                 <DisableDraggingElements ... />
-            <DotNetAge:Droppable>
-            ]]>
-            	</code>
-            </example>
-            <remarks>
-                You can specify which (individually) or which kind of draggables each will accept.
-                All ClientEvents (OnClient... properties)receive two arguments(it's same of jQuery
-                droppable callbacks):
-                <para>The original browser event and a prepared ui object, view below for a
-                documentation of this object (if you name your second argument 'ui'):</para>
-            	<para class="xmldocbulletlist"></para>
+            	<para>JQueryPlugin is a WebContorl that manages the jQuery script libraries and
+                script files.It gernates the script for jQuery plugins just like this :
+                $(selector).name(options);</para>
             	<list type="bullet">
-            		<item>ui.draggable - current draggable element, a jQuery object.</item>
-            		<item>ui.helper - current draggable helper, a jQuery object</item>
-            		<item>ui.position - current position of the draggable helper { top: , left: }</item>
-            		<item>ui.offset - current absolute position of the draggable helper { top: ,left: }</item>
+            		<item>Target property is <a href="http://wiki.dotnetage.com/JQueryServerSideSelector.ashx">JQuery Sever Side
+                    Selector</a> to apply the jQuery plugin to one or more WebControls.</item>
+            		<item>Name property use to specify the jQuery plugin name.</item>
+            		<item>The Options collection property hold all the option parameters of the
+                    jQuery plugin options of needs.</item>
+            		<item>StartEvent property tell JQueryPlugin when jQuery scripts run
+                    at.(ApplicationLoad,ApplicationInit,DocumentDeady)</item>
             	</list>
-            </remarks>
-        </member>
-        <member name="M:DNA.UI.JQuery.Droppable.ApplyTo(System.Web.UI.Control)">
-            <summary>
-            Apply the jQuery droppable plugin to the target control
-            </summary>
-            <param name="control">the instance of the target control</param>
-            <returns>the Droppable instance which have been created will return.</returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.Droppable.ApplyTo(System.Web.UI.Control[])">
-            <summary>
-            Apply the jQuery droppable plugin to the target controls
-            </summary>
-            <param name="control">the instances of the target controls</param>
-            <returns>the Droppable instance which have been created will return.</returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.Droppable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
-            <summary>
-             Apply the jQuery droppable plugin to the specify WebControls/HtmlElements by jQuery server side selctor
-            </summary>
-            <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
-            <param name="selector"> jQuery server side selctor instance</param>
-            <returns>the Droppable instance which have been created will return.</returns>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.Target">
-            <summary>
-            Gets/Sets which control to apply droppable
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.Accept">
-            <summary>
-            Gets/Sets all draggables that match the selector will be accepted. 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.ActiveCssClass">
-            <summary>
-            Gets/Sets the class will be added to the droppable while an acceptable draggable is being dragged.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.AllowAddClasses">
-            <summary>
-            Gets/Sets whether prevent the ui-droppable class from being added. 
             </summary>
             <remarks>
-            This may be desired as a performance optimization when calling .droppable() init on many hundreds of elements.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.Greedy">
-            <summary>
-            Gets/Sets whether prevent event propagation on nested droppables.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.HoverCssClass">
-            <summary>
-            Gets/Sets the class will be added to the droppable while an acceptable draggable is being hovered.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.DragGroupName">
-            <summary>
-            Gets/Sets the group sets of draggable and droppable items, in addition to droppable's Accept Property. 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.Tolerance">
-            <summary>
-            Gets/Sets which mode to use for testing whether a draggable is 'over' a droppable. Possible values: 'fit', 'intersect', 'pointer', 'touch'.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragActive">
-            <summary>
-            This event is triggered any time an accepted draggable starts dragging. This can be useful if you want to make the droppable 'light up' when it can be dropped on
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragDeactive">
-            <summary>
-            This event is triggered any time an accepted draggable stops dragging
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragOver">
-            <summary>
-            This event is triggered as an accepted draggable is dragged 'over' (within the tolerance of) this droppable
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.OnClientDragOut">
-            <summary>
-            This event is triggered when an accepted draggable is dragged out (within the tolerance of) this droppable
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Droppable.OnClientDrop">
-            <summary>
-            This event is triggered when an accepted draggable is dropped 'over'
-            (within the tolerance of) this droppable. In the callback, $(this) represents 
-            the droppable the draggable is dropped on. ui.draggable represents the draggable
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.Draggable">
-            <summary>
-             Draggable is a ASP.NET WebControl that encapsulated the jQuery UI drappable plugin.Draggable
-             Web Control implement all functions of jQuery UI droppable plugin,it makes selected
-             any WebControls or HTML elements draggable by mouse.
-             </summary>
-            <remarks>
-              Draggable WebControls/HtmlElements gets a class of ui-draggable. During drag the WebControls/HtmlElements also gets a class of ui-draggable-dragging. 
-              If you want not just drag, but drag-and-drop, see the Droppable WebControl, which provides a drop target for 
-              draggables.
-              All ClientEvents (OnClientDragStart, OnClientDragStop,OnClientDrag) receive two arguments: 
-              The original browser event and a prepared ui object, view below for a documentation of this object (if you name your second argument 'ui'):
-             <list>
-            		<item>ui.helper - the jQuery object representing the helper that's being dragged</item>
-            		<item>ui.position - current position of the helper as { top, left } object, relative to the offset element</item>
-            		<item>ui.offset - current absolute position of the helper as { top, left } object, relative to page</item>
-            	</list>
-            </remarks>
-            <example>
-            	<code lang="ASP.NET" title="Draggable properties of ASP.NET">
-            		<![CDATA[
-            <DotNetAge:Draggable ID="MyDraggable"
-               runat="server"
-               AllowAddClasses="true"
-               AllowSnap="true"
-               AutoScroll="true"
-               Container="Parent"
-               Cursor="pointer"
-               DragGroupMinZIndex="1000"
-               DragGroupName="myDragGroup"
-               DragHelper="Clone"
-               DragHelperOpacity="0.7"
-               DragStartDelay="1000"
-               DragStartDistance="20"
-               OnClientDrag="client script here"
-               OnClientDragStart="..."
-               OnClientDragStop="..."
-               DragOrientation="Both"
-               PreventiFrameCapturingMouseEvents="true"
-               RefreshPositions="true"
-               Revert="Auto"
-               RevertDuration="1000"
-               ScrollSensitivity="100"
-               ScrollSpeed="100"
-               SnapMode="Both"
-               SnapOffset="0"
-               SnapX="20"
-               SnapY="20"
-               ZIndex="1000"
-            >
-              <CustomHelperTemplate>
-                 <div>custom helper</div>
-              </CutomHelperTemplate>
-              <CursorPosition Left="0px" Top="0px" Right="0px" Bottom="0px"/>
-              <Target TargetIDs="ControlID1, ... ,ControlIDn" Selector=".ui-widget-header" TargetID="ControlID" />
-              <ConnectToSortable />
-              <ContainsIn />
-              <DisableDraggingElements />
-              <DragHandler />
-              <SnapTo />
-            </DotNetAge:Draggable>]]>
-            	</code>
-            </example>
-        </member>
-        <member name="M:DNA.UI.JQuery.Draggable.ApplyTo(System.Web.UI.Control)">
-            <summary>
-            Apply the jQuery draggable plugin to the target control
-            </summary>
-            <param name="control">the instance of the target control</param>
-            <returns>the Draggable instance which have been created will return.</returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.Draggable.ApplyTo(System.Web.UI.Control[])">
-            <summary>
-            Apply the jQuery draggable plugin to the target controls
-            </summary>
-            <param name="control">the instances of the target controls</param>
-            <returns>the Draggable instance which have been created will return.</returns>
-        </member>
-        <member name="M:DNA.UI.JQuery.Draggable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
-            <summary>
-             Apply the jQuery draggable plugin to the specify WebControls/HtmlElements by jQuery server side selector
-            </summary>
-            <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
-            <param name="selector"> jQuery server side selctor instance</param>
-            <returns>the Draggable instance which have been created will return.</returns>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.SnapTo">
-            <summary>
-            Gets/Sets the Server/Client Selector that the draggable will snap to the edges of the selected Controls/Elements when near an edge of the element.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.ConnectToSortable">
-            <summary>
-            Gets/Sets the Server/Client Selector allows the draggable to be dropped onto the specified sortables. 
-            If this propety is used (helper must be set to 'Clone' in order to work flawlessly), 
-            a draggable can be dropped onto a sortable list and then becomes part of it. 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.AllowAddClasses">
-            <summary>
-             Gets/Sets whether prevent the ui-draggable class from being added. 
-             </summary>
-            <remarks>
-            This may be desired as a performance optimization when using Draggable on many
-            hundreds of WebControls/HtmlElements.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.CustomHelperTemplate">
-            <summary>
-            Gets/Sets the custom helper html
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.PreventiFrameCapturingMouseEvents">
-            <summary>
-            Gets/Sets whether prevent iframes from capturing the mousemove events during a drag. 
-            </summary>
-            <remarks>
-            Useful in combination with cursorAt, or in any case, if the mouse cursor is not over the helper.
-            If set to true, transparent overlays will be placed over all iframes on the page. If a selector is supplied, 
-            the matched iframes will have an overlay placed over them.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.RefreshPositions">
-            <summary>
-            Gets/Sets whether droppable positions are calculated on every mousemove. 
-            </summary>
-            <remarks>
-            Caution: This solves issues on highly dynamic pages, but dramatically decreases performance.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.Revert">
-            <summary>
-             Gets/Sets whether the element will return to its start position when dragging stops. 
-             </summary>
-             <remarks>
-            Possible string values: 'Auto','Valid', 'Invalid'. If set to Invalid, revert will only occur if the draggable has
-            not been dropped on a droppable. For Valid, it's the other way around.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.RevertDuration">
-            <summary>
-            Gets/Sets the duration of the revert animation, in milliseconds. Ignored if Revert is NotSet.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.DragGroupName">
-            <summary>
-            Gets/Sets the group sets of draggable and droppable items, in addition to droppable's Accept Property. 
-            </summary>
-            <remarks>
-            A draggable with the same scope value as a droppable will be accepted by the droppable.
-            </remarks>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.AllowSnap">
-            <summary>
-             Get/Sets whether draggable can snap to the edges of the selected elements when near an edge of the element.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.SnapMode">
-            <summary>
-            Get/Sets determines which edges of snap elements the draggable will snap to. Ignored if AllowSnap is false. 
-            Possible values: 'Inner', 'Outer', 'Both','NotSet'
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.SnapOffset">
-            <summary>
-            Gets/Sets the offset in pixels from the snap element edges at which snapping should occur. Ignored if AllowSnap is false.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.DragGroupMinZIndex">
-            <summary>
-            Gets/Sets  the z-Index of the defined group automatically, 
-            always brings to front the dragged item. Very useful in things like window managers. 
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.OnClientDragStart">
-            <summary>
-            This event is triggered when dragging starts
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.OnClientDrag">
-            <summary>
-            This event is triggered when the mouse is moved during the dragging
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Draggable.OnClientDragStop">
-            <summary>
-            This event is triggered when dragging stops
-            </summary>
-        </member>
-        <member name="T:DNA.UI.JQuery.Resizable">
-            <summary>
-            	<para>Resizable is a ASP.NET WebControl that encapsulat the jQuery UI resizable
-                plugin makes selected WebControls/Html Elements resizable (meaning they have
-                draggable resize handles). You can specify one or more handles as well as min and
-                max width and height.</para>
-            </summary>
-            <remarks>
-            	<para>All ClientEvents (OnClientResizeStart,OnClientResizeStop,OnClientResize)
-                receive two arguments: The original browser event and a prepared ui object. The ui
-                object has the following fields:</para>
+            	<para>There are some suggestions of using jQuery plugin(s) in ASP.NET though
+                JQueryPlugin WebControl</para>
             	<list type="bullet">
             		<item></item>
-            		<item>ui.helper - a jQuery object containing the helper element</item>
-            		<item>ui.originalPosition - {top, left} before resizing started</item>
-            		<item>ui.originalSize - {width, height} before resizing started</item>
-            		<item>ui.position - {top, left} current position * ui.size - {width, height}
-                    current size</item>
+            		<item>If the jQuery plugin has a few options i suggest to use JQueryPlugin
+                    WebControl this is the best choice for you.</item>
+            		<item>When the jQuery plugins option has over more then 10,and the plugin has
+                    it own HtmlElements or need some server side function supports i suggest to
+                    using the DNA.UI framework to write a jQuery UI WebControl for this jQuery
+                    plugin.</item>
+            		<item>When the jQuery plugin options has over more than 10 and it has none ui
+                    but it using frequently,i suggest to write the jQuery None UI WebControl by
+                    using DNA.UI framework.</item>
             	</list>
+            	<para></para>
             </remarks>
             <example>
-            	<code lang="ASP.NET" title="Resizable Control Properties">
+            	<code lang="ASP.NET" title="Apply jQuery.ui.resizable to a Panel Control">
             		<![CDATA[
-            <DotNetAge:Resizable ID="MyResizable"
-              AnimateDuration="1000"
-              AnimateEasing="swing"
-              AspectRatio="0.7"
-              AutoHide="true"
-              Container="Parent"
-              EnabledAnimation="true"
-              Handles="e, s, se"
-              HelperCssClass="ui-state-highlight"
-              MaxHeight="0"
-              MinHeight="0"
-              MaxWidth="0"
-              MinWidth="0"
-              OnClientResize="javascript here."
-              OnClientResizeStart=""
-              OnClientResizeStop=""
-              ResizeStartDelay="1000"
-              ResizeStartDistance="10"
-              ShowSemiTransparentHelper="true"
-              SnapX="20"
-              SnapY="20"
+            <asp:Panel id="Panel1" runat="server"></asp:Panel>
+            <DotNetAge:JQueryPlugin runat="Server"
+              ID="ResizablePlugin"
+              Name="resizable"
             >
-              <Target TargetIDs="ControlID1, ... ,ControlIDn" 
-                      Selector=".ui-widget-header" TargetID="ControlID" />
-              <AlsoResize />
-              <ContainsIn />
-              <DisableResizableElements />
-            </DotNetAge:Resizable>]]>
+              <Target TargetID="Panel1" />
+              <PlugInScripts>
+                <Script Name="jQuery.ui.resizable" Assembly="jQuery" />
+              </PlugInScripts>
+            </DotNetAge:JQueryPlugin>]]>
             	</code>
             </example>
         </member>
-        <member name="M:DNA.UI.JQuery.Resizable.ApplyTo(System.Web.UI.Control)">
+        <member name="P:DNA.UI.JQuery.JQueryPlugin.StartEvent">
             <summary>
-            Apply the jQuery resizable plugin to the target control
+            Gets/Sets the event which the plugin start in.
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryPlugin.Name">
+            <summary>
+            Gets/Sets the plugin name that jQuery script using
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryPlugin.Target">
+            <summary>
+            Gets/Sets the which control plugin apply to. 
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryPlugin.Options">
+            <summary>
+            Gets/Sets the options of the plugin
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.JQueryPlugin.PlugInScripts">
+            <summary>
+            Gets/Sets the scriptreferences of the plugin use
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DialogButton.CommandName">
+            <summary>
+            Gets/Sets the command name
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DialogButton.CommandArgument">
+            <summary>
+            Gets/Sets the command arguments
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DialogButton.OnClientClick">
+            <summary>
+            Gets/Sets the Button's client event handler
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DialogButton.Text">
+            <summary>
+            Gets/Sets the display text of button
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.Selectable">
+            <summary>
+            	<div id="overview-main">
+            		<para>Selectable is a ASP.NET WebControl that encapsulat the jQuery UI selectable
+                plugin.Selectable Web Control implement all functions of The jQuery UI selectable plugin.Selectable
+                allows for Controls to be selected by
+                    dragging a box (sometimes called a lasso) with the mouse over the elements.
+                    Also, elements can be selected by click or drag while holding the Ctrl/Meta
+                    key, allowing for multiple (non-contiguous) selections.</para>
+            	</div>
+            </summary>
+            <example>
+            	<code lang="ASP.NET" title="Selectable properties">
+            		<![CDATA[
+            <DotNetAge:Selectable ID="MySelectable"
+                AutoRefresh="false"
+                OnClientSelected="javascript puts here"
+                OnClientSelecting=""
+                OnClientSelectStart=""
+                OnClientSelectStop=""
+                OnClientUnselect=""
+                OnClientUnselecting=""
+                SelectingStartDelay="1000"
+                SelectingStartDistance="10"
+                Tolerance="Touch">
+                <Target TargetIDs="ControlID1, ... ,ControlIDn" 
+                             Selector=".ui-widget-header" TargetID="ControlID" />
+                <DisableResizableElements />
+                <Filter />
+            </DotNetAge:Selectable>]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:DNA.UI.JQuery.Selectable.ApplyTo(System.Web.UI.Control)">
+            <summary>
+            Apply the jQuery selectable plugin to the target control
             </summary>
             <param name="control">the instance of the target control</param>
-            <returns>the Resizable instance which have been created will return.</returns>
+            <returns>the Selectable instance which have been created will return.</returns>
         </member>
-        <member name="M:DNA.UI.JQuery.Resizable.ApplyTo(System.Web.UI.Control[])">
+        <member name="M:DNA.UI.JQuery.Selectable.ApplyTo(System.Web.UI.Control[])">
             <summary>
-            Apply the jQuery resizable plugin to the target controls
+            Apply the jQuery selectable plugin to the target controls
             </summary>
             <param name="control">the instances of the target controls</param>
-            <returns>the Resizable instance which have been created will return.</returns>
+            <returns>the Selectable instance which have been created will return.</returns>
         </member>
-        <member name="M:DNA.UI.JQuery.Resizable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
+        <member name="M:DNA.UI.JQuery.Selectable.ApplyTo(System.Web.UI.Page,DNA.UI.JQuery.JQuerySelector)">
             <summary>
-             Apply the jQuery droppable plugin to the specify WebControls/HtmlElements by jQuery server side selctor
+             Apply the jQuery selectable plugin to the specify WebControls/HtmlElements by jQuery server side selector
             </summary>
             <param name="page">the Page instance that contains the WebControls/HtmlElements</param>
             <param name="selector"> jQuery server side selctor instance</param>
-            <returns>the Resizable instance which have been created will return.</returns>
+            <returns>the Selectable instance which have been created will return.</returns>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.Target">
+        <member name="P:DNA.UI.JQuery.Selectable.Target">
             <summary>
             Gets/Sets which control to apply resiable
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.AlsoResize">
+        <member name="P:DNA.UI.JQuery.Selectable.DisableResizableElements">
             <summary>
-            Gets/Sets the resize these elements synchronous when resizing.
+            Gets/Sets prevents selecting  if you start on elements matching the selector.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.EnabledAnimation">
+        <member name="P:DNA.UI.JQuery.Selectable.Filter">
             <summary>
-            Gets/Sets whether enable animates to the final size after resizing.
+            Gets/Sets the matching child elements will be made selectees (able to be selected).
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.AnimateDuration">
+        <member name="P:DNA.UI.JQuery.Selectable.AutoRefresh">
             <summary>
-            Gets/Sets duration time for animating, in milliseconds.
+            Gets/Sets whether to refresh (recalculate) the position and size of each selectee at the beginning of each select operation. 
             </summary>
+            <remarks>
+            If you have many many items, you may want to set this to false and call the refresh method manually.
+            </remarks>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.AnimateEasing">
+        <member name="P:DNA.UI.JQuery.Selectable.SelectingStartDelay">
             <summary>
-            Gets/Sets the easing effect for animating.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Resizable.AspectRatio">
-            <summary>
-            Gets/Sets resizing is constrained by the original aspect ratio. Otherwise a custom aspect ratio
-            can be specified, such as 9 / 16, or 0.5.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Resizable.AutoHide">
-            <summary>
-            Get/Sets whether automatically hides the handles except when the mouse hovers over the element.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Resizable.DisableResizableElements">
-            <summary>
-            Gets/Sets prevents resizing if you start on elements matching the selector.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Resizable.Container">
-            <summary>
-            Constrains dragging to within the bounds of the specified element.
-            Possible string values: 'parent', 'document', 'window'
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Resizable.ContainsIn">
-            <summary>
-            Gets/Sets the Control/Element constrains dragging to within the bounds of the specified Control/Element.
-            </summary>
-        </member>
-        <member name="P:DNA.UI.JQuery.Resizable.ResizeStartDelay">
-            <summary>
-            Tolerance, in milliseconds, for when resizing should start. If specified, resizing will not start until 
+            Tolerance, in milliseconds, for when selecting should start. If specified, resizing will not start until 
             after mouse is moved beyond duration. This can help prevent unintended resizing when clicking on an element.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.ResizeStartDistance">
+        <member name="P:DNA.UI.JQuery.Selectable.SelectingStartDistance">
             <summary>
             Tolerance, in pixels, for when resizing should start. If specified, resizing will not start until after mouse is
             moved beyond distance. This can help prevent unintended resizing when clicking on an element.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.ShowSemiTransparentHelper">
+        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelected">
             <summary>
-            Gets/Sets a semi-transparent helper element is shown for resizing.
+            This event is triggered at the end of the select operation, on each element added to the selection.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.SnapX">
+        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelecting">
             <summary>
-            Gets/Sets snaps the resizing helper to a grid  every x pixels
+            This event is triggered during the select operation, on each element added to the selection
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.SnapY">
+        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelectStart">
             <summary>
-            Gets/Sets snaps the resizing helper to a grid  every y pixels
+            This event is triggered at the beginning of the select operation
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.Handles">
+        <member name="P:DNA.UI.JQuery.Selectable.OnClientSelectStop">
             <summary>
-            If specified as a string, should be a comma-split list of any of the following: 'n, e, s, w, ne, se, sw, nw, all'. 
-            The necessary handles will be auto-generated by the plugin.
-            If specified as an object, the following keys are supported: { n, e, s, w, ne, se, sw, nw }. 
-            The value of any specified should be a jQuery selector matching the child element of the resizable to use
-            as that handle. If the handle is not a child of the resizable, you can pass in the DOMElement or a valid jQuery 
-            object directly.
+            This event is triggered at the beginning of the select operation
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.HelperCssClass">
+        <member name="P:DNA.UI.JQuery.Selectable.OnClientUnselect">
             <summary>
-            Gets/Sets the css class that will be added to a proxy element to outline the resize 
-            during the drag of the resize handle. Once the resize is complete, the original element is sized.
+            This event is triggered at the end of the select operation, on each element removed from the selection
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.MaxHeight">
+        <member name="P:DNA.UI.JQuery.Selectable.OnClientUnselecting">
             <summary>
-            Gets/Sets the maximum height the resizable should be allowed to resize to.
+            This event is triggered during the select operation, on each element removed from the selection
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.MaxWidth">
+        <member name="T:DNA.UI.JQuery.Slider">
             <summary>
-            Gets/Sets the maximum width the resizable should be allowed to resize to.
+            The Slider is a web control encapsulated the jQuery UI slider plugin.There are
+            various properties such as multiple handles, and ranges. The handle can be moved with
+            the mouse or the arrow keys.
+            </summary>
+            <remarks>
+            When a value is chosen using the Slider, it is automatically persisted during
+            full or partial postbacks. The developer can continue to reference the asp:TextBox to
+            get and set the Slider's value.
+            </remarks>
+            <example>
+            	<code lang="ASP.NET" title="Slider Properties">
+            		<![CDATA[
+            <DotNetAge:Slider ID="MySlider" 
+               AutoPostBack="false"
+               BoundControlID="Textbox1"
+               BoundControlID1="Textbox2"
+               Maximum="100"
+               Minimum="0"
+               OnClientSliding=""
+               OnClientStartSliding=""
+               OnClientStopSliding=""
+               OnClientValueChanged=""
+               Orientation="Horizontal"
+               Range="Both"
+               Step="1"
+               Value="0"
+               Value1="-1"
+               Width="300"
+            />]]>
+            	</code>
+            </example>
+        </member>
+        <member name="P:DNA.UI.JQuery.Slider.BoundControlID">
+            <summary>
+            Gets/Sets the Bounding Control ID for Slider that when slider's change the bounding controls value changed too.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.MinHeight">
+        <member name="P:DNA.UI.JQuery.Slider.BoundControlID1">
             <summary>
-            Gets/Sets  the minimum height the resizable should be allowed to resize to.
+            Gets/Sets the Bounding Control ID1 for Slider that when slider's change the bounding controls value1 changed too.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.MinWidth">
+        <member name="P:DNA.UI.JQuery.Slider.EnabledAnimate">
             <summary>
-            Gets/Sets  the minimum width the resizable should be allowed to resize to.
+             Gets/Sets whether to slide handle smoothly when user click outside handle on the bar.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.OnClientResizeStart">
+        <member name="P:DNA.UI.JQuery.Slider.Maximum">
             <summary>
-            This event is triggered at the start of a resize operation
+            Gets/Sets the maximum value of the slider.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.OnClientResize">
+        <member name="P:DNA.UI.JQuery.Slider.Minimum">
             <summary>
-            This event is triggered during the resize, on the drag of the resize handler
+            Gets/Sets the minimum value of the slider.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.Resizable.OnClientResizeStop">
+        <member name="P:DNA.UI.JQuery.Slider.Orientation">
             <summary>
-            This event is triggered at the end of a resize operation
+            Gets/Sets the Silder's Orientaion
             </summary>
         </member>
-        <member name="T:DNA.UI.JQuery.Design.AccordionDesigner">
+        <member name="P:DNA.UI.JQuery.Slider.Step">
             <summary>
-            The Control Designer for Accordion
+            Gets/Sets the size or amount of each interval or step the slider takes between min and max. 
+            </summary>
+            <remarks>
+            The full specified value range of the slider (max - min) needs to be evenly divisible by the step.
+            </remarks>
+        </member>
+        <member name="P:DNA.UI.JQuery.Slider.Range">
+            <summary>
+             Gets/Sets the slider's range,if this property set the slider will detect if you have two handles and 
+             create a stylable  range element between these two. Two other possible values are 'Min' and 'Max'.
+             A Min range goes from the slider Min to one handle. A max range goes from one handle to the 
+             slider max.
             </summary>
         </member>
-        <member name="M:DNA.UI.JQuery.Design.AccordionDesigner.#ctor">
+        <member name="P:DNA.UI.JQuery.Slider.Value">
             <summary>
-            Initialize AccordionDesigner
+            Gets/Sets the value of the slider, if there's only one handle. 
+            If there is more than one handle, determines the value of the first handle.
             </summary>
         </member>
-        <member name="M:DNA.UI.JQuery.Design.AccordionDesigner.Initialize(System.ComponentModel.IComponent)">
+        <member name="P:DNA.UI.JQuery.Slider.Value1">
             <summary>
-            Initialize the AccordionDesigner
-            </summary>
-            <param name="component"></param>
-        </member>
-        <member name="M:DNA.UI.JQuery.NavItemCollection.#ctor(DNA.UI.JQuery.NavView)">
-            <summary>
-            Initialize the NavItemCollection
-            </summary>
-            <param name="parent"></param>
-        </member>
-        <member name="M:DNA.UI.JQuery.NavItemCollection.Add(DNA.UI.JQuery.NavItem)">
-            <summary>
-            Add the NavItem Instance to Collection
-            </summary>
-            <param name="item"></param>
-        </member>
-        <member name="M:DNA.UI.JQuery.NavItemCollection.Remove(DNA.UI.JQuery.NavItem)">
-            <summary>
-            Remove the NavItem Instance in Collection
-            </summary>
-            <param name="item"></param>
-        </member>
-        <member name="P:DNA.UI.JQuery.NavItemCollection.Parent">
-            <summary>
-             Gets the Parent of this Collections
+             This property can be used to specify multiple handles. If range is set to true, the length of 'values' should be 2.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.NavItemCollection.Item(System.Int32)">
+        <member name="P:DNA.UI.JQuery.Slider.AutoPostBack">
             <summary>
-            Gets the NavItem Instance by Index
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="P:DNA.UI.JQuery.FadeTo.Opacity">
-            <summary>
-            Gets/Sets the opacity of the fadeTo animation
+            Gets/Sets the silder can be post the client changed to server
             </summary>
         </member>
-        <member name="M:DNA.UI.JQuery.Design.DatePickerDesigner.Initialize(System.ComponentModel.IComponent)">
+        <member name="P:DNA.UI.JQuery.Slider.OnClientStartSliding">
             <summary>
-            Initialize the NonUIControlDesigner
+            Gets/Sets the start client event handler.
             </summary>
-            <param name="component"></param>
+            <remarks>This event is triggered when the user starts sliding</remarks>
         </member>
-        <member name="T:DNA.UI.JQuery.Design.DialogDesigner">
+        <member name="P:DNA.UI.JQuery.Slider.OnClientSliding">
             <summary>
-            The Designer for Dialog
-            </summary>
-        </member>
-        <member name="M:DNA.UI.JQuery.Design.DialogDesigner.Initialize(System.ComponentModel.IComponent)">
-            <summary>
-            Initialize the DialogDesigner
-            </summary>
-            <param name="component">Target component</param>
-        </member>
-        <member name="P:DNA.UI.JQuery.Design.DialogDesigner.AllowResize">
-            <summary>
-            Gets whether the Dialog can resize
+            Gets/Sets the slide client event handler.
             </summary>
         </member>
-        <member name="T:DNA.UI.JQuery.JQueryOption">
+        <member name="P:DNA.UI.JQuery.Slider.OnClientValueChanged">
             <summary>
-            Define the jQuery option parameters
+            Gets/Sets the change client event handler.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.JQueryOption.Name">
+        <member name="P:DNA.UI.JQuery.Slider.OnClientStopSliding">
             <summary>
-            Gets/Sets the option name using in script
+            Gets/Sets the stop client event handler.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.JQueryOption.Value">
+        <member name="E:DNA.UI.JQuery.Slider.ValueChanged">
             <summary>
-            Gets/Sets the option value 
+            When slider's value changed this event will trigger.
             </summary>
         </member>
-        <member name="P:DNA.UI.JQuery.JQueryOption.Type">
+        <member name="P:DNA.UI.JQuery.Slider.Width">
             <summary>
-            Gets/Sets the option value data type
+            Gets/Sets the Slider width just only avalidable for Horizontal mode
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Slider.Height">
+            <summary>
+            Gets/Sets the Slider height just only avalidable for Vertical mode
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Slider.ToolTip">
+            <summary>
+             Slider has no tooltip
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Effect.EffectMethod">
+            <summary>
+            Gets/Sets the effect method
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Effect.EffectType">
+            <summary>
+            Gets/Sets the effect type
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Effect.OnClientCallBack">
+            <summary>
+            Gets/Sets the Effect client call back event handler
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.Effect.Attributes">
+            <summary>
+            Gets the Attribute Collection of the Animation
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.DateName">
+            <summary>
+            DateName object reparents the name of the date
+            </summary>
+        </member>
+        <member name="P:DNA.UI.JQuery.DateName.Name">
+            <summary>
+            Gets/Sets the name of the date
+            </summary>
+        </member>
+        <member name="T:DNA.UI.JQuery.AccordionSizeModes">
+            <summary>
+            The growth of the Accordion
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.AccordionSizeModes.None">
+            <summary>
+            The Accordion grows/shrinks without restriction. 
+            This can cause other elements on your page to move up and down with it.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.AccordionSizeModes.Fill">
+            <summary>
+            The Accordion always stays the exact same size as its Height property. 
+            This will cause the content to be expanded or shrunk if it isn't the right size.
+            </summary>
+        </member>
+        <member name="F:DNA.UI.JQuery.AccordionSizeModes.Limit">
+            <summary>
+            The Accordion never grows larger than the value specified by its Height property. 
+            This will cause the content to scroll if it is too large to be displayed.
             </summary>
         </member>
     </members>

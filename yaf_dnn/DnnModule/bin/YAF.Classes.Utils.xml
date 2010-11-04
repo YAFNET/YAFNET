@@ -6,7 +6,52 @@
     <members>
         <member name="T:YAF.Classes.Utils.Platform">
             <summary>
-            The class gets common system info. Used in data layers other than MSSQL.
+            The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.Platform.inited">
+            <summary>
+            The inited.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.Platform.isMono">
+            <summary>
+            The is mono.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.Platform.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Platform.AllocatedMemory">
+            <summary>
+            Gets AllocatedMemory.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Platform.IsMono">
+            <summary>
+            Gets a value indicating whether IsMono.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Platform.Processors">
+            <summary>
+            Gets Processors.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Platform.RuntimeName">
+            <summary>
+            Gets RuntimeName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Platform.RuntimeString">
+            <summary>
+            Gets RuntimeString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Platform.VersionString">
+            <summary>
+            Gets VersionString.
             </summary>
         </member>
         <member name="T:YAF.Classes.Utils.General">
@@ -396,6 +441,14 @@
             Renders a control to a string.
             </summary>
             <param name="control"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.NewUserControl``1(System.Web.UI.UserControl,System.String)">
+            <summary>
+            Renders a control to a string.
+            </summary>
+            <param name="control"></param>
+            <param name="controlPath"></param>
             <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.ControlListRecursive(System.Web.UI.Control,System.Func{System.Web.UI.Control,System.Boolean})">
@@ -2419,6 +2472,15 @@
             <summary>
             The object extensions.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.DoWith``1(``0,System.Action{``0})">
+            <summary>
+            Provides a chaining action with the object.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="action"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
             <summary>

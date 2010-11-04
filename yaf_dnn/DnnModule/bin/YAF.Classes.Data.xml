@@ -132,7 +132,7 @@
             The get boolean registry value.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pageload.
             </summary>
@@ -171,6 +171,9 @@
             </param>
             <param name="messageID">
             The message id.
+            </param>
+            <param name="isMobileDevice">
+            The browser is a mobile device.
             </param>
             <param name="donttrack">
             The donttrack.
@@ -1988,18 +1991,15 @@
             The message_ remove thanks.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.messagehistory_list(System.Int32,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.messagehistory_list(System.Int32,System.Int32)">
             <summary>
             The messagehistory_list.
             </summary>
-            <param name="messageID">
+            <param name="messageId">
             The Message ID.
             </param>
             <param name="daysToClean">
             Days to clean.
-            </param>
-            <param name="showAll">
-            The Show All.
             </param>
             <returns>
             List of all message changes. 
@@ -2552,7 +2552,7 @@
             <param name="pollList">List to hold all polls data</param>
             <returns>Last saved poll id.</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.poll_update(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.poll_update(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.Object,System.Object)">
             <summary>
             The poll_update.
             </summary>
@@ -2564,6 +2564,21 @@
             </param>
             <param name="closes">
             The closes.
+            </param>
+            <param name="isBounded">
+            The is bounded.
+            </param>
+            <param name="isClosedBounded">
+            The is closed bounded.
+            </param>
+            <param name="allowMultipleChoices">
+            The allow Multiple Choices option.
+            </param>
+            <param name="questionPath">
+            The question file path.
+            </param>
+            <param name="questionMime">
+            The question file mime type.
             </param>
         </member>
         <member name="M:YAF.Classes.Data.DB.poll_remove(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
@@ -3050,6 +3065,25 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.rss_topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            The rss_topic_latest.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="numOfPostsToRetrieve">
+            The num of posts to retrieve.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="useStyledNicks">
+            If true returns string for userID style.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_active.
@@ -3236,6 +3270,14 @@
             The topic id.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.DB.TopicFavoriteCount(System.Int32)">
+            <summary>
+            Get the favorite count for a topic...
+            </summary>
+            <param name="topicId">
+            The topic Id.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Data.DB.replace_words_list(System.Object,System.Object)">
             <summary>
             Gets a list of replace words
@@ -3411,6 +3453,31 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.UserList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Get the user list as a typed list.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="approved">
+            The approved.
+            </param>
+            <param name="groupID">
+            The group id.
+            </param>
+            <param name="rankID">
+            The rank id.
+            </param>
+            <param name="useStyledNicks">
+            The use styled nicks.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.user_simplelist(System.Int32,System.Int32)">
             <summary>
             For URL Rewriting
@@ -3569,11 +3636,14 @@
             <param name="languageFile">
             The language file.
             </param>
+            <param name="culture">
+            the user culture
+            </param>
             <param name="themeFile">
             The theme file.
             </param>
-            <param name="overrideDefaultThemes">
-            The override default themes.
+            <param name="useMobileTheme">
+            The override Mobile Theme.
             </param>
             <param name="approved">
             The approved.
@@ -6585,9 +6655,9 @@
             Gets or sets NumPosts.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.OverrideDefaultThemes">
+        <member name="P:YAF.Classes.Data.TypedUserFind.UseMobileTheme">
             <summary>
-            Gets or sets OverrideDefaultThemes.
+            Gets or sets UseMobileTheme.
             </summary>
         </member>
         <member name="P:YAF.Classes.Data.TypedUserFind.PMNotification">
@@ -7301,6 +7371,83 @@
             Gets or sets UserName.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.PollGroupFlags">
+            <summary>
+            The poll group flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(YAF.Classes.Data.PollGroupFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollGroupFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.op_Implicit(System.Int32)~YAF.Classes.Data.PollGroupFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.PollGroupFlags.op_Implicit(YAF.Classes.Data.PollGroupFlags.Flags)~YAF.Classes.Data.PollGroupFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.PollGroupFlags.IsBound">
+            <summary>
+            Gets or sets whether poll group is bound
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.PollGroupFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollGroupFlags.Flags.IsBound">
+            <summary>
+            The is bound.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.UserFlags">
             <summary>
             User flags manipulation class from the DB.
@@ -7717,6 +7864,88 @@
             The build sql.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Data.PollFlags">
+            <summary>
+            The poll flags.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(YAF.Classes.Data.PollFlags.Flags)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="bitValue">
+            The bit value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.#ctor(System.Boolean[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollFlags"/> class.
+            </summary>
+            <param name="bits">
+            The bits.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.op_Implicit(System.Int32)~YAF.Classes.Data.PollFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="newBitValue">
+            The new bit value.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.PollFlags.op_Implicit(YAF.Classes.Data.PollFlags.Flags)~YAF.Classes.Data.PollFlags">
+            <summary>
+            The op_ implicit.
+            </summary>
+            <param name="flags">
+            The flags.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.PollFlags.IsClosedBound">
+            <summary>
+            Gets or sets whether the poll is closed bound.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.PollFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollFlags.Flags.IsClosedBound">
+            <summary>
+            The is start.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollFlags.Flags.AllowMultipleChoices">
+            <summary>
+            The allow multiple choices.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.PollSaveList">
             <summary>
             Class to hold polls and questions data to save
@@ -7727,7 +7956,7 @@
             Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[0:,0:],System.Nullable{System.DateTime},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[0:,0:],System.Nullable{System.DateTime},System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
             </summary>
@@ -7799,6 +8028,11 @@
         <member name="P:YAF.Classes.Data.PollSaveList.IsClosedBound">
             <summary>
               Gets or Sets value for IsClosedBound. Users can't see results if the poll is not expired. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.AllowMultipleChoices">
+            <summary>
+              Gets or Sets value for AllowMultipleChoices. Users can vote for many choices. 
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.SimpleTopic">
