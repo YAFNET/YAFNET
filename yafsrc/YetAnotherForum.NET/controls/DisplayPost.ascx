@@ -8,6 +8,7 @@
     <td width="140" id="NameCell" class="postUser" runat="server">
         <a name="post<%# DataRow["MessageID"] %>" /><strong>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' />
+            <%#PageContext.BoardSettings.ShowIrkooRepOnlyInTopics ? YAF.Classes.Core.Services.YAFIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
         </strong>
     </td>
@@ -49,6 +50,7 @@
             <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
             </asp:panel>
+            <%#YAF.Classes.Core.Services.YAFIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
         </div>
     </td>
 </tr>

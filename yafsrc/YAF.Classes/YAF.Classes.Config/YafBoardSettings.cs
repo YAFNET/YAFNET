@@ -2625,6 +2625,86 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets EnableIrkoo.
+    /// </summary>
+    public bool EnableIrkoo
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("EnableIrkoo", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("EnableIrkoo", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets IrkooSiteID.
+    /// </summary>
+    public string IrkooSiteID
+    {
+        get
+        {
+            return this._reg.GetValue<string>("IrkooSiteID", string.Empty);
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("IrkooSiteID", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets IrkooSecretKey.
+    /// </summary>
+    public string IrkooSecretKey
+    {
+        get
+        {
+            return this._reg.GetValue<string>("IrkooSecretKey", string.Empty);
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("IrkooSecretKey", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets ShowIrkooRepInUserLink.
+    /// </summary>
+    public bool ShowIrkooRepOnlyInTopics
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowIrkooRepOnlyInTopics", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowIrkooRepOnlyInTopics", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets AllowGuestsViewReputation.
+    /// </summary>
+    public bool AllowGuestsViewReputation
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowGuestsViewReputation", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowGuestsViewReputation", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets RecaptchaPublicKey .
     /// </summary>
     public string RecaptchaPublicKey

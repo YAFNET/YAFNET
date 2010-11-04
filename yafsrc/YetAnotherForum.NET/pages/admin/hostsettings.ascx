@@ -733,7 +733,58 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            Irkoo Reputation Service
+                        </td>
+                    </tr>
                      <tr>
+                        <td class="postheader">
+                            <b>Use Irkoo Reputation Service:</b><br />
+                            Irkoo is a free service that adds user reputations to your site 
+                            Visit <b>http://www.Irkoo.com</b> to get the site ID and secret key for your website.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableIrkoo" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Irkoo site ID:</b><br />
+                            Enter your Irkoo site ID.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="IrkooSiteID" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Irkoo secret key:</b><br />
+                            Enter your Irkoo secret key.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="IrkooSecretKey" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Show user reputations in user links only in topic pages:</b><br />
+                            If checked, users' reputation will be displayed only in topic pages.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowIrkooRepOnlyInTopics" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Allow guests to view users' reputations:</b><br />
+                            If checked, guests can view members' reputations.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowGuestsViewReputation" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="header1" colspan="2">
                             CAPTCHA Settings
                         </td>

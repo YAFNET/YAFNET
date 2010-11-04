@@ -308,6 +308,11 @@ namespace YAF.Controls
           "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
       }
 
+      //Irkoo Service Enabled?
+      if (YafContext.Current.BoardSettings.EnableIrkoo)
+          YafContext.Current.PageElements.RegisterJsBlockStartup(
+              "IrkooMethods", YAF.Classes.Core.Services.YAFIrkoo.IrkJsCode());
+
       this.PopMenu1.Visible = !this.IsGuest;
       if (this.PopMenu1.Visible)
       {
