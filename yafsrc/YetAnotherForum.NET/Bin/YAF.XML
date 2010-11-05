@@ -15550,111 +15550,6 @@
               The _cover image id.
             </summary>
         </member>
-        <member name="T:YAF.Controls.Mobile.TopicLine">
-            <summary>
-            The topic line.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Mobile.TopicLine._row">
-            <summary>
-              The _row.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Create pager for post.
-            </summary>
-            <param name="count">
-            The count.
-            </param>
-            <param name="pageSize">
-            The page Size.
-            </param>
-            <param name="topicID">
-            The topic ID.
-            </param>
-            <returns>
-            The create post pager.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.FormatReplies">
-            <summary>
-            The format replies.
-            </summary>
-            <returns>
-            The format replies.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
-            <summary>
-            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
-            </summary>
-            <param name="row">
-            Current Topic Data Row
-            </param>
-            <returns>
-            Topic status text
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.GetTopicImage(System.Object,System.String@)">
-            <summary>
-            The get topic image.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <param name="imgTitle">
-            The img title.
-            </param>
-            <returns>
-            The get topic image.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.FormatViews">
-            <summary>
-            The format views.
-            </summary>
-            <returns>
-            The format views.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Mobile.TopicLine.MakeLink(System.String,System.String)">
-            <summary>
-            The make link.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <param name="link">
-            The link.
-            </param>
-            <returns>
-            The make link.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.Mobile.TopicLine.DataRow">
-            <summary>
-              Sets DataRow.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Mobile.TopicLine.FindUnread">
-            <summary>
-              Gets or sets a value indicating whether FindUnread.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Mobile.TopicLine.IsAlt">
-            <summary>
-              Gets or sets a value indicating whether IsAlt.
-            </summary>
-        </member>
         <member name="T:YAF.YafResourceHandler">
             <summary>
             The YAF resource handler
@@ -18438,6 +18333,17 @@
             Get all users from user_list for this board.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:YAF.Pages.members.GetAvatarUrlFromID(System.Int32)">
+            <summary>
+            The get avatar url from id.
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <returns>
+            The get avatar url from id.
+            </returns>
         </member>
         <member name="M:YAF.Pages.members.BindData">
             <summary>
@@ -29396,6 +29302,51 @@
         <member name="F:YAF.Pages.Admin.hostsettings.FavoriteTopicFeedAccess">
             <summary>
             FavoriteTopicFeedAccess control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.EnableIrkoo">
+            <summary>
+            EnableIrkoo control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.IrkooSiteID">
+            <summary>
+            IrkooSiteID control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.IrkooSecretKey">
+            <summary>
+            IrkooSecretKey control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowIrkooRepOnlyInTopics">
+            <summary>
+            ShowIrkooRepOnlyInTopics control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowGuestsViewReputation">
+            <summary>
+            AllowGuestsViewReputation control.
             </summary>
             <remarks>
             Auto-generated field.

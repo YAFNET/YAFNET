@@ -2287,6 +2287,39 @@
             Make the link target "blank" to open in a new window.
             </summary>
         </member>
+        <member name="T:YAF.Controls.DisplayDateTime">
+            <summary>
+            The display date time.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DisplayDateTime._controlHtml">
+            <summary>
+            The _controlHtml.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.DisplayDateTime.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.DisplayDateTime.DateTime">
+            <summary>
+              Gets or sets DateTime.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.DisplayDateTime.Format">
+            <summary>
+              Gets or sets Format.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.DisplayDateTime.AsDateTime">
+            <summary>
+              Gets AsDateTime.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.Container">
             <summary>
             Rendered DIV container
@@ -2489,186 +2522,6 @@
         <member name="P:YAF.Controls.ActiveLocation.HasForumAccess">
             <summary>
             Gets or sets a value indicating whether to show only topic link.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.TopicLine">
-            <summary>
-            The topic line.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.TopicLine._altLastPost">
-            <summary>
-              The last post tooltip string.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.TopicLine._row">
-            <summary>
-              The _row.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Create pager for post.
-            </summary>
-            <param name="count">
-            The count.
-            </param>
-            <param name="pageSize">
-            The page Size.
-            </param>
-            <param name="topicID">
-            The topic ID.
-            </param>
-            <returns>
-            The create post pager.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.FormatReplies">
-            <summary>
-            The format replies.
-            </summary>
-            <returns>
-            The format replies.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
-            <summary>
-            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
-            </summary>
-            <param name="row">
-            Current Topic Data Row
-            </param>
-            <returns>
-            Topic status text
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetTopicImage(System.Object,System.String@)">
-            <summary>
-            The get topic image.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <param name="imgTitle">
-            The img title.
-            </param>
-            <returns>
-            The get topic image.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderLastPost(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Formats the Last Post for the Topic Line
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <returns>
-            The render last post.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.FormatViews">
-            <summary>
-            The format views.
-            </summary>
-            <returns>
-            The format views.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetAvatarUrlFromID(System.Int32)">
-            <summary>
-            The get avatar url from id.
-            </summary>
-            <param name="userID">
-            The user id.
-            </param>
-            <returns>
-            The get avatar url from id.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String)">
-            <summary>
-            The make link.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <param name="link">
-            The link.
-            </param>
-            <returns>
-            The make link.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderPostPager(System.Web.UI.HtmlTextWriter,System.Int32)">
-            <summary>
-            The render post pager.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="actualPostCount">
-            The actual post count.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderPosted(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render posted.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderTopic(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render topic.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <returns>
-            The render topic.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderTopicStarter(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render topic starter.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.ShowTopicPosted">
-            <summary>
-            Gets or sets a value indicating whether ShowTopicPosted.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.AltLastPost">
-            <summary>
-              Gets or sets Alt.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.DataRow">
-            <summary>
-              Sets DataRow.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.FindUnread">
-            <summary>
-              Gets or sets a value indicating whether FindUnread.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.IsAlt">
-            <summary>
-              Gets or sets a value indicating whether IsAlt.
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumUsers">

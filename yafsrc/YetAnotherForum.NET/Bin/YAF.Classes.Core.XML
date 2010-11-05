@@ -5621,27 +5621,27 @@
         </member>
         <member name="F:YAF.Classes.Core.BadWordReplaceItem._activeLock">
             <summary>
-            The _active lock.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.BadWordReplaceItem._regEx">
-            <summary>
-            Regular expression object associated with this replace item...
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.BadWordReplaceItem._active">
-            <summary>
-            The _active.
+              The _active lock.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.BadWordReplaceItem._badWord">
             <summary>
-            The _bad word.
+              The _bad word.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.BadWordReplaceItem._goodWord">
             <summary>
-            The _good word.
+              The _good word.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BadWordReplaceItem._regEx">
+            <summary>
+              Regular expression object associated with this replace item...
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BadWordReplaceItem._active">
+            <summary>
+              The _active.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.BadWordReplaceItem.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
@@ -5654,25 +5654,33 @@
             <param name="badWord">
             The bad word.
             </param>
+            <param name="options">
+            The options.
+            </param>
         </member>
         <member name="P:YAF.Classes.Core.BadWordReplaceItem.Active">
             <summary>
-            Gets or sets a value indicating whether Active.
+              Gets or sets a value indicating whether Active.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.BadWordReplaceItem.BadWord">
             <summary>
-            Gets BadWord.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.BadWordReplaceItem.GoodWord">
-            <summary>
-            Gets GoodWord.
+              Gets BadWord.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.BadWordReplaceItem.BadWordRegEx">
             <summary>
-            Gets BadWordRegEx.
+              Gets BadWordRegEx.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.GoodWord">
+            <summary>
+              Gets GoodWord.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.Options">
+            <summary>
+            Gets or sets Options.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafBadWordReplace">
@@ -5682,13 +5690,13 @@
         </member>
         <member name="F:YAF.Classes.Core.YafBadWordReplace._options">
             <summary>
-            The _options.
+              The _options.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafBadWordReplace.Replace(System.String)">
             <summary>
             Searches through SearchText and replaces "bad words" with "good words"
-            as defined in the database.
+              as defined in the database.
             </summary>
             <param name="searchText">
             The string to search through.
@@ -5696,16 +5704,18 @@
             <returns>
             The replace.
             </returns>
-            <exception cref="T:System.Exception"><c>Exception</c>.</exception>
-        </member>
-        <member name="P:YAF.Classes.Core.YafBadWordReplace.ReplaceWordsCache">
-            <summary>
-            Gets ReplaceWordsCache.
-            </summary>
+            <exception cref="T:System.Exception">
+            <c>Exception</c>.
+            </exception>
         </member>
         <member name="P:YAF.Classes.Core.YafBadWordReplace.ReplaceItems">
             <summary>
-            Gets ReplaceItems.
+              Gets ReplaceItems.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafBadWordReplace.ReplaceWordsCache">
+            <summary>
+              Gets ReplaceWordsCache.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.LocalizationHandler">
@@ -6400,6 +6410,23 @@
             Album Service for the current user.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafAlbum.Album_Image_Delete(System.Object,System.Object,System.Int32,System.Object)">
+            <summary>
+            Deletes the specified album/image.
+            </summary>
+            <param name="upDir">
+            The Upload dir.
+            </param>
+            <param name="albumID">
+            The album id.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="imageID">
+            The image id.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(System.Int32,System.String)">
             <summary>
             The change album title.
@@ -6428,36 +6455,19 @@
             the return object.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafAlbum.Album_Image_Delete(System.Object,System.Object,System.Int32,System.Object)">
-            <summary>
-            Deletes the specified album/image.
-            </summary>
-            <param name="upDir">
-            The Upload dir.
-            </param>
-            <param name="albumID">
-            The album id.
-            </param>
-            <param name="userID">
-            The user id.
-            </param>
-            <param name="imageID">
-            The image id.
-            </param>
-        </member>
         <member name="T:YAF.Classes.Core.YafAlbum.ReturnClass">
             <summary>
             the HTML elements class.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.YafAlbum.ReturnClass.NewTitle">
-            <summary>
-            the album/image's new Title/Caption
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Core.YafAlbum.ReturnClass.Id">
             <summary>
-            the Album/Image's Id
+              the Album/Image's Id
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafAlbum.ReturnClass.NewTitle">
+            <summary>
+              the album/image's new Title/Caption
             </summary>
         </member>
         <member name="T:YAF.Classes.Utils.ResourcesExtensions">
@@ -6776,6 +6786,77 @@
             Gets UserDisplayNameCollection.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.YafIrkoo">
+            <summary>
+            The YAF Irkoo Reputation Service.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafIrkoo.md5">
+            <summary>
+              The md5
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafIrkoo.IrkJsCode">
+            <summary>
+            the Irkoo Javascript code.
+            </summary>
+            <returns>
+            The irk js code.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafIrkoo.IrkRating(System.Object)">
+            <summary>
+            The rating html.
+            </summary>
+            <param name="UserID">
+            The User ID.
+            </param>
+            <returns>
+            The Irkoo rating html, if Irkoo Service is enabled. Otherwise returns null.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafIrkoo.IrkVote(System.Object,System.Object)">
+            <summary>
+            The vote html.
+            </summary>
+            <param name="MessageID">
+            The Message ID.
+            </param>
+            <param name="UserID">
+            The User ID.
+            </param>
+            <returns>
+            The Irkoo vote html, if Irkoo Service is enabled. Otherwise returns null.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafIrkoo.CreateIrkooCode(System.Int32,System.String,System.String)">
+            <summary>
+            Creates the irkoo code.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="secret">
+            The secret.
+            </param>
+            <returns>
+            The create irkoo code.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafIrkoo.MD5HexDigest(System.String)">
+            <summary>
+            Ms the d5 hex digest.
+            </summary>
+            <param name="data">
+            The data.
+            </param>
+            <returns>
+            The m d 5 hex digest.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Core.Services.Comment">
             <summary>
             The comment.
@@ -6911,7 +6992,7 @@
         </member>
         <member name="F:YAF.Classes.Core.YafCheckBannedIps._initVarName">
             <summary>
-            The _init var name.
+              The _init var name.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafCheckBannedIps.RunService">
@@ -6924,13 +7005,21 @@
         </member>
         <member name="P:YAF.Classes.Core.YafCheckBannedIps.InitVarName">
             <summary>
-            Gets InitVarName.
+              Gets InitVarName.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafAvatars">
             <summary>
             The yaf avatars.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafAvatars.GetAvatarUrlForCurrentUser">
+            <summary>
+            The get avatar url for current user.
+            </summary>
+            <returns>
+            The get avatar url for current user.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafAvatars.GetAvatarUrlForUser(System.Int32)">
             <summary>
@@ -6952,14 +7041,6 @@
             </param>
             <returns>
             The get avatar url for user.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafAvatars.GetAvatarUrlForCurrentUser">
-            <summary>
-            The get avatar url for current user.
-            </summary>
-            <returns>
-            The get avatar url for current user.
             </returns>
         </member>
         <member name="T:YAF.Classes.Core.ThemeHandler">
@@ -7012,13 +7093,10 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SetupLegacyBoardSettings(System.Data.DataRow)">
+        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SaveRegistry">
             <summary>
-            The setup legacy board settings.
+            Saves the whole setting registry to the database.
             </summary>
-            <param name="board">
-            The board.
-            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafLoadBoardSettings.LoadBoardSettingsFromDB">
             <summary>
@@ -7027,10 +7105,13 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SaveRegistry">
+        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SetupLegacyBoardSettings(System.Data.DataRow)">
             <summary>
-            Saves the whole setting registry to the database.
+            The setup legacy board settings.
             </summary>
+            <param name="board">
+            The board.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.BBCode.CodeRegexReplaceRule">
             <summary>
@@ -9150,6 +9231,19 @@
             The body html.
             </param>
         </member>
+        <member name="T:YAF.Classes.Core.CantLoadThemeException">
+            <summary>
+            The cant load theme exception.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.CantLoadThemeException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.CantLoadThemeException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Core.MigrateUsersTask">
             <summary>
             Run when we want to do migration of users in the background...
@@ -9875,7 +9969,7 @@
         </member>
         <member name="F:YAF.Classes.Core.YafFormatMessage._options">
             <summary>
-            format message regex
+              format message regex
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.AddSmiles(System.String)">
@@ -9900,7 +9994,7 @@
         <member name="M:YAF.Classes.Core.YafFormatMessage.BBCodeForbiddenDetector(System.String,System.String,System.Char)">
             <summary>
             The method to detect a forbidden BBCode tag from delimited by 'delim' list 
-            'stringToMatch'
+              'stringToMatch'
             </summary>
             <param name="stringToClear">
             Input string
@@ -9914,18 +10008,21 @@
             Returns a string containing a forbidden BBCode or a null string
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafFormatMessage.FormatSyndicationMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean,System.Int32)">
+        <member name="M:YAF.Classes.Core.YafFormatMessage.CheckHtmlTags(System.String,System.String,System.Char)">
             <summary>
-            The format syndication message.
+            The method used to get response string, if a forbidden tag is detected.
             </summary>
-            <param name="message">
-            The message.
+            <param name="checkString">
+            The string to check.
             </param>
-            <param name="messageFlags">
-            The message flags.
+            <param name="acceptedTags">
+            The list of accepted tags.
+            </param>
+            <param name="delim">
+            The delimeter in a tags list.
             </param>
             <returns>
-            The formatted message.
+            A message string.
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.FormatMessage(System.String,YAF.Classes.Data.MessageFlags)">
@@ -9979,6 +10076,26 @@
             The formatted message.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.FormatSyndicationMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean,System.Int32)">
+            <summary>
+            The format syndication message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="messageFlags">
+            The message flags.
+            </param>
+            <param name="altItem">
+            The alt Item.
+            </param>
+            <param name="charsToFetch">
+            The chars To Fetch.
+            </param>
+            <returns>
+            The formatted message.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.GetCleanedTopicMessage(System.Object,System.Object)">
             <summary>
             The get cleaned topic message. Caches cleaned topic message by TopicID.
@@ -9988,7 +10105,7 @@
             </param>
             <param name="topicId">
             
-            The topic id.
+              The topic id.
             </param>
             <returns>
             The get cleaned topic message.
@@ -10015,15 +10132,6 @@
             <returns>
             Returns a forbidden HTML tag or a null string
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafFormatMessage.CheckHtmlTags(System.String,System.String,System.Char)">
-            <summary>
-            The method used to get response string, if a forbidden tag is detected. 
-            </summary>
-            <param name="checkString">The string to check.</param>
-            <param name="acceptedTags">The list of accepted tags.</param>
-            <param name="delim">The delimeter in a tags list.</param>
-            <returns>A message string.</returns>
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.RemoveNestedQuotes(System.String)">
             <summary>
@@ -10064,45 +10172,6 @@
             The repaired html.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafFormatMessage.RemoveHtmlByList(System.String,System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <param name="matchList">
-            The match list.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafFormatMessage.MakeMatchList(System.String,System.String)">
-            <summary>
-            </summary>
-            <param name="matchRegEx">
-            The match reg ex.
-            </param>
-            <param name="text">
-            The text.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafFormatMessage.MatchAndPerformAction(System.String,System.String,System.Action{System.String,System.Int32,System.Int32})">
-            <summary>
-            </summary>
-            <param name="matchRegEx">
-            The match reg ex.
-            </param>
-            <param name="text">
-            The text.
-            </param>
-            <param name="MatchAction">
-            The match action.
-            </param>
-            <returns>
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.SurroundWordList(System.String,System.Collections.Generic.IList{System.String},System.String,System.String)">
             <summary>
             Surrounds a word list with prefix/postfix. Case insensitive.
@@ -10119,6 +10188,47 @@
             The surround word list.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.MakeMatchList(System.String,System.String)">
+            <summary>
+            The make match list.
+            </summary>
+            <param name="matchRegEx">
+            The match reg ex.
+            </param>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.MatchAndPerformAction(System.String,System.String,System.Action{System.String,System.Int32,System.Int32})">
+            <summary>
+            The match and perform action.
+            </summary>
+            <param name="matchRegEx">
+            The match reg ex.
+            </param>
+            <param name="text">
+            The text.
+            </param>
+            <param name="MatchAction">
+            The match action.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.RemoveHtmlByList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            The remove html by list.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="matchList">
+            The match list.
+            </param>
+            <returns>
+            The remove html by list.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Core.YafFormatMessage.MessageCleaned">
             <summary>
             The message cleaned class (internal)
@@ -10126,7 +10236,7 @@
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.MessageCleaned.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafFormatMessage.MessageCleaned"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafFormatMessage.MessageCleaned"/> class.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.MessageCleaned.#ctor(System.String,System.Collections.Generic.List{System.String})">
@@ -10142,12 +10252,12 @@
         </member>
         <member name="P:YAF.Classes.Core.YafFormatMessage.MessageCleaned.MessageKeywords">
             <summary>
-            Gets or sets MessageKeywords.
+              Gets or sets MessageKeywords.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafFormatMessage.MessageCleaned.MessageTruncated">
             <summary>
-            Gets or sets MessageTruncated.
+              Gets or sets MessageTruncated.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.BBCode.ProcessReplaceRules">

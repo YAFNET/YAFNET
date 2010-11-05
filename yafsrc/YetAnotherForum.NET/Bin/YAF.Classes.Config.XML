@@ -132,32 +132,32 @@
         </member>
         <member name="F:YAF.Classes.DateTimeFormat.Both">
             <summary>
-            The both.
+              The both.
             </summary>
         </member>
         <member name="F:YAF.Classes.DateTimeFormat.BothDateShort">
             <summary>
-            The both date short.
+              The both date short.
             </summary>
         </member>
         <member name="F:YAF.Classes.DateTimeFormat.Time">
             <summary>
-            The time.
+              The time.
             </summary>
         </member>
         <member name="F:YAF.Classes.DateTimeFormat.DateShort">
             <summary>
-            The date short.
+              The date short.
             </summary>
         </member>
         <member name="F:YAF.Classes.DateTimeFormat.DateLong">
             <summary>
-            The date long.
+              The date long.
             </summary>
         </member>
         <member name="F:YAF.Classes.DateTimeFormat.BothTopic">
             <summary>
-            The both topic.
+              The both topic.
             </summary>
         </member>
         <member name="T:YAF.Classes.SearchFieldFlags">
@@ -3526,6 +3526,31 @@
         <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">
             <summary>
             Gets or sets ForumEmail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableIrkoo">
+            <summary>
+            Gets or sets EnableIrkoo.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.IrkooSiteID">
+            <summary>
+            Gets or sets IrkooSiteID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.IrkooSecretKey">
+            <summary>
+            Gets or sets IrkooSecretKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowIrkooRepOnlyInTopics">
+            <summary>
+            Gets or sets ShowIrkooRepInUserLink.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowGuestsViewReputation">
+            <summary>
+            Gets or sets AllowGuestsViewReputation.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.RecaptchaPublicKey">

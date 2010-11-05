@@ -11,7 +11,7 @@
         </member>
         <member name="P:YAF.Providers.Profile.YafProfileDBConnManager.ConnectionString">
             <summary>
-            Gets ConnectionString.
+              Gets ConnectionString.
             </summary>
         </member>
         <member name="T:YAF.Providers.Profile.DB">
@@ -21,13 +21,76 @@
         </member>
         <member name="F:YAF.Providers.Profile.DB._dbAccess">
             <summary>
-            The _db access.
+              The _db access.
             </summary>
         </member>
         <member name="M:YAF.Providers.Profile.DB.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Providers.Profile.DB"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Providers.Profile.DB"/> class.
             </summary>
+        </member>
+        <member name="M:YAF.Providers.Profile.DB.AddProfileColumn(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            The add profile column.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="columnType">
+            The column type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Profile.DB.DeleteInactiveProfiles(System.Object,System.Object)">
+            <summary>
+            The delete inactive profiles.
+            </summary>
+            <param name="appName">
+            The app name.
+            </param>
+            <param name="inactiveSinceDate">
+            The inactive since date.
+            </param>
+            <returns>
+            The delete inactive profiles.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Profile.DB.DeleteProfiles(System.Object,System.Object)">
+            <summary>
+            The delete profiles.
+            </summary>
+            <param name="appName">
+            The app name.
+            </param>
+            <param name="userNames">
+            The user names.
+            </param>
+            <returns>
+            The delete profiles.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Profile.DB.GetNumberInactiveProfiles(System.Object,System.Object)">
+            <summary>
+            The get number inactive profiles.
+            </summary>
+            <param name="appName">
+            The app name.
+            </param>
+            <param name="inactiveSinceDate">
+            The inactive since date.
+            </param>
+            <returns>
+            The get number inactive profiles.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Profile.DB.GetProfileStructure">
+            <summary>
+            The get profile structure.
+            </summary>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Providers.Profile.DB.GetProfiles(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
@@ -50,27 +113,6 @@
             </param>
             <returns>
             </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.DB.GetProfileStructure">
-            <summary>
-            The get profile structure.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.DB.AddProfileColumn(System.String,System.Data.SqlDbType,System.Int32)">
-            <summary>
-            The add profile column.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="columnType">
-            The column type.
-            </param>
-            <param name="size">
-            The size.
-            </param>
         </member>
         <member name="M:YAF.Providers.Profile.DB.GetProviderUserKey(System.Object,System.Object)">
             <summary>
@@ -103,51 +145,9 @@
             The settings columns list.
             </param>
         </member>
-        <member name="M:YAF.Providers.Profile.DB.DeleteProfiles(System.Object,System.Object)">
-            <summary>
-            The delete profiles.
-            </summary>
-            <param name="appName">
-            The app name.
-            </param>
-            <param name="userNames">
-            The user names.
-            </param>
-            <returns>
-            The delete profiles.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.DB.DeleteInactiveProfiles(System.Object,System.Object)">
-            <summary>
-            The delete inactive profiles.
-            </summary>
-            <param name="appName">
-            The app name.
-            </param>
-            <param name="inactiveSinceDate">
-            The inactive since date.
-            </param>
-            <returns>
-            The delete inactive profiles.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.DB.GetNumberInactiveProfiles(System.Object,System.Object)">
-            <summary>
-            The get number inactive profiles.
-            </summary>
-            <param name="appName">
-            The app name.
-            </param>
-            <param name="inactiveSinceDate">
-            The inactive since date.
-            </param>
-            <returns>
-            The get number inactive profiles.
-            </returns>
-        </member>
         <member name="P:YAF.Providers.Profile.DB.Current">
             <summary>
-            Gets Current.
+              Gets Current.
             </summary>
         </member>
         <member name="T:YAF.Providers.Utils.ExceptionReporter">
