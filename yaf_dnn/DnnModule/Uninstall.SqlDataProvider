@@ -1656,3 +1656,15 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatetopic') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatetopic
 GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_rss_topic_latest') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_rss_topic_latest
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_favorite_count') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_favorite_count
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatetopic') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatetopic
+GO
