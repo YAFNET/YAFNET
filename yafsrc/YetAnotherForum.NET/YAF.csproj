@@ -657,10 +657,6 @@
     <Compile Include="Resource.ashx.cs">
       <DependentUpon>Resource.ashx</DependentUpon>
     </Compile>
-    <Compile Include="themes\Yafmobile\MobilePages\TopicLineMobile.ascx.cs">
-      <DependentUpon>TopicLineMobile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
@@ -1726,7 +1722,7 @@
     <Content Include="themes\Yafmobile\MobilePages\postmessage.ascx" />
     <Content Include="themes\Yafmobile\MobilePages\posts.ascx" />
     <Content Include="themes\Yafmobile\MobilePages\profile.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\TopicLineMobile.ascx" />
+    <Content Include="themes\Yafmobile\MobilePages\TopicLine.ascx" />
     <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
