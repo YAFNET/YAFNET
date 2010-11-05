@@ -82,6 +82,8 @@ namespace YAF.Classes.Core
     /// </returns>
     public static string IrkRating([NotNull] object UserID)
     {
+      CodeContracts.ArgumentNotNull(UserID, "UserID");
+
       return (YafContext.Current.BoardSettings.EnableIrkoo &&
               (!YafContext.Current.IsGuest || YafContext.Current.BoardSettings.AllowGuestsViewReputation))
                ? @"<small class='irk-rating' data-author-id='{0}'
@@ -104,6 +106,9 @@ namespace YAF.Classes.Core
     /// </returns>
     public static string IrkVote([NotNull] object MessageID, [NotNull] object UserID)
     {
+      CodeContracts.ArgumentNotNull(MessageID, "MessageID");
+      CodeContracts.ArgumentNotNull(UserID, "UserID");
+
       return YafContext.Current.BoardSettings.EnableIrkoo
                ? @"<div class='irk-vote' data-msg-id='{0}'
                 data-author-id='{1}'>
@@ -136,6 +141,9 @@ namespace YAF.Classes.Core
     /// </returns>
     private static string CreateIrkooCode(int id, [NotNull] string name, [NotNull] string secret)
     {
+      CodeContracts.ArgumentNotNull(name, "name");
+      CodeContracts.ArgumentNotNull(secret, "secret");
+
       string hash = MD5HexDigest(secret + MD5HexDigest(id.ToString()) + MD5HexDigest(name));
 
       // escape certain special characters
@@ -155,6 +163,8 @@ namespace YAF.Classes.Core
     [NotNull]
     private static string MD5HexDigest([NotNull] string data)
     {
+      CodeContracts.ArgumentNotNull(data, "data");
+
       byte[] buffer = Encoding.UTF8.GetBytes(data);
       byte[] hash = md5.ComputeHash(buffer);
       return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
