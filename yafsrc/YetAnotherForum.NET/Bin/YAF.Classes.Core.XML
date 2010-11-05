@@ -6151,6 +6151,11 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Modules.MobileThemeModule.UpdateUseMobileThemeFromQueryString">
+            <summary>
+            Updates the use mobile theme session variable from the query string.
+            </summary>
+        </member>
         <member name="P:YAF.Modules.MobileThemeModule.ForumControlObj">
             <summary>
               Gets or sets ForumControlObj.
