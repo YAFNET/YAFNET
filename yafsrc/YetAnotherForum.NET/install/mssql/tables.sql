@@ -340,7 +340,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		Suspended		[datetime] NULL,
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
-		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (1),
+		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0),
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
 		[AutoWatchTopics] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_AutoWatchTopics] DEFAULT (0),
 		[DailyDigest] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_DailyDigest] DEFAULT (0),
@@ -871,7 +871,7 @@ GO
 
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverrideDefaultThemes')
 begin
-alter table [{databaseOwner}].[{objectQualifier}User] add  [OverrideDefaultThemes]	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (1)
+alter table [{databaseOwner}].[{objectQualifier}User] add  [OverrideDefaultThemes]	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0)
 end
 GO
 
@@ -1539,44 +1539,7 @@ GO
 
 
 
-IF  EXISTS (SELECT top 1 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-begin
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
-end
-GO
 
-create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
- as
-  begin
-     declare @ptmp int
-	 declare @ttmp int
-	 declare @utmp int 
-	 declare @PollGroupID int
-
-        declare c cursor for
-        select  PollID,TopicID, UserID from [{databaseOwner}].[{objectQualifier}Topic] where PollID IS NOT NULL
-		        
-        open c
-        
-        fetch next from c into @ptmp, @ttmp, @utmp
-        while @@FETCH_STATUS = 0
-        begin
-		if @ptmp is not null
-		begin
-		insert into [{databaseOwner}].[{objectQualifier}PollGroupCluster](UserID, Flags) values (@utmp, 0)	
-		SET @PollGroupID = SCOPE_IDENTITY()  
-		
-	            update [{databaseOwner}].[{objectQualifier}Topic] SET PollID = @PollGroupID WHERE TopicID = @ttmp
-				update [{databaseOwner}].[{objectQualifier}Poll] SET UserID = @utmp, PollGroupID = @PollGroupID, Flags = 0 WHERE PollID = @ptmp
-		end       
-        fetch next from c into @ptmp, @ttmp, @utmp
-        end
-
-        close c
-        deallocate c 
-
-		end
-GO
 
 -- should drop it else error
 if exists(select top 1 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
