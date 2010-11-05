@@ -1543,6 +1543,17 @@ DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]
 end
 GO
 
+-- should drop it else error
+if exists(select top 1 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
+go 
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
+end
+GO
+
 create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
  as
   begin
@@ -1576,17 +1587,6 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
 		end
 GO
 
--- should drop it else error
-if exists(select top 1 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
-go 
-
-if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Flags')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Poll] add [Flags] int NULL
-end
-GO
-
 if (not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}PollGroupCluster]) and exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}Poll]))
 begin
 	--vzrus: migrate to independent multiple polls	
@@ -1595,6 +1595,17 @@ begin
 		-- vzrus: drop the temporary  sp
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
+end
+GO
+
+if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
+begin
+	grant update on [{databaseOwner}].[{objectQualifier}Poll] to public
+	exec('update [{databaseOwner}].[{objectQualifier}Poll] set Flags = 0 where Flags is null')
+	revoke update on [{databaseOwner}].[{objectQualifier}Poll] from public
+	-- here computed columns on Flags should be dropped if exist before
+	-- alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Flags int not null
+	-- alter table [{databaseOwner}].[{objectQualifier}Poll] add constraint [DF_{objectQualifier}Poll_Flags] default(0) for Flags
 end
 GO
 
@@ -1609,17 +1620,6 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'MimeType')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [MimeType] varchar(50) NULL
-end
-GO
-
-if exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Flags')
-begin
-	grant update on [{databaseOwner}].[{objectQualifier}Poll] to public
-	exec('update [{databaseOwner}].[{objectQualifier}Poll] set Flags = 0 where Flags is null')
-	revoke update on [{databaseOwner}].[{objectQualifier}Poll] from public
-	-- here computed columns on Flags should be dropped if exist before
-	-- alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Flags int not null
-	-- alter table [{databaseOwner}].[{objectQualifier}Poll] add constraint [DF_{objectQualifier}Poll_Flags] default(0) for Flags
 end
 GO
 

@@ -475,7 +475,7 @@ namespace YAF.Controls
             string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
 
             // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            ListItem foundCultItem = this.Culture.Items.FindByValue((langFileCulture.Substring(0, 2) == culture4tag ? culture4tag : langFileCulture));
+            ListItem foundCultItem = this.Culture.Items.FindByValue((langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2) ? culture4tag : langFileCulture));
             if (foundCultItem != null)
             {
                 foundCultItem.Selected = true;
