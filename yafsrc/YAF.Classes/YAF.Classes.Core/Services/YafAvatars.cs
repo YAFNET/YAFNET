@@ -17,16 +17,35 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Web;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System.Web;
+
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The yaf avatars.
   /// </summary>
   public class YafAvatars
   {
+    #region Public Methods
+
+    /// <summary>
+    /// The get avatar url for current user.
+    /// </summary>
+    /// <returns>
+    /// The get avatar url for current user.
+    /// </returns>
+    public string GetAvatarUrlForCurrentUser()
+    {
+      return this.GetAvatarUrlForUser(YafContext.Current.CurrentUserData);
+    }
+
     /// <summary>
     /// The get avatar url for user.
     /// </summary>
@@ -39,7 +58,8 @@ namespace YAF.Classes.Core
     public string GetAvatarUrlForUser(int userId)
     {
       var userData = new CombinedUserDataHelper(userId);
-      return GetAvatarUrlForUser(userData);
+
+      return this.GetAvatarUrlForUser(userData);
     }
 
     /// <summary>
@@ -51,8 +71,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The get avatar url for user.
     /// </returns>
-    public string GetAvatarUrlForUser(CombinedUserDataHelper userData)
+    public string GetAvatarUrlForUser([NotNull] CombinedUserDataHelper userData)
     {
+      CodeContracts.ArgumentNotNull(userData, "userData");
+
       string avatarUrl = string.Empty;
 
       if (YafContext.Current.BoardSettings.AvatarUpload && userData.HasAvatarImage)
@@ -62,31 +84,33 @@ namespace YAF.Classes.Core
       else if (userData.Avatar.IsSet())
       {
         // Took out PageContext.BoardSettings.AvatarRemote
-        avatarUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(HttpContext.Current.Server.UrlEncode(userData.Avatar), YafContext.Current.BoardSettings.AvatarWidth, YafContext.Current.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
+        avatarUrl =
+          "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+            HttpContext.Current.Server.UrlEncode(userData.Avatar), 
+            YafContext.Current.BoardSettings.AvatarWidth, 
+            YafContext.Current.BoardSettings.AvatarHeight, 
+            YafForumInfo.ForumClientFileRoot);
       }
-        
-        // JoeOuts added 8/17/09 for Gravatar use
       else if (YafContext.Current.BoardSettings.AvatarGravatar && userData.Email.IsSet())
       {
+        // JoeOuts added 8/17/09 for Gravatar use
+
         // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
-        string gravatarUrl = @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(StringHelper.StringToHexBytes(userData.Email), YafContext.Current.BoardSettings.GravatarRating);
+        string gravatarUrl =
+          @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
+            StringHelper.StringToHexBytes(userData.Email), YafContext.Current.BoardSettings.GravatarRating);
 
-
-        avatarUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(HttpContext.Current.Server.UrlEncode(gravatarUrl), YafContext.Current.BoardSettings.AvatarWidth, YafContext.Current.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
+        avatarUrl =
+          @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+            HttpContext.Current.Server.UrlEncode(gravatarUrl), 
+            YafContext.Current.BoardSettings.AvatarWidth, 
+            YafContext.Current.BoardSettings.AvatarHeight, 
+            YafForumInfo.ForumClientFileRoot);
       }
 
       return avatarUrl;
     }
 
-    /// <summary>
-    /// The get avatar url for current user.
-    /// </summary>
-    /// <returns>
-    /// The get avatar url for current user.
-    /// </returns>
-    public string GetAvatarUrlForCurrentUser()
-    {
-      return GetAvatarUrlForUser(YafContext.Current.CurrentUserData);
-    }
+    #endregion
   }
 }

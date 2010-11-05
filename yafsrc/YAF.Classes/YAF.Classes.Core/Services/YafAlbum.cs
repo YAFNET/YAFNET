@@ -19,147 +19,155 @@
 
 namespace YAF.Classes.Core
 {
-    using System;
-    using System.Data;
-    using System.IO;
-    using AjaxPro;
-    using YAF.Classes.Data;
-    using YAF.Classes.Utils;
+  #region Using
+
+  using System.Data;
+  using System.IO;
+
+  using AjaxPro;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
-    /// Album Service for the current user.
+  /// Album Service for the current user.
+  /// </summary>
+  public static class YafAlbum
+  {
+    #region Public Methods
+
+    /// <summary>
+    /// Deletes the specified album/image.
     /// </summary>
-    public static class YafAlbum
+    /// <param name="upDir">
+    /// The Upload dir.
+    /// </param>
+    /// <param name="albumID">
+    /// The album id.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="imageID">
+    /// The image id.
+    /// </param>
+    public static void Album_Image_Delete([NotNull] object upDir, [NotNull] object albumID, int userID, [NotNull] object imageID)
     {
-        /// <summary>
-        /// The change album title.
-        /// </summary>
-        /// <param name="albumID">
-        /// The album id.
-        /// </param>
-        /// <param name="newTitle">
-        /// The New title.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        [AjaxMethod]
-        public static ReturnClass ChangeAlbumTitle(int albumID, string newTitle)
+      if (albumID != null)
+      {
+        var dt = DB.album_image_list(albumID, null);
+        foreach (DataRow dr in dt.Rows)
         {
-            // load the DB so YafContext can work...
-            YafContext.Current.Get<YafInitializeDb>().Run();
-
-           // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-            DB.album_save(albumID, null, newTitle, null);
-            var returnObject = new ReturnClass();
-            returnObject.NewTitle = newTitle;
-            returnObject.NewTitle = (newTitle == string.Empty)
-                                        ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_CHANGE_TITLE")
-                                        : newTitle;
-            returnObject.Id = "0{0}".FormatWith(albumID.ToString());
-            return returnObject;
+          var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]);
+          var file = new FileInfo(fullName);
+          if (file.Exists)
+          {
+            File.Delete(fullName);
+          }
         }
 
-        /// <summary>
-        /// The change image caption.
-        /// </summary>
-        /// <param name="imageID">
-        /// The Image id.
-        /// </param>
-        /// <param name="newCaption">
-        /// The New caption.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        [AjaxMethod]
-        public static ReturnClass ChangeImageCaption(int imageID, string newCaption)
+        DB.album_delete(albumID);
+      }
+      else
+      {
+        using (DataTable dt = DB.album_image_list(null, imageID))
         {
-            // load the DB so YafContext can work...
-            YafContext.Current.Get<YafInitializeDb>().Run();
-           // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
-            DB.album_image_save(imageID, null, newCaption, null, null, null);
-            var returnObject = new ReturnClass();
-            returnObject.NewTitle = newCaption;
-            returnObject.NewTitle = (newCaption == string.Empty)
-                                        ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_IMAGE_CHANGE_CAPTION")
-                                        : newCaption;
-            returnObject.Id = imageID.ToString();
-            return returnObject;
+          var dr = dt.Rows[0];
+          var fileName = dr["FileName"].ToString();
+          var imgAlbumID = dr["albumID"].ToString();
+          var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumID, fileName);
+          var file = new FileInfo(fullName);
+          if (file.Exists)
+          {
+            File.Delete(fullName);
+          }
         }
 
-        /// <summary>
-        /// Deletes the specified album/image.
-        /// </summary>
-        /// <param name="upDir">
-        /// The Upload dir.
-        /// </param>
-        /// <param name="albumID">
-        /// The album id.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="imageID">
-        /// The image id.
-        /// </param>
-        public static void Album_Image_Delete(object upDir, object albumID, int userID, object imageID)
-        {
-            if (albumID != null)
-            {
-                var dt = DB.album_image_list(albumID, null);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]);
-                    var file = new FileInfo(fullName);
-                    if (file.Exists)
-                    {
-                        File.Delete(fullName);
-                    }
-                }
-                DB.album_delete(albumID);
-            }
-            else
-            {
-                using (DataTable dt = DB.album_image_list(null, imageID))
-                {
-                    var dr = dt.Rows[0];
-                    var fileName = dr["FileName"].ToString();
-                    var imgAlbumID = dr["albumID"].ToString();
-                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumID, fileName);
-                    var file = new FileInfo(fullName);
-                    if (file.Exists)
-                    {
-                        File.Delete(fullName);
-                    }
-                }
-
-                DB.album_image_delete(imageID);
-            }
-        }
-        
-        /// <summary>
-        /// the HTML elements class.
-        /// </summary>
-        public class ReturnClass
-        {
-            /// <summary>
-            /// the album/image's new Title/Caption
-            /// </summary>
-            public string NewTitle
-            {
-                get; 
-                set;
-            }
-
-            /// <summary>
-            /// the Album/Image's Id
-            /// </summary>
-            public string Id
-            {
-                get;
-                set;
-            }
-        }    
+        DB.album_image_delete(imageID);
+      }
     }
+
+    /// <summary>
+    /// The change album title.
+    /// </summary>
+    /// <param name="albumID">
+    /// The album id.
+    /// </param>
+    /// <param name="newTitle">
+    /// The New title.
+    /// </param>
+    /// <returns>
+    /// the return object.
+    /// </returns>
+    [NotNull, AjaxMethod]
+    public static ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
+    {
+      // load the DB so YafContext can work...
+      YafContext.Current.Get<YafInitializeDb>().Run();
+
+      // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
+      DB.album_save(albumID, null, newTitle, null);
+      var returnObject = new ReturnClass();
+      returnObject.NewTitle = newTitle;
+      returnObject.NewTitle = (newTitle == string.Empty)
+                                ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_CHANGE_TITLE")
+                                : newTitle;
+      returnObject.Id = "0{0}".FormatWith(albumID.ToString());
+      return returnObject;
+    }
+
+    /// <summary>
+    /// The change image caption.
+    /// </summary>
+    /// <param name="imageID">
+    /// The Image id.
+    /// </param>
+    /// <param name="newCaption">
+    /// The New caption.
+    /// </param>
+    /// <returns>
+    /// the return object.
+    /// </returns>
+    [NotNull, AjaxMethod]
+    public static ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
+    {
+      // load the DB so YafContext can work...
+      YafContext.Current.Get<YafInitializeDb>().Run();
+
+      // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
+      DB.album_image_save(imageID, null, newCaption, null, null, null);
+      var returnObject = new ReturnClass();
+      returnObject.NewTitle = newCaption;
+      returnObject.NewTitle = (newCaption == string.Empty)
+                                ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_IMAGE_CHANGE_CAPTION")
+                                : newCaption;
+      returnObject.Id = imageID.ToString();
+      return returnObject;
+    }
+
+    #endregion
+
+    /// <summary>
+    /// the HTML elements class.
+    /// </summary>
+    public class ReturnClass
+    {
+      #region Properties
+
+      /// <summary>
+      ///   the Album/Image's Id
+      /// </summary>
+      public string Id { get; set; }
+
+      /// <summary>
+      ///   the album/image's new Title/Caption
+      /// </summary>
+      public string NewTitle { get; set; }
+
+      #endregion
+    }
+  }
 }

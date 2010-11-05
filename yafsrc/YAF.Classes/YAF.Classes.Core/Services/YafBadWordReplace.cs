@@ -18,52 +18,51 @@
  */
 namespace YAF.Classes.Core
 {
+  #region Using
+
   using System;
   using System.Collections.Generic;
   using System.Data;
-  using System.Diagnostics;
   using System.Linq;
   using System.Text.RegularExpressions;
-  using System.Web;
-  using System.Web.Caching;
 
   using YAF.Classes.Data;
-  using YAF.Classes.Extensions;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The bad word replace item.
   /// </summary>
   public class BadWordReplaceItem
   {
-    public RegexOptions Options { get; protected set; }
-
     #region Constants and Fields
 
     /// <summary>
-    /// The _active lock.
+    ///   The _active lock.
     /// </summary>
     private readonly object _activeLock = new object();
 
     /// <summary>
-    /// Regular expression object associated with this replace item...
-    /// </summary>
-    private readonly Regex _regEx = null;
-
-    /// <summary>
-    /// The _active.
-    /// </summary>
-    private bool _active = true;
-
-    /// <summary>
-    /// The _bad word.
+    ///   The _bad word.
     /// </summary>
     private readonly string _badWord;
 
     /// <summary>
-    /// The _good word.
+    ///   The _good word.
     /// </summary>
     private readonly string _goodWord;
+
+    /// <summary>
+    ///   Regular expression object associated with this replace item...
+    /// </summary>
+    private readonly Regex _regEx;
+
+    /// <summary>
+    ///   The _active.
+    /// </summary>
+    private bool _active = true;
 
     #endregion
 
@@ -78,9 +77,12 @@ namespace YAF.Classes.Core
     /// <param name="badWord">
     /// The bad word.
     /// </param>
-    public BadWordReplaceItem(string goodWord, string badWord, RegexOptions options)
+    /// <param name="options">
+    /// The options.
+    /// </param>
+    public BadWordReplaceItem([NotNull] string goodWord, [NotNull] string badWord, RegexOptions options)
     {
-      Options = options;
+      this.Options = options;
       this._goodWord = goodWord;
       this._badWord = badWord;
       this._regEx = new Regex(badWord, options);
@@ -91,7 +93,7 @@ namespace YAF.Classes.Core
     #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether Active.
+    ///   Gets or sets a value indicating whether Active.
     /// </summary>
     public bool Active
     {
@@ -117,7 +119,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets BadWord.
+    ///   Gets BadWord.
     /// </summary>
     public string BadWord
     {
@@ -128,7 +130,18 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets GoodWord.
+    ///   Gets BadWordRegEx.
+    /// </summary>
+    public Regex BadWordRegEx
+    {
+      get
+      {
+        return this._regEx;
+      }
+    }
+
+    /// <summary>
+    ///   Gets GoodWord.
     /// </summary>
     public string GoodWord
     {
@@ -139,15 +152,9 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets BadWordRegEx.
+    /// Gets or sets Options.
     /// </summary>
-    public Regex BadWordRegEx
-    {
-      get
-      {
-        return this._regEx;
-      }
-    }
+    public RegexOptions Options { get; protected set; }
 
     #endregion
   }
@@ -160,32 +167,17 @@ namespace YAF.Classes.Core
     #region Constants and Fields
 
     /// <summary>
-    /// The _options.
+    ///   The _options.
     /// </summary>
-    private const RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Compiled /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+    private const RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Compiled
+                               /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets ReplaceWordsCache.
-    /// </summary>
-    public MostRecentlyUsed ReplaceWordsCache
-    {
-      get
-      {
-        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWordsCache);
-
-        var replaceItems = YafContext.Current.Cache.GetItem<MostRecentlyUsed>(
-          cacheKey, 30, () => new MostRecentlyUsed(250));
-
-        return replaceItems;
-      }
-    }
-
-    /// <summary>
-    /// Gets ReplaceItems.
+    ///   Gets ReplaceItems.
     /// </summary>
     public List<BadWordReplaceItem> ReplaceItems
     {
@@ -193,13 +185,12 @@ namespace YAF.Classes.Core
       {
         string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
 
-        var replaceItems = YafContext.Current.Cache.GetItem<List<BadWordReplaceItem>>(
-          cacheKey,
-          30,
+        var replaceItems = YafContext.Current.Cache.GetItem(
+          cacheKey, 
+          30, 
           () =>
             {
-              var replaceWords =
-                DB.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
+              var replaceWords = DB.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
 
               // move to collection...
               return
@@ -212,13 +203,28 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    ///   Gets ReplaceWordsCache.
+    /// </summary>
+    public MostRecentlyUsed ReplaceWordsCache
+    {
+      get
+      {
+        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWordsCache);
+
+        var replaceItems = YafContext.Current.Cache.GetItem(cacheKey, 30, () => new MostRecentlyUsed(250));
+
+        return replaceItems;
+      }
+    }
+
     #endregion
 
     #region Public Methods
 
     /// <summary>
     /// Searches through SearchText and replaces "bad words" with "good words"
-    /// as defined in the database.
+    ///   as defined in the database.
     /// </summary>
     /// <param name="searchText">
     /// The string to search through.
@@ -226,8 +232,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The replace.
     /// </returns>
-    /// <exception cref="Exception"><c>Exception</c>.</exception>
-    public string Replace(string searchText)
+    /// <exception cref="Exception">
+    /// <c>Exception</c>.
+    /// </exception>
+    public string Replace([NotNull] string searchText)
     {
       if (searchText.IsNotSet())
       {
@@ -266,12 +274,13 @@ namespace YAF.Classes.Core
         }
 
 #else
-				catch (Exception x)
-				{
-					// disable this regular expression henceforth...
-					item.Active = false;
-          YAF.Classes.Data.DB.eventlog_create( null, "BadWordReplace", x, EventLogTypes.Warning );
-				}
+        catch (Exception x)
+        {
+          // disable this regular expression henceforth...
+          item.Active = false;
+          DB.eventlog_create(null, "BadWordReplace", x, EventLogTypes.Warning);
+        }
+
 #endif
       }
 

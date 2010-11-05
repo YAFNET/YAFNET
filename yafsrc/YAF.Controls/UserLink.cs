@@ -119,13 +119,13 @@ namespace YAF.Controls
           output.Write(this.PostfixText);
         }
 
-        //Show Irkoo reputation in userlinks?
+        // Show Irkoo reputation in userlinks?
         if (PageContext.BoardSettings.EnableIrkoo &&
             !PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
         {
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "IrkooMethods", YAF.Classes.Core.Services.YAFIrkoo.IrkJsCode());
-            output.Write(YAF.Classes.Core.Services.YAFIrkoo.IrkRating(this.UserID));
+                    "IrkooMethods", YafIrkoo.IrkJsCode());
+            output.Write(YafIrkoo.IrkRating(this.UserID));
         }
 
         output.EndRender();

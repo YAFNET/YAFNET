@@ -27,7 +27,7 @@ namespace YAF.Classes.Core
   using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web;
- 
+
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
@@ -44,7 +44,7 @@ namespace YAF.Classes.Core
     #region Constants and Fields
 
     /// <summary>
-    /// format message regex
+    ///   format message regex
     /// </summary>
     private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
@@ -61,7 +61,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The add smiles.
     /// </returns>
-    public static string AddSmiles(string message)
+    public static string AddSmiles([NotNull] string message)
     {
       var layers = new ProcessReplaceRules();
       AddSmiles(ref layers);
@@ -77,8 +77,10 @@ namespace YAF.Classes.Core
     /// <param name="rules">
     /// The rules.
     /// </param>
-    public static void AddSmiles(ref ProcessReplaceRules rules)
+    public static void AddSmiles([NotNull] ref ProcessReplaceRules rules)
     {
+      CodeContracts.ArgumentNotNull(rules, "rules");
+
       DataTable dtSmileys = GetSmilies();
       int codeOffset = 0;
 
@@ -92,11 +94,15 @@ namespace YAF.Classes.Core
 
         // add new rules for smilies...
         var lowerRule = new SimpleReplaceRule(
-          code.ToLower(),
-          "<img src=\"{0}\" alt=\"{1}\" />".FormatWith(YafBuildLink.Smiley(Convert.ToString(row["Icon"])), HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
+          code.ToLower(), 
+          "<img src=\"{0}\" alt=\"{1}\" />".FormatWith(
+            YafBuildLink.Smiley(Convert.ToString(row["Icon"])), 
+            HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
         var upperRule = new SimpleReplaceRule(
-          code.ToUpper(),
-          "<img src=\"{0}\" alt=\"{1}\" />".FormatWith(YafBuildLink.Smiley(Convert.ToString(row["Icon"])), HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
+          code.ToUpper(), 
+          "<img src=\"{0}\" alt=\"{1}\" />".FormatWith(
+            YafBuildLink.Smiley(Convert.ToString(row["Icon"])), 
+            HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
 
         // increase the rank as we go...
         lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
@@ -112,7 +118,7 @@ namespace YAF.Classes.Core
 
     /// <summary>
     /// The method to detect a forbidden BBCode tag from delimited by 'delim' list 
-    /// 'stringToMatch'
+    ///   'stringToMatch'
     /// </summary>
     /// <param name="stringToClear">
     /// Input string
@@ -125,9 +131,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// Returns a string containing a forbidden BBCode or a null string
     /// </returns>
-    public static string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delim)
+    [CanBeNull]
+    public static string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
     {
-      // TODO: Convert to Regular Expression -- use the match function below.
+      // TODO: Convert to Regular Expression -- use the match function below -- BREAK DOWN INTO REUSABLE FUNCTIONS.
       bool checker = string.IsNullOrEmpty(stringToMatch);
 
       string tagForbidden = null;
@@ -178,8 +185,7 @@ namespace YAF.Classes.Core
                 }
 
                 // detect if the tag from list was found
-                detectedTag = res.Contains("[" + t.ToUpper().Trim()) ||
-                              res.Contains("[/" + t.ToUpper().Trim());
+                detectedTag = res.Contains("[" + t.ToUpper().Trim()) || res.Contains("[/" + t.ToUpper().Trim());
                 res = string.Empty;
 
                 // if so we go out from k-loop after we should go out from j-loop too
@@ -215,23 +221,34 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The format syndication message.
+    /// The method used to get response string, if a forbidden tag is detected.
     /// </summary>
-    /// <param name="message">
-    /// The message.
+    /// <param name="checkString">
+    /// The string to check.
     /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
+    /// <param name="acceptedTags">
+    /// The list of accepted tags.
+    /// </param>
+    /// <param name="delim">
+    /// The delimeter in a tags list.
     /// </param>
     /// <returns>
-    /// The formatted message.
+    /// A message string.
     /// </returns>
-    public static string FormatSyndicationMessage(string message, MessageFlags messageFlags, bool altItem, int charsToFetch)
+    public static string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
     {
-        message = @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(altItem ? "content postContainer" : "content postContainer_Alt", YafFormatMessage.FormatMessage(message, messageFlags, false));
-       message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
-        return message;
-       // <span class=\"quotetitle\">tester1 написал:</span><div class=\"innerquote\">gfhgfhdf</div></div><br />vcxvxcvzcxv</td></tr></tab
+      string detectedHtmlTag = HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
+      if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
+      {
+        return YafContext.Current.Localization.GetTextFormatted(
+          "HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
+      }
+      else if (detectedHtmlTag == "ALL")
+      {
+        return YafContext.Current.Localization.GetText("HTMLTAG_FORBIDDEN");
+      }
+
+      return string.Empty;
     }
 
     /// <summary>
@@ -246,7 +263,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The formatted message.
     /// </returns>
-    public static string FormatMessage(string message, MessageFlags messageFlags)
+    public static string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags)
     {
       return FormatMessage(message, messageFlags, false);
     }
@@ -266,7 +283,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The formated message.
     /// </returns>
-    public static string FormatMessage(string message, MessageFlags messageFlags, bool targetBlankOverride)
+    public static string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride)
     {
       return FormatMessage(message, messageFlags, targetBlankOverride, DateTime.UtcNow);
     }
@@ -289,8 +306,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The formatted message.
     /// </returns>
-    public static string FormatMessage(
-      string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
+    public static string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
     {
       bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
 
@@ -325,9 +341,9 @@ namespace YAF.Classes.Core
         // the fix provided by community 
         var email =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
-            "${before}<a href=\"mailto:${inner}\">${inner}</a>",
-            _options,
+            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})", 
+            "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
+            _options, 
             new[] { "before" });
 
         email.RuleRank = 10;
@@ -342,43 +358,43 @@ namespace YAF.Classes.Core
 
         var url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
+            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
-              "{1}", nofollow),
-            _options,
-            new[] { "before" },
-            new[] { string.Empty },
+              "{1}", nofollow), 
+            _options, 
+            new[] { "before" }, 
+            new[] { string.Empty }, 
             50);
 
         url.RuleRank = 10;
         ruleEngine.AddRule(url);
+
         // ?<! - match if prefixes href="" and src="" are not present
         // <inner> = named capture group
         // (http://|https://|ftp://) - numbered capture group - select from 3 alternatives
         // Match expression but don't capture it, one or more repetions, in the end is dot(\.)? here we match "www." - (?:[\w-]+\.)+
         // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
         // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
-
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
+            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
-              "{1}", nofollow),
-            _options,
-            new[] { "before" },
-            new[] { string.Empty },
+              "{1}", nofollow), 
+            _options, 
+            new[] { "before" }, 
+            new[] { string.Empty }, 
             50);
         url.RuleRank = 10;
         ruleEngine.AddRule(url);
 
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
             "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
-              "{0}", target).Replace("{1}", nofollow),
-            _options,
-            new[] { "before" },
-            new[] { string.Empty },
+              "{0}", target).Replace("{1}", nofollow), 
+            _options, 
+            new[] { "before" }, 
+            new[] { string.Empty }, 
             50);
         url.RuleRank = 10;
         ruleEngine.AddRule(url);
@@ -393,6 +409,36 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The format syndication message.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="messageFlags">
+    /// The message flags.
+    /// </param>
+    /// <param name="altItem">
+    /// The alt Item.
+    /// </param>
+    /// <param name="charsToFetch">
+    /// The chars To Fetch.
+    /// </param>
+    /// <returns>
+    /// The formatted message.
+    /// </returns>
+    [NotNull]
+    public static string FormatSyndicationMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch)
+    {
+      message =
+        @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
+          altItem ? "content postContainer" : "content postContainer_Alt", FormatMessage(message, messageFlags, false));
+      message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
+      return message;
+
+      // <span class=\"quotetitle\">tester1 написал:</span><div class=\"innerquote\">gfhgfhdf</div></div><br />vcxvxcvzcxv</td></tr></tab
+    }
+
+    /// <summary>
     /// The get cleaned topic message. Caches cleaned topic message by TopicID.
     /// </summary>
     /// <param name="topicMessage">
@@ -400,7 +446,7 @@ namespace YAF.Classes.Core
     /// </param>
     /// <param name="topicId">
     /// 
-    /// The topic id.
+    ///   The topic id.
     /// </param>
     /// <returns>
     /// The get cleaned topic message.
@@ -418,55 +464,56 @@ namespace YAF.Classes.Core
 
       if (!topicMessage.IsNullOrEmptyDBField())
       {
-        message = YafContext.Current.Cache.GetItem<MessageCleaned>(
-          cacheKey,
-          YafContext.Current.BoardSettings.FirstPostCacheTimeout,
+        message = YafContext.Current.Cache.GetItem(
+          cacheKey, 
+          YafContext.Current.BoardSettings.FirstPostCacheTimeout, 
           () =>
-          {
-            string returnMsg = topicMessage.ToString();
-            var keywordList = new List<string>();
-
-            if (returnMsg.IsSet())
             {
-              // process message... clean html, strip html, remove bbcode, etc...
-              returnMsg =
-                StringHelper.RemoveMultipleWhitespace(
-                  BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
+              string returnMsg = topicMessage.ToString();
+              var keywordList = new List<string>();
 
-              if (returnMsg.IsNotSet())
+              if (returnMsg.IsSet())
               {
-                returnMsg = string.Empty;
-              }
-              else
-              {
-                // get string without punctuation
-                string keywordCleaned =
-                  new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().ToLower();
+                // process message... clean html, strip html, remove bbcode, etc...
+                returnMsg =
+                  StringHelper.RemoveMultipleWhitespace(
+                    BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
 
-                if (keywordCleaned.Length > 5)
+                if (returnMsg.IsNotSet())
                 {
-                  // create keywords...
-                  keywordList = keywordCleaned.StringToList(' ', commonWords);
+                  returnMsg = string.Empty;
+                }
+                else
+                {
+                  // get string without punctuation
+                  string keywordCleaned =
+                    new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().
+                      ToLower();
 
-                  // clean up the list a bit...
-                  keywordList =
-                    keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct()
-                      .ToList();
-
-                  // sort...
-                  keywordList.Sort();
-
-                  // get maximum of 50 keywords...
-                  if (keywordList.Count > 50)
+                  if (keywordCleaned.Length > 5)
                   {
-                    keywordList = keywordList.GetRange(0, 50);
+                    // create keywords...
+                    keywordList = keywordCleaned.StringToList(' ', commonWords);
+
+                    // clean up the list a bit...
+                    keywordList =
+                      keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !Char.IsNumber(x[0])).
+                        Distinct().ToList();
+
+                    // sort...
+                    keywordList.Sort();
+
+                    // get maximum of 50 keywords...
+                    if (keywordList.Count > 50)
+                    {
+                      keywordList = keywordList.GetRange(0, 50);
+                    }
                   }
                 }
               }
-            }
 
-            return new MessageCleaned(StringHelper.Truncate(returnMsg, 255), keywordList);
-          });
+              return new MessageCleaned(StringHelper.Truncate(returnMsg, 255), keywordList);
+            });
       }
 
       return message;
@@ -508,10 +555,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// Returns a forbidden HTML tag or a null string
     /// </returns>
-    public static string HtmlTagForbiddenDetector(string stringToClear, string stringToMatch, char delim)
+    [CanBeNull]
+    public static string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
     {
-      // TODO: Convert to Regular Expression!
-
+      // TODO: Convert to Regular Expression -- THIS IS WHAT REGEX IF FOR!
       bool checker = string.IsNullOrEmpty(stringToMatch);
 
       string tagForbidden = null;
@@ -559,8 +606,7 @@ namespace YAF.Classes.Core
                   }
 
                   // detect if the tag from list was found
-                  detectedTag = res.Contains("<" + t.ToUpper().Trim()) ||
-                                res.Contains("</" + t.ToUpper().Trim());
+                  detectedTag = res.Contains("<" + t.ToUpper().Trim()) || res.Contains("</" + t.ToUpper().Trim());
                   res = string.Empty;
 
                   // if so we go out from k-loop after we should go out from j-loop too
@@ -595,30 +641,6 @@ namespace YAF.Classes.Core
 
       return null;
     }
- 
-    /// <summary>
-    /// The method used to get response string, if a forbidden tag is detected. 
-    /// </summary>
-    /// <param name="checkString">The string to check.</param>
-    /// <param name="acceptedTags">The list of accepted tags.</param>
-    /// <param name="delim">The delimeter in a tags list.</param>
-    /// <returns>A message string.</returns>
-    public static string CheckHtmlTags(string checkString, string acceptedTags, char delim)
-    {
-        string detectedHtmlTag = YafFormatMessage.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
-          if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
-          {
-              return YafContext.Current.Localization.GetTextFormatted("HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
-             
-          }
-          else if (detectedHtmlTag == "ALL")
-          {
-
-              return YafContext.Current.Localization.GetText("HTMLTAG_FORBIDDEN");
-          }
-
-          return string.Empty;
-    }
 
     /// <summary>
     /// Removes nested YafBBCode quotes from the given message body.
@@ -629,7 +651,8 @@ namespace YAF.Classes.Core
     /// <returns>
     /// A version of <paramref name="body"/> that contains no nested quotes.
     /// </returns>
-    public static string RemoveNestedQuotes(string body)
+    [NotNull]
+    public static string RemoveNestedQuotes([NotNull] string body)
     {
       RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
       var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", options);
@@ -650,7 +673,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The repaired html.
     /// </returns>
-    public static string RepairHtml(string html, bool allowHtml)
+    public static string RepairHtml([NotNull] string html, bool allowHtml)
     {
       // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
       // These are '\n\r' things related to multiline regexps.
@@ -691,65 +714,88 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The repaired html.
     /// </returns>
-    public static string RepairHtmlFeeds(string html, bool allowHtml)
+    public static string RepairHtmlFeeds([NotNull] string html, bool allowHtml)
     {
-        // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
-        // These are '\n\r' things related to multiline regexps.
-        MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-        for (int i = mc1.Count - 1; i >= 0; i--)
-        {
-            html = html.Insert(mc1[i].Index + 1, " \r");
-        }
+      // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
+      // These are '\n\r' things related to multiline regexps.
+      MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+      for (int i = mc1.Count - 1; i >= 0; i--)
+      {
+        html = html.Insert(mc1[i].Index + 1, " \r");
+      }
 
-        MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-        for (int i = mc2.Count - 1; i >= 0; i--)
-        {
-            html = html.Insert(mc2[i].Index + 1, " \r");
-        }
+      MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+      for (int i = mc2.Count - 1; i >= 0; i--)
+      {
+        html = html.Insert(mc2[i].Index + 1, " \r");
+      }
 
-        if (!allowHtml)
-        {
-            html = YafBBCode.EncodeHTML(html);
-        }
-        else
-        {
-            // get allowable html tags       
-            html = RemoveHtmlByList(html, new string[] {"a"});
-        }
+      if (!allowHtml)
+      {
+        html = YafBBCode.EncodeHTML(html);
+      }
+      else
+      {
+        // get allowable html tags       
+        html = RemoveHtmlByList(html, new[] { "a" });
+      }
 
-        return html;
+      return html;
     }
 
     /// <summary>
+    /// Surrounds a word list with prefix/postfix. Case insensitive.
     /// </summary>
-    /// <param name="text">
-    /// The text.
+    /// <param name="message">
     /// </param>
-    /// <param name="matchList">
-    /// The match list.
+    /// <param name="wordList">
+    /// </param>
+    /// <param name="prefix">
+    /// </param>
+    /// <param name="postfix">
     /// </param>
     /// <returns>
+    /// The surround word list.
     /// </returns>
-    private static string RemoveHtmlByList([NotNull] string text, [NotNull] IEnumerable<string> matchList)
+    public static string SurroundWordList(
+      [NotNull] string message, [NotNull] IList<string> wordList, [NotNull] string prefix, [NotNull] string postfix)
     {
-      CodeContracts.ArgumentNotNull(text, "text");
-      CodeContracts.ArgumentNotNull(matchList, "matchList");
+      CodeContracts.ArgumentNotNull(message, "message");
+      CodeContracts.ArgumentNotNull(wordList, "wordList");
+      CodeContracts.ArgumentNotNull(prefix, "prefix");
+      CodeContracts.ArgumentNotNull(postfix, "postfix");
 
-      MatchAndPerformAction(
-        "<.*?>",
-        text,
-        (tag, index, len) =>
-          {
-            if (!HtmlHelper.IsValidTag(tag, matchList))
+      const RegexOptions regexOptions = RegexOptions.IgnoreCase;
+
+      foreach (string word in wordList.Where(w => w.Length > 3))
+      {
+        MatchAndPerformAction(
+          "({0})".FormatWith(word.ToLower().ToRegExString()), 
+          message, 
+          (inner, index, length) =>
             {
-              text = text.Remove(index, len);
-            }
-          });
+              message = message.Insert(index + length, postfix);
+              message = message.Insert(index, prefix);
+            });
 
-      return text;
+        // var matches = regEx.Matches(message).Cast<Match>().ToList().OrderByDescending(x => x.Index);
+
+        // foreach (Match m in matches)
+        // {
+        // message = message.Insert(m.Index + m.Length, postfix);
+        // message = message.Insert(m.Index, prefix);
+        // }
+      }
+
+      return message;
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
+    /// The make match list.
     /// </summary>
     /// <param name="matchRegEx">
     /// The match reg ex.
@@ -772,26 +818,26 @@ namespace YAF.Classes.Core
       return matchList;
     }
 
-      /// <summary>
-      /// </summary>
-      /// <param name="matchRegEx">
-      /// The match reg ex.
-      /// </param>
-      /// <param name="text">
-      /// The text.
-      /// </param>
-      /// <param name="MatchAction">
-      /// The match action.
-      /// </param>
-      /// <returns>
-      /// </returns>
-      private static void MatchAndPerformAction([NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> MatchAction)
+    /// <summary>
+    /// The match and perform action.
+    /// </summary>
+    /// <param name="matchRegEx">
+    /// The match reg ex.
+    /// </param>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="MatchAction">
+    /// The match action.
+    /// </param>
+    private static void MatchAndPerformAction(
+      [NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> MatchAction)
     {
-        CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
-        CodeContracts.ArgumentNotNull(text, "text");
-        CodeContracts.ArgumentNotNull(MatchAction, "MatchAction");
+      CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
+      CodeContracts.ArgumentNotNull(text, "text");
+      CodeContracts.ArgumentNotNull(MatchAction, "MatchAction");
 
-        const RegexOptions options = RegexOptions.IgnoreCase;
+      const RegexOptions options = RegexOptions.IgnoreCase;
 
       var matches = Regex.Matches(text, matchRegEx, options).Cast<Match>().OrderByDescending(x => x.Index);
 
@@ -803,50 +849,34 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Surrounds a word list with prefix/postfix. Case insensitive.
+    /// The remove html by list.
     /// </summary>
-    /// <param name="message">
+    /// <param name="text">
+    /// The text.
     /// </param>
-    /// <param name="wordList">
-    /// </param>
-    /// <param name="prefix">
-    /// </param>
-    /// <param name="postfix">
+    /// <param name="matchList">
+    /// The match list.
     /// </param>
     /// <returns>
-    /// The surround word list.
+    /// The remove html by list.
     /// </returns>
-    public static string SurroundWordList([NotNull] string message, [NotNull] IList<string> wordList, [NotNull] string prefix, [NotNull] string postfix)
+    private static string RemoveHtmlByList([NotNull] string text, [NotNull] IEnumerable<string> matchList)
     {
-      CodeContracts.ArgumentNotNull(message, "message");
-      CodeContracts.ArgumentNotNull(wordList, "wordList");
-      CodeContracts.ArgumentNotNull(prefix, "prefix");
-      CodeContracts.ArgumentNotNull(postfix, "postfix");
+      CodeContracts.ArgumentNotNull(text, "text");
+      CodeContracts.ArgumentNotNull(matchList, "matchList");
 
-      const RegexOptions regexOptions = RegexOptions.IgnoreCase;
+      MatchAndPerformAction(
+        "<.*?>", 
+        text, 
+        (tag, index, len) =>
+          {
+            if (!HtmlHelper.IsValidTag(tag, matchList))
+            {
+              text = text.Remove(index, len);
+            }
+          });
 
-      foreach (string word in wordList.Where(w => w.Length > 3))
-      {
-        MatchAndPerformAction(
-          "({0})".FormatWith(
-            word.ToLower().ToRegExString()),
-            message,
-            (inner, index, length) =>
-              {
-                message = message.Insert(index + length, postfix);
-                message = message.Insert(index, prefix);
-              });
-
-        //var matches = regEx.Matches(message).Cast<Match>().ToList().OrderByDescending(x => x.Index);
-
-        //foreach (Match m in matches)
-        //{
-        //  message = message.Insert(m.Index + m.Length, postfix);
-        //  message = message.Insert(m.Index, prefix);
-        //}
-      }
-
-      return message;
+      return text;
     }
 
     #endregion
@@ -860,7 +890,7 @@ namespace YAF.Classes.Core
       #region Constructors and Destructors
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="MessageCleaned"/> class.
+      ///   Initializes a new instance of the <see cref = "MessageCleaned" /> class.
       /// </summary>
       public MessageCleaned()
       {
@@ -875,7 +905,7 @@ namespace YAF.Classes.Core
       /// <param name="messageKeywords">
       /// The message keywords.
       /// </param>
-      public MessageCleaned(string messageTruncated, List<string> messageKeywords)
+      public MessageCleaned([NotNull] string messageTruncated, [NotNull] List<string> messageKeywords)
       {
         this.MessageTruncated = messageTruncated;
         this.MessageKeywords = messageKeywords;
@@ -886,12 +916,12 @@ namespace YAF.Classes.Core
       #region Properties
 
       /// <summary>
-      /// Gets or sets MessageKeywords.
+      ///   Gets or sets MessageKeywords.
       /// </summary>
       public List<string> MessageKeywords { get; set; }
 
       /// <summary>
-      /// Gets or sets MessageTruncated.
+      ///   Gets or sets MessageTruncated.
       /// </summary>
       public string MessageTruncated { get; set; }
 

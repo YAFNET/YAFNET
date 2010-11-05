@@ -26,32 +26,32 @@ namespace YAF.Classes
   public enum DateTimeFormat
   {
     /// <summary>
-    /// The both.
+    ///   The both.
     /// </summary>
     Both, 
 
     /// <summary>
-    /// The both date short.
+    ///   The both date short.
     /// </summary>
     BothDateShort, 
 
     /// <summary>
-    /// The time.
+    ///   The time.
     /// </summary>
     Time, 
 
     /// <summary>
-    /// The date short.
+    ///   The date short.
     /// </summary>
     DateShort, 
 
     /// <summary>
-    /// The date long.
+    ///   The date long.
     /// </summary>
     DateLong, 
 
     /// <summary>
-    /// The both topic.
+    ///   The both topic.
     /// </summary>
     BothTopic
   }

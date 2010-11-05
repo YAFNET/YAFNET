@@ -16,26 +16,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Data;
-using System.Web;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System.Data;
+  using System.Web;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The yaf check banned ips.
   /// </summary>
   public class YafCheckBannedIps : BaseYafService
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _init var name.
+    ///   The _init var name.
     /// </summary>
     protected const string _initVarName = "YafCheckBannedIps_Init";
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets InitVarName.
+    ///   Gets InitVarName.
     /// </summary>
+    [NotNull]
     protected override string InitVarName
     {
       get
@@ -43,6 +56,10 @@ namespace YAF.Classes.Core
         return "YafCheckBannedIps_Init";
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The run service.
@@ -55,7 +72,7 @@ namespace YAF.Classes.Core
       string key = YafCache.GetBoardCacheKey(Constants.Cache.BannedIP);
 
       // load the banned IP table...
-      var bannedIPs = (DataTable) YafContext.Current.Cache[key];
+      var bannedIPs = (DataTable)YafContext.Current.Cache[key];
 
       if (bannedIPs == null)
       {
@@ -67,7 +84,7 @@ namespace YAF.Classes.Core
       // check for this user in the list...
       foreach (DataRow row in bannedIPs.Rows)
       {
-        if (IPHelper.IsBanned((string) row["Mask"], HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
+        if (IPHelper.IsBanned((string)row["Mask"], HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
         {
           HttpContext.Current.Response.End();
         }
@@ -75,5 +92,7 @@ namespace YAF.Classes.Core
 
       return true;
     }
+
+    #endregion
   }
 }
