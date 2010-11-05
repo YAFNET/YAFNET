@@ -132,10 +132,16 @@ namespace YAF.Controls
       if (this.Get<YafSession>().UseMobileTheme ?? false)
       {
         footer.Append(
-          @"<a target=""_top"" title=""Full Site"" href=""{0}"">".FormatWith(
-            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true")));
-        footer.Append(PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE"));
-        footer.Append(@"</a> | ");        
+          @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
+            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"),
+            PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE")));
+      }
+      else if (PageContext.Vars["IsMobile"] != null && PageContext.Vars["IsMobile"].ToType<bool>())
+      {
+        footer.Append(
+          @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
+            YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"),
+            PageContext.Localization.GetText("COMMON", "MOBILE_VIEWSITE")));           
       }
 
       footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
