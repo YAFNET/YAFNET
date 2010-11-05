@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
 <%@ Import Namespace="YAF.Classes" %>
+
+
 <div id="yafheader">
    <% if (this.PageContext.IsGuest) {%>
     <div class="guestUser">
@@ -151,8 +153,10 @@
          <%
              if (this.PageContext.BoardSettings.ShowQuickSearch && this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.PageContext.BoardSettings.ShowQuickSearch && this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {%>
+                
         <div id="quickSearch" class="QuickSearch" runat="server">
-          <asp:TextBox ID="searchInput" runat="server"></asp:TextBox>&nbsp;<asp:Button ID="doQuickSearch" runat="server" OnClick="QuickSearchClick" />
+          <asp:TextBox ID="searchInput" runat="server" ></asp:TextBox>&nbsp;
+          <asp:LinkButton ID="doQuickSearch" onkeydown="" runat="server" CssClass="QuickSearchButton" OnClick="QuickSearchClick"></asp:LinkButton>
         </div>
          <%
                 }
