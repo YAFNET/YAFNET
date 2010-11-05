@@ -50,7 +50,7 @@
             <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
             </asp:panel>
-            <%#YAF.Classes.Core.Services.YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
+            <%#YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
         </div>
     </td>
 </tr>
