@@ -1,6 +1,6 @@
 <%@ Control Language="c#" CodeBehind="../../../controls/topics.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.topics" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
-<%@ Register TagPrefix="YAFMobile" TagName="TopicLineMobile" Src="TopicLineMobile.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>
@@ -72,18 +72,15 @@
     </tr>
     <asp:Repeater ID="Announcements" runat="server">
         <ItemTemplate>
-            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" Visible="false" />
-            <YAFMobile:TopicLineMobile ID="TopicLine4" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
-            <YAF:TopicLine ID="TopicLine2" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" Visible="false" />
-            <YAFMobile:TopicLineMobile ID="TopicLine5" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine2" runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
         <AlternatingItemTemplate>
-            <YAF:TopicLine ID="TopicLine3" runat="server" IsAlt="True" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" Visible="false" />
-            <YAFMobile:TopicLineMobile ID="TopicLine6" runat="server" IsAlt="True" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine3" runat="server" IsAlt="True" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </AlternatingItemTemplate>
     </asp:Repeater>
     <YAF:ForumUsers ID="ForumUsers1" runat="server" />

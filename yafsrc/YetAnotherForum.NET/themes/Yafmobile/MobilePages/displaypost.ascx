@@ -31,7 +31,7 @@
         <div class="leftItem postedLeft">        
             <strong><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
                 :</strong>
-            <%# this.Get<YafDateTime>().FormatDateTime((System.DateTime)DataRow["Posted"]) %>
+            <YAF:DisplayDateTime id="DisplayDateTime" runat="server" DateTime='<%# DataRow["Posted"] %>'></YAF:DisplayDateTime>
             </div>
     </td>
 </tr>

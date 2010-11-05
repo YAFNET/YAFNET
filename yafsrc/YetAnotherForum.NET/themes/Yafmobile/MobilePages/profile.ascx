@@ -102,22 +102,23 @@
                         <asp:Label ID="Location" runat="server" />
                     </td>
                 </tr>
-                <tr>
-                    <td width="50%" class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
-                    </td>
-                    <td width="50%" class="post">
-                        <asp:Label ID="Joined" runat="server" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="LastVisit" runat="server" />
-                    </td>
-                </tr>
+				<tr>
+					<td width="50%" class="postheader">
+						<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
+					</td>
+					<td width="50%" class="post">
+						<asp:Label ID="Joined" runat="server" />
+					</td>
+				</tr>
+				<tr>
+					<td class="postheader">
+						<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
+					</td>
+					<td class="post">
+						<asp:Label ID="LastVisit" runat="server" Visible="false" />
+                        <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" Visible="false"></YAF:DisplayDateTime>
+					</td>
+				</tr>
                 <tr>
                     <td class="postheader">
                         <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="numposts" />
