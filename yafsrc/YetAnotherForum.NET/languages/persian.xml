@@ -290,6 +290,7 @@
     <Resource tag="LOADING">در حال بارگذاری...</Resource>
     <Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0}, {1}.</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
+    <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">توجه</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">کاربر جدیدی در {0} ثبت نام کرده است.</Resource>
@@ -975,6 +976,12 @@
     <Resource tag="TITLE_MODERATED">اطلاعات</Resource>
     <Resource tag="TITLE_REGISTRATION">تشکر</Resource>
     <Resource tag="TITLE_SUSPENDED">معلق شده</Resource>
+  </page>
+  <page name="IRKOO">
+    <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
+    <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
+    <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
+    <Resource tag="SELF">You cannot vote for your message</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>

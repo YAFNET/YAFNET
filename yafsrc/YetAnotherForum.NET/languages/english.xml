@@ -553,6 +553,7 @@
 	<page name="COMMON">
 		<Resource tag="BACK">Back</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
+    <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
 		<Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
 		<Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;) or some special words.</Resource>
 		<Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>

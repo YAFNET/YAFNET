@@ -290,6 +290,7 @@
     <Resource tag="LOADING">Cargando...</Resource>
     <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0}, {1}.</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
+    <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Aviso</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
@@ -992,6 +993,12 @@
     <Resource tag="TITLE_MODERATED">Informacion</Resource>
     <Resource tag="TITLE_REGISTRATION">Gracias</Resource>
     <Resource tag="TITLE_SUSPENDED">Suspendido</Resource>
+  </page>
+  <page name="IRKOO">
+    <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
+    <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
+    <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
+    <Resource tag="SELF">You cannot vote for your message</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
