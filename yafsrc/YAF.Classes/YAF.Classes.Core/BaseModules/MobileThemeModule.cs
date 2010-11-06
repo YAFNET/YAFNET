@@ -103,13 +103,17 @@ namespace YAF.Modules
 
         return;
       }
-
-      // return if the user has mobile themes shut off in their profile.
-      var userData = new CombinedUserDataHelper(YafContext.Current.PageUserID);
-      if (!userData.UseMobileTheme)
+      
+      if (!YafContext.Current.IsGuest)
       {
-        return;
+          // return if the user has mobile themes shut off in their profile.
+          var userData = new CombinedUserDataHelper(YafContext.Current.PageUserID);
+          if (!userData.UseMobileTheme)
+          {
+              return;
+          }
       }
+      
 
       this.UpdateUseMobileThemeFromQueryString();
 
