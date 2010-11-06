@@ -86,15 +86,11 @@ namespace YAF.Classes.Core
       // changes in columns.
       var allThanks = DB.MessageGetAllThanks(messageIds.ToDelimitedString(","));
 
-      foreach (var thanks in allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID)
-        )
+      foreach (var f in
+          allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID).SelectMany(thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
       {
-        foreach (var f in
-          dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID))
-        {
           f["IsThankedByUser"] = "true";
           f.AcceptChanges();
-        }
       }
 
       var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
@@ -117,10 +113,11 @@ namespace YAF.Classes.Core
         }
         else
         {
-          thanksFieldNames.ForEach(f => postRow[f] = 0);
+            DataRow row = postRow;
+            thanksFieldNames.ForEach(f => row[f] = 0);
         }
 
-        // load all all thanks info into a special column...
+          // load all all thanks info into a special column...
         postRow["ThanksInfo"] =
           thanksFiltered.Where(t => t.FromUserID != null).Select(
             x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate)).ToDelimitedString(",");
@@ -316,8 +313,8 @@ namespace YAF.Classes.Core
         moderator.SelectTypedList(
           row =>
           new SimpleModerator(
-            row.Field<long>("ForumID"),
-            row.Field<long>("ModeratorID"),
+            row.Field<int>("ForumID"),
+            row.Field<int>("ModeratorID"),
             row.Field<string>("ModeratorName"),
             SqlDataLayerConverter.VerifyBool(row["IsGroup"]))).ToList();
     }
