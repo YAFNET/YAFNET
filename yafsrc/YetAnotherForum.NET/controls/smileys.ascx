@@ -1,20 +1,21 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.smileys"
 	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="smileys.ascx.cs" %>
+
 <asp:PlaceHolder ID="SmiliesPlaceholder" runat="server" Visible="true">
-	<br />
-	<br />
-	<table class="content" align="center" cellspacing="0" cellpadding="9">
-		<tr class="postheader">
-			<td class="header" id="AddSmiley" runat="server" align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SMILIES_HEADER" />
-				</td>
-		</tr>
-		<asp:Literal ID="SmileyResults" runat="server" />
-		<asp:PlaceHolder ID="MoreSmiliesHolder" runat="server">
-		<tr class="postfooter">
-			<td class="footer" id="MoreSmiliesCell" align="center" runat="server">
-				<asp:HyperLink ID="MoreSmilies" Text="More Smilies..." Target="_blank" runat="server" /></td>
-		</tr>
-		</asp:PlaceHolder>
-	</table>
+  <table class="content" width="100%" cellspacing="0" cellpadding="0" style="margin-top:30px">
+    <tr>
+      <td class="postheader" style="text-align:center">
+        <span class="header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SMILIES_HEADER" /></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="post">
+        <div id="SmiliesBox" class="content">
+          <table align="center" cellspacing="3" cellpadding="9">
+	        <asp:Literal ID="SmileyResults" runat="server" />
+	      </table>
+        </div>
+      </td>
+    </tr>
+  </table>
 </asp:PlaceHolder>

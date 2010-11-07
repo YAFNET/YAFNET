@@ -216,3 +216,9 @@
 .yafnet .quotetitle {
 	font-weight:bold;
 }
+
+.yafnet #SmiliesBox {
+	display:block;
+	overflow:auto;
+	height:180px;
+}

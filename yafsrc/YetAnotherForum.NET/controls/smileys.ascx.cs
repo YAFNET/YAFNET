@@ -42,13 +42,6 @@ namespace YAF.Controls
     /// </summary>
     private string _onclick;
 
-    // public int pagenum = 0;
-
-    /// <summary>
-    /// The _pagesize.
-    /// </summary>
-    private int _pagesize = 18;
-
     /// <summary>
     /// The _perrow.
     /// </summary>
@@ -76,36 +69,18 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!IsPostBack)
-      {
-        this.MoreSmilies.Text = PageContext.Localization.GetText("SMILIES_MORE");
-        this.MoreSmilies.NavigateUrl = YafBuildLink.GetLink(ForumPages.showsmilies);
-        this.MoreSmilies.Target = "yafShowSmilies";
-        this.MoreSmilies.Attributes.Add(
-          "onclick", 
-          "var smiliesWin = window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');smiliesWin.focus();return false;".FormatWith(this.MoreSmilies.NavigateUrl, this.MoreSmilies.Target, 550, 300));
-      }
-
       YafBoardSettings bs = PageContext.BoardSettings;
-      this._pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
+
       this._perrow = bs.SmiliesPerRow;
-
-      // setup the header
-      this.AddSmiley.Attributes.Add("colspan", this._perrow.ToString());
-      this.AddSmiley.InnerHtml = PageContext.Localization.GetText("SMILIES_HEADER");
-
-      // setup footer
-      this.MoreSmiliesCell.Attributes.Add("colspan", this._perrow.ToString());
 
       this._dtSmileys = DB.smiley_listunique(PageContext.PageBoardID);
 
       if (this._dtSmileys.Rows.Count == 0)
       {
-        this.SmiliesPlaceholder.Visible = false;
+          this.SmiliesPlaceholder.Visible = false;
       }
       else
       {
-        this.MoreSmiliesHolder.Visible = this._dtSmileys.Rows.Count > this._pagesize;
         CreateSmileys();
       }
     }
@@ -119,41 +94,38 @@ namespace YAF.Controls
       html.AppendFormat("<tr class='post'>");
       int rowcells = 0;
 
-      for (int i = 0; i < this._pagesize; i++)
+      for (int i = 0; i < this._dtSmileys.Rows.Count; i++)
       {
-        if (i < this._dtSmileys.Rows.Count)
-        {
           DataRow row = this._dtSmileys.Rows[i];
           if (i % this._perrow == 0 && i > 0 && i < this._dtSmileys.Rows.Count)
           {
-            html.Append("</tr><tr class='post'>\n");
-            rowcells = 0;
+              html.Append("</tr><tr class='post'>\n");
+              rowcells = 0;
           }
 
           string evt = string.Empty;
           if (this._onclick.Length > 0)
           {
-            string strCode = Convert.ToString(row["Code"]).ToLower();
-            strCode = strCode.Replace("&", "&amp;");
-            strCode = strCode.Replace(">", "&gt;");
-            strCode = strCode.Replace("<", "&lt;");
-            strCode = strCode.Replace("\"", "&quot;");
-            strCode = strCode.Replace("\\", "\\\\");
-            strCode = strCode.Replace("'", "\\'");
-            evt = "javascript:{0}('{1} ','{3}{4}/{2}')".FormatWith(this._onclick, strCode, row["Icon"], YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons);
+              string strCode = Convert.ToString(row["Code"]).ToLower();
+              strCode = strCode.Replace("&", "&amp;");
+              strCode = strCode.Replace(">", "&gt;");
+              strCode = strCode.Replace("<", "&lt;");
+              strCode = strCode.Replace("\"", "&quot;");
+              strCode = strCode.Replace("\\", "\\\\");
+              strCode = strCode.Replace("'", "\\'");
+              evt = "javascript:{0}('{1} ','{3}{4}/{2}')".FormatWith(this._onclick, strCode, row["Icon"], YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons);
           }
           else
           {
-            evt = "javascript:void()";
+              evt = "javascript:void()";
           }
 
           html.AppendFormat(
-            "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n", 
-            YafBuildLink.Smiley((string) row["Icon"]), 
-            row["Emoticon"], 
-            evt);
+              "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n", 
+              YafBuildLink.Smiley((string) row["Icon"]), 
+              row["Emoticon"], 
+              evt);
           rowcells++;
-        }
       }
 
       while (rowcells++ < this._perrow)

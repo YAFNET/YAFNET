@@ -22,15 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.PlaceHolder SmiliesPlaceholder;
         
         /// <summary>
-        /// AddSmiley control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell AddSmiley;
-        
-        /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
         /// <remarks>
@@ -47,32 +38,5 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal SmileyResults;
-        
-        /// <summary>
-        /// MoreSmiliesHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MoreSmiliesHolder;
-        
-        /// <summary>
-        /// MoreSmiliesCell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell MoreSmiliesCell;
-        
-        /// <summary>
-        /// MoreSmilies control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink MoreSmilies;
     }
 }
