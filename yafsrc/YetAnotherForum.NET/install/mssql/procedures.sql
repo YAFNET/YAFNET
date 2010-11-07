@@ -4246,8 +4246,8 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
 			else ''	 end, 
 		Edited = IsNull(a.Edited,a.Posted),
-		HasAttachments	= (select count(1) from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),
-		HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null)
+		HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),0),
+		HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0)
 	from
 		[{databaseOwner}].[{objectQualifier}Message] a
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -5596,7 +5596,7 @@ BEGIN
 	-- get count of pm's in user's sent items
 	
 	SELECT 
-		@CountOut=COUNT(*) 
+		@CountOut=COUNT(1) 
 	FROM 
 		[{databaseOwner}].[{objectQualifier}UserPMessage] a
 	INNER JOIN [{databaseOwner}].[{objectQualifier}PMessage] b ON a.PMessageID=b.PMessageID
@@ -5605,7 +5605,7 @@ BEGIN
 		b.FromUserID = @UserID
 	-- get count of pm's in user's  received items
 	SELECT 
-		@CountIn=COUNT(*) 
+		@CountIn=COUNT(1) 
 	FROM 
 		[{databaseOwner}].[{objectQualifier}PMessageView] a
 		WHERE
@@ -5613,7 +5613,7 @@ BEGIN
 		a.ToUserID = @UserID
 	
 	SELECT 
-		@CountArchivedIn=COUNT(*) 
+		@CountArchivedIn=COUNT(1) 
 	FROM 
 		[{databaseOwner}].[{objectQualifier}PMessageView] a
 		WHERE
