@@ -100,6 +100,7 @@ namespace YAF.Controls
       }
 
       this.BindData();
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
       this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
     }
 
@@ -145,7 +146,7 @@ namespace YAF.Controls
       }
 
       this.BindData();
-
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
         this.PageContext.AddLoadMessage(archivedCount == 1
                                             ? this.PageContext.Localization.GetText("MSG_ARCHIVED")
                                             : this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(
