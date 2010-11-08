@@ -215,36 +215,6 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The format hyper link.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <returns>
-    /// The format hyper link.
-    /// </returns>
-    [NotNull]
-    private static string FormatHyperLink([NotNull] string message)
-    {
-      if (message.Contains("<a"))
-      {
-        for (int i = 0; i < message.Length; i++)
-        {
-          if (i <= message.Length - 2)
-          {
-            if (message.Substring(i, 2) == "<a")
-            {
-              message = message.Substring(i, 2) + " target=\"_blank\"" +
-                        message.Substring(i + 2, message.Length - (i + 2));
-            }
-          }
-        }
-      }
-
-      return message;
-    }
-
-    /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()
@@ -275,7 +245,10 @@ namespace YAF.Controls
         {
           string formattedMessage = YafFormatMessage.FormatMessage(
             shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
-          formattedMessage = FormatHyperLink(formattedMessage);
+
+          // Extra Formating not needed already done tru YafFormatMessage.FormatMessage
+          //formattedMessage = FormatHyperLink(formattedMessage);
+
           shoutBoxMessages.Rows[i]["Message"] = formattedMessage;
         }
 
