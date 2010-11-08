@@ -1715,6 +1715,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="MYTOPICS">My Topics</Resource>
 		<Resource tag="ACTIVETOPICS">Active Topics</Resource>
 		<Resource tag="ADMIN">Admin</Resource>
+		<Resource tag="HOST">Host</Resource>
 		<Resource tag="HELP">Help</Resource>
 		<Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>
 		<Resource tag="LOGIN">Log In</Resource>

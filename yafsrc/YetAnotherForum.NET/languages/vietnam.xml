@@ -1708,6 +1708,7 @@
     <Resource tag="BUDDIES">Bạn bè</Resource>
     <Resource tag="BUDDYREQUEST">({0} Chờ đồng ý)</Resource>
     <Resource tag="HELP">Trợ giúp</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Đăng nhập dưới tên: {0}</Resource>
     <Resource tag="LOGIN">Đăng nhập</Resource>

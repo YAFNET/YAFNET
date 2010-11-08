@@ -1692,6 +1692,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="BUDDIES">دوستان</Resource>
     <Resource tag="BUDDYREQUEST">({0} در انتظار تائید)</Resource>
     <Resource tag="HELP">کمک</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">وارد شده به عنوان: {0}</Resource>
     <Resource tag="LOGIN">ورود</Resource>

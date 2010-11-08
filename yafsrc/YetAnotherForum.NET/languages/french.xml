@@ -1710,6 +1710,7 @@ Visitez {forumname} à l'adresse {forumlink}
     <Resource tag="BUDDIES">Amis</Resource>
     <Resource tag="BUDDYREQUEST">({0} demandes)</Resource>
     <Resource tag="HELP">Aide</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Connecté(e)&amp;nbsp;: {0}</Resource>
     <Resource tag="LOGIN">Connexion</Resource>

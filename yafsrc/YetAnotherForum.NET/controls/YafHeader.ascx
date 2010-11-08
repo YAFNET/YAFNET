@@ -166,6 +166,14 @@
             <li class="menuAdmin"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.admin_admin) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "ADMIN")%></a> </li>
             <%
+                }
+
+                if (this.PageContext.IsHostAdmin)
+                {%>
+        <ul class="menuAdminList">    
+            <li class="menuAdmin"><a target='_top' href="<%=YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "HOST")%></a> </li>
+            <%
                 }%>
             <%if (this.PageContext.IsModerator || this.PageContext.IsForumModerator)
               {%>

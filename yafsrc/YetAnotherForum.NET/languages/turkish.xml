@@ -1532,6 +1532,7 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="BUDDIES">Arkadaşlarım</Resource>
     <Resource tag="BUDDYREQUEST">({0} Arkadaş İsteği)</Resource>
     <Resource tag="HELP">Yardım</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">Gelen Kutum</Resource>
     <Resource tag="LOGGED_IN_AS"> {0} Giriş yapıldı. Hoşgeldiniz: </Resource>
     <Resource tag="LOGIN">Giriş</Resource>

@@ -1837,6 +1837,7 @@
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">עזרה</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">מחובר כ-: {0}</Resource>
     <Resource tag="LOGIN">התחבר</Resource>

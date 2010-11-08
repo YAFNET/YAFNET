@@ -1711,6 +1711,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Hjälp</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Inloggad som: {0}</Resource>
     <Resource tag="LOGIN">Logga in</Resource>

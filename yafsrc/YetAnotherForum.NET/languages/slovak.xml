@@ -1694,6 +1694,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Nápoveda</Resource>
+    <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
     <Resource tag="LOGGED_IN_AS">Ste prihlásený ako: {0}</Resource>
     <Resource tag="LOGIN">Prihlásiť sa</Resource>
