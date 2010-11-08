@@ -102,7 +102,7 @@ namespace YAF.Classes
         string useKey = string.Empty;
         string description = string.Empty;
         string pageName = parser["g"];
-        bool showKey = false;
+        const bool showKey = false;
         bool handlePage = false;
 
         switch (parser["g"])
@@ -156,14 +156,7 @@ namespace YAF.Classes
 
         if (useKey.Length > 0)
         {
-          if (!showKey)
-          {
             newUrl += parser[useKey];
-          }
-          else
-          {
-            newUrl += useKey + parser[useKey];
-          }
         }
 
         if (handlePage && parser["p"] != null)
@@ -171,7 +164,7 @@ namespace YAF.Classes
           int page = Convert.ToInt32(parser["p"]);
           if (page != 1)
           {
-            newUrl += "p" + page.ToString();
+            newUrl += string.Format("p{0}", page);
           }
 
           parser.Parameters.Remove("p");
@@ -179,7 +172,12 @@ namespace YAF.Classes
 
         if (description.Length > 0)
         {
-          newUrl += "_" + description;
+            if (description.EndsWith("-"))
+            {
+                description = description.Remove(description.Length - 1, 1);
+            }
+
+          newUrl += string.Format("_{0}", description);
         }
 
         newUrl += ".aspx";
@@ -189,7 +187,7 @@ namespace YAF.Classes
         // append to the url if there are additional (unsupported) parameters
         if (restURL.Length > 0)
         {
-          newUrl += "?" + restURL;
+          newUrl += string.Format("?{0}", restURL);
         }
 
         // see if we can just use the default (/)
@@ -202,7 +200,7 @@ namespace YAF.Classes
         // add anchor
         if (parser.HasAnchor)
         {
-          newUrl += "#" + parser.Anchor;
+          newUrl += string.Format("#{0}", parser.Anchor);
         }
       }
 
@@ -266,19 +264,17 @@ namespace YAF.Classes
       // normalize the Unicode
       str = str.Normalize(NormalizationForm.FormD);
 
-      for (int i = 0; i < str.Length; i++)
+      foreach (char currentChar in str)
       {
-        char currentChar = str[i];
-
-        if (char.IsWhiteSpace(currentChar) || currentChar == '.')
-        {
-          sb.Append('-');
-        }
-        else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
-                 !char.IsSymbol(currentChar) && currentChar < 128)
-        {
-          sb.Append(currentChar);
-        }
+          if (char.IsWhiteSpace(currentChar) || currentChar == '.')
+          {
+              sb.Append('-');
+          }
+          else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
+                   !char.IsSymbol(currentChar) && currentChar < 128)
+          {
+              sb.Append(currentChar);
+          }
       }
 
       return sb.ToString();
@@ -312,9 +308,9 @@ namespace YAF.Classes
     /// </returns>
     protected string GetCategoryName(int id)
     {
-      string type = "Category";
-      string primaryKey = "CategoryID";
-      string nameField = "Name";
+      const string type = "Category";
+      const string primaryKey = "CategoryID";
+      const string nameField = "Name";
 
       DataRow row = this.GetDataRowFromCache(type, id);
 
@@ -360,11 +356,9 @@ namespace YAF.Classes
         {
           return row;
         }
-        else
-        {
+
           // invalidate this cache section
           HttpContext.Current.Cache.Remove(this.GetCacheName(type, id));
-        }
       }
 
       return null;
@@ -381,9 +375,9 @@ namespace YAF.Classes
     /// </returns>
     protected string GetForumName(int id)
     {
-      string type = "Forum";
-      string primaryKey = "ForumID";
-      string nameField = "Name";
+      const string type = "Forum";
+      const string primaryKey = "ForumID";
+      const string nameField = "Name";
 
       DataRow row = this.GetDataRowFromCache(type, id);
 
@@ -415,9 +409,9 @@ namespace YAF.Classes
     /// </returns>
     protected string GetProfileName(int id)
     {
-      string type = "Profile";
-      string primaryKey = "UserID";
-      string nameField = "Name";
+      const string type = "Profile";
+      const string primaryKey = "UserID";
+      const string nameField = "Name";
 
       DataRow row = this.GetDataRowFromCache(type, id);
 
@@ -449,9 +443,9 @@ namespace YAF.Classes
     /// </returns>
     protected string GetTopicName(int id)
     {
-      string type = "Topic";
-      string primaryKey = "TopicID";
-      string nameField = "Topic";
+      const string type = "Topic";
+      const string primaryKey = "TopicID";
+      const string nameField = "Topic";
 
       DataRow row = this.GetDataRowFromCache(type, id);
 
@@ -483,8 +477,8 @@ namespace YAF.Classes
     /// </returns>
     protected string GetTopicNameFromMessage(int id)
     {
-      string type = "Message";
-      string primaryKey = "MessageID";
+      const string type = "Message";
+      const string primaryKey = "MessageID";
 
       DataRow row = this.GetDataRowFromCache(type, id);
 

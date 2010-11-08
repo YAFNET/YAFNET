@@ -54,7 +54,7 @@ namespace YAF.DotNetNuke
     /// </returns>
     public override string BuildUrl(string sUrl)
     {
-      StringBuilder newUrl = new StringBuilder();
+      var newUrl = new StringBuilder();
 
       PortalSettings curPortalSettings = PortalController.GetCurrentPortalSettings();
 
@@ -119,6 +119,11 @@ namespace YAF.DotNetNuke
                   try
                   {
                       topicName = this.GetTopicNameFromMessage(Convert.ToInt32(parser["m"]));
+
+                      if (topicName.EndsWith("-"))
+                      {
+                          topicName = topicName.Remove(topicName.Length - 1, 1);
+                      }
                   }
                   catch (Exception)
                   {
@@ -220,6 +225,8 @@ namespace YAF.DotNetNuke
 
       return newUrl.ToString();
     }
+
+    
 
     #endregion
   }
