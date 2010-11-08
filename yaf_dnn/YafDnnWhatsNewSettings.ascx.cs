@@ -77,6 +77,16 @@ namespace YAF.DotNetNuke
           {
             this.txtMaxResult.Text = "10";
           }
+
+          if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafUseRelativeTime"]))
+          {
+              bool YafUseRelativeTime;
+              bool.TryParse((string)TabModuleSettings["YafUseRelativeTime"], out YafUseRelativeTime);
+
+              this.UseRelativeTime.Checked = YafUseRelativeTime;
+          }
+
+            
         }
       }
       catch (Exception exc)
@@ -125,6 +135,8 @@ namespace YAF.DotNetNuke
         {
           objModules.UpdateTabModuleSetting(this.TabModuleId, "YafMaxPosts", "10");
         }
+
+        objModules.UpdateTabModuleSetting(this.TabModuleId, "YafUseRelativeTime", UseRelativeTime.Checked.ToString());
       }
       catch (Exception exc)
       {

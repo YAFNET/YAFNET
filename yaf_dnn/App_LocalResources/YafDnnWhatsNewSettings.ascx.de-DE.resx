@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControlTitle_settings.Text" xml:space="preserve">
-    <value>YAF.WhatsNew Settings</value>
+    <value>YAF.WhatsNew Einstellungen</value>
   </data>
   <data name="lblMaxResult.Help" xml:space="preserve">
     <value>Define the Number of how many Posts should been displayed.</value>
   </data>
   <data name="lblMaxResult.Text" xml:space="preserve">
-    <value>Max. Posts</value>
+    <value>Max. Beiträge</value>
   </data>
   <data name="lblTab.Help" xml:space="preserve">
-    <value>Select the Module Instance you want to use.</value>
+    <value>Wähelen Sie die Modul Instanz die Sie verwenden möchten.</value>
   </data>
   <data name="lblTab.Text" xml:space="preserve">
-    <value>Select the YAF Module Instance</value>
+    <value>Select the YAF Page</value>
   </data>
   <data name="ModuleHelp.Text" xml:space="preserve">
-    <value>Here you have to define which YAF Module Instance you want to use. You can also define How many Posts should be displayed.</value>
+    <value>Hier definieren Sie welche Modul Instanz verwendet werden soll. Sie können außerdem bestimmen wie viele Beiträge angezeigt werden sollen.</value>
   </data>
   <data name="lblRelativeTime.Help" xml:space="preserve">
-    <value>If checked, client-side "Time Ago" library will be used to show "relative times" to users instead of UTC and or imperfect server-side times.</value>
+    <value>Wenn aktiviert, wird Cdie Zeite Relative angzeigt anstatt in UTC Server seitiger Zeiten.</value>
   </data>
   <data name="lblRelativeTime.Text" xml:space="preserve">
-    <value>Show Relative Time</value>
+    <value>Zeige Relative Zeit</value>
   </data>
 </root>

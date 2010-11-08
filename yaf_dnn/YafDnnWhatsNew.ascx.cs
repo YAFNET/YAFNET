@@ -70,14 +70,19 @@ namespace YAF.DotNetNuke
     private int iMaxPosts;
 
     /// <summary>
-    /// The i yaf module id.
+    /// The yaf module id.
     /// </summary>
     private int iYafModuleId;
 
     /// <summary>
-    /// The i yaf tab id.
+    /// The yaf tab id.
     /// </summary>
     private int iYafTabId;
+
+    /// <summary>
+    /// Use Relative Time Setting
+    /// </summary>
+    private bool UseRelativeTime;
 
     /// <summary>
     /// The cache size.
@@ -452,18 +457,18 @@ namespace YAF.DotNetNuke
     /// -----------------------------------------------------------------------------
     protected void Page_Load(object sender, EventArgs e)
     {
-        Type csType = typeof(Page);
-
-        if (YafContext.Current.BoardSettings.ShowRelativeTime)
-        {
-            jQuery.RequestRegistration();
-
-            ScriptManager.RegisterClientScriptInclude(this, csType, "timeagojs", ResolveUrl("~/DesktopModules/YetAnotherForumDotNet/resources/js/jquery.timeago.js"));
-
-            ScriptManager.RegisterStartupScript(this, csType, "timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs, true);
-        }
+       Type csType = typeof(Page);
 
       this.LoadSettings();
+
+      if (UseRelativeTime)
+      {
+          jQuery.RequestRegistration();
+
+          ScriptManager.RegisterClientScriptInclude(this, csType, "timeagojs", ResolveUrl("~/DesktopModules/YetAnotherForumDotNet/resources/js/jquery.timeago.js"));
+
+          ScriptManager.RegisterStartupScript(this, csType, "timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs, true);
+      }
 
       this.BindData();
     }
@@ -637,6 +642,17 @@ namespace YAF.DotNetNuke
         catch (Exception)
         {
           this.iMaxPosts = 10;
+        }
+
+        if (!string.IsNullOrEmpty((string)moduleSettings["YafUseRelativeTime"]))
+        {
+            UseRelativeTime = true;
+
+            bool.TryParse((string)moduleSettings["YafUseRelativeTime"], out UseRelativeTime);
+        }
+        else
+        {
+            UseRelativeTime = true;
         }
       }
       catch (Exception exc)
