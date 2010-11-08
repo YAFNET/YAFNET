@@ -7,14 +7,10 @@
         </strong>
     </td>
     <td width="80%" colspan="2">
-        &nbsp;
     </td>
 </tr>
 <tr class="<%#GetPostClass()%>">
-    <td valign="top" height="100" class="UserBox" colspan='2'>
-        &nbsp;
-    </td>
-    <td valign="top" class="message">
+    <td valign="top" class="message" colspan='3'>
         <div class="postdiv">
             <YAF:MessagePost ID="AdMessage" runat="server"></YAF:MessagePost>
         </div>
