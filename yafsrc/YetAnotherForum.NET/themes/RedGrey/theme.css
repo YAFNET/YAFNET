@@ -99,7 +99,7 @@
 	text-decoration: underline;
 }	
 .yafnet .topicTitle th,	
-.yafnet th.header1 {
+.yafnet td.header1 {
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
 	background: url('HeaderBack.png') repeat-x #d81b21;
@@ -1150,8 +1150,17 @@ height:80em;
 	-moz-box-shadow: 2px 2px 2px #c3c3c3;
     -webkit-box-shadow: 2px 2px 2px #c3c3c3;
     box-shadow: 2px 2px 2px #c3c3c3;
+	
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	background: url('ButtonHover.png') top repeat-x #a11115;
+	background: -webkit-gradient(linear, left top, left bottom, from(#c9151b), to(#a11115));
+	background: -moz-linear-gradient(top,  #c9151b,  #a11115);
 }
-
+.yafnet .menuContainer ul li a,
+.QuickSearch a {
+	color:white
+}
 .yafnet .postOptions li {
 	list-style-type: none;
 }
@@ -1164,9 +1173,9 @@ height:80em;
 	text-decoration: none;
 }
 .yafnet .outerMenuContainer a:hover {
-	color:blue;
+	color:black;
 }
-.yafnet .outerMenuContainer a:hover {
+.yafnet .menuMyContainer a:hover {
 	color:blue;
 }
 .yafnet #yafhelpmenu ul li a {
@@ -1175,7 +1184,7 @@ height:80em;
 	font-weight: 400;
 }
 .menuAdmin a {
-	color:#F00!important;
+	color:#333!important;
 }
 
 /* Irkoo Service styles */

@@ -1163,8 +1163,17 @@ height:80em;
 	-moz-box-shadow: 2px 2px 2px #c3c3c3;
     -webkit-box-shadow: 2px 2px 2px #c3c3c3;
     box-shadow: 2px 2px 2px #c3c3c3;
+	
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	background: url('ButtonHover.png') top repeat-x #f06015;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
 }
-
+.yafnet .menuContainer ul li a,
+.QuickSearch a {
+	color:white
+}
 .yafnet .postOptions li {
 	list-style-type: none;
 }
@@ -1177,6 +1186,9 @@ height:80em;
 	text-decoration: none;
 }
 .yafnet .outerMenuContainer a:hover {
+	color:black;
+}
+.yafnet .menuMyContainer a:hover {
 	color:blue;
 }
 .yafnet #yafhelpmenu ul li a {
@@ -1185,7 +1197,7 @@ height:80em;
 	font-weight: 400;
 }
 .menuAdmin a {
-	color:#F00!important;
+	color:#333!important;
 }
 
 /* Irkoo Service styles */
