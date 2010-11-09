@@ -55,7 +55,9 @@ namespace YAF.DotNetNuke
                                      CurrentPortalSettings.PortalId);
             }
         }
-
+        /// <summary>
+        /// BasePage
+        /// </summary>
         public CDefault BasePage
         {
             get { return (CDefault) Page; }
@@ -149,16 +151,16 @@ namespace YAF.DotNetNuke
                 {
                     yafUserId = DB.user_get(forum1.BoardID, dnnUser.ProviderUserKey);
                     if (yafUserId > 0)
-                        Session[SessionUserKeyName + "_userSync"] = true;
+                        Session[string.Format("{0}_userSync", SessionUserKeyName)] = true;
                 }
                 catch (Exception)
                 {
                     yafUserId = 0;
-                    Session[SessionUserKeyName + "_userSync"] = null;
+                    Session[string.Format("{0}_userSync", SessionUserKeyName)] = null;
                 }
 
                 // Has this user been registered in YAF already?
-                if (Session[SessionUserKeyName + "_userSync"] != null)
+                if (Session[string.Format("{0}_userSync", SessionUserKeyName)] != null)
                     return;
 
                 if (yafUserId == 0)
@@ -166,7 +168,9 @@ namespace YAF.DotNetNuke
 
                 // super admin check...
                 if (dnnUserInfo.IsSuperUser)
+                {
                     CreateYafHostUser(yafUserId);
+                }
 
                 if (YafContext.Current.Settings != null)
                     RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
@@ -257,7 +261,7 @@ namespace YAF.DotNetNuke
             // Save User
             DB.user_save(yafUserId, 
                          forum1.BoardID,
-                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, null, null, null, null, null, null, null);
+                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, true, null, null, null, null, null, null);
 
             return yafUserId;
         }
@@ -311,7 +315,7 @@ namespace YAF.DotNetNuke
         /// <param name="e"></param>
         private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
-            this.BasePage.Title = this.BasePage.Title.Replace(this.PortalSettings.ActiveTab.TabName, string.Empty);
+            this.BasePage.Title = this.BasePage.Title.Replace(this.PortalSettings.ActiveTab.Title, string.Empty);
         }
         /// <summary>
         /// 
