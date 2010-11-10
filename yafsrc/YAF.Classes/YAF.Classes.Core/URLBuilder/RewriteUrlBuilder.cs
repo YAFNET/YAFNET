@@ -24,6 +24,7 @@ namespace YAF.Classes
   using System.Data;
   using System.Globalization;
   using System.Text;
+  using System.Text.RegularExpressions;
   using System.Web;
   using System.Web.Caching;
 
@@ -256,7 +257,9 @@ namespace YAF.Classes
       var sb = new StringBuilder();
 
       // trim...
-      str = HttpContext.Current.Server.HtmlDecode(str.Trim());
+      //str = HttpContext.Current.Server.HtmlDecode(str.Trim());
+
+      str = HttpUtility.UrlDecode(str.Trim());
 
       // fix ampersand...
       str = str.Replace("&", "and");
@@ -271,10 +274,15 @@ namespace YAF.Classes
               sb.Append('-');
           }
           else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
-                   !char.IsSymbol(currentChar) && currentChar < 128)
+                         !char.IsSymbol(currentChar))
           {
               sb.Append(currentChar);
           }
+          /*else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
+                   !char.IsSymbol(currentChar) && currentChar < 128)
+          {
+              sb.Append(currentChar);
+          }*/
       }
 
       return sb.ToString();

@@ -107,8 +107,15 @@ namespace YAF.DotNetNuke
               {
                 useKey = "t";
 
+                  string topicName = this.GetTopicName(Convert.ToInt32(parser["t"]));
+
+                  if (topicName.EndsWith("-"))
+                  {
+                      topicName = topicName.Remove(topicName.Length - 1, 1);
+                  }
+
                 newUrl.AppendFormat(
-                  "g/{2}/t/{0}/{1}", parser["t"], this.GetTopicName(Convert.ToInt32(parser["t"])), parser["g"]);
+                  "g/{2}/t/{0}/{1}", parser["t"], topicName, parser["g"]);
               }
               else if (!String.IsNullOrEmpty(parser["m"]))
               {
