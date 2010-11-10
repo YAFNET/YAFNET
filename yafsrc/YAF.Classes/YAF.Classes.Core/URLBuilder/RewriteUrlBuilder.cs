@@ -269,23 +269,25 @@ namespace YAF.Classes
 
       foreach (char currentChar in str)
       {
-          if (char.IsWhiteSpace(currentChar) || currentChar == '.')
+          if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
           {
               sb.Append('-');
           }
-          else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
+          else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
                          !char.IsSymbol(currentChar))
           {
               sb.Append(currentChar);
           }
-          /*else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
-                   !char.IsSymbol(currentChar) && currentChar < 128)
-          {
-              sb.Append(currentChar);
-          }*/
       }
 
-      return sb.ToString();
+        string strNew = sb.ToString();
+
+        if (strNew.EndsWith("-"))
+        {
+            strNew = strNew.Remove(strNew.Length - 1, 1);
+        }
+
+        return HttpUtility.UrlEncode(strNew);
     }
 
     /// <summary>
