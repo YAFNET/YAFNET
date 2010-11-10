@@ -54,12 +54,13 @@
 }
 .yafnet #yafheader .outerMenuContainer
 {
+    margin-right: 5px;
     border: 1px solid #ddd;
 	line-height: 20px;
 	padding: 3px;
-    -webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;	
+    -webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;	
 }
 .yafnet #yafheader ul li a
 {
@@ -97,6 +98,14 @@
 .yafnet .menuMyList
 {
     margin-bottom: 10px;
+}
+.yafnet .menuContainer .menuList
+{
+    float: left;
+}
+.yafnet .menuAdminList
+{
+    float: none !important;
 }
 .yafnet .menuMyList li a
 {

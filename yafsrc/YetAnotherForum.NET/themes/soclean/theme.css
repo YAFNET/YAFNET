@@ -3,7 +3,7 @@
 .yafnet,
 .yafnet td {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
-	font-size: 9pt;
+	font-size: 8pt;
 	color:#404040;
 }
 
@@ -116,6 +116,7 @@
     border: 1px solid #ddd;
 	line-height: 20px;
 	padding: 3px;
+	line-height: 30px;
 }
 .yafnet #yafheader ul li a
 {
@@ -162,6 +163,14 @@
 {
     display: inline;
     padding: 0;
+}
+.yafnet .menuContainer .menuList
+{
+    float: left;
+}
+.yafnet .menuAdminList
+{
+    float: none !important;
 }
 .yafnet #yafheader .loggedInUser
 {
@@ -232,7 +241,6 @@
 /* Footer1 - Bottom of tables */
 .yafnet .footer1 {
 	font-size: 7pt;
-	height: 28px;
 	background-color:#fbfbfb;
 }
 .yafnet .footer1 select,

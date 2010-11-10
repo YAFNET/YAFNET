@@ -123,6 +123,14 @@
     display: inline;
     padding: 0;
 }
+.yafnet .menuContainer .menuList
+{
+    float: left;
+}
+.yafnet .menuAdminList
+{
+    float: none !important;
+}
 .yafnet #yafheader .loggedInUser
 {
     float: left !important;
