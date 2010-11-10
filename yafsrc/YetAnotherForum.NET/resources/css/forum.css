@@ -107,17 +107,13 @@
 {
     float: left;
     width: 100%;
+    line-height:30px;
 }
 .yafnet .menuContainer
-{
-	line-height:30px;
+{	
     float: left;
 }
 .yafnet .menuMyContainer
-{
-	float: right;
-}
-.yafnet .menuAdminList 
 {
 	float: right;
 }
