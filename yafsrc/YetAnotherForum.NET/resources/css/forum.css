@@ -218,3 +218,8 @@
 	overflow:auto;
 	height:180px;
 }
+
+.yafnet .smilesBox
+{
+    padding: 0 !important;
+}
