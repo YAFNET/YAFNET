@@ -584,6 +584,28 @@ namespace YAF.Classes.Utils
         }
     }
 
+    /// <summary>
+    /// Adds a class to the attribute "class". If one exists, it appends the class.
+    /// </summary>
+    /// <param name="control"></param>
+    /// <param name="cssClass"></param>
+    public static void AddClass([NotNull] this WebControl control, [NotNull] string cssClass)
+    {
+      CodeContracts.ArgumentNotNull(control, "control");
+      CodeContracts.ArgumentNotNull(cssClass, "cssClass");
+
+      var currentClass = control.Attributes["class"];
+
+      if (currentClass.IsSet())
+      {
+        control.Attributes["class"] = "{0} {1}".FormatWith(currentClass, cssClass);
+      }
+      else
+      {
+        control.Attributes.Add("class", cssClass);
+      }
+    }
+
     /* Ederon - 7/1/2007 end */
 
     /// <summary>
