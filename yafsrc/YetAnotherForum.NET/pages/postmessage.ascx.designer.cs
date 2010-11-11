@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.controls.PollList PollList;
+        protected global::YAF.Controls.PollList PollList;
         
         /// <summary>
         /// Title control.

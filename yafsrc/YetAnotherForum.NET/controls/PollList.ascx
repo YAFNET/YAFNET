@@ -1,5 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
-    Inherits="YAF.controls.PollList" %>
+    Inherits="YAF.Controls.PollList" %>
  <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
 <table cellpadding="0" cellspacing="1" class="content" width="100%">
     <asp:Repeater ID="PollGroup" OnItemCommand="PollGroup_ItemCommand" OnItemDataBound="PollGroup_OnItemDataBound"

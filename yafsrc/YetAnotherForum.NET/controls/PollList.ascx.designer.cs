@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.controls {
+namespace YAF.Controls {
     
     
     public partial class PollList {
