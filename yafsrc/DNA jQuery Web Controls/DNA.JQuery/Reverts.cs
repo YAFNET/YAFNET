@@ -1,15 +1,33 @@
-﻿///  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
+﻿//  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
 ///  Dual licensed under the MIT and GPL licenses:
 ///  http://www.opensource.org/licenses/mit-license.php
 ///  http://www.gnu.org/licenses/gpl.html
 
 namespace DNA.UI.JQuery
 {
-    public enum Reverts
-    {
-        NotSet,
-        Auto,
-        Valid,
-        Invalid
-    }
+  /// <summary>
+  /// The reverts.
+  /// </summary>
+  public enum Reverts
+  {
+    /// <summary>
+    /// The not set.
+    /// </summary>
+    NotSet, 
+
+    /// <summary>
+    /// The auto.
+    /// </summary>
+    Auto, 
+
+    /// <summary>
+    /// The valid.
+    /// </summary>
+    Valid, 
+
+    /// <summary>
+    /// The invalid.
+    /// </summary>
+    Invalid
+  }
 }

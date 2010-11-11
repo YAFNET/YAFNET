@@ -1,12 +1,16 @@
-﻿///  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
+﻿//  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
 ///  Dual licensed under the MIT and GPL licenses:
 ///  http://www.opensource.org/licenses/mit-license.php
 ///  http://www.gnu.org/licenses/gpl.html
+
+#region Using
+
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Web.UI;
+
+#endregion
 
 [assembly: AssemblyTitle("DNA Common UI Framework")]
 [assembly: AssemblyDescription("This library is the base library of all DNA Control or Component to uses")]

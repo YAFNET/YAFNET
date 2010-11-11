@@ -326,7 +326,7 @@ function runTest() {
 	config.ajaxSettings = $.ajaxSettings;
 	synchronize(function() {
 		$('<p id="testresult" class="result"/>').html(['Tests completed in ',
-			+new Date - started, ' milliseconds.<br />',
+			+new Date - started, ' milliseconds.<br/>',
 			'<span class="bad">', config.stats.bad, '</span> tests of <span class="all">', config.stats.all, '</span> failed.']
 			.join(''))
 			.appendTo("body");

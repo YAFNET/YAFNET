@@ -1,63 +1,98 @@
-﻿///  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
+﻿//  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
 ///  Dual licensed under the MIT and GPL licenses:
 ///  http://www.opensource.org/licenses/mit-license.php
 ///  http://www.gnu.org/licenses/gpl.html
-using System.Web;
-using System.Security.Permissions;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Web.UI.Design;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing.Design;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-
 namespace DNA.UI.JQuery.Design
 {
-    public class AccordionAnimationEditor:UITypeEditor
+  #region Using
+
+  using System;
+  using System.ComponentModel;
+  using System.Drawing.Design;
+  using System.Windows.Forms;
+  using System.Windows.Forms.Design;
+
+  #endregion
+
+  /// <summary>
+  /// The accordion animation editor.
+  /// </summary>
+  public class AccordionAnimationEditor : UITypeEditor
+  {
+    #region Public Methods
+
+    /// <summary>
+    /// The edit value.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    /// <param name="provider">
+    /// The provider.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// The edit value.
+    /// </returns>
+    public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
     {
-        private class AnimationListBox : ListBox
+      if (provider != null)
+      {
+        // This service is in charge of popping our dropdown.
+        var service1 = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+
+        if (service1 != null)
         {
-            public AnimationListBox()
-            {
-                this.BorderStyle = BorderStyle.None;
-                Items.AddRange(new object[]{
-                    "easeslide","bounceslide"
-                });
-            }
+          var animateDropDown = new AnimationListBox();
+          service1.DropDownControl(animateDropDown);
+
+          if (animateDropDown.SelectedItem != null)
+          {
+            value = animateDropDown.SelectedItem.ToString();
+          }
+
+          // Close the list control after selection.
+          service1.CloseDropDown();
         }
+      }
 
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
-        {
-            return UITypeEditorEditStyle.DropDown;
-        }
-
-
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
-        {
-            if (provider != null)
-            {
-                // This service is in charge of popping our dropdown.
-                IWindowsFormsEditorService service1 = ((IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService)));
-
-                if (service1 != null)
-                {
-                    AnimationListBox animateDropDown = new AnimationListBox();
-                    service1.DropDownControl(animateDropDown);
-
-                    if (animateDropDown.SelectedItem != null)
-                        value = animateDropDown.SelectedItem.ToString();
-
-                    // Close the list control after selection.
-                    service1.CloseDropDown();
-                }
-            }
-
-
-            return value;
-        }
+      return value;
     }
+
+    /// <summary>
+    /// The get edit style.
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+    {
+      return UITypeEditorEditStyle.DropDown;
+    }
+
+    #endregion
+
+    /// <summary>
+    /// The animation list box.
+    /// </summary>
+    private class AnimationListBox : ListBox
+    {
+      #region Constructors and Destructors
+
+      /// <summary>
+      /// Initializes a new instance of the <see cref="AnimationListBox"/> class.
+      /// </summary>
+      public AnimationListBox()
+      {
+        this.BorderStyle = BorderStyle.None;
+        this.Items.AddRange(new object[] { "easeslide", "bounceslide" });
+      }
+
+      #endregion
+    }
+  }
 }

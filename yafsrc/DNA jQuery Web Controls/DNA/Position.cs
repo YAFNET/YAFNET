@@ -1,74 +1,157 @@
-﻿///  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
+﻿//  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
 ///  Dual licensed under the MIT and GPL licenses:
 ///  http://www.opensource.org/licenses/mit-license.php
 ///  http://www.gnu.org/licenses/gpl.html
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Security.Permissions;
-using System.ComponentModel;
-using System.Web.UI.Design;
-using System.Drawing.Design;
-using System.ComponentModel.Design;
-using System.Web.UI.Design.WebControls;
-
 namespace DNA.UI.JQuery
 {
+  #region Using
+
+  using System;
+  using System.Collections;
+  using System.Security.Permissions;
+  using System.Web;
+  using System.Web.UI.WebControls;
+
+  #endregion
+
+  /// <summary>
+  /// Position is the class define the control's bounds
+  /// </summary>
+  [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Minimal)]
+  [AspNetHostingPermission(SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
+  public class Position
+  {
+    #region Constants and Fields
+
     /// <summary>
-    /// Position is the class define the control's bounds
+    /// The bottom.
     /// </summary>
-    [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Minimal)]
-    [AspNetHostingPermission(SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
-    public class Position
+    private Unit bottom;
+
+    /// <summary>
+    /// The left.
+    /// </summary>
+    private Unit left;
+
+    /// <summary>
+    /// The right.
+    /// </summary>
+    private Unit right;
+
+    /// <summary>
+    /// The top.
+    /// </summary>
+    private Unit top;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets Bottom.
+    /// </summary>
+    public Unit Bottom
     {
-        private Unit left;
-        private Unit top;
-        private Unit bottom;
-        private Unit right;
+      get
+      {
+        return this.bottom;
+      }
 
-        public Unit Bottom
-        {
-            get { return bottom; }
-            set { bottom = value; }
-        }
-
-        public Unit Right
-        {
-            get { return right; }
-            set { right = value; }
-        }
-
-        public Unit Left
-        {
-            get { return left; }
-            set { left = value; }
-        }
-
-        public Unit Top
-        {
-            get { return top; }
-            set { top = value; }
-        }
-
-        public override string ToString()
-        {
-            System.Collections.ArrayList ap = new System.Collections.ArrayList();
-            if (!Top.IsEmpty)
-                ap.Add("top:"+top.Value.ToString());
-            if (!Left.IsEmpty)
-                ap.Add("left:"+left.Value.ToString());
-            if (!Right.IsEmpty)
-                ap.Add("right:"+right.Value.ToString());
-            if (!Bottom.IsEmpty)
-                ap.Add("bottom:"+Bottom.Value.ToString());
-            
-            if (ap.Count > 0)
-               return "{"+string.Join(",",(string[])ap.ToArray(typeof(string))) + "}";
-            
-            return String.Empty;
-        }
+      set
+      {
+        this.bottom = value;
+      }
     }
+
+    /// <summary>
+    /// Gets or sets Left.
+    /// </summary>
+    public Unit Left
+    {
+      get
+      {
+        return this.left;
+      }
+
+      set
+      {
+        this.left = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Right.
+    /// </summary>
+    public Unit Right
+    {
+      get
+      {
+        return this.right;
+      }
+
+      set
+      {
+        this.right = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Top.
+    /// </summary>
+    public Unit Top
+    {
+      get
+      {
+        return this.top;
+      }
+
+      set
+      {
+        this.top = value;
+      }
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The to string.
+    /// </summary>
+    /// <returns>
+    /// The to string.
+    /// </returns>
+    public override string ToString()
+    {
+      var ap = new ArrayList();
+      if (!this.Top.IsEmpty)
+      {
+        ap.Add("top:" + this.top.Value);
+      }
+
+      if (!this.Left.IsEmpty)
+      {
+        ap.Add("left:" + this.left.Value);
+      }
+
+      if (!this.Right.IsEmpty)
+      {
+        ap.Add("right:" + this.right.Value);
+      }
+
+      if (!this.Bottom.IsEmpty)
+      {
+        ap.Add("bottom:" + this.Bottom.Value);
+      }
+
+      if (ap.Count > 0)
+      {
+        return "{" + string.Join(",", (string[])ap.ToArray(typeof(string))) + "}";
+      }
+
+      return String.Empty;
+    }
+
+    #endregion
+  }
 }

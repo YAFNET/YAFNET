@@ -1,13 +1,20 @@
-﻿using System.Reflection;
+﻿#region Using
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Web.UI;
+
+#endregion
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("jQuery javascript library")]
-[assembly: AssemblyDescription("This library is complie the javascript files in assembly for .net please visit http://www.jQueryNet.com to get the latest version of jquery")]
+[assembly:
+  AssemblyDescription(
+    "This library is compiled javascript files in assembly for .net please visit http://www.jQuery.com to get the latest version of jquery"
+    )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("jQuery javascript library")]
@@ -28,6 +35,7 @@ using System.Web.UI;
 [assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]
 
 #region plugins
+
 [assembly: WebResource("jQueryNet.plugins.bgiframe.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.plugins.cookie.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.plugins.simulate.js", "text/javascript")]
@@ -37,9 +45,11 @@ using System.Web.UI;
 [assembly: WebResource("jQueryNet.plugins.easing.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.plugins.easing.1.3.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.plugins.pngFix.js", "text/javascript")]
+
 #endregion
 
 #region effects
+
 [assembly: WebResource("jQueryNet.effects.blind.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.effects.bounce.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.effects.clip.js", "text/javascript")]
@@ -53,15 +63,15 @@ using System.Web.UI;
 [assembly: WebResource("jQueryNet.effects.shake.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.effects.slide.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.effects.transfer.js", "text/javascript")]
+
 #endregion
 
 #region ui
+
 [assembly: WebResource("jQueryNet.ui.core.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.datepicker.loc.all.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.all.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.accordion.js", "text/javascript")]
-[assembly: WebResource("jQueryNet.ui.autocomplete.js", "text/javascript")]
-[assembly: WebResource("jQueryNet.ui.button.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.datepicker.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.dialog.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.draggable.js", "text/javascript")]
@@ -74,12 +84,13 @@ using System.Web.UI;
 [assembly: WebResource("jQueryNet.ui.slider.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.sortable.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.ui.tabs.js", "text/javascript")]
-[assembly: WebResource("jQueryNet.ui.widget.js", "text/javascript")]
+
 #endregion
 
 [assembly: WebResource("jQueryNet.core.js", "text/javascript")]
 
 #region datepicker languages
+
 [assembly: WebResource("jQueryNet.lang.ar.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.lang.bg.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.lang.ca.js", "text/javascript")]
@@ -117,4 +128,5 @@ using System.Web.UI;
 [assembly: WebResource("jQueryNet.lang.uk.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.lang.zh-CN.js", "text/javascript")]
 [assembly: WebResource("jQueryNet.lang.zh-TW.js", "text/javascript")]
+
 #endregion

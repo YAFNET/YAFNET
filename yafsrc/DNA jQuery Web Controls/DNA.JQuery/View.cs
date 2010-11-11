@@ -43,6 +43,11 @@ namespace DNA.UI.JQuery
     #region Constants and Fields
 
     /// <summary>
+    /// The enabled.
+    /// </summary>
+    private bool enabled = true;
+
+    /// <summary>
     /// The show header.
     /// </summary>
     private bool showHeader = true;
@@ -63,7 +68,6 @@ namespace DNA.UI.JQuery
 
     #endregion
 
-    // private bool enabled = true;
     #region Properties
 
     /// <summary>
@@ -239,7 +243,9 @@ namespace DNA.UI.JQuery
       {
         // if (string.IsNullOrEmpty(CssClass))
         // Attributes.Add("class", "ui-accordion-content ui-helper-reset ui-widget-content ui-accordion-content-active");
-        this.Attributes.Add(DesignerRegion.DesignerRegionAttributeName, "viewContent");
+        
+        // COMMENTED OUT BY JABEN 11/11: Causing security exceptions in Medium Trust.
+        //this.Attributes.Add(DesignerRegion.DesignerRegionAttributeName, "viewContent");
       }
 
       base.RenderBeginTag(writer);

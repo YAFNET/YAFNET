@@ -1,6 +1,9 @@
-﻿
-
-namespace jQueryNet
+﻿namespace jQueryNet
 {
-    public class Res{}
+  /// <summary>
+  /// The res.
+  /// </summary>
+  public class Res
+  {
+  }
 }

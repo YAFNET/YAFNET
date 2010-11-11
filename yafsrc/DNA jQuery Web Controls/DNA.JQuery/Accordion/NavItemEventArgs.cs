@@ -1,36 +1,69 @@
-﻿///  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
+﻿//  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
 ///  Dual licensed under the MIT and GPL licenses:
 ///  http://www.opensource.org/licenses/mit-license.php
 ///  http://www.gnu.org/licenses/gpl.html
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Web.UI.Design;
-using System.Reflection;
-using System.Web.Script.Serialization;
-using System.Xml;
-using System.Security.Permissions;
-using System.Drawing.Design;
-
 namespace DNA.UI.JQuery
 {
-    public class NavItemEventArgs:EventArgs
-    {
-        private NavItem _item;
-        
-        public NavItemEventArgs(NavItem item) { _item = item; }
+  #region Using
 
-        public NavItem Item
-        {
-            get { return _item; }
-        }
+  using System;
+
+  #endregion
+
+  /// <summary>
+  /// The nav item event args.
+  /// </summary>
+  public class NavItemEventArgs : EventArgs
+  {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _item.
+    /// </summary>
+    private readonly NavItem _item;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NavItemEventArgs"/> class.
+    /// </summary>
+    /// <param name="item">
+    /// The item.
+    /// </param>
+    public NavItemEventArgs(NavItem item)
+    {
+      this._item = item;
     }
 
-    public delegate void NavItemEventHandler(object sender,NavItemEventArgs e);
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets Item.
+    /// </summary>
+    public NavItem Item
+    {
+      get
+      {
+        return this._item;
+      }
+    }
+
+    #endregion
+  }
+
+  /// <summary>
+  /// The nav item event handler.
+  /// </summary>
+  /// <param name="sender">
+  /// The sender.
+  /// </param>
+  /// <param name="e">
+  /// The e.
+  /// </param>
+  public delegate void NavItemEventHandler(object sender, NavItemEventArgs e);
 }

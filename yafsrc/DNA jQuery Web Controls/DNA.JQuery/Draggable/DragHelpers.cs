@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DNA.UI.JQuery
+﻿namespace DNA.UI.JQuery
 {
-    public enum DragHelpers
-    {
-        Original=0,
-        Clone=1
-    }
+  /// <summary>
+  /// The drag helpers.
+  /// </summary>
+  public enum DragHelpers
+  {
+    /// <summary>
+    /// The original.
+    /// </summary>
+    Original = 0, 
+
+    /// <summary>
+    /// The clone.
+    /// </summary>
+    Clone = 1
+  }
 }

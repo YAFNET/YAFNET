@@ -1,95 +1,172 @@
-﻿///  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
+﻿//  Copyright (c) 2009 Ray Liang (http://www.dotnetage.com)
 ///  Dual licensed under the MIT and GPL licenses:
 ///  http://www.opensource.org/licenses/mit-license.php
 ///  http://www.gnu.org/licenses/gpl.html
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Drawing;
-using System.Drawing.Design;
-using System.ComponentModel.Design;
-using System.Web.UI.Design.WebControls;
-using System.Web.UI.Design;
-
 namespace DNA.UI.JQuery.Design
 {
-    public class ViewDesigner : ControlDesigner
+  #region Using
+
+  using System;
+  using System.ComponentModel;
+  using System.ComponentModel.Design;
+  using System.Text;
+  using System.Web.UI;
+  using System.Web.UI.Design;
+
+  #endregion
+
+  /// <summary>
+  /// The view designer.
+  /// </summary>
+  public class ViewDesigner : ControlDesigner
+  {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _view.
+    /// </summary>
+    private View _view;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets a value indicating whether AllowResize.
+    /// </summary>
+    public override bool AllowResize
     {
-        private View _view;
- 
-        public override void Initialize(IComponent component)
-        {
-            //判断父类控件component.Site.Container
-
-            _view = component as View;
-            if (_view == null)
-                throw new ArgumentException("Component must be an View Control", "component");
-            base.Initialize(component);
-        }
-
-        public override bool AllowResize
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public override string GetDesignTimeHtml(DesignerRegionCollection regions)
-        {
-            EditableDesignerRegion region = new EditableDesignerRegion(this, "viewContent", false);
-            region.EnsureSize = true;
-            region.Selectable = true;
-            regions.Add(region);
-            return base.GetDesignTimeHtml(regions);
-        }
-
-        public override string GetEditableDesignerRegionContent(EditableDesignerRegion region)
-        {
-            IDesignerHost host = (IDesignerHost)Component.Site.GetService(typeof(IDesignerHost));
-            if (host != null)
-            {
-                StringBuilder html = new StringBuilder();
-                for (int i = 0; i < _view.Controls.Count; i++)
-                    html.Append(ControlPersister.PersistControl(_view.Controls[i], host));
-                return html.ToString();
-            }
-            return String.Empty;
-        }
-
-        protected override void OnClick(DesignerRegionMouseEventArgs e)
-        {
-            if (e.Region == null)
-                return;
-
-            if (e.Region.Name.EndsWith("viewHeader"))
-                return;
-            
-            e.Region.Highlight = true;
-            e.Region.Selected = true;
-            UpdateDesignTimeHtml();
-        }
-
-        public override void SetEditableDesignerRegionContent(EditableDesignerRegion region, string content)
-        {
-            if (string.IsNullOrEmpty(content))
-                return;
-
-            IDesignerHost host = (IDesignerHost)Component.Site.GetService(typeof(IDesignerHost));
-            if (host != null)
-            {
-               Control[] controls=ControlParser.ParseControls(host, content);
-
-               _view.Controls.Clear();
-               foreach (Control ctrl in controls)
-                   _view.Controls.Add(ctrl);
-            }
-        }
+      get
+      {
+        return false;
+      }
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The get design time html.
+    /// </summary>
+    /// <param name="regions">
+    /// The regions.
+    /// </param>
+    /// <returns>
+    /// The get design time html.
+    /// </returns>
+    public override string GetDesignTimeHtml(DesignerRegionCollection regions)
+    {
+      var region = new EditableDesignerRegion(this, "viewContent", false);
+      region.EnsureSize = true;
+      region.Selectable = true;
+      regions.Add(region);
+      return base.GetDesignTimeHtml(regions);
+    }
+
+    /// <summary>
+    /// The get editable designer region content.
+    /// </summary>
+    /// <param name="region">
+    /// The region.
+    /// </param>
+    /// <returns>
+    /// The get editable designer region content.
+    /// </returns>
+    public override string GetEditableDesignerRegionContent(EditableDesignerRegion region)
+    {
+      var host = (IDesignerHost)this.Component.Site.GetService(typeof(IDesignerHost));
+      if (host != null)
+      {
+        var html = new StringBuilder();
+        for (int i = 0; i < this._view.Controls.Count; i++)
+        {
+          html.Append(ControlPersister.PersistControl(this._view.Controls[i], host));
+        }
+
+        return html.ToString();
+      }
+
+      return String.Empty;
+    }
+
+    /// <summary>
+    /// The initialize.
+    /// </summary>
+    /// <param name="component">
+    /// The component.
+    /// </param>
+    /// <exception cref="ArgumentException">
+    /// </exception>
+    public override void Initialize(IComponent component)
+    {
+      // 判断父类控件component.Site.Container
+      this._view = component as View;
+      if (this._view == null)
+      {
+        throw new ArgumentException("Component must be an View Control", "component");
+      }
+
+      base.Initialize(component);
+    }
+
+    /// <summary>
+    /// The set editable designer region content.
+    /// </summary>
+    /// <param name="region">
+    /// The region.
+    /// </param>
+    /// <param name="content">
+    /// The content.
+    /// </param>
+    public override void SetEditableDesignerRegionContent(EditableDesignerRegion region, string content)
+    {
+      if (string.IsNullOrEmpty(content))
+      {
+        return;
+      }
+
+      var host = (IDesignerHost)this.Component.Site.GetService(typeof(IDesignerHost));
+      if (host != null)
+      {
+        Control[] controls = ControlParser.ParseControls(host, content);
+
+        this._view.Controls.Clear();
+        foreach (Control ctrl in controls)
+        {
+          this._view.Controls.Add(ctrl);
+        }
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The on click.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnClick(DesignerRegionMouseEventArgs e)
+    {
+      if (e.Region == null)
+      {
+        return;
+      }
+
+      if (e.Region.Name.EndsWith("viewHeader"))
+      {
+        return;
+      }
+
+      e.Region.Highlight = true;
+      e.Region.Selected = true;
+      this.UpdateDesignTimeHtml();
+    }
+
+    #endregion
+  }
 }
