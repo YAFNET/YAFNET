@@ -9855,6 +9855,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Install._default.Form1">
+            <summary>
+            Form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Install._default.ScriptManager1">
             <summary>
             ScriptManager1 control.
@@ -12194,11 +12203,6 @@
             The _onclick.
             </summary>
         </member>
-        <member name="F:YAF.Controls.smileys._pagesize">
-            <summary>
-            The _pagesize.
-            </summary>
-        </member>
         <member name="F:YAF.Controls.smileys._perrow">
             <summary>
             The _perrow.
@@ -12229,15 +12233,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.smileys.AddSmiley">
-            <summary>
-            AddSmiley control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Controls.smileys.LocalizedLabel1">
             <summary>
             LocalizedLabel1 control.
@@ -12250,33 +12245,6 @@
         <member name="F:YAF.Controls.smileys.SmileyResults">
             <summary>
             SmileyResults control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.smileys.MoreSmiliesHolder">
-            <summary>
-            MoreSmiliesHolder control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.smileys.MoreSmiliesCell">
-            <summary>
-            MoreSmiliesCell control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.smileys.MoreSmilies">
-            <summary>
-            MoreSmilies control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -15073,17 +15041,6 @@
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="M:YAF.Controls.ShoutBox.FormatHyperLink(System.String)">
-            <summary>
-            The format hyper link.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-            <returns>
-            The format hyper link.
-            </returns>
         </member>
         <member name="M:YAF.Controls.ShoutBox.BindData">
             <summary>

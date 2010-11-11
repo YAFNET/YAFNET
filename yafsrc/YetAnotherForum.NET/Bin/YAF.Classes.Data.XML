@@ -2752,6 +2752,19 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.SmileyList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            The smiley_list.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="smileyID">
+            The smiley id.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.smiley_listunique(System.Object)">
             <summary>
             The smiley_listunique.
@@ -7863,6 +7876,72 @@
             <returns>
             The build sql.
             </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.TypedSmileyList">
+            <summary>
+            The typed smiley list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedSmileyList.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedSmileyList"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedSmileyList.#ctor(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.Nullable{System.Byte})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedSmileyList"/> class.
+            </summary>
+            <param name="smileyid">
+            The smileyid.
+            </param>
+            <param name="boardid">
+            The boardid.
+            </param>
+            <param name="code">
+            The code.
+            </param>
+            <param name="icon">
+            The icon.
+            </param>
+            <param name="emoticon">
+            The emoticon.
+            </param>
+            <param name="sortorder">
+            The sortorder.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedSmileyList.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedSmileyList.Code">
+            <summary>
+            Gets or sets Code.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedSmileyList.Emoticon">
+            <summary>
+            Gets or sets Emoticon.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedSmileyList.Icon">
+            <summary>
+            Gets or sets Icon.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedSmileyList.SmileyID">
+            <summary>
+            Gets or sets SmileyID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedSmileyList.SortOrder">
+            <summary>
+            Gets or sets SortOrder.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Data.PollFlags">
             <summary>

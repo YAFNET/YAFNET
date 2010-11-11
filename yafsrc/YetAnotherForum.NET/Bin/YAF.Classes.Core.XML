@@ -8468,6 +8468,14 @@
             <param name="dataRows">
             </param>
         </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetSmilies">
+            <summary>
+            The get smilies.
+            </summary>
+            <returns>
+            Table with list of smiles
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Returns the layout of the board
@@ -10114,14 +10122,6 @@
             </param>
             <returns>
             The get cleaned topic message.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafFormatMessage.GetSmilies">
-            <summary>
-            The get smilies.
-            </summary>
-            <returns>
-            Table with list of smiles
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafFormatMessage.HtmlTagForbiddenDetector(System.String,System.String,System.Char)">

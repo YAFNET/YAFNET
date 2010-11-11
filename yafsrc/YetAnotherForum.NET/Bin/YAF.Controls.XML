@@ -2446,6 +2446,47 @@
             If true, renders SLIDING doors technique additional DIV tags
             </summary>
         </member>
+        <member name="T:YAF.Controls.SmartScroller">
+            <summary>
+            Summary description for SmartScroller.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.SmartScroller._hidScrollLeft">
+            <summary>
+              The _hid scroll left.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.SmartScroller._hidScrollTop">
+            <summary>
+              The _hid scroll top.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.SmartScroller.RegisterStartupReset">
+            <summary>
+            The register startup reset.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.SmartScroller.Reset">
+            <summary>
+            The reset.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.SmartScroller.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.SmartScroller.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
         <member name="T:YAF.Controls.ActiveLocation">
             <summary>
             Provides Active Users location info
