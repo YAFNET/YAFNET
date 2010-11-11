@@ -6,11 +6,14 @@
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
-        <a name="post<%# DataRow["MessageID"] %>" /><strong>						
+        <a name="post<%# DataRow["MessageID"] %>" /><b>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' />
             <%#PageContext.BoardSettings.ShowIrkooRepOnlyInTopics ? YafIrkoo.IrkRating(DataRow["UserID"]) : string.Empty%>
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
-        </strong>
+        </b>
+        <div class="Irkoo" style="float:right">
+            <%#YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
+        </div>
     </td>
     <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
         <div class="leftItem postedLeft">        
@@ -49,8 +52,7 @@
         <div class="postdiv">
             <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
-            </asp:panel>
-            <%#YafIrkoo.IrkVote(DataRow["MessageID"], DataRow["UserID"])%>
+            </asp:panel>            
         </div>
     </td>
 </tr>
