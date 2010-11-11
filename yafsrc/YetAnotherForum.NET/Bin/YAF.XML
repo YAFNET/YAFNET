@@ -11308,12 +11308,12 @@
             The e.
             </param>
         </member>
-        <member name="T:YAF.controls.PollChoiceList">
+        <member name="T:YAF.Controls.PollChoiceList">
             <summary>
             PollList Class
             </summary>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.GetImageHeight(System.Object)">
+        <member name="M:YAF.Controls.PollChoiceList.GetImageHeight(System.Object)">
             <summary>
             The get image height.
             </summary>
@@ -11324,7 +11324,7 @@
             Returnes image height.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.GetPollQuestion">
+        <member name="M:YAF.Controls.PollChoiceList.GetPollQuestion">
             <summary>
             The get poll question.
             </summary>
@@ -11332,7 +11332,7 @@
             Returns poll question string.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.GetThemeContents(System.String,System.String)">
+        <member name="M:YAF.Controls.PollChoiceList.GetThemeContents(System.String,System.String)">
             <summary>
             Get Theme Contents
             </summary>
@@ -11346,7 +11346,7 @@
             Returns Theme Content.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.GetTotal(System.Object)">
+        <member name="M:YAF.Controls.PollChoiceList.GetTotal(System.Object)">
             <summary>
             The get total.
             </summary>
@@ -11357,7 +11357,7 @@
             Returns total string.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollChoiceList.Page_Load(System.Object,System.EventArgs)">
             <summary>
             The Page_Load event.
             </summary>
@@ -11368,7 +11368,7 @@
             The EventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+        <member name="M:YAF.Controls.PollChoiceList.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
             The poll_ item command.
             </summary>
@@ -11379,7 +11379,7 @@
             The RepeaterCommandEventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.Poll_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+        <member name="M:YAF.Controls.PollChoiceList.Poll_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
             The poll_ on item data bound.
             </summary>
@@ -11390,7 +11390,7 @@
             The RepeaterItemEventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.RemovePollCompletely_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollChoiceList.RemovePollCompletely_Load(System.Object,System.EventArgs)">
             <summary>
             The remove poll_ completely load.
             </summary>
@@ -11401,7 +11401,7 @@
             The EventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.RemovePoll_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollChoiceList.RemovePoll_Load(System.Object,System.EventArgs)">
             <summary>
             The remove poll_ load.
             </summary>
@@ -11412,7 +11412,7 @@
             The EventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.VoteWidth(System.Object)">
+        <member name="M:YAF.Controls.PollChoiceList.VoteWidth(System.Object)">
             <summary>
             The vote width.
             </summary>
@@ -11423,7 +11423,7 @@
             Returns the vote width.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.GetImageAspect(System.Object)">
+        <member name="M:YAF.Controls.PollChoiceList.GetImageAspect(System.Object)">
             <summary>
             Returns an image width|height ratio.
             </summary>
@@ -11434,12 +11434,12 @@
             The get image aspect.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.BindData">
+        <member name="M:YAF.Controls.PollChoiceList.BindData">
             <summary>
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.GetPollIsClosed">
+        <member name="M:YAF.Controls.PollChoiceList.GetPollIsClosed">
             <summary>
             The get poll is closed.
             </summary>
@@ -11447,7 +11447,7 @@
             Returns a 'poll is closed' warning string.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.PollHasNoVotes(System.Object)">
+        <member name="M:YAF.Controls.PollChoiceList.PollHasNoVotes(System.Object)">
             <summary>
             Checks if a poll has no votes.
             </summary>
@@ -11458,7 +11458,7 @@
             The poll has no votes.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollChoiceList.VotingCookieName(System.Int32)">
+        <member name="M:YAF.Controls.PollChoiceList.VotingCookieName(System.Int32)">
             <summary>
             Gets VotingCookieName.
             </summary>
@@ -11469,7 +11469,7 @@
             The voting cookie name.
             </returns>
         </member>
-        <member name="F:YAF.controls.PollChoiceList.Poll">
+        <member name="F:YAF.Controls.PollChoiceList.Poll">
             <summary>
             Poll control.
             </summary>
@@ -11478,57 +11478,57 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="E:YAF.controls.PollChoiceList.ChoiceVoted">
+        <member name="E:YAF.Controls.PollChoiceList.ChoiceVoted">
             <summary>
               The event bubbles info to parent control to rebind repeater.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.CanVote">
+        <member name="P:YAF.Controls.PollChoiceList.CanVote">
             <summary>
               Gets or sets a value indicating whether user can vote
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.ChoiceId">
+        <member name="P:YAF.Controls.PollChoiceList.ChoiceId">
             <summary>
               Gets or sets the Choice Id array.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.DataSource">
+        <member name="P:YAF.Controls.PollChoiceList.DataSource">
             <summary>
               Gets or sets the data source.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.DaysToRun">
+        <member name="P:YAF.Controls.PollChoiceList.DaysToRun">
             <summary>
               Gets or sets number of  days to run.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.HideResults">
+        <member name="P:YAF.Controls.PollChoiceList.HideResults">
             <summary>
               Gets or sets a value indicating whether to hide results.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.IsClosed">
+        <member name="P:YAF.Controls.PollChoiceList.IsClosed">
             <summary>
               Gets or sets a value indicating whether parent topic IsClosed
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.IsLocked">
+        <member name="P:YAF.Controls.PollChoiceList.IsLocked">
             <summary>
               Gets or sets a value indicating whether parent topic IsLocked
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.MaxImageAspect">
+        <member name="P:YAF.Controls.PollChoiceList.MaxImageAspect">
             <summary>
               Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.PollId">
+        <member name="P:YAF.Controls.PollChoiceList.PollId">
             <summary>
               Gets or sets the PollId for the choices.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollChoiceList.Votes">
+        <member name="P:YAF.Controls.PollChoiceList.Votes">
             <summary>
               Gets or sets number of votes.
             </summary>
@@ -17478,57 +17478,57 @@
             The e.
             </param>
         </member>
-        <member name="T:YAF.controls.PollList">
+        <member name="T:YAF.Controls.PollList">
             <summary>
             PollList Class
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._groupNotificationString">
+        <member name="F:YAF.Controls.PollList._groupNotificationString">
             <summary>
               The group Notification String.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._canChange">
+        <member name="F:YAF.Controls.PollList._canChange">
             <summary>
               The _canChange.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dtAllPollGroupVotes">
+        <member name="F:YAF.Controls.PollList._dtAllPollGroupVotes">
             <summary>
               The _dt Votes.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dtPollAllChoices">
+        <member name="F:YAF.Controls.PollList._dtPollAllChoices">
             <summary>
               The _dt poll.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._dtPollGroupAllChoices">
+        <member name="F:YAF.Controls.PollList._dtPollGroupAllChoices">
             <summary>
               The _dt PollGroup.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._isBound">
+        <member name="F:YAF.Controls.PollList._isBound">
             <summary>
               The isBound.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._isVoteEvent">
+        <member name="F:YAF.Controls.PollList._isVoteEvent">
             <summary>
               The IsVoteEvent
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._showResults">
+        <member name="F:YAF.Controls.PollList._showResults">
             <summary>
               The _showResults. Used to store data from parent repeater.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList._topicUser">
+        <member name="F:YAF.Controls.PollList._topicUser">
             <summary>
               The topic User.
             </summary>
         </member>
-        <member name="M:YAF.controls.PollList.CanCreatePoll">
+        <member name="M:YAF.Controls.PollList.CanCreatePoll">
             <summary>
             Checks if a user can create poll.
             </summary>
@@ -17536,7 +17536,7 @@
             The can create poll.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.CanEditPoll(System.Object)">
+        <member name="M:YAF.Controls.PollList.CanEditPoll(System.Object)">
             <summary>
             Checks if user can edit a poll
             </summary>
@@ -17546,7 +17546,7 @@
             The can edit poll.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.CanRemoveGroup">
+        <member name="M:YAF.Controls.PollList.CanRemoveGroup">
             <summary>
             Checks if a user can remove all polls in a group
             </summary>
@@ -17554,7 +17554,7 @@
             The can remove group.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.CanRemoveGroupCompletely">
+        <member name="M:YAF.Controls.PollList.CanRemoveGroupCompletely">
             <summary>
             Checks if  a user can remove all polls in a group completely.
             </summary>
@@ -17562,7 +17562,7 @@
             The can remove group completely.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.CanRemoveGroupEverywhere">
+        <member name="M:YAF.Controls.PollList.CanRemoveGroupEverywhere">
             <summary>
             Checks if a user can delete group from all places, but not completely
             </summary>
@@ -17570,7 +17570,7 @@
             The can remove group everywhere.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.CanRemovePoll(System.Object)">
+        <member name="M:YAF.Controls.PollList.CanRemovePoll(System.Object)">
             <summary>
             Checks if a user can delete poll without deleting it from database
             </summary>
@@ -17580,7 +17580,7 @@
             The can remove poll.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.CanRemovePollCompletely(System.Object)">
+        <member name="M:YAF.Controls.PollList.CanRemovePollCompletely(System.Object)">
             <summary>
             Checks if a user can delete poll completely from database.
             </summary>
@@ -17590,7 +17590,7 @@
             The can remove poll completely.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.DaysToRun(System.Object,System.Boolean@)">
+        <member name="M:YAF.Controls.PollList.DaysToRun(System.Object,System.Boolean@)">
             <summary>
             The days to run.
             </summary>
@@ -17604,7 +17604,7 @@
             The days to run.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.GetImageHeight(System.Object)">
+        <member name="M:YAF.Controls.PollList.GetImageHeight(System.Object)">
             <summary>
             The get image height.
             </summary>
@@ -17615,7 +17615,7 @@
             The get image height.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.GetPollIsClosed(System.Object)">
+        <member name="M:YAF.Controls.PollList.GetPollIsClosed(System.Object)">
             <summary>
             The get poll is closed.
             </summary>
@@ -17626,7 +17626,7 @@
             The get poll is closed.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.GetPollQuestion(System.Object)">
+        <member name="M:YAF.Controls.PollList.GetPollQuestion(System.Object)">
             <summary>
             The get poll question.
             </summary>
@@ -17637,7 +17637,7 @@
             The get poll question.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.GetThemeContents(System.String,System.String)">
+        <member name="M:YAF.Controls.PollList.GetThemeContents(System.String,System.String)">
             <summary>
             Get Theme Contents
             </summary>
@@ -17651,7 +17651,7 @@
             Content
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.GetTotal(System.Object)">
+        <member name="M:YAF.Controls.PollList.GetTotal(System.Object)">
             <summary>
             The get total.
             </summary>
@@ -17662,7 +17662,7 @@
             The get total.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.IsNotVoted(System.Int32,System.Boolean,System.Nullable{System.Int32}[]@,System.Boolean@)">
+        <member name="M:YAF.Controls.PollList.IsNotVoted(System.Int32,System.Boolean,System.Nullable{System.Int32}[]@,System.Boolean@)">
             <summary>
             The is not voted.
             </summary>
@@ -17682,7 +17682,7 @@
             The is not voted.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.IsPollClosed(System.Object)">
+        <member name="M:YAF.Controls.PollList.IsPollClosed(System.Object)">
             <summary>
             The is poll closed.
             </summary>
@@ -17693,7 +17693,7 @@
             The is poll closed.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollList.Page_Load(System.Object,System.EventArgs)">
             <summary>
             Page_Load
             </summary>
@@ -17704,7 +17704,7 @@
             The EventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.PollGroup_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+        <member name="M:YAF.Controls.PollList.PollGroup_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
             PollGroup_ItemCommand
             </summary>
@@ -17713,7 +17713,7 @@
             <param name="e">
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.PollGroup_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+        <member name="M:YAF.Controls.PollList.PollGroup_OnItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
             The PollGroup item command.
             </summary>
@@ -17724,7 +17724,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.RemovePollCompletely_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollList.RemovePollCompletely_Load(System.Object,System.EventArgs)">
             <summary>
             The remove poll_ completely load.
             </summary>
@@ -17735,7 +17735,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.RemovePoll_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollList.RemovePoll_Load(System.Object,System.EventArgs)">
             <summary>
             The remove poll_ load.
             </summary>
@@ -17746,7 +17746,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.VoteBubbleEvent(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.PollList.VoteBubbleEvent(System.Object,System.EventArgs)">
             <summary>
             The event initiated in PollChoiceList.
             </summary>
@@ -17757,7 +17757,7 @@
             The EventArgs e.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.VotingCookieName(System.Int32)">
+        <member name="M:YAF.Controls.PollList.VotingCookieName(System.Int32)">
             <summary>
             Gets VotingCookieName.
             </summary>
@@ -17768,7 +17768,7 @@
             The voting cookie name.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.GetImageAspect(System.Object)">
+        <member name="M:YAF.Controls.PollList.GetImageAspect(System.Object)">
             <summary>
             Returns an image width|height ratio.
             </summary>
@@ -17778,7 +17778,7 @@
             The get image aspect.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.AddPollButtonConfirmations(System.Web.UI.WebControls.RepeaterItem,System.Int32)">
+        <member name="M:YAF.Controls.PollList.AddPollButtonConfirmations(System.Web.UI.WebControls.RepeaterItem,System.Int32)">
             <summary>
             The methods add poll manipulatation confirmation pop-ups to button actions.
             </summary>
@@ -17789,7 +17789,7 @@
             The poll Id.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.AddPollGroupButtonConfirmations(System.Web.UI.WebControls.RepeaterItem)">
+        <member name="M:YAF.Controls.PollList.AddPollGroupButtonConfirmations(System.Web.UI.WebControls.RepeaterItem)">
             <summary>
             The methods add poll group manipulatation confirmation pop-ups to button actions.
             </summary>
@@ -17797,17 +17797,17 @@
             The RepeaterItem ri.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.BindCreateNewPollRow">
+        <member name="M:YAF.Controls.PollList.BindCreateNewPollRow">
             <summary>
             The bind create new poll row.
             </summary>
         </member>
-        <member name="M:YAF.controls.PollList.BindData">
+        <member name="M:YAF.Controls.PollList.BindData">
             <summary>
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.controls.PollList.BindPollQuestionImage(System.Web.UI.WebControls.RepeaterItem,System.Data.DataRowView)">
+        <member name="M:YAF.Controls.PollList.BindPollQuestionImage(System.Web.UI.WebControls.RepeaterItem,System.Data.DataRowView)">
             <summary>
             Adds custom or standard image to poll question.
             </summary>
@@ -17818,7 +17818,7 @@
             The DataRowView drowv.
             </param>
         </member>
-        <member name="M:YAF.controls.PollList.HasOwnerExistingGroupAccess">
+        <member name="M:YAF.Controls.PollList.HasOwnerExistingGroupAccess">
             <summary>
             The has owner existing group access.
             </summary>
@@ -17826,7 +17826,7 @@
             The has owner existing group access.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.HasVoteAccess(System.Object)">
+        <member name="M:YAF.Controls.PollList.HasVoteAccess(System.Object)">
             <summary>
             The method to return if a user already voted
             </summary>
@@ -17837,12 +17837,12 @@
             Return True if a user has voted.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.LoadData">
+        <member name="M:YAF.Controls.PollList.LoadData">
             <summary>
             Handles page controls after an event.
             </summary>
         </member>
-        <member name="M:YAF.controls.PollList.ParamsToSend">
+        <member name="M:YAF.Controls.PollList.ParamsToSend">
             <summary>
             A method to return parameters string. 
               Consrtucts parameters string to send to other forms.
@@ -17851,7 +17851,7 @@
             The params to send.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.PollHasNoVotes(System.Object)">
+        <member name="M:YAF.Controls.PollList.PollHasNoVotes(System.Object)">
             <summary>
             Checks if a poll has no votes.
             </summary>
@@ -17861,12 +17861,12 @@
             The poll has no votes.
             </returns>
         </member>
-        <member name="M:YAF.controls.PollList.ReturnToPage">
+        <member name="M:YAF.Controls.PollList.ReturnToPage">
             <summary>
             Returns user to the original call page.
             </summary>
         </member>
-        <member name="F:YAF.controls.PollList.PollGroup">
+        <member name="F:YAF.Controls.PollList.PollGroup">
             <summary>
             PollGroup control.
             </summary>
@@ -17875,7 +17875,7 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.controls.PollList.NewPollRow">
+        <member name="F:YAF.Controls.PollList.NewPollRow">
             <summary>
             NewPollRow control.
             </summary>
@@ -17884,7 +17884,7 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.controls.PollList.CreatePoll1">
+        <member name="F:YAF.Controls.PollList.CreatePoll1">
             <summary>
             CreatePoll1 control.
             </summary>
@@ -17893,74 +17893,74 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="P:YAF.controls.PollList.BoardId">
+        <member name="P:YAF.Controls.PollList.BoardId">
             <summary>
               Gets or sets BoardId
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.CategoryId">
+        <member name="P:YAF.Controls.PollList.CategoryId">
             <summary>
               Gets or sets CategoryId
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.EditBoardId">
+        <member name="P:YAF.Controls.PollList.EditBoardId">
             <summary>
               Gets or sets EditBoardId.
               Used to return to edit board page.
               Currently is not implemented.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.EditCategoryId">
+        <member name="P:YAF.Controls.PollList.EditCategoryId">
             <summary>
               Gets or sets EditCategoryId
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.EditForumId">
+        <member name="P:YAF.Controls.PollList.EditForumId">
             <summary>
               Gets or sets EditForumId
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.EditMessageId">
+        <member name="P:YAF.Controls.PollList.EditMessageId">
             <summary>
               Gets or sets EditMessageId.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.ForumId">
+        <member name="P:YAF.Controls.PollList.ForumId">
             <summary>
               Gets or sets ForumId
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.IsLocked">
+        <member name="P:YAF.Controls.PollList.IsLocked">
             <summary>
               Gets or sets a value indicating whether the parent topic is locked.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.MaxImageAspect">
+        <member name="P:YAF.Controls.PollList.MaxImageAspect">
             <summary>
               Gets or sets MaxImageAspect. Stores max aspect to get rows of equal height.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.PollGroupId">
+        <member name="P:YAF.Controls.PollList.PollGroupId">
             <summary>
               Gets or sets PollGroupID
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.PollNumber">
+        <member name="P:YAF.Controls.PollList.PollNumber">
             <summary>
               Gets or sets PollNumber
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.PostEdit">
+        <member name="P:YAF.Controls.PollList.PostEdit">
             <summary>
               Gets or sets a value indicating whether  we are editing a post
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.ShowButtons">
+        <member name="P:YAF.Controls.PollList.ShowButtons">
             <summary>
               Gets or sets a value indicating whether show poll management buttons.
             </summary>
         </member>
-        <member name="P:YAF.controls.PollList.TopicId">
+        <member name="P:YAF.Controls.PollList.TopicId">
             <summary>
               Gets or sets TopicId
             </summary>
