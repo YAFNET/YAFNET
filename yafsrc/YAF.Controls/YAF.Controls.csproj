@@ -131,6 +131,7 @@
     <Compile Include="DisplayDateTime.cs" />
     <Compile Include="UserBox.cs" />
     <Compile Include="UserLink.cs" />
+    <Compile Include="CaptchaImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj">

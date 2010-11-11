@@ -40,8 +40,9 @@ namespace YAF
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Classes.Utils.Extensions;
+  using YAF.Controls;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The YAF resource handler
