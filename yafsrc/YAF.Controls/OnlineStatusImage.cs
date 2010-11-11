@@ -25,7 +25,7 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-  using Classes.UI;
+  using YAF.Controls;
 
   /// <summary>
   /// Provides an Online/Offline status for a YAF User

@@ -22,7 +22,6 @@ namespace YAF.Controls
   using System.Web.UI;
 
   using Classes.Core;
-  using Classes.UI;
 
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.Utils;
