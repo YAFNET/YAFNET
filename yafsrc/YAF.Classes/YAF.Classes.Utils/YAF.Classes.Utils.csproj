@@ -107,12 +107,6 @@
     <Compile Include="Helpers\QueryStringIDHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
-      <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
-      <Name>YAF.Classes.Config</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -128,6 +122,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
+      <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
+      <Name>YAF.Classes.Config</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

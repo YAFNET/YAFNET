@@ -11,7 +11,7 @@
     <RootNamespace>YAF.Classes.UnitTests</RootNamespace>
     <AssemblyName>YAF.Classes.UnitTests</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
