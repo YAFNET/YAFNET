@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="1.95.04035">
+    <package name="YetAnotherForumDotNet" type="Module" version="1.95.04092">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -96,9 +96,6 @@
               <name>YAF.Classes.Data.dll</name>
             </assembly>
             <assembly>
-              <name>YAF.Classes.UI.dll</name>
-            </assembly>
-            <assembly>
               <name>YAF.Classes.Utils.dll</name>
             </assembly>
             <assembly>
@@ -131,6 +128,14 @@
             <basePath>bin</basePath>
             <assembly>
               <name>jQuery.dll</name>
+            </assembly>
+          </files>
+        </component>
+        <component type="Cleanup" version="1.95.4092">
+          <files>
+            <basePath>bin</basePath>
+            <assembly>
+              <name>YAF.Classes.UI.dll</name>
             </assembly>
           </files>
         </component>
@@ -214,9 +219,7 @@
                   <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
                     <add tagPrefix="DotNetAge" namespace="DNA.UI" assembly="DNA" />
                   </node>
-                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
-                    <add tagPrefix="YAF" namespace="YAF.Classes.UI" assembly="YAF.Classes.UI" />
-                  </node>
+                  
                   <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
                     <add tagPrefix="YAF" namespace="YAF.Classes.Utils" assembly="YAF.Classes.Utils" />
                   </node>
@@ -243,9 +246,6 @@
                   </node>
                   <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
                        <add namespace="YAF" />
-                  </node>
-                  <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
-                    <add namespace="YAF.Classes.UI" />
                   </node>
                   <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
                     <add namespace="YAF.Classes.Utils" />
@@ -279,6 +279,8 @@
                       </providers>
                     </profile>
                   </node>
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
                 </nodes>
               </configuration>
             </install>
@@ -309,8 +311,6 @@
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
@@ -362,7 +362,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.WhatsNew" type="Module" version="1.94.13722">
+    <package name="YAF.WhatsNew" type="Module" version="1.95.04091">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
