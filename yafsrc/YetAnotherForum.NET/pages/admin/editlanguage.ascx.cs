@@ -34,7 +34,7 @@ namespace YAF.Pages.Admin
   using System.Xml.XPath;
 
   using YAF.Classes;
-  using YAF.Classes.UI;
+  using YAF.Controls;
   using YAF.Classes.Core;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;

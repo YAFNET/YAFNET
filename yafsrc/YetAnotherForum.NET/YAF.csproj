@@ -1994,10 +1994,6 @@
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.UI\YAF.Classes.UI.csproj">
-      <Project>{FD44387B-48BF-41CD-AF62-4C37ABC18403}</Project>
-      <Name>YAF.Classes.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
       <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
       <Name>YAF.Classes.Utils</Name>

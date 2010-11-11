@@ -1,6 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.languages" Codebehind="languages.ascx.cs" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">

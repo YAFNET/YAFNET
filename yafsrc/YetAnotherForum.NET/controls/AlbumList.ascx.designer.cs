@@ -73,6 +73,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Classes.UI.SmartScroller SmartScroller1;
+        protected global::YAF.Controls.SmartScroller SmartScroller1;
     }
 }

@@ -38,7 +38,6 @@ namespace YAF
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
-  using YAF.Classes.UI;
   using YAF.Classes.Utils;
   using YAF.Classes.Utils.Extensions;
 

@@ -382,7 +382,7 @@
             <HeaderStyle BackColor="White" Font-Bold="True"
                 Font-Size="0.9em" ForeColor="Black" HorizontalAlign="Center" />
             <HeaderTemplate>
-                <img src="../images/YAFLogo.jpg" alt="YAF Logo" /><br />
+                <img src="../images/YAFLogo.png" alt="YAF Logo" /><br />
                 Installation Wizard
             </HeaderTemplate>
             <StartNavigationTemplate>
