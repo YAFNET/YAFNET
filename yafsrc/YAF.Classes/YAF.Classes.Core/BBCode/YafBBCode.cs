@@ -51,7 +51,7 @@ namespace YAF.Classes.Core.BBCode
     /// <summary>
     /// The _rgx bold.
     /// </summary>
-    private static readonly string _rgxBold = @"\[B\](?<inner>(.*?))\[/B\]";
+    private static readonly Regex _rgxBold = new Regex(@"\[B\](?<inner>(.*?))\[/B\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx br.
@@ -348,7 +348,7 @@ namespace YAF.Classes.Core.BBCode
 
         if (doFormatting)
         {
-            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<strong>${inner}</strong>", _options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<b>${inner}</b>"));
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<em>${inner}</em>", _options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _options));
@@ -364,7 +364,7 @@ namespace YAF.Classes.Core.BBCode
                         {
                             "email"
                         }));
-            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>"));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxEmail1, @"<a href=""mailto:${inner}"">${inner}</a>"));
 
             // urls
             ruleEngine.AddRule(
@@ -448,7 +448,8 @@ namespace YAF.Classes.Core.BBCode
 
             // basic hr and br rules
             var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
-                // Multiline, since ^ must match beginning of line
+
+            // Multiline, since ^ must match beginning of line
             var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) {RuleRank = hrRule.RuleRank + 1};
 
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match

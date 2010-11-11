@@ -1179,7 +1179,7 @@ namespace YAF.Install
     /// </param>
     private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafContext.Current.PageElements.RegisterJQuery(this.Page.Header);
+      YafContext.Current.PageElements.RegisterJQueryUI(this.Page.Header);
 
       if (!this.IsPostBack)
       {

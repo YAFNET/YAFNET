@@ -91,6 +91,7 @@
     <Compile Include="Object\TypedMailList.cs" />
     <Compile Include="Object\TypedMessageList.cs" />
     <Compile Include="Object\TypedPollGroup.cs" />
+    <Compile Include="Object\TypedSmileyList.cs" />
     <Compile Include="Object\TypedTopicSimpleList.cs" />
     <Compile Include="Object\TypedUserFind.cs" />
     <Compile Include="Object\TypedUserList.cs" />

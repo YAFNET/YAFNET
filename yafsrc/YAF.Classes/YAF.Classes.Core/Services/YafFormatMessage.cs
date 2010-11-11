@@ -81,12 +81,12 @@ namespace YAF.Classes.Core
     {
       CodeContracts.ArgumentNotNull(rules, "rules");
 
-      DataTable dtSmileys = GetSmilies();
+      var smiles = YafContext.Current.Get<YafDBBroker>().GetSmilies();
       int codeOffset = 0;
 
-      foreach (DataRow row in dtSmileys.Rows)
+      foreach (var smile in smiles)
       {
-        string code = row["Code"].ToString();
+        string code = smile.Code;
         code = code.Replace("&", "&amp;");
         code = code.Replace(">", "&gt;");
         code = code.Replace("<", "&lt;");
@@ -94,15 +94,14 @@ namespace YAF.Classes.Core
 
         // add new rules for smilies...
         var lowerRule = new SimpleReplaceRule(
-          code.ToLower(), 
-          "<img src=\"{0}\" alt=\"{1}\" />".FormatWith(
-            YafBuildLink.Smiley(Convert.ToString(row["Icon"])), 
-            HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
+          code.ToLower(),
+          @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
+            YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+
         var upperRule = new SimpleReplaceRule(
-          code.ToUpper(), 
-          "<img src=\"{0}\" alt=\"{1}\" />".FormatWith(
-            YafBuildLink.Smiley(Convert.ToString(row["Icon"])), 
-            HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
+          code.ToUpper(),
+          @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
+            YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 
         // increase the rank as we go...
         lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
@@ -517,30 +516,6 @@ namespace YAF.Classes.Core
       }
 
       return message;
-    }
-
-    /// <summary>
-    /// The get smilies.
-    /// </summary>
-    /// <returns>
-    /// Table with list of smiles
-    /// </returns>
-    public static DataTable GetSmilies()
-    {
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.Smilies);
-      var smiliesTable = YafContext.Current.Cache[cacheKey] as DataTable;
-
-      // check if there is value cached
-      if (smiliesTable == null)
-      {
-        // get the smilies table from the db...
-        smiliesTable = DB.smiley_list(YafContext.Current.PageBoardID, null);
-
-        // cache it for 60 minutes...
-        YafContext.Current.Cache.Insert(cacheKey, smiliesTable, null, DateTime.UtcNow.AddMinutes(60), TimeSpan.Zero);
-      }
-
-      return smiliesTable;
     }
 
     /// <summary>

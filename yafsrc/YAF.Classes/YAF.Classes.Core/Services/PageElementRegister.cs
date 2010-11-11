@@ -207,9 +207,15 @@ namespace YAF.Classes.Core
 
       if (registerJQuery)
       {
+        var url = Config.JQueryFile;
+
+        if (!url.StartsWith("http"))
+        {
+          url = YafForumInfo.GetURLToResource(Config.JQueryFile);
+        }
+
         // load jQuery
-        element.Controls.Add(
-          ControlHelper.MakeJsIncludeControl(YafForumInfo.GetURLToResource(Config.JQueryFile)));
+        element.Controls.Add(ControlHelper.MakeJsIncludeControl(url));
       }
 
       this.AddPageElement("jquery");
@@ -237,14 +243,18 @@ namespace YAF.Classes.Core
       }
 
       // requires jQuery first...
-      if (!this.PageElementExists("jquery"))
+      this.RegisterJQuery(element);
+
+      var url = Config.JQueryUIFile;
+
+      if (!url.StartsWith("http"))
       {
-        this.RegisterJQuery(element);
+        url = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
       }
 
       // load jQuery UI from google...
       element.Controls.Add(
-        ControlHelper.MakeJsIncludeControl(Config.JQueryUIFile));
+        ControlHelper.MakeJsIncludeControl(url));
 
       this.AddPageElement("jqueryui");
     }

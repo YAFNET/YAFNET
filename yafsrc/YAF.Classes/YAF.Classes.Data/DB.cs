@@ -6083,6 +6083,29 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// The smiley_list.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="smileyID">
+    /// The smiley id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static IEnumerable<TypedSmileyList> SmileyList(int boardID, int? smileyID)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("smiley_list"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("SmileyID", smileyID);
+
+        return YafDBAccess.Current.GetData(cmd).AsEnumerable().Select(r => new TypedSmileyList(r));
+      }
+    }
+
+    /// <summary>
     /// The smiley_listunique.
     /// </summary>
     /// <param name="boardID">

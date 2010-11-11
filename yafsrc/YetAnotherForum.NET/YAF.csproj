@@ -973,7 +973,7 @@
     <Content Include="resources\images\next.gif" />
     <Content Include="resources\images\prev.gif" />
     <Content Include="resources\js\DataPanel.js" />
-    <Content Include="resources\js\jquery-1.4.2.min.js" />
+    <Content Include="resources\js\jquery-1.4.3.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.lightbox.min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
@@ -1967,7 +1967,9 @@
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="Resource.ashx" />
     <Content Include="UrlRewriter.config" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj">

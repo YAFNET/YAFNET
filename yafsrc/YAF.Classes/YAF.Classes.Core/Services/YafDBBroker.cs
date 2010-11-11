@@ -25,6 +25,7 @@ namespace YAF.Classes.Core
   using System.Data;
   using System.Linq;
   using System.Web;
+  using System.Web.Caching;
 
   using YAF.Classes.Data;
   using YAF.Classes.Extensions;
@@ -124,6 +125,20 @@ namespace YAF.Classes.Core
 
         postRow.AcceptChanges();
       }
+    }
+
+    /// <summary>
+    /// The get smilies.
+    /// </summary>
+    /// <returns>
+    /// Table with list of smiles
+    /// </returns>
+    public IEnumerable<TypedSmileyList> GetSmilies()
+    {
+      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.Smilies);
+
+      return YafContext.Current.Cache.GetItem(
+        cacheKey, 60, () => DB.SmileyList(YafContext.Current.PageBoardID, null));
     }
 
     /// <summary>
