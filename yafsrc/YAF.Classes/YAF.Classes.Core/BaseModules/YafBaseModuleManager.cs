@@ -47,7 +47,10 @@ namespace YAF.Modules
           AppDomain.CurrentDomain.GetAssemblies().Where(
             a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf")).ToList();
 
-        moduleList.AddRange(BuildManager.CodeAssemblies.OfType<Assembly>().ToList());
+        if (BuildManager.CodeAssemblies != null)
+        {
+          moduleList.AddRange(BuildManager.CodeAssemblies.OfType<Assembly>().ToList());
+        }
 
         // add all YAF modules...
         this.AddModules(moduleList);
