@@ -83,6 +83,7 @@
     <Compile Include="RecaptchaResponse.cs" />
     <Compile Include="RecaptchaValidator.cs" />
     <Compile Include="BaseReportedPosts.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="RssFeedLink.cs" />
@@ -130,7 +131,6 @@
     <Compile Include="DisplayDateTime.cs" />
     <Compile Include="UserBox.cs" />
     <Compile Include="UserLink.cs" />
-    <Compile Include="CaptchaImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj">
