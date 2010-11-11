@@ -21,9 +21,12 @@ namespace YAF.Editors
   using System;
   using System.Linq;
   using System.Data;
+  using System.Reflection;
   using System.Web.Compilation;
 
   using Modules;
+
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// The yaf editor module manager.
@@ -38,13 +41,14 @@ namespace YAF.Editors
     {
       if (this.ModuleClassTypes == null)
       {
-        // add all YAF modules...
-        this.AddModules(
+        var moduleList =
           AppDomain.CurrentDomain.GetAssemblies().Where(
-            a => a.FullName != null && a.FullName.ToLower().StartsWith("yaf")).ToList());
+            a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf")).ToList();
 
-        // re-add these modules...
-        this.AddModules(BuildManager.CodeAssemblies);
+        moduleList.AddRange(BuildManager.CodeAssemblies.OfType<Assembly>().ToList());
+
+        // add all YAF modules...
+        this.AddModules(moduleList);
       }
     }
 
