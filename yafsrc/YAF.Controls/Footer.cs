@@ -136,7 +136,7 @@ namespace YAF.Controls
             YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"),
             PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE")));
       }
-      else if (PageContext.Vars["IsMobile"] != null && PageContext.Vars["IsMobile"].ToType<bool>())
+      else if (PageContext.Vars.ContainsKey("IsMobile") && PageContext.Vars["IsMobile"] != null && PageContext.Vars["IsMobile"].ToType<bool>())
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
