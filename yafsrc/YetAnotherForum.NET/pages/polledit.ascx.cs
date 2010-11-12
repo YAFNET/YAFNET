@@ -734,7 +734,7 @@ namespace YAF.Pages
             DataTable pollGroupData = DB.pollgroup_stats(pgidt);
 
             this.IsBoundCheckBox.Checked = Convert.ToBoolean(pollGroupData.Rows[0]["IsBound"]);
-            this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
+            // this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
           }
         }
         else if (this._forumId > 0 && (!(this._topicId > 0) || (!(this._editTopicId > 0))))
