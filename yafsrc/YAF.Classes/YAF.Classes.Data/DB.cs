@@ -5524,21 +5524,21 @@ namespace YAF.Classes.Data
            {
                sb.Append("select @PollGroupID = PollID  from ");
                sb.Append(YafDBAccess.GetObjectName("Topic"));
-               sb.Append("WHERE TopicID = @TopicID; ");
+               sb.Append(" WHERE TopicID = @TopicID; ");
            }
            else if (question.ForumId > 0)
            {
 
                sb.Append("select @PollGroupID = PollGroupID  from ");
                sb.Append(YafDBAccess.GetObjectName("Forum"));
-               sb.Append("WHERE ForumID = @ForumID");
+               sb.Append(" WHERE ForumID = @ForumID");
            }
            else if (question.CategoryId > 0)
            {
 
                sb.Append("select @PollGroupID = PollGroupID  from ");
                sb.Append(YafDBAccess.GetObjectName("Category"));
-               sb.Append("WHERE CategoryID = @CategoryID");
+               sb.Append(" WHERE CategoryID = @CategoryID");
            }
 
           // the group doesn't exists, create a new one
