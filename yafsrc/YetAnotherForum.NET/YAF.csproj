@@ -973,7 +973,7 @@
     <Content Include="resources\images\next.gif" />
     <Content Include="resources\images\prev.gif" />
     <Content Include="resources\js\DataPanel.js" />
-    <Content Include="resources\js\jquery-1.4.3.min.js" />
+    <Content Include="resources\js\jquery-1.4.4.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.lightbox.min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
