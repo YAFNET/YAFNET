@@ -82,7 +82,7 @@ namespace YAF.Classes
     {
         get
         {
-            return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.4.3.min.js";
+            return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.4.4.min.js";
         }
     }
 
