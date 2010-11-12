@@ -24,6 +24,8 @@ namespace YAF.Classes.Utils
   using System.Security;
   using System.Web;
 
+  using YAF.Classes.Pattern;
+
   #endregion
 
   /// <summary>
@@ -46,8 +48,11 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// True if messages differ, <see langword="false"/> if they are identical.
     /// </returns>
-    public static bool CompareMessage(object originalMessage, object newMessage)
+    public static bool CompareMessage([NotNull] object originalMessage, [NotNull] object newMessage)
     {
+      CodeContracts.ArgumentNotNull(originalMessage, "originalMessage");
+      CodeContracts.ArgumentNotNull(newMessage, "newMessage");
+
       return originalMessage.ToString() != newMessage.ToString();
     }
 
@@ -60,8 +65,10 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The encode message.
     /// </returns>
-    public static string EncodeMessage(string message)
+    public static string EncodeMessage([NotNull] string message)
     {
+      CodeContracts.ArgumentNotNull(message, "message");
+
       if (message.IndexOf('<') >= 0)
       {
         return HttpUtility.HtmlEncode(message);
@@ -118,8 +125,11 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The get safe raw url.
     /// </returns>
-    public static string GetSafeRawUrl(string url)
+    [NotNull]
+    public static string GetSafeRawUrl([NotNull] string url)
     {
+      CodeContracts.ArgumentNotNull(url, "url");
+
       string tProcessedRaw = url;
       tProcessedRaw = tProcessedRaw.Replace("\"", string.Empty);
       tProcessedRaw = tProcessedRaw.Replace("<", "%3C");
