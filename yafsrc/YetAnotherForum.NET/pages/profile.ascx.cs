@@ -634,7 +634,8 @@ namespace YAF.Pages
         this.BirthdayTR.Visible = true;
         this.Birthday.Text =
           this.Get<YafDateTime>().FormatDateLong(
-            userData.Profile.Birthday.Date.Add(-this.Get<YafDateTime>().TimeOffset));
+                  userData.Profile.Birthday.Date);
+          // .Add(-this.Get<YafDateTime>().TimeOffset));
       }
       else
       {
