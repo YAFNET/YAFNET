@@ -119,18 +119,27 @@ namespace YAF.Controls
       }
       else if (this.CurrentMode == ThanksListMode.ToUser)
       {
-        foreach (var dr in thanksData)
-        {
-          // update the message count
-            dr["MessageThanksNumber"] = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID && x.Field<int>("MessageID") == (int)dr["MessageID"]).Count();
-        }
+          int messageThanksNumber;
+          foreach (var dr in thanksData)
+          {
+              // update the message count
+              dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
+                                              ? dr["MessageThanksNumber"]
+                                              : thanksData.Where(
+                                                  x =>
+                                                  x.Field<int>("ThanksToUserID") == this.UserID &&
+                                                  x.Field<int>("MessageID") == (int)dr["MessageID"]).Count();
+          }
 
-        thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
+          thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
         // Remove duplicates.
         this.DistinctMessageID(thanksData);
 
-        // update the datatable with changes
+        // Sort by the ThanksNumber (Descensing)
+        thanksData = thanksData.OrderByDescending(x => x.Field<int>("MessageThanksNumber"));
+
+        // Update the datatable with changes
         this.ThanksInfo.AcceptChanges();
       }
 
@@ -218,8 +227,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// removes rows with duplicate MessageIDs.
+    /// Removes rows with duplicate MessageIDs.
     /// </summary>
+    /// <param name="thanksData">The thanks data.</param>
     private void DistinctMessageID(EnumerableRowCollection<DataRow> thanksData)
     {
       int previousId = 0;
@@ -232,6 +242,7 @@ namespace YAF.Controls
         {
           dr.Delete();
         }
+
         previousId = tempId;
       }
     }
