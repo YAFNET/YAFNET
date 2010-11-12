@@ -290,7 +290,7 @@
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">{1} было больше всего пользователей - {0}.</Resource>
     <Resource tag="MOBILE_FULLSITE">Просмотр всего сайта</Resource>
-    <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
+    <Resource tag="MOBILE_VIEWSITE">Мобильная версия</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
@@ -701,7 +701,7 @@
 &lt;p&gt;And if the Administrator has enabled it you can change the Forum &lt;strong&gt;Language&lt;/strong&gt; and the &lt;strong&gt;Theme&lt;/strong&gt; of the Site.&lt;/p&gt;
 
 </Resource>
-    <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
+    <Resource tag="EDITPROFILETITLE">Редактирование профиля пользователя и настройки форума</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
@@ -785,7 +785,7 @@
   &lt;li&gt;Email Notification Preferences&lt;/li&gt;
   &lt;li&gt;Change Password&lt;/li&gt;
 &lt;/ul&gt;</Resource>
-    <Resource tag="MYSETTINGSTITLE">My Settings (User Control Panel)</Resource>
+    <Resource tag="MYSETTINGSTITLE">Мои настройки (Панель управления пользователя)</Resource>
     <Resource tag="NAVIGATION">Навигатор</Resource>
     <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the 'Active Topics' link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
 &lt;p&gt;If you are logged in, the 'Active Topics' link will change to 'My Topics', which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
@@ -915,8 +915,8 @@
 &lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User CP. There you can select which subscriptions you wish to delete by Clicking on the Unwatch Button.&lt;/p&gt;</Resource>
-    <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
-    <Resource tag="SUBTITLE">Помощь по форуму</Resource>
+    <Resource tag="SUBSCRIPTIONSTITLE">Подписки и уведомления</Resource>
+    <Resource tag="SUBTITLE">Справка по форуму</Resource>
     <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to gave back an other user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
 &lt;p&gt;How to gave a User a Thanks?&lt;/p&gt;
 &lt;p&gt;If you want to gave an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
@@ -1009,10 +1009,10 @@
     <Resource tag="TITLE_SUSPENDED">Временно отключено</Resource>
   </page>
   <page name="IRKOO">
-    <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
-    <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
-    <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
-    <Resource tag="SELF">You cannot vote for your message</Resource>
+    <Resource tag="MIN_VOTE_DOWN">Минимальная репутация для понижения:  %min_rating% </Resource>
+    <Resource tag="MIN_VOTE_UP">Минимальная репутация для повышения: %min_rating% </Resource>
+    <Resource tag="NOT_AUTHORIZED">Зарегистрируйтесь для голосования</Resource>
+    <Resource tag="SELF">Вы не можете голосовать за своё сообщение</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>
