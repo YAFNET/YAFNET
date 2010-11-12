@@ -437,10 +437,14 @@ border-bottom-left-radius:0.3em;}
 	text-align: right;
 	padding: 5px;
 }
+/* poll vote link */
+.yafnet a.pollvote:link {text-decoration: underline; color: #666;
+}
 .yafnet .DivTopSeparator
 {
 	clear: both;
 }
+
 /* div at the top of pages with navigation links */
 .yafnet .yafPageLink
 {

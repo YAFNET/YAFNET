@@ -173,7 +173,6 @@
 {
     border: solid 2px #c93a4a;    
 }
-
 .yafnet .forum_customimage_newposts
 {
     border: solid 2px #fe0300;
@@ -542,6 +541,9 @@ This CSS already works on FireFox.
 .yafnet a.yafcssbigbutton:active span{
     background-position: bottom left;
     padding: 6px 3px 4px 7px;
+}
+/* poll vote link */
+.yafnet a.pollvote:link {text-decoration: underline; color: #339;
 }
 /* css image button */
 .yafnet a.yafcssimagebutton{

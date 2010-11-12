@@ -455,6 +455,9 @@
 	background-position: bottom left;
 	padding: 3px 4px 1px 5px;
 }
+/* poll vote link */
+.yafnet a.pollvote:link {text-decoration: underline; color: #339;
+}
 /* css image button */
 .yafnet a.yafcssimagebutton
 {

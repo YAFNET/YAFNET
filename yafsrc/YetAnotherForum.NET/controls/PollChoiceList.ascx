@@ -17,7 +17,7 @@
                          <img id="YourChoice" visible="false" runat="server" alt='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
                                    title='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
                                    width="16" height="16" src='<%# GetThemeContents("VOTE","POLL_VOTED") %>' />&nbsp; 
-                          <YAF:MyLinkButton ID="MyLinkButton1" Enabled="false" runat="server" CommandName="vote"
+                          <YAF:MyLinkButton ID="MyLinkButton1"   CssClass="pollvote a" Enabled="false" runat="server" CommandName="vote"
                                 CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
                                 
                         </td>

@@ -768,6 +768,9 @@ This CSS already works on FireFox.
     background-position: bottom left;
     padding: 5px 10px 3px 12px; /* push text down 1px */
 }
+/* poll vote link */
+.yafnet a.pollvote:link {text-decoration: underline; color: #339;
+}
 /* css image button */
 .yafnet a.yafcssimagebutton{
     background: transparent url('ButtonEndB.gif') no-repeat scroll top right;
