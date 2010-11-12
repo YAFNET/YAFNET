@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="../../../controls/mytopicslist.ascx.cs"
     Inherits="YAF.Controls.MyTopicsList" %>
-<%@ Register TagPrefix="YAFMobile" TagName="TopicLineMobile" Src="TopicLineMobile.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
     <tr>
         <td align="right">
@@ -21,7 +21,7 @@
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
             <%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-            <YAFMobile:TopicLineMobile ID="TopicLine1" runat="server" FindUnread="true" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine1" runat="server" FindUnread="true" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <tr>
