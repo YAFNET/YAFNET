@@ -27,6 +27,15 @@ namespace YAF.Utilities
   /// </summary>
   public static class JavaScriptBlocks
   {
+    public static string LoadGotoAnchor(string anchor)
+    {
+      return
+        @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+            function loadGotoAnchor() {{
+               window.location = window.location + ""#{0}""
+			      }}".FormatWith(anchor);
+    }
+
     /// <summary>
     /// Gets ToggleMessageJs.
     /// </summary>

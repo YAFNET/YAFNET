@@ -27,6 +27,7 @@ namespace YAF.Pages
   using System.Data;
   using System.Linq;
   using System.Text;
+  using System.Web.UI;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
@@ -975,6 +976,10 @@ namespace YAF.Pages
           this.Pager.CurrentPageIndex =
             (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
         }
+
+        // move to this message on load...
+        PageContext.PageElements.RegisterJsBlockStartup(
+          this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
       }
 
       var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
