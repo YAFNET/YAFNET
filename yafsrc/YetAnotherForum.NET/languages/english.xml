@@ -796,6 +796,7 @@
     <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
     <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
 		<Resource tag="TITLE">Edit Signature</Resource>
+		<Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
 	</page>
 	<page name="CP_SUBSCRIPTIONS">
 		<Resource tag="FORUM">Forum</Resource>

@@ -1,5 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true"
-    Inherits="YAF.Controls.EditUsersSignature" Codebehind="EditUsersSignature.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersSignature" Codebehind="EditUsersSignature.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr runat="server" id="trHeader">
         <td class="header1" colspan="2">
@@ -16,7 +15,15 @@
         </td>
     </tr>
     <tr>
-        <td class="post" colspan="2" align="center">
+        <td class="postformheader" valign="top"></td>
+        <td class="header2">
+           <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_SIGNATURE"
+                LocalizedTag="Signature_Permissions" />
+        </td>       
+    </tr>
+    <tr>
+        <td class="postformheader" valign="top"></td>
+        <td class="post">
             <asp:Label ID="TagsAllowedWarning" runat="server" />
         </td>       
     </tr>

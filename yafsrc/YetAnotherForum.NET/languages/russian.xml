@@ -537,6 +537,7 @@
     <Resource tag="SIGNATURE_CHARSMAX">Максимальная длина подписи {0} символов.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
     <Resource tag="SIGNATURE_NOEDIT">Вы не можете редактировать подпись, но можете полностью удалить её.</Resource>
+    <Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">

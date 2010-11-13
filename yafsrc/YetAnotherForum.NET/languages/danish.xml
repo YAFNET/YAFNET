@@ -521,6 +521,7 @@
     <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more then {0} characters.</Resource>
     <Resource tag="SIGNATURE_MAX">Din signatur er for lang. Den må ikke være på mere end {0} tegn.</Resource>
     <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
+    <Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
     <Resource tag="TITLE">Ændre signatur</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">

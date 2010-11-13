@@ -40,6 +40,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
         
         /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
         /// TagsAllowedWarning control.
         /// </summary>
         /// <remarks>
