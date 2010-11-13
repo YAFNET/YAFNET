@@ -170,7 +170,6 @@
 
                 if (this.PageContext.IsHostAdmin)
                 {%>
-        <ul class="menuAdminList">    
             <li class="menuAdmin"><a target='_top' title="<%=this.PageContext.Localization.GetText("TOOLBAR", "HOST")%>" href="<%=YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "HOST")%></a> </li>
             <%
