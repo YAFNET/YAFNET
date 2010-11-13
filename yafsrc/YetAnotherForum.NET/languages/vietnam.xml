@@ -165,7 +165,8 @@
     <Resource tag="TITLE">Đính kèm</Resource>
     <Resource tag="UPLOAD">Upload</Resource>
     <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
-    <Resource tag="UPLOAD_TITLE">Upload File</Resource><Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
+    <Resource tag="UPLOAD_TITLE">Upload File</Resource>
+    <Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
   </page>
   <page name="AVATAR">
     <Resource tag="EDITPROFILE">Đổi hình</Resource>
@@ -494,10 +495,15 @@
     <Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
+    <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
     <Resource tag="SIGNATURE">Chữ ký:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more then {0} characters.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
+    <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
     <Resource tag="TITLE">Sửa chữ ký</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
@@ -1227,6 +1233,7 @@
     <Resource tag="SMILIES_MORE">Thêm biểu tượng...</Resource>
     <Resource tag="STICKY">Chú ý</Resource>
     <Resource tag="SUBJECT">Chủ đề:</Resource>
+    <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
     <Resource tag="TOPICATTACH">Đính kèm tập tin?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Nhận thông báo của chủ đề qua email?</Resource>

@@ -169,7 +169,8 @@
     <Resource tag="TITLE">Priedai </Resource>
     <Resource tag="UPLOAD">Įkelti </Resource>
     <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
-    <Resource tag="UPLOAD_TITLE">Įkelti failą </Resource><Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
+    <Resource tag="UPLOAD_TITLE">Įkelti failą </Resource>
+    <Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
   </page>
   <page name="AVATAR">
     <Resource tag="EDITPROFILE">Keisti Avataras </Resource>
@@ -574,10 +575,15 @@
     <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
+    <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
     <Resource tag="SIGNATURE">Parašas: </Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more then {0} characters.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
+    <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
     <Resource tag="TITLE">Redaguoti Parašas </Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
@@ -1343,6 +1349,7 @@
     <Resource tag="SMILIES_MORE">More Smilies...</Resource>
     <Resource tag="STICKY">Sticky </Resource>
     <Resource tag="SUBJECT">Tema: </Resource>
+    <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
     <Resource tag="TOPICATTACH">Pridėti failus į šį postą? </Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">

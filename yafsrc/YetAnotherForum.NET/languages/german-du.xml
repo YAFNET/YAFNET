@@ -165,7 +165,8 @@
     <Resource tag="TITLE">Anhänge</Resource>
     <Resource tag="UPLOAD">Hochladen</Resource>
     <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
-    <Resource tag="UPLOAD_TITLE">Datei hochladen</Resource><Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
+    <Resource tag="UPLOAD_TITLE">Datei hochladen</Resource>
+    <Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
   </page>
   <page name="AVATAR">
     <Resource tag="EDITPROFILE">Profil bearbeiten</Resource>
@@ -511,10 +512,15 @@
     <Resource tag="YOUR_USERNAME">Dein Benutzername:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Ihre Signatur sollte keine BBCodes enthalten.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
+    <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
     <Resource tag="SIGNATURE">Signatur:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Ihre Signatur enthält diesen Verbotenen {0} BBCode.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more then {0} characters.</Resource>
     <Resource tag="SIGNATURE_MAX">Ihre Signatur ist zu lang. Sie darf nicht länger als {0} Zeichen haben.</Resource>
+    <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
     <Resource tag="TITLE">Signatur bearbeiten</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
@@ -1239,6 +1245,7 @@
     <Resource tag="SMILIES_MORE">Mehr Smilies...</Resource>
     <Resource tag="STICKY">Wichtig</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
+    <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
     <Resource tag="TOPICATTACH">Bilder oder Dateien an diesen Beitrag anhängen?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Maximale Beitragslänge darf nicht mehr als {0} Zeichen lang sein.</Resource>
     <Resource tag="TOPICWATCH">Möchtest Du per E-Mail informiert werden, wenn es Antworten auf das Thema gibt?</Resource>
