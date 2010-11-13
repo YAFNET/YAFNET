@@ -85,6 +85,24 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
         
         /// <summary>
+        /// UploadNodePlaceHold control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UploadNodePlaceHold;
+        
+        /// <summary>
+        /// UploadNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label UploadNote;
+        
+        /// <summary>
         /// Upload control.
         /// </summary>
         /// <remarks>

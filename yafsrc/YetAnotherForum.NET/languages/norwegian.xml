@@ -164,7 +164,8 @@
     <Resource tag="SIZE">Størrelse</Resource>
     <Resource tag="TITLE">Vedlegg</Resource>
     <Resource tag="UPLOAD">Last opp</Resource>
-    <Resource tag="UPLOAD_TITLE">Last opp fil</Resource>
+    <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
+    <Resource tag="UPLOAD_TITLE">Last opp fil</Resource><Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
   </page>
   <page name="AVATAR">
     <Resource tag="EDITPROFILE">Rediger profil</Resource>

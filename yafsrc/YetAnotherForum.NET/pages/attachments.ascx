@@ -53,6 +53,7 @@
 		</td>
 		<td class="post">
 			<input type="file" id="File" class="pbutton" runat="server" />
+            <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server"><br /><em><asp:Label ID="UploadNote" runat="server"></asp:Label></em></asp:PlaceHolder>
 		</td>
 		<td class="post">
 			<asp:Button runat="server" CssClass="pbutton" ID="Upload" OnClick="Upload_Click" />

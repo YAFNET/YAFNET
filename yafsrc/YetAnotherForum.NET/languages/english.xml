@@ -484,7 +484,6 @@
 		<Resource tag="ASK_DELETE">Delete this attachment?</Resource>
 		<Resource tag="DELETE">Delete</Resource>
 		<Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
-		<Resource tag="ERROR_TOOBIG">You cannot attach files that big.</Resource>
 		<Resource tag="FILEERROR">'{0}' is not an allowed file type for upload.</Resource>
 		<Resource tag="FILENAME">File Name</Resource>
 		<Resource tag="SELECT_FILE">Select the file you want to upload.</Resource>
@@ -492,6 +491,8 @@
 		<Resource tag="TITLE">Attachments</Resource>
 		<Resource tag="UPLOAD">Upload</Resource>
 		<Resource tag="UPLOAD_TITLE">Upload File</Resource>
+		<Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
+		<Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
 	</page>
 	<page name="AVATAR">
 		<Resource tag="EDITPROFILE">Change Avatar</Resource>
