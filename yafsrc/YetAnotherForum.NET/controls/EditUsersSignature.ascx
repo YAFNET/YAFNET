@@ -16,6 +16,11 @@
         </td>
     </tr>
     <tr>
+        <td class="post" colspan="2" align="center">
+            <asp:Label ID="TagsAllowedWarning" runat="server" />
+        </td>       
+    </tr>
+    <tr>
         <td class="footer1" colspan="2" align="center">
             <asp:Button ID="save" CssClass="pbutton" runat="server" />
             <asp:Button ID="cancel" CssClass="pbutton" runat="server" />

@@ -267,7 +267,11 @@ namespace YAF.Pages
         return false;
       }
 
-
+      if (DB.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null && this.EditMessageID == null)
+      {
+          this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));
+          return false;
+      }
 
       if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
            (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
@@ -741,13 +745,15 @@ namespace YAF.Pages
           /* Bypass Approval if Admin or Moderator.*/
           IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
         };
+     
 
       string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
-      // Save to Db
+     
+       // Save to Db
         topicId = DB.topic_save(
-        this.PageContext.PageForumID, 
-        this.TopicSubjectTextBox.Text, 
+        this.PageContext.PageForumID,
+        this.TopicSubjectTextBox.Text.Trim(), 
         this._forumEditor.Text, 
         this.PageContext.PageUserID, 
         this.Priority.SelectedValue, 

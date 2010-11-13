@@ -564,6 +564,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_delete]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_findduplicate]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_findduplicate]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_findnext]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_findnext]
 GO
@@ -4863,6 +4867,26 @@ BEGIN
 		ELSE
 			SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID AND (Flags & 8) = 0		
 	END
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_findduplicate]
+(
+	@TopicName nvarchar(255)
+)
+AS
+BEGIN
+	IF @TopicName IS NOT NULL
+	BEGIN	
+		IF EXISTS (SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE [Topic] LIKE  @TopicName AND TopicMovedID IS NULL)
+		SELECT 1
+		ELSE
+		SELECT 0
+    END
+	ELSE
+	BEGIN
+		SELECT 0
+	END	
 END
 GO
 

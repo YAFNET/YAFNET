@@ -6938,6 +6938,17 @@ namespace YAF.Classes.Data
       }
     }
 
+    public static int topic_findduplicate(object topicName)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("topic_findduplicate"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("TopicName", topicName);
+            return (int)YafDBAccess.Current.ExecuteScalar(cmd);
+
+        }
+    }
+
     /// <summary>
     /// The topic_ favorite_ details.
     /// </summary>

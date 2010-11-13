@@ -44,6 +44,21 @@ namespace YAF.Controls
     /// </summary>
     private BaseForumEditor _sig;
 
+    /// <summary>
+    /// The string with allowed HTML tags info.
+    /// </summary>
+    private string _allowedHtml;
+
+    /// <summary>
+    /// The string with allowed BBCodes info.
+    /// </summary>
+    private string _allowedBbcodes;
+
+    /// <summary>
+    /// The number of characters which is allowed in user signature.
+    /// </summary>
+    private int _allowedNumberOfCharacters; 
+
     #endregion
 
     #region Properties
@@ -149,11 +164,52 @@ namespace YAF.Controls
 
       this._sig.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this._sig.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
+      
+      DataTable sigData = DB.user_getsignaturedata(this.CurrentUserID, YafContext.Current.PageBoardID);
+      if (sigData.Rows.Count > 0)
+      {
+          _allowedBbcodes = sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim();
 
-      if (!this.IsPostBack)
+          _allowedHtml = sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim();
+
+          _allowedNumberOfCharacters = Convert.ToInt32(sigData.Rows[0]["UsrSigChars"]);
+      }
+
+        if (!this.IsPostBack)
       {
         this.save.Text = this.PageContext.Localization.GetText("COMMON", "Save");
         this.cancel.Text = this.PageContext.Localization.GetText("COMMON", "Cancel");
+        
+
+        if (_allowedBbcodes.IsSet())
+        {
+            this.TagsAllowedWarning.Text += PageContext.Localization.GetTextFormatted("BBCODE_ALLOWEDLIST",
+                                                                                      _allowedBbcodes);
+        }
+        else
+        {
+            this.TagsAllowedWarning.Text += PageContext.Localization.GetText("BBCODE_FORBIDDEN");
+        }
+
+        if (_allowedHtml.IsSet())
+        {
+            this.TagsAllowedWarning.Text += PageContext.Localization.GetTextFormatted("HTML_ALLOWEDLIST",
+                                                                                      _allowedHtml);
+        }
+        else
+        {
+            this.TagsAllowedWarning.Text += PageContext.Localization.GetText("HTML_FORBIDDEN");
+        }
+
+        if (_allowedNumberOfCharacters > 0)
+        {
+            this.TagsAllowedWarning.Text += PageContext.Localization.GetTextFormatted("SIGNATURE_CHARSMAX",
+                                                                                      _allowedNumberOfCharacters);
+        }
+        else
+        {
+            this.TagsAllowedWarning.Text += PageContext.Localization.GetText("SIGNATURE_NOEDIT");
+        }
 
         this.BindData();
       }
@@ -208,48 +264,47 @@ namespace YAF.Controls
     private void Save_Click(object sender, EventArgs e)
     {
       string body = this._sig.Text;
-      DataTable sigData = DB.user_getsignaturedata(this.CurrentUserID, YafContext.Current.PageBoardID);
-      if (sigData.Rows.Count > 0)
-      {
+ 
         // find forbidden BBcodes in signature
-        string detectedBbCode = YafFormatMessage.BBCodeForbiddenDetector(
-          body, sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim(), ',');
-        if (!string.IsNullOrEmpty(detectedBbCode) && detectedBbCode != "ALL")
-        {
-          this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
-          return;
-        }
-        else if (detectedBbCode == "ALL")
-        {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
-          return;
-        }
+    
+          string detectedBbCode = YafFormatMessage.BBCodeForbiddenDetector(
+              body, _allowedBbcodes, ',');
+          if (!string.IsNullOrEmpty(detectedBbCode) && detectedBbCode != "ALL")
+          {
+              this.PageContext.AddLoadMessage(
+                  this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+              return;
+          }
+          else if (detectedBbCode == "ALL")
+          {
+              this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
+              return;
+          }
 
         // find forbidden HTMLTags in signature
         if (!PageContext.IsAdmin)
         {
             string detectedHtmlTag = YafFormatMessage.CheckHtmlTags(
-                body, sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim(), ',');
+                body, _allowedHtml, ',');
             if (detectedHtmlTag.IsSet())
             {
                 this.PageContext.AddLoadMessage(detectedHtmlTag);
                 return;
             }
         }
-      }
+     
 
       // body = YafFormatMessage.RepairHtml(this,body,false);
       if (this._sig.Text.Length > 0)
       {
-        if (this._sig.Text.Length <= Convert.ToInt32(sigData.Rows[0]["UsrSigChars"]))
+          if (this._sig.Text.Length <= _allowedNumberOfCharacters)
         {
           DB.user_savesignature(this.CurrentUserID, this.Get<YafBadWordReplace>().Replace(body));
         }
         else
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("SIGNATURE_MAX", sigData.Rows[0]["UsrSigChars"]));
+            this.PageContext.Localization.GetTextFormatted("SIGNATURE_MAX", _allowedNumberOfCharacters));
           return;
         }
       }

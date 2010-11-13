@@ -164,8 +164,9 @@
     <Resource tag="SIZE">Размер</Resource>
     <Resource tag="TITLE">Вложения</Resource>
     <Resource tag="UPLOAD">Загрузка</Resource>
-    <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
-    <Resource tag="UPLOAD_TITLE">Загрузить файл</Resource><Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your Filesize is {0} KB.</Resource>
+    <Resource tag="UPLOAD_NOTE">Максимальный размер вложения {0} KB.</Resource>
+    <Resource tag="UPLOAD_TITLE">Загрузить файл</Resource>
+    <Resource tag="UPLOAD_TOOBIG">Вы не можете загружать файлы более чем {1} KB. Ваш файл имеет размер {0} KB.</Resource>
   </page>
   <page name="AVATAR">
     <Resource tag="EDITPROFILE">Изменить аватар</Resource>
@@ -527,10 +528,15 @@
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDLIST">Вы можете использовать BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST">Вы можете использовать HTML теги: {0}.</Resource>
+    <Resource tag="HTML_FORBIDDEN">Ваша подпись не должна содержать HTML тэгов.</Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">Максимальная длина подписи {0} символов.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
+    <Resource tag="SIGNATURE_NOEDIT">Вы не можете редактировать подпись, но можете полностью удалить её.</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
@@ -1257,6 +1263,7 @@
     <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
     <Resource tag="STICKY">Прикреплённое</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
+    <Resource tag="SUBJECT_DUPLICATE">A topic with the subject already exists or the subject is not unique enough to be added.</Resource>
     <Resource tag="TOPICATTACH">Прикрепить файлы к этому сообщению?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Максимальная длина темы не должна быть более {0} символов. Используйте сокращения или измените тему на более короткую.</Resource>
     <Resource tag="TOPICWATCH">Следить за этой темой и получать уведомления о новых сообщениях по электронной почте?</Resource>
