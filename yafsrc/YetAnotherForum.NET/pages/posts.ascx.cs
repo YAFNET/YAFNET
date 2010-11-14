@@ -305,7 +305,10 @@ namespace YAF.Pages
         new UserLink() { ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID") }.
           RenderToString());
 
-      html.AppendFormat(" - {0})</span>", this.Get<YafDateTime>().FormatDateTimeShort(row["Posted"]));
+      html.AppendFormat(" - {0})</span>",
+                          new DisplayDateTime() {DateTime = row["Posted"], Format = DateTimeFormat.BothTopic}.
+                              RenderToString()); 
+      
       html.AppendFormat("</td></tr>");
 
       return html.ToString();

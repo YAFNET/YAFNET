@@ -128,6 +128,7 @@ namespace YAF.Controls
                                 YafContext.Current.Get<YafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
+            this.Icon.Alt = this.LastTopicImgLink.ToolTip;
 
           this.LastPostedHolder.Visible = true;
           this.NoPostsLabel.Visible = false;
