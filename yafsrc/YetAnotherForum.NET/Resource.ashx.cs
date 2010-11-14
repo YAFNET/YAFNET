@@ -299,17 +299,22 @@ namespace YAF
     /// The localization file.
     /// </param>
     /// <returns>
+    /// Resized Image Stream
     /// </returns>
     [NotNull]
-    private static MemoryStream GetImageResized([NotNull] MemoryStream data, int previewWidth, int previewHeight, int downloads, [NotNull] string localizationFile)
+    private static MemoryStream GetImageResized([NotNull] Stream data, int previewWidth, int previewHeight, int downloads, [NotNull] string localizationFile)
     {
-      const int pixelPadding = 6;
-      const int bottomSize = 13;
+      const int PixelPadding = 6;
+      const int BottomSize = 13;
 
-      using (var src = new Bitmap(data))
-      {
+      using (var src = new Bitmap(data).GetThumbnailImage(previewWidth - PixelPadding, previewHeight - BottomSize - PixelPadding, null, IntPtr.Zero))
+       {
+           int width = src.Width;
+           int height = src.Height;
+
+
         // default to width-based resizing...
-        int width = previewWidth;
+        /*int width = previewWidth;
         var height = (int)(previewWidth / (src.Width / (double)src.Height));
 
         if (src.Width <= previewWidth && src.Height <= previewHeight)
@@ -323,15 +328,16 @@ namespace YAF
           // aspect is based on the height, not the width...
           width = previewHeight / (src.Height / src.Width);
           height = previewHeight;
-        }
+        }*/
 
         using (
-          var dst = new Bitmap(width + pixelPadding, height + bottomSize + pixelPadding, PixelFormat.Format24bppRgb))
+          var dst = new Bitmap(width + PixelPadding, height + BottomSize + PixelPadding, PixelFormat.Format24bppRgb))
         {
           var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-          var rDstImg = new Rectangle(3, 3, dst.Width - pixelPadding, dst.Height - pixelPadding - bottomSize);
-          var rDstTxt = new Rectangle(3, rDstImg.Height + 3, previewWidth, bottomSize);
-          using (Graphics g = Graphics.FromImage(dst))
+          var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
+          var rDstTxt = new Rectangle(3, rDstImg.Height + 3, previewWidth, BottomSize);
+          
+            using (Graphics g = Graphics.FromImage(dst))
           {
             g.Clear(Color.FromArgb(64, 64, 64));
             g.FillRectangle(Brushes.White, rDstImg);
@@ -342,7 +348,8 @@ namespace YAF
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-            g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+
+             g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
 
             using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
             {
@@ -1141,17 +1148,8 @@ namespace YAF
               string newFileName =
                 context.Server.MapPath("{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
-              string fileName;
-
-              // use the new fileName (with extension) if it exists...
-              if (File.Exists(newFileName))
-              {
-                fileName = newFileName;
-              }
-              else
-              {
-                fileName = oldFileName;
-              }
+                // use the new fileName (with extension) if it exists...
+              string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
               using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
               {
