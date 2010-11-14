@@ -307,14 +307,10 @@ namespace YAF
       const int PixelPadding = 6;
       const int BottomSize = 13;
 
-      using (var src = new Bitmap(data).GetThumbnailImage(previewWidth - PixelPadding, previewHeight - BottomSize - PixelPadding, null, IntPtr.Zero))
+      using (var src = new Bitmap(data))
        {
-           int width = src.Width;
-           int height = src.Height;
-
-
         // default to width-based resizing...
-        /*int width = previewWidth;
+        int width = previewWidth;
         var height = (int)(previewWidth / (src.Width / (double)src.Height));
 
         if (src.Width <= previewWidth && src.Height <= previewHeight)
@@ -328,7 +324,7 @@ namespace YAF
           // aspect is based on the height, not the width...
           width = previewHeight / (src.Height / src.Width);
           height = previewHeight;
-        }*/
+        }
 
         using (
           var dst = new Bitmap(width + PixelPadding, height + BottomSize + PixelPadding, PixelFormat.Format24bppRgb))
