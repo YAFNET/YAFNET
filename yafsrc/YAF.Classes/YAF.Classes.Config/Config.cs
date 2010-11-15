@@ -60,11 +60,22 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsBool("YAF.EnableUrlRewriting", false);
+          return GetConfigValueAsBool("YAF.EnableUrlRewriting", false);
       }
     }
 
     /// <summary>
+    /// Url Rewriting URLRewritingMode? -- default is Unicode.
+    /// </summary>
+    public static string UrlRewritingMode
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
+        }
+    }
+
+      /// <summary>
     /// Is Jquery Registration disabled? -- default is false.
     /// </summary>
     public static bool DisableJQuery

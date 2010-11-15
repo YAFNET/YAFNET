@@ -24,7 +24,6 @@ namespace YAF.Classes
   using System.Data;
   using System.Globalization;
   using System.Text;
-  using System.Text.RegularExpressions;
   using System.Web;
   using System.Web.Caching;
 
@@ -257,37 +256,70 @@ namespace YAF.Classes
       var sb = new StringBuilder();
 
       // trim...
-      //str = HttpContext.Current.Server.HtmlDecode(str.Trim());
+     
+      if (Config.UrlRewritingMode == "Unicode")
+      {
+          str = HttpUtility.UrlDecode(str.Trim());
+      }
+      else
+      {
+          str = HttpContext.Current.Server.HtmlDecode(str.Trim());
+      }
 
-      str = HttpUtility.UrlDecode(str.Trim());
-
-      // fix ampersand...
+        // fix ampersand...
       str = str.Replace("&", "and");
 
       // normalize the Unicode
       str = str.Normalize(NormalizationForm.FormD);
-
-      foreach (char currentChar in str)
+      if (Config.UrlRewritingMode == "Unicode")
       {
-          if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+          foreach (char currentChar in str)
           {
-              sb.Append('-');
+              if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+              {
+                  sb.Append('-');
+              }
+              else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
+                             !char.IsSymbol(currentChar))
+              {
+                  sb.Append(currentChar);
+              }
           }
-          else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
-                         !char.IsSymbol(currentChar))
+          string strNew = sb.ToString();
+
+          if (strNew.EndsWith("-"))
           {
-              sb.Append(currentChar);
+              strNew = strNew.Remove(strNew.Length - 1, 1);
+          }
+
+          return HttpUtility.UrlEncode(strNew.ToLowerInvariant());
+      }
+      else 
+      {
+          if (Config.UrlRewritingMode == "Translit")
+          {
+              return str.Unidecode().Replace(" ","-");
+          }
+          else
+          {
+              foreach (char currentChar in str)
+              {
+                  if (char.IsWhiteSpace(currentChar) || currentChar == '.')
+                  {
+                      sb.Append('-');
+                  }
+                  else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
+                           !char.IsSymbol(currentChar) && currentChar < 128)
+                  {
+                      sb.Append(currentChar);
+                  }
+              }
+              return sb.ToString();
+              
           }
       }
 
-        string strNew = sb.ToString();
-
-        if (strNew.EndsWith("-"))
-        {
-            strNew = strNew.Remove(strNew.Length - 1, 1);
-        }
-
-        return HttpUtility.UrlEncode(strNew);
+     
     }
 
     /// <summary>

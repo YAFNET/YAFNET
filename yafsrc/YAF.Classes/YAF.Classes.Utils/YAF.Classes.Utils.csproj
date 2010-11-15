@@ -80,7 +80,9 @@
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ViewStateExtensions.cs" />
+    <Compile Include="Helpers\StringUtils\Characters.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\StringUtils\Unidecoder.cs" />
     <Compile Include="IYafUserProfile.cs" />
     <Compile Include="SimpleURLParameterParser.cs" />
     <Compile Include="Structures\DoubleLinkedList.cs" />
@@ -96,7 +98,7 @@
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\JsAndCssHelper.cs" />
-    <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\StringUtils\StringHelper.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
