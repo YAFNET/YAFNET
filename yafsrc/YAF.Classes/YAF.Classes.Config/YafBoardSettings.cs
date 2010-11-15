@@ -2584,7 +2584,7 @@ namespace YAF.Classes
 
             set
             {
-                this._reg.SetValue<bool>("ImageAttachmentResizeHeight", value);
+                this._reg.SetValue<bool>("ImageAttachmentResizeCropped", value);
             }
         }
 
