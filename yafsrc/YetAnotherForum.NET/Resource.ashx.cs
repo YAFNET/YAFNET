@@ -100,37 +100,35 @@ namespace YAF
         {
           this.GetResponseAttachment(context);
         }
-
-          // TommyB: Start MOD: Preview Images   ##########
         else if (context.Request.QueryString.GetFirstOrDefault("i") != null)
         {
+            // TommyB: Start MOD: Preview Images   ##########
           this.GetResponseImage(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
         {
           this.GetResponseImagePreview(context);
         }
-
-          // TommyB: End MOD: Preview Images   ##########
         else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
         {
-          // captcha					
+            // TommyB: End MOD: Preview Images   ##########
+          // captcha
           this.GetResponseCaptcha(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("cover") != null &&
                  context.Request.QueryString.GetFirstOrDefault("album") != null)
         {
-          // album cover		
+          // album cover
           this.GetAlbumCover(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("imgprv") != null)
         {
-          // album image preview		
+          // album image preview
           this.GetAlbumImagePreview(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("image") != null)
         {
-          // album image		
+          // album image
           this.GetAlbumImage(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("s") != null &&
@@ -202,6 +200,7 @@ namespace YAF
     /// Number of images in the album.
     /// </param>
     /// <returns>
+    /// Resized Cover
     /// </returns>
     [NotNull]
     private static MemoryStream GetCoverResized([NotNull] MemoryStream data, int previewWidth, int previewHeight, [NotNull] string localizationFile, [NotNull] string ImagesNumber)
@@ -210,6 +209,7 @@ namespace YAF
       const int paddingX = 6;
       const int bottomSize = 13;
       const int topSize = 0;
+
       using (var src = new Bitmap(data))
       {
         // default to width-based resizing...
@@ -280,91 +280,163 @@ namespace YAF
       }
     }
 
-    /// <summary>
-    /// The get image resized.
-    /// </summary>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <param name="previewWidth">
-    /// The preview width.
-    /// </param>
-    /// <param name="previewHeight">
-    /// The preview height.
-    /// </param>
-    /// <param name="downloads">
-    /// The downloads.
-    /// </param>
-    /// <param name="localizationFile">
-    /// The localization file.
-    /// </param>
-    /// <returns>
-    /// Resized Image Stream
-    /// </returns>
-    [NotNull]
-    private static MemoryStream GetImageResized([NotNull] Stream data, int previewWidth, int previewHeight, int downloads, [NotNull] string localizationFile)
+      /// <summary>
+      /// The get image resized.
+      /// </summary>
+      /// <param name="data">
+      /// The data.
+      /// </param>
+      /// <param name="previewWidth">
+      /// The preview width.
+      /// </param>
+      /// <param name="previewHeight">
+      /// The preview height.
+      /// </param>
+      /// <param name="previewCropped">
+      /// The preview Cropped</param>
+      /// <param name="downloads">
+      /// The downloads.
+      /// </param>
+      /// <param name="localizationFile">
+      /// The localization file.
+      /// </param>
+      /// <returns>
+      /// Resized Image Stream
+      /// </returns>
+      [NotNull]
+    private static MemoryStream GetImageResized([NotNull] Stream data, int previewWidth, int previewHeight, bool previewCropped, int downloads, [NotNull] string localizationFile)
     {
       const int PixelPadding = 6;
       const int BottomSize = 13;
 
-      using (var src = new Bitmap(data))
-       {
-        // default to width-based resizing...
-        int width = previewWidth;
-        var height = (int)(previewWidth / (src.Width / (double)src.Height));
+      var localization = new YafLocalization("POSTS");
+      localization.LoadTranslation(localizationFile);
 
-        if (src.Width <= previewWidth && src.Height <= previewHeight)
-        {
-          // no resizing necessary...
-          width = src.Width;
-          height = src.Height;
-        }
-        else if (height > previewHeight)
-        {
-          // aspect is based on the height, not the width...
-          width = previewHeight / (src.Height / src.Width);
-          height = previewHeight;
-        }
+      using (var src = new Bitmap(data))
+      {
+          var ms = new MemoryStream();
+
+          // Cropped Image
+          int size = previewWidth;
+
+          var newImgSize = new Size(previewWidth, previewHeight);
+          int x = 0;
+          int y = 0;
+
+          if (previewCropped)
+          {
+              // Determine dimensions of resized version of the image 
+              if (newImgSize.Width > newImgSize.Height)
+              {
+                  newImgSize.Width = decimal.Round((size.ToType<decimal>() * (newImgSize.Width.ToType<decimal>() / newImgSize.Height.ToType<decimal>())).ToType<decimal>(), 0).ToType<int>();
+                  newImgSize.Height = size;
+              }
+              else if (newImgSize.Height > newImgSize.Width)
+              {
+                  newImgSize.Height = decimal.Round((size.ToType<decimal>() * (newImgSize.Height.ToType<decimal>() / newImgSize.Width.ToType<decimal>())).ToType<decimal>(), 0).ToType<int>();
+                  newImgSize.Width = size;
+              }
+              else
+              {
+                  newImgSize.Width = size;
+                  newImgSize.Height = size;
+              }
+
+              newImgSize.Width = newImgSize.Width - PixelPadding;
+              newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
+
+              // moves cursor so that crop is more centered 
+              x = newImgSize.Width / 2;
+              y = newImgSize.Height / 2;
+          }
+          else
+          {
+              var finalHeight = Math.Abs(src.Height * newImgSize.Width / src.Width);
+
+              // Height resize if necessary
+              if (finalHeight > newImgSize.Height)
+              {
+                  newImgSize.Width = src.Width * newImgSize.Height / src.Height;
+                  finalHeight = newImgSize.Height;
+              }
+
+              newImgSize.Height = finalHeight;
+              newImgSize.Width = newImgSize.Width - PixelPadding;
+              newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
+          }
+           
 
         using (
-          var dst = new Bitmap(width + PixelPadding, height + BottomSize + PixelPadding, PixelFormat.Format24bppRgb))
+          var dst = new Bitmap(newImgSize.Width + PixelPadding, newImgSize.Height + BottomSize + PixelPadding, PixelFormat.Format24bppRgb))
         {
-          var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-          var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-          var rDstTxt = new Rectangle(3, rDstImg.Height + 3, previewWidth, BottomSize);
-          
-            using (Graphics g = Graphics.FromImage(dst))
-          {
-            g.Clear(Color.FromArgb(64, 64, 64));
-            g.FillRectangle(Brushes.White, rDstImg);
-
-            g.CompositingMode = CompositingMode.SourceOver;
-            g.CompositingQuality = CompositingQuality.GammaCorrected;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-             g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-
-            using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
+            if (previewCropped)
             {
-              using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-              {
-                var localization = new YafLocalization("POSTS");
-                localization.LoadTranslation(localizationFile);
+                var rSrcImg = new Rectangle(x, y, newImgSize.Width, newImgSize.Height);
+                var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
+                var rDstTxt = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize);
 
-                var sf = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+                using (Graphics g = Graphics.FromImage(dst))
+                {
+                    g.Clear(Color.FromArgb(64, 64, 64));
+                    g.FillRectangle(Brushes.White, rDstImg);
 
-                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    g.CompositingQuality = CompositingQuality.GammaCorrected;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                sf.Alignment = StringAlignment.Far;
-                g.DrawString(localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads), f, brush, rDstTxt, sf);
-              }
+                    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+                    g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+
+                    using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
+                    {
+                        using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
+                        {
+                            var sf = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
+                            g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
+
+                            sf.Alignment = StringAlignment.Far;
+                            g.DrawString(localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads), f, brush, rDstTxt, sf);
+                        }
+                    }
+                }
             }
-          }
+            else
+            {
+                var rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
+                var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
+                var rDstTxt = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize);
 
-          var ms = new MemoryStream();
+                using (Graphics g = Graphics.FromImage(dst))
+                {
+                    g.Clear(Color.FromArgb(64, 64, 64));
+                    g.FillRectangle(Brushes.White, rDstImg);
+
+                    g.CompositingMode = CompositingMode.SourceOver;
+                    g.CompositingQuality = CompositingQuality.GammaCorrected;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                    g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+                    g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+
+                    using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
+                    {
+                        using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
+                        {
+                            var sf = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
+                            g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
+
+                            sf.Alignment = StringAlignment.Far;
+                            g.DrawString(localization.GetText("IMAGE_RESIZE_VIEWS").FormatWith(downloads), f, brush, rDstTxt, sf);
+                        }
+                    }
+                }
+            }
 
           // save the bitmap to the stream...
           dst.Save(ms, ImageFormat.Png);
@@ -751,17 +823,8 @@ namespace YAF
               context.Server.MapPath(
                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
-            string fileName;
-
-            // use the new fileName (with extension) if it exists...
-            if (File.Exists(newFileName))
-            {
-              fileName = newFileName;
-            }
-            else
-            {
-              fileName = oldFileName;
-            }
+              // use the new fileName (with extension) if it exists...
+            string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
             using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -800,6 +863,7 @@ namespace YAF
       // default is 200x200
       int previewMaxWidth = 200;
       int previewMaxHeight = 200;
+      bool previewCropped = false;
       string localizationFile = "english.xml";
 
       if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int)
@@ -810,6 +874,11 @@ namespace YAF
       if (context.Session["imagePreviewHeight"] != null && context.Session["imagePreviewHeight"] is int)
       {
         previewMaxHeight = (int)context.Session["imagePreviewHeight"];
+      }
+
+      if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
+      {
+          previewCropped = (bool)context.Session["imagePreviewCropped"];
       }
 
       if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
@@ -844,10 +913,8 @@ namespace YAF
               context.Server.MapPath(
                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
-            string fileName;
-
-            // use the new fileName (with extension) if it exists...
-            fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+              // use the new fileName (with extension) if it exists...
+            string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
             using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -861,7 +928,7 @@ namespace YAF
             data.Position = 0;
 
             MemoryStream ms = GetImageResized(
-              data, previewMaxWidth, previewMaxHeight, (int)row["Downloads"], localizationFile);
+              data, previewMaxWidth, previewMaxHeight, previewCropped, (int)row["Downloads"], localizationFile);
 
             context.Response.ContentType = "image/png";
 
@@ -921,17 +988,8 @@ namespace YAF
               string newFileName =
                 context.Server.MapPath("{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
-              string fileName;
-
-              // use the new fileName (with extension) if it exists...
-              if (File.Exists(newFileName))
-              {
-                fileName = newFileName;
-              }
-              else
-              {
-                fileName = oldFileName;
-              }
+                // use the new fileName (with extension) if it exists...
+              string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
               using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
               {
@@ -992,6 +1050,7 @@ namespace YAF
     }
 
     // TommyB: Start MOD: PreviewImages   ##########
+
     /// <summary>
     /// The get response image.
     /// </summary>
@@ -1037,17 +1096,8 @@ namespace YAF
               string newFileName =
                 context.Server.MapPath("{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
 
-              string fileName;
-
-              // use the new fileName (with extension) if it exists...
-              if (File.Exists(newFileName))
-              {
-                fileName = newFileName;
-              }
-              else
-              {
-                fileName = oldFileName;
-              }
+                // use the new fileName (with extension) if it exists...
+              string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
               using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
               {
@@ -1090,6 +1140,7 @@ namespace YAF
       // default is 200x200
       int previewMaxWidth = 200;
       int previewMaxHeight = 200;
+      bool previewCropped = false;
       string localizationFile = "english.xml";
 
       if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int)
@@ -1100,6 +1151,11 @@ namespace YAF
       if (context.Session["imagePreviewHeight"] != null && context.Session["imagePreviewHeight"] is int)
       {
         previewMaxHeight = (int)context.Session["imagePreviewHeight"];
+      }
+
+      if (context.Session["imagePreviewCropped"] != null && context.Session["imagePreviewCropped"] is bool)
+      {
+          previewCropped = (bool)context.Session["imagePreviewCropped"];
       }
 
       if (context.Session["localizationFile"] != null && context.Session["localizationFile"] is string)
@@ -1165,7 +1221,7 @@ namespace YAF
             data.Position = 0;
 
             MemoryStream ms = GetImageResized(
-              data, previewMaxWidth, previewMaxHeight, (int)row["Downloads"], localizationFile);
+              data, previewMaxWidth, previewMaxHeight, previewCropped, (int)row["Downloads"], localizationFile);
 
             context.Response.ContentType = "image/png";
 
@@ -1244,13 +1300,13 @@ namespace YAF
 
           if (width > maxwidth)
           {
-            height = Convert.ToInt32(height / (double)width * maxwidth);
+            height = (height / (double)width * maxwidth).ToType<int>();
             width = maxwidth;
           }
 
           if (height > maxheight)
           {
-            width = Convert.ToInt32(width / (double)height * maxheight);
+            width = (width / (double)height * maxheight).ToType<int>();
             height = maxheight;
           }
 

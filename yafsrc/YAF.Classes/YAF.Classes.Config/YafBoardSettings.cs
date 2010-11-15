@@ -18,3393 +18,3409 @@
  */
 namespace YAF.Classes
 {
-  using System;
-  using System.Web.Security;
-  using YAF.Classes.Pattern;
-
-  /// <summary>
-  /// The yaf board settings.
-  /// </summary>
-  public class YafBoardSettings
-  {
-    /// <summary>
-    /// The _reg.
-    /// </summary>
-    protected readonly RegistryDictionaryOverride _reg;
+    using System;
+    using System.Web.Security;
+    using YAF.Classes.Pattern;
 
     /// <summary>
-    /// The _reg board.
+    /// The yaf board settings.
     /// </summary>
-    protected readonly RegistryDictionary _regBoard;
+    public class YafBoardSettings
+    {
+        /// <summary>
+        /// The _reg.
+        /// </summary>
+        protected readonly RegistryDictionaryOverride _reg;
 
-    /// <summary>
-    /// The _board id.
-    /// </summary>
-    protected object _boardID;
+        /// <summary>
+        /// The _reg board.
+        /// </summary>
+        protected readonly RegistryDictionary _regBoard;
 
-    /// <summary>
-    /// The _legacy board settings.
-    /// </summary>
-    protected YafLegacyBoardSettings _legacyBoardSettings = new YafLegacyBoardSettings();
+        /// <summary>
+        /// The _board id.
+        /// </summary>
+        protected object _boardID;
 
-    /// <summary>
-    /// The _membership app name.
-    /// </summary>
-    protected string _membershipAppName;
+        /// <summary>
+        /// The _legacy board settings.
+        /// </summary>
+        protected YafLegacyBoardSettings _legacyBoardSettings = new YafLegacyBoardSettings();
 
-    /// <summary>
-    /// The _roles app name.
-    /// </summary>
-    protected string _rolesAppName;
+        /// <summary>
+        /// The _membership app name.
+        /// </summary>
+        protected string _membershipAppName;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafBoardSettings"/> class.
-    /// </summary>
-    public YafBoardSettings()
-    {
-      this._boardID = 0;
-      this._reg = new RegistryDictionaryOverride();
-      this._regBoard = new RegistryDictionary();
-
-      // set the board dictionary as the override...
-      this._reg.OverrideDictionary = this._regBoard;
-
-      this._membershipAppName = Membership.ApplicationName;
-      this._rolesAppName = Roles.ApplicationName;
-    }
+        /// <summary>
+        /// The _roles app name.
+        /// </summary>
+        protected string _rolesAppName;
 
-    // Board/Override properties...
-    // Future stuff... still in progress.
-    /// <summary>
-    /// Gets or sets a value indicating whether SetBoardRegistryOnly.
-    /// </summary>
-    public bool SetBoardRegistryOnly
-    {
-      get
-      {
-        return this._reg.DefaultSetOverride;
-      }
-
-      set
-      {
-        this._reg.DefaultSetOverride = value;
-      }
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafBoardSettings"/> class.
+        /// </summary>
+        public YafBoardSettings()
+        {
+            this._boardID = 0;
+            this._reg = new RegistryDictionaryOverride();
+            this._regBoard = new RegistryDictionary();
 
-    /// <summary>
-    /// Gets or sets a value indicating whether GetBoardRegistryOverride.
-    /// </summary>
-    public bool GetBoardRegistryOverride
-    {
-      get
-      {
-        return this._reg.DefaultGetOverride;
-      }
-
-      set
-      {
-        this._reg.DefaultGetOverride = value;
-      }
-    }
+            // set the board dictionary as the override...
+            this._reg.OverrideDictionary = this._regBoard;
 
-    // Provider Settings
+            this._membershipAppName = Membership.ApplicationName;
+            this._rolesAppName = Roles.ApplicationName;
+        }
 
-    /// <summary>
-    /// Gets MembershipAppName.
-    /// </summary>
-    public string MembershipAppName
-    {
-      get
-      {
-        return this._membershipAppName;
-      }
-    }
+        // Board/Override properties...
+        // Future stuff... still in progress.
+        /// <summary>
+        /// Gets or sets a value indicating whether SetBoardRegistryOnly.
+        /// </summary>
+        public bool SetBoardRegistryOnly
+        {
+            get
+            {
+                return this._reg.DefaultSetOverride;
+            }
 
-    /// <summary>
-    /// Gets RolesAppName.
-    /// </summary>
-    public string RolesAppName
-    {
-      get
-      {
-        return this._rolesAppName;
-      }
-    }
+            set
+            {
+                this._reg.DefaultSetOverride = value;
+            }
+        }
 
-    // individual board settings
-    /// <summary>
-    /// Gets Name.
-    /// </summary>
-    public string Name
-    {
-      get
-      {
-        return this._legacyBoardSettings.BoardName;
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether GetBoardRegistryOverride.
+        /// </summary>
+        public bool GetBoardRegistryOverride
+        {
+            get
+            {
+                return this._reg.DefaultGetOverride;
+            }
 
-    /// <summary>
-    /// Gets a value indicating whether AllowThreaded.
-    /// </summary>
-    public bool AllowThreaded
-    {
-      get
-      {
-        return this._legacyBoardSettings.AllowThreaded;
-      }
-    }
+            set
+            {
+                this._reg.DefaultGetOverride = value;
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowThemedLogo.
-    /// </summary>
-    public bool AllowThemedLogo
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowThemedLogo", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowThemedLogo", value);
-      }
-    }
+        // Provider Settings
 
-    /// <summary>
-    /// Gets or sets a value indicating whether User genger icons in user box are enabled.
-    /// </summary>
-    public bool AllowGenderInUserBox
-    {
-        get
+        /// <summary>
+        /// Gets MembershipAppName.
+        /// </summary>
+        public string MembershipAppName
         {
-            return this._reg.GetValue<bool>("AllowGenderInUserBox", true);
+            get
+            {
+                return this._membershipAppName;
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets RolesAppName.
+        /// </summary>
+        public string RolesAppName
         {
-            this._reg.SetValue<bool>("AllowGenderInUserBox", value);
+            get
+            {
+                return this._rolesAppName;
+            }
         }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether to enable Display Name.
-    /// </summary>
-    public bool EnableDisplayName
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EnableDisplayName", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EnableDisplayName", value);
-      }
-    }
-
-    /// <summary>
-    /// Gets MaxUsers.
-    /// </summary>
-    public int MaxUsers
-    {
-      get
-      {
-        return this._regBoard.GetValue<int>("MaxUsers", 1);
-      }
-    }
-
-    /// <summary>
-    /// Gets MaxUsersWhen.
-    /// </summary>
-    public DateTime MaxUsersWhen
-    {
-      get
-      {
-        return this._regBoard.GetValue<DateTime>("MaxUsersWhen", DateTime.UtcNow);
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Theme.
-    /// </summary>
-    public string MobileTheme
-    {
-      get
-      {
-        return this._regBoard.GetValue<string>("MobileTheme", string.Empty);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<string>("MobileTheme", value);
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Theme.
-    /// </summary>
-    public string Theme
-    {
-      get
-      {
-        return this._regBoard.GetValue<string>("Theme", "cleanSlate.xml");
-      }
-
-      set
-      {
-        this._regBoard.SetValue<string>("Theme", value);
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Language.
-    /// </summary>
-    public string Language
-    {
-      get
-      {
-        return this._regBoard.GetValue<string>("Language", "english.xml");
-      }
-
-      set
-      {
-        this._regBoard.SetValue<string>("Language", value);
-      }
-    }
 
-    /// <summary>
-    /// Gets or sets Culture.
-    /// </summary>
-    public string Culture
-    {
-        get
+        // individual board settings
+        /// <summary>
+        /// Gets Name.
+        /// </summary>
+        public string Name
         {
-            return this._regBoard.GetValue<string>("Culture", "en-US");
+            get
+            {
+                return this._legacyBoardSettings.BoardName;
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets a value indicating whether AllowThreaded.
+        /// </summary>
+        public bool AllowThreaded
         {
-            this._regBoard.SetValue<string>("Culture", value);
+            get
+            {
+                return this._legacyBoardSettings.AllowThreaded;
+            }
         }
-    }
-
-    public UserNotificationSetting DefaultNotificationSetting
-    {
-      get
-      {
-        return this._regBoard.GetValue<UserNotificationSetting>("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<UserNotificationSetting>("DefaultNotificationSetting", value);
-      }
-    }
 
-    public bool DefaultSendDigestEmail
-    {
-      get
-      {
-        return this._regBoard.GetValue<bool>("DefaultSendDigestEmail", false);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<bool>("DefaultSendDigestEmail", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowThemedLogo.
+        /// </summary>
+        public bool AllowThemedLogo
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowThemedLogo", false);
+            }
 
-    public bool AllowDigestEmail
-    {
-      get
-      {
-        return this._regBoard.GetValue<bool>("AllowDigestEmail", false);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<bool>("AllowDigestEmail", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowThemedLogo", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets ShowTopicsDefault.
-    /// </summary>
-    public int ShowTopicsDefault
-    {
-      get
-      {
-        return this._regBoard.GetValue<int>("ShowTopicsDefault", 0);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<int>("ShowTopicsDefault", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether User genger icons in user box are enabled.
+        /// </summary>
+        public bool AllowGenderInUserBox
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowGenderInUserBox", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether FileExtensionAreAllowed.
-    /// </summary>
-    public bool FileExtensionAreAllowed
-    {
-      get
-      {
-        return this._regBoard.GetValue<bool>("FileExtensionAreAllowed", true);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<bool>("FileExtensionAreAllowed", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowGenderInUserBox", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Recapture can have Multiple Instances.
-    /// </summary>
-    public bool RecaptureMultipleInstances
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether to enable Display Name.
+        /// </summary>
+        public bool EnableDisplayName
         {
-            return this._regBoard.GetValue<bool>("RecaptureMultipleInstances", true);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableDisplayName", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableDisplayName", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets MaxUsers.
+        /// </summary>
+        public int MaxUsers
         {
-            this._regBoard.SetValue<bool>("RecaptureMultipleInstances", value);
+            get
+            {
+                return this._regBoard.GetValue<int>("MaxUsers", 1);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets NotificationOnUserRegisterEmailList.
-    /// </summary>
-    public string NotificationOnUserRegisterEmailList
-    {
-      get
-      {
-        return this._regBoard.GetValue<string>("NotificationOnUserRegisterEmailList", null);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<string>("NotificationOnUserRegisterEmailList", value);
-      }
-    }
+        /// <summary>
+        /// Gets MaxUsersWhen.
+        /// </summary>
+        public DateTime MaxUsersWhen
+        {
+            get
+            {
+                return this._regBoard.GetValue<DateTime>("MaxUsersWhen", DateTime.UtcNow);
+            }
+        }
 
-    public bool EmailModeratorsOnModeratedPost
-    {
-      get
-      {
-        return this._regBoard.GetValue<bool>("EmailModeratorsOnModeratedPost", true);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<bool>("EmailModeratorsOnModeratedPost", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets Theme.
+        /// </summary>
+        public string MobileTheme
+        {
+            get
+            {
+                return this._regBoard.GetValue<string>("MobileTheme", string.Empty);
+            }
 
-    // didn't know where else to put this :)
-    /// <summary>
-    /// Gets SQLVersion.
-    /// </summary>
-    public string SQLVersion
-    {
-      get
-      {
-        return this._legacyBoardSettings.SqlVersion;
-      }
-    }
+            set
+            {
+                this._regBoard.SetValue<string>("MobileTheme", value);
+            }
+        }
 
-    #region int settings
+        /// <summary>
+        /// Gets or sets Theme.
+        /// </summary>
+        public string Theme
+        {
+            get
+            {
+                return this._regBoard.GetValue<string>("Theme", "cleanSlate.xml");
+            }
 
-    /// <summary>
-    /// Gets or sets ServerTimeCorrection.
-    /// </summary>
-    public int ServerTimeCorrection
-    {
-      get
-      {
-          return this._reg.GetValue<int>("ServerTimeCorrection", 0);
-      }
-
-      set
-      {
-          this._reg.SetValue<int>("ServerTimeCorrection", value);
-      }
-    }
+            set
+            {
+                this._regBoard.SetValue<string>("Theme", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets PostLatestFeedAccess.
-    /// </summary>
-    public int PostLatestFeedAccess
-    {
-        get
+        /// <summary>
+        /// Gets or sets Language.
+        /// </summary>
+        public string Language
         {
-            return this._reg.GetValue<int>("PostLatestFeedAccess", 1);
+            get
+            {
+                return this._regBoard.GetValue<string>("Language", "english.xml");
+            }
+
+            set
+            {
+                this._regBoard.SetValue<string>("Language", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets Culture.
+        /// </summary>
+        public string Culture
         {
-            this._reg.SetValue<int>("PostLatestFeedAccess", value);
+            get
+            {
+                return this._regBoard.GetValue<string>("Culture", "en-US");
+            }
+
+            set
+            {
+                this._regBoard.SetValue<string>("Culture", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets PostsFeedAccess.
-    /// </summary>
-    public int PostsFeedAccess
-    {
-        get
+        public UserNotificationSetting DefaultNotificationSetting
         {
-            return this._reg.GetValue<int>("PostsFeedAccess", 1);
+            get
+            {
+                return this._regBoard.GetValue<UserNotificationSetting>("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<UserNotificationSetting>("DefaultNotificationSetting", value);
+            }
         }
 
-        set
+        public bool DefaultSendDigestEmail
         {
-            this._reg.SetValue<int>("PostsFeedAccess", value);
+            get
+            {
+                return this._regBoard.GetValue<bool>("DefaultSendDigestEmail", false);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<bool>("DefaultSendDigestEmail", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets TopicsFeedAccess.
-    /// </summary>
-    public int TopicsFeedAccess
-    {
-        get
+        public bool AllowDigestEmail
         {
-            return this._reg.GetValue<int>("TopicsFeedAccess", 1);
+            get
+            {
+                return this._regBoard.GetValue<bool>("AllowDigestEmail", false);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<bool>("AllowDigestEmail", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets ShowTopicsDefault.
+        /// </summary>
+        public int ShowTopicsDefault
         {
-            this._reg.SetValue<int>("TopicsFeedAccess", value);
+            get
+            {
+                return this._regBoard.GetValue<int>("ShowTopicsDefault", 0);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<int>("ShowTopicsDefault", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets ForumFeedAccess.
-    /// </summary>
-    public int ForumFeedAccess
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether FileExtensionAreAllowed.
+        /// </summary>
+        public bool FileExtensionAreAllowed
         {
-            return this._reg.GetValue<int>("ForumFeedAccess", 1);
+            get
+            {
+                return this._regBoard.GetValue<bool>("FileExtensionAreAllowed", true);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<bool>("FileExtensionAreAllowed", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether Recapture can have Multiple Instances.
+        /// </summary>
+        public bool RecaptureMultipleInstances
         {
-            this._reg.SetValue<int>("ForumFeedAccess", value);
+            get
+            {
+                return this._regBoard.GetValue<bool>("RecaptureMultipleInstances", true);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<bool>("RecaptureMultipleInstances", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets ActiveTopicFeedAccess.
-    /// </summary>
-    public int ActiveTopicFeedAccess
-    {
-        get
+        /// <summary>
+        /// Gets or sets NotificationOnUserRegisterEmailList.
+        /// </summary>
+        public string NotificationOnUserRegisterEmailList
         {
-            return this._reg.GetValue<int>("ActiveTopicFeedAccess", 1);
+            get
+            {
+                return this._regBoard.GetValue<string>("NotificationOnUserRegisterEmailList", null);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<string>("NotificationOnUserRegisterEmailList", value);
+            }
         }
 
-        set
+        public bool EmailModeratorsOnModeratedPost
         {
-            this._reg.SetValue<int>("ActiveTopicFeedAccess", value);
+            get
+            {
+                return this._regBoard.GetValue<bool>("EmailModeratorsOnModeratedPost", true);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<bool>("EmailModeratorsOnModeratedPost", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets FavoriteTopicFeedAccess.
-    /// </summary>
-    public int FavoriteTopicFeedAccess
-    {
-        get
+        // didn't know where else to put this :)
+        /// <summary>
+        /// Gets SQLVersion.
+        /// </summary>
+        public string SQLVersion
         {
-            return this._reg.GetValue<int>("FavoriteTopicFeedAccess", 1);
+            get
+            {
+                return this._legacyBoardSettings.SqlVersion;
+            }
         }
 
-        set
+        #region int settings
+
+        /// <summary>
+        /// Gets or sets ServerTimeCorrection.
+        /// </summary>
+        public int ServerTimeCorrection
         {
-            this._reg.SetValue<int>("FavoriteTopicFeedAccess", value);
+            get
+            {
+                return this._reg.GetValue<int>("ServerTimeCorrection", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ServerTimeCorrection", value);
+            }
         }
-    }
 
+        /// <summary>
+        /// Gets or sets PostLatestFeedAccess.
+        /// </summary>
+        public int PostLatestFeedAccess
+        {
+            get
+            {
+                return this._reg.GetValue<int>("PostLatestFeedAccess", 1);
+            }
 
-    /// <summary>
-    /// Gets or sets AvatarWidth.
-    /// </summary>
-    public int AvatarWidth
-    {
-      get
-      {
-        return this._reg.GetValue<int>("AvatarWidth", 50);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("AvatarWidth", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("PostLatestFeedAccess", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets AvatarHeight.
-    /// </summary>
-    public int AvatarHeight
-    {
-      get
-      {
-        return this._reg.GetValue<int>("AvatarHeight", 80);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("AvatarHeight", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets PostsFeedAccess.
+        /// </summary>
+        public int PostsFeedAccess
+        {
+            get
+            {
+                return this._reg.GetValue<int>("PostsFeedAccess", 1);
+            }
 
-    /// <summary>
-    /// Gets or sets AvatarSize.
-    /// </summary>
-    public int AvatarSize
-    {
-      get
-      {
-        return this._reg.GetValue<int>("AvatarSize", 50000);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("AvatarSize", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("PostsFeedAccess", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets MaxWordLength. Used in topic names etc. to avoid layout distortions.
-    /// </summary>
-    public int MaxWordLength
-    {
-        get
+        /// <summary>
+        /// Gets or sets TopicsFeedAccess.
+        /// </summary>
+        public int TopicsFeedAccess
         {
-            return this._reg.GetValue<int>("MaxWordLength", 40);
+            get
+            {
+                return this._reg.GetValue<int>("TopicsFeedAccess", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("TopicsFeedAccess", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets ForumFeedAccess.
+        /// </summary>
+        public int ForumFeedAccess
         {
-            this._reg.SetValue<int>("MaxWordLength", value);
-        }
-    }
-    /// <summary>
-    /// Gets or sets MaxFileSize.
-    /// </summary>
-    public int MaxFileSize
-    {
-      get
-      {
-        return this._reg.GetValue<int>("MaxFileSize", 0);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("MaxFileSize", value);
-      }
-    }
-    /// <summary>
-    /// Gets or sets SmiliesColumns.
-    /// </summary>
-    public int SmiliesColumns
-    {
-      get
-      {
-        return this._reg.GetValue<int>("SmiliesColumns", 3);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("SmiliesColumns", value);
-      }
-    }
+            get
+            {
+                return this._reg.GetValue<int>("ForumFeedAccess", 1);
+            }
 
-    /// <summary>
-    /// Gets or sets SmiliesPerRow.
-    /// </summary>
-    public int SmiliesPerRow
-    {
-      get
-      {
-        return this._reg.GetValue<int>("SmiliesPerRow", 6);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("SmiliesPerRow", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ForumFeedAccess", value);
+            }
+        }
 
-    /// <summary>
-    /// Message History Days To Trace.
-    /// </summary>
-    public int MessageHistoryDaysToLog
-    {
-        get
+        /// <summary>
+        /// Gets or sets ActiveTopicFeedAccess.
+        /// </summary>
+        public int ActiveTopicFeedAccess
         {
-            return this._reg.GetValue<int>("MessageHistoryDaysToLog", 30);
+            get
+            {
+                return this._reg.GetValue<int>("ActiveTopicFeedAccess", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ActiveTopicFeedAccess", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets FavoriteTopicFeedAccess.
+        /// </summary>
+        public int FavoriteTopicFeedAccess
         {
-            this._reg.SetValue<int>("MessageHistoryDaysToLog", value);
+            get
+            {
+                return this._reg.GetValue<int>("FavoriteTopicFeedAccess", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("FavoriteTopicFeedAccess", value);
+            }
         }
-    }      
 
-    /// <summary>
-    /// Gets or sets LockPosts.
-    /// </summary>
-    public int LockPosts
-    {
-      get
-      {
-        return this._reg.GetValue<int>("LockPosts", 0);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("LockPosts", value);
-      }
-    }
 
-    /// <summary>
-    /// Gets or sets PostsPerPage.
-    /// </summary>
-    public int PostsPerPage
-    {
-      get
-      {
-        return this._reg.GetValue<int>("PostsPerPage", 20);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("PostsPerPage", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AvatarWidth.
+        /// </summary>
+        public int AvatarWidth
+        {
+            get
+            {
+                return this._reg.GetValue<int>("AvatarWidth", 50);
+            }
 
-    /// <summary>
-    /// Gets or sets TopicsPerPage.
-    /// </summary>
-    public int TopicsPerPage
-    {
-      get
-      {
-        return this._reg.GetValue<int>("TopicsPerPage", 15);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("TopicsPerPage", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("AvatarWidth", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets ForumEditor.
-    /// </summary>
-    public int ForumEditor
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ForumEditor", 1);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ForumEditor", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AvatarHeight.
+        /// </summary>
+        public int AvatarHeight
+        {
+            get
+            {
+                return this._reg.GetValue<int>("AvatarHeight", 80);
+            }
 
-    /// <summary>
-    /// Gets or sets PostFloodDelay.
-    /// </summary>
-    public int PostFloodDelay
-    {
-      get
-      {
-        return this._reg.GetValue<int>("PostFloodDelay", 30);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("PostFloodDelay", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("AvatarHeight", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets AllowedPollChoiceNumber.
-    /// </summary>
-    public int AllowedPollChoiceNumber
-    {
-        get
+        /// <summary>
+        /// Gets or sets AvatarSize.
+        /// </summary>
+        public int AvatarSize
         {
-            return this._reg.GetValue<int>("AllowedPollChoiceNumber", 10);
+            get
+            {
+                return this._reg.GetValue<int>("AvatarSize", 50000);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("AvatarSize", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets MaxWordLength. Used in topic names etc. to avoid layout distortions.
+        /// </summary>
+        public int MaxWordLength
         {
-            this._reg.SetValue<int>("AllowedPollChoiceNumber", value);
+            get
+            {
+                return this._reg.GetValue<int>("MaxWordLength", 40);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("MaxWordLength", value);
+            }
         }
-    }
+        /// <summary>
+        /// Gets or sets MaxFileSize.
+        /// </summary>
+        public int MaxFileSize
+        {
+            get
+            {
+                return this._reg.GetValue<int>("MaxFileSize", 0);
+            }
 
-    /// <summary>
-    /// Gets or sets AllowedPollNumber.
-    /// </summary>
-    public int AllowedPollNumber
-    {
-        get
+            set
+            {
+                this._reg.SetValue<int>("MaxFileSize", value);
+            }
+        }
+        /// <summary>
+        /// Gets or sets SmiliesColumns.
+        /// </summary>
+        public int SmiliesColumns
         {
-            return this._reg.GetValue<int>("AllowedPollNumber", 3);
+            get
+            {
+                return this._reg.GetValue<int>("SmiliesColumns", 3);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("SmiliesColumns", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets SmiliesPerRow.
+        /// </summary>
+        public int SmiliesPerRow
         {
-            this._reg.SetValue<int>("AllowedPollNumber", value);
+            get
+            {
+                return this._reg.GetValue<int>("SmiliesPerRow", 6);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("SmiliesPerRow", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets PollImageMaxFileSize.
-    /// </summary>
-    public int PollImageMaxFileSize
-    {
-        get
+        /// <summary>
+        /// Message History Days To Trace.
+        /// </summary>
+        public int MessageHistoryDaysToLog
         {
-            return this._reg.GetValue<int>("PollImageMaxFileSize", 100);
+            get
+            {
+                return this._reg.GetValue<int>("MessageHistoryDaysToLog", 30);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("MessageHistoryDaysToLog", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets LockPosts.
+        /// </summary>
+        public int LockPosts
         {
-            this._reg.SetValue<int>("PollImageMaxFileSize", value);
+            get
+            {
+                return this._reg.GetValue<int>("LockPosts", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("LockPosts", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets CaptchaTypeRegister.
-    /// </summary>
-    public int CaptchaTypeRegister
-    {
-        get
+        /// <summary>
+        /// Gets or sets PostsPerPage.
+        /// </summary>
+        public int PostsPerPage
         {
-            return this._reg.GetValue<int>("CaptchaTypeRegister", 1);
+            get
+            {
+                return this._reg.GetValue<int>("PostsPerPage", 20);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("PostsPerPage", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets TopicsPerPage.
+        /// </summary>
+        public int TopicsPerPage
         {
-            this._reg.SetValue<int>("CaptchaTypeRegister", value);
+            get
+            {
+                return this._reg.GetValue<int>("TopicsPerPage", 15);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("TopicsPerPage", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets EditTimeOut.
-    /// </summary>
-    public int EditTimeOut
-    {
-      get
-      {
-        return this._reg.GetValue<int>("EditTimeOut", 30);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("EditTimeOut", value);
-      }
-    }
-
-    // vzrus 6/11/10
-    /// <summary>
-    /// Gets or sets a value indicating whether someone can report posts as violating forum rules.
-    /// </summary>
-    public int ReportPostPermissions
-    {
-        get
+        /// <summary>
+        /// Gets or sets ForumEditor.
+        /// </summary>
+        public int ForumEditor
         {
-            return this._reg.GetValue<int>("ReportPostPermissions", (int)ViewPermissions.RegisteredUsers);
-        }
+            get
+            {
+                return this._reg.GetValue<int>("ForumEditor", 1);
+            }
 
-        set
-        {
-            this._reg.SetValue<int>("ReportPostPermissions", value);
+            set
+            {
+                this._reg.SetValue<int>("ForumEditor", value);
+            }
         }
-    }
-
-    /// <summary>
-    /// Gets or sets CaptchaSize.
-    /// </summary>
-    public int CaptchaSize
-    {
-      get
-      {
-        return this._reg.GetValue<int>("CaptchaSize", 8);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("CaptchaSize", value);
-      }
-    }
 
-    // Ederon : 11/21/2007
-    /// <summary>
-    /// Gets or sets ProfileViewPermissions.
-    /// </summary>
-    public int ProfileViewPermissions
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ProfileViewPermission", (int) ViewPermissions.RegisteredUsers);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ProfileViewPermission", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets PostFloodDelay.
+        /// </summary>
+        public int PostFloodDelay
+        {
+            get
+            {
+                return this._reg.GetValue<int>("PostFloodDelay", 30);
+            }
 
-    /// <summary>
-    /// Gets or sets ReturnSearchMax.
-    /// </summary>
-    public int ReturnSearchMax
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ReturnSearchMax", 100);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ReturnSearchMax", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("PostFloodDelay", value);
+            }
+        }
 
-    // Ederon : 12/9/2007
-    /// <summary>
-    /// Gets or sets ActiveUsersViewPermissions.
-    /// </summary>
-    public int ActiveUsersViewPermissions
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ActiveUsersViewPermissions", (int) ViewPermissions.RegisteredUsers);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ActiveUsersViewPermissions", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AllowedPollChoiceNumber.
+        /// </summary>
+        public int AllowedPollChoiceNumber
+        {
+            get
+            {
+                return this._reg.GetValue<int>("AllowedPollChoiceNumber", 10);
+            }
 
-    /// <summary>
-    /// Gets or sets MembersListViewPermissions.
-    /// </summary>
-    public int MembersListViewPermissions
-    {
-      get
-      {
-        return this._reg.GetValue<int>("MembersListViewPermissions", (int) ViewPermissions.RegisteredUsers);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("MembersListViewPermissions", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("AllowedPollChoiceNumber", value);
+            }
+        }
 
-    // Ederon : 12/14/2007
-    /// <summary>
-    /// Gets or sets ActiveDiscussionsCount.
-    /// </summary>
-    public int ActiveDiscussionsCount
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ActiveDiscussionsCount", 5);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ActiveDiscussionsCount", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AllowedPollNumber.
+        /// </summary>
+        public int AllowedPollNumber
+        {
+            get
+            {
+                return this._reg.GetValue<int>("AllowedPollNumber", 3);
+            }
 
-    /// <summary>
-    /// Gets or sets ActiveDiscussionsCacheTimeout.
-    /// </summary>
-    public int ActiveDiscussionsCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ActiveDiscussionsCacheTimeout", 1);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ActiveDiscussionsCacheTimeout", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("AllowedPollNumber", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets SearchStringMinLength.
-    /// </summary>
-    public int SearchStringMinLength
-    {
-      get
-      {
-        return this._reg.GetValue<int>("SearchStringMinLength", 4);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("SearchStringMinLength", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets PollImageMaxFileSize.
+        /// </summary>
+        public int PollImageMaxFileSize
+        {
+            get
+            {
+                return this._reg.GetValue<int>("PollImageMaxFileSize", 100);
+            }
 
-    /// <summary>
-    /// Gets or sets SearchStringMaxLength.
-    /// </summary>
-    public int SearchStringMaxLength
-    {
-      get
-      {
-        return this._reg.GetValue<int>("SearchStringMaxLength", 50);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("SearchStringMaxLength", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("PollImageMaxFileSize", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets SearchPermissions.
-    /// </summary>
-    public int SearchPermissions
-    {
-      get
-      {
-        return this._reg.GetValue<int>("SearchPermissions", (int) ViewPermissions.Everyone);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("SearchPermissions", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets CaptchaTypeRegister.
+        /// </summary>
+        public int CaptchaTypeRegister
+        {
+            get
+            {
+                return this._reg.GetValue<int>("CaptchaTypeRegister", 1);
+            }
 
+            set
+            {
+                this._reg.SetValue<int>("CaptchaTypeRegister", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets BoardPollID.
-    /// </summary>
-    public int BoardPollID
-    {
-        get
+        /// <summary>
+        /// Gets or sets EditTimeOut.
+        /// </summary>
+        public int EditTimeOut
         {
-            return this._reg.GetValue<int>("BoardPollID", 0);
+            get
+            {
+                return this._reg.GetValue<int>("EditTimeOut", 30);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("EditTimeOut", value);
+            }
         }
 
-        set
+        // vzrus 6/11/10
+        /// <summary>
+        /// Gets or sets a value indicating whether someone can report posts as violating forum rules.
+        /// </summary>
+        public int ReportPostPermissions
         {
-            this._reg.SetValue<int>("BoardPollID", value);
+            get
+            {
+                return this._reg.GetValue<int>("ReportPostPermissions", (int)ViewPermissions.RegisteredUsers);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ReportPostPermissions", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets ExternalSearchPermissions.
-    /// </summary>
-    public int ExternalSearchPermissions
-    {
-        get
+        /// <summary>
+        /// Gets or sets CaptchaSize.
+        /// </summary>
+        public int CaptchaSize
         {
-            return this._reg.GetValue<int>("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
+            get
+            {
+                return this._reg.GetValue<int>("CaptchaSize", 8);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("CaptchaSize", value);
+            }
         }
 
-        set
+        // Ederon : 11/21/2007
+        /// <summary>
+        /// Gets or sets ProfileViewPermissions.
+        /// </summary>
+        public int ProfileViewPermissions
         {
-            this._reg.SetValue<int>("ExternalSearchPermissions", value);
-        }
-    }
+            get
+            {
+                return this._reg.GetValue<int>("ProfileViewPermission", (int)ViewPermissions.RegisteredUsers);
+            }
 
-    /// <summary>
-    /// Gets or sets ForumStatisticsCacheTimeout.
-    /// </summary>
-    public int ForumStatisticsCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ForumStatisticsCacheTimeout", 60);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ForumStatisticsCacheTimeout", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ProfileViewPermission", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets BoardUserStatsCacheTimeout.
-    /// </summary>
-    public int BoardUserStatsCacheTimeout
-    {
-        get
+        /// <summary>
+        /// Gets or sets ReturnSearchMax.
+        /// </summary>
+        public int ReturnSearchMax
         {
-            return this._reg.GetValue<int>("BoardUserStatsCacheTimeout", 60);
+            get
+            {
+                return this._reg.GetValue<int>("ReturnSearchMax", 100);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ReturnSearchMax", value);
+            }
         }
 
-        set
+        // Ederon : 12/9/2007
+        /// <summary>
+        /// Gets or sets ActiveUsersViewPermissions.
+        /// </summary>
+        public int ActiveUsersViewPermissions
         {
-            this._reg.SetValue<int>("BoardUserStatsCacheTimeout", value);
+            get
+            {
+                return this._reg.GetValue<int>("ActiveUsersViewPermissions", (int)ViewPermissions.RegisteredUsers);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ActiveUsersViewPermissions", value);
+            }
         }
-    }
 
-    // Ederon 12/18/2007
-    /// <summary>
-    /// Gets or sets PrivateMessageMaxRecipients.
-    /// </summary>
-    public int PrivateMessageMaxRecipients
-    {
-      get
-      {
-        return this._reg.GetValue<int>("PrivateMessageMaxRecipients", 1);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("PrivateMessageMaxRecipients", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets MembersListViewPermissions.
+        /// </summary>
+        public int MembersListViewPermissions
+        {
+            get
+            {
+                return this._reg.GetValue<int>("MembersListViewPermissions", (int)ViewPermissions.RegisteredUsers);
+            }
 
-    /// <summary>
-    /// Gets or sets DisableNoFollowLinksAfterDay.
-    /// </summary>
-    public int DisableNoFollowLinksAfterDay
-    {
-      get
-      {
-        return this._reg.GetValue<int>("DisableNoFollowLinksAfterDay", 0);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("DisableNoFollowLinksAfterDay", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("MembersListViewPermissions", value);
+            }
+        }
 
-    // Ederon : 01/18/2007
-    /// <summary>
-    /// Gets or sets BoardForumListAllGuestCacheTimeout.
-    /// </summary>
-    public int BoardForumListAllGuestCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("BoardForumListAllGuestCacheTimeout", 1440);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("BoardForumListAllGuestCacheTimeout", value);
-      }
-    }
+        // Ederon : 12/14/2007
+        /// <summary>
+        /// Gets or sets ActiveDiscussionsCount.
+        /// </summary>
+        public int ActiveDiscussionsCount
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ActiveDiscussionsCount", 5);
+            }
 
-    /// <summary>
-    /// Gets or sets BoardModeratorsCacheTimeout.
-    /// </summary>
-    public int BoardModeratorsCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("BoardModeratorsCacheTimeout", 1440);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("BoardModeratorsCacheTimeout", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ActiveDiscussionsCount", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets BoardCategoriesCacheTimeout.
-    /// </summary>
-    public int BoardCategoriesCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("BoardCategoriesCacheTimeout", 1440);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("BoardCategoriesCacheTimeout", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets ActiveDiscussionsCacheTimeout.
+        /// </summary>
+        public int ActiveDiscussionsCacheTimeout
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ActiveDiscussionsCacheTimeout", 1);
+            }
 
-    // Ederon : 02/07/2008
-    /// <summary>
-    /// Gets or sets ReplaceRulesCacheTimeout.
-    /// </summary>
-    public int ReplaceRulesCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ReplaceRulesCacheTimeout", 1440);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ReplaceRulesCacheTimeout", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ActiveDiscussionsCacheTimeout", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets FirstPostCacheTimeout.
-    /// </summary>
-    public int FirstPostCacheTimeout
-    {
-      get
-      {
-        return this._reg.GetValue<int>("FirstPostCacheTimeout", 120);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("FirstPostCacheTimeout", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets SearchStringMinLength.
+        /// </summary>
+        public int SearchStringMinLength
+        {
+            get
+            {
+                return this._reg.GetValue<int>("SearchStringMinLength", 4);
+            }
 
-    /// <summary>
-    /// Gets or sets MaxPostSize.
-    /// </summary>
-    public int MaxPostSize
-    {
-      get
-      {
-        return this._reg.GetValue<int>("MaxPostSize", Int16.MaxValue);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("MaxPostSize", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("SearchStringMinLength", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets MaxReportPostChars.
-    /// </summary>
-    public int MaxReportPostChars
-    {
-        get
+        /// <summary>
+        /// Gets or sets SearchStringMaxLength.
+        /// </summary>
+        public int SearchStringMaxLength
         {
-            return this._reg.GetValue<int>("MaxReportPostChars", 128);
+            get
+            {
+                return this._reg.GetValue<int>("SearchStringMaxLength", 50);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("SearchStringMaxLength", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets SearchPermissions.
+        /// </summary>
+        public int SearchPermissions
         {
-            this._reg.SetValue<int>("MaxReportPostChars", value);
+            get
+            {
+                return this._reg.GetValue<int>("SearchPermissions", (int)ViewPermissions.Everyone);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("SearchPermissions", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets MaxNumberOfAttachments.
-    /// </summary>
-    public int MaxNumberOfAttachments
-    {
-      get
-      {
-        return this._reg.GetValue<int>("MaxNumberOfAttachments", 5);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("MaxNumberOfAttachments", value);
-      }
-    }
 
-    // Ederon : 02/17/2009
-    /// <summary>
-    /// Gets or sets PictureAttachmentDisplayTreshold.
-    /// </summary>
-    public int PictureAttachmentDisplayTreshold
-    {
-      get
-      {
-        return this._reg.GetValue<int>("PictureAttachmentDisplayTreshold", 262144);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("PictureAttachmentDisplayTreshold", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets BoardPollID.
+        /// </summary>
+        public int BoardPollID
+        {
+            get
+            {
+                return this._reg.GetValue<int>("BoardPollID", 0);
+            }
 
-    /// <summary>
-    /// Gets or sets ImageAttachmentResizeWidth.
-    /// </summary>
-    public int ImageAttachmentResizeWidth
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ImageAttachmentResizeWidth", 200);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ImageAttachmentResizeWidth", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("BoardPollID", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets ImageAttachmentResizeHeight.
-    /// </summary>
-    public int ImageAttachmentResizeHeight
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ImageAttachmentResizeHeight", 200);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ImageAttachmentResizeHeight", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets ExternalSearchPermissions.
+        /// </summary>
+        public int ExternalSearchPermissions
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
+            }
 
-    /// <summary>
-    /// Gets or sets ShoutboxShowMessageCount.
-    /// </summary>
-    public int ShoutboxShowMessageCount
-    {
-      get
-      {
-        return this._reg.GetValue<int>("ShoutboxShowMessageCount", 30);
-      }
-
-      set
-      {
-        this._reg.SetValue<int>("ShoutboxShowMessageCount", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ExternalSearchPermissions", value);
+            }
+        }
 
-    // vzrus
-    /// <summary>
-    /// Gets or sets ActiveListTime.
-    /// </summary>
-    public int ActiveListTime
-    {
-      get
-      {
-        return this._regBoard.GetValue<int>("ActiveListTime", 5);
-      }
-
-      set
-      {
-        this._regBoard.SetValue<int>("ActiveListTime", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets ForumStatisticsCacheTimeout.
+        /// </summary>
+        public int ForumStatisticsCacheTimeout
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ForumStatisticsCacheTimeout", 60);
+            }
 
-    /// <summary>
-    /// Gets or sets User Lazy Data Cache Timeout.
-    /// </summary>
-    public int ActiveUserLazyDataCacheTimeout
-    {
-      get
-      {
-          return this._reg.GetValue<int>("ActiveUserLazyDataCacheTimeout", 10);
-      }
-
-      set
-      {
-          this._reg.SetValue<int>("ActiveUserLazyDataCacheTimeout", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ForumStatisticsCacheTimeout", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets OnlineStatusCacheTimeout.
-    /// </summary>
-    public int OnlineStatusCacheTimeout
-    {
-        get
+        /// <summary>
+        /// Gets or sets BoardUserStatsCacheTimeout.
+        /// </summary>
+        public int BoardUserStatsCacheTimeout
         {
-            return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 60000);
+            get
+            {
+                return this._reg.GetValue<int>("BoardUserStatsCacheTimeout", 60);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("BoardUserStatsCacheTimeout", value);
+            }
         }
 
-        set
+        // Ederon 12/18/2007
+        /// <summary>
+        /// Gets or sets PrivateMessageMaxRecipients.
+        /// </summary>
+        public int PrivateMessageMaxRecipients
         {
-            this._reg.SetValue<int>("OnlineStatusCacheTimeout", value);
+            get
+            {
+                return this._reg.GetValue<int>("PrivateMessageMaxRecipients", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("PrivateMessageMaxRecipients", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets User Name Max Length.
-    /// </summary>
-    public int UserNameMaxLength
-    {
-        get
+        /// <summary>
+        /// Gets or sets DisableNoFollowLinksAfterDay.
+        /// </summary>
+        public int DisableNoFollowLinksAfterDay
         {
-            return this._reg.GetValue<int>("UserNameMaxLength", 50);
+            get
+            {
+                return this._reg.GetValue<int>("DisableNoFollowLinksAfterDay", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("DisableNoFollowLinksAfterDay", value);
+            }
         }
 
-        set
+        // Ederon : 01/18/2007
+        /// <summary>
+        /// Gets or sets BoardForumListAllGuestCacheTimeout.
+        /// </summary>
+        public int BoardForumListAllGuestCacheTimeout
         {
-            this._reg.SetValue<int>("UserNameMaxLength", value);
+            get
+            {
+                return this._reg.GetValue<int>("BoardForumListAllGuestCacheTimeout", 1440);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("BoardForumListAllGuestCacheTimeout", value);
+            }
         }
-    }
 
+        /// <summary>
+        /// Gets or sets BoardModeratorsCacheTimeout.
+        /// </summary>
+        public int BoardModeratorsCacheTimeout
+        {
+            get
+            {
+                return this._reg.GetValue<int>("BoardModeratorsCacheTimeout", 1440);
+            }
 
-    #endregion
+            set
+            {
+                this._reg.SetValue<int>("BoardModeratorsCacheTimeout", value);
+            }
+        }
 
-    #region boolean settings
+        /// <summary>
+        /// Gets or sets BoardCategoriesCacheTimeout.
+        /// </summary>
+        public int BoardCategoriesCacheTimeout
+        {
+            get
+            {
+                return this._reg.GetValue<int>("BoardCategoriesCacheTimeout", 1440);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EmailVerification.
-    /// </summary>
-    public bool EmailVerification
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EmailVerification", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EmailVerification", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("BoardCategoriesCacheTimeout", value);
+            }
+        }
 
-    public bool AllowNotificationAllPostsAllTopics
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowNotificationAllPostsAllTopics", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowNotificationAllPostsAllTopics", value);
-      }
-    }
+        // Ederon : 02/07/2008
+        /// <summary>
+        /// Gets or sets ReplaceRulesCacheTimeout.
+        /// </summary>
+        public int ReplaceRulesCacheTimeout
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ReplaceRulesCacheTimeout", 1440);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether UseFullTextSearch.
-    /// </summary>
-    public bool UseFullTextSearch
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("UseFullTextSearch", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("UseFullTextSearch", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ReplaceRulesCacheTimeout", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Enable IP Info Service.
-    /// </summary>
-    public bool EnableIPInfoService
-    {
-        get
+        /// <summary>
+        /// Gets or sets FirstPostCacheTimeout.
+        /// </summary>
+        public int FirstPostCacheTimeout
         {
-            return this._reg.GetValue<bool>("EnableIPInfoService", false);
+            get
+            {
+                return this._reg.GetValue<int>("FirstPostCacheTimeout", 120);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("FirstPostCacheTimeout", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets MaxPostSize.
+        /// </summary>
+        public int MaxPostSize
         {
-            this._reg.SetValue<bool>("EnableIPInfoService", value);
-        }
-    }
+            get
+            {
+                return this._reg.GetValue<int>("MaxPostSize", Int16.MaxValue);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EmailVerification.
-    /// </summary>
-    public bool AbandonSessionsForDontTrack
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AbadonSessionsForDontTrack", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AbadonSessionsForDontTrack", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("MaxPostSize", value);
+            }
+        }
 
-    // vzrus: 10/4/10 SSL registration and login options
-    /// <summary>
-    /// Gets or sets a value indicating whether Use SSL To Log In.
-    /// </summary>
-    public bool UseSSLToLogIn
-    {
-        get
+        /// <summary>
+        /// Gets or sets MaxReportPostChars.
+        /// </summary>
+        public int MaxReportPostChars
         {
-            return this._reg.GetValue<bool>("UseSSLToLogIn", false);
+            get
+            {
+                return this._reg.GetValue<int>("MaxReportPostChars", 128);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("MaxReportPostChars", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets MaxNumberOfAttachments.
+        /// </summary>
+        public int MaxNumberOfAttachments
         {
-            this._reg.SetValue<bool>("UseSSLToLogIn", value);
+            get
+            {
+                return this._reg.GetValue<int>("MaxNumberOfAttachments", 5);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("MaxNumberOfAttachments", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Use SSL To Register.
-    /// </summary>
-    public bool UseSSLToRegister
-    {
-        get
+        // Ederon : 02/17/2009
+        /// <summary>
+        /// Gets or sets PictureAttachmentDisplayTreshold.
+        /// </summary>
+        public int PictureAttachmentDisplayTreshold
         {
-            return this._reg.GetValue<bool>("UseSSLToRegister", false);
+            get
+            {
+                return this._reg.GetValue<int>("PictureAttachmentDisplayTreshold", 262144);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("PictureAttachmentDisplayTreshold", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets ImageAttachmentResizeWidth.
+        /// </summary>
+        public int ImageAttachmentResizeWidth
         {
-            this._reg.SetValue<bool>("UseSSLToRegister", value);
+            get
+            {
+                return this._reg.GetValue<int>("ImageAttachmentResizeWidth", 200);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ImageAttachmentResizeWidth", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowMoved.
-    /// </summary>
-    public bool ShowMoved
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowMoved", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowMoved", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets ImageAttachmentResizeHeight.
+        /// </summary>
+        public int ImageAttachmentResizeHeight
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ImageAttachmentResizeHeight", 200);
+            }
 
-    /// <summary>
-    /// Gets or sets the value indivicated if an avatar is should be shown in the topic listings.
-    /// </summary>
-    public bool ShowAvatarsInTopic
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowAvatarsInTopic", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowAvatarsInTopic", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("ImageAttachmentResizeHeight", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Show Guests In Detailed Active List.
-    /// </summary>
-    public bool ShowGuestsInDetailedActiveList
-    {
-        get
+        /// <summary>
+        /// Gets or sets ShoutboxShowMessageCount.
+        /// </summary>
+        public int ShoutboxShowMessageCount
         {
-            return this._reg.GetValue<bool>("ShowGuestsInDetailedActiveList", false);
+            get
+            {
+                return this._reg.GetValue<int>("ShoutboxShowMessageCount", 30);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ShoutboxShowMessageCount", value);
+            }
         }
 
-        set
+        // vzrus
+        /// <summary>
+        /// Gets or sets ActiveListTime.
+        /// </summary>
+        public int ActiveListTime
         {
-            this._reg.SetValue<bool>("ShowGuestsInDetailedActiveList", value);
+            get
+            {
+                return this._regBoard.GetValue<int>("ActiveListTime", 5);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<int>("ActiveListTime", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Show Crawlers In Active List.
-    /// </summary>
-    public bool ShowCrawlersInActiveList
-    {
-        get
+        /// <summary>
+        /// Gets or sets User Lazy Data Cache Timeout.
+        /// </summary>
+        public int ActiveUserLazyDataCacheTimeout
         {
-            return this._reg.GetValue<bool>("ShowCrawlersInActiveList", false);
+            get
+            {
+                return this._reg.GetValue<int>("ActiveUserLazyDataCacheTimeout", 10);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ActiveUserLazyDataCacheTimeout", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets OnlineStatusCacheTimeout.
+        /// </summary>
+        public int OnlineStatusCacheTimeout
         {
-            this._reg.SetValue<bool>("ShowCrawlersInActiveList", value);
+            get
+            {
+                return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 60000);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("OnlineStatusCacheTimeout", value);
+            }
         }
-    }
 
+        /// <summary>
+        /// Gets or sets User Name Max Length.
+        /// </summary>
+        public int UserNameMaxLength
+        {
+            get
+            {
+                return this._reg.GetValue<int>("UserNameMaxLength", 50);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowGroups.
-    /// </summary>
-    public bool ShowGroups
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowGroups", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowGroups", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<int>("UserNameMaxLength", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether BlankLinks.
-    /// </summary>
-    public bool BlankLinks
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("BlankLinks", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("BlankLinks", value);
-      }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowUserTheme.
-    /// </summary>
-    public bool AllowUserTheme
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowUserTheme", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowUserTheme", value);
-      }
-    }
+        #endregion
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowUserHideHimself.
-    /// </summary>
-    public bool AllowUserHideHimself
-    {
-        get
+        #region boolean settings
+
+        /// <summary>
+        /// Gets or sets a value indicating whether EmailVerification.
+        /// </summary>
+        public bool EmailVerification
         {
-            return this._reg.GetValue<bool>("AllowUserHideHimself", false);
+            get
+            {
+                return this._reg.GetValue<bool>("EmailVerification", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EmailVerification", value);
+            }
         }
 
-        set
+        public bool AllowNotificationAllPostsAllTopics
         {
-            this._reg.SetValue<bool>("AllowUserHideHimself", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowNotificationAllPostsAllTopics", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowNotificationAllPostsAllTopics", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowUserLanguage.
-    /// </summary>
-    public bool AllowUserLanguage
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowUserLanguage", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowUserLanguage", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether UseFullTextSearch.
+        /// </summary>
+        public bool UseFullTextSearch
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("UseFullTextSearch", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowModeratorsViewIPs.
-    /// </summary>
-    public bool AllowModeratorsViewIPs
-    {
-        get
+            set
+            {
+                this._reg.SetValue<bool>("UseFullTextSearch", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Enable IP Info Service.
+        /// </summary>
+        public bool EnableIPInfoService
         {
-            return this._reg.GetValue<bool>("AllowModeratorsViewIPs", false);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableIPInfoService", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableIPInfoService", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether EmailVerification.
+        /// </summary>
+        public bool AbandonSessionsForDontTrack
         {
-            this._reg.SetValue<bool>("AllowModeratorsViewIPs", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AbadonSessionsForDontTrack", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AbadonSessionsForDontTrack", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowPMEmailNotification.
-    /// </summary>
-    public bool AllowPMEmailNotification
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowPMEmailNotification", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowPMEmailNotification", value);
-      }
-    }
+        // vzrus: 10/4/10 SSL registration and login options
+        /// <summary>
+        /// Gets or sets a value indicating whether Use SSL To Log In.
+        /// </summary>
+        public bool UseSSLToLogIn
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("UseSSLToLogIn", false);
+            }
 
-    /// <summary>
-    /// Gets or sets AllowPollChangesAfterFirstVote. A poll creator can't change choices after the first vote.
-    /// </summary>
-    public bool AllowPollChangesAfterFirstVote
-    {
-        get
+            set
+            {
+                this._reg.SetValue<bool>("UseSSLToLogIn", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Use SSL To Register.
+        /// </summary>
+        public bool UseSSLToRegister
         {
-            return this._reg.GetValue<bool>("AllowPollChangesAfterFirstVote", false);
+            get
+            {
+                return this._reg.GetValue<bool>("UseSSLToRegister", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("UseSSLToRegister", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowMoved.
+        /// </summary>
+        public bool ShowMoved
         {
-            this._reg.SetValue<bool>("AllowPollChangesAfterFirstVote", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowMoved", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowMoved", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AllowUsersHidePollResults. 
-    /// </summary>
-    public bool AllowUsersHidePollResults
-    {
-        get
+        /// <summary>
+        /// Gets or sets the value indivicated if an avatar is should be shown in the topic listings.
+        /// </summary>
+        public bool ShowAvatarsInTopic
         {
-            return this._reg.GetValue<bool>("AllowViewPollVotesIfNoPollAcces", true);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowAvatarsInTopic", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowAvatarsInTopic", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether Show Guests In Detailed Active List.
+        /// </summary>
+        public bool ShowGuestsInDetailedActiveList
         {
-            this._reg.SetValue<bool>("AllowViewPollVotesIfNoPollAcces", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowGuestsInDetailedActiveList", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowGuestsInDetailedActiveList", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets the if relative times are used on the forum.
-    /// </summary>
-    public bool ShowRelativeTime
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowRelativeTime", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowRelativeTime", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether Show Crawlers In Active List.
+        /// </summary>
+        public bool ShowCrawlersInActiveList
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowCrawlersInActiveList", false);
+            }
 
-    /// <summary>
-    /// Gets or sets AllowMultipleChoices. 
-    /// </summary>
-    public bool AllowMultipleChoices
-    {
-        get
+            set
+            {
+                this._reg.SetValue<bool>("ShowCrawlersInActiveList", value);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowGroups.
+        /// </summary>
+        public bool ShowGroups
         {
-            return this._reg.GetValue<bool>("AllowMultipleChoices", true);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowGroups", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowGroups", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether BlankLinks.
+        /// </summary>
+        public bool BlankLinks
         {
-            this._reg.SetValue<bool>("AllowMultipleChoices", value);
+            get
+            {
+                return this._reg.GetValue<bool>("BlankLinks", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("BlankLinks", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AllowGuestsViewPollOptions. 
-    /// </summary>
-    public bool AllowGuestsViewPollOptions
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowUserTheme.
+        /// </summary>
+        public bool AllowUserTheme
         {
-            return this._reg.GetValue<bool>("AllowGuestsViewPollOptions", true);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowUserTheme", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowUserTheme", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowUserHideHimself.
+        /// </summary>
+        public bool AllowUserHideHimself
         {
-            this._reg.SetValue<bool>("AllowGuestsViewPollOptions", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowUserHideHimself", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowUserHideHimself", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AllowUsersImagedPoll. 
-    /// </summary>
-    public bool AllowUsersImagedPoll
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowUserLanguage.
+        /// </summary>
+        public bool AllowUserLanguage
         {
-            return this._reg.GetValue<bool>("AllowUsersImagedPoll", false);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowUserLanguage", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowUserLanguage", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowModeratorsViewIPs.
+        /// </summary>
+        public bool AllowModeratorsViewIPs
         {
-            this._reg.SetValue<bool>("AllowUsersImagedPoll", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowModeratorsViewIPs", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowModeratorsViewIPs", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AvatarUpload.
-    /// </summary>
-    public bool AvatarUpload
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AvatarUpload", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AvatarUpload", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowPMEmailNotification.
+        /// </summary>
+        public bool AllowPMEmailNotification
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowPMEmailNotification", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AvatarRemote.
-    /// </summary>
-    public bool AvatarRemote
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AvatarRemote", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AvatarRemote", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowPMEmailNotification", value);
+            }
+        }
 
-    // JoeOuts: added 8/17/09
-    /// <summary>
-    /// Gets or sets a value indicating whether AvatarGravatar.
-    /// </summary>
-    public bool AvatarGravatar
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AvatarGravatar", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AvatarGravatar", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AllowPollChangesAfterFirstVote. A poll creator can't change choices after the first vote.
+        /// </summary>
+        public bool AllowPollChangesAfterFirstVote
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowPollChangesAfterFirstVote", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowEmailChange.
-    /// </summary>
-    public bool AllowEmailChange
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowEmailChange", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowEmailChange", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowPollChangesAfterFirstVote", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowPasswordChange.
-    /// </summary>
-    public bool AllowPasswordChange
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowPasswordChange", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowPasswordChange", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AllowUsersHidePollResults. 
+        /// </summary>
+        public bool AllowUsersHidePollResults
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowViewPollVotesIfNoPollAcces", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether UseFileTable.
-    /// </summary>
-    public bool UseFileTable
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("UseFileTable", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("UseFileTable", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowViewPollVotesIfNoPollAcces", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowRSSLink.
-    /// </summary>
-    public bool ShowRSSLink
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowRSSLink", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowRSSLink", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets the if relative times are used on the forum.
+        /// </summary>
+        public bool ShowRelativeTime
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowRelativeTime", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowAtomLink.
-    /// </summary>
-    public bool ShowAtomLink
-    {
-        get
+            set
+            {
+                this._reg.SetValue<bool>("ShowRelativeTime", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets AllowMultipleChoices. 
+        /// </summary>
+        public bool AllowMultipleChoices
         {
-            return this._reg.GetValue<bool>("ShowAtomLink", true);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowMultipleChoices", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowMultipleChoices", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets AllowGuestsViewPollOptions. 
+        /// </summary>
+        public bool AllowGuestsViewPollOptions
         {
-            this._reg.SetValue<bool>("ShowAtomLink", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowGuestsViewPollOptions", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowGuestsViewPollOptions", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowPageGenerationTime.
-    /// </summary>
-    public bool ShowPageGenerationTime
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowPageGenerationTime", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowPageGenerationTime", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets AllowUsersImagedPoll. 
+        /// </summary>
+        public bool AllowUsersImagedPoll
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowUsersImagedPoll", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowYAFVersion.
-    /// </summary>
-    public bool ShowYAFVersion
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowYAFVersion", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowYAFVersion", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowUsersImagedPoll", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowForumJump.
-    /// </summary>
-    public bool ShowForumJump
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowForumJump", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowForumJump", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AvatarUpload.
+        /// </summary>
+        public bool AvatarUpload
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AvatarUpload", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowPrivateMessages.
-    /// </summary>
-    public bool AllowPrivateMessages
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowPrivateMessages", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowPrivateMessages", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AvatarUpload", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowEmailSending.
-    /// </summary>
-    public bool AllowEmailSending
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowEmailSending", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowEmailSending", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AvatarRemote.
+        /// </summary>
+        public bool AvatarRemote
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AvatarRemote", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowSignatures.
-    /// </summary>
-    public bool AllowSignatures
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowSignatures", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowSignatures", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AvatarRemote", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ExternalSearchInNewWindow.
-    /// </summary>
-    public bool ExternalSearchInNewWindow
-    {
-        get
+        // JoeOuts: added 8/17/09
+        /// <summary>
+        /// Gets or sets a value indicating whether AvatarGravatar.
+        /// </summary>
+        public bool AvatarGravatar
         {
-            return this._reg.GetValue<bool>("ExternalSearchInNewWindow", false);
+            get
+            {
+                return this._reg.GetValue<bool>("AvatarGravatar", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AvatarGravatar", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowEmailChange.
+        /// </summary>
+        public bool AllowEmailChange
         {
-            this._reg.SetValue<bool>("ExternalSearchInNewWindow", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowEmailChange", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowEmailChange", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Enable Quick Search.
-    /// </summary>
-    public bool ShowQuickSearch 
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowPasswordChange.
+        /// </summary>
+        public bool AllowPasswordChange
         {
-            return this._reg.GetValue<bool>("ShowQuickSearch",false);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowPasswordChange", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowPasswordChange", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether UseFileTable.
+        /// </summary>
+        public bool UseFileTable
         {
-            this._reg.SetValue<bool>("ShowQuickSearch", value);
+            get
+            {
+                return this._reg.GetValue<bool>("UseFileTable", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("UseFileTable", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether RemoveNestedQuotes.
-    /// </summary>
-    public bool RemoveNestedQuotes
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("RemoveNestedQuotes", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("RemoveNestedQuotes", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowRSSLink.
+        /// </summary>
+        public bool ShowRSSLink
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowRSSLink", true);
+            }
 
+            set
+            {
+                this._reg.SetValue<bool>("ShowRSSLink", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether DisableRegistrations.
-    /// </summary>
-    public bool DisableRegistrations
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("DisableRegistrations", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("DisableRegistrations", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowAtomLink.
+        /// </summary>
+        public bool ShowAtomLink
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowAtomLink", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether CreateNntpUsers.
-    /// </summary>
-    public bool CreateNntpUsers
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("CreateNntpUsers", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("CreateNntpUsers", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowAtomLink", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowGroupsProfile.
-    /// </summary>
-    public bool ShowGroupsProfile
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowGroupsProfile", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowGroupsProfile", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowPageGenerationTime.
+        /// </summary>
+        public bool ShowPageGenerationTime
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowPageGenerationTime", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether PollVoteTiedToIP.
-    /// </summary>
-    public bool PollVoteTiedToIP
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("PollVoteTiedToIP", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("PollVoteTiedToIP", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowPageGenerationTime", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowAdsToSignedInUsers.
-    /// </summary>
-    public bool ShowAdsToSignedInUsers
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowAdsToSignedInUsers", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowAdsToSignedInUsers", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowYAFVersion.
+        /// </summary>
+        public bool ShowYAFVersion
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowYAFVersion", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether DisplayPoints.
-    /// </summary>
-    public bool DisplayPoints
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("DisplayPoints", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("DisplayPoints", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowYAFVersion", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowQuickAnswer.
-    /// </summary>
-    public bool ShowQuickAnswer
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowQuickAnswer", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowQuickAnswer", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowForumJump.
+        /// </summary>
+        public bool ShowForumJump
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowForumJump", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowDeletedMessages.
-    /// </summary>
-    public bool ShowDeletedMessages
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowDeletedMessages", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowDeletedMessages", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowForumJump", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowDeletedMessagesToAll.
-    /// </summary>
-    public bool ShowDeletedMessagesToAll
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowDeletedMessagesToAll", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowDeletedMessagesToAll", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowPrivateMessages.
+        /// </summary>
+        public bool AllowPrivateMessages
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowPrivateMessages", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowModeratorList.
-    /// </summary>
-    public bool ShowModeratorList
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowModeratorList", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowModeratorList", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowPrivateMessages", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableCaptchaForPost.
-    /// </summary>
-    public bool EnableCaptchaForPost
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EnableCaptchaForPost", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EnableCaptchaForPost", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowEmailSending.
+        /// </summary>
+        public bool AllowEmailSending
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowEmailSending", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableCaptchaForRegister.
-    /// </summary>
-    public bool EnableCaptchaForRegister
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EnableCaptchaForRegister", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EnableCaptchaForRegister", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowEmailSending", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableCaptchaForGuests.
-    /// </summary>
-    public bool EnableCaptchaForGuests
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EnableCaptchaForGuests", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EnableCaptchaForGuests", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowSignatures.
+        /// </summary>
+        public bool AllowSignatures
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowSignatures", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether UseNoFollowLinks.
-    /// </summary>
-    public bool UseNoFollowLinks
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("UseNoFollowLinks", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("UseNoFollowLinks", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowSignatures", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether DoUrlReferrerSecurityCheck.
-    /// </summary>
-    public bool DoUrlReferrerSecurityCheck
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("DoUrlReferrerSecurityCheck", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("DoUrlReferrerSecurityCheck", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ExternalSearchInNewWindow.
+        /// </summary>
+        public bool ExternalSearchInNewWindow
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ExternalSearchInNewWindow", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableImageAttachmentResize.
-    /// </summary>
-    public bool EnableImageAttachmentResize
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EnableImageAttachmentResize", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EnableImageAttachmentResize", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ExternalSearchInNewWindow", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowShoutbox.
-    /// </summary>
-    public bool ShowShoutbox
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowShoutbox", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowShoutbox", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether Enable Quick Search.
+        /// </summary>
+        public bool ShowQuickSearch
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowQuickSearch", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Show smiles in Shoutbox.
-    /// </summary>
-    public bool ShowShoutboxSmiles
-    {
-        get
+            set
+            {
+                this._reg.SetValue<bool>("ShowQuickSearch", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether RemoveNestedQuotes.
+        /// </summary>
+        public bool RemoveNestedQuotes
         {
-            return this._reg.GetValue<bool>("ShowShoutboxSmiles", true);
+            get
+            {
+                return this._reg.GetValue<bool>("RemoveNestedQuotes", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("RemoveNestedQuotes", value);
+            }
         }
+
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether DisableRegistrations.
+        /// </summary>
+        public bool DisableRegistrations
         {
-            this._reg.SetValue<bool>("ShowShoutboxSmiles", value);
+            get
+            {
+                return this._reg.GetValue<bool>("DisableRegistrations", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("DisableRegistrations", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowUserInfoCaching.
-    /// </summary>
-    public bool AllowUserInfoCaching
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowUserInfoCaching", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowUserInfoCaching", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether CreateNntpUsers.
+        /// </summary>
+        public bool CreateNntpUsers
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("CreateNntpUsers", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether display No-Count Forums In ActiveDiscussions.
-    /// </summary>
-    public bool NoCountForumsInActiveDiscussions
-    {
-      get
-      {
-          return this._reg.GetValue<bool>("NoCountForumsInActiveDiscussions", true);
-      }
-
-      set
-      {
-          this._reg.SetValue<bool>("NoCountForumsInActiveDiscussions", value);
-      }
-    }
-      
-    /// <summary>
-    /// Gets or sets a value indicating whether UseStyledNicks.
-    /// </summary>
-    public bool UseStyledNicks
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("UseStyledNicks", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("UseStyledNicks", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("CreateNntpUsers", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowUserOnlineStatus.
-    /// </summary>
-    public bool ShowUserOnlineStatus
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowUserOnlineStatus", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowUserOnlineStatus", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowGroupsProfile.
+        /// </summary>
+        public bool ShowGroupsProfile
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowGroupsProfile", false);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowThanksDate.
-    /// </summary>
-    public bool ShowThanksDate
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowThanksDate", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowThanksDate", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowGroupsProfile", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableThanksMod.
-    /// </summary>
-    public bool EnableThanksMod
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("EnableThanksMod", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("EnableThanksMod", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether PollVoteTiedToIP.
+        /// </summary>
+        public bool PollVoteTiedToIP
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("PollVoteTiedToIP", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableBuddyList.
-    /// </summary>
-    public bool EnableBuddyList
-    {
-        get
+            set
+            {
+                this._reg.SetValue<bool>("PollVoteTiedToIP", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowAdsToSignedInUsers.
+        /// </summary>
+        public bool ShowAdsToSignedInUsers
         {
-            return this._reg.GetValue<bool>("EnableBuddyList", true);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowAdsToSignedInUsers", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowAdsToSignedInUsers", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether DisplayPoints.
+        /// </summary>
+        public bool DisplayPoints
         {
-            this._reg.SetValue<bool>("EnableBuddyList", value);
+            get
+            {
+                return this._reg.GetValue<bool>("DisplayPoints", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("DisplayPoints", value);
+            }
         }
-    }
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableDNACalendar.
-    /// This is temporary feature to disable calendar 
-    /// if it causes troubles with different cultures
-    /// </summary>
-    public bool EnableDNACalendar
-    {
-        get
+
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowQuickAnswer.
+        /// </summary>
+        public bool ShowQuickAnswer
         {
-            return this._reg.GetValue<bool>("EnableDNACalendar", true);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowQuickAnswer", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowQuickAnswer", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowDeletedMessages.
+        /// </summary>
+        public bool ShowDeletedMessages
         {
-            this._reg.SetValue<bool>("EnableDNACalendar", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowDeletedMessages", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowDeletedMessages", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableActiveLocationErrorsLog. A temporary debug setting.
-    /// </summary>
-    public bool EnableActiveLocationErrorsLog
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowDeletedMessagesToAll.
+        /// </summary>
+        public bool ShowDeletedMessagesToAll
         {
-            return this._reg.GetValue<bool>("EnableActiveLocationErrorsLog", false);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowDeletedMessagesToAll", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowDeletedMessagesToAll", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowModeratorList.
+        /// </summary>
+        public bool ShowModeratorList
         {
-            this._reg.SetValue<bool>("EnableActiveLocationErrorsLog", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowModeratorList", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowModeratorList", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Log UserAgent strings unhandled by YAF.
-    /// </summary>
-    public bool UserAgentBadLog
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableCaptchaForPost.
+        /// </summary>
+        public bool EnableCaptchaForPost
         {
-            return this._reg.GetValue<bool>("UserAgentBadLog", false);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableCaptchaForPost", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableCaptchaForPost", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableCaptchaForRegister.
+        /// </summary>
+        public bool EnableCaptchaForRegister
         {
-            this._reg.SetValue<bool>("UserAgentBadLog", value);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableCaptchaForRegister", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableCaptchaForRegister", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableAlbum.
-    /// </summary>
-    public bool EnableAlbum
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableCaptchaForGuests.
+        /// </summary>
+        public bool EnableCaptchaForGuests
         {
-            return this._reg.GetValue<bool>("EnableAlbum", true);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableCaptchaForGuests", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableCaptchaForGuests", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether UseNoFollowLinks.
+        /// </summary>
+        public bool UseNoFollowLinks
         {
-            this._reg.SetValue<bool>("EnableAlbum", value);
+            get
+            {
+                return this._reg.GetValue<bool>("UseNoFollowLinks", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("UseNoFollowLinks", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AlbumImagesSizeMax.
-    /// </summary>
-    public int AlbumImagesSizeMax
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether DoUrlReferrerSecurityCheck.
+        /// </summary>
+        public bool DoUrlReferrerSecurityCheck
         {
-            return this._regBoard.GetValue<int>("AlbumImagesSizeMax", 1048576);
+            get
+            {
+                return this._reg.GetValue<bool>("DoUrlReferrerSecurityCheck", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("DoUrlReferrerSecurityCheck", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableImageAttachmentResize.
+        /// </summary>
+        public bool EnableImageAttachmentResize
         {
-            this._regBoard.SetValue<int>("AlbumImagesSizeMax", value);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableImageAttachmentResize", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableImageAttachmentResize", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AlbumsPerPage.
-    /// </summary>
-    public int AlbumsPerPage
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowShoutbox.
+        /// </summary>
+        public bool ShowShoutbox
         {
-            return this._regBoard.GetValue<int>("AlbumsPerPage", 6);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowShoutbox", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowShoutbox", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether Show smiles in Shoutbox.
+        /// </summary>
+        public bool ShowShoutboxSmiles
         {
-            this._regBoard.SetValue<int>("AlbumsPerPage", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowShoutboxSmiles", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowShoutboxSmiles", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AlbumImagesPerPage.
-    /// </summary>
-    public int AlbumImagesPerPage
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowUserInfoCaching.
+        /// </summary>
+        public bool AllowUserInfoCaching
         {
-            return this._regBoard.GetValue<int>("AlbumImagesPerPage", 10);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowUserInfoCaching", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowUserInfoCaching", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether display No-Count Forums In ActiveDiscussions.
+        /// </summary>
+        public bool NoCountForumsInActiveDiscussions
         {
-            this._regBoard.SetValue<int>("AlbumImagesPerPage", value);
+            get
+            {
+                return this._reg.GetValue<bool>("NoCountForumsInActiveDiscussions", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("NoCountForumsInActiveDiscussions", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
-    /// </summary>
-    public bool AddDynamicPageMetaTags
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AddDynamicPageMetaTags", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AddDynamicPageMetaTags", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether UseStyledNicks.
+        /// </summary>
+        public bool UseStyledNicks
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("UseStyledNicks", false);
+            }
 
-    public bool AllowDisplayNameModification
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowDisplayNameModification", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowDisplayNameModification", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("UseStyledNicks", value);
+            }
+        }
 
-    public bool ShowHelp
-    {
-      get
-      {
-          return this._reg.GetValue<bool>("ShowHelp", true);
-      }
-
-      set
-      {
-          this._reg.SetValue<bool>("ShowHelp", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowUserOnlineStatus.
+        /// </summary>
+        public bool ShowUserOnlineStatus
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowUserOnlineStatus", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowUserOnlineStatus", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowThanksDate.
+        /// </summary>
+        public bool ShowThanksDate
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowThanksDate", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowThanksDate", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableThanksMod.
+        /// </summary>
+        public bool EnableThanksMod
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("EnableThanksMod", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableThanksMod", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableBuddyList.
+        /// </summary>
+        public bool EnableBuddyList
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("EnableBuddyList", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableBuddyList", value);
+            }
+        }
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableDNACalendar.
+        /// This is temporary feature to disable calendar 
+        /// if it causes troubles with different cultures
+        /// </summary>
+        public bool EnableDNACalendar
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("EnableDNACalendar", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableDNACalendar", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableActiveLocationErrorsLog. A temporary debug setting.
+        /// </summary>
+        public bool EnableActiveLocationErrorsLog
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("EnableActiveLocationErrorsLog", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableActiveLocationErrorsLog", value);
+            }
+        }
+
+        /// <summary>
+        /// Log UserAgent strings unhandled by YAF.
+        /// </summary>
+        public bool UserAgentBadLog
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("UserAgentBadLog", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("UserAgentBadLog", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether EnableAlbum.
+        /// </summary>
+        public bool EnableAlbum
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("EnableAlbum", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableAlbum", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets AlbumImagesSizeMax.
+        /// </summary>
+        public int AlbumImagesSizeMax
+        {
+            get
+            {
+                return this._regBoard.GetValue<int>("AlbumImagesSizeMax", 1048576);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<int>("AlbumImagesSizeMax", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets AlbumsPerPage.
+        /// </summary>
+        public int AlbumsPerPage
+        {
+            get
+            {
+                return this._regBoard.GetValue<int>("AlbumsPerPage", 6);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<int>("AlbumsPerPage", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets AlbumImagesPerPage.
+        /// </summary>
+        public int AlbumImagesPerPage
+        {
+            get
+            {
+                return this._regBoard.GetValue<int>("AlbumImagesPerPage", 10);
+            }
+
+            set
+            {
+                this._regBoard.SetValue<int>("AlbumImagesPerPage", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
+        /// </summary>
+        public bool AddDynamicPageMetaTags
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AddDynamicPageMetaTags", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AddDynamicPageMetaTags", value);
+            }
+        }
 
-    #endregion
+        public bool AllowDisplayNameModification
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowDisplayNameModification", true);
+            }
 
-    #region string settings
+            set
+            {
+                this._reg.SetValue<bool>("AllowDisplayNameModification", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets IPInfo page Url.
-    /// </summary>
-    public string IPInfoPageURL
-    {
-        get
+        public bool ShowHelp
         {
-            return this._reg.GetValue<string>("IPInfoPageURL", "http://www.dnsstuff.com/tools/whois.ch?ip={0}");
+            get
+            {
+                return this._reg.GetValue<bool>("ShowHelp", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowHelp", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether ImageAttachmentResizeCropped.
+        /// </summary>
+        public bool ImageAttachmentResizeCropped
         {
-            this._reg.SetValue<string>("IPInfoPageURL", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ImageAttachmentResizeCropped", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ImageAttachmentResizeHeight", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets IP Locator Path.
-    /// </summary>
-    public string IPLocatorPath
-    {
-        get
+        #endregion
+
+        #region string settings
+
+        /// <summary>
+        /// Gets or sets IPInfo page Url.
+        /// </summary>
+        public string IPInfoPageURL
         {
-            return this._reg.GetValue<string>("IPLocatorPath", "http://ipinfodb.com/ip_query.php?ip={0}&timezone={1}");
+            get
+            {
+                return this._reg.GetValue<string>("IPInfoPageURL", "http://www.dnsstuff.com/tools/whois.ch?ip={0}");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("IPInfoPageURL", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets IP Locator Path.
+        /// </summary>
+        public string IPLocatorPath
         {
-            this._reg.SetValue<string>("IPLocatorPath", value);
+            get
+            {
+                return this._reg.GetValue<string>("IPLocatorPath", "http://ipinfodb.com/ip_query.php?ip={0}&timezone={1}");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("IPLocatorPath", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets ForumEmail.
-    /// </summary>
-    public string ForumEmail
-    {
-      get
-      {
-        return this._reg.GetValue<string>("ForumEmail", string.Empty);
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("ForumEmail", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets ForumEmail.
+        /// </summary>
+        public string ForumEmail
+        {
+            get
+            {
+                return this._reg.GetValue<string>("ForumEmail", string.Empty);
+            }
 
-    /// <summary>
-    /// Gets or sets EnableIrkoo.
-    /// </summary>
-    public bool EnableIrkoo
-    {
-        get
+            set
+            {
+                this._reg.SetValue<string>("ForumEmail", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets EnableIrkoo.
+        /// </summary>
+        public bool EnableIrkoo
         {
-            return this._reg.GetValue<bool>("EnableIrkoo", false);
+            get
+            {
+                return this._reg.GetValue<bool>("EnableIrkoo", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("EnableIrkoo", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets IrkooSiteID.
+        /// </summary>
+        public string IrkooSiteID
         {
-            this._reg.SetValue<bool>("EnableIrkoo", value);
+            get
+            {
+                return this._reg.GetValue<string>("IrkooSiteID", string.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("IrkooSiteID", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets IrkooSiteID.
-    /// </summary>
-    public string IrkooSiteID
-    {
-        get
+        /// <summary>
+        /// Gets or sets IrkooSecretKey.
+        /// </summary>
+        public string IrkooSecretKey
         {
-            return this._reg.GetValue<string>("IrkooSiteID", string.Empty);
+            get
+            {
+                return this._reg.GetValue<string>("IrkooSecretKey", string.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("IrkooSecretKey", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets ShowIrkooRepInUserLink.
+        /// </summary>
+        public bool ShowIrkooRepOnlyInTopics
         {
-            this._reg.SetValue<string>("IrkooSiteID", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowIrkooRepOnlyInTopics", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowIrkooRepOnlyInTopics", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets IrkooSecretKey.
-    /// </summary>
-    public string IrkooSecretKey
-    {
-        get
+        /// <summary>
+        /// Gets or sets AllowGuestsViewReputation.
+        /// </summary>
+        public bool AllowGuestsViewReputation
         {
-            return this._reg.GetValue<string>("IrkooSecretKey", string.Empty);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowGuestsViewReputation", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowGuestsViewReputation", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets RecaptchaPublicKey .
+        /// </summary>
+        public string RecaptchaPublicKey
         {
-            this._reg.SetValue<string>("IrkooSecretKey", value);
+            get
+            {
+                return this._reg.GetValue<string>("RecaptchaPublicKey", string.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("RecaptchaPublicKey", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets ShowIrkooRepInUserLink.
-    /// </summary>
-    public bool ShowIrkooRepOnlyInTopics
-    {
-        get
+        /// <summary>
+        /// Gets or sets RecaptchaPrivateKey.
+        /// </summary>
+        public string RecaptchaPrivateKey
         {
-            return this._reg.GetValue<bool>("ShowIrkooRepOnlyInTopics", false);
+            get
+            {
+                return this._reg.GetValue<string>("RecaptchaPrivateKey", string.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("RecaptchaPrivateKey", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets SearchEngine1.
+        /// </summary>
+        public string SearchEngine1
         {
-            this._reg.SetValue<bool>("ShowIrkooRepOnlyInTopics", value);
+            get
+            {
+                return this._reg.GetValue<string>("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("SearchEngine1", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AllowGuestsViewReputation.
-    /// </summary>
-    public bool AllowGuestsViewReputation
-    {
-        get
+        /// <summary>
+        /// Gets or sets SearchEngine2.
+        /// </summary>
+        public string SearchEngine2
         {
-            return this._reg.GetValue<bool>("AllowGuestsViewReputation", true);
+            get
+            {
+
+                return this._reg.GetValue<string>("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("SearchEngine2", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets SearchEngine1Parameters.
+        /// </summary>
+        public string SearchEngine1Parameters
         {
-            this._reg.SetValue<bool>("AllowGuestsViewReputation", value);
+            get
+            {
+                return this._reg.GetValue<string>("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("SearchEngine1Parameters", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets RecaptchaPublicKey .
-    /// </summary>
-    public string RecaptchaPublicKey
-    {
-        get
+        /// <summary>
+        /// Gets or sets SearchEngine2Parameters.
+        /// </summary>
+        public string SearchEngine2Parameters
         {
-            return this._reg.GetValue<string>("RecaptchaPublicKey",  string.Empty);
+            get
+            {
+                return this._reg.GetValue<string>("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("SearchEngine2Parameters", value);
+            }
         }
 
-        set
+        // JoeOuts: added 8/17/09
+        /// <summary>
+        /// Gets or sets GravatarRating.
+        /// </summary>
+        public string GravatarRating
         {
-            this._reg.SetValue<string>("RecaptchaPublicKey", value);
+            get
+            {
+                return this._reg.GetValue<string>("GravatarRating", "G");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("GravatarRating", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets RecaptchaPrivateKey.
-    /// </summary>
-    public string RecaptchaPrivateKey
-    {
-        get
+        /// <summary>
+        /// Gets or sets AcceptedHTML.
+        /// </summary>
+        public string AcceptedHTML
         {
-            return this._reg.GetValue<string>("RecaptchaPrivateKey", string.Empty);
+            get
+            {
+                return this._reg.GetValue<string>("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("AcceptedHTML", value.ToLower());
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets AcceptedHeadersHTML.
+        /// </summary>
+        public string AcceptedHeadersHTML
         {
-            this._reg.SetValue<string>("RecaptchaPrivateKey", value);
+            get
+            {
+                return this._reg.GetValue<string>("AcceptedHeadersHTML", String.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("AcceptedHeadersHTML", value.ToLower());
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets SearchEngine1.
-    /// </summary>
-    public string SearchEngine1
-    {
-        get
+        /// <summary>
+        /// Gets or sets AdPost.
+        /// </summary>
+        public string AdPost
         {
-            return this._reg.GetValue<string>("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
+            get
+            {
+                return this._reg.GetValue<string>("AdPost", null);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("AdPost", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets CustomLoginRedirectUrl.
+        /// </summary>
+        public string CustomLoginRedirectUrl
         {
-            this._reg.SetValue<string>("SearchEngine1", value);
+            get
+            {
+                return this._reg.GetValue<string>("CustomLoginRedirectUrl", null);
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("CustomLoginRedirectUrl", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets SearchEngine2.
-    /// </summary>
-    public string SearchEngine2
-    {
-        get
+        /// <summary>
+        /// Gets or sets WebServiceToken.
+        /// </summary>
+        public string WebServiceToken
         {
+            get
+            {
+                return this._reg.GetValue<string>("WebServiceToken", Guid.NewGuid().ToString());
+            }
 
-            return this._reg.GetValue<string>("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
+            set
+            {
+                this._reg.SetValue<string>("WebServiceToken", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets SearchStringPattern.
+        /// </summary>
+        public string SearchStringPattern
         {
-            this._reg.SetValue<string>("SearchEngine2", value);
+            get
+            {
+                return this._reg.GetValue<string>("SearchStringPattern", ".*");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("SearchStringPattern", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets SearchEngine1Parameters.
-    /// </summary>
-    public string SearchEngine1Parameters
-    {
-        get
+        /* Ederon : 6/16/2007 */
+
+        /// <summary>
+        /// Gets or sets a value indicating whether DisplayJoinDate.
+        /// </summary>
+        public bool DisplayJoinDate
         {
-            return this._reg.GetValue<string>("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
+            get
+            {
+                return this._reg.GetValue<bool>("DisplayJoinDate", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("DisplayJoinDate", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowBrowsingUsers.
+        /// </summary>
+        public bool ShowBrowsingUsers
         {
-            this._reg.SetValue<string>("SearchEngine1Parameters", value);
+            get
+            {
+                return this._reg.GetValue<bool>("ShowBrowsingUsers", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowBrowsingUsers", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets SearchEngine2Parameters.
-    /// </summary>
-    public string SearchEngine2Parameters
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowMedals.
+        /// </summary>
+        public bool ShowMedals
         {
-            return this._reg.GetValue<string>("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
+            get
+            {
+                return this._reg.GetValue<bool>("ShowMedals", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowMedals", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowPostToBlog.
+        /// </summary>
+        public bool AllowPostToBlog
         {
-            this._reg.SetValue<string>("SearchEngine2Parameters", value);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowPostToBlog", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowPostToBlog", value);
+            }
         }
-    }
 
-    // JoeOuts: added 8/17/09
-    /// <summary>
-    /// Gets or sets GravatarRating.
-    /// </summary>
-    public string GravatarRating
-    {
-      get
-      {
-        return this._reg.GetValue<string>("GravatarRating", "G");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("GravatarRating", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowReportPosts.
+        /// </summary>
+        public bool AllowReportPosts
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowReportPosts", true);
+            }
 
-    /// <summary>
-    /// Gets or sets AcceptedHTML.
-    /// </summary>
-    public string AcceptedHTML
-    {
-      get
-      {
-        return this._reg.GetValue<string>("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("AcceptedHTML", value.ToLower());
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("AllowReportPosts", value);
+            }
+        }
+        /* Ederon : 8/29/2007 */
 
-    /// <summary>
-    /// Gets or sets AcceptedHeadersHTML.
-    /// </summary>
-    public string AcceptedHeadersHTML
-    {
-        get
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowEmailTopic.
+        /// </summary>
+        public bool AllowEmailTopic
         {
-            return this._reg.GetValue<string>("AcceptedHeadersHTML", String.Empty);
+            get
+            {
+                return this._reg.GetValue<bool>("AllowEmailTopic", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowEmailTopic", value);
+            }
         }
+
+        /* Ederon : 12/9/2007 */
 
-        set
+        /// <summary>
+        /// Gets or sets a value indicating whether RequireLogin.
+        /// </summary>
+        public bool RequireLogin
         {
-            this._reg.SetValue<string>("AcceptedHeadersHTML", value.ToLower());
+            get
+            {
+                return this._reg.GetValue<bool>("RequireLogin", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("RequireLogin", value);
+            }
         }
-    }
 
-    /// <summary>
-    /// Gets or sets AdPost.
-    /// </summary>
-    public string AdPost
-    {
-      get
-      {
-        return this._reg.GetValue<string>("AdPost", null);
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("AdPost", value);
-      }
-    }
+        /* Ederon : 12/14/2007 */
 
-    /// <summary>
-    /// Gets or sets CustomLoginRedirectUrl.
-    /// </summary>
-    public string CustomLoginRedirectUrl
-    {
-      get
-      {
-        return this._reg.GetValue<string>("CustomLoginRedirectUrl", null);
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("CustomLoginRedirectUrl", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowActiveDiscussions.
+        /// </summary>
+        public bool ShowActiveDiscussions
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowActiveDiscussions", true);
+            }
 
-    /// <summary>
-    /// Gets or sets WebServiceToken.
-    /// </summary>
-    public string WebServiceToken
-    {
-      get
-      {
-        return this._reg.GetValue<string>("WebServiceToken", Guid.NewGuid().ToString());
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("WebServiceToken", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowActiveDiscussions", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets SearchStringPattern.
-    /// </summary>
-    public string SearchStringPattern
-    {
-      get
-      {
-        return this._reg.GetValue<string>("SearchStringPattern", ".*");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("SearchStringPattern", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowForumStatistics.
+        /// </summary>
+        public bool ShowForumStatistics
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowForumStatistics", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowForumStatistics", value);
+            }
+        }
 
-    /* Ederon : 6/16/2007 */
+        /// <summary>
+        /// Gets or sets a value indicating whether ShowRulesForRegistration.
+        /// </summary>
+        public bool ShowRulesForRegistration
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowRulesForRegistration", true);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether DisplayJoinDate.
-    /// </summary>
-    public bool DisplayJoinDate
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("DisplayJoinDate", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("DisplayJoinDate", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<bool>("ShowRulesForRegistration", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowBrowsingUsers.
-    /// </summary>
-    public bool ShowBrowsingUsers
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowBrowsingUsers", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowBrowsingUsers", value);
-      }
-    }
+        /* 6/16/2007 */
+        /* Ederon : 7/14/2007 */
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowMedals.
-    /// </summary>
-    public bool ShowMedals
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowMedals", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowMedals", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBox.
+        /// </summary>
+        public string UserBox
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBox", Constants.UserBox.DisplayTemplateDefault);
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowPostToBlog.
-    /// </summary>
-    public bool AllowPostToBlog
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowPostToBlog", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowPostToBlog", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<string>("UserBox", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowReportPosts.
-    /// </summary>
-    public bool AllowReportPosts
-    {
-        get
+        /// <summary>
+        /// Gets or sets UserBoxAvatar.
+        /// </summary>
+        public string UserBoxAvatar
         {
-            return this._reg.GetValue<bool>("AllowReportPosts", true);
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("UserBoxAvatar", value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Gets or sets UserBoxMedals.
+        /// </summary>
+        public string UserBoxMedals
         {
-            this._reg.SetValue<bool>("AllowReportPosts", value);
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("UserBoxMedals", value);
+            }
         }
-    }
-    /* Ederon : 8/29/2007 */
 
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowEmailTopic.
-    /// </summary>
-    public bool AllowEmailTopic
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowEmailTopic", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowEmailTopic", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBoxRankImage.
+        /// </summary>
+        public string UserBoxRankImage
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxRankImage", "{0}<br clear=\"all\" />");
+            }
 
-    /* Ederon : 12/9/2007 */
+            set
+            {
+                this._reg.SetValue<string>("UserBoxRankImage", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether RequireLogin.
-    /// </summary>
-    public bool RequireLogin
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("RequireLogin", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("RequireLogin", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBoxRank.
+        /// </summary>
+        public string UserBoxRank
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxRank", "{0}: {1}<br clear=\"all\" />");
+            }
 
-    /* Ederon : 12/14/2007 */
+            set
+            {
+                this._reg.SetValue<string>("UserBoxRank", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowActiveDiscussions.
-    /// </summary>
-    public bool ShowActiveDiscussions
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowActiveDiscussions", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowActiveDiscussions", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBoxGroups.
+        /// </summary>
+        public string UserBoxGroups
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxGroups", "{0}: {1}<br clear=\"all\" />");
+            }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowForumStatistics.
-    /// </summary>
-    public bool ShowForumStatistics
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowForumStatistics", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowForumStatistics", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<string>("UserBoxGroups", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether ShowRulesForRegistration.
-    /// </summary>
-    public bool ShowRulesForRegistration
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("ShowRulesForRegistration", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("ShowRulesForRegistration", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBoxJoinDate.
+        /// </summary>
+        public string UserBoxJoinDate
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxJoinDate", "{0}: {1}<br />");
+            }
 
-    /* 6/16/2007 */
-    /* Ederon : 7/14/2007 */
+            set
+            {
+                this._reg.SetValue<string>("UserBoxJoinDate", value);
+            }
+        }
+        public string UserBoxGender
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxGender", "{0}<br />");
+            }
 
-    /// <summary>
-    /// Gets or sets UserBox.
-    /// </summary>
-    public string UserBox
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBox", Constants.UserBox.DisplayTemplateDefault);
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBox", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<string>("UserBoxGender", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets UserBoxAvatar.
-    /// </summary>
-    public string UserBoxAvatar
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxAvatar", value);
-      }
-    }
 
-    /// <summary>
-    /// Gets or sets UserBoxMedals.
-    /// </summary>
-    public string UserBoxMedals
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxMedals", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBoxPosts.
+        /// </summary>
+        public string UserBoxPosts
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxPosts", "{0}: {1:N0}<br />");
+            }
 
-    /// <summary>
-    /// Gets or sets UserBoxRankImage.
-    /// </summary>
-    public string UserBoxRankImage
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxRankImage", "{0}<br clear=\"all\" />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxRankImage", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<string>("UserBoxPosts", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets UserBoxRank.
-    /// </summary>
-    public string UserBoxRank
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxRank", "{0}: {1}<br clear=\"all\" />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxRank", value);
-      }
-    }
+        /// <summary>
+        /// Gets or sets UserBoxPoints.
+        /// </summary>
+        public string UserBoxPoints
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxPoints", "{0}: {1:N0}<br />");
+            }
 
-    /// <summary>
-    /// Gets or sets UserBoxGroups.
-    /// </summary>
-    public string UserBoxGroups
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxGroups", "{0}: {1}<br clear=\"all\" />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxGroups", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<string>("UserBoxPoints", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets UserBoxJoinDate.
-    /// </summary>
-    public string UserBoxJoinDate
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxJoinDate", "{0}: {1}<br />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxJoinDate", value);
-      }
-    }
-    public string UserBoxGender
-    {
-        get
+        /// <summary>
+        /// Gets or sets UserBoxLocation.
+        /// </summary>
+        public string UserBoxLocation
         {
-            return this._reg.GetValue<string>("UserBoxGender", "{0}<br />");
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxLocation", "{0}: {1}<br />");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("UserBoxLocation", value);
+            }
         }
+
+        /* 7/14/2007 */
 
-        set
+        /// <summary>
+        /// Gets or sets UserBoxThanksFrom.
+        /// </summary>
+        public string UserBoxThanksFrom
         {
-            this._reg.SetValue<string>("UserBoxGender", value);
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxThanksFrom", "{0}<br />");
+            }
+
+            set
+            {
+                this._reg.SetValue<string>("UserBoxThanksFrom", value);
+            }
         }
-    }
 
+        /// <summary>
+        /// Gets or sets UserBoxThanksTo.
+        /// </summary>
+        public string UserBoxThanksTo
+        {
+            get
+            {
+                return this._reg.GetValue<string>("UserBoxThanksTo", "{0}<br />");
+            }
 
-    /// <summary>
-    /// Gets or sets UserBoxPosts.
-    /// </summary>
-    public string UserBoxPosts
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxPosts", "{0}: {1:N0}<br />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxPosts", value);
-      }
-    }
+            set
+            {
+                this._reg.SetValue<string>("UserBoxThanksTo", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets UserBoxPoints.
-    /// </summary>
-    public string UserBoxPoints
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxPoints", "{0}: {1:N0}<br />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxPoints", value);
-      }
-    }
+        public string LastDigestSend
+        {
+            get
+            {
+                return this._regBoard.GetValue<string>("LastDigestSend", null);
+            }
+            set
+            {
+                this._regBoard.SetValue<string>("LastDigestSend", value);
+            }
+        }
+
+        public bool ForceDigestSend
+        {
+            get
+            {
+                return this._regBoard.GetValue<bool>("ForceDigestSend", false);
+            }
+            set
+            {
+                this._regBoard.SetValue<bool>("ForceDigestSend", value);
+            }
+        }
 
-    /// <summary>
-    /// Gets or sets UserBoxLocation.
-    /// </summary>
-    public string UserBoxLocation
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxLocation", "{0}: {1}<br />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxLocation", value);
-      }
-    }
+        #endregion
 
-    /* 7/14/2007 */
+        #region Nested type: YafLegacyBoardSettings
 
-    /// <summary>
-    /// Gets or sets UserBoxThanksFrom.
-    /// </summary>
-    public string UserBoxThanksFrom
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxThanksFrom", "{0}<br />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxThanksFrom", value);
-      }
-    }
+        /// <summary>
+        /// The yaf legacy board settings.
+        /// </summary>
+        public class YafLegacyBoardSettings
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="YafLegacyBoardSettings"/> class.
+            /// </summary>
+            public YafLegacyBoardSettings()
+            {
+            }
 
-    /// <summary>
-    /// Gets or sets UserBoxThanksTo.
-    /// </summary>
-    public string UserBoxThanksTo
-    {
-      get
-      {
-        return this._reg.GetValue<string>("UserBoxThanksTo", "{0}<br />");
-      }
-
-      set
-      {
-        this._reg.SetValue<string>("UserBoxThanksTo", value);
-      }
-    }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="YafLegacyBoardSettings"/> class.
+            /// </summary>
+            /// <param name="boardName">
+            /// The board name.
+            /// </param>
+            /// <param name="sqlVersion">
+            /// The sql version.
+            /// </param>
+            /// <param name="allowThreaded">
+            /// The allow threaded.
+            /// </param>
+            /// <param name="membershipAppName">
+            /// The membership app name.
+            /// </param>
+            /// <param name="rolesAppName">
+            /// The roles app name.
+            /// </param>
+            public YafLegacyBoardSettings(string boardName, string sqlVersion, bool allowThreaded, string membershipAppName, string rolesAppName)
+                : this()
+            {
+                BoardName = boardName;
+                SqlVersion = sqlVersion;
+                AllowThreaded = allowThreaded;
+                MembershipAppName = membershipAppName;
+                RolesAppName = rolesAppName;
+            }
 
-    public string LastDigestSend
-    {
-      get
-      {
-        return this._regBoard.GetValue<string>("LastDigestSend", null);
-      }
-      set
-      {
-        this._regBoard.SetValue<string>("LastDigestSend", value);
-      }
-    }
+            /// <summary>
+            /// Gets or sets BoardName.
+            /// </summary>
+            public string BoardName
+            {
+                get;
+                set;
+            }
 
-    public bool ForceDigestSend
-    {
-      get
-      {
-        return this._regBoard.GetValue<bool>("ForceDigestSend", false);
-      }
-      set
-      {
-        this._regBoard.SetValue<bool>("ForceDigestSend", value);
-      }
-    }
+            /// <summary>
+            /// Gets or sets SqlVersion.
+            /// </summary>
+            public string SqlVersion
+            {
+                get;
+                set;
+            }
 
-    #endregion
+            /// <summary>
+            /// Gets or sets a value indicating whether AllowThreaded.
+            /// </summary>
+            public bool AllowThreaded
+            {
+                get;
+                set;
+            }
 
-    #region Nested type: YafLegacyBoardSettings
+            /// <summary>
+            /// Gets or sets MembershipAppName.
+            /// </summary>
+            public string MembershipAppName
+            {
+                get;
+                set;
+            }
 
-    /// <summary>
-    /// The yaf legacy board settings.
-    /// </summary>
-    public class YafLegacyBoardSettings
-    {
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YafLegacyBoardSettings"/> class.
-      /// </summary>
-      public YafLegacyBoardSettings()
-      {
-      }
-
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YafLegacyBoardSettings"/> class.
-      /// </summary>
-      /// <param name="boardName">
-      /// The board name.
-      /// </param>
-      /// <param name="sqlVersion">
-      /// The sql version.
-      /// </param>
-      /// <param name="allowThreaded">
-      /// The allow threaded.
-      /// </param>
-      /// <param name="membershipAppName">
-      /// The membership app name.
-      /// </param>
-      /// <param name="rolesAppName">
-      /// The roles app name.
-      /// </param>
-      public YafLegacyBoardSettings(string boardName, string sqlVersion, bool allowThreaded, string membershipAppName, string rolesAppName)
-        : this()
-      {
-        BoardName = boardName;
-        SqlVersion = sqlVersion;
-        AllowThreaded = allowThreaded;
-        MembershipAppName = membershipAppName;
-        RolesAppName = rolesAppName;
-      }
-
-      /// <summary>
-      /// Gets or sets BoardName.
-      /// </summary>
-      public string BoardName
-      {
-        get;
-        set;
-      }
-
-      /// <summary>
-      /// Gets or sets SqlVersion.
-      /// </summary>
-      public string SqlVersion
-      {
-        get;
-        set;
-      }
-
-      /// <summary>
-      /// Gets or sets a value indicating whether AllowThreaded.
-      /// </summary>
-      public bool AllowThreaded
-      {
-        get;
-        set;
-      }
-
-      /// <summary>
-      /// Gets or sets MembershipAppName.
-      /// </summary>
-      public string MembershipAppName
-      {
-        get;
-        set;
-      }
-
-      /// <summary>
-      /// Gets or sets RolesAppName.
-      /// </summary>
-      public string RolesAppName
-      {
-        get;
-        set;
-      }
-    }
+            /// <summary>
+            /// Gets or sets RolesAppName.
+            /// </summary>
+            public string RolesAppName
+            {
+                get;
+                set;
+            }
+        }
 
-    #endregion
-  }
+        #endregion
+    }
 }

@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using AjaxPro.Utilities;
+
 namespace YAF.Controls
 {
     using System;
@@ -159,6 +161,8 @@ namespace YAF.Controls
                     this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
                 HttpContext.Current.Session["imagePreviewHeight"] =
                     this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
+                HttpContext.Current.Session["imagePreviewCropped"] =
+                    this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
                 HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
 
                 // Show Albums Max Info

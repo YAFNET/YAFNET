@@ -114,6 +114,7 @@ namespace YAF.Controls
 
       HttpContext.Current.Session["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
       HttpContext.Current.Session["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
+      HttpContext.Current.Session["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
       HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
 
       using (DataTable attachListDT = DB.attachment_list(this.MessageID, null, null))

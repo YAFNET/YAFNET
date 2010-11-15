@@ -251,6 +251,15 @@
                             <asp:TextBox ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Crop Image Attachment Preview:</b><br />
+                            Crop the Preview of the Image and use above Dimensions as Image Size.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
                 </table>
             </DotNetAge:View>
             <DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass=""
