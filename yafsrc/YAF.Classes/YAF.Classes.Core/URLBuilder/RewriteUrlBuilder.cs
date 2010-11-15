@@ -102,14 +102,15 @@ namespace YAF.Classes
         string useKey = string.Empty;
         string description = string.Empty;
         string pageName = parser["g"];
-        const bool showKey = false;
+
+        // const bool showKey = false;
         bool handlePage = false;
 
         switch (parser["g"])
         {
           case "topics":
             useKey = "f";
-            description = this.GetForumName(Convert.ToInt32(parser[useKey]));
+            description = this.GetForumName(parser[useKey].ToType<int>());
             handlePage = true;
             break;
           case "posts":
@@ -117,7 +118,7 @@ namespace YAF.Classes
             {
               useKey = "t";
               pageName += "t";
-              description = this.GetTopicName(Convert.ToInt32(parser[useKey]));
+              description = this.GetTopicName(parser[useKey].ToType<int>());
             }
             else if (parser["m"].IsSet())
             {
@@ -126,16 +127,15 @@ namespace YAF.Classes
 
               try
               {
-                  description = this.GetTopicNameFromMessage(Convert.ToInt32(parser[useKey]));
+                  description = this.GetTopicNameFromMessage(parser[useKey].ToType<int>());
               }
               catch (Exception)
               {
                   description = "posts";
               }
-            
             }
 
-            handlePage = true;
+                handlePage = true;
             break;
           case "profile":
             useKey = "u";
@@ -146,7 +146,7 @@ namespace YAF.Classes
             if (parser["c"].IsSet())
             {
               useKey = "c";
-              description = this.GetCategoryName(Convert.ToInt32(parser[useKey]));
+              description = this.GetCategoryName(parser[useKey].ToType<int>());
             }
 
             break;
@@ -161,10 +161,10 @@ namespace YAF.Classes
 
         if (handlePage && parser["p"] != null)
         {
-          int page = Convert.ToInt32(parser["p"]);
+          int page = parser["p"].ToType<int>();
           if (page != 1)
           {
-            newUrl += string.Format("p{0}", page);
+            newUrl += "p{0}".FormatWith(page);
           }
 
           parser.Parameters.Remove("p");
@@ -177,7 +177,7 @@ namespace YAF.Classes
                 description = description.Remove(description.Length - 1, 1);
             }
 
-          newUrl += string.Format("_{0}", description);
+          newUrl += "_{0}".FormatWith(description);
         }
 
         newUrl += ".aspx";
@@ -187,7 +187,7 @@ namespace YAF.Classes
         // append to the url if there are additional (unsupported) parameters
         if (restURL.Length > 0)
         {
-          newUrl += string.Format("?{0}", restURL);
+          newUrl += "?{0}".FormatWith(restURL);
         }
 
         // see if we can just use the default (/)
@@ -200,7 +200,7 @@ namespace YAF.Classes
         // add anchor
         if (parser.HasAnchor)
         {
-          newUrl += string.Format("#{0}", parser.Anchor);
+          newUrl += "#{0}".FormatWith(parser.Anchor);
         }
       }
 
@@ -253,76 +253,79 @@ namespace YAF.Classes
     /// </returns>
     protected static string CleanStringForURL(string str)
     {
-      var sb = new StringBuilder();
+        var sb = new StringBuilder();
 
-      // trim...
-     
-      if (Config.UrlRewritingMode == "Unicode")
-      {
-          str = HttpUtility.UrlDecode(str.Trim());
-      }
-      else
-      {
-          str = HttpContext.Current.Server.HtmlDecode(str.Trim());
-      }
+        // trim...
+        str = Config.UrlRewritingMode == "Unicode"
+                  ? HttpUtility.UrlDecode(str.Trim())
+                  : HttpContext.Current.Server.HtmlDecode(str.Trim());
 
         // fix ampersand...
-      str = str.Replace("&", "and");
+        str = str.Replace("&", "and");
 
-      // normalize the Unicode
-      str = str.Normalize(NormalizationForm.FormD);
-      if (Config.UrlRewritingMode == "Unicode")
-      {
-          foreach (char currentChar in str)
-          {
-              if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-              {
-                  sb.Append('-');
-              }
-              else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
-                             !char.IsSymbol(currentChar))
-              {
-                  sb.Append(currentChar);
-              }
-          }
-          string strNew = sb.ToString();
+        // normalize the Unicode
+        str = str.Normalize(NormalizationForm.FormD);
 
-          if (strNew.EndsWith("-"))
-          {
-              strNew = strNew.Remove(strNew.Length - 1, 1);
-          }
+        switch (Config.UrlRewritingMode)
+        {
+            case "Unicode":
+                {
+                    foreach (char currentChar in str)
+                    {
+                        if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                        {
+                            sb.Append('-');
+                        }
+                        else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
+                                 !char.IsSymbol(currentChar))
+                        {
+                            sb.Append(currentChar);
+                        }
+                    }
 
-          return HttpUtility.UrlEncode(strNew.ToLowerInvariant());
-      }
-      else 
-      {
-          if (Config.UrlRewritingMode == "Translit")
-          {
-              return str.Unidecode().Replace(" ","-");
-          }
-          else
-          {
-              foreach (char currentChar in str)
-              {
-                  if (char.IsWhiteSpace(currentChar) || currentChar == '.')
-                  {
-                      sb.Append('-');
-                  }
-                  else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
-                           !char.IsSymbol(currentChar) && currentChar < 128)
-                  {
-                      sb.Append(currentChar);
-                  }
-              }
-              return sb.ToString();
-              
-          }
-      }
+                    string strNew = sb.ToString();
 
-     
+                    while (strNew.EndsWith("-"))
+                    {
+                        strNew = strNew.Remove(strNew.Length - 1, 1);
+                    }
+
+                    return strNew.Length.Equals(0) ? "Default" : HttpUtility.UrlEncode(strNew.ToLowerInvariant());
+                }
+
+            case "Translit":
+                {
+                    return str.Unidecode().Replace(" ", "-");
+                }
+
+            default:
+                {
+                    foreach (char currentChar in str)
+                    {
+                        if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                        {
+                            sb.Append('-');
+                        }
+                        else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
+                                 !char.IsSymbol(currentChar) && currentChar < 128)
+                        {
+                            sb.Append(currentChar);
+                        }
+                    }
+
+                    string strNew = sb.ToString();
+
+                    while (strNew.EndsWith("-"))
+                    {
+                        strNew = strNew.Remove(strNew.Length - 1, 1);
+                    }
+
+                    return strNew.Length.Equals(0) ? "Default" : strNew;
+                }
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The get cache name.
     /// </summary>
     /// <param name="type">
@@ -383,6 +386,7 @@ namespace YAF.Classes
     /// The id.
     /// </param>
     /// <returns>
+    ///  Cached data Row
     /// </returns>
     protected DataRow GetDataRowFromCache(string type, int id)
     {
@@ -538,7 +542,7 @@ namespace YAF.Classes
         }
       }
 
-      return this.GetTopicName(Convert.ToInt32(row["TopicID"]));
+      return this.GetTopicName(row["TopicID"].ToType<int>());
     }
 
     /// <summary>
@@ -557,6 +561,7 @@ namespace YAF.Classes
     /// The primary key.
     /// </param>
     /// <returns>
+    /// The Data row
     /// </returns>
     protected DataRow SetupDataToCache(ref DataTable list, string type, int id, string primaryKey)
     {
