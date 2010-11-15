@@ -295,7 +295,29 @@ namespace YAF.Classes
 
             case "Translit":
                 {
-                    return str.Unidecode().Replace(" ", "-");
+                    string strUnidecode = str.Unidecode().Replace(" ", "-");
+
+                    foreach (char currentChar in strUnidecode)
+                    {
+                        if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                        {
+                            sb.Append('-');
+                        }
+                        else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark &&
+                                 !char.IsSymbol(currentChar))
+                        {
+                            sb.Append(currentChar);
+                        }
+                    }
+
+                    string strNew = sb.ToString();
+
+                    while (strNew.EndsWith("-"))
+                    {
+                        strNew = strNew.Remove(strNew.Length - 1, 1);
+                    }
+
+                    return strNew.Length.Equals(0) ? "Default" : strNew;
                 }
 
             default:
