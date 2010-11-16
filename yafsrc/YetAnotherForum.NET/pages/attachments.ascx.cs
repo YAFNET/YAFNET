@@ -229,8 +229,16 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            
+            if (this.Request.QueryString.GetFirstOrDefault("t").IsNotSet())
+            {
+                this.Back.Text = this.GetText("BACK");
+            }
+            else
+            {
+                this.Back.Text = this.GetText("COMMON","CONTINUE");
+            }
 
-            this.Back.Text = this.GetText("BACK");
             this.Upload.Text = this.GetText("UPLOAD");
 
             // MJ : 10/14/2007 - list of allowed file extensions

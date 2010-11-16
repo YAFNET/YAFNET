@@ -562,6 +562,7 @@
 		<Resource tag="BBCODE_QUOTE">Quote:</Resource>
 		<Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
 		<Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
 		<Resource tag="CAN_DELETE">You [b]can[/b] delete your posts in this forum.</Resource>
 		<Resource tag="CAN_EDIT">You [b]can[/b] edit your posts in this forum.</Resource>
 		<Resource tag="CAN_POLL">You [b]can[/b] create polls in this forum.</Resource>
@@ -596,6 +597,11 @@
 		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
 		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
 		<Resource tag="GO">GO</Resource>
+    <Resource tag="VIEW_CATEGORY">View category</Resource>
+    <Resource tag="VIEW_FORUM">View forum</Resource>
+    <Resource tag="VIEW_TOPIC ">View topic</Resource>
+    <Resource tag="VIEW_USRPROFILE">View profile</Resource>
+    <Resource tag="CONTINUE">Continue</Resource>
 		<Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
 		<Resource tag="HIDDEN">Hidden</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
@@ -1230,7 +1236,7 @@
 		<Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try and register.</Resource>
 		<Resource tag="CHOICE">Choice</Resource>
 		<Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
-		<Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>    
 		<Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post?</Resource>
 		<Resource tag="EDIT_REASON">Reason</Resource>
 		<Resource tag="EDIT_REASON_NA">Not specified</Resource>
