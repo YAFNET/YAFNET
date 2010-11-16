@@ -363,7 +363,8 @@
     <Resource tag="USERNAME_TOOLONG">Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов.</Resource>
     <Resource tag="VIEW_CATEGORY">Просмотреть раздел</Resource>
     <Resource tag="VIEW_FORUM">Просмотреть форум</Resource>
-    <Resource tag="VIEW_TOPIC ">Просмотреть тему</Resource>
+    <Resource tag="VIEW_FULLINFO">Показать подробности</Resource>
+    <Resource tag="VIEW_TOPIC">Просмотреть тему</Resource>
     <Resource tag="VIEW_USRPROFILE">Просмотреть профиль</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">

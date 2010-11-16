@@ -330,7 +330,8 @@
     <Resource tag="USERNAME_TOOLONG">.نام کاربری و نامی که نمایش داده می شوند نباید از {0} کاراکتر طولانی تر باشند </Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>
     <Resource tag="VIEW_FORUM">View forum</Resource>
-    <Resource tag="VIEW_TOPIC ">View topic</Resource>
+    <Resource tag="VIEW_FULLINFO">View full info</Resource>
+    <Resource tag="VIEW_TOPIC">View topic</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">

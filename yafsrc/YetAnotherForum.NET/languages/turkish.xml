@@ -330,7 +330,8 @@
     <Resource tag="USERNAME_TOOLONG">Kullanıcı adı veya Görüntülenecek isim {0} karakterden fazla olamaz.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>
     <Resource tag="VIEW_FORUM">View forum</Resource>
-    <Resource tag="VIEW_TOPIC ">View topic</Resource>
+    <Resource tag="VIEW_FULLINFO">View full info</Resource>
+    <Resource tag="VIEW_TOPIC">View topic</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">

@@ -78,7 +78,9 @@ namespace YAF.Controls
 
         // populate them...
         textMessageLink.Text = this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
+        textMessageLink.ToolTip = this.PageContext.Localization.GetText("COMMON", "VIEW_TOPIC");
         textMessageLink.NavigateUrl = messageUrl;
+       
         imageMessageLink.NavigateUrl = messageUrl;
         lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 
@@ -100,6 +102,7 @@ namespace YAF.Controls
         }
 
         forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
+        forumLink.ToolTip = this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM");
         forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
       }
     }
