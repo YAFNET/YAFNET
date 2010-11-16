@@ -21,9 +21,9 @@
 	</tr>
 	<tr id="SubjectRow" runat="server"  colspan="2">
 		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="subject" />
+			<YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
 		<br />
-			<asp:TextBox ID="Subject" runat="server" CssClass="edit" MaxLength="100" Width="400" />
+			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="250" />
 		</td>
 	</tr>
 	<tr id="BlogRow" runat="server" visible="false">
@@ -70,8 +70,7 @@
 	<tr id="tr_captcha1" runat="server" visible="false">
 		<td class="postformheader" valign="top"  colspan="2">
 			<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="Captcha_Image" />
-		</td>
-		<td class="post">
+		<br />
 			<asp:Image ID="imgCaptcha" runat="server" />
 		</td>
 	</tr>

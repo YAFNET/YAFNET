@@ -349,6 +349,21 @@
               The index.
             </param>
         </member>
+        <member name="T:YAF.Classes.Utils.Unidecoder">
+            <summary>
+            ASCII transliterations of Unicode text
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.Unidecoder.Unidecode(System.String)">
+            <summary>
+            Transliterate an Unicode object into an ASCII string
+            </summary>
+            <remarks>
+            unidecode(u"\u5317\u4EB0") == "Bei Jing "
+            </remarks>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.AsString(System.IO.Stream)">
             <summary>
             Converts a Stream to a String.
@@ -430,6 +445,291 @@
             </returns>
             <exception cref="T:System.ArgumentNullException">
             </exception>
+        </member>
+        <member name="T:YAF.Classes.Utils.StringHelper">
+            <summary>
+            The string helper.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.AreAnyWordsOverMaxLength(System.String,System.Int32)">
+            <summary>
+            Function to check a max word length, used i.e. in topic names.
+            </summary>
+            <param name="text">
+            The raw string to format
+            </param>
+            <param name="maxWordLength">
+            The max Word Length.
+            </param>
+            <returns>
+            The formatted string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.FastIndexOf(System.String,System.String)">
+            <summary>
+            The fast index of.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="pattern">
+            The pattern.
+            </param>
+            <returns>
+            The fast index of.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ForEachChar(System.String,System.Action{System.Char})">
+            <summary>
+            Does an action for each character in the input string. Kind of useless, but in a
+              useful way. ;)
+            </summary>
+            <param name="input">
+            </param>
+            <param name="forEachAction">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.FormatWith(System.String,System.Object[])">
+            <summary>
+            Formats a string with the provided parameters
+            </summary>
+            <param name="s">
+            The s.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+            <returns>
+            The formatted string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.GenerateRandomString(System.Int32,System.String)">
+            <summary>
+            Returns a "random" alpha-numeric string of specified length and characters.
+            </summary>
+            <param name="length">
+            the length of the random string
+            </param>
+            <param name="pickfrom">
+            the string of characters to pick randomly from
+            </param>
+            <returns>
+            The generate random string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoEmptyStrings(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes empty strings from the list
+            </summary>
+            <param name="inputList">
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="inputList"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoSmallStrings(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
+            <summary>
+            Removes strings that are smaller then <paramref name="minSize"/>
+            </summary>
+            <param name="inputList">
+            </param>
+            <param name="minSize">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.IsNotSet(System.String)">
+            <summary>
+            When the string is trimmed, is it <see langword="null"/> or empty?
+            </summary>
+            <param name="str">
+            </param>
+            <returns>
+            The is <see langword="null"/> or empty trimmed.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.IsSet(System.String)">
+            <summary>
+            When the string is trimmed, is it <see langword="null"/> or empty?
+            </summary>
+            <param name="str">
+            </param>
+            <returns>
+            The is <see langword="null"/> or empty trimmed.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String)">
+            <summary>
+            The process text.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The process text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String,System.Boolean)">
+            <summary>
+            The process text.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="nullify">
+            The nullify.
+            </param>
+            <returns>
+            The process text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            The process text.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="nullify">
+            The nullify.
+            </param>
+            <param name="trim">
+            The trim.
+            </param>
+            <returns>
+            The process text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleSingleQuotes(System.String)">
+            <summary>
+            Removes multiple single quote ' characters from a string.
+            </summary>
+            <param name="text">
+            </param>
+            <returns>
+            The remove multiple single quotes.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleWhitespace(System.String)">
+            <summary>
+            Removes multiple whitespace characters from a string.
+            </summary>
+            <param name="text">
+            </param>
+            <returns>
+            The remove multiple whitespace.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToHexBytes(System.String)">
+            <summary>
+            Converts a string into it's hexadecimal representation.
+            </summary>
+            <param name="strValue">
+            </param>
+            <returns>
+            The string to hex bytes.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char)">
+            <summary>
+            Converts a string to a list using delimiter.
+            </summary>
+            <param name="str">
+            starting string
+            </param>
+            <param name="delimiter">
+            value that delineates the string
+            </param>
+            <returns>
+            list of strings
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char,System.Collections.Generic.List{System.String})">
+            <summary>
+            Converts a string to a list using delimiter.
+            </summary>
+            <param name="str">
+            starting string
+            </param>
+            <param name="delimiter">
+            value that delineates the string
+            </param>
+            <param name="exclude">
+            items to exclude from list
+            </param>
+            <returns>
+            list of strings
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToDelimitedString``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Creates a delimited string an enumerable list of T.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="objList">
+            </param>
+            <param name="delimiter">
+            </param>
+            <returns>
+            The list to string.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="objList"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
+            <summary>
+            Cleans a string into a proper RegEx statement. 
+              E.g. "[b]Whatever[/b]" will be converted to:
+              "\[b\]Whatever\[\/b\]"
+            </summary>
+            <param name="input">
+            </param>
+            <returns>
+            The to reg ex string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToStream(System.String)">
+            <summary>
+            Converts a String to a MemoryStream.
+            </summary>
+            <param name="str">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.Truncate(System.String,System.Int32)">
+            <summary>
+            Truncates a string with the specified limits and adds (...) to the end if truncated
+            </summary>
+            <param name="input">
+            input string
+            </param>
+            <param name="limit">
+            max size of string
+            </param>
+            <returns>
+            truncated string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.TruncateMiddle(System.String,System.Int32)">
+            <summary>
+            Truncates a string with the specified limits by adding (...) to the middle
+            </summary>
+            <param name="input">
+            input string
+            </param>
+            <param name="limit">
+            max size of string
+            </param>
+            <returns>
+            truncated string
+            </returns>
         </member>
         <member name="T:YAF.Classes.Utils.ControlHelper">
             <summary>
@@ -1787,291 +2087,6 @@
             <typeparam name="T">
             </typeparam>
             <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.StringHelper">
-            <summary>
-            The string helper.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.AreAnyWordsOverMaxLength(System.String,System.Int32)">
-            <summary>
-            Function to check a max word length, used i.e. in topic names.
-            </summary>
-            <param name="text">
-            The raw string to format
-            </param>
-            <param name="maxWordLength">
-            The max Word Length.
-            </param>
-            <returns>
-            The formatted string
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.FastIndexOf(System.String,System.String)">
-            <summary>
-            The fast index of.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="pattern">
-            The pattern.
-            </param>
-            <returns>
-            The fast index of.
-            </returns>
-            <exception cref="T:System.ArgumentNullException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ForEachChar(System.String,System.Action{System.Char})">
-            <summary>
-            Does an action for each character in the input string. Kind of useless, but in a
-              useful way. ;)
-            </summary>
-            <param name="input">
-            </param>
-            <param name="forEachAction">
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.FormatWith(System.String,System.Object[])">
-            <summary>
-            Formats a string with the provided parameters
-            </summary>
-            <param name="s">
-            The s.
-            </param>
-            <param name="args">
-            The args.
-            </param>
-            <returns>
-            The formatted string
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.GenerateRandomString(System.Int32,System.String)">
-            <summary>
-            Returns a "random" alpha-numeric string of specified length and characters.
-            </summary>
-            <param name="length">
-            the length of the random string
-            </param>
-            <param name="pickfrom">
-            the string of characters to pick randomly from
-            </param>
-            <returns>
-            The generate random string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoEmptyStrings(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Removes empty strings from the list
-            </summary>
-            <param name="inputList">
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="inputList"/> is <c>null</c>.
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoSmallStrings(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
-            <summary>
-            Removes strings that are smaller then <paramref name="minSize"/>
-            </summary>
-            <param name="inputList">
-            </param>
-            <param name="minSize">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.IsNotSet(System.String)">
-            <summary>
-            When the string is trimmed, is it <see langword="null"/> or empty?
-            </summary>
-            <param name="str">
-            </param>
-            <returns>
-            The is <see langword="null"/> or empty trimmed.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.IsSet(System.String)">
-            <summary>
-            When the string is trimmed, is it <see langword="null"/> or empty?
-            </summary>
-            <param name="str">
-            </param>
-            <returns>
-            The is <see langword="null"/> or empty trimmed.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String)">
-            <summary>
-            The process text.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <returns>
-            The process text.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String,System.Boolean)">
-            <summary>
-            The process text.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <param name="nullify">
-            The nullify.
-            </param>
-            <returns>
-            The process text.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            The process text.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <param name="nullify">
-            The nullify.
-            </param>
-            <param name="trim">
-            The trim.
-            </param>
-            <returns>
-            The process text.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleSingleQuotes(System.String)">
-            <summary>
-            Removes multiple single quote ' characters from a string.
-            </summary>
-            <param name="text">
-            </param>
-            <returns>
-            The remove multiple single quotes.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleWhitespace(System.String)">
-            <summary>
-            Removes multiple whitespace characters from a string.
-            </summary>
-            <param name="text">
-            </param>
-            <returns>
-            The remove multiple whitespace.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToHexBytes(System.String)">
-            <summary>
-            Converts a string into it's hexadecimal representation.
-            </summary>
-            <param name="strValue">
-            </param>
-            <returns>
-            The string to hex bytes.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char)">
-            <summary>
-            Converts a string to a list using delimiter.
-            </summary>
-            <param name="str">
-            starting string
-            </param>
-            <param name="delimiter">
-            value that delineates the string
-            </param>
-            <returns>
-            list of strings
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char,System.Collections.Generic.List{System.String})">
-            <summary>
-            Converts a string to a list using delimiter.
-            </summary>
-            <param name="str">
-            starting string
-            </param>
-            <param name="delimiter">
-            value that delineates the string
-            </param>
-            <param name="exclude">
-            items to exclude from list
-            </param>
-            <returns>
-            list of strings
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ToDelimitedString``1(System.Collections.Generic.IEnumerable{``0},System.String)">
-            <summary>
-            Creates a delimited string an enumerable list of T.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="objList">
-            </param>
-            <param name="delimiter">
-            </param>
-            <returns>
-            The list to string.
-            </returns>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="objList"/> is <c>null</c>.
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
-            <summary>
-            Cleans a string into a proper RegEx statement. 
-              E.g. "[b]Whatever[/b]" will be converted to:
-              "\[b\]Whatever\[\/b\]"
-            </summary>
-            <param name="input">
-            </param>
-            <returns>
-            The to reg ex string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ToStream(System.String)">
-            <summary>
-            Converts a String to a MemoryStream.
-            </summary>
-            <param name="str">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.Truncate(System.String,System.Int32)">
-            <summary>
-            Truncates a string with the specified limits and adds (...) to the end if truncated
-            </summary>
-            <param name="input">
-            input string
-            </param>
-            <param name="limit">
-            max size of string
-            </param>
-            <returns>
-            truncated string
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.TruncateMiddle(System.String,System.Int32)">
-            <summary>
-            Truncates a string with the specified limits by adding (...) to the middle
-            </summary>
-            <param name="input">
-            input string
-            </param>
-            <param name="limit">
-            max size of string
-            </param>
-            <returns>
-            truncated string
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.YafForumInfo">

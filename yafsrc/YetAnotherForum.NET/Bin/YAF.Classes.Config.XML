@@ -1910,6 +1910,11 @@
             Is Url Rewriting enabled? -- default is false.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.UrlRewritingMode">
+            <summary>
+            Url Rewriting URLRewritingMode? -- default is Unicode.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.DisableJQuery">
             <summary>
             Is Jquery Registration disabled? -- default is false.
@@ -3511,6 +3516,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">
             <summary>
             Gets or sets a value indicating whether to AddDynamicPageMetaTags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ImageAttachmentResizeCropped">
+            <summary>
+            Gets or sets a value indicating whether ImageAttachmentResizeCropped.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.IPInfoPageURL">

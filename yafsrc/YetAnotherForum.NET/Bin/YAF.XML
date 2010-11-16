@@ -10883,8 +10883,9 @@
         </member>
         <member name="M:YAF.Controls.ViewThanksList.DistinctMessageID(System.Data.EnumerableRowCollection{System.Data.DataRow})">
             <summary>
-            removes rows with duplicate MessageIDs.
+            Removes rows with duplicate MessageIDs.
             </summary>
+            <param name="thanksData">The thanks data.</param>
         </member>
         <member name="P:YAF.Controls.ViewThanksList.CurrentMode">
             <summary>
@@ -15555,9 +15556,10 @@
             Number of images in the album.
             </param>
             <returns>
+            Resized Cover
             </returns>
         </member>
-        <member name="M:YAF.YafResourceHandler.GetImageResized(System.IO.MemoryStream,System.Int32,System.Int32,System.Int32,System.String)">
+        <member name="M:YAF.YafResourceHandler.GetImageResized(System.IO.Stream,System.Int32,System.Int32,System.Boolean,System.Int32,System.String)">
             <summary>
             The get image resized.
             </summary>
@@ -15570,6 +15572,8 @@
             <param name="previewHeight">
             The preview height.
             </param>
+            <param name="previewCropped">
+            The preview Cropped</param>
             <param name="downloads">
             The downloads.
             </param>
@@ -15577,6 +15581,7 @@
             The localization file.
             </param>
             <returns>
+            Resized Image Stream
             </returns>
         </member>
         <member name="M:YAF.YafResourceHandler.GetResource(System.Web.HttpContext)">
@@ -24586,6 +24591,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersSignature.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersSignature.TagsAllowedWarning">
+            <summary>
+            TagsAllowedWarning control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersSignature.save">
             <summary>
             save control.
@@ -24603,6 +24626,21 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersSignature._allowedBbcodes">
+            <summary>
+              The string with allowed BBCodes info.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.EditUsersSignature._allowedHtml">
+            <summary>
+              The string with allowed HTML tags info.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.EditUsersSignature._allowedNumberOfCharacters">
+            <summary>
+              The number of characters which is allowed in user signature.
+            </summary>
         </member>
         <member name="F:YAF.Controls.EditUsersSignature._sig">
             <summary>
@@ -24644,15 +24682,15 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.EditUsersSignature.DoRedirect">
-            <summary>
-            The do redirect.
-            </summary>
-        </member>
         <member name="M:YAF.Controls.EditUsersSignature.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
               the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.EditUsersSignature.DoRedirect">
+            <summary>
+            The do redirect.
             </summary>
         </member>
         <member name="M:YAF.Controls.EditUsersSignature.Save_Click(System.Object,System.EventArgs)">
@@ -25577,6 +25615,24 @@
         <member name="F:YAF.Pages.attachments.File">
             <summary>
             File control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.attachments.UploadNodePlaceHold">
+            <summary>
+            UploadNodePlaceHold control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.attachments.UploadNote">
+            <summary>
+            UploadNote control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28827,6 +28883,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ImageAttachmentResizeHeight">
             <summary>
             ImageAttachmentResizeHeight control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ImageAttachmentResizeCropped">
+            <summary>
+            ImageAttachmentResizeCropped control.
             </summary>
             <remarks>
             Auto-generated field.

@@ -7781,6 +7781,7 @@
             The id.
             </param>
             <returns>
+             Cached data Row
             </returns>
         </member>
         <member name="M:YAF.Classes.RewriteUrlBuilder.GetForumName(System.Int32)">
@@ -7844,6 +7845,7 @@
             The primary key.
             </param>
             <returns>
+            The Data row
             </returns>
         </member>
         <member name="P:YAF.Classes.RewriteUrlBuilder.CacheSize">

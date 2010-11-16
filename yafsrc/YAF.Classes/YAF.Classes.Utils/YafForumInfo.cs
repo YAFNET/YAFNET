@@ -21,6 +21,8 @@ using System.Web;
 
 namespace YAF.Classes.Utils
 {
+  using YAF.Classes.Pattern;
+
   /// <summary>
   /// Class provides helper functions related to the forum path and urls as well as forum version information.
   /// </summary>
@@ -92,8 +94,10 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The get url to resource.
     /// </returns>
-    public static string GetURLToResource(string resourceName)
+    public static string GetURLToResource([NotNull] string resourceName)
     {
+      CodeContracts.ArgumentNotNull(resourceName, "resourceName");
+
       return "{1}resources/{0}".FormatWith(resourceName, ForumClientFileRoot);
     }
 
@@ -117,7 +121,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 42;
+        return 43;
       }
     }
 
@@ -128,7 +132,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 0x01095033;
+        return 0x01095030;
       }
     }
 
@@ -139,7 +143,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 11, 11);
+        return new DateTime(2010, 11, 16);
       }
     }
 

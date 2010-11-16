@@ -248,7 +248,7 @@ namespace YAF.Pages
       // To avoid posting whitespace(s) or empty messages
       string postedMessage = this._forumEditor.Text.Trim();
 
-      if (postedMessage.Length == 0)
+      if (postedMessage.IsNotSet())
       {
         this.PageContext.AddLoadMessage(this.GetText("ISEMPTY"));
         return false;
@@ -261,7 +261,7 @@ namespace YAF.Pages
         return false;
       }
 
-      if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.Length <= 0)
+      if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
       {
         this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"));
         return false;
