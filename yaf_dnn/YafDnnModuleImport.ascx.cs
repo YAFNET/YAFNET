@@ -1,4 +1,23 @@
-﻿namespace YAF.DotNetNuke
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+namespace YAF.DotNetNuke
 {
   #region Using
 
@@ -6,6 +25,7 @@
   using System.Collections;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Web;
   using System.Web.Security;
   using System.Web.UI.WebControls;
@@ -109,12 +129,10 @@
       ArrayList schduleItems = SchedulingProvider.Instance().GetSchedule();
 
       // find schedule item with matching TypeFullName
-      foreach (object item in schduleItems)
+      foreach (object item in
+          schduleItems.Cast<object>().Where(item => ((ScheduleItem)item).TypeFullName == typeFullName))
       {
-        if (((ScheduleItem)item).TypeFullName == typeFullName)
-        {
           return ((ScheduleItem)item).ScheduleID;
-        }
       }
 
       return -1;
@@ -341,7 +359,7 @@
         return;
       }
 
-      string sFile = string.Format("{0}App_Data/YafImports.xml", HttpRuntime.AppDomainAppPath);
+      string sFile = "{0}App_Data/YafImports.xml".FormatWith(HttpRuntime.AppDomainAppPath);
 
       var dsSettings = new DataSet();
 
@@ -356,7 +374,7 @@
 
         sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
         sw.WriteLine("<YafImports>");
-        sw.WriteLine(string.Format("<Import PortalId=\"{0}\" BoardId=\"{1}\"/>", this.PortalId, this.iBoardId));
+        sw.WriteLine("<Import PortalId=\"{0}\" BoardId=\"{1}\"/>".FormatWith(this.PortalId, this.iBoardId));
         sw.WriteLine("</YafImports>");
 
         sw.Close();
@@ -367,8 +385,8 @@
 
       foreach (DataRow oRow in dsSettings.Tables[0].Rows)
       {
-        int iPortal = Convert.ToInt32(oRow["PortalId"]);
-        int iBoard = Convert.ToInt32(oRow["BoardId"]);
+        int iPortal = oRow["PortalId"].ToType<int>();
+        int iBoard = oRow["BoardId"].ToType<int>();
 
         if (iPortal.Equals(this.PortalId) && iBoard.Equals(this.iBoardId))
         {
@@ -472,7 +490,7 @@
           }
         }
 
-        this.lInfo.Text = string.Format("{0} User(s) Imported", iNewUsers);
+        this.lInfo.Text = "{0} User(s) Imported".FormatWith(iNewUsers);
 
         if (bRolesChanged)
         {
@@ -521,7 +539,7 @@
 
       var dsSettings = new DataSet();
 
-      string sFile = string.Format("{0}App_Data/YafImports.xml", HttpRuntime.AppDomainAppPath);
+      string sFile = "{0}App_Data/YafImports.xml".FormatWith(HttpRuntime.AppDomainAppPath);
 
       try
       {
@@ -534,7 +552,7 @@
 
         sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
         sw.WriteLine("<YafImports>");
-        sw.WriteLine(string.Format("<Import PortalId=\"{0}\" BoardId=\"{1}\"/>", this.PortalId, this.iBoardId));
+        sw.WriteLine("<Import PortalId=\"{0}\" BoardId=\"{1}\"/>".FormatWith(this.PortalId, this.iBoardId));
         sw.WriteLine("</YafImports>");
 
         sw.Close();

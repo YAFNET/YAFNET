@@ -1,4 +1,23 @@
-﻿namespace YAF.DotNetNuke
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+namespace YAF.DotNetNuke
 {
   #region Using
 
@@ -233,7 +252,7 @@
     {
       var dsSettings = new DataSet();
 
-      string sFile = string.Format("{0}App_Data/YafImports.xml", HttpRuntime.AppDomainAppPath);
+      string sFile = "{0}App_Data/YafImports.xml".FormatWith(HttpRuntime.AppDomainAppPath);
 
       try
       {
@@ -257,8 +276,8 @@
 
       foreach (DataRow dataRow in dsSettings.Tables[0].Rows)
       {
-        int iPortalId = Convert.ToInt32(dataRow["PortalId"]);
-        int iBoardId = Convert.ToInt32(dataRow["BoardId"]);
+        int iPortalId = dataRow["PortalId"].ToType<int>();
+        int iBoardId = dataRow["BoardId"].ToType<int>();
 
         this.ImportUsers(iBoardId, iPortalId);
       }
@@ -337,7 +356,7 @@
           }
         }
 
-        this.sInfo = string.Format("{0} User(s) Imported", iNewUsers);
+        this.sInfo = "{0} User(s) Imported".FormatWith(iNewUsers);
 
         if (bRolesChanged)
         {

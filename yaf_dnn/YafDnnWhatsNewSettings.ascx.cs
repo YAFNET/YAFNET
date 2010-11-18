@@ -1,17 +1,21 @@
-// DotNetNuke® - http://www.dotnetnuke.com 
-// Copyright (c) 2002-2010 
-// by DotNetNuke Corporation 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions 
-// of the Software. 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
-// TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-// DEALINGS IN THE SOFTWARE. 
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
 namespace YAF.DotNetNuke
 {
@@ -27,7 +31,9 @@ namespace YAF.DotNetNuke
   using global::DotNetNuke.Entities.Tabs;
   using global::DotNetNuke.Services.Exceptions;
 
-  #endregion
+  using YAF.Classes.Utils;
+
+    #endregion
 
   /// -----------------------------------------------------------------------------
   /// <summary>
@@ -38,7 +44,7 @@ namespace YAF.DotNetNuke
   /// <history> 
   /// </history>
   /// -----------------------------------------------------------------------------
-  partial class YafDnnWhatsNewSettings : ModuleSettingsBase
+  public partial class YafDnnWhatsNewSettings : ModuleSettingsBase
   {
     #region Public Methods
 
@@ -64,8 +70,7 @@ namespace YAF.DotNetNuke
             if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafPage"]) &&
                 !string.IsNullOrEmpty((string)this.TabModuleSettings["YafModuleId"]))
             {
-              this.YafInstances.SelectedValue = string.Format(
-                "{0}-{1}", this.TabModuleSettings["YafPage"], this.TabModuleSettings["YafModuleId"]);
+              this.YafInstances.SelectedValue = "{0}-{1}".FormatWith(this.TabModuleSettings["YafPage"], this.TabModuleSettings["YafModuleId"]);
             }
           }
 
@@ -80,13 +85,11 @@ namespace YAF.DotNetNuke
 
           if (!string.IsNullOrEmpty((string)this.TabModuleSettings["YafUseRelativeTime"]))
           {
-              bool YafUseRelativeTime;
-              bool.TryParse((string)TabModuleSettings["YafUseRelativeTime"], out YafUseRelativeTime);
+              bool yafUseRelativeTime;
+              bool.TryParse((string)TabModuleSettings["YafUseRelativeTime"], out yafUseRelativeTime);
 
-              this.UseRelativeTime.Checked = YafUseRelativeTime;
+              this.UseRelativeTime.Checked = yafUseRelativeTime;
           }
-
-            
         }
       }
       catch (Exception exc)
@@ -136,7 +139,7 @@ namespace YAF.DotNetNuke
           objModules.UpdateTabModuleSetting(this.TabModuleId, "YafMaxPosts", "10");
         }
 
-        objModules.UpdateTabModuleSetting(this.TabModuleId, "YafUseRelativeTime", UseRelativeTime.Checked.ToString());
+        objModules.UpdateTabModuleSetting(this.TabModuleId, "YafUseRelativeTime", this.UseRelativeTime.Checked.ToString());
       }
       catch (Exception exc)
       {
@@ -215,13 +218,13 @@ namespace YAF.DotNetNuke
               break;
             }
 
-            strPath = string.Format("{0} -> {1}", objTabSelected.TabName, strPath);
+            strPath = "{0} -> {1}".FormatWith(objTabSelected.TabName, strPath);
           }
 
           var objListItem = new ListItem
             {
-              Value = string.Format("{0}-{1}", objModule.TabID, objModule.ModuleID),
-              Text = string.Format("{0} -> {1}", strPath, objModule.ModuleTitle)
+              Value = "{0}-{1}".FormatWith(objModule.TabID, objModule.ModuleID),
+              Text = "{0} -> {1}".FormatWith(strPath, objModule.ModuleTitle)
             };
 
           this.YafInstances.Items.Add(objListItem);

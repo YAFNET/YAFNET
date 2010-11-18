@@ -29,8 +29,9 @@ namespace YAF.Editors
 
   using YAF.Classes;
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Adds Support for the DNN Editors
@@ -232,33 +233,25 @@ namespace YAF.Editors
           this.Page.ClientScript.RegisterClientScriptBlock(
             this.Page.GetType(), 
             "insertsmiley", 
-            string.Format(
-              "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>", 
-              editor.ClientID));
+            "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>".FormatWith(editor.ClientID));
           break;
         case "DotNetNuke.HtmlEditor.FckHtmlEditorProvider.FckHtmlEditorProvider":
           this.Page.ClientScript.RegisterClientScriptBlock(
             this.Page.GetType(), 
             "insertsmiley", 
-            string.Format(
-              "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar oEditor = FCKeditorAPI.GetInstance('{0}');\nif ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {{\noEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n", 
-              editor.ClientID.Replace("$", "_")));
+            "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar oEditor = FCKeditorAPI.GetInstance('{0}');\nif ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {{\noEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n".FormatWith(editor.ClientID.Replace("$", "_")));
           break;
         case "WatchersNET.CKEditor.CKHtmlEditorProvider":
           this.Page.ClientScript.RegisterClientScriptBlock(
             this.Page.GetType(), 
             "insertsmiley", 
-            string.Format(
-              "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n", 
-              editor.ClientID));
+            "<script language=\"javascript\" type=\"text/javascript\">\nfunction insertsmiley(code,img) {{\nvar ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n</script>\n".FormatWith(editor.ClientID));
           break;
         case "DotNetNuke.HtmlEditor.TelerikEditorProvider.EditorProvider":
           this.Page.ClientScript.RegisterClientScriptBlock(
             this.Page.GetType(), 
             "insertsmiley", 
-            string.Format(
-              "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>", 
-              editor.ClientID));
+            "<script type='text/javascript'>function insertsmiley(code,img){{\nvar editor = $find('{0}');editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n}}\n</script>".FormatWith(editor.ClientID));
           break;
       }
     }
