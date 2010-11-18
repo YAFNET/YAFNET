@@ -1,32 +1,36 @@
-﻿#region Usings
-
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Web;
-using System.Web.Security;
-using DotNetNuke.Common;
-using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Modules;
-using DotNetNuke.Entities.Modules.Actions;
-using DotNetNuke.Entities.Portals;
-using DotNetNuke.Entities.Users;
-using DotNetNuke.Framework;
-using DotNetNuke.Security;
-using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Services.Localization;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
+﻿
 
 
-#endregion
+
+
 
 namespace YAF.DotNetNuke
 {
+    #region Usings
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Threading;
+    using System.Web;
+    using System.Web.Security;
+
+    using global::DotNetNuke.Common;
+    using global::DotNetNuke.Common.Utilities;
+    using global::DotNetNuke.Entities.Modules;
+    using global::DotNetNuke.Entities.Modules.Actions;
+    using global::DotNetNuke.Entities.Portals;
+    using global::DotNetNuke.Entities.Users;
+    using global::DotNetNuke.Framework;
+    using global::DotNetNuke.Security;
+    using global::DotNetNuke.Services.Exceptions;
+    using global::DotNetNuke.Services.Localization;
+
+    using YAF.Classes.Core;
+    using YAF.Classes.Data;
+    using YAF.Classes.Utils;
+#endregion
+
     /// <summary>
     /// Summary description for DotNetNukeModule.
     /// </summary>
@@ -49,10 +53,7 @@ namespace YAF.DotNetNuke
         {
             get
             {
-                return String.Format("yaf_dnn_boardid{0}_userid{1}_portalid{2}",
-                                     forum1.BoardID,
-                                     UserId,
-                                     CurrentPortalSettings.PortalId);
+                return "yaf_dnn_boardid{0}_userid{1}_portalid{2}".FormatWith(this.forum1.BoardID, this.UserId, this.CurrentPortalSettings.PortalId);
             }
         }
         /// <summary>
@@ -151,16 +152,16 @@ namespace YAF.DotNetNuke
                 {
                     yafUserId = DB.user_get(forum1.BoardID, dnnUser.ProviderUserKey);
                     if (yafUserId > 0)
-                        Session[string.Format("{0}_userSync", SessionUserKeyName)] = true;
+                        Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
                 }
                 catch (Exception)
                 {
                     yafUserId = 0;
-                    Session[string.Format("{0}_userSync", SessionUserKeyName)] = null;
+                    Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = null;
                 }
 
                 // Has this user been registered in YAF already?
-                if (Session[string.Format("{0}_userSync", SessionUserKeyName)] != null)
+                if (Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
                     return;
 
                 if (yafUserId == 0)
@@ -193,7 +194,7 @@ namespace YAF.DotNetNuke
             RolePrincipal rolePrincipal;
             if (Roles.CacheRolesInCookie)
             {
-                string roleCookie = "";
+                string roleCookie = string.Empty;
 
                 HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
                 if (cookie != null)
@@ -315,7 +316,10 @@ namespace YAF.DotNetNuke
         /// <param name="e"></param>
         private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
         {
-            this.BasePage.Title = this.BasePage.Title.Replace(this.PortalSettings.ActiveTab.Title, string.Empty);
+            if (!string.IsNullOrEmpty(this.CurrentPortalSettings.ActiveTab.Title))
+            {
+                this.BasePage.Title = this.BasePage.Title.Replace(this.CurrentPortalSettings.ActiveTab.Title, string.Empty);
+            }
         }
         /// <summary>
         /// 
