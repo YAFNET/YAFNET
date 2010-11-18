@@ -28,6 +28,7 @@ namespace YAF.DotNetNuke
     using System.Threading;
     using System.Web;
     using System.Web.Security;
+    using System.Web.UI;
 
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
@@ -68,20 +69,14 @@ namespace YAF.DotNetNuke
         /// </summary>
         private Forum forum1;
 
+        /// <summary>
+        /// The basePage
+        /// </summary>
+        private CDefault _basePage;
+
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets BasePage
-        /// </summary>
-        public CDefault BasePage
-        {
-            get
-            {
-                return (CDefault)this.Page;
-            }
-        }
 
         /// <summary>
         ///  Gets Add Menu Entries to Module Container
@@ -126,6 +121,17 @@ namespace YAF.DotNetNuke
             get
             {
                 return this._portalSettings ?? (this._portalSettings = PortalController.GetCurrentPortalSettings());
+            }
+        }
+
+        /// <summary>
+        ///   BasePage
+        /// </summary>
+        public CDefault BasePage
+        {
+            get
+            {
+                return _basePage ?? (_basePage = GetDefault(this));
             }
         }
 
@@ -219,6 +225,30 @@ namespace YAF.DotNetNuke
             yafCultureInfo.LanguageFile = lngFile;
 
             return yafCultureInfo;
+        }
+
+        /// <summary>
+        /// Get Default CDefault
+        /// </summary>
+        /// <param name="c">
+        /// The Control c
+        /// </param>
+        /// <returns>The Control</returns>
+        private static CDefault GetDefault(Control c)
+        {
+            Control parent = c.Parent;
+
+            if (parent != null)
+            {
+                if (parent is CDefault)
+                {
+                    return (CDefault)parent;
+                }
+
+                return GetDefault(parent);
+            }
+
+            return null;
         }
 
         /// <summary>
