@@ -332,6 +332,7 @@
     <Resource tag="TT_ALIGNRIGHT">Justificado derecha</Resource>
     <Resource tag="TT_BOLD">Negrilla</Resource>
     <Resource tag="TT_CODE">Codigo</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">Crear liga</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Mas etiquetas BBCode</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>

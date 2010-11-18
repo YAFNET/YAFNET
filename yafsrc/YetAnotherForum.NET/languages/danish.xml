@@ -332,6 +332,7 @@
     <Resource tag="TT_ALIGNRIGHT">Højre juster</Resource>
     <Resource tag="TT_BOLD">Fed</Resource>
     <Resource tag="TT_CODE">Kode</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">Lav link</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Flere BBKode tags</Resource>
     <Resource tag="TT_HIGHLIGHT">Markér</Resource>

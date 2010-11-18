@@ -122,6 +122,19 @@ function toggleMessage(divId)
     }
 
     /// <summary>
+    /// Gets SyntaxHighlightLoadJs.
+    /// </summary>
+    public static string SyntaxHighlightLoadJs
+    {
+        get
+        {
+            return
+                @"jQuery(document).ready(function() {
+					SyntaxHighlighter.all()});";
+        }
+    }
+
+    /// <summary>
     /// If asynchronous callback encounters any problem, this javascript function will be called.
     /// </summary>
     /// <returns></returns>

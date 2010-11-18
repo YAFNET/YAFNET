@@ -333,8 +333,8 @@ namespace YAF.Classes.Core.BBCode
         ruleEngine.AddRule(
             new SyntaxHighlightedCodeRegexReplaceRule(
                 _rgxCode2,
-                @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}",
-                                                                                                                 localCodeStr)));
+                @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace(
+                    "{0}", localCodeStr)));
 
         // add rule for code block type with no syntax highlighting
         ruleEngine.AddRule(
@@ -354,7 +354,7 @@ namespace YAF.Classes.Core.BBCode
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>",
                                                           _options));
-
+            
             // e-mails
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -364,6 +364,7 @@ namespace YAF.Classes.Core.BBCode
                         {
                             "email"
                         }));
+
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxEmail1, @"<a href=""mailto:${inner}"">${inner}</a>"));
 
             // urls

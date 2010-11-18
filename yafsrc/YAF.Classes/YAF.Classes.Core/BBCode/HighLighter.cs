@@ -7,257 +7,100 @@
 
 namespace YAF.Classes.Core.BBCode
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections;
-  using System.IO;
-  using System.Text.RegularExpressions;
+    using System;
+    using System.Text;
 
-  using YAF.Classes.Utils;
 
-  #endregion
-
-  /// <summary>
-  /// The high lighter.
-  /// </summary>
-  public class HighLighter
-  {
-    /* Ederon : 6/16/2007 - conventions */
-
-    // To Replace Enter with <br />
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _replace enter.
-    /// </summary>
-    private bool _replaceEnter;
 
     #endregion
 
-    // Default Constructor
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "HighLighter" /> class.
+    /// The high lighter.
     /// </summary>
-    public HighLighter()
+    public class HighLighter
     {
-      this._replaceEnter = false;
-    }
+        /* Ederon : 6/16/2007 - conventions */
 
-    #endregion
+        // To Replace Enter with <br />
+        #region Constants and Fields
 
-    #region Properties
+        /// <summary>
+        ///   The _replace enter.
+        /// </summary>
+        private bool _replaceEnter;
 
-    /// <summary>
-    ///   Gets or sets a value indicating whether ReplaceEnter.
-    /// </summary>
-    public bool ReplaceEnter
-    {
-      get
-      {
-        return this._replaceEnter;
-      }
+        #endregion
 
-      set
-      {
-        this._replaceEnter = value;
-      }
-    }
+        // Default Constructor
+        #region Constructors and Destructors
 
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The color text.
-    /// </summary>
-    /// <param name="tmpCode">
-    /// The tmp code.
-    /// </param>
-    /// <param name="pathToDefFile">
-    /// The path to def file.
-    /// </param>
-    /// <param name="language">
-    /// The language.
-    /// </param>
-    /// <returns>
-    /// The color text.
-    /// </returns>
-    /// <exception cref="ApplicationException">
-    /// </exception>
-    public string ColorText(string tmpCode, string pathToDefFile, string language)
-    {
-      language = language.ToLower();
-      if (language == "c#" || language == "csharp")
-      {
-        language = "cs";
-      }
-
-      language = language.Replace("\"", string.Empty);
-
-      // language = language.Replace("&#8220;", "");
-      string tmpOutput = string.Empty;
-      string comments = string.Empty;
-      bool valid = true;
-
-      var alKeyWords = new ArrayList();
-      var alKeyTypes = new ArrayList();
-
-      // cut it off at the pass...
-      if (!File.Exists(pathToDefFile + language + ".def"))
-      {
-        return tmpCode;
-      }
-
-      // Read def file.
-      try
-      {
-        var sr = new StreamReader(pathToDefFile + language + ".def");
-        string tmpLine = string.Empty;
-        string curFlag = string.Empty;
-        while (sr.Peek() != -1)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "HighLighter" /> class.
+        /// </summary>
+        public HighLighter()
         {
-          tmpLine = sr.ReadLine();
-          if (tmpLine != string.Empty)
-          {
-            if (tmpLine.Substring(0, 1) == "-")
+            this._replaceEnter = false;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether ReplaceEnter.
+        /// </summary>
+        public bool ReplaceEnter
+        {
+            get
             {
-              // Ignore these lines and set the Current Flag
-              if (tmpLine.ToLower().IndexOf("keywords") > 0)
-              {
-                curFlag = "keywords";
-              }
-
-              if (tmpLine.ToLower().IndexOf("keytypes") > 0)
-              {
-                curFlag = "keytypes";
-              }
-
-              if (tmpLine.ToLower().IndexOf("comments") > 0)
-              {
-                curFlag = "comments";
-              }
+                return this._replaceEnter;
             }
-            else
+
+            set
             {
-              if (curFlag == "keywords")
-              {
-                alKeyWords.Add(tmpLine);
-              }
-
-              if (curFlag == "keytypes")
-              {
-                alKeyTypes.Add(tmpLine);
-              }
-
-              if (curFlag == "comments")
-              {
-                comments = tmpLine;
-              }
+                this._replaceEnter = value;
             }
-          }
         }
 
-        sr.Close();
-      }
-      catch (Exception ex)
-      {
-        string foobar = ex.ToString();
-        tmpOutput = "<span class=\"errors\">There was an error opening file " + pathToDefFile + language +
-                    ".def...</span>";
-        valid = false;
-        throw new ApplicationException(
-          "There was an error opening file {0}{1}.def".FormatWith(pathToDefFile, language), ex);
-      }
+        #endregion
 
-      if (valid)
-      {
-        // Replace Comments
-        int lineNum = 0;
-        var thisComment = new ArrayList();
-        MatchCollection mColl = Regex.Matches(tmpCode, comments, RegexOptions.Multiline | RegexOptions.IgnoreCase);
-        foreach (Match m in mColl)
+        #region Public Methods
+
+        /// <summary>
+        /// The color text.
+        /// </summary>
+        /// <param name="tmpCode">
+        /// The tmp code.
+        /// </param>
+        /// <param name="pathToDefFile">
+        /// The path to def file.
+        /// </param>
+        /// <param name="language">
+        /// The language.
+        /// </param>
+        /// <returns>
+        /// The color text.
+        /// </returns>
+        /// <exception cref="ApplicationException">
+        /// </exception>
+        public string ColorText(string tmpCode, string pathToDefFile, string language)
         {
-          thisComment.Add(m.ToString());
-          tmpCode = tmpCode.Replace(m.ToString(), "[ReplaceComment" + lineNum++ + "]");
+            language = language.ToLower();
+
+            language = language.Replace("\"", string.Empty);
+
+            var tmpOutput = new StringBuilder();
+
+            // Create Output
+            tmpOutput.AppendFormat("<pre class=\"brush:{0};\">{1}", language, Environment.NewLine);
+            tmpOutput.Append(tmpCode);
+            tmpOutput.AppendFormat("</pre>{0}", Environment.NewLine);
+
+            return tmpOutput.ToString();
         }
 
-        // Replace Strings
-        lineNum = 0;
-        var thisString = new ArrayList();
-        string thisMatch = "\"((\\\\\")|[^\"(\\\\\")]|)+\"";
-        mColl = Regex.Matches(tmpCode, thisMatch, RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        foreach (Match m in mColl)
-        {
-          thisString.Add(m.ToString());
-          tmpCode = tmpCode.Replace(m.ToString(), "[ReplaceString" + lineNum++ + "]");
-        }
-
-        // Replace Chars
-        lineNum = 0;
-        var thisChar = new ArrayList();
-        mColl = Regex.Matches(tmpCode, "\'.*?\'", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        foreach (Match m in mColl)
-        {
-          thisChar.Add(m.ToString());
-          tmpCode = tmpCode.Replace(m.ToString(), "[ReplaceChar" + lineNum++ + "]");
-        }
-
-        // Replace KeyWords
-        var keyWords = new string[alKeyWords.Count];
-        alKeyWords.CopyTo(keyWords);
-        string tmpKeyWords = "(?<replacethis>" + String.Join("|", keyWords) + ")";
-        tmpCode = Regex.Replace(
-          tmpCode, "\\b" + tmpKeyWords + "\\b(?<!//.*)", "<span class=\"keyword\">${replacethis}</span>");
-
-        // Replace KeyTypes
-        var keyTypes = new string[alKeyTypes.Count];
-        alKeyTypes.CopyTo(keyTypes);
-        string tmpKeyTypes = "(?<replacethis>" + String.Join("|", keyTypes) + ")";
-        tmpCode = Regex.Replace(
-          tmpCode, "\\b" + tmpKeyTypes + "\\b(?<!//.*)", "<span class=\"keytype\">${replacethis}</span>");
-
-        lineNum = 0;
-        foreach (string m in thisChar)
-        {
-          tmpCode = tmpCode.Replace("[ReplaceChar" + lineNum++ + "]", "<span class=\"string\">" + m + "</span>");
-        }
-
-        lineNum = 0;
-        foreach (string m in thisString)
-        {
-          tmpCode = tmpCode.Replace("[ReplaceString" + lineNum++ + "]", "<span class=\"string\">" + m + "</span>");
-        }
-
-        lineNum = 0;
-        foreach (string m in thisComment)
-        {
-          tmpCode = tmpCode.Replace("[ReplaceComment" + lineNum++ + "]", "<span class=\"comment\">" + m + "</span>");
-        }
-
-        // Replace Numerics
-        tmpCode = Regex.Replace(tmpCode, "(\\d{1,12}\\.\\d{1,12}|\\d{1,12})", "<span class=\"integer\">$1</span>");
-
-        if (this._replaceEnter)
-        {
-          tmpCode = Regex.Replace(tmpCode, "\r", string.Empty);
-          tmpCode = Regex.Replace(tmpCode, "\n", "<br />" + Environment.NewLine);
-        }
-
-        tmpCode = Regex.Replace(tmpCode, "  ", "&nbsp;&nbsp;");
-        tmpCode = Regex.Replace(tmpCode, "\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-
-        // Create Output
-        tmpOutput = "<div class=\"yafcodehighlighting\">" + Environment.NewLine;
-        tmpOutput += tmpCode;
-        tmpOutput += "</div>" + Environment.NewLine;
-      }
-
-      return tmpOutput;
+        #endregion
     }
-
-    #endregion
-  }
 }

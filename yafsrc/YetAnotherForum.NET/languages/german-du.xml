@@ -332,6 +332,7 @@
     <Resource tag="TT_ALIGNRIGHT">Rechtsbündig</Resource>
     <Resource tag="TT_BOLD">Fett</Resource>
     <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">Link einfügen</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Weitere BBCodes</Resource>
     <Resource tag="TT_HIGHLIGHT">Hervorheben</Resource>

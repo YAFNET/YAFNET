@@ -705,18 +705,6 @@
     <Content Include="controls\YafHeader.ascx" />
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
-    <Content Include="defs\asm.def" />
-    <Content Include="defs\asp.def" />
-    <Content Include="defs\bas.def" />
-    <Content Include="defs\c.def" />
-    <Content Include="defs\cpp.def" />
-    <Content Include="defs\cs.def" />
-    <Content Include="defs\DefFiles.txt" />
-    <Content Include="defs\frm.def" />
-    <Content Include="defs\htm.def" />
-    <Content Include="defs\java.def" />
-    <Content Include="defs\sql.def" />
-    <Content Include="defs\vb.def" />
     <Content Include="editors\radEditor\toolsFile.xml" />
     <Content Include="editors\yafEditor\backcolor.gif" />
     <Content Include="editors\yafEditor\bbcode.gif" />
@@ -926,6 +914,7 @@
     <Content Include="popup.aspx" />
     <Content Include="resources\css\forum.css" />
     <Content Include="resources\css\jquery.lightbox.css" />
+    <Content Include="resources\css\jquery.syntaxhighligher.css" />
     <Content Include="resources\icons\applications-stack.png" />
     <Content Include="resources\icons\balloon.png" />
     <Content Include="resources\icons\bin.png" />
@@ -977,6 +966,7 @@
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.lightbox.min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
+    <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
     <Content Include="resources\js\jquery.timeago.js" />
     <Content Include="resources\js\yaf.js" />

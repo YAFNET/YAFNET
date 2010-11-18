@@ -315,6 +315,7 @@
     <Resource tag="TT_ALIGNRIGHT">Sağa Hizala</Resource>
     <Resource tag="TT_BOLD">Kalın</Resource>
     <Resource tag="TT_CODE">Kod</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">Link Oluştur</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Daha fazla BBCode Tagı</Resource>
     <Resource tag="TT_HIGHLIGHT">Altı Çizili</Resource>

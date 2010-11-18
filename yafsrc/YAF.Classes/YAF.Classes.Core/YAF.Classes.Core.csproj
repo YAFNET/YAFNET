@@ -98,6 +98,7 @@
     <Compile Include="BBCode\ReplaceRules\CodeRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\FontSizeRegexReplaceRule.cs" />
     <Compile Include="BBCode\HighLighter.cs" />
+    <Compile Include="BBCode\HighLightList.cs" />
     <Compile Include="BBCode\ReplaceBlocksCollection.cs" />
     <Compile Include="BBCode\IReplaceRule.cs" />
     <Compile Include="BBCode\IProcessReplaceRules.cs" />

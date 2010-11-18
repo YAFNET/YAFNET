@@ -315,6 +315,7 @@
     <Resource tag="TT_ALIGNRIGHT">در سمت راست</Resource>
     <Resource tag="TT_BOLD">ذخیم</Resource>
     <Resource tag="TT_CODE">کد</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">ایجاد لینک</Resource>
     <Resource tag="TT_CUSTOMBBCODE">تگهای BBCode بیشتر</Resource>
     <Resource tag="TT_HIGHLIGHT">برجسته</Resource>

@@ -20,6 +20,9 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "code":
             wrapSelection(textObj, "[code]", "[/code]");
             break;
+        case "codelang":
+            wrapSelection(textObj, "[code=" + option + "]", "[/code]");
+            break;
         case "img":
             if (getCurrentSelection(textObj)) {
                 wrapSelection(textObj, '[img]', '[/img]');

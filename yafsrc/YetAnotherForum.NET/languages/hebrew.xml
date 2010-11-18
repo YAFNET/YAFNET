@@ -355,6 +355,7 @@
     <Resource tag="TT_ALIGNRIGHT">הצמדה לימין</Resource>
     <Resource tag="TT_BOLD">מודגש</Resource>
     <Resource tag="TT_CODE">קוד</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">יצירת קישור</Resource>
     <Resource tag="TT_CUSTOMBBCODE">עוד תוויות BBCode</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>

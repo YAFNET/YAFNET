@@ -348,6 +348,7 @@
     <Resource tag="TT_ALIGNRIGHT">Выровнять по правому краю</Resource>
     <Resource tag="TT_BOLD">Жирный</Resource>
     <Resource tag="TT_CODE">Код</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">Создать ссылку</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Больше кодов BBCode</Resource>
     <Resource tag="TT_HIGHLIGHT">Подсветка</Resource>

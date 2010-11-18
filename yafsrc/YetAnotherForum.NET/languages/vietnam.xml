@@ -315,6 +315,7 @@
     <Resource tag="TT_ALIGNRIGHT">Canh lề phải</Resource>
     <Resource tag="TT_BOLD">Đậm</Resource>
     <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
     <Resource tag="TT_CREATELINK">Tạo liên kết</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Thêm BBCode Tags</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>

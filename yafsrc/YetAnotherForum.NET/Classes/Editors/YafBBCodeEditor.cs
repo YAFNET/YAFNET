@@ -21,6 +21,7 @@ namespace YAF.Editors
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.Data;
   using System.Web.UI;
 
@@ -39,9 +40,14 @@ namespace YAF.Editors
     #region Constants and Fields
 
     /// <summary>
-    /// The _pop menu.
+    /// The  BB Custom menu.
     /// </summary>
-    private PopMenu _popMenu = null;
+    private PopMenu _popMenuBBCustom = null;
+
+      /// <summary>
+      /// The BB Code menu.
+      /// </summary>
+      private PopMenu _popMenuBBCode = null;
 
     #endregion
 
@@ -116,9 +122,13 @@ namespace YAF.Editors
       base.OnInit(e);
       this._textCtl.Attributes.Add("class", "BBCodeEditor");
 
-      // add popmenu to this mix...
-      this._popMenu = new PopMenu();
-      this.Controls.Add(this._popMenu);
+      // add popmenu BB Custom to this mix...
+      this._popMenuBBCustom = new PopMenu();
+      this.Controls.Add(this._popMenuBBCustom);
+
+      // add popmenu BB Code to this mix...
+      this._popMenuBBCode = new PopMenu();
+      this.Controls.Add(this._popMenuBBCode);
     }
 
     /// <summary>
@@ -129,180 +139,227 @@ namespace YAF.Editors
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
-      writer.WriteLine("<tr><td>");
+        writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
+        writer.WriteLine("<tr><td>");
 
-      this.RenderButton(
-        writer, 
-        "bold", 
-        "FormatText('bold','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_BOLD"), 
-        "yafEditor/bold.gif");
-      this.RenderButton(
-        writer, 
-        "italic", 
-        "FormatText('italic','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_ITALIC"), 
-        "yafEditor/italic.gif");
+        this.RenderButton(
+            writer,
+            "bold",
+            "FormatText('bold','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_BOLD"),
+            "yafEditor/bold.gif");
+        this.RenderButton(
+            writer,
+            "italic",
+            "FormatText('italic','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_ITALIC"),
+            "yafEditor/italic.gif");
 
-      this.RenderButton(
-        writer, 
-        "underline", 
-        "FormatText('underline','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_UNDERLINE"), 
-        "yafEditor/underline.gif");
+        this.RenderButton(
+            writer,
+            "underline",
+            "FormatText('underline','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_UNDERLINE"),
+            "yafEditor/underline.gif");
 
-      writer.WriteLine("&nbsp;");
-
-      this.RenderButton(
-        writer,
-        "highlight",
-        "FormatText('highlight','')",
-        YafContext.Current.Localization.GetText("COMMON", "TT_HIGHLIGHT"),
-        "yafEditor/highlight.gif");
-
-      this.RenderButton(
-        writer, 
-        "quote", 
-        "FormatText('quote','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_QUOTE"), 
-        "yafEditor/quote.gif");
-      this.RenderButton(
-        writer, 
-        "code", 
-        "FormatText('code','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_CODE"), 
-        "yafEditor/code.gif");
-      this.RenderButton(
-        writer, 
-        "img", 
-        "FormatText('img','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_IMAGE"), 
-        "yafEditor/image.gif");
-      this.RenderButton(
-        writer, 
-        "createlink", 
-        "FormatText('createlink','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_CREATELINK"), 
-        "yafEditor/link.gif");
-
-      writer.WriteLine("&nbsp;");
-
-      this.RenderButton(
-      writer,
-      "unorderedlist",
-      "FormatText('unorderedlist','')",
-      YafContext.Current.Localization.GetText("COMMON", "TT_LISTUNORDERED"),
-      "yafEditor/unorderedlist.gif");
-      this.RenderButton(
-        writer,
-        "orderedlist",
-        "FormatText('orderedlist','')",
-        YafContext.Current.Localization.GetText("COMMON", "TT_LISTORDERED"),
-        "yafEditor/orderedlist.gif");
-
-      writer.WriteLine("&nbsp;");
-
-      this.RenderButton(
-        writer, 
-        "justifyleft", 
-        "FormatText('justifyleft','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNLEFT"), 
-        "yafEditor/justifyleft.gif");
-      this.RenderButton(
-        writer, 
-        "justifycenter", 
-        "FormatText('justifycenter','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNCENTER"), 
-        "yafEditor/justifycenter.gif");
-      this.RenderButton(
-        writer, 
-        "justifyright", 
-        "FormatText('justifyright','')", 
-        YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNRIGHT"), 
-        "yafEditor/justifyright.gif");
-
-      DataTable customBbCode = YafBBCode.GetCustomBBCode();
-
-      if (customBbCode.Rows.Count > 0)
-      {
         writer.WriteLine("&nbsp;");
+
+        this.RenderButton(
+            writer,
+            "highlight",
+            "FormatText('highlight','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_HIGHLIGHT"),
+            "yafEditor/highlight.gif");
+
+        this.RenderButton(
+            writer,
+            "quote",
+            "FormatText('quote','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_QUOTE"),
+            "yafEditor/quote.gif");
 
         // add drop down for optional "extra" codes...
         writer.WriteLine(
-          @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />".FormatWith(this._popMenu.ControlOnClick, this._popMenu.ControlOnMouseOver, YafContext.Current.Localization.GetText("COMMON", "CUSTOM_BBCODE"), this.ClientID + "_bbcode_popMenu", YafContext.Current.Localization.GetText("COMMON", "TT_CUSTOMBBCODE"), this.ResolveUrl("yafEditor/bbcode.gif")));
+            @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
+                .FormatWith(
+                    this._popMenuBBCode.ControlOnClick,
+                    this._popMenuBBCode.ControlOnMouseOver,
+                    YafContext.Current.Localization.GetText("COMMON", "TT_CODE"),
+                    this.ClientID + "_bbcode_popMenu",
+                    YafContext.Current.Localization.GetText("COMMON", "TT_CODELANG"),
+                    this.ResolveUrl("yafEditor/code.gif")));
 
-        foreach (DataRow row in customBbCode.Rows)
+       List<HighLightList> highLightList = new List<HighLightList>
+           {
+               new HighLightList { BrushAlias = "plain", BrushName = "Plain Text" },
+               new HighLightList { BrushAlias = "as3", BrushName = "ActionScript3" },
+               new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" },
+               new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" },
+               new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
+               new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
+               new HighLightList { BrushAlias = "css", BrushName = "CSS" },
+               new HighLightList { BrushAlias = "delphi", BrushName = "Delpi" },
+               new HighLightList { BrushAlias = "diff", BrushName = "Diff" },
+               new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" },
+               new HighLightList { BrushAlias = "groovy", BrushName = "Groovy" },
+               new HighLightList { BrushAlias = "jscript", BrushName = "JavaScript" },
+               new HighLightList { BrushAlias = "java", BrushName = "Java" },
+               new HighLightList { BrushAlias = "javafx", BrushName = "JavaFX" },
+               new HighLightList { BrushAlias = "perl", BrushName = "Perl" },
+               new HighLightList { BrushAlias = "php", BrushName = "PHP" },
+               new HighLightList { BrushAlias = "powershell", BrushName = "PowerShell" },
+               new HighLightList { BrushAlias = "python", BrushName = "Pyton" },
+               new HighLightList { BrushAlias = "ruby", BrushName = "Ruby" },
+               new HighLightList { BrushAlias = "scala", BrushName = "Scala" },
+               new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
+               new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" },
+               new HighLightList { BrushAlias = "xml", BrushName = "XML" }
+           };
+
+        foreach (HighLightList item in highLightList)
         {
-          string name = row["Name"].ToString();
-
-          if (row["Description"] != DBNull.Value && row["Description"].ToString().IsSet())
-          {
-            // use the description as the option "name"
-            name = YafBBCode.LocalizeCustomBBCodeElement(row["Description"].ToString());
-          }
-
-          string onclickJS = string.Empty;
-
-          if (row["OnClickJS"] != DBNull.Value && row["OnClickJS"].ToString().IsSet())
-          {
-            onclickJS = row["OnClickJS"].ToString();
-          }
-          else
-          {
-            // assume the bbcode is just the name... 
-            onclickJS = "setStyle('{0}','')".FormatWith(row["Name"].ToString().Trim());
-          }
-
-          this._popMenu.AddClientScriptItem(name, onclickJS);
+            this._popMenuBBCode.AddClientScriptItem(item.BrushName, "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
         }
-      }
+        
+        this.RenderButton(
+            writer,
+            "img",
+            "FormatText('img','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_IMAGE"),
+            "yafEditor/image.gif");
+        this.RenderButton(
+            writer,
+            "createlink",
+            "FormatText('createlink','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_CREATELINK"),
+            "yafEditor/link.gif");
 
-      writer.WriteLine("	</td></tr>");
-      writer.WriteLine("	<tr><td>");
+        writer.WriteLine("&nbsp;");
 
-      // TODO: Convert to a control...
-      writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_COLOR"));
-      writer.WriteLine(
-        "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
-      writer.WriteLine("<option value=\"\">Default</option>");
+        this.RenderButton(
+            writer,
+            "unorderedlist",
+            "FormatText('unorderedlist','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_LISTUNORDERED"),
+            "yafEditor/unorderedlist.gif");
+        this.RenderButton(
+            writer,
+            "orderedlist",
+            "FormatText('orderedlist','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_LISTORDERED"),
+            "yafEditor/orderedlist.gif");
 
-      string[] Colors = {
-                          "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", 
-                          "Indigo", "Violet", "White", "Black"
-                        };
-      foreach (string color in Colors)
-      {
-        string tValue = color.Replace(" ", string.Empty).ToLower();
-        writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
-      }
+        writer.WriteLine("&nbsp;");
 
-      writer.WriteLine("</select>");
+        this.RenderButton(
+            writer,
+            "justifyleft",
+            "FormatText('justifyleft','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNLEFT"),
+            "yafEditor/justifyleft.gif");
+        this.RenderButton(
+            writer,
+            "justifycenter",
+            "FormatText('justifycenter','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNCENTER"),
+            "yafEditor/justifycenter.gif");
+        this.RenderButton(
+            writer,
+            "justifyright",
+            "FormatText('justifyright','')",
+            YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNRIGHT"),
+            "yafEditor/justifyright.gif");
 
-      // TODO: Just convert to a drop down control...
-      writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_SIZE"));
-      writer.WriteLine(
-        "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", this.SafeID);
-      writer.WriteLine("<option value=\"1\">1</option>");
-      writer.WriteLine("<option value=\"2\">2</option>");
-      writer.WriteLine("<option value=\"3\">3</option>");
-      writer.WriteLine("<option value=\"4\">4</option>");
-      writer.WriteLine("<option selected=\"selected\" value=\"5\">Default</option>");
-      writer.WriteLine("<option value=\"6\">6</option>");
-      writer.WriteLine("<option value=\"7\">7</option>");
-      writer.WriteLine("<option value=\"8\">8</option>");
-      writer.WriteLine("<option value=\"9\">9</option>");
-      writer.WriteLine("</select>");
+        DataTable customBbCode = YafBBCode.GetCustomBBCode();
 
-      writer.WriteLine("</td></tr>");
-      writer.WriteLine("</table>");
+        if (customBbCode.Rows.Count > 0)
+        {
+            writer.WriteLine("&nbsp;");
 
-      this._textCtl.RenderControl(writer);
+            // add drop down for optional "extra" codes...
+            writer.WriteLine(
+                @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
+                    .FormatWith(
+                        this._popMenuBBCustom.ControlOnClick,
+                        this._popMenuBBCustom.ControlOnMouseOver,
+                        YafContext.Current.Localization.GetText("COMMON", "CUSTOM_BBCODE"),
+                        this.ClientID + "_bbcustom_popMenu",
+                        YafContext.Current.Localization.GetText("COMMON", "TT_CUSTOMBBCODE"),
+                        this.ResolveUrl("yafEditor/bbcode.gif")));
 
-      this._popMenu.RenderControl(writer);
+            foreach (DataRow row in customBbCode.Rows)
+            {
+                string name = row["Name"].ToString();
+
+                if (row["Description"] != DBNull.Value && row["Description"].ToString().IsSet())
+                {
+                    // use the description as the option "name"
+                    name = YafBBCode.LocalizeCustomBBCodeElement(row["Description"].ToString());
+                }
+
+                string onclickJS = string.Empty;
+
+                if (row["OnClickJS"] != DBNull.Value && row["OnClickJS"].ToString().IsSet())
+                {
+                    onclickJS = row["OnClickJS"].ToString();
+                }
+                else
+                {
+                    // assume the bbcode is just the name... 
+                    onclickJS = "setStyle('{0}','')".FormatWith(row["Name"].ToString().Trim());
+                }
+
+                this._popMenuBBCustom.AddClientScriptItem(name, onclickJS);
+            }
+        }
+
+        writer.WriteLine("	</td></tr>");
+        writer.WriteLine("	<tr><td>");
+
+        // TODO: Convert to a control...
+        writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_COLOR"));
+        writer.WriteLine(
+            "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
+        writer.WriteLine("<option value=\"\">Default</option>");
+
+        string[] Colors = {
+                              "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue",
+                              "Dark Blue", "Indigo", "Violet", "White", "Black"
+                          };
+
+        foreach (string color in Colors)
+        {
+            string tValue = color.Replace(" ", string.Empty).ToLower();
+            writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
+        }
+
+        writer.WriteLine("</select>");
+
+        // TODO: Just convert to a drop down control...
+        writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_SIZE"));
+        writer.WriteLine(
+            "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", this.SafeID);
+        writer.WriteLine("<option value=\"1\">1</option>");
+        writer.WriteLine("<option value=\"2\">2</option>");
+        writer.WriteLine("<option value=\"3\">3</option>");
+        writer.WriteLine("<option value=\"4\">4</option>");
+        writer.WriteLine("<option selected=\"selected\" value=\"5\">Default</option>");
+        writer.WriteLine("<option value=\"6\">6</option>");
+        writer.WriteLine("<option value=\"7\">7</option>");
+        writer.WriteLine("<option value=\"8\">8</option>");
+        writer.WriteLine("<option value=\"9\">9</option>");
+        writer.WriteLine("</select>");
+
+        writer.WriteLine("</td></tr>");
+        writer.WriteLine("</table>");
+
+        this._textCtl.RenderControl(writer);
+
+        this._popMenuBBCustom.RenderControl(writer);
+        this._popMenuBBCode.RenderControl(writer);
     }
 
-    /// <summary>
+      /// <summary>
     /// The render button.
     /// </summary>
     /// <param name="writer">

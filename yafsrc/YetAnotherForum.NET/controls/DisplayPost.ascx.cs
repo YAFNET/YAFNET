@@ -17,6 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using AjaxPro.Utilities;
+
 namespace YAF.Controls
 {
   #region Using
@@ -75,15 +77,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (this._postDataHelperWrapper.DataRow != null)
-        {
-          return this._postDataHelperWrapper.DataRow;
-        }
-
-        return null;
+          return this._postDataHelperWrapper.DataRow ?? null;
       }
 
-      set
+        set
       {
         this._postDataHelperWrapper = new PostDataHelperWrapper(value);
       }
@@ -101,14 +98,7 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.PostData != null)
-        {
-          return UserMembershipHelper.IsGuestUser(this.PostData.UserId);
-        }
-        else
-        {
-          return true;
-        }
+          return this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
       }
     }
 
@@ -198,16 +188,15 @@ namespace YAF.Controls
       }
 
       var indent = (int)this.DataRow["Indent"];
+
       if (indent > 0)
       {
         return
           @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
             .FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
       }
-      else
-      {
+        
         return string.Empty;
-      }
     }
 
     /// <summary>
@@ -219,17 +208,10 @@ namespace YAF.Controls
     [NotNull]
     protected string GetIndentSpan()
     {
-      if (!this.IsThreaded || (int)this.DataRow["Indent"] == 0)
-      {
-        return "2";
-      }
-      else
-      {
-        return "1";
-      }
+        return !this.IsThreaded || (int)this.DataRow["Indent"] == 0 ? "2" : "1";
     }
 
-    /// <summary>
+      /// <summary>
     /// The get post class.
     /// </summary>
     /// <returns>
@@ -237,18 +219,11 @@ namespace YAF.Controls
     /// </returns>
     [NotNull]
     protected string GetPostClass()
-    {
-      if (this.IsAlt)
       {
-        return "post_alt";
+          return this.IsAlt ? "post_alt" : "post";
       }
-      else
-      {
-        return "post";
-      }
-    }
 
-    // Prevents a high user box when displaying a deleted post.
+      // Prevents a high user box when displaying a deleted post.
 
     /// <summary>
     /// The get user box height.
@@ -259,15 +234,10 @@ namespace YAF.Controls
     [NotNull]
     protected string GetUserBoxHeight()
     {
-      if (this.PostData.PostDeleted)
-      {
-        return "0";
-      }
-
-      return "100";
+        return this.PostData.PostDeleted ? "0" : "100";
     }
 
-    /// <summary>
+      /// <summary>
     /// The on init.
     /// </summary>
     /// <param name="e">
@@ -380,6 +350,11 @@ namespace YAF.Controls
         YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
       }
 
+      // Setup Syntax Highlight JS
+      YafContext.Current.PageElements.RegisterJsResourceInclude("syntaxhighlighter", "js/jquery.syntaxhighligher.js");
+      YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
+      YafContext.Current.PageElements.RegisterJsBlock("syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
+
       this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
     }
 
@@ -459,27 +434,29 @@ namespace YAF.Controls
         this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
       }
 
-      int thanksNumber = Convert.ToInt32(this.DataRow["MessageThanksNumber"]);
+      int thanksNumber = this.DataRow["MessageThanksNumber"].ToType<int>();
 
-      if (thanksNumber != 0)
-      {
+        if (thanksNumber == 0)
+        {
+            return;
+        }
+
         this.thanksDataExtendedLiteral.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
         this.thanksDataExtendedLiteral.Visible = true;
 
         if (thanksNumber == 1)
         {
-          this.ThanksDataLiteral.Text =
-            this.PageContext.Localization.GetText("THANKSINFOSINGLE").FormatWith(
-              this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId)));
+            this.ThanksDataLiteral.Text =
+                this.PageContext.Localization.GetText("THANKSINFOSINGLE").FormatWith(
+                    this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId)));
         }
         else
         {
-          this.ThanksDataLiteral.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(
-            thanksNumber, this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId)));
+            this.ThanksDataLiteral.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(
+                thanksNumber, this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PostData.UserId)));
         }
 
         this.ThanksDataLiteral.Visible = true;
-      }
     }
 
     /// <summary>
