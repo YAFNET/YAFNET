@@ -20,442 +20,448 @@
 
 namespace YAF.Pages.Admin
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Data.SqlTypes;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Data.SqlTypes;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
-  using YAF.Utilities;
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Data;
+    using YAF.Classes.Pattern;
+    using YAF.Classes.Utils;
+    using YAF.Utilities;
 
-  #endregion
-
-  /// <summary>
-  /// Summary description for members.
-  /// </summary>
-  public partial class users : AdminPage
-  {
-    // Construction 
-    #region Public Methods
+    #endregion
 
     /// <summary>
-    /// The delete_ load.
+    /// Summary description for members.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class users : AdminPage
     {
-      // add confirmation method on click
-      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this user?");
-    }
+        // Construction 
+        #region Public Methods
 
-    /// <summary>
-    /// The new user_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void NewUser_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // redirect to create new user page
-      YafBuildLink.Redirect(ForumPages.admin_reguser);
-    }
+        /// <summary>
+        /// The delete_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // add confirmation method on click
+            ControlHelper.AddOnClickConfirmDialog(sender, "Delete this user?");
+        }
 
-    /// <summary>
-    /// The user list_ item command.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
+        /// <summary>
+        /// The new user_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void NewUser_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // redirect to create new user page
+            YafBuildLink.Redirect(ForumPages.admin_reguser);
+        }
 
-          // we are going to edit user - redirect to edit page
-          YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
-          break;
-        case "delete":
-
-          // we are deleting user
-          if (this.PageContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
-          {
-            // deleting yourself isn't an option
-            this.PageContext.AddLoadMessage("You can't delete yourself.");
-            return;
-          }
-
-          // get user(s) we are about to delete                
-          using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
-          {
-            // examine each if he's possible to delete
-            foreach (DataRow row in dt.Rows)
+        /// <summary>
+        /// The user list_ item command.
+        /// </summary>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
             {
-              if (SqlDataLayerConverter.VerifyInt32(row["IsGuest"]) > 0)
-              {
-                // we cannot detele guest
-                this.PageContext.AddLoadMessage("You can't delete the Guest.");
-                return;
-              }
+                case "edit":
 
-              if ((row["IsAdmin"] != DBNull.Value && SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) > 0) ||
-                  (row["IsHostAdmin"] != DBNull.Value && Convert.ToInt32(row["IsHostAdmin"]) > 0))
-              {
-                // admin are not deletable either
-                this.PageContext.AddLoadMessage("You can't delete the Admin.");
-                return;
-              }
+                    // we are going to edit user - redirect to edit page
+                    YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+                    break;
+                case "delete":
+
+                    // we are deleting user
+                    if (this.PageContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
+                    {
+                        // deleting yourself isn't an option
+                        this.PageContext.AddLoadMessage("You can't delete yourself.");
+                        return;
+                    }
+
+                    // get user(s) we are about to delete                
+                    using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
+                    {
+                        // examine each if he's possible to delete
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (SqlDataLayerConverter.VerifyInt32(row["IsGuest"]) > 0)
+                            {
+                                // we cannot detele guest
+                                this.PageContext.AddLoadMessage("You can't delete the Guest.");
+                                return;
+                            }
+
+                            if ((row["IsAdmin"] != DBNull.Value && SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) > 0) ||
+                                (row["IsHostAdmin"] != DBNull.Value && row["IsHostAdmin"].ToType<int>() > 0))
+                            {
+                                // admin are not deletable either
+                                this.PageContext.AddLoadMessage("You can't delete the Admin.");
+                                return;
+                            }
+                        }
+                    }
+
+                    // all is good, user can be deleted
+                    UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
+
+                    // rebind data
+                    this.BindData();
+
+                    // quit case
+                    break;
             }
-          }
-
-          // all is good, user can be deleted
-          UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
-
-          // rebind data
-          this.BindData();
-
-          // quit case
-          break;
-      }
-    }
-
-    /// <summary>
-    /// The search_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void search_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // re-bind data
-      this.BindData();
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The bit set.
-    /// </summary>
-    /// <param name="_o">
-    /// The _o.
-    /// </param>
-    /// <param name="bitmask">
-    /// The bitmask.
-    /// </param>
-    /// <returns>
-    /// The bit set boolean value.
-    /// </returns>
-    protected bool BitSet([NotNull] object _o, int bitmask)
-    {
-      var i = (int)_o;
-      return (i & bitmask) != 0;
-    }
-
-    /// <summary>
-    /// Creates navigation page links on top of forum (breadcrumbs).
-    /// </summary>
-    protected override void CreatePageLinks()
-    {
-      // link to board index
-      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-
-      // link to administration index
-      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-
-      // current page label (no link)
-      this.PageLinks.AddLink("Users", string.Empty);
-    }
-
-    /// <summary>
-    /// Initializes dropdown with options to filter results by date.
-    /// </summary>
-    protected void InitSinceDropdown()
-    {
-      // value 0, for since last visted
-      this.Since.Items.Add(
-        new ListItem(
-          "Last visit at {0}".FormatWith(
-            this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit)), 
-          "0"));
-
-      // negative values for hours backward
-      this.Since.Items.Add(new ListItem("Last hour", "-1"));
-      this.Since.Items.Add(new ListItem("Last two hours", "-2"));
-
-      // positive values for days backward
-      this.Since.Items.Add(new ListItem("Last day", "1"));
-      this.Since.Items.Add(new ListItem("Last two days", "2"));
-      this.Since.Items.Add(new ListItem("Last week", "7"));
-      this.Since.Items.Add(new ListItem("Last two weeks", "14"));
-      this.Since.Items.Add(new ListItem("Last month", "31"));
-
-      // all time (i.e. no filter)
-      this.Since.Items.Add(new ListItem("All time", "9999"));
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.PageContext.PageElements.RegisterJQuery();
-      this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
-
-      if (!this.IsPostBack)
-      {
-        // create page links
-        this.CreatePageLinks();
-
-        // intialize since filter items
-        this.InitSinceDropdown();
-
-        // set since filter to last item "All time"
-        this.Since.SelectedIndex = this.Since.Items.Count - 1;
-        this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loading-white.gif");
-
-        // get list of user groups for filtering
-        using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, null))
-        {
-          // add empty item for no filtering
-          DataRow newRow = dt.NewRow();
-          newRow["Name"] = string.Empty;
-          newRow["GroupID"] = DBNull.Value;
-          dt.Rows.InsertAt(newRow, 0);
-          this.group.DataSource = dt;
-          this.group.DataTextField = "Name";
-          this.group.DataValueField = "GroupID";
-          this.group.DataBind();
         }
 
-        // get list of user ranks for filtering
-        using (DataTable dt = DB.rank_list(this.PageContext.PageBoardID, null))
+        /// <summary>
+        /// The search_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void search_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-          // add empty for for no filtering
-          DataRow newRow = dt.NewRow();
-          newRow["Name"] = string.Empty;
-          newRow["RankID"] = DBNull.Value;
-          dt.Rows.InsertAt(newRow, 0);
-
-          this.rank.DataSource = dt;
-          this.rank.DataTextField = "Name";
-          this.rank.DataValueField = "RankID";
-          this.rank.DataBind();
+            // re-bind data
+            this.BindData();
         }
 
-        // TODO : page size difinable?
-        this.PagerTop.PageSize = 25;
-      }
-    }
+        #endregion
 
-    /// <summary>
-    /// The pager top_ page change.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // rebind
-      this.BindData();
-    }
+        #region Methods
 
-    /// <summary>
-    /// The since_ selected index changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // Set the controls' pager index to 0.
-      this.PagerTop.CurrentPageIndex = 0;
-
-      // re-bind data
-      this.BindData();
-    }
-
-    /// <summary>
-    /// The sync users_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void SyncUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // start...
-      SyncMembershipUsersTask.Start(this.PageContext.PageBoardID);
-
-      // enable timer...
-      this.UpdateStatusTimer.Enabled = true;
-
-      // show blocking ui...
-      this.PageContext.PageElements.RegisterJsBlockStartup(
-        "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
-    }
-
-    /// <summary>
-    /// The update status timer_ tick.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // see if the migration is done...
-      if (YafTaskModule.Current.IsTaskRunning(SyncMembershipUsersTask.TaskName))
-      {
-        // continue...
-        return;
-      }
-
-      this.UpdateStatusTimer.Enabled = false;
-
-      // done here...
-      YafBuildLink.Redirect(ForumPages.admin_users);
-    }
-
-    /* Methods */
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      // default since date is now
-      DateTime sinceDate = DateTime.UtcNow;
-
-      // default since option is "since last visit"
-      int sinceValue = 0;
-
-      // is any "since"option selected
-      if (this.Since.SelectedItem != null)
-      {
-        // get selected value
-        sinceValue = int.Parse(this.Since.SelectedItem.Value);
-
-        // sinceDate = DateTime.UtcNow;
-        // no need to do it again (look above)
-        // decrypt selected option
-        if (sinceValue == 9999)
+        /// <summary>
+        /// The bit set.
+        /// </summary>
+        /// <param name="_o">
+        /// The _o.
+        /// </param>
+        /// <param name="bitmask">
+        /// The bitmask.
+        /// </param>
+        /// <returns>
+        /// The bit set boolean value.
+        /// </returns>
+        protected bool BitSet([NotNull] object _o, int bitmask)
         {
-          // all
-          // get all, from the beginning
-          sinceDate = (DateTime)SqlDateTime.MinValue;
+            var i = (int)_o;
+            return (i & bitmask) != 0;
         }
-        else if (sinceValue > 0)
+
+        /// <summary>
+        /// Creates navigation page links on top of forum (breadcrumbs).
+        /// </summary>
+        protected override void CreatePageLinks()
         {
-          // days
-          // get posts newer then defined number of days
-          sinceDate = DateTime.UtcNow - TimeSpan.FromDays(sinceValue);
+            // link to board index
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            // link to administration index
+            this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            // current page label (no link)
+            this.PageLinks.AddLink("Users", string.Empty);
         }
-        else if (sinceValue < 0)
+
+        /// <summary>
+        /// Initializes dropdown with options to filter results by date.
+        /// </summary>
+        protected void InitSinceDropdown()
         {
-          // hours
-          // get posts newer then defined number of hours
-          sinceDate = DateTime.UtcNow + TimeSpan.FromHours(sinceValue);
+            // value 0, for since last visted
+            this.Since.Items.Add(
+              new ListItem(
+                "Last visit at {0}".FormatWith(
+                  this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit)),
+                "0"));
+
+            // negative values for hours backward
+            this.Since.Items.Add(new ListItem("Last hour", "-1"));
+            this.Since.Items.Add(new ListItem("Last two hours", "-2"));
+
+            // positive values for days backward
+            this.Since.Items.Add(new ListItem("Last day", "1"));
+            this.Since.Items.Add(new ListItem("Last two days", "2"));
+            this.Since.Items.Add(new ListItem("Last week", "7"));
+            this.Since.Items.Add(new ListItem("Last two weeks", "14"));
+            this.Since.Items.Add(new ListItem("Last month", "31"));
+
+            // all time (i.e. no filter)
+            this.Since.Items.Add(new ListItem("All time", "9999"));
         }
-      }
 
-      // we want to filter topics since last visit
-      if (sinceValue == 0)
-      {
-        sinceDate = YafContext.Current.Get<YafSession>().LastVisit;
-      }
-
-      // we are going to page results
-      var pds = new PagedDataSource();
-      pds.AllowPaging = true;
-
-      // page size defined by pager's size
-      pds.PageSize = this.PagerTop.PageSize;
-      
-      // get users, eventually filter by groups or ranks
-      using (
-        DataTable dt = DB.user_list(
-          this.PageContext.PageBoardID, 
-          null, 
-          null, 
-          this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue, 
-          this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue, 
-          false))
-      {
-        using (DataView dv = dt.DefaultView)
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-          // filter by name or email
-          if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
-          {
-            dv.RowFilter =
-              "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(
-                this.name.Text.Trim(), this.Email.Text.Trim());
-          }
+            this.PageContext.PageElements.RegisterJQuery();
+            this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
 
-          // filter by date of registration
-          if (sinceValue != 9999)
-          {
-            dv.RowFilter += "{1}Joined > '{0}'".FormatWith(
-              sinceDate.ToString(), dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
-          }
+            if (this.IsPostBack)
+            {
+                return;
+            }
 
-          // set pager and datasource
-          this.PagerTop.Count = dv.Count;
-          pds.DataSource = dv;
+            // create page links
+            this.CreatePageLinks();
 
-          // page to render
-          pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            // intialize since filter items
+            this.InitSinceDropdown();
 
-          // if we are above total number of pages, select last
-          if (pds.CurrentPageIndex >= pds.PageCount)
-          {
-            pds.CurrentPageIndex = pds.PageCount - 1;
-          }
+            // set since filter to last item "All time"
+            this.Since.SelectedIndex = this.Since.Items.Count - 1;
+            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loading-white.gif");
 
-          // bind list
-          this.UserList.DataSource = pds;
-          this.UserList.DataBind();
+            // get list of user groups for filtering
+            using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, null))
+            {
+                // add empty item for no filtering
+                DataRow newRow = dt.NewRow();
+                newRow["Name"] = string.Empty;
+                newRow["GroupID"] = DBNull.Value;
+                dt.Rows.InsertAt(newRow, 0);
+                this.group.DataSource = dt;
+                this.group.DataTextField = "Name";
+                this.group.DataValueField = "GroupID";
+                this.group.DataBind();
+            }
+
+            // get list of user ranks for filtering
+            using (DataTable dt = DB.rank_list(this.PageContext.PageBoardID, null))
+            {
+                // add empty for for no filtering
+                DataRow newRow = dt.NewRow();
+                newRow["Name"] = string.Empty;
+                newRow["RankID"] = DBNull.Value;
+                dt.Rows.InsertAt(newRow, 0);
+
+                this.rank.DataSource = dt;
+                this.rank.DataTextField = "Name";
+                this.rank.DataValueField = "RankID";
+                this.rank.DataBind();
+            }
+
+            // TODO : page size difinable?
+            this.PagerTop.PageSize = 25;
+
+            // Hide "New User" Button on DotNetNuke
+            if (Config.IsDotNetNuke)
+            {
+                this.NewUser.Visible = false;
+            }
         }
-      }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The since_ selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Set the controls' pager index to 0.
+            this.PagerTop.CurrentPageIndex = 0;
+
+            // re-bind data
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The sync users_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void SyncUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // start...
+            SyncMembershipUsersTask.Start(this.PageContext.PageBoardID);
+
+            // enable timer...
+            this.UpdateStatusTimer.Enabled = true;
+
+            // show blocking ui...
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+              "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
+        }
+
+        /// <summary>
+        /// The update status timer_ tick.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // see if the migration is done...
+            if (YafTaskModule.Current.IsTaskRunning(SyncMembershipUsersTask.TaskName))
+            {
+                // continue...
+                return;
+            }
+
+            this.UpdateStatusTimer.Enabled = false;
+
+            // done here...
+            YafBuildLink.Redirect(ForumPages.admin_users);
+        }
+
+        /* Methods */
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            // default since date is now
+            DateTime sinceDate = DateTime.UtcNow;
+
+            // default since option is "since last visit"
+            int sinceValue = 0;
+
+            // is any "since"option selected
+            if (this.Since.SelectedItem != null)
+            {
+                // get selected value
+                sinceValue = int.Parse(this.Since.SelectedItem.Value);
+
+                // sinceDate = DateTime.UtcNow;
+                // no need to do it again (look above)
+                // decrypt selected option
+                if (sinceValue == 9999)
+                {
+                    // all
+                    // get all, from the beginning
+                    sinceDate = (DateTime)SqlDateTime.MinValue;
+                }
+                else if (sinceValue > 0)
+                {
+                    // days
+                    // get posts newer then defined number of days
+                    sinceDate = DateTime.UtcNow - TimeSpan.FromDays(sinceValue);
+                }
+                else if (sinceValue < 0)
+                {
+                    // hours
+                    // get posts newer then defined number of hours
+                    sinceDate = DateTime.UtcNow + TimeSpan.FromHours(sinceValue);
+                }
+            }
+
+            // we want to filter topics since last visit
+            if (sinceValue == 0)
+            {
+                sinceDate = YafContext.Current.Get<YafSession>().LastVisit;
+            }
+
+            // we are going to page results
+            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
+
+            // page size defined by pager's size
+
+            // get users, eventually filter by groups or ranks
+            using (
+              DataTable dt = DB.user_list(
+                this.PageContext.PageBoardID,
+                null,
+                null,
+                this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
+                this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
+                false))
+            {
+                using (DataView dv = dt.DefaultView)
+                {
+                    // filter by name or email
+                    if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
+                    {
+                        dv.RowFilter =
+                          "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(
+                            this.name.Text.Trim(), this.Email.Text.Trim());
+                    }
+
+                    // filter by date of registration
+                    if (sinceValue != 9999)
+                    {
+                        dv.RowFilter += "{1}Joined > '{0}'".FormatWith(
+                          sinceDate.ToString(), dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                    }
+
+                    // set pager and datasource
+                    this.PagerTop.Count = dv.Count;
+                    pds.DataSource = dv;
+
+                    // page to render
+                    pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+
+                    // if we are above total number of pages, select last
+                    if (pds.CurrentPageIndex >= pds.PageCount)
+                    {
+                        pds.CurrentPageIndex = pds.PageCount - 1;
+                    }
+
+                    // bind list
+                    this.UserList.DataSource = pds;
+                    this.UserList.DataBind();
+                }
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }
