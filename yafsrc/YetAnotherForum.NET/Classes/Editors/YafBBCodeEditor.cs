@@ -42,12 +42,12 @@ namespace YAF.Editors
     /// <summary>
     /// The  BB Custom menu.
     /// </summary>
-    private PopMenu _popMenuBBCustom = null;
+    private PopMenu _popMenuBBCustom;
 
       /// <summary>
       /// The BB Code menu.
       /// </summary>
-      private PopMenu _popMenuBBCode = null;
+      private PopMenu _popMenuBBCode;
 
     #endregion
 
@@ -189,38 +189,39 @@ namespace YAF.Editors
                     YafContext.Current.Localization.GetText("COMMON", "TT_CODELANG"),
                     this.ResolveUrl("yafEditor/code.gif")));
 
-       List<HighLightList> highLightList = new List<HighLightList>
-           {
-               new HighLightList { BrushAlias = "plain", BrushName = "Plain Text" },
-               new HighLightList { BrushAlias = "as3", BrushName = "ActionScript3" },
-               new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" },
-               new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" },
-               new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
-               new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
-               new HighLightList { BrushAlias = "css", BrushName = "CSS" },
-               new HighLightList { BrushAlias = "delphi", BrushName = "Delpi" },
-               new HighLightList { BrushAlias = "diff", BrushName = "Diff" },
-               new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" },
-               new HighLightList { BrushAlias = "groovy", BrushName = "Groovy" },
-               new HighLightList { BrushAlias = "jscript", BrushName = "JavaScript" },
-               new HighLightList { BrushAlias = "java", BrushName = "Java" },
-               new HighLightList { BrushAlias = "javafx", BrushName = "JavaFX" },
-               new HighLightList { BrushAlias = "perl", BrushName = "Perl" },
-               new HighLightList { BrushAlias = "php", BrushName = "PHP" },
-               new HighLightList { BrushAlias = "powershell", BrushName = "PowerShell" },
-               new HighLightList { BrushAlias = "python", BrushName = "Pyton" },
-               new HighLightList { BrushAlias = "ruby", BrushName = "Ruby" },
-               new HighLightList { BrushAlias = "scala", BrushName = "Scala" },
-               new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
-               new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" },
-               new HighLightList { BrushAlias = "xml", BrushName = "XML" }
-           };
+        List<HighLightList> highLightList = new List<HighLightList>
+            {
+                new HighLightList { BrushAlias = "plain", BrushName = "Plain Text" },
+                new HighLightList { BrushAlias = "as3", BrushName = "ActionScript3" },
+                new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" },
+                new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" },
+                new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
+                new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
+                new HighLightList { BrushAlias = "css", BrushName = "CSS" },
+                new HighLightList { BrushAlias = "delphi", BrushName = "Delphi" },
+                new HighLightList { BrushAlias = "diff", BrushName = "Diff" },
+                new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" },
+                new HighLightList { BrushAlias = "groovy", BrushName = "Groovy" },
+                new HighLightList { BrushAlias = "jscript", BrushName = "JavaScript" },
+                new HighLightList { BrushAlias = "java", BrushName = "Java" },
+                new HighLightList { BrushAlias = "javafx", BrushName = "JavaFX" },
+                new HighLightList { BrushAlias = "perl", BrushName = "Perl" },
+                new HighLightList { BrushAlias = "php", BrushName = "PHP" },
+                new HighLightList { BrushAlias = "powershell", BrushName = "PowerShell" },
+                new HighLightList { BrushAlias = "python", BrushName = "Pyton" },
+                new HighLightList { BrushAlias = "ruby", BrushName = "Ruby" },
+                new HighLightList { BrushAlias = "scala", BrushName = "Scala" },
+                new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
+                new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" },
+                new HighLightList { BrushAlias = "xml", BrushName = "XML" }
+            };
 
         foreach (HighLightList item in highLightList)
         {
-            this._popMenuBBCode.AddClientScriptItem(item.BrushName, "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
+            this._popMenuBBCode.AddClientScriptItem(
+                item.BrushName, "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
         }
-        
+
         this.RenderButton(
             writer,
             "img",
@@ -297,7 +298,7 @@ namespace YAF.Editors
                     name = YafBBCode.LocalizeCustomBBCodeElement(row["Description"].ToString());
                 }
 
-                string onclickJS = string.Empty;
+                string onclickJS;
 
                 if (row["OnClickJS"] != DBNull.Value && row["OnClickJS"].ToString().IsSet())
                 {
