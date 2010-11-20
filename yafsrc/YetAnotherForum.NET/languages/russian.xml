@@ -1581,9 +1581,9 @@
     <Resource tag="TITLE">Доступные смайлы</Resource>
   </page>
   <page name="TEAM">
-    <Resource tag="ADMINS">Administrators</Resource>
-    <Resource tag="MODS">Moderators</Resource>
-    <Resource tag="TITLE">Council Members</Resource>
+    <Resource tag="ADMINS">Администраторы</Resource>
+    <Resource tag="MODS">Модераторы</Resource>
+    <Resource tag="TITLE">Команда</Resource>
   </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML">
@@ -1761,7 +1761,7 @@
     <Resource tag="REGISTER">Регистрация</Resource>
     <Resource tag="SEARCH">Поиск</Resource>
     <Resource tag="SEARCHKEYWORD">Введите слово...</Resource>
-    <Resource tag="TEAM">Team</Resource>
+    <Resource tag="TEAM">Команда</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
   </page>
   <page name="TOPICS">
