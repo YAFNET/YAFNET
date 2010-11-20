@@ -1388,6 +1388,11 @@ Siz foruma otomatik bilgisayar programlarını kullanarak üye olmayacağınız�
     <Resource tag="HEADER_SMILE">İfade</Resource>
     <Resource tag="TITLE">Mevcut İfadeler</Resource>
   </page>
+  <page name="TEAM">
+    <Resource tag="ADMINS">Administrators</Resource>
+    <Resource tag="MODS">Moderators</Resource>
+    <Resource tag="TITLE">Council Members</Resource>
+  </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
@@ -1564,6 +1569,7 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="REGISTER">Kayıt</Resource>
     <Resource tag="SEARCH">Arama</Resource>
     <Resource tag="SEARCHKEYWORD">Kelime Arama...</Resource>
+    <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">Hoşgeldiniz</Resource>
   </page>
   <page name="TOPICS">

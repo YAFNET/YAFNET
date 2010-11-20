@@ -114,6 +114,8 @@
                 {%>
             <li class="menuGeneral"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")%>" href="<%=YafBuildLink.GetLink(ForumPages.members)%>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")%></a> </li>
+                <li class="menuGeneral"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "TEAM")%>" href="<%=YafBuildLink.GetLink(ForumPages.team)%>">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "TEAM")%></a> </li>
             <%
                 }                    
             %>

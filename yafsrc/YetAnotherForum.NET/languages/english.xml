@@ -1745,6 +1745,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="SEARCH">Search</Resource>
 		<Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
 		<Resource tag="WELCOME_GUEST">Welcome Guest! To enable all features please try to register or login.</Resource>
+		<Resource tag="TEAM">Team</Resource>
 	</page>
 	<page name="TOPICS">
 		<Resource tag="ALL">All</Resource>
@@ -1804,5 +1805,10 @@ Visit {forumname} at {forumlink}
 		<Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
 		<Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
 		<Resource tag="SELF">You cannot vote for your message</Resource>
+	</page>
+	<page name="TEAM">
+		<Resource tag="TITLE">Council Members</Resource>
+		<Resource tag="ADMINS">Administrators</Resource>
+		<Resource tag="MODS">Moderators</Resource>
 	</page>
 </Resources>

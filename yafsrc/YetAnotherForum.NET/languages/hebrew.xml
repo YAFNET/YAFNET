@@ -1607,6 +1607,11 @@
     <Resource tag="HEADER_SMILE">רגשון</Resource>
     <Resource tag="TITLE">רגשונים זמינים</Resource>
   </page>
+  <page name="TEAM">
+    <Resource tag="ADMINS">Administrators</Resource>
+    <Resource tag="MODS">Moderators</Resource>
+    <Resource tag="TITLE">Council Members</Resource>
+  </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML" editType="html">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
@@ -1869,6 +1874,7 @@
     <Resource tag="REGISTER">הירשם</Resource>
     <Resource tag="SEARCH">חיפוש</Resource>
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
+    <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">ברוך/ה הבא/ה אורח/ת</Resource>
   </page>
   <page name="TOPICS">

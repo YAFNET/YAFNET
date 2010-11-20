@@ -272,7 +272,6 @@ namespace YAF.Classes
     /// <summary>
     /// The im_skype.
     /// </summary>
-     
     im_skype, 
 
     /// <summary>
@@ -298,7 +297,12 @@ namespace YAF.Classes
     /// <summary>
     /// The help_index.
     /// </summary>
-    help_index, 
+    help_index,
+    
+    /// <summary>
+    /// The team page.
+    /// </summary>
+    team, 
 
     /// <summary>
     /// The lastposts.
@@ -309,11 +313,6 @@ namespace YAF.Classes
     /// The recoverpassword.
     /// </summary>
     recoverpassword, 
-
-    /// <summary>
-    /// The showsmilies.
-    /// </summary>
-    showsmilies, 
 
     /// <summary>
     /// The admin_admin.
