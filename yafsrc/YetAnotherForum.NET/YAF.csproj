@@ -731,6 +731,7 @@
     <Content Include="error.aspx" />
     <Content Include="images\avatars\Common\SampleAvatar.gif" />
     <Content Include="images\blank.gif" />
+    <Content Include="images\closelabel.png" />
     <Content Include="images\categories\categoryImageSample.gif" />
     <Content Include="images\folder.gif" />
     <Content Include="images\forums\forumImageSample.gif" />
