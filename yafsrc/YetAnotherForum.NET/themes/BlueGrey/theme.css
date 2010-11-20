@@ -1,14 +1,13 @@
 @import "jquery/jquery-ui.css";
 
 .yafnet {
-	font-size:100%;
+	font-size:12px;
 	font-family:Arial;
 	color: #000;
 }
 .yafnet td {
-	font-size:16px;
+	font-size:12px;
 	font-family:Arial;
-	font-size: 100%;
 	color: #000;
 }
 .yafnet input,
@@ -1141,7 +1140,7 @@ height:80em;
     font-style:italic;
     color: #281b1b;
     font-size: 1.1em;
-    width:96.5%;
+    width:97.8%;
     line-height: 150%;
     margin-bottom: 10px;
     border: 1px solid #deb7b7;
@@ -1176,6 +1175,10 @@ height:80em;
 .yafnet .menuContainer ul li a,
 .QuickSearch a {
 	color:white
+}
+.QuickSearch input {
+	border: 1px solid black;
+	background-color: white;
 }
 .yafnet .postOptions li {
 	list-style-type: none;
