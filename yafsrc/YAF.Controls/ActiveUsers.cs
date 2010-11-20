@@ -131,7 +131,7 @@ namespace YAF.Controls
           UserLink userLink;
           // indicates whether user link should be added or not
           bool addControl = true;
-          bool isCrawler = (int) row["IsCrawler"] > 0;
+          bool isCrawler = Convert.ToInt32(row["IsCrawler"]) > 0;
           // create new link and set its parameters
           if (isCrawler)
           {
