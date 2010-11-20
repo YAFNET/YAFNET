@@ -136,10 +136,20 @@
                                              ? this.GetReturnUrl().Replace("http:", "https:")
                                              : this.GetReturnUrl())
                                          : string.Empty;
-            %>
-            <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>" href="<%= YafBuildLink.GetLink(ForumPages.login, returnUrl) %>">
+
+                    if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<YafSession>().UseMobileTheme ?? false))
+                {%>
+            <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>" class="LoginLink" href="#">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>
             </a></li>
+             <%
+                }
+                else
+                {%>
+                  <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>" href="<%= YafBuildLink.GetLink(ForumPages.login, returnUrl) %>">
+                <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%></a></li>
+                    
+                <%}%>
             <%
                 }%>
             <%

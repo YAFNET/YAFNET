@@ -220,6 +220,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox RequireLogin;
         
         /// <summary>
+        /// UseLoginBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseLoginBox;
+        
+        /// <summary>
         /// PictureAttachmentDisplayTreshold control.
         /// </summary>
         /// <remarks>

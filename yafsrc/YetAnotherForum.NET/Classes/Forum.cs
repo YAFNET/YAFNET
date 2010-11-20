@@ -281,12 +281,7 @@ namespace YAF
     {
       get
       {
-        if (YafContext.Current.User == null)
-        {
-          return "Guest";
-        }
-
-        return YafContext.Current.User.UserName;
+          return YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
       }
     }
 
@@ -428,7 +423,14 @@ namespace YAF
         this.Controls.AddAt(1, this._header);
       }
 
-      this.Controls.Add(this._currentForumPage);
+      // Add the LoginBox to Control, if used and User is Guest
+      if (YafContext.Current.BoardSettings.UseLoginBox && YafContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+      {
+          this.Controls.Add(
+              this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
+      }
+
+        this.Controls.Add(this._currentForumPage);
 
       // add the footer control after the page...
       if (!this.Popup && YafContext.Current.Settings.LockedForum == 0)

@@ -2559,6 +2559,9 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        ///  Gets or sets a value indicating whether Show Help or not.
+        /// </summary>
         public bool ShowHelp
         {
             get
@@ -2585,6 +2588,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue<bool>("ImageAttachmentResizeCropped", value);
+            }
+        }
+
+        /// <summary>
+        ///  Gets or sets a value indicating whether Use LoginBox or Login Page
+        /// </summary>
+        public bool UseLoginBox
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("UseLoginBox", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("UseLoginBox", value);
             }
         }
 

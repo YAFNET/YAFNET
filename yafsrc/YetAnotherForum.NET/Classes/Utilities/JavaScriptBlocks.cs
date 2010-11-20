@@ -129,9 +129,27 @@ function toggleMessage(divId)
         get
         {
             return
-                @"jQuery(document).ready(function() {
+                 @"jQuery(document).ready(function() {
 					SyntaxHighlighter.all()});";
         }
+    }
+
+    /// <summary>
+    /// Generates Modal Dialog Script
+    /// </summary>
+    /// <param name="openLink">
+    /// The Open Link, that opens the Modal Dialog.
+    /// </param>
+    /// <param name="dialogId">
+    /// The Id or Css Class of the Dialog Content
+    /// </param>
+    /// <returns>
+    /// The yaf modal dialog load js.
+    /// </returns>
+    public static string YafModalDialogLoadJs(string openLink, string dialogId)
+    {
+        return
+                @"jQuery(document).ready(function() {{jQuery('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});".FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"));
     }
 
     /// <summary>

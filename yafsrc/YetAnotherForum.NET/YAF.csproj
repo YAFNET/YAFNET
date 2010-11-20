@@ -690,6 +690,7 @@
     <Content Include="controls\ForumSubForumList.ascx" />
     <Content Include="controls\ForumWelcome.ascx" />
     <Content Include="controls\LastPosts.ascx" />
+    <Content Include="controls\LoginBox.ascx" />
     <Content Include="controls\MyTopicsList.ascx" />
     <Content Include="controls\PMList.ascx" />
     <Content Include="controls\PollList.ascx" />
@@ -915,6 +916,7 @@
     <Content Include="resources\css\forum.css" />
     <Content Include="resources\css\jquery.lightbox.css" />
     <Content Include="resources\css\jquery.syntaxhighligher.css" />
+    <Content Include="resources\css\jquery.yafmodaldialog.css" />
     <Content Include="resources\icons\applications-stack.png" />
     <Content Include="resources\icons\balloon.png" />
     <Content Include="resources\icons\bin.png" />
@@ -969,6 +971,7 @@
     <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
     <Content Include="resources\js\jquery.timeago.js" />
+    <Content Include="resources\js\jquery.yafmodaldialog.js" />
     <Content Include="resources\js\yaf.js" />
     <Content Include="resources\ProviderExceptions.xml" />
     <Compile Include="controls\AlbumImageList.ascx.cs">
@@ -1098,6 +1101,13 @@
     </Compile>
     <Compile Include="controls\LastPosts.ascx.designer.cs">
       <DependentUpon>LastPosts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\LoginBox.ascx.cs">
+      <DependentUpon>LoginBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LoginBox.ascx.designer.cs">
+      <DependentUpon>LoginBox.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\MyTopicsList.ascx.cs">
       <DependentUpon>MyTopicsList.ascx</DependentUpon>

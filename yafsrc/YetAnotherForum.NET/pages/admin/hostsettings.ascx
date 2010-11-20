@@ -210,6 +210,15 @@
                         </td>
                     </tr>
                     <tr>
+                         <td class="postheader">
+                            <b>Use Login Box (Modal PopUp Dialog):</b><br />
+                            If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="UseLoginBox" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="header1" colspan="2">
                             Image Attachment Settings
                         </td>
