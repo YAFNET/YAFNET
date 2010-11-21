@@ -1553,8 +1553,13 @@
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administrators</Resource>
+    <Resource tag="FORUMS">Forums</Resource>
+    <Resource tag="FORUMS_ALL">All Forums...</Resource>
+    <Resource tag="GO">Go</Resource>
     <Resource tag="MODS">Moderators</Resource>
     <Resource tag="TITLE">Council Members</Resource>
+    <Resource tag="USER">User</Resource>
+    <Resource tag="VIEW_FORUMS">View Forums ({0} total)...</Resource>
   </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML">

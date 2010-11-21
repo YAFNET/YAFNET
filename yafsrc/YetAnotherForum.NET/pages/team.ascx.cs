@@ -76,7 +76,7 @@ namespace YAF.Pages
         /// </param>
         public void GoToForum([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var goToForumButton = sender as Button;
+            var goToForumButton = sender as ThemeButton;
 
             var gridItem = (DataGridItem)goToForumButton.NamingContainer;
 
@@ -254,6 +254,9 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
+            this.AdminsGrid.Columns[0].HeaderText = GetText("TEAM", "User");
+            this.AdminsGrid.Columns[1].HeaderText = GetText("TEAM", "Forums");
+
             this.AdminsGrid.DataSource = this.GetAdmins();
 
             this.completeModsList = this.GetModerators();
@@ -261,6 +264,9 @@ namespace YAF.Pages
             if (this.completeModsList.Count > 0)
             {
                 this.ModsTable.Visible = true;
+
+                this.ModeratorsGrid.Columns[0].HeaderText = GetText("TEAM", "User");
+                this.ModeratorsGrid.Columns[1].HeaderText = GetText("TEAM", "Forums");
 
                 this.ModeratorsGrid.DataSource = this.completeModsList;
             }
@@ -374,7 +380,7 @@ namespace YAF.Pages
             if (modForums.Items.Count > 0)
             {
                 modForums.Items.Insert(
-                    0, new ListItem("View Forums ({0} total)...".FormatWith(modForums.Items.Count), "intro"));
+                    0, new ListItem(GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
                 modForums.Items.Insert(1, new ListItem("--------------------------", "break"));
             }
             else

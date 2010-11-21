@@ -28,8 +28,7 @@
 			  			    <HeaderStyle CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="350px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="title" Visible="false" />
-                                    All Forums...
+               				        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FORUMS_ALL" LocalizedPage="TEAM" />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
                          <asp:TemplateColumn>
@@ -78,7 +77,7 @@
 			  				    <ItemTemplate>
                				        <asp:DropDownList ID="ModForums" runat="server">
                				        </asp:DropDownList>
-               				        <asp:Button ID="GoToForumButton" runat="server" OnClick="GoToForum" Text="Go to..." />
+                                     <YAF:ThemeButton ID="GoToForumButton" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="GO" OnClick="GoToForum"></YAF:ThemeButton>
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
                         <asp:TemplateColumn>
