@@ -1,106 +1,43 @@
-#LoginBox{  
-   display:none;
-}  
-label{  
-    line-height: 1.8;  
-}  
+#LoginBox{  display:none;}  
 
-
-#ModalDialog {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  text-align: left;
-}
-
-
-#ModalDialog .popup{
-  position:relative;
-  border:3px solid rgba(0,0,0,0);
-  -webkit-border-radius:5px;
-  -moz-border-radius:5px;
-  border-radius:5px;
-  -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
-  -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
-  box-shadow:0 0 18px rgba(0,0,0,0.4);
-}
+#ModalDialog {position: absolute;top: 0;left: 0;z-index: 100;text-align: left;}
+#ModalDialog .popup{ position:relative;border:3px solid rgba(0,0,0,0);-webkit-border-radius:5px;-moz-border-radius:5px; border-radius:5px;-webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);-moz-box-shadow:0 0 18px rgba(0,0,0,0.4);box-shadow:0 0 18px rgba(0,0,0,0.4);}
 
 #ModalDialog .DialogContent {
   display:table;
   width: 370px;
   padding: 10px;
-   background: #ccc  bottom repeat-x;
-	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
-	background: -moz-linear-gradient(top,  #fff,  #ccc);
+  background: #ccc  bottom repeat-x;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+  background: -moz-linear-gradient(top,  #fff,  #ccc);
   -webkit-border-radius:4px;
   -moz-border-radius:4px;
   border-radius:4px;
 }
 #ModalDialog .header {
-
-text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	
-	color: #fff;
-	background:  #333 bottom;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
-	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);	
-	
-	-webkit-border-radius: .5em; 
-	-moz-border-radius: .5em;
-	border-radius: .5em;
-	text-align:center;
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  color: #fff;
+  background:  #446bb8;
+  background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
+  background: -moz-linear-gradient(top,  #446bb8,  #2a4985);	
+  -webkit-border-radius: .5em; 
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  text-align:center;
 }
 
-#ModalDialog .close{
-  position:absolute;
-  top:5px;
-  right:5px;
-  padding:2px;
-  background:#fff;
-}
-#ModalDialog .close img{
-  opacity:0.3;
-}
-#ModalDialog .close:hover img{
-  opacity:1.0;
-}
+*:first-child+html #ModalDialog .header {width:360px}
 
-#ModalDialog .loading {
-  text-align: center;
-}
+#ModalDialog .close{position:absolute; top:5px;right:5px;padding:2px;background:#fff;}
+#ModalDialog .close img{opacity:0.3;}
+#ModalDialog .close:hover img{opacity:1.0;}
 
-#ModalDialog .image {
-  text-align: center;
-}
-
-#ModalDialog img {
-  border: 0;
-  margin: 0;
-}
-
-#ModalDialog_overlay {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height:100%;
-  width:100%;
-}
-
-.ModalDialog_hide {
-  z-index:-100;
-}
-
-.ModalDialog_overlayBG {
-  background-color: #000;
-  z-index: 99;
-}
-
+#ModalDialog_overlay { position: fixed;top: 0px;left: 0px;height:100%;width:100%;}
+.ModalDialog_hide { z-index:-100;}
+.ModalDialog_overlayBG {background-color: #000;z-index: 99;}
 #ModalDialog input[type=text], #ModalDialog input[type=password] {
 	display:block;
 	-moz-border-radius:4px;
@@ -112,16 +49,18 @@ text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	padding:5px;
 	width:370px;
 }
+*:first-child+html #ModalDialog input[type=text],
+*:first-child+html #ModalDialog input[type=password] {width:360px}
+
+*:first-child+html .RembemberMe {display:block}
+
 .LoginButton {
-	 border: none;
-	display: inline-block;
-	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
-	*display: inline;
+	border: none;
+
 	vertical-align: baseline;
 	margin: 10px 2px;
-	outline: none;
 	cursor: pointer;
-	text-align: center;
+	text-align: center!important;
 	text-decoration: none;
 	font: 1.5em Arial, Helvetica, sans-serif bold!important;
 	padding: .1em 0.5em .1em;
@@ -137,11 +76,10 @@ text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
 	color: #fff!important;
 	border: solid 1px #333;
-	background: #446bb8 bottom;
+	background-color: #446bb8!important;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
 	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);
-	
 	
     height:40px;
 	width:150px;
@@ -150,22 +88,18 @@ text-shadow: 0 1px 1px rgba(0,0,0,.3);
 .LoginButton:hover {
 	color: #ffffff;
 	text-decoration: none;
-	background: #000;
-	
+	background-color: #000!important;
 	background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
 	background: -moz-linear-gradient(top,  #444,  #000);
 	
 }
 .RecoveryButtton {
-	 border: none;
+	border: none;
 	display: inline-block;
-	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
-	*display: inline;
 	vertical-align: baseline;
 	margin: 10px 2px;
-	outline: none;
 	cursor: pointer;
-	text-align: center;
+	text-align: center!important;
 	text-decoration: none;
 	padding: .1em 0.5em .1em;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
@@ -180,17 +114,8 @@ text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
 	color: #fff!important;
 	border: solid 1px #333;
-	background: #446bb8 bottom;
 	
+	background-color: #446bb8!important;
 	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
 	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);
-}
-.LoginButton:hover {
-	color: #ffffff;
-	text-decoration: none;
-	background: #000;
-	
-	background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
-	background: -moz-linear-gradient(top,  #444,  #000);
-	
 }

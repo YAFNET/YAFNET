@@ -7,7 +7,7 @@
             <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError"
                 OnAuthenticate="Login1_Authenticate" VisibleWhenLoggedIn="True">
                 <LayoutTemplate>
-                    <table class="yafnet" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
                         <tr>
                             <td align="left">
                               <div class="header">
@@ -27,7 +27,7 @@
                               </div>
                               <div>
                                 <asp:Button ID="LoginButton" runat="server" CssClass="LoginButton" CommandName="Login" ValidationGroup="Login1" />
-                                <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
+                                <asp:CheckBox ID="RememberMe" CssClass="RembemberMe" runat="server"></asp:CheckBox>
                               </div>
                               <hr />
                               <div style="margin:5px 0;"><asp:Button ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
