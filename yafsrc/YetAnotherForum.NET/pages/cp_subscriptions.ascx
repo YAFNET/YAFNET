@@ -76,7 +76,7 @@
                     <asp:Label ID="tfid" runat="server" Text='<%# Container.DataItemToField<int>("WatchForumID") %>' Visible="false" />
                     <tr>
                         <td class="post">
-                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}",  Container.DataItemToField<int>("WatchForumID"))%>" ><%# HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>                        
+                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}",  Container.DataItemToField<int>("ForumID"))%>" ><%# HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>                        
                         </td>
                         <td class="post" align="center">
                             <%# Container.DataItemToField<int>("Topics")%>
@@ -129,7 +129,7 @@
                     <asp:Label ID="ttid" runat="server" Text='<%# Container.DataItemToField<int>("WatchTopicID") %>' Visible="false" />
                     <tr>
                         <td class="post">
-                           <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("WatchTopicID"))%>" ><%# HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a> 
+                           <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("TopicID"))%>" ><%# HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a> 
                         </td>
                         <td class="post" align="center">
                             <%# Container.DataItemToField<int>("Replies")%>
