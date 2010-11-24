@@ -38,7 +38,7 @@ namespace YAF.Modules
     /// <summary>
     /// Prevents a default instance of the <see cref="YafBaseModuleManager"/> class from being created.
     /// </summary>
-    private YafBaseModuleManager()
+    public YafBaseModuleManager()
       : base("YAF.Modules", "YAF.Modules.IBaseModule")
     {
       if (this.ModuleClassTypes == null)

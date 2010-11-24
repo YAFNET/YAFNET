@@ -16,28 +16,38 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-
 namespace YAF.Classes.Pattern
 {
+  #region Using
+
+  using System;
+  using System.Web;
+
+  #endregion
+
   /// <summary>
   /// Singleton factory implementation
   /// </summary>
   /// <typeparam name="T">
   /// </typeparam>
-  public static class PageSingleton<T> where T : class, new()
+  public static class PageSingleton<T>
+    where T : class, new()
   {
     // static constructor, 
     // runtime ensures thread safety
+    #region Constants and Fields
 
     /// <summary>
-    /// The _instance.
+    ///   The _instance.
     /// </summary>
     private static T _instance;
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets Instance.
+    ///   Gets Instance.
     /// </summary>
     public static T Instance
     {
@@ -52,6 +62,10 @@ namespace YAF.Classes.Pattern
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
     /// The get instance.
     /// </summary>
@@ -63,7 +77,7 @@ namespace YAF.Classes.Pattern
       {
         if (_instance == null)
         {
-          _instance = (T)Activator.CreateInstance(typeof(T), true);
+          _instance = (T)Activator.CreateInstance(typeof(T));
         }
 
         return _instance;
@@ -74,7 +88,9 @@ namespace YAF.Classes.Pattern
       return
         (T)
         (HttpContext.Current.Items[typeStr] ??
-         (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof(T), true)));
+         (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof(T))));
     }
+
+    #endregion
   }
 }

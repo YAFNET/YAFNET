@@ -36,7 +36,7 @@ namespace YAF.Editors
     /// <summary>
     /// Prevents a default instance of the <see cref="YafEditorModuleManager"/> class from being created.
     /// </summary>
-    private YafEditorModuleManager()
+    public YafEditorModuleManager()
       : base("YAF.Editors", "YAF.Editors.IBaseEditorModule")
     {
       if (this.ModuleClassTypes == null)

@@ -33,7 +33,7 @@ namespace YAF.Classes.Pattern
     #region Constants and Fields
 
     /// <summary>
-    /// The _context classes.
+    ///   The _context classes.
     /// </summary>
     private readonly Dictionary<int, object> _contextClasses = new Dictionary<int, object>();
 
@@ -56,7 +56,7 @@ namespace YAF.Classes.Pattern
 
       if (!this._contextClasses.ContainsKey(objNameHash))
       {
-        this._contextClasses[objNameHash] = (T)Activator.CreateInstance(typeof(T), true);
+        this._contextClasses[objNameHash] = Activator.CreateInstance(typeof(T));
       }
 
       return (T)this._contextClasses[objNameHash];
@@ -70,7 +70,7 @@ namespace YAF.Classes.Pattern
     /// </param>
     /// <typeparam name="T">
     /// </typeparam>
-    public void SetInstance<T>(T instance) where T : class
+    public void SetInstance<T>([NotNull] T instance) where T : class
     {
       int objNameHash = typeof(T).ToString().GetHashCode();
       this._contextClasses[objNameHash] = instance;
