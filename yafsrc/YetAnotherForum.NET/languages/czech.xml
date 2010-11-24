@@ -285,14 +285,14 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Výběr fóra</Resource>
-    <Resource tag="GENERATED">Tato stránka byla vytvořena v {0:N3} sekundách.</Resource>
+    <Resource tag="GENERATED">Stránka sestavena za {0:N3} sekundy.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Loading...</Resource>
-    <Resource tag="MAX_ONLINE">Nejvíce uživatelů online bylo {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">Nejvíce uživatelů online: {0}, {1}.</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
@@ -301,7 +301,7 @@
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Nová soukromá zpráva od {0} o {1}</Resource>
-    <Resource tag="POWERED_BY">Powered by {0} verze {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by </Resource>
     <Resource tag="REGMAIL_SENT">Byla vám odeslána e-mailová zpráva. Podívejte se do své schránky a klikněte na odkaz, který je ve zprávě uveden.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Po zaregistrování vám bude zaslána e-mailová zpráva. Abyste se mohli přihlásit, podívejte se do své poštovní schránky a klikněte na odkaz, který je ve zprávě uveden.</Resource>
     <Resource tag="SAVE">Uložit</Resource>
@@ -463,7 +463,7 @@
     <Resource tag="EXPORTFORMAT">Export Format:</Resource>
     <Resource tag="EXPORTSELECTED">Export Selected</Resource>
     <Resource tag="FROM">Od</Resource>
-    <Resource tag="INBOX">Došlé</Resource>
+    <Resource tag="INBOX">Doručené zprávy</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Zpráva byla zaarchivována.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} zpráv bylo zaarchivováno.</Resource>
@@ -481,14 +481,14 @@
   </page>
   <page name="CP_PROFILE">
     <Resource tag="ARCHIVE">Archive</Resource>
-    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+    <Resource tag="CHANGE_PASSWORD">Změnit heslo</Resource>
     <Resource tag="CONTROL_PANEL">Hlavní panel</Resource>
     <Resource tag="EDIT_AVATAR">Uprav personifikaci</Resource>
     <Resource tag="EDIT_PROFILE">Upravit profil</Resource>
     <Resource tag="EDIT_SIGNATURE">Upravit podpis</Resource>
     <Resource tag="GROUPS">Jste členem těchto skupin:</Resource>
     <Resource tag="INBOX">Schránka</Resource>
-    <Resource tag="JOINED">Jste členem od:</Resource>
+    <Resource tag="JOINED">Registrován od:</Resource>
     <Resource tag="MESSENGER">Osobní vzkazy:</Resource>
     <Resource tag="NEW_MESSAGE">Nový vzkaz</Resource>
     <Resource tag="NUMPOSTS">Počet zpráv:</Resource>
@@ -544,9 +544,9 @@
     <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} host</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} hostů</Resource>
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
-    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} členů</Resource>
-    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} členů</Resource>
-    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} uživatel</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} uživatelů</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">v posledních {0:N0} minutách.</Resource>
     <Resource tag="ATOMICONTOOLTIPACTIVE">Subscribe to active topics via Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFAVORITE">Subscribe to your favorite topics via Atom.</Resource>
     <Resource tag="ATOMICONTOOLTIPFORUM">Subscribe to forum Atom feed.</Resource>
@@ -556,10 +556,11 @@
     <Resource tag="GO_LAST_POST">Přejít k nejnovější zprávě</Resource>
     <Resource tag="IN">v {0}</Resource>
     <Resource tag="INFORMATION">Informace</Resource>
-    <Resource tag="LAST_VISIT">Naposledy jste zde byl {0}.</Resource>
+    <Resource tag="LAST_VISIT">Vaše poslední návštěva: {0}</Resource>
     <Resource tag="LASTPOST">Poslední zpráva</Resource>
     <Resource tag="LATEST_POSTS">Poslední zprávy</Resource>
     <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
+    <Resource tag="MAIN_FORUM_RSS">RSS hlavního fóra</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS hlavního fúra</Resource>
     <Resource tag="MARKALL">Označit všechna fóra jako přečtená</Resource>
     <Resource tag="MODERATORS">Moderátoři</Resource>
@@ -1019,11 +1020,11 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Špatné uživatelské jméno nebo e-mailová adresa.</Resource>
   </page>
   <page name="MEMBERS">
-    <Resource tag="JOINED">Členem od</Resource>
+    <Resource tag="JOINED">Registrován</Resource>
     <Resource tag="PAGES">{0} stránek:</Resource>
     <Resource tag="POSTS">Zpráv</Resource>
     <Resource tag="RANK">Kategorie</Resource>
-    <Resource tag="TITLE">Členové</Resource>
+    <Resource tag="TITLE">Uživatelé</Resource>
     <Resource tag="USERNAME">Uživatelské jméno</Resource>
   </page>
   <page name="MESSAGEHISTORY">
@@ -1056,7 +1057,7 @@
     <Resource tag="EDIT">Upravit</Resource>
     <Resource tag="INVITE">Přizvat dalšího uživatele</Resource>
     <Resource tag="LASTPOST">Poslední zpráva</Resource>
-    <Resource tag="MEMBERS">Členové</Resource>
+    <Resource tag="MEMBERS">Uživatelé</Resource>
     <Resource tag="NO_POSTS">Žádné zprávy</Resource>
     <Resource tag="REMOVE">Odstranit</Resource>
     <Resource tag="REPLIES">Odpovědí</Resource>
@@ -1112,10 +1113,10 @@
     <Resource tag="TITLE">Přesunout téma</Resource>
   </page>
   <page name="MYTOPICS">
-    <Resource tag="ACTIVETOPICS">Active Topics</Resource>
+    <Resource tag="ACTIVETOPICS">Aktivní témata</Resource>
     <Resource tag="ATOMFEED">Atom Feed</Resource>
     <Resource tag="BY">by {0}</Resource>
-    <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
+    <Resource tag="FAVORITETOPICS">Oblíbená témata</Resource>
     <Resource tag="GUESTTITLE">Active Topics</Resource>
     <Resource tag="LAST_24">( Last 24 Hours )</Resource>
     <Resource tag="LAST_DAY">last day</Resource>
@@ -1130,7 +1131,7 @@
     <Resource tag="MEMBERTITLE">My Topics</Resource>
     <Resource tag="NO_POSTS">No Posts</Resource>
     <Resource tag="REPLIES">Replies</Resource>
-    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="RSSFEED">RSS</Resource>
     <Resource tag="SHOW_ALL">Show All</Resource>
     <Resource tag="SINCE">Since</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
@@ -1286,7 +1287,7 @@
     <Resource tag="INFO_VOTED">Děkujeme vám za hlasování!</Resource>
     <Resource tag="INFO_WATCH_TOPIC">Jakmile se v tomto tématu objeví nová zpráva, budeme vás ihned informovat.</Resource>
     <Resource tag="IP">IP</Resource>
-    <Resource tag="JOINED">Členem od</Resource>
+    <Resource tag="JOINED">Registrován</Resource>
     <Resource tag="LOCATION">Bydliště</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
@@ -1354,7 +1355,7 @@
     <Resource tag="POSTEDBY">Odeslal</Resource>
   </page>
   <page name="PROFILE">
-    <Resource tag="ABOUT">Informace o členovi</Resource>
+    <Resource tag="ABOUT">Informace o uživateli</Resource>
     <Resource tag="ADMIN_USER">Admin User</Resource>
     <Resource tag="AIM">Jméno AIM:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
@@ -1375,11 +1376,11 @@
     <Resource tag="HOURS">hodin</Resource>
     <Resource tag="ICQ">Číslo ICQ:</Resource>
     <Resource tag="INTERESTS">Zájmy:</Resource>
-    <Resource tag="JOINED">Členem od:</Resource>
+    <Resource tag="JOINED">Registrován:</Resource>
     <Resource tag="LAST10">Posledních 10 zpráv</Resource>
     <Resource tag="LASTVISIT">Poslední návštěva:</Resource>
     <Resource tag="MEDALS">Medals:</Resource>
-    <Resource tag="MEMBERS">Členové</Resource>
+    <Resource tag="MEMBERS">Uživatelé</Resource>
     <Resource tag="MINUTES">minut</Resource>
     <Resource tag="MODERATION">Moderation</Resource>
     <Resource tag="MSN">MSN Messenger:</Resource>
@@ -1716,7 +1717,7 @@ Visit {forumname} at {forumlink}
   </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Aktivní témata</Resource>
-    <Resource tag="ADMIN">Admin</Resource>
+    <Resource tag="ADMIN">Administrace</Resource>
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Nápověda</Resource>
@@ -1726,11 +1727,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="LOGIN">Přihlásit se</Resource>
     <Resource tag="LOGOUT">Odhlásit se</Resource>
     <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
-    <Resource tag="MEMBERS">Členové</Resource>
+    <Resource tag="MEMBERS">Uživatelé</Resource>
     <Resource tag="MODERATE">Moderovat</Resource>
-    <Resource tag="MYALBUMS">My Albums</Resource>
+    <Resource tag="MYALBUMS">Moje galerie</Resource>
     <Resource tag="MYPROFILE">Můj profil</Resource>
-    <Resource tag="MYTOPICS">My Topics</Resource>
+    <Resource tag="MYTOPICS">Moje témata</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Zaregistrovat se</Resource>
     <Resource tag="SEARCH">Hledání</Resource>
@@ -1761,7 +1762,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="NO_POSTS">Žádné zprávy</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Odpovědí</Resource>
-    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="RSSFEED">RSS</Resource>
     <Resource tag="SHOWTOPICS">Ukázat témata</Resource>
     <Resource tag="SUBFORUMS">{0} fór druhé úrovně</Resource>
     <Resource tag="TODAYAT">[b]Dnes[/b] v {0:T}</Resource>
