@@ -764,12 +764,15 @@ namespace YAF.Providers.Membership
       // Process database user deletion request
       try
       {
-        DB.Current.DeleteUser(this.ApplicationName, username, deleteAllRelatedData);
-        return true;
+          DB.Current.DeleteUser(this.ApplicationName, username, deleteAllRelatedData);
+
+          YafContext.Current.CurrentMembership.DeleteUser(username, true);
+
+          return true;
       }
       catch
       {
-        // will return false...  
+          // will return false...  
       }
 
       return false;
