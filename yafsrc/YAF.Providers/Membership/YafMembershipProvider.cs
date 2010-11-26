@@ -23,6 +23,7 @@ namespace YAF.Providers.Membership
   using System.Collections.Specialized;
   using System.Configuration;
   using System.Data;
+  using System.Linq;
   using System.Security.Cryptography;
   using System.Text;
   using System.Text.RegularExpressions;
@@ -419,14 +420,7 @@ namespace YAF.Providers.Membership
 
       string hashedString;
 
-      if (hashHex)
-      {
-        hashedString = hashedBytes.ToHexString();
-      }
-      else
-      {
-        hashedString = Convert.ToBase64String(hashedBytes);
-      }
+      hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
 
       // Adjust the case of the hash output
       switch (hashCase.ToLower())
@@ -441,10 +435,7 @@ namespace YAF.Providers.Membership
 
       if (hashRemoveChars.IsSet())
       {
-        foreach (char removeChar in hashRemoveChars)
-        {
-          hashedString = hashedString.Replace(removeChar.ToString(), string.Empty);
-        }
+          hashedString = hashRemoveChars.Aggregate(hashedString, (current, removeChar) => current.Replace(removeChar.ToString(), string.Empty));
       }
 
       return hashedString;
@@ -765,8 +756,6 @@ namespace YAF.Providers.Membership
       try
       {
           DB.Current.DeleteUser(this.ApplicationName, username, deleteAllRelatedData);
-
-          YafContext.Current.CurrentMembership.DeleteUser(username, true);
 
           return true;
       }
