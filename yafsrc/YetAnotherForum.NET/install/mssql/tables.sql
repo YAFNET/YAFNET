@@ -344,7 +344,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
 		[AutoWatchTopics] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_AutoWatchTopics] DEFAULT (0),
 		[DailyDigest] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_DailyDigest] DEFAULT (0),
-		[NotificationType] [int] NULL,
+		[NotificationType] [int] DEFAULT (0),
 		[Flags] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
 		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
 		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
@@ -770,9 +770,15 @@ begin
 end
 GO
 
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
+begin
+	update  [{databaseOwner}].[{objectQualifier}User] SET [NotificationType]=0 WHERE [NotificationType] IS NULL
+end
+GO
+
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] ADD NotificationType int NULL
+	alter table [{databaseOwner}].[{objectQualifier}User] ADD NotificationType int default(0)
 end
 GO
 

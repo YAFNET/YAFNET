@@ -182,6 +182,12 @@ namespace YAF.Classes.Core
         usersWithAll = DB.UserFind(
           YafContext.Current.PageBoardID, false, null, null, null, UserNotificationSetting.AllTopics.ToInt(), null);
       }
+      else
+      {
+          // TODO: validate permissions!
+          usersWithAll = DB.UserFind(
+            YafContext.Current.PageBoardID, false, null, null, null, UserNotificationSetting.TopicsISubscribeTo, null);
+      }
 
       foreach (var message in DB.MessageList(newMessageId))
       {
@@ -217,16 +223,22 @@ namespace YAF.Classes.Core
         // create individual watch emails for all users who have All Posts on...
         foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
         {
-          var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+            // Make sure its not a guest
+            if (user.ProviderUserKey == null)
+            {
+                continue;
+            }
+            
+            var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
 
-          watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
-                                              ? user.LanguageFile
-                                              : YafContext.Current.Localization.LanguageFileName;
-          watchEmail.SendEmail(
-            new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-            new MailAddress(membershipUser.Email, membershipUser.UserName),
-            subject,
-            true);
+            watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
+                                                  ? user.LanguageFile
+                                                  : YafContext.Current.Localization.LanguageFileName;
+            watchEmail.SendEmail(
+                new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
+                new MailAddress(membershipUser.Email, membershipUser.UserName),
+                subject,
+                true);
         }
       }
     }
