@@ -81,6 +81,28 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 	)
 go
 
+if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ActiveAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}ActiveAccess](		
+		UserID			    int NOT NULL ,
+		BoardID			    int NOT NULL ,			
+		ForumID			    int,
+		IsAdmin				bit NOT NULL ,
+		IsForumModerator	bit NOT NULL ,
+		IsModerator			bit NOT NULL ,
+		ReadAccess			bit NOT NULL ,
+		PostAccess			bit NOT NULL ,
+		ReplyAccess			bit NOT NULL,
+		PriorityAccess		bit NOT NULL,
+		PollAccess			bit NOT NULL,
+		VoteAccess			bit NOT NULL,
+		ModeratorAccess		bit NOT NULL,
+		EditAccess			bit NOT NULL,
+		DeleteAccess		bit NOT NULL,
+		UploadAccess		bit NOT NULL,		
+		DownloadAccess		bit NOT NULL		
+	)
+go
+
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}BannedIP](
 		ID				int IDENTITY (1, 1) NOT NULL ,

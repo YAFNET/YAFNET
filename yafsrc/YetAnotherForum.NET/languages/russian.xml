@@ -1582,13 +1582,13 @@
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Администраторы</Resource>
-    <Resource tag="FORUMS">Forums</Resource>
-    <Resource tag="FORUMS_ALL">All Forums...</Resource>
-    <Resource tag="GO">Go</Resource>
+    <Resource tag="FORUMS">Форумы</Resource>
+    <Resource tag="FORUMS_ALL">Все форумы...</Resource>
+    <Resource tag="GO">Готово</Resource>
     <Resource tag="MODS">Модераторы</Resource>
     <Resource tag="TITLE">Команда</Resource>
-    <Resource tag="USER">User</Resource>
-    <Resource tag="VIEW_FORUMS">View Forums ({0} total)...</Resource>
+    <Resource tag="USER">Пользователь</Resource>
+    <Resource tag="VIEW_FORUMS">Просмотр форумов (всего {0})...</Resource>
   </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML">

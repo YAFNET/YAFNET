@@ -404,7 +404,8 @@ namespace YAF.Pages.Admin
         this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null,
         this.Styles.Text,
         false);
-        
+
+      DB.activeaccess_reset();
       // Access
       if (Request.QueryString.GetFirstOrDefault("f") != null)
       {
@@ -419,10 +420,12 @@ namespace YAF.Pages.Admin
         }
 
         this.ClearCaches();
+
         YafBuildLink.Redirect(ForumPages.admin_forums);
       }
 
       this.ClearCaches();
+      
 
       // Done
       YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", ForumID);
@@ -438,6 +441,7 @@ namespace YAF.Pages.Admin
 
       // clear category cache...
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+      
     }
 
     /// <summary>

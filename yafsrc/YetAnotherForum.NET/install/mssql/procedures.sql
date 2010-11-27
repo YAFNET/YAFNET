@@ -34,6 +34,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}active_stats]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}activeaccess_reset]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}activeaccess_reset]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}active_updatemaxstats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}active_updatemaxstats]
 GO
@@ -1221,7 +1225,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_from]
 	@UserID int, @PageUserID  int
 AS
 BEGIN
-SELECT Count(1) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksFromUserID=@UserID
+SELECT Count(1) FROM [{databaseOwner}].[{objectQualifier}Thanks] 
+WHERE ThanksFromUserID=@UserID
 END
 Go
 
@@ -1255,8 +1260,8 @@ AS
 		        join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
 				join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
 			    join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
-				join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID
-		where   x.ReadAccess <> 0
+				join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID = a.ForumID
+		where   CONVERT(int,x.ReadAccess) <> 0
 			    AND x.UserID = @PageUserID			
 				AND c.IsApproved = 1
 				AND a.TopicMovedID IS NULL
@@ -1359,6 +1364,7 @@ create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@
 begin
 	-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID NOT IN (SELECT UserID from [{databaseOwner}].[{objectQualifier}Active])
 	-- select active	
 	if @Guests<>0 
 		select
@@ -1480,7 +1486,7 @@ begin
 			c.IP,
 			c.SessionID,
 			c.ForumID,
-			HasForumAccess = x.ReadAccess,			
+			HasForumAccess = CONVERT(int,x.ReadAccess),			
 			c.TopicID,
 			ForumName = (select [Name] from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
@@ -1502,7 +1508,7 @@ begin
 			[{databaseOwner}].[{objectQualifier}User] a
 			inner join [{databaseOwner}].[{objectQualifier}Active] c 
 			ON c.UserID = a.UserID
-			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
+			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
 			ON (x.ForumID = ISNULL(c.ForumID,0))						
 		where		
 			c.BoardID = @BoardID AND x.UserID = @UserID		
@@ -1515,7 +1521,7 @@ begin
 			c.IP,
 			c.SessionID,
 			c.ForumID,
-			HasForumAccess = x.ReadAccess,			
+			HasForumAccess = CONVERT(int,x.ReadAccess),			
 			c.TopicID,
 			ForumName = (select [Name] from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
@@ -1537,7 +1543,7 @@ begin
 			[{databaseOwner}].[{objectQualifier}User] a
 			inner join [{databaseOwner}].[{objectQualifier}Active] c 
 			ON c.UserID = a.UserID
-			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
+			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
 			ON (x.ForumID = ISNULL(c.ForumID,0))						
 		where		
 			c.BoardID = @BoardID AND x.UserID = @UserID	  and ((c.Flags & 4) = 4 OR (c.Flags & 2) <> 2 OR  (c.Flags & 8) = 8)		
@@ -1550,7 +1556,7 @@ begin
 			c.IP,
 			c.SessionID,
 			c.ForumID,
-			HasForumAccess = x.ReadAccess,			
+			HasForumAccess = CONVERT(int,x.ReadAccess),			
 			c.TopicID,
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
@@ -1572,7 +1578,7 @@ begin
 			[{databaseOwner}].[{objectQualifier}User] a		
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c 
 			ON c.UserID = a.UserID
-			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
+			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
 			ON (x.ForumID = ISNULL(c.ForumID,0))
 			where		
 			c.BoardID = @BoardID  AND x.UserID = @UserID				      
@@ -2086,11 +2092,11 @@ begin
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] v on v.ForumID=b.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] v on v.ForumID=b.ForumID
 	where
 		a.BoardID=@BoardID and
 		v.UserID=@UserID and
-		(v.ReadAccess<>0 or (b.Flags & 2)=0) and
+		(CONVERT(int,v.ReadAccess)<>0 or (b.Flags & 2)=0) and
 		(@CategoryID is null or a.CategoryID=@CategoryID) and
 		b.ParentID is null
 	group by
@@ -2412,11 +2418,11 @@ begin
 	from
 		[{databaseOwner}].[{objectQualifier}Forum] a
 		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
 	where
 		c.UserID=@UserID and
 		b.BoardID=@BoardID and
-		c.ReadAccess>0
+		CONVERT(int,c.ReadAccess) > 0
 	order by
 		b.SortOrder,
 		a.SortOrder,
@@ -2435,11 +2441,11 @@ begin
 	from
 		[{databaseOwner}].[{objectQualifier}Forum] a
 		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
 	where
 		c.UserID=@UserID and
 		b.BoardID=@BoardID and
-		c.ReadAccess>0 and
+		CONVERT(int,c.ReadAccess) > 0 and
 		a.ForumID = @root
 
 	order by
@@ -2460,11 +2466,11 @@ begin
 	from
 		[{databaseOwner}].[{objectQualifier}Forum] a
 		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
 	where
 		c.UserID=@UserID and
 		b.BoardID=@BoardID and
-		c.ReadAccess>0 and
+		CONVERT(int,c.ReadAccess) > 0 and
 		b.CategoryID = -@root
 
 	order by
@@ -2538,11 +2544,11 @@ begin
 		) as x
 		join [{databaseOwner}].[{objectQualifier}Forum] a on a.ForumID=x.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.ForumID=a.ForumID
 	where
 		c.UserID=@UserID and
 		b.BoardID=@BoardID and
-		c.ModeratorAccess>0
+		CONVERT(int,c.ModeratorAccess)>0
 	order by
 		b.SortOrder,
 		a.SortOrder
@@ -2630,12 +2636,12 @@ begin
 		LastTopicName	= t.Topic,
 		b.Flags,
 		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
-		b.RemoteURL,
-		x.ReadAccess
+		b.RemoteURL,		
+		ReadAccess = CONVERT(int,x.ReadAccess)
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=b.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
 		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
 	where 
 		a.BoardID = @BoardID and
@@ -2682,11 +2688,11 @@ SELECT
 		[{databaseOwner}].[{objectQualifier}Category] a
 
 	JOIN [{databaseOwner}].[{objectQualifier}Forum] b ON b.CategoryID=a.CategoryID
-	JOIN [{databaseOwner}].[{objectQualifier}vaccess] c ON c.ForumID=b.ForumID
+	JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] c ON c.ForumID=b.ForumID
 
 	WHERE
 		a.BoardID=@BoardID AND
-		c.ModeratorAccess>0 AND
+		CONVERT(int,c.ModeratorAccess)>0 AND
 		c.UserID=@UserID
 	ORDER BY
 		a.SortOrder,
@@ -3276,9 +3282,9 @@ SELECT
 		[{databaseOwner}].[{objectQualifier}Topic] t 
 		join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
 		join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=IsNull(t.ForumID,0)
+		left join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=IsNull(t.ForumID,0)
 	WHERE
-		m.MessageID = @MessageID AND x.UserID=@UserID  AND x.ReadAccess > 0
+		m.MessageID = @MessageID AND x.UserID=@UserID  AND  CONVERT(int,x.ReadAccess) > 0
 END
 GO
 
@@ -3749,13 +3755,21 @@ begin
 end
 GO
 
+CREATE procedure [{databaseOwner}].[{objectQualifier}activeaccess_reset] 
+as
+begin
+delete from [{databaseOwner}].[{objectQualifier}Active];
+delete from [{databaseOwner}].[{objectQualifier}ActiveAccess];
+end
+GO
+
 CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@SessionID	nvarchar(24),
 	@BoardID	int,
 	@UserKey	nvarchar(64),
 	@IP			varchar(39),
 	@Location	nvarchar(255),
-	@ForumPage nvarchar(255) = null,
+	@ForumPage  nvarchar(255) = null,
 	@Browser	nvarchar(50),
 	@Platform	nvarchar(50),
 	@CategoryID	int = null,
@@ -3775,19 +3789,25 @@ begin
 	declare @ActiveUpdate   tinyint
 	declare @CurrentTime	datetime
 	declare @ActiveFlags	int
+	declare @GuestID        int
 	
 	set implicit_transactions off
 	set @CurrentTime = GETUTCDATE()
 	-- set IsActiveNow ActiveFlag - it's a default
-	set @ActiveFlags = 1;
-	if @UserKey is null
-	begin
-		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
+	set @ActiveFlags = 1;	
+
+	-- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
+	select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
 		set @rowcount=@@rowcount
 		if (@rowcount = 0)
 		begin
 			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
-		end
+	end
+
+	if @UserKey is null
+	begin
+	
+        SET @UserID = @GuestID
 		set @IsGuest = 1
 		-- set IsGuest ActiveFlag  1 | 2
 		set @ActiveFlags = 3
@@ -3825,6 +3845,52 @@ begin
 	if @TopicID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Topic] where TopicID=@TopicID) begin
 		set @TopicID = null
 	end
+
+	-- ensure that no duplicates and that the guest access rights always present in the access table 
+	 if not exists (select 
+			UserID	
+			from [{databaseOwner}].[{objectQualifier}ActiveAccess]  WITH(NOLOCK)
+			where UserID = @GuestID)
+			begin				
+			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+			UserID,
+			BoardID,
+			ForumID,
+			IsAdmin, 
+			IsForumModerator,
+			IsModerator, 
+			ReadAccess,
+			PostAccess,
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,	
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess)
+			select 
+			UserID, 
+			@BoardID, 
+			ForumID, 
+			IsAdmin,
+			IsForumModerator,
+			IsModerator,
+			ReadAccess,
+			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess			
+			from [{databaseOwner}].[{objectQualifier}vaccess] 
+			where UserID = @GuestID			
+	end 
 	
 	-- get previous visit
 	if @IsGuest=0 begin
@@ -3875,6 +3941,100 @@ begin
 			b.BoardID = @BoardID
 	end
 	-- update active
+	-- ensure that access right are in place		
+		if exists (select 
+			UserID	
+			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+			where UserID = @UserID )
+			begin
+
+			if not exists (select 
+			UserID	
+			from [{databaseOwner}].[{objectQualifier}ActiveAccess]  WITH(NOLOCK)
+			where UserID = @UserID and ForumID=IsNull(@ForumID,0)) 
+			begin				
+			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+			UserID,
+			BoardID,
+			ForumID,
+			IsAdmin, 
+			IsForumModerator,
+			IsModerator, 
+			ReadAccess,
+			PostAccess,
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,	
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess)
+			select 
+			UserID, 
+			@BoardID, 
+			ForumID, 
+			IsAdmin,
+			IsForumModerator,
+			IsModerator,
+			ReadAccess,
+			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess			
+			from [{databaseOwner}].[{objectQualifier}vaccess] 
+			where UserID = @UserID
+			and ForumID=IsNull(@ForumID,0)
+			end
+			end
+			else
+			begin
+			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
+			UserID,
+			BoardID,
+			ForumID,
+			IsAdmin, 
+			IsForumModerator,
+			IsModerator, 
+			ReadAccess,
+			PostAccess,
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,	
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess)
+			select 
+			UserID, 
+			@BoardID, 
+			ForumID, 
+			IsAdmin,
+			IsForumModerator,
+			IsModerator,
+			ReadAccess,
+			(CONVERT([bit],sign([PostAccess]&(2)),(0))),
+			ReplyAccess,
+			PriorityAccess,
+			PollAccess,
+			VoteAccess,
+			ModeratorAccess,
+			EditAccess,
+			DeleteAccess,
+			UploadAccess,
+			DownloadAccess			
+			from [{databaseOwner}].[{objectQualifier}vaccess] 
+			where UserID = @UserID
+			end
 	if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
 	  if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID OR ( Browser = @Browser AND (Flags & 8) = 8 )) and BoardID=@BoardID)
 		begin
@@ -3911,10 +4071,37 @@ begin
 			-- set @ActiveUpdate = 1			
 			end
 		end
-		else begin	
-		   -- we set @ActiveFlags ready flags 	
-			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,[Platform],Flags)
-			values(@SessionID,@BoardID,@UserID,@IP,@CurrentTime,@CurrentTime,@Location,@ForumID,@TopicID,@Browser,@Platform,@ActiveFlags)			
+		else begin			    
+			if (@IsGuest = 0 )			
+			begin		
+			 -- we set @ActiveFlags ready flags 	
+			insert into [{databaseOwner}].[{objectQualifier}Active](
+			SessionID,
+			BoardID,
+			UserID,
+			IP,
+			Login,
+			LastActive,
+			Location,
+			ForumID,
+			TopicID,
+			Browser,
+			[Platform],
+			Flags)
+			values(
+			@SessionID,
+			@BoardID,
+			@UserID,
+			@IP,
+			@CurrentTime,
+			@CurrentTime,
+			@Location,
+			@ForumID,
+			@TopicID,
+			@Browser,
+			@Platform,
+			@ActiveFlags)
+			end
 
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
@@ -3922,17 +4109,20 @@ begin
 			if @IsGuest=0
 				  begin
 				  set @ActiveUpdate = 1
-				  end
+			end
+			
 		end
 		-- remove duplicate users
 		if @IsGuest=0
 		begin
-			delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID		    
+			-- ensure that no duplicates 
+			delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID	    
+		
 		end
 		
 	end
 	-- return information
-	select
+	select top 1
 		ActiveUpdate        = ISNULL(@ActiveUpdate,0),
 		PreviousVisit		= @PreviousVisit,	   
 		x.*,
@@ -3945,7 +4135,7 @@ begin
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
 	from
-	 [{databaseOwner}].[{objectQualifier}vaccess] x 
+	 [{databaseOwner}].[{objectQualifier}ActiveAccess] x 
 	where
 		x.UserID = @UserID and x.ForumID=IsNull(@ForumID,0)
 end
@@ -4198,11 +4388,11 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID=a.TopicID
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
-		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
 	where
 		a.UserID = @UserID and
 		x.UserID = @PageUserID and
-		x.ReadAccess <> 0 and
+		CONVERT(int,x.ReadAccess) <> 0 and
 		e.BoardID = @BoardID and
 		(a.Flags & 24)=16 and
 		(c.Flags & 8)=0
@@ -4629,12 +4819,12 @@ begin
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
 	where
 		@Since < c.LastPosted and
 		x.UserID = @UserID and
-		x.ReadAccess <> 0 and
+		CONVERT(int,x.ReadAccess) <> 0 and
 		e.BoardID = @BoardID and
 		(@CategoryID is null or e.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
@@ -4903,8 +5093,8 @@ BEGIN
 
 	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM'
 	SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
-	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}vaccess] v on v.ForumID=f.ForumID'
-	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
+	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}ActiveAccess] v on v.ForumID=f.ForumID'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
 
 	EXEC(@SQL)	
 
@@ -4947,12 +5137,12 @@ BEGIN
 	INNER JOIN
 		[{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
 	JOIN
-		[{databaseOwner}].[{objectQualifier}vaccess] v ON v.ForumID=f.ForumID
+		[{databaseOwner}].[{objectQualifier}ActiveAccess] v ON v.ForumID=f.ForumID
 	WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
 		AND v.UserID=@UserID
-		AND (v.ReadAccess <> 0)
+		AND (CONVERT(int,v.ReadAccess) <> 0)
 		AND t.IsDeleted != 1
 		AND t.LastPosted IS NOT NULL
 		AND
@@ -4999,12 +5189,12 @@ BEGIN
 	INNER JOIN
 		[{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
 	JOIN
-		[{databaseOwner}].[{objectQualifier}vaccess] v ON v.ForumID=f.ForumID
+		[{databaseOwner}].[{objectQualifier}ActiveAccess] v ON v.ForumID=f.ForumID
 	WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
 		AND v.UserID=@UserID
-		AND (v.ReadAccess <> 0)
+		AND (CONVERT(int,v.ReadAccess) <> 0)
 		AND t.IsDeleted != 1
 		AND t.LastPosted IS NOT NULL
 		AND
@@ -5876,15 +6066,15 @@ begin
 			NumDays = datediff(d,a.Joined,GETUTCDATE() )+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
-			IsAdmin	= IsNull(c.IsAdmin,0),
+			IsAdmin	= IsNull(CONVERT(int,c.IsAdmin),0),
 			IsGuest	= IsNull(a.Flags & 4,0),
 			IsHostAdmin	= IsNull(a.Flags & 1,0),
-			IsForumModerator	= IsNull(c.IsForumModerator,0),
-			IsModerator		= IsNull(c.IsModerator,0)
+			IsForumModerator = IsNull(CONVERT(int,c.IsForumModerator),0),
+			IsModerator		= IsNull(CONVERT(int,c.IsModerator),0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
 			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID			
-			left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
+			left join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.UserID=a.UserID
 		where 
 			a.UserID = @UserID and
 			a.BoardID = @BoardID and
@@ -7890,13 +8080,13 @@ begin
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
 		JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@UserID
 	where
 		@Since < c.LastPosted and
 		x.UserID = @UserID and
-		x.ReadAccess <> 0 and
+		CONVERT(int,x.ReadAccess) <> 0 and
 		e.BoardID = @BoardID and
 		(@CategoryID is null or e.CategoryID=@CategoryID) and
 		c.IsDeleted = 0

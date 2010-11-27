@@ -872,6 +872,15 @@ namespace YAF.Classes.Data
 
     #region Forum
 
+
+    public static void activeaccess_reset()
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("activeaccess_reset"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
       /// <summary>
       /// The pageload.
       /// </summary>
