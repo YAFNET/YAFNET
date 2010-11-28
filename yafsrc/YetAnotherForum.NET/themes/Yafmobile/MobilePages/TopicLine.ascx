@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="../../../controls/TopicLine.ascx.cs" AutoEventWireup="True" Inherits="YAF.Controls.TopicLine" %>
+<%@ Control Language="c#" CodeBehind="../../../controls/TopicLine.ascx.cs" AutoEventWireup="True" Inherits="YAF.Controls.TopicLine" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
     <td class="topicImage">
         <%  string imgTitle = string.Empty;
