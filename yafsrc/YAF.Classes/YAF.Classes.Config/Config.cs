@@ -596,5 +596,13 @@ namespace YAF.Classes
 
       return defaultValue;
     }
+
+    public static string OverrideTrustLevel
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.OverrideTrustLevel");
+        }
+    }
   }
 }
