@@ -40,9 +40,8 @@ namespace YAF.Modules
         /// <summary>
         /// The init before page.
         /// </summary>
-        public override void InitBeforePage()
+        public override void InitAfterPage()
         {
-            base.InitBeforePage();
             CurrentForumPage.PreRender += new EventHandler(CurrentForumPage_PreRender);
         }
 
