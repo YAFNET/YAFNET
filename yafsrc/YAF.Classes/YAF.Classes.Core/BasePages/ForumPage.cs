@@ -515,6 +515,12 @@ namespace YAF.Classes.Core
       }
     }
 
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        YafContext.Current.PageElements.RegisterJQuery();
+        base.OnPreRender(e);
+    }
     /// <summary>
     /// Writes the document
     /// </summary>

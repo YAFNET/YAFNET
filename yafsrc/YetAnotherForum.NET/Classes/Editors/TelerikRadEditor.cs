@@ -57,6 +57,19 @@ namespace YAF.Editors
     }
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // Register smiley JavaScript
+        RegisterSmilieyScript();
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The editor_ load.
     /// </summary>
     /// <param name="sender">
@@ -90,8 +103,6 @@ namespace YAF.Editors
         // Add Editor
         this.AddEditorControl(this._editor);
 
-        // Register smiley JavaScript
-        RegisterSmilieyScript();
       }
     }
 

@@ -65,6 +65,18 @@ namespace YAF.Editors
     }
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        RegisterSmilieyScript();
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The editor_ load.
     /// </summary>
     /// <param name="sender">
@@ -87,7 +99,7 @@ namespace YAF.Editors
 
         // pInfo = typEditor.GetProperty("EnableHtmlMode");
         // pInfo.SetValue(objEditor,false,null);
-        RegisterSmilieyScript();
+        
       }
     }
 

@@ -19,78 +19,84 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
-  using System.Web.UI.HtmlControls;
+    using System;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for SmartScroller.
-  /// </summary>
-  public class SmartScroller : BaseControl
-  {
-    /* Ederon : 6/16/2007 - conventions */
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _hid scroll left.
-    /// </summary>
-    private readonly HtmlInputHidden _hidScrollLeft = new HtmlInputHidden();
-
-    /// <summary>
-    ///   The _hid scroll top.
-    /// </summary>
-    private readonly HtmlInputHidden _hidScrollTop = new HtmlInputHidden();
+    using YAF.Classes.Core;
+    using YAF.Classes.Pattern;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// The register startup reset.
+    /// Summary description for SmartScroller.
     /// </summary>
-    public void RegisterStartupReset()
+    public class SmartScroller : BaseControl
     {
-      this.Reset();
-      const string script = @"Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);";
-      YafContext.Current.PageElements.RegisterJsBlockStartup("SmartScrollerResetJs", script);
-    }
+        /* Ederon : 6/16/2007 - conventions */
 
-    /// <summary>
-    /// The reset.
-    /// </summary>
-    public void Reset()
-    {
-      this._hidScrollLeft.Value = "0";
-      this._hidScrollTop.Value = "0";
-    }
+        #region Constants and Fields
 
-    #endregion
+        /// <summary>
+        ///   The _hid scroll left.
+        /// </summary>
+        private readonly HtmlInputHidden _hidScrollLeft = new HtmlInputHidden();
 
-    #region Methods
+        /// <summary>
+        ///   The _hid scroll top.
+        /// </summary>
+        private readonly HtmlInputHidden _hidScrollTop = new HtmlInputHidden();
 
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      this._hidScrollLeft.ID = "scrollLeft";
-      this._hidScrollTop.ID = "scrollTop";
+        #endregion
 
-      this.Controls.Add(this._hidScrollLeft);
-      this.Controls.Add(this._hidScrollTop);
+        #region Public Methods
 
-      string scriptString =
-        @"
+        /// <summary>
+        /// The register startup reset.
+        /// </summary>
+        public void RegisterStartupReset()
+        {
+            this.Reset();
+            const string script =
+                @"Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);";
+            YafContext.Current.PageElements.RegisterJsBlockStartup("SmartScrollerResetJs", script);
+        }
+
+        /// <summary>
+        /// The reset.
+        /// </summary>
+        public void Reset()
+        {
+            this._hidScrollLeft.Value = "0";
+            this._hidScrollTop.Value = "0";
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            this._hidScrollLeft.ID = "scrollLeft";
+            this._hidScrollTop.ID = "scrollTop";
+
+            this.Controls.Add(this._hidScrollLeft);
+            this.Controls.Add(this._hidScrollTop);
+
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            string scriptString =
+                @"
   function yaf_SmartScroller_GetCoords()
   {
     var scrollX, scrollY;
@@ -112,26 +118,26 @@ namespace YAF.Controls
       scrollY = window.pageYOffset;
     }
 	  jQuery('#" +
-        this._hidScrollLeft.ClientID + @"').val( scrollX );
+                this._hidScrollLeft.ClientID + @"').val( scrollX );
 		jQuery('#" + this._hidScrollTop.ClientID +
-        @"').val( scrollY );
+                @"').val( scrollY );
   }
 
   function yaf_SmartScroller_Scroll()
   {
 		var x = jQuery('#" +
-        this._hidScrollLeft.ClientID + @"').val();
+                this._hidScrollLeft.ClientID + @"').val();
 		var y = jQuery('#" + this._hidScrollTop.ClientID +
-        @"').val();
+                @"').val();
 		if (x || y) window.scrollTo(x,y);
   }
 
 	function yaf_SmartScroller_Reset()
 	{
 	  jQuery('#" +
-        this._hidScrollLeft.ClientID + @"').val( 0 );
+                this._hidScrollLeft.ClientID + @"').val( 0 );
 		jQuery('#" + this._hidScrollTop.ClientID +
-        @"').val( 0 );	
+                @"').val( 0 );	
 		// force change...
 		window.scrollTo(0,0);
 	}
@@ -142,22 +148,24 @@ namespace YAF.Controls
 	jQuery(document).ready(yaf_SmartScroller_Scroll);
 ";
 
-      YafContext.Current.PageElements.RegisterJQuery();
-      YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
-    }
+            
+            YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
 
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
-    {
-      this.Page.VerifyRenderingInServerForm(this);
-      base.Render(writer);
-    }
+            base.OnPreRender(e);
+        }
 
-    #endregion
-  }
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            this.Page.VerifyRenderingInServerForm(this);
+            base.Render(writer);
+        }
+
+        #endregion
+    }
 }

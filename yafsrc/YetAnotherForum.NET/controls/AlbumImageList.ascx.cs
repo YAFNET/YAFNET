@@ -70,6 +70,55 @@ namespace YAF.Controls
 
     #region Methods
 
+    protected override void OnPreRender(EventArgs e)
+    {
+        if (this.UserID == this.PageContext.PageUserID)
+        {
+            // Register AjaxPro.
+            Utility.RegisterTypeForAjax(typeof(YafAlbum));
+
+            // Register Js Blocks.
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "AlbumEventsJs",
+                JavaScriptBlocks.AlbumEventsJs(
+                    this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"),
+                    this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+            this.ltrTitleOnly.Visible = false;
+        }
+        base.OnPreRender(e);
+    }
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this._attachGroupID = Guid.NewGuid().ToString().Substring(0, 5);
+        if (this.UserID == this.PageContext.PageUserID)
+        {
+            this.ltrTitleOnly.Visible = false;
+
+            // Initialize the edit control.
+            this.EditAlbums.Visible = true;
+            this.EditAlbums.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
+        }
+
+        this.BindData();
+    }
+
     /// <summary>
     /// The ItemCommand method for the cover buttons. Sets/Removes cover image.
     /// </summary>
@@ -132,46 +181,6 @@ namespace YAF.Controls
     protected void EditAlbums_Click(object sender, EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", this.AlbumID);
-    }
-
-    /// <summary>
-    /// Called when the page loads
-    /// </summary>
-    /// <param name="sender">
-    /// the sender.
-    /// </param>
-    /// <param name="e">
-    /// the e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      this._attachGroupID = Guid.NewGuid().ToString().Substring(0, 5);
-      if (this.UserID == this.PageContext.PageUserID)
-      {
-        // Register AjaxPro.
-        Utility.RegisterTypeForAjax(typeof(YafAlbum));
-
-        // Register Js Blocks.
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "AlbumEventsJs", 
-          JavaScriptBlocks.AlbumEventsJs(
-            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
-            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
-        this.ltrTitleOnly.Visible = false;
-      }
-
-      // Initialize the edit control.
-      this.EditAlbums.Visible = this.UserID == this.PageContext.PageUserID;
-      this.EditAlbums.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
-      this.BindData();
     }
 
     /// <summary>

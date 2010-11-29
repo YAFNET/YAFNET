@@ -49,6 +49,33 @@ namespace YAF.Pages
 
     #endregion
 
+    #region Overrides
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // setup jQuery, LightBox and YAF JS...
+        YafContext.Current.PageElements.RegisterJQuery();
+        YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+        YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
+
+        // lightbox only need if the browser is not IE6...
+        if (!UserAgentHelper.IsBrowserIE6())
+        {
+            YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
+            YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
+        }
+
+        base.OnPreRender(e);
+    }
+
+    #endregion
     #region Methods
 
     /// <summary>
@@ -74,19 +101,6 @@ namespace YAF.Pages
 
       var userId = Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
       var albumId = Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("a"));
-
-      // setup jQuery, LightBox and YAF JS...
-      YafContext.Current.PageElements.RegisterJQuery();
-      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-      YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
-
-      // lightbox only need if the browser is not IE6...
-      if (!UserAgentHelper.IsBrowserIE6())
-      {
-        YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
-        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
-        YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
-      }
 
       string displayName = this.PageContext.UserDisplayName.GetName((int)userId);
 

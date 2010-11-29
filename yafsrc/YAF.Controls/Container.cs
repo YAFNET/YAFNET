@@ -217,8 +217,13 @@ namespace YAF.Controls
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
       base.OnInit(e);
+    }
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+        base.OnPreRender(e);
     }
 
     /// <summary>

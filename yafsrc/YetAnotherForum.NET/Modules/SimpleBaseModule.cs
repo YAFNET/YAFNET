@@ -90,7 +90,6 @@ namespace YAF.Modules
     {
       ForumControl.BeforeForumPageLoad += new EventHandler<YafBeforeForumPageLoad>(ForumControl_BeforeForumPageLoad);
       ForumControl.AfterForumPageLoad += new EventHandler<YafAfterForumPageLoad>(ForumControl_AfterForumPageLoad);
-
       InitForum();
     }
 

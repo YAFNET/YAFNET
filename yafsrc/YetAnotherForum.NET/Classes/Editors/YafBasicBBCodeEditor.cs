@@ -38,19 +38,6 @@ namespace YAF.Editors
       this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
     }
 
-    /// <summary>
-    /// The editor_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void Editor_Load(object sender, EventArgs e)
-    {
-      base.Editor_Load(sender, e);
-    }
 
     #region Properties
 

@@ -123,7 +123,7 @@ namespace YAF.Editors
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      Load += new EventHandler(Editor_Load);
+      PreRender += new EventHandler(Editor_PreRender);
 
       this._textCtl = new HtmlTextArea();
       this._textCtl.ID = "YafTextEditor";
@@ -145,7 +145,7 @@ namespace YAF.Editors
     /// <param name="e">
     /// The e.
     /// </param>
-    protected virtual void Editor_Load(object sender, EventArgs e)
+    protected virtual void Editor_PreRender(object sender, EventArgs e)
     {
       // Ederon : 9/6/2007
       /*if (this.Visible || this.)

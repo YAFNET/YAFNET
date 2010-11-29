@@ -33,6 +33,24 @@ namespace YAF.Controls
   /// </summary>
    public partial class LoginBox : BaseUserControl
   {
+
+      /// <summary>
+      /// The On PreRender event.
+      /// </summary>
+      /// <param name="e">
+      /// the Event Arguments
+      /// </param>
+      protected override void OnPreRender(EventArgs e)
+      {
+          // setup jQuery, LightBox and YAF JS...
+          YafContext.Current.PageElements.RegisterJQuery();
+          YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
+          YafContext.Current.PageElements.RegisterJsBlock("yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));
+          YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
+
+          base.OnPreRender(e);
+      }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -44,14 +62,8 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        // TODO : Register Js;
 
-        // setup jQuery, LightBox and YAF JS...
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
-        YafContext.Current.PageElements.RegisterJsBlock("yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));
-        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
-
+     
         if (IsPostBack)
         {
             return;

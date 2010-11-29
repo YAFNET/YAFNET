@@ -80,6 +80,29 @@ namespace YAF.Controls
             YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "u={0}&a=new", this.UserID);
         }
 
+        protected override void OnPreRender(EventArgs e)
+        {
+            if (this.UserID == this.PageContext.PageUserID)
+            {
+                // Register AjaxPro.
+                Utility.RegisterTypeForAjax(typeof(YafAlbum));
+
+                // Register Js Blocks.
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "AlbumEventsJs",
+                    JavaScriptBlocks.AlbumEventsJs(
+                        this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"),
+                        this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+            }
+
+            base.OnPreRender(e);
+        }
         /// <summary>
         /// Called when the page loads
         /// </summary>
@@ -93,24 +116,6 @@ namespace YAF.Controls
         {
             if (!this.IsPostBack)
             {
-                if (this.UserID == this.PageContext.PageUserID)
-                {
-                    // Register AjaxPro.
-                    Utility.RegisterTypeForAjax(typeof(YafAlbum));
-
-                    // Register Js Blocks.
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "AlbumEventsJs", 
-                        JavaScriptBlocks.AlbumEventsJs(
-                            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
-                            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
-                }
 
                 string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
                 this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn) ? this.HtmlEncode(umhdn) : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));

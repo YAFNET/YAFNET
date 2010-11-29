@@ -62,7 +62,8 @@ namespace YAF.Editors
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      Load += new EventHandler(Editor_Load);
+      // TODO: Adding another Event when already added to the base, and overrided??? Don't think the below is needed
+      // PreRender += new EventHandler(Editor_PreRender); 
       base.OnInit(e);
 
       this._textCtl.Attributes.CssStyle.Add("width", "100%");
@@ -70,7 +71,7 @@ namespace YAF.Editors
     }
 
     /// <summary>
-    /// The editor_ load.
+    /// The editor_ PreRender.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -78,11 +79,11 @@ namespace YAF.Editors
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void Editor_Load(object sender, EventArgs e)
+    protected override void Editor_PreRender(object sender, EventArgs e)
     {
-      ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymce", ResolveUrl("tiny_mce/tiny_mce.js"));
-      RegisterTinyMceCustomJS();
-      RegisterSmilieyScript();
+        ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymce", ResolveUrl("tiny_mce/tiny_mce.js"));
+        RegisterTinyMceCustomJS();
+        RegisterSmilieyScript();
     }
 
     /// <summary>
