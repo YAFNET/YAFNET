@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <YafMenu>
-  <YafMenuSection Title="Host Administration" HostAdminOnly="true">
+  <YafMenuSection Title="Host Administration" Tag="HostAdministration" HostAdminOnly="true">
     <YafMenuItem>
       <Title>Host Settings</Title>
       <ForumPage>admin_hostsettings</ForumPage>
@@ -12,7 +12,7 @@
       <Image>tables</Image>
     </YafMenuItem>
 	</YafMenuSection>
-  <YafMenuSection Title="Settings" HostAdminOnly="false">
+  <YafMenuSection Title="Settings" Tag="Settings" HostAdminOnly="false">
     <YafMenuItem>
       <Title>Admin Index</Title>
       <ForumPage>admin_admin</ForumPage>
@@ -54,7 +54,7 @@
       <Image>globe-green</Image>
     </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="Users and Roles" HostAdminOnly="false">
+  <YafMenuSection Title="Users and Roles" Tag="UsersandRoles" HostAdminOnly="false">
     <YafMenuItem>
       <Title>Access Masks</Title>
       <ForumPage>admin_accessmasks</ForumPage>
@@ -96,7 +96,7 @@
       <Image>newspaper</Image>
     </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="Maintenance" HostAdminOnly="false">
+  <YafMenuSection Title="Maintenance" Tag="Maintenance" HostAdminOnly="false">
     <YafMenuItem>
       <Title>Prune Topics</Title>
       <ForumPage>admin_prune</ForumPage>
@@ -128,7 +128,7 @@
 			<Image>gear</Image>
 		</YafMenuItem>
 	</YafMenuSection>
-  <YafMenuSection Title="Database" HostAdminOnly="false">
+  <YafMenuSection Title="Database" Tag="Database" HostAdminOnly="false">
     <YafMenuItem>
       <Title>DB Maintenance</Title>
       <ForumPage>admin_reindex</ForumPage>
@@ -146,7 +146,7 @@
 			<Debug>true</Debug>
      </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="NNTP" HostAdminOnly="false">
+  <YafMenuSection Title="NNTP" Tag="NNTP" HostAdminOnly="false">
     <YafMenuItem>
       <Title>NNTP Servers</Title>
       <ForumPage>admin_nntpservers</ForumPage>
@@ -163,7 +163,7 @@
       <Image>newspaper</Image>
     </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="Upgrade" HostAdminOnly="false">
+  <YafMenuSection Title="Upgrade" Tag="Upgrade" HostAdminOnly="false">
     <YafMenuItem>
       <Title>Version Check</Title>
       <ForumPage>admin_version</ForumPage>

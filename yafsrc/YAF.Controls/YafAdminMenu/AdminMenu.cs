@@ -89,10 +89,13 @@ namespace YAF.Controls
 
         if (addView)
         {
-          var view = new NavView
+          /*var view = new NavView
             {
               Text = value.Title
-            };
+            };*/
+
+          var view = new NavView { Text = this.PageContext.Localization.GetText("ADMINMENU", value.Tag) };
+
           this._accordian.Views.Add(view);
 
           // add items...
@@ -183,30 +186,34 @@ namespace YAF.Controls
 
           if (item.Link.IsSet())
           {
-            // direct link...
-            url = item.Link.Replace("~", YafForumInfo.ForumClientFileRoot);
+             url = item.Link.Replace("~", YafForumInfo.ForumClientFileRoot);
           }
           else if (item.ForumPage.IsSet())
           {
-            // internal "page" link...
-            url = YafBuildLink.GetLink((ForumPages) Enum.Parse(typeof (ForumPages), item.ForumPage));
+              // internal "page" link...
+              url = YafBuildLink.GetLink((ForumPages)Enum.Parse(typeof(ForumPages), item.ForumPage));
           }
+
 
           if (item.Image.IsSet())
           {
             // add icon...
            /* view.AddItem(
-              @"<img alt=""{0}"" src=""{1}"" />&nbsp;{0}".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);*/
+              @"<img alt=""{0}"" src=""{1}"" /><span style=""margin-left:3px;"">{0}</span>".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);*/
 
               view.AddItem(
-              @"<img alt=""{0}"" src=""{1}"" /><span style=""margin-left:3px;"">{0}</span>".FormatWith(item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);
-              
+                  @"<img alt=""{0}"" src=""{1}"" /><span style=""margin-left:3px;"">{0}</span>".FormatWith(
+                 this.PageContext.Localization.GetText("ADMINMENU", !string.IsNullOrEmpty(item.ForumPage) ? item.ForumPage : "admin_install"),
+                      YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(item.Image))),
+                  url);
+
               //view.AddItem(item.Title, url, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image)));
           }
           else
           {
             // just add the item regular style..
-            view.AddItem(item.Title, url);
+            // view.AddItem(item.Title, url);
+              view.AddItem(this.PageContext.Localization.GetText("ADMINMENU", "admin_install"), url);
           }
         }
       }
