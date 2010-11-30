@@ -4071,9 +4071,8 @@ begin
 			-- set @ActiveUpdate = 1			
 			end
 		end
-		else begin			    
-			if (@IsGuest = 0 )			
-			begin		
+		else 
+		begin				
 			 -- we set @ActiveFlags ready flags 	
 			insert into [{databaseOwner}].[{objectQualifier}Active](
 			SessionID,
@@ -4100,8 +4099,7 @@ begin
 			@TopicID,
 			@Browser,
 			@Platform,
-			@ActiveFlags)
-			end
+			@ActiveFlags)			
 
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
