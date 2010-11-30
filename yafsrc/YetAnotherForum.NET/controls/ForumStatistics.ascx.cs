@@ -87,10 +87,10 @@ namespace YAF.Controls
       {
         // always show active users...       
         sb.Append(
-          "<a href=\"{1}\">{0}</a>".FormatWith(
+          "<a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
             this.PageContext.Localization.GetTextFormatted(
-              activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers), 
-            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0)));
+              activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
+            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
       }
       else
       {
@@ -104,10 +104,10 @@ namespace YAF.Controls
       {
         sb.Append(
           canViewActive
-            ? ", <a href=\"{1}\">{0}</a>".FormatWith(
+            ? ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
               this.PageContext.Localization.GetTextFormatted(
-                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers), 
-              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1))
+                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
+              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO"))
             : ", {0}".FormatWith(
               this.PageContext.Localization.GetTextFormatted(
                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
@@ -120,10 +120,10 @@ namespace YAF.Controls
              this.PageContext.BoardSettings.ShowCrawlersInActiveList))
         {
           sb.Append(
-            ", <a href=\"{1}\">{0}</a>".FormatWith(
+            ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
               this.PageContext.Localization.GetTextFormatted(
-                activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests), 
-              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2)));
+                activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
+              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
         }
         else
         {
@@ -140,9 +140,9 @@ namespace YAF.Controls
         if (activeHidden > 0 && this.PageContext.IsAdmin)
         {
           sb.Append(
-            ", <a href=\"{1}\">{0}</a>".FormatWith(
+            ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\">{0}</a>".FormatWith(
               this.PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden), 
-              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3)));
+              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
         }
         else
         {

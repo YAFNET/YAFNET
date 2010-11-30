@@ -316,12 +316,12 @@ namespace YAF.Controls
                          }
                          if (HasForumAccess)
                          {
-                             outText += string.Format(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, System.Web.HttpUtility.HtmlEncode(this.TopicName));
+                             outText += string.Format(@"<a href=""{0}"" id=""topicid_{1}""  alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.PageContext.Localization.GetText("COMMON", "VIEW_TOPIC"), System.Web.HttpUtility.HtmlEncode(this.TopicName));
 
                          if (!this.LastLinkOnly)
                          {
                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICINFORUM");
-                             outText += string.Format(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, System.Web.HttpUtility.HtmlEncode(this.ForumName));
+                             outText += string.Format(@"<a href=""{0}"" id=""forumidtopic_{1}"" alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), System.Web.HttpUtility.HtmlEncode(this.ForumName));
                          }
                          }
                      }
@@ -333,7 +333,7 @@ namespace YAF.Controls
                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM");
                             if (HasForumAccess)
                             {
-                                outText += string.Format(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, System.Web.HttpUtility.HtmlEncode(this.ForumName));
+                                outText += string.Format(@"<a href=""{0}"" id=""forumid_{1}""  alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), System.Web.HttpUtility.HtmlEncode(this.ForumName));
                             }
                         }
                      }                  
@@ -527,7 +527,7 @@ namespace YAF.Controls
                 if (Convert.ToInt32(userID) != UserID)
                 {
                     outstring += string.Format(YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
-                    outstring += string.Format(@"<a href=""{0}"" id=""profileuserid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + PageContext.PageUserID, System.Web.HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
+                    outstring += string.Format(@"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + PageContext.PageUserID, this.PageContext.Localization.GetText("COMMON", "VIEW_USRPROFILE"), System.Web.HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
                 }
                 else
                 {

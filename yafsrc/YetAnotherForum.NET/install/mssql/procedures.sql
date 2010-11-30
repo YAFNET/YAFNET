@@ -1364,7 +1364,7 @@ create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@
 begin
 	-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID NOT IN (SELECT UserID from [{databaseOwner}].[{objectQualifier}Active])
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID NOT IN (SELECT DISTINCT(UserID) from [{databaseOwner}].[{objectQualifier}Active])
 	-- select active	
 	if @Guests<>0 
 		select
