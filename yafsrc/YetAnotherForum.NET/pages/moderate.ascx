@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.moderate0" Codebehind="moderate.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<%@ Register TagPrefix="YAF" TagName="TopicLine" Src="../controls/TopicLine.ascx" %>
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
 		<td class="header1" colspan="4">
@@ -73,13 +74,10 @@
 	</tr>
 	<asp:Repeater ID="topiclist" runat="server">
 		<ItemTemplate>
-			<YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>">
-				<td class="postheader" align="center">
-					<YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_DELETETOPIC"
+         <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
+		 <YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_DELETETOPIC"
 						TitleLocalizedTag="BUTTON_DELETETOPIC_TT" OnLoad="Delete_Load" CommandArgument='<%# Eval( "TopicID") %>'
 						CommandName='delete' />
-				</td>
-			</YAF:TopicLine>
 		</ItemTemplate>
 	</asp:Repeater>
 	<tr>
