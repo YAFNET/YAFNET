@@ -753,8 +753,8 @@ namespace YAF
         while (pageRow.Table.Columns.Count < 43);
       }
 
-      return pageRow["DownloadAccess"].BinaryAnd(AccessFlags.Flags.DownloadAccess) ||
-             pageRow["ModeratorAccess"].BinaryAnd(AccessFlags.Flags.ModeratorAccess);
+      return pageRow["DownloadAccess"].ToType<bool>() ||
+             pageRow["ModeratorAccess"].ToType<bool>();
     }
 
     /// <summary>
