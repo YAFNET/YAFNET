@@ -75,14 +75,11 @@ namespace YAF.Pages
     /// </summary>
     protected void BindData()
     {
-      var pds = new PagedDataSource();
-      pds.AllowPaging = true;
-      pds.PageSize = this.PagerTop.PageSize;
+      var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
 
-      DataTable dt = DB.topic_list(this.PageContext.PageForumID, null, -1, null, 0, 999999, false, true);
+      DataTable dt = DB.topic_list(this.PageContext.PageForumID, null, -1, null, this.PagerTop.CurrentPageIndex * pds.PageSize, pds.PageSize, false, true);
       DataView dv = dt.DefaultView;
 
-      this.PagerTop.Count = dv.Count;
       pds.DataSource = dv;
 
       pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
@@ -91,9 +88,17 @@ namespace YAF.Pages
         pds.CurrentPageIndex = pds.PageCount - 1;
       }
 
+      int rowCount = 0;
+      if (dt.Rows.Count > 0)
+      {
+        rowCount = (int)dt.Rows[0]["RowCount"];
+      }
+
       this.topiclist.DataSource = pds;
       this.UserList.DataSource = DB.userforum_list(null, this.PageContext.PageForumID);
       this.DataBind();
+
+      this.PagerTop.Count = rowCount;
     }
 
     /// <summary>
