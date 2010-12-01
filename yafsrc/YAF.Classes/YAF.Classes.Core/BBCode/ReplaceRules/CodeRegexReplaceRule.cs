@@ -85,6 +85,10 @@ namespace YAF.Classes.Core.BBCode
     /// </returns>
     protected override string GetInnerValue(string innerValue)
     {
+      
+      // TODO: vzrus there should not be contsructions with string.Replace and double whitespace to replace.
+      // it can lead to server overloads in some situations. Didn't replace it to not destroy something unknown to me.
+      // innerValue = Regex.Replace(innerValue, @"\s+", "&nbsp;").Trim();
       innerValue = innerValue.Replace("  ", "&nbsp; ");
       innerValue = innerValue.Replace("  ", " &nbsp;");
       innerValue = innerValue.Replace("\t", "&nbsp; &nbsp;&nbsp;");
