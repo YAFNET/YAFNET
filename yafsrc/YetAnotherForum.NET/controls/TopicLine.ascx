@@ -1,5 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TopicLine.ascx.cs" Inherits="YAF.Controls.TopicLine" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
+    <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
+        <td>
+            <asp:CheckBox ID="chkSelected" runat="server" />
+        </td>
+    </asp:PlaceHolder>
     <td class="topicImage">
         <%  string imgTitle = string.Empty;
             string imgSrc = this.GetTopicImage(this.TopicRow, ref imgTitle);

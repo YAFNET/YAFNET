@@ -21,62 +21,40 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Data;
+  using System.Linq;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Controls;
+
+  #endregion
 
   /// <summary>
   /// Summary description for moderate.
   /// </summary>
   public partial class moderate0 : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="moderate0"/> class.
+    ///   Initializes a new instance of the <see cref = "moderate0" /> class.
     /// </summary>
     public moderate0()
       : base("MODERATE")
     {
     }
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!PageContext.ForumModeratorAccess)
-      {
-        YafBuildLink.AccessDenied();
-      }
+    #endregion
 
-      if (!IsPostBack)
-      {
-        this.AddUser.Text = GetText("INVITE");
-
-        if (PageContext.Settings.LockedForum == 0)
-        {
-          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
-        }
-
-        this.PageLinks.AddForumLinks(PageContext.PageForumID);
-        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
-
-        this.PagerTop.PageSize = 25;
-      }
-
-      BindData();
-    }
+    #region Methods
 
     /// <summary>
     /// The add user_ click.
@@ -87,49 +65,21 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void AddUser_Click(object sender, EventArgs e)
+    protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafBuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", PageContext.PageForumID);
-    }
-
-    /// <summary>
-    /// The delete_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
-    {
-      ((ThemeButton) sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_delete"));
-    }
-
-    /// <summary>
-    /// The delete user_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void DeleteUser_Load(object sender, EventArgs e)
-    {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith("Remove this user from this forum?");
+      YafBuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", this.PageContext.PageForumID);
     }
 
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    protected void BindData()
     {
       var pds = new PagedDataSource();
       pds.AllowPaging = true;
       pds.PageSize = this.PagerTop.PageSize;
 
-      DataTable dt = DB.topic_list(PageContext.PageForumID, null, -1, null, 0, 999999,false,true);
+      DataTable dt = DB.topic_list(this.PageContext.PageForumID, null, -1, null, 0, 999999, false, true);
       DataView dv = dt.DefaultView;
 
       this.PagerTop.Count = dv.Count;
@@ -142,12 +92,12 @@ namespace YAF.Pages
       }
 
       this.topiclist.DataSource = pds;
-      this.UserList.DataSource = DB.userforum_list(null, PageContext.PageForumID);
-      DataBind();
+      this.UserList.DataSource = DB.userforum_list(null, this.PageContext.PageForumID);
+      this.DataBind();
     }
 
     /// <summary>
-    /// The topiclist_ item command.
+    /// The delete topics_ click.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -155,40 +105,82 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void topiclist_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    protected void DeleteTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (e.CommandName == "delete")
-      {
-        DB.topic_delete(e.CommandArgument);
-        PageContext.AddLoadMessage(GetText("deleted"));
-        BindData();
-      }
+      var list =
+        this.topiclist.Controls.OfType<RepeaterItem>().SelectMany(x => x.Controls.OfType<TopicLine>()).Where(
+          x => x.IsSelected && x.TopicRowID.HasValue).ToList();
+
+      list.ForEach(x => DB.topic_delete(x.TopicRowID));
+
+      this.PageContext.AddLoadMessage(this.GetText("deleted"));
+      this.BindData();
     }
 
     /// <summary>
-    /// The user list_ item command.
+    /// The delete user_ load.
     /// </summary>
-    /// <param name="source">
-    /// The source.
+    /// <param name="sender">
+    /// The sender.
     /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    private void UserList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void DeleteUser_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      switch (e.CommandName)
-      {
-        case "edit":
-          YafBuildLink.Redirect(ForumPages.mod_forumuser, "f={0}&u={1}", PageContext.PageForumID, e.CommandArgument);
-          break;
-        case "remove":
-          DB.userforum_delete(e.CommandArgument, PageContext.PageForumID);
-          BindData();
+      ((LinkButton)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith("Remove this user from this forum?");
+    }
 
-          // clear moderatorss cache
-          PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-          break;
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ((ThemeButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_delete"));
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.PageContext.ForumModeratorAccess)
+      {
+        YafBuildLink.AccessDenied();
       }
+
+      if (!this.IsPostBack)
+      {
+        this.AddUser.Text = this.GetText("INVITE");
+
+        if (this.PageContext.Settings.LockedForum == 0)
+        {
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(
+            this.PageContext.PageCategoryName, 
+            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+        }
+
+        this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        this.PagerTop.PageSize = 25;
+      }
+
+      this.BindData();
     }
 
     /// <summary>
@@ -200,37 +192,56 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PagerTop_PageChange(object sender, EventArgs e)
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
       // rebind
-      BindData();
+      this.BindData();
     }
 
-    #region Web Form Designer generated code
-
     /// <summary>
-    /// The on init.
+    /// The user list_ item command.
     /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
-      topiclist.ItemCommand += new RepeaterCommandEventHandler(topiclist_ItemCommand);
-      UserList.ItemCommand += new RepeaterCommandEventHandler(this.UserList_ItemCommand);
-      AddUser.Click += new EventHandler(AddUser_Click);
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(
+            ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
+          break;
+        case "remove":
+          DB.userforum_delete(e.CommandArgument, this.PageContext.PageForumID);
+          this.BindData();
 
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
+          // clear moderatorss cache
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+          break;
+      }
     }
 
     /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    /// The topiclist_ item command.
     /// </summary>
-    private void InitializeComponent()
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void topiclist_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
+      if (e.CommandName == "delete")
+      {
+        DB.topic_delete(e.CommandArgument);
+        this.PageContext.AddLoadMessage(this.GetText("deleted"));
+        this.BindData();
+      }
     }
 
     #endregion

@@ -76,6 +76,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.LinkButton AddUser;
         
         /// <summary>
+        /// DeleteTopic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton DeleteTopic;
+        
+        /// <summary>
         /// PagerTop control.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater topiclist;
+        
+        /// <summary>
+        /// DeleteTopics2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton DeleteTopics2;
         
         /// <summary>
         /// PagerBottom control.

@@ -4,6 +4,8 @@
 
   using System;
   using System.Data;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -27,6 +29,8 @@
 
     private DataRowView _theTopicRow;
 
+    private CheckBox _selectedCheckbox;
+
     /// <summary>
     ///   The TopicRow.
     /// </summary>
@@ -38,9 +42,45 @@
       }
     }
 
+    public int? TopicRowID
+    {
+      get
+      {
+        if (ViewState["TopicRowID"] == null)
+        {
+          return null;
+        }
+
+        return (int?)ViewState["TopicRowID"];
+      }
+
+      set
+      {
+        ViewState["TopicRowID"] = value;
+      }
+    }
+
     #endregion
 
     #region Properties
+
+    public bool AllowSelection
+    {
+      get
+      {
+        if (ViewState["AllowSelection"] == null)
+        {
+          return false;
+        }
+
+        return (bool)ViewState["AllowSelection"];
+      }
+
+      set
+      {
+        ViewState["AllowSelection"] = value;
+      }
+    }
 
     /// <summary>
     ///   Gets or sets Alt.
@@ -72,6 +112,7 @@
       set
       {
         this._theTopicRow = (DataRowView)value;
+        this.TopicRowID = Convert.ToInt32(this.TopicRow["LinkTopicID"]);
       }
     }
 
@@ -385,6 +426,21 @@
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
+      this.UpdateUI();
+    }
+
+    public bool IsSelected
+    {
+      get
+      {
+        return this.chkSelected.Checked;
+      }
+    }
+
+    private void UpdateUI()
+    {
+      this.SelectionHolder.Visible = this.AllowSelection;
+      this.chkSelected.Checked = this.IsSelected;
     }
 
     /// <summary>
