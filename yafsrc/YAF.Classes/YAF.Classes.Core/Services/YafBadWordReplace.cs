@@ -203,21 +203,6 @@ namespace YAF.Classes.Core
       }
     }
 
-    /// <summary>
-    ///   Gets ReplaceWordsCache.
-    /// </summary>
-    public MostRecentlyUsed ReplaceWordsCache
-    {
-      get
-      {
-        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWordsCache);
-
-        var replaceItems = YafContext.Current.Cache.GetItem(cacheKey, 30, () => new MostRecentlyUsed(250));
-
-        return replaceItems;
-      }
-    }
-
     #endregion
 
     #region Public Methods
@@ -243,17 +228,6 @@ namespace YAF.Classes.Core
       }
 
       int? hashCode = null;
-      var cache = this.ReplaceWordsCache;
-
-      if (searchText.Length < 250)
-      {
-        hashCode = searchText.GetHashCode();
-
-        if (cache.Contains(hashCode))
-        {
-          return cache[hashCode] as string;
-        }
-      }
 
       string strReturn = searchText;
 
@@ -282,18 +256,6 @@ namespace YAF.Classes.Core
         }
 
 #endif
-      }
-
-      if (hashCode.HasValue && strReturn.IsSet())
-      {
-        try
-        {
-          cache[hashCode.Value] = strReturn;
-        }
-        catch
-        {
-          // not the best solution -- but currently better then making MostRecentlyUsed ThreadSafe -- really not a major problem if we get here.
-        }
       }
 
       return strReturn;
