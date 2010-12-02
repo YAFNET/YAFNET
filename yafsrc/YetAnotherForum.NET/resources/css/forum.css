@@ -223,3 +223,10 @@
 {
     padding: 0 !important;
 }
+.yafnet .yafpopupmenu ul,
+.yafnet .yafpopupmenu li,
+.yafnet .adminContent li,
+.yafnet .ui-helper-reset li,
+.yafnet .postOptions li {
+	list-style-type: none;
+}
