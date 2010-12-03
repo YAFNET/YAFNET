@@ -114,6 +114,28 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
+        /// Gets the Base Page
+        /// </summary>
+        public CDefault BasePage
+        {
+            get
+            {
+                return this._basePage ?? (this._basePage = GetDefault(this));
+            }
+        }
+
+        /// <summary>
+        /// Gets YafCultures
+        /// </summary>
+        private static List<YafCultureInfo> YafCultures
+        {
+            get
+            {
+                return GetYafCultures();
+            }
+        }
+
+        /// <summary>
         /// Gets CurrentPortalSettings.
         /// </summary>
         private PortalSettings CurrentPortalSettings
@@ -121,17 +143,6 @@ namespace YAF.DotNetNuke
             get
             {
                 return this._portalSettings ?? (this._portalSettings = PortalController.GetCurrentPortalSettings());
-            }
-        }
-
-        /// <summary>
-        ///   BasePage
-        /// </summary>
-        public CDefault BasePage
-        {
-            get
-            {
-                return _basePage ?? (_basePage = GetDefault(this));
             }
         }
 
@@ -190,43 +201,7 @@ namespace YAF.DotNetNuke
 
             return timeZone;
         }
-
-        /// <summary>
-        /// The get yaf culture info.
-        /// </summary>
-        /// <param name="cultureInfo">
-        /// The culture info.
-        /// </param>
-        /// <returns>
-        /// The Yaf Culture
-        /// </returns>
-        private static YafCultureInfo GetYafCultureInfo(CultureInfo cultureInfo)
-        {
-            string culture = "en";
-            string lngFile = "english.xml";
-            Dictionary<string, string> cultures = GetYafCultures();
-            YafCultureInfo yafCultureInfo = new YafCultureInfo();
-
-            if (cultureInfo != null)
-            {
-                if (cultures.ContainsKey(cultureInfo.TwoLetterISOLanguageName))
-                {
-                    culture = cultureInfo.TwoLetterISOLanguageName;
-                    lngFile = cultures[cultureInfo.TwoLetterISOLanguageName];
-                }
-                else if (cultures.ContainsKey(cultureInfo.Name))
-                {
-                    culture = cultureInfo.Name;
-                    lngFile = cultures[cultureInfo.Name];
-                }
-            }
-
-            yafCultureInfo.Culture = culture;
-            yafCultureInfo.LanguageFile = lngFile;
-
-            return yafCultureInfo;
-        }
-
+        
         /// <summary>
         /// Get Default CDefault
         /// </summary>
@@ -257,16 +232,20 @@ namespace YAF.DotNetNuke
         /// <returns>
         /// Dictonary with Yaf Cultures
         /// </returns>
-        private static Dictionary<string, string> GetYafCultures()
+        private static List<YafCultureInfo> GetYafCultures()
         {
-            Dictionary<string, string> yafCultures = new Dictionary<string, string>();
+            List<YafCultureInfo> yafCultures = new List<YafCultureInfo>();
             DataTable cult = StaticDataHelper.Cultures();
 
             foreach (DataRow row in cult.Rows)
             {
                 try
                 {
-                    yafCultures.Add(row["CultureTag"].ToString(), row["CultureFile"].ToString());
+                    yafCultures.Add(
+                        new YafCultureInfo
+                            {
+                                Culture = row["CultureTag"].ToString(), LanguageFile = row["CultureFile"].ToString() 
+                            });
                 }
                 catch
                 {
@@ -276,7 +255,12 @@ namespace YAF.DotNetNuke
 
             if (yafCultures.Count == 0)
             {
-                yafCultures.Add("en", "english.xml");
+               yafCultures.Add(
+                        new YafCultureInfo
+                        {
+                            Culture = "en",
+                            LanguageFile = "english.xml"
+                        });
             }
 
             return yafCultures;
@@ -309,6 +293,42 @@ namespace YAF.DotNetNuke
         }
 
         /// <summary>
+        /// The get yaf culture info.
+        /// </summary>
+        /// <param name="cultureInfo">
+        /// The culture info.
+        /// </param>
+        /// <returns>
+        /// The Yaf Culture
+        /// </returns>
+        private static YafCultureInfo GetYafCultureInfo(CultureInfo cultureInfo)
+        {
+            string culture = "en";
+            string lngFile = "english.xml";
+
+            YafCultureInfo yafCultureInfo = new YafCultureInfo();
+
+            if (cultureInfo != null)
+            {
+                if (YafCultures.Find(yafCult => yafCult.Culture.Equals(cultureInfo.TwoLetterISOLanguageName)) != null)
+                {
+                    culture = cultureInfo.TwoLetterISOLanguageName;
+                    lngFile = YafCultures.Find(yafCult => yafCult.Culture.Equals(cultureInfo.TwoLetterISOLanguageName)).LanguageFile;
+                }
+                else if (YafCultures.Find(yafCult => yafCult.Culture.Equals(cultureInfo.Name)) != null)
+                {
+                    culture = cultureInfo.Name;
+                    lngFile = YafCultures.Find(yafCult => yafCult.Culture.Equals(cultureInfo.Name)).LanguageFile;
+                }
+            }
+
+            yafCultureInfo.Culture = culture;
+            yafCultureInfo.LanguageFile = lngFile;
+
+            return yafCultureInfo;
+        }
+
+        /// <summary>
         /// Change YAF Language based on DNN Language, 
         ///   this will override the YAF Language Setting
         /// </summary>
@@ -318,77 +338,12 @@ namespace YAF.DotNetNuke
             {
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
 
-                string sLangCode = currentCulture.TwoLetterISOLanguageName;
+                string sLangCode = currentCulture.Name;
 
-                switch (sLangCode)
-                {
-                    case "de":
-                        YafContext.Current.BoardSettings.Language = "german-du.xml";
-                        break;
-                    case "zh":
-                        YafContext.Current.BoardSettings.Language = "china.xml";
-                        break;
-                    case "cz":
-                        YafContext.Current.BoardSettings.Language = "czech.xml";
-                        break;
-                    case "dk":
-                        YafContext.Current.BoardSettings.Language = "danish.xml";
-                        break;
-                    case "nl":
-                        YafContext.Current.BoardSettings.Language = "dutch.xml";
-                        break;
-                    case "fi":
-                        YafContext.Current.BoardSettings.Language = "finnish.xml";
-                        break;
-                    case "fr":
-                        YafContext.Current.BoardSettings.Language = "french.xml";
-                        break;
-                    case "he":
-                        YafContext.Current.BoardSettings.Language = "hebrew.xml";
-                        break;
-                    case "it":
-                        YafContext.Current.BoardSettings.Language = "italian.xml";
-                        break;
-                    case "lt":
-                        YafContext.Current.BoardSettings.Language = "lithuanian.xml";
-                        break;
-                    case "nr":
-                        YafContext.Current.BoardSettings.Language = "norwegian.xml";
-                        break;
-                    case "fa":
-                        YafContext.Current.BoardSettings.Language = "persian.xml";
-                        break;
-                    case "pl":
-                        YafContext.Current.BoardSettings.Language = "polish.xml";
-                        break;
-                    case "pt":
-                        YafContext.Current.BoardSettings.Language = "portugues.xml";
-                        break;
-                    case "ro":
-                        YafContext.Current.BoardSettings.Language = "romanian.xml";
-                        break;
-                    case "ru":
-                        YafContext.Current.BoardSettings.Language = "russian.xml";
-                        break;
-                    case "sk":
-                        YafContext.Current.BoardSettings.Language = "slovak.xml";
-                        break;
-                    case "es":
-                        YafContext.Current.BoardSettings.Language = "spanish.xml";
-                        break;
-                    case "sv":
-                        YafContext.Current.BoardSettings.Language = "swedish.xml";
-                        break;
-                    case "tr":
-                        YafContext.Current.BoardSettings.Language = "turkish.xml";
-                        break;
-                    case "vi":
-                        YafContext.Current.BoardSettings.Language = "vietnam.xml";
-                        break;
-                    default:
-                        YafContext.Current.BoardSettings.Language = "english.xml";
-                        break;
-                }
+                YafContext.Current.BoardSettings.Language =
+                    YafCultures.Find(yafCult => yafCult.Culture.Equals(sLangCode)) != null
+                        ? YafCultures.Find(yafCult => yafCult.Culture.Equals(sLangCode)).LanguageFile
+                        : "english.xml";
             }
             catch (Exception)
             {
@@ -531,9 +486,9 @@ namespace YAF.DotNetNuke
             // Save User
             DB.user_save(
                 yafUserId, 
-                this.forum1.BoardID, 
-                null, 
-                null, 
+                this.forum1.BoardID,
+                dnnUserInfo.DisplayName,
+                dnnUserInfo.DisplayName,
                 null, 
                 GetUserTimeZoneOffset(dnnUserInfo, this.PortalSettings), 
                 null, 
@@ -589,7 +544,7 @@ namespace YAF.DotNetNuke
                 }
 
                 // see if the roles have been syncronized...
-                if (this.Session[this.SessionUserKeyName + "_rolesloaded"] == null)
+                if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] == null)
                 {
                     bool roleChanged = false;
                     foreach (string role in dnnUserInfo.Roles)
@@ -611,7 +566,7 @@ namespace YAF.DotNetNuke
                         MarkRolesChanged();
                     }
 
-                    this.Session[this.SessionUserKeyName + "_rolesloaded"] = true;
+                    this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] = true;
                 }
 
                 // Admin or Host user?
@@ -737,7 +692,7 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// The yaf culture info.
         /// </summary>
-        private struct YafCultureInfo
+        public class YafCultureInfo
         {
             #region Constants and Fields
 
