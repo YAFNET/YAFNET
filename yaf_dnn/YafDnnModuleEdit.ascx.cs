@@ -27,6 +27,7 @@ namespace YAF.DotNetNuke
   using System.Web.UI.WebControls;
 
   using global::DotNetNuke.Entities.Modules;
+  using global::DotNetNuke.Framework;
 
   using YAF.Classes;
   using YAF.Classes.Data;
@@ -57,20 +58,6 @@ namespace YAF.DotNetNuke
       this.create.Click += CreateClick;
       this.BoardID.SelectedIndexChanged += this.BoardIdSelectedIndexChanged;
       base.OnInit(e);
-    }
-
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
-    {
-      writer.WriteLine(
-        "<link rel='stylesheet' type='text/css' href='{0}themes/standard/theme.css'/>", 
-        "~/DesktopModules/YetAnotherForumDotNet");
-      base.Render(writer);
     }
 
     /// <summary>
@@ -156,12 +143,14 @@ namespace YAF.DotNetNuke
     /// </param>
     private void DotNetNukeModuleEdit_Load(object sender, EventArgs e)
     {
-      this.update.Text = "Update";
-      this.cancel.Text = "Cancel";
-      this.create.Text = "Create New Board";
+        ((CDefault)this.Page).AddStyleSheet("YafDefaultTheme", this.ResolveUrl("themes/standard/theme.css"));
 
-      this.update.Visible = this.IsEditable;
-      this.create.Visible = this.IsEditable;
+        this.update.Text = "Update";
+        this.cancel.Text = "Cancel";
+        this.create.Text = "Create New Board";
+
+        this.update.Visible = this.IsEditable;
+        this.create.Visible = this.IsEditable;
 
         if (this.IsPostBack)
         {
@@ -185,9 +174,14 @@ namespace YAF.DotNetNuke
         }
 
         this.BindCategories();
+
+        bool ineritDnnLang;
+        bool.TryParse((string)this.Settings["InheritDnnLanguage"], out ineritDnnLang);
+
+        this.InheritDnnLanguage.Checked = ineritDnnLang;
     }
 
-    /// <summary>
+      /// <summary>
     /// The update click.
     /// </summary>
     /// <param name="sender">
@@ -202,6 +196,7 @@ namespace YAF.DotNetNuke
 
       objModules.UpdateModuleSetting(this.ModuleId, "forumboardid", this.BoardID.SelectedValue);
       objModules.UpdateModuleSetting(this.ModuleId, "forumcategoryid", this.CategoryID.SelectedValue);
+      objModules.UpdateModuleSetting(this.ModuleId, "InheritDnnLanguage", this.InheritDnnLanguage.Checked.ToString());
 
       YafBuildLink.Redirect(ForumPages.forum);
     }

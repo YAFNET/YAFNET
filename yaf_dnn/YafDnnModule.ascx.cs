@@ -668,7 +668,14 @@ namespace YAF.DotNetNuke
                 // This will create an error if there is no setting for forumboardid
                 this.forum1.BoardID = int.Parse(this.Settings["forumboardid"].ToString());
 
-                SetDnnLangToYaf();
+                // Inherit Language from Dnn?
+                bool ineritDnnLang;
+                bool.TryParse((string)this.Settings["InheritDnnLanguage"], out ineritDnnLang);
+
+                if (ineritDnnLang)
+                {
+                    SetDnnLangToYaf();
+                }
 
                 string cId = this.Settings["forumcategoryid"].ToString();
 
