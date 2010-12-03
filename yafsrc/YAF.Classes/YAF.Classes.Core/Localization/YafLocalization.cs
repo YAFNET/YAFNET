@@ -92,21 +92,22 @@ namespace YAF.Classes.Core
     /// </summary>
     public CultureInfo Culture
     {
-      get
-      {
-        if (this._culture != null)
+        get
         {
-          return this._culture;
-        }
-        else if (this._localizer == null)
-        {
-          this._culture = this.LoadTranslation();
-          return this._culture;
-        }
+            if (this._culture != null)
+            {
+                return this._culture;
+            }
 
-        // fall back to current culture if there is some error
-        return CultureInfo.CurrentCulture;
-      }
+            if (this._localizer == null)
+            {
+                this._culture = this.LoadTranslation();
+                return this._culture;
+            }
+
+            // fall back to current culture if there is some error
+            return CultureInfo.CurrentCulture;
+        }
     }
 
     /// <summary>
@@ -116,12 +117,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (this._localizer != null)
-        {
-          return this._localizer.CurrentCulture.Name.Substring(0, 2);
-        }
-
-        return this.LoadTranslation().Name.Substring(0, 2);
+          return this._localizer != null ? this._localizer.CurrentCulture.TwoLetterISOLanguageName : this.LoadTranslation().TwoLetterISOLanguageName;
       }
     }
 
@@ -137,7 +133,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    ///   What section of the xml is used to translate this page
+    ///   Gets or sets What section of the xml is used to translate this page
     /// </summary>
     public string TransPage { get; set; }
 
@@ -173,14 +169,7 @@ namespace YAF.Classes.Core
     /// </remarks>
     public string FormatDateTime(string format, DateTime date)
     {
-      if (this.Culture.IsNeutralCulture)
-      {
-        return date.ToString(format);
-      }
-      else
-      {
-        return date.ToString(format, this.Culture);
-      }
+        return this.Culture.IsNeutralCulture ? date.ToString(format) : date.ToString(format, this.Culture);
     }
 
     /// <summary>
@@ -200,17 +189,10 @@ namespace YAF.Classes.Core
     /// </remarks>
     public string FormatString(string format, params object[] args)
     {
-      if (this.Culture.IsNeutralCulture)
-      {
-        return format.FormatWith(args);
-      }
-      else
-      {
-        return String.Format(this.Culture, format, args);
-      }
+        return this.Culture.IsNeutralCulture ? format.FormatWith(args) : String.Format(this.Culture, format, args);
     }
 
-    /// <summary>
+      /// <summary>
     /// The get nodes using query.
     /// </summary>
     /// <param name="page">
@@ -220,6 +202,7 @@ namespace YAF.Classes.Core
     /// The predicate.
     /// </param>
     /// <returns>
+    /// The Nodes
     /// </returns>
     public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(
       string page, Func<LanuageResourcesPageResource, bool> predicate)
@@ -265,7 +248,7 @@ namespace YAF.Classes.Core
       if (localizedText == null)
       {
 #if !DEBUG
-        string filename = string.Empty;
+        string filename;
 
         if ( YafContext.Current.PageIsNull() ||
              YafContext.Current.LanguageFile == string.Empty ||
@@ -443,7 +426,7 @@ namespace YAF.Classes.Core
         return this._localizer.CurrentCulture;
       }
 
-      string filename = null;
+      string filename;
 
       if (YafContext.Current.PageIsNull() || YafContext.Current.Page["LanguageFile"] == DBNull.Value ||
           !YafContext.Current.BoardSettings.AllowUserLanguage)

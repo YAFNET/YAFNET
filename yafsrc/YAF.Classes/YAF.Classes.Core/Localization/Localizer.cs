@@ -27,7 +27,7 @@ namespace YAF.Classes.Core
   using System.IO;
   using System.Linq;
 
-  using YAF.Classes.Utils;
+    using YAF.Classes.Utils;
 
   #endregion
 
@@ -101,17 +101,18 @@ namespace YAF.Classes.Core
 
     #region Public Methods
 
-    /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="tagQuery">
-    /// The tag query.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    /// <exception cref="Exception">
-    /// </exception>
-    public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
+      /// <summary>
+      /// The get nodes using query.
+      /// </summary>
+      /// <param name="predicate">
+      /// The predicate.
+      /// </param>
+      /// <returns>
+      /// The Nodes.
+      /// </returns>
+      /// <exception cref="Exception">
+      /// </exception>
+      public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
     {
       var pagePointer =
         this._localizationLanguageResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
@@ -146,7 +147,6 @@ namespace YAF.Classes.Core
       {
         pageResource = pagePointer.Resource.Where(r => r.tag.ToUpper().Equals(tag)).FirstOrDefault();
       }
-
 
       if (pageResource == null)
       {
@@ -226,28 +226,41 @@ namespace YAF.Classes.Core
     /// </summary>
     private void InitCulture()
     {
-      if (YafContext.Current.Get<YafInitializeDb>().Initialized)
-      {
-        // vzrus: Culture code is missing for a user until he saved his profile.
-        // First set it to board culture              
-        if (this.CurrentCulture.Name.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
+        if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
         {
-          this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+            return;
+        }
+
+        var langCode = this.CurrentCulture.TwoLetterISOLanguageName;
+
+        // vzrus: Culture code is missing for a user until he saved his profile.
+        // First set it to board culture
+        try
+        {
+            if (langCode.Equals(YafContext.Current.BoardSettings.Culture.Substring(0, 2)))
+            {
+                this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+            }
+        }
+        catch (Exception)
+        {
+            this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
         }
 
         string cultureUser = YafContext.Current.CultureUser;
 
-        if (YafContext.Current.CultureUser.IsSet())
+        if (!YafContext.Current.CultureUser.IsSet())
         {
-          if (cultureUser.Substring(0, 2).Contains(this.CurrentCulture.Name.Substring(0, 2)))
-          {
-            this._currentCulture = new CultureInfo(cultureUser);
-          }
+            return;
         }
-      }
+
+        if (cultureUser.Substring(0, 2).Equals(langCode))
+        {
+            this._currentCulture = new CultureInfo(cultureUser);
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The load file.
     /// </summary>
     /// <exception cref="ApplicationException">
