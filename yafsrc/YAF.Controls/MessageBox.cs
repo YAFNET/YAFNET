@@ -1,0 +1,257 @@
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+namespace YAF.Controls
+{
+    #region
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using YAF.Classes.Utils;
+
+    #endregion
+
+    /// <summary>
+    /// The MessagBox
+    /// </summary>
+    public class MessageBox : BaseControl
+    {
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The buttons.
+        /// </summary>
+        private List<Button> buttons;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the Body Template
+        /// </summary>
+        public ITemplate BodyTemplate { get; set; }
+
+        /// <summary>
+        /// Gets Buttons.
+        /// </summary>
+        public List<Button> Buttons
+        {
+            get
+            {
+                return this.buttons ?? (this.buttons = new List<Button>());
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets CssClass.
+        /// </summary>
+        public string CssClass
+        {
+            get
+            {
+                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["CssClass"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Title.
+        /// </summary>
+        public string Icon
+        {
+            get
+            {
+                return this.ViewState["Icon"] != null ? this.ViewState["Icon"].ToString() : YafForumInfo.GetURLToResource("icons/InfoBig.png");
+            }
+
+            set
+            {
+                this.ViewState["Icon"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Title.
+        /// </summary>
+        public string MessageText
+        {
+            get
+            {
+                return this.ViewState["MessageText"] != null ? this.ViewState["MessageText"].ToString() : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["MessageText"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Title.
+        /// </summary>
+        public string Title
+        {
+            get
+            {
+                return this.ViewState["Title"] != null ? this.ViewState["Title"].ToString() : "Info";
+            }
+
+            set
+            {
+                this.ViewState["Title"] = value;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Overrides the <see cref="Control.CreateChildControls"/> method.
+        /// </summary>
+        protected override void CreateChildControls()
+        {
+            HtmlGenericControl titleControl = new HtmlGenericControl("div");
+
+            titleControl.Attributes.Add("class", "header");
+
+            titleControl.InnerHtml = "<h1>{0}</h1>".FormatWith(this.Title);
+
+            this.Controls.Add(titleControl);
+
+            this.Controls.Add(new LiteralControl("<div style=\"float:left\">"));
+
+            HtmlImage imageIcon = new HtmlImage
+                {
+                   Src = this.Icon, Alt = "Icon", 
+                };
+
+            imageIcon.Attributes.Add("style", "padding:5px");
+
+            this.Controls.Add(imageIcon);
+
+            this.Controls.Add(new LiteralControl("</div>"));
+
+            if (this.MessageText.IsSet())
+            {
+                HtmlGenericControl spanInnerMessage = new HtmlGenericControl("span");
+
+                HtmlGenericControl divOuterMessage = new HtmlGenericControl("div") { ID = "YafPopupErrorMessageOuter" };
+
+                divOuterMessage.Attributes.Add("class", "modalOuter");
+
+                spanInnerMessage.ID = "YafPopupErrorMessageInner";
+                spanInnerMessage.Attributes.Add("class", "modalInner");
+
+                spanInnerMessage.InnerText = this.MessageText;
+
+                divOuterMessage.Controls.Add(spanInnerMessage);
+
+                this.Controls.Add(divOuterMessage);
+            }
+
+            if (!this.DesignMode)
+            {
+                if (this.BodyTemplate == null)
+                {
+                    this.BodyTemplate = new CompiledTemplateBuilder(this.CreateBox);
+                }
+
+                if (!this.DesignMode)
+                {
+                    this.BodyTemplate.InstantiateIn(this);
+                }
+            }
+
+            this.Controls.Add(new LiteralControl("<hr />"));
+
+            if (this.Buttons != null && this.Buttons.Count > 0)
+            {
+                foreach (HyperLink btnLink in
+                    this.Buttons.Select(btn => new HyperLink { CssClass = btn.CssClass, ID = Guid.NewGuid().ToString(), Text = btn.Text }))
+                {
+                    btnLink.NavigateUrl = this.Page.ClientScript.GetPostBackClientHyperlink(btnLink, string.Empty);
+
+                    this.Controls.Add(btnLink);
+                }
+            }
+
+            this.Controls.Add(new LiteralControl("</div>"));
+        }
+
+        /// <summary>
+        /// The create default box.
+        /// </summary>
+        /// <param name="template">
+        /// The template.
+        /// </param>
+        protected virtual void CreateBox(Control template)
+        {
+            /*HtmlGenericControl spanInnerMessage = new HtmlGenericControl("span");
+
+            HtmlGenericControl divOuterMessage = new HtmlGenericControl("div") { ID = "YafPopupErrorMessageOuter" };
+
+            divOuterMessage.Attributes.Add("class", "modalOuter");
+
+            spanInnerMessage.ID = "YafPopupErrorMessageInner";
+            spanInnerMessage.Attributes.Add("class", "modalInner");
+
+            spanInnerMessage.InnerText = "Error";
+
+            divOuterMessage.Controls.Add(spanInnerMessage);
+
+            template.Controls.Add(divOuterMessage);*/
+        }
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render(HtmlTextWriter writer)
+        {
+            writer.BeginRender();
+
+            writer.WriteBeginTag("div");
+            writer.WriteAttribute("id", this.ClientID);
+
+            writer.WriteAttribute("class", "MessageBox");
+
+            writer.Write(">");
+            writer.WriteLine();
+
+            writer.EndRender();
+
+            base.Render(writer);
+        }
+
+        #endregion
+    }
+}

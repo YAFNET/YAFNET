@@ -152,6 +152,42 @@ function toggleMessage(divId)
                 @"jQuery(document).ready(function() {{jQuery('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});".FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"));
     }
 
+      /// <summary>
+      /// Generates jQuery UI DatePicker Script
+      /// </summary>
+      /// <param name="fieldId">
+      /// The Id of the Control to Bind the DatePicker
+      /// </param>
+      /// <param name="dateFormat">
+      /// Localized Date Format</param>
+      /// <param name="altDateFormat">
+      /// The Alt Date Format
+      /// </param>
+      /// <param name="culture">
+      /// Current Culture
+      /// </param>
+      /// <returns>
+      /// The load js.
+      /// </returns>
+      public static string DatePickerLoadJs(string fieldId, string dateFormat, string altDateFormat, string culture)
+      {
+        string cultureJs = string.Empty;
+
+        dateFormat = dateFormat.Replace("yyyy", "yy");
+        dateFormat = dateFormat.Replace("YYYY", "YY");
+        
+        dateFormat = dateFormat.Replace("MM", "mm");
+
+        if (!string.IsNullOrEmpty(culture))
+        {
+            cultureJs = @"jQuery('#{0}').datepicker(jQuery.datepicker.regional['{1}']);".FormatWith(fieldId, culture);
+        }
+
+        return
+            @"jQuery(document).ready(function() {{jQuery('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }});"
+                .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs);
+    }
+
     /// <summary>
     /// If asynchronous callback encounters any problem, this javascript function will be called.
     /// </summary>

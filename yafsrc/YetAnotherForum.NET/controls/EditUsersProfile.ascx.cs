@@ -16,25 +16,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Data;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 
 namespace YAF.Controls
 {
     #region Using
 
     using System;
+    using System.Data;
+    using System.Linq;
     using System.Net.Mail;
+    using System.Text.RegularExpressions;
     using System.Threading;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Classes.Core;
     using YAF.Classes.Data;
     using YAF.Classes.Utils;
+    using YAF.Utilities;
 
     #endregion
 
@@ -108,12 +108,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._userData == null)
-                {
-                    this._userData = new CombinedUserDataHelper(this.CurrentUserID);
-                }
-
-                return this._userData;
+                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.CurrentUserID));
             }
         }
 
@@ -150,6 +145,37 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender(EventArgs e)
+        {
+            // setup jQuery and DatePicker JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            if (!string.IsNullOrEmpty(this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")))
+            {
+                YafContext.Current.PageElements.RegisterJsInclude(
+                    "datepickerlang",
+                    "http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-{0}.js".FormatWith(
+                        this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")));
+            }
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "DatePickerJs",
+                JavaScriptBlocks.DatePickerLoadJs(
+                    this.Birthday.ClientID,
+                    Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern,
+                    this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
+                    this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
@@ -171,7 +197,10 @@ namespace YAF.Controls
                 this.CurrentUserID = this.PageContext.PageUserID;
             }
 
-            if (this.IsPostBack) return;
+            if (this.IsPostBack)
+            {
+                return;
+            }
 
             this.LoginInfo.Visible = true;
 
@@ -180,7 +209,7 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.PageContext.Localization.GetText("PROFILE", "gender1"));
             this.Gender.Items.Add(this.PageContext.Localization.GetText("PROFILE", "gender2"));
 
-            // End Modifications for enhanced profile				
+            // End Modifications for enhanced profile
             this.UpdateProfile.Text = this.PageContext.Localization.GetText("COMMON", "SAVE");
             this.Cancel.Text = this.PageContext.Localization.GetText("COMMON", "CANCEL");
 
@@ -210,7 +239,6 @@ namespace YAF.Controls
         /// </param>
         protected void UpdateProfile_Click(object sender, EventArgs e)
         {
-
             if (this.HomePage.Text.IsSet())
             {
                 // add http:// by default
@@ -218,6 +246,7 @@ namespace YAF.Controls
                 {
                     this.HomePage.Text = "http://" + this.HomePage.Text.Trim();
                 }
+
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
                 {
                     this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
@@ -323,7 +352,6 @@ namespace YAF.Controls
                 }
             }
 
-
             // save remaining settings to the DB
             DB.user_save(
               this.CurrentUserID,
@@ -371,30 +399,22 @@ namespace YAF.Controls
 
             if (this.PageContext.BoardSettings.AllowUserLanguage)
             {
-
                 this.Culture.DataSource = StaticDataHelper.Cultures();
                 this.Culture.DataValueField = "CultureTag";
                 this.Culture.DataTextField = "CultureNativeName";
-
             }
 
             this.DataBind();
 
             if (this.PageContext.BoardSettings.EnableDNACalendar)
             {
-                this.datePicker.LocID = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE");
-                this.datePicker.AnotherFormatString = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT");
-                this.datePicker.DateFormatString = Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                this.Birthday.Text = this.UserData.Profile.Birthday > DateTime.MinValue ? this.UserData.Profile.Birthday.Date.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern) : DateTime.MinValue.Date.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern);
 
-                this.datePicker.Value = this.UserData.Profile.Birthday > DateTime.MinValue ? this.UserData.Profile.Birthday.Date : DateTime.MinValue.Date;
-
-                this.datePicker.ToolTip = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");
-                this.datePicker.DefaultDateString = string.Empty;
+                this.Birthday.ToolTip = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");
             }
             else
             {
-                this.datePicker.Enabled = false;
-                this.datePicker.Visible = false;
+                this.Birthday.Visible = false;
                 this.BirthdayLabel.Visible = false;
             }
 
@@ -429,10 +449,7 @@ namespace YAF.Controls
             if (YafContext.Current.BoardSettings.MobileTheme.IsSet() && UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) ||
                 HttpContext.Current.Request.Browser.IsMobileDevice)
             {
-
                 this.UseMobileThemeRow.Visible = true;
-
-
                 this.UseMobileTheme.Checked = this.UserData.UseMobileTheme;
             }
 
@@ -452,11 +469,12 @@ namespace YAF.Controls
                 {
                     themeItem.Selected = true;
                 }
-
-
             }
 
-            if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0) return;
+            if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
+            {
+                return;
+            }
 
             string languageFile = this.PageContext.BoardSettings.Language;
             string culture4tag = this.PageContext.BoardSettings.Culture;
@@ -539,9 +557,16 @@ namespace YAF.Controls
             userProfile.Gender = this.Gender.SelectedIndex;
             userProfile.Blog = this.Weblog.Text.Trim();
 
-            if (this.PageContext.BoardSettings.EnableDNACalendar && this.datePicker.Value > DateTime.MinValue.Date)
+            if (this.PageContext.BoardSettings.EnableDNACalendar && this.Birthday.Text.IsSet())
             {
-                userProfile.Birthday = this.datePicker.Value.Date;
+                DateTime userBirthdate;
+
+                DateTime.TryParse(this.Birthday.Text, out userBirthdate);
+
+                if (userBirthdate > DateTime.MinValue.Date)
+                {
+                    userProfile.Birthday = userBirthdate;
+                }
             }
 
             userProfile.BlogServiceUrl = this.WeblogUrl.Text.Trim();

@@ -49,10 +49,7 @@
                 LocalizedTag="BIRTHDAY" />
         </td>
         <td class="post">
-            <DotNetAge:DatePicker ID="datePicker" runat="server" AllowChangeYear="true" AllowChangeMonth="true"
-                MaxDateFormat="+0d" Enabled="true">
-                <AnotherField Selector=""></AnotherField>
-            </DotNetAge:DatePicker>
+            <asp:TextBox ID="Birthday" runat="server"></asp:TextBox>
         </td>
     </tr>
     <tr>

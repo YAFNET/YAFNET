@@ -103,13 +103,13 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel BirthdayLabel;
         
         /// <summary>
-        /// datePicker control.
+        /// Birthday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.DatePicker datePicker;
+        protected global::System.Web.UI.WebControls.TextBox Birthday;
         
         /// <summary>
         /// LocalizedLabel3 control.
