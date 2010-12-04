@@ -35,11 +35,11 @@ function yaf_mouseover() {
 }
 
 function yaf_left(obj) {
-    return $(obj).position().left; 
+    return jQuery(obj).position().left; 
 }
 
 function yaf_top(obj) {
-    return $(obj).position().top + $(obj).outerHeight() + 1;
+    return jQuery(obj).position().top + jQuery(obj).outerHeight() + 1;
 }
 
 function yaf_popit(menuName) {
@@ -71,19 +71,19 @@ function yaf_popit(menuName) {
 		return false;
 	}
 
-	if (!$(themenu).is(":visible")) {
+	if (!jQuery(themenu).is(":visible")) {
 	    var x = yaf_left(target);
 	    // Make sure the menu stays inside the page
 	    // offsetWidth or clientWidth?!?
-	    if (x + $(themenu).outerWidth() + 2 > $(document).width()) {
-	        x = $(document).width() - $(themenu).outerWidth() - 2;
+	    if (x + jQuery(themenu).outerWidth() + 2 > jQuery(document).width()) {
+	        x = jQuery(document).width() - jQuery(themenu).outerWidth() - 2;
 	    }
 
 	    themenu.style.left = x + "px";
 	    themenu.style.top = yaf_top(target) + "px";
 	    themenu.style.zIndex = 100;
 
-	    $(themenu).fadeIn();
+	    jQuery(themenu).fadeIn();
 	} else {
 	    yaf_hidemenu();
 	}
@@ -93,7 +93,7 @@ function yaf_popit(menuName) {
 
 function yaf_hidemenu() {
 	if(window.themenu) {
-		$(window.themenu).fadeOut();
+		jQuery(window.themenu).fadeOut();
 		window.themenu = null;
 	}
 }

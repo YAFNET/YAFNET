@@ -1,20 +1,20 @@
-﻿$(document).ready(function() {
+﻿jQuery(document).ready(function() {
 	
-	$("img, input").tipTip();
+	jQuery("img, input").tipTip();
 	
   // TipTip
-  if(!$.browser.msie)
+  if(!jQuery.browser.msie)
   {
-	 $("img.avatarimage").load(function() {
-		 $(this).wrap('<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat ;background-size:100%; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />');$(this).css("opacity","0");
+	 jQuery("img.avatarimage").load(function() {
+		 jQuery(this).wrap('<span class="' + jQuery(this).attr('class') + '" style="background:url(' + jQuery(this).attr('src') + ') no-repeat ;background-size:100%; width: ' + jQuery(this).width() + 'px; height: ' + jQuery(this).height() + 'px;" />');jQuery(this).css("opacity","0");
 	 });
   }
   else
   {
-	 if($.browser.version >= 9)
+	 if(jQuery.browser.version >= 9)
   {
-	   $("img.avatarimage").load(function() {
-		 $(this).wrap('<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat ;background-size:100%; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />');$(this).css("opacity","0");
+	   jQuery("img.avatarimage").load(function() {
+		 jQuery(this).wrap('<span class="' + jQuery(this).attr('class') + '" style="background:url(' + jQuery(this).attr('src') + ') no-repeat ;background-size:100%; width: ' + jQuery(this).width() + 'px; height: ' + jQuery(this).height() + 'px;" />');jQuery(this).css("opacity","0");
 	 });
   }
   }
