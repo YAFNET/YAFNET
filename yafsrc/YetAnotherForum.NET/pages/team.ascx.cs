@@ -255,8 +255,7 @@ namespace YAF.Pages
         private void BindData()
         {
             this.AdminsGrid.Columns[0].HeaderText = GetText("TEAM", "User");
-            this.AdminsGrid.Columns[1].HeaderText = GetText("TEAM", "Forums");
-
+            this.AdminsGrid.Columns[2].HeaderText = GetText("TEAM", "Forums");
             this.AdminsGrid.DataSource = this.GetAdmins();
 
             this.completeModsList = this.GetModerators();
@@ -266,7 +265,7 @@ namespace YAF.Pages
                 this.ModsTable.Visible = true;
 
                 this.ModeratorsGrid.Columns[0].HeaderText = GetText("TEAM", "User");
-                this.ModeratorsGrid.Columns[1].HeaderText = GetText("TEAM", "Forums");
+                this.ModeratorsGrid.Columns[2].HeaderText = GetText("TEAM", "Forums");
 
                 this.ModeratorsGrid.DataSource = this.completeModsList;
             }
