@@ -174,9 +174,10 @@ function toggleMessage(divId)
         string cultureJs = string.Empty;
 
         dateFormat = dateFormat.Replace("yyyy", "yy");
-        dateFormat = dateFormat.Replace("YYYY", "YY");
+        dateFormat = dateFormat.Replace("YYYY", "yy");
         
         dateFormat = dateFormat.Replace("MM", "mm");
+        dateFormat = dateFormat.Replace("DD", "dd");
 
         if (!string.IsNullOrEmpty(culture))
         {
