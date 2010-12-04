@@ -118,6 +118,7 @@
     <Resource tag="SEARCH">Utilizeaza Cautare</Resource>
     <Resource tag="SHOUTBOX">Utilizeaza Discutii instant</Resource>
     <Resource tag="SHOWSMILIES">Nu exista date</Resource>
+    <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Vezi topicuri </Resource>
     <Resource tag="VIEWTHANKS">Vezi info multumiri</Resource>

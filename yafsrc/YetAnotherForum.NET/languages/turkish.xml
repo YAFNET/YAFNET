@@ -118,6 +118,7 @@
     <Resource tag="SEARCH">Arama</Resource>
     <Resource tag="SHOUTBOX">Mesaj kuturu</Resource>
     <Resource tag="SHOWSMILIES">Veri Yok</Resource>
+    <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> forum içinde </Resource>
     <Resource tag="TOPICS">Konuyu Görüntüle </Resource>
     <Resource tag="VIEWTHANKS">Teşekkür bilgisini göster</Resource>

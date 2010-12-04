@@ -118,6 +118,7 @@
     <Resource tag="SEARCH">Uses search</Resource>
     <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
     <Resource tag="SHOWSMILIES">No data</Resource>
+    <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
     <Resource tag="VIEWTHANKS">Views thanks info</Resource>

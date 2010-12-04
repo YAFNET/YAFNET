@@ -118,6 +118,7 @@
     <Resource tag="SEARCH">Использует поиск</Resource>
     <Resource tag="SHOUTBOX">Использует чат</Resource>
     <Resource tag="SHOWSMILIES">Показ смайлов</Resource>
+    <Resource tag="TEAM">Просматривает список команды форума</Resource>
     <Resource tag="TOPICINFORUM"> в форуме </Resource>
     <Resource tag="TOPICS">Просматривает тему </Resource>
     <Resource tag="VIEWTHANKS">Просмотр «Спасибо»</Resource>

@@ -395,6 +395,7 @@
 		<Resource tag="MODERATE_UNAPPROVEDPOSTS">Views unapproved posts</Resource>
 		<Resource tag="ERROR">Gets error page</Resource>
 		<Resource tag="SHOUTBOX">Uses shoutbox</Resource>
+    <Resource tag="TEAM">Views team page</Resource>
 		<Resource tag="AVATAR">Views avatar</Resource>
 		<Resource tag="IM_YIM">Uses YIM</Resource>
 		<Resource tag="IM_AIM">Uses AIM</Resource>

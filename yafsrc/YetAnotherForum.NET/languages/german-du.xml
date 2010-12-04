@@ -118,6 +118,7 @@
     <Resource tag="SEARCH">Benutzt Suche</Resource>
     <Resource tag="SHOUTBOX">Benutzt Shoutbox</Resource>
     <Resource tag="SHOWSMILIES">Keine Daten</Resource>
+    <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> im Forum</Resource>
     <Resource tag="TOPICS">Betrachtet Themen </Resource>
     <Resource tag="VIEWTHANKS">Sieht Dankesinfo an </Resource>
