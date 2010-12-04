@@ -61,6 +61,22 @@ namespace YAF.DotNetNuke
     /// </summary>
     private int iBoardId;
 
+    /// <summary>
+    /// Gets or sets The New Users Counter
+    /// </summary>
+    private int NewUsers
+    {
+        get
+        {
+            return this.ViewState["NewUsers"] != null ? (int)this.ViewState["NewUsers"] : 0;
+        }
+
+        set
+        {
+            this.ViewState["NewUsers"] = value;
+        }
+    }
+
     #endregion
 
     #region Methods
@@ -424,8 +440,9 @@ namespace YAF.DotNetNuke
     /// </param>
     private void ImportClick(object sender, EventArgs e)
     {
-      int iNewUsers = 0;
+      this.NewUsers = 0;
       bool bRolesChanged = false;
+      
       try
       {
         foreach (UserInfo dnnUserInfo in UserController.GetUsers(this.PortalId))
@@ -438,7 +455,7 @@ namespace YAF.DotNetNuke
 
           if (dnnUser == null)
           {
-            return;
+            continue;
           }
 
           bool roleChanged = false;
@@ -464,19 +481,25 @@ namespace YAF.DotNetNuke
             MarkRolesChanged();
           }
 
-          int yafUserId;
+          int yafUserId = DB.user_get(this.iBoardId, dnnUser.ProviderUserKey);
 
-          try
+            if (yafUserId.Equals(0))
+            {
+                yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
+                this.NewUsers++;
+            }
+
+          /*try
           {
             yafUserId = DB.user_get(this.iBoardId, dnnUser.ProviderUserKey);
           }
           catch (Exception)
           {
+            // Create user if Not Exist
             yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
-            iNewUsers++;
-          }
 
-          // Create user if Not Exist
+            this.NewUsers++;
+          }*/
 
           // super admin check...
           if (dnnUserInfo.IsSuperUser)
@@ -490,7 +513,7 @@ namespace YAF.DotNetNuke
           }
         }
 
-        this.lInfo.Text = "{0} User(s) Imported".FormatWith(iNewUsers);
+        this.lInfo.Text = "{0} User(s) Imported".FormatWith(this.NewUsers);
 
         if (bRolesChanged)
         {
