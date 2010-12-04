@@ -103,7 +103,7 @@ namespace YAF.Classes
         }
         else if (Config.IsMojoPortal)
         {
-          urlAssembly = "yaf_mojo.MojoPortalUrlBuilder,yaf_mojo";
+            urlAssembly = "YAF.Mojo.MojoPortalUrlBuilder,YAF.Mojo";
         }
         else if (Config.IsPortal)
         {
