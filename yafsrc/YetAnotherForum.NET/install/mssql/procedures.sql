@@ -2612,7 +2612,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
+create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null, @StyledNicks bit=null) as
 begin
 		select 
 		a.CategoryID, 
@@ -2637,7 +2637,10 @@ begin
 		b.Flags,
 		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
 		b.RemoteURL,		
-		ReadAccess = CONVERT(int,x.ReadAccess)
+		ReadAccess = CONVERT(int,x.ReadAccess),
+		Style = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
+			else ''	 end				
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID

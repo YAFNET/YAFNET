@@ -207,7 +207,7 @@ namespace YAF.Classes.Core
           categoryTable.AcceptChanges();
         }
 
-        DataTable forum = DB.forum_listread(boardID, userID, categoryID, parentID);
+        DataTable forum = DB.forum_listread(boardID, userID, categoryID, parentID, YafContext.Current.BoardSettings.UseStyledNicks);
         forum.TableName = YafDBAccess.GetObjectName("Forum");
         ds.Tables.Add(forum.Copy());
 

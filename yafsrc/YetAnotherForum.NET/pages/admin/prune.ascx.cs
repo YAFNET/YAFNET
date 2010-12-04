@@ -67,7 +67,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.forumlist.DataSource = DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, null, null);
+      this.forumlist.DataSource = DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, null, null, false);
       this.forumlist.DataValueField = "ForumID";
       this.forumlist.DataTextField = "Forum";
       DataBind();

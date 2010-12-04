@@ -338,7 +338,7 @@ namespace YAF.Controls
       {
         return
           DB.forum_listread(
-            this.PageContext.PageBoardID, this.PageContext.PageUserID, row["CategoryID"], row["ForumID"]).Rows;
+            this.PageContext.PageBoardID, this.PageContext.PageUserID, row["CategoryID"], row["ForumID"], false).Rows;
       }
 
       return null;

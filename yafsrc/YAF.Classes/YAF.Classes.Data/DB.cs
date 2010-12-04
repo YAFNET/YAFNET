@@ -2657,7 +2657,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// DataTable with list
     /// </returns>
-    public static DataTable forum_listread(object boardID, object userID, object categoryID, object parentID)
+    public static DataTable forum_listread(object boardID, object userID, object categoryID, object parentID, object useStyledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("forum_listread"))
       {
@@ -2666,6 +2666,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("CategoryID", categoryID);
         cmd.Parameters.AddWithValue("ParentID", parentID);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         return YafDBAccess.Current.GetData(cmd);
       }
     }

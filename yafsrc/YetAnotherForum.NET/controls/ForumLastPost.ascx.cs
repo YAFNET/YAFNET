@@ -116,6 +116,9 @@ namespace YAF.Controls
             StringHelper.Truncate(
               this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(this.DataRow["LastUserID"]);
+          this.ProfileUserLink.Style = this.PageContext.BoardSettings.UseStyledNicks
+                                             ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
+                                                 this.DataRow["Style"].ToString(), false) : string.Empty;
           if (string.IsNullOrEmpty(this.Alt))
           {
             this.Alt = this.PageContext.Localization.GetText("GO_LAST_POST");

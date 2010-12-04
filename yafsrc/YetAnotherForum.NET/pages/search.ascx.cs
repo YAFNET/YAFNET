@@ -435,7 +435,7 @@ namespace YAF.Pages
 
             // Load forum's combo
             // listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
-            // DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
+            // DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null, YafContext.Current.BoardSettings.UseStyledNicks );
 
             // int nOldCat = 0;
             // for ( int i = 0; i < dt.Rows.Count; i++ )

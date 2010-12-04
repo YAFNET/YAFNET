@@ -474,7 +474,7 @@ namespace YAF.Pages
             var syndicationItems = new List<SyndicationItem>();
             using (
                DataTable dt = DB.forum_listread(
-                 this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null))
+                 this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false))
             {
                 string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
