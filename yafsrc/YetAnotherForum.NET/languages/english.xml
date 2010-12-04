@@ -1811,6 +1811,14 @@ Visit {forumname} at {forumlink}
 		<Resource tag="TITLE">Council Members</Resource>
 		<Resource tag="ADMINS">Administrators</Resource>
 		<Resource tag="MODS">Moderators</Resource>
+    <Resource tag="TITLE">Council Members</Resource>
+    <Resource tag="ADMINS">Administrators</Resource>
+    <Resource tag="MODS">Moderators</Resource>
+    <Resource tag="VIEW_FORUMS">View Forums ({0} total)...</Resource>
+    <Resource tag="FORUMS_ALL">All Forums...</Resource>
+    <Resource tag="GO">Go</Resource>
+    <Resource tag="USER">User</Resource>
+    <Resource tag="FORUMS">Forums</Resource>
 	</page>
 	<page name="ADMINMENU">
       <Resource tag="admin_hostsettings">Host Settings</Resource>
