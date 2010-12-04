@@ -296,7 +296,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Перейти к цитате</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} написал:</Resource>
     <Resource tag="CAL_JQ_CULTURE">ru</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YY</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Нажмите, чтобы выбрать дату </Resource>
     <Resource tag="CAN_DELETE">Вы [b]можете[/b] удалять Ваши сообщения в этом форуме.</Resource>
     <Resource tag="CAN_EDIT">Вы [b]можете[/b] редактировать Ваши сообщения в этом форуме.</Resource>

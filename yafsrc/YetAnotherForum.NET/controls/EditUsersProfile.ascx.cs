@@ -168,7 +168,7 @@ namespace YAF.Controls
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.Birthday.ClientID,
-                    Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern,
+                    this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")));
 
