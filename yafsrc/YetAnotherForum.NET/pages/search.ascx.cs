@@ -20,8 +20,6 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-
     #region Using
 
     using System;
@@ -108,11 +106,13 @@ namespace YAF.Pages
         {
             get
             {
-                if (this._searchWhatCleaned == null)
+                switch (this._searchWhatCleaned)
                 {
-                    this._searchWhatCleaned =
-                        StringHelper.RemoveMultipleSingleQuotes(
-                            StringHelper.RemoveMultipleWhitespace(this.txtSearchStringWhat.Text.Trim()));
+                    case null:
+                        this._searchWhatCleaned =
+                            StringHelper.RemoveMultipleSingleQuotes(
+                                StringHelper.RemoveMultipleWhitespace(this.txtSearchStringWhat.Text.Trim()));
+                        break;
                 }
 
                 return this._searchWhatCleaned;
@@ -131,14 +131,10 @@ namespace YAF.Pages
         {
             get
             {
-                if (this._searchWhoCleaned == null)
-                {
-                    this._searchWhoCleaned =
+                return this._searchWhoCleaned ??
+                       (this._searchWhoCleaned =
                         StringHelper.RemoveMultipleSingleQuotes(
-                            StringHelper.RemoveMultipleWhitespace(this.txtSearchStringFromWho.Text.Trim()));
-                }
-
-                return this._searchWhoCleaned;
+                            StringHelper.RemoveMultipleWhitespace(this.txtSearchStringFromWho.Text.Trim())));
             }
 
             set
@@ -216,12 +212,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsSearchTextTooLarge(string text)
         {
-            if (text.Length > this.PageContext.BoardSettings.SearchStringMaxLength)
-            {
-                return true;
-            }
-
-            return false;
+            return text.Length > this.PageContext.BoardSettings.SearchStringMaxLength;
         }
 
         /// <summary>
@@ -235,12 +226,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsSearchTextTooSmall(string text)
         {
-            if (text.Length < this.PageContext.BoardSettings.SearchStringMinLength)
-            {
-                return true;
-            }
-
-            return false;
+            return text.Length < this.PageContext.BoardSettings.SearchStringMinLength;
         }
 
         /// <summary>
@@ -334,34 +320,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The loading image_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void LoadingImage_Load(object sender, EventArgs e)
-        {
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loading-white.gif");
-        }
-
-        /// <summary>
-        /// The loading modal text_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void LoadingModalText_Load(object sender, EventArgs e)
-        {
-            this.LoadingModalText.Text = this.GetText("LOADING_SEARCH");
-        }
-
-        /// <summary>
         /// The on update history navigate.
         /// </summary>
         /// <param name="sender">
@@ -376,24 +334,26 @@ namespace YAF.Pages
 
             string[] pagerData = e.EntryName.Split('|');
 
-            if (pagerData.Length >= 2 && int.TryParse(pagerData[0], out pageNumber) &&
-                int.TryParse(pagerData[1], out pageSize) && YafContext.Current.Get<YafSession>().SearchData != null)
+            if (pagerData.Length < 2 || !int.TryParse(pagerData[0], out pageNumber) ||
+                !int.TryParse(pagerData[1], out pageSize) || YafContext.Current.Get<YafSession>().SearchData == null)
             {
-                // use existing page...
-                this.Pager.CurrentPageIndex = pageNumber;
-
-                // and existing page size...
-                this.Pager.PageSize = pageSize;
-
-                // count...
-                this.Pager.Count = YafContext.Current.Get<YafSession>().SearchData.AsEnumerable().Count();
-
-                // bind existing search
-                this.SearchBindData(false);
-
-                // use existing search data...
-                this.SearchUpdatePanel.Update();
+                return;
             }
+
+            // use existing page...
+            this.Pager.CurrentPageIndex = pageNumber;
+
+            // and existing page size...
+            this.Pager.PageSize = pageSize;
+
+            // count...
+            this.Pager.Count = YafContext.Current.Get<YafSession>().SearchData.AsEnumerable().Count();
+
+            // bind existing search
+            this.SearchBindData(false);
+
+            // use existing search data...
+            this.SearchUpdatePanel.Update();
         }
 
         /// <summary>
@@ -407,120 +367,124 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (this.IsPostBack)
             {
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-                this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
+                return;
+            }
 
-                if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
+
+            if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
+            {
+                // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links. 
+                if (!this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {
-                    // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links. 
-                    if (!this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
-                    {
-                        this.listForum.Enabled = false;
-                    }
-
-                    if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine1) &&
-                        (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine1Parameters)))
-                    {
-                        this.btnSearchExt1.Visible = true;
-                        this.btnSearchExt1.Text =
-                            this.btnSearchExt1.ToolTip =
-                            this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
-                                this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0]);
-                    }
-
-                    if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2) &&
-                        (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2Parameters)))
-                    {
-                        this.btnSearchExt2.Visible = true;
-                        this.btnSearchExt2.Text =
-                            this.btnSearchExt2.ToolTip =
-                            this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
-                                this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0]);
-                    }
+                    this.listForum.Enabled = false;
                 }
 
-                if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+                if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine1) &&
+                    (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine1Parameters)))
                 {
-                    this.btnSearch.Visible = true;
+                    this.btnSearchExt1.Visible = true;
+                    this.btnSearchExt1.Text =
+                        this.btnSearchExt1.ToolTip =
+                        this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
+                            this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0]);
                 }
 
-                // Load result dropdown
-                this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));
-                this.listResInPage.Items.Add(new ListItem(this.GetText("result10"), "10"));
-                this.listResInPage.Items.Add(new ListItem(this.GetText("result25"), "25"));
-                this.listResInPage.Items.Add(new ListItem(this.GetText("result50"), "50"));
-
-                // Load searchwhere dropdown
-                // listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
-                // listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
-
-                // Load listSearchFromWho dropdown
-                this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_exact"), "2"));
-                this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_any"), "1"));
-                this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_all"), "0"));
-
-                // Load listSearchWhat dropdown
-                this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_all"), "0"));
-                this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_any"), "1"));
-                this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_exact"), "2"));
-
-                this.listSearchFromWho.SelectedIndex = 2;
-                this.listSearchWhat.SelectedIndex = 0;
-
-                // Load forum's combo
-                // listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
-                // DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
-
-                // int nOldCat = 0;
-                // for ( int i = 0; i < dt.Rows.Count; i++ )
-                // {
-                // DataRow row = dt.Rows [i];
-                // if ( ( int ) row ["CategoryID"] != nOldCat )
-                // {
-                // nOldCat = ( int ) row ["CategoryID"];
-                // listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
-                // }
-                // listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
-                // }
-                this.LoadingModal.Title = this.GetText("LOADING");
-
-                this.listForum.DataSource = DB.forum_listall_sorted(
-                    this.PageContext.PageBoardID, this.PageContext.PageUserID);
-                this.listForum.DataValueField = "ForumID";
-                this.listForum.DataTextField = "Title";
-                this.listForum.DataBind();
-                this.listForum.Items.Insert(0, new ListItem(this.GetText("allforums"), "0"));
-
-                bool doSearch = false;
-
-                string searchString = this.Request.QueryString.GetFirstOrDefault("search");
-                if (searchString.IsSet() && searchString.Length < 50)
+                if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2) &&
+                    (!string.IsNullOrEmpty(this.PageContext.BoardSettings.SearchEngine2Parameters)))
                 {
-                    this.txtSearchStringWhat.Text = searchString;
-                    doSearch = true;
+                    this.btnSearchExt2.Visible = true;
+                    this.btnSearchExt2.Text =
+                        this.btnSearchExt2.ToolTip =
+                        this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
+                            this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0]);
                 }
+            }
 
-                string postedBy = this.Request.QueryString.GetFirstOrDefault("postedby");
-                if (postedBy.IsSet() && postedBy.Length < 50)
-                {
-                    this.txtSearchStringFromWho.Text = postedBy;
-                    doSearch = true;
-                }
+            if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+            {
+                this.btnSearch.Visible = true;
+            }
 
-                // set the search box size via the max settings in the boardsettings.
-                if (this.PageContext.BoardSettings.SearchStringMaxLength > 0)
-                {
-                    this.txtSearchStringWhat.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
-                    this.txtSearchStringFromWho.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
-                }
+            // Load result dropdown
+            this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));
+            this.listResInPage.Items.Add(new ListItem(this.GetText("result10"), "10"));
+            this.listResInPage.Items.Add(new ListItem(this.GetText("result25"), "25"));
+            this.listResInPage.Items.Add(new ListItem(this.GetText("result50"), "50"));
 
-                if (doSearch)
-                {
-                    this.SearchBindData(true);
-                }
+            // Load searchwhere dropdown
+            // listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
+            // listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
+
+            // Load listSearchFromWho dropdown
+            this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_exact"), "2"));
+            this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_any"), "1"));
+            this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_all"), "0"));
+
+            // Load listSearchWhat dropdown
+            this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_all"), "0"));
+            this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_any"), "1"));
+            this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_exact"), "2"));
+
+            this.listSearchFromWho.SelectedIndex = 2;
+            this.listSearchWhat.SelectedIndex = 0;
+
+            // Load forum's combo
+            // listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
+            // DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
+
+            // int nOldCat = 0;
+            // for ( int i = 0; i < dt.Rows.Count; i++ )
+            // {
+            // DataRow row = dt.Rows [i];
+            // if ( ( int ) row ["CategoryID"] != nOldCat )
+            // {
+            // nOldCat = ( int ) row ["CategoryID"];
+            // listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
+            // }
+            // listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
+            // }
+            this.LoadingModal.Title = this.GetText("LOADING");
+            this.LoadingModal.MessageText = this.GetText("LOADING_SEARCH");
+            this.LoadingModal.Icon = YafForumInfo.GetURLToResource("images/loading-white.gif");
+
+            this.listForum.DataSource = DB.forum_listall_sorted(
+                this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            this.listForum.DataValueField = "ForumID";
+            this.listForum.DataTextField = "Title";
+            this.listForum.DataBind();
+            this.listForum.Items.Insert(0, new ListItem(this.GetText("allforums"), "0"));
+
+            bool doSearch = false;
+
+            string searchString = this.Request.QueryString.GetFirstOrDefault("search");
+            if (searchString.IsSet() && searchString.Length < 50)
+            {
+                this.txtSearchStringWhat.Text = searchString;
+                doSearch = true;
+            }
+
+            string postedBy = this.Request.QueryString.GetFirstOrDefault("postedby");
+            if (postedBy.IsSet() && postedBy.Length < 50)
+            {
+                this.txtSearchStringFromWho.Text = postedBy;
+                doSearch = true;
+            }
+
+            // set the search box size via the max settings in the boardsettings.
+            if (this.PageContext.BoardSettings.SearchStringMaxLength > 0)
+            {
+                this.txtSearchStringWhat.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
+                this.txtSearchStringFromWho.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
+            }
+
+            if (doSearch)
+            {
+                this.SearchBindData(true);
             }
         }
 
@@ -551,13 +515,16 @@ namespace YAF.Pages
         protected void SearchRes_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             var cell = (HtmlTableCell)e.Item.FindControl("CounterCol");
-            if (cell != null)
+
+            if (cell == null)
             {
-                string messageID = cell.InnerText;
-                int rowCount = e.Item.ItemIndex + 1 + (this.Pager.CurrentPageIndex * this.Pager.PageSize);
-                cell.InnerHtml = "<a href=\"{1}\">{0}</a>".FormatWith(
-                    rowCount, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
+                return;
             }
+
+            string messageID = cell.InnerText;
+            int rowCount = e.Item.ItemIndex + 1 + (this.Pager.CurrentPageIndex * this.Pager.PageSize);
+            cell.InnerHtml = "<a href=\"{1}\">{0}</a>".FormatWith(
+                rowCount, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
         }
 
         /// <summary>
@@ -589,15 +556,16 @@ namespace YAF.Pages
             string searchEngine = String.Empty;
             string searchParams = String.Empty;
 
-            if (i == 1)
+            switch (i)
             {
-                searchEngine = this.PageContext.BoardSettings.SearchEngine1;
-                searchParams = this.PageContext.BoardSettings.SearchEngine1Parameters;
-            }
-            else if (i == 2)
-            {
-                searchEngine = this.PageContext.BoardSettings.SearchEngine2;
-                searchParams = this.PageContext.BoardSettings.SearchEngine2Parameters;
+                case 1:
+                    searchEngine = this.PageContext.BoardSettings.SearchEngine1;
+                    searchParams = this.PageContext.BoardSettings.SearchEngine1Parameters;
+                    break;
+                case 2:
+                    searchEngine = this.PageContext.BoardSettings.SearchEngine2;
+                    searchParams = this.PageContext.BoardSettings.SearchEngine2Parameters;
+                    break;
             }
 
             return this.TransformExtSearchLink(searchEngine, searchParams);
@@ -650,6 +618,7 @@ namespace YAF.Pages
             {
                 return;
             }
+
             if (newSearch || YafContext.Current.Get<YafSession>().SearchData == null)
             {
                 var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
@@ -701,16 +670,10 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+          DB.eventlog_create(this.PageContext.PageUserID, this, x);
 
-        if (this.PageContext.IsAdmin)
-        {
-          this.PageContext.AddLoadMessage("{0}".FormatWith(x));
-        }
-        else
-        {
-          this.PageContext.AddLoadMessage("An error occurred while searching.");
-        }
+          this.PageContext.AddLoadMessage(
+              this.PageContext.IsAdmin ? "{0}".FormatWith(x) : "An error occurred while searching.");
       }
 #endif
         }
@@ -725,13 +688,15 @@ namespace YAF.Pages
         {
             this.HighlightSearchWords.Clear();
 
-            if (searchFlags == SearchWhatFlags.ExactMatch)
+            switch (searchFlags)
             {
-                this.HighlightSearchWords.Add(this.SearchWhatCleaned);
-            }
-            else if (searchFlags == SearchWhatFlags.AnyWords || searchFlags == SearchWhatFlags.AllWords)
-            {
-                this.HighlightSearchWords.AddRange(this.SearchWhatCleaned.Split(' ').ToList().Where(x => !x.IsNotSet()));
+                case SearchWhatFlags.ExactMatch:
+                    this.HighlightSearchWords.Add(this.SearchWhatCleaned);
+                    break;
+                case SearchWhatFlags.AllWords:
+                case SearchWhatFlags.AnyWords:
+                    this.HighlightSearchWords.AddRange(this.SearchWhatCleaned.Split(' ').ToList().Where(x => !x.IsNotSet()));
+                    break;
             }
         }
 

@@ -65,7 +65,7 @@ namespace YAF.Classes.Core
     /// </summary>
     protected TypeDictionary _variables = new TypeDictionary();
 
-    /// <summary>
+      /// <summary>
     /// Initializes a new instance of the <see cref="YafContext"/> class. 
     /// YafContext Constructor
     /// </summary>
@@ -179,6 +179,7 @@ namespace YAF.Classes.Core
         return this._singleInstanceFactory.GetInstance<LocalizationHandler>().Localization;
       }
     }
+    
 
     /// <summary>
     /// Current Page Theme

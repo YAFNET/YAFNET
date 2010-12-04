@@ -42,7 +42,7 @@ namespace YAF.Controls
     /// The get return url.
     /// </summary>
     /// <returns>
-    /// The get return url.
+    /// The url.
     /// </returns>
     protected string GetReturnUrl()
     {
@@ -67,6 +67,36 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        var searchIcon = this.PageContext.Theme.GetItem("ICONS", "SEARCH");
+
+        if (!string.IsNullOrEmpty(searchIcon))
+        {
+            this.doQuickSearch.Text =
+                @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
+                    searchIcon, this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH"));
+        }
+        else
+        {
+            this.doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");   
+        }
+
+        this.searchInput.Attributes["onkeydown"] = "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; ".FormatWith(this.doQuickSearch.ClientID);
+        this.searchInput.Attributes["onfocus"] = "if (this.value == '{0}') {{this.value = '';}}".FormatWith(this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+        this.searchInput.Attributes["onblur"] = "if (this.value == '') {{this.value = '{0}';}}".FormatWith(this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+
+        this.searchInput.Text = this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD");
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -77,24 +107,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        var searchIcon = this.PageContext.Theme.GetItem("ICONS", "SEARCH");
-
-        if (!string.IsNullOrEmpty(searchIcon))
-        {
-            doQuickSearch.Text =
-                @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
-                    searchIcon, this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH"));
-        }
-        else
-        {
-            doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");   
-        }
-
-        searchInput.Attributes["onkeydown"] =string.Format("if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; ", doQuickSearch.ClientID);
-        searchInput.Attributes["onfocus"] = string.Format("if (this.value == '{0}') {{this.value = '';}}", this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
-        searchInput.Attributes["onblur"] = string.Format("if (this.value == '') {{this.value = '{0}';}}", this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
-
-        searchInput.Text = this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD");
+        
     }
 
     /// <summary>
@@ -108,13 +121,41 @@ namespace YAF.Controls
     /// </param>
     protected void QuickSearchClick(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(searchInput.Text)) return;
-        
+        if (string.IsNullOrEmpty(this.searchInput.Text))
+        {
+            return;
+        }
+
         YafBuildLink.Redirect(
             ForumPages.search,
             "search={0}",
-            searchInput.Text);
+            this.searchInput.Text);
     }
+    
+    /// <summary>
+    /// Do Logout Dialog
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void LogOutClick(object sender, EventArgs e)
+    {
+        var notification = (DialogBox)PageContext.CurrentForumPage.Notification;
+
+        notification.Show(
+              this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION"),
+              "Logout?",
+              DialogBox.DialogIcon.Question,
+              new DialogBox.DialogButton { Text = "Yes", CssClass = "StandardButton", ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout } },
+              new DialogBox.DialogButton
+              {
+                  Text = "No",
+                  CssClass = "StandardButton"
+              });
+    } 
 
     #endregion
   }

@@ -163,25 +163,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Dialog LoadingModal;
-        
-        /// <summary>
-        /// LoadingModalText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LoadingModalText;
-        
-        /// <summary>
-        /// LoadingImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LoadingImage;
+        protected global::YAF.Controls.MessageBox LoadingModal;
         
         /// <summary>
         /// SmartScroller1 control.

@@ -145,6 +145,13 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="controls\DialogBox.ascx.cs">
+      <DependentUpon>DialogBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DialogBox.ascx.designer.cs">
+      <DependentUpon>DialogBox.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\PollChoiceList.ascx.cs">
       <DependentUpon>PollChoiceList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -242,6 +249,7 @@
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\PopupDialogNotification.cs" />
     <Compile Include="Modules\TimeAgoModule.cs" />
     <Compile Include="Modules\UserLinkBBCodeModule.cs" />
     <Compile Include="Modules\ExampleBBCodeModule.cs" />
@@ -662,6 +670,7 @@
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
+    <Content Include="controls\DialogBox.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
     <Content Include="controls\DisplayAd.ascx" />
     <Content Include="controls\DisplayPost.ascx">
@@ -924,11 +933,14 @@
     <Content Include="resources\icons\book-open-next.png" />
     <Content Include="resources\icons\database-import.png" />
     <Content Include="resources\icons\document.png" />
+    <Content Include="resources\icons\EmailBig.png" />
     <Content Include="resources\icons\error.png" />
+    <Content Include="resources\icons\ErrorBig.png" />
     <Content Include="resources\icons\folders-stack.png" />
     <Content Include="resources\icons\gear--pencil.png" />
     <Content Include="resources\icons\gear.png" />
     <Content Include="resources\icons\hammer-screwdriver.png" />
+    <Content Include="resources\icons\InfoBig.png" />
     <Content Include="resources\icons\information.png" />
     <Content Include="resources\icons\lightning.png" />
     <Content Include="resources\icons\lock.png" />
@@ -941,6 +953,7 @@
     <Content Include="resources\icons\plug.png" />
     <Content Include="resources\icons\puzzle.png" />
     <Content Include="resources\icons\question-balloon.png" />
+    <Content Include="resources\icons\QuestionBig.png" />
     <Content Include="resources\icons\readme.txt" />
     <Content Include="resources\icons\RssFeed.png" />
     <Content Include="resources\icons\script-text.png" />
@@ -957,6 +970,7 @@
     <Content Include="resources\icons\trophy.png" />
     <Content Include="resources\icons\user.png" />
     <Content Include="resources\icons\warning.png" />
+    <Content Include="resources\icons\WarningBig.png" />
     <Content Include="resources\icons\wrench.png" />
     <Content Include="resources\images\blank.gif" />
     <Content Include="resources\images\loading-black.gif" />

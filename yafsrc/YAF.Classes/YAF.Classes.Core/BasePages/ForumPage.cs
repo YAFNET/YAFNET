@@ -143,6 +143,11 @@ namespace YAF.Classes.Core
     public Control ForumHeader { get; set; }
 
     /// <summary>
+    ///   Gets or sets the Notification.
+    /// </summary>
+    public Control Notification { get; set; }
+    
+    /// <summary>
     ///   Gets or sets ForumTopControl.
     /// </summary>
     public PlaceHolder ForumTopControl { get; set; }

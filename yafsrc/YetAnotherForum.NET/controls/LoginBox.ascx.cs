@@ -33,7 +33,6 @@ namespace YAF.Controls
   /// </summary>
    public partial class LoginBox : BaseUserControl
   {
-
       /// <summary>
       /// The On PreRender event.
       /// </summary>
@@ -62,8 +61,6 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-
-     
         if (IsPostBack)
         {
             return;

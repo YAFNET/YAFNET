@@ -1,75 +1,98 @@
 /*
- * YafModalDialog for YAF.NET based on Facebox http://famspam.com/facebox/ by Chris Wanstrath [ chris@ozmm.org ]
- * version: 1.0 (11/20/2010)
+ * YafModalDialog by Ingo Herbote  for YAF.NET based on Facebox http://famspam.com/facebox/ by Chris Wanstrath [ chris@ozmm.org ]
+ * version: 1.01 (12/04/2010)
  * @requires jQuery v1.4.4 or later
-*
+ *
  * Licensed under the MIT:
  *   http://www.opensource.org/licenses/mit-license.php
  */
   
-(function($) {
+;(function($) {
 	// jQuery plugin definition
 	$.fn.YafModalDialog = function(settings) {
-		settings = $.extend( {Dialog: "'YafModalDialog", ImagePath: "images/"}, settings);
+
+		settings = $.extend( {Dialog: "#MessageBox", ImagePath: "images/"}, settings);
+		
+		var DialogId = settings.Dialog;
+		DialogId = DialogId.replace("#", "");
+		
+		var MainDialogId = DialogId + 'Box';
+
 		// traverse all nodes
 		this.each(function() {
-		
-			$($(this)).click(function(e) {          
-				e.preventDefault();
-				
-				$(settings.Dialog).wrapInner("<div id=\"ModalDialog\" style=\"top: 64.8px; display: block; left: 431px; \"><div class=\"popup\"><div class=\"DialogContent\">");
-				$('#ModalDialog .popup').after("<a href=\"#\" class=\"close\"><img src=\"" + settings.ImagePath + "closelabel.png\" title=\"close\" class=\"close_image\"></a>");
-			    $(settings.Dialog).after("<div id=\"ModalDialog_overlay\" class=\"ModalDialog_hide ModalDialog_overlayBG\" style=\"display: none; opacity: 0.2; \"></div>");
-				
-				$('#ModalDialog').css({
-					top:	getPageScroll()[1] + (getPageHeight() / 10),
-					left:	$(window).width() / 2 - 205
-			     });
-	  
-	  
-				$(settings.Dialog).fadeIn('normal');
-                $("#ModalDialog_overlay").fadeIn('normal');
-				
-				$(document).bind('keydown.yafmodaldialog', function(e) {
-					if (e.keyCode == 27) 
-					{
-						CloseDialog();
-					}
-					return true
-					})
-					
-			     $('.close').click(function(){
-				   CloseDialog();
-				});
-					
-            });
-				
-				 function CloseDialog() {
-					 $(settings.Dialog).hide();
-                     $("#ModalDialog_overlay").fadeOut();
-					 $(document).unbind('keydown.yafmodaldialog');
-					 
-					 var cnt = $("#ModalDialog .popup").contents()
-					 $("#ModalDialog .popup").replaceWith(cnt);
-					 
-					 var cnt = $("#ModalDialog .DialogContent").contents()
-					 $("#ModalDialog .DialogContent").replaceWith(cnt);
-					 
-					  var cnt = $("#ModalDialog").contents()
-					 $("#ModalDialog").replaceWith(cnt);
-					 
-					 $('#ModalDialog .close').remove();
-					 $('#ModalDialog_overlay').remove();
-					
-					 return false
-					 };
-					 
-					 
 			
+			$($(this)).click(function(e) {          
+				$.fn.YafModalDialog.Show(settings);
+            });
+					 
 		});
 		// allow jQuery chaining
 		return this;
 	};
+	
+	// jQuery plugin definition
+	$.fn.YafModalDialog.Close = function(settings) {
+
+		 settings = $.extend( {Dialog: "#MessageBox", ImagePath: "images/"}, settings);
+		 
+		var DialogId = settings.Dialog;
+		DialogId = DialogId.replace("#", "");
+		
+		var MainDialogId = DialogId + 'Box';
+
+		 CloseDialog();
+		 
+		 function CloseDialog() {
+					 $(settings.Dialog).hide();
+                     $('#' + MainDialogId + '_overlay').fadeOut();
+					 $(document).unbind('keydown.' + DialogId);
+					 
+					  $('#' + MainDialogId + '_overlay').remove();
+					  
+					 var cnt = $("#" + MainDialogId + " .DialogContent").contents()
+					 $("#" + MainDialogId).replaceWith(cnt);
+					 
+					 $(settings.Dialog + '#ModalDialog' + ' #' + DialogId + 'Close').remove();
+					 $(settings.Dialog + '#ModalDialog_overlay').remove();
+					
+					 return false
+					 };
+					 
+		// allow jQuery chaining
+		return this;
+	};
+	
+	$.fn.YafModalDialog.Show = function(settings) {
+		
+		settings = $.extend( {Dialog: "#MessageBox", ImagePath: "images/"}, settings);
+		
+		var top = getPageScroll()[1] + (getPageHeight() / 10);
+		var left =  $(window).width() / 2 - 205;
+		
+		var DialogId = settings.Dialog;
+		DialogId = DialogId.replace("#", "");
+		
+		var MainDialogId = DialogId + 'Box';
+		
+		$(settings.Dialog).wrapInner("<div id=\"" + MainDialogId +"\" class=\"ModalDialog\" style=\"top: "+  top + "px; display: block; left: " + left +"px; \"><div class=\"popup\"><div class=\"DialogContent\">");
+				$('#' + MainDialogId + ' .popup').after("<a href=\"#\" class=\"close\" id=\"" + DialogId + "Close\"><img src=\"" + settings.ImagePath + "closelabel.png\" title=\"close\" class=\"close_image\"></a>");
+			    $(settings.Dialog).after("<div id=\"" + MainDialogId +  "_overlay\" class=\"ModalDialog_hide ModalDialog_overlayBG\" style=\"display: none; opacity: 0.2; \"></div>");
+				
+				$(settings.Dialog).fadeIn('normal');
+                $('#' + MainDialogId + '_overlay').fadeIn('normal');
+				
+				$(document).bind('keydown.' + DialogId, function(e) {
+					if (e.keyCode == 27) 
+					{
+						$.fn.YafModalDialog.Close(settings);
+					}
+					return true
+					})
+					
+			     $('#' + DialogId + 'Close').click(function(){
+						$.fn.YafModalDialog.Close(settings);
+				});
+};
 	
 	// getPageScroll() by quirksmode.com
   function getPageScroll() {

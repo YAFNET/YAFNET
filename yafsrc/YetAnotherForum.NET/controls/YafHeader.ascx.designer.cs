@@ -13,6 +13,15 @@ namespace YAF.Controls {
     public partial class YafHeader {
         
         /// <summary>
+        /// LogOutButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LogOutButton;
+        
+        /// <summary>
         /// quickSearch control.
         /// </summary>
         /// <remarks>

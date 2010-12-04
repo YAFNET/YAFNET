@@ -27,8 +27,9 @@ namespace YAF.Pages
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
+  using YAF.Controls;
 
-  /// <summary>
+    /// <summary>
   /// Summary description for topics.
   /// </summary>
   public partial class topics : ForumPage
@@ -431,16 +432,42 @@ namespace YAF.Pages
       if (this.WatchForumID.InnerText == string.Empty)
       {
         DB.watchforum_add(PageContext.PageUserID, PageContext.PageForumID);
-        PageContext.AddLoadMessage(GetText("INFO_WATCH_FORUM"));
+     
+        // PageContext.AddLoadMessage(GetText("INFO_WATCH_FORUM"));
+        var notification = (DialogBox)PageContext.CurrentForumPage.Notification;
+
+        notification.Show(
+            GetText("INFO_WATCH_FORUM"),
+            null,
+            DialogBox.DialogIcon.Info,
+            new DialogBox.DialogButton
+            {
+                Text = "Ok",
+                CssClass = "LoginButton",
+            },
+            null);
       }
       else
       {
-        int tmpID = Convert.ToInt32(this.WatchForumID.InnerText);
-        DB.watchforum_delete(tmpID);
-        PageContext.AddLoadMessage(GetText("INFO_UNWATCH_FORUM"));
+          int tmpID = this.WatchForumID.InnerText.ToType<int>();
+          DB.watchforum_delete(tmpID);
+
+          // PageContext.AddLoadMessage(GetText("INFO_UNWATCH_FORUM"));
+          var notification = (DialogBox)PageContext.CurrentForumPage.Notification;
+
+          notification.Show(
+              GetText("INFO_UNWATCH_FORUM"),
+              null,
+              DialogBox.DialogIcon.Info,
+              new DialogBox.DialogButton
+                  {
+                      Text = "Ok",
+                      CssClass = "LoginButton",
+                  },
+              null);
       }
 
-      HandleWatchForum();
+        this.HandleWatchForum();
     }
 
     /// <summary>

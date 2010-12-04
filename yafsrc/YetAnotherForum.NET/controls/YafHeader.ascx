@@ -69,8 +69,7 @@
                  <%
                 if (!this.PageContext.IsGuest && !YAF.Classes.Config.IsAnyPortal && YAF.Classes.Config.AllowLoginAndLogoff)
                 {%>
-            <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT")%>" href="<%=YafBuildLink.GetLink(ForumPages.logout)%>" onclick="return confirm('<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION")%>');">
-                <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT")%></a></li>
+            <li class="menuAccount"><asp:LinkButton ID="LogOutButton" runat="server" OnClick="LogOutClick"><%=this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT")%></asp:LinkButton></li>
             <%
                 }    
             %>

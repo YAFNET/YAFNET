@@ -1,13 +1,13 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.search" CodeBehind="search.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Register TagPrefix="YAF" TagName="DialogBox" Src="../controls/DialogBox.ascx" %>
 <%@ Register Namespace="nStuff.UpdateControls" Assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <script type="text/javascript">
     function EndRequestHandler(sender, args) {
-        jQuery('#<%=LoadingModal.ClientID%>').dialog('close');
+        jQuery().YafModalDialog.Close({ Dialog: '#<%=LoadingModal.ClientID%>' });
     }
     function ShowLoadingDialog() {
-        jQuery('#<%=LoadingModal.ClientID%>').dialog('open');
+        jQuery().YafModalDialog.Show({ Dialog: '#<%=LoadingModal.ClientID%>', ImagePath: '<%=YafForumInfo.GetURLToResource("images/")%>' }); 
     }
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
@@ -166,15 +166,9 @@
         <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<DotNetAge:Dialog ID="LoadingModal" runat="server" DialogButtons="None" ShowModal="true">
-    <BodyTemplate runat="server">
-        <span class="modalOuter"><span class="modalInner">
-            <asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal>
-        </span></span><span style="display: block; margin: 0 auto; text-align: center;">
-            <asp:Image ID="LoadingImage" runat="server" alt="Searching..." OnLoad="LoadingImage_Load" />
-        </span>
-    </BodyTemplate>
-</DotNetAge:Dialog>
+
+<YAF:MessageBox ID="LoadingModal" runat="server"></YAF:MessageBox>
+
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

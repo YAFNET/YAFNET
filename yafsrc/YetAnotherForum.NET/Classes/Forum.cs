@@ -31,7 +31,7 @@ namespace YAF
   using YAF.Classes.Utils;
   using YAF.Controls;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// EventArgs class for the PageTitleSet event
@@ -43,7 +43,7 @@ namespace YAF
     /// <summary>
     /// The _title.
     /// </summary>
-    private string _title;
+    private readonly string _title;
 
     #endregion
 
@@ -130,7 +130,15 @@ namespace YAF
     /// </summary>
     private Control _footer;
 
+    /// <summary>
+    /// The _header
+    /// </summary>
     private Control _header;
+
+    /// <summary>
+    /// The _header
+    /// </summary>
+    private DialogBox _notificationBox;
 
     /// <summary>
     /// The _topControl.
@@ -151,9 +159,9 @@ namespace YAF
     /// </summary>
     public Forum()
     {
-      this.Load += new EventHandler(this.Forum_Load);
-      this.Init += new EventHandler(this.Forum_Init);
-      this.Unload += new EventHandler(this.Forum_Unload);
+      this.Load += this.Forum_Load;
+      this.Init += this.Forum_Init;
+      this.Unload += this.Forum_Unload;
 
       // init the modules and run them immediately...
       YafContext.Current.BaseModuleManager.Load();
@@ -184,7 +192,7 @@ namespace YAF
     #region Properties
 
     /// <summary>
-    /// Get or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
+    /// Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
     /// </summary>
     public int BoardID
     {
@@ -216,7 +224,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// The forum footer control
+    /// Gets or sets The forum footer control
     /// </summary>
     public Control Footer
     {
@@ -232,7 +240,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// The forum header control
+    /// Gets or sets The forum header control
     /// </summary>
     public Control Header
     {
@@ -245,6 +253,22 @@ namespace YAF
       {
         this._header = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets The forum header control
+    /// </summary>
+    public DialogBox NotificationBox
+    {
+        get
+        {
+            return this._notificationBox;
+        }
+
+        set
+        {
+            this._notificationBox = value;
+        }
     }
 
     /// <summary>
@@ -264,7 +288,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// UserID for the current User (Read Only)
+    /// Gets UserID for the current User (Read Only)
     /// </summary>
     public int PageUserID
     {
@@ -275,7 +299,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// UserName for the current User (Read Only)
+    /// Gets UserName for the current User (Read Only)
     /// </summary>
     public string PageUserName
     {
@@ -355,12 +379,14 @@ namespace YAF
     private void Forum_Init(object sender, EventArgs e)
     {
       // handle script manager first...
-      if (ScriptManager.GetCurrent(this.Page) == null)
-      {
+        if (ScriptManager.GetCurrent(this.Page) != null)
+        {
+            return;
+        }
+
         // add a script manager since one doesn't exist...
         var yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
         this.Controls.Add(yafScriptManager);
-      }
     }
 
     /// <summary>
@@ -395,8 +421,10 @@ namespace YAF
       try
       {
         this._currentForumPage = (ForumPage)this.LoadControl(src);
+
         this._header =
           this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
+
         this._footer = new Footer();
       }
       catch (FileNotFoundException)
@@ -407,7 +435,7 @@ namespace YAF
       this._currentForumPage.ForumTopControl = this._topControl;
       this._currentForumPage.ForumFooter = this._footer;
       this._currentForumPage.ForumHeader = this._header;
-
+      
       // don't allow as a popup if it's not allowed by the page...
       if (!this._currentForumPage.AllowAsPopup && this.Popup)
       {
@@ -430,7 +458,14 @@ namespace YAF
               this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
       }
 
-        this.Controls.Add(this._currentForumPage);
+      this._notificationBox =
+         (DialogBox)this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
+
+      this._currentForumPage.Notification = this._notificationBox;
+
+      this.Controls.Add(this._notificationBox);
+
+      this.Controls.Add(this._currentForumPage);
 
       // add the footer control after the page...
       if (!this.Popup && YafContext.Current.Settings.LockedForum == 0)
@@ -544,12 +579,7 @@ namespace YAF
         return false;
       }
 
-      if (forumPage == ForumPages.pmessage)
-      {
-        return false;
-      }
-
-      return true;
+      return forumPage != ForumPages.pmessage;
     }
 
     #endregion
