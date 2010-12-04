@@ -973,6 +973,8 @@
     <Content Include="resources\icons\WarningBig.png" />
     <Content Include="resources\icons\wrench.png" />
     <Content Include="resources\images\blank.gif" />
+    <Content Include="resources\images\closelabel.png" />
+    <Content Include="resources\images\DialogBackground.png" />
     <Content Include="resources\images\loading-black.gif" />
     <Content Include="resources\images\loading-white.gif" />
     <Content Include="resources\images\loading.gif" />
