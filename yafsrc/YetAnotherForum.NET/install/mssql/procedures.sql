@@ -1362,9 +1362,16 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
+    declare @uidsdel table
+	(UserID int)
 	-- delete non-active
-	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID NOT IN (SELECT DISTINCT(UserID) from [{databaseOwner}].[{objectQualifier}Active])
+	insert into @uidsdel(UserID)
+	select UserID from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
+	if exists(select 1 from @uidsdel)
+	begin
+	delete from [{databaseOwner}].[{objectQualifier}Active] where UserID in (select UserID from @uidsdel)
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID in (select UserID from @uidsdel)
+	end
 	-- select active	
 	if @Guests<>0 
 		select
