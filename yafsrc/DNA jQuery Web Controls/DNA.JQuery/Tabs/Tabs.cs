@@ -81,8 +81,8 @@ namespace DNA.UI.JQuery
   /// </DotNetAge:Tabs>]]>
   ///   </code>
   /// </example>
-  [JQuery(Name = "tabs", Assembly = "jQueryNet", DisposeMethod = "destroy", 
-    ScriptResources = new[] { "ui.core.js", "ui.tabs.js", "ui.sortable.js" }, 
+  [JQuery(Name = "tabs", Assembly = "jQueryNet", DisposeMethod = "destroy",
+    ScriptResources = new[] { "ui.core.js", "ui.tabs.js", "ui.sortable.js", "ui.datepicker.js" }, 
     StartEvent = ClientRegisterEvents.ApplicationLoad)]
   [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.Minimal)]
   [AspNetHostingPermission(SecurityAction.InheritanceDemand, Level = AspNetHostingPermissionLevel.Minimal)]
