@@ -106,7 +106,16 @@ function toggleMessage(divId)
       {
         return
           @"jQuery(document).ready(function() { 
-					jQuery.Lightbox.construct({
+					jQuery.Lightbox.construct({   
+                        baseurl: '" + YafForumInfo.GetURLToResource(string.Empty) + @"' ,
+                files: {
+                        images: {
+				                   prev: '" + YafForumInfo.GetURLToResource("images/prev.gif") + @"',
+				                   next: '" + YafForumInfo.GetURLToResource("images/next.gif") + @"',
+				                   blank: '" + YafForumInfo.GetURLToResource("images/blank.gif") + @"',
+				                   loading: '" + YafForumInfo.GetURLToResource("images/loading.gif") + @"'
+			            }
+                      },
 						show_linkback:	false,
 						show_helper_text: false,
 				text: {
@@ -183,7 +192,7 @@ function toggleMessage(divId)
         }
 
         return
-            @"jQuery(document).ready(function() {{jQuery('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }});"
+            @"jQuery(document).ready(function() {{jQuery('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }}); "
                 .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs);
     }
 
