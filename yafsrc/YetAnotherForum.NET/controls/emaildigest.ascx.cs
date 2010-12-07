@@ -10,6 +10,7 @@
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
   #endregion
@@ -56,8 +57,9 @@
     #region Properties
 
     /// <summary>
-    /// Gets ActiveTopics.
+    ///   Gets ActiveTopics.
     /// </summary>
+    [NotNull]
     public IEnumerable<IGrouping<SimpleForum, SimpleTopic>> ActiveTopics
     {
       get
@@ -86,6 +88,7 @@
     /// <summary>
     ///   Gets NewTopics.
     /// </summary>
+    [NotNull]
     public IEnumerable<IGrouping<SimpleForum, SimpleTopic>> NewTopics
     {
       get
@@ -100,6 +103,7 @@
     /// <summary>
     ///   Gets UserData.
     /// </summary>
+    [NotNull]
     public CombinedUserDataHelper UserData
     {
       get
@@ -126,7 +130,7 @@
     /// <returns>
     /// The get text.
     /// </returns>
-    public string GetText(string tag)
+    public string GetText([NotNull] string tag)
     {
       if (this._languageFile.IsSet() && this._yafLocalization == null)
       {
@@ -157,13 +161,24 @@
     /// <returns>
     /// The get message formatted and truncated.
     /// </returns>
-    protected string GetMessageFormattedAndTruncated(string lastMessage, int maxlength)
+    protected string GetMessageFormattedAndTruncated([NotNull] string lastMessage, int maxlength)
     {
       return
         StringHelper.Truncate(
           StringHelper.RemoveMultipleWhitespace(
             BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))), 
           maxlength);
+    }
+
+    /// <summary>
+    /// The output error.
+    /// </summary>
+    /// <param name="errorString">
+    /// The error string.
+    /// </param>
+    protected void OutputError([NotNull] string errorString)
+    {
+      this.Response.Write("<html><head>Error</head><body><h1>{0}</h1></body></html>".FormatWith(errorString));
     }
 
     /// <summary>
@@ -175,14 +190,27 @@
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.Get<YafInitializeDb>().Run();
 
       var token = this.Request.QueryString.GetFirstOrDefault("token");
 
+      bool showErrors = false;
+
+      if (this.Request.QueryString.GetFirstOrDefault("showerror").IsSet())
+      {
+        showErrors = this.Request.QueryString.GetFirstOrDefault("showerror").ToType<bool>();
+      }
+
       if (token.IsNotSet() || !token.Equals(YafContext.Current.BoardSettings.WebServiceToken))
       {
+        if (showErrors)
+        {
+          this.OutputError(
+            "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.");
+        }
+
         this.Response.End();
         return;
       }
@@ -190,6 +218,12 @@
       if (Config.BaseUrlMask.IsNotSet())
       {
         // fail... BaseUrlMask required for Digest.
+        if (showErrors)
+        {
+          this.OutputError(
+            "Cannot generate digest unless YAF.BaseUrlMask AppSetting is specified in your app.config (default). Please specify the full forward-facing url to this forum in the YAF.BaseUrlMask key.");
+        }
+
         this.Response.End();
         return;
       }
@@ -209,6 +243,11 @@
 
       if (!this.NewTopics.Any() && !this.ActiveTopics.Any())
       {
+        if (showErrors)
+        {
+          this.OutputError("No topics for the last 24 hours.");
+        }
+
         this.Response.End();
         return;
       }

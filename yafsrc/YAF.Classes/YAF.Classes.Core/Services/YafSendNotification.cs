@@ -136,7 +136,7 @@ namespace YAF.Classes.Core
           // send this user a PM notification e-mail
           var notificationTemplate = new YafTemplateEmail("PMNOTIFICATION")
             {
-               TemplateLanguageFile = UserHelper.GetUserLanguageFile(toUserId) 
+              TemplateLanguageFile = UserHelper.GetUserLanguageFile(toUserId)
             };
 
           // fill the template with relevant info
@@ -174,7 +174,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void ToWatchingUsers(int newMessageId)
     {
-        IEnumerable<TypedUserFind> usersWithAll;
+      IEnumerable<TypedUserFind> usersWithAll = new List<TypedUserFind>();
 
       if (YafContext.Current.BoardSettings.AllowNotificationAllPostsAllTopics)
       {
@@ -182,66 +182,63 @@ namespace YAF.Classes.Core
         usersWithAll = DB.UserFind(
           YafContext.Current.PageBoardID, false, null, null, null, UserNotificationSetting.AllTopics.ToInt(), null);
       }
-      else
-      {
-          // TODO: validate permissions!
-          usersWithAll = DB.UserFind(
-            YafContext.Current.PageBoardID, false, null, null, null, UserNotificationSetting.TopicsISubscribeTo, null);
-      }
 
       foreach (var message in DB.MessageList(newMessageId))
       {
-          int userId = message.UserID ?? 0;
+        int userId = message.UserID ?? 0;
 
-          var watchEmail = new YafTemplateEmail("TOPICPOST")
-              {
-                  TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId) 
-              };
+        var watchEmail = new YafTemplateEmail("TOPICPOST")
+            {
+              TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId)
+            };
 
-          // cleaned body as text...
-          string bodyText =
-              StringHelper.RemoveMultipleWhitespace(
-                  BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))));
+        // cleaned body as text...
+        string bodyText =
+            StringHelper.RemoveMultipleWhitespace(
+                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))));
 
-          // Send track mails
-          string subject =
-              YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
-                  YafContext.Current.BoardSettings.Name);
+        // Send track mails
+        string subject =
+            YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
+                YafContext.Current.BoardSettings.Name);
 
-          watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
-          watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
-          watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(userId);
-          watchEmail.TemplateParams["{body}"] = bodyText;
-          watchEmail.TemplateParams["{bodytruncated}"] = StringHelper.Truncate(bodyText, 160);
-          watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-              ForumPages.posts, true, "m={0}#post{0}", newMessageId);
+        watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
+        watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
+        watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(userId);
+        watchEmail.TemplateParams["{body}"] = bodyText;
+        watchEmail.TemplateParams["{bodytruncated}"] = StringHelper.Truncate(bodyText, 160);
+        watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+            ForumPages.posts, true, "m={0}#post{0}", newMessageId);
 
-          watchEmail.CreateWatch(
-              message.TopicID ?? 0,
-              userId,
-              new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-              subject);
+        watchEmail.CreateWatch(
+            message.TopicID ?? 0,
+            userId,
+            new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
+            subject);
 
-          // create individual watch emails for all users who have All Posts on...
-          foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
+        // create individual watch emails for all users who have All Posts on...
+        foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
+        {
+          // Make sure its not a guest
+          if (user.ProviderUserKey == null)
           {
-              // Make sure its not a guest
-              if (user.ProviderUserKey == null)
-              {
-                  continue;
-              }
-
-              var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
-
-              watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
-                                                    ? user.LanguageFile
-                                                    : YafContext.Current.Localization.LanguageFileName;
-              watchEmail.SendEmail(
-                  new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-                  new MailAddress(membershipUser.Email, membershipUser.UserName),
-                  subject,
-                  true);
+            continue;
           }
+
+          var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+
+          if (membershipUser.Email.IsSet())
+          {
+            watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
+                                                ? user.LanguageFile
+                                                : YafContext.Current.Localization.LanguageFileName;
+            watchEmail.SendEmail(
+              new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
+              new MailAddress(membershipUser.Email, membershipUser.UserName),
+              subject,
+              true);
+          }
+        }
       }
     }
 

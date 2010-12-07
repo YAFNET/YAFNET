@@ -83,17 +83,14 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\AjaxPro.2.dll</HintPath>
+    <Reference Include="AjaxPro.2">
+      <HintPath>..\Dependancies\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.1.0.3, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependencies\CookComputing.XmlRpcV2.dll</HintPath>
+    <Reference Include="CookComputing.XmlRpcV2">
+      <HintPath>..\Dependancies\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\nStuff.UpdateControls.dll</HintPath>
+    <Reference Include="nStuff.UpdateControls">
+      <HintPath>..\Dependancies\nStuff.UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
