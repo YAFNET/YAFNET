@@ -60,11 +60,8 @@
     <Reference Include="AjaxPro.2">
       <HintPath>..\..\Dependancies\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\Dependancies\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\Dependancies\Rhino.Mocks.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\..\Dependancies\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -80,16 +77,18 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TeamAgile.UnitTestExtensions">
-      <HintPath>..\..\Dependancies\TeamAgile.UnitTestExtensions.dll</HintPath>
+    <Reference Include="xunit">
+      <HintPath>..\..\Dependancies\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\..\Dependancies\xunit.extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.should">
+      <HintPath>..\..\Dependancies\xunit.should.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SpamClientTester.cs" />
-    <Compile Include="HttpSimulator\HttpSimulator.cs" />
-    <Compile Include="HttpSimulator\ReflectionHelper.cs" />
-    <Compile Include="HttpSimulator\SimulatedHttpRequest.cs" />
-    <Compile Include="UrlBuilderTests.cs" />
     <Compile Include="ProviderTests.cs" />
     <Compile Include="UtilTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

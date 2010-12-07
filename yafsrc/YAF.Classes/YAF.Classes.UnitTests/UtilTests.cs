@@ -9,7 +9,8 @@
 
 namespace YAF.Classes.UnitTests
 {
-  using NUnit.Framework;
+  using Xunit;
+  using Xunit.Should;
 
   using YAF.Classes.Core;
   using YAF.Classes.Utils;
@@ -17,7 +18,6 @@ namespace YAF.Classes.UnitTests
   /// <summary>
   /// The role membership tests.
   /// </summary>
-  [TestFixture]
   public class RoleMembershipTests
   {
     #region Public Methods
@@ -25,29 +25,28 @@ namespace YAF.Classes.UnitTests
     /// <summary>
     /// The role in role array test.
     /// </summary>
-    [Test]
+    [Fact]
     public void RoleInRoleArrayTest()
     {
       string[] roleArray = { "role1", "role2" };
 
-      Assert.AreEqual(RoleMembershipHelper.RoleInRoleArray("role2", roleArray), true);
-      Assert.AreEqual(RoleMembershipHelper.RoleInRoleArray("norole", roleArray), false);
+      RoleMembershipHelper.RoleInRoleArray("role2", roleArray).ShouldBeTrue();
+      RoleMembershipHelper.RoleInRoleArray("norole", roleArray).ShouldBeFalse();
     }
 
     /// <summary>
     /// The simple url parameter parser test.
     /// </summary>
-    [Test]
+    [Fact]
     public void SimpleURLParameterParserTest()
     {
       var parser = new SimpleURLParameterParser("g=forum&t=1&url=&pg=43#cool");
 
-      Assert.IsTrue(parser.HasAnchor);
-      Assert.AreEqual(parser.Anchor, "cool");
-      Assert.AreEqual(parser.Parameters["g"], "forum");
-      Assert.AreEqual(parser.CreateQueryString(new[] { "g", "t" }), "url=&pg=43");
-      Assert.IsNotNull(parser.Parameters[3]);
-      Assert.AreEqual(parser.Parameters[3], "43");
+      parser.HasAnchor.ShouldBeTrue();
+      parser.Anchor.ShouldBe("cool");
+      parser.Parameters["g"].ShouldBe("forum");
+      parser.CreateQueryString(new[] { "g", "t" }).ShouldBe("url=&pg=43");
+      parser.Parameters[3].ShouldBe("43");
     }
 
     #endregion
