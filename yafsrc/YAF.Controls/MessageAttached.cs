@@ -122,7 +122,7 @@ namespace YAF.Controls
         // show file then image attachments...
         int tmpDisplaySort = 0;
 
-        writer.Write(@"<div class=""fileattach smallfont"">");
+        writer.Write(@"<div class=""fileattach smallfont ceebox"">");
 
         while (tmpDisplaySort <= 1)
         {
@@ -166,15 +166,18 @@ namespace YAF.Controls
                 else
                 {
                   // TommyB: Start MOD: Preview Images
-                  writer.Write(
-                    @"<div class=""attachedimg"" style=""display: inline;""><a rel=""lightbox-group{3}"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
-                      .FormatWith(
-                        YafForumInfo.ForumClientFileRoot, 
-                        dr["AttachmentID"], 
-                        this.HtmlEncode(dr["FileName"]), 
-                        attachGroupId));
+                    writer.Write(
+                        @"<div class=""attachedimg"" style=""display: inline;""><a rel=""image"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
+                            //@"<div class=""attachedimg"" style=""display: inline;""><a rel=""lightbox-group{3}"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
+                            .FormatWith(
+                                YafForumInfo.ForumClientFileRoot,
+                                dr["AttachmentID"],
+                                "{0} {1}".FormatWith(
+                                    this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
+                                        this.HtmlEncode(Convert.ToString(this.UserName))),
+                                    this.HtmlEncode(dr["FileName"]))));
 
-                  // TommyB: End MOD: Preview Images
+                    // TommyB: End MOD: Preview Images
                 }
               }
               else

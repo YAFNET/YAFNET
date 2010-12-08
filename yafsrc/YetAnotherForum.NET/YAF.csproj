@@ -748,6 +748,12 @@
     <Content Include="error.aspx" />
     <Content Include="images\avatars\Common\SampleAvatar.gif" />
     <Content Include="images\blank.gif" />
+    <Content Include="resources\images\ceebox\cee-close-btn.png" />
+    <Content Include="resources\images\ceebox\cee-next-btn.gif" />
+    <Content Include="resources\images\ceebox\cee-next-btn.png" />
+    <Content Include="resources\images\ceebox\cee-prev-btn.gif" />
+    <Content Include="resources\images\ceebox\cee-prev-btn.png" />
+    <Content Include="resources\images\ceebox\loader.gif" />
     <Content Include="images\closelabel.png" />
     <Content Include="images\categories\categoryImageSample.gif" />
     <Content Include="images\folder.gif" />
@@ -933,6 +939,7 @@
     <Content Include="pages\viewthanks.ascx" />
     <Content Include="popup.aspx" />
     <Content Include="resources\css\forum.css" />
+    <Content Include="resources\css\jquery.ceebox.css" />
     <Content Include="resources\css\jquery.lightbox.css" />
     <Content Include="resources\css\jquery.syntaxhighligher.css" />
     <Content Include="resources\css\jquery.yafmodaldialog.css" />
@@ -992,6 +999,7 @@
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery-1.4.4.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
+    <Content Include="resources\js\jquery.ceebox.min.js" />
     <Content Include="resources\js\jquery.lightbox.min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
     <Content Include="resources\js\jquery.syntaxhighligher.js" />

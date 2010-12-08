@@ -409,14 +409,6 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
             YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-            // lightbox only need if the browser is not IE6...
-            if (!UserAgentHelper.IsBrowserIE6())
-            {
-                YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
-                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
-                YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
-            }
-
             // Setup Syntax Highlight JS
             YafContext.Current.PageElements.RegisterJsResourceInclude(
                 "syntaxhighlighter", "js/jquery.syntaxhighligher.js");
@@ -424,6 +416,17 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsBlock(
                 "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
+            // lightbox only need if the browser is not IE6...
+            /*if (!UserAgentHelper.IsBrowserIE6())
+            {
+                YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
+                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
+                YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
+            }*/
+
+            YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
+            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
+            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
         }
 
         /// <summary>

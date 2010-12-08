@@ -131,6 +131,20 @@ function toggleMessage(divId)
     }
 
     /// <summary>
+    /// Gets CeeBox Load Js.
+    /// </summary>
+    public static string CeeBoxLoadJs
+    {
+        get
+        {
+            return
+              @"jQuery(document).ready(function() { 
+					jQuery('.ceebox').ceebox({titles:true, borderColor:'#fff',boxColor:'#fff'});
+			});";
+        }
+    }
+
+    /// <summary>
     /// Gets SyntaxHighlightLoadJs.
     /// </summary>
     public static string SyntaxHighlightLoadJs
