@@ -139,7 +139,7 @@ function toggleMessage(divId)
         {
             return
               @"jQuery(document).ready(function() { 
-					jQuery('.ceebox').ceebox({titles:true, borderColor:'#fff',boxColor:'#fff'});
+					jQuery('.ceebox').ceebox({titles:true});
 			});";
         }
     }

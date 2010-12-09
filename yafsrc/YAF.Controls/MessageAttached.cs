@@ -167,7 +167,7 @@ namespace YAF.Controls
                 {
                   // TommyB: Start MOD: Preview Images
                     writer.Write(
-                        @"<div class=""attachedimg"" style=""display: inline;""><a rel=""image"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
+                        @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
                             //@"<div class=""attachedimg"" style=""display: inline;""><a rel=""lightbox-group{3}"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
                             .FormatWith(
                                 YafForumInfo.ForumClientFileRoot,
