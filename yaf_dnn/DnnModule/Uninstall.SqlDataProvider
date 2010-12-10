@@ -491,6 +491,11 @@ if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{
 DROP TABLE {databaseOwner}{objectQualifier}yaf_PollGroupCluster
 GO
 
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}yaf_ActiveAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+DROP TABLE {databaseOwner}{objectQualifier}yaf_ActiveAccess
+GO
+
+
 /****PROCEDURES**/
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_accessmask_delete') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_accessmask_delete
@@ -1667,4 +1672,12 @@ GO
 
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_updatetopic') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_topic_updatetopic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_activeaccess_reset') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_activeaccess_reset
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_findduplicate') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_topic_findduplicate
 GO
