@@ -44,7 +44,7 @@ namespace YAF.DotNetNuke
     using YAF.Classes.Data;
     using YAF.Classes.Utils;
     using YAF.Controls;
-    using YAF.Utilities;
+
 
     #endregion
 
@@ -431,12 +431,21 @@ namespace YAF.DotNetNuke
                 jQuery.RequestRegistration();
 
                 ScriptManager.RegisterClientScriptInclude(
-                    this, 
-                    csType, 
-                    "timeagojs", 
+                    this,
+                    csType,
+                    "timeagojs",
                     this.ResolveUrl("~/DesktopModules/YetAnotherForumDotNet/resources/js/jquery.timeago.js"));
 
-                ScriptManager.RegisterStartupScript(this, csType, "timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs, true);
+                var timeagoLoadJs =
+                    @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+            function loadTimeAgo() {				      	
+            " +
+                    Localization.GetString("TIMEAGO_JS", this.LocalResourceFile) +
+                    @"
+              jQuery('abbr.timeago').timeago();	
+			      }";
+
+                ScriptManager.RegisterStartupScript(this, csType, "timeagoloadjs", timeagoLoadJs, true);
             }
 
             this.BindData();

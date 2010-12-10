@@ -126,4 +126,24 @@
   <data name="NotConfigured.Text" xml:space="preserve">
     <value>Das Modul muss zunächst in den Modul Einstellungen konfiguriert werden.</value>
   </data>
+  <data name="TIMEAGO_JS.Text" xml:space="preserve">
+    <value>// German
+      jQuery.timeago.settings.strings = {
+      prefixAgo: "vor",
+      prefixFromNow: "in",
+      suffixAgo: "",
+      suffixFromNow: "",
+      seconds: "wenigen Sekunden",
+      minute: "etwa einer Minute",
+      minutes: "%d Minuten",
+      hour: "etwa einer Stunde",
+      hours: "%d Stunden",
+      day: "etwa einem Tag",
+      days: "%d Tagen",
+      month: "etwa einem Monat",
+      months: "%d Monaten",
+      year: "etwa einem Jahr",
+      years: "%d Jahren"
+      };</value>
+  </data>
 </root>
