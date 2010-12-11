@@ -33,6 +33,9 @@
               </HeaderTemplate>
                   <ItemTemplate>
                     <tr>
+                     <td colspan="2"><hr /></td>
+                    </tr>
+                    <tr>
                         <td class="postformheader" width="20%">
                                    <em>
                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" Param0='<%# DataBinder.Eval(Container.DataItem, "ChoiceOrderID") %>' />
@@ -57,6 +60,9 @@
 <FooterTemplate>	
 </FooterTemplate>
 </asp:Repeater>
+    <tr>
+                     <td colspan="2"><hr /></td>
+                    </tr>
     <tr id="tr_AllowMultipleChoices" runat="server" visible="<%# PageContext.BoardSettings.AllowMultipleChoices %>">	
        	<td class="postformheader" width="20%">
 			<em>
