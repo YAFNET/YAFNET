@@ -110,6 +110,18 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets jQuery UI date picker lang File Name.
+    /// </summary>
+    public static string JQueryUILangFile
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.JQueryUILang") ??
+                   "http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js";
+        }
+    }
+
+    /// <summary>
     /// Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
     /// </summary>
     public static string ForceScriptName

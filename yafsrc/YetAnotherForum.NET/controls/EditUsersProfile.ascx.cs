@@ -158,24 +158,23 @@ namespace YAF.Controls
 
             if (!string.IsNullOrEmpty(this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")))
             {
-                var jqueryuiUrl = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
+                var jqueryuiUrl = Config.JQueryUILangFile;
 
-                jqueryuiUrl = jqueryuiUrl.Replace(
-                    "jquery-ui.min.js",
-                    "i18n/jquery.ui.datepicker-{0}.js".FormatWith(
-                        this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")));
+                if (!jqueryuiUrl.StartsWith("http"))
+                {
+                    jqueryuiUrl = YafForumInfo.GetURLToResource(Config.JQueryUIFile);
+                }
 
                 YafContext.Current.PageElements.RegisterJsInclude(
                     "datepickerlang",
                     jqueryuiUrl);
             }
 
-            YafContext.Current.PageElements.RegisterJsBlock(
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.Birthday.ClientID,
                     Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern,
-                    // this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")));
 

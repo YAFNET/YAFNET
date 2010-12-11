@@ -202,7 +202,7 @@ function toggleMessage(divId)
 
         if (!string.IsNullOrEmpty(culture))
         {
-            cultureJs = @"jQuery('#{0}').datepicker(jQuery.datepicker.regional['{1}']);".FormatWith(fieldId, culture);
+            cultureJs = @"jQuery('#{0}').datepicker('option', jQuery.datepicker.regional['{1}']);".FormatWith(fieldId, culture);
         }
 
         return
