@@ -11,30 +11,26 @@
     </tr>
     <tr>
         <td valign="top" rowspan="2">
-            <DotNetAge:Tabs ID="BuddiesTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-                AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-                EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-                OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-                OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false"
-                Spinner="">
-                <Views>
-                    <DotNetAge:View runat="server" ID="BuddyListTab" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank">
-                        <YAF:BuddyList runat="server" ID="BuddyList1" />
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="PendingRequestsTab" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank">
-                        <YAF:BuddyList runat="server" ID="PendingBuddyList" />
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="YourRequestsTab" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank">
-                        <YAF:BuddyList runat="server" ID="BuddyRequested" />
-                    </DotNetAge:View>
-                </Views>
-            </DotNetAge:Tabs>
+             <asp:Panel id="BuddiesTabs" runat="server">
+               <ul>
+                 <li><a href="#BuddyListTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BUDDYLIST" LocalizedPage="CP_EDITBUDDIES" /></a></li>
+		         <li><a href="#PendingRequestsTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PENDING_REQUESTS" LocalizedPage="CP_EDITBUDDIES" /></a></li>
+		         <li><a href="#YourRequestsTab"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="YOUR_REQUESTS" LocalizedPage="CP_EDITBUDDIES" /></a></li>
+               </ul>
+                <div id="BuddyListTab">
+                  <YAF:BuddyList runat="server" ID="BuddyList1" />
+                </div>
+                <div id="PendingRequestsTab">
+                  <YAF:BuddyList runat="server" ID="PendingBuddyList" />
+                </div>
+                <div id="YourRequestsTab">
+                  <YAF:BuddyList runat="server" ID="BuddyRequested" />
+                </div>
+             </asp:Panel>
         </td>
     </tr>
 </table>
+<asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

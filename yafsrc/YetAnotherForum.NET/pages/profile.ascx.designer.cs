@@ -136,16 +136,97 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Tabs ProfileTabs;
+        protected global::System.Web.UI.WebControls.Panel ProfileTabs;
         
         /// <summary>
-        /// AboutTab control.
+        /// LocalizedLabel40 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View AboutTab;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel40;
+        
+        /// <summary>
+        /// LocalizedLabel41 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel41;
+        
+        /// <summary>
+        /// AvatarLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AvatarLi;
+        
+        /// <summary>
+        /// LocalizedLabel42 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel42;
+        
+        /// <summary>
+        /// LocalizedLabel43 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel43;
+        
+        /// <summary>
+        /// LocalizedLabel44 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel44;
+        
+        /// <summary>
+        /// AlbumListLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AlbumListLi;
+        
+        /// <summary>
+        /// LocalizedLabel45 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel45;
+        
+        /// <summary>
+        /// ModerateLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModerateLi;
+        
+        /// <summary>
+        /// LocalizedLabel46 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel46;
         
         /// <summary>
         /// LocalizedLabel2 control.
@@ -571,15 +652,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label lblskype;
         
         /// <summary>
-        /// StatisticsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View StatisticsTab;
-        
-        /// <summary>
         /// LocalizedLabel11 control.
         /// </summary>
         /// <remarks>
@@ -739,7 +811,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View AvatarTab;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AvatarTab;
         
         /// <summary>
         /// Avatar control.
@@ -749,15 +821,6 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Avatar;
-        
-        /// <summary>
-        /// Last10PostsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View Last10PostsTab;
         
         /// <summary>
         /// SearchUser control.
@@ -778,15 +841,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Repeater LastPosts;
         
         /// <summary>
-        /// BuddyListTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View BuddyListTab;
-        
-        /// <summary>
         /// BuddyList control.
         /// </summary>
         /// <remarks>
@@ -802,7 +856,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View AlbumListTab;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AlbumListTab;
         
         /// <summary>
         /// AlbumList1 control.
@@ -820,7 +874,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View ModerateTab;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModerateTab;
         
         /// <summary>
         /// ForumAccessControl control.
@@ -848,6 +902,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.EditUsersSignature SignatureEditControl;
+        
+        /// <summary>
+        /// hidLastTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
         /// SmartScroller1 control.

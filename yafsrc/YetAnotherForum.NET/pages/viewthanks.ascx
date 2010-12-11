@@ -4,28 +4,21 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="DivTopSeparator">
 </div>
-<asp:UpdatePanel ID="ThanksUpdatePanel" runat="server">
-    <ContentTemplate>
+
         <br style="clear: both" />
-        <DotNetAge:Tabs ID="ThanksTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-            AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-            EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-            OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-            OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false"
-            Spinner="">
-            <Views>
-                <DotNetAge:View runat="server" ID="ThanksFromTab" NavigateUrl="" HeaderCssClass=""
-                    HeaderStyle="" Target="_blank">
-                    <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
-                </DotNetAge:View>
-                <DotNetAge:View runat="server" ID="ThanksToTab" NavigateUrl="" HeaderCssClass=""
-                    HeaderStyle="" Target="_blank">
-                    <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
-                </DotNetAge:View>
-            </Views>
-        </DotNetAge:Tabs>
-    </ContentTemplate>
-</asp:UpdatePanel>
+       <asp:Panel id="ThanksTabs" runat="server">
+               <ul>
+                 <li><a href="#ThanksFromTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ThanksFromUser" LocalizedPage="VIEWTHANKS" /></a></li>
+		         <li><a href="#ThanksToTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ThanksToUser" LocalizedPage="VIEWTHANKS" /></a></li>		        
+               </ul>
+                <div id="ThanksFromTab">
+                   <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
+                </div>
+                <div id="ThanksToTab">
+                  <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
+                </div>
+             </asp:Panel>
+        <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 <div id="Div1">
     <YAF:SmartScroller ID="SmartScroller2" runat="server" />
 </div>

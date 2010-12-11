@@ -37,16 +37,34 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Tabs BuddiesTabs;
+        protected global::System.Web.UI.WebControls.Panel BuddiesTabs;
         
         /// <summary>
-        /// BuddyListTab control.
+        /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View BuddyListTab;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
+        /// LocalizedLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// BuddyList1 control.
@@ -58,15 +76,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.BuddyList BuddyList1;
         
         /// <summary>
-        /// PendingRequestsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View PendingRequestsTab;
-        
-        /// <summary>
         /// PendingBuddyList control.
         /// </summary>
         /// <remarks>
@@ -76,15 +85,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.BuddyList PendingBuddyList;
         
         /// <summary>
-        /// YourRequestsTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View YourRequestsTab;
-        
-        /// <summary>
         /// BuddyRequested control.
         /// </summary>
         /// <remarks>
@@ -92,6 +92,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.BuddyList BuddyRequested;
+        
+        /// <summary>
+        /// hidLastTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
         /// SmartScroller1 control.

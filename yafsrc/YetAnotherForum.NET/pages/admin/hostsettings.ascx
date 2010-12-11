@@ -3,18 +3,21 @@
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
-    <DotNetAge:Tabs ID="HostSettingsTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-        AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-        EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-        OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-        OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false"
-        Spinner="">
-        <Animations>
-        </Animations>
-        <Views>
-            <DotNetAge:View runat="server" ID="View1" Text="Host Settings" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" cellspacing="1" width="100%" cellpadding="0" align="center">
+  <asp:Panel id="HostSettingsTabs" runat="server">
+    <ul>
+		<li><a href="#View1">Host Settings</a></li>
+		<li><a href="#View2">Features</a></li>
+		<li><a href="#View3">Display</a></li>
+        <li><a href="#View4">Adverts</a></li>
+        <li><a href="#View5">Editors</a></li>
+        <li><a href="#View6">Permission</a></li>
+        <li><a href="#View7">Templates</a></li>
+        <li><a href="#View8">Avatars</a></li>
+        <li><a href="#View9">Cache</a></li>
+        <li><a href="#View10">Search</a></li>
+	</ul>
+    <div id="View1">
+		<table class="content" cellspacing="2" width="100%" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Host Setup
@@ -270,10 +273,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View2">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Features
@@ -909,10 +911,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View3">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Display Settings
@@ -1176,10 +1177,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View4" Text="Adverts" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View4">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Advert Settings
@@ -1205,10 +1205,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View5" Text="Editors" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View5">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Editting/Formatting Settings
@@ -1256,10 +1255,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View6" Text="Permission" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View6">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Permission
@@ -1418,10 +1416,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View7">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Template Settings
@@ -1545,10 +1542,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View8" Text="Avatars" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View8">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Avatar Settings
@@ -1623,10 +1619,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View9" Text="Cache" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View9">
+		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Cache Settings
@@ -1726,10 +1721,9 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-            <DotNetAge:View runat="server" ID="View10" Text="Search" NavigateUrl="" HeaderCssClass=""
-                HeaderStyle="" Target="_blank">
-                <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+	</div>
+    <div id="View10">
+                <table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
                             Search Settings
@@ -1862,9 +1856,8 @@
                         </td>
                     </tr>
                 </table>
-            </DotNetAge:View>
-        </Views>
-    </DotNetAge:Tabs>
+        </div>
+    </asp:Panel>
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="postfooter" align="center">
@@ -1874,4 +1867,5 @@
         </tr>
     </table>
 </YAF:AdminMenu>
+<asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -164,7 +164,7 @@ namespace YAF.Controls
 
         string emailHash = s.ToString();
 
-        string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
+        string gravatarUrl = "http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(emailHash, this.PageContext.BoardSettings.GravatarRating);
 
         this.AvatarImg.ImageUrl = "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(this.Server.UrlEncode(gravatarUrl), this.PageContext.BoardSettings.AvatarWidth, this.PageContext.BoardSettings.AvatarHeight, YafForumInfo.ForumClientFileRoot);
 

@@ -37,16 +37,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Tabs HostSettingsTabs;
-        
-        /// <summary>
-        /// View1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View1;
+        protected global::System.Web.UI.WebControls.Panel HostSettingsTabs;
         
         /// <summary>
         /// SQLVersion control.
@@ -272,15 +263,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ImageAttachmentResizeCropped;
-        
-        /// <summary>
-        /// View2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View2;
         
         /// <summary>
         /// ShowRelativeTime control.
@@ -841,15 +823,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox UserAgentBadLog;
         
         /// <summary>
-        /// View3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View3;
-        
-        /// <summary>
         /// ActiveListTime control.
         /// </summary>
         /// <remarks>
@@ -1102,15 +1075,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox TopicsPerPage;
         
         /// <summary>
-        /// View4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View4;
-        
-        /// <summary>
         /// AdPost control.
         /// </summary>
         /// <remarks>
@@ -1127,15 +1091,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowAdsToSignedInUsers;
-        
-        /// <summary>
-        /// View5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View5;
         
         /// <summary>
         /// ForumEditor control.
@@ -1172,15 +1127,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox UseStyledNicks;
-        
-        /// <summary>
-        /// View6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View6;
         
         /// <summary>
         /// AllowUserTheme control.
@@ -1318,15 +1264,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox UseSSLToRegister;
         
         /// <summary>
-        /// View7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View7;
-        
-        /// <summary>
         /// UserBox control.
         /// </summary>
         /// <remarks>
@@ -1444,15 +1381,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox UserBoxThanksTo;
         
         /// <summary>
-        /// View8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View8;
-        
-        /// <summary>
         /// AvatarRemote control.
         /// </summary>
         /// <remarks>
@@ -1514,15 +1442,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AvatarSize;
-        
-        /// <summary>
-        /// View9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View9;
         
         /// <summary>
         /// ForumStatisticsCacheTimeout control.
@@ -1678,15 +1597,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.Button ResetCacheAll;
         
         /// <summary>
-        /// View10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View10;
-        
-        /// <summary>
         /// ReturnSearchMax control.
         /// </summary>
         /// <remarks>
@@ -1811,6 +1721,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Save;
+        
+        /// <summary>
+        /// hidLastTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
         /// SmartScroller1 control.

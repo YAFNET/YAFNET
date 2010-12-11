@@ -27,8 +27,9 @@ namespace YAF.Pages.Admin
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
+  using YAF.Utilities;
 
-  /// <summary>
+    /// <summary>
   /// Summary description for edituser.
   /// </summary>
   public partial class edituser : AdminPage
@@ -40,16 +41,37 @@ namespace YAF.Pages.Admin
     {
       get
       {
-        return (int) PageContext.QueryIDs["u"];
+          return (int)PageContext.QueryIDs["u"];
       }
     }
 
+    /// <summary>
+    /// Gets a value indicating whether IsGuestUser.
+    /// </summary>
     protected bool IsGuestUser
     {
-      get
-      {
-        return UserMembershipHelper.IsGuestUser(CurrentUserID);
-      }
+        get
+        {
+            return UserMembershipHelper.IsGuestUser(this.CurrentUserID);
+        }
+    }
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        YafContext.Current.PageElements.RegisterJQuery();
+        YafContext.Current.PageElements.RegisterJQueryUI();
+
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "EditUserTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID, false));
+
+        base.OnPreRender(e);
     }
 
     /// <summary>
@@ -64,44 +86,48 @@ namespace YAF.Pages.Admin
     protected void Page_Load(object sender, EventArgs e)
     {
       // we're in the admin section...
-      ProfileEditControl.InAdminPages = true;
-      SignatureEditControl.InAdminPages = true;
-      AvatarEditControl.InAdminPages = true;
+      this.ProfileEditControl.InAdminPages = true;
+      this.SignatureEditControl.InAdminPages = true;
+      this.AvatarEditControl.InAdminPages = true;
 
       PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      DataTable dt = DB.user_list(PageContext.PageBoardID, CurrentUserID, null);
+      DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
 
-      if (dt.Rows.Count == 1)
-      {
+        if (dt.Rows.Count != 1)
+        {
+            return;
+        }
+        
         DataRow userRow = dt.Rows[0];
 
         // do admin permission check...
-        if (!PageContext.IsHostAdmin && IsUserHostAdmin(userRow))
+        if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
         {
-          // user is not host admin and is attempted to edit host admin account...
-          YafBuildLink.AccessDenied();
+            // user is not host admin and is attempted to edit host admin account...
+            YafBuildLink.AccessDenied();
         }
 
-        if (!IsPostBack)
+        if (this.IsPostBack)
         {
-          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-          this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
-          this.PageLinks.AddLink("Edit User \"{0}\"".FormatWith(userRow["Name"].ToString()));
-
-          // do a quick user membership sync...
-          MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
-
-          // update if the user is not Guest
-          if (!IsGuestUser)
-          {
-            RoleMembershipHelper.UpdateForumUser(user, PageContext.PageBoardID);
-          }
-
-          EditUserTabs.DataBind();
+            return;
         }
-      }
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
+        this.PageLinks.AddLink("Edit User \"{0}\"".FormatWith(userRow["Name"].ToString()));
+
+        // do a quick user membership sync...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+
+        // update if the user is not Guest
+        if (!this.IsGuestUser)
+        {
+            RoleMembershipHelper.UpdateForumUser(user, this.PageContext.PageBoardID);
+        }
+
+        this.EditUserTabs.DataBind();
     }
 
     /// <summary>

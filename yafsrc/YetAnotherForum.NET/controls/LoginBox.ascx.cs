@@ -41,7 +41,7 @@ namespace YAF.Controls
       /// </param>
       protected override void OnPreRender(EventArgs e)
       {
-          // setup jQuery, LightBox and YAF JS...
+          // setup jQuery and YAF JS...
           YafContext.Current.PageElements.RegisterJQuery();
           YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
           YafContext.Current.PageElements.RegisterJsBlock("yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));

@@ -35,8 +35,9 @@ namespace YAF.Pages
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Utilities;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for profile.
@@ -151,6 +152,24 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        YafContext.Current.PageElements.RegisterJQuery();
+        YafContext.Current.PageElements.RegisterJQueryUI();
+
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "ProfileTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -178,10 +197,12 @@ namespace YAF.Pages
 
       if (this.UserId == 0)
       {
-        YafBuildLink.AccessDenied( /*No such user exists*/);
+          YafBuildLink.AccessDenied( /*No such user exists*/);
       }
 
       this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
+      this.AlbumListLi.Visible = this.AlbumsTabIsVisible();
+
       this.BindData();
     }
 
@@ -232,7 +253,7 @@ namespace YAF.Pages
       {
         string[] strBuddyRequest = YafBuddies.AddBuddyRequest(this.UserId);
 
-        var linkButton = (LinkButton)this.AboutTab.FindControl("lnkBuddy");
+        var linkButton = (LinkButton)this.ProfileTabs.FindControl("lnkBuddy");
 
         linkButton.Visible = false;
 
@@ -243,7 +264,7 @@ namespace YAF.Pages
         }
         else
         {
-          var literal = (Literal)this.AboutTab.FindControl("ltrApproval");
+            var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
           literal.Visible = true;
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
         }
@@ -338,16 +359,15 @@ namespace YAF.Pages
       // private messages
       this.SetupUserLinks(userData);
 
-      // localize tab titles...
-      this.LocalizeTabTitles(this.UserId);
-
       this.SetupAvatar(this.UserId, userData);
 
       this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(this.UserId));
 
       // EmailRow.Visible = PageContext.IsAdmin;
-      this.ProfileTabs.Views["ModerateTab"].Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
-      this.ProfileTabs.Views["ModerateTab"].Text = this.GetText("MODERATION");
+
+      this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+      this.ModerateLi.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+
       this.AdminUserButton.Visible = this.PageContext.IsAdmin;
 
       if (this.LastPosts.Visible)
@@ -358,26 +378,6 @@ namespace YAF.Pages
       }
 
       this.DataBind();
-    }
-
-    /// <summary>
-    /// The localize tab titles.
-    /// </summary>
-    /// ///
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    private void LocalizeTabTitles(int userID)
-    {
-      this.ProfileTabs.Views["AboutTab"].Text = this.GetText("ABOUT");
-      this.ProfileTabs.Views["StatisticsTab"].Text = this.GetText("STATISTICS");
-      this.ProfileTabs.Views["AvatarTab"].Text = this.GetText("AVATAR");
-      this.ProfileTabs.Views["Last10PostsTab"].Text = this.GetText("LAST10");
-
-      this.ProfileTabs.Views["BuddyListTab"].Text =
-        this.GetText(userID == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE");
-
-      this.ProfileTabs.Views["AlbumListTab"].Text = this.GetText("ALBUMS");
     }
 
     /// <summary>
@@ -408,7 +408,9 @@ namespace YAF.Pages
       else
       {
         this.Avatar.Visible = false;
+
         this.AvatarTab.Visible = false;
+        this.AvatarLi.Visible = false;
       }
     }
 
@@ -432,8 +434,7 @@ namespace YAF.Pages
         this.lnkBuddy.Visible = true;
         this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
         this.lnkBuddy.CommandArgument = "removebuddy";
-        this.lnkBuddy.Attributes["onclick"] = String.Format(
-          "return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+        this.lnkBuddy.Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
       }
       else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], false))
       {
@@ -471,8 +472,11 @@ namespace YAF.Pages
       this.Blog.Visible = userData.Profile.Blog.IsSet();
       this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
 
-      if (userData.UserID != this.PageContext.PageUserID)
-      {
+        if (userData.UserID == this.PageContext.PageUserID)
+        {
+            return;
+        }
+
         this.PM.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
         this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
 
@@ -481,7 +485,7 @@ namespace YAF.Pages
         this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
         if (this.PageContext.IsAdmin)
         {
-          this.Email.TitleNonLocalized = userData.Membership.Email;
+            this.Email.TitleNonLocalized = userData.Membership.Email;
         }
 
         this.MSN.Visible = this.User != null && userData.Profile.MSN.IsSet();
@@ -501,7 +505,6 @@ namespace YAF.Pages
 
         this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
         this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
-      }
     }
 
     /// <summary>
@@ -635,6 +638,7 @@ namespace YAF.Pages
         this.Birthday.Text =
           this.Get<YafDateTime>().FormatDateLong(
                   userData.Profile.Birthday.Date);
+
           // .Add(-this.Get<YafDateTime>().TimeOffset));
       }
       else

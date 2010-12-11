@@ -27,8 +27,9 @@ namespace YAF.Pages
   using YAF.Classes.Core;
   using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Utilities;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The cp_pm.
@@ -74,6 +75,24 @@ namespace YAF.Pages
     #region Methods
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        YafContext.Current.PageElements.RegisterJQuery();
+        YafContext.Current.PageElements.RegisterJQueryUI();
+
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "yafPmTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID, false));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -92,11 +111,14 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+          if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
+          {
+              this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
-        this.PmTabs.SelectedIndex = (int)this._view;
+              this.hidLastTab.Value = ((int)this._view).ToString();
+          }
 
-        // if (_view == PMView.Inbox)
+          // if (_view == PMView.Inbox)
         // this.PMTabs.ActiveTab = this.InboxTab;
         // else if (_view == PMView.Outbox)
         // this.PMTabs.ActiveTab = this.OutboxTab;
@@ -105,10 +127,6 @@ namespace YAF.Pages
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
         this.PageLinks.AddLink(this.GetText("TITLE"));
-
-        this.PmTabs.Views[0].Text = this.GetText("INBOX");
-        this.PmTabs.Views[1].Text = this.GetText("SENTITEMS");
-        this.PmTabs.Views[2].Text = this.GetText("ARCHIVE");
 
         // InboxTab.HeaderText = GetText("INBOX");
         // OutboxTab.HeaderText = GetText("SENTITEMS");

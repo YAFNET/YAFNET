@@ -72,16 +72,7 @@
               <name>CookComputing.XmlRpcV2.dll</name>                         
             </assembly>
             <assembly>
-              <name>DNA.dll</name>
-            </assembly>
-            <assembly>
-              <name>DNA.UI.JQuery.dll</name>
-            </assembly>
-            <assembly>
               <name>Intelligencia.UrlRewriter.dll</name>
-            </assembly>
-            <assembly>
-              <name>jQueryNet.dll</name>
             </assembly>
             <assembly>
               <name>nStuff.UpdateControls.dll</name>
@@ -216,13 +207,6 @@
                      <add assembly="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
                   </node>
                   <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
-                       <add tagPrefix="DotNetAge" namespace="DNA.UI.JQuery" assembly="DNA.UI.JQuery" />
-                  </node>
-                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
-                    <add tagPrefix="DotNetAge" namespace="DNA.UI" assembly="DNA" />
-                  </node>
-                  
-                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
                     <add tagPrefix="YAF" namespace="YAF.Classes.Utils" assembly="YAF.Classes.Utils" />
                   </node>
                   <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
@@ -276,13 +260,14 @@
                     <profile enabled="true" defaultProvider="AspNetSqlProfileProvider" inherits="YAF.Classes.Utils.YafUserProfile">
                       <providers>
                         <clear />
-                        <add connectionStringName="SiteSqlServer" applicationName="DotNetNuke" name="YafProfileProvider" type="YAF.Providers.Profile.YafProfileProvider" />
                         <add connectionStringName="SiteSqlServer" applicationName="DotNetNuke" name="AspNetSqlProfileProvider" type="System.Web.Profile.SqlProfileProvider" />
                       </providers>
                     </profile>
                   </node>
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
                   <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
                 </nodes>
               </configuration>
             </install>

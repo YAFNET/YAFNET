@@ -20,448 +20,505 @@
 
 namespace YAF.Pages.Admin
 {
-  using System;
-  using System.Linq;
-  using System.Web.UI;
-  using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
-  using YAF.Classes.Utils;
+    #region
 
-  /// <summary>
-  /// Summary description for settings.
-  /// </summary>
-  public partial class hostsettings : AdminPage
-  {
+    using System;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Core.BBCode;
+    using YAF.Classes.Utils;
+    using YAF.Utilities;
+
+    #endregion
+
     /// <summary>
-    /// The page_ load.
+    /// Summary description for settings.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class hostsettings : AdminPage
     {
-      if (!PageContext.IsHostAdmin)
-      {
-        YafBuildLink.AccessDenied();
-      }
+        #region Methods
 
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Host Settings", string.Empty);
-
-        BindData();
-      }
-
-      var txtBoxes =
-        ControlHelper.ControlListRecursive(this, (c) => (c.GetType() == typeof(TextBox) && ((TextBox) c).TextMode == TextBoxMode.SingleLine)).Cast<TextBox>().
-          ToList();
-
-      // default to 100% width...
-      txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
-
-      // vzrus : 13/5/2010
-      ControlHelper.AddStyleAttributeWidth(ServerTimeCorrection, "50px");
-      ControlHelper.AddAttributeMaxWidth(ServerTimeCorrection, "4");
-
-      ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeHeight, "50px");
-
-      ControlHelper.AddStyleAttributeWidth(MaxPostSize, "50px");
-      ControlHelper.AddAttributeMaxWidth(UserNameMaxLength, "5"); 
-
-      ControlHelper.AddStyleAttributeWidth(UserNameMaxLength, "50px");
-      ControlHelper.AddAttributeMaxWidth(UserNameMaxLength, "3");
-
-      ControlHelper.AddStyleAttributeWidth(ActiveListTime, "50px");
-
-      ControlHelper.AddStyleAttributeWidth(PictureAttachmentDisplayTreshold, "100px");
-      ControlHelper.AddAttributeMaxWidth(PictureAttachmentDisplayTreshold, "11"); 
-
-      // Ederon : 7/1/2007
-      ControlHelper.AddStyleAttributeWidth(SmiliesPerRow, "25px");
-      ControlHelper.AddAttributeMaxWidth(SmiliesPerRow, "2");
-      ControlHelper.AddStyleAttributeWidth(SmiliesColumns, "25px");
-      ControlHelper.AddAttributeMaxWidth(SmiliesColumns, "2");
-
-      
-      ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
-      ControlHelper.AddStyleAttributeWidth(DisableNoFollowLinksAfterDay, "100px");
-
-      // Ederon : 7/14/2007
-      ControlHelper.AddStyleAttributeSize(UserBox, "350px", "100px");
-      ControlHelper.AddStyleAttributeSize(AdPost, "400px", "150px");
-
-      // CheckCache
-      CheckCache();
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {     
-      ForumEditor.DataSource = PageContext.EditorModuleManager.GetEditorsTable();
-
-      // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.DB.FullTextSupported  property.
-      DataBind();
-
-      // load Board Setting collection information...
-      var settingCollection = new YafBoardSettingCollection(PageContext.BoardSettings);
-
-      // handle checked fields...
-      foreach (string name in settingCollection.SettingsBool.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead)
+        /// <summary>
+        /// The active discussions cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ActiveDiscussionsCacheReset_Click(object sender, EventArgs e)
         {
-          // get the value from the property...
-          ((CheckBox) control).Checked = (bool) Convert.ChangeType(settingCollection.SettingsBool[name].GetValue(PageContext.BoardSettings, null), typeof(bool));
+            this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
+            this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
         }
-      }
 
-      // handle string fields...
-      foreach (string name in settingCollection.SettingsString.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is TextBox && settingCollection.SettingsString[name].CanRead)
+        /// <summary>
+        /// The board categories cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void BoardCategoriesCacheReset_Click(object sender, EventArgs e)
         {
-          // get the value from the property...
-          ((TextBox) control).Text =
-            (string) Convert.ChangeType(settingCollection.SettingsString[name].GetValue(PageContext.BoardSettings, null), typeof(string));
+            this.RemoveCacheKey(Constants.Cache.ForumCategory);
         }
-        else if (control != null && control is DropDownList && settingCollection.SettingsString[name].CanRead)
+
+        /// <summary>
+        /// The board moderators cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void BoardModeratorsCacheReset_Click(object sender, EventArgs e)
         {
-          ListItem listItem =
-            ((DropDownList) control).Items.FindByValue(settingCollection.SettingsString[name].GetValue(PageContext.BoardSettings, null).ToString());
-
-          if (listItem != null)
-          {
-            listItem.Selected = true;
-          }
+            this.RemoveCacheKey(Constants.Cache.ForumModerators);
         }
-      }
 
-      // handle int fields...
-      foreach (string name in settingCollection.SettingsInt.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead)
+        /// <summary>
+        /// The board user statistics cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void BoardUserStatsCacheReset_Click(object sender, EventArgs e)
         {
-          // get the value from the property...
-          ((TextBox) control).Text = settingCollection.SettingsInt[name].GetValue(PageContext.BoardSettings, null).ToString();
+            this.RemoveCacheKey(Constants.Cache.BoardUserStats);
         }
-        else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanRead)
+
+        /// <summary>
+        /// The forum statistics cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ForumStatisticsCacheReset_Click(object sender, EventArgs e)
         {
-          ListItem listItem =
-            ((DropDownList) control).Items.FindByValue(settingCollection.SettingsInt[name].GetValue(PageContext.BoardSettings, null).ToString());
-
-          if (listItem != null)
-          {
-            listItem.Selected = true;
-          }
+            this.RemoveCacheKey(Constants.Cache.BoardStats);
         }
-      }
 
-      // handle double fields...
-      foreach (string name in settingCollection.SettingsDouble.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is TextBox && settingCollection.SettingsDouble[name].CanRead)
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender(EventArgs e)
         {
-          // get the value from the property...
-          ((TextBox) control).Text = settingCollection.SettingsDouble[name].GetValue(PageContext.BoardSettings, null).ToString();
+            // setup jQuery and YAF JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "yafTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.HostSettingsTabs.ClientID, this.hidLastTab.ClientID, false));
+
+            base.OnPreRender(e);
         }
-        else if (control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load(object sender, EventArgs e)
         {
-          ListItem listItem =
-            ((DropDownList) control).Items.FindByValue(settingCollection.SettingsDouble[name].GetValue(PageContext.BoardSettings, null).ToString());
+            if (!this.PageContext.IsHostAdmin)
+            {
+                YafBuildLink.AccessDenied();
+            }
 
-          if (listItem != null)
-          {
-            listItem.Selected = true;
-          }
+            if (!this.IsPostBack)
+            {
+                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink("Host Settings", string.Empty);
+
+                this.BindData();
+            }
+
+            var txtBoxes =
+                this.ControlListRecursive(
+                    c => (c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine)).Cast<TextBox>().ToList();
+
+            // default to 100% width...
+            txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
+
+            // vzrus : 13/5/2010
+            this.ServerTimeCorrection.AddStyleAttributeWidth("50px");
+            this.ServerTimeCorrection.AddAttributeMaxWidth("4");
+
+            this.ImageAttachmentResizeHeight.AddStyleAttributeWidth("50px");
+
+            this.MaxPostSize.AddStyleAttributeWidth("50px");
+            this.UserNameMaxLength.AddAttributeMaxWidth("5");
+
+            this.UserNameMaxLength.AddStyleAttributeWidth("50px");
+            this.UserNameMaxLength.AddAttributeMaxWidth("3");
+
+            this.ActiveListTime.AddStyleAttributeWidth("50px");
+
+            this.PictureAttachmentDisplayTreshold.AddStyleAttributeWidth("100px");
+            this.PictureAttachmentDisplayTreshold.AddAttributeMaxWidth("11");
+
+            // Ederon : 7/1/2007
+            this.SmiliesPerRow.AddStyleAttributeWidth("25px");
+            this.SmiliesPerRow.AddAttributeMaxWidth("2");
+            this.SmiliesColumns.AddStyleAttributeWidth("25px");
+            this.SmiliesColumns.AddAttributeMaxWidth("2");
+
+            this.ImageAttachmentResizeWidth.AddStyleAttributeWidth("50px");
+            this.DisableNoFollowLinksAfterDay.AddStyleAttributeWidth("100px");
+
+            // Ederon : 7/14/2007
+            this.UserBox.AddStyleAttributeSize("350px", "100px");
+            this.AdPost.AddStyleAttributeSize("400px", "150px");
+
+            // CheckCache
+            this.CheckCache();
         }
-      }
 
-      // special field handling...
-      AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : string.Empty;
-      MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : string.Empty;
-
-      SQLVersion.Text = HtmlEncode(PageContext.BoardSettings.SQLVersion);
-    }
-
-    /// <summary>
-    /// The save_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-      // write all the settings back to the settings class
-
-      // load Board Setting collection information...
-      var settingCollection = new YafBoardSettingCollection(PageContext.BoardSettings);
-
-      // handle checked fields...
-      foreach (string name in settingCollection.SettingsBool.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
+        /// <summary>
+        /// The replace rules cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ReplaceRulesCacheReset_Click(object sender, EventArgs e)
         {
-          settingCollection.SettingsBool[name].SetValue(PageContext.BoardSettings, ((CheckBox) control).Checked, null);
+            ReplaceRulesCreator.ClearCache();
+            this.CheckCache();
         }
-      }
 
-      // handle string fields...
-      foreach (string name in settingCollection.SettingsString.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
+        /// <summary>
+        /// The reset cache all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ResetCacheAll_Click(object sender, EventArgs e)
         {
-          settingCollection.SettingsString[name].SetValue(PageContext.BoardSettings, ((TextBox) control).Text.Trim(), null);
+            // clear all cache keys
+            this.PageContext.Cache.Clear();
+
+            this.CheckCache();
         }
-        else if (control != null && control is DropDownList && settingCollection.SettingsString[name].CanWrite)
+
+        /// <summary>
+        /// The save_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Save_Click(object sender, EventArgs e)
         {
-          settingCollection.SettingsString[name].SetValue(PageContext.BoardSettings, Convert.ToString(((DropDownList) control).SelectedItem.Value), null);
+            // write all the settings back to the settings class
+
+            // load Board Setting collection information...
+            var settingCollection = new YafBoardSettingCollection(this.PageContext.BoardSettings);
+
+            // handle checked fields...
+            foreach (string name in settingCollection.SettingsBool.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
+                {
+                    settingCollection.SettingsBool[name].SetValue(
+                        this.PageContext.BoardSettings, ((CheckBox)control).Checked, null);
+                }
+            }
+
+            // handle string fields...
+            foreach (string name in settingCollection.SettingsString.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
+                {
+                    settingCollection.SettingsString[name].SetValue(
+                        this.PageContext.BoardSettings, ((TextBox)control).Text.Trim(), null);
+                }
+                else if (control != null && control is DropDownList && settingCollection.SettingsString[name].CanWrite)
+                {
+                    settingCollection.SettingsString[name].SetValue(
+                        this.PageContext.BoardSettings, 
+                        Convert.ToString(((DropDownList)control).SelectedItem.Value), 
+                        null);
+                }
+            }
+
+            // handle int fields...
+            foreach (string name in settingCollection.SettingsInt.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite)
+                {
+                    string value = ((TextBox)control).Text.Trim();
+                    int i;
+
+                    if (value.IsNotSet())
+                    {
+                        i = 0;
+                    }
+                    else
+                    {
+                        int.TryParse(value, out i);
+                    }
+
+                    settingCollection.SettingsInt[name].SetValue(this.PageContext.BoardSettings, i, null);
+                }
+                else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
+                {
+                    settingCollection.SettingsInt[name].SetValue(
+                        this.PageContext.BoardSettings, 
+                        ((DropDownList)control).SelectedItem.Value.ToType<int>(), 
+                        null);
+                }
+            }
+
+            // handle double fields...
+            foreach (string name in settingCollection.SettingsDouble.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
+                {
+                    string value = ((TextBox)control).Text.Trim();
+                    double i;
+
+                    if (value.IsNotSet())
+                    {
+                        i = 0;
+                    }
+                    else
+                    {
+                        double.TryParse(value, out i);
+                    }
+
+                    settingCollection.SettingsDouble[name].SetValue(this.PageContext.BoardSettings, i, null);
+                }
+                else if (control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
+                {
+                    settingCollection.SettingsDouble[name].SetValue(
+                        this.PageContext.BoardSettings, 
+                        Convert.ToDouble(((DropDownList)control).SelectedItem.Value), 
+                        null);
+                }
+            }
+
+            // save the settings to the database
+            ((YafLoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
+
+            // reload all settings from the DB
+            this.PageContext.BoardSettings = null;
+
+            YafBuildLink.Redirect(ForumPages.admin_admin);
         }
-      }
 
-      // handle int fields...
-      foreach (string name in settingCollection.SettingsInt.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite)
+        /// <summary>
+        /// The user lazy data cache reset_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void UserLazyDataCacheReset_Click(object sender, EventArgs e)
         {
-          string value = ((TextBox) control).Text.Trim();
-          int i = 0;
-
-          if (value.IsNotSet())
-          {
-            i = 0;
-          }
-          else
-          {
-            int.TryParse(value, out i);
-          }
-
-          settingCollection.SettingsInt[name].SetValue(PageContext.BoardSettings, i, null);
+            // vzrus: remove all users lazy data 
+            this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+            this.CheckCache();
         }
-        else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
         {
-          settingCollection.SettingsInt[name].SetValue(PageContext.BoardSettings, Convert.ToInt32(((DropDownList) control).SelectedItem.Value), null);
+            this.ForumEditor.DataSource = this.PageContext.EditorModuleManager.GetEditorsTable();
+
+            // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.DB.FullTextSupported  property.
+            this.DataBind();
+
+            // load Board Setting collection information...
+            var settingCollection = new YafBoardSettingCollection(this.PageContext.BoardSettings);
+
+            // handle checked fields...
+            foreach (string name in settingCollection.SettingsBool.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead)
+                {
+                    // get the value from the property...
+                    ((CheckBox)control).Checked =
+                        (bool)
+                        Convert.ChangeType(
+                            settingCollection.SettingsBool[name].GetValue(this.PageContext.BoardSettings, null), 
+                            typeof(bool));
+                }
+            }
+
+            // handle string fields...
+            foreach (string name in settingCollection.SettingsString.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is TextBox && settingCollection.SettingsString[name].CanRead)
+                {
+                    // get the value from the property...
+                    ((TextBox)control).Text =
+                        (string)
+                        Convert.ChangeType(
+                            settingCollection.SettingsString[name].GetValue(this.PageContext.BoardSettings, null), 
+                            typeof(string));
+                }
+                else if (control != null && control is DropDownList && settingCollection.SettingsString[name].CanRead)
+                {
+                    ListItem listItem =
+                        ((DropDownList)control).Items.FindByValue(
+                            settingCollection.SettingsString[name].GetValue(this.PageContext.BoardSettings, null).
+                                ToString());
+
+                    if (listItem != null)
+                    {
+                        listItem.Selected = true;
+                    }
+                }
+            }
+
+            // handle int fields...
+            foreach (string name in settingCollection.SettingsInt.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead)
+                {
+                    // get the value from the property...
+                    ((TextBox)control).Text =
+                        settingCollection.SettingsInt[name].GetValue(this.PageContext.BoardSettings, null).ToString();
+                }
+                else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanRead)
+                {
+                    ListItem listItem =
+                        ((DropDownList)control).Items.FindByValue(
+                            settingCollection.SettingsInt[name].GetValue(this.PageContext.BoardSettings, null).ToString());
+
+                    if (listItem != null)
+                    {
+                        listItem.Selected = true;
+                    }
+                }
+            }
+
+            // handle double fields...
+            foreach (string name in settingCollection.SettingsDouble.Keys)
+            {
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                if (control != null && control is TextBox && settingCollection.SettingsDouble[name].CanRead)
+                {
+                    // get the value from the property...
+                    ((TextBox)control).Text =
+                        settingCollection.SettingsDouble[name].GetValue(this.PageContext.BoardSettings, null).ToString();
+                }
+                else if (control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
+                {
+                    ListItem listItem =
+                        ((DropDownList)control).Items.FindByValue(
+                            settingCollection.SettingsDouble[name].GetValue(this.PageContext.BoardSettings, null).
+                                ToString());
+
+                    if (listItem != null)
+                    {
+                        listItem.Selected = true;
+                    }
+                }
+            }
+
+            // special field handling...
+            this.AvatarSize.Text = (this.PageContext.BoardSettings.AvatarSize != 0)
+                                       ? this.PageContext.BoardSettings.AvatarSize.ToString()
+                                       : string.Empty;
+            this.MaxFileSize.Text = (this.PageContext.BoardSettings.MaxFileSize != 0)
+                                        ? this.PageContext.BoardSettings.MaxFileSize.ToString()
+                                        : string.Empty;
+
+            this.SQLVersion.Text = this.HtmlEncode(this.PageContext.BoardSettings.SQLVersion);
         }
-      }
 
-      // handle double fields...
-      foreach (string name in settingCollection.SettingsDouble.Keys)
-      {
-        Control control = ControlHelper.FindControlRecursive(this.HostSettingsTabs, name);
-
-        if (control != null && control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
+        /// <summary>
+        /// The check cache.
+        /// </summary>
+        private void CheckCache()
         {
-          string value = ((TextBox) control).Text.Trim();
-          double i = 0;
-
-          if (value.IsNotSet())
-          {
-            i = 0;
-          }
-          else
-          {
-            double.TryParse(value, out i);
-          }
-
-          settingCollection.SettingsDouble[name].SetValue(PageContext.BoardSettings, i, null);
+            this.ForumStatisticsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardStats);
+            this.BoardUserStatsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardUserStats);
+            this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions) ||
+                                                       this.CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
+            this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
+            this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
+            this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);
+            this.ResetCacheAll.Enabled = this.PageContext.Cache.Count > 0;
         }
-        else if (control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
+
+        /// <summary>
+        /// The check cache key.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// The check cache key.
+        /// </returns>
+        private bool CheckCacheKey(string key)
         {
-          settingCollection.SettingsDouble[name].SetValue(PageContext.BoardSettings, Convert.ToDouble(((DropDownList) control).SelectedItem.Value), null);
+            return this.PageContext.Cache[YafCache.GetBoardCacheKey(key)] != null;
         }
-      }
 
-      // save the settings to the database
-      ((YafLoadBoardSettings) PageContext.BoardSettings).SaveRegistry();
+        /// <summary>
+        /// The remove cache key.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        private void RemoveCacheKey(string key)
+        {
+            this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(key));
+            this.CheckCache();
+        }
 
-      // reload all settings from the DB
-      this.PageContext.BoardSettings = null;
-
-      YafBuildLink.Redirect(ForumPages.admin_admin);
+        #endregion
     }
-
-    /// <summary>
-    /// The forum statistics cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ForumStatisticsCacheReset_Click(object sender, EventArgs e)
-    {
-        this.RemoveCacheKey(Constants.Cache.BoardStats);
-    }
-
-    /// <summary>
-    /// The board user statistics cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void BoardUserStatsCacheReset_Click(object sender, EventArgs e)
-    {
-        this.RemoveCacheKey(Constants.Cache.BoardUserStats);
-    }
-
-    /// <summary>
-    /// The active discussions cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ActiveDiscussionsCacheReset_Click(object sender, EventArgs e)
-    {
-      this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
-      this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
-    }
-
-    /// <summary>
-    /// The board moderators cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void BoardModeratorsCacheReset_Click(object sender, EventArgs e)
-    {
-        this.RemoveCacheKey(Constants.Cache.ForumModerators);
-    }
-
-    /// <summary>
-    /// The board categories cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void BoardCategoriesCacheReset_Click(object sender, EventArgs e)
-    {
-      this.RemoveCacheKey(Constants.Cache.ForumCategory);
-    }
-
-    /// <summary>
-    /// The user lazy data cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void UserLazyDataCacheReset_Click(object sender, EventArgs e)
-    {
-      // vzrus: remove all users lazy data 
-        this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
-        this.CheckCache();
-    }
-
-    /// <summary>
-    /// The replace rules cache reset_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ReplaceRulesCacheReset_Click(object sender, EventArgs e)
-    {
-      ReplaceRulesCreator.ClearCache();
-      this.CheckCache();
-    }
-
-    /// <summary>
-    /// The reset cache all_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ResetCacheAll_Click(object sender, EventArgs e)
-    {
-      // clear all cache keys
-      this.PageContext.Cache.Clear();
-
-      this.CheckCache();
-    }
-
-    /// <summary>
-    /// The remove cache key.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    private void RemoveCacheKey(string key)
-    {
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(key));
-      this.CheckCache();
-    }
-
-    /// <summary>
-    /// The check cache key.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <returns>
-    /// The check cache key.
-    /// </returns>
-    private bool CheckCacheKey(string key)
-    {
-        return this.PageContext.Cache[YafCache.GetBoardCacheKey(key)] != null;
-    }
-
-    /// <summary>
-    /// The check cache.
-    /// </summary>
-    private void CheckCache()
-    {
-        this.ForumStatisticsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardStats);
-        this.BoardUserStatsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardUserStats);
-        this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions) || CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
-        this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
-        this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
-        this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);
-        this.ResetCacheAll.Enabled = this.PageContext.Cache.Count > 0;
-    }
-  }
 }

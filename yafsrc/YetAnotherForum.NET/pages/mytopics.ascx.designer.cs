@@ -22,31 +22,40 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// TopicsUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel TopicsUpdatePanel;
-        
-        /// <summary>
         /// TopicsTabs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Tabs TopicsTabs;
+        protected global::System.Web.UI.WebControls.Panel TopicsTabs;
         
         /// <summary>
-        /// ActiveTopicsTab control.
+        /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View ActiveTopicsTab;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
+        /// FavoriteTopicsTabTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder FavoriteTopicsTabTitle;
+        
+        /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// ActiveTopics control.
@@ -58,13 +67,13 @@ namespace YAF.Pages {
         protected global::YAF.Controls.MyTopicsList ActiveTopics;
         
         /// <summary>
-        /// FavoriteTopicsTab control.
+        /// FavoriteTopicsTabContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View FavoriteTopicsTab;
+        protected global::System.Web.UI.WebControls.PlaceHolder FavoriteTopicsTabContent;
         
         /// <summary>
         /// FavoriteTopics control.
@@ -74,6 +83,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.MyTopicsList FavoriteTopics;
+        
+        /// <summary>
+        /// hidLastTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
         /// ForumJumpHolder control.

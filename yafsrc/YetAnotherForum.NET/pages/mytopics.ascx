@@ -11,28 +11,24 @@
         </td>
     </tr>
 </table>--%>
-<asp:UpdatePanel ID="TopicsUpdatePanel" runat="server">
-    <ContentTemplate>
-        <br style="clear: both" />
-        <DotNetAge:Tabs ID="TopicsTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-            AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-            EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-            OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-            OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false"
-            Spinner="">
-            <Views>
-                <DotNetAge:View runat="server" ID="ActiveTopicsTab" NavigateUrl="" HeaderCssClass=""
-                    HeaderStyle="" Target="_blank">
-                    <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
-                </DotNetAge:View>
-                <DotNetAge:View runat="server" ID="FavoriteTopicsTab" NavigateUrl="" HeaderCssClass=""
-                    HeaderStyle="" Target="_blank">
-                    <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" />
-                </DotNetAge:View>
-            </Views>
-        </DotNetAge:Tabs>
-    </ContentTemplate>
-</asp:UpdatePanel>
+<br style="clear: both" />
+       <asp:Panel id="TopicsTabs" runat="server">
+               <ul>
+                 <li><a href="#ActiveTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ActiveTopics" LocalizedPage="MyTopics" /></a></li>
+                 <asp:PlaceHolder ID="FavoriteTopicsTabTitle" runat="server">
+		         <li><a href="#FavoriteTopicsTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" /></a></li>
+                 </asp:PlaceHolder>		        
+               </ul>
+                <div id="ActiveTopicsTab">
+                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
+                </div>
+                <asp:PlaceHolder ID="FavoriteTopicsTabContent" runat="server">
+                <div id="FavoriteTopicsTab">
+                  <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" />
+                </div>
+                </asp:PlaceHolder>
+             </asp:Panel>
+        <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
     <div id="DivForumJump">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />

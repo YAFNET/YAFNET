@@ -1990,18 +1990,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj">
-      <Project>{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}</Project>
-      <Name>DNA.UI.JQuery</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DNA jQuery Web Controls\DNA\DNA.csproj">
-      <Project>{5418193D-42DB-4D27-B795-9C9D79ED5018}</Project>
-      <Name>DNA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DNA jQuery Web Controls\jQuery\jQueryNet.csproj">
-      <Project>{96818757-3B53-48AE-96A0-74D2A1C0870D}</Project>
-      <Name>jQueryNet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>

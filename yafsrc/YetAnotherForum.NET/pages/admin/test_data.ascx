@@ -2,17 +2,19 @@
 	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="test_data.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
-	<DotNetAge:Tabs ID="TestDataTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-		AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-		EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-		OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-		OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false" Spinner="">
-		<Animations>
-		</Animations>
-		<Views>
-			<DotNetAge:View runat="server" ID="View1" Text="Users" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+	<asp:Panel id="TestDataTabs" runat="server">
+               <ul>
+                 <li><a href="#View1">Users</a></li>
+		 <li><a href="#View2">Boards</a></li>
+		 <li><a href="#View3">Categories</a></li>
+		 <li><a href="#View4">Forums</a></li>
+		 <li><a href="#View5">Topics</a></li>		        
+		 <li><a href="#View6">Messages</a></li>	
+		 <li><a href="#View7">PMessages</a></li>
+                 <li><a href="#View8">Settings/Help</a></li>
+               </ul>
+                <div id="View1">
+                   <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Users
@@ -117,10 +119,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View2" Text="Boards" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View2">
+                  <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Boards
@@ -205,10 +206,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View3" Text="Categories" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View3">
+                  <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Categories
@@ -273,10 +273,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View4" Text="Forums" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View4">
+                   <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Forums
@@ -390,10 +389,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View5" Text="Topics" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View5">
+                  <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Topics
@@ -466,10 +464,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View6" Text="Messages" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View6">
+                  <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Messages
@@ -537,10 +534,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View7" Text="PMessages" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank" Enabled="true">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View7">
+                  <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Create Test Private Messages
@@ -623,10 +619,9 @@
 						</td>
 					</tr>
 				</table>
-			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View8" Text="Settings/Help" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank" Enabled="true">
-				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+                </div>
+                <div id="View8">
+                  <table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
 							Usage guide
@@ -711,9 +706,9 @@
 						</td>
 					</tr>			
 				</table>
-			</DotNetAge:View>
-		</Views>
-	</DotNetAge:Tabs>
+                </div>
+             </asp:Panel>
+    <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="postfooter" align="center">

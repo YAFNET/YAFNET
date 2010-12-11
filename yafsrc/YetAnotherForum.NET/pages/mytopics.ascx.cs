@@ -8,8 +8,9 @@ namespace YAF.Pages
   using YAF.Classes.Core;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
+  using YAF.Utilities;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The mytopics.
@@ -31,6 +32,24 @@ namespace YAF.Pages
     #region Methods
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        YafContext.Current.PageElements.RegisterJQuery();
+        YafContext.Current.PageElements.RegisterJQueryUI();
+
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "TopicsTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.TopicsTabs.ClientID, this.hidLastTab.ClientID, false));
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The Page_ Load Event.
     /// </summary>
     /// <param name="sender">
@@ -43,7 +62,9 @@ namespace YAF.Pages
     {
       if (!this.IsPostBack)
       {
-        this.FavoriteTopicsTab.Visible = !this.PageContext.IsGuest;
+          this.FavoriteTopicsTabTitle.Visible = !this.PageContext.IsGuest;
+          this.FavoriteTopicsTabContent.Visible = !this.PageContext.IsGuest;
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         if (this.PageContext.IsGuest)
         {
@@ -56,13 +77,6 @@ namespace YAF.Pages
 
         this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump &&
                                        this.PageContext.Settings.LockedForum == 0;
-      }
-
-      // Set the DNA Views' titles.
-      this.TopicsTabs.Views[0].Text = this.GetText("MyTopics", "ActiveTopics");
-      if (!this.PageContext.IsGuest)
-      {
-        this.TopicsTabs.Views[1].Text = this.GetText("MyTopics", "FavoriteTopics");
       }
     }
 

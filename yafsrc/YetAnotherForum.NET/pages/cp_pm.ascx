@@ -5,51 +5,36 @@
 	<YAF:ThemeButton ID="NewPM" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
 <br style="clear: both" />
-<DotNetAge:Tabs ID="PmTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false" AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false" EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd="" OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove="" OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false" Spinner="">
-	
-	<Animations>
-	</Animations>
-	<Views>
-	<DotNetAge:View runat="server"
-            ID="View1"
-            NavigateUrl=""
-            HeaderCssClass=""
-            HeaderStyle=""            
-            Target="_blank">
-	<asp:UpdatePanel ID="InboxTabUpdatePanel" runat="server">
+<asp:Panel id="PmTabs" runat="server">
+               <ul>
+                 <li><a href="#View1"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="INBOX" /></a></li>
+		         <li><a href="#View2"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SENTITEMS" /></a></li>
+		         <li><a href="#View3"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ARCHIVE" /></a></li>
+               </ul>
+                <div id="View1">
+                  <asp:UpdatePanel ID="InboxTabUpdatePanel" runat="server">
             <ContentTemplate>            
 							<YAF:PMList runat="server" View="Inbox" ID="InboxPMList" />
             </ContentTemplate>
-            </asp:UpdatePanel>							
-	</DotNetAge:View>
-	<DotNetAge:View runat="server"
-            ID="View2"
-            NavigateUrl=""
-            HeaderCssClass=""
-            HeaderStyle=""
-            Target="_blank">
-	<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            </asp:UpdatePanel>
+                </div>
+                <div id="View2">
+                  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>               
 							<YAF:PMList runat="server" View="Outbox" ID="OutboxPMList" />
             </ContentTemplate>
-            </asp:UpdatePanel>							
-</DotNetAge:View>
-	
-	<DotNetAge:View runat="server"
-            ID="View3"
-            NavigateUrl=""
-            HeaderCssClass=""
-            HeaderStyle=""
-            Target="_blank">
-	<asp:UpdatePanel ID="ArchiveTabUpdatePanel" runat="server">
+            </asp:UpdatePanel>
+                </div>
+                <div id="View3">
+                  <asp:UpdatePanel ID="ArchiveTabUpdatePanel" runat="server">
             <ContentTemplate>            
 							<YAF:PMList runat="server" View="Archive" ID="ArchivePMList" />
             </ContentTemplate>
-            </asp:UpdatePanel>							
-	</DotNetAge:View>
-	
-	</Views>
-</DotNetAge:Tabs><br />
+            </asp:UpdatePanel>
+                </div>
+             </asp:Panel>
+<asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+<br />
 <div>
 	<YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>

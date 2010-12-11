@@ -18,14 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Core", "YAF.Cla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF", "YetAnotherForum.NET\YAF.csproj", "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNA Controls", "DNA Controls", "{7F0CFA55-C041-4CB1-AED5-73A7F98F5C22}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNA", "DNA jQuery Web Controls\DNA\DNA.csproj", "{5418193D-42DB-4D27-B795-9C9D79ED5018}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNA.UI.JQuery", "DNA jQuery Web Controls\DNA.JQuery\DNA.UI.JQuery.csproj", "{EC9963C8-76A6-46B3-857C-531B0C4DE2D2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jQueryNet", "DNA jQuery Web Controls\jQuery\jQueryNet.csproj", "{96818757-3B53-48AE-96A0-74D2A1C0870D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

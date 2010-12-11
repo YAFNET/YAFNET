@@ -27,6 +27,11 @@ namespace YAF.Utilities
   /// </summary>
   public static class JavaScriptBlocks
   {
+    /// <summary>
+    /// Load Go to Anchor
+    /// </summary>
+    /// <param name="anchor"></param>
+    /// <returns></returns>
     public static string LoadGotoAnchor(string anchor)
     {
       return
@@ -210,7 +215,45 @@ function toggleMessage(divId)
                 .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs);
     }
 
-    /// <summary>
+      /// <summary>
+      /// Gets JqueryUITabsLoadJs.
+      /// </summary>
+      /// <param name="tabId">
+      /// The tab Id.
+      /// </param>
+      /// <param name="hiddenId">
+      /// The hidden Id.
+      /// </param>
+      /// <param name="hightTransition">
+      /// Height Transition
+      /// </param>
+      /// <returns>
+      /// The jquery ui tabs load js.
+      /// </returns>
+      public static string JqueryUITabsLoadJs(string tabId, string hiddenId, bool hightTransition)
+      {
+          string heightTransitionJs = string.Empty;
+
+          if (hightTransition)
+          {
+             heightTransitionJs = ", fx:{height:'toggle'}";
+          }
+
+          return @"jQuery(document).ready(function() {{
+					jQuery('#{0}').tabs(
+                    {{
+            show: function() {{
+                var sel = jQuery('#{0}').tabs('option', 'selected');
+                jQuery('#{1}').val(sel);
+            }},
+            selected: jQuery('#{1}').val()
+            {2}
+        }});
+                    }});".FormatWith(tabId, hiddenId, heightTransitionJs);
+      }
+      
+
+      /// <summary>
     /// If asynchronous callback encounters any problem, this javascript function will be called.
     /// </summary>
     /// <returns></returns>

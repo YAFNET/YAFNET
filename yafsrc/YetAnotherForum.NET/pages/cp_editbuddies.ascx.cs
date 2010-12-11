@@ -27,8 +27,9 @@ namespace YAF.Pages
   using YAF.Classes.Core;
   using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Utilities;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The cp_editbuddies.
@@ -48,6 +49,24 @@ namespace YAF.Pages
     #endregion
 
     #region Methods
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+        // setup jQuery and Jquery Ui Tabs.
+        YafContext.Current.PageElements.RegisterJQuery();
+        YafContext.Current.PageElements.RegisterJQueryUI();
+
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "yafBuddiesTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID, false));
+
+        base.OnPreRender(e);
+    }
 
     /// <summary>
     /// Called when the page loads
@@ -76,12 +95,9 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      this.BuddiesTabs.Views["BuddyListTab"].Text = this.GetText("CP_EDITBUDDIES", "BUDDYLIST");
-      this.BuddiesTabs.Views["PendingRequestsTab"].Text = this.GetText("CP_EDITBUDDIES", "PENDING_REQUESTS");
-      this.BuddiesTabs.Views["YourRequestsTab"].Text = this.GetText("CP_EDITBUDDIES", "YOUR_REQUESTS");
-      this.InitializeBuddyList(BuddyList1, 2);
-      this.InitializeBuddyList(PendingBuddyList, 3);
-      this.InitializeBuddyList(BuddyRequested, 4);
+      this.InitializeBuddyList(this.BuddyList1, 2);
+      this.InitializeBuddyList(this.PendingBuddyList, 3);
+      this.InitializeBuddyList(this.BuddyRequested, 4);
     }
 
     /// <summary>
@@ -90,13 +106,13 @@ namespace YAF.Pages
     /// <param name="customBuddyList">
     /// The custom BuddyList control.
     /// </param>
-    /// <param name="Mode">
+    /// <param name="mode">
     /// The mode of this BuddyList.
     /// </param>
-    private void InitializeBuddyList(BuddyList customBuddyList, int Mode)
+    private void InitializeBuddyList(BuddyList customBuddyList, int mode)
     {
       customBuddyList.CurrentUserID = this.PageContext.PageUserID;
-      customBuddyList.Mode = Mode;
+      customBuddyList.Mode = mode;
       customBuddyList.Container = this;
     }
 

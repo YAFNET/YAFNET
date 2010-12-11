@@ -37,16 +37,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Tabs TestDataTabs;
-        
-        /// <summary>
-        /// View1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View1;
+        protected global::System.Web.UI.WebControls.Panel TestDataTabs;
         
         /// <summary>
         /// UsersNumber control.
@@ -184,15 +175,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList TimeZones;
         
         /// <summary>
-        /// View2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View2;
-        
-        /// <summary>
         /// BoardNumber control.
         /// </summary>
         /// <remarks>
@@ -283,15 +265,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox BoardsMessagesNumber;
         
         /// <summary>
-        /// View3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View3;
-        
-        /// <summary>
         /// CategoriesNumber control.
         /// </summary>
         /// <remarks>
@@ -353,15 +326,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox CategoriesMessagesNumber;
-        
-        /// <summary>
-        /// View4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View4;
         
         /// <summary>
         /// ForumsNumber control.
@@ -472,15 +436,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox ForumsMessagesNumber;
         
         /// <summary>
-        /// View5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View5;
-        
-        /// <summary>
         /// TopicsNumber control.
         /// </summary>
         /// <remarks>
@@ -553,15 +508,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox TopicsMessagesNumber;
         
         /// <summary>
-        /// View6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View6;
-        
-        /// <summary>
         /// PostsNumber control.
         /// </summary>
         /// <remarks>
@@ -623,15 +569,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox MyMessage;
-        
-        /// <summary>
-        /// View7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View7;
         
         /// <summary>
         /// PMessagesNumber control.
@@ -733,15 +670,23 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox PMessageText;
         
         /// <summary>
-        /// View8 control.
+        /// UserPrefixTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View View8;
-
-
+        protected global::System.Web.UI.WebControls.TextBox UserPrefixTB;
+        
+        /// <summary>
+        /// UserPrefixTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator UserPrefixTBRequiredfieldvalidator;
+        
         /// <summary>
         /// BoardPrefixTB control.
         /// </summary>
@@ -750,7 +695,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox BoardPrefixTB;
-
+        
         /// <summary>
         /// BoardPrefixTBRequiredfieldvalidator control.
         /// </summary>
@@ -759,7 +704,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator BoardPrefixTBRequiredfieldvalidator;
-
+        
         /// <summary>
         /// CategoryPrefixTB control.
         /// </summary>
@@ -768,7 +713,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox CategoryPrefixTB;
-
+        
         /// <summary>
         /// CategoryPrefixTBRequiredfieldvalidator control.
         /// </summary>
@@ -786,7 +731,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ForumPrefixTB;
-
+        
         /// <summary>
         /// ForumPrefixTBRequiredfieldvalidator control.
         /// </summary>
@@ -795,7 +740,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator ForumPrefixTBRequiredfieldvalidator;
-
+        
         /// <summary>
         /// TopicPrefixTB control.
         /// </summary>
@@ -804,7 +749,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TopicPrefixTB;
-
+        
         /// <summary>
         /// TopicPrefixTBRequiredfieldvalidator control.
         /// </summary>
@@ -813,7 +758,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator TopicPrefixTBRequiredfieldvalidator;
-
+        
         /// <summary>
         /// MessageContentPrefixTB control.
         /// </summary>
@@ -822,34 +767,25 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox MessageContentPrefixTB;
-
+        
         /// <summary>
-        /// MessageContentPrefixTBTBRequiredfieldvalidator control.
+        /// MessageContentPrefixTBRequiredfieldvalidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator MessageContentPrefixTBRequiredfieldvalidator;
-
+        
         /// <summary>
-        /// UserPrefixTB control.
+        /// hidLastTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserPrefixTB;
-
-        /// <summary>
-        /// UserPrefixTBRequiredfieldvalidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator UserPrefixTBRequiredfieldvalidator;
-
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
+        
         /// <summary>
         /// LaunchGenerator control.
         /// </summary>

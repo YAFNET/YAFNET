@@ -42,18 +42,18 @@
 	</tr>
 	<tr class="post">
 		<td valign="top" rowspan="2">
-			<DotNetAge:Tabs ID="ProfileTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-				AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-				EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-				OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-				OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false" Spinner="">
-				<Animations>
-					<DotNetAge:AnimationAttribute Name="HeightTransition" AnimationType="height" Value="toggle" />
-				</Animations>
-				<Views>
-					<DotNetAge:View runat="server" ID="AboutTab" Text="About" NavigateUrl="" HeaderCssClass=""
-						HeaderStyle="" Target="_blank">
-						<table width="100%" cellspacing="1" cellpadding="0">
+			<asp:Panel id="ProfileTabs" runat="server">
+               <ul>
+                 <li><a href="#AboutTab"><YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="ABOUT" /></a></li>
+		 <li><a href="#StatisticsTab"><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" /></a></li>
+		 <li runat="server" id="AvatarLi"><a href='#<%# this.AvatarTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="AVATAR" /></a></li>
+		 <li><a href="#Last10PostsTab"><YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" /></a></li>
+		 <li><a href="#BuddyListTab"><YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' /></a></li>		        
+		 <li runat="server" id="AlbumListLi"><a href='#<%# this.AlbumListTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel45" runat="server" LocalizedTag="ALBUMS" /></a></li>	
+		 <li runat="server" id="ModerateLi"><a href='#<%# this.ModerateTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" /></a></li>	
+               </ul>
+                <div id="AboutTab">
+                   <table width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td width="50%" class="postheader">
 									<strong>
@@ -181,10 +181,9 @@
 								</td>
 							</tr>
 						</table>
-					</DotNetAge:View>
-					<DotNetAge:View runat="server" ID="StatisticsTab" Text="Statistics" NavigateUrl=""
-						HeaderCssClass="" HeaderStyle="" Target="_blank">
-						<table width="100%" cellspacing="1" cellpadding="0">
+                </div>
+                <div id="StatisticsTab">
+                  <table width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td width="50%" class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
@@ -234,20 +233,18 @@
 								</td>
 							</tr>
 						</table>
-					</DotNetAge:View>
-					<DotNetAge:View runat="server" ID="AvatarTab" Text="Avatar" NavigateUrl="" HeaderCssClass=""
-						HeaderStyle="" Target="_blank">
-						<table align="center" width="100%" cellspacing="1" cellpadding="0">
+                </div>
+                <div runat="server" id="AvatarTab">
+                  <table align="center" width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td class="post" colspan="2" align="center">
 									<asp:Image ID="Avatar" runat="server" CssClass="avatarimage" />
 								</td>
 							</tr>
 						</table>
-					</DotNetAge:View>
-					<DotNetAge:View runat="server" ID="Last10PostsTab" Text="Last 10 Posts Tab" NavigateUrl=""
-						HeaderCssClass="" HeaderStyle="" Target="_blank">
-						<YAF:ThemeButton ID="SearchUser" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+                </div>
+                <div id="Last10PostsTab">
+                  <YAF:ThemeButton ID="SearchUser" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 							TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />
 						<br style="clear: both" />
 						<table width="100%" cellspacing="1" cellpadding="0">
@@ -276,18 +273,15 @@
 								</ItemTemplate>
 							</asp:Repeater>
 						</table>
-					</DotNetAge:View>
-					<DotNetAge:View runat="server" ID="BuddyListTab" Text="Buddy List" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank" Visible="<%# YafContext.Current.BoardSettings.EnableBuddyList %>">
-                        <YAF:BuddyList runat="server" ID="BuddyList" />
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="AlbumListTab" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank" >
-                        <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1"/>
-                    </DotNetAge:View>                    
-					<DotNetAge:View runat="server" ID="ModerateTab" Text="Moderation" NavigateUrl=""
-						HeaderCssClass="" HeaderStyle="" Visible="false" Target="_blank">
-						<YAF:ForumAccess runat="server" ID="ForumAccessControl" />
+                </div>
+                <div id="BuddyListTab">
+                  <YAF:BuddyList runat="server" ID="BuddyList" />
+                </div>
+                <div runat="server" id="AlbumListTab">
+                  <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1"/>
+                </div>
+                <div runat="server" id="ModerateTab">
+                  <YAF:ForumAccess runat="server" ID="ForumAccessControl" />
 						<table width="100%" cellspacing="1" cellpadding="0">
 							<tr class="header2">
 								<td class="header2" colspan="2">
@@ -297,9 +291,9 @@
 						</table>
 						<YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
 						<YAF:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
-					</DotNetAge:View>
-				</Views>
-			</DotNetAge:Tabs>
+                </div>
+             </asp:Panel>
+            <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 		</td>
 	</tr>
 </table>

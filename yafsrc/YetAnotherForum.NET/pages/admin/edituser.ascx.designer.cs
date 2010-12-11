@@ -28,16 +28,34 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.Tabs EditUserTabs;
+        protected global::System.Web.UI.WebControls.Panel EditUserTabs;
         
         /// <summary>
-        /// View1 control.
+        /// View6Li control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View View1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl View6Li;
+        
+        /// <summary>
+        /// View8Li control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl View8Li;
+        
+        /// <summary>
+        /// View9Li control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl View9Li;
         
         /// <summary>
         /// QuickEditControl control.
@@ -49,15 +67,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.EditUsersInfo QuickEditControl;
         
         /// <summary>
-        /// View2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View2;
-        
-        /// <summary>
         /// GroupEditControl control.
         /// </summary>
         /// <remarks>
@@ -65,15 +74,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.EditUsersGroups GroupEditControl;
-        
-        /// <summary>
-        /// View3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View3;
         
         /// <summary>
         /// ProfileEditControl control.
@@ -85,15 +85,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.EditUsersProfile ProfileEditControl;
         
         /// <summary>
-        /// View4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View4;
-        
-        /// <summary>
         /// AvatarEditControl control.
         /// </summary>
         /// <remarks>
@@ -101,15 +92,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.EditUsersAvatar AvatarEditControl;
-        
-        /// <summary>
-        /// View5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View5;
         
         /// <summary>
         /// SignatureEditControl control.
@@ -127,7 +109,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View View6;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl View6;
         
         /// <summary>
         /// ResetPasswordControl control.
@@ -137,15 +119,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.EditUsersResetPass ResetPasswordControl;
-        
-        /// <summary>
-        /// View7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DNA.UI.JQuery.View View7;
         
         /// <summary>
         /// UserPointsControl control.
@@ -163,7 +136,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View View8;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl View8;
         
         /// <summary>
         /// SuspendUserControl control.
@@ -181,7 +154,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DNA.UI.JQuery.View View9;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl View9;
         
         /// <summary>
         /// KillEdit1 control.
@@ -191,6 +164,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.EditUsersKill KillEdit1;
+        
+        /// <summary>
+        /// hidLastTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
         /// SmartScroller1 control.

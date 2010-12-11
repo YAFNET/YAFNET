@@ -31,8 +31,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Classes.Utils;
     using YAF.Controls;
-
-    using HistoryEventArgs = nStuff.UpdateControls.HistoryEventArgs;
+    using YAF.Utilities;
 
     #endregion
 
@@ -43,6 +42,7 @@ namespace YAF.Pages
     {
         #region Constructors and Destructors
         /// <summary>
+        /// Initializes a new instance of the <see cref="ViewThanks"/> class. 
         /// Initializes a new instance of the viewthanks class.
         /// </summary>
         public ViewThanks()
@@ -71,6 +71,25 @@ namespace YAF.Pages
         #endregion
 
         /* Methods */
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender(EventArgs e)
+        {
+            // setup jQuery and Jquery Ui Tabs.
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "ThanksTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID, false));
+
+            base.OnPreRender(e);
+        }
+
         #region Methods
         /// <summary>
         /// The Page_ Load Event.
@@ -91,19 +110,13 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
                 this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : UserMembershipHelper.GetUserNameFromID(userID), YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-
             }
+
             DataTable thanksInfo = DB.user_viewallthanks(userID, PageContext.PageUserID);
-            InitializeThanksList(ThanksFromList, ThanksListMode.FromUser,userID,thanksInfo);
-            InitializeThanksList(ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
-
-                // Set the DNA Views' titles.
-            this.ThanksTabs.Views[0].Text = this.GetText("VIEWTHANKS", "ThanksFromUser").FormatWith(displayName);
-            this.ThanksTabs.Views[1].Text = this.GetText("VIEWTHANKS", "ThanksToUser").FormatWith(displayName);
-
+            this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
+            this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
         }
-        #endregion
 
+        #endregion
     }
 }

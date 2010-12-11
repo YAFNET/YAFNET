@@ -26,6 +26,7 @@ namespace YAF.Controls
   using System.ComponentModel;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Text;
   using System.Web;
   using System.Web.UI.WebControls;
@@ -197,20 +198,20 @@ namespace YAF.Controls
 
       using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
       {
-        if (this.View == PMView.Inbox)
-        {
-          dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-        }
-        else if (this.View == PMView.Outbox)
-        {
-          dv.RowFilter = "IsInOutbox = True";
-        }
-        else if (this.View == PMView.Archive)
-        {
-          dv.RowFilter = "IsArchived = True";
-        }
+          switch (this.View)
+          {
+              case PMView.Inbox:
+                  dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+                  break;
+              case PMView.Outbox:
+                  dv.RowFilter = "IsInOutbox = True";
+                  break;
+              case PMView.Archive:
+                  dv.RowFilter = "IsArchived = True";
+                  break;
+          }
 
-        foreach (DataRowView item in dv)
+          foreach (DataRowView item in dv)
         {
           if (isoutbox)
           {
@@ -225,7 +226,7 @@ namespace YAF.Controls
         }
       }
 
-      this.BindData();
+        this.BindData();
       this.PageContext.AddLoadMessage(this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
     }
@@ -258,29 +259,28 @@ namespace YAF.Controls
     {
       long nItemCount = 0;
 
-      foreach (GridViewRow item in this.MessagesView.Rows)
+      foreach (GridViewRow item in
+          this.MessagesView.Rows.Cast<GridViewRow>().Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
       {
-        if (((CheckBox)item.FindControl("ItemCheck")).Checked)
-        {
-          if (this.View == PMView.Outbox)
+          switch (this.View)
           {
-            DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
-          }
-          else
-          {
-            DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
+              case PMView.Outbox:
+                  DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
+                  break;
+              default:
+                  DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
+                  break;
           }
 
           nItemCount++;
-        }
       }
 
       this.BindData();
 
-        this.PageContext.AddLoadMessage(nItemCount == 1
+      this.PageContext.AddLoadMessage(nItemCount == 1
                                             ? this.PageContext.Localization.GetText("msgdeleted1")
                                             : this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
     }
 
     /// <summary>
@@ -965,12 +965,12 @@ namespace YAF.Controls
     /// <summary>
     ///   The outbox.
     /// </summary>
-    Outbox, 
+    Outbox = 1, 
 
     /// <summary>
     ///   The archive.
     /// </summary>
-    Archive
+    Archive = 2
   }
 
   /// <summary>
