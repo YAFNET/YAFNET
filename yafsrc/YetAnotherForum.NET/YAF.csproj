@@ -940,7 +940,6 @@
     <Content Include="popup.aspx" />
     <Content Include="resources\css\forum.css" />
     <Content Include="resources\css\jquery.ceebox.css" />
-    <Content Include="resources\css\jquery.lightbox.css" />
     <Content Include="resources\css\jquery.syntaxhighligher.css" />
     <Content Include="resources\css\jquery.yafmodaldialog.css" />
     <Content Include="resources\icons\applications-stack.png" />
@@ -988,19 +987,15 @@
     <Content Include="resources\icons\warning.png" />
     <Content Include="resources\icons\WarningBig.png" />
     <Content Include="resources\icons\wrench.png" />
-    <Content Include="resources\images\blank.gif" />
     <Content Include="resources\images\closelabel.png" />
     <Content Include="resources\images\DialogBackground.png" />
     <Content Include="resources\images\loading-black.gif" />
     <Content Include="resources\images\loading-white.gif" />
     <Content Include="resources\images\loading.gif" />
-    <Content Include="resources\images\next.gif" />
-    <Content Include="resources\images\prev.gif" />
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery-1.4.4.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.ceebox.min.js" />
-    <Content Include="resources\js\jquery.lightbox.min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
     <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
