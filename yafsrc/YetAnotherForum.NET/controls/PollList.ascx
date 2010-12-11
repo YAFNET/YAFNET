@@ -9,8 +9,8 @@
         <ItemTemplate>
                <tr>
                 <td class="header1" align="center" style="width: 1">
-                    <div class="attachedimg" style="display: inline; height: 50px">
-                        <a id="QuestionAnchor" runat="server">
+                    <div class="attachedimg ceebox" style="display: inline; height: 50px">
+                        <a id="QuestionAnchor" runat="server" title='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'>
                             <img id="QuestionImage" src="" alt="" runat="server" />
                         </a>
                     </div>

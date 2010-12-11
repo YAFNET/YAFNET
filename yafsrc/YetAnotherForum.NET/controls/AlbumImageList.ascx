@@ -17,14 +17,14 @@
 </table>
     <asp:Repeater runat="server" ID="AlbumImages" OnItemDataBound="AlbumImages_ItemDataBound"
         OnItemCommand="AlbumImages_ItemCommand">
-         <HeaderTemplate><div class="fileattach"></HeaderTemplate>
+         <HeaderTemplate><div class="fileattach ceebox"></HeaderTemplate>
         <ItemTemplate>
             <div class="attachedimg" style="display: inline;">
                 <table class="albumtable" style="display: inline" width='<%# YafContext.Current.BoardSettings.ImageAttachmentResizeWidth %>'>
                     <tr>
                         <td class="albumimagebox">
-                            <a rel='<%# String.Format("lightbox-group{0}", this._attachGroupID) %>' href='<%# String.Format("{0}resource.ashx?image={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
-                                target="_blank" title='<%# this.HtmlEncode(Eval("FileName")) %>'>
+                            <a href='<%# String.Format("{0}resource.ashx?image={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
+                               title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>'>
                                 <img src='<%# String.Format("{0}resource.ashx?imgprv={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
                                     alt='<%# this.HtmlEncode(Eval("FileName")) %>' />
                             </a>

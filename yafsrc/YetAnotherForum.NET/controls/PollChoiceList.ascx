@@ -7,9 +7,9 @@
                 <ItemTemplate>
                     <tr id="VoteTr" runat="server">
                         <td class="post" align="center" width="1">
-                            <div class="attachedimg" style="display: inline; height: 50px">
-                                <a id="ChoiceAnchor" runat="server">
-                                    <img id="ChoiceImage" src="" alt="" runat="server" />
+                            <div class="attachedimg ceebox" style="display: inline; height: 50px">
+                                <a id="ChoiceAnchor" runat="server" title='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>'>
+                                    <img id="ChoiceImage" src="" alt='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' runat="server" />
                                 </a>
                             </div>
                         </td>

@@ -200,14 +200,14 @@ namespace YAF.Controls
         // Only if show buttons are enabled user can edit poll 
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
+                (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                  (this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
       }
 
       // we don't call PollHasNoVotes method here
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
+              (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                (!this.IsPollClosed(pollId))));
     }
 
@@ -221,7 +221,7 @@ namespace YAF.Controls
     {
       bool hasNoVotes = true;
 
-      foreach (DataRow dr in this._dtPollAllChoices.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["Votes"]) > 0))
+      foreach (DataRow dr in this._dtPollAllChoices.Rows.Cast<DataRow>().Where(dr => dr["Votes"].ToType<int>() > 0))
       {
         hasNoVotes = false;
       }
@@ -230,13 +230,13 @@ namespace YAF.Controls
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
+                (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                  hasNoVotes));
       }
 
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-              (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"])));
+              (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>()));
     }
 
     /// <summary>
@@ -292,13 +292,13 @@ namespace YAF.Controls
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsModerator ||
-                (this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]) &&
+                (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
                  this.PollHasNoVotes(pollId)));
       }
 
       return this.PollHasNoVotes(pollId) && this.ShowButtons &&
              (this.PageContext.IsAdmin ||
-              this.PageContext.PageUserID == Convert.ToInt32(this._dtPollGroupAllChoices.Rows[0]["GroupUserID"]));
+              this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>());
     }
 
     /// <summary>
@@ -316,24 +316,23 @@ namespace YAF.Controls
     protected int? DaysToRun([NotNull] object pollId, out bool soon)
     {
       soon = false;
-      foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
+
+      foreach (TimeSpan ts in from DataRow dr in this._dtPollGroupAllChoices.Rows
+                              where dr["Closes"] != DBNull.Value && pollId.ToType<int>() == dr["PollID"].ToType<int>()
+                              select Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow)
       {
-        if (dr["Closes"] != DBNull.Value && Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
-        {
-          TimeSpan ts = Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow;
           if (ts.TotalDays >= 1)
           {
-            return Convert.ToInt32(ts.TotalDays);
+              return ts.TotalDays.ToType<int>();
           }
 
           if (ts.TotalSeconds > 0)
           {
-            soon = true;
-            return 1;
+              soon = true;
+              return 1;
           }
 
           return 0;
-        }
       }
 
       return null;
@@ -351,7 +350,8 @@ namespace YAF.Controls
     protected int GetImageHeight([NotNull] object mimeType)
     {
       string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
-      return Convert.ToInt32(attrs[1]);
+
+      return attrs[1].ToType<int>();
     }
 
     /// <summary>
@@ -385,18 +385,16 @@ namespace YAF.Controls
     /// </returns>
     protected string GetPollQuestion([NotNull] object pollId)
     {
-      foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
-      {
-        if (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
+        foreach (DataRow dr in
+            this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
         {
-          return this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(dr["Question"].ToString()));
+            return this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(dr["Question"].ToString()));
         }
-      }
 
-      return string.Empty;
+        return string.Empty;
     }
 
-    /// <summary>
+      /// <summary>
     /// Get Theme Contents
     /// </summary>
     /// <param name="page">
@@ -424,18 +422,16 @@ namespace YAF.Controls
     /// </returns>
     protected string GetTotal([NotNull] object pollId)
     {
-      foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
-      {
-        if (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
+        foreach (DataRow dr in
+            this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
         {
-          return this.HtmlEncode(dr["Total"].ToString());
+            return this.HtmlEncode(dr["Total"].ToString());
         }
-      }
 
-      return string.Empty;
+        return string.Empty;
     }
 
-    /// <summary>
+      /// <summary>
     /// The is not voted.
     /// </summary>
     /// <param name="pollId">
@@ -458,7 +454,7 @@ namespace YAF.Controls
       pollChoices = null;
 
       // check for voting cookie
-      HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(pollId))];
+      HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(pollId.ToType<int>())];
       if (httpCookie != null && httpCookie.Value != null)
       {
         int pchcntr1 = 0;
@@ -466,30 +462,33 @@ namespace YAF.Controls
         string[] choiceArray = httpCookie.Value.Split(',');
         if (choiceArray.GetLength(0) > 0)
         {
-          pollChoices = new int?[choiceArray.GetLength(0)];
-          foreach (DataRow drch in this._dtPollAllChoices.Rows)
-          {
-            if ((int)drch["PollID"] == pollId)
+            pollChoices = new int?[choiceArray.GetLength(0)];
+            foreach (DataRow drch in
+                this._dtPollAllChoices.Rows.Cast<DataRow>().Where(drch => (int)drch["PollID"] == pollId))
             {
-              for (int j = 0; j < choiceArray.GetLength(0); j++)
-              {
-                int pollChoicesFromCookie = 0;
-                if (int.TryParse(choiceArray[j], out pollChoicesFromCookie))
+                for (int j = 0; j < choiceArray.GetLength(0); j++)
                 {
-                  if (pollChoicesFromCookie == (int)drch["ChoiceID"])
-                  {
+                    int pollChoicesFromCookie;
+
+                    if (!int.TryParse(choiceArray[j], out pollChoicesFromCookie))
+                    {
+                        continue;
+                    }
+
+                    if (pollChoicesFromCookie != (int)drch["ChoiceID"])
+                    {
+                        continue;
+                    }
+
                     pollChoices[pchcntr1] = pollChoicesFromCookie;
                     pchcntr1++;
-                  }
                 }
-              }
 
-              choicescount++;
+                choicescount++;
             }
-          }
         }
 
-        if (pchcntr1 > 0)
+          if (pchcntr1 > 0)
         {
           hasVote = true;
           if (allowManyChoices)
@@ -512,16 +511,9 @@ namespace YAF.Controls
       }
 
       // Check if a user already voted
-      int pchcntr = 0;
-      foreach (DataRow drch in this._dtAllPollGroupVotes.Rows)
-      {
-        if ((int)drch["PollID"] == pollId)
-        {
-          pchcntr++;
-        }
-      }
+      int pchcntr = this._dtAllPollGroupVotes.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
 
-      if (pchcntr == 0)
+          if (pchcntr == 0)
       {
         hasVote = false;
         return true;
@@ -537,27 +529,23 @@ namespace YAF.Controls
                                where (int)drch["PollID"] == pollId
                                select drch)
       {
-        foreach (DataRow drch1 in this._dtAllPollGroupVotes.Rows)
-        {
-          if (drch["ChoiceID"].IsNullOrEmptyDBField() || drch1["ChoiceID"].IsNullOrEmptyDBField())
+          DataRow drch2 = drch;
+          DataRow drch3 = drch;
+
+          foreach (DataRow drch1 in from DataRow drch1 in this._dtAllPollGroupVotes.Rows
+                                    where !drch2["ChoiceID"].IsNullOrEmptyDBField() && !drch1["ChoiceID"].IsNullOrEmptyDBField()
+                                    where (int)drch3["ChoiceID"] == (int)drch1["ChoiceID"]
+                                    select drch1)
           {
-            continue;
+              pollChoices[pchcntr] = (int)drch["ChoiceID"];
+
+              pchcntr++;
           }
 
-          if ((int)drch["ChoiceID"] != (int)drch1["ChoiceID"])
-          {
-            continue;
-          }
-
-          pollChoices[pchcntr] = (int)drch["ChoiceID"];
-
-          pchcntr++;
-        }
-
-        choicescount1++;
+          choicescount1++;
       }
 
-      if (pchcntr > 0)
+          if (pchcntr > 0)
       {
         hasVote = true;
         if (allowManyChoices)
@@ -663,13 +651,15 @@ namespace YAF.Controls
         // BindData();
       }
 
-      if (e.CommandName == "removegroupevery" && this.PageContext.ForumVoteAccess)
-      {
+        if (e.CommandName != "removegroupevery" || !this.PageContext.ForumVoteAccess)
+        {
+            return;
+        }
+
         DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
         this.ReturnToPage();
 
         // BindData();
-      }
     }
 
     /// <summary>
@@ -701,8 +691,8 @@ namespace YAF.Controls
         var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
 
         var pollId = drowv.Row["PollID"].ToType<int>();
-        int?[] choicePId = null;
-        bool hasVote = false;
+        int?[] choicePId;
+        bool hasVote;
         bool isNotVoted = this.IsNotVoted(
           pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVote);
         bool cvote = this.HasVoteAccess(pollId) ? isNotVoted : false;
@@ -723,7 +713,7 @@ namespace YAF.Controls
           DataTable thisPollTable = this._dtPollAllChoices.Copy();
           foreach (DataRow thisPollTableRow in thisPollTable.Rows)
           {
-            if (Convert.ToInt32(thisPollTableRow["PollID"]) != Convert.ToInt32(pollId))
+            if (thisPollTableRow["PollID"].ToType<int>() != pollId.ToType<int>())
             {
               thisPollTableRow.Delete();
             }
@@ -761,14 +751,13 @@ namespace YAF.Controls
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
 
         // Poll voting is bounded - you can't see results before voting in each poll
-        bool warningMultiplePolls = false;
-        int hasVoteEmptyCounter = 0;
+          int hasVoteEmptyCounter = 0;
         int cnt = 0;
 
         // compare a number of voted polls with number of polls
         foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
         {
-          bool hasVoteEmpty = false;
+          bool hasVoteEmpty;
 
           bool voted =
             !this.IsNotVoted(
@@ -788,7 +777,7 @@ namespace YAF.Controls
           }
         }
 
-        warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count && hasVoteEmptyCounter > 0;
+        bool warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count && hasVoteEmptyCounter > 0;
         if (this._isBound)
         {
           // If user is voted in all polls or the poll allows multiple votes and he's voted for 1 choice
@@ -939,19 +928,21 @@ namespace YAF.Controls
       }
 
       // Populate PollGroup Repeater footer
-      if (item.ItemType == ListItemType.Footer)
-      {
+        if (item.ItemType != ListItemType.Footer)
+        {
+            return;
+        }
+
         if (this._groupNotificationString.IsSet())
         {
-          // we don't display warnings row if no info
-          item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
-          var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
-          pgn.Text = this._groupNotificationString;
-          pgn.Visible = true;
+            // we don't display warnings row if no info
+            item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+            var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
+            pgn.Text = this._groupNotificationString;
+            pgn.Visible = true;
         }
 
         this.AddPollGroupButtonConfirmations(item);
-      }
     }
 
     /// <summary>
@@ -1026,8 +1017,8 @@ namespace YAF.Controls
       if (!mimeType.IsNullOrEmptyDBField())
       {
         string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
-        decimal width = Convert.ToDecimal(attrs[0]);
-        return width / Convert.ToDecimal(attrs[1]);
+        decimal width = attrs[0].ToType<decimal>();
+        return width / attrs[1].ToType<decimal>();
       }
 
       return 1;
@@ -1068,19 +1059,21 @@ namespace YAF.Controls
       pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
 
       // return confirmations for poll group 
-      if (pgcr.Visible)
-      {
+        if (!pgcr.Visible)
+        {
+            return;
+        }
+
         ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
+            "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
 
         ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(
-            this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+            "return confirm('{0}');".FormatWith(
+                this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
 
         ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
-          "return confirm('{0}');".FormatWith(
-            this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
-      }
+            "return confirm('{0}');".FormatWith(
+                this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
     }
 
     /// <summary>
@@ -1112,7 +1105,7 @@ namespace YAF.Controls
       }
 
       // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
-      this._canChange = (Convert.ToInt32(this._dtPollAllChoices.Rows[0]["GroupUserID"]) == this.PageContext.PageUserID) ||
+      this._canChange = (this._dtPollAllChoices.Rows[0]["GroupUserID"].ToType<int>() == this.PageContext.PageUserID) ||
                         this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
       // check if we should hide pollgroup repeater when a message is posted
@@ -1200,13 +1193,13 @@ namespace YAF.Controls
       // The image is not from theme
       if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
       {
-        questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+       // questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
         questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
                                 ? this.GetThemeContents("VOTE", "POLL_CHOICE")
                                 : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-        questionAnchor.Title = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
-        questionImage.Src = questionImage.Alt = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+        questionImage.Src = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+
         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
         {
           decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
@@ -1218,7 +1211,7 @@ namespace YAF.Controls
             questionImage.Width = 40;
           }
 
-          questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
+          questionImage.Height = (questionImage.Width / aspect).ToType<int>();
         }
       }
       else
@@ -1283,12 +1276,7 @@ namespace YAF.Controls
         return false;
       }
 
-      if (this.IsPollClosed(pollId))
-      {
-        return false;
-      }
-
-      return true;
+      return !this.IsPollClosed(pollId);
     }
 
     /// <summary>
@@ -1300,10 +1288,10 @@ namespace YAF.Controls
       if (this.TopicId > 0)
       {
         DataRow dti = DB.topic_info(this.TopicId);
-        this._topicUser = Convert.ToInt32(dti["UserID"]);
+        this._topicUser = dti["UserID"].ToType<int>();
         if (!dti["PollID"].IsNullOrEmptyDBField())
         {
-          this.PollGroupId = Convert.ToInt32(dti["PollID"]);
+          this.PollGroupId = dti["PollID"].ToType<int>();
         }
       }
 
@@ -1436,7 +1424,7 @@ namespace YAF.Controls
     {
       return
         this._dtPollAllChoices.Rows.Cast<DataRow>().Where(
-          dr => Convert.ToInt32(dr["PollID"]) == Convert.ToInt32(pollId)).All(dr => Convert.ToInt32(dr["Votes"]) <= 0);
+          dr => dr["PollID"].ToType<int>() == pollId.ToType<int>()).All(dr => dr["Votes"].ToType<int>() <= 0);
     }
 
     /// <summary>

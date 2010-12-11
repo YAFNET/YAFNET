@@ -59,18 +59,15 @@ namespace YAF.Pages
     /// </param>
     protected override void OnPreRender(EventArgs e)
     {
-        // setup jQuery, LightBox and YAF JS...
+        // setup jQuery and YAF JS...
         YafContext.Current.PageElements.RegisterJQuery();
         YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
         YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-        // lightbox only need if the browser is not IE6...
-        if (!UserAgentHelper.IsBrowserIE6())
-        {
-            YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
-            YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
-        }
+        // ceebox Js
+        YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
+        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
+        YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
         base.OnPreRender(e);
     }

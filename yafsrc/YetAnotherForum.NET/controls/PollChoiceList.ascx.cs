@@ -33,11 +33,11 @@ namespace YAF.Controls
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
-  using YAF.Controls;
+
 
   #endregion
 
-  /// <summary>
+    /// <summary>
   /// PollList Class
   /// </summary>
   public partial class PollChoiceList : BaseUserControl
@@ -119,7 +119,7 @@ namespace YAF.Controls
     protected int GetImageHeight([NotNull] object mimeType)
     {
       string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
-      return Convert.ToInt32(attrs[1]);
+      return attrs[1].ToType<int>();
     }
 
     /// <summary>
@@ -192,24 +192,27 @@ namespace YAF.Controls
     /// </param>
     protected void Poll_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
-      if (e.CommandName == "vote")
-      {
+        if (e.CommandName != "vote")
+        {
+            return;
+        }
+
         if (!this.CanVote)
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
-          return;
+            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
+            return;
         }
 
         if (this.IsLocked)
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
-          return;
+            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
+            return;
         }
 
         if (this.IsClosed)
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
-          return;
+            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
+            return;
         }
 
         object userID = null;
@@ -217,12 +220,12 @@ namespace YAF.Controls
 
         if (this.PageContext.BoardSettings.PollVoteTiedToIP)
         {
-          remoteIP = IPHelper.IPStrToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
+            remoteIP = IPHelper.IPStrToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
         }
 
         if (!this.PageContext.IsGuest)
         {
-          userID = this.PageContext.PageUserID;
+            userID = this.PageContext.PageUserID;
         }
 
         DB.choice_vote(e.CommandArgument, userID, remoteIP);
@@ -231,19 +234,19 @@ namespace YAF.Controls
         string cookieCurrent = String.Empty;
 
         // We check whether is a vote for an option  
-        if (this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))] != null)
+        if (this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))] != null)
         {
-          // Add the voted option to cookie value string
-          cookieCurrent =
-            "{0},".FormatWith(this.Request.Cookies[this.VotingCookieName(Convert.ToInt32(this.PollId))].Value);
-          this.Request.Cookies.Remove(this.VotingCookieName(Convert.ToInt32(this.PollId)));
+            // Add the voted option to cookie value string
+            cookieCurrent =
+                "{0},".FormatWith(this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))].Value);
+            this.Request.Cookies.Remove(VotingCookieName(Convert.ToInt32(this.PollId)));
         }
 
         var c = new HttpCookie(
-          this.VotingCookieName(this.PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
-          {
-             Expires = DateTime.UtcNow.AddYears(1) 
-          };
+            VotingCookieName(this.PollId), "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
+            {
+                Expires = DateTime.UtcNow.AddYears(1) 
+            };
 
         this.Response.Cookies.Add(c);
 
@@ -255,12 +258,11 @@ namespace YAF.Controls
         // Initialize bubble event to update parent control.
         if (this.ChoiceVoted != null)
         {
-          this.ChoiceVoted(source, e);
+            this.ChoiceVoted(source, e);
         }
 
         // show the notification  window to user
         this.PageContext.AddLoadMessage(msg);
-      }
     }
 
     /// <summary>
@@ -278,21 +280,21 @@ namespace YAF.Controls
       var drowv = (DataRowView)e.Item.DataItem;
       var trow = item.FindControlRecursiveAs<HtmlTableRow>("VoteTr");
 
-      if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
-      {
+        if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
+
         // Voting link 
         var myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
 
         var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
         if (this.ChoiceId != null)
         {
-          foreach (var mychoice in this.ChoiceId)
-          {
-            if ((int)drowv.Row["ChoiceID"] == mychoice)
+            foreach (var mychoice in this.ChoiceId.Where(mychoice => (int)drowv.Row["ChoiceID"] == mychoice))
             {
-              myChoiceMarker.Visible = true;
+                myChoiceMarker.Visible = true;
             }
-          }
         }
 
         myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
@@ -306,43 +308,42 @@ namespace YAF.Controls
         // Don't render if it's a standard image
         if (!drowv.Row["ObjectPath"].IsNullOrEmptyDBField())
         {
-          choiceAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-          choiceAnchor.HRef = drowv.Row["ObjectPath"].IsNullOrEmptyDBField()
-                                ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                : this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
-          choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
+            //choiceAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+            choiceAnchor.HRef = drowv.Row["ObjectPath"].IsNullOrEmptyDBField()
+                                    ? this.GetThemeContents("VOTE", "POLL_CHOICE")
+                                    : this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
+            //choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
 
-          choiceImage.Src = choiceImage.Alt = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
+            choiceImage.Src = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
 
-          if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
-          {
-            decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
-            int imageWidth = 80;
-
-            if (YafContext.Current.Get<YafSession>().UseMobileTheme ?? false)
+            if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
             {
-              imageWidth = 40;
+                decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
+                int imageWidth = 80;
+
+                if (YafContext.Current.Get<YafSession>().UseMobileTheme ?? false)
+                {
+                    imageWidth = 40;
+                }
+
+                choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
+                    imageWidth, choiceImage.Width / aspect);
+
+                // reserved to get equal row heights
+                string height = (this.MaxImageAspect * choiceImage.Width).ToString();
+                trow.Attributes["style"] = "height:{0}px;".FormatWith(height);
             }
-
-            choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
-              imageWidth, choiceImage.Width / aspect);
-
-            // reserved to get equal row heights
-            string height = (this.MaxImageAspect * choiceImage.Width).ToString();
-            trow.Attributes["style"] = "height:{0}px;".FormatWith(height);
-          }
         }
         else
         {
-          choiceImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-          choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
-          choiceAnchor.HRef = string.Empty;
+            choiceImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+            choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
+            choiceAnchor.HRef = string.Empty;
         }
 
         item.FindControlRecursiveAs<Panel>("MaskSpan").Visible = this.HideResults;
         item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
         item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = !this.HideResults;
-      }
     }
 
     /// <summary>
@@ -404,8 +405,8 @@ namespace YAF.Controls
       if (!mimeType.IsNullOrEmptyDBField())
       {
         string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
-        decimal width = Convert.ToDecimal(attrs[0]);
-        return width / Convert.ToDecimal(attrs[1]);
+        decimal width = attrs[0].ToType<decimal>();
+        return width / attrs[1].ToType<decimal>();
       }
 
       return 1;
@@ -461,7 +462,7 @@ namespace YAF.Controls
     /// <returns>
     /// The voting cookie name.
     /// </returns>
-    private string VotingCookieName(int pollId)
+    private static string VotingCookieName(int pollId)
     {
       return "poll#{0}".FormatWith(pollId);
     }
