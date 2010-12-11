@@ -74,7 +74,7 @@
                     <td colspan="2">
                         <b>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
-                        </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
+                        </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>">
                             <%# HtmlEncode(Container.DataItemToField<string>("Topic")) %>
                         </a>
                     </td>
@@ -107,7 +107,7 @@
                     <td colspan="2">
                         <b>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
-                        </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
+                        </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>">
                             <%# Container.DataItemToField<string>("Topic") %>
                         </a>
                     </td>
