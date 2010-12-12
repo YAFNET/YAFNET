@@ -233,6 +233,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Ваш запрос на добавление к друзьям отклонён.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Послан запрос на добавление к друзьям.</Resource>
     <Resource tag="PENDINGBUDDIES">У Вас {0} запроса(ов) на добавление в друзья</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Удалить из друзей</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
   </page>
@@ -402,6 +404,8 @@
     <Resource tag="TT_QUOTE">Цитата</Resource>
     <Resource tag="TT_UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Обновить</Resource>
     <Resource tag="USERNAME_TOOLONG">Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов.</Resource>
     <Resource tag="VIEW_CATEGORY">Просмотреть раздел</Resource>

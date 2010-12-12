@@ -233,6 +233,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Requête d'ami refusée.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Requête d'ami envoyée.</Resource>
     <Resource tag="PENDINGBUDDIES">Vous avez {0} requête(s) d'amis en attente</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Retirer ami</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} a été retiré de votre liste d'amis.</Resource>
   </page>
@@ -385,6 +387,8 @@
     <Resource tag="TT_QUOTE">Citer</Resource>
     <Resource tag="TT_UNDERLINE">Souligné</Resource>
     <Resource tag="UNREAD_MSG">Vous avez {0} message(s) non-lu(s) dans votre boîte.</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Mise à jour</Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>

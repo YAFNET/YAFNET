@@ -255,6 +255,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Buddy request denied.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Buddy request sent.</Resource>
     <Resource tag="PENDINGBUDDIES">You have {0} pending buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Remove Buddy</Resource>
     <Resource tag="REMOVEBUDDY">Remove {0} from your buddy list?</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} has been removed from your Buddy list.</Resource>
@@ -409,6 +411,8 @@
     <Resource tag="TT_QUOTE">ציטוט</Resource>
     <Resource tag="TT_UNDERLINE">קו תחתון</Resource>
     <Resource tag="UNREAD_MSG">יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">עדכן</Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>

@@ -233,6 +233,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Arkadaşlık isteği reddedildi.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Arkadaşlık isteği gönderildi.</Resource>
     <Resource tag="PENDINGBUDDIES">Bekleyen {0} arkadaşlık isteğin var.</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Arkadaşlıktan Çıkar</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} arkadaş listenizden başarıyla çıkarıldı.</Resource>
   </page>
@@ -369,6 +371,8 @@
     <Resource tag="TT_QUOTE">Alıntı</Resource>
     <Resource tag="TT_UNDERLINE">Altçizgi</Resource>
     <Resource tag="UNREAD_MSG">Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır.</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Güncelle</Resource>
     <Resource tag="USERNAME_TOOLONG">Kullanıcı adı veya Görüntülenecek isim {0} karakterden fazla olamaz.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>

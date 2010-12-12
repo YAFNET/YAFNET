@@ -119,12 +119,9 @@ namespace YAF.Modules
       // This happens when user logs in
       if (this.DisplayPMPopup())
       {
-          /*this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate)););*/
-
           notification.Show(
-              this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate),
-              null,
+              this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
+              this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG_TITLE"),
               DialogBox.DialogIcon.Mail,
               new DialogBox.DialogButton
                   {
@@ -142,12 +139,9 @@ namespace YAF.Modules
             return;
         }
 
-        /*this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies));*/
-
         notification.Show(
             this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies),
-            null,
+            this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
             DialogBox.DialogIcon.Info,
             new DialogBox.DialogButton { Text = "Yes", CssClass = "StandardButton", ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies } },
             new DialogBox.DialogButton

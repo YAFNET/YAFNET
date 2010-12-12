@@ -232,6 +232,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Freundesanfrage abgelehnt.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Freundesanfrage gesendet.</Resource>
     <Resource tag="PENDINGBUDDIES">Sie haben {0} Austehende Freundesanfragen</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Freund entfernen</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} wurde von ihrer Freundesliste entfernt.</Resource>
   </page>
@@ -385,6 +387,8 @@
     <Resource tag="TT_QUOTE">Zitat</Resource>
     <Resource tag="TT_UNDERLINE">Unterstrichen</Resource>
     <Resource tag="UNREAD_MSG">Du hast {0} ungelesene Nachricht(en) in Deinem Posteingang</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Aktualisieren</Resource>
     <Resource tag="USERNAME_TOOLONG">Benutzername oder Anzeigename kann nicht länger als {0} Zeichen lang sein.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>

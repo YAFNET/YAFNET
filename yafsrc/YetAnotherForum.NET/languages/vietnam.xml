@@ -233,6 +233,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Từ chối đề nghị kết bạn.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Gửi đề nghị kết bạn.</Resource>
     <Resource tag="PENDINGBUDDIES">Bạn có {0} lời đề nghị kết bạn chưa đồng ý(s)</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Xóa bạn</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} đã được xóa khỏi danh sách bạn bè.</Resource>
   </page>
@@ -369,6 +371,8 @@
     <Resource tag="TT_QUOTE">Trích dẫn</Resource>
     <Resource tag="TT_UNDERLINE">Gạch chân</Resource>
     <Resource tag="UNREAD_MSG">Bạn có {0} tin nhắn chưa đọc</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Cập nhật</Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>

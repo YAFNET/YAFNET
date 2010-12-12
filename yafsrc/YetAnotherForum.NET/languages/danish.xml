@@ -233,6 +233,8 @@
     <Resource tag="NOTIFICATION_BUDDYDENIED">Ven anmodning afslået.</Resource>
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Ven anmodning sendt.</Resource>
     <Resource tag="PENDINGBUDDIES">Du har {0} ventende ven anmodninger</Resource>
+    <Resource tag="PENDINGBUDDIES_TITLE">New Buddy request(s)</Resource>
+    <Resource tag="PENDINGBUDDIES2">You have {0} pending buddy request(s). Would you like to go to your Buddy list now?</Resource>
     <Resource tag="REMOVEBUDDY">Fjern ven</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} er blevet fjernet fra din venne liste.</Resource>
   </page>
@@ -386,6 +388,8 @@
     <Resource tag="TT_QUOTE">Citer</Resource>
     <Resource tag="TT_UNDERLINE">Understreg</Resource>
     <Resource tag="UNREAD_MSG">Du har {0} ulæste besked(er) i din indbakke</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
+    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Opdater</Resource>
     <Resource tag="USERNAME_TOOLONG">Brugerens navn må ikke være mere end {0} tegn.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>
