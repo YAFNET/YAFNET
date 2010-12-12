@@ -138,13 +138,24 @@ namespace YAF.Pages.Admin
         SetSelectedOnList(ref this.MobileTheme, this.PageContext.BoardSettings.MobileTheme);
 
         // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-        SetSelectedOnList(
+       /* SetSelectedOnList(
           ref this.Culture, 
           langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
             ? this.PageContext.BoardSettings.Culture
-            : langFileCulture);
+            : langFileCulture);*/
 
-        SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
+          SetSelectedOnList(ref this.Culture, this.PageContext.BoardSettings.Culture);
+          if (this.Culture.SelectedIndex == 0)
+          {
+              // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
+              SetSelectedOnList(
+                  ref this.Culture,
+                  langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
+                      ? this.PageContext.BoardSettings.Culture
+                      : langFileCulture);
+          }
+
+          SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
         SetSelectedOnList(
           ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
