@@ -203,6 +203,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to enable JqueryUIThemeCDNHosted.
+        /// </summary>
+        public bool JqueryUIThemeCDNHosted
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("JqueryUIThemeCDNHosted", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("JqueryUIThemeCDNHosted", value);
+            }
+        }
+
+        /// <summary>
         /// Gets MaxUsers.
         /// </summary>
         public int MaxUsers
@@ -237,6 +253,22 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue<string>("MobileTheme", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets Jquery UI Theme.
+        /// </summary>
+        public string JqueryUITheme
+        {
+            get
+            {
+                return this._regBoard.GetValue<string>("JqueryUITheme", "smoothness");
+            }
+
+            set
+            {
+                this._regBoard.SetValue<string>("JqueryUITheme", value);
             }
         }
 

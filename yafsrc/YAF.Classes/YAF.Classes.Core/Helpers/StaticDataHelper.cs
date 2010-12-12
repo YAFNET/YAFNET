@@ -135,6 +135,7 @@ namespace YAF.Classes.Core
             }
              
     }
+
     /// <summary>
     /// Gets language tag info from language file tag.  
     /// </summary>
@@ -253,6 +254,38 @@ namespace YAF.Classes.Core
 
         return dt;
       }
+    }
+
+    /// <summary>
+    /// The themes.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public static DataTable JqueryUIThemes()
+    {
+        using (var dt = new DataTable("JqueryUIThemes"))
+        {
+            dt.Columns.Add("Theme", typeof(string));
+
+            var themeDir = new DirectoryInfo(HttpContext.Current.Request.MapPath(YafForumInfo.GetURLToResource("css/jquery-ui-themes")));
+
+            foreach (DirectoryInfo dir in themeDir.GetDirectories())
+            {
+                try
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["Theme"] = dir.Name;
+
+                    dt.Rows.Add(dr);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
+            return dt;
+        }
     }
 
     /// <summary>

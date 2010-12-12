@@ -49,6 +49,21 @@
 			<td class="post">
 				<asp:CheckBox ID="AllowThemedLogo" runat="server"></asp:CheckBox></td>
 		</tr>
+        <tr>
+			<td class="postheader">
+				<strong>jQuery UI Theme:</strong><br />
+				The jQuery UI Theme to use on this board for the Tabs and Accordion.</td>
+			<td class="post">
+				<asp:DropDownList ID="JqueryUITheme" runat="server">
+				</asp:DropDownList></td>
+		</tr>
+        <tr>
+			<td class="postheader">
+				<strong>Use Google Hosted CDN jQuery UI CSS File?</strong><br />
+				You can use the Google Hosted CSS Files, or instead use internal.</td>
+			<td class="post">
+				<asp:CheckBox ID="JqueryUIThemeCDNHosted" runat="server"></asp:CheckBox></td>
+		</tr>
 		<tr>
 			<td class="postheader">
 				<strong>Culture:</strong><br />

@@ -222,11 +222,25 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The register j query ui.
+    /// The register jquery ui.
     /// </summary>
     public void RegisterJQueryUI()
     {
       this.RegisterJQueryUI(YafContext.Current.CurrentForumPage.TopPageControl);
+
+      // Register the jQueryUI Theme CSS
+      if (YafContext.Current.BoardSettings.JqueryUIThemeCDNHosted)
+      {
+          this.RegisterCssInclude(
+              "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/{0}/jquery-ui.css".FormatWith(
+                  YafContext.Current.BoardSettings.JqueryUITheme)); 
+      }
+      else
+      {
+          this.RegisterCssIncludeResource(
+               "css/jquery-ui-themes/{0}/jquery-ui-1.8.7.custom.css".FormatWith(
+                   YafContext.Current.BoardSettings.JqueryUITheme));
+      }
     }
 
     /// <summary>
@@ -332,11 +346,13 @@ namespace YAF.Classes.Core
     /// </param>
     public void RegisterJsInclude(Control thisControl, string name, string url)
     {
-      if (!this.PageElementExists(name))
-      {
+        if (this.PageElementExists(name))
+        {
+            return;
+        }
+
         ScriptManager.RegisterClientScriptInclude(thisControl, thisControl.GetType(), name, url);
         this.AddPageElement(name);
-      }
     }
 
     /// <summary>

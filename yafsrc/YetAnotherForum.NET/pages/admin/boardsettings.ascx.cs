@@ -79,8 +79,7 @@ namespace YAF.Pages.Admin
         }
 
         this.Culture.DataSource =
-          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable(
-            );
+          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
         this.Culture.DataTextField = "CultureNativeName";
         this.Culture.DataValueField = "CultureTag";
 
@@ -91,6 +90,10 @@ namespace YAF.Pages.Admin
         this.FileExtensionAllow.DataSource = StaticDataHelper.AllowDisallow();
         this.FileExtensionAllow.DataTextField = "Text";
         this.FileExtensionAllow.DataValueField = "Value";
+
+        this.JqueryUITheme.DataSource = StaticDataHelper.JqueryUIThemes();
+        this.JqueryUITheme.DataTextField = "Theme";
+        this.JqueryUITheme.DataValueField = "Theme";
 
         this.BindData();
 
@@ -123,6 +126,10 @@ namespace YAF.Pages.Admin
 
         this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
+          SetSelectedOnList(
+          ref this.JqueryUITheme,
+          this.PageContext.BoardSettings.JqueryUITheme);
+
         // Get first default full culture from a language file tag.
         string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ??
                                  "en";
@@ -151,6 +158,7 @@ namespace YAF.Pages.Admin
         this.EmailModeratorsOnModeratedPost.Checked = this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
         this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
         this.DefaultSendDigestEmail.Checked = this.PageContext.BoardSettings.DefaultSendDigestEmail;
+        this.JqueryUIThemeCDNHosted.Checked = this.PageContext.BoardSettings.JqueryUIThemeCDNHosted;
 
         if (this.PageContext.BoardSettings.BoardPollID > 0)
         {
@@ -219,6 +227,9 @@ namespace YAF.Pages.Admin
       this.PageContext.BoardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
       this.PageContext.BoardSettings.DefaultNotificationSetting =
         this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
+
+      this.PageContext.BoardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
+      this.PageContext.BoardSettings.JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
 
       // save the settings to the database
       ((YafLoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
