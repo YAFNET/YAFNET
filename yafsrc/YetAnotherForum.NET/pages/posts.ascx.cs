@@ -997,9 +997,10 @@ namespace YAF.Pages
                         (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
                 }
 
+                // NOTE : tha_watcha: I think Not Needed anymore
                 // move to this message on load...
-                PageContext.PageElements.RegisterJsBlockStartup(
-                    this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+               /* PageContext.PageElements.RegisterJsBlockStartup(
+                    this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));*/
             }
 
             var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
