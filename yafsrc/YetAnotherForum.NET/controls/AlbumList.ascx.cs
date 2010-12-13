@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Data;
+
 namespace YAF.Controls
 {
   #region Using
@@ -156,36 +158,21 @@ namespace YAF.Controls
                                          : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
 
         this.BindData();
-
-        // vzrus: replaced registry check for db data
-        // System.Data.DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-        var usrAlbums =
-          DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue
-            <int?>("UsrAlbums", null);
-
-        if (usrAlbums.HasValue && usrAlbums > 0)
+  
+        System.Data.DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+        System.Data.DataTable usrAlbumsData =
+              DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+        var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+        var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+        if (allowedAlbums.HasValue && allowedAlbums > 0)
         {
           // this.AddAlbum.Visible = true;
-          this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < usrAlbums &&
+          this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
                                    this.UserID == this.PageContext.PageUserID)
                                     ? true
                                     : false;
         }
 
-        /*if (sigData.Rows.Count > 0)
-                {   
-                        this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] <
-                                          Convert.ToInt32(sigData.Rows[0]["UsrAlbums"]) &&
-                                          this.UserID == this.PageContext.PageUserID)
-                                             ? true
-                                             : false;
-
-                        /* this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] <
-                                     this.PageContext.BoardSettings.AlbumsMax &&
-                                     this.UserID == this.PageContext.PageUserID)
-                                        ? true
-                                        : false; */
-        // }*/
         if (this.AddAlbum.Visible)
         {
           this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");
@@ -199,12 +186,12 @@ namespace YAF.Controls
         // Show Albums Max Info
         if (this.UserID == this.PageContext.PageUserID)
         {
-          if (usrAlbums.HasValue && usrAlbums > 0)
+          if (allowedAlbums.HasValue && allowedAlbums > 0)
           {
             this.albumsInfo.Text = this.PageContext.Localization.GetTextFormatted(
-              "ALBUMS_INFO", this.Albums.Items.Count, usrAlbums);
+              "ALBUMS_INFO", numAlbums, allowedAlbums);
           }
-          else if (usrAlbums.HasValue && usrAlbums.Equals(0) || !usrAlbums.HasValue)
+          else if (allowedAlbums.HasValue && allowedAlbums.Equals(0) || !allowedAlbums.HasValue)
           {
             this.albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
           }

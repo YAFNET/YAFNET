@@ -95,22 +95,22 @@
     <Compile Include="Object\TypedTopicSimpleList.cs" />
     <Compile Include="Object\TypedUserFind.cs" />
     <Compile Include="Object\TypedUserList.cs" />
-    <Compile Include="PollSaveList.cs" />
+    <Compile Include="Object\PollSaveList.cs" />
     <Compile Include="DataRowConvert.cs" />
     <Compile Include="Import\DataImport.cs" />
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
-    <Compile Include="DB.cs" />
+    <Compile Include="mssql\DB.cs" />
     <Compile Include="IDataTableResultFilter.cs" />
-    <Compile Include="IYafDBAccess.cs" />
-    <Compile Include="IYafDBConnManager.cs" />
+    <Compile Include="mssql\IYafDBAccess.cs" />
+    <Compile Include="mssql\IYafDBConnManager.cs" />
     <Compile Include="Object\SimpleModerator.cs" />
     <Compile Include="Search\SearchBuilder.cs" />
     <Compile Include="Search\SearchBuilderExtensions.cs" />
     <Compile Include="Search\SearchCondition.cs" />
     <Compile Include="Search\SearchConditionType.cs" />
-    <Compile Include="SqlDataLayerConverter.cs" />
-    <Compile Include="YafDBAccess.cs" />
+    <Compile Include="mssql\SqlDataLayerConverter.cs" />
+    <Compile Include="mssql\YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\FlagsBase.cs" />
     <Compile Include="Flags\ForumFlags.cs" />
@@ -122,7 +122,7 @@
     <Compile Include="QueryCounter.cs" />
     <Compile Include="YafDBConnInfoMessageEventArgs.cs" />
     <Compile Include="YafDBConnInfoMessageEventHandler.cs" />
-    <Compile Include="YafDBConnManager.cs" />
+    <Compile Include="mssql\YafDBConnManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
@@ -156,6 +156,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
