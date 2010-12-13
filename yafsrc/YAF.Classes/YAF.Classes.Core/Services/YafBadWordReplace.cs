@@ -159,10 +159,33 @@ namespace YAF.Classes.Core
     #endregion
   }
 
+  public interface IBadWordReplace
+  {
+    /// <summary>
+    ///   Gets ReplaceItems.
+    /// </summary>
+    List<BadWordReplaceItem> ReplaceItems { get; }
+
+    /// <summary>
+    /// Searches through SearchText and replaces "bad words" with "good words"
+    ///   as defined in the database.
+    /// </summary>
+    /// <param name="searchText">
+    /// The string to search through.
+    /// </param>
+    /// <returns>
+    /// The replace.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// <c>Exception</c>.
+    /// </exception>
+    string Replace([NotNull] string searchText);
+  }
+
   /// <summary>
   /// The yaf bad word replace.
   /// </summary>
-  public class YafBadWordReplace
+  public class YafBadWordReplace : IBadWordReplace
   {
     #region Constants and Fields
 

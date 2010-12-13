@@ -65,7 +65,7 @@ namespace YAF.Pages.Admin
     protected void GenerateDigest_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.DigestHtmlPlaceHolder.Visible = true;
-      this.DigestFrame.Attributes["src"] = this.Get<YafDigest>().GetDigestUrl(
+      this.DigestFrame.Attributes["src"] = this.Get<IDigest>().GetDigestUrl(
         this.PageContext.PageUserID, this.PageContext.PageBoardID);
     }
 
@@ -113,10 +113,10 @@ namespace YAF.Pages.Admin
       try
       {
         // create and send a test digest to the email provided...
-        var digestHtml = this.Get<YafDigest>().GetDigestHtml(this.PageContext.PageUserID, this.PageContext.PageBoardID);
+        var digestHtml = this.Get<IDigest>().GetDigestHtml(this.PageContext.PageUserID, this.PageContext.PageBoardID);
 
         // send....
-        this.Get<YafDigest>().SendDigest(
+        this.Get<IDigest>().SendDigest(
           digestHtml, 
           this.PageContext.BoardSettings.Name, 
           this.TextSendEmail.Text.Trim(), 

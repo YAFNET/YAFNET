@@ -140,7 +140,7 @@ namespace YAF.Pages.moderate
           PageContext.AddLoadMessage(GetText("APPROVED"));
 
           // send notification to watching users...
-          this.Get<YafSendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
+          this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
           break;
         case "delete":
 

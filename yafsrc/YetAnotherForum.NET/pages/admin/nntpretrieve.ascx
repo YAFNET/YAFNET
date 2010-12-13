@@ -28,7 +28,7 @@
 						<%# LastMessageNo(Container.DataItem) %>
 					</td>
 					<td>
-						<%# this.Get<YafDateTime>().FormatDateTime(Eval("LastUpdate")) %>
+						<%# this.Get<IDateTime>().FormatDateTime(Eval("LastUpdate")) %>
 					</td>
 				</tr>
 			</ItemTemplate>

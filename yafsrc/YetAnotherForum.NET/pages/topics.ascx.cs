@@ -23,6 +23,8 @@ namespace YAF.Pages
   // YAF.Pages
   using System;
   using System.Data;
+  using System.Web;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
@@ -74,9 +76,9 @@ namespace YAF.Pages
     /// </param>
     void topics_Unload(object sender, EventArgs e)
     {
-      if (YafContext.Current.Get<YafSession>().UnreadTopics == 0)
+      if (YafContext.Current.Get<IYafSession>().UnreadTopics == 0)
       {
-        YafContext.Current.Get<YafSession>().SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
+        YafContext.Current.Get<IYafSession>().SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
       }
     }
 
@@ -91,9 +93,9 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      YafContext.Current.Get<YafSession>().UnreadTopics = 0;
-      this.AtomFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
-      this.RssFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
+      YafContext.Current.Get<IYafSession>().UnreadTopics = 0;
+      this.AtomFeed.AdditionalParameters = "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+      this.RssFeed.AdditionalParameters = "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
       this.MarkRead.Text = GetText("MARKREAD");
       this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
       this.lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
@@ -112,7 +114,7 @@ namespace YAF.Pages
         this.ShowList.DataSource = StaticDataHelper.TopicTimes();
         this.ShowList.DataTextField = "TopicText";
         this.ShowList.DataValueField = "TopicValue";
-        this._showTopicListSelected = (YafContext.Current.Get<YafSession>().ShowList == -1) ? PageContext.BoardSettings.ShowTopicsDefault : YafContext.Current.Get<YafSession>().ShowList;
+        this._showTopicListSelected = (YafContext.Current.Get<IYafSession>().ShowList == -1) ? PageContext.BoardSettings.ShowTopicsDefault : YafContext.Current.Get<IYafSession>().ShowList;
 
         HandleWatchForum();
       }
@@ -125,7 +127,7 @@ namespace YAF.Pages
       if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
       {
         // attempt to get permission by redirecting to login...
-        this.Get<YafPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+        this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
       }
       else if (!this.PageContext.ForumReadAccess)
       {
@@ -205,7 +207,7 @@ namespace YAF.Pages
     /// </param>
     void MarkRead_Click(object sender, EventArgs e)
     {
-      YafContext.Current.Get<YafSession>().SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
+      YafContext.Current.Get<IYafSession>().SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
       BindData();
     }
 
@@ -261,7 +263,7 @@ namespace YAF.Pages
     /// </summary>
     void BindData()
     {
-      DataSet ds = this.Get<YafDBBroker>().BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID);
+      DataSet ds = this.Get<IDBBroker>().BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID);
       if (ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows.Count > 0)
       {
         this.ForumList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows;
@@ -357,7 +359,7 @@ namespace YAF.Pages
 
       // setup the show topic list selection after data binding
       this.ShowList.SelectedIndex = this._showTopicListSelected;
-      YafContext.Current.Get<YafSession>().ShowList = this._showTopicListSelected;
+      YafContext.Current.Get<IYafSession>().ShowList = this._showTopicListSelected;
 
       this.Pager.Count = nRowCount;
     }

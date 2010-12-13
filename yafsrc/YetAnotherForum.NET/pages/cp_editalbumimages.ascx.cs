@@ -64,7 +64,7 @@ namespace YAF.Pages
           ForumPages.album, 
           "u={0}&a={1}", 
           this.PageContext.PageUserID.ToString(), 
-          this.Request.QueryString.GetFirstOrDefault("a"));
+          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
       }
       else
       {
@@ -83,10 +83,10 @@ namespace YAF.Pages
     /// </param>
     protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string sUpDir = this.Request.MapPath(
+      string sUpDir = this.Get<HttpRequestBase>().MapPath(
         String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
       YafAlbum.Album_Image_Delete(
-        sUpDir, this.Request.QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
+        sUpDir, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
       YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
     }
 
@@ -133,7 +133,7 @@ namespace YAF.Pages
         {
             case "delete":
                 string sUpDir =
-                    this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                    this.Get<HttpRequestBase>().MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
                 YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID,
                                             Convert.ToInt32(e.CommandArgument));
 
@@ -203,7 +203,7 @@ namespace YAF.Pages
 
         int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
         int userID;
-        switch (this.Request.QueryString.GetFirstOrDefault("a"))
+        switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))
         {
             // A new album is being created. check the permissions.
           case "new":
@@ -235,7 +235,7 @@ namespace YAF.Pages
           default:
             userID =
               Convert.ToInt32(
-                DB.album_list(null, Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("a"))).
+                DB.album_list(null, Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))).
                   Rows[0]["UserID"]);
             if (userID != this.PageContext.PageUserID)
             {
@@ -302,15 +302,15 @@ namespace YAF.Pages
     /// </param>
     protected void UpdateTitle_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string albumID = this.Request.QueryString.GetFirstOrDefault("a");
+      string albumID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
       this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
-      if (this.Request.QueryString.GetFirstOrDefault("a") == "new")
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
       {
         albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();
       }
       else
       {
-        DB.album_save(this.Request.QueryString.GetFirstOrDefault("a"), null, this.txtTitle.Text, null);
+        DB.album_save(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null, this.txtTitle.Text, null);
       }
 
       YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
@@ -382,10 +382,10 @@ namespace YAF.Pages
     private void BindData()
     {
       // If the user is trying to edit an existing album, initialize the repeater.
-      if (this.Request.QueryString.GetFirstOrDefault("a") != "new")
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") != "new")
       {
-        this.txtTitle.Text = DB.album_gettitle(this.Request.QueryString.GetFirstOrDefault("a"));
-        DataTable dt = DB.album_image_list(this.Request.QueryString.GetFirstOrDefault("a"), null);
+        this.txtTitle.Text = DB.album_gettitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+        DataTable dt = DB.album_image_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null);
         this.List.DataSource = dt;
         this.List.Visible = (dt.Rows.Count > 0) ? true : false;
         this.Delete.Visible = true;
@@ -447,7 +447,7 @@ namespace YAF.Pages
         return;
       }
 
-      string sUpDir = this.Request.MapPath(
+      string sUpDir = this.Get<HttpRequestBase>().MapPath(
         String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
       string filename = file.PostedFile.FileName;
 
@@ -482,7 +482,7 @@ namespace YAF.Pages
 
         //if (!usrAlbums.HasValue || usrAlbums <= 0) return;
 
-        if (this.Request.QueryString.GetFirstOrDefault("a") == "new")
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
         {
             int[] alstats = DB.album_getstats(this.PageContext.PageUserID, null);
 
@@ -504,7 +504,7 @@ namespace YAF.Pages
         {
             // vzrus: the checks here are useless but in a case...
             int[] alstats = DB.album_getstats(
-                this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"));
+                this.PageContext.PageUserID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
             /*
             // Albums count. If we reached limit then we exit. 
             // Check it first as user could be in other group or prev YAF version was used;
@@ -524,10 +524,10 @@ namespace YAF.Pages
 
             file.PostedFile.SaveAs(
                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                    sUpDir, this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"), filename));
+                    sUpDir, this.PageContext.PageUserID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), filename));
             DB.album_image_save(
                 null, 
-                this.Request.QueryString.GetFirstOrDefault("a"), 
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), 
                 null, 
                 filename, 
                 file.PostedFile.ContentLength, 

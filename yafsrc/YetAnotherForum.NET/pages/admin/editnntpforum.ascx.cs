@@ -24,6 +24,7 @@ namespace YAF.Pages.Admin
 
   using System;
   using System.Data;
+  using System.Web;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -72,11 +73,11 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("NNTP Forums", string.Empty);
 
         this.BindData();
-        if (this.Request.QueryString.GetFirstOrDefault("s") != null)
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s") != null)
         {
           using (
             DataTable dt = DB.nntpforum_list(
-              this.PageContext.PageBoardID, null, this.Request.QueryString.GetFirstOrDefault("s"), DBNull.Value))
+              this.PageContext.PageBoardID, null, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s"), DBNull.Value))
           {
             DataRow row = dt.Rows[0];
             this.NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
@@ -106,9 +107,9 @@ namespace YAF.Pages.Admin
       }
 
       object nntpForumID = null;
-      if (this.Request.QueryString.GetFirstOrDefault("s") != null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s") != null)
       {
-        nntpForumID = this.Request.QueryString.GetFirstOrDefault("s");
+        nntpForumID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s");
       }
 
       if (this.ForumID.SelectedValue.ToType<int>() <= 0)

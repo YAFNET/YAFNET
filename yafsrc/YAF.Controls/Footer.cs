@@ -98,7 +98,7 @@ namespace YAF.Controls
       // it's not really an error if it doesn't exist
       string themeCredit = PageContext.Theme.GetItem("THEME", "CREDIT", null);
 
-      this.Get<YafStopWatch>().Stop();
+      this.Get<IStopWatch>().Stop();
 
       footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
@@ -129,7 +129,7 @@ namespace YAF.Controls
         footer.Append("<br />");
       }
 
-      if (this.Get<YafSession>().UseMobileTheme ?? false)
+      if (this.Get<IYafSession>().UseMobileTheme ?? false)
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
@@ -177,7 +177,7 @@ namespace YAF.Controls
       if (PageContext.BoardSettings.ShowPageGenerationTime)
       {
         footer.Append("<br />");
-        footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<YafStopWatch>().Duration);
+        footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
       }
 
       footer.Append(@"</div>");
@@ -193,7 +193,7 @@ namespace YAF.Controls
           @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
           QueryCounter.Count, 
           QueryCounter.Duration, 
-          (100*QueryCounter.Duration)/this.Get<YafStopWatch>().Duration, 
+          (100*QueryCounter.Duration)/this.Get<IStopWatch>().Duration, 
           QueryCounter.Commands);
         footer.Append("</div>");
       }

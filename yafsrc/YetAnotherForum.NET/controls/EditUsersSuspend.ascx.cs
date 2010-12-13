@@ -240,7 +240,7 @@ namespace YAF.Controls
         if (!user.IsNull("Suspended"))
         {
           // get time when his suspension expires to the view state
-          ViewState["SuspendedUntil"] = this.Get<YafDateTime>().FormatDateTime(user["Suspended"]);
+          ViewState["SuspendedUntil"] = this.Get<IDateTime>().FormatDateTime(user["Suspended"]);
 
           // localize remove suspension button
           this.RemoveSuspension.Text = PageContext.Localization.GetText("PROFILE", "REMOVESUSPENSION");

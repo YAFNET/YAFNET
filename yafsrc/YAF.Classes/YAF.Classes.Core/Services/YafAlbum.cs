@@ -54,7 +54,7 @@ namespace YAF.Classes.Core
     /// <param name="imageID">
     /// The image id.
     /// </param>
-    public static void Album_Image_Delete([NotNull] object upDir, [NotNull] object albumID, int userID, [NotNull] object imageID)
+    public static void Album_Image_Delete([NotNull] object upDir, [CanBeNull] object albumID, int userID, [NotNull] object imageID)
     {
       if (albumID != null)
       {
@@ -106,7 +106,9 @@ namespace YAF.Classes.Core
     public static ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
     {
       // load the DB so YafContext can work...
-      YafContext.Current.Get<YafInitializeDb>().Run();
+      CodeContracts.ArgumentNotNull(newTitle, "newTitle");
+
+      YafContext.Current.Get<StartupInitializeDb>().Run();
 
       // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
       DB.album_save(albumID, null, newTitle, null);
@@ -135,7 +137,9 @@ namespace YAF.Classes.Core
     public static ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
     {
       // load the DB so YafContext can work...
-      YafContext.Current.Get<YafInitializeDb>().Run();
+      CodeContracts.ArgumentNotNull(newCaption, "newCaption");
+
+      YafContext.Current.Get<StartupInitializeDb>().Run();
 
       // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
       DB.album_image_save(imageID, null, newCaption, null, null, null);

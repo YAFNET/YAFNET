@@ -76,7 +76,7 @@ namespace YAF.Controls
         activeUsers += activeHidden;
       }
 
-      bool canViewActive = this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+      bool canViewActive = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
       bool showGuestTotal = (activeGuests > 0) &&
                             (this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList ||
                              this.PageContext.BoardSettings.ShowCrawlersInActiveList);
@@ -196,7 +196,7 @@ namespace YAF.Controls
       DataTable activeUsers = this.PageContext.Cache.GetItem(
         key, 
         (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, 
-        () => this.Get<YafDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
+        () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
@@ -236,12 +236,12 @@ namespace YAF.Controls
         this.MostUsersCount.Text = this.PageContext.Localization.GetTextFormatted(
           "MAX_ONLINE", 
           userStatisticsDataRow["MaxUsers"], 
-          this.Get<YafDateTime>().FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
+          this.Get<IDateTime>().FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
       }
       else
       {
         this.MostUsersCount.Text = this.PageContext.Localization.GetTextFormatted(
-          "MAX_ONLINE", activeStats["ActiveUsers"], this.Get<YafDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
+          "MAX_ONLINE", activeStats["ActiveUsers"], this.Get<IDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
       }
 
       // Posts and Topic Count...

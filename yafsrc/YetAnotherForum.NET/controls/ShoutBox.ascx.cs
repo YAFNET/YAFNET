@@ -14,6 +14,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
@@ -190,7 +191,7 @@ namespace YAF.Controls
                     this.messageTextBox.Text,
                     username,
                     this.PageContext.PageUserID,
-                    this.Request.UserHostAddress);
+                    this.Get<HttpRequestBase>().UserHostAddress);
 
                 // clear cache...
                 this.PageContext.Cache.Remove(this.CacheKey);

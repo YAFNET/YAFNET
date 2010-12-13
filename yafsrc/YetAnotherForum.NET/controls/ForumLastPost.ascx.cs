@@ -114,7 +114,7 @@ namespace YAF.Controls
             ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
           this.topicLink.Text =
             StringHelper.Truncate(
-              this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
+              this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(this.DataRow["LastUserID"]);
           this.ProfileUserLink.Style = this.PageContext.BoardSettings.UseStyledNicks
                                              ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
@@ -128,7 +128,7 @@ namespace YAF.Controls
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
             ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
           this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) >
-                                YafContext.Current.Get<YafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
+                                YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
             this.Icon.Alt = this.LastTopicImgLink.ToolTip;

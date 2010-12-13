@@ -59,8 +59,11 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\Dependancies\AjaxPro.2.dll</HintPath>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\AjaxPro.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -77,6 +80,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core">
     </Reference>
@@ -113,14 +117,16 @@
     <Compile Include="BBCode\ReplaceRules\SyntaxHighlightedCodeRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\VariableRegexReplaceRule.cs" />
     <Compile Include="BBCode\YafBBCode.cs" />
+    <Compile Include="GlobalContainer.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
+    <Compile Include="Extensions\IPermissionsExtensions.cs" />
     <Compile Include="Extensions\MailMessageExtensions.cs" />
     <Compile Include="Extensions\ResourcesExtensions.cs" />
-    <Compile Include="Extensions\YafServiceExtensions.cs" />
+    <Compile Include="Extensions\ContainerExtensions.cs" />
     <Compile Include="Handlers\CantLoadThemeException.cs" />
     <Compile Include="Helpers\IPLocator.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
@@ -143,8 +149,8 @@
     <Compile Include="Services\CheckForSpam\ICheckForSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
-    <Compile Include="Extensions\YafDateTimeExtensions.cs" />
-    <Compile Include="Extensions\YafSendMailExtensions.cs" />
+    <Compile Include="Extensions\IDateTimeExtensions.cs" />
+    <Compile Include="Extensions\ISendMailExtensions.cs" />
     <Compile Include="Services\YafDigest.cs" />
     <Compile Include="Services\YafIrkoo.cs" />
     <Compile Include="Services\YafSession.cs" />
@@ -156,11 +162,12 @@
     <Compile Include="Tasks\DigestSendModule.cs" />
     <Compile Include="Tasks\DigestSendTask.cs" />
     <Compile Include="Tasks\ICriticalBackgroundTask.cs" />
+    <Compile Include="Tasks\ICriticalStartupService.cs" />
     <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
     <Compile Include="UsersRoles\NoValidGuestUserForBoardException.cs" />
     <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
-    <Compile Include="Services\IYafService.cs" />
+    <Compile Include="Services\IStartupService.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafBuddies.cs" />
     <Compile Include="Services\YafFavoriteTopic.cs" />
@@ -193,9 +200,9 @@
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Nntp\YafNntp.cs" />
     <Compile Include="Services\YafAvatars.cs" />
-    <Compile Include="Services\YafCheckBannedIps.cs" />
-    <Compile Include="Services\YafInitializeDb.cs" />
-    <Compile Include="Services\BaseYafService.cs" />
+    <Compile Include="Services\StartupCheckBannedIps.cs" />
+    <Compile Include="Services\StartupInitializeDb.cs" />
+    <Compile Include="Services\BaseStartupService.cs" />
     <Compile Include="Services\YafPermissions.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
     <Compile Include="Services\YafCache.cs" />
@@ -213,6 +220,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Tasks\UserCleanUpTaskModule.cs" />
+    <Compile Include="YafBaseContainerModule.cs" />
     <Compile Include="YafModuleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoadMessage.cs" />

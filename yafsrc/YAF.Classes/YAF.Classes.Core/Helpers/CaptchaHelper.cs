@@ -63,7 +63,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The get captcha text.
     /// </returns>
-    public static string GetCaptchaText([NotNull] HttpSessionState session, [NotNull] Cache cache, bool forceNew)
+    public static string GetCaptchaText([NotNull] HttpSessionStateBase session, [NotNull] Cache cache, bool forceNew)
     {
       CodeContracts.ArgumentNotNull(session, "session");
 
@@ -102,7 +102,7 @@ namespace YAF.Classes.Core
     {
       CodeContracts.ArgumentNotNull(captchaText, "captchaText");
 
-      var text = GetCaptchaText(HttpContext.Current.Session, HttpRuntime.Cache, false);
+      var text = GetCaptchaText(YafContext.Current.Get<HttpSessionStateBase>(), HttpRuntime.Cache, false);
 
       return String.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
     }

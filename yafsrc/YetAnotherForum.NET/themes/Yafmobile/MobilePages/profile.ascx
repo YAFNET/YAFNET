@@ -264,13 +264,13 @@
                                             <strong>
                                                 <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
                                             </strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
-                                                <%# this.Get<YafBadWordReplace>().Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
+                                                <%# this.Get<IBadWordReplace>().Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
                                             </a>
                                             <br />
                                             <strong>
                                                 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
                                             </strong>
-                                            <%# this.Get<YafDateTime>().FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
+                                            <%# this.Get<IDateTime>().FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
                                         </td>
                                     </tr>
                                     <tr class="post">

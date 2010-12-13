@@ -28,6 +28,8 @@ namespace YAF.Classes.Core
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
+  using Autofac;
+
   using YAF.Classes.Data;
   using YAF.Classes.Interfaces;
   using YAF.Classes.Utils;
@@ -484,7 +486,7 @@ namespace YAF.Classes.Core
     /// </summary>
     public void RedirectNoAccess()
     {
-      YafContext.Current.Get<YafPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+      YafContext.Current.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
     }
 
     #endregion
@@ -601,7 +603,7 @@ namespace YAF.Classes.Core
 #endif
 
       // set the current translation page...
-      YafContext.Current.InstanceFactory.GetInstance<LocalizationHandler>().TranslationPage = this._transPage;
+      YafContext.Current.Get<ILocalizationHandler>().TranslationPage = this._transPage;
 
       // fire preload event...
       YafContext.Current.ForumPagePreLoad(this, new EventArgs());

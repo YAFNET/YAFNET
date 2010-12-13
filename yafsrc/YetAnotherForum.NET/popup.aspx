@@ -5,7 +5,7 @@
 	public void Page_Error( object sender, System.EventArgs e )
 	{
 		Exception x = Server.GetLastError();
-    YAF.Classes.Data.DB.eventlog_create(YafContext.Current.Get<YafInitializeDb>().Initialized ? (int?)YafContext.Current.PageUserID : null, this, x);
+    YAF.Classes.Data.DB.eventlog_create(YafContext.Current.Get<StartupInitializeDb>().Initialized ? (int?)YafContext.Current.PageUserID : null, this, x);
 	}
 	public void Page_PreRender( object sender, System.EventArgs e )
 	{

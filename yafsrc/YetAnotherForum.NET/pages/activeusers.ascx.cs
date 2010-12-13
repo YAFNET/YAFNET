@@ -24,6 +24,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -68,8 +69,8 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-                if (this.Request.QueryString.GetFirstOrDefault("v").IsSet() &&
-                    this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet() &&
+                    this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
                 {
                    this.BindData();
                 }
@@ -200,7 +201,7 @@ namespace YAF.Pages
         private void BindData()
         {
             int mode = 0;
-            if (Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("v"), out mode))
+            if (Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v"), out mode))
             {
                 DataView activeUsers = null;
                 switch (mode)

@@ -23,6 +23,7 @@ namespace YAF
 
   using System;
   using System.IO;
+  using System.Web;
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
@@ -503,11 +504,11 @@ namespace YAF
     /// </returns>
     private string GetPageSource()
     {
-      if (this.Request.QueryString.GetFirstOrDefault("g") != null)
+      if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g") != null)
       {
         try
         {
-          this._page = this.Request.QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
+          this._page = YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
         }
         catch (Exception)
         {

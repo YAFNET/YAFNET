@@ -77,7 +77,7 @@ namespace YAF.Controls
         var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
 
         // populate them...
-        textMessageLink.Text = this.Get<YafBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
+        textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
         textMessageLink.ToolTip = this.PageContext.Localization.GetText("COMMON", "VIEW_TOPIC");
         textMessageLink.NavigateUrl = messageUrl;
        
@@ -95,7 +95,7 @@ namespace YAF.Controls
         {
           lastPostedDateLabel.DateTime = currentRow["LastPosted"];
           lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                      YafContext.Current.Get<YafSession>().GetTopicRead(
+                                      YafContext.Current.Get<IYafSession>().GetTopicRead(
                                         Convert.ToInt32(currentRow["TopicID"])))
                                        ? "ICON_NEWEST"
                                        : "ICON_LATEST";
@@ -155,7 +155,7 @@ namespace YAF.Controls
         }
       }
 
-      bool groupAccess = this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+      bool groupAccess = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
       this.AtomFeed.Visible = this.PageContext.BoardSettings.ShowAtomLink && groupAccess;
       this.RssFeed.Visible = this.PageContext.BoardSettings.ShowRSSLink && groupAccess;
 

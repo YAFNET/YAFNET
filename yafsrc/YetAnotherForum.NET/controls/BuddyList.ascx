@@ -39,7 +39,7 @@
                     <%# Eval("RankName") %>
                 </td>
                 <td class="post">
-                    <%# this.Get<YafDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
+                    <%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
                 </td>
                 <td class="post" align="center">
                     <%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
@@ -63,7 +63,7 @@
                             Text='<%# PageContext.Localization.GetText("APPROVE_ADD") %>' />
                     </asp:Panel>
                     <asp:Panel ID="pnlRequests" runat="server" Visible="false">
-                        <%# this.Get<YafDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Requested"]) %>
+                        <%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Requested"]) %>
                     </asp:Panel>
                 </td>
             </tr>

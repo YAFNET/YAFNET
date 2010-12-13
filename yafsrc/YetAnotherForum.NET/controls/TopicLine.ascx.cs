@@ -343,8 +343,8 @@
           return this.PageContext.Theme.GetItem("ICONS", "TOPIC_MOVED");
         }
 
-        DateTime lastRead = YafContext.Current.Get<YafSession>().GetTopicRead((int)row["TopicID"]);
-        DateTime lastReadForum = YafContext.Current.Get<YafSession>().GetForumRead((int)row["ForumID"]);
+        DateTime lastRead = YafContext.Current.Get<IYafSession>().GetTopicRead((int)row["TopicID"]);
+        DateTime lastReadForum = YafContext.Current.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
         if (lastReadForum > lastRead)
         {
           lastRead = lastReadForum;
@@ -352,7 +352,7 @@
 
         if (lastPosted > lastRead)
         {
-          YafContext.Current.Get<YafSession>().UnreadTopics++;
+          YafContext.Current.Get<IYafSession>().UnreadTopics++;
 
           if (row["PollID"] != DBNull.Value)
           {
@@ -466,7 +466,7 @@
     /// </returns>
     protected string GetAvatarUrlFromID(int userID)
     {
-      string avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(userID);
+      string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
 
       if (avatarUrl.IsNotSet())
       {

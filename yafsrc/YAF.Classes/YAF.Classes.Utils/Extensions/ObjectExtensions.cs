@@ -404,6 +404,17 @@ namespace YAF.Classes.Utils
       return Convert.ToInt32(o);
     }
 
+    /// <summary>
+    /// Does this instance have this interface?
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="instance"></param>
+    /// <returns></returns>
+    public static bool HasInterface<T>(this object instance)
+    {
+      return typeof(T).IsAssignableFrom(instance.GetType());
+    }
+
     #endregion
   }
 }

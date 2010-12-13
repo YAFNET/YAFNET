@@ -89,10 +89,10 @@ namespace YAF.Modules
     /// </param>
     private void UnloadSessionModule_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack && (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false) && HttpContext.Current.Session.IsNewSession)
+      if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack && (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false) && YafContext.Current.Get<HttpSessionStateBase>().IsNewSession)
       {
         // remove session
-        HttpContext.Current.Session.Abandon();
+        YafContext.Current.Get<HttpSessionStateBase>().Abandon();
       }
     }
 

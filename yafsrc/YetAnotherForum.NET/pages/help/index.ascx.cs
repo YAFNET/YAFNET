@@ -22,6 +22,7 @@ namespace YAF.Pages.help
 
     using System;
     using System.Collections.Generic;
+    using System.Web;
 
     using YAF.Classes;
     using YAF.Classes.Core;
@@ -90,7 +91,7 @@ namespace YAF.Pages.help
 
                 this.DoSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
 
-                if (this.Request.QueryString.GetFirstOrDefault("faq").IsSet())
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
                 {
                     this.BindData();
                 }
@@ -110,7 +111,7 @@ namespace YAF.Pages.help
         /// </summary>
         private void BindData()
         {
-            string FaqPage = this.Request.QueryString.GetFirstOrDefault("faq");
+            string FaqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
 
             switch (FaqPage)
             {

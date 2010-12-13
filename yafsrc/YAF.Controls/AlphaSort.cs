@@ -25,6 +25,8 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
+  using YAF.Classes.Core;
+
   /// <summary>
   /// Control displaying list of letters and/or characters for filtering list of members.
   /// </summary>
@@ -53,10 +55,10 @@ namespace YAF.Controls
       {
         char currentLetter = char.MinValue;
 
-        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("letter") != null)
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter") != null)
         {
           // try to convert to char
-          char.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault("letter"), out currentLetter);
+          char.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter"), out currentLetter);
 
           // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
           if (currentLetter == '_')

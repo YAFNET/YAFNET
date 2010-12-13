@@ -57,11 +57,11 @@ namespace YAF.Modules
       }
 
       // clear out any search data in the session.... just in case...
-      if (PageContext.Get<YafSession>().SearchData != null)
+      if (PageContext.Get<IYafSession>().SearchData != null)
       {
         // clear it...
-        PageContext.Get<YafSession>().SearchData.Dispose();
-        PageContext.Get<YafSession>().SearchData = null;
+        PageContext.Get<IYafSession>().SearchData.Dispose();
+        PageContext.Get<IYafSession>().SearchData = null;
       }
     }
 

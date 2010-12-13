@@ -139,7 +139,7 @@ namespace YAF.Controls
       // we want to filter topics since last visit
       if (this.sinceValue == 0)
       {
-        this.sinceDate = YafContext.Current.Get<YafSession>().LastVisit;
+        this.sinceDate = YafContext.Current.Get<IYafSession>().LastVisit;
       }
 
       // we want to page results
@@ -172,7 +172,7 @@ namespace YAF.Controls
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
         // we are getting favotes
-        topicList = this.Get<YafFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
+        topicList = this.Get<IFavoriteTopic>().FavoriteTopicDetails(this.sinceDate);
       }
 
       if (topicList != null)
@@ -218,7 +218,7 @@ namespace YAF.Controls
       this.Since.Items.Add(
         new ListItem(
           this.PageContext.Localization.GetTextFormatted(
-            "last_visit", this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit)), 
+            "last_visit", this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit)), 
           "0"));
 
       // negative values for hours backward
@@ -254,7 +254,7 @@ namespace YAF.Controls
         if (this.CurrentMode == TopicListMode.Active)
         {
           // active topics mode
-          previousSince = YafContext.Current.Get<YafSession>().ActiveTopicSince;
+          previousSince = YafContext.Current.Get<IYafSession>().ActiveTopicSince;
 
           // by default select "Last visited..." for active discussions
           this.Since.SelectedIndex = 0;
@@ -262,7 +262,7 @@ namespace YAF.Controls
         else if (this.CurrentMode == TopicListMode.Favorite)
         {
           // favorites mode
-          previousSince = YafContext.Current.Get<YafSession>().FavoriteTopicSince;
+          previousSince = YafContext.Current.Get<IYafSession>().FavoriteTopicSince;
 
           // add "Show All" option
           this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("show_all"), "9999"));
@@ -343,12 +343,12 @@ namespace YAF.Controls
       if (this.CurrentMode == TopicListMode.Active)
       {
         // for active topics
-        YafContext.Current.Get<YafSession>().ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+        YafContext.Current.Get<IYafSession>().ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
       }
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
         // for favorites
-        YafContext.Current.Get<YafSession>().FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+        YafContext.Current.Get<IYafSession>().FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
       }
 
       // re-bind data
@@ -360,7 +360,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindFeeds()
     {
-        bool groupAccess = this.Get<YafPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess);
+        bool groupAccess = this.Get<IPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess);
         
         this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink && groupAccess;
         this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink && groupAccess;

@@ -166,7 +166,7 @@ namespace YAF.Controls
                     sb.AppendFormat(
                         @" {0}",
                         YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(
-                            this.Get<YafDateTime>().FormatDateShort(thanksDate)));
+                            this.Get<IDateTime>().FormatDateShort(thanksDate)));
                 }
             }
 
@@ -282,7 +282,7 @@ namespace YAF.Controls
 
                 if (!this.PageContext.IsGuest)
                 {
-                    if (this.Get<YafUserIgnored>().IsIgnored(this.PostData.UserId))
+                    if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                     {
                         this.PopMenu1.AddPostBackItem(
                             "toggleuserposts_show",
@@ -340,14 +340,14 @@ namespace YAF.Controls
             {
                 this.PostFooter.TogglePost.Visible = false;
             }
-            else if (this.Get<YafUserIgnored>().IsIgnored(this.PostData.UserId))
+            else if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
             {
                 this.panMessage.Attributes["style"] = "display:none";
                 this.PostFooter.TogglePost.Visible = true;
                 this.PostFooter.TogglePost.Attributes["onclick"] =
                     "toggleMessage('{0}'); return false;".FormatWith(this.panMessage.ClientID);
             }
-            else if (!this.Get<YafUserIgnored>().IsIgnored(this.PostData.UserId))
+            else if (!this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
             {
                 this.panMessage.Attributes["style"] = "display:block";
                 this.panMessage.Visible = true;
@@ -526,11 +526,11 @@ namespace YAF.Controls
                     YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", this.PostData.UserId);
                     break;
                 case "toggleuserposts_show":
-                    this.Get<YafUserIgnored>().RemoveIgnored(this.PostData.UserId);
+                    this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
                     this.Response.Redirect(this.Request.RawUrl);
                     break;
                 case "toggleuserposts_hide":
-                    this.Get<YafUserIgnored>().AddIgnored(this.PostData.UserId);
+                    this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
                     this.Response.Redirect(this.Request.RawUrl);
                     break;
                 case "viewthanks":

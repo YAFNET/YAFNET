@@ -25,9 +25,9 @@
         %>
         <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=YafFormatMessage.GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
-            <%=this.Get<YafBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
+            <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
         <%
-            var favoriteCount = this.Get<YafFavoriteTopic>().FavoriteTopicCount((int)this.TopicRow["LinkTopicID"]);
+            var favoriteCount = this.Get<IFavoriteTopic>().FavoriteTopicCount((int)this.TopicRow["LinkTopicID"]);
             
             if (favoriteCount > 0)
             {

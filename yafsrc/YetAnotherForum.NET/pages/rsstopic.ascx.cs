@@ -90,7 +90,7 @@ namespace YAF.Pages
 
             try
             {
-                feedType = this.Request.QueryString.GetFirstOrDefault("pg").ToEnum<YafRssFeeds>(true);
+                feedType = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pg").ToEnum<YafRssFeeds>(true);
             }
             catch
             {
@@ -101,7 +101,7 @@ namespace YAF.Pages
             {
                 // Latest posts feed
                 case YafRssFeeds.LatestPosts:
-                    if (!(this.PageContext.BoardSettings.ShowActiveDiscussions && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostLatestFeedAccess)))
+                    if (!(this.PageContext.BoardSettings.ShowActiveDiscussions && this.Get<IPermissions>().Check(PageContext.BoardSettings.PostLatestFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -111,7 +111,7 @@ namespace YAF.Pages
 
                 // Latest Announcements feed
                 case YafRssFeeds.LatestAnnouncements:
-                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess))
+                    if (!this.Get<IPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -121,15 +121,15 @@ namespace YAF.Pages
 
                 // Posts Feed
                 case YafRssFeeds.Posts:
-                    if (!(this.PageContext.ForumReadAccess && this.Get<YafPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess)))
+                    if (!(this.PageContext.ForumReadAccess && this.Get<IPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
 
-                    if (this.Request.QueryString.GetFirstOrDefault("t") != null)
+                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null)
                     {
                         int topicId;
-                        if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("t"), out topicId))
+                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), out topicId))
                         {
                             GetPostsFeed(ref feed, feedType, atomFeedByVar, topicId);
                         }
@@ -139,17 +139,17 @@ namespace YAF.Pages
 
                 // Forum Feed
                 case YafRssFeeds.Forum:
-                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess))
+                    if (!this.Get<IPermissions>().Check(PageContext.BoardSettings.ForumFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
 
                     object categoryId = null;
 
-                    if (this.Request.QueryString.GetFirstOrDefault("c") != null)
+                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c") != null)
                     {
                         int icategoryId = 0;
-                        if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("c"), out icategoryId))
+                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"), out icategoryId))
                         {
                             categoryId = icategoryId;
                         }
@@ -160,15 +160,15 @@ namespace YAF.Pages
 
                 // Topics Feed
                 case YafRssFeeds.Topics:
-                    if (!(this.PageContext.ForumReadAccess && this.Get<YafPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess)))
+                    if (!(this.PageContext.ForumReadAccess && this.Get<IPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
 
                     int forumId;
-                    if (this.Request.QueryString.GetFirstOrDefault("f") != null)
+                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null)
                     {
-                        if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
+                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out forumId))
                         {
                             GetTopicsFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, forumId);
                         }
@@ -177,14 +177,14 @@ namespace YAF.Pages
 
                 // Active Topics
                 case YafRssFeeds.Active:
-                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess))
+                    if (!this.Get<IPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
 
                     int categoryActiveIntId;
                     object categoryActiveId = null;
-                    if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out categoryActiveIntId))
+                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out categoryActiveIntId))
                     {
                         categoryActiveId = categoryActiveIntId;
                     }
@@ -193,13 +193,13 @@ namespace YAF.Pages
 
                     break;
                 case YafRssFeeds.Favorite:
-                    if (!this.Get<YafPermissions>().Check(PageContext.BoardSettings.FavoriteTopicFeedAccess))
+                    if (!this.Get<IPermissions>().Check(PageContext.BoardSettings.FavoriteTopicFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
                     int categoryFavIntId;
                     object categoryFavId = null;
-                    if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out categoryFavIntId))
+                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out categoryFavIntId))
                     {
                         categoryFavId = categoryFavIntId;
                     }
@@ -287,10 +287,10 @@ namespace YAF.Pages
                     // don't render moved topics
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
                         if (syndicationItems.Count <= 0)
                         {
-                            feed.LastUpdatedTime = lastPosted + this.Get<YafDateTime>().TimeOffset;
+                            feed.LastUpdatedTime = lastPosted + this.Get<IDateTime>().TimeOffset;
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
                         
@@ -347,13 +347,13 @@ namespace YAF.Pages
                     // don't render moved topics
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
 
                         if (syndicationItems.Count <= 0)
                         {
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                             
                         }
 
@@ -366,11 +366,11 @@ namespace YAF.Pages
                             row["Message"].ToString(),
                             null,
                             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}",
-                                                           this.Request.QueryString.GetFirstOrDefault("t")),
+                                                           this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")),
                             "urn:{0}:ft{1}:st{2}:tid{3}:lmid{4}:{5}".FormatWith(urlAlphaNum, 
                             feedType,
                             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            this.Request.QueryString.GetFirstOrDefault("t"),
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"),
                             row["LastMessageID"], PageContext.PageBoardID),
                             lastPosted, 
                             feed);
@@ -413,7 +413,7 @@ namespace YAF.Pages
                 var altItem = false;
 
                 // load the missing message test
-                this.Get<YafDBBroker>().LoadMessageText(dataRows);
+                this.Get<IDBBroker>().LoadMessageText(dataRows);
 
                 string urlAlphaNum =FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
@@ -421,12 +421,12 @@ namespace YAF.Pages
 
                 foreach (var row in dataRows)
                 {
-                    DateTime posted = Convert.ToDateTime(row["Edited"]) + this.Get<YafDateTime>().TimeOffset;
+                    DateTime posted = Convert.ToDateTime(row["Edited"]) + this.Get<IDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty, Convert.ToInt64(row["UserID"])));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                        
                     }
                  
@@ -483,7 +483,7 @@ namespace YAF.Pages
                 foreach (DataRow row in dt.Rows)
                 {
                     if ((row["TopicMovedID"].IsNullOrEmptyDBField() && row["LastPosted"].IsNullOrEmptyDBField())) continue;
-                    DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
+                    DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -496,7 +496,7 @@ namespace YAF.Pages
                             String.Empty,
                             Convert.ToInt64(row["LastUserID"])));
 
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
                         // Alternate Link
                         // feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
@@ -551,7 +551,7 @@ namespace YAF.Pages
                 {
 
                     DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) +
-                                          this.Get<YafDateTime>().TimeOffset;
+                                          this.Get<IDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -559,7 +559,7 @@ namespace YAF.Pages
                         feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                         Convert.ToInt64(
                                                                                             row["LastUserID"])));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
                         // Alternate Link
                         //  feed.Links.Add(new SyndicationLink(new Uri(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true))));
@@ -609,16 +609,16 @@ namespace YAF.Pages
             DateTime toActDate = DateTime.UtcNow;
             string toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
 
-            if (this.Request.QueryString.GetFirstOrDefault("txt") != null)
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt") != null)
             {
-                toActText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("txt").ToString()));
+                toActText = Server.UrlDecode(Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt").ToString()));
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("d") != null)
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d") != null)
             {
-                if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("d").ToString())), out toActDate))
+                if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d").ToString())), out toActDate))
                 {
-                    toActDate = Convert.ToDateTime(this.Get<YafDateTime>().FormatDateTimeShort(DateTime.UtcNow)) + TimeSpan.FromDays(-31);
+                    toActDate = Convert.ToDateTime(this.Get<IDateTime>().FormatDateTimeShort(DateTime.UtcNow)) + TimeSpan.FromDays(-31);
                     toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
                 }
                 else
@@ -649,13 +649,13 @@ namespace YAF.Pages
                 {
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
 
                         if (syndicationItems.Count <= 0)
                         {
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                            
                         }
 
@@ -703,14 +703,14 @@ namespace YAF.Pages
             DateTime toFavDate = DateTime.UtcNow;
             string toFavText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
 
-            if (this.Request.QueryString.GetFirstOrDefault("txt") != null)
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt") != null)
             {
-                toFavText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("txt").ToString()));
+                toFavText = Server.UrlDecode(Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt").ToString()));
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("d") != null)
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d") != null)
             {
-                if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("d").ToString())), out toFavDate))
+                if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d").ToString())), out toFavDate))
                 {
                     toFavDate = this.PageContext.CurrentUserData.Joined == null ? DateTime.MinValue + TimeSpan.FromDays(2) : (DateTime)this.PageContext.CurrentUserData.Joined;
                     toFavText = this.PageContext.Localization.GetText("MYTOPICS", "SHOW_ALL");
@@ -743,13 +743,13 @@ namespace YAF.Pages
                     if (row["TopicMovedID"].IsNullOrEmptyDBField())
                     {
 
-                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<YafDateTime>().TimeOffset;
+                        DateTime lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
 
                         if (syndicationItems.Count <= 0)
                         {
                             feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(String.Empty,
                                                                                             Convert.ToInt64(row["UserID"])));
-                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<YafDateTime>().TimeOffset;
+                            feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                         
                         }
 

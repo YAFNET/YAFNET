@@ -82,7 +82,7 @@ namespace YAF.Classes.Core
             // Get all language files info
             var dir =
               new DirectoryInfo(
-                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                YafContext.Current.Get<HttpRequestBase>().MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
             FileInfo[] files = dir.GetFiles("*.xml");
            
             // Create an array with tags
@@ -149,7 +149,7 @@ namespace YAF.Classes.Core
             // Get all language files info
             var dir =
               new DirectoryInfo(
-                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                YafContext.Current.Get<HttpRequestBase>().MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
             FileInfo[] files = dir.GetFiles(fileName);
 
             if (files.Length <= 0) return rawTag;
@@ -191,7 +191,7 @@ namespace YAF.Classes.Core
 
         var dir =
           new DirectoryInfo(
-            HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+            YafContext.Current.Get<HttpRequestBase>().MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
         FileInfo[] files = dir.GetFiles("*.xml");
         foreach (FileInfo file in files)
         {
@@ -226,7 +226,7 @@ namespace YAF.Classes.Core
         dt.Columns.Add("FileName", typeof(string));
         dt.Columns.Add("IsMobile", typeof(bool));
 
-        var dir = new DirectoryInfo(HttpContext.Current.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
+        var dir = new DirectoryInfo(YafContext.Current.Get<HttpRequestBase>().MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
 
         foreach (FileInfo file in dir.GetFiles("*.xml"))
         {

@@ -241,7 +241,7 @@
 						<%# Eval("Message") %>
 					</td>
 					<td class="post">
-						<%# this.Get<YafDateTime>().FormatDateTimeTopic((DateTime)Eval("DateAwarded")) %>
+						<%# this.Get<IDateTime>().FormatDateTimeTopic((DateTime)Eval("DateAwarded")) %>
 					</td>
 					<td class="post">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'>Edit</asp:LinkButton>

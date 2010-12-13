@@ -176,11 +176,11 @@ namespace YAF.Classes.Core
     {
       CodeContracts.ArgumentNotNull(panelID, "panelID");
 
-      PanelSessionState.CollapsiblePanelState stateValue = YafContext.Current.Get<YafSession>().PanelState[panelID];
+      PanelSessionState.CollapsiblePanelState stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelID];
       if (stateValue == PanelSessionState.CollapsiblePanelState.None)
       {
         stateValue = defaultState;
-        YafContext.Current.Get<YafSession>().PanelState[panelID] = defaultState;
+        YafContext.Current.Get<IYafSession>().PanelState[panelID] = defaultState;
       }
 
       return this.GetItem(

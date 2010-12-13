@@ -33,58 +33,94 @@ namespace YAF.Classes.Core
   #endregion
 
   /// <summary>
+  /// The i favorite topic.
+  /// </summary>
+  public interface IFavoriteTopic
+  {
+    #region Public Methods
+
+    /// <summary>
+    /// The add favorite topic.
+    /// </summary>
+    /// <param name="topicId">
+    /// The topic ID.
+    /// </param>
+    /// <returns>
+    /// The add favorite topic.
+    /// </returns>
+    [AjaxMethod]
+    int AddFavoriteTopic(int topicId);
+
+    /// <summary>
+    /// The clear favorite topic cache.
+    /// </summary>
+    void ClearFavoriteTopicCache();
+
+    /// <summary>
+    /// The clear favorite topic cache.
+    /// </summary>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// The favorite topic count.
+    /// </returns>
+    int FavoriteTopicCount(int topicId);
+
+    /// <summary>
+    /// the favorite topic details.
+    /// </summary>
+    /// <param name="sinceDate">
+    /// the since date.
+    /// </param>
+    /// <returns>
+    /// a Data table containing all the current user's favorite topics in details.
+    /// </returns>
+    DataTable FavoriteTopicDetails(DateTime sinceDate);
+
+    /// <summary>
+    /// The is favorite topic.
+    /// </summary>
+    /// <param name="topicID">
+    /// The topic id.
+    /// </param>
+    /// <returns>
+    /// The is favorite topic.
+    /// </returns>
+    bool IsFavoriteTopic(int topicID);
+
+    /// <summary>
+    /// The remove favorite topic.
+    /// </summary>
+    /// <param name="topicId">
+    /// The favorite topic id.
+    /// </param>
+    /// <returns>
+    /// The remove favorite topic.
+    /// </returns>
+    [AjaxMethod]
+    int RemoveFavoriteTopic(int topicId);
+
+    #endregion
+  }
+
+  /// <summary>
   /// Favorite Topic Service for the current user.
   /// </summary>
-  public class YafFavoriteTopic
+  public class YafFavoriteTopic : IFavoriteTopic
   {
     #region Constants and Fields
 
     /// <summary>
-    /// The _favorite Topic list.
+    ///   The _favorite Topic list.
     /// </summary>
-    private List<int> _favoriteTopicList = null;
+    private List<int> _favoriteTopicList;
 
     #endregion
 
-    #region Public Methods
+    #region Implemented Interfaces
 
-    /// <summary>
-    /// Checks if this topic is watched, if not, adds it.
-    /// </summary>
-    /// <param name="userId"></param>
-    private void WatchTopic(int userId, int topicId)
-    {
-      if (!this.TopicWatchedId(userId, topicId).HasValue)
-      {
-        // subscribe to this forum
-        DB.watchtopic_add(userId, topicId);
-      }
-    }
-
-    /// <summary>
-    /// Checks if this topic is watched, if not, adds it.
-    /// </summary>
-    /// <param name="userId"></param>
-    private void UnwatchTopic(int userId, int topicId)
-    {
-      var watchedId = this.TopicWatchedId(userId, topicId);
-
-      if (watchedId.HasValue)
-      {
-        // subscribe to this forum
-        DB.watchtopic_delete(watchedId);
-      }
-    }
-
-    /// <summary>
-    /// Returns true if the topic is set to watch for userId
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <returns></returns>
-    private int? TopicWatchedId(int userId, int topicId)
-    {
-      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
-    }
+    #region IFavoriteTopic
 
     /// <summary>
     /// The add favorite topic.
@@ -113,24 +149,30 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The clear favorite topic cache.
     /// </summary>
-    public int FavoriteTopicCount(int topicId)
+    public void ClearFavoriteTopicCache()
     {
-      string key =
-        YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
-
-      return
-        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>();
+      // clear for the session
+      string key = YafCache.GetBoardCacheKey(
+        Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID));
+      YafContext.Current.Get<HttpSessionStateBase>().Remove(key);
     }
 
     /// <summary>
     /// The clear favorite topic cache.
     /// </summary>
-    public void ClearFavoriteTopicCache()
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// The favorite topic count.
+    /// </returns>
+    public int FavoriteTopicCount(int topicId)
     {
-      // clear for the session
-      string key =
-        YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID));
-      HttpContext.Current.Session.Remove(key);
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
+
+      return
+        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>
+          ();
     }
 
     /// <summary>
@@ -199,6 +241,8 @@ namespace YAF.Classes.Core
 
     #endregion
 
+    #endregion
+
     #region Methods
 
     /// <summary>
@@ -208,7 +252,58 @@ namespace YAF.Classes.Core
     {
       if (this._favoriteTopicList == null)
       {
-        this._favoriteTopicList = YafContext.Current.Get<YafDBBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
+        this._favoriteTopicList = YafContext.Current.Get<IDBBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
+      }
+    }
+
+    /// <summary>
+    /// Returns true if the topic is set to watch for userId
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    private int? TopicWatchedId(int userId, int topicId)
+    {
+      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+    }
+
+    /// <summary>
+    /// Checks if this topic is watched, if not, adds it.
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    private void UnwatchTopic(int userId, int topicId)
+    {
+      var watchedId = this.TopicWatchedId(userId, topicId);
+
+      if (watchedId.HasValue)
+      {
+        // subscribe to this forum
+        DB.watchtopic_delete(watchedId);
+      }
+    }
+
+    /// <summary>
+    /// Checks if this topic is watched, if not, adds it.
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    private void WatchTopic(int userId, int topicId)
+    {
+      if (!this.TopicWatchedId(userId, topicId).HasValue)
+      {
+        // subscribe to this forum
+        DB.watchtopic_add(userId, topicId);
       }
     }
 

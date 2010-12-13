@@ -23,10 +23,33 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
+  public interface ILocalizationHandler
+  {
+    /// <summary>
+    /// Gets or sets Localization.
+    /// </summary>
+    YafLocalization Localization { get; set; }
+
+    /// <summary>
+    /// Current TransPage for Localization
+    /// </summary>
+    string TranslationPage { get; set; }
+
+    /// <summary>
+    /// The before init.
+    /// </summary>
+    event EventHandler<EventArgs> BeforeInit;
+
+    /// <summary>
+    /// The after init.
+    /// </summary>
+    event EventHandler<EventArgs> AfterInit;
+  }
+
   /// <summary>
   /// The localization handler.
   /// </summary>
-  public class LocalizationHandler
+  public class LocalizationHandler : ILocalizationHandler
   {
     /// <summary>
     /// The _init culture.
@@ -143,7 +166,7 @@ namespace YAF.Classes.Core
         {
           string cultureCode = string.Empty;
 
-          /*string [] tmp = HttpContext.Current.Request.UserLanguages;
+          /*string [] tmp = YafContext.Current.Get<HttpRequestBase>().UserLanguages;
 					if ( tmp != null )
 					{
 						cultureCode = tmp [0];

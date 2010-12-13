@@ -36,45 +36,67 @@ namespace YAF.Classes.Core
   {
     #region Public Methods
 
+    [NotNull]
+    public static IEnumerable<Type> FindModules<T>([NotNull] this IEnumerable<Assembly> assemblies)
+    {
+      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
+
+      var moduleClassTypes = new List<Type>();
+      var implementedInterfaceType = typeof(T);
+
+      // get classes...
+      foreach (
+        var types in
+          assemblies.Select(
+            a =>
+            a.GetExportedTypes().Where(t => !t.IsAbstract).ToList()))
+      {
+        moduleClassTypes.AddRange(
+          types.Where(modClass => modClass.GetInterfaces().Any(i => i.Equals(implementedInterfaceType))));
+      }
+
+      return moduleClassTypes.Distinct();
+    }
+
     /// <summary>
     /// The find modules.
     /// </summary>
     /// <param name="assemblies">
     /// The assemblies.
     /// </param>
-    /// <param name="moduleNamespace">
+    /// <param name="namespaceName">
     /// The module namespace.
     /// </param>
-    /// <param name="moduleBaseInterface">
+    /// <param name="implementedInterfaceName">
     /// The module base interface.
     /// </param>
     /// <returns>
     /// </returns>
     [NotNull]
-    public static IList<Type> FindModules(
-      [NotNull] this IEnumerable<Assembly> assemblies, 
-      [NotNull] string moduleNamespace, 
-      [NotNull] string moduleBaseInterface)
+    public static IEnumerable<Type> FindModules(
+      [NotNull] this IEnumerable<Assembly> assemblies,
+      [NotNull] string namespaceName,
+      [NotNull] string implementedInterfaceName)
     {
       CodeContracts.ArgumentNotNull(assemblies, "assemblies");
-      CodeContracts.ArgumentNotNull(moduleNamespace, "moduleNamespace");
-      CodeContracts.ArgumentNotNull(moduleBaseInterface, "moduleBaseInterface");
+      CodeContracts.ArgumentNotNull(namespaceName, "namespaceName");
+      CodeContracts.ArgumentNotNull(implementedInterfaceName, "implementedInterfaceName");
 
       var moduleClassTypes = new List<Type>();
-      var baseInterface = Type.GetType(moduleBaseInterface);
+      var implementedInterfaceType = Type.GetType(implementedInterfaceName);
 
       // get classes...
       foreach (
         var types in
           assemblies.OfType<Assembly>().Select(
             a =>
-            a.GetExportedTypes().Where(t => t.Namespace != null && !t.IsAbstract && t.Namespace.Equals(moduleNamespace))
+            a.GetExportedTypes().Where(t => t.Namespace != null && !t.IsAbstract && t.Namespace.Equals(namespaceName))
               .ToList()))
       {
-        moduleClassTypes.AddRange(types.Where(modClass => modClass.GetInterfaces().Any(i => i.Equals(baseInterface))));
+        moduleClassTypes.AddRange(types.Where(modClass => modClass.GetInterfaces().Any(i => i.Equals(implementedInterfaceType))));
       }
 
-      return moduleClassTypes;
+      return moduleClassTypes.Distinct();
     }
 
     #endregion

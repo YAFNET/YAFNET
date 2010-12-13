@@ -101,7 +101,7 @@
                  <%
                  }%>
             <%
-                if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+                if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {%>
             <li class="menuGeneral"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")%>" href="<%=YafBuildLink.GetLink(ForumPages.search)%>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")%></a> </li>
@@ -109,7 +109,7 @@
                 }                    
             %>
             <%
-                if (this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
+                if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
                 {%>
             <li class="menuGeneral"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")%>" href="<%=YafBuildLink.GetLink(ForumPages.members)%>">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "MEMBERS")%></a> </li>
@@ -136,7 +136,7 @@
                                              : this.GetReturnUrl())
                                          : string.Empty;
 
-                    if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<YafSession>().UseMobileTheme ?? false))
+                    if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false))
                 {%>
             <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>" class="LoginLink" href="#">
                 <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>
@@ -162,7 +162,7 @@
                 }%>
         </ul>
          <%
-             if (this.PageContext.BoardSettings.ShowQuickSearch && this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.PageContext.BoardSettings.ShowQuickSearch && this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+             if (this.PageContext.BoardSettings.ShowQuickSearch && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.PageContext.BoardSettings.ShowQuickSearch && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {%>
                 
         <div id="quickSearch" class="QuickSearch" runat="server">

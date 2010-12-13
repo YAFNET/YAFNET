@@ -160,7 +160,7 @@ namespace YAF.Controls
               !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy)))
                 ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy)))
                 : this.Server.HtmlEncode(resolvedByName), 
-              this.Get<YafDateTime>().FormatDateTimeTopic(this.ResolvedDate));
+              this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
             writer.WriteLine(@"</td></tr>");
           }
 
@@ -184,7 +184,7 @@ namespace YAF.Controls
             writer.Write(@"<tr><td class=""post"">");
             writer.Write(
               @"<span class=""YafReported_DateTime"">{0}:</span>", 
-              this.Get<YafDateTime>().FormatDateTimeTopic(textString[0]));
+              this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
 
             // Apply style if a post was previously resolved
             string resStyle = "post_res";

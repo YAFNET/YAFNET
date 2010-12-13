@@ -96,9 +96,9 @@ namespace YAF.Classes.Core
     protected void LoadBoardSettingsFromDB()
     {
       // verify DB is initialized...
-      if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
+      if (!YafContext.Current.Get<StartupInitializeDb>().Initialized)
       {
-        YafContext.Current.Get<YafInitializeDb>().Run();
+        YafContext.Current.Get<StartupInitializeDb>().Run();
       }
 
       DataTable dataTable;

@@ -81,12 +81,12 @@ namespace YAF.Controls
     {
       get
       {
-        return YafContext.Current.Get<YafSession>().PanelState[PanelID];
+        return YafContext.Current.Get<IYafSession>().PanelState[PanelID];
       }
 
       set
       {
-        YafContext.Current.Get<YafSession>().PanelState[PanelID] = value;
+        YafContext.Current.Get<IYafSession>().PanelState[PanelID] = value;
       }
     }
 
@@ -148,7 +148,7 @@ namespace YAF.Controls
     protected override void OnClick(ImageClickEventArgs e)
     {
       // toggle the status...
-      YafContext.Current.Get<YafSession>().PanelState.TogglePanelState(PanelID, DefaultState);
+      YafContext.Current.Get<IYafSession>().PanelState.TogglePanelState(PanelID, DefaultState);
       UpdateAttachedVisibility();
 
       base.OnClick(e);

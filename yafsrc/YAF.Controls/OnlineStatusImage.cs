@@ -62,7 +62,7 @@ namespace YAF.Controls
       {
         string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
         DataTable activeUsers = PageContext.Cache.GetItem(
-          key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => this.Get<YafDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
+          key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
 
         if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == UserID && !x.Field<bool>("IsHidden")))
         {

@@ -22,6 +22,7 @@ namespace YAF.Controls
 {
   // YAF.Pages
   using System;
+  using System.Web;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -74,9 +75,9 @@ namespace YAF.Controls
         this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
         this.Login1.FailureText = this.PageContext.Localization.GetText("password_error");
 
-        this.Login1.DestinationPageUrl = this.Request.QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
+        this.Login1.DestinationPageUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                                              ? this.Server.UrlDecode(
-                                                 this.Request.QueryString.GetFirstOrDefault("ReturnUrl"))
+                                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"))
                                              : YafBuildLink.GetLink(ForumPages.forum);
 
         // localize controls

@@ -21,6 +21,12 @@ using YAF.Classes.Core;
 
 namespace YAF.Modules
 {
+  using System.Collections.Generic;
+  using System.Linq;
+
+  using YAF.Classes.Extensions;
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The init services module.
   /// </summary>
@@ -56,10 +62,16 @@ namespace YAF.Modules
     public void Init()
     {
       // initialize the base services before anyone notices...
-      YafContext.Current.Get<YafStopWatch>().Start();
-      YafContext.Current.Get<YafInitializeDb>().Run();
-      YafContext.Current.Get<YafCheckBannedIps>().Run();
+      YafContext.Current.Get<IStopWatch>().Start();
 
+      var startupServices = YafContext.Current.Get<IEnumerable<IStartupService>>();
+
+      // run critical first...
+      startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).ForEach(service => service.Run());
+
+      // run secondary...
+      startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).ForEach(service => service.Run());
+      
       // hook unload...
       YafContext.Current.PageUnload += Current_PageUnload;
     }
@@ -85,7 +97,7 @@ namespace YAF.Modules
     private void Current_PageUnload(object sender, EventArgs e)
     {
       // stop the stop watch in case the footer did not...
-      YafContext.Current.Get<YafStopWatch>().Stop();
+      YafContext.Current.Get<IStopWatch>().Stop();
     }
   }
 }

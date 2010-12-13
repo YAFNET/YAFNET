@@ -131,7 +131,7 @@ namespace YAF.Pages
         /// </returns>
         protected List<Moderator> GetModerators()
         {
-            var moderators = YafContext.Current.Get<YafDBBroker>().GetAllModerators().Where(mod => !mod.IsGroup);
+            var moderators = YafContext.Current.Get<IDBBroker>().GetAllModerators().Where(mod => !mod.IsGroup);
 
             var modsSorted = new List<Moderator>();
 
@@ -195,7 +195,7 @@ namespace YAF.Pages
 
             try
             {
-                avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(userID);
+                avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
             }
             finally
             {

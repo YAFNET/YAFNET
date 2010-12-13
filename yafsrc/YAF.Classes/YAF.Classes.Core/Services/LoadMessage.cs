@@ -48,13 +48,13 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (this._loadStringList == null && HttpContext.Current.Session["LoadStringList"] != null)
+        if (this._loadStringList == null && YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] != null)
         {
           // get this as the current "loadstring"
-          this._loadStringList = HttpContext.Current.Session["LoadStringList"] as List<string>;
+          this._loadStringList = YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<string>;
 
           // session load string no longer needed
-          HttpContext.Current.Session["LoadStringList"] = null;
+          YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = null;
         }
         else if (this._loadStringList == null)
         {
@@ -154,9 +154,9 @@ namespace YAF.Classes.Core
     {
       List<string> list = null;
 
-      if (HttpContext.Current.Session["LoadStringList"] != null)
+      if (YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] != null)
       {
-        list = HttpContext.Current.Session["LoadStringList"] as List<string>;
+        list = YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<string>;
       }
       else
       {

@@ -23,6 +23,8 @@ namespace YAF.Classes.Core
   using System.Web.Profile;
   using System.Web.Security;
 
+  using Autofac;
+
   using Interfaces;
 
   using YAF.Classes.Pattern;
@@ -55,6 +57,8 @@ namespace YAF.Classes.Core
     /// </summary>
     protected SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
 
+    protected ILifetimeScope _contextLifetimeContainer = null;
+
     /// <summary>
     /// The _user.
     /// </summary>
@@ -65,12 +69,14 @@ namespace YAF.Classes.Core
     /// </summary>
     protected TypeDictionary _variables = new TypeDictionary();
 
-      /// <summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="YafContext"/> class. 
     /// YafContext Constructor
     /// </summary>
     public YafContext()
     {
+      this._contextLifetimeContainer = GlobalContainer.Container.BeginLifetimeScope(YafLifetimeScope.Context);
+
       // init the respository
       this._repository = new ContextVariableRepository(this._variables);
 
@@ -129,11 +135,11 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Provides access to the YafContext Per-Instance Class Factory
     /// </summary>
-    public SingleClassInstanceFactory InstanceFactory
+    public ILifetimeScope ContextContainer
     {
       get
       {
-        return this._singleInstanceFactory;
+        return this._contextLifetimeContainer;
       }
     }
 
@@ -176,10 +182,10 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this._singleInstanceFactory.GetInstance<LocalizationHandler>().Localization;
+        return this.ContextContainer.Resolve<ILocalizationHandler>().Localization;
       }
     }
-    
+
 
     /// <summary>
     /// Current Page Theme
@@ -305,7 +311,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return (YafUserProfile) HttpContext.Current.Profile;
+        return (YafUserProfile)HttpContext.Current.Profile;
       }
     }
 
@@ -432,14 +438,14 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("g").IsNotSet())
+        if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").IsNotSet())
         {
           return ForumPages.forum;
         }
 
         try
         {
-          return HttpContext.Current.Request.QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
+          return YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
         }
         catch (Exception)
         {
@@ -462,7 +468,7 @@ namespace YAF.Classes.Core
           Application[key] = new YafLoadBoardSettings(PageBoardID);
         }
 
-        return (YafBoardSettings) Application[key];
+        return (YafBoardSettings)Application[key];
       }
 
       set
@@ -492,6 +498,8 @@ namespace YAF.Classes.Core
       {
         Unload(this, new EventArgs());
       }
+
+      this._contextLifetimeContainer.Dispose();
     }
 
     #endregion

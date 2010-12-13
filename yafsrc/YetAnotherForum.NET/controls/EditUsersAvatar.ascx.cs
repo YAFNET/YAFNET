@@ -25,6 +25,8 @@ namespace YAF.Controls
   using System.IO;
   using System.Security.Cryptography;
   using System.Text;
+  using System.Web;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
@@ -90,7 +92,7 @@ namespace YAF.Controls
         {
           // save the avatar right now...
           DB.user_saveavatar(
-            this._currentUserID, "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, this.Request.QueryString.GetFirstOrDefault("av")), null, null);
+            this._currentUserID, "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")), null, null);
 
           // clear the cache for this user...
           UserMembershipHelper.ClearCacheForUserId(this._currentUserID);

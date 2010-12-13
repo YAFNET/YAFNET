@@ -29,7 +29,7 @@
 					<%# Eval("Mask") %>
 				</td>
 				<td class="post">
-					<%# this.Get<YafDateTime>().FormatDateTime(Eval("Since")) %>
+					<%# this.Get<IDateTime>().FormatDateTime(Eval("Since")) %>
 				</td>
 				<td class="post">
 					<%# Eval("Reason") %>

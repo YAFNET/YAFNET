@@ -28,10 +28,43 @@ namespace YAF.Classes.Core
 
   #endregion
 
+  public interface IAvatars
+  {
+    /// <summary>
+    /// The get avatar url for current user.
+    /// </summary>
+    /// <returns>
+    /// The get avatar url for current user.
+    /// </returns>
+    string GetAvatarUrlForCurrentUser();
+
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The get avatar url for user.
+    /// </returns>
+    string GetAvatarUrlForUser(int userId);
+
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    /// <returns>
+    /// The get avatar url for user.
+    /// </returns>
+    string GetAvatarUrlForUser([NotNull] CombinedUserDataHelper userData);
+  }
+
   /// <summary>
   /// The yaf avatars.
   /// </summary>
-  public class YafAvatars
+  public class YafAvatars : IAvatars
   {
     #region Public Methods
 

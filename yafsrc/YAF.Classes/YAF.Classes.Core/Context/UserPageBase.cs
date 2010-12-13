@@ -752,10 +752,10 @@ namespace YAF.Classes.Core
           }
 
           // verify db is initialized...
-          if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
+          if (!YafContext.Current.Get<StartupInitializeDb>().Initialized)
           {
             // just init the DB from here...
-            YafContext.Current.Get<YafInitializeDb>().Run();
+            YafContext.Current.Get<StartupInitializeDb>().Run();
           }
 
           DataRow pageRow;
@@ -763,23 +763,23 @@ namespace YAF.Classes.Core
           // get the current user and update the user last access flag datetime.
           MembershipUser user = UserMembershipHelper.GetUser(true);
 
-          if (user != null && HttpContext.Current.Session["UserUpdated"] == null)
+          if (user != null && YafContext.Current.Get<HttpSessionStateBase>()["UserUpdated"] == null)
           {
             RoleMembershipHelper.UpdateForumUser(user, this.PageBoardID);
-            HttpContext.Current.Session["UserUpdated"] = true;
+            YafContext.Current.Get<HttpSessionStateBase>()["UserUpdated"] = true;
           }
 
-          string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
-          string platform = HttpContext.Current.Request.Browser.Platform;
+          string browser = "{0} {1}".FormatWith(YafContext.Current.Get<HttpRequestBase>().Browser.Browser, YafContext.Current.Get<HttpRequestBase>().Browser.Version);
+          string platform = YafContext.Current.Get<HttpRequestBase>().Browser.Platform;
          
           bool isSearchEngine = false;
           bool dontTrack = false;
 
-          string userAgent = HttpContext.Current.Request.UserAgent;
-          bool isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent) || HttpContext.Current.Request.Browser.IsMobileDevice;
+          string userAgent = YafContext.Current.Get<HttpRequestBase>().UserAgent;
+          bool isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent) || YafContext.Current.Get<HttpRequestBase>().Browser.IsMobileDevice;
 
           // try and get more verbose platform name by ref and other parameters             
-          UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
+          UserAgentHelper.Platform(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
           dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList && isSearchEngine;
 
           // don't track if this is a feed reader. May be to make it switchable in host settings.
@@ -789,10 +789,10 @@ namespace YAF.Classes.Core
               dontTrack = UserAgentHelper.IsFeedReader(userAgent);
           }
 
-          int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("c"));
-          int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("f"));
-          int? topicID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("t"));
-          int? messageID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("m"));
+          int? categoryID = ObjectExtensions.ValidInt(YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"));
+          int? forumID = ObjectExtensions.ValidInt(YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+          int? topicID = ObjectExtensions.ValidInt(YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"));
+          int? messageID = ObjectExtensions.ValidInt(YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
           if (YafContext.Current.Settings.CategoryID != 0)
           {
@@ -809,7 +809,7 @@ namespace YAF.Classes.Core
 
             if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
             {
-              DB.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+              DB.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Platform, YafContext.Current.Get<HttpRequestBase>().Browser.Browser, YafContext.Current.Get<HttpRequestBase>().Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
             }
           }
 
@@ -825,12 +825,12 @@ namespace YAF.Classes.Core
           do
           {
               pageRow = DB.pageload(
-              HttpContext.Current.Session.SessionID,
+              YafContext.Current.Get<HttpSessionStateBase>().SessionID,
               PageBoardID,
               userKey,
-              HttpContext.Current.Request.UserHostAddress,
-              HttpContext.Current.Request.FilePath,
-              HttpContext.Current.Request.QueryString.ToString(),
+              YafContext.Current.Get<HttpRequestBase>().UserHostAddress,
+              YafContext.Current.Get<HttpRequestBase>().FilePath,
+              YafContext.Current.Get<HttpRequestBase>().QueryString.ToString(),
               browser,
               platform,
               categoryID,
@@ -880,12 +880,12 @@ namespace YAF.Classes.Core
           do
           {
 
-            auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+            auldRow = YafContext.Current.Get<IDBBroker>().ActiveUserLazyData((int)pageRow["UserID"]);
             if (auldRow != null)
             {
               foreach (DataColumn col in auldRow.Table.Columns)
               {
-                DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+                var dc = new DataColumn(col.ColumnName, col.DataType);
                 pageRow.Table.Columns.Add(dc);
                 pageRow.Table.Rows[0][dc] = auldRow[col];
               }

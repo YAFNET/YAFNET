@@ -25,6 +25,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.IO;
+    using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
@@ -79,7 +80,7 @@ namespace YAF.Pages
         /// </param>
         protected void Back_Click(object sender, EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("ra").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ra").IsSet())
             {
                 if (Config.IsRainbow)
                 {
@@ -89,7 +90,7 @@ namespace YAF.Pages
                 // string poll = string.Empty;
                 string lnk;
                 string fullflnk = string.Empty;
-                if (this.Request.QueryString.GetFirstOrDefault("f").IsSet())
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f").IsSet())
                 {
                     lnk = Request.QueryString.GetFirstOrDefault("f");
                     fullflnk = "f={0}&".FormatWith(lnk);
@@ -103,9 +104,9 @@ namespace YAF.Pages
                 string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", lnk);
 
                 // new topic variable
-                if (this.Request.QueryString.GetFirstOrDefault("t").IsSet())
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsSet())
                 {
-                    url = this.Request.QueryString.GetFirstOrDefault("t");
+                    url = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t");
                     YafBuildLink.Redirect(ForumPages.polledit, "{0}t={1}&ra=1", fullflnk, this.Server.UrlEncode(url));
                 }
                 else
@@ -115,13 +116,13 @@ namespace YAF.Pages
             }
 
             // the post is already approved and we can view it
-            if (this.Request.QueryString.GetFirstOrDefault("t").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsSet())
             {
-                YafBuildLink.Redirect(ForumPages.polledit, "t={0}", this.Request.QueryString.GetFirstOrDefault("t"));
+                YafBuildLink.Redirect(ForumPages.polledit, "t={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"));
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));
+                YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
             }
         }
 
@@ -208,7 +209,7 @@ namespace YAF.Pages
             // Check that non-moderators only edit messages they have written
             if (!this.PageContext.ForumModeratorAccess)
             {
-                using (DataTable dt = DB.message_list(this.Request.QueryString.GetFirstOrDefault("m")))
+                using (DataTable dt = DB.message_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
                 {
                     if ((int)dt.Rows[0]["UserID"] != this.PageContext.PageUserID)
                     {
@@ -230,7 +231,7 @@ namespace YAF.Pages
                 this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             
-            if (this.Request.QueryString.GetFirstOrDefault("t").IsNotSet())
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet())
             {
                 this.Back.Text = this.GetText("BACK");
             }
@@ -291,7 +292,7 @@ namespace YAF.Pages
             {
                 if (this.CheckValidFile(this.File))
                 {
-                    this.SaveAttachment(this.Request.QueryString.GetFirstOrDefault("m"), this.File);
+                    this.SaveAttachment(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), this.File);
                 }
 
                 this.BindData();
@@ -309,7 +310,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            DataTable dt = DB.attachment_list(this.Request.QueryString.GetFirstOrDefault("m"), null, null);
+            DataTable dt = DB.attachment_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), null, null);
             this.List.DataSource = dt;
 
             this.List.Visible = (dt.Rows.Count > 0) ? true : false;
@@ -399,7 +400,7 @@ namespace YAF.Pages
                 return;
             }
 
-            string previousDirectory = this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+            string previousDirectory = this.Get<HttpRequestBase>().MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
             string filename = file.PostedFile.FileName;
 
             int pos = filename.LastIndexOfAny(new[] { '/', '\\' });

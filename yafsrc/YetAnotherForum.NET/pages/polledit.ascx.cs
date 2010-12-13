@@ -969,7 +969,7 @@ namespace YAF.Pages
         }
       }
 
-      // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));      
+      // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
       string retliterals = string.Empty;
       int? retvalue;
 

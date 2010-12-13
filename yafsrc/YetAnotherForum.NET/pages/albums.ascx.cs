@@ -23,6 +23,7 @@ namespace YAF.Pages
   #region Using
 
   using System;
+  using System.Web;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -87,14 +88,14 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (this.Request.QueryString.GetFirstOrDefault("u") == null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u") == null)
       {
         YafBuildLink.AccessDenied();
       }
 
       string displayName =
         UserMembershipHelper.GetDisplayNameFromID(
-          Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u")));
+          Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
 
       // Generate the Page Links.
       this.PageLinks.Clear();
@@ -103,12 +104,12 @@ namespace YAF.Pages
         displayName.IsSet()
           ? displayName
           : UserMembershipHelper.GetUserNameFromID(
-            Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"))),
-        YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.Request.QueryString.GetFirstOrDefault("u")));
+            Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
+        YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
       this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
       // Initialize the Album List control.
-      this.AlbumList1.UserID = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>();
+      this.AlbumList1.UserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>();
     }
 
     #endregion

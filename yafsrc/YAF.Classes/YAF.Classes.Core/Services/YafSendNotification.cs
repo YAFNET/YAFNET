@@ -34,10 +34,43 @@ namespace YAF.Classes.Core
 
   #endregion
 
+  public interface ISendNotification
+  {
+    /// <summary>
+    /// The to moderators that message needs approval.
+    /// </summary>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="newMessageId">
+    /// The new message id.
+    /// </param>
+    void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId);
+
+    /// <summary>
+    /// Sends notification about new PM in user's inbox.
+    /// </summary>
+    /// <param name="toUserId">
+    /// User supposed to receive notification about new PM.
+    /// </param>
+    /// <param name="subject">
+    /// Subject of PM user is notified about.
+    /// </param>
+    void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject);
+
+    /// <summary>
+    /// The to watching users.
+    /// </summary>
+    /// <param name="newMessageId">
+    /// The new message id.
+    /// </param>
+    void ToWatchingUsers(int newMessageId);
+  }
+
   /// <summary>
   /// The yaf send notification.
   /// </summary>
-  public class YafSendNotification
+  public class YafSendNotification : ISendNotification
   {
     #region Public Methods
 
@@ -52,7 +85,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId)
     {
-      var moderatorsFiltered = YafContext.Current.Get<YafDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
+      var moderatorsFiltered = YafContext.Current.Get<IDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
       var moderatorUserNames = new List<string>();
 
       foreach (var moderator in moderatorsFiltered)

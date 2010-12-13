@@ -24,6 +24,7 @@ namespace YAF.Pages
   using System.Collections.Generic;
   using System.Data;
   using System.Text.RegularExpressions;
+  using System.Web;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -130,7 +131,7 @@ namespace YAF.Pages
         // only administrators can send messages to all users
         this.AllUsers.Visible = YafContext.Current.IsAdmin;
 
-        if (this.Request.QueryString.GetFirstOrDefault("p").IsSet())
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet())
         {
           // PM is a reply or quoted reply (isQuoting)
           // to the given message id "p"
@@ -180,7 +181,7 @@ namespace YAF.Pages
               }
 
               // Ensure quoted replies have bad words removed from them
-              body = this.Get<YafBadWordReplace>().Replace(body);
+              body = this.Get<IBadWordReplace>().Replace(body);
 
               // Quote the original message
               body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName,body);
@@ -190,7 +191,7 @@ namespace YAF.Pages
             }
           }
         }
-        else if (this.Request.QueryString.GetFirstOrDefault("u").IsSet() && this.Request.QueryString.GetFirstOrDefault("r").IsSet())
+        else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet() && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r").IsSet())
         {
           // We check here if the user have access to the option
           if (PageContext.IsModerator || PageContext.IsForumModerator)
@@ -199,14 +200,14 @@ namespace YAF.Pages
             int toUser;
             int reportMessage;
 
-            if (Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUser) &&
-                Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("r"), out reportMessage))
+            if (Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser) &&
+                Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
             {
               // get quoted message
               DataRow messagesRow =
                 DB.message_listreporters(
-                  Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("r")).ToType<int>(),
-                  Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u")).ToType<int>()).GetFirstRow();
+                  Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
+                  Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>()).GetFirstRow();
 
               // there is such a message
               // message info should be always returned as 1 row 
@@ -242,7 +243,7 @@ namespace YAF.Pages
             }
           }
         }
-        else if (this.Request.QueryString.GetFirstOrDefault("u").IsSet())
+        else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet())
         {
           // PM is being send as a reply to a reported post
 
@@ -429,7 +430,7 @@ namespace YAF.Pages
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {
-            this.Get<YafSendNotification>().ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
+            this.Get<ISendNotification>().ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
           }
         }
 

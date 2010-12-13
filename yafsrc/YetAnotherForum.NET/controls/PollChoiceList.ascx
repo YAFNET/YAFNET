@@ -8,8 +8,8 @@
                     <tr id="VoteTr" runat="server">
                         <td class="post" align="center" width="1">
                             <div class="attachedimg ceebox" style="display: inline; height: 50px">
-                                <a id="ChoiceAnchor" runat="server" title='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>'>
-                                    <img id="ChoiceImage" src="" alt='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' runat="server" />
+                                <a id="ChoiceAnchor" runat="server" title='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>'>
+                                    <img id="ChoiceImage" src="" alt='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' runat="server" />
                                 </a>
                             </div>
                         </td>
@@ -18,7 +18,7 @@
                                    title='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
                                    width="16" height="16" src='<%# GetThemeContents("VOTE","POLL_VOTED") %>' />&nbsp; 
                           <YAF:MyLinkButton ID="MyLinkButton1"   CssClass="pollvote a" Enabled="false" runat="server" CommandName="vote"
-                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
+                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
                                 
                         </td>
                         <td class="post" align="center">

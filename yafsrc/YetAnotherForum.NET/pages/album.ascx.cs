@@ -23,6 +23,7 @@ namespace YAF.Pages
   #region Using
 
   using System;
+  using System.Web;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -91,13 +92,13 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (this.Request.QueryString.GetFirstOrDefault("u") == null || this.Request.QueryString.GetFirstOrDefault("a") == null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u") == null || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == null)
       {
         YafBuildLink.AccessDenied();
       }
 
-      var userId = Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-      var albumId = Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("a"));
+      var userId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+      var albumId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
       string displayName = this.PageContext.UserDisplayName.GetName((int)userId);
 

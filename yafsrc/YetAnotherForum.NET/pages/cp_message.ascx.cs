@@ -25,6 +25,7 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
+  using System.Web;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
@@ -159,7 +160,7 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        if (this.Request.QueryString.GetFirstOrDefault("pm").IsNotSet())
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").IsNotSet())
         {
           YafBuildLink.AccessDenied();
         }
@@ -194,7 +195,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      using (DataTable dt = DB.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("pm"))))
+      using (DataTable dt = DB.pmessage_list(Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
       {
         if (dt.Rows.Count > 0)
         {
@@ -241,7 +242,7 @@ namespace YAF.Pages
 
       if (!this.IsOutbox)
       {
-        DB.pmessage_markread(this.Request.QueryString.GetFirstOrDefault("pm"));
+        DB.pmessage_markread(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
 
         // Clearing cache with old permissions data...
         this.PageContext.Cache.Remove(
@@ -276,8 +277,8 @@ namespace YAF.Pages
       if (isCurrentUserFrom && isCurrentUserTo)
       {
         // it is... handle the view based on the query string passed
-        this.IsOutbox = this.Request.QueryString.GetFirstOrDefault("v") == "out";
-        this.IsArchived = this.Request.QueryString.GetFirstOrDefault("v") == "arch";
+        this.IsOutbox = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "out";
+        this.IsArchived = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "arch";
 
         // see if the message got deleted, if so, redirect to their outbox/archive
         if (this.IsOutbox && !messageIsInOutbox)

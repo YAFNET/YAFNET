@@ -5,6 +5,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Web;
   using System.Web.UI;
 
   using YAF.Classes;
@@ -192,15 +193,15 @@
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.Get<YafInitializeDb>().Run();
+      this.Get<StartupInitializeDb>().Run();
 
-      var token = this.Request.QueryString.GetFirstOrDefault("token");
+      var token = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("token");
 
       bool showErrors = false;
 
-      if (this.Request.QueryString.GetFirstOrDefault("showerror").IsSet())
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").IsSet())
       {
-        showErrors = this.Request.QueryString.GetFirstOrDefault("showerror").ToType<bool>();
+        showErrors = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").ToType<bool>();
       }
 
       if (token.IsNotSet() || !token.Equals(YafContext.Current.BoardSettings.WebServiceToken))
@@ -230,15 +231,15 @@
 
       if (this.CurrentUserID == 0)
       {
-        this.CurrentUserID = this.Request.QueryString.GetFirstOrDefault("UserID").ToType<int>();
+        this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("UserID").ToType<int>();
       }
 
       if (this.BoardID == 0)
       {
-        this.BoardID = this.Request.QueryString.GetFirstOrDefault("BoardID").ToType<int>();
+        this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("BoardID").ToType<int>();
       }
 
-      this._forumData = this.Get<YafDBBroker>().GetSimpleForumTopic(
+      this._forumData = this.Get<IDBBroker>().GetSimpleForumTopic(
         this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
 
       if (!this.NewTopics.Any() && !this.ActiveTopics.Any())

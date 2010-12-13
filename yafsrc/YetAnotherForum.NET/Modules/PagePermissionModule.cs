@@ -63,19 +63,19 @@ namespace YAF.Modules
       switch (this.ForumPageType)
       {
         case ForumPages.activeusers:
-          PageContext.Get<YafPermissions>().HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+          PageContext.Get<IPermissions>().HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
           break;
         case ForumPages.members:
-          PageContext.Get<YafPermissions>().HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+          PageContext.Get<IPermissions>().HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
         case ForumPages.profile:
         case ForumPages.albums:
         case ForumPages.album:
-          PageContext.Get<YafPermissions>().HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+          PageContext.Get<IPermissions>().HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
           break;
         case ForumPages.search:
-          PageContext.Get<YafPermissions>().HandleRequest(
-            PageContext.Get<YafPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions)
+          PageContext.Get<IPermissions>().HandleRequest(
+            PageContext.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions)
               ? this.PageContext.BoardSettings.SearchPermissions
               : this.PageContext.BoardSettings.ExternalSearchPermissions);
           break;

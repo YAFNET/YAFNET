@@ -678,7 +678,7 @@ namespace YAF
       UserAgentHelper.Platform(
         userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
 
-      YafContext.Current.Get<YafInitializeDb>().Run();
+      YafContext.Current.Get<StartupInitializeDb>().Run();
 
       // vzrus: to log unhandled UserAgent strings
       if (YafContext.Current.BoardSettings.UserAgentBadLog)
@@ -737,7 +737,7 @@ namespace YAF
         // We should be sure that all columns are added
         do
         {
-          auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+          auldRow = YafContext.Current.Get<IDBBroker>().ActiveUserLazyData((int)pageRow["UserID"]);
 
           foreach (DataColumn col in auldRow.Table.Columns)
           {
@@ -1111,8 +1111,10 @@ namespace YAF
       try
       {
 #endif
+      
+
         var captchaImage = new CaptchaImage(
-          CaptchaHelper.GetCaptchaText(context.Session, context.Cache, true), 250, 50, "Century Schoolbook");
+          CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), context.Cache, true), 250, 50, "Century Schoolbook");
         context.Response.Clear();
         context.Response.ContentType = "image/jpeg";
         captchaImage.Image.Save(context.Response.OutputStream, ImageFormat.Jpeg);

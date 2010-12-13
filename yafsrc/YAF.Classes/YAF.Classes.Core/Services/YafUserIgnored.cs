@@ -24,10 +24,45 @@ namespace YAF.Classes.Core
 
   using YAF.Classes.Utils;
 
+  public interface IUserIgnored
+  {
+    /// <summary>
+    /// The is ignored.
+    /// </summary>
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    /// <returns>
+    /// The is ignored.
+    /// </returns>
+    bool IsIgnored(int ignoredUserId);
+
+    /// <summary>
+    /// The clear ignore cache.
+    /// </summary>
+    void ClearIgnoreCache();
+
+    /// <summary>
+    /// The add ignored.
+    /// </summary>
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    void AddIgnored(int ignoredUserId);
+
+    /// <summary>
+    /// The remove ignored.
+    /// </summary>
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    void RemoveIgnored(int ignoredUserId);
+  }
+
   /// <summary>
   /// User Ignored Service for the current user.
   /// </summary>
-  public class YafUserIgnored
+  public class YafUserIgnored : IUserIgnored
   {
     /// <summary>
     /// The _user ignore list.
@@ -47,7 +82,7 @@ namespace YAF.Classes.Core
     {
       if (this._userIgnoreList == null)
       {
-        this._userIgnoreList = YafContext.Current.Get<YafDBBroker>().UserIgnoredList(YafContext.Current.PageUserID);
+        this._userIgnoreList = YafContext.Current.Get<IDBBroker>().UserIgnoredList(YafContext.Current.PageUserID);
       }
 
       if (this._userIgnoreList.Count > 0)
@@ -65,7 +100,7 @@ namespace YAF.Classes.Core
     {
       // clear for the session
       string key = YafCache.GetBoardCacheKey(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID));
-      HttpContext.Current.Session.Remove(key);
+      YafContext.Current.Get<HttpSessionStateBase>().Remove(key);
     }
 
     /// <summary>

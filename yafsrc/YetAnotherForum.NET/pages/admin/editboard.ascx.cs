@@ -23,6 +23,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Web;
   using System.Web.Security;
   using System.Web.UI.WebControls;
   using YAF.Classes;
@@ -42,7 +43,7 @@ namespace YAF.Pages.Admin
     {
       get
       {
-        if (this.Request.QueryString.GetFirstOrDefault("b").IsSet())
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b").IsSet())
         {
           int boardId;
           if (int.TryParse(Request.QueryString.GetFirstOrDefault("b"), out boardId))

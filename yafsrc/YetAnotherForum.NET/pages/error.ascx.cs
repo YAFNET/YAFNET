@@ -17,44 +17,77 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Utils;
-
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for error.
-	/// </summary>
-	public partial class error : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  #region Using
 
-		public error() : base("ERROR") {
-			NoDataBase = true;
-		}
+  using System;
+  using System.Web;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			errormsg.InnerText = "An error has occured in '{0}'.".FormatWith(this.Request.QueryString.GetFirstOrDefault("aspxerrorpath"));
-		}
+  using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
-	}
+  #endregion
+
+  /// <summary>
+  /// Summary description for error.
+  /// </summary>
+  public partial class error : ForumPage
+  {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="error"/> class.
+    /// </summary>
+    public error()
+      : base("ERROR")
+    {
+      this.NoDataBase = true;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.errormsg.InnerText =
+        "An error has occured in '{0}'.".FormatWith(
+          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("aspxerrorpath"));
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

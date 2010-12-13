@@ -83,14 +83,19 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\Dependancies\AjaxPro.2.dll</HintPath>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\AjaxPro.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
-      <HintPath>..\Dependancies\CookComputing.XmlRpcV2.dll</HintPath>
+      <HintPath>..\Dependencies\CookComputing.XmlRpcV2.dll</HintPath>
+      <Private>True</Private>
+      <Aliases>global</Aliases>
     </Reference>
     <Reference Include="nStuff.UpdateControls">
-      <HintPath>..\Dependancies\nStuff.UpdateControls.dll</HintPath>
+      <HintPath>..\Dependencies\nStuff.UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -111,6 +116,7 @@
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services">
       <Name>System.Web.Services</Name>
@@ -264,6 +270,7 @@
     <Compile Include="Modules\SimpleBaseModule.cs" />
     <Compile Include="Modules\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\SuspendCheckModule.cs" />
+    <Compile Include="Modules\YafMainModule.cs" />
     <Compile Include="pages\activeusers.ascx.designer.cs">
       <DependentUpon>activeusers.ascx</DependentUpon>
     </Compile>

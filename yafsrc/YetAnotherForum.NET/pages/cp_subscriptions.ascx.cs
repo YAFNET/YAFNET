@@ -100,7 +100,7 @@ namespace YAF.Pages
           "<a href=\"{0}\">{1}</a>".FormatWith(
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), row["LastUserName"]);
         string by = this.GetTextFormatted(
-          "lastpostlink", this.Get<YafDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
+          "lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
         string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
           by,

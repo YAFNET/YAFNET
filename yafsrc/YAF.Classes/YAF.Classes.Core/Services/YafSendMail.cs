@@ -31,10 +31,32 @@ namespace YAF.Classes.Core
 
   #endregion
 
+  public interface ISendMail
+  {
+    /// <summary>
+    /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+    /// </summary>
+    /// <param name="messages">
+    /// The messages.
+    /// </param>
+    void SendAll([NotNull] IEnumerable<MailMessage> messages);
+
+    /// <summary>
+    /// The send all isolated.
+    /// </summary>
+    /// <param name="messages">
+    /// The messages.
+    /// </param>
+    /// <param name="handleExceptionAction">
+    /// The handle exception action.
+    /// </param>
+    void SendAllIsolated([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction);
+  }
+
   /// <summary>
   /// Functions to send email via SMTP
   /// </summary>
-  public class YafSendMail
+  public class YafSendMail : ISendMail
   {
     #region Public Methods
 

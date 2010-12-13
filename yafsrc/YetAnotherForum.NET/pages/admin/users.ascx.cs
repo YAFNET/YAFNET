@@ -197,7 +197,7 @@ namespace YAF.Pages.Admin
             this.Since.Items.Add(
               new ListItem(
                 "Last visit at {0}".FormatWith(
-                  this.Get<YafDateTime>().FormatDateTime(YafContext.Current.Get<YafSession>().LastVisit)),
+                  this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit)),
                 "0"));
 
             // negative values for hours backward
@@ -407,7 +407,7 @@ namespace YAF.Pages.Admin
             // we want to filter topics since last visit
             if (sinceValue == 0)
             {
-                sinceDate = YafContext.Current.Get<YafSession>().LastVisit;
+                sinceDate = YafContext.Current.Get<IYafSession>().LastVisit;
             }
 
             // we are going to page results

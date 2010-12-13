@@ -190,9 +190,9 @@ namespace YAF.Pages.Admin
     {
       this.sLangPath = HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot));
 
-      if (this.Request.QueryString.GetFirstOrDefault("x") != null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x") != null)
       {
-          this.sXmlFile = this.Request.QueryString.GetFirstOrDefault("x");
+          this.sXmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
 
           this.dDLPages.Items.Clear();
 

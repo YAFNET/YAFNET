@@ -73,7 +73,7 @@ namespace YAF.Controls
       // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
       this.AccountEmail.Text = this.PageContext.CurrentUserData.Membership.Email;
       this.Name.Text = this.HtmlEncode(this.PageContext.CurrentUserData.Membership.UserName);
-      this.Joined.Text = this.Get<YafDateTime>().FormatDateTime(this.PageContext.CurrentUserData.Joined);
+      this.Joined.Text = this.Get<IDateTime>().FormatDateTime(this.PageContext.CurrentUserData.Joined);
       this.NumPosts.Text = "{0:N0}".FormatWith(this.PageContext.CurrentUserData.NumPosts);
 
       this.DisplayNameHolder.Visible = PageContext.BoardSettings.EnableDisplayName;
@@ -83,7 +83,7 @@ namespace YAF.Controls
         this.DisplayName.Text = this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PageContext.PageUserID));
       }
 
-      string avatarImg = this.Get<YafAvatars>().GetAvatarUrlForCurrentUser();
+      string avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
 
       if (avatarImg.IsSet())
       {

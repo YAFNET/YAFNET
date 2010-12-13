@@ -304,7 +304,7 @@ namespace YAF.Controls
             {
                 if (this._sig.Text.Length <= this._allowedNumberOfCharacters)
                 {
-                    DB.user_savesignature(this.CurrentUserID, this.Get<YafBadWordReplace>().Replace(body));
+                    DB.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
                 }
                 else
                 {

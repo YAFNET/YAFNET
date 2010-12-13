@@ -785,7 +785,7 @@ namespace YAF.Install
         {
             try
             {
-                YafContext.Current.Get<YafSendMail>().Send(
+                YafContext.Current.Get<ISendMail>().Send(
                     this.txtTestFromEmail.Text.Trim(),
                     this.txtTestToEmail.Text.Trim(),
                     "Test Email From Yet Another Forum.NET",

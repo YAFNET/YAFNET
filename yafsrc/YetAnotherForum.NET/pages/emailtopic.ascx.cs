@@ -25,6 +25,7 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
+  using System.Web;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -63,7 +64,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (this.Request.QueryString["t"] == null || !this.PageContext.ForumReadAccess ||
+      if (this.Get<HttpRequestBase>().QueryString["t"] == null || !this.PageContext.ForumReadAccess ||
           !this.PageContext.BoardSettings.AllowEmailTopic)
       {
         YafBuildLink.AccessDenied();
@@ -124,7 +125,7 @@ namespace YAF.Pages
         }
 
         // send the email...
-        this.Get<YafSendMail>().Send(
+        this.Get<ISendMail>().Send(
           senderEmail, this.EmailAddress.Text.Trim(), this.Subject.Text.Trim(), this.Message.Text.Trim());
 
         YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);

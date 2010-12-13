@@ -330,7 +330,7 @@ function toggleMessage(divId)
       public static string addFavoriteTopicJs(string UntagButtonHTML)
     {
         return
-          ("function addFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
+          ("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
            "function addFavoriteTopicSuccess(res){{" +
            "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
            "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}").FormatWith(UntagButtonHTML);
@@ -348,7 +348,7 @@ function toggleMessage(divId)
     public static string removeFavoriteTopicJs(string TagButtonHTML)
     {
         return
-          ("function removeFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
+          ("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
            "function removeFavoriteTopicSuccess(res){{" +
            "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
            "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}").FormatWith(TagButtonHTML);

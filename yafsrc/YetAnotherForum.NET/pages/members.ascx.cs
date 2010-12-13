@@ -230,7 +230,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetAvatarUrlFromID(int userID)
     {
-        string avatarUrl = this.Get<YafAvatars>().GetAvatarUrlForUser(userID);
+        string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
 
         if (avatarUrl.IsNotSet())
         {

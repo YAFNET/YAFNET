@@ -48,14 +48,14 @@ namespace YAF.Modules
     /// </param>
     private void PageContext_PagePreLoad(object sender, EventArgs e)
     {
-      if (!PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !PageContext.Get<YafSession>().HasLastVisit)
+      if (!PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !PageContext.Get<IYafSession>().HasLastVisit)
       {
-        YafContext.Current.Get<YafSession>().LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
-        YafContext.Current.Get<YafSession>().HasLastVisit = true;
+        YafContext.Current.Get<IYafSession>().LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
+        YafContext.Current.Get<IYafSession>().HasLastVisit = true;
       }
-      else if (YafContext.Current.Get<YafSession>().LastVisit == DateTime.MinValue)
+      else if (YafContext.Current.Get<IYafSession>().LastVisit == DateTime.MinValue)
       {
-        YafContext.Current.Get<YafSession>().LastVisit = DateTime.UtcNow;
+        YafContext.Current.Get<IYafSession>().LastVisit = DateTime.UtcNow;
       }
     }
   }

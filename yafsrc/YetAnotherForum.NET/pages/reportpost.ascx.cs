@@ -23,6 +23,7 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
+  using System.Web;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -145,15 +146,15 @@ namespace YAF.Pages
       this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
-      if (this.Request.QueryString.GetFirstOrDefault("m").IsSet())
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
       {
         // We check here if the user have access to the option
-        if (!this.Get<YafPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
+        if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
         {
           YafBuildLink.Redirect(ForumPages.info, "i=1");
         }
 
-        if (!Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("m"), out this.messageID))
+        if (!Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
         {
           YafBuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
         }

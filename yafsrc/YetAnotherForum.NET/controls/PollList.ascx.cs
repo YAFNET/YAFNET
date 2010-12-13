@@ -388,7 +388,7 @@ namespace YAF.Controls
         foreach (DataRow dr in
             this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
         {
-            return this.HtmlEncode(this.Get<YafBadWordReplace>().Replace(dr["Question"].ToString()));
+            return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(dr["Question"].ToString()));
         }
 
         return string.Empty;

@@ -263,9 +263,9 @@ namespace YAF.Classes.Core
     #region IHttpModule
 
     /// <summary>
-    /// The i http module. dispose.
+    /// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule"/>.
     /// </summary>
-    void IHttpModule.Dispose()
+    public void Dispose()
     {
     }
 
@@ -275,7 +275,7 @@ namespace YAF.Classes.Core
     /// <param name="httpApplication">
     /// The http application.
     /// </param>
-    void IHttpModule.Init([NotNull] HttpApplication httpApplication)
+    public void Init([NotNull] HttpApplication httpApplication)
     {
       if (!_moduleInitialized)
       {

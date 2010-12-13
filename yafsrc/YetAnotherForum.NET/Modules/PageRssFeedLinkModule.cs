@@ -18,13 +18,17 @@
  */
 namespace YAF.Modules
 {
+  #region Using
+
   using System;
-  using System.Text;
   using System.Web.UI.HtmlControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
-  using YAF.Controls;
+
+  #endregion
 
   /// <summary>
   /// Summary description for PageRssFeedLinkModule
@@ -32,24 +36,23 @@ namespace YAF.Modules
   [YafModule("Page Rss Feed Link Module", "Tiny Gecko", 1)]
   public class PageRssFeedLinkModule : SimpleBaseModule
   {
-    /// <summary>
-    /// The _forum page title.
-    /// </summary>
-    protected string _forumPageTitle = null;
+    #region Constants and Fields
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageRssFeedLinkModule"/> class.
+    ///   The _forum page title.
     /// </summary>
-    public PageRssFeedLinkModule()
-    {
-    }
+    protected string _forumPageTitle;
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The init after page.
     /// </summary>
     public override void InitAfterPage()
     {
-      CurrentForumPage.PreRender += new EventHandler(ForumPage_PreRender);
+      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
     }
 
     /// <summary>
@@ -58,6 +61,10 @@ namespace YAF.Modules
     public override void InitBeforePage()
     {
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The forum page_ pre render.
@@ -68,48 +75,63 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_PreRender(object sender, EventArgs e)
+    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      HtmlHead head = ForumControl.Page.Header ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+      HtmlHead head = this.ForumControl.Page.Header ??
+                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
       if (head != null)
       {
-          bool groupAccess = new YafPermissions().Check(PageContext.BoardSettings.PostLatestFeedAccess);
-          if (PageContext.BoardSettings.ShowRSSLink && groupAccess)
-          {
-              // setup the rss link...
-              HtmlLink rssLink = new HtmlLink();
+        bool groupAccess =
+          YafContext.Current.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+        if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
+        {
+          // setup the rss link...
+          var rssLink = new HtmlLink();
 
-              // defaults to the "Active" rss.
-              rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, true, "pg={0}&ft={1}",
-                                                  YafRssFeeds.LatestPosts.ToInt(), YafSyndicationFormats.Rss.ToInt());
+          // defaults to the "Active" rss.
+          rssLink.Href = YafBuildLink.GetLink(
+            ForumPages.rsstopic, 
+            true, 
+            "pg={0}&ft={1}", 
+            YafRssFeeds.LatestPosts.ToInt(), 
+            YafSyndicationFormats.Rss.ToInt());
 
-              rssLink.Attributes.Add("rel", "alternate");
-              rssLink.Attributes.Add("type", "application/rss+xml");
-              rssLink.Attributes.Add("title",
-                                     "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("RSSFEED"),
-                                                            YafContext.Current.BoardSettings.Name));
+          rssLink.Attributes.Add("rel", "alternate");
+          rssLink.Attributes.Add("type", "application/rss+xml");
+          rssLink.Attributes.Add(
+            "title", 
+            "{0} - {1}".FormatWith(
+              this.PageContext.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
 
-              head.Controls.Add(rssLink);
-          }
-          if (PageContext.BoardSettings.ShowAtomLink && groupAccess)
-          {
-              // setup the rss link...
-              HtmlLink atomLink = new HtmlLink();
+          head.Controls.Add(rssLink);
+        }
 
-              // defaults to the "Active" rss.
-              atomLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic,true, "pg={0}&ft={1}",
-                                                  YafRssFeeds.LatestPosts.ToInt(), YafSyndicationFormats.Atom.ToInt());
+        if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
+        {
+          // setup the rss link...
+          var atomLink = new HtmlLink();
 
-              atomLink.Attributes.Add("rel", "alternate");
-              atomLink.Attributes.Add("type", "application/atom+xml");
-              atomLink.Attributes.Add("title",
-                                     "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("ATOMFEED"),
-                                                            YafContext.Current.BoardSettings.Name));
+          // defaults to the "Active" rss.
+          atomLink.Href = YafBuildLink.GetLink(
+            ForumPages.rsstopic, 
+            true, 
+            "pg={0}&ft={1}", 
+            YafRssFeeds.LatestPosts.ToInt(), 
+            YafSyndicationFormats.Atom.ToInt());
 
-              head.Controls.Add(atomLink);
-          }
+          atomLink.Attributes.Add("rel", "alternate");
+          atomLink.Attributes.Add("type", "application/atom+xml");
+          atomLink.Attributes.Add(
+            "title", 
+            "{0} - {1}".FormatWith(
+              this.PageContext.Localization.GetText("ATOMFEED"), YafContext.Current.BoardSettings.Name));
+
+          head.Controls.Add(atomLink);
+        }
       }
     }
+
+    #endregion
   }
 }

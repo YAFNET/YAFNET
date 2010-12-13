@@ -95,7 +95,7 @@ namespace YAF.Classes.Core
       //  }
 
       //  msg.Append("<tr><th colspan=2>QueryString</th></tr>");
-      //  foreach (string key in HttpContext.Current.Request.QueryString.AllKeys)
+      //  foreach (string key in YafContext.Current.Get<HttpRequestBase>().QueryString.AllKeys)
       //  {
       //    msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.QueryString[key]);
       //  }
@@ -113,9 +113,9 @@ namespace YAF.Classes.Core
       //  }
 
       //  msg.Append("<tr><th colspan=2>Session</th></tr>");
-      //  foreach (string key in HttpContext.Current.Session)
+      //  foreach (string key in YafContext.Current.Get<HttpSessionStateBase>())
       //  {
-      //    msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Session[key]);
+      //    msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, YafContext.Current.Get<HttpSessionStateBase>()[key]);
       //  }
 
       //  msg.Append("<tr><th colspan=2>Application</th></tr>");

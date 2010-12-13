@@ -81,7 +81,7 @@ namespace YAF.Classes.Core
     {
       CodeContracts.ArgumentNotNull(rules, "rules");
 
-      var smiles = YafContext.Current.Get<YafDBBroker>().GetSmilies();
+      var smiles = YafContext.Current.Get<IDBBroker>().GetSmilies();
       int codeOffset = 0;
 
       foreach (var smile in smiles)
@@ -402,7 +402,7 @@ namespace YAF.Classes.Core
       // process...
       ruleEngine.Process(ref message);
 
-      message = YafContext.Current.Get<YafBadWordReplace>().Replace(message);
+      message = YafContext.Current.Get<IBadWordReplace>().Replace(message);
 
       return message;
     }

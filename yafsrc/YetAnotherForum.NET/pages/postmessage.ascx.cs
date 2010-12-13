@@ -24,12 +24,14 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
+  using System.Web;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Editors;
   using YAF.Utilities;
@@ -44,36 +46,36 @@ namespace YAF.Pages
     #region Constants and Fields
 
     /// <summary>
-    /// The _forum editor.
+    ///   The _forum editor.
     /// </summary>
-    protected BaseForumEditor _forumEditor;    
+    protected BaseForumEditor _forumEditor;
 
     /// <summary>
-    /// The _owner user id.
-    /// </summary>
-    protected int _ownerUserId;
-
-    /// <summary>
-    /// The _ux no edit subject.
-    /// </summary>
-    protected Label _uxNoEditSubject;
-
-    /// <summary>
-    /// The original message.
+    ///   The original message.
     /// </summary>
     protected string _originalMessage;
 
     /// <summary>
-    /// Table with choices
+    ///   The _owner user id.
     /// </summary>
-     protected DataTable choices;
+    protected int _ownerUserId;
+
+    /// <summary>
+    ///   The _ux no edit subject.
+    /// </summary>
+    protected Label _uxNoEditSubject;
+
+    /// <summary>
+    ///   Table with choices
+    /// </summary>
+    protected DataTable choices;
 
     #endregion
 
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="postmessage"/> class.
+    ///   Initializes a new instance of the <see cref = "postmessage" /> class.
     /// </summary>
     public postmessage()
       : base("POSTMESSAGE")
@@ -85,7 +87,7 @@ namespace YAF.Pages
     #region Properties
 
     /// <summary>
-    /// Gets EditMessageID.
+    ///   Gets EditMessageID.
     /// </summary>
     protected long? EditMessageID
     {
@@ -96,16 +98,28 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// Gets PollGroupId if the topic has a poll attached 
+    ///   Gets or sets OriginalMessage.
     /// </summary>
-    protected int? PollGroupId
+    protected string OriginalMessage
     {
-      get; set;
+      get
+      {
+        return this._originalMessage;
+      }
+
+      set
+      {
+        this._originalMessage = value;
+      }
     }
 
-      
     /// <summary>
-    /// Gets QuotedMessageID.
+    ///   Gets PollGroupId if the topic has a poll attached
+    /// </summary>
+    protected int? PollGroupId { get; set; }
+
+    /// <summary>
+    ///   Gets QuotedMessageID.
     /// </summary>
     protected long? QuotedMessageID
     {
@@ -116,7 +130,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// Gets TopicID.
+    ///   Gets TopicID.
     /// </summary>
     protected long? TopicID
     {
@@ -124,22 +138,6 @@ namespace YAF.Pages
       {
         return this.PageContext.QueryIDs["t"];
       }
-    }
-
-    /// <summary>
-    /// Gets or sets OriginalMessage.
-    /// </summary>
-    protected string OriginalMessage
-    {
-        get
-        {
-            return _originalMessage;
-        }
-
-        set
-        {
-            _originalMessage = value;
-        }
     }
 
     #endregion
@@ -155,9 +153,9 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.TopicID != null || this.EditMessageID != null)
+      if (this.TopicID != null || this.EditMessageID != null)
       {
         // reply to existing topic or editing of existing topic
         YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
@@ -169,7 +167,15 @@ namespace YAF.Pages
       }
     }
 
-    
+    /// <summary>
+    /// The get poll group id.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    protected int? GetPollGroupID()
+    {
+      return this.PollGroupId;
+    }
 
     /// <summary>
     /// The handle post to blog.
@@ -183,7 +189,7 @@ namespace YAF.Pages
     /// <returns>
     /// The handle post to blog.
     /// </returns>
-    protected string HandlePostToBlog(string message, string subject)
+    protected string HandlePostToBlog([NotNull] string message, [NotNull] string subject)
     {
       string blogPostID = string.Empty;
 
@@ -223,13 +229,14 @@ namespace YAF.Pages
           this.PageContext.BoardSettings.PostFloodDelay > 0)
       {
         // see if they've past that delay point
-        if (YafContext.Current.Get<YafSession>().LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) &&
-            this.EditMessageID == null)
+        if (YafContext.Current.Get<IYafSession>().LastPost >
+            DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) && this.EditMessageID == null)
         {
           this.PageContext.AddLoadMessage(
             this.GetTextFormatted(
               "wait", 
-              (YafContext.Current.Get<YafSession>().LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
+              (YafContext.Current.Get<IYafSession>().LastPost -
+               DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
           return true;
         }
       }
@@ -267,14 +274,16 @@ namespace YAF.Pages
         return false;
       }
 
-      if (DB.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null && this.EditMessageID == null)
+      if (DB.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
+          this.EditMessageID == null)
       {
-          this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));
-          return false;
+        this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));
+        return false;
       }
 
       if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
-           (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
+           (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) &&
+          !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
         return false;
@@ -284,12 +293,23 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// The new topic.
+    /// </summary>
+    /// <returns>
+    /// The new topic.
+    /// </returns>
+    protected bool NewTopic()
+    {
+      return !(this.PollGroupId > 0);
+    }
+
+    /// <summary>
     /// The on init.
     /// </summary>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
       // get the forum editor based on the settings
       this._forumEditor =
@@ -308,7 +328,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
 
@@ -317,10 +337,9 @@ namespace YAF.Pages
       // we reply to a post with a quote
       if (this.QuotedMessageID != null)
       {
-        currentRow = DBHelper.GetFirstRowOrInvalid(DB.message_list(this.QuotedMessageID));
+        currentRow = DB.message_list(this.QuotedMessageID).GetFirstRowOrInvalid();
         this.OriginalMessage = currentRow["Message"].ToString();
 
-        
         if (Convert.ToInt32(currentRow["TopicID"]) != this.PageContext.PageTopicID)
         {
           YafBuildLink.AccessDenied();
@@ -331,35 +350,41 @@ namespace YAF.Pages
           YafBuildLink.AccessDenied();
         }
 
-        this.PollGroupId = (currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]));
-        
+        this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]);
+
         // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
-        this.PollList.TopicId = (int)TopicID;
+        this.PollList.TopicId = (int)this.TopicID;
 
         if (this.TopicID == null)
         {
-            this.PollList.TopicId = (currentRow["TopicID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["TopicID"]));
-      }
+          this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
+                                     ? 0
+                                     : Convert.ToInt32(currentRow["TopicID"]);
+        }
       }
       else if (this.EditMessageID != null)
       {
-        currentRow = DBHelper.GetFirstRowOrInvalid(DB.message_list(this.EditMessageID));
+        currentRow = DB.message_list(this.EditMessageID).GetFirstRowOrInvalid();
         this.OriginalMessage = currentRow["Message"].ToString();
-       
+
         this._ownerUserId = Convert.ToInt32(currentRow["UserId"]);
 
         if (!this.CanEditPostCheck(currentRow))
         {
           YafBuildLink.AccessDenied();
         }
-        this.PollGroupId = (currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]));
+
+        this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]);
+
         // we edit message and should transfer both the message ID and TopicID for PageLinks. 
-        this.PollList.EditMessageId = (int)EditMessageID;
+        this.PollList.EditMessageId = (int)this.EditMessageID;
 
         if (this.TopicID == null)
         {
-            this.PollList.TopicId = (currentRow["TopicID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["TopicID"]));
-      }
+          this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
+                                     ? 0
+                                     : Convert.ToInt32(currentRow["TopicID"]);
+        }
       }
 
       if (this.PageContext.PageForumID == 0)
@@ -367,12 +392,13 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (this.Request["t"] == null && this.Request["m"] == null && !this.PageContext.ForumPostAccess)
+      if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null &&
+          !this.PageContext.ForumPostAccess)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (this.Request["t"] != null && !this.PageContext.ForumReplyAccess)
+      if (this.Get<HttpRequestBase>()["t"] != null && !this.PageContext.ForumReplyAccess)
       {
         YafBuildLink.AccessDenied();
       }
@@ -383,7 +409,7 @@ namespace YAF.Pages
 
       this.Title.Text = this.GetText("NEWTOPIC");
       this.LocalizedLblMaxNumberOfPost.Param0 = YafContext.Current.BoardSettings.MaxPostSize.ToString();
-      
+
       if (!this.IsPostBack)
       {
         // helper bool -- true if this is a completely new topic...
@@ -398,7 +424,6 @@ namespace YAF.Pages
 
         this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
 
-
         // Show post to blog option only to a new post
         this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog && isNewTopic && !this.PageContext.IsGuest;
 
@@ -407,21 +432,20 @@ namespace YAF.Pages
         this.PostOptions1.PersistantOptionVisible = this.PageContext.ForumPriorityAccess;
         this.PostOptions1.AttachOptionVisible = this.PageContext.ForumUploadAccess;
         this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
-        this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic; 
+        this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic;
 
         if (!this.PageContext.IsGuest)
         {
-            if (this.PageContext.PageTopicID > 0)
-            {
-                this.PostOptions1.WatchChecked =
-                  this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
-            }
-            else
-            {
-                this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
-            }
+          if (this.PageContext.PageTopicID > 0)
+          {
+            this.PostOptions1.WatchChecked =
+              this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
+          }
+          else
+          {
+            this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
+          }
         }
-        
 
         if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
             (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
@@ -445,7 +469,7 @@ namespace YAF.Pages
         if (this.TopicID != null)
         {
           this.InitReplyToTopic();
-          
+
           this.PollList.TopicId = (int)this.TopicID;
         }
 
@@ -461,7 +485,6 @@ namespace YAF.Pages
             // quoting a reply to a topic...
             this.InitQuotedReply(currentRow, message, messageFlags);
             this.PollList.TopicId = (int)this.TopicID;
-
           }
           else if (this.EditMessageID != null)
           {
@@ -469,8 +492,8 @@ namespace YAF.Pages
             this.InitEditedPost(currentRow, message, messageFlags);
             this.PollList.EditMessageId = (int)this.EditMessageID;
           }
-          this.PollGroupId = (currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]));
-          
+
+          this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]);
         }
 
         // add the "New Topic" page link last...
@@ -484,185 +507,15 @@ namespace YAF.Pages
         if (this.User != null)
         {
           this.FromRow.Visible = false;
-        }          
+        }
 
-     /*   if (this.TopicID == null)
+        /*   if (this.TopicID == null)
         {
             this.PollList.TopicId = (currentRow["TopicID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["TopicID"]));
         } */
       }
-     
-       this.PollList.PollGroupId = this.PollGroupId;
-      
-    }
 
-    protected bool NewTopic()
-    {
-        return !(this.PollGroupId > 0); 
-    }
-
-      protected  int? GetPollGroupID()
-      {
-          return this.PollGroupId;
-      }
-    /// <summary>
-    /// Handles the PostReply click including: Replying, Editing and New post.
-    /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    protected void PostReply_Click(object sender, EventArgs e)
-    {
-      if (!this.IsPostReplyVerified())
-      {
-        return;
-      }
-
-      if (this.IsPostReplyDelay())
-      {
-        return;
-      }
-
-      // Check if the topic name is not too long
-      if (YafContext.Current.BoardSettings.MaxWordLength > 0 && this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
-      {
-        this.PageContext.AddLoadMessage(
-          this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
-        return;
-      }
-      
-      // vzrus: Common users should not use HTML tags in a topic header if not allowed
-      if (!(PageContext.IsModerator || PageContext.IsForumModerator || PageContext.IsAdmin))
-      {
-          string tag = YafFormatMessage.CheckHtmlTags(this.TopicSubjectTextBox.Text, PageContext.BoardSettings.AcceptedHeadersHTML, ',');
-          
-          if (tag.IsSet())
-          {
-              this.PageContext.AddLoadMessage(tag);
-              return;
-          }
-         
-      }
-
-        // update the last post time...
-      YafContext.Current.Get<YafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
-
-      long messageId = 0;
-      long newTopic = 0; 
-     
-      if (this.TopicID != null)
-      {
-        // Reply to topic
-        messageId = this.PostReplyHandleReplyToTopic();
-        newTopic = (long)this.TopicID; 
-
-      }
-      else if (this.EditMessageID != null)
-      {
-        // Edit existing post
-        messageId = this.PostReplyHandleEditPost();
-      }
-      else
-      {
-        // New post
-        messageId = this.PostReplyHandleNewPost(out newTopic);
-      }
-
-      // Check if message is approved
-      bool isApproved = false;
-      using (DataTable dt = DB.message_list(messageId))
-      {
-        foreach (DataRow row in dt.Rows)
-        {
-          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
-        }
-      }
-
-      // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
-      string attachp = string.Empty;
-      string retforum = string.Empty;
-
-      if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
-      {
-          // new topic poll token
-          attachp = "&t={0}".FormatWith(newTopic);
-          // new return forum poll token
-          retforum = "&f={0}".FormatWith(this.PageContext.PageForumID);
-      }
-
-     
-      
-      // Create notification emails
-      if (isApproved)
-      {
-        this.Get<YafSendNotification>().ToWatchingUsers(messageId.ToType<int>());
-
-        if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
-        {
-            // 't' variable is required only for poll and this is a attach poll token for attachments page
-            if  (!this.PostOptions1.PollChecked)
-            {
-                attachp = string.Empty; 
-            }
-          // redirect to the attachment page...
-            YafBuildLink.Redirect(ForumPages.attachments, "m={0}{1}", messageId, attachp);
-        }
-        else
-        {
-            if (attachp.IsNotSet() || (!this.PostOptions1.PollChecked))
-        {
-          // regular redirect...
-          YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
-        }
-            else
-            {
-                // poll edit redirect...
-                YafBuildLink.Redirect(ForumPages.polledit, "{0}", attachp);
-            }
-            }
-      }
-      else // Not Approved
-      {
-       
-        if (PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
-        {
-          // not approved, notifiy moderators
-          this.Get<YafSendNotification>().ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
-        }
-
-        // 't' variable is required only for poll and this is a attach poll token for attachments page
-        if (!this.PostOptions1.PollChecked)
-        {
-            attachp = string.Empty;
-        }
-
-        if (this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess)
-        {
-          // redirect to the attachment page...
-            YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1{1}{2}", messageId, attachp, retforum);          
-        }
-        else
-        {
-          // Tell user that his message will have to be approved by a moderator
-          // PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
-          string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
-          if (attachp.Length <= 0)
-          {
-                  YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
-          }
-          else
-          {
-              YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachp, retforum);
-          }
-
-          if (Config.IsRainbow)
-          {
-            YafBuildLink.Redirect(ForumPages.info, "i=1");
-          }
-         
-        }
-      }
+      this.PollList.PollGroupId = this.PollGroupId;
     }
 
     /// <summary>
@@ -684,7 +537,7 @@ namespace YAF.Pages
 
       if (this.TopicSubjectTextBox.Enabled)
       {
-          subjectSave = this.TopicSubjectTextBox.Text;
+        subjectSave = this.TopicSubjectTextBox.Text;
       }
 
       // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -692,23 +545,23 @@ namespace YAF.Pages
       // retrieve message flags
       var messageFlags = new MessageFlags(DB.message_list(this.EditMessageID).Rows[0]["Flags"])
         {
-          IsHtml = this._forumEditor.UsesHTML,
-          IsBBCode = this._forumEditor.UsesBBCode,
+          IsHtml = this._forumEditor.UsesHTML, 
+          IsBBCode = this._forumEditor.UsesBBCode, 
           IsPersistent = this.PostOptions1.PersistantChecked
         };
 
       bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
       DB.message_update(
-        this.Request.QueryString.GetFirstOrDefault("m"), 
+        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), 
         this.Priority.SelectedValue, 
         this._forumEditor.Text.Trim(), 
         subjectSave.Trim(), 
         messageFlags.BitValue, 
         this.HtmlEncode(this.ReasonEditor.Text), 
-        isModeratorChanged,
-        this.PageContext.IsAdmin || this.PageContext.IsModerator, this.OriginalMessage, PageContext.PageUserID);
-
-
+        isModeratorChanged, 
+        this.PageContext.IsAdmin || this.PageContext.IsModerator, 
+        this.OriginalMessage, 
+        this.PageContext.PageUserID);
 
       messageId = this.EditMessageID.Value;
 
@@ -724,6 +577,9 @@ namespace YAF.Pages
     /// <summary>
     /// The post reply handle new post.
     /// </summary>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
     /// <returns>
     /// The post reply handle new post.
     /// </returns>
@@ -739,26 +595,24 @@ namespace YAF.Pages
       // make message flags
       var messageFlags = new MessageFlags
         {
-          IsHtml = this._forumEditor.UsesHTML,
-          IsBBCode = this._forumEditor.UsesBBCode,
-          IsPersistent = this.PostOptions1.PersistantChecked,
+          IsHtml = this._forumEditor.UsesHTML, 
+          IsBBCode = this._forumEditor.UsesBBCode, 
+          IsPersistent = this.PostOptions1.PersistantChecked, 
           /* Bypass Approval if Admin or Moderator.*/
           IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
         };
-     
 
       string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
-     
-       // Save to Db
-        topicId = DB.topic_save(
-        this.PageContext.PageForumID,
+      // Save to Db
+      topicId = DB.topic_save(
+        this.PageContext.PageForumID, 
         this.TopicSubjectTextBox.Text.Trim(), 
         this._forumEditor.Text, 
         this.PageContext.PageUserID, 
         this.Priority.SelectedValue, 
         this.User != null ? null : this.From.Text, 
-        this.Request.UserHostAddress, 
+        this.Get<HttpRequestBase>().UserHostAddress, 
         null, 
         blogPostID, 
         messageFlags.BitValue, 
@@ -769,25 +623,14 @@ namespace YAF.Pages
       // clear caches as stats changed
       if (messageFlags.IsApproved)
       {
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
       }
 
       return messageId;
     }
 
     /// <summary>
-        /// The get poll id.
-        /// </summary>
-        /// <returns>
-        /// The get poll id.
-        /// </returns>
-    private object GetPollID()
-           {
-               return null;
-           }
-
-      /// <summary>
     /// The post reply handle reply to topic.
     /// </summary>
     /// <returns>
@@ -817,7 +660,7 @@ namespace YAF.Pages
         this.PageContext.PageUserID, 
         this._forumEditor.Text, 
         this.User != null ? null : this.From.Text, 
-        this.Request.UserHostAddress, 
+        this.Get<HttpRequestBase>().UserHostAddress, 
         null, 
         replyTo, 
         messageFlags.BitValue, 
@@ -827,55 +670,171 @@ namespace YAF.Pages
 
       if (messageFlags.IsApproved)
       {
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
       }
 
       return messageId;
     }
 
     /// <summary>
-    /// Updates Watch Topic based on controls/settings for user...
+    /// Handles the PostReply click including: Replying, Editing and New post.
     /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="topicId"></param>
-    private void UpdateWatchTopic(int userId, int topicId)
+    /// <param name="sender">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    protected void PostReply_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      var topicWatchedID = this.TopicWatchedId(userId, topicId);
-
-      if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
+      if (!this.IsPostReplyVerified())
       {
-        // unsubscribe...
-        DB.watchtopic_delete(topicWatchedID.Value);
+        return;
       }
-      else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
-      {
-        // subscribe to this topic...
-        this.WatchTopic(userId, topicId);
-      }
-    }
 
-    /// <summary>
-    /// Checks if this topic is watched, if not, adds it.
-    /// </summary>
-    /// <param name="userId"></param>
-    private void WatchTopic(int userId, int topicId)
-    {
-      if (!this.TopicWatchedId(userId, topicId).HasValue)
+      if (this.IsPostReplyDelay())
       {
-          // subscribe to this forum
-        DB.watchtopic_add(userId, topicId);
+        return;
       }
-    }
 
-    /// <summary>
-    /// Returns true if the topic is set to watch for userId
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <returns></returns>
-    private int? TopicWatchedId(int userId, int topicId)
-    {
-      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+      // Check if the topic name is not too long
+      if (YafContext.Current.BoardSettings.MaxWordLength > 0 &&
+          this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
+      {
+        this.PageContext.AddLoadMessage(
+          this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
+        return;
+      }
+
+      // vzrus: Common users should not use HTML tags in a topic header if not allowed
+      if (!(this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin))
+      {
+        string tag = YafFormatMessage.CheckHtmlTags(
+          this.TopicSubjectTextBox.Text, this.PageContext.BoardSettings.AcceptedHeadersHTML, ',');
+
+        if (tag.IsSet())
+        {
+          this.PageContext.AddLoadMessage(tag);
+          return;
+        }
+      }
+
+      // update the last post time...
+      YafContext.Current.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
+
+      long messageId = 0;
+      long newTopic = 0;
+
+      if (this.TopicID != null)
+      {
+        // Reply to topic
+        messageId = this.PostReplyHandleReplyToTopic();
+        newTopic = (long)this.TopicID;
+      }
+      else if (this.EditMessageID != null)
+      {
+        // Edit existing post
+        messageId = this.PostReplyHandleEditPost();
+      }
+      else
+      {
+        // New post
+        messageId = this.PostReplyHandleNewPost(out newTopic);
+      }
+
+      // Check if message is approved
+      bool isApproved = false;
+      using (DataTable dt = DB.message_list(messageId))
+      {
+        foreach (DataRow row in dt.Rows)
+        {
+          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
+        }
+      }
+
+      // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
+      string attachp = string.Empty;
+      string retforum = string.Empty;
+
+      if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
+      {
+        // new topic poll token
+        attachp = "&t={0}".FormatWith(newTopic);
+
+        // new return forum poll token
+        retforum = "&f={0}".FormatWith(this.PageContext.PageForumID);
+      }
+
+      // Create notification emails
+      if (isApproved)
+      {
+        this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+
+        if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
+        {
+          // 't' variable is required only for poll and this is a attach poll token for attachments page
+          if (!this.PostOptions1.PollChecked)
+          {
+            attachp = string.Empty;
+          }
+
+          // redirect to the attachment page...
+          YafBuildLink.Redirect(ForumPages.attachments, "m={0}{1}", messageId, attachp);
+        }
+        else
+        {
+          if (attachp.IsNotSet() || (!this.PostOptions1.PollChecked))
+          {
+            // regular redirect...
+            YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
+          }
+          else
+          {
+            // poll edit redirect...
+            YafBuildLink.Redirect(ForumPages.polledit, "{0}", attachp);
+          }
+        }
+      }
+      else
+      {
+        // Not Approved
+        if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
+        {
+          // not approved, notifiy moderators
+          this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
+            this.PageContext.PageForumID, (int)messageId);
+        }
+
+        // 't' variable is required only for poll and this is a attach poll token for attachments page
+        if (!this.PostOptions1.PollChecked)
+        {
+          attachp = string.Empty;
+        }
+
+        if (this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess)
+        {
+          // redirect to the attachment page...
+          YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1{1}{2}", messageId, attachp, retforum);
+        }
+        else
+        {
+          // Tell user that his message will have to be approved by a moderator
+          // PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
+          string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+          if (attachp.Length <= 0)
+          {
+            YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+          }
+          else
+          {
+            YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachp, retforum);
+          }
+
+          if (Config.IsRainbow)
+          {
+            YafBuildLink.Redirect(ForumPages.info, "i=1");
+          }
+        }
+      }
     }
 
     /// <summary>
@@ -887,7 +846,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Preview_Click(object sender, EventArgs e)
+    protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.PreviewRow.Visible = true;
 
@@ -921,7 +880,7 @@ namespace YAF.Pages
     /// <returns>
     /// The can edit post check.
     /// </returns>
-    private bool CanEditPostCheck(DataRow message)
+    private bool CanEditPostCheck([NotNull] DataRow message)
     {
       bool postLocked = false;
 
@@ -960,7 +919,7 @@ namespace YAF.Pages
     /// <returns>
     /// The can have poll.
     /// </returns>
-    private bool CanHavePoll(DataRow message)
+    private bool CanHavePoll([NotNull] DataRow message)
     {
       return (this.TopicID == null && this.QuotedMessageID == null && this.EditMessageID == null) ||
              (message != null && SqlDataLayerConverter.VerifyInt32(message["Position"]) == 0);
@@ -975,7 +934,7 @@ namespace YAF.Pages
     /// <returns>
     /// The can quote post check.
     /// </returns>
-    private bool CanQuotePostCheck(DataRow message)
+    private bool CanQuotePostCheck([NotNull] DataRow message)
     {
       DataRow forumInfo, topicInfo;
 
@@ -995,8 +954,19 @@ namespace YAF.Pages
       return (!forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked) &&
               !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) || this.PageContext.ForumModeratorAccess) &&
              this.PageContext.ForumReplyAccess;
-        }
+    }
 
+    /// <summary>
+    /// The get poll id.
+    /// </summary>
+    /// <returns>
+    /// The get poll id.
+    /// </returns>
+    [CanBeNull]
+    private object GetPollID()
+    {
+      return null;
+    }
 
     /// <summary>
     /// The has poll.
@@ -1007,7 +977,7 @@ namespace YAF.Pages
     /// <returns>
     /// The has poll.
     /// </returns>
-    private bool HasPoll(DataRow message)
+    private bool HasPoll([NotNull] DataRow message)
     {
       return message != null && message["PollID"] != DBNull.Value && message["PollID"] != null;
     }
@@ -1024,7 +994,7 @@ namespace YAF.Pages
     /// <param name="messageFlags">
     /// The message flags.
     /// </param>
-    private void InitEditedPost(DataRow currentRow, string message, MessageFlags messageFlags)
+    private void InitEditedPost([NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
     {
       // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
       if (messageFlags.IsBBCode && this._forumEditor.UsesHTML)
@@ -1074,8 +1044,6 @@ namespace YAF.Pages
       this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
     }
 
-
-
     /// <summary>
     /// The init quoted reply.
     /// </summary>
@@ -1088,7 +1056,7 @@ namespace YAF.Pages
     /// <param name="messageFlags">
     /// The message flags.
     /// </param>
-    private void InitQuotedReply(DataRow currentRow, string message, MessageFlags messageFlags)
+    private void InitQuotedReply([NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
     {
       if (this.PageContext.BoardSettings.RemoveNestedQuotes)
       {
@@ -1102,10 +1070,14 @@ namespace YAF.Pages
       }
 
       // Ensure quoted replies have bad words removed from them
-      message = this.Get<YafBadWordReplace>().Replace(message);
+      message = this.Get<IBadWordReplace>().Replace(message);
 
       // Quote the original message
-      this._forumEditor.Text = "[quote={0};{1}]{2}[/quote]\n".FormatWith(this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), currentRow.Field<int>("MessageID"), message).TrimStart();
+      this._forumEditor.Text =
+        "[quote={0};{1}]{2}[/quote]\n".FormatWith(
+          this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), 
+          currentRow.Field<int>("MessageID"), 
+          message).TrimStart();
     }
 
     /// <summary>
@@ -1119,7 +1091,7 @@ namespace YAF.Pages
       // Ederon : 9/9/2007 - moderators can reply in locked topics
       if (topicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
       {
-        this.Response.Redirect(this.Request.UrlReferrer.ToString());
+        this.Response.Redirect(this.Get<HttpRequestBase>().UrlReferrer.ToString());
       }
 
       this.SubjectRow.Visible = false;
@@ -1142,6 +1114,61 @@ namespace YAF.Pages
       // show the last posts AJAX frame...
       this.LastPosts1.Visible = true;
       this.LastPosts1.TopicID = this.TopicID.Value;
+    }
+
+    /// <summary>
+    /// Returns true if the topic is set to watch for userId
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    private int? TopicWatchedId(int userId, int topicId)
+    {
+      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+    }
+
+    /// <summary>
+    /// Updates Watch Topic based on controls/settings for user...
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    /// <param name="topicId">
+    /// </param>
+    private void UpdateWatchTopic(int userId, int topicId)
+    {
+      var topicWatchedID = this.TopicWatchedId(userId, topicId);
+
+      if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
+      {
+        // unsubscribe...
+        DB.watchtopic_delete(topicWatchedID.Value);
+      }
+      else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
+      {
+        // subscribe to this topic...
+        this.WatchTopic(userId, topicId);
+      }
+    }
+
+    /// <summary>
+    /// Checks if this topic is watched, if not, adds it.
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    /// <param name="topicId">
+    /// The topic Id.
+    /// </param>
+    private void WatchTopic(int userId, int topicId)
+    {
+      if (!this.TopicWatchedId(userId, topicId).HasValue)
+      {
+        // subscribe to this forum
+        DB.watchtopic_add(userId, topicId);
+      }
     }
 
     #endregion

@@ -112,10 +112,10 @@ namespace YAF.Controls
 
       string attachGroupId = Guid.NewGuid().ToString().Substring(0, 5);
 
-      HttpContext.Current.Session["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
-      HttpContext.Current.Session["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
-      HttpContext.Current.Session["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
-      HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
+      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
+      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
+      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
+      YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] = this.PageContext.Localization.LanguageFileName;
 
       using (DataTable attachListDT = DB.attachment_list(this.MessageID, null, null))
       {

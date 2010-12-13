@@ -20,10 +20,33 @@ using System.Diagnostics;
 
 namespace YAF.Classes.Core
 {
+  public interface IStopWatch
+  {
+    /// <summary>
+    /// Gets Duration.
+    /// </summary>
+    double Duration { get; }
+
+    /// <summary>
+    /// The start.
+    /// </summary>
+    void Start();
+
+    /// <summary>
+    /// The stop.
+    /// </summary>
+    void Stop();
+
+    /// <summary>
+    /// The reset.
+    /// </summary>
+    void Reset();
+  }
+
   /// <summary>
   /// The yaf stop watch.
   /// </summary>
-  public class YafStopWatch
+  public class YafStopWatch : IStopWatch
   {
     /// <summary>
     /// The _stop watch.

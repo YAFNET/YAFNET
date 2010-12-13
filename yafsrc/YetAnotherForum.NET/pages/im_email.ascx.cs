@@ -25,6 +25,7 @@ namespace YAF.Pages
 
   using System;
   using System.Net.Mail;
+  using System.Web;
   using System.Web.Security;
 
   using YAF.Classes;
@@ -61,7 +62,7 @@ namespace YAF.Pages
     {
       get
       {
-        return (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+        return (int)Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]);
       }
     }
 
@@ -124,7 +125,7 @@ namespace YAF.Pages
         MembershipUser toUser = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
         // send it...
-        this.Get<YafSendMail>().Send(
+        this.Get<ISendMail>().Send(
           new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName), 
           new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()), 
           this.Subject.Text.Trim(), 

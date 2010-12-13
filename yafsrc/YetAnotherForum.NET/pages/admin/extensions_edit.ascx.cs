@@ -22,6 +22,8 @@ namespace YAF.Pages.Admin
 {
   using System;
   using System.Data;
+  using System.Web;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
@@ -62,7 +64,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      if (this.Request.QueryString.GetFirstOrDefault("i").IsSet())
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i").IsSet())
       {
         DataRow row = DB.extension_edit(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
         this.extension.Text = (string) row["Extension"];

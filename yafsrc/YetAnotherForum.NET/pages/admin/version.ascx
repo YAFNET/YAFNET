@@ -12,7 +12,7 @@
 				<p>
 					You are running YetAnotherForum.NET version <strong>
 						<%#YafForumInfo.AppVersionName%></strong> (Date:
-					<%#this.Get<YafDateTime>().FormatDateShort( YafForumInfo.AppVersionDate ) %>).</p>
+					<%#this.Get<IDateTime>().FormatDateShort( YafForumInfo.AppVersionDate ) %>).</p>
 				<p>
 					The latest final version available is <strong>
 						<%#LastVersion%></strong> released <strong>

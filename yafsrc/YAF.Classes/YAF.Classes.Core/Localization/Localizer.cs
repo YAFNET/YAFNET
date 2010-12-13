@@ -226,7 +226,7 @@ namespace YAF.Classes.Core
     /// </summary>
     private void InitCulture()
     {
-        if (!YafContext.Current.Get<YafInitializeDb>().Initialized)
+        if (!YafContext.Current.Get<StartupInitializeDb>().Initialized)
         {
             return;
         }
