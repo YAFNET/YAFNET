@@ -17,217 +17,340 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.IO;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Collections.Generic;
-using YAF.Classes;
-using YAF.Classes.Utils;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
+    // YAF.Pages
+    #region
+
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Utils;
+
+    #endregion
+
     /// <summary>
     /// Summary description for avatar.
+    ///   Summary description for avatar.
     /// </summary>
-    public partial class avatar : YAF.Classes.Core.ForumPage
+    public partial class avatar : ForumPage
     {
-        protected System.Web.UI.WebControls.Label title;
+        #region Constants and Fields
 
-        public int pagenum = 0;
-        public int pagesize = 20;
+        /// <summary>
+        /// The pagenum.
+        /// </summary>
+        public int Pagenum;
 
-        private int returnUserID = 0;
+        /// <summary>
+        /// The pagesize.
+        /// </summary>
+        public int Pagesize = 20;
 
-        string filepath = "";
+        /// <summary>
+        /// The title.
+        /// </summary>
+        protected Label title;
 
-        public avatar()
-            : base("AVATAR")
-        {
-        }
+        /// <summary>
+        /// The return user id.
+        /// </summary>
+        private int returnUserID;
 
+        #endregion
+
+        /// <summary>
+        /// Gets or sets CurrentDirectory.
+        /// </summary>
         protected string CurrentDirectory
         {
             get
             {
-                if (ViewState["CurrentDir"] != null)
-                    return (string)ViewState["CurrentDir"];
-                else
-                    return "";
+                return this.ViewState["CurrentDir"] != null ? (string)this.ViewState["CurrentDir"] : string.Empty;
             }
+
             set
             {
                 ViewState["CurrentDir"] = value;
             }
         }
 
-        protected void Page_Load(object sender, System.EventArgs e)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="avatar"/> class.
+        /// </summary>
+        public avatar()
+            : base("AVATAR")
         {
-            if (Request.QueryString.GetFirstOrDefault("u") != null)
-            {
-                returnUserID = Convert.ToInt32(Request.QueryString.GetFirstOrDefault("u"));
-            }
-
-            if (!IsPostBack)
-            {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-
-                if (returnUserID > 0)
-                {
-                    PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-                    PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
-                }
-                else
-                {
-                    PageLinks.AddLink(HtmlEncode(PageContext.PageUserName), YafBuildLink.GetLink(ForumPages.cp_profile));
-                    PageLinks.AddLink(GetText("CP_EDITAVATAR", "TITLE"), YafBuildLink.GetLink(ForumPages.cp_editavatar));
-                }
-                PageLinks.AddLink(GetText("TITLE"), "");
-                BindData();
-            }
         }
 
-        private void BindData()
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The directories_ bind.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void Directories_Bind(object sender, DataListItemEventArgs e)
         {
-            string strDirectory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/", CurrentDirectory);
+            var directory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/");
 
-            DirectoryInfo baseDirectory = new DirectoryInfo(Server.MapPath(strDirectory));
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
 
-            if (CurrentDirectory == "")
-            {
-                files.Visible = false;
-                directories.Visible = true;
-                directories.DataSource = DirectoryListClean(baseDirectory);
-                directories.DataBind();
-            }
-            else
-            {
-                files.Visible = true;
-                directories.Visible = false;
-                files.DataSource = FilesListClean(baseDirectory);
-                files.DataBind();
-            }
+            LinkButton dirName = e.Item.FindControl("dirName") as LinkButton;
+            dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
+            dirName.Text =
+                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""{1}"" /><br />{1}</p>".FormatWith(
+                    YafForumInfo.ForumClientFileRoot, 
+                    Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
         }
 
-        protected List<DirectoryInfo> DirectoryListClean(DirectoryInfo baseDir)
-        {
-            DirectoryInfo[] directories = baseDir.GetDirectories();
-            List<DirectoryInfo> directoryList = new List<DirectoryInfo>();
-
-            foreach (DirectoryInfo dir in directories)
-            {
-                if ((dir.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
-                        (dir.Attributes & FileAttributes.System) != FileAttributes.System)
-                {
-                    // add it since it's not hidden or system
-                    directoryList.Add(dir);
-                }
-            }
-
-            return directoryList;
-        }
-
-        protected List<FileInfo> FilesListClean(DirectoryInfo baseDir)
-        {
-            FileInfo[] files = baseDir.GetFiles("*.*");
-            List<FileInfo> filesList = new List<FileInfo>();
-
-            foreach (FileInfo file in files)
-            {
-                if ((file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
-                        (file.Attributes & FileAttributes.System) != FileAttributes.System &&
-                            IsValidAvatarExtension(file.Extension.ToLower()))
-                {
-                    // add it since it's not hidden or system
-                    filesList.Add(file);
-                }
-            }
-
-            return filesList;
-        }
-
-        protected bool IsValidAvatarExtension(string extension)
-        {
-            if (extension == ".gif" || extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".bmp")
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        /// <summary>
+        /// The files_ bind.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         public void Files_Bind(object sender, DataListItemEventArgs e)
         {
-            string strDirectory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/", CurrentDirectory);
+            string strDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+
 
             Literal fname = (Literal)e.Item.FindControl("fname");
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                FileInfo finfo = new FileInfo(Server.MapPath(Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"))));
+                FileInfo finfo =
+                    new FileInfo(this.Server.MapPath(Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"))));
+
+                if (!string.IsNullOrEmpty(this.CurrentDirectory))
+                {
+                    strDirectory = this.CurrentDirectory;
+                }
+
                 string tmpExt = finfo.Extension.ToLower();
 
                 if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
                 {
                     string link;
 
-                    if (returnUserID > 0)
+                    if (this.returnUserID > 0)
                     {
-                        link = YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, Server.UrlEncode(CurrentDirectory + "/" + finfo.Name));
+                        link = YafBuildLink.GetLink(
+                            ForumPages.admin_edituser, 
+                            "u={0}&av={1}", 
+                            this.returnUserID,
+                            this.Server.UrlEncode("{0}/{1}".FormatWith(strDirectory, finfo.Name)));
                     }
                     else
                     {
-                        link = YafBuildLink.GetLink(ForumPages.cp_editavatar, "av={0}", Server.UrlEncode(CurrentDirectory + "/" + finfo.Name));
+                        link = YafBuildLink.GetLink(
+                            ForumPages.cp_editavatar, 
+                            "av={0}",
+                            this.Server.UrlEncode("{0}/{1}".FormatWith(strDirectory, finfo.Name)));
                     }
 
-                    fname.Text = @"<div align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}".FormatWith(link, (strDirectory + "/" + finfo.Name), finfo.Name, Environment.NewLine);
+                    fname.Text =
+                        @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}"
+                            .FormatWith(
+                                link,
+                                "{0}/{1}".FormatWith(strDirectory, finfo.Name),
+                                finfo.Name,
+                                Environment.NewLine);
                 }
             }
 
-            if (e.Item.ItemType == ListItemType.Header)
+            if (e.Item.ItemType != ListItemType.Header)
             {
-                // get the previous directory...
-                string previousDirectory = "";
-                string[] pardir = CurrentDirectory.Split('/');
-                for (int i = 0; i < pardir.Length - 1; i++)
-                {
-                    previousDirectory += pardir[i] + "/";
-                }
-                if (previousDirectory.Length > 0)
-                {
-                    previousDirectory = previousDirectory.Substring(0, previousDirectory.Length - 1);
-                }
-
-                LinkButton up = e.Item.FindControl("up") as LinkButton;
-                up.CommandArgument = previousDirectory;
-                up.Text = @"<p align=""center""><img src=""{0}"" alt=""Up"" /><br />UP</p>".FormatWith(YafForumInfo.ForumClientFileRoot + "images/folder.gif");
+                return;
             }
+
+            // get the previous directory...
+            string previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+
+            LinkButton up = e.Item.FindControl("up") as LinkButton;
+            up.CommandArgument = previousDirectory;
+            up.Text =
+                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""Up"" /><br />UP</p>".FormatWith(
+                    YafForumInfo.ForumClientFileRoot);
         }
 
-        protected override void Render(HtmlTextWriter writer)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The directory list clean.
+        /// </summary>
+        /// <param name="baseDir">
+        /// The base dir.
+        /// </param>
+        /// <returns>
+        /// The Directory List
+        /// </returns>
+        protected List<DirectoryInfo> DirectoryListClean(DirectoryInfo baseDir)
         {
-            base.Render(writer);
+            DirectoryInfo[] avatarDirectories = baseDir.GetDirectories();
+
+            return
+                avatarDirectories.Where(
+                    dir =>
+                    (dir.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
+                    (dir.Attributes & FileAttributes.System) != FileAttributes.System).ToList();
         }
 
-        public void Directories_Bind(object sender, DataListItemEventArgs e)
+        /// <summary>
+        /// The files list clean.
+        /// </summary>
+        /// <param name="baseDir">
+        /// The base dir.
+        /// </param>
+        /// <returns>
+        /// File List
+        /// </returns>
+        protected List<FileInfo> FilesListClean(DirectoryInfo baseDir)
         {
-            string strDirectory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/");
+            FileInfo[] avatarfiles = baseDir.GetFiles("*.*");
 
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                LinkButton dirName = e.Item.FindControl("dirName") as LinkButton;
-                dirName.CommandArgument = filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
-                dirName.Text = @"<p align=""center""><img src=""{0}"" alt=""{1}"" /><br />{1}</p>".FormatWith(YafForumInfo.ForumClientFileRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
-            }
+            return
+                avatarfiles.Where(
+                    file =>
+                    (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
+                    (file.Attributes & FileAttributes.System) != FileAttributes.System &&
+                    this.IsValidAvatarExtension(file.Extension.ToLower())).ToList();
         }
 
+        /// <summary>
+        /// The is valid avatar extension.
+        /// </summary>
+        /// <param name="extension">
+        /// The extension.
+        /// </param>
+        /// <returns>
+        /// The is valid avatar extension.
+        /// </returns>
+        protected bool IsValidAvatarExtension(string extension)
+        {
+            return extension == ".gif" || extension == ".jpg" || extension == ".jpeg" || extension == ".png" ||
+                   extension == ".bmp";
+        }
+
+        /// <summary>
+        /// The item command.
+        /// </summary>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void ItemCommand(object source, DataListCommandEventArgs e)
         {
-            if (e.CommandName == "directory")
+            switch (e.CommandName)
             {
-                CurrentDirectory = e.CommandArgument.ToString();
-                BindData();
+                case "directory":
+                    this.CurrentDirectory = e.CommandArgument.ToString();
+                    this.BindData(e.CommandArgument.ToString());
+                    break;
             }
         }
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+            {
+                this.returnUserID = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>();
+            }
+
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            if (this.returnUserID > 0)
+            {
+                this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
+            }
+            else
+            {
+                this.PageLinks.AddLink(
+                    this.HtmlEncode(this.PageContext.PageUserName), YafBuildLink.GetLink(ForumPages.cp_profile));
+                this.PageLinks.AddLink(
+                    this.GetText("CP_EDITAVATAR", "TITLE"), YafBuildLink.GetLink(ForumPages.cp_editavatar));
+            }
+
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+            this.BindData(string.Empty);
+        }
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        /// <param name="currentFolder">
+        /// The current Folder.
+        /// </param>
+        private void BindData(string currentFolder)
+        {
+            var strDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+
+            if (!string.IsNullOrEmpty(currentFolder))
+            {
+                strDirectory = currentFolder;
+            }
+
+            DirectoryInfo baseDirectory = new DirectoryInfo(this.Server.MapPath(strDirectory));
+
+            var avatarSubDirs = this.DirectoryListClean(baseDirectory);
+
+            if (avatarSubDirs.Count > 0)
+            {
+                this.directories.Visible = true;
+                this.directories.DataSource = avatarSubDirs;
+                this.directories.DataBind();
+            }
+            else
+            {
+                this.directories.Visible = false;
+            }
+
+            this.files.DataSource = this.FilesListClean(baseDirectory);
+            this.files.Visible = true;
+            this.files.DataBind();
+        }
+
+        #endregion
     }
 }

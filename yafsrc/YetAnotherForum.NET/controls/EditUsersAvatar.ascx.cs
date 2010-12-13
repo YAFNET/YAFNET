@@ -92,7 +92,7 @@ namespace YAF.Controls
         {
           // save the avatar right now...
           DB.user_saveavatar(
-            this._currentUserID, "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")), null, null);
+            this._currentUserID, "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")), null, null);
 
           // clear the cache for this user...
           UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
@@ -115,6 +115,7 @@ namespace YAF.Controls
 
         this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
         this.OurAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
+
         this.noteRemote.Text = PageContext.Localization.GetTextFormatted("NOTE_REMOTE", PageContext.BoardSettings.AvatarWidth.ToString(), PageContext.BoardSettings.AvatarHeight.ToString());
         this.noteLocal.Text = PageContext.Localization.GetTextFormatted("NOTE_LOCAL", PageContext.BoardSettings.AvatarWidth.ToString(), PageContext.BoardSettings.AvatarHeight, (PageContext.BoardSettings.AvatarSize / 1024).ToString());
       }
