@@ -97,7 +97,7 @@
     <Compile Include="Object\TypedUserList.cs" />
     <Compile Include="Object\PollSaveList.cs" />
     <Compile Include="DataRowConvert.cs" />
-    <Compile Include="Import\DataImport.cs" />
+    <Compile Include="mssql\Import\DataImport.cs" />
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="mssql\DB.cs" />
@@ -105,10 +105,10 @@
     <Compile Include="mssql\IYafDBAccess.cs" />
     <Compile Include="mssql\IYafDBConnManager.cs" />
     <Compile Include="Object\SimpleModerator.cs" />
-    <Compile Include="Search\SearchBuilder.cs" />
-    <Compile Include="Search\SearchBuilderExtensions.cs" />
-    <Compile Include="Search\SearchCondition.cs" />
-    <Compile Include="Search\SearchConditionType.cs" />
+    <Compile Include="mssql\Search\SearchBuilder.cs" />
+    <Compile Include="mssql\Search\SearchBuilderExtensions.cs" />
+    <Compile Include="mssql\Search\SearchCondition.cs" />
+    <Compile Include="mssql\Search\SearchConditionType.cs" />
     <Compile Include="mssql\SqlDataLayerConverter.cs" />
     <Compile Include="mssql\YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
