@@ -259,7 +259,30 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (this.PageContext.BoardSettings.EnableThanksMod)
+            {
+                // Register Javascript
+
+                Utility.RegisterTypeForAjax(typeof(ThankYou));
+
+                string addThankBoxHTML =
+                    "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+
+                string removeThankBoxHTML =
+                    "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+
+                this.FormatThanksRow();
+            }
+
             this.PopMenu1.Visible = !this.IsGuest;
+            
             if (this.PopMenu1.Visible)
             {
                 this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
@@ -375,28 +398,6 @@ namespace YAF.Controls
                 this.PageContext.PageTopicID,
                 this.PageContext.PageForumID,
                 this.PostData.MessageId);
-
-            if (this.PageContext.BoardSettings.EnableThanksMod)
-            {
-                // Register Javascript
-
-                Utility.RegisterTypeForAjax(typeof(ThankYou));
-
-                string addThankBoxHTML =
-                    "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
-
-                string removeThankBoxHTML =
-                    "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-
-                this.FormatThanksRow();
-            }
 
             // Irkoo Service Enabled?
             if (YafContext.Current.BoardSettings.EnableIrkoo)
