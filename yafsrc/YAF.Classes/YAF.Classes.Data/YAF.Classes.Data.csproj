@@ -97,7 +97,7 @@
     <Compile Include="Object\TypedUserList.cs" />
     <Compile Include="Object\PollSaveList.cs" />
     <Compile Include="DataRowConvert.cs" />
-    <Compile Include="mssql\Import\DataImport.cs" />
+    <Compile Include="Import\DataImport.cs" />
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="mssql\DB.cs" />

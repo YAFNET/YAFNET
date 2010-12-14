@@ -803,8 +803,10 @@
     <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
 		<Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
 		<Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="BBCODE_ALLOWEDALL">Your  signature can contain any BBCode.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
+    <Resource tag="HTML_ALLOWEDALL">Your signature can contain any HTML tag.</Resource>
     <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
 		<Resource tag="TITLE">Edit Signature</Resource>
 		<Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
