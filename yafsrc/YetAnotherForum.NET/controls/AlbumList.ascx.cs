@@ -117,24 +117,7 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      if (this.UserID == this.PageContext.PageUserID)
-      {
-        // Register AjaxPro.
-        Utility.RegisterTypeForAjax(typeof(YafAlbum));
-
-        // Register Js Blocks.
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "AlbumEventsJs", 
-          JavaScriptBlocks.AlbumEventsJs(
-            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
-            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
-      }
+      
 
       base.OnPreRender(e);
     }
@@ -150,7 +133,26 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
+        if (this.UserID == this.PageContext.PageUserID)
+        {
+            // Register AjaxPro.
+            Utility.RegisterTypeForAjax(typeof(YafAlbum));
+
+            // Register Js Blocks.
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "AlbumEventsJs",
+                JavaScriptBlocks.AlbumEventsJs(
+                    this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"),
+                    this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+        }
+
+        if (!this.IsPostBack)
       {
         string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
         this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn)

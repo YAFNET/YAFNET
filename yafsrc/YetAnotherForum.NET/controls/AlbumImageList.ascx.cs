@@ -72,6 +72,21 @@ namespace YAF.Controls
 
     protected override void OnPreRender(EventArgs e)
     {
+        
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
         if (this.UserID == this.PageContext.PageUserID)
         {
             // Register AjaxPro.
@@ -93,19 +108,7 @@ namespace YAF.Controls
                 "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
             this.ltrTitleOnly.Visible = false;
         }
-        base.OnPreRender(e);
-    }
-    /// <summary>
-    /// Called when the page loads
-    /// </summary>
-    /// <param name="sender">
-    /// the sender.
-    /// </param>
-    /// <param name="e">
-    /// the e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
+
         this._attachGroupID = Guid.NewGuid().ToString().Substring(0, 5);
         if (this.UserID == this.PageContext.PageUserID)
         {
