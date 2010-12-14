@@ -11,6 +11,8 @@ namespace YAF.Classes.Core
   using Autofac;
   using Autofac.Core;
 
+  using Moq;
+
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
 
@@ -97,7 +99,8 @@ namespace YAF.Classes.Core
       builder.RegisterType<YafSendNotification>().As<ISendNotification>().OwnedByLifetimeScope();
 
       builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
-      builder.RegisterType<LocalizationHandler>().As<ILocalizationHandler>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.RegisterType<LocalizationHandler>().As<ILocalizationHandler>().InstancePerMatchingLifetimeScope(
+        YafLifetimeScope.Context);
     }
 
     /// <summary>
@@ -159,28 +162,40 @@ namespace YAF.Classes.Core
     {
       CodeContracts.ArgumentNotNull(builder, "builder");
 
-      builder.Register<HttpContextBase>(
-        k => HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : null).
+      builder.Register(
+        k =>
+        HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : new Mock<HttpContextBase>().Object).
         InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
 
-      builder.Register<HttpSessionStateBase>(
-        k => HttpContext.Current != null ? new HttpSessionStateWrapper(HttpContext.Current.Session) : null).
-        InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpSessionStateWrapper(HttpContext.Current.Session)
+          : new Mock<HttpSessionStateBase>().Object).InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
 
-      builder.Register<HttpRequestBase>(
-        k => HttpContext.Current != null ? new HttpRequestWrapper(HttpContext.Current.Request) : null).
-        InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpRequestWrapper(HttpContext.Current.Request)
+          : new Mock<HttpRequestBase>().Object).InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
 
-      builder.Register<HttpResponseBase>(
-        k => HttpContext.Current != null ? new HttpResponseWrapper(HttpContext.Current.Response) : null).
-        InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpResponseWrapper(HttpContext.Current.Response)
+          : new Mock<HttpResponseBase>().Object).InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
 
-      builder.Register<HttpServerUtilityBase>(
-        k => HttpContext.Current != null ? new HttpServerUtilityWrapper(HttpContext.Current.Server) : null).
-        InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpServerUtilityWrapper(HttpContext.Current.Server)
+          : new Mock<HttpServerUtilityBase>().Object).InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
 
-      builder.Register<HttpApplicationStateBase>(k => new HttpApplicationStateWrapper(HttpContext.Current.Application)).
-        InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpApplicationStateWrapper(HttpContext.Current.Application)
+          : new Mock<HttpApplicationStateBase>().Object).InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
     }
 
     #endregion

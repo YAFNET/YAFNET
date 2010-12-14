@@ -19,7 +19,10 @@
 namespace YAF.Classes.Core
 {
   using System;
+  using System.Linq;
   using System.Web;
+
+  using Autofac.Builder;
 
   /// <summary>
   /// The base background task.

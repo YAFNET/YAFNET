@@ -99,17 +99,6 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Get the instance of the Http Context if available
-    /// </summary>
-    public static HttpContext HttpContext
-    {
-      get
-      {
-        return HttpContext.Current ?? null;
-      }
-    }
-
-    /// <summary>
     /// Get/set the current state of the Http Application.
     /// Defaults to HttpContext.Current.Application. If not available
     /// pulls from application variable.
