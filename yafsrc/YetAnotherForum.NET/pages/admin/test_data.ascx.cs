@@ -126,8 +126,8 @@ namespace YAF.Pages.Admin
             sb.Append(this.CreateCategories());
             sb.Append("; ");
             sb.AppendFormat("{0} Forums, ", this.CreateForums());
-            sb.AppendFormat("{0} Topics, ", this.CreateTopics());
-            sb.AppendFormat("{0} Messages, ", this.CreatePosts());
+            sb.AppendFormat("{0} Topics, ", this.CreateTopics(0, 0, 0));
+            sb.AppendFormat("{0} Messages, ", this.CreatePosts(0, 0, 0));
             sb.AppendFormat("{0} Private Messages, ", this.CreatePMessages());
 
             string mesRetStr = sb.ToString();
@@ -868,7 +868,7 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The number of created posts.
         /// </returns>
-        private int CreatePosts(int forumID = 0, int topicID = 0, int numMessages = 0)
+        private int CreatePosts(int forumID, int topicID, int numMessages)
         {
             if (numMessages <= 0)
             {
@@ -944,7 +944,7 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Number of created topics.
         /// </returns>
-        private int CreateTopics(int forumID = 0, int numTopics = 0, int _messagesToCreate = 0)
+        private int CreateTopics(int forumID, int numTopics, int _messagesToCreate)
         {
             object _priority = 0;
             if (forumID <= 0)
