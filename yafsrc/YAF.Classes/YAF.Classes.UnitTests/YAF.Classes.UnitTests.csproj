@@ -57,14 +57,12 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\Dependancies\AjaxPro.2.dll</HintPath>
+    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\Dependancies\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\..\Dependancies\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -80,18 +78,11 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\..\Dependancies\xunit.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.extensions">
-      <HintPath>..\..\Dependancies\xunit.extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.should">
-      <HintPath>..\..\Dependancies\xunit.should.dll</HintPath>
-    </Reference>
+    <Reference Include="xunit, Version=1.6.1.1521, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL" />
+    <Reference Include="xunit.extensions, Version=1.6.1.1521, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL" />
+    <Reference Include="xunit.should, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ServiceLocation.cs" />
     <Compile Include="SpamClientTester.cs" />
     <Compile Include="ProviderTests.cs" />
     <Compile Include="UtilTests.cs" />
