@@ -21,6 +21,7 @@ namespace YAF.Pages.moderate
 {
   using System;
   using System.Data;
+  using System.Web;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -155,7 +156,7 @@ namespace YAF.Pages.moderate
 
               // go to history page
           string[] ff = e.CommandArgument.ToString().Split(',');
-          YafContext.HttpContext.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
+          YafContext.Current.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
           break;
         case "resolved":
 

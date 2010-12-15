@@ -20,326 +20,336 @@
 
 namespace YAF.Controls
 {
-    // YAF.Pages
-    #region
+  // YAF.Pages
+  #region Using
 
-    using System;
-    using System.Text;
-    using System.Web.UI;
+  using System;
+  using System.Text;
+  using System.Web;
+  using System.Web.UI;
 
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for Dialog Box.
+  /// </summary>
+  public partial class DialogBox : UserControl
+  {
+    #region Enums
+
+    /// <summary>
+    /// Dialog Icon
+    /// </summary>
+    public enum DialogIcon
+    {
+      /// <summary>
+      ///   Mail Icon
+      /// </summary>
+      Mail = 1, 
+
+      /// <summary>
+      ///   Info Icon
+      /// </summary>
+      Info = 2, 
+
+      /// <summary>
+      ///   Error Icon
+      /// </summary>
+      Error = 3, 
+
+      /// <summary>
+      ///   Warning Icon
+      /// </summary>
+      Warning = 4, 
+
+      /// <summary>
+      ///   Question Icon
+      /// </summary>
+      Question = 5
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets the Cancel Button Link
+    /// </summary>
+    public ForumLink CancelButtonLink
+    {
+      get
+      {
+        return this.ViewState["CancelButtonLink"] != null ? (ForumLink)this.ViewState["CancelButtonLink"] : null;
+      }
+
+      set
+      {
+        this.ViewState["CancelButtonLink"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets the Ok Button Link
+    /// </summary>
+    public ForumLink OkButtonLink
+    {
+      get
+      {
+        return this.ViewState["OkButtonLink"] != null ? (ForumLink)this.ViewState["OkButtonLink"] : null;
+      }
+
+      set
+      {
+        this.ViewState["OkButtonLink"] = value;
+      }
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Open The Dialog
+    /// </summary>
+    /// <param name="message">
+    /// The message text.
+    /// </param>
+    /// <param name="title">
+    /// The Message title.
+    /// </param>
+    /// <param name="icon">
+    /// The Message icon.
+    /// </param>
+    /// <param name="okButton">
+    /// The ok button.
+    /// </param>
+    /// <param name="cancelButton">
+    /// The cancel button.
+    /// </param>
+    public void Show([NotNull] string message, [NotNull] string title, DialogIcon icon, [NotNull] DialogButton okButton, [NotNull] DialogButton cancelButton)
+    {
+      // Message Header
+      this.Header.Text = !string.IsNullOrEmpty(title)
+                           ? title
+                           : YafContext.Current.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+
+      // Message Text
+      this.MessageText.Text = message;
+
+      // Message Icon
+      if (!icon.IsNullOrEmptyDBField())
+      {
+        switch (icon)
+        {
+          case DialogIcon.Mail:
+            this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/EmailBig.png");
+            break;
+          case DialogIcon.Info:
+            this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/InfoBig.png");
+            break;
+          case DialogIcon.Warning:
+            this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/WarningBig.png");
+            break;
+          case DialogIcon.Error:
+            this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/ErrorBig.png");
+            break;
+          case DialogIcon.Question:
+            this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/QuestionBig.png");
+            break;
+        }
+
+        this.ImageIcon.Visible = true;
+      }
+      else
+      {
+        this.ImageIcon.Visible = false;
+      }
+
+      // OK/Yes Message Button
+      if (okButton != null)
+      {
+        this.OkButtonLink = okButton.ForumPageLink ?? new ForumLink { ForumPage = YafContext.Current.ForumPageType };
+
+        if (okButton.Text.IsSet())
+        {
+          this.OkButton.Text = okButton.Text;
+        }
+        else
+        {
+          okButton.Text = YafContext.Current.Localization.GetText("COMMON", "OK");
+        }
+
+        this.OkButton.CssClass = okButton.CssClass.IsSet() ? okButton.CssClass : "LoginButton";
+      }
+
+      // Cancel/No Message Button
+      if (cancelButton != null)
+      {
+        this.CancelButtonLink = cancelButton.ForumPageLink ??
+                                new ForumLink { ForumPage = YafContext.Current.ForumPageType };
+
+        this.CancelButton.Visible = true;
+
+        this.CancelButton.Text = cancelButton.Text.IsSet()
+                                   ? cancelButton.Text
+                                   : YafContext.Current.Localization.GetText("COMMON", "CANCEL");
+
+        this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "LoginButton";
+      }
+      else
+      {
+        this.CancelButton.Visible = false;
+
+        this.CancelButtonLink = new ForumLink { ForumPage = YafContext.Current.ForumPageType };
+      }
+
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
+      YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
+
+      var sbScript = new StringBuilder();
+
+      sbScript.Append(
+        "jQuery(document).ready(function() {{jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{1}'}}); }});".
+          FormatWith(this.YafForumPageErrorPopup.ClientID, YafForumInfo.GetURLToResource("images/")));
+
+      YafContext.Current.PageElements.RegisterJsBlock("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Called when Cancel Button is Clicked
+    /// </summary>
+    /// <param name="sender">
+    /// standard event object sender
+    /// </param>
+    /// <param name="e">
+    /// event args
+    /// </param>
+    protected void CancelButton_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+      {
+        // Make Sure the Current Page is correctly Returned with all querystrings
+        YafContext.Current.Get<HttpResponseBase>().Redirect(YafContext.Current.Get<HttpRequestBase>().Url.ToString());
+      }
+      else
+      {
+        if (this.CancelButtonLink.ForumLinkFormat.IsSet() && !this.CancelButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
+        {
+          YafBuildLink.Redirect(
+            this.CancelButtonLink.ForumPage, this.CancelButtonLink.ForumLinkFormat, this.CancelButtonLink.ForumLinkArgs);
+        }
+        else
+        {
+          YafBuildLink.Redirect(this.CancelButtonLink.ForumPage);
+        }
+      }
+    }
+
+    /// <summary>
+    /// Called when Ok Button is Clicked
+    /// </summary>
+    /// <param name="sender">
+    /// standard event object sender
+    /// </param>
+    /// <param name="e">
+    /// event args
+    /// </param>
+    protected void OkButton_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+      {
+        // Make Sure the Current Page is correctly Returned with all querystrings
+        YafContext.Current.Get<HttpResponseBase>().Redirect(YafContext.Current.Get<HttpRequestBase>().Url.ToString());
+      }
+      else
+      {
+        if (this.OkButtonLink.ForumLinkFormat.IsSet() && !this.OkButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
+        {
+          YafBuildLink.Redirect(
+            this.OkButtonLink.ForumPage, this.OkButtonLink.ForumLinkFormat, this.OkButtonLink.ForumLinkArgs);
+        }
+        else
+        {
+          YafBuildLink.Redirect(this.OkButtonLink.ForumPage);
+        }
+      }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // this.Visible = false;
+    }
 
     #endregion
 
     /// <summary>
-    /// Summary description for Dialog Box.
+    /// Dialog Button Class
     /// </summary>
-    public partial class DialogBox : UserControl
+    public class DialogButton
     {
-        #region Enum
+      #region Properties
 
-        /// <summary>
-        /// Dialog Icon
-        /// </summary>
-        public enum DialogIcon
-        {
-            /// <summary>
-            /// Mail Icon
-            /// </summary>
-            Mail = 1,
+      /// <summary>
+      ///   Gets or sets the Button Css Class
+      /// </summary>
+      public string CssClass { get; set; }
 
-            /// <summary>
-            /// Info Icon
-            /// </summary>
-            Info = 2,
+      /// <summary>
+      ///   Gets or sets the Forum Link
+      /// </summary>
+      public ForumLink ForumPageLink { get; set; }
 
-            /// <summary>
-            /// Error Icon
-            /// </summary>
-            Error = 3,
+      /// <summary>
+      ///   Gets or sets Button Text
+      /// </summary>
+      public string Text { get; set; }
 
-            /// <summary>
-            /// Warning Icon
-            /// </summary>
-            Warning = 4,
-
-            /// <summary>
-            /// Question Icon
-            /// </summary>
-            Question = 5
-        }
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the Cancel Button Link
-        /// </summary>
-        public ForumLink CancelButtonLink
-        {
-            get
-            {
-                return this.ViewState["CancelButtonLink"] != null ? (ForumLink)this.ViewState["CancelButtonLink"] : null;
-            }
-
-            set
-            {
-                this.ViewState["CancelButtonLink"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the Ok Button Link
-        /// </summary>
-        public ForumLink OkButtonLink
-        {
-            get
-            {
-                return this.ViewState["OkButtonLink"] != null ? (ForumLink)this.ViewState["OkButtonLink"] : null;
-            }
-
-            set
-            {
-                this.ViewState["OkButtonLink"] = value;
-            }
-        }
-        
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Open The Dialog
-        /// </summary>
-        /// <param name="message">
-        /// The message text.
-        /// </param>
-        /// <param name="title">
-        /// The Message title.
-        /// </param>
-        /// <param name="icon">
-        /// The Message icon.
-        /// </param>
-        /// <param name="okButton">
-        /// The ok button.
-        /// </param>
-        /// <param name="cancelButton">
-        /// The cancel button.
-        /// </param>
-        public void Show(string message, string title, DialogIcon icon, DialogButton okButton, DialogButton cancelButton)
-        {
-            // Message Header
-            this.Header.Text = !string.IsNullOrEmpty(title)
-                                   ? title
-                                   : YafContext.Current.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
-
-            // Message Text
-            this.MessageText.Text = message;
-
-            // Message Icon
-            if (!icon.IsNullOrEmptyDBField())
-            {
-                switch (icon)
-                {
-                    case DialogIcon.Mail:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/EmailBig.png");
-                        break;
-                    case DialogIcon.Info:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/InfoBig.png");
-                        break;
-                    case DialogIcon.Warning:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/WarningBig.png");
-                        break;
-                    case DialogIcon.Error:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/ErrorBig.png");
-                        break;
-                    case DialogIcon.Question:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/QuestionBig.png");
-                        break;
-                }
-
-                this.ImageIcon.Visible = true;
-            }
-            else
-            {
-                this.ImageIcon.Visible = false;
-            }
-
-            // OK/Yes Message Button
-            if (okButton != null)
-            {
-                this.OkButtonLink = okButton.ForumPageLink ??
-                                    new ForumLink { ForumPage = YafContext.Current.ForumPageType };
-
-                if (okButton.Text.IsSet())
-                {
-                    this.OkButton.Text = okButton.Text;
-                }
-                else
-                {
-                    okButton.Text = YafContext.Current.Localization.GetText("COMMON", "OK");
-                }
-
-                this.OkButton.CssClass = okButton.CssClass.IsSet() ? okButton.CssClass : "LoginButton";
-            }
-
-            // Cancel/No Message Button
-            if (cancelButton != null)
-            {
-                this.CancelButtonLink = cancelButton.ForumPageLink ??
-                                        new ForumLink { ForumPage = YafContext.Current.ForumPageType };
-
-                this.CancelButton.Visible = true;
-
-                this.CancelButton.Text = cancelButton.Text.IsSet() ? cancelButton.Text : YafContext.Current.Localization.GetText("COMMON", "CANCEL");
-
-                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "LoginButton";
-            }
-            else
-            {
-                this.CancelButton.Visible = false;
-
-                this.CancelButtonLink = new ForumLink { ForumPage = YafContext.Current.ForumPageType };
-            }
-
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
-
-            var sbScript = new StringBuilder();
-
-            sbScript.Append(
-                "jQuery(document).ready(function() {{jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{1}'}}); }});"
-                    .FormatWith(this.YafForumPageErrorPopup.ClientID, YafForumInfo.GetURLToResource("images/")));
-
-            YafContext.Current.PageElements.RegisterJsBlock("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Called when Cancel Button is Clicked
-        /// </summary>
-        /// <param name="sender">
-        /// standard event object sender
-        /// </param>
-        /// <param name="e">
-        /// event args
-        /// </param>
-        protected void CancelButton_Click(object sender, EventArgs e)
-        {
-            if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
-            {
-                // Make Sure the Current Page is correctly Returned with all querystrings
-                YafContext.HttpContext.Response.Redirect(YafContext.HttpContext.Request.Url.ToString());
-            }
-            else
-            {
-                if (this.CancelButtonLink.ForumLinkFormat.IsSet() && !this.CancelButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
-                {
-                    YafBuildLink.Redirect(this.CancelButtonLink.ForumPage, this.CancelButtonLink.ForumLinkFormat, this.CancelButtonLink.ForumLinkArgs);
-                }
-                else
-                {
-                    YafBuildLink.Redirect(this.CancelButtonLink.ForumPage);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Called when Ok Button is Clicked
-        /// </summary>
-        /// <param name="sender">
-        /// standard event object sender
-        /// </param>
-        /// <param name="e">
-        /// event args
-        /// </param>
-        protected void OkButton_Click(object sender, EventArgs e)
-        {
-            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
-            {
-                // Make Sure the Current Page is correctly Returned with all querystrings
-                YafContext.HttpContext.Response.Redirect(YafContext.HttpContext.Request.Url.ToString());
-            }
-            else
-            {
-                if (this.OkButtonLink.ForumLinkFormat.IsSet() && !this.OkButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
-                {
-                    YafBuildLink.Redirect(this.OkButtonLink.ForumPage, this.OkButtonLink.ForumLinkFormat, this.OkButtonLink.ForumLinkArgs);
-                }
-                else
-                {
-                    YafBuildLink.Redirect(this.OkButtonLink.ForumPage);
-                }
-            }
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-           // this.Visible = false;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Dialog Button Class
-        /// </summary>
-        public class DialogButton
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets the Forum Link
-            /// </summary>
-            public ForumLink ForumPageLink { get; set; }
-
-            /// <summary>
-            ///   Gets or sets the Button Css Class
-            /// </summary>
-            public string CssClass { get; set; }
-
-            /// <summary>
-            ///   Gets or sets Button Text
-            /// </summary>
-            public string Text { get; set; }
-
-            #endregion
-        }
-
-        /// <summary>
-        /// Forum Link With Parameters
-        /// </summary>
-        [Serializable]
-        public class ForumLink
-        {
-            /// <summary>
-            /// Gets ors sets the Yaf Forum Page Link
-            /// </summary>
-            public ForumPages ForumPage = YafContext.Current.ForumPageType;
-
-            /// <summary>
-            /// Gets or sets ForumLinkFormat.
-            /// </summary>
-            public string ForumLinkFormat = string.Empty;
-
-            /// <summary>
-            /// Gets or sets ForumLinkArgs.
-            /// </summary>
-            public object[] ForumLinkArgs;
-        }
+      #endregion
     }
+
+    /// <summary>
+    /// Forum Link With Parameters
+    /// </summary>
+    [Serializable]
+    public class ForumLink
+    {
+      #region Constants and Fields
+
+      /// <summary>
+      ///   Gets or sets ForumLinkArgs.
+      /// </summary>
+      public object[] ForumLinkArgs;
+
+      /// <summary>
+      ///   Gets or sets ForumLinkFormat.
+      /// </summary>
+      public string ForumLinkFormat = string.Empty;
+
+      /// <summary>
+      ///   Gets ors sets the Yaf Forum Page Link
+      /// </summary>
+      public ForumPages ForumPage = YafContext.Current.ForumPageType;
+
+      #endregion
+    }
+  }
 }

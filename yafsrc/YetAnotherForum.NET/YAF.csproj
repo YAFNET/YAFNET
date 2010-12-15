@@ -83,20 +83,10 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
-      <HintPath>..\Dependencies\AjaxPro.2.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\Dependencies\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="CookComputing.XmlRpcV2">
-      <HintPath>..\Dependencies\CookComputing.XmlRpcV2.dll</HintPath>
-      <Private>True</Private>
-      <Aliases>global</Aliases>
-    </Reference>
-    <Reference Include="nStuff.UpdateControls">
-      <HintPath>..\Dependencies\nStuff.UpdateControls.dll</HintPath>
-    </Reference>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL" />
+    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL" />
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.4.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL" />
+    <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -677,10 +667,6 @@
       <DependentUpon>Resource.ashx</DependentUpon>
     </Compile>
     <Content Include="advanced.aspx" />
-    <Content Include="App_Data\yafnet.mdf" />
-    <Content Include="App_Data\yafnet_log.ldf">
-      <DependentUpon>yafnet.mdf</DependentUpon>
-    </Content>
     <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
@@ -2263,6 +2249,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
