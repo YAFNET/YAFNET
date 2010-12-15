@@ -28,6 +28,8 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
+  using System.Web;
+
   /// <summary>
   /// Class for Thank you button
   /// </summary>
@@ -135,11 +137,11 @@ namespace YAF.Controls
 
       // return thank you object...
       return new ThankYou
-        {           
-          MessageID = MessageID, 
-          ThanksInfo = ThanksNumber(username), 
-          Thanks = GetThanks(MessageID), 
-          Text = YafContext.Current.Localization.GetText("BUTTON", textTag), 
+        {
+          MessageID = MessageID,
+          ThanksInfo = ThanksNumber(username),
+          Thanks = GetThanks(MessageID),
+          Text = YafContext.Current.Localization.GetText("BUTTON", textTag),
           Title = YafContext.Current.Localization.GetText("BUTTON", titleTag)
         };
     }
@@ -167,9 +169,16 @@ namespace YAF.Controls
           {
             filler.Append(",&nbsp;");
           }
+
           // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
           filler.AppendFormat(
-              @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]).Replace("/yaf.controls.thankyou,yaf.controls.ashx", "/default.aspx"), dr["DisplayName"] != DBNull.Value ? YafContext.HttpContext.Server.HtmlEncode(dr["DisplayName"].ToString()) : YafContext.HttpContext.Server.HtmlEncode(dr["Name"].ToString()));
+            @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+            dr["UserID"],
+            YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]).Replace(
+              "/yaf.controls.thankyou,yaf.controls.ashx", "/default.aspx"),
+            dr["DisplayName"] != DBNull.Value
+              ? YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["DisplayName"].ToString())
+              : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString()));
 
           if (YafContext.Current.BoardSettings.ShowThanksDate)
           {
@@ -195,14 +204,14 @@ namespace YAF.Controls
     protected string ThanksNumber(string username)
     {
       int thanksNumber = DB.message_ThanksNumber(MessageID);
-      
+
       // get the user's display name.
       string displayName = YafContext.Current.UserDisplayName.GetName(UserMembershipHelper.GetUserIDFromProviderUserKey(
                 UserMembershipHelper.GetMembershipUserByName(username).ProviderUserKey));
 
       // if displayname is enabled in admin section, and the user has a display name, use it instead of username.
-      displayName = (displayName != string.Empty && YafContext.Current.BoardSettings.EnableDisplayName)? displayName : username;
-      
+      displayName = (displayName != string.Empty && YafContext.Current.BoardSettings.EnableDisplayName) ? displayName : username;
+
       switch (thanksNumber)
       {
         case 0:
