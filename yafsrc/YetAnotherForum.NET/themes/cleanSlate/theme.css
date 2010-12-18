@@ -887,3 +887,6 @@
 .irk-count, .irk-rating { font-family: Arial, Sans-Serif; color: #680; }
 .irk-negative, .irk-negative .irk-count { color: #c4e; }
 /* End of Irkoo Service styles */
+
+/* Override jquery ui font-size */
+.ui-widget { font-size: 9pt!important; }
