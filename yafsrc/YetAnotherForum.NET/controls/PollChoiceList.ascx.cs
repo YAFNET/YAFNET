@@ -321,7 +321,7 @@ namespace YAF.Controls
                 decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
                 int imageWidth = 80;
 
-                if (YafContext.Current.Get<YafSession>().UseMobileTheme ?? false)
+                if (YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false)
                 {
                     imageWidth = 40;
                 }

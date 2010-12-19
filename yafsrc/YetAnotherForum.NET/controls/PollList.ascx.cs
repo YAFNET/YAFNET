@@ -683,7 +683,7 @@ namespace YAF.Controls
 
         // We don't display poll command row to everyone 
         item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
-                                                                              this.ShowButtons;
+                                                                             this.ShowButtons;
 
         // Binding question image
         this.BindPollQuestionImage(item, drowv);
@@ -1197,7 +1197,7 @@ namespace YAF.Controls
         questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
                                 ? this.GetThemeContents("VOTE", "POLL_CHOICE")
                                 : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-
+   
         questionImage.Src = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
@@ -1206,7 +1206,7 @@ namespace YAF.Controls
 
           questionImage.Width = 80;
 
-          if (YafContext.Current.Get<YafSession>().UseMobileTheme ?? false)
+          if (YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false)
           {
             questionImage.Width = 40;
           }
