@@ -87,10 +87,8 @@ namespace YAF.Controls
         /// </returns>
         protected static string FormatSmiliesOnClickString([NotNull] string code, [NotNull] string path)
         {
-            code = code.Replace("'", "\'");
-            code = code.Replace("\"", "\"\"");
-            code = code.Replace("\\", "\\\\");
-            string onClickScript = "insertsmiley('{0}','{1}');return false;".FormatWith(code, path);
+            code = System.Text.RegularExpressions.Regex.Replace(code, "['\")(\\\\]", "\\$0"); 
+            string onClickScript = "insertsmiley('{0}','{1}');return false;".FormatWith(code, path); 
             return onClickScript;
         }
 
