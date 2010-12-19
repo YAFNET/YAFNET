@@ -451,6 +451,8 @@ namespace YAF.Pages
       this.LoadingModal.MessageText = this.GetText("LOADING_SEARCH");
       this.LoadingModal.Icon = YafForumInfo.GetURLToResource("images/loading-white.gif");
 
+      this.Page.Form.DefaultButton = this.btnSearch.UniqueID;
+
       this.listForum.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
       this.listForum.DataValueField = "ForumID";
       this.listForum.DataTextField = "Title";
