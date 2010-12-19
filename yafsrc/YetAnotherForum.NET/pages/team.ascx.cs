@@ -137,7 +137,7 @@ namespace YAF.Pages
 
             foreach (SimpleModerator mod in moderators)
             {
-                Moderator sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID };
+                Moderator sortedMod = new Moderator { Name = mod.Name, ModeratorID = mod.ModeratorID, Style = mod.Style};
 
                 // Check if Mod is already in modsSorted
                 if (
@@ -444,6 +444,11 @@ namespace YAF.Pages
             ///   Gets or sets The Moderator Name
             /// </summary>
             public string Name { get; set; }
+
+            /// <summary>
+            ///   Gets or sets The Moderator Style
+            /// </summary>
+            public string Style { get; set; }
 
             #endregion
         }

@@ -2710,12 +2710,13 @@ SELECT
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] as
+create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] (@StyledNicks bit) as
 BEGIN
 		select
 		ForumID = a.ForumID, 
 		ModeratorID = a.GroupID, 
-		ModeratorName = b.Name,
+		ModeratorName = b.Name,	
+		Style = '',						
 		IsGroup=1
 	from
 		[{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
@@ -2728,7 +2729,10 @@ BEGIN
 	select 
 		ForumID = access.ForumID, 
 		ModeratorID = usr.UserID, 
-		ModeratorName = usr.Name,
+		ModeratorName = usr.Name,	
+		Style = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](usr.UserID)  
+			else ''	 end,						
 		IsGroup=0
 	from
 		[{databaseOwner}].[{objectQualifier}User] usr WITH(NOLOCK)
@@ -2736,7 +2740,7 @@ BEGIN
 			select
 				UserID				= a.UserID,
 				ForumID				= x.ForumID,
-				ModeratorAccess		= MAX(ModeratorAccess)
+				ModeratorAccess		= MAX(ModeratorAccess)						
 			from
 				[{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)
 				INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID

@@ -2759,11 +2759,12 @@ namespace YAF.Classes.Data
     /// </summary>
     /// <returns>
     /// </returns>
-    public static DataTable forum_moderators()
+    public static DataTable forum_moderators(bool  useStyledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("forum_moderators"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         return YafDBAccess.Current.GetData(cmd);
       }
     }

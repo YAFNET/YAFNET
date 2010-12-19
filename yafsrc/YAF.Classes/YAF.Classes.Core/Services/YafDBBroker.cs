@@ -534,7 +534,10 @@ namespace YAF.Classes.Core
 
       var moderator = YafContext.Current.Cache.GetItem<DataTable>(
         key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
-
+      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      {
+          new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref moderator, false);
+      }
       return
         moderator.SelectTypedList(
           row =>
@@ -542,6 +545,7 @@ namespace YAF.Classes.Core
             row.Field<int>("ForumID"),
             row.Field<int>("ModeratorID"),
             row.Field<string>("ModeratorName"),
+            row.Field<string>("Style"),
             SqlDataLayerConverter.VerifyBool(row["IsGroup"]))).ToList();
     }
 
@@ -673,7 +677,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataTable GetModerators()
     {
-      DataTable moderator = DB.forum_moderators();
+        DataTable moderator = DB.forum_moderators(YafContext.Current.BoardSettings.UseStyledNicks);
       moderator.TableName = YafDBAccess.GetObjectName("Moderator");
 
       return moderator;

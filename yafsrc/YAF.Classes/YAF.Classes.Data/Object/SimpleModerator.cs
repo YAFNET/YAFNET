@@ -38,11 +38,12 @@ namespace YAF.Classes.Data
     /// <param name="isGroup">
     /// The is group.
     /// </param>
-    public SimpleModerator(long forumID, long moderatorID, string name, bool isGroup)
+    public SimpleModerator(long forumID, long moderatorID, string name, string style, bool isGroup)
     {
       ForumID = forumID;
       ModeratorID = moderatorID;
       Name = name;
+      Style = style; 
       IsGroup = isGroup;
     }
 
@@ -71,6 +72,15 @@ namespace YAF.Classes.Data
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Gets or sets Style.
+    /// </summary>
+    public string Style
+    {
+        get;
+        set;
     }
 
     /// <summary>
