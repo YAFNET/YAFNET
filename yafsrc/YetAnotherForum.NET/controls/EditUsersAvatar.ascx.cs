@@ -118,9 +118,11 @@ namespace YAF.Controls
 
         this.noteRemote.Text = PageContext.Localization.GetTextFormatted("NOTE_REMOTE", PageContext.BoardSettings.AvatarWidth.ToString(), PageContext.BoardSettings.AvatarHeight.ToString());
         this.noteLocal.Text = PageContext.Localization.GetTextFormatted("NOTE_LOCAL", PageContext.BoardSettings.AvatarWidth.ToString(), PageContext.BoardSettings.AvatarHeight, (PageContext.BoardSettings.AvatarSize / 1024).ToString());
+        
+         BindData();
       }
 
-      BindData();
+     
     }
 
     /// <summary>

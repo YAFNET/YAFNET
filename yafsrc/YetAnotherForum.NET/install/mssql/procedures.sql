@@ -1363,14 +1363,14 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
     declare @uidsdel table
-	(UserID int)
-	-- delete non-active
-	insert into @uidsdel(UserID)
-	select UserID from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
+	(UserID int, IsGuest bit)
+	-- delete non-active, but guest access row is not deleted
+	insert into @uidsdel(UserID, IsGuest)
+	select UserID, convert(bit,sign(convert(int,Flags & 2)),(0)) from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
 	if exists(select 1 from @uidsdel)
 	begin
 	delete from [{databaseOwner}].[{objectQualifier}Active] where UserID in (select UserID from @uidsdel)
-	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID in (select UserID from @uidsdel)
+	delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where UserID in (select UserID from @uidsdel where IsGuest <> 0)
 	end
 	-- select active	
 	if @Guests<>0 
@@ -1483,8 +1483,6 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_list_user](@BoardID int, @UserID int, @Guests bit=0, @ShowCrawlers bit = 0, @ActiveTime int,@StyledNicks bit=0) as
 begin
-		-- delete non-active
-	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
 	-- select active
 	if @Guests<>0
 		select
@@ -3863,7 +3861,7 @@ begin
 	-- ensure that no duplicates and that the guest access rights always present in the access table 
 	 if not exists (select 
 			UserID	
-			from [{databaseOwner}].[{objectQualifier}ActiveAccess]  WITH(NOLOCK)
+			from [{databaseOwner}].[{objectQualifier}ActiveAccess] 
 			where UserID = @GuestID)
 			begin				
 			insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
