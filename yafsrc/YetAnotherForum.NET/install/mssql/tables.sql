@@ -693,7 +693,7 @@ end
 GO
 
 -- Active Table
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Location' and prec < 255)
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Location' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [Location] nvarchar(255) NOT NULL
 GO
 
@@ -703,15 +703,15 @@ begin
 end
 GO
 
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 255)
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(255) 
 GO
 
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='IP' and prec < 39)
+if exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='IP' and prec < 39)
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [IP] varchar(39) not null 
 GO
 
-if not exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Flags')
+if not exists (select top 1 1 from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Flags')
  	alter table [{databaseOwner}].[{objectQualifier}Active] add [Flags] int NULL 
 GO
 
@@ -744,7 +744,7 @@ GO
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='Flags')
 begin
 	-- add new "Flags" field to UserPMessage
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add Flags int not null DEFAULT ((0))
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add Flags int not null  CONSTRAINT [DF_{objectQualifier}UserPMessage_Flags] DEFAULT (0)
 end
 GO
 

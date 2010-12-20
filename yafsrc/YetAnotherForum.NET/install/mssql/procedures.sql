@@ -3014,7 +3014,7 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
 )
 AS
 BEGIN
-	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
+	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,[Subject],Body,BodyHtml)
 	select
 		@From,
 		@FromName,
@@ -3115,7 +3115,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 	update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 16 where MessageID = @MessageID
 
 	-- update User table to increase postcount
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
+	if exists(select top 1 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
 	begin
 		update [{databaseOwner}].[{objectQualifier}User] set NumPosts = NumPosts + 1 where UserID = @UserID
 		-- upgrade user, i.e. promote rank if conditions allow it
