@@ -290,7 +290,7 @@ namespace YAF.Classes
                         strNew = strNew.Remove(strNew.Length - 1, 1);
                     }
 
-                    return strNew.Length.Equals(0) ? "Default" : HttpUtility.UrlEncode(strNew.ToLowerInvariant());
+                    return strNew.Length.Equals(0) ? "Default" : HttpUtility.UrlEncode(strNew);
                 }
 
             case "Translit":
