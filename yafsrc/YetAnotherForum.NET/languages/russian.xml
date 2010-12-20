@@ -583,10 +583,10 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Вы можете использовать любые BBCodes.</Resource>
-    <Resource tag="BBCODE_ALLOWEDLIST">Вы можете использовать BBCodes: {0}.</Resource>    
+    <Resource tag="BBCODE_ALLOWEDLIST">Вы можете использовать BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
-    <Resource tag="HTML_ALLOWEDLIST">Вы можете использовать HTML теги: {0}.</Resource>
     <Resource tag="HTML_ALLOWEDALL">Вы можете использовать любые HTML теги.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST">Вы можете использовать HTML теги: {0}.</Resource>
     <Resource tag="HTML_FORBIDDEN">Ваша подпись не должна содержать HTML тэгов.</Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>

@@ -549,8 +549,10 @@
     <Resource tag="YOUR_USERNAME">Ditt brukernavn:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDALL">Your  signature can contain any BBCode.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="HTML_ALLOWEDALL">Your signature can contain any HTML tag.</Resource>
     <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
     <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
     <Resource tag="SIGNATURE">Signatur:</Resource>

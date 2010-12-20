@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes.Pattern;
+
 namespace YAF.Controls
 {
     #region
@@ -182,18 +184,28 @@ namespace YAF.Controls
 
             warningMessage.Append("<ul>");
 
-            warningMessage.AppendFormat(
-                "<li>{0}</li>",
-                this._allowedBbcodes.IsSet()
-                    ? this.PageContext.Localization.GetTextFormatted("BBCODE_ALLOWEDLIST", this._allowedBbcodes)
-                    : this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
+            if (this._allowedBbcodes.IsSet())
+            {
+                warningMessage.AppendFormat(
+                    "<li>{0}</li>",
+                    this._allowedBbcodes.Contains("ALL")
+                        ? this.PageContext.Localization.GetText("BBCODE_ALLOWEDALL")
+                        : this.PageContext.Localization.GetTextFormatted("BBCODE_ALLOWEDLIST", this._allowedBbcodes));
+            }
+            else
+            {
+                warningMessage.AppendFormat(
+              "<li>{0}</li>", this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
+            }
 
             if (this._allowedHtml.IsSet())
             {
                 warningMessage.AppendFormat(
-                   "<li>{0}</li>", 
-                   this.PageContext.Localization.GetTextFormatted(
-                    "HTML_ALLOWEDLIST", this._allowedHtml));
+                   "<li>{0}</li>",
+                this._allowedHtml.Contains("ALL")
+                         ? this.PageContext.Localization.GetText("HTML_ALLOWEDALL")
+                         : this.PageContext.Localization.GetTextFormatted(
+                         "HTML_ALLOWEDLIST", this._allowedHtml));
             }
             else
             {
@@ -274,27 +286,34 @@ namespace YAF.Controls
 
             // find forbidden BBcodes in signature
             string detectedBbCode = YafFormatMessage.BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
-
-            if (!string.IsNullOrEmpty(detectedBbCode) && detectedBbCode != "ALL")
+            if (this._allowedBbcodes.IndexOf("ALL") < 0)
             {
-                this.PageContext.AddLoadMessage(
-                    this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
-                return;
-            }
+                if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+                    return;
+                }
 
-            if (detectedBbCode == "ALL")
-            {
-                this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
-                return;
+                if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
+                {
+                    this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
+                    return;
+                }
             }
 
             // find forbidden HTMLTags in signature
-            if (!this.PageContext.IsAdmin)
+            if (!this.PageContext.IsAdmin && this._allowedHtml.IndexOf("ALL") < 0 )
             {
                 string detectedHtmlTag = YafFormatMessage.CheckHtmlTags(body, this._allowedHtml, ',');
-                if (detectedHtmlTag.IsSet())
+                if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
                     this.PageContext.AddLoadMessage(detectedHtmlTag);
+                    return;
+                }
+                if (detectedHtmlTag.IsSet() && detectedHtmlTag == "ALL")
+                {
+                    this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTML_FORBIDDEN"));
                     return;
                 }
             }
