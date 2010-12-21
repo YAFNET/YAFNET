@@ -219,6 +219,9 @@ namespace YAF.Controls
                 FormatWith(this.YafForumPageErrorPopup.ClientID, YafForumInfo.GetURLToResource("images/")));
 
             YafContext.Current.PageElements.RegisterJsBlock("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
+
+            this.OkButton.OnClientClick = "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.YafForumPageErrorPopup.ClientID);
+            this.CancelButton.OnClientClick = "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.YafForumPageErrorPopup.ClientID);
         }
 
         #endregion

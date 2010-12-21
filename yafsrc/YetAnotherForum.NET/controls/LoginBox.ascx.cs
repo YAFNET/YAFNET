@@ -60,7 +60,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+      protected void Page_Load(object sender, EventArgs e)
     {
         if (IsPostBack)
         {
@@ -85,17 +85,17 @@ namespace YAF.Controls
         var userName = this.Login1.FindControlAs<TextBox>("UserName");
         var password = this.Login1.FindControlAs<TextBox>("Password");
         var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
-        var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
+        var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
 
         userName.Focus();
 
         /*
-        RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
-        RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
+          RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
+          RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
 
-        usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
-        passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
-        */
+          usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
+          passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
+          */
         if (rememberMe != null)
         {
             rememberMe.Text = this.PageContext.Localization.GetText("auto");
@@ -111,13 +111,15 @@ namespace YAF.Controls
             passwordRecovery.Text = this.PageContext.Localization.GetText("lostpassword");
         }
 
-        if (password != null && forumLogin != null)
-        {
-            password.Attributes.Add(
-                "onkeydown",
-                "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID +
-                "').click();return false;}} else {return true}; ");
-        }    
+        userName.Attributes.Add(
+            "onkeydown",
+            "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
+            forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+
+        password.Attributes.Add(
+            "onkeydown",
+            "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
+            forumLogin.ClientID + "').click();return false;}} else {return true}; ");
 
         this.DataBind();
     }

@@ -30,7 +30,7 @@
                                 <asp:CheckBox ID="RememberMe" CssClass="RembemberMe" runat="server"></asp:CheckBox>
                               </div>
                               <hr />
-                              <div style="margin:5px 0;"><asp:Button ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
+                              <div style="margin:5px 0;"><asp:LinkButton ID="PasswordRecovery" CssClass="RecoveryButtton" runat="server" CausesValidation="false"
                                                 OnClick="PasswordRecovery_Click" /></div>
                                 
                             </td>
