@@ -7,6 +7,7 @@
         <tr class="forumRow post">
             <td class="forumIconCol">
                 <YAF:ThemeImage ID="ThemeForumIcon" runat="server" />
+                <img id="ForumImage1" class="" src="" alt="image" visible="false" runat="server" style="border-width:0px;" />	
             </td>
             <td class="forumLinkCol">
                 <div class="forumheading">
@@ -29,6 +30,7 @@
         <tr class="forumRow_Alt post_alt">
             <td>
                 <YAF:ThemeImage ID="ThemeForumIcon" runat="server" />
+                <img id="ForumImage1" class="" src="" alt="image" visible="false" runat="server" style="border-width:0px;" />	
             </td>
             <td class="forumLinkCol">
                 <div class="forumheading">
