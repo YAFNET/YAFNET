@@ -281,6 +281,8 @@ namespace YAF.Pages.Admin
             {
                 this.NewUser.Visible = false;
             }
+
+            this.Page.Form.DefaultButton = this.search.UniqueID;
         }
 
         /// <summary>
