@@ -82,6 +82,24 @@
 {
 }
 
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 1px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 1px #fe0300;
+}
+
+.yafnet .forum_customimage_nonewposts
+{
+     width: 16px;
+     height: 16px;
+}
+
+
 .yafnet .MessageDetails span
 {
 	font-weight: bold;

@@ -195,6 +195,7 @@
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
+
 /* custom forum images special styles */
 .yafnet .forum_customimage_locked
 {
@@ -204,6 +205,12 @@
 .yafnet .forum_customimage_newposts
 {
     border: solid 2px #fe0300;
+}
+
+.yafnet .forum_customimage_nonewposts
+{
+     width: 100%;
+     height: 100%;
 }
 
 .yafnet tr.topicRow .topicLastPost img.avatarimage,
