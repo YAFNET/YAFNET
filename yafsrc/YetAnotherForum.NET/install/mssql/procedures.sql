@@ -8319,13 +8319,13 @@ as
 DECLARE   @GroupData TABLE
 (
 	G_UsrSigChars int,
-	G_UsrSigBBCodes nvarchar(255),
-	G_UsrSigHTMLTags nvarchar(255)
+	G_UsrSigBBCodes nvarchar(4000),
+	G_UsrSigHTMLTags nvarchar(4000)
 )
    
-   declare @ust int, @usbbc nvarchar(255), 
-	@ushtmlt nvarchar(255), @rust int, @rusbbc nvarchar(255),  
-	@rushtmlt nvarchar(255) 
+   declare @ust int, @usbbc nvarchar(4000), 
+	@ushtmlt nvarchar(4000), @rust int, @rusbbc nvarchar(4000),  
+	@rushtmlt nvarchar(4000) 
 	      
       declare c cursor for
       SELECT ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
