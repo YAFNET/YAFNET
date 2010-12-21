@@ -225,87 +225,258 @@
                     </td>
                 </tr>
             </table>
-            <DotNetAge:Tabs ID="ProfileTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
-                AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
-                EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
-                OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
-                OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false"
-                Spinner="" Visible="false">
-                <Animations>
-                    <DotNetAge:AnimationAttribute Name="HeightTransition" AnimationType="height" Value="toggle" />
-                </Animations>
-                <Views>
-                    <DotNetAge:View runat="server" ID="AboutTab" Text="About" NavigateUrl="" HeaderCssClass=""
-                        HeaderStyle="" Target="_blank">
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="StatisticsTab" Text="Statistics" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank">
-                        <table width="100%" cellspacing="1" cellpadding="0">
-                        </table>
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="AvatarTab" Text="Avatar" NavigateUrl="" HeaderCssClass=""
-                        HeaderStyle="" Target="_blank">
-                        <table align="center" width="100%" cellspacing="1" cellpadding="0">
-                            <tr>
-
-                            </tr>
-                        </table>
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="Last10PostsTab" Text="Last 10 Posts Tab" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank">
-                        <YAF:ThemeButton ID="SearchUser" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                            TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />
-                        <br style="clear: both" />
-                        <table width="100%" cellspacing="1" cellpadding="0">
-                            <asp:Repeater ID="LastPosts" runat="server">
-                                <ItemTemplate>
-                                    <tr class="postheader">
-                                        <td class="small" align="left" colspan="2">
-                                            <strong>
-                                                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
-                                            </strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
-                                                <%# this.Get<IBadWordReplace>().Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
-                                            </a>
-                                            <br />
-                                            <strong>
-                                                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
-                                            </strong>
-                                            <%# this.Get<IDateTime>().FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
-                                        </td>
-                                    </tr>
-                                    <tr class="post">
-                                        <td valign="top" class="message" colspan="2">
-                                            <YAF:MessagePostData ID="MessagePost" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>">
-                                            </YAF:MessagePostData>
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </table>
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="BuddyListTab" Text="Buddy List" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank" Visible="<%# YafContext.Current.BoardSettings.EnableBuddyList %>">
-                        <YAF:BuddyList runat="server" ID="BuddyList" />
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="AlbumListTab" NavigateUrl="" HeaderCssClass=""
-                        HeaderStyle="" Target="_blank">
-                        <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1" />
-                    </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="ModerateTab" Text="Moderation" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Visible="false" Target="_blank">
-                        <YAF:ForumAccess runat="server" ID="ForumAccessControl" />
-                        <table width="100%" cellspacing="1" cellpadding="0">
-                            <tr class="header2">
-                                <td class="header2" colspan="2">
-                                    User Moderation
-                                </td>
-                            </tr>
-                        </table>
-                        <YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
-                        <YAF:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
-                    </DotNetAge:View>
-                </Views>
-            </DotNetAge:Tabs>
+            <asp:Panel id="ProfileTabs" runat="server">
+               <ul>
+                 <li><a href="#AboutTab"><YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="ABOUT" /></a></li>
+		 <li><a href="#StatisticsTab"><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" /></a></li>
+		 <li runat="server" id="AvatarLi"><a href='#<%# this.AvatarTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="AVATAR" /></a></li>
+		 <li><a href="#Last10PostsTab"><YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" /></a></li>
+		 <li><a href="#BuddyListTab"><YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' /></a></li>		        
+		 <li runat="server" id="AlbumListLi"><a href='#<%# this.AlbumListTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel45" runat="server" LocalizedTag="ALBUMS" /></a></li>	
+		 <li runat="server" id="ModerateLi"><a href='#<%# this.ModerateTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" /></a></li>	
+               </ul>
+                <div id="AboutTab">
+                   <table width="100%" cellspacing="1" cellpadding="0">
+							<tr>
+								<td width="50%" class="postheader">
+									<strong>
+										<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="username" />
+									</strong>
+								</td>
+								<td width="50%" class="post">
+									<asp:Label ID="Label1" runat="server" />
+									<YAF:OnlineStatusImage id="OnlineStatusImage2" runat="server" Style="vertical-align: bottom" />
+                            <asp:LinkButton ID="LinkButton1" runat="server" OnCommand="lnk_AddBuddy"/>
+                                <asp:literal ID="Literal1" runat="server" Text='<%# PageContext.Localization.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
+                                Visible="false">
+                                </asp:literal>
+								</td>
+							</tr>
+							<tr runat="server" id="Tr1" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="groups" />
+								</td>
+								<td class="post">
+									<asp:Repeater ID="Repeater1" runat="server">
+										<ItemTemplate>
+											<%# Container.DataItem %>
+										</ItemTemplate>
+										<SeparatorTemplate>
+											,
+										</SeparatorTemplate>
+									</asp:Repeater>
+								</td>
+							</tr>
+							<tr runat="server" id="Tr2" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedTag="rank" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label2" runat="server" />
+								</td>
+							</tr>
+							<tr runat="server" id="Tr3" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="realname" />
+								</td>
+								<td class="post" runat="server" id="Td1" />
+							</tr>
+							<tr runat="server" id="Tr4" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="location" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label3" runat="server" />
+								</td>
+							</tr>
+							<tr runat="server" id="Tr5" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="BIRTHDAY" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label4" runat="server" />
+								</td>
+							</tr>
+							<tr  runat="server" id="Tr6" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="occupation" />
+								</td>
+								<td class="post" runat="server" id="Td2" />
+							</tr>
+							<tr  runat="server" id="Tr7" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="interests" />
+								</td>
+								<td class="post" runat="server" id="Td3" />
+							</tr>
+							<tr runat="server" id="Tr8">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="gender" />
+								</td>
+								<td class="post" runat="server" id="Td4" />
+							</tr>
+							<tr runat="server" id="Tr9" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" LocalizedTag="MSN" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label5" runat="server" />
+								</td>
+							</tr>
+							<tr runat="server" id="Tr10" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedTag="AIM" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label6" runat="server" />
+								</td>
+							</tr>
+							<tr runat="server" id="Tr11" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedTag="YIM" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label7" runat="server" />
+								</td>
+							</tr>
+							<tr  runat="server" id="Tr12" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedTag="ICQ" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label8" runat="server" />
+								</td>
+							</tr>
+							<tr  runat="server" id="Tr13" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedTag="XMPP" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label9" runat="server" />
+								</td>
+							</tr>
+							<tr runat="server" id="Tr14" visible="false">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedTag="SKYPE" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label10" runat="server" />
+								</td>
+							</tr>
+						</table>
+                </div>
+                <div id="StatisticsTab">
+                  <table width="100%" cellspacing="1" cellpadding="0">
+							<tr>
+								<td width="50%" class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedTag="joined" />
+								</td>
+								<td width="50%" class="post">
+									<asp:Label ID="Label11" runat="server" />
+								</td>
+							</tr>
+							<tr>
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel38" runat="server" LocalizedTag="lastvisit" />
+								</td>
+								<td class="post">
+									<asp:Label ID="Label12" runat="server" Visible="false" />
+                                    <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" Visible="false"></YAF:DisplayDateTime>
+								</td>
+							</tr>
+							<tr>
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="numposts" />
+								</td>
+								<td class="post" runat="server" id="Stats" />
+							</tr>
+							<tr id="divTF" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ThanksFrom" runat="server" />
+                                    <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
+								</td>
+							</tr>
+							<tr id="divTTT" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ThanksToTimes" runat="server" />
+								</td>
+							</tr>
+							<tr id="divTTP" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ThanksToPosts" runat="server" />
+								</td>
+							</tr>
+						</table>
+                </div>
+                <div runat="server" id="AvatarTab">
+                  <table align="center" width="100%" cellspacing="1" cellpadding="0">
+							<tr>
+								<td class="post" colspan="2" align="center">
+									<asp:Image ID="Avatar" runat="server" CssClass="avatarimage" />
+								</td>
+							</tr>
+						</table>
+                </div>
+                <div id="Last10PostsTab">
+                  <YAF:ThemeButton ID="SearchUser" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+							TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />
+						<br style="clear: both" />
+						<table width="100%" cellspacing="1" cellpadding="0">
+							<asp:Repeater ID="LastPosts" runat="server">
+								<ItemTemplate>
+									<tr class="postheader">
+										<td class="small" align="left" colspan="2">
+											<strong>
+												<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
+											</strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+												<%# this.Get<IBadWordReplace>().Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
+											</a>
+											<br />
+											<strong>
+												<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
+											</strong>
+											<%# this.Get<IDateTime>().FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
+										</td>
+									</tr>
+									<tr class="post">
+										<td valign="top" class="message" colspan="2">
+											<YAF:MessagePostData ID="MessagePost" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>">
+											</YAF:MessagePostData>
+										</td>
+									</tr>
+								</ItemTemplate>
+							</asp:Repeater>
+						</table>
+                </div>
+                <div id="BuddyListTab">
+                  <YAF:BuddyList runat="server" ID="BuddyList" />
+                </div>
+                <div runat="server" id="AlbumListTab">
+                  <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1"/>
+                </div>
+                <div runat="server" id="ModerateTab">
+                  <YAF:ForumAccess runat="server" ID="ForumAccessControl" />
+						<table width="100%" cellspacing="1" cellpadding="0">
+							<tr class="header2">
+								<td class="header2" colspan="2">
+									User Moderation
+								</td>
+							</tr>
+						</table>
+						<YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
+						<YAF:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
+                </div>
+             </asp:Panel>
+            <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
         </td>
     </tr>
 </table>
