@@ -15,7 +15,6 @@
 	color: #000;	
 	background-color: #FFF;	
 	border: 1px solid #aaaaaa;
-	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;	
 }
@@ -25,7 +24,6 @@
     font-size: 7.5pt;
     font-weight: bold;
     border: solid 1px #444;
-	-moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
     padding: 1px 6px 1px 6px;
@@ -40,8 +38,7 @@
 }
 .yafnet .pbutton:hover
 {
-    border: solid 1px #000;
-	-moz-border-radius: 0.4em; 
+    border: solid 1px #000; 
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
 	
@@ -1210,3 +1207,4 @@ height:80em;
 
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
+
