@@ -229,6 +229,10 @@ namespace YAF.Pages.Admin
             this.PageContext.PageElements.RegisterJQuery();
             this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
 
+            this.Page.Form.DefaultButton = this.search.UniqueID;
+
+            this.search.Focus();
+
             if (this.IsPostBack)
             {
                 return;
@@ -281,8 +285,6 @@ namespace YAF.Pages.Admin
             {
                 this.NewUser.Visible = false;
             }
-
-            this.Page.Form.DefaultButton = this.search.UniqueID;
         }
 
         /// <summary>
