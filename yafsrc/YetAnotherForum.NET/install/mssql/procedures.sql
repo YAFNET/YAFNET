@@ -1385,10 +1385,11 @@ begin
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
-			IsHidden = ( a.IsActiveExcluded ),
-				Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,				
+			IsHidden = ( a.IsActiveExcluded ),				
+			Style = case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 			
 			UserCount = 1,
 			c.[Login],
 			c.LastActive,
@@ -1398,8 +1399,10 @@ begin
 			c.[Platform],
 			c.ForumPage
 		from
-			[{databaseOwner}].[{objectQualifier}User] a		
+			[{databaseOwner}].[{objectQualifier}User] a	
+			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID	
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
+			
 				  
 		where
 			c.BoardID = @BoardID 	
@@ -1418,10 +1421,11 @@ begin
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
-			IsHidden = ( a.IsActiveExcluded ),
-				Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,				
+			IsHidden = ( a.IsActiveExcluded ),		
+			Style = case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 	 						
 			UserCount = 1,
 			c.[Login],
 			c.LastActive,
@@ -1431,9 +1435,9 @@ begin
 			c.[Platform],
 			c.ForumPage
 		from
-			[{databaseOwner}].[{objectQualifier}User] a		
-			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
-				  
+			[{databaseOwner}].[{objectQualifier}User] a	
+			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID	
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID							  
 		where
 			c.BoardID = @BoardID 	
 			   and ((c.Flags & 4) = 4 OR (c.Flags & 2) <> 2 OR  (c.Flags & 8) = 8)					  
@@ -1452,9 +1456,10 @@ begin
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
-				Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,				
+			Style = case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 				
 			UserCount = 1,
 			c.[Login],
 			c.LastActive,
@@ -1464,9 +1469,9 @@ begin
 			c.[Platform],
 			c.ForumPage
 		from
-			[{databaseOwner}].[{objectQualifier}User] a		
-			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
-				  
+			[{databaseOwner}].[{objectQualifier}User] a	
+			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID							  
 		where
 			c.BoardID = @BoardID and
 			-- no guests
@@ -1499,8 +1504,9 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,			
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 				
 			UserCount = 1,
 			c.[Login],
 			c.LastActive,
@@ -1511,6 +1517,7 @@ begin
 			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a
+			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
 			inner join [{databaseOwner}].[{objectQualifier}Active] c 
 			ON c.UserID = a.UserID
 			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
@@ -1534,8 +1541,9 @@ begin
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,			
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 					
 			UserCount = 1,
 			c.[Login],
 			c.LastActive,
@@ -1546,6 +1554,7 @@ begin
 			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a
+			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
 			inner join [{databaseOwner}].[{objectQualifier}Active] c 
 			ON c.UserID = a.UserID
 			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
@@ -1568,9 +1577,10 @@ begin
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
-				Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,				
+			Style = case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 					
 			UserCount = 1,
 			c.[Login],
 			c.LastActive,
@@ -1580,7 +1590,8 @@ begin
 			c.[Platform],
 			c.ForumPage
 		from
-			[{databaseOwner}].[{objectQualifier}User] a		
+			[{databaseOwner}].[{objectQualifier}User] a	
+			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c 
 			ON c.UserID = a.UserID
 			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
@@ -1607,20 +1618,24 @@ begin
 		IsHidden	= ( b.IsActiveExcluded ),
 		IsCrawler	= Convert(int,a.Flags & 8),		
 		Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,		
+		when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+		else ''	 end, 			
 		UserCount   = (SELECT COUNT(ac.UserID) from
 		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.ForumID = @ForumID),
 		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+		JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=b.RankID
 	where
 		a.ForumID = @ForumID
 	group by
 		a.UserID,
 		b.Name,
 		b.IsActiveExcluded,
+		b.UserID,
+		r.Style,
 		a.Flags,
 		a.Browser
 	order by
@@ -1637,20 +1652,24 @@ begin
 		IsHidden = ( b.IsActiveExcluded ),		
 		IsCrawler	= Convert(int,a.Flags & 8),
 		Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,		
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
+			else ''	 end, 	
 		UserCount   = (SELECT COUNT(ac.UserID) from
 		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.TopicID = @TopicID),
 		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+		JOIN [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
 	where
 		a.TopicID = @TopicID
 	group by
 		a.UserID,
 		b.Name,
 		b.IsActiveExcluded,
+		b.UserID,
+		c.Style,
 		a.Flags,
 		a.Browser		
 	order by
@@ -1959,13 +1978,17 @@ BEGIN
 		LastPost	= a.Posted,
 		LastUserID	= a.UserID,
 		LastUser	= e.Name,
-		LastUserStyle = (CASE WHEN @StyledNicks > 0 THEN [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID) ELSE '' END)
+		LastUserStyle =  case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end 	
 			FROM 
 				[{databaseOwner}].[{objectQualifier}Message] a 
 				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID 
 				join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID 
 				join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID 
-				join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID				
+				join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID
+				JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=e.RankID		
 			WHERE 
 				(a.Flags & 24) = 16
 				AND (b.Flags & 8) <> 8 
@@ -4458,7 +4481,7 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=a.TopicID
 		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
-		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID	
+		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
 	where
 		a.TopicID = @TopicID
 		AND a.IsApproved = 1
