@@ -1107,10 +1107,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">שם המשתמש או כתובת הדוא"ל אינם נכונים.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">הצטרף/ה</Resource>
     <Resource tag="PAGES">{0} דפים:</Resource>
     <Resource tag="POSTS">הודעות</Resource>
     <Resource tag="RANK">דירוג</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">חברים</Resource>
     <Resource tag="USERNAME">שם משתמש</Resource>
   </page>

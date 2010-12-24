@@ -1098,10 +1098,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Неверное имя пользователя или адрес электронной почты.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
     <Resource tag="PAGES">{0} Страниц:</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="RANK">Ранг</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Пользователи</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>

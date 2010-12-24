@@ -1067,10 +1067,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Virheellinen käyttäjätunnus tai salasana.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Liittynyt</Resource>
     <Resource tag="PAGES">{0} sivua:</Resource>
     <Resource tag="POSTS">Viestejä</Resource>
     <Resource tag="RANK">Taso</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Rekisteröityneet käyttäjät</Resource>
     <Resource tag="USERNAME">Käyttäjätunnus</Resource>
   </page>

@@ -1082,10 +1082,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Ongeldige gebruikersnaam of e-mail adres.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Lid sinds</Resource>
     <Resource tag="PAGES">{0} pagina's:</Resource>
     <Resource tag="POSTS">Berichten</Resource>
     <Resource tag="RANK">Rang</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Leden</Resource>
     <Resource tag="USERNAME">Gebruikersnaam</Resource>
   </page>

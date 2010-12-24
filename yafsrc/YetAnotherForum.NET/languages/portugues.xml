@@ -1082,10 +1082,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Nome de usuário ou endereço de email incorreto.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Associado em</Resource>
     <Resource tag="PAGES">{0} Páginas:</Resource>
     <Resource tag="POSTS">Participações</Resource>
     <Resource tag="RANK">Classe</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Membros</Resource>
     <Resource tag="USERNAME">Nome do Usuário</Resource>
   </page>

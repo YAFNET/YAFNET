@@ -1183,10 +1183,15 @@
     </Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Prisijungė </Resource>
     <Resource tag="PAGES">{0} Puslapiai: </Resource>
     <Resource tag="POSTS">Žinutės </Resource>
     <Resource tag="RANK">Rangas </Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Nariai </Resource>
     <Resource tag="USERNAME">Vartotojo vardas </Resource>
   </page>

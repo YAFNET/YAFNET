@@ -1,6 +1,42 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" Codebehind="members.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<table cellspacing="0" cellpadding="0" class="content" width="100%">
+        <tr>
+            <td class="header1" colspan="4">
+                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="Search_Members" />
+            </td>
+        </tr>
+        <tr class="header2">
+            <td>
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="Search_Role" />
+            </td>
+            <td>
+                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="Search_Rank" />
+            </td>
+            <td>
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Search_Name" />
+            </td>
+        </tr>
+        <tr class="post">
+            <td>
+                <asp:DropDownList ID="group" runat="server" Width="95%">
+                </asp:DropDownList>
+            </td>
+            <td>
+                <asp:DropDownList ID="Ranks" runat="server" Width="95%">
+                </asp:DropDownList>
+            </td>
+            <td>
+                <asp:TextBox ID="name" runat="server" Width="95%"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer1" colspan="4" align="right">
+                <asp:Button ID="search" runat="server" OnClick="search_Click" Text="Search"></asp:Button>
+            </td>
+        </tr>
+    </table>
+    <br />
 <YAF:AlphaSort ID="AlphaSort1" runat="server" />
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
@@ -11,7 +47,7 @@
 	</tr>
 	<tr>
         <td class="header2">
-            Avatar
+            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="Avatar" />
         </td>
 		<td class="header2">
 			<img runat="server" id="SortUserName" alt="Sort User Name" style="vertical-align: middle" />

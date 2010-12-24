@@ -1068,10 +1068,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Utilizator sau adresa de email gresite.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Intregistrat la</Resource>
     <Resource tag="PAGES">{0} Pagini:</Resource>
     <Resource tag="POSTS">Postari</Resource>
     <Resource tag="RANK">Nivel</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Membrii</Resource>
     <Resource tag="USERNAME">Utilizator</Resource>
   </page>

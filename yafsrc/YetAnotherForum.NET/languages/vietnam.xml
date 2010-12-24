@@ -1067,10 +1067,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Sai tên đăng nhập hoặc email.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Gia nhập</Resource>
     <Resource tag="PAGES">{0} trang:</Resource>
     <Resource tag="POSTS">Bài viết</Resource>
     <Resource tag="RANK">Danh hiệu</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Thành viên</Resource>
     <Resource tag="USERNAME">Tên sử dụng</Resource>
   </page>

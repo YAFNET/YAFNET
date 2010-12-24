@@ -996,6 +996,12 @@
 		<Resource tag="RANK">Rank</Resource>
 		<Resource tag="TITLE">Members</Resource>
 		<Resource tag="USERNAME">Name</Resource>
+		<Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+	    <Resource tag="ALL">All</Resource>
+		<Resource tag="AVATAR">Avatar</Resource>
+		<Resource tag="SEARCH_RANK">Rank:</Resource>
+		<Resource tag="SEARCH_ROLE">Role:</Resource>
+		<Resource tag="SEARCH_RANK">Member Name Contains:</Resource>
 	</page>
 	<page name="MOD_FORUMUSER">
 		<Resource tag="ACCESSMASK">Access Mask:</Resource>

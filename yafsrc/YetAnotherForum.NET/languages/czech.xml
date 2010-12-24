@@ -1068,10 +1068,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Špatné uživatelské jméno nebo e-mailová adresa.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Registrován</Resource>
     <Resource tag="PAGES">{0} stránek:</Resource>
     <Resource tag="POSTS">Zpráv</Resource>
     <Resource tag="RANK">Kategorie</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Uživatelé</Resource>
     <Resource tag="USERNAME">Uživatelské jméno</Resource>
   </page>

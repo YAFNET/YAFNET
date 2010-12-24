@@ -1067,10 +1067,15 @@
     <Resource tag="WRONG_USERNAME_EMAIL">Feil brukernavn eller e-postadresse.</Resource>
   </page>
   <page name="MEMBERS">
+    <Resource tag="ALL">All</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="JOINED">Innmeldt</Resource>
     <Resource tag="PAGES">{0} sider:</Resource>
     <Resource tag="POSTS">Innlegg</Resource>
     <Resource tag="RANK">Grad</Resource>
+    <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
+    <Resource tag="SEARCH_RANK">Rank:</Resource>
+    <Resource tag="SEARCH_ROLE">Role:</Resource>
     <Resource tag="TITLE">Medlemmer</Resource>
     <Resource tag="USERNAME">Brukernavn</Resource>
   </page>
