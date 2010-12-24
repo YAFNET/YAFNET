@@ -142,12 +142,22 @@ namespace YAF.Classes.Core
         // user's email
         string toEMail = string.Empty;
 
-        var userList = DB.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+          // NOTE: Not Working 
+
+        /*var userList = DB.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
 
         if (userList.Any())
         {
           privateMessageNotificationEnabled = userList.First().PMNotification ?? false;
           toEMail = userList.First().Email;
+        }*/
+
+        var userList = DB.user_list(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+
+        if (userList.Rows.Count > 0)
+        {
+            privateMessageNotificationEnabled = (bool)userList.Rows[0]["PMNotification"];
+            toEMail = (string)userList.Rows[0]["Email"];
         }
 
         if (privateMessageNotificationEnabled)
@@ -180,9 +190,9 @@ namespace YAF.Classes.Core
           notificationTemplate.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
           notificationTemplate.TemplateParams["{subject}"] = subject;
 
+
           // create notification email subject
-          string emailSubject =
-            YafContext.Current.Localization.GetText("COMMON", "PM_NOTIFICATION_SUBJECT").FormatWith(
+          string emailSubject = YafContext.Current.Localization.GetText("COMMON", "PM_NOTIFICATION_SUBJECT", UserHelper.GetUserLanguageFile(toUserId)).FormatWith(
               YafContext.Current.PageUserName, YafContext.Current.BoardSettings.Name, subject);
 
           // send email
