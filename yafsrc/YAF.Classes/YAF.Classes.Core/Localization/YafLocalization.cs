@@ -252,6 +252,7 @@ namespace YAF.Classes.Core
 
         if ( YafContext.Current.PageIsNull() ||
              YafContext.Current.LanguageFile == string.Empty ||
+             YafContext.Current.LanguageFile == string.Empty ||
              !YafContext.Current.BoardSettings.AllowUserLanguage )
         {
           filename = YafContext.Current.BoardSettings.Language;
@@ -276,6 +277,79 @@ namespace YAF.Classes.Core
       localizedText = localizedText.Replace("[b]", "<b>");
       localizedText = localizedText.Replace("[/b]", "</b>");
       return localizedText;
+    }
+
+      /// <summary>
+      /// The get text, with a Specific Language.
+      /// </summary>
+      /// <param name="page">
+      /// The page.
+      /// </param>
+      /// <param name="tag">
+      /// The tag.
+      /// </param>
+      /// <param name="languageFile">
+      /// The Language file
+      /// </param>
+      /// <returns>
+      /// The get text.
+      /// </returns>
+      public string GetText(string page, string tag, string languageFile)
+    {
+        string localizedText;
+
+        if (!string.IsNullOrEmpty(languageFile))
+        {
+            var localization = new YafLocalization();
+            localization.LoadTranslation(languageFile);
+            localizedText = localization.GetText(page, tag);
+        }
+        else
+        {
+            localizedText = this.GetLocalizedTextInternal(page, tag);
+        }
+        
+
+        if (localizedText == null)
+        {
+#if !DEBUG
+            string filename;
+
+            if (!string.IsNullOrEmpty(languageFile))
+            {
+                filename = languageFile;
+            }
+            else
+            {
+                if (YafContext.Current.PageIsNull() ||
+                 YafContext.Current.LanguageFile == string.Empty ||
+                 YafContext.Current.LanguageFile == string.Empty ||
+                 !YafContext.Current.BoardSettings.AllowUserLanguage)
+                {
+                    filename = YafContext.Current.BoardSettings.Language;
+                }
+                else
+                {
+                    filename = YafContext.Current.LanguageFile;
+                }
+            }
+            
+
+            if (filename == string.Empty) filename = "english.xml";
+
+            HttpContext.Current.Cache.Remove("Localizer." + filename);
+#endif
+            DB.eventlog_create(
+              YafContext.Current.PageUserID,
+              page.ToLower() + ".ascx",
+              "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()),
+              EventLogTypes.Error);
+            return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
+        }
+
+        localizedText = localizedText.Replace("[b]", "<b>");
+        localizedText = localizedText.Replace("[/b]", "</b>");
+        return localizedText;
     }
 
     /// <summary>
@@ -464,27 +538,27 @@ namespace YAF.Classes.Core
     /// </returns>
     protected string GetLocalizedTextInternal(string page, string tag)
     {
-      string localizedText;
+        string localizedText;
 
-      this.LoadTranslation();
+        this.LoadTranslation();
 
-      this._localizer.SetPage(page);
-      this._localizer.GetText(tag, out localizedText);
+        this._localizer.SetPage(page);
+        this._localizer.GetText(tag, out localizedText);
 
-      // If not default language, try to use that instead
-      if (localizedText == null && this._defaultLocale != null)
-      {
-        this._defaultLocale.SetPage(page);
-        this._defaultLocale.GetText(tag, out localizedText);
-        if (localizedText != null)
+        // If not default language, try to use that instead
+        if (localizedText == null && this._defaultLocale != null)
         {
-          localizedText = '[' + localizedText + ']';
+            this._defaultLocale.SetPage(page);
+            this._defaultLocale.GetText(tag, out localizedText);
+            if (localizedText != null)
+            {
+                localizedText = '[' + localizedText + ']';
+            }
         }
-      }
 
-      return localizedText;
+        return localizedText;
     }
 
-    #endregion
+      #endregion
   }
 }
