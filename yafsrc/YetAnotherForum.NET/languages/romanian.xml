@@ -1074,6 +1074,7 @@
     <Resource tag="PAGES">{0} Pagini:</Resource>
     <Resource tag="POSTS">Postari</Resource>
     <Resource tag="RANK">Nivel</Resource>
+    <Resource tag="SEARCH_MEMBER">Member Name Contains:</Resource>
     <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
     <Resource tag="SEARCH_ROLE">Role:</Resource>

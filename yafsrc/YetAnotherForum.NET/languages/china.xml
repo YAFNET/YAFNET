@@ -1091,6 +1091,7 @@
     <Resource tag="PAGES">{0} 页:</Resource>
     <Resource tag="POSTS">发贴数量</Resource>
     <Resource tag="RANK">等级</Resource>
+    <Resource tag="SEARCH_MEMBER">Member Name Contains:</Resource>
     <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
     <Resource tag="SEARCH_ROLE">Role:</Resource>

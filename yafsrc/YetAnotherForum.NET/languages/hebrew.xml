@@ -1113,6 +1113,7 @@
     <Resource tag="PAGES">{0} דפים:</Resource>
     <Resource tag="POSTS">הודעות</Resource>
     <Resource tag="RANK">דירוג</Resource>
+    <Resource tag="SEARCH_MEMBER">Member Name Contains:</Resource>
     <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
     <Resource tag="SEARCH_ROLE">Role:</Resource>

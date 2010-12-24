@@ -1090,6 +1090,7 @@
     <Resource tag="PAGES">{0} Sider:</Resource>
     <Resource tag="POSTS">Indlæg</Resource>
     <Resource tag="RANK">Rang</Resource>
+    <Resource tag="SEARCH_MEMBER">Member Name Contains:</Resource>
     <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
     <Resource tag="SEARCH_ROLE">Role:</Resource>

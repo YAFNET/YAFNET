@@ -14,7 +14,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="Search_Rank" />
             </td>
             <td>
-                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Search_Name" />
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Search_Member" />
             </td>
         </tr>
         <tr class="post">

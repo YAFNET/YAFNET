@@ -1088,6 +1088,7 @@
     <Resource tag="PAGES">{0} Páginas:</Resource>
     <Resource tag="POSTS">Participações</Resource>
     <Resource tag="RANK">Classe</Resource>
+    <Resource tag="SEARCH_MEMBER">Member Name Contains:</Resource>
     <Resource tag="SEARCH_MEMBERS">Search Members</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
     <Resource tag="SEARCH_ROLE">Role:</Resource>
