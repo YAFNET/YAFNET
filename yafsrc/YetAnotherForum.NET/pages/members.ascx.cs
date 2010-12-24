@@ -356,6 +356,15 @@ namespace YAF.Pages
                     }
                 }
             }
+            else
+            {
+                // filter by name or email
+                if (this.name.Text.Trim().Length > 0)
+                {
+                    userListDataView.RowFilter =
+                        "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%')".FormatWith(this.name.Text.Trim());
+                }
+            }
 
             this.Pager.Count = userListDataView.Count;
 
