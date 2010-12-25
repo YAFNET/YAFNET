@@ -106,7 +106,7 @@ namespace YAF.Controls
       // get the Forum Description
       output = Convert.ToString(row["Forum"]);
 
-      if (int.Parse(row["ReadAccess"].ToString()) > 0)
+      if (row["ReadAccess"].ToType<int>() > 0)
       {
           output = "<a href=\"{0}\" title=\"{1}\" alt=\"{1}\" >{2}</a>".FormatWith(
           YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), this.Page.HtmlEncode(output));

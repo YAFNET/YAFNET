@@ -8,224 +8,42 @@
 <%@ Register TagPrefix="YAF" TagName="AlbumList" Src="../../../controls/AlbumList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
-    <tr>
-        <td class="header1" colspan="2">
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="profile" />
-            <YAF:UserLabel ID="UserLabel1" runat="server" />
-        </td>
-    </tr>
-    <tr class="post">
-        <td colspan="2">
-            <YAF:ThemeButton ID="PM" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="PM" ImageThemeTag="PM" />
-            <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" />
-            <YAF:ThemeButton ID="Home" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="HOME" ImageThemeTag="HOME" />
-            <YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />
-            <YAF:ThemeButton ID="MSN" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="MSN" ImageThemeTag="MSN" />
-            <YAF:ThemeButton ID="AIM" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="AIM" ImageThemeTag="AIM" />
-            <YAF:ThemeButton ID="YIM" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="YIM" ImageThemeTag="YIM" />
-            <YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
-            <YAF:ThemeButton ID="XMPP" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="XMPP" ImageThemeTag="XMPP" />
-            <YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" Visible="false"
-                TextLocalizedPage="POSTS" TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
-            <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
-                TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'>
-            </YAF:ThemeButton>
-        </td>
-    </tr>
-    <tr class="post">
-        <td valign="top" rowspan="2" runat="server">
-            <table width="100%" cellspacing="1" cellpadding="0">
-                <tr>
-                                <td class="post" colspan="2" align="center">
-                                    <asp:Image ID="Avatar" runat="server" CssClass="avatarimage" />
-                                </td>
-                </tr>
-                <tr>
-                    <td width="50%" class="postheader">
-                        <strong>
-                            <YAF:LocalizedLabel ID="LocalizedLabel222" runat="server" LocalizedTag="username" />
-                        </strong>
-                    </td>
-                    <td width="50%" class="post">
-                        <asp:Label ID="Name" runat="server" />
-                        <YAF:OnlineStatusImage ID="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
-                        <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy" />
-                        <asp:Literal ID="ltrApproval" runat="server" Text='<%# PageContext.Localization.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
-                            Visible="false">
-                        </asp:Literal>
-                    </td>
-                </tr>
-
-                <tr runat="server" id="userGroupsRow" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
-                    </td>
-                    <td class="post">
-                        <asp:Repeater ID="Groups" runat="server">
-                            <ItemTemplate>
-                                <%# Container.DataItem %>
-                            </ItemTemplate>
-                            <SeparatorTemplate>
-                                ,
-                            </SeparatorTemplate>
-                        </asp:Repeater>
-                    </td>
-                </tr>
-                <tr runat="server" id="RankTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="rank" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="Rank" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="RealNameTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="realname" />
-                    </td>
-                    <td class="post" runat="server" id="RealName" />
-                </tr>
-                <tr runat="server" id="LocationTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="Location" runat="server" />
-                    </td>
-                </tr>
-				<tr>
-					<td width="50%" class="postheader">
-						<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
-					</td>
-					<td width="50%" class="post">
-						<asp:Label ID="Joined" runat="server" />
-					</td>
-				</tr>
-				<tr>
-					<td class="postheader">
-						<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
-					</td>
-					<td class="post">
-						<asp:Label ID="LastVisit" runat="server" Visible="false" />
-                        <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" Visible="false"></YAF:DisplayDateTime>
-					</td>
-				</tr>
-                <tr>
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="numposts" />
-                    </td>
-                    <td class="post" runat="server" id="Stats" />
-                </tr>
-                <tr id="divTF" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="ThanksFrom" runat="server" />
-                        <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks" />
-                    </td>
-                </tr>
-                <tr id="divTTT" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="ThanksToTimes" runat="server" />
-                    </td>
-                </tr>
-                <tr id="divTTP" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="ThanksToPosts" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="BirthdayTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="Birthday" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="OccupationTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
-                    </td>
-                    <td class="post" runat="server" id="Occupation" />
-                </tr>
-                <tr runat="server" id="InterestsTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="interests" />
-                    </td>
-                    <td class="post" runat="server" id="Interests" />
-                </tr>
-                <tr runat="server" id="GenderTR">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
-                    </td>
-                    <td class="post" runat="server" id="Gender" />
-                </tr>
-                <tr runat="server" id="MsnTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MSN" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="lblmsn" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="AimTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="AIM" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="lblaim" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="YimTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="YIM" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="lblyim" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="IcqTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="ICQ" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="lblicq" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="XmppTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="XMPP" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="lblxmpp" runat="server" />
-                    </td>
-                </tr>
-                <tr runat="server" id="SkypeTR" visible="false">
-                    <td class="postheader">
-                        <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="SKYPE" />
-                    </td>
-                    <td class="post">
-                        <asp:Label ID="lblskype" runat="server" />
-                    </td>
-                </tr>
-            </table>
-            <asp:Panel id="ProfileTabs" runat="server">
+	<tr>
+		<td class="header1" colspan="2">
+			<YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
+			<YAF:UserLabel ID="UserLabel1" runat="server" />
+		</td>
+	</tr>
+	<tr class="post">
+		<td colspan="2">
+			<YAF:ThemeButton ID="PM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="PM" ImageThemeTag="PM" />
+			<YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" />
+			<YAF:ThemeButton ID="Home" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="HOME" ImageThemeTag="HOME" />
+			<YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />
+			<YAF:ThemeButton ID="MSN" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="MSN" ImageThemeTag="MSN" />
+			<YAF:ThemeButton ID="AIM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="AIM" ImageThemeTag="AIM" />
+			<YAF:ThemeButton ID="YIM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="YIM" ImageThemeTag="YIM" />
+			<YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
+			<YAF:ThemeButton ID="XMPP" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" />	
+			<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
+				TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
+			<YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
+				TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'>
+			</YAF:ThemeButton>
+		</td>
+	</tr>
+	<tr class="post">
+		<td valign="top" rowspan="2">
+			<asp:Panel id="ProfileTabs" runat="server">
                <ul>
                  <li><a href="#AboutTab"><YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="ABOUT" /></a></li>
 		 <li><a href="#StatisticsTab"><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" /></a></li>
@@ -240,24 +58,24 @@
 							<tr>
 								<td width="50%" class="postheader">
 									<strong>
-										<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="username" />
+										<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
 									</strong>
 								</td>
 								<td width="50%" class="post">
-									<asp:Label ID="Label1" runat="server" />
-									<YAF:OnlineStatusImage id="OnlineStatusImage2" runat="server" Style="vertical-align: bottom" />
-                            <asp:LinkButton ID="LinkButton1" runat="server" OnCommand="lnk_AddBuddy"/>
-                                <asp:literal ID="Literal1" runat="server" Text='<%# PageContext.Localization.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
+									<asp:Label ID="Name" runat="server" />
+									<YAF:OnlineStatusImage id="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
+                            <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy"/>
+                                <asp:literal ID="ltrApproval" runat="server" Text='<%# PageContext.Localization.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
                                 Visible="false">
                                 </asp:literal>
 								</td>
 							</tr>
-							<tr runat="server" id="Tr1" visible="false">
+							<tr runat="server" id="userGroupsRow" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="groups" />
+									<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
 								</td>
 								<td class="post">
-									<asp:Repeater ID="Repeater1" runat="server">
+									<asp:Repeater ID="Groups" runat="server">
 										<ItemTemplate>
 											<%# Container.DataItem %>
 										</ItemTemplate>
@@ -267,100 +85,100 @@
 									</asp:Repeater>
 								</td>
 							</tr>
-							<tr runat="server" id="Tr2" visible="false">
+							<tr runat="server" id="RankTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedTag="rank" />
+									<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="rank" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label2" runat="server" />
+									<asp:Label ID="Rank" runat="server" />
 								</td>
 							</tr>
-							<tr runat="server" id="Tr3" visible="false">
+							<tr runat="server" id="RealNameTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="realname" />
+									<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="realname" />
 								</td>
-								<td class="post" runat="server" id="Td1" />
+								<td class="post" runat="server" id="RealName" />
 							</tr>
-							<tr runat="server" id="Tr4" visible="false">
+							<tr runat="server" id="LocationTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="location" />
+									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label3" runat="server" />
+									<asp:Label ID="Location" runat="server" />
 								</td>
 							</tr>
-							<tr runat="server" id="Tr5" visible="false">
+							<tr runat="server" id="BirthdayTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="BIRTHDAY" />
+									<YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label4" runat="server" />
+									<asp:Label ID="Birthday" runat="server" />
 								</td>
 							</tr>
-							<tr  runat="server" id="Tr6" visible="false">
+							<tr  runat="server" id="OccupationTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="occupation" />
+									<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
 								</td>
-								<td class="post" runat="server" id="Td2" />
+								<td class="post" runat="server" id="Occupation" />
 							</tr>
-							<tr  runat="server" id="Tr7" visible="false">
+							<tr  runat="server" id="InterestsTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="interests" />
+									<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="interests" />
 								</td>
-								<td class="post" runat="server" id="Td3" />
+								<td class="post" runat="server" id="Interests" />
 							</tr>
-							<tr runat="server" id="Tr8">
+							<tr runat="server" id="GenderTR">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="gender" />
+									<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
 								</td>
-								<td class="post" runat="server" id="Td4" />
+								<td class="post" runat="server" id="Gender" />
 							</tr>
-							<tr runat="server" id="Tr9" visible="false">
+							<tr runat="server" id="MsnTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" LocalizedTag="MSN" />
+									<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="MSN" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label5" runat="server" />
+									<asp:Label ID="lblmsn" runat="server" />
 								</td>
 							</tr>
-							<tr runat="server" id="Tr10" visible="false">
+							<tr runat="server" id="AimTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedTag="AIM" />
+									<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="AIM" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label6" runat="server" />
+									<asp:Label ID="lblaim" runat="server" />
 								</td>
 							</tr>
-							<tr runat="server" id="Tr11" visible="false">
+							<tr runat="server" id="YimTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedTag="YIM" />
+									<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="YIM" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label7" runat="server" />
+									<asp:Label ID="lblyim" runat="server" />
 								</td>
 							</tr>
-							<tr  runat="server" id="Tr12" visible="false">
+							<tr  runat="server" id="IcqTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedTag="ICQ" />
+									<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="ICQ" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label8" runat="server" />
+									<asp:Label ID="lblicq" runat="server" />
 								</td>
 							</tr>
-							<tr  runat="server" id="Tr13" visible="false">
+							<tr  runat="server" id="XmppTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedTag="XMPP" />
+									<YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="XMPP" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label9" runat="server" />
+									<asp:Label ID="lblxmpp" runat="server" />
 								</td>
 							</tr>
-							<tr runat="server" id="Tr14" visible="false">
+							<tr runat="server" id="SkypeTR" visible="false">
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedTag="SKYPE" />
+									<YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="SKYPE" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label10" runat="server" />
+									<asp:Label ID="lblskype" runat="server" />
 								</td>
 							</tr>
 						</table>
@@ -369,18 +187,18 @@
                   <table width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td width="50%" class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedTag="joined" />
+									<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
 								</td>
 								<td width="50%" class="post">
-									<asp:Label ID="Label11" runat="server" />
+									<asp:Label ID="Joined" runat="server" />
 								</td>
 							</tr>
 							<tr>
 								<td class="postheader">
-									<YAF:LocalizedLabel ID="LocalizedLabel38" runat="server" LocalizedTag="lastvisit" />
+									<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
 								</td>
 								<td class="post">
-									<asp:Label ID="Label12" runat="server" Visible="false" />
+									<asp:Label ID="LastVisit" runat="server" Visible="false" />
                                     <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" Visible="false"></YAF:DisplayDateTime>
 								</td>
 							</tr>
@@ -477,9 +295,9 @@
                 </div>
              </asp:Panel>
             <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
-        </td>
-    </tr>
+		</td>
+	</tr>
 </table>
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

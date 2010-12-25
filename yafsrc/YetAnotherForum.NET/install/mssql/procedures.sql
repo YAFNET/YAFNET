@@ -2667,8 +2667,11 @@ begin
 		b.RemoteURL,		
 		ReadAccess = CONVERT(int,x.ReadAccess),
 		Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
-			else ''	 end				
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
+			else ''	 end 					
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID

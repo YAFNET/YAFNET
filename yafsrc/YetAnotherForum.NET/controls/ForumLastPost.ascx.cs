@@ -102,7 +102,7 @@ namespace YAF.Controls
     {
       if (this.DataRow != null)
       {
-        if (int.Parse(this.DataRow["ReadAccess"].ToString()) == 0)
+        if (this.DataRow["ReadAccess"].ToType<int>() == 0)
         {
           this.TopicInPlaceHolder.Visible = false;
         }

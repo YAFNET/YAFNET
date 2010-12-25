@@ -97,8 +97,8 @@ namespace YAF.Classes.Utils
     public static bool IsMobileDevice([CanBeNull] string userAgent)
     {
       string[] mobileContains = {
-                                  "iphone", "midp", "windows ce", "android", "blackberry", "opera mini", "mobile", "palm", 
-                                  "portable", "webos", "ipad", "htc", "armv7l", "lg/u"
+                                  "iphone", "ipad", "midp", "windows ce", "android", "blackberry", "opera mini", "mobile", "palm", 
+                                  "portable", "webos",  "htc", "armv7l", "lg/u"
                                 };
 
       return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));

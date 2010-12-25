@@ -388,7 +388,7 @@ namespace YAF.Controls
     protected int VoteWidth([NotNull] object o)
     {
       var row = (DataRowView)o;
-      return (int)row.Row["Stats"] * 80 / 100;
+      return row.Row["Stats"].ToType<int>() * 80 / 100;
     }
 
     /// <summary>
