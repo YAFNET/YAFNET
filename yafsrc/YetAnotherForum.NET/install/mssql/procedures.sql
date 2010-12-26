@@ -2755,7 +2755,9 @@ BEGIN
 		ModeratorID = usr.UserID, 
 		ModeratorName = usr.Name,	
 		Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](usr.UserID)  
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=usr.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			r.Style)  
 			else ''	 end,						
 		IsGroup=0
 	from
@@ -2773,6 +2775,8 @@ BEGIN
 				ModeratorAccess <> 0 AND x.AdminGroup = 0
 			GROUP BY a.UserId, x.ForumID
 		) access ON usr.UserID = access.UserID
+		JOIN [{databaseOwner}].[{objectQualifier}Rank] r
+		ON r.RankID = usr.UserID
 	where
 		access.ModeratorAccess<>0
 	order by
@@ -3001,11 +3005,11 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}group_rank_style]( @BoardID int) as
 begin
 -- added fields to get overall info about groups and ranks
-SELECT 1 AS LegendID,[Name],Style, PMLimit,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Group]
-WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,Description,PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
+SELECT 1 AS LegendID,[Name],Style, PMLimit,[Description],UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Group]
+WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
 UNION
-SELECT 2  AS LegendID,[Name],Style,PMLimit, Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Rank]
-WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,Description,PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
+SELECT 2  AS LegendID,[Name],Style,PMLimit, [Description],UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Rank]
+WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
 end
 GO
 
@@ -4845,28 +4849,34 @@ begin
 		c.TopicMovedID,
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-		StarterStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-			else ''	 end,
-		LastUserStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+	    StarterStyle = case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
 		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
-		join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
 	where
 		@Since < c.LastPosted and
 		x.UserID = @UserID and
 		CONVERT(int,x.ReadAccess) <> 0 and
-		e.BoardID = @BoardID and
-		(@CategoryID is null or e.CategoryID=@CategoryID) and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
 		and	c.TopicMovedID is null 
 	order by
-		e.SortOrder asc,
+		cat.SortOrder asc,
 		d.SortOrder asc,
 		d.Name asc,
 		Priority desc,
@@ -5215,9 +5225,12 @@ BEGIN
 		t.NumPosts,
 		t.Posted,		
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-		LastUserStyle = case(@StyledNicks) when 1 
-		then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
-		else '' end		 	
+		LastUserStyle =  case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=t.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=t.LastUserID))  
+			else ''	 end		
 	FROM	
 		[{databaseOwner}].[{objectQualifier}Topic] t 
 	INNER JOIN
@@ -5305,20 +5318,26 @@ begin
 			c.PollID,
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-			StarterStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-			else ''	 end,
-			LastUserStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+			 StarterStyle = case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		    LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
 			ON d.ForumID=c.ForumID 
-		JOIN #data e 
-			ON e.TopicID=c.TopicID
-		WHERE e.RowNo BETWEEN @Offset+1 AND @Offset + @Count
-		ORDER BY e.RowNo
+		JOIN #data tmp 
+			ON tmp.TopicID=c.TopicID
+		WHERE tmp.RowNo BETWEEN @Offset+1 AND @Offset + @Count
+		ORDER BY tmp.RowNo
 	ELSE -- Do not show moved topics
 		SELECT
 			[RowCount] = @RowCount,
@@ -5343,21 +5362,27 @@ begin
 			c.PollID,
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-			StarterStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-			else ''	 end,
-			LastUserStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+		    StarterStyle = case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		    LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
 			else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
 			ON d.ForumID=c.ForumID 
-		JOIN #data e 
-			ON e.TopicID=c.TopicID
-		WHERE e.RowNo BETWEEN @Offset+1 AND @Offset + @Count
+		JOIN #data tmp 
+			ON tmp.TopicID=c.TopicID
+		WHERE tmp.RowNo BETWEEN @Offset+1 AND @Offset + @Count
 			AND c.TopicMovedID IS NULL 
-		ORDER BY e.RowNo
+		ORDER BY tmp.RowNo
 end
 GO
 
@@ -7168,26 +7193,6 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}topic_poll_update](
-	@TopicID	int=null,
-	@MessageID	int=null,
-	@PollID		int=null
-) as
-begin
-	
-	if not (@TopicID is null) begin
-		update [{databaseOwner}].[{objectQualifier}Topic] 
-			set PollID = @PollID 
-			where TopicID = @TopicID
-	end
-	else if not (@MessageID is null) begin
-		update [{databaseOwner}].[{objectQualifier}Topic] 
-			set PollID = @PollID 
-			where TopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
-	end
-end
-GO
-
 CREATE procedure [{databaseOwner}].[{objectQualifier}choice_update](
 	@ChoiceID	int,
 	@Choice		nvarchar(50),
@@ -7804,15 +7809,19 @@ BEGIN
 	SET ROWCOUNT @NumberOfMessages
 
 	SELECT
-		Username,
-		UserID,
-		[Message],
-		[Date],
-		Style = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](UserID)  
-			else ''	 end		
+		sh.Username,
+		sh.UserID,
+		sh.[Message],
+		sh.[Date], 
+		Style= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=sh.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID= sh.UserID))  
+			else ''	 end
+				
 	FROM
-		[{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+		[{databaseOwner}].[{objectQualifier}ShoutboxMessage] sh
 	WHERE 
 		BoardId = @BoardId
 	ORDER BY Date DESC
@@ -8107,24 +8116,30 @@ begin
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-			else ''	 end,
-		LastUserStyle = case(@StyledNicks)
-			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
-			else ''	 end
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.UserID))  
+			else ''	 end ,
+		LastUserStyle= case(@StyledNicks)
+			when 1 then  ISNULL((SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=c.LastUserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), 
+			(select r.[Style] from [{databaseOwner}].[{objectQualifier}User] usr 
+			join [{databaseOwner}].[{objectQualifier}Rank] r ON r.RankID = usr.RankID  where usr.UserID=c.LastUserID))  
+			else ''	 end		
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
 		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
-		join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
+		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
 		JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@UserID
 	where
 		@Since < c.LastPosted and
 		x.UserID = @UserID and
 		CONVERT(int,x.ReadAccess) <> 0 and
-		e.BoardID = @BoardID and
-		(@CategoryID is null or e.CategoryID=@CategoryID) and
+		cat.BoardID = @BoardID and
+		(@CategoryID is null or cat.CategoryID=@CategoryID) and
 		c.IsDeleted = 0
 	order by
 		d.Name asc,

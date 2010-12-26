@@ -6467,29 +6467,6 @@ namespace YAF.Classes.Data
       }      
     }
 
-    /// <summary>
-    /// The topic_poll_update.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic id.
-    /// </param>
-    /// <param name="messageID">
-    /// The message id.
-    /// </param>
-    /// <param name="pollID">
-    /// The poll id.
-    /// </param>
-    public static void topic_poll_update(object topicID, object messageID, object pollID)
-    {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("topic_poll_update"))
-      {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("TopicID", topicID);
-        cmd.Parameters.AddWithValue("MessageID", messageID);
-        cmd.Parameters.AddWithValue("PollID", pollID);
-        YafDBAccess.Current.ExecuteNonQuery(cmd);
-      }
-    }
 
     /// <summary>
     /// The topic_prune.

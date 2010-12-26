@@ -437,30 +437,6 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION [{databaseOwner}].[{objectQualifier}get_userstyle]
-(	
-	@UserID int
-)
-RETURNS nvarchar(255)
-AS
-BEGIN
-declare @style nvarchar(255)
-	SET @style = ( SELECT TOP 1 c.Style FROM [{databaseOwner}].[{objectQualifier}User] a 
-                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
-                          ON a.UserID = b.UserID
-                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID 
-                              WHERE a.UserID = @UserID AND LEN(c.Style) > 3 ORDER BY c.SortOrder ASC)
-       if ( LEN(@style) < 3 OR @style IS NULL )
-                  begin
-                              set @style = (SELECT TOP 1 c.Style FROM [{databaseOwner}].[{objectQualifier}Rank] c 
-                                JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID ORDER BY c.SortOrder ASC)
-                 end
-      return @style
-END
-GO
-
 -- Gets the Thanks info which will be formatted and then placed in "dvThanksInfo" Div Tag in displaypost.ascx.
 #IFSRVVER>8#create function [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
 (
