@@ -50,12 +50,12 @@
             </div>
         </td>
     </tr>
-    <tr class="header2 postNavigation">
+    <tr class="header2">
         <td class="header2links">
-            <asp:LinkButton ID="PrevTopic" runat="server" CssClass="header2link" OnClick="PrevTopic_Click">
+            <asp:LinkButton ID="PrevTopic" runat="server" CssClass="PrevTopicLink" OnClick="PrevTopic_Click">
                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="prevtopic" />
             </asp:LinkButton>
-            <asp:LinkButton ID="NextTopic" runat="server" CssClass="header2link" OnClick="NextTopic_Click">
+            <asp:LinkButton ID="NextTopic" runat="server" CssClass="NextTopicLink" OnClick="NextTopic_Click">
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="nexttopic" />
             </asp:LinkButton>
             <div runat="server" visible="false">

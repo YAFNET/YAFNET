@@ -231,25 +231,28 @@
 	list-style-type: none;
 }
 .yafnet .PopMenuLink {
-	cursor: pointer;
-    background: url("../icons/DownArrow.png") transparent no-repeat 100% 50%;
-    margin-left: 5px;
-    padding-bottom: 2px;
-    padding-left: 4px;
-    padding-right: 15px;
-    padding-top: 2px;
-
-    border: 1px solid black;
+	border: 1px solid black;
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
     border-radius:4px;
 }
+.yafnet .PopMenuLink,
 .yafnet .UserPopMenuLink {
 	cursor: pointer;
     background: url("../icons/DownArrow.png") transparent no-repeat 100% 50%;
     margin-left: 5px;
-    padding-bottom: 2px;
-    padding-left: 4px;
-    padding-right: 15px;
-    padding-top: 2px;
+	padding: 2px 15px 2px 4px;
+}
+
+.yafnet .PrevTopicLink {
+	background: url("../icons/LeftArrow.png") transparent no-repeat 0% 50%;
+    margin-left: 5px;
+   padding: 2px 4px 2px 15px;
+}
+
+.yafnet .NextTopicLink {
+	background: url("../icons/RightArrow.png") transparent no-repeat 100% 50%;
+    margin-left: 5px;
+    padding: 2px 15px 2px 4px;
+	float:right;
 }

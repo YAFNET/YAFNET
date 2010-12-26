@@ -1304,6 +1304,7 @@
     <Content Include="resources\icons\hammer-screwdriver.png" />
     <Content Include="resources\icons\InfoBig.png" />
     <Content Include="resources\icons\information.png" />
+    <Content Include="resources\icons\LeftArrow.png" />
     <Content Include="resources\icons\lightning.png" />
     <Content Include="resources\icons\lock.png" />
     <Content Include="resources\icons\mail.png" />
@@ -1317,6 +1318,7 @@
     <Content Include="resources\icons\question-balloon.png" />
     <Content Include="resources\icons\QuestionBig.png" />
     <Content Include="resources\icons\readme.txt" />
+    <Content Include="resources\icons\RightArrow.png" />
     <Content Include="resources\icons\RssFeed.png" />
     <Content Include="resources\icons\script-text.png" />
     <Content Include="resources\icons\smiley.png" />
