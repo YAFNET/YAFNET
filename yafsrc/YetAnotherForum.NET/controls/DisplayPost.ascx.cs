@@ -263,7 +263,8 @@ namespace YAF.Controls
             {
                 // Register Javascript
 
-                Utility.RegisterTypeForAjax(typeof(ThankYou));
+               // TODO : Remove AjaxPro
+               //Utility.RegisterTypeForAjax(typeof(ThankYou));
 
                 string addThankBoxHTML =
                     "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
@@ -409,6 +410,8 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJQuery();
             YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
             YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
+
+            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
             // Setup Ceebox js
             YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");

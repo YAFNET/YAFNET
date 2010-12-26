@@ -11,7 +11,7 @@
                         <tr>
                             <td align="left">
                               <div class="header">
-                                <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="LOGIN" LocalizedTag="title" /></h1>
+                                <h3><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="LOGIN" LocalizedTag="title" /></h3>
                               </div>
                               <div>
                                 <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">

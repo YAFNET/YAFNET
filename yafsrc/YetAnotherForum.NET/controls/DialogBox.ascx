@@ -2,7 +2,7 @@
 
 <asp:Panel ID="YafForumPageErrorPopup" runat="server" CssClass="MessageBox" style="display:none">
     <div class="header">
-        <h1><asp:label id="Header" runat="server"></asp:label></h1>
+        <h3><asp:label id="Header" runat="server"></asp:label></h3>
     </div>
     <div id="YafPopupErrorMessageOuter" class="modalOuter">
         <div style="float:left;">

@@ -39,7 +39,7 @@ namespace YAF.Modules
         /// <summary>
         ///   The _okay button.
         /// </summary>
-        protected Button _okayButton = new Button();
+        protected HyperLink _okayButton = new HyperLink();
 
         /// <summary>
         ///   The _template.
@@ -93,7 +93,7 @@ namespace YAF.Modules
             this.BodyTemplate = this._template;
 
             this._okayButton.Text = "OK";
-            this._okayButton.CssClass = "LoginButton";
+            this._okayButton.CssClass = "StandardButton";
 
             this.Buttons.Add(this._okayButton);
         }

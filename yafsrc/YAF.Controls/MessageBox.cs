@@ -42,7 +42,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The buttons.
         /// </summary>
-        private List<Button> buttons;
+        private List<HyperLink> buttons;
 
         #endregion
 
@@ -56,11 +56,11 @@ namespace YAF.Controls
         /// <summary>
         /// Gets Buttons.
         /// </summary>
-        public List<Button> Buttons
+        public List<HyperLink> Buttons
         {
             get
             {
-                return this.buttons ?? (this.buttons = new List<Button>());
+                return this.buttons ?? (this.buttons = new List<HyperLink>());
             }
         }
 
@@ -141,7 +141,7 @@ namespace YAF.Controls
 
             titleControl.Attributes.Add("class", "header");
 
-            titleControl.InnerHtml = "<h1>{0}</h1>".FormatWith(this.Title);
+            titleControl.InnerHtml = "<h3>{0}</h3>".FormatWith(this.Title);
 
             this.Controls.Add(titleControl);
 
@@ -196,7 +196,10 @@ namespace YAF.Controls
                 foreach (HyperLink btnLink in
                     this.Buttons.Select(btn => new HyperLink { CssClass = btn.CssClass, ID = Guid.NewGuid().ToString(), Text = btn.Text }))
                 {
-                    btnLink.NavigateUrl = this.Page.ClientScript.GetPostBackClientHyperlink(btnLink, string.Empty);
+                    // btnLink.NavigateUrl = this.Page.ClientScript.GetPostBackClientHyperlink(btnLink, string.Empty);
+
+                    btnLink.NavigateUrl = "#";
+                    btnLink.Attributes.Add("onclick", "jQuery(this).YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.ClientID));
 
                     this.Controls.Add(btnLink);
                 }

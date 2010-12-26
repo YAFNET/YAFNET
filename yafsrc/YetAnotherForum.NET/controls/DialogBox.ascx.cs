@@ -199,7 +199,20 @@ namespace YAF.Controls
                                            ? cancelButton.Text
                                            : YafContext.Current.Localization.GetText("COMMON", "CANCEL");
 
-                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "LoginButton";
+                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "StandardButton";
+
+                if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+                {
+                    this.CancelButton.OnClientClick =
+                        "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
+                            this.YafForumPageErrorPopup.ClientID);
+                }
+                else
+                {
+                    this.CancelButton.OnClientClick =
+                        "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(
+                            this.YafForumPageErrorPopup.ClientID);
+                }
             }
             else
             {
@@ -220,8 +233,16 @@ namespace YAF.Controls
 
             YafContext.Current.PageElements.RegisterJsBlock("PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
 
-            this.OkButton.OnClientClick = "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.YafForumPageErrorPopup.ClientID);
-            this.CancelButton.OnClientClick = "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.YafForumPageErrorPopup.ClientID);
+            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+            {
+                this.OkButton.OnClientClick =
+                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
+                        this.YafForumPageErrorPopup.ClientID);
+            }
+            else
+            {
+                this.OkButton.OnClientClick = "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.YafForumPageErrorPopup.ClientID);
+            }
         }
 
         #endregion
