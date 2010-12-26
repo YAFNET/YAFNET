@@ -39,11 +39,11 @@
                 <asp:Label ID="TopicTitle" runat="server" />
             </div>
             <div class="rightItem">
-                <asp:HyperLink ID="OptionsLink" runat="server">
+                <asp:HyperLink ID="OptionsLink" runat="server" CssClass="PopMenuLink">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
                 </asp:HyperLink>
                 <asp:PlaceHolder ID="ViewOptions" runat="server">
-                    <asp:HyperLink ID="ViewLink" runat="server">
+                    <asp:HyperLink ID="ViewLink" runat="server" CssClass="PopMenuLink">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="View" />
                     </asp:HyperLink>
                 </asp:PlaceHolder>

@@ -1293,6 +1293,7 @@
     <Content Include="resources\icons\book-open-next.png" />
     <Content Include="resources\icons\database-import.png" />
     <Content Include="resources\icons\document.png" />
+    <Content Include="resources\icons\DownArrow.png" />
     <Content Include="resources\icons\EmailBig.png" />
     <Content Include="resources\icons\error.png" />
     <Content Include="resources\icons\ErrorBig.png" />
