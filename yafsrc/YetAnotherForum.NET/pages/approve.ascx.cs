@@ -18,86 +18,146 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Data;
-
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for approve.
-	/// </summary>
-	public partial class approve : YAF.Classes.Core.ForumPage
-	{
+    // YAF.Pages
+    #region
 
-		public approve()
-			: base( "APPROVE" )
-		{
-		}
+    using System;
+    using System.Data;
+    using System.Web.Security;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			// if already logged in..
-			if ( User != null )
-			{
-				// redirect to front page...
-				YafBuildLink.Redirect( ForumPages.forum );
-			}
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Data;
+    using YAF.Classes.Utils;
 
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    #endregion
 
-				ValidateKey.Text = GetText( "validate" );
-				if ( Request.QueryString ["k"] != null )
-				{
-					key.Text = Request.QueryString ["k"];
-					ValidateKey_Click( sender, e );
-				}
-				else
-				{
-					approved.Visible = false;
-					error.Visible = !approved.Visible;
-				}
-			}
-		}
+    /// <summary>
+    /// Summary description for approve.
+    /// </summary>
+    public partial class approve : ForumPage
+    {
+        #region Constructors and Destructors
 
-		public void ValidateKey_Click( object sender, System.EventArgs e )
-		{
-      DataTable dt = YAF.Classes.Data.DB.checkemail_update( key.Text );
-      DataRow row = dt.Rows [0];
-      string dbEmail = row ["Email"].ToString();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="approve"/> class.
+        /// </summary>
+        public approve()
+            : base("APPROVE")
+        {
+        }
 
-      bool keyVerified = ( row["ProviderUserKey"] == DBNull.Value ) ? false : true;
+        #endregion
 
- 			approved.Visible = keyVerified;
-			error.Visible = !keyVerified;
+        #region Properties
 
-			if ( keyVerified )
-			{
-        // approve and update e-mail in the membership as well...
-        System.Web.Security.MembershipUser user = UserMembershipHelper.GetMembershipUserByKey( row ["ProviderUserKey"] );
-        if (!user.IsApproved) user.IsApproved = true;
-        // update the email if anything was returned...
-        if (user.Email != dbEmail && dbEmail != "" ) user.Email = dbEmail;
-        // tell the provider to update...
-				PageContext.CurrentMembership.UpdateUser( user );
+        /// <summary>
+        /// Gets a value indicating whether IsProtected.
+        /// </summary>
+        public override bool IsProtected
+        {
+            get
+            {
+                return false;
+            }
+        }
 
-        // now redirect to login...
-				PageContext.LoadMessage.AddSession( GetText( "EMAIL_VERIFIED" ) );
+        #endregion
 
-        YafBuildLink.Redirect( ForumPages.login );
-			}
-		}
+        #region Public Methods
 
-		public override bool IsProtected
-		{
-			get { return false; }
-		}
-	}
+        /// <summary>
+        /// The validate key_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        public void ValidateKey_Click(object sender, EventArgs e)
+        {
+            DataTable dt = DB.checkemail_update(this.key.Text);
+            DataRow row = dt.Rows[0];
+            string dbEmail = row["Email"].ToString();
+
+            bool keyVerified = (row["ProviderUserKey"] == DBNull.Value) ? false : true;
+
+            this.approved.Visible = keyVerified;
+            this.error.Visible = !keyVerified;
+
+            if (!keyVerified)
+            {
+                return;
+            }
+
+            // approve and update e-mail in the membership as well...
+            MembershipUser user = UserMembershipHelper.GetMembershipUserByKey(row["ProviderUserKey"]);
+            if (!user.IsApproved)
+            {
+                user.IsApproved = true;
+            }
+
+            // update the email if anything was returned...
+            if (user.Email != dbEmail && dbEmail != string.Empty)
+            {
+                user.Email = dbEmail;
+            }
+
+            // tell the provider to update...
+            this.PageContext.CurrentMembership.UpdateUser(user);
+
+            // now redirect to login...
+            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"));
+
+            YafBuildLink.Redirect(ForumPages.login);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // if already logged in..
+            if (this.User == null)
+            {
+                // redirect to front page...
+                YafBuildLink.Redirect(ForumPages.forum);
+            }
+
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+            this.ValidateKey.Text = this.GetText("validate");
+            if (this.Request.QueryString["k"] != null)
+            {
+                this.key.Text = this.Request.QueryString["k"];
+                this.ValidateKey_Click(sender, e);
+            }
+            else
+            {
+                this.approved.Visible = false;
+                this.error.Visible = !this.approved.Visible;
+            }
+        }
+
+        #endregion
+    }
 }
