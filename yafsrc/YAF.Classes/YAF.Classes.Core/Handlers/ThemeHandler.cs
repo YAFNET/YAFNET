@@ -25,11 +25,18 @@ namespace YAF.Classes.Core
   using YAF.Classes.Utils;
 
   #endregion
+    public interface IThemeHandler
+    {
+        /// <summary>
+        ///   Gets or sets Theme.
+        /// </summary>
+        YafTheme Theme { get; set; }
+    }
 
   /// <summary>
   /// The theme handler.
   /// </summary>
-  public class ThemeHandler
+    public class ThemeHandler : IThemeHandler
   {
     #region Constants and Fields
 

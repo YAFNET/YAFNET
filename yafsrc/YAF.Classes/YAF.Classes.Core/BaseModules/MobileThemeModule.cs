@@ -149,7 +149,7 @@ namespace YAF.Modules
       if (mobileTheme.IsSet())
       {
         // create a new theme object...
-        var theme = new YafTheme(mobileTheme);
+        var theme = new   YafTheme(mobileTheme);
 
         // make sure it's valid...
         if (YafTheme.IsValidTheme(theme.ThemeFile))
@@ -159,7 +159,7 @@ namespace YAF.Modules
           // set new mobile theme...
           if (useMobileTheme)
           {
-            YafContext.Current.ContextContainer.Resolve<ThemeHandler>().Theme = theme;
+            YafContext.Current.ContextContainer.Resolve<IThemeHandler>().Theme = theme;
             this.YafSession.UseMobileTheme = true;
           }
 
