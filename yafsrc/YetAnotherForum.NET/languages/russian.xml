@@ -392,7 +392,7 @@
     <Resource tag="TT_ALIGNRIGHT">Выровнять по правому краю</Resource>
     <Resource tag="TT_BOLD">Жирный</Resource>
     <Resource tag="TT_CODE">Код</Resource>
-    <Resource tag="TT_CODELANG">Choose Language for Syntax Highlighting</Resource>
+    <Resource tag="TT_CODELANG">Выберите тип подсветки кода</Resource>
     <Resource tag="TT_CREATELINK">Создать ссылку</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Больше кодов BBCode</Resource>
     <Resource tag="TT_HIGHLIGHT">Подсветка</Resource>
@@ -404,8 +404,8 @@
     <Resource tag="TT_QUOTE">Цитата</Resource>
     <Resource tag="TT_UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
-    <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
-    <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
+    <Resource tag="UNREAD_MSG_TITLE">Новые личные сообщения</Resource>
+    <Resource tag="UNREAD_MSG2">У вас {0} непрочтённых сообщений в ваших Входящих. Вы желаете прочитать их прямо сейчас?</Resource>
     <Resource tag="UPDATE">Обновить</Resource>
     <Resource tag="USERNAME_TOOLONG">Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов.</Resource>
     <Resource tag="VIEW_CATEGORY">Просмотреть раздел</Resource>
@@ -496,7 +496,7 @@
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
     <Resource tag="DISPLAYNAME">Выберите отображаемое имя.</Resource>
     <Resource tag="DST">Переходить на летнее время автоматически?</Resource>
-    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
+    <Resource tag="DUPLICATED_EMAIL">Этот адрес электронной почты уже используется.</Resource>
     <Resource tag="EDIT_ALBUMS">Изменить альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
