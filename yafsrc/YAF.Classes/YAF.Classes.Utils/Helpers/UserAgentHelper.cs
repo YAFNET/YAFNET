@@ -80,7 +80,7 @@ namespace YAF.Classes.Utils
         // Apple-PubSub - Safary RSS reader
         string[] stringContains = { "PlaceHolder" };
 
-        return stringContains.Any(x => userAgent.ToLowerInvariant().Contains(x));
+        return stringContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
       }
 
       return false;
@@ -137,7 +137,7 @@ namespace YAF.Classes.Utils
                                     "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
                                     "MozSpider"
                                   };
-        return spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x));
+        return spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
       }
 
       return false;
