@@ -177,13 +177,13 @@ namespace YAF.Classes.Core
 
 
     /// <summary>
-    /// Current Page Theme
+    /// Gets the Current Page Theme
     /// </summary>
     public YafTheme Theme
     {
       get
       {
-        return this._singleInstanceFactory.GetInstance<ThemeHandler>().Theme;
+          return this.ContextContainer.Resolve<IThemeHandler>().Theme;
       }
     }
 

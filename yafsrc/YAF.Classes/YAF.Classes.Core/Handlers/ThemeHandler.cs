@@ -25,12 +25,31 @@ namespace YAF.Classes.Core
   using YAF.Classes.Utils;
 
   #endregion
+
+    /// <summary>
+    /// The Theme Handler Interface
+    /// </summary>
     public interface IThemeHandler
     {
+        /// <summary>
+        /// The before init.
+        /// </summary>
+        event EventHandler<EventArgs> BeforeInit;
+
+        /// <summary>
+        /// The after init.
+        /// </summary>
+        event EventHandler<EventArgs> AfterInit;
+
         /// <summary>
         ///   Gets or sets Theme.
         /// </summary>
         YafTheme Theme { get; set; }
+
+        /// <summary>
+        /// Init Theme
+        /// </summary>
+        void InitTheme();
     }
 
   /// <summary>
@@ -97,35 +116,39 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Sets the theme class up for usage
     /// </summary>
-    private void InitTheme()
+    /// <exception cref="CantLoadThemeException"><c>CantLoadThemeException</c>.</exception>
+    public void InitTheme()
     {
-      if (!this._initTheme)
-      {
-        if (this.BeforeInit != null)
+        if (this._initTheme)
         {
-          this.BeforeInit(this, new EventArgs());
+            return;
         }
 
-        string themeFile = null;
+        if (this.BeforeInit != null)
+        {
+            this.BeforeInit(this, new EventArgs());
+        }
+
+        string themeFile;
 
         if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != DBNull.Value &&
             YafContext.Current.BoardSettings.AllowUserTheme)
         {
-          // use user-selected theme
-          themeFile = YafContext.Current.Page["ThemeFile"].ToString();
+            // use user-selected theme
+            themeFile = YafContext.Current.Page["ThemeFile"].ToString();
         }
         else if (YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != DBNull.Value)
         {
-          themeFile = YafContext.Current.Page["ForumTheme"].ToString();
+            themeFile = YafContext.Current.Page["ForumTheme"].ToString();
         }
         else
         {
-          themeFile = YafContext.Current.BoardSettings.Theme;
+            themeFile = YafContext.Current.BoardSettings.Theme;
         }
 
         if (!YafTheme.IsValidTheme(themeFile))
         {
-          themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
+            themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
         }
 
         // create the theme class
@@ -134,16 +157,15 @@ namespace YAF.Classes.Core
         // make sure it's valid again...
         if (!YafTheme.IsValidTheme(this.Theme.ThemeFile))
         {
-          // can't load a theme... throw an exception.
-          throw new CantLoadThemeException(
-            "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.".FormatWith(themeFile));
+            // can't load a theme... throw an exception.
+            throw new CantLoadThemeException(
+                "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.".FormatWith(themeFile));
         }
 
         if (this.AfterInit != null)
         {
-          this.AfterInit(this, new EventArgs());
+            this.AfterInit(this, new EventArgs());
         }
-      }
     }
 
     #endregion

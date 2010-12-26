@@ -99,10 +99,9 @@ namespace YAF.Classes.Core
       builder.RegisterType<YafSendNotification>().As<ISendNotification>().OwnedByLifetimeScope();
 
       builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
-      builder.RegisterType<LocalizationHandler>().As<ILocalizationHandler>().InstancePerMatchingLifetimeScope(
-        YafLifetimeScope.Context);
-      builder.RegisterType<ThemeHandler>().As<IThemeHandler>().InstancePerMatchingLifetimeScope(
-YafLifetimeScope.Context);
+      builder.RegisterType<LocalizationHandler>().As<ILocalizationHandler>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+
+      builder.RegisterType<ThemeHandler>().As<IThemeHandler>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
     }
 
     /// <summary>

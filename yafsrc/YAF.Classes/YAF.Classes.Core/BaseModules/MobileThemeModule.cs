@@ -39,21 +39,24 @@ namespace YAF.Modules
   {
     #region Constants and Fields
 
-    private IYafSession _yafSession = null;
+      /// <summary>
+      /// YAf Session
+      /// </summary>
+      private IYafSession _yafSession = null;
 
     /// <summary>
-    /// The _yaf session.
+    /// Gets The _yaf session.
     /// </summary>
     protected IYafSession YafSession
     {
       get
       {
-        if (_yafSession == null)
+        if (this._yafSession == null)
         {
-          _yafSession = YafContext.Current.ContextContainer.Resolve<IYafSession>();
+          this._yafSession = YafContext.Current.ContextContainer.Resolve<IYafSession>();
         }
 
-        return _yafSession;
+        return this._yafSession;
       }
     }
 
@@ -149,7 +152,7 @@ namespace YAF.Modules
       if (mobileTheme.IsSet())
       {
         // create a new theme object...
-        var theme = new   YafTheme(mobileTheme);
+          var theme = new YafTheme(mobileTheme);
 
         // make sure it's valid...
         if (YafTheme.IsValidTheme(theme.ThemeFile))
