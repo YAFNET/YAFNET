@@ -1159,7 +1159,14 @@ namespace YAF.Pages
                 case "rssfeed":
                     YafBuildLink.Redirect(
                         ForumPages.rsstopic,
-                        "pg={0}&t={1}",
+                        "pg={0}&t={1}&ft=0",
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"),
+                        this.PageContext.PageTopicID);
+                    break;
+                case "atomfeed":
+                    YafBuildLink.Redirect(
+                        ForumPages.rsstopic,
+                        "pg={0}&t={1}&ft=1",
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"),
                         this.PageContext.PageTopicID);
                     break;
@@ -1363,6 +1370,12 @@ namespace YAF.Pages
             }
 
             this.OptionsMenu.AddPostBackItem("print", this.GetText("PRINTTOPIC"));
+
+            if (this.PageContext.BoardSettings.ShowAtomLink)
+            {
+                this.OptionsMenu.AddPostBackItem("atomfeed", this.GetText("ATOMTOPIC"));
+            }
+
             if (this.PageContext.BoardSettings.ShowRSSLink)
             {
                 this.OptionsMenu.AddPostBackItem("rssfeed", this.GetText("RSSTOPIC"));
