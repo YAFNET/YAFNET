@@ -479,6 +479,7 @@
     <Resource tag="CHANGE_EMAIL">Änderung der E-Mail-Adresse</Resource>
     <Resource tag="DISPLAYNAME">Welchen Name wollen Sie für andere Sichtbar machen?</Resource>
     <Resource tag="DST">Sommerzeit</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Alben bearbeiten</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>

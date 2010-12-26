@@ -529,6 +529,7 @@
     <Resource tag="CHANGE_EMAIL">Pakeisti elektroninio pašto adresas </Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="DST">Daylight Saving Time</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Jūs turite turėti galiojantį elektroninio pašto adresą. </Resource>
     <Resource tag="FORUM_SETTINGS">Forumas Parametrai </Resource>

@@ -192,6 +192,8 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
+
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
             if (this.AdminEditMode && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
@@ -326,7 +328,17 @@ namespace YAF.Controls
                 else
                 {
                     // just update the e-mail...
-                    UserMembershipHelper.UpdateEmail(this.CurrentUserID, this.Email.Text.Trim());
+                    try
+                    {
+                        UserMembershipHelper.UpdateEmail(this.CurrentUserID, this.Email.Text.Trim());
+                    }
+                    catch (ApplicationException)
+                    {
+                        this.PageContext.AddLoadMessage(
+                            this.PageContext.Localization.GetText("PROFILE", "DUPLICATED_EMAIL"));
+
+                        return;
+                    }
                 }
             }
 

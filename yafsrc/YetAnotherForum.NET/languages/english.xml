@@ -702,6 +702,7 @@
 	<page name="CP_EDITPROFILE">
 		<Resource tag="ABOUTYOU">About You</Resource>
 		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
+		<Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
 		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
 		<Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
 		<Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>

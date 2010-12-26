@@ -463,6 +463,7 @@
     <Resource tag="CHANGE_EMAIL">E-posta Adresini Değiştir</Resource>
     <Resource tag="DISPLAYNAME">Forumda görünecek isminiz:</Resource>
     <Resource tag="DST">Saat değişimi uygulaması etkinleştirilsin mi?</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Albümleri Düzenle</Resource>
     <Resource tag="EMAIL">Geçerli e-posta adresiniz</Resource>
     <Resource tag="FORUM_SETTINGS">Forum Ayarları</Resource>

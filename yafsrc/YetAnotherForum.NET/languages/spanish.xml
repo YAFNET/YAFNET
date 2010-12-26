@@ -480,6 +480,7 @@
     <Resource tag="CHANGE_EMAIL">Cambiar correo electrónico</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="DST">Daylight Saving Time</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Siempre debes tener un correo electrónico válido.</Resource>
     <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>

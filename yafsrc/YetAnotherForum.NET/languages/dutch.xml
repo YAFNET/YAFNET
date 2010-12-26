@@ -478,6 +478,7 @@
     <Resource tag="CHANGE_EMAIL">E-mail adres wijzigen</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="DST">Daylight Saving Time</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>

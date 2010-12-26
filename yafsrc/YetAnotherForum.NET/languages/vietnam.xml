@@ -463,6 +463,7 @@
     <Resource tag="CHANGE_EMAIL">Đổi email</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="DST">Daylight Saving Time</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
     <Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>

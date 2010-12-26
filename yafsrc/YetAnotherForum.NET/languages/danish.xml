@@ -480,6 +480,7 @@
     <Resource tag="CHANGE_EMAIL">Ændre e-mail adresse</Resource>
     <Resource tag="DISPLAYNAME">Hvad navn vil du have vist til andre?</Resource>
     <Resource tag="DST">Sommertid</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Rediger albums</Resource>
     <Resource tag="EMAIL">Du skal altid have en gyldig e-mail adresse.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum indstillinger</Resource>

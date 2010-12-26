@@ -463,6 +463,7 @@
     <Resource tag="CHANGE_EMAIL">Schimba adresa de email.</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="DST">Daylight Saving Time</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Editeaza Albums</Resource>
     <Resource tag="EMAIL">Trebuie sa ai o adresa valida de email.</Resource>
     <Resource tag="FORUM_SETTINGS">Setari forum</Resource>

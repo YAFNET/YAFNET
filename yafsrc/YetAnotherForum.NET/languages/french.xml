@@ -479,6 +479,7 @@
     <Resource tag="CHANGE_EMAIL">Changer votre adresse courriel</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="DST">Daylight Saving Time</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail adress you have entered is already in use.</Resource>
     <Resource tag="EDIT_ALBUMS">Modifier albums</Resource>
     <Resource tag="EMAIL">Vous devez toujours avoir une adresse courriel valide.</Resource>
     <Resource tag="FORUM_SETTINGS">Propriétés du forum</Resource>
