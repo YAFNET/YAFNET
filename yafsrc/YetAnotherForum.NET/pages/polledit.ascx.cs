@@ -528,19 +528,19 @@ namespace YAF.Pages
           string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
           string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
 
-          string objectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+          string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
 
           string choiceImageMime = string.Empty;
           // update choice
-          if (objectPath.IsSet())
+          if (choiceObjectPath.IsSet())
           {
               long length = 0;
-              choiceImageMime = this.GetImageParameters(new Uri(objectPath), out length);
+              choiceImageMime = this.GetImageParameters(new Uri(choiceObjectPath), out length);
               if (choiceImageMime.IsNotSet())
               {
                   YafContext.Current.AddLoadMessage(
                       YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
-                                                                       objectPath.Trim()));
+                                                                       choiceObjectPath.Trim()));
                   return false;
               }
 
@@ -548,7 +548,7 @@ namespace YAF.Pages
               {
                   YafContext.Current.AddLoadMessage(
                       YafContext.Current.Localization.GetTextFormatted(
-                          "POLLIMAGE_TOOBIG", length/1024, PageContext.BoardSettings.PollImageMaxFileSize, objectPath));
+                          "POLLIMAGE_TOOBIG", length/1024, PageContext.BoardSettings.PollImageMaxFileSize, choiceObjectPath));
                   return false;
               }
           }
@@ -557,11 +557,11 @@ namespace YAF.Pages
           if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
             // add choice
-              DB.choice_add(this.PollId, choice, objectPath, choiceImageMime);
+              DB.choice_add(this.PollId, choice, choiceObjectPath, choiceImageMime);
           }
           else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
-              DB.choice_update(chid, choice, objectPath, choiceImageMime);
+              DB.choice_update(chid, choice, choiceObjectPath, choiceImageMime);
           }
           else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
           {
@@ -621,9 +621,35 @@ namespace YAF.Pages
           int j = 0;
           foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
           {
+            string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+
+            string choiceObjectMime = string.Empty;
+
+            if (choiceObjectPath.IsSet())
+            {
+                long length = 0;
+                choiceObjectMime = this.GetImageParameters(new Uri(choiceObjectPath), out length);
+                if (choiceObjectMime.IsNotSet())
+                {
+                    YafContext.Current.AddLoadMessage(
+                        YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                                                                         choiceObjectPath.Trim()));
+                    return false;
+                }
+
+                if (length > PageContext.BoardSettings.PollImageMaxFileSize * 1024)
+                {
+                    YafContext.Current.AddLoadMessage(
+                        YafContext.Current.Localization.GetTextFormatted(
+                            "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize, choiceObjectPath));
+                    return false;
+                }
+            }
+
+
             rawChoices[0, j] = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-            rawChoices[1, j] = questionPath;
-            rawChoices[2, j] = questionMime;
+            rawChoices[1, j] = choiceObjectPath;
+            rawChoices[2, j] = choiceObjectMime;
             j++;
           }
 
