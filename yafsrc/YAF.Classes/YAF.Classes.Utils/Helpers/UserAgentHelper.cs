@@ -80,7 +80,7 @@ namespace YAF.Classes.Utils
         // Apple-PubSub - Safary RSS reader
         string[] stringContains = { "PlaceHolder" };
 
-        return stringContains.Any(x => String.Equals(x, userAgent, StringComparison.InvariantCultureIgnoreCase));
+        return stringContains.Any(x => userAgent.ToLowerInvariant().Contains(x));
       }
 
       return false;
@@ -101,7 +101,7 @@ namespace YAF.Classes.Utils
                                   "portable", "webos",  "htc", "armv7l", "lg/u"
                                 };
 
-      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
+      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLowerInvariant().Contains(s));
     }
 
     /// <summary>
@@ -137,8 +137,7 @@ namespace YAF.Classes.Utils
                                     "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
                                     "MozSpider"
                                   };
-
-        return spiderContains.Any(x => String.Equals(x, userAgent, StringComparison.InvariantCultureIgnoreCase));
+        return spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x));
       }
 
       return false;
