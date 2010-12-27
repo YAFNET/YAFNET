@@ -321,8 +321,17 @@
   <p>Please follow these important directions:</p>
 	      <p>You need to MERGE the changes for the /webconfigs/recommended-web.config or the
 		  /webconfigs/v191-upgrade-web.config depending on the original web config you used.</p>
-	      <p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5</p>
-	      <p><code>&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot; assembly=&quot;YAF.Classes.UI&quot;/&gt;  </code><br /><br />and<br /></p>
+	      <p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5.1</p>
+          <p><code>&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI.JQuery&quot; assembly=&quot;DNA.UI.JQuery&quot;/&gt;<br />
+&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI&quot; assembly=&quot;DNA&quot;/&gt;</code><br />
+            <br />
+            and<br />
+          </p>
+          <p><code>&lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</code></p>
+          <p>and</p>
+          <p><code>&lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot; /&gt;</code></p>
+<p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5</p>
+	      <p><code>&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot; assembly=&quot;YAF.Classes.UI&quot;/&gt;  </code><br /></p>
 	      <p><code>&lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</code></p>
 <p><strong>How to merging Web.Config Files:</strong> </p>
 						<ol>

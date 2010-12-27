@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="1.95.04140">
+    <package name="YetAnotherForumDotNet" type="Module" version="1.95.04296">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -66,13 +66,16 @@
               <name>AjaxControlToolkit.dll</name>
             </assembly>
             <assembly>
-              <name>AjaxPro.2.dll</name>
+              <name>Autofac.dll</name>
             </assembly>
             <assembly>
               <name>CookComputing.XmlRpcV2.dll</name>                         
             </assembly>
             <assembly>
               <name>Intelligencia.UrlRewriter.dll</name>
+            </assembly>
+            <assembly>
+              <name>Moq.dll</name>
             </assembly>
             <assembly>
               <name>nStuff.UpdateControls.dll</name>
@@ -127,6 +130,14 @@
             <basePath>bin</basePath>
             <assembly>
               <name>YAF.Classes.UI.dll</name>
+            </assembly>
+          </files>
+        </component>
+        <component type="Cleanup" version="1.95.4296">
+          <files>
+            <basePath>bin</basePath>
+            <assembly>
+              <name>AjaxPro.2.dll</name>
             </assembly>
           </files>
         </component>
@@ -191,17 +202,11 @@
                   <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
                      <add name="UrlRewriter" type="Intelligencia.UrlRewriter.RewriterHttpModule,Intelligencia.UrlRewriter" preCondition="managedHandler" />
                   </node>
-                  <node path="/configuration/system.webServer/handlers" action="update" key="name" collision="overwrite">
-                     <add name="AjaxPro" preCondition="integratedMode" verb="POST,GET,HEAD" path="ajaxpro/*.ashx" type="AjaxPro.AjaxHandlerFactory, AjaxPro.2" />
-                  </node>
                   <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
                      <add name="YafTaskModule" type="YAF.Classes.Core.YafTaskModule, YAF.Classes.Core" />
                   </node>
                   <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
                     <add name="UrlRewriter" type="Intelligencia.UrlRewriter.RewriterHttpModule,Intelligencia.UrlRewriter" />
-                  </node>
-                  <node path="/configuration/system.web/httpHandlers" action="update" key="type" collision="overwrite">
-                     <add verb="POST,GET,HEAD" path="ajaxpro/*.ashx" type="AjaxPro.AjaxHandlerFactory, AjaxPro.2" />
                   </node>
                   <node path="/configuration/system.web/compilation/assemblies" action="update" key="assembly" collision="overwrite">
                      <add assembly="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
@@ -268,6 +273,8 @@
                   <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF.Classes.UI')]" action="remove" />
                   <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
                   <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
+                  <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro.')]" action="remove"></node>
+                  <node path="/configuration/system.webServer/handlers/add[@name='AjaxPro']" action="remove" />
                 </nodes>
               </configuration>
             </install>
@@ -349,7 +356,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.WhatsNew" type="Module" version="1.95.04140">
+    <package name="YAF.WhatsNew" type="Module" version="1.95.04296">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.
