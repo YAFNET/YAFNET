@@ -78,7 +78,7 @@
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
 	
-	background: url('HeaderBack.png') repeat-x #d81b21;
+	background: url('HeaderBack.png') repeat-x #d81b21 bottom;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
 	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
 	
@@ -96,7 +96,7 @@
 .yafnet td.header1 {
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
-	background: url('HeaderBack.png') repeat-x #d81b21;
+	background: url('HeaderBack.png') repeat-x #ec1b23 bottom;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
 	background: -moz-linear-gradient(top,  #ed1c24,  #aa1317);
@@ -110,9 +110,9 @@
 }	
 .yafnet .header1Title {
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+               -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 	background: url('HeaderBack.png') repeat-x #d81b21;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#ed1c24), to(#aa1317));
@@ -269,9 +269,9 @@
 	margin-bottom:10px;
 	color: #000000;	
 	
-	-moz-box-shadow: 3px 3px 3px #c3c3c3;
-    -webkit-box-shadow: 3px 3px 3px #c3c3c3;
-    box-shadow: 3px 3px 3px #c3c3c3;
+	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+               -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 .yafnet table.content tr:first-child td:first-child {
 -moz-border-radius-topleft:0.3em;
@@ -316,9 +316,9 @@ border-bottom-left-radius:0.3em;}
     position: relative;
 	background: #eee;
 	width:50%;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+               -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 	margin: 10px;
 }
 .yafnet .fileattach .filetitle,
@@ -1144,9 +1144,9 @@ height:80em;
 	color: #000000;	
 	width:100%;
 	
-	-moz-box-shadow: 2px 2px 2px #c3c3c3;
-    -webkit-box-shadow: 2px 2px 2px #c3c3c3;
-    box-shadow: 2px 2px 2px #c3c3c3;
+	 -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 	
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	
@@ -1154,6 +1154,8 @@ height:80em;
 	background: -webkit-gradient(linear, left top, left bottom, from(#c9151b), to(#a11115));
 	background: -moz-linear-gradient(top,  #c9151b,  #a11115);
 }
+
+
 .yafnet .menuContainer ul li a,
 .QuickSearch a {
 	color:white
@@ -1208,3 +1210,22 @@ height:80em;
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
 
+.yafnet .PopMenuLink {
+	border: 1px solid white;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+	background: url("DownArrowWhite.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .UserPopMenuLink {
+    background: url("DownArrow.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .PrevTopicLink {
+	background: url("LeftArrow.png") transparent no-repeat 0% 50%;
+}
+
+.yafnet .NextTopicLink {
+	background: url("RightArrow.png") transparent no-repeat 100% 50%;
+}

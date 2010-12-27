@@ -1221,3 +1221,23 @@ height:80em;
 
 /* Override jquery ui font-size */
 .ui-widget { font-size: 9pt!important; }
+
+.yafnet .PopMenuLink {
+	border: 1px solid white;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+	background: url("DownArrowWhite.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .UserPopMenuLink {
+    background: url("DownArrow.png") transparent no-repeat 100% 50%;
+}
+
+.yafnet .PrevTopicLink {
+	background: url("LeftArrow.png") transparent no-repeat 0% 50%;
+}
+
+.yafnet .NextTopicLink {
+	background: url("RightArrow.png") transparent no-repeat 100% 50%;
+}
