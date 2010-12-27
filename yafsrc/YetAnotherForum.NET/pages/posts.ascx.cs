@@ -1368,12 +1368,12 @@ namespace YAF.Pages
 
             this.OptionsMenu.AddPostBackItem("print", this.GetText("PRINTTOPIC"));
 
-            if (this.PageContext.BoardSettings.ShowAtomLink)
+            if (PageContext.BoardSettings.ShowAtomLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem("atomfeed", this.GetText("ATOMTOPIC"));
             }
 
-            if (this.PageContext.BoardSettings.ShowRSSLink)
+            if (PageContext.BoardSettings.ShowRSSLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem("rssfeed", this.GetText("RSSTOPIC"));
             }
