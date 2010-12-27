@@ -335,40 +335,48 @@ function toggleMessage(divId)
       /// <summary>
       /// script for the add Favorite Topic button
       /// </summary>
-      /// <param name="UntagButtonHTML">HTML code for the "Untag As Favorite" button
+      /// <param name="untagButtonHTML">HTML code for the "Untag As Favorite" button
       /// </param>
       /// <returns>
       /// The add Favorite Topic js.
       /// </returns>
-      public static string addFavoriteTopicJs(string UntagButtonHTML)
-    {
-        return
-           ("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
-           "function addFavoriteTopicSuccess(res){{" +
-           "jQuery('#dvFavorite1').html({0});" +
-           "jQuery('#dvFavorite2').html({0});}}").FormatWith(UntagButtonHTML);
-     /*@"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
-          function addFavoriteTopicSuccess(res){{if (res.value != null) {{
+      public static string addFavoriteTopicJs(string untagButtonHTML)
+      {
+          return
+              @"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+          function addFavoriteTopicSuccess(res){{if (res.d != null) {{
                    jQuery('#dvFavorite1').html({0});
-                   jQuery('#dvFavorite2').html({0});}}}}".FormatWith(UntagButtonHTML);*/
-    }
+                   jQuery('#dvFavorite2').html({0});}}}}"
+                  .FormatWith(untagButtonHTML);
+
+          /*("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
+         "function addFavoriteTopicSuccess(res){{" +
+         "jQuery('#dvFavorite1').html({0});" +
+         "jQuery('#dvFavorite2').html({0});}}").FormatWith(UntagButtonHTML);*/
+      }
 
     /// <summary>
     /// script for the remove Favorite Topic button
     /// </summary>
-    /// <param name="TagButtonHTML">
+    /// <param name="tagButtonHTML">
     /// HTML code for the "Tag As a Favorite" button
     /// </param>
     /// <returns>
     /// The remove Favorite Topic js.
     /// </returns>
-    public static string removeFavoriteTopicJs(string TagButtonHTML)
+    public static string removeFavoriteTopicJs(string tagButtonHTML)
     {
         return
-          ("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
+            @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+          function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
+                   jQuery('#dvFavorite1').html({0});
+                   jQuery('#dvFavorite2').html({0});}}}}"
+                .FormatWith(tagButtonHTML);
+
+        /*("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
            "function removeFavoriteTopicSuccess(res){{" +
            "jQuery('#dvFavorite1').html({0});" +
-           "jQuery('#dvFavorite2').html({0});}}").FormatWith(TagButtonHTML);
+           "jQuery('#dvFavorite2').html({0});}}").FormatWith(TagButtonHTML);*/
     }
 
       /// <summary>

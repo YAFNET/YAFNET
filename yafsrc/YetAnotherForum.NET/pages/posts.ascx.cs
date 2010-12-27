@@ -33,8 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using AjaxPro;
-
     using YAF.Classes;
     using YAF.Classes.Core;
     using YAF.Classes.Data;
@@ -492,17 +490,16 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                // Register Ajax Pro.
-                Utility.RegisterTypeForAjax(typeof(IFavoriteTopic));
+                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
                 // The html code for "Favorite Topic" theme buttons.
                 string tagButtonHTML =
-                    "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.value + ');\" onclick=\"blur();\" title=\"{0}\"><span>{1}</span></a>'"
+                    "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
                         .FormatWith(
                             this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"),
                             this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
                 string untagButtonHTML =
-                    "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.value + ');\" onclick=\"blur();\" title=\"{0}\"><span>{1}</span></a>'"
+                    "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
                         .FormatWith(
                             this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"),
                             this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));

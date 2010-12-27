@@ -137,6 +137,36 @@ namespace YAF.Classes
             return this.CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
         }
 
+        /// <summary>
+        /// The add favorite topic.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic ID.
+        /// </param>
+        /// <returns>
+        /// The add favorite topic.
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        public int AddFavoriteTopic(int topicId)
+        {
+            return YafContext.Current.Get<IFavoriteTopic>().AddFavoriteTopic(topicId);
+        }
+
+        /// <summary>
+        /// The remove favorite topic.
+        /// </summary>
+        /// <param name="topicId">
+        /// The favorite topic id.
+        /// </param>
+        /// <returns>
+        /// The remove favorite topic.
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        public int RemoveFavoriteTopic(int topicId)
+        {
+            return YafContext.Current.Get<IFavoriteTopic>().RemoveFavoriteTopic(topicId);
+        }
+
         #endregion
 
         #region Methods

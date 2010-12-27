@@ -25,8 +25,6 @@ namespace YAF.Classes.Core
   using System.Data;
   using System.Web;
 
-  using AjaxPro;
-
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
 
@@ -48,7 +46,6 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The add favorite topic.
     /// </returns>
-    [AjaxMethod]
     int AddFavoriteTopic(int topicId);
 
     /// <summary>
@@ -98,7 +95,6 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The remove favorite topic.
     /// </returns>
-    [AjaxMethod]
     int RemoveFavoriteTopic(int topicId);
 
     #endregion
@@ -131,7 +127,6 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The add favorite topic.
     /// </returns>
-    [AjaxMethod]
     public int AddFavoriteTopic(int topicId)
     {
       DB.topic_favorite_add(YafContext.Current.PageUserID, topicId);
@@ -171,8 +166,7 @@ namespace YAF.Classes.Core
       string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
 
       return
-        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>
-          ();
+        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>();
     }
 
     /// <summary>
@@ -224,7 +218,6 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The remove favorite topic.
     /// </returns>
-    [AjaxMethod]
     public int RemoveFavoriteTopic(int topicId)
     {
       DB.topic_favorite_remove(YafContext.Current.PageUserID, topicId);
