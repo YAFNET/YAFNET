@@ -26,8 +26,6 @@ namespace YAF.Controls
     using System.Data;
     using System.Text;
 
-    using AjaxPro;
-
     using YAF.Classes;
     using YAF.Classes.Core;
     using YAF.Classes.Data;
@@ -262,20 +260,14 @@ namespace YAF.Controls
             if (this.PageContext.BoardSettings.EnableThanksMod)
             {
                 // Register Javascript
+                const string AddThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
-               // TODO : Remove AjaxPro
-               //Utility.RegisterTypeForAjax(typeof(ThankYou));
-
-                string addThankBoxHTML =
-                    "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
-
-                string removeThankBoxHTML =
-                    "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+                const string RemoveThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
+                    "addThanksJs", JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML));
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
+                    "removeThanksJs", JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
 

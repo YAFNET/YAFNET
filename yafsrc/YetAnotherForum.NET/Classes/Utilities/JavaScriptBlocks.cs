@@ -284,39 +284,52 @@ function toggleMessage(divId)
     /// <summary>
     /// script for the addThanks button
     /// </summary>
-    /// <param name="RemoveThankBoxHTML">
+    /// <param name="removeThankBoxHTML">
     /// HTML code for the "Remove Thank Note" button
     /// </param>
     /// <returns>
     /// The add thanks js.
     /// </returns>
-    public static string addThanksJs(string RemoveThankBoxHTML)
+    public static string addThanksJs(string removeThankBoxHTML)
     {
-      return
-        ("function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
-         "function addThanksSuccess(res){{if (res.value != null) {{" +
-         "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
-         "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-         "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}").FormatWith(RemoveThankBoxHTML);
+        return
+            @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+          function addThanksSuccess(res){{if (res.d != null) {{
+                   jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
+                   jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
+                   jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
+                .FormatWith(removeThankBoxHTML);
+
+        /*   @"function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}
+          function addThanksSuccess(res){{if (res.value != null) {{
+                   jQuery('#dvThanks' + res.value.MessageID).html(res.value.Thanks);
+                   jQuery('#dvThanksInfo' + res.value.MessageID).html(res.value.ThanksInfo);
+                   jQuery('#dvThankBox' + res.value.MessageID).html({0});}}}}".FormatWith(RemoveThankBoxHTML);*/
     }
 
     /// <summary>
     /// script for the removeThanks button
     /// </summary>
-    /// <param name="AddThankBoxHTML">
+    /// <param name="addThankBoxHTML">
     /// The Add Thank Box HTML.
     /// </param>
     /// <returns>
     /// The remove thanks js.
     /// </returns>
-    public static string removeThanksJs(string AddThankBoxHTML)
+    public static string removeThanksJs(string addThankBoxHTML)
     {
       return
-        ("function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
-         "function removeThanksSuccess(res){{if (res.value != null) {{" +
-         "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
-         "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-         "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}").FormatWith(AddThankBoxHTML);
+        @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
+          function removeThanksSuccess(res){{if (res.d != null) {{
+                   jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
+                   jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
+                   jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}".FormatWith(addThankBoxHTML);
+
+        /*@"function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}
+         function removeThanksSuccess(res){{if (res.value != null) {{
+         jQuery('#dvThanks' + res.value.MessageID).html(res.value.Thanks);
+         jQuery('#dvThanksInfo' + res.value.MessageID).html(res.value.ThanksInfo);
+         jQuery('#dvThankBox' + res.value.MessageID).html(0});}}}}".FormatWith(AddThankBoxHTML);*/
     }
 
       /// <summary>
@@ -330,10 +343,14 @@ function toggleMessage(divId)
       public static string addFavoriteTopicJs(string UntagButtonHTML)
     {
         return
-          ("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
+           ("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
            "function addFavoriteTopicSuccess(res){{" +
-           "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
-           "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}").FormatWith(UntagButtonHTML);
+           "jQuery('#dvFavorite1').html({0});" +
+           "jQuery('#dvFavorite2').html({0});}}").FormatWith(UntagButtonHTML);
+     /*@"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+          function addFavoriteTopicSuccess(res){{if (res.value != null) {{
+                   jQuery('#dvFavorite1').html({0});
+                   jQuery('#dvFavorite2').html({0});}}}}".FormatWith(UntagButtonHTML);*/
     }
 
     /// <summary>
@@ -350,8 +367,8 @@ function toggleMessage(divId)
         return
           ("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
            "function removeFavoriteTopicSuccess(res){{" +
-           "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
-           "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}").FormatWith(TagButtonHTML);
+           "jQuery('#dvFavorite1').html({0});" +
+           "jQuery('#dvFavorite2').html({0});}}").FormatWith(TagButtonHTML);
     }
 
       /// <summary>

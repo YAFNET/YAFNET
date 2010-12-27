@@ -16,21 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Text;
-using System.Web.Security;
-using AjaxPro;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-  using System.Web;
-
-  /// <summary>
+    /*
+    /// <summary>
   /// Class for Thank you button
   /// </summary>
   public class ThankYou
@@ -87,8 +77,8 @@ namespace YAF.Controls
     /// </param>
     /// <returns>
     /// </returns>
-    [AjaxMethod]
-    public ThankYou AddThanks(object msgID)
+    [WebMethod]
+    public ThankYouInfo AddThanks(object msgID)
     {
       MessageID = msgID.ToType<int>();
 
@@ -111,7 +101,7 @@ namespace YAF.Controls
     /// <returns>
     /// </returns>
     [AjaxMethod]
-    public ThankYou RemoveThanks(object msgID)
+    public ThankYouInfo RemoveThanks(object msgID)
     {
       MessageID = msgID.ToType<int>();
       string username = DB.message_RemoveThanks(UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), MessageID);
@@ -130,13 +120,13 @@ namespace YAF.Controls
     /// </param>
     /// <returns>
     /// </returns>
-    private ThankYou CreateThankYou(string username, string textTag, string titleTag)
+    private ThankYouInfo CreateThankYou(string username, string textTag, string titleTag)
     {
       // load the DB so YafContext can work...
       YafContext.Current.Get<StartupInitializeDb>().Run();
 
       // return thank you object...
-      return new ThankYou
+      return new ThankYouInfo
         {
           MessageID = MessageID,
           ThanksInfo = ThanksNumber(username),
@@ -203,7 +193,7 @@ namespace YAF.Controls
     /// </returns>
     protected string ThanksNumber(string username)
     {
-      int thanksNumber = DB.message_ThanksNumber(MessageID);
+      int thanksNumber = DB.message_ThanksNumber(this.MessageID);
 
       // get the user's display name.
       string displayName = YafContext.Current.UserDisplayName.GetName(UserMembershipHelper.GetUserIDFromProviderUserKey(
@@ -222,5 +212,56 @@ namespace YAF.Controls
 
       return YafContext.Current.Localization.GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
     }
+  }*/
+
+    /// <summary>
+    /// Thank You Info
+    /// </summary>
+    public class ThankYouInfo
+  {
+      /// <summary>
+      /// Gets or sets Text.
+      /// </summary>
+      public string Text
+      {
+          get;
+          set;
+      }
+
+      /// <summary>
+      /// Gets or sets Title.
+      /// </summary>
+      public string Title
+      {
+          get;
+          set;
+      }
+
+      /// <summary>
+      /// Gets or sets MessageID.
+      /// </summary>
+      public int MessageID
+      {
+          get;
+          set;
+      }
+
+      /// <summary>
+      /// Gets or sets ThanksInfo.
+      /// </summary>
+      public string ThanksInfo
+      {
+          get;
+          set;
+      }
+
+      /// <summary>
+      /// Gets or sets Thanks.
+      /// </summary>
+      public string Thanks
+      {
+          get;
+          set;
+      }
   }
 }

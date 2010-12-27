@@ -135,6 +135,9 @@
     <Compile Include="Classes\Utilities\MetaWeblog.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\YafAjax.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -2074,6 +2077,7 @@
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
     <Content Include="themes\yafvision\yafvision.js" />
+    <Content Include="YafAjax.asmx" />
     <Content Include="YafWebService.asmx" />
     <None Include="Classes\Register Forum\Reference.map" />
     <None Include="Classes\Register Forum\Register.wsdl" />

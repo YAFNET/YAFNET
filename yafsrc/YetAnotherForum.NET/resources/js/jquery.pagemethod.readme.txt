@@ -1,8 +1,8 @@
 jQuery Plugin for calling Ajax Page Methods.
-Author: Kamyar Paykhan. (10/26/2009)
+Author: Kamyar Paykhan. (12/16/2010)
 
 Usage:
- $.PageMethod('PageMethodName', successFunction, failFunction, 'param1', param1, 'param2', param2, ...);
+ $.PageMethod('PageName', 'PageMethodName', successFunction, failFunction, 'param1', param1, 'param2', param2, ...);
 
 
 Example:
@@ -11,11 +11,12 @@ Javascript:
 
 var myName =  'TestName';
 var myId = '123';
-$.PageMethod('ReturnCustomData', onSuccess, onFail, 'MyName', myName,'MyID', myId);
+$.PageMethod('PageName', 'ReturnCustomData', onSuccess, onFail, 'MyName', myName,'MyID', myId);
 
 
 Code Behind:
 
+[ScriptService]
 public class CustomData
     {
         public string name;
