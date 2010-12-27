@@ -103,39 +103,6 @@ function toggleMessage(divId)
     }
 
     /// <summary>
-    /// Gets LightBoxLoadJs.
-    /// </summary>
-    public static string LightBoxLoadJs
-    {
-      get
-      {
-        return
-          @"jQuery(document).ready(function() { 
-					jQuery.Lightbox.construct({   
-                        baseurl: '" + YafForumInfo.GetURLToResource(string.Empty) + @"' ,
-                files: {
-                        images: {
-				                   prev: '" + YafForumInfo.GetURLToResource("images/prev.gif") + @"',
-				                   next: '" + YafForumInfo.GetURLToResource("images/next.gif") + @"',
-				                   blank: '" + YafForumInfo.GetURLToResource("images/blank.gif") + @"',
-				                   loading: '" + YafForumInfo.GetURLToResource("images/loading.gif") + @"'
-			            }
-                      },
-						show_linkback:	false,
-						show_helper_text: false,
-				text: {
-					image:		'" +
-          YafContext.Current.Localization.GetText("IMAGE_TEXT") + @"',
-					close:    '" + YafContext.Current.Localization.GetText("CLOSE_TEXT") +
-          @"',
-					download:    '" + YafContext.Current.Localization.GetText("IMAGE_DOWNLOAD") + @"'
-					}
-				});
-			});";
-      }
-    }
-
-    /// <summary>
     /// Gets CeeBox Load Js.
     /// </summary>
     public static string CeeBoxLoadJs

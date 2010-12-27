@@ -449,7 +449,7 @@ namespace YAF.Pages
       // }
       this.LoadingModal.Title = this.GetText("LOADING");
       this.LoadingModal.MessageText = this.GetText("LOADING_SEARCH");
-      this.LoadingModal.Icon = YafForumInfo.GetURLToResource("images/loading-white.gif");
+      this.LoadingModal.Icon = YafForumInfo.GetURLToResource("images/loader.gif");
 
       this.Page.Form.DefaultButton = this.btnSearch.UniqueID;
 

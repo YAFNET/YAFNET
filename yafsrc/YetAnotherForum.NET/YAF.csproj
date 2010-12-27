@@ -749,6 +749,10 @@
     <Content Include="resources\images\ceebox\cee-prev-btn.gif" />
     <Content Include="resources\images\ceebox\cee-prev-btn.png" />
     <Content Include="resources\images\ceebox\loader.gif" />
+    <Content Include="resources\images\closelabel.png" />
+    <Content Include="resources\images\loading-black.gif" />
+    <Content Include="resources\images\loading-white.gif" />
+    <Content Include="resources\images\loading.gif" />
     <Content Include="images\closelabel.png" />
     <Content Include="images\categories\categoryImageSample.gif" />
     <Content Include="images\folder.gif" />
@@ -1335,11 +1339,6 @@
     <Content Include="resources\icons\warning.png" />
     <Content Include="resources\icons\WarningBig.png" />
     <Content Include="resources\icons\wrench.png" />
-    <Content Include="resources\images\closelabel.png" />
-    <Content Include="resources\images\DialogBackground.png" />
-    <Content Include="resources\images\loading-black.gif" />
-    <Content Include="resources\images\loading-white.gif" />
-    <Content Include="resources\images\loading.gif" />
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery-1.4.4.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />

@@ -59,7 +59,7 @@
 }
 
 .wizLoader {
-	background: url(../resources/images/loading-white.gif) white no-repeat center center;
+	background: url(../resources/images/loader.gif) white no-repeat center center;
 	z-index: 9999;
 }
 #wizContainer {
