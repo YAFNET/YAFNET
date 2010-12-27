@@ -23,8 +23,7 @@ namespace YAF.Classes.Core
 
   using System.Data;
   using System.IO;
-
-  using AjaxPro;
+  using System.Linq;
 
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
@@ -59,14 +58,14 @@ namespace YAF.Classes.Core
       if (albumID != null)
       {
         var dt = DB.album_image_list(albumID, null);
-        foreach (DataRow dr in dt.Rows)
+
+        foreach (var fullName in from DataRow dr in dt.Rows
+                                 select "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]) into fullName 
+                                 let file = new FileInfo(fullName) 
+                                 where file.Exists 
+                                 select fullName)
         {
-          var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]);
-          var file = new FileInfo(fullName);
-          if (file.Exists)
-          {
             File.Delete(fullName);
-          }
         }
 
         DB.album_delete(albumID);
@@ -102,7 +101,6 @@ namespace YAF.Classes.Core
     /// <returns>
     /// the return object.
     /// </returns>
-    [NotNull, AjaxMethod]
     public static ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
     {
       // load the DB so YafContext can work...
@@ -112,9 +110,10 @@ namespace YAF.Classes.Core
 
       // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
       DB.album_save(albumID, null, newTitle, null);
-      var returnObject = new ReturnClass();
-      returnObject.NewTitle = newTitle;
-      returnObject.NewTitle = (newTitle == string.Empty)
+
+      var returnObject = new ReturnClass { NewTitle = newTitle };
+
+        returnObject.NewTitle = (newTitle == string.Empty)
                                 ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_CHANGE_TITLE")
                                 : newTitle;
       returnObject.Id = "0{0}".FormatWith(albumID.ToString());
@@ -133,7 +132,6 @@ namespace YAF.Classes.Core
     /// <returns>
     /// the return object.
     /// </returns>
-    [NotNull, AjaxMethod]
     public static ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
     {
       // load the DB so YafContext can work...
@@ -143,9 +141,9 @@ namespace YAF.Classes.Core
 
       // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
       DB.album_image_save(imageID, null, newCaption, null, null, null);
-      var returnObject = new ReturnClass();
-      returnObject.NewTitle = newCaption;
-      returnObject.NewTitle = (newCaption == string.Empty)
+      var returnObject = new ReturnClass { NewTitle = newCaption };
+
+        returnObject.NewTitle = (newCaption == string.Empty)
                                 ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_IMAGE_CHANGE_CAPTION")
                                 : newCaption;
       returnObject.Id = imageID.ToString();
@@ -162,12 +160,12 @@ namespace YAF.Classes.Core
       #region Properties
 
       /// <summary>
-      ///   the Album/Image's Id
+      ///  Gets or sets the Album/Image's Id
       /// </summary>
       public string Id { get; set; }
 
       /// <summary>
-      ///   the album/image's new Title/Caption
+      ///   Gets or sets the album/image's new Title/Caption
       /// </summary>
       public string NewTitle { get; set; }
 

@@ -25,11 +25,10 @@ namespace YAF.Controls
   using System;
   using System.Web.UI.WebControls;
 
-  using AjaxPro;
-
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Utilities;
 
@@ -70,27 +69,18 @@ namespace YAF.Controls
 
     #region Methods
 
-    protected override void OnPreRender(EventArgs e)
-    {
-        
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
-    /// Called when the page loads
-    /// </summary>
-    /// <param name="sender">
-    /// the sender.
-    /// </param>
-    /// <param name="e">
-    /// the e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+      /// <summary>
+      /// Pre Render
+      /// </summary>
+      /// <param name="e">
+      /// The esd.
+      /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
         if (this.UserID == this.PageContext.PageUserID)
         {
-            // Register AjaxPro.
-            Utility.RegisterTypeForAjax(typeof(YafAlbum));
+            // Register jQuery Ajax Plugin.
+            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
             // Register Js Blocks.
             YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -109,6 +99,20 @@ namespace YAF.Controls
             this.ltrTitleOnly.Visible = false;
         }
 
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
         this._attachGroupID = Guid.NewGuid().ToString().Substring(0, 5);
         if (this.UserID == this.PageContext.PageUserID)
         {
@@ -159,7 +163,10 @@ namespace YAF.Controls
     /// </param>
     protected void AlbumImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        if (this.UserID != this.PageContext.PageUserID) return;
+        if (this.UserID != this.PageContext.PageUserID)
+        {
+            return;
+        }
 
         var setCover = (Button)e.Item.FindControl("SetCover");
 
@@ -224,20 +231,24 @@ namespace YAF.Controls
                              ? string.Empty
                              : dtAlbum.Rows[0]["CoverImageID"].ToString();
 
-      if ((dtAlbumImageList != null) && (dtAlbumImageList.Rows.Count > 0))
-      {
+        if ((dtAlbumImageList == null) || (dtAlbumImageList.Rows.Count <= 0))
+        {
+            return;
+        }
+
         this.PagerTop.Count = dtAlbumImageList.Rows.Count;
 
         // Create paged data source for the album image list
-        var pds = new PagedDataSource();
-        pds.DataSource = dtAlbumImageList.DefaultView;
-        pds.AllowPaging = true;
-        pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-        pds.PageSize = this.PagerTop.PageSize;
+        var pds = new PagedDataSource
+            {
+                DataSource = dtAlbumImageList.DefaultView,
+                AllowPaging = true,
+                CurrentPageIndex = this.PagerTop.CurrentPageIndex,
+                PageSize = this.PagerTop.PageSize
+            };
 
         this.AlbumImages.DataSource = pds;
         this.DataBind();
-      }
     }
 
     #endregion

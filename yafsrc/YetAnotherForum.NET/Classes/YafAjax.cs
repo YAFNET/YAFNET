@@ -31,6 +31,7 @@ namespace YAF.Classes
 
     using YAF.Classes.Core;
     using YAF.Classes.Data;
+    using YAF.Classes.Pattern;
     using YAF.Classes.Utils;
     using YAF.Controls;
 
@@ -165,6 +166,42 @@ namespace YAF.Classes
         public int RemoveFavoriteTopic(int topicId)
         {
             return YafContext.Current.Get<IFavoriteTopic>().RemoveFavoriteTopic(topicId);
+        }
+
+        /// <summary>
+        /// The change album title.
+        /// </summary>
+        /// <param name="albumID">
+        /// The album id.
+        /// </param>
+        /// <param name="newTitle">
+        /// The New title.
+        /// </param>
+        /// <returns>
+        /// the return object.
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        public YafAlbum.ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
+        {
+            return YafAlbum.ChangeAlbumTitle(albumID, newTitle);
+        }
+
+        /// <summary>
+        /// The change image caption.
+        /// </summary>
+        /// <param name="imageID">
+        /// The Image id.
+        /// </param>
+        /// <param name="newCaption">
+        /// The New caption.
+        /// </param>
+        /// <returns>
+        /// the return object.
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        public YafAlbum.ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
+        {
+            return YafAlbum.ChangeImageCaption(imageID, newCaption);
         }
 
         #endregion

@@ -411,7 +411,7 @@ function toggleMessage(divId)
       }
 
       /// <summary>
-      /// script for changing the album title.
+      /// Gets the script for changing the album title.
       /// </summary>
       /// <returns>
       /// the change album title js.
@@ -420,14 +420,15 @@ function toggleMessage(divId)
       {
           get
           {
-          return
-              "function changeAlbumTitle(albumId, txtTitleId){{" +
-              "YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
+              return @"function changeAlbumTitle(albumId, txtTitleId){{
+                     var albId = albumId;var newTitleTxt = jQuery('#' + txtTitleId).val();
+                     jQuery.PageMethod('YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}";
+                    // YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
           }
       }
 
       /// <summary>
-      /// script for changing the image caption.
+      /// Gets the script for changing the image caption.
       /// </summary>
       /// <returns></returns>
       public static string ChangeImageCaptionJs
@@ -435,13 +436,16 @@ function toggleMessage(divId)
           get
           {
               return
-              "function changeImageCaption(imageID, txtTitleId){{" +
-              "YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
+              @"function changeImageCaption(imageID, txtTitleId){{
+              var imgId = imageID;var newImgTitleTxt = jQuery('#' + txtTitleId).val();
+              jQuery.PageMethod('YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}";
+
+              // YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
           }
       }
 
       /// <summary>
-      /// script for album/image title/image callback.
+      /// Gets the script for album/image title/image callback.
       /// </summary>
       /// <returns>
       /// the callback success js.
@@ -451,6 +455,18 @@ function toggleMessage(divId)
           get
           {
               return
+                  @"function changeTitleSuccess(res){{
+                  spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
+                  txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
+                  spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
+                  txtTitleVar.disabled = false;
+                  spnTitleVar.style.display = 'inline';
+                  txtTitleVar.style.display='none';}}";
+          }
+
+          /*get
+          {
+              return
                   "function changeTitleSuccess(res){{" +
                   "spnTitleVar = document.getElementById('spnTitle' + res.value.Id);" +
                   "txtTitleVar = document.getElementById('txtTitle' + res.value.Id);" +
@@ -458,7 +474,7 @@ function toggleMessage(divId)
                   "txtTitleVar.disabled = false;" +
                   "spnTitleVar.style.display = 'inline';" +
                   "txtTitleVar.style.display='none';}}";
-          }
+          }*/
       }
   }
 }

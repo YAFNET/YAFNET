@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Data;
-
 namespace YAF.Controls
 {
   #region Using
@@ -27,8 +25,6 @@ namespace YAF.Controls
   using System;
   using System.Web;
   using System.Web.UI.WebControls;
-
-  using AjaxPro;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -47,7 +43,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    ///   the User ID.
+    ///  Gets or sets the User ID.
     /// </summary>
     public int UserID { get; set; }
 
@@ -110,33 +106,17 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The on pre render.
+    /// Pre Render
     /// </summary>
     /// <param name="e">
-    /// The e.
+    /// The esd.
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      
-
-      base.OnPreRender(e);
-    }
-
-    /// <summary>
-    /// Called when the page loads
-    /// </summary>
-    /// <param name="sender">
-    /// the sender.
-    /// </param>
-    /// <param name="e">
-    /// the e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
         if (this.UserID == this.PageContext.PageUserID)
         {
-            // Register AjaxPro.
-            Utility.RegisterTypeForAjax(typeof(YafAlbum));
+            // Register jQuery Ajax Plugin.
+            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
             // Register Js Blocks.
             YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -152,32 +132,49 @@ namespace YAF.Controls
                 "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
         }
 
-        if (!this.IsPostBack)
-      {
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
         this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn)
-                                         ? this.HtmlEncode(umhdn)
-                                         : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
+                                           ? this.HtmlEncode(umhdn)
+                                           : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
 
         this.BindData();
   
         System.Data.DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
         System.Data.DataTable usrAlbumsData =
-              DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+            DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
         var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
         var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
         if (allowedAlbums.HasValue && allowedAlbums > 0)
         {
-          // this.AddAlbum.Visible = true;
-          this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
-                                   this.UserID == this.PageContext.PageUserID)
-                                    ? true
-                                    : false;
+            // this.AddAlbum.Visible = true;
+            this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
+                                     this.UserID == this.PageContext.PageUserID)
+                                        ? true
+                                        : false;
         }
 
         if (this.AddAlbum.Visible)
         {
-          this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");
+            this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");
         }
 
         HttpContext.Current.Session["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
@@ -188,23 +185,22 @@ namespace YAF.Controls
         // Show Albums Max Info
         if (this.UserID == this.PageContext.PageUserID)
         {
-          if (allowedAlbums.HasValue && allowedAlbums > 0)
-          {
-            this.albumsInfo.Text = this.PageContext.Localization.GetTextFormatted(
-              "ALBUMS_INFO", numAlbums, allowedAlbums);
-          }
-          else if (allowedAlbums.HasValue && allowedAlbums.Equals(0) || !allowedAlbums.HasValue)
-          {
-            this.albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
-          }
+            if (allowedAlbums.HasValue && allowedAlbums > 0)
+            {
+                this.albumsInfo.Text = this.PageContext.Localization.GetTextFormatted(
+                    "ALBUMS_INFO", numAlbums, allowedAlbums);
+            }
+            else if (allowedAlbums.HasValue && allowedAlbums.Equals(0) || !allowedAlbums.HasValue)
+            {
+                this.albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
+            }
 
-          this.albumsInfo.Visible = true;
+            this.albumsInfo.Visible = true;
         }
         else
         {
-          this.albumsInfo.Visible = false;
+            this.albumsInfo.Visible = false;
         }
-      }
     }
 
     /// <summary>
@@ -231,22 +227,24 @@ namespace YAF.Controls
       // set the Datatable
       var albumListDT = DB.album_list(this.UserID, null);
 
-      if ((albumListDT != null) && (albumListDT.Rows.Count > 0))
-      {
+        if ((albumListDT == null) || (albumListDT.Rows.Count <= 0))
+        {
+            return;
+        }
+
         this.PagerTop.Count = albumListDT.Rows.Count;
 
         // create paged data source for the albumlist
         var pds = new PagedDataSource
-          {
-            DataSource = albumListDT.DefaultView, 
-            AllowPaging = true, 
-            CurrentPageIndex = this.PagerTop.CurrentPageIndex, 
-            PageSize = this.PagerTop.PageSize
-          };
+            {
+                DataSource = albumListDT.DefaultView, 
+                AllowPaging = true, 
+                CurrentPageIndex = this.PagerTop.CurrentPageIndex, 
+                PageSize = this.PagerTop.PageSize
+            };
 
         this.Albums.DataSource = pds;
         this.DataBind();
-      }
     }
 
     #endregion
