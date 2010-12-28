@@ -54,7 +54,7 @@ namespace YAF.Utils
     /// The convert object to type.
     /// </returns>
     [CanBeNull]
-    public static object ConvertObjectToType([NotNull] object value, [NotNull] string type)
+    public static object ConvertObjectToType([CanBeNull] object value, [NotNull] string type)
     {
       if (value == null)
       {

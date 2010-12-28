@@ -24,12 +24,9 @@ namespace YAF.Core
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using System.Web;
 
   using Autofac;
   using Autofac.Core;
-
-  using Moq;
 
   using YAF.Classes;
   using YAF.Core.Services;
@@ -62,8 +59,6 @@ namespace YAF.Core
       this.RegisterBasicBindings(builder);
 
       this.RegisterEventBindings(builder);
-
-      this.RegisterWebAbstractions(builder);
 
       this.RegisterServices(builder);
 
@@ -222,52 +217,6 @@ namespace YAF.Core
         x =>
         x.Resolve<IEnumerable<IStartupService>>().Where(t => t is StartupInitializeDb).FirstOrDefault() as
         StartupInitializeDb).InstancePerLifetimeScope();
-    }
-
-    /// <summary>
-    /// The register web abstractions.
-    /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
-    {
-      CodeContracts.ArgumentNotNull(builder, "builder");
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : new Mock<HttpContextBase>().Object).
-        InstancePerLifetimeScope();
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpSessionStateWrapper(HttpContext.Current.Session)
-          : new Mock<HttpSessionStateBase>().Object).InstancePerLifetimeScope();
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpRequestWrapper(HttpContext.Current.Request)
-          : new Mock<HttpRequestBase>().Object).InstancePerLifetimeScope();
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpResponseWrapper(HttpContext.Current.Response)
-          : new Mock<HttpResponseBase>().Object).InstancePerLifetimeScope();
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpServerUtilityWrapper(HttpContext.Current.Server)
-          : new Mock<HttpServerUtilityBase>().Object).InstancePerLifetimeScope();
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpApplicationStateWrapper(HttpContext.Current.Application)
-          : new Mock<HttpApplicationStateBase>().Object).InstancePerLifetimeScope();
     }
 
     #endregion

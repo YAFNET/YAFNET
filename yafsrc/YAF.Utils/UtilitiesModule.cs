@@ -20,6 +20,8 @@ namespace YAF.Utils
 {
   #region Using
 
+  using System.Web;
+
   using Autofac;
 
   using YAF.Types;
@@ -45,6 +47,55 @@ namespace YAF.Utils
       builder.RegisterType<HttpRequestIsSecure>().As<IRequestSecure>().InstancePerLifetimeScope();
       builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerLifetimeScope();
       builder.RegisterType<SimpleBaseContext>().As<IBaseContext>().InstancePerLifetimeScope();
+
+      this.RegisterWebAbstractions(builder);
+    }
+
+    /// <summary>
+    /// The register web abstractions.
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
+    {
+      CodeContracts.ArgumentNotNull(builder, "builder");
+
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpContextWrapper(HttpContext.Current)
+          : (HttpContextBase)new EmptyHttpContext()).InstancePerLifetimeScope();
+
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpSessionStateWrapper(HttpContext.Current.Session)
+          : (HttpSessionStateBase)new EmptyHttpSessionState()).InstancePerLifetimeScope();
+
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpRequestWrapper(HttpContext.Current.Request)
+          : (HttpRequestBase)new EmptyHttpRequest()).InstancePerLifetimeScope();
+
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpResponseWrapper(HttpContext.Current.Response)
+          : (HttpResponseBase)new EmptyHttpResponse()).InstancePerLifetimeScope();
+
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpServerUtilityWrapper(HttpContext.Current.Server)
+          : (HttpServerUtilityBase)new EmptyHttpServerUtility()).InstancePerLifetimeScope();
+
+      builder.Register(
+        k =>
+        HttpContext.Current != null
+          ? new HttpApplicationStateWrapper(HttpContext.Current.Application)
+          : (HttpApplicationStateBase)new EmptyHttpApplicationState()).InstancePerLifetimeScope();
     }
 
     #endregion
