@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Utils
+namespace YAF.Core.Services
 {
   #region Using
 
@@ -25,136 +25,33 @@ namespace YAF.Classes.Utils
   using System.Data;
   using System.Web;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
-
-  public interface IYafSession
-  {
-    /// <summary>
-    ///   Gets or sets ActiveTopicSince.
-    /// </summary>
-    int? ActiveTopicSince { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the user wants to use the mobile theme.
-    /// </summary>
-    bool? UseMobileTheme { get; set; }
-
-    /// <summary>
-    ///   Gets or sets FavoriteTopicSince.
-    /// </summary>
-    int? FavoriteTopicSince { get; set; }
-
-    /// <summary>
-    ///   Gets or sets ForumRead.
-    /// </summary>
-    Hashtable ForumRead { get; set; }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether HasLastVisit.
-    /// </summary>
-    bool HasLastVisit { get; set; }
-
-    /// <summary>
-    ///   Gets or sets LastPm.
-    /// </summary>
-    DateTime LastPendingBuddies { get; set; }
-
-    /// <summary>
-    ///   Gets or sets LastPm.
-    /// </summary>
-    DateTime LastPm { get; set; }
-
-    /// <summary>
-    ///   Gets or sets LastPost.
-    /// </summary>
-    DateTime LastPost { get; set; }
-
-    /// <summary>
-    ///   Gets or sets LastVisit.
-    /// </summary>
-    DateTime LastVisit { get; set; }
-
-    /// <summary>
-    ///   Gets PanelState.
-    /// </summary>
-    [NotNull]
-    PanelSessionState PanelState { get; }
-
-    /// <summary>
-    ///   Gets or sets SearchData.
-    /// </summary>
-    [CanBeNull]
-    DataTable SearchData { get; set; }
-
-    /// <summary>
-    ///   Gets or sets ShowList.
-    /// </summary>
-    int ShowList { get; set; }
-
-    /// <summary>
-    ///   Gets or sets TopicRead.
-    /// </summary>
-    Hashtable TopicRead { get; set; }
-
-    /// <summary>
-    ///   Gets or sets UnreadTopics.
-    /// </summary>
-    /// </summary>
-    int UnreadTopics { get; set; }
-
-    /// <summary>
-    /// Gets the last time the forum was read.
-    /// </summary>
-    /// <param name="forumID">
-    /// This is the ID of the forum you wish to get the last read date from.
-    /// </param>
-    /// <returns>
-    /// A DateTime object of when the forum was last read.
-    /// </returns>
-    DateTime GetForumRead(int forumID);
-
-    /// <summary>
-    /// Returns the last time that the topicID was read.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topicID you wish to find the DateTime object for.
-    /// </param>
-    /// <returns>
-    /// The DateTime object from the topicID.
-    /// </returns>
-    DateTime GetTopicRead(int topicID);
-
-    /// <summary>
-    /// Sets the time that the forum was read.
-    /// </summary>
-    /// <param name="forumID">
-    /// The forum ID that was read.
-    /// </param>
-    /// <param name="date">
-    /// The DateTime you wish to set the read to.
-    /// </param>
-    void SetForumRead(int forumID, DateTime date);
-
-    /// <summary>
-    /// Sets the time that the <paramref name="topicID"/> was read.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic ID that was read.
-    /// </param>
-    /// <param name="date">
-    /// The DateTime you wish to set the read to.
-    /// </param>
-    void SetTopicRead(int topicID, DateTime date);
-  }
 
   /// <summary>
   /// All references to session should go into this class
   /// </summary>
   public class YafSession : IYafSession
   {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafSession"/> class.
+    /// </summary>
+    /// <param name="sessionState">
+    /// The session state.
+    /// </param>
+    public YafSession([NotNull] HttpSessionStateBase sessionState)
+    {
+      CodeContracts.ArgumentNotNull(sessionState, "sessionState");
+
+      this.SessionState = sessionState;
+    }
+
+    #endregion
+
     #region Properties
 
     /// <summary>
@@ -164,9 +61,9 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (YafContext.Current.Get<HttpSessionStateBase>()["ActiveTopicSince"] != null)
+        if (this.SessionState["ActiveTopicSince"] != null)
         {
-          return (int)YafContext.Current.Get<HttpSessionStateBase>()["ActiveTopicSince"];
+          return (int)this.SessionState["ActiveTopicSince"];
         }
 
         return null;
@@ -174,28 +71,7 @@ namespace YAF.Classes.Utils
 
       set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["ActiveTopicSince"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets if the user wants to use the mobile theme.
-    /// </summary>
-    public bool? UseMobileTheme
-    {
-      get
-      {
-        if (YafContext.Current.Get<HttpSessionStateBase>()["UseMobileTheme"] == null)
-        {
-          return null;
-        }
-
-        return (bool)YafContext.Current.Get<HttpSessionStateBase>()["UseMobileTheme"];
-      }
-
-      set
-      {
-        YafContext.Current.Get<HttpSessionStateBase>()["UseMobileTheme"] = value;
+        this.SessionState["ActiveTopicSince"] = value;
       }
     }
 
@@ -206,9 +82,9 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (YafContext.Current.Get<HttpSessionStateBase>()["FavoriteTopicSince"] != null)
+        if (this.SessionState["FavoriteTopicSince"] != null)
         {
-          return (int)YafContext.Current.Get<HttpSessionStateBase>()["FavoriteTopicSince"];
+          return (int)this.SessionState["FavoriteTopicSince"];
         }
 
         return null;
@@ -216,7 +92,7 @@ namespace YAF.Classes.Utils
 
       set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["FavoriteTopicSince"] = value;
+        this.SessionState["FavoriteTopicSince"] = value;
       }
     }
 
@@ -225,15 +101,14 @@ namespace YAF.Classes.Utils
     /// </summary>
     public Hashtable ForumRead
     {
-      get {
-          return YafContext.Current.Get<HttpSessionStateBase>()["forumread"] != null
-                     ? (Hashtable) YafContext.Current.Get<HttpSessionStateBase>()["forumread"]
-                     : null;
+      get
+      {
+        return this.SessionState["forumread"] != null ? (Hashtable)this.SessionState["forumread"] : null;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["forumread"] = value;
+        this.SessionState["forumread"] = value;
       }
     }
 
@@ -244,16 +119,17 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["haslastvisit"] != null)
+        if (this.SessionState["haslastvisit"] != null)
         {
-          return (bool)YafContext.Current.Get<HttpSessionStateBase>()["haslastvisit"];
+          return (bool)this.SessionState["haslastvisit"];
         }
-          return false;
+
+        return false;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["haslastvisit"] = value;
+        this.SessionState["haslastvisit"] = value;
       }
     }
 
@@ -264,16 +140,17 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["lastpendingbuddies"] != null)
+        if (this.SessionState["lastpendingbuddies"] != null)
         {
-          return (DateTime)YafContext.Current.Get<HttpSessionStateBase>()["lastpendingbuddies"];
+          return (DateTime)this.SessionState["lastpendingbuddies"];
         }
-          return DateTime.MinValue;
+
+        return DateTime.MinValue;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["lastpendingbuddies"] = value;
+        this.SessionState["lastpendingbuddies"] = value;
       }
     }
 
@@ -284,16 +161,17 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["lastpm"] != null)
+        if (this.SessionState["lastpm"] != null)
         {
-          return (DateTime)YafContext.Current.Get<HttpSessionStateBase>()["lastpm"];
+          return (DateTime)this.SessionState["lastpm"];
         }
-          return DateTime.MinValue;
+
+        return DateTime.MinValue;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["lastpm"] = value;
+        this.SessionState["lastpm"] = value;
       }
     }
 
@@ -304,16 +182,17 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["lastpost"] != null)
+        if (this.SessionState["lastpost"] != null)
         {
-          return (DateTime)YafContext.Current.Get<HttpSessionStateBase>()["lastpost"];
+          return (DateTime)this.SessionState["lastpost"];
         }
-          return DateTime.MinValue;
+
+        return DateTime.MinValue;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["lastpost"] = value;
+        this.SessionState["lastpost"] = value;
       }
     }
 
@@ -324,16 +203,17 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["lastvisit"] != null)
+        if (this.SessionState["lastvisit"] != null)
         {
-          return (DateTime)YafContext.Current.Get<HttpSessionStateBase>()["lastvisit"];
+          return (DateTime)this.SessionState["lastvisit"];
         }
-          return DateTime.MinValue;
+
+        return DateTime.MinValue;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["lastvisit"] = value;
+        this.SessionState["lastvisit"] = value;
       }
     }
 
@@ -341,10 +221,11 @@ namespace YAF.Classes.Utils
     ///   Gets PanelState.
     /// </summary>
     [NotNull]
-    public PanelSessionState PanelState
+    public IPanelSessionState PanelState
     {
       get
       {
+        // TODO: Get rid of this and replace with DI.
         return new PanelSessionState();
       }
     }
@@ -357,18 +238,24 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["SearchDataTable"] != null)
+        if (this.SessionState["SearchDataTable"] != null)
         {
-          return YafContext.Current.Get<HttpSessionStateBase>()["SearchDataTable"] as DataTable;
+          return this.SessionState["SearchDataTable"] as DataTable;
         }
-          return null;
+
+        return null;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["SearchDataTable"] = value;
+        this.SessionState["SearchDataTable"] = value;
       }
     }
+
+    /// <summary>
+    /// Gets or sets SessionState.
+    /// </summary>
+    public HttpSessionStateBase SessionState { get; set; }
 
     /// <summary>
     ///   Gets or sets ShowList.
@@ -377,17 +264,18 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if (YafContext.Current.Get<HttpSessionStateBase>()["showlist"] != null)
+        if (this.SessionState["showlist"] != null)
         {
-          return (int)YafContext.Current.Get<HttpSessionStateBase>()["showlist"];
+          return (int)this.SessionState["showlist"];
         }
-          // nothing in session
-          return -1;
+
+        // nothing in session
+        return -1;
       }
 
       set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["showlist"] = value;
+        this.SessionState["showlist"] = value;
       }
     }
 
@@ -398,43 +286,67 @@ namespace YAF.Classes.Utils
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["topicread"] != null)
+        if (this.SessionState["topicread"] != null)
         {
-          return (Hashtable)YafContext.Current.Get<HttpSessionStateBase>()["topicread"];
+          return (Hashtable)this.SessionState["topicread"];
         }
-          return null;
+
+        return null;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["topicread"] = value;
+        this.SessionState["topicread"] = value;
       }
     }
 
     /// <summary>
-    ///   Gets or sets UnreadTopics.
-    /// </summary>
+    /// Gets or sets UnreadTopics.
     /// </summary>
     public int UnreadTopics
     {
       get
       {
-          if (YafContext.Current.Get<HttpSessionStateBase>()["unreadtopics"] != null)
+        if (this.SessionState["unreadtopics"] != null)
         {
-          return (int)YafContext.Current.Get<HttpSessionStateBase>()["unreadtopics"];
+          return (int)this.SessionState["unreadtopics"];
         }
-          return 0;
+
+        return 0;
       }
 
-        set
+      set
       {
-        YafContext.Current.Get<HttpSessionStateBase>()["unreadtopics"] = value;
+        this.SessionState["unreadtopics"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets if the user wants to use the mobile theme.
+    /// </summary>
+    public bool? UseMobileTheme
+    {
+      get
+      {
+        if (this.SessionState["UseMobileTheme"] == null)
+        {
+          return null;
+        }
+
+        return (bool)this.SessionState["UseMobileTheme"];
+      }
+
+      set
+      {
+        this.SessionState["UseMobileTheme"] = value;
       }
     }
 
     #endregion
 
-    #region Public Methods
+    #region Implemented Interfaces
+
+    #region IYafSession
 
     /// <summary>
     /// Gets the last time the forum was read.
@@ -452,7 +364,8 @@ namespace YAF.Classes.Utils
       {
         return this.LastVisit;
       }
-        return (DateTime)t[forumID];
+
+      return (DateTime)t[forumID];
     }
 
     /// <summary>
@@ -471,7 +384,8 @@ namespace YAF.Classes.Utils
       {
         return this.LastVisit;
       }
-        return (DateTime)t[topicID];
+
+      return (DateTime)t[topicID];
     }
 
     /// <summary>
@@ -504,133 +418,11 @@ namespace YAF.Classes.Utils
     {
       Hashtable t = this.TopicRead ?? new Hashtable();
 
-        t[topicID] = date;
+      t[topicID] = date;
       this.TopicRead = t;
     }
 
     #endregion
-  }
-
-  /// <summary>
-  /// The panel session state.
-  /// </summary>
-  public class PanelSessionState
-  {
-    #region Enums
-
-    /// <summary>
-    /// The collapsible panel state.
-    /// </summary>
-    public enum CollapsiblePanelState
-    {
-      /// <summary>
-      ///   The none.
-      /// </summary>
-      None = -1, 
-
-      /// <summary>
-      ///   The expanded.
-      /// </summary>
-      Expanded = 0, 
-
-      /// <summary>
-      ///   The collapsed.
-      /// </summary>
-      Collapsed = 1
-    }
-
-    #endregion
-
-    #region Indexers
-
-    /// <summary>
-    ///   Gets panel session state.
-    /// </summary>
-    /// <param name = "panelID">panelID</param>
-    /// <returns></returns>
-    public CollapsiblePanelState this[[NotNull] string panelID]
-    {
-      // Ederon : 7/14/2007
-      get
-      {
-        string sessionPanelID = "panelstate_" + panelID;
-
-        // try to get panel state from session state first
-        if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
-        {
-          return (CollapsiblePanelState)YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
-        }
-          
-          
-          // if no panel state info is in session state, try cookie
-          if (YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
-          {
-              try
-              {
-                  // we must convert string to int, better get is safe
-                  if (YafContext.Current.Get<HttpRequestBase>() != null)
-                  {
-                      return (CollapsiblePanelState)int.Parse(YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
-                  }
-              }
-              catch
-              {
-                  // in case cookie has wrong value
-                  if (YafContext.Current.Get<HttpRequestBase>() != null)
-                  {
-                      YafContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
-                  }
-
-                  return CollapsiblePanelState.None;
-              }
-          }
-
-          return CollapsiblePanelState.None;
-      }
- // Ederon : 7/14/2007
-      set
-      {
-        string sessionPanelID = "panelstate_" + panelID;
-
-        YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
-
-        // create persistent cookie with visibility setting for panel
-        var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) {Expires = DateTime.UtcNow.AddYears(1)};
-          YafContext.Current.Get<HttpResponseBase>().SetCookie(c);
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The toggle panel state.
-    /// </summary>
-    /// <param name="panelID">
-    /// The panel id.
-    /// </param>
-    /// <param name="defaultState">
-    /// The default state.
-    /// </param>
-    public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
-    {
-      CollapsiblePanelState currentState = this[panelID];
-
-      if (currentState == CollapsiblePanelState.None)
-      {
-        currentState = defaultState;
-      }
-
-      if (currentState == CollapsiblePanelState.Collapsed)
-      {
-        this[panelID] = CollapsiblePanelState.Expanded;
-      }
-      else if (currentState == CollapsiblePanelState.Expanded)
-      {
-        this[panelID] = CollapsiblePanelState.Collapsed;
-      }
-    }
 
     #endregion
   }

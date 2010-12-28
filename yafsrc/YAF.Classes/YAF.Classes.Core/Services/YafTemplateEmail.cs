@@ -17,13 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Collections.Specialized;
-using System.Net.Mail;
-using YAF.Classes.Data;
-
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
-  using YAF.Classes.Utils;
+  using System.Collections.Specialized;
+  using System.Net.Mail;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Classes.Data;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// The yaf template email.

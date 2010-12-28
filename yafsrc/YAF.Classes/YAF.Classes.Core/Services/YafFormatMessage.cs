@@ -17,21 +17,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
   using System;
   using System.Collections.Generic;
-  using System.Data;
   using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web;
 
-  using YAF.Classes.Core.BBCode;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.BBCode.ReplaceRules;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -475,7 +482,7 @@ namespace YAF.Classes.Core
               {
                 // process message... clean html, strip html, remove bbcode, etc...
                 returnMsg =
-                  StringHelper.RemoveMultipleWhitespace(
+                  StringExtensions.RemoveMultipleWhitespace(
                     BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
 
                 if (returnMsg.IsNotSet())
@@ -511,7 +518,7 @@ namespace YAF.Classes.Core
                 }
               }
 
-              return new MessageCleaned(StringHelper.Truncate(returnMsg, 255), keywordList);
+              return new MessageCleaned(StringExtensions.Truncate(returnMsg, 255), keywordList);
             });
       }
 

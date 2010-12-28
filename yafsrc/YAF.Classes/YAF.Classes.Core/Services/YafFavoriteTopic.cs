@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
@@ -25,80 +25,16 @@ namespace YAF.Classes.Core
   using System.Data;
   using System.Web;
 
+  using AjaxPro;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
-
-  /// <summary>
-  /// The i favorite topic.
-  /// </summary>
-  public interface IFavoriteTopic
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The add favorite topic.
-    /// </summary>
-    /// <param name="topicId">
-    /// The topic ID.
-    /// </param>
-    /// <returns>
-    /// The add favorite topic.
-    /// </returns>
-    int AddFavoriteTopic(int topicId);
-
-    /// <summary>
-    /// The clear favorite topic cache.
-    /// </summary>
-    void ClearFavoriteTopicCache();
-
-    /// <summary>
-    /// The clear favorite topic cache.
-    /// </summary>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    /// <returns>
-    /// The favorite topic count.
-    /// </returns>
-    int FavoriteTopicCount(int topicId);
-
-    /// <summary>
-    /// the favorite topic details.
-    /// </summary>
-    /// <param name="sinceDate">
-    /// the since date.
-    /// </param>
-    /// <returns>
-    /// a Data table containing all the current user's favorite topics in details.
-    /// </returns>
-    DataTable FavoriteTopicDetails(DateTime sinceDate);
-
-    /// <summary>
-    /// The is favorite topic.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic id.
-    /// </param>
-    /// <returns>
-    /// The is favorite topic.
-    /// </returns>
-    bool IsFavoriteTopic(int topicID);
-
-    /// <summary>
-    /// The remove favorite topic.
-    /// </summary>
-    /// <param name="topicId">
-    /// The favorite topic id.
-    /// </param>
-    /// <returns>
-    /// The remove favorite topic.
-    /// </returns>
-    int RemoveFavoriteTopic(int topicId);
-
-    #endregion
-  }
 
   /// <summary>
   /// Favorite Topic Service for the current user.
@@ -127,6 +63,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The add favorite topic.
     /// </returns>
+    [AjaxMethod]
     public int AddFavoriteTopic(int topicId)
     {
       DB.topic_favorite_add(YafContext.Current.PageUserID, topicId);
@@ -166,7 +103,8 @@ namespace YAF.Classes.Core
       string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
 
       return
-        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>();
+        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>
+          ();
     }
 
     /// <summary>
@@ -218,6 +156,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The remove favorite topic.
     /// </returns>
+    [AjaxMethod]
     public int RemoveFavoriteTopic(int topicId)
     {
       DB.topic_favorite_remove(YafContext.Current.PageUserID, topicId);

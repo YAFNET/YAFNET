@@ -16,48 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   using System.Collections.Generic;
   using System.Web;
-  using Data;
 
-  using YAF.Classes.Utils;
-
-  public interface IUserIgnored
-  {
-    /// <summary>
-    /// The is ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    /// <returns>
-    /// The is ignored.
-    /// </returns>
-    bool IsIgnored(int ignoredUserId);
-
-    /// <summary>
-    /// The clear ignore cache.
-    /// </summary>
-    void ClearIgnoreCache();
-
-    /// <summary>
-    /// The add ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    void AddIgnored(int ignoredUserId);
-
-    /// <summary>
-    /// The remove ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    void RemoveIgnored(int ignoredUserId);
-  }
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Classes.Data;
+  using YAF.Utils;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// User Ignored Service for the current user.

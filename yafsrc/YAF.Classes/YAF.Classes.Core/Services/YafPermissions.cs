@@ -16,45 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
   using System.Web;
   using System.Web.Hosting;
 
-  using YAF.Classes.Utils;
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
-
-  /// <summary>
-  /// The i permissions.
-  /// </summary>
-  public interface IPermissions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The check.
-    /// </summary>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    /// <returns>
-    /// The check.
-    /// </returns>
-    bool Check(ViewPermissions permission);
-
-    /// <summary>
-    /// The handle request.
-    /// </summary>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    void HandleRequest(ViewPermissions permission);
-
-    #endregion
-  }
 
   /// <summary>
   /// The yaf permissions.

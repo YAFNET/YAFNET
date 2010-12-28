@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
@@ -28,44 +28,17 @@ namespace YAF.Classes.Core
   using System.Net.Mail;
   using System.Web;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
 
   #endregion
-
-  public interface ISendNotification
-  {
-    /// <summary>
-    /// The to moderators that message needs approval.
-    /// </summary>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <param name="newMessageId">
-    /// The new message id.
-    /// </param>
-    void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId);
-
-    /// <summary>
-    /// Sends notification about new PM in user's inbox.
-    /// </summary>
-    /// <param name="toUserId">
-    /// User supposed to receive notification about new PM.
-    /// </param>
-    /// <param name="subject">
-    /// Subject of PM user is notified about.
-    /// </param>
-    void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject);
-
-    /// <summary>
-    /// The to watching users.
-    /// </summary>
-    /// <param name="newMessageId">
-    /// The new message id.
-    /// </param>
-    void ToWatchingUsers(int newMessageId);
-  }
 
   /// <summary>
   /// The yaf send notification.
@@ -85,7 +58,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId)
     {
-      var moderatorsFiltered = YafContext.Current.Get<IDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
+      var moderatorsFiltered = Enumerable.Where<SimpleModerator>(YafContext.Current.Get<IDBBroker>().GetAllModerators(), f => f.ForumID.Equals(forumId));
       var moderatorUserNames = new List<string>();
 
       foreach (var moderator in moderatorsFiltered)
@@ -237,7 +210,7 @@ namespace YAF.Classes.Core
 
         // cleaned body as text...
         string bodyText =
-            StringHelper.RemoveMultipleWhitespace(
+            StringExtensions.RemoveMultipleWhitespace(
                 BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))));
 
         // Send track mails
@@ -249,7 +222,7 @@ namespace YAF.Classes.Core
         watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
         watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(userId);
         watchEmail.TemplateParams["{body}"] = bodyText;
-        watchEmail.TemplateParams["{bodytruncated}"] = StringHelper.Truncate(bodyText, 160);
+        watchEmail.TemplateParams["{bodytruncated}"] = StringExtensions.Truncate(bodyText, 160);
         watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
             ForumPages.posts, true, "m={0}#post{0}", newMessageId);
 

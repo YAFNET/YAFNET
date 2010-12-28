@@ -16,32 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Diagnostics;
-
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
-  public interface IStopWatch
-  {
-    /// <summary>
-    /// Gets Duration.
-    /// </summary>
-    double Duration { get; }
+  using System.Diagnostics;
 
-    /// <summary>
-    /// The start.
-    /// </summary>
-    void Start();
-
-    /// <summary>
-    /// The stop.
-    /// </summary>
-    void Stop();
-
-    /// <summary>
-    /// The reset.
-    /// </summary>
-    void Reset();
-  }
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// The yaf stop watch.

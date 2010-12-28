@@ -16,23 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
   using System.Data;
   using System.Web;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
   /// The yaf check banned ips.
   /// </summary>
-  public class StartupCheckBannedIps : BaseStartupService, ICriticalStartupService
+  public class StartupCheckBannedIps : BaseStartupService
   {
     #region Constants and Fields
 

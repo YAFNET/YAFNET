@@ -16,34 +16,68 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
+  #region Using
+
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Web;
+
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+
+  #endregion
+
   /// <summary>
   /// The load message.
   /// </summary>
   public class LoadMessage
   {
-    /// <summary>
-    /// The _load string list.
-    /// </summary>
-    private List<string> _loadStringList = null;
+    #region Constants and Fields
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadMessage"/> class.
+    ///   The _load string list.
+    /// </summary>
+    private List<string> _loadStringList;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "LoadMessage" /> class.
     /// </summary>
     public LoadMessage()
     {
-      YafContext.Current.Unload += new EventHandler<EventArgs>(Current_Unload);
+      YafContext.Current.Unload += this.Current_Unload;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets LoadString.
+    /// </summary>
+    public string LoadString
+    {
+      get
+      {
+        if (this.LoadStringList.Count() == 0)
+        {
+          return String.Empty;
+        }
+
+        return this.LoadStringDelimited("\r\n");
+      }
     }
 
     /// <summary>
-    /// Gets LoadStringList.
+    ///   Gets LoadStringList.
     /// </summary>
+    [CanBeNull]
     public List<string> LoadStringList
     {
       get
@@ -65,34 +99,20 @@ namespace YAF.Classes.Core
       }
     }
 
-    #region Load Message
-
     /// <summary>
-    /// Gets LoadString.
-    /// </summary>
-    public string LoadString
-    {
-      get
-      {
-        if (LoadStringList.Count() == 0)
-        {
-          return String.Empty;
-        }
-
-        return LoadStringDelimited("\r\n");
-      }
-    }
-
-    /// <summary>
-    /// Gets StringJavascript.
+    ///   Gets StringJavascript.
     /// </summary>
     public string StringJavascript
     {
       get
       {
-        return CleanJsString(LoadString);
+        return CleanJsString(this.LoadString);
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The clean js string.
@@ -103,7 +123,8 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The clean js string.
     /// </returns>
-    public static string CleanJsString(string jsString)
+    [NotNull]
+    public static string CleanJsString([NotNull] string jsString)
     {
       string message = jsString;
       message = message.Replace("\\", "\\\\");
@@ -115,33 +136,14 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The load string delimited.
-    /// </summary>
-    /// <param name="delimiter">
-    /// The delimiter.
-    /// </param>
-    /// <returns>
-    /// The load string delimited.
-    /// </returns>
-    public string LoadStringDelimited(string delimiter)
-    {
-      if (LoadStringList.Count() == 0)
-      {
-        return String.Empty;
-      }
-
-      return LoadStringList.Aggregate((current, next) => current + delimiter + next);
-    }
-
-    /// <summary>
     /// AddLoadMessage creates a message that will be returned on the next page load.
     /// </summary>
     /// <param name="message">
     /// The message you wish to display.
     /// </param>
-    public void Add(string message)
+    public void Add([NotNull] string message)
     {
-      LoadStringList.Add(message);
+      this.LoadStringList.Add(message);
     }
 
     /// <summary>
@@ -150,7 +152,7 @@ namespace YAF.Classes.Core
     /// <param name="message">
     /// The message you wish to display.
     /// </param>
-    public void AddSession(string message)
+    public void AddSession([NotNull] string message)
     {
       List<string> list = null;
 
@@ -175,10 +177,31 @@ namespace YAF.Classes.Core
     /// </summary>
     public void Clear()
     {
-      LoadStringList.Clear();
+      this.LoadStringList.Clear();
+    }
+
+    /// <summary>
+    /// The load string delimited.
+    /// </summary>
+    /// <param name="delimiter">
+    /// The delimiter.
+    /// </param>
+    /// <returns>
+    /// The load string delimited.
+    /// </returns>
+    public string LoadStringDelimited([NotNull] string delimiter)
+    {
+      if (this.LoadStringList.Count() == 0)
+      {
+        return String.Empty;
+      }
+
+      return this.LoadStringList.Aggregate((current, next) => current + delimiter + next);
     }
 
     #endregion
+
+    #region Methods
 
     /// <summary>
     /// The current_ unload.
@@ -189,10 +212,12 @@ namespace YAF.Classes.Core
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_Unload(object sender, EventArgs e)
+    private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
       // clear the load message...
-      Clear();
+      this.Clear();
     }
+
+    #endregion
   }
 }

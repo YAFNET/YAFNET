@@ -17,49 +17,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
   using System.Web;
 
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
-
-  public interface IAvatars
-  {
-    /// <summary>
-    /// The get avatar url for current user.
-    /// </summary>
-    /// <returns>
-    /// The get avatar url for current user.
-    /// </returns>
-    string GetAvatarUrlForCurrentUser();
-
-    /// <summary>
-    /// The get avatar url for user.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// The get avatar url for user.
-    /// </returns>
-    string GetAvatarUrlForUser(int userId);
-
-    /// <summary>
-    /// The get avatar url for user.
-    /// </summary>
-    /// <param name="userData">
-    /// The user data.
-    /// </param>
-    /// <returns>
-    /// The get avatar url for user.
-    /// </returns>
-    string GetAvatarUrlForUser([NotNull] CombinedUserDataHelper userData);
-  }
 
   /// <summary>
   /// The yaf avatars.
@@ -104,7 +74,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The get avatar url for user.
     /// </returns>
-    public string GetAvatarUrlForUser([NotNull] CombinedUserDataHelper userData)
+    public string GetAvatarUrlForUser([NotNull] IUserData userData)
     {
       CodeContracts.ArgumentNotNull(userData, "userData");
 
@@ -131,7 +101,7 @@ namespace YAF.Classes.Core
         // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
         string gravatarUrl =
           @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-            StringHelper.StringToHexBytes(userData.Email), YafContext.Current.BoardSettings.GravatarRating);
+            StringExtensions.StringToHexBytes(userData.Email), YafContext.Current.BoardSettings.GravatarRating);
 
         avatarUrl =
           @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(

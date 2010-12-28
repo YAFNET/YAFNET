@@ -17,92 +17,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
   using System;
 
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
-
-  public interface IDateTime
-  {
-    /// <summary>
-    ///   Gets the time zone offset 
-    ///   for the current user.
-    /// </summary>
-    TimeSpan TimeOffset { get; }
-
-    /// <summary>
-    /// Formats a datetime value into 7. february 2003
-    /// </summary>
-    /// <param name="dateTime">
-    /// The date to be formatted
-    /// </param>
-    /// <returns>
-    /// The format date long.
-    /// </returns>
-    string FormatDateLong(DateTime dateTime);
-
-    /// <summary>
-    /// Formats a datetime value into 07.03.2003
-    /// </summary>
-    /// <param name="dateTime">
-    /// The date Time.
-    /// </param>
-    /// <returns>
-    /// Short formatted date.
-    /// </returns>
-    string FormatDateShort([NotNull] DateTime dateTime);
-
-    /// <summary>
-    /// Formats a datetime value into 07.03.2003 22:32:34
-    /// </summary>
-    /// <param name="dateTime">
-    /// The date Time.
-    /// </param>
-    /// <returns>
-    /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
-    /// </returns>
-    string FormatDateTime([NotNull] DateTime dateTime);
-
-    /// <summary>
-    /// This formats a DateTime into a short string
-    /// </summary>
-    /// <param name="dateTime">
-    /// The date Time.
-    /// </param>
-    /// <returns>
-    /// The formatted string created from the DateTime object.
-    /// </returns>
-    string FormatDateTimeShort([NotNull] DateTime dateTime);
-
-    /// <summary>
-    /// Formats a datatime value into 07.03.2003 00:00:00 except if 
-    ///   the date is yesterday or today -- in which case it says that.
-    /// </summary>
-    /// <param name="dateTime">
-    /// The date Time.
-    /// </param>
-    /// <returns>
-    /// Formatted string of DateTime object
-    /// </returns>
-    string FormatDateTimeTopic([NotNull] DateTime dateTime);
-
-    /// <summary>
-    /// Formats a datetime value into 22:32:34
-    /// </summary>
-    /// <param name="dateTime">
-    /// The date to be formatted
-    /// </param>
-    /// <returns>
-    /// The format time.
-    /// </returns>
-    string FormatTime(DateTime dateTime);
-  }
 
   /// <summary>
   /// The yaf date time.

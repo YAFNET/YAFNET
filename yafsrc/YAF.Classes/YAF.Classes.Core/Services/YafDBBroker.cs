@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
@@ -25,231 +25,30 @@ namespace YAF.Classes.Core
   using System.Data;
   using System.Linq;
   using System.Web;
-  using System.Web.Caching;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Extensions;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
 
   #endregion
-
-  public interface IDBBroker
-  {
-    /// <summary>
-    /// The user lazy data.
-    /// </summary>
-    /// <param name="userID">
-    /// The user ID.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataRow ActiveUserLazyData(object userID);
-
-    /// <summary>
-    /// Adds the Thanks info to a dataTable
-    /// </summary>
-    /// <param name="dataRows">
-    /// </param>
-    void AddThanksInfo(IEnumerable<DataRow> dataRows);
-
-    /// <summary>
-    /// The get smilies.
-    /// </summary>
-    /// <returns>
-    /// Table with list of smiles
-    /// </returns>
-    IEnumerable<TypedSmileyList> GetSmilies();
-
-    /// <summary>
-    /// Returns the layout of the board
-    /// </summary>
-    /// <param name="boardID">
-    /// BoardID
-    /// </param>
-    /// <param name="userID">
-    /// UserID
-    /// </param>
-    /// <param name="categoryID">
-    /// CategoryID
-    /// </param>
-    /// <param name="parentID">
-    /// ParentID
-    /// </param>
-    /// <returns>
-    /// Returns board layout
-    /// </returns>
-    DataSet BoardLayout(int boardID, int userID, int? categoryID, int? parentID);
-
-    /// <summary>
-    /// The favorite topic list.
-    /// </summary>
-    /// <param name="userID">
-    /// The user ID.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    List<int> FavoriteTopicList(int userID);
-
-    /// <summary>
-    /// The get active list.
-    /// </summary>
-    /// <param name="guests">
-    /// The guests.
-    /// </param>
-    /// <param name="bots">
-    /// The bots.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetActiveList(bool guests, bool crawlers);
-
-    /// <summary>
-    /// The get active list.
-    /// </summary>
-    /// <param name="activeTime">
-    /// The active time.
-    /// </param>
-    /// <param name="guests">
-    /// The guests.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetActiveList(int activeTime, bool guests, bool crawlers);
-
-    /// <summary>
-    /// The get all moderators.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    List<SimpleModerator> GetAllModerators();
-
-    /// <summary>
-    /// Get a simple forum/topic listing.
-    /// </summary>
-    /// <param name="boardId">
-    /// The board Id.
-    /// </param>
-    /// <param name="userId">
-    /// The user Id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount);
-
-    /// <summary>
-    /// The get latest topics.
-    /// </summary>
-    /// <param name="numberOfPosts">
-    /// The number of posts.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetLatestTopics(int numberOfPosts);
-
-    /// <summary>
-    /// The get latest topics.
-    /// </summary>
-    /// <param name="numberOfPosts">
-    /// The number of posts.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetLatestTopics(int numberOfPosts, int userId);
-
-    /// <summary>
-    /// The get latest topics.
-    /// </summary>
-    /// <param name="numberOfPosts">
-    /// The number of posts.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="styleColumnNames">
-    /// The style Column Names.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetLatestTopics(int numberOfPosts, int userId, params string[] styleColumnNames);
-
-    /// <summary>
-    /// The get moderators.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    DataTable GetModerators();
-
-    /// <summary>
-    /// Loads the message text into the paged data if "Message" and "MessageID" exists.
-    /// </summary>
-    /// <param name="dataRows">
-    /// </param>
-    void LoadMessageText(IEnumerable<DataRow> dataRows);
-
-    /// <summary>
-    /// The style transform func wrap.
-    /// </summary>
-    /// <param name="dt">
-    /// The DateTable
-    /// </param>
-    /// <returns>
-    /// The style transform wrap.
-    /// </returns>
-    DataTable StyleTransformDataTable(DataTable dt);
-
-    /// <summary>
-    /// The style transform func wrap.
-    /// </summary>
-    /// <param name="dt">
-    /// The DateTable
-    /// </param>
-    /// <param name="styleColumns">
-    /// Style columns names
-    /// </param>
-    /// <returns>
-    /// The style transform wrap.
-    /// </returns>
-    DataTable StyleTransformDataTable(DataTable dt, params string[] styleColumns);
-
-    /// <summary>
-    /// The Buddy list for the user with the specified UserID.
-    /// </summary>
-    /// <param name="UserID">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable UserBuddyList(int UserID);
-
-    /// <summary>
-    /// The user ignored list.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    List<int> UserIgnoredList(int userId);
-
-    /// <summary>
-    /// The user medals.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable UserMedals(int userId);
-  }
 
   /// <summary>
   /// Class used for multi-step DB operations so they can be cached, etc.
   /// </summary>
-  public class YafDBBroker : IDBBroker
+  public class YafDBBroker : IDBBroker, IHaveServiceLocator
   {
+    public IServiceLocator ServiceLocator { get; set; }
+
+    public YafDBBroker(IServiceLocator serviceLocator)
+    {
+      ServiceLocator = serviceLocator;
+    }
+
     #region Public Methods
 
     /// <summary>
@@ -262,7 +61,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataRow ActiveUserLazyData(object userID)
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userID));
+      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.ActiveUserLazyData, userID));
 
       // get a row with user lazy data...
       return YafContext.Current.Cache.GetItem(
@@ -296,7 +95,7 @@ namespace YAF.Classes.Core
 
       // Iterate through all the thanks relating to this topic and make appropriate
       // changes in columns.
-      var allThanks = DB.MessageGetAllThanks(messageIds.ToDelimitedString(","));
+      var allThanks = DB.MessageGetAllThanks(StringExtensions.ToDelimitedString(messageIds, ","));
 
       foreach (var f in
           allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID).SelectMany(thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
@@ -331,8 +130,8 @@ namespace YAF.Classes.Core
 
           // load all all thanks info into a special column...
         postRow["ThanksInfo"] =
-          thanksFiltered.Where(t => t.FromUserID != null).Select(
-            x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate)).ToDelimitedString(",");
+          StringExtensions.ToDelimitedString<string>(thanksFiltered.Where(t => t.FromUserID != null).Select(
+              x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate)), ",");
 
         postRow.AcceptChanges();
       }
@@ -465,7 +264,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public List<int> FavoriteTopicList(int userID)
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicList.FormatWith(userID));
+      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.FavoriteTopicList, userID));
 
       // stored in the user session...
       var favoriteTopicList = YafContext.Current.Get<HttpSessionStateBase>()[key] as List<int>;
@@ -536,7 +335,7 @@ namespace YAF.Classes.Core
         key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-          new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref moderator, false);
+          this.Get<IStyleTransform>().DecodeStyleByTable(ref moderator, false);
       }
       return
         moderator.SelectTypedList(
@@ -691,9 +490,9 @@ namespace YAF.Classes.Core
     public void LoadMessageText(IEnumerable<DataRow> dataRows)
     {
       var messageIds =
-        dataRows.AsEnumerable().Where(x => x.Field<string>("Message").IsNotSet()).Select(x => x.Field<int>("MessageID"));
+        dataRows.AsEnumerable().Where(x => StringExtensions.IsNotSet(x.Field<string>("Message"))).Select(x => x.Field<int>("MessageID"));
 
-      var messageTextTable = DB.message_GetTextByIds(messageIds.ToDelimitedString(","));
+      var messageTextTable = DB.message_GetTextByIds(StringExtensions.ToDelimitedString(messageIds, ","));
 
       if (messageTextTable == null)
       {
@@ -730,7 +529,7 @@ namespace YAF.Classes.Core
     {
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        var styleTransform = new StyleTransform(YafContext.Current.Theme);
+        var styleTransform = this.Get<IStyleTransform>();
         styleTransform.DecodeStyleByTable(ref dt, true);
       }
 
@@ -753,7 +552,7 @@ namespace YAF.Classes.Core
     {
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        var styleTransform = new StyleTransform(YafContext.Current.Theme);
+        var styleTransform = this.Get<IStyleTransform>();
         styleTransform.DecodeStyleByTable(ref dt, true, styleColumns);
       }
 
@@ -769,7 +568,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataTable UserBuddyList(int UserID)
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserBuddies.FormatWith(UserID));
+      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserBuddies, UserID));
       DataTable buddyList = YafContext.Current.Cache.GetItem(key, 10, () => DB.buddy_list(UserID));
       return buddyList;
     }
@@ -784,7 +583,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public List<int> UserIgnoredList(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserIgnoreList.FormatWith(userId));
+      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserIgnoreList, userId));
 
       // stored in the user session...
       var userList = YafContext.Current.Get<HttpSessionStateBase>()[key] as List<int>;
@@ -815,7 +614,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataTable UserMedals(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(userId));
+      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserMedals, userId));
 
       // get the medals cached...
       DataTable dt = YafContext.Current.Cache.GetItem(key, 10, () => DB.user_listmedals(userId));

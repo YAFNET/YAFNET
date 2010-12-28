@@ -16,74 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Services
 {
   #region Using
 
   using System.Net;
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
-  using YAF.Classes.Utils.Extensions;
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
-
-  public interface IDigest
-  {
-    /// <summary>
-    /// The get digest html.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    string GetDigestHtml(int userId, int boardId);
-
-    /// <summary>
-    /// The get digest url.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    string GetDigestUrl(int userId, int boardId);
-
-    /// <summary>
-    /// Sends the digest html to the email/name specified.
-    /// </summary>
-    /// <param name="digestHtml">
-    /// The digest html.
-    /// </param>
-    /// <param name="forumName">
-    /// The forum name.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <param name="sendQueued">
-    /// The send queued.
-    /// </param>
-    void SendDigest(
-      [NotNull] string digestHtml, 
-      [NotNull] string forumName, 
-      [NotNull] string toEmail, 
-      [CanBeNull] string toName, 
-      bool sendQueued);
-  }
 
   /// <summary>
   /// The yaf digest.
