@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Changelog - YetAnotherForum.NET</title>
+	<style type="text/css">
+
+#footer hr
+{
+	margin: 10px 0 15px 0;
+	height: 1px;
+	border: solid 1px gray;
+	border-bottom: none;
+}
+
+#footer p
+{
+	margin: 0 10px 10px 10px;
+	float: left;
+}
+
+#footer #copy
+{
+	float: right;
+}
+
+	</style>
+</head>
+<body>
+<h1>
+<a href="http://www.yetanotherforum.net"><img src="http://forum.yetanotherforum.net/forumlogo.jpg" alt="YAF logo" style="border: 0"></a></h1>
+<h1>YetAnotherForum.NET Changelog </h1>
+	<h3>
+			YetAnotherForum.NET 1.9.5.1</h3>
+	<p><em>Change log starts at this release.</em></p>
+	<p>
+New features:</p>
+	<ul>
+		
+		<li>Rev. #4274 - Added Basic Member Search to Members Page</li>
+		<li>Rev. #4254 - Added Custom made Yaf Rank Images in the same style as the new Dialog Boxes.</li>
+		<li>Rev. #4231 - Some Basic IoC implementation.</li>
+		<li>Rev. #4227 - You can now select The Jquery UI Theme From the BoardSettings, also if you want to use Google Hosted or internal.</li>
+		<li>Rev. #4217 - Added New Config Option &quot;YAF.JQueryUILangFile&quot; to Set Url to jQuery UI DatePicker Language File</li>
+		<li>Rev. #4213 - Added New Lightbox replacement Script CeeBox, currently only used for Image Attachments</li>
+		<li>Rev. #4192 - Added styled nicks to forums list. Now it's harmless for performance.</li>
+		<li>Rev. #4187 - Added two new Controls the MessageBox and the new Dialog Box for all Kind of Messages (with Buttons)</li>
+		<li>Rev. #4185 - Added New DNN Setting &quot;Inherit YAF Language from DotNetNuke?&quot;</li>
+		<li>Rev. #4180 - Added a &quot;selection&quot; system to topic line.</li>
+		<li>Rev. #4180 - Added a way to do batch processing with moderate. Hopefully this will finally open up the floodgates to make moderate a useful page again.</li>
+		<li>Rev. #4171 - Admin Menu Localized</li>
+		<li>Rev. #4170 -  New Config Option &quot;YAF.OverrideTrustLevel&quot; (If you use any custom named trust configuration within YAF, the installer thinks its full trust and you will get a security exception if your not running under full trust.)</li>
+		<li>Rev. #4152 -  New LoginBox (Modal Jquery Dialog) by Default its turned off.</li>
+		<li>Rev. #4150 - New Team Page wich shows the Council Members Admins and Moderators (and their Moderating Forums)</li>
+		<li>Added <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighligher Plugin</a> by Alex Gorbatchev for Syntax Highlighting in BB Code Tags [CODE]....[/CODE]</li>
+		<li>Syntax Highlighting Code Language Selection added to Yaf BBCode Editor.</li>
+	</ul>
+<p><em>changes</em></p>
+	<ul>
+		
+		<li>Rev. #4354 - Fixed a Bad Entry in Norwegian Language File</li>
+		<li>Rev. #4300-4350 - New library layouts: YAF.Types, YAF.Core, YAF.Data (YAF.Classes.Data), YAF.Web, YAF.Util (Utilities -- only dependence is YAF.Types)</li>
+		<li>Rev. #4300 - New Custom Loading Gif Animation based on the Yaf Logo</li>
+		<li>Rev. #4296 - Replaced the AjaxPro  &quot;Change Album Title&quot; and &quot; Change Image Caption&quot; Function with jquery().ajax</li>
+		<li>Rev. #4295 - Replaced the AjaxPro  &quot;(Un)Tag as Favorite&quot; Function with jquery().ajax</li>
+		<li>Rev. #4294 - Replaced the AjaxPro ThankYou Function with jquery().ajax</li>
+		<li>Rev. #4290 - Fixed Handling when User try to enter an Email Adress that is already used by another user.</li>
+		<li>Rev. #4288 - Restyled the Prev. and Next Topic Links.</li>
+		<li>Rev. #4287 - Added Atom Feed Link to Topic Options Menu</li>
+		<li>Rev. #4286 -  PopMenus for Topic Options &amp; View Options and User name are better visualized as Menus.</li>
+		<li>Rev. #4279 - Fixed UA checker. Search Bots were virtually not detected.</li>
+		<li>Rev. #4278 - Data Layer compatibility patches. A minor performance tweak. </li>
+		<li>Rev. #4277 - Fixed Email Notification of new Private Messages. Email Subject is now Localized in the User Language.</li>
+		<li>Rev. #4271 - Fixing  Issues with  Colored CSS3 Skins in MSIE</li>
+		<li>Rev. #4269 - Minor things. Styles for custom forum images were missing.</li>
+		<li>Rev. #4267 - Fixed [YAF-138] DNA Controls Removed from Mobile Theme Pages.</li>
+		<li>Rev. #4266 - Fixed [YAF-135] Search Button Enter in Admin Search Users.</li>
+		<li>Rev. #4265 - Increased user signature allowed tags combined string length.</li>
+		<li>Rev. #4263 - Fixed [YAF-134] Mobile theme problem</li>
+		<li>Rev. #4262 - Fixed incorrect UA mobile detection for some laptop Macintoshes + some minor enhancements. </li>
+		<li>Rev. #4261 - Urls not forced to lower case anymore in Url Mode Unicode</li>
+		<li>Rev. #4260 - Now we can simply add ALL keyword to rank or to group fields to allow all bbcodes and html tags in a user signature.</li>
+		<li>Rev. #4259 - Fixed Issue with with images attached to poll objects.</li>
+		<li>Rev. #4258 - Faster sql scripts and to be more sure that no duplicates are in the activeaccess table &amp; tiny performance enhancements.</li>
+		<li>Rev. #4257 - Fixed Default Value of Users Notification Type</li>
+		<li>Rev. #4256 - Fixed Enter Button Problem on Search Page.</li>
+		<li>Rev. #4253 - Fixed [YAF-132] [ShoutBox] Javascript errors due to unescaped smilies</li>
+		<li>Rev. #4236 - Fixed a bug with the incorrect current user albums number.</li>
+		<li>Rev. #4236 - Moved ms sql server specific code to a separate folder. </li>
+		<li>Rev. #4235 - Fixed Avatar Gallery Page.</li>
+		<li>Rev. #4234 - Corrected Web.config IIS 7 Entry for AjaxPro</li>
+		<li>Rev. #4233 - Fixed Thanks Function</li>
+		<li>Rev. #4230 - Fixed [YAF-124] Board Settings - culture español(España) not selected</li>
+		<li>Rev. #4229 - Fixed [YAF-129] Link to most recent post problem</li>
+		<li>Rev. #4227 - Removed The Jquery UI Theme from the YAF Themes</li>
+		<li>Rev. #4224 - DotNetAge Controls Replaced with own Code, DotNetAge  removed from YAF.</li>
+		<li>Rev. #4221 - Search Links are now going to the Post that contains the searched Keyword instead of only the Topic.</li>
+		<li>Rev. #4219 - Lightbox Script completly removed in favor of Ceebox.</li>
+		<li>Rev. #4218 - Poll choices on Poll Edit Page are now separated for better viewing.</li>
+		<li>Rev. #4215 - Fixed Issue with TimeAgo Script and DNN YAF What's New Module</li>
+		<li>Rev. #4194 - Added styled nicks to team page, added a missing team page active location tag.</li>
+		<li>Rev. #4193 - Fixed User Counter on DNN User Import</li>
+		<li>Rev. #4191 - Replaced DNA DatePicker with direct JS Script.</li>
+		<li>Rev. #4190 - Setting YafFactoryProvider to the new MojoPortal URL Builder</li>
+		<li>Rev. #4185 - Optimized the Lanuage Switching based on Dnn Language.</li>
+		<li>Rev. #4184 - Fixed Exception that was thrown inside dnn when language was changed</li>
+		<li>Rev. #4183 - Fixed Display of UL list Elements that shouldn't be displaying the dots inside DotNetNuke.</li>
+		<li>Rev. #4182 - Fixed [YAF-131] Can't view/download message attachments</li>
+		<li>Rev. #4179 - Propertly fixed moderate without any &quot;band-aid&quot; solutions.</li>
+		<li>Rev. #4178 - Removed replacewords caching system. Too much hassle, not enough benefits.</li>
+		<li>Rev. #4177 - Fixed [YAF-129] Moderate button in forum's topic view thows an exeption.</li>
+		<li>Rev. #4176 - Minor things added some missing tool tips. </li>
+		<li>Rev. #4175 - Fixed Guests were not tracked in Active table. </li>
+		<li>Rev. #4172 - Changed Javascript Includes from Load to PreRender in order to ensure that controls are properly registered</li>
+		<li>Rev. #4168 - Fixed Topic View in Mobile Theme</li>
+		<li>Rev. #4165 - Fixed Correctly Deleting of a User</li>
+		<li>Rev. #4164 - Fixed [YAF-130] Email Notifications of new posts</li>
+		<li>Rev. #4159 - Updated Czech Language File</li>
+		<li>Rev. #4158 - Fixed Subscriptions Page was showing wrong Watch Forums and Topics</li>
+		<li>Rev. #4156 - Fixed LoginBox for Microsoft Internet Explorer 5-9</li>
+		<li>Rev. #4154 - A compatibility patch for other data layers.</li>
+		<li>Rev. #4151 - Fixed Font Size for ColorGrey Themes</li>
+		<li>Rev. #4149 - Fixed Album Cover Image Preview</li>
+</ul>
+	<div id="footer">
+<hr />
+		<p>
+			YetAnotherForum.NET (YAF) the Open Source Discussion Forum for ASP.NET - <a href="http://yetanotherforum.net/">http://YetAnotherForum.NET</a>
+		</p>
+		<p id="copy">
+		YetAnotherForum.NET Copyright © 2010 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </p>
+</div>
+</body>
+</html>
