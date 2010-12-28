@@ -32002,19 +32002,6 @@
             Binds data to data source
             </summary>
         </member>
-        <member name="T:YAF.Modules.YafMainModule">
-            <summary>
-            The yaf main module.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.YafMainModule.Load(Autofac.ContainerBuilder)">
-            <summary>
-            The load.
-            </summary>
-            <param name="builder">
-            The builder.
-            </param>
-        </member>
         <member name="T:YAF.Modules.PagePermissionForumModule">
             <summary>
             Module that handles page permission feature
