@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Modules
+namespace YAF.Core
 {
   #region Using
 
@@ -24,8 +24,9 @@ namespace YAF.Modules
   using System.Web;
   using System.Web.UI;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -33,46 +34,26 @@ namespace YAF.Modules
   /// The unload session module.
   /// </summary>
   [YafModule("Unload Session Module", "Tiny Gecko", 1)]
-  public class UnloadSessionModule : IBaseModule
+  public class UnloadSessionForumModule : BaseForumModule
   {
     #region Properties
 
     /// <summary>
-    ///   Gets or sets ForumControlObj.
-    /// </summary>
-    public object ForumControlObj { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether UnloadSession.
+    ///   Gets or sets a value indicating whether UnloadSession.
     /// </summary>
     public bool UnloadSession { get; set; }
 
     #endregion
 
-    #region Implemented Interfaces
-
-    #region IBaseModule
+    #region Public Methods
 
     /// <summary>
     /// The init.
     /// </summary>
-    public void Init()
+    public override void Init()
     {
       (this.ForumControlObj as Control).Unload += this.UnloadSessionModule_Unload;
     }
-
-    #endregion
-
-    #region IDisposable
-
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public void Dispose()
-    {
-    }
-
-    #endregion
 
     #endregion
 
@@ -89,10 +70,11 @@ namespace YAF.Modules
     /// </param>
     private void UnloadSessionModule_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack && (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false) && YafContext.Current.Get<HttpSessionStateBase>().IsNewSession)
+      if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack &&
+          (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false) && this.Get<HttpSessionStateBase>().IsNewSession)
       {
         // remove session
-        YafContext.Current.Get<HttpSessionStateBase>().Abandon();
+        this.Get<HttpSessionStateBase>().Abandon();
       }
     }
 

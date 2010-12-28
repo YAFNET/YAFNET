@@ -16,19 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Modules
+namespace YAF.Core
 {
   using System;
   using System.Linq;
   using System.Reflection;
   using System.Web.Compilation;
 
-  using YAF.Classes.Utils;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
-  /// Handles IBaseModule types.
+  /// Handles IBaseForumModule types.
   /// </summary>
-  public class YafBaseModuleManager : YafModuleManager<IBaseModule>
+  public class YafBaseModuleManager : YafModuleManager<IBaseForumModule>
   {
     /// <summary>
     /// The _init called.
@@ -39,7 +41,7 @@ namespace YAF.Modules
     /// Prevents a default instance of the <see cref="YafBaseModuleManager"/> class from being created.
     /// </summary>
     public YafBaseModuleManager()
-      : base("YAF.Modules", "YAF.Modules.IBaseModule")
+      : base("YAF.Modules", "YAF.Modules.IBaseForumModule")
     {
       if (this.ModuleClassTypes == null)
       {
@@ -67,7 +69,7 @@ namespace YAF.Modules
     {
       if (!this._initCalled)
       {
-        foreach (IBaseModule currentModule in this.Modules)
+        foreach (IBaseForumModule currentModule in this.Modules)
         {
           currentModule.ForumControlObj = forumControl;
           currentModule.Init();

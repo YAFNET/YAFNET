@@ -16,19 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Core;
-
-namespace YAF.Modules
+namespace YAF.Core
 {
+  #region Using
+
+  using System;
+
+  using YAF.Types;
+  using YAF.Types.Attributes;
+
+  #endregion
+
   /// <summary>
   /// The provider settings module.
   /// </summary>
   [YafModule("Provider Settings Module", "Tiny Gecko", 1)]
-  public class ProviderSettingsModule : IBaseModule
+  public class ProviderSettingsForumModule : BaseForumModule
   {
+    #region Properties
+
     /// <summary>
-    /// Gets PageContext.
+    ///   Gets PageContext.
     /// </summary>
     public YafContext PageContext
     {
@@ -38,34 +46,21 @@ namespace YAF.Modules
       }
     }
 
-    #region IBaseModule Members
+    #endregion
 
-    /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    public object ForumControlObj
-    {
-      get;
-
-      set;
-    }
+    #region Public Methods
 
     /// <summary>
     /// The init.
     /// </summary>
-    public void Init()
+    public override void Init()
     {
-      YafContext.Current.PageInit += Current_PageInit;
-    }
-
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public void Dispose()
-    {
+      YafContext.Current.PageInit += this.Current_PageInit;
     }
 
     #endregion
+
+    #region Methods
 
     /// <summary>
     /// The current_ page init.
@@ -76,18 +71,20 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_PageInit(object sender, EventArgs e)
+    private void Current_PageInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // initialize the providers...
-      if (!PageContext.CurrentMembership.ApplicationName.Equals(PageContext.BoardSettings.MembershipAppName))
+      if (!this.PageContext.CurrentMembership.ApplicationName.Equals(this.PageContext.BoardSettings.MembershipAppName))
       {
-        PageContext.CurrentMembership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
+        this.PageContext.CurrentMembership.ApplicationName = this.PageContext.BoardSettings.MembershipAppName;
       }
 
-      if (!PageContext.CurrentRoles.ApplicationName.Equals(PageContext.BoardSettings.RolesAppName))
+      if (!this.PageContext.CurrentRoles.ApplicationName.Equals(this.PageContext.BoardSettings.RolesAppName))
       {
-        PageContext.CurrentRoles.ApplicationName = PageContext.BoardSettings.RolesAppName;
+        this.PageContext.CurrentRoles.ApplicationName = this.PageContext.BoardSettings.RolesAppName;
       }
     }
+
+    #endregion
   }
 }

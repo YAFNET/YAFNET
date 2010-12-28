@@ -16,18 +16,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Modules
+namespace YAF.Core
 {
   #region Using
 
   using System;
   using System.Web;
 
-  using Autofac;
-
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -35,17 +35,21 @@ namespace YAF.Modules
   /// The mobile theme module.
   /// </summary>
   [YafModule("Mobile Theme Module", "Tiny Gecko", 1)]
-  public class MobileThemeModule : IBaseModule
+  public class MobileThemeForumModule : BaseForumModule
   {
     #region Constants and Fields
 
-      /// <summary>
-      /// YAf Session
-      /// </summary>
-      private IYafSession _yafSession = null;
+    /// <summary>
+    ///   The _yaf session.
+    /// </summary>
+    private IYafSession _yafSession;
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
-    /// Gets The _yaf session.
+    ///   The _yaf session.
     /// </summary>
     protected IYafSession YafSession
     {
@@ -53,7 +57,7 @@ namespace YAF.Modules
       {
         if (this._yafSession == null)
         {
-          this._yafSession = YafContext.Current.ContextContainer.Resolve<IYafSession>();
+          this._yafSession = YafContext.Current.Get<IYafSession>();
         }
 
         return this._yafSession;
@@ -62,36 +66,16 @@ namespace YAF.Modules
 
     #endregion
 
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets ForumControlObj.
-    /// </summary>
-    public object ForumControlObj { get; set; }
-
-    #endregion
-
     #region Implemented Interfaces
 
-    #region IBaseModule
+    #region IBaseForumModule
 
     /// <summary>
     /// The init.
     /// </summary>
-    public void Init()
+    public override void Init()
     {
       YafContext.Current.AfterInit += this.Current_AfterInit;
-    }
-
-    #endregion
-
-    #region IDisposable
-
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public void Dispose()
-    {
     }
 
     #endregion
@@ -152,7 +136,7 @@ namespace YAF.Modules
       if (mobileTheme.IsSet())
       {
         // create a new theme object...
-          var theme = new YafTheme(mobileTheme);
+        var theme = new YafTheme(mobileTheme);
 
         // make sure it's valid...
         if (YafTheme.IsValidTheme(theme.ThemeFile))
@@ -162,7 +146,7 @@ namespace YAF.Modules
           // set new mobile theme...
           if (useMobileTheme)
           {
-            YafContext.Current.ContextContainer.Resolve<IThemeHandler>().Theme = theme;
+            YafContext.Current.Get<ThemeProvider>().Theme = theme;
             this.YafSession.UseMobileTheme = true;
           }
 
