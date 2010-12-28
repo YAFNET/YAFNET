@@ -155,11 +155,6 @@
             The exception reporter.
             </summary>
         </member>
-        <member name="M:YAF.Providers.Utils.ExceptionReporter.ExceptionXML">
-            <summary>
-            Return XMLDocument containing text for the Exceptions
-            </summary>
-        </member>
         <member name="M:YAF.Providers.Utils.ExceptionReporter.GetReport(System.String,System.String)">
             <summary>
             Get Exception String
@@ -244,9 +239,14 @@
             The throw provider.
             </returns>
         </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.ExceptionXML">
+            <summary>
+            Return XMLDocument containing text for the Exceptions
+            </summary>
+        </member>
         <member name="P:YAF.Providers.Utils.ExceptionReporter.ProviderExceptionFile">
             <summary>
-            Get Exception XML File Name from AppSettings
+              Get Exception XML File Name from AppSettings
             </summary>
         </member>
         <member name="T:YAF.Providers.Profile.SettingsPropertyColumn">
@@ -920,7 +920,7 @@
         </member>
         <member name="P:YAF.Providers.Membership.YafMembershipDBConnManager.ConnectionString">
             <summary>
-            Gets ConnectionString.
+              Gets ConnectionString.
             </summary>
         </member>
         <member name="T:YAF.Providers.Membership.DB">
@@ -930,24 +930,13 @@
         </member>
         <member name="F:YAF.Providers.Membership.DB._dbAccess">
             <summary>
-            The _db access.
+              The _db access.
             </summary>
         </member>
         <member name="M:YAF.Providers.Membership.DB.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Providers.Membership.DB"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Providers.Membership.DB"/> class.
             </summary>
-        </member>
-        <member name="M:YAF.Providers.Membership.DB.UpgradeMembership(System.Int32,System.Int32)">
-            <summary>
-            The upgrade membership.
-            </summary>
-            <param name="previousVersion">
-            The previous version.
-            </param>
-            <param name="newVersion">
-            The new version.
-            </param>
         </member>
         <member name="M:YAF.Providers.Membership.DB.ChangePassword(System.String,System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
@@ -1125,6 +1114,19 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Providers.Membership.DB.GetUserNameByEmail(System.String,System.String)">
+            <summary>
+            The get user name by email.
+            </summary>
+            <param name="appName">
+            The app name.
+            </param>
+            <param name="email">
+            The email.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Providers.Membership.DB.GetUserPasswordInfo(System.String,System.String,System.Boolean)">
             <summary>
             The get user password info.
@@ -1137,19 +1139,6 @@
             </param>
             <param name="updateUser">
             The update user.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.DB.GetUserNameByEmail(System.String,System.String)">
-            <summary>
-            The get user name by email.
-            </summary>
-            <param name="appName">
-            The app name.
-            </param>
-            <param name="email">
-            The email.
             </param>
             <returns>
             </returns>
@@ -1208,9 +1197,20 @@
             The update user.
             </returns>
         </member>
+        <member name="M:YAF.Providers.Membership.DB.UpgradeMembership(System.Int32,System.Int32)">
+            <summary>
+            The upgrade membership.
+            </summary>
+            <param name="previousVersion">
+            The previous version.
+            </param>
+            <param name="newVersion">
+            The new version.
+            </param>
+        </member>
         <member name="P:YAF.Providers.Membership.DB.Current">
             <summary>
-            Gets Current.
+              Gets Current.
             </summary>
         </member>
         <member name="T:YAFProviders.Passthru.YAFRolesPassThru">
@@ -2257,11 +2257,6 @@
             The _conn str name.
             </summary>
         </member>
-        <member name="F:YAF.Providers.Roles.YafRoleProvider._providerLocalization">
-            <summary>
-            The _provider localization.
-            </summary>
-        </member>
         <member name="M:YAF.Providers.Roles.YafRoleProvider.AddUsersToRoles(System.String[],System.String[])">
             <summary>
             Adds a list of users to a list of groups
@@ -2521,7 +2516,7 @@
         </member>
         <member name="P:YAF.Providers.Roles.YafRolesDBConnManager.ConnectionString">
             <summary>
-            Gets ConnectionString.
+              Gets ConnectionString.
             </summary>
         </member>
         <member name="T:YAF.Providers.Roles.DB">
@@ -2531,12 +2526,12 @@
         </member>
         <member name="F:YAF.Providers.Roles.DB._dbAccess">
             <summary>
-            The _db access.
+              The _db access.
             </summary>
         </member>
         <member name="M:YAF.Providers.Roles.DB.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Providers.Roles.DB"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Providers.Roles.DB"/> class.
             </summary>
         </member>
         <member name="M:YAF.Providers.Roles.DB.AddUserToRole(System.Object,System.Object,System.Object)">
@@ -2595,20 +2590,6 @@
             Datatable containing User Information
             </returns>
         </member>
-        <member name="M:YAF.Providers.Roles.DB.GetRoles(System.Object,System.Object)">
-            <summary>
-            Database Action - Get Roles
-            </summary>
-            <param name="appName">
-            Application Name
-            </param>
-            <param name="username">
-            The username.
-            </param>
-            <returns>
-            Database containing Role Information
-            </returns>
-        </member>
         <member name="M:YAF.Providers.Roles.DB.GetRoleExists(System.Object,System.Object)">
             <summary>
             Database Action - Get Role Exists
@@ -2618,6 +2599,20 @@
             </param>
             <param name="roleName">
             Role Name
+            </param>
+            <returns>
+            Database containing Role Information
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.GetRoles(System.Object,System.Object)">
+            <summary>
+            Database Action - Get Roles
+            </summary>
+            <param name="appName">
+            Application Name
+            </param>
+            <param name="username">
+            The username.
             </param>
             <returns>
             Database containing Role Information
@@ -2656,7 +2651,7 @@
         </member>
         <member name="P:YAF.Providers.Roles.DB.Current">
             <summary>
-            Gets Current.
+              Gets Current.
             </summary>
         </member>
     </members>

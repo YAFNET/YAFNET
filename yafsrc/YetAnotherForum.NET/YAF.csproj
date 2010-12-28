@@ -116,15 +116,22 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Editors\FCKEditor.cs" />
+    <Compile Include="Classes\Editors\FCKEditorV2.cs" />
+    <Compile Include="Classes\Editors\FCKEditorV1.cs" />
     <Compile Include="Classes\Editors\FreeTextBoxEditor.cs" />
-    <Compile Include="Classes\Editors\TelerikRadEditor.cs" />
-    <Compile Include="Classes\Editors\TinyMce.cs" />
-    <Compile Include="Classes\Editors\YafBasicBBCodeEditor.cs" />
-    <Compile Include="Classes\Editors\YafBBCodeEditor.cs" />
-    <Compile Include="Classes\Editors\YafRichClassEditor.cs" />
-    <Compile Include="Classes\Editors\YafTextEditor.cs" />
+    <Compile Include="Classes\Editors\FreeTextBoxEditorv3.cs" />
+    <Compile Include="Classes\Editors\RadEditor.cs" />
+    <Compile Include="Classes\Editors\TinyMceEditor.cs" />
+    <Compile Include="Classes\Editors\TinyMceBBCodeEditor.cs" />
+    <Compile Include="Classes\Editors\TinyMceHtmlEditor.cs" />
+    <Compile Include="Classes\Editors\BasicBBCodeEditor.cs" />
+    <Compile Include="Classes\Editors\BBCodeEditor.cs" />
+    <Compile Include="Classes\Editors\RichClassEditor.cs" />
+    <Compile Include="Classes\Editors\TextEditor.cs" />
     <Compile Include="Classes\Forum.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\ForumPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Classes\Register Forum\Reference.cs">
@@ -137,6 +144,7 @@
     <Compile Include="Classes\YafAjax.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\YafResourceHandler.cs" />
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -245,23 +253,23 @@
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\PopupDialogNotification.cs" />
-    <Compile Include="Modules\TimeAgoModule.cs" />
+    <Compile Include="Modules\TimeAgoForumModule.cs" />
     <Compile Include="Modules\UserLinkBBCodeModule.cs" />
     <Compile Include="Modules\ExampleBBCodeModule.cs" />
-    <Compile Include="Modules\LastVisitModule.cs" />
+    <Compile Include="Modules\LastVisitForumModule.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
-    <Compile Include="Modules\PageLogoHandlerModule.cs" />
-    <Compile Include="Modules\PagePermissionModule.cs" />
-    <Compile Include="Modules\PagePmPopupModule.cs" />
-    <Compile Include="Modules\PagePopupModule.cs" />
-    <Compile Include="Modules\PageRequiresSecureConnectionModule.cs" />
-    <Compile Include="Modules\PageRssFeedLinkModule.cs" />
-    <Compile Include="Modules\PageSecurityModule.cs" />
-    <Compile Include="Modules\PageTitleModule.cs" />
-    <Compile Include="Modules\SearchDataCleanupModule.cs" />
-    <Compile Include="Modules\SimpleBaseModule.cs" />
+    <Compile Include="Modules\PageLogoHandlerForumModule.cs" />
+    <Compile Include="Modules\PagePermissionForumModule.cs" />
+    <Compile Include="Modules\PagePmPopupForumModule.cs" />
+    <Compile Include="Modules\PagePopupForumModule.cs" />
+    <Compile Include="Modules\PageRequiresSecureConnectionForumModule.cs" />
+    <Compile Include="Modules\PageRssFeedLinkForumModule.cs" />
+    <Compile Include="Modules\PageSecurityForumModule.cs" />
+    <Compile Include="Modules\PageTitleForumModule.cs" />
+    <Compile Include="Modules\SearchDataCleanupForumModule.cs" />
+    <Compile Include="Modules\SimpleBaseForumModule.cs" />
     <Compile Include="Modules\SpoilerBBCodeModule.cs" />
-    <Compile Include="Modules\SuspendCheckModule.cs" />
+    <Compile Include="Modules\SuspendCheckForumModule.cs" />
     <Compile Include="Modules\YafMainModule.cs" />
     <Compile Include="pages\activeusers.ascx.designer.cs">
       <DependentUpon>activeusers.ascx</DependentUpon>
@@ -665,9 +673,6 @@
       <DependentUpon>viewthanks.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource.ashx.cs">
-      <DependentUpon>Resource.ashx</DependentUpon>
-    </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
@@ -749,10 +754,6 @@
     <Content Include="resources\images\ceebox\cee-prev-btn.gif" />
     <Content Include="resources\images\ceebox\cee-prev-btn.png" />
     <Content Include="resources\images\ceebox\loader.gif" />
-    <Content Include="resources\images\closelabel.png" />
-    <Content Include="resources\images\loading-black.gif" />
-    <Content Include="resources\images\loading-white.gif" />
-    <Content Include="resources\images\loading.gif" />
     <Content Include="images\closelabel.png" />
     <Content Include="images\categories\categoryImageSample.gif" />
     <Content Include="images\folder.gif" />
@@ -1305,7 +1306,6 @@
     <Content Include="resources\icons\folders-stack.png" />
     <Content Include="resources\icons\gear--pencil.png" />
     <Content Include="resources\icons\gear.png" />
-    <Content Include="resources\icons\globe-green.png" />
     <Content Include="resources\icons\hammer-screwdriver.png" />
     <Content Include="resources\icons\InfoBig.png" />
     <Content Include="resources\icons\information.png" />
@@ -1339,6 +1339,11 @@
     <Content Include="resources\icons\warning.png" />
     <Content Include="resources\icons\WarningBig.png" />
     <Content Include="resources\icons\wrench.png" />
+    <Content Include="resources\images\closelabel.png" />
+    <Content Include="resources\images\DialogBackground.png" />
+    <Content Include="resources\images\loading-black.gif" />
+    <Content Include="resources\images\loading-white.gif" />
+    <Content Include="resources\images\loading.gif" />
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery-1.4.4.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
@@ -2217,7 +2222,6 @@
     <Content Include="themes\yafvision\voting_bar.gif" />
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
-    <Content Include="Resource.ashx" />
     <Content Include="UrlRewriter.config" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
@@ -2228,25 +2232,29 @@
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Core\YAF.Classes.Core.csproj">
-      <Project>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</Project>
-      <Name>YAF.Classes.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
-      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
-      <Name>YAF.Classes.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Controls\YAF.Controls.csproj">
       <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
       <Name>YAF.Controls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
+      <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
+      <Name>YAF.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Providers\YAF.Providers.csproj">
       <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>
       <Name>YAF.Providers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
+      <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
+      <Name>YAF.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
+      <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
+      <Name>YAF.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
