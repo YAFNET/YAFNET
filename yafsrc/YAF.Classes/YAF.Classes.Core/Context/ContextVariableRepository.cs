@@ -18,14 +18,14 @@
  */
 
 
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
 
     #region Using
 
-    using YAF.Classes.Pattern;
- 
-    #endregion
+  using YAF.Classes.Pattern;
+
+  #endregion
 
   /// <summary>
   /// Place to put helper properties for context variables inside.

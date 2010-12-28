@@ -17,14 +17,20 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   using System;
   using System.Data;
   using System.Web;
   using System.Web.Security;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// User Page Class.
@@ -749,13 +755,6 @@ namespace YAF.Classes.Core
           if (BeforeInit != null)
           {
             BeforeInit(this, new EventArgs());
-          }
-
-          // verify db is initialized...
-          if (!YafContext.Current.Get<StartupInitializeDb>().Initialized)
-          {
-            // just init the DB from here...
-            YafContext.Current.Get<StartupInitializeDb>().Run();
           }
 
           DataRow pageRow;
