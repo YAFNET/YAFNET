@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers
 {
   #region Using
 
@@ -24,7 +24,9 @@ namespace YAF.Classes.Utils
   using System.Collections.Generic;
   using System.Web;
 
-  using YAF.Classes.Pattern;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
 
   #endregion
 
@@ -214,7 +216,7 @@ namespace YAF.Classes.Utils
 
         long idConverted = -1;
 
-        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]).IsSet() && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out idConverted))
+        if (StringExtensions.IsSet(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i])) && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out idConverted))
         {
           this.Params.Add(idNames[i], idConverted);
         }

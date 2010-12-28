@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers.StringUtils
 {
-    public static partial class Unidecoder
+  using System;
+  using System.Collections.Generic;
+
+  public static partial class Unidecoder
     {
         static readonly Dictionary<int, string[]> Characters = new Dictionary<int, string[]>();
         static Unidecoder()

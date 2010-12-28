@@ -17,14 +17,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers
 {
-    using System;
-    using System.Collections.Specialized;
-    using System.Configuration;
-    using System.Security.Permissions;
-    using System.Web;
-    using System.Web.Configuration;
+  using System;
+  using System.Collections.Specialized;
+  using System.Configuration;
+  using System.Security.Permissions;
+  using System.Web;
+  using System.Web.Configuration;
 
   /// <summary>
   /// The config helper.

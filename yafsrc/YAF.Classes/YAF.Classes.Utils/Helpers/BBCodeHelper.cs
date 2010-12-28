@@ -18,9 +18,9 @@
  */
 
 
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers
 {
-   using System.Text.RegularExpressions;
+  using System.Text.RegularExpressions;
 
   /// <summary>
   /// The bb code helper.

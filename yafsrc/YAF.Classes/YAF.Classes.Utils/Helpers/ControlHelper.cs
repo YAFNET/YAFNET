@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers
 {
   using System;
   using System.Collections.Generic;
@@ -26,8 +26,10 @@ namespace YAF.Classes.Utils
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes.Interfaces;
-  using YAF.Classes.Pattern;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// Provides helper functions for using and accessing controls.

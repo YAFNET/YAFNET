@@ -18,14 +18,14 @@
  */
 
 
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers
 {
     #region Using
 
-    using System;
-    using System.Text.RegularExpressions; 
-   
-    #endregion
+  using System;
+  using System.Text.RegularExpressions;
+
+  #endregion
 
   /// <summary>
   /// The validation helper.

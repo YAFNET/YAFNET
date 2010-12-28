@@ -21,12 +21,12 @@ purpose.
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl.
 */
-using System;
-using System.Text;
-
-namespace YAF.Classes.Utils
+namespace YAF.Utils.Helpers.StringUtils
 {
-    /// <summary>
+  using System;
+  using System.Text;
+
+  /// <summary>
     /// ASCII transliterations of Unicode text
     /// </summary>
     public static partial class Unidecoder
