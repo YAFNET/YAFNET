@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -28,18 +28,22 @@ namespace YAF.Classes.Core
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
-  using Autofac;
-
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
   using YAF.Classes.Data;
-  using YAF.Classes.Interfaces;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
   /// The class that all YAF forum pages are derived from.
   /// </summary>
-  public class ForumPage : UserControl, IRaiseControlLifeCycles
+  public class ForumPage : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator
   {
     #region Constants and Fields
 
@@ -372,9 +376,11 @@ namespace YAF.Classes.Core
     /// <returns>
     /// Image URL
     /// </returns>
-    public string GetCollapsiblePanelImageURL(string panelID, PanelSessionState.CollapsiblePanelState defaultState)
+    public string GetCollapsiblePanelImageURL(string panelID, CollapsiblePanelState defaultState)
     {
-      return this.PageContext.Theme.GetCollapsiblePanelImageURL(panelID, defaultState);
+      // TODO: Fix Collapsible Panel Image Url.
+      //return this.PageContext.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
+      return String.Empty;
     }
 
     /// <summary>
@@ -439,7 +445,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public string GetThemeContents(string page, string tag)
     {
-      return this.PageContext.Theme.GetItem(page, tag);
+      return this.PageContext.Get<ITheme>().GetItem(page, tag);
     }
 
     /// <summary>
@@ -459,7 +465,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public string GetThemeContents(string page, string tag, string defaultValue)
     {
-      return this.PageContext.Theme.GetItem(page, tag, defaultValue);
+      return this.PageContext.Get<ITheme>().GetItem(page, tag, defaultValue);
     }
 
     /// <summary>
@@ -550,12 +556,12 @@ namespace YAF.Classes.Core
     protected void SetupHeaderElements()
     {
       this.InsertCssRefresh(this.TopPageControl);
-      string themeHeader = this.PageContext.Theme.GetItem("THEME", "HEADER", string.Empty);
+      string themeHeader = this.PageContext.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
 
       if (themeHeader.IsSet())
       {
         var themeLiterial = new Literal();
-        themeLiterial.Text = themeHeader.Replace("~", this.PageContext.Theme.ThemeDir);
+        themeLiterial.Text = themeHeader.Replace("~", this.PageContext.Get<ITheme>().ThemeDir);
         TopPageControl.Controls.Add(themeLiterial);
       }
     }
@@ -603,7 +609,7 @@ namespace YAF.Classes.Core
 #endif
 
       // set the current translation page...
-      YafContext.Current.Get<ILocalizationHandler>().TranslationPage = this._transPage;
+      YafContext.Current.Get<LocalizationProvider>().TranslationPage = this._transPage;
 
       // fire preload event...
       YafContext.Current.ForumPagePreLoad(this, new EventArgs());
@@ -656,6 +662,21 @@ namespace YAF.Classes.Core
       if (this._pageCache != null)
       {
         this._pageCache.Clear();
+      }
+    }
+
+    #endregion
+
+    #region Implementation of IHaveServiceLocator
+
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return this.PageContext().ServiceLocator;
       }
     }
 
