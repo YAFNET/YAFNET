@@ -7,7 +7,7 @@ namespace YAF.Classes.UnitTests
   using Xunit;
   using Xunit.Should;
 
-  using YAF.Classes.Core.Services;
+  using YAF.Core.Services;
 
   #endregion
 

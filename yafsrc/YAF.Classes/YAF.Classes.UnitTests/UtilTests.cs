@@ -12,8 +12,8 @@ namespace YAF.Classes.UnitTests
   using Xunit;
   using Xunit.Should;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Utils;
 
   /// <summary>
   /// The role membership tests.
