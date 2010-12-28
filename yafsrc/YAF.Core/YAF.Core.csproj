@@ -31,15 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\YetAnotherForum.NET\Bin\AjaxPro.2.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac">
       <HintPath>..\YetAnotherForum.NET\Bin\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\YetAnotherForum.NET\Bin\Moq.dll</HintPath>
-    </Reference>
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />

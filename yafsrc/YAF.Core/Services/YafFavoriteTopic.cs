@@ -25,14 +25,11 @@ namespace YAF.Core.Services
   using System.Data;
   using System.Web;
 
-  using AjaxPro;
-
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -63,7 +60,6 @@ namespace YAF.Core.Services
     /// <returns>
     /// The add favorite topic.
     /// </returns>
-    [AjaxMethod]
     public int AddFavoriteTopic(int topicId)
     {
       DB.topic_favorite_add(YafContext.Current.PageUserID, topicId);
@@ -156,7 +152,6 @@ namespace YAF.Core.Services
     /// <returns>
     /// The remove favorite topic.
     /// </returns>
-    [AjaxMethod]
     public int RemoveFavoriteTopic(int topicId)
     {
       DB.topic_favorite_remove(YafContext.Current.PageUserID, topicId);
