@@ -345,7 +345,7 @@
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Nová súkromná správa od {0} o {1}</Resource>
-    <Resource tag="POWERED_BY">Powered by {0} verzia {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by </Resource>
     <Resource tag="REGMAIL_SENT">Bola vám odoslaná e-mailová správa. Pozrite sa do svojej schránky a kliknite na odkaz, ktorý je v správě uvedený.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Po zaregistrovaní vám bude zaslaná e-mailová správa. Abyste sa mohli prihlásiť, podzrite sa do svoje poštovej schránky a kliknite na odkaz, ktorý je v správe uvedený.</Resource>
     <Resource tag="SAVE">Uložiť</Resource>
@@ -622,7 +622,7 @@
     <Resource tag="STATS">Štatistika</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Najnovším členom je</Resource>
-    <Resource tag="STATS_LASTPOST">Poslednú správu {0} poslal {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Poslednú správu {0} poslal </Resource>
     <Resource tag="STATS_MEMBERS">Máme {0:N0} registrovaných členov.</Resource>
     <Resource tag="STATS_POSTS">Počet fór: {2:N0}; počet tém: {1:N0}; počet správ: {0:N0}.</Resource>
     <Resource tag="TOPICS">Témy</Resource>

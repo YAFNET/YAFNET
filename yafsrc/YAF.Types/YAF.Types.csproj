@@ -108,8 +108,6 @@
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
-    <Compile Include="Interfaces\IYafDBAccess.cs" />
-    <Compile Include="Interfaces\IYafDBConnManager.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
     <Compile Include="Interfaces\IYafUserProfile.cs" />
