@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -25,7 +25,7 @@ namespace YAF.Classes.Core
   using System.Linq;
   using System.Reflection;
 
-  using YAF.Classes.Pattern;
+  using YAF.Types;
 
   #endregion
 

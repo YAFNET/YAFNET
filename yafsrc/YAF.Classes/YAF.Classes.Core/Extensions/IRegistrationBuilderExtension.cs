@@ -18,42 +18,41 @@
  */
 namespace YAF.Core
 {
-  using YAF.Classes.Data;
+  #region Using
 
-  public static class BinaryExtensions
+  using Autofac.Builder;
+
+  using YAF.Types;
+
+  #endregion
+
+  /// <summary>
+  /// The i registration builder extension.
+  /// </summary>
+  public static class IRegistrationBuilderExtension
   {
+    #region Public Methods
+
     /// <summary>
-    /// The binary and.
+    /// The owned by yaf context.
     /// </summary>
-    /// <param name="value">
-    /// The value.
+    /// <param name="builder">
+    /// The builder.
     /// </param>
-    /// <param name="checkAgainst">
-    /// The check against.
-    /// </param>
-    /// <returns>
-    /// The binary and.
-    /// </returns>
-    public static bool BinaryAnd(this int value, int checkAgainst)
+    /// <typeparam name="TLimit">
+    /// </typeparam>
+    /// <typeparam name="TActivatorData">
+    /// </typeparam>
+    /// <typeparam name="TRegistrationStyle">
+    /// </typeparam>
+    public static void OwnedByYafContext<TLimit, TActivatorData, TRegistrationStyle>(
+      [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
     {
-      return (value & checkAgainst) == checkAgainst;
+      CodeContracts.ArgumentNotNull(builder, "builder");
+
+      builder.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
     }
 
-    /// <summary>
-    /// The binary and.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="checkAgainst">
-    /// The check against.
-    /// </param>
-    /// <returns>
-    /// The binary and.
-    /// </returns>
-    public static bool BinaryAnd(this object value, object checkAgainst)
-    {
-      return BinaryAnd(SqlDataLayerConverter.VerifyInt32(value), SqlDataLayerConverter.VerifyInt32(checkAgainst));
-    }    
+    #endregion
   }
 }

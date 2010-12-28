@@ -1,5 +1,4 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -21,44 +20,48 @@ namespace YAF.Core
 {
   #region Using
 
-  using System;
-
   using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// The resources extensions.
+  /// The i yaf theme extensions.
   /// </summary>
-  public static class ResourcesExtensions
+  public static class IYafThemeExtensions
   {
     #region Public Methods
 
     /// <summary>
-    /// The get hours offset.
+    /// Gets the collapsible panel image url (expanded or collapsed).
     /// </summary>
-    /// <param name="lanuageResource">
-    /// The resource.
+    /// <param name="theme">
+    /// The theme.
+    /// </param>
+    /// <param name="panelID">
+    /// ID of collapsible panel
+    /// </param>
+    /// <param name="defaultState">
+    /// Default Panel State
     /// </param>
     /// <returns>
-    /// The get hours offset.
+    /// Image URL
     /// </returns>
-    public static decimal GetHoursOffset(this LanuageResourcesPageResource lanuageResource)
+    public static string GetCollapsiblePanelImageURL(
+      [NotNull] this ITheme theme, [NotNull] string panelID, CollapsiblePanelState defaultState)
     {
-      // calculate hours -- can use prefix of either UTC or GMT...
-      decimal hours = 0;
+      CodeContracts.ArgumentNotNull(theme, "theme");
+      CodeContracts.ArgumentNotNull(panelID, "panelID");
 
-      try
+      CollapsiblePanelState stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelID];
+      if (stateValue == CollapsiblePanelState.None)
       {
-        hours = Convert.ToDecimal(lanuageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
-      catch (FormatException)
-      {
-        hours =
-          Convert.ToDecimal(lanuageResource.tag.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
+        stateValue = defaultState;
+        YafContext.Current.Get<IYafSession>().PanelState[panelID] = defaultState;
       }
 
-      return hours;
+      return theme.GetItem("ICONS", stateValue == CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND");
     }
 
     #endregion

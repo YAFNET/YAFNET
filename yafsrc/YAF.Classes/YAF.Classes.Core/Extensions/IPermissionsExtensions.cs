@@ -1,8 +1,11 @@
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
-  using YAF.Classes.Pattern;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 

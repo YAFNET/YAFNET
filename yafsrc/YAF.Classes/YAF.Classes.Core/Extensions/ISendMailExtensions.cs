@@ -16,15 +16,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
   using System.Collections.Generic;
   using System.Net.Mail;
 
+  using YAF.Core.Services;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 

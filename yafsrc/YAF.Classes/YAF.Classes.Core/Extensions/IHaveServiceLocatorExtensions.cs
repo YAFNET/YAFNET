@@ -1,5 +1,4 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -21,44 +20,40 @@ namespace YAF.Core
 {
   #region Using
 
-  using System;
+  using System.Collections.Generic;
+  using System.Linq;
 
+  using YAF.Core.Tasks;
   using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
   /// <summary>
-  /// The resources extensions.
+  /// The i have service locator extensions.
   /// </summary>
-  public static class ResourcesExtensions
+  public static class IHaveServiceLocatorExtensions
   {
     #region Public Methods
 
     /// <summary>
-    /// The get hours offset.
+    /// The run startup services.
     /// </summary>
-    /// <param name="lanuageResource">
-    /// The resource.
+    /// <param name="serviceLocator">
+    /// The instnace that has a service locator.
     /// </param>
-    /// <returns>
-    /// The get hours offset.
-    /// </returns>
-    public static decimal GetHoursOffset(this LanuageResourcesPageResource lanuageResource)
+    public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
     {
-      // calculate hours -- can use prefix of either UTC or GMT...
-      decimal hours = 0;
+      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
 
-      try
-      {
-        hours = Convert.ToDecimal(lanuageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
-      catch (FormatException)
-      {
-        hours =
-          Convert.ToDecimal(lanuageResource.tag.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
+      var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>();
 
-      return hours;
+      // run critical first...
+      startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).ForEach(service => service.Run());
+
+      // run secondary...
+      startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).ForEach(service => service.Run());
     }
 
     #endregion
