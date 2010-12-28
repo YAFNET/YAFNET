@@ -16,17 +16,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
   using System;
   using System.Web;
   using System.Web.Caching;
-  using System.Web.SessionState;
 
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -45,7 +47,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public static string GetCaptchaString()
     {
-      return StringHelper.GenerateRandomString(
+      return StringExtensions.GenerateRandomString(
         YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
     }
 

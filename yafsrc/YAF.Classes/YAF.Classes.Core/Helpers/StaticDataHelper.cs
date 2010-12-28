@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   using System;
   using System.Collections.Generic;
@@ -27,7 +27,12 @@ namespace YAF.Classes.Core
   using System.Web;
   using System.Xml;
 
-  using YAF.Classes.Utils;
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// The static data helper.
@@ -296,7 +301,7 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable TimeZones(YafLocalization localization)
+    public static DataTable TimeZones(ILocalization localization)
     {
       using (var dt = new DataTable("TimeZone"))
       {
