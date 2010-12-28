@@ -58,7 +58,6 @@
     <Compile Include="BaseModules\ProviderSettingsForumModule.cs" />
     <Compile Include="BaseModules\StartStopWatch.cs" />
     <Compile Include="BaseModules\UnloadSessionForumModule.cs" />
-    <Compile Include="BaseModules\YafBaseModuleManager.cs" />
     <Compile Include="BaseModules\StandardModuleManager.cs" />
     <Compile Include="BasePages\AdminPage.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -100,7 +99,6 @@
     <Compile Include="Extensions\IDateTimeExtensions.cs" />
     <Compile Include="Extensions\IModuleManagerExtensions.cs" />
     <Compile Include="Extensions\IPermissionsExtensions.cs" />
-    <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ISendMailExtensions.cs" />
     <Compile Include="Extensions\IYafThemeExtensions.cs" />
@@ -194,7 +192,6 @@
     <Compile Include="UsersRoles\UserHelper.cs" />
     <Compile Include="UsersRoles\UserMembershipHelper.cs" />
     <Compile Include="YafBaseContainerModule.cs" />
-    <Compile Include="YafModuleManager.cs" />
     <Compile Include="YAFTaskModule.cs" />
   </ItemGroup>
   <ItemGroup>

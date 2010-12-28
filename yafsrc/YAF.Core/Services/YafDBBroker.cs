@@ -195,14 +195,14 @@ namespace YAF.Core.Services
           () =>
             {
               var catDt = DB.category_list(boardID, null);
-              catDt.TableName = YafDBAccess.GetObjectName("Category");
+              catDt.TableName = MsSqlDbAccess.GetObjectName("Category");
               return catDt;
             });
 
         // add it to this dataset				
         ds.Tables.Add(category.Copy());
 
-        DataTable categoryTable = ds.Tables[YafDBAccess.GetObjectName("Category")];
+        DataTable categoryTable = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
 
         if (categoryID.HasValue)
         {
@@ -218,18 +218,18 @@ namespace YAF.Core.Services
         }
 
         DataTable forum = DB.forum_listread(boardID, userID, categoryID, parentID, YafContext.Current.BoardSettings.UseStyledNicks);
-        forum.TableName = YafDBAccess.GetObjectName("Forum");
+        forum.TableName = MsSqlDbAccess.GetObjectName("Forum");
         ds.Tables.Add(forum.Copy());
 
         ds.Relations.Add(
           "FK_Forum_Category", 
           categoryTable.Columns["CategoryID"], 
-          ds.Tables[YafDBAccess.GetObjectName("Forum")].Columns["CategoryID"], 
+          ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].Columns["CategoryID"], 
           false);
         ds.Relations.Add(
           "FK_Moderator_Forum", 
-          ds.Tables[YafDBAccess.GetObjectName("Forum")].Columns["ForumID"], 
-          ds.Tables[YafDBAccess.GetObjectName("Moderator")].Columns["ForumID"], 
+          ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].Columns["ForumID"], 
+          ds.Tables[MsSqlDbAccess.GetObjectName("Moderator")].Columns["ForumID"], 
           false);
 
         bool deletedCategory = false;
@@ -477,7 +477,7 @@ namespace YAF.Core.Services
     public DataTable GetModerators()
     {
         DataTable moderator = DB.forum_moderators(YafContext.Current.BoardSettings.UseStyledNicks);
-      moderator.TableName = YafDBAccess.GetObjectName("Moderator");
+      moderator.TableName = MsSqlDbAccess.GetObjectName("Moderator");
 
       return moderator;
     }

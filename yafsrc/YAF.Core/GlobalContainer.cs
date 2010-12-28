@@ -22,6 +22,9 @@ namespace YAF.Core
 
   using Autofac;
 
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+
   #endregion
 
   /// <summary>
@@ -59,6 +62,9 @@ namespace YAF.Core
             if (_container == null)
             {
               _container = CreateContainer();
+
+              // immediately setup the static service locator...
+              ServiceLocatorAccess.CurrentServiceProvider = _container.Resolve<IServiceLocator>();
             }
           }
         }

@@ -25,7 +25,7 @@ namespace YAF.Core
   /// <summary>
   /// The yaf dynamic db conn manager.
   /// </summary>
-  public class YafDynamicDBConnManager : YafDBConnManager
+  public class MsSqlDynamicDbConnectionManager : MsSqlDbConnectionManager
   {
     /// <summary>
     /// Gets ConnectionString.

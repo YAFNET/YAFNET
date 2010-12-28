@@ -175,17 +175,6 @@ namespace YAF.Core
     }
 
     /// <summary>
-    ///   Current Page Instance of the Module Manager
-    /// </summary>
-    public YafBaseModuleManager BaseModuleManager
-    {
-      get
-      {
-        return this._singleInstanceFactory.GetInstance<YafBaseModuleManager>();
-      }
-    }
-
-    /// <summary>
     ///   Current Board Settings
     /// </summary>
     public virtual YafBoardSettings BoardSettings

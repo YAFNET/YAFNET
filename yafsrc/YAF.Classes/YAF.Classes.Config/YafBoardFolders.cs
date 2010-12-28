@@ -17,10 +17,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using YAF.Classes.Pattern;
+using YAF.Types;
 
 namespace YAF.Classes
 {
+  using YAF.Classes.Pattern;
+
   /// <summary>
   /// The yaf board folders.
   /// </summary>

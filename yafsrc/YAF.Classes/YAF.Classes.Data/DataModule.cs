@@ -16,41 +16,34 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Classes.Data
 {
   #region Using
 
-  using Autofac.Builder;
+  using Autofac;
 
   using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// The i registration builder extension.
+  /// The data module.
   /// </summary>
-  public static class IRegistrationBuilderExtension
+  public class DataModule : Module
   {
-    #region Public Methods
+    #region Methods
 
     /// <summary>
-    /// The owned by yaf context.
+    /// The load.
     /// </summary>
     /// <param name="builder">
     /// The builder.
     /// </param>
-    /// <typeparam name="TLimit">
-    /// </typeparam>
-    /// <typeparam name="TActivatorData">
-    /// </typeparam>
-    /// <typeparam name="TRegistrationStyle">
-    /// </typeparam>
-    public static void OwnedByYafContext<TLimit, TActivatorData, TRegistrationStyle>(
-      [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
+    protected override void Load([NotNull] ContainerBuilder builder)
     {
-      CodeContracts.ArgumentNotNull(builder, "builder");
-
-      builder.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.RegisterType<MsSqlDbAccess>().As<IDbAccess>().InstancePerLifetimeScope();
+      builder.RegisterType<MsSqlDbConnectionManager>().As<IDbConnectionManager>().InstancePerLifetimeScope();
     }
 
     #endregion

@@ -78,9 +78,9 @@
     <Compile Include="Interfaces\Events\IAmEvent.cs" />
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
+    <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
-    <Compile Include="Interfaces\IBaseContext.cs" />
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
     <Compile Include="Interfaces\IBaseModule.cs" />
@@ -97,7 +97,6 @@
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />
     <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
-    <Compile Include="Interfaces\IRequestSecure.cs" />
     <Compile Include="Interfaces\ISendMail.cs" />
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />
@@ -108,6 +107,8 @@
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
+    <Compile Include="Interfaces\IDBAccess.cs" />
+    <Compile Include="Interfaces\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
     <Compile Include="Interfaces\IYafUserProfile.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Objects\TypedUserList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
+    <Compile Include="ServiceLocatorAccess.cs" />
     <Compile Include="YafLifetimeScope.cs" />
   </ItemGroup>
   <ItemGroup />

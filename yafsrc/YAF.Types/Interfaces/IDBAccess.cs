@@ -20,31 +20,28 @@ namespace YAF.Types.Interfaces
 {
   using System.Collections.Generic;
   using System.Data;
-  using System.Data.SqlClient;
 
   /// <summary>
   /// DBAccess Interface
   /// </summary>
-  public interface IYafDBAccess
+  public interface IDbAccess
   {
+    /// <summary>
+    /// Gets the current connection manager.
+    /// </summary>
+    /// <returns></returns>
+    IDbConnectionManager GetConnectionManager();
+
+    /// <summary>
+    /// Sets the connection manager adapter.
+    /// </summary>
+    /// <typeparam name="TManager"></typeparam>
+    void SetConnectionManagerAdapter<TManager>() where TManager : IDbConnectionManager;
+
     /// <summary>
     /// Filter list of result filters.
     /// </summary>
     IList<IDataTableResultFilter> ResultFilterList { get; }
-
-    /// <summary>
-    /// Gets a whole dataset out of the database
-    /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
-    /// <returns>
-    /// Dataset with the results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    DataSet GetDataset(SqlCommand cmd);
 
     /// <summary>
     /// The get dataset.
@@ -57,21 +54,7 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// </returns>
-    DataSet GetDataset(SqlCommand cmd, bool transaction);
-
-    /// <summary>
-    /// Gets data out of the database
-    /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
-    /// <returns>
-    /// DataTable with the results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    DataTable GetData(SqlCommand cmd);
+    DataSet GetDataset(IDbCommand cmd, bool transaction);
 
     /// <summary>
     /// The get data.
@@ -84,21 +67,7 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// </returns>
-    DataTable GetData(SqlCommand cmd, bool transaction);
-
-    /// <summary>
-    /// Gets data out of database using a plain text string command
-    /// </summary>
-    /// <param name="commandText">
-    /// command text to be executed
-    /// </param>
-    /// <returns>
-    /// DataTable with results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    DataTable GetData(string commandText);
+    DataTable GetData(IDbCommand cmd, bool transaction);
 
     /// <summary>
     /// The get data.
@@ -114,17 +83,6 @@ namespace YAF.Types.Interfaces
     DataTable GetData(string commandText, bool transaction);
 
     /// <summary>
-    /// Executes a NonQuery
-    /// </summary>
-    /// <param name="cmd">
-    /// NonQuery to execute
-    /// </param>
-    /// <remarks>
-    /// Without transaction
-    /// </remarks>
-    void ExecuteNonQuery(SqlCommand cmd);
-
-    /// <summary>
     /// The execute non query.
     /// </summary>
     /// <param name="cmd">
@@ -133,18 +91,7 @@ namespace YAF.Types.Interfaces
     /// <param name="transaction">
     /// The transaction.
     /// </param>
-    void ExecuteNonQuery(SqlCommand cmd, bool transaction);
-
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    object ExecuteScalar(SqlCommand cmd);
+    void ExecuteNonQuery(IDbCommand cmd, bool transaction);
 
     /// <summary>
     /// The execute scalar.
@@ -158,6 +105,6 @@ namespace YAF.Types.Interfaces
     /// <returns>
     /// The execute scalar.
     /// </returns>
-    object ExecuteScalar(SqlCommand cmd, bool transaction);
+    object ExecuteScalar(IDbCommand cmd, bool transaction);
   }
 }

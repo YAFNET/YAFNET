@@ -29,7 +29,6 @@ namespace YAF.Core
   using YAF.Core;
   using YAF.Core.Tasks;
   using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Pattern;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;

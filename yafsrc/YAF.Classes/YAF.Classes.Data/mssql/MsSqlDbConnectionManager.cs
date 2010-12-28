@@ -19,33 +19,37 @@
  */
 namespace YAF.Classes.Data
 {
-  using System;
+  #region Using
+
   using System.Data;
   using System.Data.SqlClient;
 
+  using YAF.Types;
   using YAF.Types.Handlers;
   using YAF.Types.Interfaces;
+
+  #endregion
 
   /// <summary>
   /// Provides open/close management for DB Connections
   /// </summary>
-  public class YafDBConnManager : IDisposable, IYafDBConnManager
+  public class MsSqlDbConnectionManager : IDbConnectionManager
   {
     #region Constants and Fields
 
     /// <summary>
-    /// The _connection.
+    ///   The _connection.
     /// </summary>
-    protected SqlConnection _connection = null;
+    protected SqlConnection _connection;
 
     #endregion
 
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafDBConnManager"/> class.
+    ///   Initializes a new instance of the <see cref = "MsSqlDbConnectionManager" /> class.
     /// </summary>
-    public YafDBConnManager()
+    public MsSqlDbConnectionManager()
     {
       // just initalize it (not open)
       this.InitConnection();
@@ -56,7 +60,7 @@ namespace YAF.Classes.Data
     #region Events
 
     /// <summary>
-    /// The info message.
+    ///   The info message.
     /// </summary>
     public event YafDBConnInfoMessageEventHandler InfoMessage;
 
@@ -65,7 +69,7 @@ namespace YAF.Classes.Data
     #region Properties
 
     /// <summary>
-    /// Gets ConnectionString.
+    ///   Gets ConnectionString.
     /// </summary>
     public virtual string ConnectionString
     {
@@ -76,7 +80,7 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Gets the current DB Connection in any state.
+    ///   Gets the current DB Connection in any state.
     /// </summary>
     public SqlConnection DBConnection
     {
@@ -88,7 +92,7 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Gets an open connection to the DB. Can be called any number of times.
+    ///   Gets an open connection to the DB. Can be called any number of times.
     /// </summary>
     public SqlConnection OpenDBConnection
     {
@@ -106,25 +110,33 @@ namespace YAF.Classes.Data
       }
     }
 
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IDisposable
+    /// <summary>
+    /// Gets DBConnection.
+    /// </summary>
+    IDbConnection IDbConnectionManager.DBConnection
+    {
+      get
+      {
+        return this.DBConnection;
+      }
+    }
 
     /// <summary>
-    /// The dispose.
+    /// Gets OpenDBConnection.
     /// </summary>
-    public virtual void Dispose()
+    IDbConnection IDbConnectionManager.OpenDBConnection
     {
-      // close and delete connection
-      this.CloseConnection();
-      this._connection = null;
+      get
+      {
+        return this.OpenDBConnection;
+      }
     }
 
     #endregion
 
-    #region IYafDBConnManager
+    #region Implemented Interfaces
+
+    #region IDbConnectionManager
 
     /// <summary>
     /// The close connection.
@@ -146,7 +158,7 @@ namespace YAF.Classes.Data
       {
         // create the connection
         this._connection = new SqlConnection();
-        this._connection.InfoMessage += new SqlInfoMessageEventHandler(this.Connection_InfoMessage);
+        this._connection.InfoMessage += this.Connection_InfoMessage;
         this._connection.ConnectionString = this.ConnectionString;
       }
       else if (this._connection.State != ConnectionState.Open)
@@ -154,6 +166,20 @@ namespace YAF.Classes.Data
         // verify the connection string is in there...
         this._connection.ConnectionString = this.ConnectionString;
       }
+    }
+
+    #endregion
+
+    #region IDisposable
+
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public virtual void Dispose()
+    {
+      // close and delete connection
+      this.CloseConnection();
+      this._connection = null;
     }
 
     #endregion
@@ -171,7 +197,7 @@ namespace YAF.Classes.Data
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Connection_InfoMessage(object sender, SqlInfoMessageEventArgs e)
+    protected void Connection_InfoMessage([NotNull] object sender, [NotNull] SqlInfoMessageEventArgs e)
     {
       if (this.InfoMessage != null)
       {

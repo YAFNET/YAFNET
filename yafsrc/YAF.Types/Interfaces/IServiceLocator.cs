@@ -27,7 +27,7 @@ namespace YAF.Types.Interfaces
   /// <summary>
   /// The i service locator.
   /// </summary>
-  public interface IServiceLocator
+  public interface IServiceLocator : IServiceProvider
   {
     #region Public Methods
 

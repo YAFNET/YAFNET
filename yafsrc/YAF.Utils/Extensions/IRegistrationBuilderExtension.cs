@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,56 +18,43 @@
  */
 namespace YAF.Utils
 {
-  using System.Web;
-
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
   #region Using
 
+  using Autofac.Builder;
+
+  using YAF.Types;
 
   #endregion
 
   /// <summary>
-  /// The http request is secure.
+  /// The i registration builder extension.
   /// </summary>
-  public class HttpRequestIsSecure : IRequestSecure
+  public static class IRegistrationBuilderExtension
   {
-    #region Constants and Fields
+    #region Public Methods
 
     /// <summary>
-    /// The _http request base.
+    /// The owned by yaf context.
     /// </summary>
-    private readonly HttpRequestBase _httpRequestBase;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="HttpRequestIsSecure"/> class.
-    /// </summary>
-    /// <param name="httpRequestBase">
-    /// The http request base.
+    /// <param name="builder">
+    /// The builder.
     /// </param>
-    public HttpRequestIsSecure([NotNull] HttpRequestBase httpRequestBase)
+    /// <typeparam name="TLimit">
+    /// </typeparam>
+    /// <typeparam name="TActivatorData">
+    /// </typeparam>
+    /// <typeparam name="TRegistrationStyle">
+    /// </typeparam>
+    /// <returns>
+    /// The instance per yaf context.
+    /// </returns>
+    public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> InstancePerYafContext
+      <TLimit, TActivatorData, TRegistrationStyle>(
+      [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
     {
-      this._httpRequestBase = httpRequestBase;
-    }
+      CodeContracts.ArgumentNotNull(builder, "builder");
 
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets a value indicating whether IsSecure.
-    /// </summary>
-    public bool IsSecure
-    {
-      get
-      {
-        return this._httpRequestBase != null && this._httpRequestBase.IsSecureConnection;
-      }
+      return builder.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
     }
 
     #endregion

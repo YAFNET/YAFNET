@@ -37,38 +37,40 @@ namespace YAF.Core
   [YafModule("Mobile Theme Module", "Tiny Gecko", 1)]
   public class MobileThemeForumModule : BaseForumModule
   {
-    #region Constants and Fields
+    #region Constructors and Destructors
 
     /// <summary>
-    ///   The _yaf session.
+    /// Initializes a new instance of the <see cref="MobileThemeForumModule"/> class.
     /// </summary>
-    private IYafSession _yafSession;
+    /// <param name="yafSession">
+    /// The yaf session.
+    /// </param>
+    /// <param name="httpRequestBase">
+    /// The http request base.
+    /// </param>
+    public MobileThemeForumModule([NotNull] IYafSession yafSession, [NotNull] HttpRequestBase httpRequestBase)
+    {
+      this.YafSession = yafSession;
+      this.HttpRequestBase = httpRequestBase;
+    }
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    ///   The _yaf session.
+    /// Gets or sets HttpRequestBase.
     /// </summary>
-    protected IYafSession YafSession
-    {
-      get
-      {
-        if (this._yafSession == null)
-        {
-          this._yafSession = YafContext.Current.Get<IYafSession>();
-        }
+    public HttpRequestBase HttpRequestBase { get; set; }
 
-        return this._yafSession;
-      }
-    }
+    /// <summary>
+    /// Gets or sets YafSession.
+    /// </summary>
+    public IYafSession YafSession { get; set; }
 
     #endregion
 
-    #region Implemented Interfaces
-
-    #region IBaseForumModule
+    #region Public Methods
 
     /// <summary>
     /// The init.
@@ -77,8 +79,6 @@ namespace YAF.Core
     {
       YafContext.Current.AfterInit += this.Current_AfterInit;
     }
-
-    #endregion
 
     #endregion
 
@@ -97,14 +97,9 @@ namespace YAF.Core
     {
       YafContext.Current.Vars["IsMobile"] = false;
 
-      if (HttpContext.Current == null)
-      {
-        return;
-      }
-
       // see if this is a mobile device...
-      if (!UserAgentHelper.IsMobileDevice(YafContext.Current.Get<HttpRequestBase>().UserAgent) &&
-          !YafContext.Current.Get<HttpRequestBase>().Browser.IsMobileDevice)
+      if (!UserAgentHelper.IsMobileDevice(this.HttpRequestBase.UserAgent) &&
+          !this.HttpRequestBase.Browser.IsMobileDevice)
       {
         // make sure to shut off mobile theme usage if the user agent is not mobile.
         if (this.YafSession.UseMobileTheme ?? false)
@@ -166,13 +161,13 @@ namespace YAF.Core
     /// </summary>
     private void UpdateUseMobileThemeFromQueryString()
     {
-      var fullSite = YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("fullsite");
+      var fullSite = this.HttpRequestBase.QueryString.GetFirstOrDefault("fullsite");
       if (fullSite.IsSet() && fullSite.Equals("true"))
       {
         this.YafSession.UseMobileTheme = false;
       }
 
-      var mobileSite = YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("mobileSite");
+      var mobileSite = this.HttpRequestBase.QueryString.GetFirstOrDefault("mobileSite");
       if (mobileSite.IsSet() && mobileSite.Equals("true"))
       {
         this.YafSession.UseMobileTheme = true;

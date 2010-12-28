@@ -24,20 +24,44 @@ namespace YAF.Core.Services
   using System.Text.RegularExpressions;
 
   using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
   /// <summary>
   /// The yaf digest.
   /// </summary>
-  public class YafDigest : IDigest
+  public class YafDigest : IDigest, IHaveServiceLocator
   {
-    #region Public Methods
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafDigest"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public YafDigest([NotNull] IServiceLocator serviceLocator)
+    {
+      this.ServiceLocator = serviceLocator;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; protected set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IDigest
 
     /// <summary>
     /// The get digest html.
@@ -131,7 +155,7 @@ namespace YAF.Core.Services
       if (sendQueued)
       {
         // queue to send...
-        YafContext.Current.Get<YafSendMail>().Queue(
+        this.Get<ISendMail>().Queue(
           YafContext.Current.BoardSettings.ForumEmail, 
           YafContext.Current.BoardSettings.Name, 
           toEmail, 
@@ -143,7 +167,7 @@ namespace YAF.Core.Services
       else
       {
         // send direct...
-        YafContext.Current.Get<YafSendMail>().Send(
+        this.Get<ISendMail>().Send(
           YafContext.Current.BoardSettings.ForumEmail, 
           YafContext.Current.BoardSettings.Name, 
           toEmail, 
@@ -153,6 +177,8 @@ namespace YAF.Core.Services
           digestHtml);
       }
     }
+
+    #endregion
 
     #endregion
   }

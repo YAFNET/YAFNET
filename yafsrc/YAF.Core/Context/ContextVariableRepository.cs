@@ -17,13 +17,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-
 namespace YAF.Core
 {
-
-    #region Using
+  #region Using
 
   using YAF.Classes.Pattern;
+  using YAF.Types;
 
   #endregion
 
@@ -32,10 +31,16 @@ namespace YAF.Core
   /// </summary>
   public class ContextVariableRepository
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _dic.
+    ///   The _dic.
     /// </summary>
-    private TypeDictionary _dic = null;
+    private readonly TypeDictionary _dic;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextVariableRepository"/> class.
@@ -43,13 +48,34 @@ namespace YAF.Core
     /// <param name="dictionary">
     /// The dictionary.
     /// </param>
-    public ContextVariableRepository(TypeDictionary dictionary)
+    public ContextVariableRepository([NotNull] TypeDictionary dictionary)
     {
       this._dic = dictionary;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets Vars.
+    ///   Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+    ///   Setting to false effectively disables suspend checking.
+    /// </summary>
+    public bool IsSuspendCheckEnabled
+    {
+      get
+      {
+        return this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
+      }
+
+      set
+      {
+        this.Vars["IsSuspendCheckEnabled"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets Vars.
     /// </summary>
     protected TypeDictionary Vars
     {
@@ -59,21 +85,6 @@ namespace YAF.Core
       }
     }
 
-    /// <summary>
-    /// Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
-    /// Setting to false effectively disables suspend checking.
-    /// </summary>
-    public bool IsSuspendCheckEnabled
-    {
-      get
-      {
-        return Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
-      }
-
-      set
-      {
-        this.Vars["IsSuspendCheckEnabled"] = value;
-      }
-    }
+    #endregion
   }
 }

@@ -24,7 +24,7 @@ using System.Web.Configuration;
 
 namespace YAF.Classes
 {
-  using Pattern;
+  using YAF.Types;
 
   /// <summary>
   /// Static class that access the app settings in the web.config file

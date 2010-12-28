@@ -18,11 +18,12 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System.Data.SqlClient;
+  using System;
+  using System.Data;
 
   using YAF.Types.Handlers;
 
-  public interface IYafDBConnManager
+  public interface IDbConnectionManager : IDisposable
   {
     /// <summary>
     /// Gets ConnectionString.
@@ -32,12 +33,12 @@ namespace YAF.Types.Interfaces
     /// <summary>
     /// Gets the current DB Connection in any state.
     /// </summary>
-    SqlConnection DBConnection { get; }
+    IDbConnection DBConnection { get; }
 
     /// <summary>
     /// Gets an open connection to the DB. Can be called any number of times.
     /// </summary>
-    SqlConnection OpenDBConnection { get; }
+    IDbConnection OpenDBConnection { get; }
 
     /// <summary>
     /// The info message.

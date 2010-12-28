@@ -34,6 +34,30 @@ namespace YAF.Core
   [YafModule("Start Stop Watch Module", "Tiny Gecko", 1)]
   public class StartStopWatch : BaseForumModule
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _stop watch.
+    /// </summary>
+    private readonly IStopWatch _stopWatch;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StartStopWatch"/> class.
+    /// </summary>
+    /// <param name="stopWatch">
+    /// The stop watch.
+    /// </param>
+    public StartStopWatch([NotNull] IStopWatch stopWatch)
+    {
+      this._stopWatch = stopWatch;
+    }
+
+    #endregion
+
     #region Public Methods
 
     /// <summary>
@@ -42,7 +66,7 @@ namespace YAF.Core
     public override void Init()
     {
       // initialize the base services before anyone notices...
-      this.Get<IStopWatch>().Start();
+      this._stopWatch.Start();
 
       // hook unload...
       this.PageContext.PageUnload += this.Current_PageUnload;
@@ -64,7 +88,7 @@ namespace YAF.Core
     private void Current_PageUnload([NotNull] object sender, [NotNull] EventArgs e)
     {
       // stop the stop watch in case the footer did not...
-      this.Get<IStopWatch>().Stop();
+      this._stopWatch.Stop();
     }
 
     #endregion

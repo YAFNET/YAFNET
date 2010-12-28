@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,45 +16,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types
 {
   #region Using
 
-  using System.Web;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// The i base context.
+  /// The service locator access -- kind of a hack. Will not be needed in the future.
   /// </summary>
-  public interface IBaseContext
+  public class ServiceLocatorAccess : IHaveServiceLocator
   {
     #region Properties
 
     /// <summary>
-    ///   Gets Application.
+    /// Gets or sets CurrentServiceProvider.
     /// </summary>
-    HttpApplicationStateBase Application { get; }
+    public static IServiceLocator CurrentServiceProvider { get; set; }
 
     /// <summary>
-    ///   Gets HttpContext.
+    ///   Gets ServiceLocator.
     /// </summary>
-    HttpContextBase HttpContext { get; }
-
-    /// <summary>
-    ///   Gets Request.
-    /// </summary>
-    HttpRequestBase Request { get; }
-
-    /// <summary>
-    ///   Gets Response.
-    /// </summary>
-    HttpResponseBase Response { get; }
-
-    /// <summary>
-    ///   Gets Session.
-    /// </summary>
-    HttpSessionStateBase Session { get; }
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return CurrentServiceProvider;
+      }
+    }
 
     #endregion
   }

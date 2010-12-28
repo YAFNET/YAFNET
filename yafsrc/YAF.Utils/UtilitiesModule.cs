@@ -44,9 +44,7 @@ namespace YAF.Utils
     /// </param>
     protected override void Load([NotNull] ContainerBuilder builder)
     {
-      builder.RegisterType<HttpRequestIsSecure>().As<IRequestSecure>().InstancePerLifetimeScope();
       builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerLifetimeScope();
-      builder.RegisterType<SimpleBaseContext>().As<IBaseContext>().InstancePerLifetimeScope();
 
       this.RegisterWebAbstractions(builder);
     }
@@ -61,41 +59,15 @@ namespace YAF.Utils
     {
       CodeContracts.ArgumentNotNull(builder, "builder");
 
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpContextWrapper(HttpContext.Current)
-          : (HttpContextBase)new EmptyHttpContext()).InstancePerLifetimeScope();
+      builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>().InstancePerYafContext();
 
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpSessionStateWrapper(HttpContext.Current.Session)
-          : (HttpSessionStateBase)new EmptyHttpSessionState()).InstancePerLifetimeScope();
+      builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerYafContext();
 
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpRequestWrapper(HttpContext.Current.Request)
-          : (HttpRequestBase)new EmptyHttpRequest()).InstancePerLifetimeScope();
+      builder.Register(c => c.Resolve<HttpContextBase>().Response).As<HttpResponseBase>().InstancePerYafContext();
 
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpResponseWrapper(HttpContext.Current.Response)
-          : (HttpResponseBase)new EmptyHttpResponse()).InstancePerLifetimeScope();
+      builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>().InstancePerYafContext();
 
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpServerUtilityWrapper(HttpContext.Current.Server)
-          : (HttpServerUtilityBase)new EmptyHttpServerUtility()).InstancePerLifetimeScope();
-
-      builder.Register(
-        k =>
-        HttpContext.Current != null
-          ? new HttpApplicationStateWrapper(HttpContext.Current.Application)
-          : (HttpApplicationStateBase)new EmptyHttpApplicationState()).InstancePerLifetimeScope();
+      builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>().InstancePerYafContext();
     }
 
     #endregion

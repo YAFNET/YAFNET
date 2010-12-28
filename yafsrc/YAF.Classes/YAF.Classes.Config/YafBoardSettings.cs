@@ -20,7 +20,9 @@ namespace YAF.Classes
 {
     using System;
     using System.Web.Security;
+
     using YAF.Classes.Pattern;
+    using YAF.Types;
     using YAF.Types.Constants;
 
   /// <summary>

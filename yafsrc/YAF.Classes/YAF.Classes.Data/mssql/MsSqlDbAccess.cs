@@ -24,55 +24,54 @@ namespace YAF.Classes.Data
   using System;
   using System.Collections.Generic;
   using System.Data;
-  using System.Linq;
   using System.Data.SqlClient;
+  using System.Linq;
 
-  using YAF.Classes.Pattern;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
   /// <summary>
   /// The yaf db access for SQL Server.
   /// </summary>
-  public class YafDBAccess : IYafDBAccess
+  public class MsSqlDbAccess : IDbAccess
   {
     #region Constants and Fields
 
     /// <summary>
-    /// The _isolation level.
+    ///   Result filter list
+    /// </summary>
+    private readonly IList<IDataTableResultFilter> _resultFilterList = new List<IDataTableResultFilter>();
+
+    /// <summary>
+    ///   The _isolation level.
     /// </summary>
     private static IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 
     /// <summary>
-    /// The _connection manager type.
+    ///   The _connection manager type.
     /// </summary>
-    private Type _connectionManagerType = typeof(YafDBConnManager);
-
-    /// <summary>
-    /// Result filter list
-    /// </summary>
-    private IList<IDataTableResultFilter> _resultFilterList = new List<IDataTableResultFilter>();
+    private Type _connectionManagerType = typeof(MsSqlDbConnectionManager);
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets Current.
+    ///   Gets Current IDbAccess -- needs to be switched to direct injection into all DB classes.
     /// </summary>
-    public static YafDBAccess Current
+    public static IDbAccess Current
     {
       get
       {
-        return PageSingleton<YafDBAccess>.Instance;
+        return ServiceLocatorAccess.CurrentServiceProvider.Get<IDbAccess>();
       }
     }
 
     /// <summary>
-    /// Gets IsolationLevel.
+    ///   Gets IsolationLevel.
     /// </summary>
     public static IsolationLevel IsolationLevel
     {
@@ -83,9 +82,9 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Gets the Result Filter List.
+    ///   Gets the Result Filter List.
     /// </summary>
-    /// <exception cref="NotImplementedException">
+    /// <exception cref = "NotImplementedException">
     /// </exception>
     public IList<IDataTableResultFilter> ResultFilterList
     {
@@ -100,6 +99,55 @@ namespace YAF.Classes.Data
     #region Public Methods
 
     /// <summary>
+    /// A method to handle custom scripts execution tags
+    /// </summary>
+    /// <param name="scriptChunk">
+    /// Input string
+    /// </param>
+    /// <param name="versionSQL">
+    /// SQL server version as ushort
+    /// </param>
+    /// <returns>
+    /// Returns an empty string if condition was not and cleanedfrom tags string if was.
+    /// </returns>
+    [NotNull]
+    public static string CleanForSQLServerVersion([NotNull] string scriptChunk, ushort versionSQL)
+    {
+      if (!scriptChunk.Contains("#IFSRVVER"))
+      {
+        return scriptChunk;
+      }
+      else
+      {
+        int indSign = scriptChunk.IndexOf("#IFSRVVER") + 9;
+        string temp = scriptChunk.Substring(indSign);
+        int indEnd = temp.IndexOf("#");
+        int indEqual = temp.IndexOf("=");
+        int indMore = temp.IndexOf(">");
+
+        if (indEqual >= 0 && indEqual < indEnd)
+        {
+          ushort indVerEnd = Convert.ToUInt16(temp.Substring(indEqual + 1, indEnd - indEqual - 1).Trim());
+          if (versionSQL == indVerEnd)
+          {
+            return scriptChunk.Substring(indEnd + indSign + 1);
+          }
+        }
+
+        if (indMore >= 0 && indMore < indEnd)
+        {
+          ushort indVerEnd = Convert.ToUInt16(temp.Substring(indMore + 1, indEnd - indMore - 1).Trim());
+          if (versionSQL > indVerEnd)
+          {
+            return scriptChunk.Substring(indEnd + indSign + 1);
+          }
+        }
+
+        return string.Empty;
+      }
+    }
+
+    /// <summary>
     /// Creates new SqlCommand based on command text applying all qualifiers to the name.
     /// </summary>
     /// <param name="commandText">
@@ -111,7 +159,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// New SqlCommand
     /// </returns>
-    public static SqlCommand GetCommand(string commandText, bool isText)
+    public static SqlCommand GetCommand([NotNull] string commandText, bool isText)
     {
       return GetCommand(commandText, isText, null);
     }
@@ -131,7 +179,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// New SqlCommand
     /// </returns>
-    public static SqlCommand GetCommand(string commandText, bool isText, SqlConnection connection)
+    public static SqlCommand GetCommand([NotNull] string commandText, bool isText, [NotNull] SqlConnection connection)
     {
       return isText
                ? new SqlCommand
@@ -152,7 +200,8 @@ namespace YAF.Classes.Data
     /// <returns>
     /// New SqlCommand
     /// </returns>
-    public static SqlCommand GetCommand(string storedProcedure)
+    [NotNull]
+    public static SqlCommand GetCommand([NotNull] string storedProcedure)
     {
       return GetCommand(storedProcedure, null);
     }
@@ -169,17 +218,18 @@ namespace YAF.Classes.Data
     /// <returns>
     /// New SqlCommand
     /// </returns>
-    public static SqlCommand GetCommand(string storedProcedure, SqlConnection connection)
+    [NotNull]
+    public static SqlCommand GetCommand([NotNull] string storedProcedure, [NotNull] SqlConnection connection)
     {
       var cmd = new SqlCommand
-                    {
-                        CommandType = CommandType.StoredProcedure,
-                        CommandText = GetObjectName(storedProcedure),
-                        Connection = connection,
-                        CommandTimeout = int.Parse(Config.SqlCommandTimeout)
-                    };
+        {
+          CommandType = CommandType.StoredProcedure, 
+          CommandText = GetObjectName(storedProcedure), 
+          Connection = connection, 
+          CommandTimeout = int.Parse(Config.SqlCommandTimeout)
+        };
 
-        return cmd;
+      return cmd;
     }
 
     /// <summary>
@@ -191,7 +241,8 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The get command text replaced.
     /// </returns>
-    public static string GetCommandTextReplaced(string commandText)
+    [NotNull]
+    public static string GetCommandTextReplaced([NotNull] string commandText)
     {
       commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
       commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
@@ -200,54 +251,7 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// A method to handle custom scripts execution tags 
-    /// </summary>
-    /// <param name="scriptChunk">Input string</param>
-    /// <param name="versionSQL">SQL server version as ushort</param>
-    /// <returns>Returns an empty string if condition was not and cleanedfrom tags string if was.</returns>
-    public static string CleanForSQLServerVersion(string scriptChunk, ushort versionSQL)
-    {
-        if (!scriptChunk.Contains("#IFSRVVER")) 
-        {
-            return scriptChunk;
-        }
-        else
-        {
-            int indSign =  scriptChunk.IndexOf("#IFSRVVER") + 9;
-            string temp = scriptChunk.Substring(indSign);
-            int indEnd = temp.IndexOf("#");
-            int indEqual = temp.IndexOf("=");
-            int indMore = temp.IndexOf(">");
-
-            if (indEqual >= 0 && indEqual < indEnd)
-            {            
-                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indEqual + 1, indEnd - indEqual - 1).Trim());
-                if (versionSQL == indVerEnd)
-                {
-                    return scriptChunk.Substring(indEnd + indSign + 1);
-                }             
-               
-            }
-            if (indMore >= 0 && indMore < indEnd)
-            {
-
-                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indMore + 1, indEnd - indMore - 1).Trim());
-                if (versionSQL > indVerEnd)
-                {
-                    return scriptChunk.Substring(indEnd + indSign + 1);
-                }
-
-            }
-            
-            return string.Empty;
-
-        }       
-
-       
-    }
-
-    /// <summary>
-    /// Creates a Connection String from the parameters. 
+    /// Creates a Connection String from the parameters.
     /// </summary>
     /// <param name="parm1">
     /// </param>
@@ -295,16 +299,16 @@ namespace YAF.Classes.Data
     /// The get connection string.
     /// </returns>
     public static string GetConnectionString(
-      string parm1, 
-      string parm2, 
-      string parm3, 
-      string parm4, 
-      string parm5, 
-      string parm6, 
-      string parm7, 
-      string parm8, 
-      string parm9, 
-      string parm10, 
+      [NotNull] string parm1, 
+      [NotNull] string parm2, 
+      [NotNull] string parm3, 
+      [NotNull] string parm4, 
+      [NotNull] string parm5, 
+      [NotNull] string parm6, 
+      [NotNull] string parm7, 
+      [NotNull] string parm8, 
+      [NotNull] string parm9, 
+      [NotNull] string parm10, 
       bool parm11, 
       bool parm12, 
       bool parm13, 
@@ -314,8 +318,8 @@ namespace YAF.Classes.Data
       bool parm17, 
       bool parm18, 
       bool parm19, 
-      string userID, 
-      string userPassword)
+      [NotNull] string userID, 
+      [NotNull] string userPassword)
     {
       // TODO: Parameters should be in a List<ConnectionParameters>
       var connBuilder = new SqlConnectionStringBuilder { DataSource = parm1, InitialCatalog = parm2 };
@@ -342,7 +346,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns qualified object name of format {databaseOwner}.{objectQualifier}name
     /// </returns>
-    public static string GetObjectName(string name)
+    public static string GetObjectName([NotNull] string name)
     {
       return "[{0}].[{1}{2}]".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
     }
@@ -356,17 +360,17 @@ namespace YAF.Classes.Data
     /// <returns>
     /// true if successfully connected
     /// </returns>
-    public static bool TestConnection(out string exceptionMessage)
+    public static bool TestConnection([NotNull] out string exceptionMessage)
     {
       exceptionMessage = string.Empty;
       bool success = false;
 
       try
       {
-        using (YafDBConnManager connection = Current.GetConnectionManager())
+        using (var connection = Current.GetConnectionManager())
         {
           // attempt to connect to the db...
-          SqlConnection conn = connection.OpenDBConnection;
+          var conn = connection.OpenDBConnection;
         }
 
         // success
@@ -382,25 +386,16 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// The get connection manager.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    public YafDBConnManager GetConnectionManager()
-    {
-      return (YafDBConnManager)Activator.CreateInstance(this._connectionManagerType);
-    }
-
-    /// <summary>
     /// Change the Connection Manager used in all DB operations.
     /// </summary>
-    /// <typeparam name="T">
+    /// <typeparam name="TManager">
     /// </typeparam>
-    public void SetConnectionManagerAdapter<T>()
+    public void SetConnectionManagerAdapter<TManager>()
+      where TManager : IDbConnectionManager
     {
-      Type newConnectionManager = typeof(T);
+      Type newConnectionManager = typeof(TManager);
 
-      if (typeof(IYafDBConnManager).IsAssignableFrom(newConnectionManager))
+      if (typeof(IDbConnectionManager).IsAssignableFrom(newConnectionManager))
       {
         this._connectionManagerType = newConnectionManager;
       }
@@ -410,22 +405,7 @@ namespace YAF.Classes.Data
 
     #region Implemented Interfaces
 
-    #region IYafDBAccess
-
-    /// <summary>
-    /// Executes a NonQuery
-    /// </summary>
-    /// <param name="cmd">
-    /// NonQuery to execute
-    /// </param>
-    /// <remarks>
-    /// Without transaction
-    /// </remarks>
-    public void ExecuteNonQuery(SqlCommand cmd)
-    {
-      // defaults to using a transaction for non-queries
-      this.ExecuteNonQuery(cmd, true);
-    }
+    #region IDbAccess
 
     /// <summary>
     /// The execute non query.
@@ -436,19 +416,19 @@ namespace YAF.Classes.Data
     /// <param name="transaction">
     /// The transaction.
     /// </param>
-    public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
+    public void ExecuteNonQuery([NotNull] IDbCommand cmd, bool transaction)
     {
-      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
+      using (var qc = new QueryCounter(cmd.CommandText))
       {
-        using (YafDBConnManager connMan = this.GetConnectionManager())
+        using (var connectionManager = this.GetConnectionManager())
         {
           // get an open connection
-          cmd.Connection = connMan.OpenDBConnection;
+          cmd.Connection = connectionManager.OpenDBConnection;
 
           if (transaction)
           {
             // execute using a transaction
-            using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+            using (var trans = connectionManager.OpenDBConnection.BeginTransaction(_isolationLevel))
             {
               cmd.Transaction = trans;
               cmd.ExecuteNonQuery();
@@ -470,40 +450,25 @@ namespace YAF.Classes.Data
     /// <param name="cmd">
     /// The cmd.
     /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    public object ExecuteScalar(SqlCommand cmd)
-    {
-      // default to using a transaction for scaler commands
-      return this.ExecuteScalar(cmd, true);
-    }
-
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
     /// <param name="transaction">
     /// The transaction.
     /// </param>
     /// <returns>
     /// The execute scalar.
     /// </returns>
-    public object ExecuteScalar(SqlCommand cmd, bool transaction)
+    public object ExecuteScalar([NotNull] IDbCommand cmd, bool transaction)
     {
-      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
+      using (var qc = new QueryCounter(cmd.CommandText))
       {
-        using (YafDBConnManager connMan = this.GetConnectionManager())
+        using (var connectionManager = this.GetConnectionManager())
         {
           // get an open connection
-          cmd.Connection = connMan.OpenDBConnection;
+          cmd.Connection = connectionManager.OpenDBConnection;
 
           if (transaction)
           {
             // get scalar using a transaction
-            using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+            using (var trans = connectionManager.OpenDBConnection.BeginTransaction(_isolationLevel))
             {
               cmd.Transaction = trans;
               object results = cmd.ExecuteScalar();
@@ -521,20 +486,14 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Gets data out of the database
+    /// The get connection manager.
     /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
     /// <returns>
-    /// DataTable with the results
     /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    public DataTable GetData(SqlCommand cmd)
+    [CanBeNull]
+    public IDbConnectionManager GetConnectionManager()
     {
-      return GetData(cmd, false);
+      return Activator.CreateInstance(this._connectionManagerType).ToClass<IDbConnectionManager>();
     }
 
     /// <summary>
@@ -548,29 +507,12 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public DataTable GetData(SqlCommand cmd, bool transaction)
+    public DataTable GetData([NotNull] IDbCommand cmd, bool transaction)
     {
-      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
+      using (var qc = new QueryCounter(cmd.CommandText))
       {
         return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], cmd.CommandText);
       }
-    }
-
-    /// <summary>
-    /// Gets data out of database using a plain text string command
-    /// </summary>
-    /// <param name="commandText">
-    /// command text to be executed
-    /// </param>
-    /// <returns>
-    /// DataTable with results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    public DataTable GetData(string commandText)
-    {
-      return GetData(commandText, false);
     }
 
     /// <summary>
@@ -584,9 +526,9 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public DataTable GetData(string commandText, bool transaction)
+    public DataTable GetData([NotNull] string commandText, bool transaction)
     {
-      using (QueryCounter qc = new QueryCounter(commandText))
+      using (var qc = new QueryCounter(commandText))
       {
         using (var cmd = new SqlCommand())
         {
@@ -595,23 +537,6 @@ namespace YAF.Classes.Data
           return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], commandText);
         }
       }
-    }
-
-    /// <summary>
-    /// Gets a whole dataset out of the database
-    /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
-    /// <returns>
-    /// Dataset with the results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    public DataSet GetDataset(SqlCommand cmd)
-    {
-      return this.GetDataset(cmd, false);
     }
 
     /// <summary>
@@ -625,9 +550,10 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public DataSet GetDataset(SqlCommand cmd, bool transaction)
+    [NotNull]
+    public DataSet GetDataset([NotNull] IDbCommand cmd, bool transaction)
     {
-      using (QueryCounter qc = new QueryCounter(cmd.CommandText))
+      using (var qc = new QueryCounter(cmd.CommandText))
       {
         return this.GetDatasetBasic(cmd, transaction);
       }
@@ -640,30 +566,6 @@ namespace YAF.Classes.Data
     #region Methods
 
     /// <summary>
-    /// Process a <see cref="DataTable"/> using Result Filters.
-    /// </summary>
-    /// <param name="dataTable">data table to process</param>
-    /// <param name="sqlCommand"></param>
-    /// <returns></returns>
-    private DataTable ProcessUsingResultFilters(DataTable dataTable, string sqlCommand)
-    {
-      string commandCleaned =
-        sqlCommand.Replace("[{0}].[{1}".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier), String.Empty);
-
-      if (commandCleaned.EndsWith("]"))
-      {
-        // remove last character
-        commandCleaned = commandCleaned.Substring(0, commandCleaned.Length - 1);
-      }
-
-      // sort filters and process each one...
-      this.ResultFilterList.OrderBy(x => x.Rank).ToList().ForEach(i => i.Process(ref dataTable, commandCleaned));
-
-      // return possibility modified dataTable
-      return dataTable;
-    }
-
-    /// <summary>
     /// Used internally to get data for all the other functions
     /// </summary>
     /// <param name="cmd">
@@ -672,14 +574,15 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    private DataSet GetDatasetBasic(SqlCommand cmd, bool transaction)
+    [NotNull]
+    private DataSet GetDatasetBasic([NotNull] IDbCommand cmd, bool transaction)
     {
-      using (YafDBConnManager connMan = this.GetConnectionManager())
+      using (var connectionManager = this.GetConnectionManager())
       {
         // see if an existing connection is present
         if (cmd.Connection == null)
         {
-          cmd.Connection = connMan.OpenDBConnection;
+          cmd.Connection = connectionManager.OpenDBConnection;
         }
         else if (cmd.Connection != null && cmd.Connection.State != ConnectionState.Open)
         {
@@ -691,17 +594,17 @@ namespace YAF.Classes.Data
         {
           using (var da = new SqlDataAdapter())
           {
-            da.SelectCommand = cmd;
-            da.SelectCommand.Connection = cmd.Connection;
+            da.SelectCommand = (SqlCommand)cmd;
+            da.SelectCommand.Connection = (SqlConnection)cmd.Connection;
 
             // use a transaction
             if (transaction)
             {
-              using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+              using (var trans = connectionManager.OpenDBConnection.BeginTransaction(_isolationLevel))
               {
                 try
                 {
-                  da.SelectCommand.Transaction = trans;
+                  da.SelectCommand.Transaction = (SqlTransaction)trans;
                   da.Fill(ds);
                 }
                 finally
@@ -721,6 +624,34 @@ namespace YAF.Classes.Data
           }
         }
       }
+    }
+
+    /// <summary>
+    /// Process a <see cref="DataTable"/> using Result Filters.
+    /// </summary>
+    /// <param name="dataTable">
+    /// data table to process
+    /// </param>
+    /// <param name="sqlCommand">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    private DataTable ProcessUsingResultFilters([NotNull] DataTable dataTable, [NotNull] string sqlCommand)
+    {
+      string commandCleaned =
+        sqlCommand.Replace("[{0}].[{1}".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier), String.Empty);
+
+      if (commandCleaned.EndsWith("]"))
+      {
+        // remove last character
+        commandCleaned = commandCleaned.Substring(0, commandCleaned.Length - 1);
+      }
+
+      // sort filters and process each one...
+      this.ResultFilterList.OrderBy(x => x.Rank).ToList().ForEach(i => i.Process(ref dataTable, commandCleaned));
+
+      // return possibility modified dataTable
+      return dataTable;
     }
 
     #endregion

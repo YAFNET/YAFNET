@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\HttpSessionStateBase.cs" />
     <Compile Include="CaptchaImage.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Extensions\HtmlWriterExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
@@ -71,10 +71,8 @@
     <Compile Include="Helpers\StringUtils\Unidecoder.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
-    <Compile Include="Abstractions\HttpRequestIsSecure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security.cs" />
-    <Compile Include="Abstractions\SimpleBaseContext.cs" />
     <Compile Include="SimpleURLParameterParser.cs" />
     <Compile Include="Structures\DoubleLinkedList.cs" />
     <Compile Include="Structures\MostRecentlyUsed.cs" />

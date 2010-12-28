@@ -23,6 +23,7 @@ namespace YAF.Classes
   using System;
 
   using YAF.Classes.Pattern;
+  using YAF.Types;
   using YAF.Types.Interfaces;
 
   #endregion
