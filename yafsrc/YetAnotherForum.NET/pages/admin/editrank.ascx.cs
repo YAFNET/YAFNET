@@ -20,20 +20,58 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.IO;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// Summary description for editgroup.
   /// </summary>
   public partial class editrank : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_ranks);
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -43,22 +81,23 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Ranks", string.Empty);
 
-        BindData();
-        if (Request.QueryString.GetFirstOrDefault("r") != null)
+        this.BindData();
+        if (this.Request.QueryString.GetFirstOrDefault("r") != null)
         {
-          using (DataTable dt = DB.rank_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("r")))
+          using (
+            DataTable dt = DB.rank_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("r")))
           {
             DataRow row = dt.Rows[0];
             var flags = new RankFlags(row["Flags"]);
-            this.Name.Text = (string) row["Name"];
+            this.Name.Text = (string)row["Name"];
             this.IsStart.Checked = flags.IsStart;
             this.IsLadder.Checked = flags.IsLadder;
             this.MinPosts.Text = row["MinPosts"].ToString();
@@ -76,7 +115,8 @@ namespace YAF.Pages.Admin
             if (item != null)
             {
               item.Selected = true;
-              this.Preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, row["RankImage"]); // path corrected
+              this.Preview.Src = "{0}{1}/{2}".FormatWith(
+                YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, row["RankImage"]); // path corrected
             }
             else
             {
@@ -90,7 +130,87 @@ namespace YAF.Pages.Admin
         }
       }
 
-      this.RankImage.Attributes["onchange"] = "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Parent.ID);
+      this.RankImage.Attributes["onchange"] =
+        "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value".FormatWith(
+          YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Parent.ID);
+    }
+
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+        return;
+      }
+
+      if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("Rank Priority should be small integer.");
+        return;
+      }
+
+      if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
+        return;
+      }
+
+      if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
+        return;
+      }
+
+      if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
+        return;
+      }
+
+      // Group
+      int RankID = 0;
+      if (this.Request.QueryString.GetFirstOrDefault("r") != null)
+      {
+        RankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
+      }
+
+      object rankImage = null;
+      if (this.RankImage.SelectedIndex > 0)
+      {
+        rankImage = this.RankImage.SelectedValue;
+      }
+
+      DB.rank_save(
+        RankID, 
+        this.PageContext.PageBoardID, 
+        this.Name.Text, 
+        this.IsStart.Checked, 
+        this.IsLadder.Checked, 
+        this.MinPosts.Text, 
+        rankImage, 
+        Convert.ToInt32(this.PMLimit.Text.Trim()), 
+        this.Style.Text.Trim(), 
+        this.RankPriority.Text.Trim(), 
+        this.Description.Text, 
+        Convert.ToInt32(this.UsrSigChars.Text.Trim()), 
+        this.UsrSigBBCodes.Text.Trim(), 
+        this.UsrSigHTMLTags.Text.Trim(), 
+        Convert.ToInt32(this.UsrAlbums.Text.Trim()), 
+        Convert.ToInt32(this.UsrAlbumImages.Text.Trim()));
+
+      // Clearing cache with old permisssions data...
+      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+
+      YafBuildLink.Redirect(ForumPages.admin_ranks);
     }
 
     /// <summary>
@@ -109,7 +229,9 @@ namespace YAF.Pages.Admin
         dr["Description"] = "Select Rank Image";
         dt.Rows.Add(dr);
 
-        var dir = new DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
+        var dir =
+          new DirectoryInfo(
+            this.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
         FileInfo[] files = dir.GetFiles("*.*");
         long nFileID = 1;
         foreach (FileInfo file in files)
@@ -132,116 +254,12 @@ namespace YAF.Pages.Admin
         this.RankImage.DataTextField = "Description";
       }
 
-      DataBind();
-    }
-
-    /// <summary>
-    /// The cancel_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_ranks);
-    }
-
-    /// <summary>
-    /// The save_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-      if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
-      {
-        PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
-        return;
-      }
-
-      if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
-      {
-        PageContext.AddLoadMessage("Rank Priority should be small integer.");
-        return;
-      }
-      if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
-      {
-          PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
-          return;
-      }
-      if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
-      {
-          PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
-          return;
-      }
-      if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
-      {
-          PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
-          return;
-      }
-
-      // Group
-      int RankID = 0;
-      if (Request.QueryString.GetFirstOrDefault("r") != null)
-      {
-        RankID = int.Parse(Request.QueryString.GetFirstOrDefault("r"));
-      }
-
-      object rankImage = null;
-      if (this.RankImage.SelectedIndex > 0)
-      {
-        rankImage = this.RankImage.SelectedValue;
-      }
-
-      DB.rank_save(
-        RankID, 
-        PageContext.PageBoardID, 
-        this.Name.Text, 
-        this.IsStart.Checked, 
-        this.IsLadder.Checked, 
-        this.MinPosts.Text, 
-        rankImage, 
-        Convert.ToInt32(this.PMLimit.Text.Trim()), 
-        this.Style.Text.Trim(), 
-        this.RankPriority.Text.Trim(),
-        this.Description.Text,
-        Convert.ToInt32(this.UsrSigChars.Text.Trim()),
-        this.UsrSigBBCodes.Text.Trim(),
-        this.UsrSigHTMLTags.Text.Trim(),
-        Convert.ToInt32(this.UsrAlbums.Text.Trim()),
-        Convert.ToInt32(this.UsrAlbumImages.Text.Trim()));
-
-      // Clearing cache with old permisssions data...
-      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
-     
-      YafBuildLink.Redirect(ForumPages.admin_ranks);
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
+      this.DataBind();
     }
 
     /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {

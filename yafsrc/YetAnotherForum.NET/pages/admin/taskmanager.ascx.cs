@@ -20,38 +20,24 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for prune.
   /// </summary>
   public partial class taskmanager : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Task Manager", string.Empty);
-      }
-
-      this.BindData();
-    }
+    #region Methods
 
     /// <summary>
     /// binds data for this control
@@ -60,7 +46,7 @@ namespace YAF.Pages.Admin
     {
       this.lblTaskCount.Text = YafTaskModule.Current.TaskCount.ToString();
       this.taskRepeater.DataSource = YafTaskModule.Current.TaskManagerSnapshot;
-      this.taskRepeater.DataBind();      
+      this.taskRepeater.DataBind();
     }
 
     /// <summary>
@@ -80,11 +66,34 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Task Manager", string.Empty);
+      }
+
+      this.BindData();
+    }
+
+    /// <summary>
     /// Called on a command in the task repeater.
     /// </summary>
-    /// <param name="source"></param>
-    /// <param name="e"></param>
-    protected void taskRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+    /// <param name="source">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    protected void taskRepeater_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName.Equals("stop"))
       {
@@ -95,5 +104,7 @@ namespace YAF.Pages.Admin
         this.BindData();
       }
     }
+
+    #endregion
   }
 }

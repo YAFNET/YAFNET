@@ -23,13 +23,14 @@ namespace YAF.Pages
 
   using System;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Utilities;
+  using YAF.Utils;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The cp_editbuddies.
@@ -39,7 +40,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the cp_editbuddies class.
+    ///   Initializes a new instance of the cp_editbuddies class.
     /// </summary>
     public cp_editbuddies()
       : base("CP_EDITBUDDIES")
@@ -56,16 +57,17 @@ namespace YAF.Pages
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJQueryUI();
+      // setup jQuery and Jquery Ui Tabs.
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
 
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "yafBuddiesTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID, false));
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "yafBuddiesTabsJs", 
+        JavaScriptBlocks.JqueryUITabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID, false));
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -75,7 +77,7 @@ namespace YAF.Pages
     /// </param>
     /// <param name="e">
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.IsPostBack)
       {
@@ -109,7 +111,7 @@ namespace YAF.Pages
     /// <param name="mode">
     /// The mode of this BuddyList.
     /// </param>
-    private void InitializeBuddyList(BuddyList customBuddyList, int mode)
+    private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode)
     {
       customBuddyList.CurrentUserID = this.PageContext.PageUserID;
       customBuddyList.Mode = mode;

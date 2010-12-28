@@ -28,11 +28,12 @@ namespace YAF.Pages
   using System.Web;
   using System.Web.Security;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -44,7 +45,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="im_email"/> class.
+    ///   Initializes a new instance of the <see cref = "im_email" /> class.
     /// </summary>
     public im_email()
       : base("IM_EMAIL")
@@ -56,7 +57,7 @@ namespace YAF.Pages
     #region Properties
 
     /// <summary>
-    /// Gets UserID.
+    ///   Gets UserID.
     /// </summary>
     public int UserID
     {

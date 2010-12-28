@@ -20,26 +20,38 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Collections.Specialized;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// Primary administrator interface for groups/roles editing.
   /// </summary>
   public partial class groups : AdminPage
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// Temporary storage of un-linked provider roles.
+    ///   Temporary storage of un-linked provider roles.
     /// </summary>
     private readonly StringCollection _availableRoles = new StringCollection();
 
-    #region Construcotrs & Overridden Methods
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -47,7 +59,7 @@ namespace YAF.Pages.Admin
     protected override void CreatePageLinks()
     {
       // forum index
-      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // admin index
       this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -55,36 +67,6 @@ namespace YAF.Pages.Admin
       // roles
       this.PageLinks.AddLink("Roles", string.Empty);
     }
-
-    #endregion
-
-    #region Event Handlers
-
-    /// <summary>
-    /// Handles page load event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
-      {
-        // create page links
-        CreatePageLinks();
-
-        // sync roles just in case...
-        RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
-
-        // bind data
-        BindData();
-      }
-    }
-
 
     /// <summary>
     /// Handles load event for delete button, adds confirmation dialog.
@@ -95,11 +77,124 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ControlHelper.AddOnClickConfirmDialog(sender, "Delete this Role?");
     }
 
+    /// <summary>
+    /// Get status of provider role vs YAF roles.
+    /// </summary>
+    /// <param name="currentRow">
+    /// Data row which contains data about role.
+    /// </param>
+    /// <returns>
+    /// String "Linked" when role is linked to YAF roles, "Unlinkable" otherwise.
+    /// </returns>
+    [NotNull]
+    protected string GetLinkedStatus([NotNull] DataRowView currentRow)
+    {
+      // check whether role is Guests role, which can't be linked
+      if (currentRow["Flags"].BinaryAnd(2))
+      {
+        return "Unlinkable";
+      }
+      else
+      {
+        return "Linked";
+      }
+    }
+
+    /// <summary>
+    /// Handles click on new role button
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void NewGroup_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // redirect to new role page
+      YafBuildLink.Redirect(ForumPages.admin_editgroup);
+    }
+
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // this needs to be done just once, not during postbacks
+      if (!this.IsPostBack)
+      {
+        // create page links
+        this.CreatePageLinks();
+
+        // sync roles just in case...
+        RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
+
+        // bind data
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// Handles provider roles additing/deletetion.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RoleListNet_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+      // detect which command are we handling
+      switch (e.CommandName)
+      {
+        case "add":
+
+          // save role and get its ID
+          int _initialPMessages = 0;
+          long groupID = DB.group_save(
+            DBNull.Value, 
+            this.PageContext.PageBoardID, 
+            e.CommandArgument.ToString(), 
+            false, 
+            false, 
+            false, 
+            false, 
+            1, 
+            _initialPMessages, 
+            null, 
+            100, 
+            null, 
+            0, 
+            null, 
+            null, 
+            0, 
+            0);
+
+          // redirect to newly created role
+          YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupID);
+          break;
+        case "delete":
+
+          // delete role from provider data
+          RoleMembershipHelper.DeleteRole(e.CommandArgument.ToString(), false);
+
+          // re-bind data
+          this.BindData();
+          break;
+      }
+    }
 
     /// <summary>
     /// Handles role editing/deletion buttons.
@@ -110,7 +205,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RoleListYaf_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void RoleListYaf_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       // detect which command are we handling
       switch (e.CommandName)
@@ -126,69 +221,13 @@ namespace YAF.Pages.Admin
           DB.group_delete(e.CommandArgument);
 
           // remove cache of forum moderators
-          PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
           // re-bind data
-          BindData();
+          this.BindData();
           break;
       }
     }
-
-
-    /// <summary>
-    /// Handles provider roles additing/deletetion.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void RoleListNet_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      // detect which command are we handling
-      switch (e.CommandName)
-      {
-        case "add":
-
-          // save role and get its ID
-          int _initialPMessages = 0;          
-          long groupID = DB.group_save(
-            DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1, _initialPMessages, null, 100,null,0,null,null,0,0);
-
-          // redirect to newly created role
-          YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupID);
-          break;
-        case "delete":
-
-          // delete role from provider data
-          RoleMembershipHelper.DeleteRole(e.CommandArgument.ToString(), false);
-
-          // re-bind data
-          BindData();
-          break;
-      }
-    }
-
-
-    /// <summary>
-    /// Handles click on new role button
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void NewGroup_Click(object sender, EventArgs e)
-    {
-      // redirect to new role page
-      YafBuildLink.Redirect(ForumPages.admin_editgroup);
-    }
-
-    #endregion
-
-    #region Data Binding & Formatting
 
     /// <summary>
     /// Bind data for this control.
@@ -196,7 +235,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       // list roles of this board
-      DataTable dt = DB.group_list(PageContext.PageBoardID, null);
+      DataTable dt = DB.group_list(this.PageContext.PageBoardID, null);
 
       // set repeater datasource
       this.RoleListYaf.DataSource = dt;
@@ -234,30 +273,7 @@ namespace YAF.Pages.Admin
       }
 
       // bind data to controls
-      DataBind();
-    }
-
-
-    /// <summary>
-    /// Get status of provider role vs YAF roles.
-    /// </summary>
-    /// <param name="currentRow">
-    /// Data row which contains data about role.
-    /// </param>
-    /// <returns>
-    /// String "Linked" when role is linked to YAF roles, "Unlinkable" otherwise.
-    /// </returns>
-    protected string GetLinkedStatus(DataRowView currentRow)
-    {
-      // check whether role is Guests role, which can't be linked
-      if (currentRow["Flags"].BinaryAnd(2))
-      {
-        return "Unlinkable";
-      }
-      else
-      {
-        return "Linked";
-      }
+      this.DataBind();
     }
 
     #endregion

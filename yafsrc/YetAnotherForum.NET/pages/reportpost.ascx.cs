@@ -25,11 +25,12 @@ namespace YAF.Pages
   using System.Data;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
-  using YAF.Editors;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -42,16 +43,16 @@ namespace YAF.Pages
     #region Constants and Fields
 
     /// <summary>
-    /// To save messageid value.
+    ///   To save messageid value.
     /// </summary>
-    private int messageID = 0;
+    private int messageID;
 
     // message body editor
 
     /// <summary>
-    /// The _editor.
+    ///   The _editor.
     /// </summary>
-    private BaseForumEditor reportEditor;
+    private ForumEditor reportEditor;
 
     #endregion
 
@@ -59,7 +60,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the ReportPost class.
+    ///   Initializes a new instance of the ReportPost class.
     /// </summary>
     public ReportPost()
       : base("REPORTPOST")
@@ -79,7 +80,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void BtnCancel_Click(object sender, EventArgs e)
+    protected void BtnCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Redirect to reported post
       this.RedirectToPost();
@@ -94,18 +95,19 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void BtnReport_Click(object sender, EventArgs e)
+    protected void BtnReport_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.reportEditor.Text.Length > PageContext.BoardSettings.MaxReportPostChars)
-        {
-            this.IncorrectReportLabel.Text = PageContext.Localization.GetTextFormatted("REPORTTEXT_TOOLONG", PageContext.BoardSettings.MaxReportPostChars);
-            this.IncorrectReportLabel.DataBind();
-            return;
-        }
+      if (this.reportEditor.Text.Length > this.PageContext.BoardSettings.MaxReportPostChars)
+      {
+        this.IncorrectReportLabel.Text = this.PageContext.Localization.GetTextFormatted(
+          "REPORTTEXT_TOOLONG", this.PageContext.BoardSettings.MaxReportPostChars);
+        this.IncorrectReportLabel.DataBind();
+        return;
+      }
 
       // Save the reported message
       DB.message_report(this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
-      
+
       // Redirect to reported post
       this.RedirectToPost();
     }
@@ -121,11 +123,11 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Init(object sender, EventArgs e)
+    protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
       // create editor based on administrator's settings
       this.reportEditor =
-        YafContext.Current.EditorModuleManager.GetEditorInstance(YafContext.Current.BoardSettings.ForumEditor);
+        YafContext.Current.EditorModuleManager.GetBy(YafContext.Current.BoardSettings.ForumEditor);
 
       // add editor to the page
       this.EditorLine.Controls.Add(this.reportEditor);
@@ -140,7 +142,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // set attributes of editor
       this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
@@ -179,7 +181,8 @@ namespace YAF.Pages
 
         // Get Forum Link
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.btnReport.Attributes.Add("onclick", "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
+        this.btnReport.Attributes.Add(
+          "onclick", "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
       }
     }
 

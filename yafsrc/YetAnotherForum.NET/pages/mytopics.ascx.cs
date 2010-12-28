@@ -4,13 +4,13 @@ namespace YAF.Pages
 
   using System;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Utilities;
+  using YAF.Utils;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The mytopics.
@@ -37,16 +37,16 @@ namespace YAF.Pages
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJQueryUI();
+      // setup jQuery and Jquery Ui Tabs.
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
 
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "TopicsTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.TopicsTabs.ClientID, this.hidLastTab.ClientID, false));
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "TopicsTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.TopicsTabs.ClientID, this.hidLastTab.ClientID, false));
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -62,8 +62,8 @@ namespace YAF.Pages
     {
       if (!this.IsPostBack)
       {
-          this.FavoriteTopicsTabTitle.Visible = !this.PageContext.IsGuest;
-          this.FavoriteTopicsTabContent.Visible = !this.PageContext.IsGuest;
+        this.FavoriteTopicsTabTitle.Visible = !this.PageContext.IsGuest;
+        this.FavoriteTopicsTabContent.Visible = !this.PageContext.IsGuest;
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         if (this.PageContext.IsGuest)

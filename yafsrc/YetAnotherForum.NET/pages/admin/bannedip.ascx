@@ -1,5 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.bannedip" Codebehind="bannedip.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
+<%@ Import Namespace="YAF.Core"%>
+<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 		<asp:Repeater ID="list" runat="server" OnItemCommand="list_ItemCommand">

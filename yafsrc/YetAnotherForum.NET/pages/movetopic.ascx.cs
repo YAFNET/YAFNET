@@ -21,24 +21,76 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for movetopic.
   /// </summary>
   public partial class movetopic : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="movetopic"/> class.
+    ///   Initializes a new instance of the <see cref = "movetopic" /> class.
     /// </summary>
     public movetopic()
       : base("MOVETOPIC")
     {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The move_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (Convert.ToInt32(this.ForumList.SelectedValue) <= 0)
+      {
+        this.PageContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"));
+        return;
+      }
+
+      // only move if it's a destination is a different forum.
+      if (Convert.ToInt32(this.ForumList.SelectedValue) != this.PageContext.PageForumID)
+      {
+        // Ederon : 7/14/2007
+        DB.topic_move(this.PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
+      }
+
+      YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
     }
 
     /// <summary>
@@ -50,34 +102,37 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (Request.QueryString.GetFirstOrDefault("t") == null || !PageContext.ForumModeratorAccess)
+      if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumModeratorAccess)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        if (PageContext.Settings.LockedForum == 0)
+        if (this.PageContext.Settings.LockedForum == 0)
         {
-          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(
+            this.PageContext.PageCategoryName, 
+            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
         }
 
-        this.PageLinks.AddForumLinks(PageContext.PageForumID);
-        this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
+        this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+        this.PageLinks.AddLink(
+          this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
-        this.Move.Text = GetText("move");
+        this.Move.Text = this.GetText("move");
 
         // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
-        this.LeavePointer.Checked = PageContext.BoardSettings.ShowMoved;
+        this.LeavePointer.Checked = this.PageContext.BoardSettings.ShowMoved;
 
-        this.ForumList.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
+        this.ForumList.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
 
-        DataBind();
+        this.DataBind();
 
-        ListItem pageItem = this.ForumList.Items.FindByValue(PageContext.PageForumID.ToString());
+        ListItem pageItem = this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString());
         if (pageItem != null)
         {
           pageItem.Selected = true;
@@ -86,50 +141,8 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The move_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Move_Click(object sender, EventArgs e)
-    {
-      if (Convert.ToInt32(this.ForumList.SelectedValue) <= 0)
-      {
-        PageContext.AddLoadMessage(GetText("CANNOT_MOVE_TO_CATEGORY"));
-        return;
-      }
-
-      // only move if it's a destination is a different forum.
-      if (Convert.ToInt32(this.ForumList.SelectedValue) != PageContext.PageForumID)
-      {
-        // Ederon : 7/14/2007
-        DB.topic_move(PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
-      }
-
-      YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {

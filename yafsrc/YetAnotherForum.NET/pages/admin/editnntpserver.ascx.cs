@@ -20,18 +20,40 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for editgroup.
   /// </summary>
   public partial class editnntpserver : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_nntpservers);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -41,18 +63,20 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("NNTP Servers", string.Empty);
 
-        BindData();
-        if (Request.QueryString.GetFirstOrDefault("s") != null)
+        this.BindData();
+        if (this.Request.QueryString.GetFirstOrDefault("s") != null)
         {
-          using (DataTable dt = DB.nntpserver_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("s")))
+          using (
+            DataTable dt = DB.nntpserver_list(
+              this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("s")))
           {
             DataRow row = dt.Rows[0];
             this.Name.Text = row["Name"].ToString();
@@ -70,28 +94,6 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      DataBind();
-    }
-
-    /// <summary>
-    /// The cancel_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_nntpservers);
-    }
-
-    /// <summary>
     /// The save_ click.
     /// </summary>
     /// <param name="sender">
@@ -100,29 +102,29 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.Name.Text.Trim().Length == 0)
       {
-        PageContext.AddLoadMessage("Missing server name.");
+        this.PageContext.AddLoadMessage("Missing server name.");
         return;
       }
 
       if (this.Address.Text.Trim().Length == 0)
       {
-        PageContext.AddLoadMessage("Missing server address.");
+        this.PageContext.AddLoadMessage("Missing server address.");
         return;
       }
 
       object nntpServerID = null;
-      if (Request.QueryString.GetFirstOrDefault("s") != null)
+      if (this.Request.QueryString.GetFirstOrDefault("s") != null)
       {
-        nntpServerID = Request.QueryString.GetFirstOrDefault("s");
+        nntpServerID = this.Request.QueryString.GetFirstOrDefault("s");
       }
 
       DB.nntpserver_save(
         nntpServerID, 
-        PageContext.PageBoardID, 
+        this.PageContext.PageBoardID, 
         this.Name.Text, 
         this.Address.Text, 
         this.Port.Text.Length > 0 ? this.Port.Text : null, 
@@ -130,5 +132,15 @@ namespace YAF.Pages.Admin
         this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
       YafBuildLink.Redirect(ForumPages.admin_nntpservers);
     }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.DataBind();
+    }
+
+    #endregion
   }
 }

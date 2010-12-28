@@ -16,17 +16,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Web;
-
 namespace YAF.Pages
 {
   #region Using
 
   using System;
+  using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -38,7 +39,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="forum"/> class.
+    ///   Initializes a new instance of the <see cref = "forum" /> class.
     /// </summary>
     public forum()
       : base("DEFAULT")
@@ -58,44 +59,42 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-       this.PollList.Visible = this.PageContext.BoardSettings.BoardPollID > 0;
-       this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
-       this.PollList.BoardId = this.PageContext.Settings.BoardID;
+      this.PollList.Visible = this.PageContext.BoardSettings.BoardPollID > 0;
+      this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
+      this.PollList.BoardId = this.PageContext.Settings.BoardID;
 
       if (!this.IsPostBack)
       {
-
-          // vzrus: needs testing, potentially can cause problems 
-          if (!(UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent)))
+        // vzrus: needs testing, potentially can cause problems 
+        if (!UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent))
+        {
+          if (!HttpContext.Current.Request.Browser.Cookies)
           {
-              if (!HttpContext.Current.Request.Browser.Cookies)
-              {
-                  YafBuildLink.RedirectInfoPage(InfoMessage.RequiresCookies);
-              }
-
-              Version ecmaVersion = HttpContext.Current.Request.Browser.EcmaScriptVersion;
-
-              if (ecmaVersion != null)
-              {
-                  if (!(ecmaVersion.Major > 0))
-                  {
-                      YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
-                  }
-              }
-              else
-              {
-                  YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
-              }
+            YafBuildLink.RedirectInfoPage(InfoMessage.RequiresCookies);
           }
+
+          Version ecmaVersion = HttpContext.Current.Request.Browser.EcmaScriptVersion;
+
+          if (ecmaVersion != null)
+          {
+            if (!(ecmaVersion.Major > 0))
+            {
+              YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
+            }
+          }
+          else
+          {
+            YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
+          }
+        }
 
         this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
         this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
         this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
-        
-       
-          if (this.PageContext.Settings.LockedForum == 0)
+
+        if (this.PageContext.Settings.LockedForum == 0)
         {
           this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           if (this.PageContext.PageCategoryID != 0)

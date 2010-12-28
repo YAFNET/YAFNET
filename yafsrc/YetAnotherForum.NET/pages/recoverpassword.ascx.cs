@@ -20,31 +20,45 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Data;
   using System.Net.Mail;
   using System.Web.Security;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The recoverpassword.
   /// </summary>
   public partial class recoverpassword : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="recoverpassword"/> class.
+    ///   Initializes a new instance of the <see cref = "recoverpassword" /> class.
     /// </summary>
     public recoverpassword()
       : base("RECOVER_PASSWORD")
     {
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets a value indicating whether IsProtected.
+    ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected
     {
@@ -53,6 +67,10 @@ namespace YAF.Pages
         return false;
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -63,36 +81,41 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
         this.PasswordRecovery1.MembershipProvider = Config.MembershipProvider;
 
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(GetText("TITLE"));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.GetText("TITLE"));
 
         // handle localization
-        var usernameRequired = (RequiredFieldValidator) this.PasswordRecovery1.UserNameTemplateContainer.FindControl("UserNameRequired");
-        var answerRequired = (RequiredFieldValidator) this.PasswordRecovery1.QuestionTemplateContainer.FindControl("AnswerRequired");
+        var usernameRequired =
+          (RequiredFieldValidator)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("UserNameRequired");
+        var answerRequired =
+          (RequiredFieldValidator)this.PasswordRecovery1.QuestionTemplateContainer.FindControl("AnswerRequired");
 
-        usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText("REGISTER", "NEED_USERNAME");
-        answerRequired.ToolTip = answerRequired.ErrorMessage = GetText("REGISTER", "NEED_ANSWER");
+        usernameRequired.ToolTip = usernameRequired.ErrorMessage = this.GetText("REGISTER", "NEED_USERNAME");
+        answerRequired.ToolTip = answerRequired.ErrorMessage = this.GetText("REGISTER", "NEED_ANSWER");
 
-        ((Button) this.PasswordRecovery1.UserNameTemplateContainer.FindControl("SubmitButton")).Text = GetText("SUBMIT");
-        ((Button) this.PasswordRecovery1.QuestionTemplateContainer.FindControl("SubmitButton")).Text = GetText("SUBMIT");
-        ((Button) this.PasswordRecovery1.SuccessTemplateContainer.FindControl("SubmitButton")).Text = GetText("BACK");
+        ((Button)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("SubmitButton")).Text =
+          this.GetText("SUBMIT");
+        ((Button)this.PasswordRecovery1.QuestionTemplateContainer.FindControl("SubmitButton")).Text =
+          this.GetText("SUBMIT");
+        ((Button)this.PasswordRecovery1.SuccessTemplateContainer.FindControl("SubmitButton")).Text = this.GetText(
+          "BACK");
 
-        this.PasswordRecovery1.UserNameFailureText = GetText("USERNAME_FAILURE");
-        this.PasswordRecovery1.GeneralFailureText = GetText("GENERAL_FAILURE");
-        this.PasswordRecovery1.QuestionFailureText = GetText("QUESTION_FAILURE");
+        this.PasswordRecovery1.UserNameFailureText = this.GetText("USERNAME_FAILURE");
+        this.PasswordRecovery1.GeneralFailureText = this.GetText("GENERAL_FAILURE");
+        this.PasswordRecovery1.QuestionFailureText = this.GetText("QUESTION_FAILURE");
 
-        DataBind();
+        this.DataBind();
       }
     }
 
     /// <summary>
-    /// The submit button_ click.
+    /// The password recovery 1_ answer lookup error.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -100,9 +123,24 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SubmitButton_Click(object sender, EventArgs e)
+    protected void PasswordRecovery1_AnswerLookupError([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafBuildLink.Redirect(ForumPages.login);
+      this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"));
+    }
+
+    /// <summary>
+    /// The password recovery 1_ send mail error.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PasswordRecovery1_SendMailError([NotNull] object sender, [NotNull] SendMailErrorEventArgs e)
+    {
+      // it will fail to send the message...
+      e.Handled = true;
     }
 
     /// <summary>
@@ -114,7 +152,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PasswordRecovery1_SendingMail(object sender, MailMessageEventArgs e)
+    protected void PasswordRecovery1_SendingMail([NotNull] object sender, [NotNull] MailMessageEventArgs e)
     {
       // get the username and password from the body
       string body = e.Message.Body;
@@ -140,11 +178,11 @@ namespace YAF.Pages
       // get the e-mail ready from the real template.
       var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-      string subject = GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", PageContext.BoardSettings.Name);
+      string subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
 
       passwordRetrieval.TemplateParams["{username}"] = userName;
       passwordRetrieval.TemplateParams["{password}"] = password;
-      passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+      passwordRetrieval.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
       passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
       passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
@@ -155,7 +193,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The password recovery 1_ send mail error.
+    /// The password recovery 1_ verifying answer.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -163,10 +201,9 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PasswordRecovery1_SendMailError(object sender, SendMailErrorEventArgs e)
+    protected void PasswordRecovery1_VerifyingAnswer([NotNull] object sender, [NotNull] LoginCancelEventArgs e)
     {
-      // it will fail to send the message...
-      e.Handled = true;
+      // needed to handle event
     }
 
     /// <summary>
@@ -178,16 +215,16 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PasswordRecovery1_VerifyingUser(object sender, LoginCancelEventArgs e)
+    protected void PasswordRecovery1_VerifyingUser([NotNull] object sender, [NotNull] LoginCancelEventArgs e)
     {
-      MembershipUser user = PageContext.CurrentMembership.GetUser(this.PasswordRecovery1.UserName, false);
+      MembershipUser user = this.PageContext.CurrentMembership.GetUser(this.PasswordRecovery1.UserName, false);
 
       if (user != null)
       {
         // verify the user is approved, etc...
         if (!user.IsApproved)
         {
-          if (PageContext.BoardSettings.EmailVerification)
+          if (this.PageContext.BoardSettings.EmailVerification)
           {
             // get the hash from the db associated with this user...
             DataTable dt = DB.checkemail_list(user.Email);
@@ -199,22 +236,24 @@ namespace YAF.Pages
               // re-send verification email instead of lost password...
               var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-              string subject = GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name);
+              string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
 
-              verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
+              verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.approve, true, "k={0}", hash);
               verifyEmail.TemplateParams["{key}"] = hash;
-              verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+              verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
               verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
               verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
-              PageContext.LoadMessage.AddSession(PageContext.Localization.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email));
+              this.PageContext.LoadMessage.AddSession(
+                this.PageContext.Localization.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email));
             }
           }
           else
           {
             // explain they are not approved yet...
-            PageContext.LoadMessage.AddSession(PageContext.Localization.GetText("ACCOUNT_NOT_APPROVED"));
+            this.PageContext.LoadMessage.AddSession(this.PageContext.Localization.GetText("ACCOUNT_NOT_APPROVED"));
           }
 
           // just in case cancel the verification...
@@ -227,7 +266,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The password recovery 1_ verifying answer.
+    /// The submit button_ click.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -235,23 +274,11 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PasswordRecovery1_VerifyingAnswer(object sender, LoginCancelEventArgs e)
+    protected void SubmitButton_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // needed to handle event
+      YafBuildLink.Redirect(ForumPages.login);
     }
 
-    /// <summary>
-    /// The password recovery 1_ answer lookup error.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void PasswordRecovery1_AnswerLookupError(object sender, EventArgs e)
-    {
-      PageContext.LoadMessage.AddSession(GetText("QUESTION_FAILURE"));
-    }
+    #endregion
   }
 }

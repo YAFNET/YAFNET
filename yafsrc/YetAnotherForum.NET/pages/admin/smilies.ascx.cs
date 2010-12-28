@@ -20,40 +20,28 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for smilies.
   /// </summary>
   public partial class smilies : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Smilies", string.Empty);
-
-        BindData();
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// The delete_ load.
@@ -64,13 +52,29 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this smiley?')";
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this smiley?')";
     }
 
     /// <summary>
-    /// The pager_ page change.
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      this.Pager.PageChange += this.Pager_PageChange;
+      this.List.ItemCommand += this.List_ItemCommand;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The page_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -78,9 +82,16 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Pager_PageChange(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      BindData();
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Smilies", string.Empty);
+
+        this.BindData();
+      }
     }
 
     /// <summary>
@@ -89,7 +100,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       this.Pager.PageSize = 25;
-      DataView dv = DB.smiley_list(PageContext.PageBoardID, null).DefaultView;
+      DataView dv = DB.smiley_list(this.PageContext.PageBoardID, null).DefaultView;
       this.Pager.Count = dv.Count;
       var pds = new PagedDataSource();
       pds.DataSource = dv;
@@ -97,7 +108,15 @@ namespace YAF.Pages.Admin
       pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
       pds.PageSize = this.Pager.PageSize;
       this.List.DataSource = pds;
-      DataBind();
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
     }
 
     /// <summary>
@@ -109,7 +128,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {
@@ -120,27 +139,27 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_smilies_edit, "s={0}", e.CommandArgument);
           break;
         case "moveup":
-          DB.smiley_resort(PageContext.PageBoardID, e.CommandArgument, -1);
+          DB.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
 
           // invalidate the cache...
-          PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-          BindData();
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+          this.BindData();
           ReplaceRulesCreator.ClearCache();
           break;
         case "movedown":
-          DB.smiley_resort(PageContext.PageBoardID, e.CommandArgument, 1);
+          DB.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
 
           // invalidate the cache...
-          PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-          BindData();
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+          this.BindData();
           ReplaceRulesCreator.ClearCache();
           break;
         case "delete":
           DB.smiley_delete(e.CommandArgument);
 
           // invalidate the cache...
-          PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-          BindData();
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+          this.BindData();
           ReplaceRulesCreator.ClearCache();
           break;
         case "import":
@@ -149,30 +168,18 @@ namespace YAF.Pages.Admin
       }
     }
 
-    #region Web Form Designer generated code
-
     /// <summary>
-    /// The on init.
+    /// The pager_ page change.
     /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    private void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.Pager.PageChange += new EventHandler(Pager_PageChange);
-      this.List.ItemCommand += new RepeaterCommandEventHandler(this.List_ItemCommand);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
+      this.BindData();
     }
 
     #endregion

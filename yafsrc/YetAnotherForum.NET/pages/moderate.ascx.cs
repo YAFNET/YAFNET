@@ -28,12 +28,13 @@ namespace YAF.Pages
   using System.Linq;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
   #endregion
 
@@ -77,7 +78,15 @@ namespace YAF.Pages
     {
       var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
 
-      DataTable dt = DB.topic_list(this.PageContext.PageForumID, null, -1, null, this.PagerTop.CurrentPageIndex * pds.PageSize, pds.PageSize, false, true);
+      DataTable dt = DB.topic_list(
+        this.PageContext.PageForumID, 
+        null, 
+        -1, 
+        null, 
+        this.PagerTop.CurrentPageIndex * pds.PageSize, 
+        pds.PageSize, 
+        false, 
+        true);
       DataView dv = dt.DefaultView;
 
       pds.DataSource = dv;

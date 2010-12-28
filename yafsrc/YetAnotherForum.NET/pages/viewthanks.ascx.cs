@@ -20,103 +20,116 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-    #region Using
+  // YAF.Pages
+  #region Using
 
-    using System;
-    using System.Data;
+  using System;
+  using System.Data;
 
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Data;
-    using YAF.Classes.Utils;
-    using YAF.Controls;
-    using YAF.Utilities;
+  using YAF.Classes.Data;
+  using YAF.Controls;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utilities;
+  using YAF.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for view thanks.
+  /// </summary>
+  public partial class ViewThanks : ForumPage
+  {
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "ViewThanks" /> class. 
+    ///   Initializes a new instance of the viewthanks class.
+    /// </summary>
+    public ViewThanks()
+      : base("VIEWTHANKS")
+    {
+    }
 
     #endregion
 
+    /* Public Methods */
+    #region Public Methods
+
     /// <summary>
-    /// Summary description for view thanks.
+    /// Initializes the ThanksList controls.
     /// </summary>
-    public partial class ViewThanks : ForumPage
+    /// <param name="thanksList">
+    /// The control which is being initialized.
+    /// </param>
+    /// <param name="currentMode">
+    /// the CurrentMode property of the control.
+    /// </param>
+    /// <param name="userID">
+    /// the UserID of the control.
+    /// </param>
+    /// <param name="thanksInfo">
+    /// The Dataview for the control's data.
+    /// </param>
+    public void InitializeThanksList([NotNull] ViewThanksList thanksList, ThanksListMode currentMode, int userID, [NotNull] DataTable thanksInfo)
     {
-        #region Constructors and Destructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ViewThanks"/> class. 
-        /// Initializes a new instance of the viewthanks class.
-        /// </summary>
-        public ViewThanks()
-            : base("VIEWTHANKS")
-        {
-        }
-        #endregion
-        
-        /* Public Methods */
-        #region Public Methods
-        
-        /// <summary>
-        /// Initializes the ThanksList controls.
-        /// </summary>
-        /// <param name="thanksList">The control which is being initialized.</param>
-        /// <param name="currentMode">the CurrentMode property of the control.</param>
-        /// <param name="userID">the UserID of the control.</param>
-        /// <param name="thanksInfo">The Dataview for the control's data.</param>
-        public void InitializeThanksList(ViewThanksList thanksList, ThanksListMode currentMode, int userID, DataTable thanksInfo)
-        {
-            thanksList.CurrentMode = currentMode;
-            thanksList.UserID = userID;
-            thanksList.ThanksInfo = thanksInfo;
-        }
-
-        #endregion
-
-        /* Methods */
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "ThanksTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID, false));
-
-            base.OnPreRender(e);
-        }
-
-        #region Methods
-        /// <summary>
-        /// The Page_ Load Event.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-            string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
-            if (!IsPostBack)
-            {
-                this.PageLinks.Clear();
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : UserMembershipHelper.GetUserNameFromID(userID), YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
-                this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-            }
-
-            DataTable thanksInfo = DB.user_viewallthanks(userID, PageContext.PageUserID);
-            this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
-            this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
-        }
-
-        #endregion
+      thanksList.CurrentMode = currentMode;
+      thanksList.UserID = userID;
+      thanksList.ThanksInfo = thanksInfo;
     }
+
+    #endregion
+
+    /* Methods */
+    #region Methods
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+      // setup jQuery and Jquery Ui Tabs.
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
+
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "ThanksTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID, false));
+
+      base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// The Page_ Load Event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+      string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.Clear();
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayName) ? displayName : UserMembershipHelper.GetUserNameFromID(userID), 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+      }
+
+      DataTable thanksInfo = DB.user_viewallthanks(userID, this.PageContext.PageUserID);
+      this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
+      this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
+    }
+
+    #endregion
+  }
 }

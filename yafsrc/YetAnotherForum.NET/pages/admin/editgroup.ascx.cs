@@ -20,20 +20,66 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// Interface for creating or editing user roles/groups.
   /// </summary>
   public partial class editgroup : AdminPage
   {
-    #region Construcotrs & Overridden Methods
+    #region Methods
+
+    /// <summary>
+    /// Handles databinding event of initial access maks dropdown control.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // get sender object as dropdown list
+      var c = (DropDownList)sender;
+
+      // list all access masks as data source
+      c.DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+
+      // set value and text field names
+      c.DataValueField = "AccessMaskID";
+      c.DataTextField = "Name";
+    }
+
+    /// <summary>
+    /// Handles click on cancel button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // go back to roles administration
+      YafBuildLink.Redirect(ForumPages.admin_groups);
+    }
 
     /// <summary>
     /// Creates page links for this page.
@@ -41,7 +87,7 @@ namespace YAF.Pages.Admin
     protected override void CreatePageLinks()
     {
       // forum index
-      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // admin index
       this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -53,10 +99,6 @@ namespace YAF.Pages.Admin
       this.PageLinks.AddLink("Edit Role");
     }
 
-    #endregion
-
-    #region Event Handlers
-
     /// <summary>
     /// Handles page load event.
     /// </summary>
@@ -66,25 +108,26 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
         // create page links
-        CreatePageLinks();
+        this.CreatePageLinks();
 
         // bind data
-        BindData();
+        this.BindData();
 
         // is this editing of existing role or creation of new one?
-        if (Request.QueryString.GetFirstOrDefault("i") != null)
+        if (this.Request.QueryString.GetFirstOrDefault("i") != null)
         {
           // we are not creating new role
           this.NewGroupRow.Visible = false;
 
           // get data about edited role
-          using (DataTable dt = DB.group_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i")))
+          using (
+            DataTable dt = DB.group_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
           {
             // get it as row
             DataRow row = dt.Rows[0];
@@ -93,7 +136,7 @@ namespace YAF.Pages.Admin
             var flags = new GroupFlags(row["Flags"]);
 
             // set controls to role values
-            this.Name.Text = (string) row["Name"];
+            this.Name.Text = (string)row["Name"];
             this.IsGuestX.Checked = flags.IsGuest;
             this.IsAdminX.Checked = flags.IsAdmin;
             this.IsStartX.Checked = flags.IsStart;
@@ -118,23 +161,6 @@ namespace YAF.Pages.Admin
       }
     }
 
-
-    /// <summary>
-    /// Handles click on cancel button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-      // go back to roles administration
-      YafBuildLink.Redirect(ForumPages.admin_groups);
-    }
-
-
     /// <summary>
     /// Handles click on save button.
     /// </summary>
@@ -144,42 +170,45 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
       {
-        PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+        this.PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
       {
-        PageContext.AddLoadMessage("You should enter integer value for priority.");
+        this.PageContext.AddLoadMessage("You should enter integer value for priority.");
         return;
       }
+
       if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
       {
-          PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
-          return;
+        this.PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
+        return;
       }
+
       if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
       {
-          PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
-          return;
+        this.PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
+        return;
       }
+
       if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
       {
-          PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
-          return;
+        this.PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
+        return;
       }
 
       // Role
       long roleID = 0;
 
       // get role ID from page's parameter
-      if (Request.QueryString.GetFirstOrDefault("i") != null)
+      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
       {
-        roleID = long.Parse(Request.QueryString.GetFirstOrDefault("i"));
+        roleID = long.Parse(this.Request.QueryString.GetFirstOrDefault("i"));
       }
 
       // get new and old name
@@ -202,7 +231,7 @@ namespace YAF.Pages.Admin
       // save role and get its ID if it's new (if it's old role, we get it anyway)
       roleID = DB.group_save(
         roleID, 
-        PageContext.PageBoardID, 
+        this.PageContext.PageBoardID, 
         roleName, 
         this.IsAdminX.Checked, 
         this.IsGuestX.Checked, 
@@ -211,21 +240,20 @@ namespace YAF.Pages.Admin
         this.AccessMaskID.SelectedValue, 
         this.PMLimit.Text.Trim(), 
         this.StyleTextBox.Text.Trim(), 
-        this.Priority.Text.Trim(),
-        this.Description.Text,
-        this.UsrSigChars.Text,
-        this.UsrSigBBCodes.Text,
-        this.UsrSigHTMLTags.Text,
-        this.UsrAlbums.Text.Trim(),
-        this.UsrAlbumImages.Text.Trim()
-        );
-     
+        this.Priority.Text.Trim(), 
+        this.Description.Text, 
+        this.UsrSigChars.Text, 
+        this.UsrSigBBCodes.Text, 
+        this.UsrSigHTMLTags.Text, 
+        this.UsrAlbums.Text.Trim(), 
+        this.UsrAlbumImages.Text.Trim());
 
       // see if need to rename an existing role...
-      if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+      if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) &&
+          !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {
         // transfer users in addition to changing the name of the role...
-        string[] users = PageContext.CurrentRoles.GetUsersInRole(oldRoleName);
+        string[] users = this.PageContext.CurrentRoles.GetUsersInRole(oldRoleName);
 
         // delete the old role...
         RoleMembershipHelper.DeleteRole(oldRoleName, false);
@@ -236,20 +264,20 @@ namespace YAF.Pages.Admin
         if (users.Length > 0)
         {
           // put users into new role...
-          PageContext.CurrentRoles.AddUsersToRoles(users, new[] { roleName });
+          this.PageContext.CurrentRoles.AddUsersToRoles(users, new[] { roleName });
         }
       }
+        
         
         // if role doesn't exist in provider's data source, create it
       else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {
         // simply create it
         RoleMembershipHelper.CreateRole(roleName);
-      }     
-     
-     
+      }
+
       // Access masks for a newly created or an existing role
-      if (Request.QueryString.GetFirstOrDefault("i") != null)
+      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
       {
         // go trhough all forums
         for (int i = 0; i < this.AccessList.Items.Count; i++)
@@ -258,25 +286,24 @@ namespace YAF.Pages.Admin
           RepeaterItem item = this.AccessList.Items[i];
 
           // get forum ID
-          int forumID = int.Parse(((Label) item.FindControl("ForumID")).Text);
+          int forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
 
           // save forum access maks for this role
-          DB.forumaccess_save(forumID, roleID, ((DropDownList) item.FindControl("AccessmaskID")).SelectedValue);
+          DB.forumaccess_save(forumID, roleID, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
         }
 
         YafBuildLink.Redirect(ForumPages.admin_groups);
       }
 
       // remove caching in case something got updated...
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-      
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+
       // Clearing cache with old permissions data...
       this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
 
-     // Done, redirect to role editing page
+      // Done, redirect to role editing page
       YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
     }
-
 
     /// <summary>
     /// Handles pre-render event of each forum's access mask dropdown.
@@ -287,10 +314,10 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SetDropDownIndex(object sender, EventArgs e)
+    protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
     {
       // get dropdown which raised this event
-      var list = (DropDownList) sender;
+      var list = (DropDownList)sender;
 
       // select value from the list
       ListItem item = list.Items.FindByValue(list.Attributes["value"]);
@@ -302,46 +329,19 @@ namespace YAF.Pages.Admin
       }
     }
 
-
-    /// <summary>
-    /// Handles databinding event of initial access maks dropdown control.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void BindData_AccessMaskID(object sender, EventArgs e)
-    {
-      // get sender object as dropdown list
-      var c = (DropDownList) sender;
-
-      // list all access masks as data source
-      c.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
-
-      // set value and text field names
-      c.DataValueField = "AccessMaskID";
-      c.DataTextField = "Name";
-    }
-
-    #endregion
-
-    #region Data Binding & Formatting
-
     /// <summary>
     /// Bind data for this control.
     /// </summary>
     private void BindData()
     {
       // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
-      if (Request.QueryString.GetFirstOrDefault("i") != null)
+      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
       {
-        this.AccessList.DataSource = DB.forumaccess_group(Request.QueryString.GetFirstOrDefault("i"));
+        this.AccessList.DataSource = DB.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
       }
 
       // bind data to controls
-      DataBind();
+      this.DataBind();
     }
 
     #endregion

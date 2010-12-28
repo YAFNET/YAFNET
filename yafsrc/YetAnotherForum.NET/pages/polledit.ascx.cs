@@ -33,9 +33,13 @@ namespace YAF.Pages
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Types.Objects;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 

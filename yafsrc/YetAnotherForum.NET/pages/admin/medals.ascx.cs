@@ -1,30 +1,41 @@
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Text;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// Administration inferface for managing medals.
   /// </summary>
   public partial class medals : AdminPage
   {
-    #region Construcotrs & Overridden Methods
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="medals"/> class. 
-    /// Default constructor.
+    ///   Initializes a new instance of the <see cref = "medals" /> class. 
+    ///   Default constructor.
     /// </summary>
     public medals()
       : base("ADMIN_MEDALS")
     {
     }
 
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -32,7 +43,7 @@ namespace YAF.Pages.Admin
     protected override void CreatePageLinks()
     {
       // forum index
-      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // administration index
       this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -40,33 +51,6 @@ namespace YAF.Pages.Admin
       // currect page
       this.PageLinks.AddLink("Medals", string.Empty);
     }
-
-    #endregion
-
-    #region Event Handlers
-
-    /// <summary>
-    /// Handles page load event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
-      {
-        // create page links
-        CreatePageLinks();
-
-        // bind data
-        BindData();
-      }
-    }
-
 
     /// <summary>
     /// Handles on load event for delete button.
@@ -77,27 +61,10 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ControlHelper.AddOnClickConfirmDialog(sender, "Delete this Medal?");
     }
-
-
-    /// <summary>
-    /// Handles click on new medal button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void NewMedal_Click(object sender, EventArgs e)
-    {
-      // redirect to medal edit page
-      YafBuildLink.Redirect(ForumPages.admin_editmedal);
-    }
-
 
     /// <summary>
     /// Handles item command of medal list repeater.
@@ -108,7 +75,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void MedalList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void MedalList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {
@@ -123,35 +90,55 @@ namespace YAF.Pages.Admin
           DB.medal_delete(e.CommandArgument);
 
           // re-bind data
-          BindData();
+          this.BindData();
           break;
         case "moveup":
-          DB.medal_resort(PageContext.PageBoardID, e.CommandArgument, -1);
-          BindData();
+          DB.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
+          this.BindData();
           break;
         case "movedown":
-          DB.medal_resort(PageContext.PageBoardID, e.CommandArgument, 1);
-          BindData();
+          DB.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
+          this.BindData();
           break;
       }
     }
 
-    #endregion
-
-    #region Data Binding & Formatting
-
     /// <summary>
-    /// Bind data for this control.
+    /// Handles click on new medal button.
     /// </summary>
-    private void BindData()
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void NewMedal_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // list medals for this board
-      this.MedalList.DataSource = DB.medal_list(PageContext.PageBoardID, null);
-
-      // bind data to controls
-      DataBind();
+      // redirect to medal edit page
+      YafBuildLink.Redirect(ForumPages.admin_editmedal);
     }
 
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // this needs to be done just once, not during postbacks
+      if (!this.IsPostBack)
+      {
+        // create page links
+        this.CreatePageLinks();
+
+        // bind data
+        this.BindData();
+      }
+    }
 
     /// <summary>
     /// Formats HTML output to display image representation of a medal.
@@ -162,11 +149,12 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// HTML markup with image representation of a medal.
     /// </returns>
-    protected string RenderImages(object data)
+    [NotNull]
+    protected string RenderImages([NotNull] object data)
     {
       var output = new StringBuilder(250);
 
-      var dr = (DataRowView) data;
+      var dr = (DataRowView)data;
 
       // image of medal
       output.AppendFormat(
@@ -192,6 +180,18 @@ namespace YAF.Pages.Admin
       }
 
       return output.ToString();
+    }
+
+    /// <summary>
+    /// Bind data for this control.
+    /// </summary>
+    private void BindData()
+    {
+      // list medals for this board
+      this.MedalList.DataSource = DB.medal_list(this.PageContext.PageBoardID, null);
+
+      // bind data to controls
+      this.DataBind();
     }
 
     #endregion

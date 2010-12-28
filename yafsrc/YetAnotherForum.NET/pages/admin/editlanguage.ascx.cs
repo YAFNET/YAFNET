@@ -33,11 +33,12 @@ namespace YAF.Pages.Admin
   using System.Xml;
   using System.Xml.XPath;
 
-  using YAF.Classes;
-  using YAF.Controls;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Classes.Data;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -74,7 +75,7 @@ namespace YAF.Pages.Admin
     private string sXmlFile;
 
     /// <summary>
-    /// The translations.
+    ///   The translations.
     /// </summary>
     private List<Translation> translations = new List<Translation>();
 
@@ -132,8 +133,7 @@ namespace YAF.Pages.Admin
         list.Where(
           item1 =>
           finalList.Find(
-            check => check.PageName.Equals(item1.PageName) && check.ResourceName.Equals(item1.ResourceName)) == null)
-        )
+            check => check.PageName.Equals(item1.PageName) && check.ResourceName.Equals(item1.ResourceName)) == null))
       {
         finalList.Add(item1);
       }
@@ -144,24 +144,24 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Compare source and destination values on focus lost and indicate (guess) whether text is translated or not
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="args"></param>
-    public void LocalizedTextCheck([NotNull]object sender, [NotNull] ServerValidateEventArgs args)
+    /// <param name="sender">
+    /// </param>
+    /// <param name="args">
+    /// </param>
+    public void LocalizedTextCheck([NotNull] object sender, [NotNull] ServerValidateEventArgs args)
     {
-        foreach (TextBox tbx in
-            grdLocals.Items.Cast<DataGridItem>().Select(item => (TextBox) item.FindControl("txtLocalized")).Where(tbx => args.Value.Equals(tbx.Text)))
-        {
-            tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase)
-                                ? Color.Red
-                                : Color.Black;
-            break;
-        }
+      foreach (TextBox tbx in
+        this.grdLocals.Items.Cast<DataGridItem>().Select(item => (TextBox)item.FindControl("txtLocalized")).Where(
+          tbx => args.Value.Equals(tbx.Text)))
+      {
+        tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase) ? Color.Red : Color.Black;
+        break;
+      }
 
-
-        args.IsValid = true;
+      args.IsValid = true;
     }
 
-      #endregion
+    #endregion
 
     #region Methods
 
@@ -192,12 +192,12 @@ namespace YAF.Pages.Admin
 
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x") != null)
       {
-          this.sXmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
+        this.sXmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
 
-          this.dDLPages.Items.Clear();
+        this.dDLPages.Items.Clear();
 
-          this.PopulateTranslations(
-              Path.Combine(this.sLangPath, "english.xml"), Path.Combine(this.sLangPath, this.sXmlFile));
+        this.PopulateTranslations(
+          Path.Combine(this.sLangPath, "english.xml"), Path.Combine(this.sLangPath, this.sXmlFile));
       }
 
       if (this.IsPostBack)
@@ -289,7 +289,11 @@ namespace YAF.Pages.Admin
     /// </param>
     /// <param name="dstResourceValue">
     /// </param>
-    private void CreatePageResourceControl([NotNull] string sPageName, [NotNull] string resourceName, [NotNull] string srcResourceValue, [NotNull] string dstResourceValue)
+    private void CreatePageResourceControl(
+      [NotNull] string sPageName, 
+      [NotNull] string resourceName, 
+      [NotNull] string srcResourceValue, 
+      [NotNull] string dstResourceValue)
     {
       var translation = new Translation
         {
@@ -333,19 +337,18 @@ namespace YAF.Pages.Admin
     /// </param>
     private void LoadPageLocalization([NotNull] object sender, [NotNull] EventArgs e)
     {
-        // Save Values
-        this.UpdateLocalizedValues();
+      // Save Values
+      this.UpdateLocalizedValues();
 
-        this.SaveLanguageFile();
+      this.SaveLanguageFile();
 
-        this.lblPageName.Text = this.dDLPages.SelectedValue;
+      this.lblPageName.Text = this.dDLPages.SelectedValue;
 
-        this.grdLocals.DataSource =
-            this.translations.FindAll(check => check.PageName.Equals(this.dDLPages.SelectedValue));
-        this.grdLocals.DataBind();
+      this.grdLocals.DataSource = this.translations.FindAll(check => check.PageName.Equals(this.dDLPages.SelectedValue));
+      this.grdLocals.DataBind();
     }
 
-      /// <summary>
+    /// <summary>
     /// Wraps creation of translation controls.
     /// </summary>
     /// <param name="srcFile">
@@ -354,7 +357,6 @@ namespace YAF.Pages.Admin
     /// </param>
     private void PopulateTranslations([NotNull] string srcFile, [NotNull] string dstFile)
     {
-
       this.bUpdate = false;
 
       try
@@ -441,7 +443,7 @@ namespace YAF.Pages.Admin
       }
       catch (Exception exception)
       {
-          Classes.Data.DB.eventlog_create(null, GetType().ToString(), "Error loading files. {0}".FormatWith(exception.Message), 1);
+        DB.eventlog_create(null, this.GetType().ToString(), "Error loading files. {0}".FormatWith(exception.Message), 1);
       }
     }
 
@@ -552,27 +554,27 @@ namespace YAF.Pages.Admin
     /// </summary>
     public class Translation
     {
-      #region Constants and Fields
+      #region Properties
 
       /// <summary>
-      /// The s localized value.
+      ///   The s localized value.
       /// </summary>
       public string LocalizedValue { get; set; }
 
       /// <summary>
-      /// The s page name.
+      ///   The s page name.
       /// </summary>
       public string PageName { get; set; }
 
       /// <summary>
-      /// The s resource name.
+      ///   The s resource name.
       /// </summary>
       public string ResourceName { get; set; }
 
       /// <summary>
-      /// The s resource value.
+      ///   The s resource value.
       /// </summary>
-      public string ResourceValue { get; set; } 
+      public string ResourceValue { get; set; }
 
       #endregion
     }

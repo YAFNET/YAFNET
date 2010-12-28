@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Pages.cp_editbuddies" Codebehind="cp_editbuddies.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table width="100%" cellspacing="1" cellpadding="0" class="content">

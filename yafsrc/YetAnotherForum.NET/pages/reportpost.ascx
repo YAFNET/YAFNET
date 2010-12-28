@@ -1,5 +1,7 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.ReportPost" Codebehind="reportpost.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.ReportPost"CodeBehind="reportpost.ascx.cs" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
@@ -39,7 +41,7 @@
             <YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" LocalizedTag="ENTER_TEXT" />
         </td>
         <td id="EditorLine" class="post" runat="server">
-        <asp:Label ID="IncorrectReportLabel" runat="server"></asp:Label>
+            <asp:Label ID="IncorrectReportLabel" runat="server"></asp:Label>
             <!-- editor goes here -->
         </td>
     </tr>
@@ -48,7 +50,7 @@
             <YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton rightItem"
                 TextLocalizedTag="CANCEL" OnClick="BtnCancel_Click" />
             <YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton rightItem"
-                TextLocalizedTag="SEND" OnClick="BtnReport_Click" />                
+                TextLocalizedTag="SEND" OnClick="BtnReport_Click" />
         </td>
     </tr>
 </table>

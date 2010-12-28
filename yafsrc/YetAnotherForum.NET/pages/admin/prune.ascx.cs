@@ -20,18 +20,42 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Tasks;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for prune.
   /// </summary>
   public partial class prune : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      commit.Click += this.commit_Click;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -41,53 +65,26 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Prune", string.Empty);
 
         this.days.Text = "60";
-        BindData();
+        this.BindData();
       }
 
       this.lblPruneInfo.Text = string.Empty;
 
       if (YafTaskModule.Current.IsTaskRunning(PruneTopicTask.TaskName))
       {
-        this.lblPruneInfo.Text = "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
+        this.lblPruneInfo.Text =
+          "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
         this.commit.Enabled = false;
       }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.forumlist.DataSource = DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, null, null, false);
-      this.forumlist.DataValueField = "ForumID";
-      this.forumlist.DataTextField = "Forum";
-      DataBind();
-      this.forumlist.Items.Insert(0, new ListItem("All Forums", "0"));
-    }
-
-    /// <summary>
-    /// The commit_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void commit_Click(object sender, EventArgs e)
-    {
-      PruneTopicTask.Start(
-        PageContext.PageBoardID, Convert.ToInt32(this.forumlist.SelectedValue), Convert.ToInt32(this.days.Text), this.permDeleteChkBox.Checked);
-      PageContext.AddLoadMessage("Prune Task Scheduled");
     }
 
     /// <summary>
@@ -99,34 +96,50 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PruneButton_Load(object sender, EventArgs e)
+    protected void PruneButton_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button) sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith("Do you really want to prune topics? This process is irreversible.");
+      ((Button)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith("Do you really want to prune topics? This process is irreversible.");
     }
 
-    #region Web Form Designer generated code
-
     /// <summary>
-    /// The on init.
+    /// The bind data.
     /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
+    private void BindData()
     {
-      commit.Click += new EventHandler(commit_Click);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
+      this.forumlist.DataSource = DB.forum_listread(
+        this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false);
+      this.forumlist.DataValueField = "ForumID";
+      this.forumlist.DataTextField = "Forum";
+      this.DataBind();
+      this.forumlist.Items.Insert(0, new ListItem("All Forums", "0"));
     }
 
     /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {
+    }
+
+    /// <summary>
+    /// The commit_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void commit_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      PruneTopicTask.Start(
+        this.PageContext.PageBoardID, 
+        Convert.ToInt32(this.forumlist.SelectedValue), 
+        Convert.ToInt32(this.days.Text), 
+        this.permDeleteChkBox.Checked);
+      this.PageContext.AddLoadMessage("Prune Task Scheduled");
     }
 
     #endregion

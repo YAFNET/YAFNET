@@ -18,33 +18,57 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes.Core;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
-
 namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for editprofile.
-	/// </summary>
-	public partial class cp_profile : ForumPageRegistered
-	{
+  #region Using
 
-		public cp_profile()
-			: base( "CP_PROFILE" )
-		{
-		}
+  using System;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-                string displayName = this.PageContext.CurrentUserData.DisplayName;
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName, "");
-			}
-		}
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
-	}
+  #endregion
+
+  /// <summary>
+  /// Summary description for editprofile.
+  /// </summary>
+  public partial class cp_profile : ForumPageRegistered
+  {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="cp_profile"/> class.
+    /// </summary>
+    public cp_profile()
+      : base("CP_PROFILE")
+    {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        string displayName = this.PageContext.CurrentUserData.DisplayName;
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName, string.Empty);
+      }
+    }
+
+    #endregion
+  }
 }

@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" Codebehind="postmessage.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>

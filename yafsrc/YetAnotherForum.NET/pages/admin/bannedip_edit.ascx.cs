@@ -19,18 +19,41 @@
  */
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for bannedip_edit.
   /// </summary>
   public partial class bannedip_edit : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_bannedip);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -40,27 +63,15 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Banned IP Addresses", YafBuildLink.GetLink(ForumPages.admin_bannedip));
 
-        BindData();
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      if (Request.QueryString.GetFirstOrDefault("i") != null)
-      {
-        DataRow row = DB.bannedip_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i")).Rows[0];
-        this.mask.Text = (string) row["Mask"];
+        this.BindData();
       }
     }
 
@@ -73,7 +84,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       string[] ipParts = this.mask.Text.Trim().Split('.');
 
@@ -96,7 +107,8 @@ namespace YAF.Pages.Admin
           {
             if (ip.Trim().Length == 0)
             {
-              ipError += "\r\nOne of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard.";
+              ipError +=
+                "\r\nOne of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard.";
             }
             else
             {
@@ -119,31 +131,37 @@ namespace YAF.Pages.Admin
       // show error(s) if not valid...
       if (ipError.IsSet())
       {
-        PageContext.AddLoadMessage(ipError);
+        this.PageContext.AddLoadMessage(ipError);
         return;
       }
 
-      DB.bannedip_save(Request.QueryString.GetFirstOrDefault("i"), PageContext.PageBoardID, this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
+      DB.bannedip_save(
+        this.Request.QueryString.GetFirstOrDefault("i"), 
+        this.PageContext.PageBoardID, 
+        this.mask.Text.Trim(), 
+        this.BanReason.Text.Trim(), 
+        this.PageContext.PageUserID);
 
       // clear cache of banned IPs for this board
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
       // go back to banned IP's administration page
       YafBuildLink.Redirect(ForumPages.admin_bannedip);
     }
 
     /// <summary>
-    /// The cancel_ click.
+    /// The bind data.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    private void BindData()
     {
-      YafBuildLink.Redirect(ForumPages.admin_bannedip);
+      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+      {
+        DataRow row =
+          DB.bannedip_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")).Rows[0];
+        this.mask.Text = (string)row["Mask"];
+      }
     }
+
+    #endregion
   }
 }

@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.taskmanager"
     CodeBehind="taskmanager.ascx.cs" %>
 <%@ Import Namespace="System.Collections.Generic" %>
-<%@ Import Namespace="YAF.Classes.Core.Tasks" %>
+<%@ Import Namespace="YAF.Core.Tasks" %>
+<%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
     <table class="content" cellspacing="1" cellpadding="0" width="100%">

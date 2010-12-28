@@ -1,4 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" Codebehind="members.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table cellspacing="0" cellpadding="0" class="content" width="100%">
         <tr>

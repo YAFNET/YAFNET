@@ -17,75 +17,131 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI.WebControls;
-using YAF.Classes.Core;
-using YAF.Classes;
-using YAF.Classes.Utils;
 
 namespace YAF.Pages
 {
+  #region Using
+
+  using System;
+  using System.Web.UI.WebControls;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
+
   /// <summary>
   /// Summary description for cp_subscriptions.
   /// </summary>
-	public partial class cp_changepassword : ForumPageRegistered
+  public partial class cp_changepassword : ForumPageRegistered
   {
+    #region Constructors and Destructors
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="cp_changepassword"/> class.
+    /// </summary>
     public cp_changepassword()
-      : base( "CP_CHANGEPASSWORD" )
+      : base("CP_CHANGEPASSWORD")
     {
     }
 
-    private void Page_Load( object sender, System.EventArgs e )
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The cancel push button_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CancelPushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-			if ( !PageContext.BoardSettings.AllowPasswordChange && !( PageContext.IsAdmin || PageContext.IsForumModerator ) )
-			{
-				// Not accessbile...
-				YafBuildLink.AccessDenied();
-			}
+      YafBuildLink.Redirect(ForumPages.cp_profile);
+    }
 
-      if ( !IsPostBack )
+    /// <summary>
+    /// The continue push button_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ContinuePushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.cp_profile);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.PageContext.BoardSettings.AllowPasswordChange &&
+          !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-        PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
-        PageLinks.AddLink( GetText( "TITLE" ) );
+        // Not accessbile...
+        YafBuildLink.AccessDenied();
+      }
 
-        RequiredFieldValidator oldPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "CurrentPasswordRequired" );
-        RequiredFieldValidator newPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "NewPasswordRequired" );
-        RequiredFieldValidator confirmNewPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "ConfirmNewPasswordRequired" );
-        CompareValidator passwordsEqual = ( CompareValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "NewPasswordCompare" );
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+        this.PageLinks.AddLink(this.GetText("TITLE"));
 
-        oldPasswordRequired.ToolTip = oldPasswordRequired.ErrorMessage = GetText( "NEED_OLD_PASSWORD" );
-        newPasswordRequired.ToolTip = newPasswordRequired.ErrorMessage = GetText( "NEED_NEW_PASSWORD" );
-        confirmNewPasswordRequired.ToolTip = confirmNewPasswordRequired.ErrorMessage = GetText( "NEED_NEW_CONFIRM_PASSWORD" );
-        passwordsEqual.ToolTip = passwordsEqual.ErrorMessage = GetText( "NO_PASSWORD_MATCH" );
+        var oldPasswordRequired =
+          (RequiredFieldValidator)
+          this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("CurrentPasswordRequired");
+        var newPasswordRequired =
+          (RequiredFieldValidator)
+          this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRequired");
+        var confirmNewPasswordRequired =
+          (RequiredFieldValidator)
+          this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("ConfirmNewPasswordRequired");
+        var passwordsEqual =
+          (CompareValidator)this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordCompare");
 
-        ( ( Button ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "ChangePasswordPushButton" ) ).Text = GetText( "CHANGE_BUTTON" );
-        ( ( Button ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "CancelPushButton" ) ).Text = GetText( "CANCEL" );
-        ( ( Button ) ChangePassword1.SuccessTemplateContainer.FindControl( "ContinuePushButton" ) ).Text = GetText( "CONTINUE" );
+        oldPasswordRequired.ToolTip = oldPasswordRequired.ErrorMessage = this.GetText("NEED_OLD_PASSWORD");
+        newPasswordRequired.ToolTip = newPasswordRequired.ErrorMessage = this.GetText("NEED_NEW_PASSWORD");
+        confirmNewPasswordRequired.ToolTip =
+          confirmNewPasswordRequired.ErrorMessage = this.GetText("NEED_NEW_CONFIRM_PASSWORD");
+        passwordsEqual.ToolTip = passwordsEqual.ErrorMessage = this.GetText("NO_PASSWORD_MATCH");
+
+        ((Button)this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("ChangePasswordPushButton")).Text =
+          this.GetText("CHANGE_BUTTON");
+        ((Button)this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("CancelPushButton")).Text =
+          this.GetText("CANCEL");
+        ((Button)this.ChangePassword1.SuccessTemplateContainer.FindControl("ContinuePushButton")).Text =
+          this.GetText("CONTINUE");
 
         // make failure text...
         // 1. Password incorrect or New Password invalid.
         // 2. New Password length minimum: {0}.
         // 3. Non-alphanumeric characters required: {1}.
-        string failureText = GetText( "PASSWORD_INCORRECT" );
-        failureText += "<br />" + GetText( "PASSWORD_BAD_LENGTH" );
-        failureText += "<br />" + GetText( "PASSWORD_NOT_COMPLEX" );
+        string failureText = this.GetText("PASSWORD_INCORRECT");
+        failureText += "<br />" + this.GetText("PASSWORD_BAD_LENGTH");
+        failureText += "<br />" + this.GetText("PASSWORD_NOT_COMPLEX");
 
-        ChangePassword1.ChangePasswordFailureText = failureText;
+        this.ChangePassword1.ChangePasswordFailureText = failureText;
 
-        DataBind();
+        this.DataBind();
       }
     }
 
-    protected void CancelPushButton_Click( object sender, EventArgs e )
-    {
-      YafBuildLink.Redirect( ForumPages.cp_profile );
-    }
-
-    protected void ContinuePushButton_Click( object sender, EventArgs e )
-    {
-      YafBuildLink.Redirect( ForumPages.cp_profile );
-    }
+    #endregion
   }
 }

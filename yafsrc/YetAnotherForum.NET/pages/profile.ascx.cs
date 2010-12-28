@@ -29,15 +29,18 @@ namespace YAF.Pages
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// Summary description for profile.
@@ -157,16 +160,16 @@ namespace YAF.Pages
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJQueryUI();
+      // setup jQuery and Jquery Ui Tabs.
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
 
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "ProfileTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "ProfileTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -197,7 +200,7 @@ namespace YAF.Pages
 
       if (this.UserId == 0)
       {
-          YafBuildLink.AccessDenied( /*No such user exists*/);
+        YafBuildLink.AccessDenied( /*No such user exists*/);
       }
 
       this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
@@ -264,7 +267,7 @@ namespace YAF.Pages
         }
         else
         {
-            var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
+          var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
           literal.Visible = true;
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
         }
@@ -348,7 +351,7 @@ namespace YAF.Pages
         this.AlbumList1.Dispose();
       }
 
-      string userDisplayName = this.PageContext.UserDisplayName.GetName(this.UserId);
+      string userDisplayName = this.PageContext.Get<IUserDisplayName>().GetName(this.UserId);
 
       this.SetupUserProfileInfo(this.UserId, user, userData, userDisplayName);
 
@@ -364,7 +367,6 @@ namespace YAF.Pages
       this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(this.UserId));
 
       // EmailRow.Visible = PageContext.IsAdmin;
-
       this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
       this.ModerateLi.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
@@ -434,7 +436,9 @@ namespace YAF.Pages
         this.lnkBuddy.Visible = true;
         this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
         this.lnkBuddy.CommandArgument = "removebuddy";
-        this.lnkBuddy.Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+        this.lnkBuddy.Attributes["onclick"] =
+          "return confirm('{0}')".FormatWith(
+            this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
       }
       else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], false))
       {
@@ -472,39 +476,39 @@ namespace YAF.Pages
       this.Blog.Visible = userData.Profile.Blog.IsSet();
       this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
 
-        if (userData.UserID == this.PageContext.PageUserID)
-        {
-            return;
-        }
+      if (userData.UserID == this.PageContext.PageUserID)
+      {
+        return;
+      }
 
-        this.PM.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
-        this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+      this.PM.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
+      this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
 
-        // email link
-        this.Email.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
-        this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
-        if (this.PageContext.IsAdmin)
-        {
-            this.Email.TitleNonLocalized = userData.Membership.Email;
-        }
+      // email link
+      this.Email.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
+      this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+      if (this.PageContext.IsAdmin)
+      {
+        this.Email.TitleNonLocalized = userData.Membership.Email;
+      }
 
-        this.MSN.Visible = this.User != null && userData.Profile.MSN.IsSet();
-        this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
+      this.MSN.Visible = this.User != null && userData.Profile.MSN.IsSet();
+      this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
 
-        this.YIM.Visible = this.User != null && userData.Profile.YIM.IsSet();
-        this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
+      this.YIM.Visible = this.User != null && userData.Profile.YIM.IsSet();
+      this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
 
-        this.AIM.Visible = this.User != null && userData.Profile.AIM.IsSet();
-        this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
+      this.AIM.Visible = this.User != null && userData.Profile.AIM.IsSet();
+      this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
 
-        this.ICQ.Visible = this.User != null && userData.Profile.ICQ.IsSet();
-        this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
+      this.ICQ.Visible = this.User != null && userData.Profile.ICQ.IsSet();
+      this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
 
-        this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
-        this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+      this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
+      this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
 
-        this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
-        this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
+      this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
+      this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
     }
 
     /// <summary>
@@ -523,7 +527,10 @@ namespace YAF.Pages
     /// The user display name.
     /// </param>
     private void SetupUserProfileInfo(
-      int userID, [NotNull] MembershipUser user, [NotNull] CombinedUserDataHelper userData, [NotNull] string userDisplayName)
+      int userID, 
+      [NotNull] MembershipUser user, 
+      [NotNull] CombinedUserDataHelper userData, 
+      [NotNull] string userDisplayName)
     {
       this.UserLabel1.UserID = userData.UserID;
 
@@ -635,11 +642,9 @@ namespace YAF.Pages
       if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
       {
         this.BirthdayTR.Visible = true;
-        this.Birthday.Text =
-          this.Get<IDateTime>().FormatDateLong(
-                  userData.Profile.Birthday.Date);
+        this.Birthday.Text = this.Get<IDateTime>().FormatDateLong(userData.Profile.Birthday.Date);
 
-          // .Add(-this.Get<IDateTime>().TimeOffset));
+        // .Add(-this.Get<IDateTime>().TimeOffset));
       }
       else
       {

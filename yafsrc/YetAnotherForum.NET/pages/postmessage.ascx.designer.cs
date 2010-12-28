@@ -58,6 +58,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
         
         /// <summary>
+        /// LocalizedLabel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
+        
+        /// <summary>
         /// PreviewMessagePost control.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow FromRow;
         
         /// <summary>
+        /// LocalizedLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        
+        /// <summary>
         /// From control.
         /// </summary>
         /// <remarks>
@@ -157,6 +175,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow PriorityRow;
         
         /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        
+        /// <summary>
         /// Priority control.
         /// </summary>
         /// <remarks>
@@ -166,15 +193,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.DropDownList Priority;
         
         /// <summary>
-        /// LocalizedLblMaxNumberOfPost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
-        
-        /// <summary>
         /// EditorLine control.
         /// </summary>
         /// <remarks>
@@ -182,6 +200,42 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
+        
+        /// <summary>
+        /// LocalizedLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        
+        /// <summary>
+        /// SmilesHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SmilesHolder;
+        
+        /// <summary>
+        /// Smileys1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.smileys Smileys1;
+        
+        /// <summary>
+        /// LocalizedLblMaxNumberOfPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
         
         /// <summary>
         /// PostOptions1 control.
@@ -202,6 +256,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_captcha1;
         
         /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        
+        /// <summary>
         /// imgCaptcha control.
         /// </summary>
         /// <remarks>
@@ -220,6 +283,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_captcha2;
         
         /// <summary>
+        /// LocalizedLabel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        
+        /// <summary>
         /// tbCaptcha control.
         /// </summary>
         /// <remarks>
@@ -236,6 +308,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow EditReasonRow;
+        
+        /// <summary>
+        /// LocalizedLabel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// ReasonEditor control.
@@ -272,6 +353,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton Cancel;
+        
+        /// <summary>
+        /// LastPostsHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder LastPostsHolder;
         
         /// <summary>
         /// LastPosts1 control.

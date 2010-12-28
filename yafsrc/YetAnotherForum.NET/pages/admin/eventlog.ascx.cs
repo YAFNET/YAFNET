@@ -20,24 +20,30 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for attachments.
   /// </summary>
   public partial class eventlog : AdminPage
   {
-    #region Event Handlers
+    #region Methods
 
     /// <summary>
-    /// Page load event handler.
+    /// Handles delete all button on click event.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -45,26 +51,30 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // do it only once, not on postbacks
-      if (!IsPostBack)
-      {
-        // create page links
-        // board index first
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      // delete all event log entries of this board
+      DB.eventlog_delete(this.PageContext.PageBoardID);
 
-        // administration index second
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+      // re-bind controls
+      this.BindData();
+    }
 
-        // we are now in event log
-        this.PageLinks.AddLink("Event Log", string.Empty);
-
-        this.PagerTop.PageSize = 25;
-
-        // bind data to controls
-        BindData();
-      }
+    /// <summary>
+    /// Handles load event for delete all button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <remarks>
+    /// Adds confirmation popup to click event of this button.
+    /// </remarks>
+    protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ((Button)sender).Attributes["onclick"] = "return confirm('Delete all event log entries?')";
     }
 
     /// <summary>
@@ -79,14 +89,62 @@ namespace YAF.Pages.Admin
     /// <remarks>
     /// Adds confirmation popup to click event of this button.
     /// </remarks>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this event log entry?')";
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this event log entry?')";
     }
 
+    /// <summary>
+    /// Gets HTML IMG code representing given log event icon.
+    /// </summary>
+    /// <param name="dataRow">
+    /// Data row containing event log entry data.
+    /// </param>
+    /// <returns>
+    /// return HTML code of event log entry image
+    /// </returns>
+    protected string EventImageCode([NotNull] object dataRow)
+    {
+      // cast object to the DataRowView
+      var row = (DataRowView)dataRow;
+
+      // set defaults
+      string imageType = "Error";
+
+      // find out of what type event log entry is
+      switch ((int)row["Type"])
+      {
+        case 1:
+          imageType = "Warning";
+          break;
+        case 2:
+          imageType = "Information";
+          break;
+      }
+
+      // return HTML code of event log entry image
+      return
+        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
+          YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLower())), imageType);
+    }
 
     /// <summary>
-    /// Handles load event for delete all button.
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      List.ItemCommand += this.List_ItemCommand;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Page load event handler.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -94,17 +152,30 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    /// <remarks>
-    /// Adds confirmation popup to click event of this button.
-    /// </remarks>
-    protected void DeleteAll_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button) sender).Attributes["onclick"] = "return confirm('Delete all event log entries?')";
+      // do it only once, not on postbacks
+      if (!this.IsPostBack)
+      {
+        // create page links
+        // board index first
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+
+        // administration index second
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+
+        // we are now in event log
+        this.PageLinks.AddLink("Event Log", string.Empty);
+
+        this.PagerTop.PageSize = 25;
+
+        // bind data to controls
+        this.BindData();
+      }
     }
 
-
     /// <summary>
-    /// Handles delete all button on click event.
+    /// The pager top_ page change.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -112,13 +183,46 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteAll_Click(object sender, EventArgs e)
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // delete all event log entries of this board
-      DB.eventlog_delete(PageContext.PageBoardID);
+      // rebind
+      this.BindData();
+    }
 
-      // re-bind controls
-      BindData();
+    /// <summary>
+    /// Populates data source and binds data to controls.
+    /// </summary>
+    private void BindData()
+    {
+      var pds = new PagedDataSource();
+      pds.AllowPaging = true;
+      pds.PageSize = this.PagerTop.PageSize;
+
+      // list event for this board
+      DataTable dt = DB.eventlog_list(this.PageContext.PageBoardID);
+      DataView dv = dt.DefaultView;
+
+      this.PagerTop.Count = dv.Count;
+      pds.DataSource = dv;
+
+      pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+      if (pds.CurrentPageIndex >= pds.PageCount)
+      {
+        pds.CurrentPageIndex = pds.PageCount - 1;
+      }
+
+      this.List.DataSource = pds;
+
+      // bind data to controls
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
     }
 
     /// <summary>
@@ -130,7 +234,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       // what command are we serving?
       switch (e.CommandName)
@@ -142,7 +246,7 @@ namespace YAF.Pages.Admin
           DB.eventlog_delete(e.CommandArgument);
 
           // re-bind controls
-          BindData();
+          this.BindData();
           break;
 
           // show/hide log entry details
@@ -162,113 +266,6 @@ namespace YAF.Pages.Admin
 
           break;
       }
-    }
-
-    /// <summary>
-    /// The pager top_ page change.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void PagerTop_PageChange(object sender, EventArgs e)
-    {
-      // rebind
-      BindData();
-    }
-
-    #endregion
-
-    #region Private Methods
-
-    /// <summary>
-    /// Populates data source and binds data to controls.
-    /// </summary>
-    private void BindData()
-    {
-      var pds = new PagedDataSource();
-      pds.AllowPaging = true;
-      pds.PageSize = this.PagerTop.PageSize;
-
-      // list event for this board
-      DataTable dt = DB.eventlog_list(PageContext.PageBoardID);
-      DataView dv = dt.DefaultView;
-
-      this.PagerTop.Count = dv.Count;
-      pds.DataSource = dv;
-
-      pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
-      if (pds.CurrentPageIndex >= pds.PageCount)
-      {
-        pds.CurrentPageIndex = pds.PageCount - 1;
-      }
-
-      this.List.DataSource = pds;
-
-      // bind data to controls
-      DataBind();
-    }
-
-
-    /// <summary>
-    /// Gets HTML IMG code representing given log event icon.
-    /// </summary>
-    /// <param name="dataRow">
-    /// Data row containing event log entry data.
-    /// </param>
-    /// <returns>
-    /// return HTML code of event log entry image
-    /// </returns>
-    protected string EventImageCode(object dataRow)
-    {
-      // cast object to the DataRowView
-      var row = (DataRowView) dataRow;
-
-      // set defaults
-      string imageType = "Error";
-
-      // find out of what type event log entry is
-      switch ((int) row["Type"])
-      {
-        case 1:
-          imageType = "Warning";
-          break;
-        case 2:
-          imageType = "Information";
-          break;
-      }
-
-      // return HTML code of event log entry image
-      return @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", imageType.ToLower())), imageType);
-    }
-
-    #endregion
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     #endregion

@@ -23,9 +23,10 @@ namespace YAF.Pages
 
   using System;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
   #endregion
 
@@ -37,7 +38,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="cp_editprofile"/> class.
+    ///   Initializes a new instance of the <see cref = "cp_editprofile" /> class.
     /// </summary>
     public cp_editprofile()
       : base("CP_EDITPROFILE")
@@ -57,7 +58,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.IsPostBack)
       {

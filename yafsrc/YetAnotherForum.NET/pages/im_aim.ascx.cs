@@ -18,60 +18,97 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Web.Security;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for active.
-	/// </summary>
-	public partial class im_aim : YAF.Classes.Core.ForumPage
-	{
-		public int UserID
-		{
-			get
-			{
-				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-			}
-		}
+  // YAF.Pages
+  #region Using
 
-		public im_aim()
-			: base( "IM_AIM" )
-		{
-		}
+  using System;
+  using System.Web.Security;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( User == null )
-			{
-				YafBuildLink.AccessDenied();
-			}
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
-			if ( !IsPostBack )
-			{
-				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
+  #endregion
 
-				if ( user == null )
-				{
-					YafBuildLink.AccessDenied(/*No such user exists*/);
-				}
+  /// <summary>
+  /// Summary description for active.
+  /// </summary>
+  public partial class im_aim : ForumPage
+  {
+    #region Constructors and Destructors
 
-                string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
+    /// <summary>
+    /// Initializes a new instance of the <see cref="im_aim"/> class.
+    /// </summary>
+    public im_aim()
+      : base("IM_AIM")
+    {
+    }
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    #endregion
 
-				// get full user data...
-				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
+    #region Properties
 
-				Msg.NavigateUrl = "aim:goim?screenname={0}&message=Hi.+Are+you+there?".FormatWith(userData.Profile.AIM);
-				Buddy.NavigateUrl = "aim:addbuddy?screenname={0}".FormatWith(userData.Profile.AIM);
-			}
-		}
-	}
+    /// <summary>
+    /// Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.User == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        // get user data...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+
+        if (user == null)
+        {
+          YafBuildLink.AccessDenied( /*No such user exists*/);
+        }
+
+        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        // get full user data...
+        var userData = new CombinedUserDataHelper(user, this.UserID);
+
+        this.Msg.NavigateUrl = "aim:goim?screenname={0}&message=Hi.+Are+you+there?".FormatWith(userData.Profile.AIM);
+        this.Buddy.NavigateUrl = "aim:addbuddy?screenname={0}".FormatWith(userData.Profile.AIM);
+      }
+    }
+
+    #endregion
+  }
 }

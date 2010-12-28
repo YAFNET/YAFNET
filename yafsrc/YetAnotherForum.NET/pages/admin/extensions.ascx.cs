@@ -20,21 +20,29 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for bannedip.
   /// </summary>
   public partial class extensions : AdminPage
   {
+    #region Methods
+
     /// <summary>
-    /// The page_ load.
+    /// The delete_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -42,25 +50,9 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("File Extensions", string.Empty);
-
-        BindData();
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.list.DataSource = DB.extension_list(PageContext.PageBoardID);
-      DataBind();
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this Extension?')";
     }
 
     /// <summary>
@@ -72,13 +64,29 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ExtensionTitle_Load(object sender, EventArgs e)
+    protected void ExtensionTitle_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Label) sender).Text = (PageContext.BoardSettings.FileExtensionAreAllowed ? "Allowed" : "Disallowed") + " File Extensions";
+      ((Label)sender).Text = (this.PageContext.BoardSettings.FileExtensionAreAllowed ? "Allowed" : "Disallowed") +
+                             " File Extensions";
     }
 
     /// <summary>
-    /// The delete_ load.
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      list.ItemCommand += this.list_ItemCommand;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The page_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -86,9 +94,33 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this Extension?')";
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("File Extensions", string.Empty);
+
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.list.DataSource = DB.extension_list(this.PageContext.PageBoardID);
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
     }
 
     /// <summary>
@@ -100,7 +132,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void list_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    private void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "add")
       {
@@ -113,51 +145,26 @@ namespace YAF.Pages.Admin
       else if (e.CommandName == "delete")
       {
         DB.extension_delete(e.CommandArgument);
-        BindData();
+        this.BindData();
       }
       else if (e.CommandName == "export")
       {
         // export this list as XML...
-        DataTable extensionList = DB.extension_list(PageContext.PageBoardID);
+        DataTable extensionList = DB.extension_list(this.PageContext.PageBoardID);
         extensionList.DataSet.DataSetName = "YafExtensionList";
         extensionList.TableName = "YafExtension";
         extensionList.Columns.Remove("ExtensionID");
         extensionList.Columns.Remove("BoardID");
 
-        Response.ContentType = "text/xml";
-        Response.AppendHeader("Content-Disposition", "attachment; filename=YafExtensionExport.xml");
-        extensionList.DataSet.WriteXml(Response.OutputStream);
-        Response.End();
+        this.Response.ContentType = "text/xml";
+        this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafExtensionExport.xml");
+        extensionList.DataSet.WriteXml(this.Response.OutputStream);
+        this.Response.End();
       }
       else if (e.CommandName == "import")
       {
         YafBuildLink.Redirect(ForumPages.admin_extensions_import);
       }
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      list.ItemCommand += new RepeaterCommandEventHandler(list_ItemCommand);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     #endregion

@@ -28,12 +28,15 @@ namespace YAF.Pages
   using System.Web;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -45,7 +48,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="cp_message"/> class.
+    ///   Initializes a new instance of the <see cref = "cp_message" /> class.
     /// </summary>
     public cp_message()
       : base("CP_MESSAGE")
@@ -57,7 +60,7 @@ namespace YAF.Pages
     #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsArchived.
+    ///   Gets or sets a value indicating whether IsArchived.
     /// </summary>
     protected bool IsArchived
     {
@@ -80,7 +83,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsOutbox.
+    ///   Gets or sets a value indicating whether IsOutbox.
     /// </summary>
     protected bool IsOutbox
     {
@@ -115,7 +118,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Inbox_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void Inbox_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "delete")
       {
@@ -150,7 +153,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // check if this feature is disabled
       if (!this.PageContext.BoardSettings.AllowPrivateMessages)
@@ -184,7 +187,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ThemeButtonDelete_Load(object sender, EventArgs e)
+    protected void ThemeButtonDelete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       var themeButton = (ThemeButton)sender;
       themeButton.Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("confirm_deletemessage"));
@@ -195,7 +198,10 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      using (DataTable dt = DB.pmessage_list(Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
+      using (
+        DataTable dt =
+          DB.pmessage_list(
+            Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
       {
         if (dt.Rows.Count > 0)
         {
@@ -268,7 +274,7 @@ namespace YAF.Pages
     /// <param name="messageIsArchived">
     /// The message Is Archived.
     /// </param>
-    private void SetMessageView(object fromUserID, object toUserID, bool messageIsInOutbox, bool messageIsArchived)
+    private void SetMessageView([NotNull] object fromUserID, [NotNull] object toUserID, bool messageIsInOutbox, bool messageIsArchived)
     {
       bool isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
       bool isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);

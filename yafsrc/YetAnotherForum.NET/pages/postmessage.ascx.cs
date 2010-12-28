@@ -28,13 +28,17 @@ namespace YAF.Pages
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
-  using YAF.Editors;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -48,7 +52,7 @@ namespace YAF.Pages
     /// <summary>
     ///   The _forum editor.
     /// </summary>
-    protected BaseForumEditor _forumEditor;
+    protected ForumEditor _forumEditor;
 
     /// <summary>
     ///   The original message.
@@ -313,7 +317,7 @@ namespace YAF.Pages
     {
       // get the forum editor based on the settings
       this._forumEditor =
-        this.PageContext.EditorModuleManager.GetEditorInstance(this.PageContext.BoardSettings.ForumEditor);
+        this.PageContext.EditorModuleManager.GetBy(this.PageContext.BoardSettings.ForumEditor);
       this.EditorLine.Controls.Add(this._forumEditor);
 
       base.OnInit(e);
@@ -358,8 +362,8 @@ namespace YAF.Pages
         if (this.TopicID == null)
         {
           this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
-                                     ? 0
-                                     : Convert.ToInt32(currentRow["TopicID"]);
+                                    ? 0
+                                    : Convert.ToInt32(currentRow["TopicID"]);
         }
       }
       else if (this.EditMessageID != null)
@@ -382,8 +386,8 @@ namespace YAF.Pages
         if (this.TopicID == null)
         {
           this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
-                                     ? 0
-                                     : Convert.ToInt32(currentRow["TopicID"]);
+                                    ? 0
+                                    : Convert.ToInt32(currentRow["TopicID"]);
         }
       }
 
@@ -404,7 +408,7 @@ namespace YAF.Pages
       }
 
       // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-      this._forumEditor.StyleSheet = this.PageContext.Theme.BuildThemePath("theme.css");
+      this._forumEditor.StyleSheet = this.PageContext.Get<ITheme>().BuildThemePath("theme.css");
       this._forumEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
 
       this.Title.Text = this.GetText("NEWTOPIC");
@@ -994,7 +998,8 @@ namespace YAF.Pages
     /// <param name="messageFlags">
     /// The message flags.
     /// </param>
-    private void InitEditedPost([NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
+    private void InitEditedPost(
+      [NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
     {
       // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
       if (messageFlags.IsBBCode && this._forumEditor.UsesHTML)
@@ -1056,7 +1061,8 @@ namespace YAF.Pages
     /// <param name="messageFlags">
     /// The message flags.
     /// </param>
-    private void InitQuotedReply([NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
+    private void InitQuotedReply(
+      [NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
     {
       if (this.PageContext.BoardSettings.RemoveNestedQuotes)
       {
@@ -1075,7 +1081,7 @@ namespace YAF.Pages
       // Quote the original message
       this._forumEditor.Text =
         "[quote={0};{1}]{2}[/quote]\n".FormatWith(
-          this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), 
+          this.PageContext.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID")), 
           currentRow.Field<int>("MessageID"), 
           message).TrimStart();
     }

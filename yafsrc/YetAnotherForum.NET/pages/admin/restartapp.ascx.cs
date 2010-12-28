@@ -20,17 +20,25 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for restartapp.
   /// </summary>
   public partial class restartapp : AdminPage
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -40,16 +48,16 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Restart Application");
       }
 
-      DataBind();
+      this.DataBind();
     }
 
     /// <summary>
@@ -61,7 +69,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RestartApp_Click(object sender, EventArgs e)
+    protected void RestartApp_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
       {
@@ -69,8 +77,10 @@ namespace YAF.Pages.Admin
       }
       else
       {
-        PageContext.LoadMessage.Add("Must have High/Unrestricted Trust to Unload Application. Restart Failed.");
+        this.PageContext.LoadMessage.Add("Must have High/Unrestricted Trust to Unload Application. Restart Failed.");
       }
     }
+
+    #endregion
   }
 }

@@ -24,10 +24,12 @@ namespace YAF.Pages
   using System.Data;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -63,8 +65,8 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="messagehistory"/> class. 
-    ///   Initializes a new instance of the <see cref="members"/> class.
+    ///   Initializes a new instance of the <see cref = "messagehistory" /> class. 
+    ///   Initializes a new instance of the <see cref = "members" /> class.
     /// </summary>
     public messagehistory()
       : base("MESSAGEHISTORY")
@@ -82,7 +84,7 @@ namespace YAF.Pages
     /// </param>
     /// <param name="e">
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
       {
@@ -135,7 +137,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ReturnBtn_OnClick(object sender, EventArgs e)
+    protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Redirect to the changed post
       this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));
@@ -150,7 +152,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ReturnModBtn_OnClick(object sender, EventArgs e)
+    protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Redirect to the changed post
       this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, "f={0}", this.forumID));
@@ -165,7 +167,7 @@ namespace YAF.Pages
       DataTable dt = DB.messagehistory_list(this.messageID, this.PageContext.BoardSettings.MessageHistoryDaysToLog);
       this.RevisionsList.DataSource = dt.AsEnumerable();
 
-      singleReport = dt.Rows.Count <= 1;
+      this.singleReport = dt.Rows.Count <= 1;
 
       // Fill current message repeater
       this.CurrentMessageRpt.DataSource = DB.message_secdata(this.messageID, this.PageContext.PageUserID).AsEnumerable();

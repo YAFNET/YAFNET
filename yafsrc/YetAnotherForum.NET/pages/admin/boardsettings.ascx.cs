@@ -27,11 +27,14 @@ namespace YAF.Pages.Admin
   using System.Linq;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Objects;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -79,7 +82,8 @@ namespace YAF.Pages.Admin
         }
 
         this.Culture.DataSource =
-          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
+          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable(
+            );
         this.Culture.DataTextField = "CultureNativeName";
         this.Culture.DataValueField = "CultureTag";
 
@@ -126,9 +130,7 @@ namespace YAF.Pages.Admin
 
         this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
-          SetSelectedOnList(
-          ref this.JqueryUITheme,
-          this.PageContext.BoardSettings.JqueryUITheme);
+        SetSelectedOnList(ref this.JqueryUITheme, this.PageContext.BoardSettings.JqueryUITheme);
 
         // Get first default full culture from a language file tag.
         string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ??
@@ -138,24 +140,23 @@ namespace YAF.Pages.Admin
         SetSelectedOnList(ref this.MobileTheme, this.PageContext.BoardSettings.MobileTheme);
 
         // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-       /* SetSelectedOnList(
+        /* SetSelectedOnList(
           ref this.Culture, 
           langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
             ? this.PageContext.BoardSettings.Culture
             : langFileCulture);*/
+        SetSelectedOnList(ref this.Culture, this.PageContext.BoardSettings.Culture);
+        if (this.Culture.SelectedIndex == 0)
+        {
+          // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
+          SetSelectedOnList(
+            ref this.Culture, 
+            langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
+              ? this.PageContext.BoardSettings.Culture
+              : langFileCulture);
+        }
 
-          SetSelectedOnList(ref this.Culture, this.PageContext.BoardSettings.Culture);
-          if (this.Culture.SelectedIndex == 0)
-          {
-              // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-              SetSelectedOnList(
-                  ref this.Culture,
-                  langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
-                      ? this.PageContext.BoardSettings.Culture
-                      : langFileCulture);
-          }
-
-          SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
+        SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
         SetSelectedOnList(
           ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
@@ -224,7 +225,7 @@ namespace YAF.Pages.Admin
 
       // allow null/empty as a mobile theme many not be desired.
       this.PageContext.BoardSettings.MobileTheme = this.MobileTheme.SelectedValue ?? String.Empty;
-      
+
       this.PageContext.BoardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
       this.PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
       this.PageContext.BoardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>() == 0

@@ -20,21 +20,47 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.IO;
   using System.Text.RegularExpressions;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for smilies_import.
   /// </summary>
   public partial class smilies_import : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      import.Click += this.import_Click;
+      cancel.Click += this.cancel_Click;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -44,15 +70,15 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Smilies Import", string.Empty);
 
-        BindData();
+        this.BindData();
       }
     }
 
@@ -70,7 +96,10 @@ namespace YAF.Pages.Admin
         dr["FileName"] = "Select File (*.pak)";
         dt.Rows.Add(dr);
 
-        var dir = new DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
+        var dir =
+          new DirectoryInfo(
+            this.Request.MapPath(
+              "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
         FileInfo[] files = dir.GetFiles("*.pak");
         long nFileID = 1;
         foreach (FileInfo file in files)
@@ -86,7 +115,29 @@ namespace YAF.Pages.Admin
         this.File.DataTextField = "FileName";
       }
 
-      DataBind();
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_smilies);
     }
 
     /// <summary>
@@ -98,15 +149,18 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void import_Click(object sender, EventArgs e)
+    private void import_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (long.Parse(this.File.SelectedValue) < 1)
       {
-        PageContext.AddLoadMessage("You must select a .pak file to import.");
+        this.PageContext.AddLoadMessage("You must select a .pak file to import.");
         return;
       }
 
-      string fileName = Request.MapPath("{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.File.SelectedItem.Text));
+      string fileName =
+        this.Request.MapPath(
+          "{0}{1}/{2}".FormatWith(
+            YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.File.SelectedItem.Text));
       string split = Regex.Escape("=+:");
 
       using (var file = new StreamReader(fileName))
@@ -121,7 +175,7 @@ namespace YAF.Pages.Admin
         else
         {
           // Get max value of SortOrder
-          using (DataView dv = DB.smiley_listunique(PageContext.PageBoardID).DefaultView)
+          using (DataView dv = DB.smiley_listunique(this.PageContext.PageBoardID).DefaultView)
           {
             dv.Sort = "SortOrder desc";
             if (dv.Count > 0)
@@ -151,60 +205,20 @@ namespace YAF.Pages.Admin
 
           if (lineSplit.Length == 3)
           {
-            DB.smiley_save(null, PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
+            DB.smiley_save(null, this.PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
             sortOrder++;
           }
         }
- while (true);
+        while (true);
 
         file.Close();
 
         // invalidate the cache...
-        PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
         ReplaceRulesCreator.ClearCache();
       }
 
       YafBuildLink.Redirect(ForumPages.admin_smilies);
-    }
-
-    /// <summary>
-    /// The cancel_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void cancel_Click(object sender, EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_smilies);
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      import.Click += new EventHandler(import_Click);
-      cancel.Click += new EventHandler(cancel_Click);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     #endregion

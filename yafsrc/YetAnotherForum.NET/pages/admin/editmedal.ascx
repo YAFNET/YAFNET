@@ -1,5 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.editmedal" Codebehind="editmedal.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="AdminMenu1" runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">

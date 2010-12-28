@@ -1,5 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cp_message" Codebehind="cp_message.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
+<%@ Import Namespace="YAF.Core"%>
+<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Flags" %>
+<%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
     <HeaderTemplate>

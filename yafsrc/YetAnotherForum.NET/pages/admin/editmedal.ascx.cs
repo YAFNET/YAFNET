@@ -1,5 +1,7 @@
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Drawing;
@@ -7,50 +9,43 @@ namespace YAF.Pages.Admin
   using System.Linq;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
   using Image = System.Drawing.Image;
+
+  #endregion
 
   /// <summary>
   /// The editmedal.
   /// </summary>
   public partial class editmedal : AdminPage
   {
-    #region Constructors & Overriden Methods
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="editmedal"/> class. 
-    /// Default constructor.
+    ///   Initializes a new instance of the <see cref = "editmedal" /> class. 
+    ///   Default constructor.
     /// </summary>
     public editmedal()
       : base("ADMIN_EDITMEDAL")
     {
     }
 
-
-    /// <summary>
-    /// Creates page links for this page.
-    /// </summary>
-    protected override void CreatePageLinks()
-    {
-      // forum index
-      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-
-      // administration index
-      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-
-      // currect page
-      this.PageLinks.AddLink("Edit Medal", string.Empty);
-    }
-
     #endregion
 
-    #region Event Handlers
+    #region Methods
 
     /// <summary>
-    /// Handles page load event.
+    /// Hides group add/edit controls.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -58,28 +53,18 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void AddGroupCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
-      {
-        // create page links
-        CreatePageLinks();
+      // set visibility
+      this.AddGroupRow.Visible = true;
+      this.AddGroupPanel.Visible = false;
 
-        // bind data
-        BindData();
-      }
-
-      // set previews
-      SetPreview(this.MedalImage, this.MedalPreview);
-      SetPreview(this.RibbonImage, this.RibbonPreview);
-      SetPreview(this.SmallMedalImage, this.SmallMedalPreview);
-      SetPreview(this.SmallRibbonImage, this.SmallRibbonPreview);
+      // re-enable global save button
+      this.Save.Enabled = true;
     }
 
-
     /// <summary>
-    /// Handles click on cancel button.
+    /// Handles click on save group button.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -87,323 +72,155 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void AddGroupSave_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // go back to medals administration
-      YafBuildLink.Redirect(ForumPages.admin_medals);
-    }
-
-
-    /// <summary>
-    /// Handles save button click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-      if (this.MedalImage.SelectedIndex <= 0)
+      // test if there is specified unsername/user id
+      if (this.AvailableGroupList.SelectedIndex < 0)
       {
-        PageContext.AddLoadMessage("Medal image must be specified!");
+        // no group selected
+        this.PageContext.AddLoadMessage("Please select user group!");
         return;
       }
-      else if (this.SmallMedalImage.SelectedIndex <= 0)
+
+      // save group, if there is no message specified, pass null
+      DB.group_medal_save(
+        this.AvailableGroupList.SelectedValue, 
+        this.Request.QueryString.GetFirstOrDefault("m"), 
+        this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text, 
+        this.GroupHide.Checked, 
+        this.GroupOnlyRibbon.Checked, 
+        this.GroupSortOrder.Text);
+
+      // disable/hide edit controls
+      this.AddGroupCancel_Click(sender, e);
+
+      // re-bind data
+      this.BindData();
+    }
+
+    /// <summary>
+    /// Handles click on add group button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <remarks>
+    /// Shows user-medal adding/editing controls.
+    /// </remarks>
+    protected void AddGroup_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // set title
+      this.GroupMedalEditTitle.Text = "Add Medal to a Group";
+
+      // clear controls
+      this.AvailableGroupList.SelectedIndex = -1;
+      this.GroupMessage.Text = null;
+      this.GroupOnlyRibbon.Checked = false;
+      this.GroupHide.Checked = false;
+      this.GroupSortOrder.Text = this.SortOrder.Text;
+
+      // set controls visibility and availability
+      this.AvailableGroupList.Enabled = true;
+
+      // show editing controls and hide row with add user button
+      this.AddGroupRow.Visible = false;
+      this.AddGroupPanel.Visible = true;
+
+      // focus on save button
+      this.AddGroupSave.Focus();
+
+      // disable global save button to prevent confusion
+      this.Save.Enabled = false;
+    }
+
+    /// <summary>
+    /// Hides user add/edit controls.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void AddUserCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // set visibility
+      this.AddUserRow.Visible = true;
+      this.AddUserPanel.Visible = false;
+
+      // re-enable global save button
+      this.Save.Enabled = true;
+    }
+
+    /// <summary>
+    /// Handles click on save user button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void AddUserSave_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // test if there is specified unsername/user id
+      if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
       {
-        PageContext.AddLoadMessage("Small medal image must be specified!");
+        // no username, nor userID specified
+        this.PageContext.AddLoadMessage("Please specify valid user!");
         return;
       }
-      if (this.SortOrder.Text.Trim().Length == 0)
+      else if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
       {
-          PageContext.AddLoadMessage("You must enter a value for sort order.");
+        // only username is specified, we must find id for it
+        var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+
+        if (users.Count() > 1)
+        {
+          // more than one user is avalilable for this username
+          this.PageContext.AddLoadMessage("Ambiguous user name specified!");
           return;
-      }
-
-      short sortOrder = 0;
-
-      if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
-      {
-          PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+        }
+        else if (!users.Any())
+        {
+          // no user found
+          this.PageContext.AddLoadMessage("Please specify valid user!");
           return;
+        }
+        else
+        {
+          // save id to the control
+          this.UserID.Text = (users.First().UserID ?? 0).ToString();
+        }
       }
-
-      if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      else if (this.UserID.Text.IsNotSet())
       {
-          PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
-          return;
+        // user is selected in dropdown, we must get id to UserID control
+        this.UserID.Text = this.UserNameList.SelectedValue;
       }
 
-      // data
-      object medalID = null;
-      object imageURL, smallImageURL, ribbonURL = null, smallRibbonURL = null;
-      object ribbonWidth = null, ribbonHeight = null;
-      Size imageSize;
-      var flags = new MedalFlags(0);
+      // save user, if there is no message specified, pass null
+      DB.user_medal_save(
+        this.UserID.Text, 
+        this.Request.QueryString.GetFirstOrDefault("m"), 
+        this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text, 
+        this.UserHide.Checked, 
+        this.UserOnlyRibbon.Checked, 
+        this.UserSortOrder.Text, 
+        null);
 
-      // retrieve medal ID, use null if we are creating new one
-      if (Request.QueryString.GetFirstOrDefault("m") != null)
-      {
-        medalID = Request.QueryString.GetFirstOrDefault("m");
-      }
+      // disable/hide edit controls
+      this.AddUserCancel_Click(sender, e);
 
-      // flags
-      flags.ShowMessage = this.ShowMessage.Checked;
-      flags.AllowRibbon = this.AllowRibbon.Checked;
-      flags.AllowReOrdering = this.AllowReOrdering.Checked;
-      flags.AllowHiding = this.AllowHiding.Checked;
+      // clear cache...
+      this.RemoveUserFromCache(Convert.ToInt32(this.UserID.Text));
 
-      // get medal images
-      imageURL = this.MedalImage.SelectedValue;
-      smallImageURL = this.SmallMedalImage.SelectedValue;
-      if (this.RibbonImage.SelectedIndex > 0)
-      {
-        ribbonURL = this.RibbonImage.SelectedValue;
-      }
-
-      if (this.SmallRibbonImage.SelectedIndex > 0)
-      {
-        smallRibbonURL = this.SmallRibbonImage.SelectedValue;
-
-        imageSize = GetImageSize(smallRibbonURL.ToString());
-        ribbonWidth = imageSize.Width;
-        ribbonHeight = imageSize.Height;
-      }
-
-      // get size of small image
-      imageSize = GetImageSize(smallImageURL.ToString());
-
-      // save medal
-      DB.medal_save(
-        PageContext.PageBoardID, 
-        medalID, 
-        this.Name.Text, 
-        this.Description.Text, 
-        this.Message.Text, 
-        this.Category.Text, 
-        imageURL, 
-        ribbonURL, 
-        smallImageURL, 
-        smallRibbonURL, 
-        imageSize.Width, 
-        imageSize.Height, 
-        ribbonWidth, 
-        ribbonHeight,
-        sortOrder, 
-        flags.BitValue);
-
-      // go back to medals administration
-      YafBuildLink.Redirect(ForumPages.admin_medals);
+      // re-bind data
+      this.BindData();
     }
-
-
-    /// <summary>
-    /// Adds javascript popup to remove group link button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void GroupRemove_Load(object sender, EventArgs e)
-    {
-      ControlHelper.AddOnClickConfirmDialog(sender, "Remove medal from this group?");
-    }
-
-
-    /// <summary>
-    /// Adds javascript popup to remove user link button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void UserRemove_Load(object sender, EventArgs e)
-    {
-      ControlHelper.AddOnClickConfirmDialog(sender, "Remove medal from this user?");
-    }
-
-
-    /// <summary>
-    /// Handles clear button click event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Clear_Click(object sender, EventArgs e)
-    {
-      // clear drop down
-      this.UserNameList.Items.Clear();
-
-      // hide it and show empty UserName text box
-      this.UserNameList.Visible = false;
-      this.UserName.Text = null;
-      this.UserName.Visible = true;
-      this.UserID.Text = null;
-
-      // show find users and all users (if user is admin)
-      this.FindUsers.Visible = true;
-
-      // clear button is not necessary now
-      this.Clear.Visible = false;
-    }
-
-
-    /// <summary>
-    /// Handles find users button click event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void FindUsers_Click(object sender, EventArgs e)
-    {
-      // try to find users by user name
-      var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
-
-      if (users.Any())
-      {
-        // we found a user(s)
-        this.UserNameList.DataSource = users;
-        this.UserNameList.DataValueField = "UserID";
-        this.UserNameList.DataTextField = "Name";
-        this.UserNameList.DataBind();
-
-        // hide To text box and show To drop down
-        this.UserNameList.Visible = true;
-        this.UserName.Visible = false;
-
-        // find is no more needed
-        this.FindUsers.Visible = false;
-
-        // we need clear button displayed now
-        this.Clear.Visible = true;
-      }
-    }
-
-
-    /// <summary>
-    /// Handles click on GroupList repeaters item command link buttton.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void GroupList_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
-
-          // load group-medal to the controls
-          using (DataTable dt = DB.group_medal_list(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m")))
-          {
-            // prepare editing interface
-            AddGroup_Click(null, e);
-
-            // tweak it for editing
-            this.GroupMedalEditTitle.Text = "Edit Medal of a Group";
-            this.AvailableGroupList.Enabled = false;
-
-            // we are intereseted inly in first row
-            DataRow r = dt.Rows[0];
-
-            // load data to controls
-            this.AvailableGroupList.SelectedIndex = -1;
-            this.AvailableGroupList.Items.FindByValue(r["GroupID"].ToString()).Selected = true;
-            this.GroupMessage.Text = r["MessageEx"].ToString();
-            this.GroupSortOrder.Text = r["SortOrder"].ToString();
-            this.GroupOnlyRibbon.Checked = (bool) r["OnlyRibbon"];
-            this.GroupHide.Checked = (bool) r["Hide"];
-
-            // remove all user medals...
-            RemoveMedalsFromCache();
-          }
-
-          break;
-        case "remove":
-          DB.group_medal_delete(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m"));
-
-          // remove all user medals...
-          RemoveMedalsFromCache();
-
-          BindData();
-          break;
-      }
-    }
-
-    /// <summary>
-    /// Removals all medals from the cache...
-    /// </summary>
-    protected void RemoveMedalsFromCache()
-    {
-      // remove all user medals...
-      PageContext.Cache.RemoveAllStartsWith(YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(string.Empty)));
-    }
-
-
-    /// <summary>
-    /// Handles click on UserList repeaters item command link buttton.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void UserList_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
-
-          // load user-medal to the controls
-          using (DataTable dt = DB.user_medal_list(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m")))
-          {
-            // prepare editing interface
-            AddUser_Click(null, e);
-
-            // tweak it for editing
-            this.UserMedalEditTitle.Text = "Edit Medal of a User";
-            this.UserName.Enabled = false;
-            this.FindUsers.Visible = false;
-
-            // we are intereseted inly in first row
-            DataRow r = dt.Rows[0];
-
-            // load data to controls
-            this.UserID.Text = r["UserID"].ToString();
-            this.UserName.Text = r["UserName"].ToString();
-            this.UserMessage.Text = r["MessageEx"].ToString();
-            this.UserSortOrder.Text = r["SortOrder"].ToString();
-            this.UserOnlyRibbon.Checked = (bool) r["OnlyRibbon"];
-            this.UserHide.Checked = (bool) r["Hide"];
-          }
-
-          break;
-        case "remove":
-
-          // delete user-medal
-          DB.user_medal_delete(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m"));
-
-          // clear cache...
-          RemoveUserFromCache(Convert.ToInt32(Request.QueryString.GetFirstOrDefault("m")));
-          BindData();
-          break;
-      }
-    }
-
 
     /// <summary>
     /// Handles click on add user button.
@@ -417,7 +234,7 @@ namespace YAF.Pages.Admin
     /// <remarks>
     /// Shows user-medal adding/editing controls.
     /// </remarks>
-    protected void AddUser_Click(object sender, EventArgs e)
+    protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // set title
       this.UserMedalEditTitle.Text = "Add Medal to a User";
@@ -449,9 +266,8 @@ namespace YAF.Pages.Admin
       this.Save.Enabled = false;
     }
 
-
     /// <summary>
-    /// Handles click on save user button.
+    /// Handles click on cancel button.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -459,62 +275,224 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void AddUserSave_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // test if there is specified unsername/user id
-      if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
+      // go back to medals administration
+      YafBuildLink.Redirect(ForumPages.admin_medals);
+    }
+
+    /// <summary>
+    /// Handles clear button click event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // clear drop down
+      this.UserNameList.Items.Clear();
+
+      // hide it and show empty UserName text box
+      this.UserNameList.Visible = false;
+      this.UserName.Text = null;
+      this.UserName.Visible = true;
+      this.UserID.Text = null;
+
+      // show find users and all users (if user is admin)
+      this.FindUsers.Visible = true;
+
+      // clear button is not necessary now
+      this.Clear.Visible = false;
+    }
+
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      // forum index
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+
+      // administration index
+      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+
+      // currect page
+      this.PageLinks.AddLink("Edit Medal", string.Empty);
+    }
+
+    /// <summary>
+    /// Handles find users button click event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // try to find users by user name
+      var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+
+      if (users.Any())
       {
-        // no username, nor userID specified
-        PageContext.AddLoadMessage("Please specify valid user!");
-        return;
+        // we found a user(s)
+        this.UserNameList.DataSource = users;
+        this.UserNameList.DataValueField = "UserID";
+        this.UserNameList.DataTextField = "Name";
+        this.UserNameList.DataBind();
+
+        // hide To text box and show To drop down
+        this.UserNameList.Visible = true;
+        this.UserName.Visible = false;
+
+        // find is no more needed
+        this.FindUsers.Visible = false;
+
+        // we need clear button displayed now
+        this.Clear.Visible = true;
       }
-      else if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
+    }
+
+    /// <summary>
+    /// Creates link to group editing admin interface.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// The format group link.
+    /// </returns>
+    protected string FormatGroupLink([NotNull] object data)
+    {
+      var dr = (DataRowView)data;
+
+      return "<a href=\"{1}\">{0}</a>".FormatWith(
+        dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
+    }
+
+    /// <summary>
+    /// Creates link to user editing admin interface.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// The format user link.
+    /// </returns>
+    protected string FormatUserLink([NotNull] object data)
+    {
+      var dr = (DataRowView)data;
+
+      return "<a href=\"{1}\">{0}</a>".FormatWith(
+        this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+    }
+
+    /// <summary>
+    /// Handles click on GroupList repeaters item command link buttton.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void GroupList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
       {
-        // only username is specified, we must find id for it
-        var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+        case "edit":
 
-        if (users.Count() > 1)
-        {
-          // more than one user is avalilable for this username
-          PageContext.AddLoadMessage("Ambiguous user name specified!");
-          return;
-        }
-        else if (!users.Any())
-        {
-          // no user found
-          PageContext.AddLoadMessage("Please specify valid user!");
-          return;
-        }
-        else
-        {
-          // save id to the control
-          this.UserID.Text = (users.First().UserID ?? 0).ToString();
-        }
+          // load group-medal to the controls
+          using (DataTable dt = DB.group_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
+          {
+            // prepare editing interface
+            this.AddGroup_Click(null, e);
+
+            // tweak it for editing
+            this.GroupMedalEditTitle.Text = "Edit Medal of a Group";
+            this.AvailableGroupList.Enabled = false;
+
+            // we are intereseted inly in first row
+            DataRow r = dt.Rows[0];
+
+            // load data to controls
+            this.AvailableGroupList.SelectedIndex = -1;
+            this.AvailableGroupList.Items.FindByValue(r["GroupID"].ToString()).Selected = true;
+            this.GroupMessage.Text = r["MessageEx"].ToString();
+            this.GroupSortOrder.Text = r["SortOrder"].ToString();
+            this.GroupOnlyRibbon.Checked = (bool)r["OnlyRibbon"];
+            this.GroupHide.Checked = (bool)r["Hide"];
+
+            // remove all user medals...
+            this.RemoveMedalsFromCache();
+          }
+
+          break;
+        case "remove":
+          DB.group_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
+
+          // remove all user medals...
+          this.RemoveMedalsFromCache();
+
+          this.BindData();
+          break;
       }
-      else if (this.UserID.Text.IsNotSet())
+    }
+
+    /// <summary>
+    /// Adds javascript popup to remove group link button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void GroupRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ControlHelper.AddOnClickConfirmDialog(sender, "Remove medal from this group?");
+    }
+
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // this needs to be done just once, not during postbacks
+      if (!this.IsPostBack)
       {
-        // user is selected in dropdown, we must get id to UserID control
-        this.UserID.Text = this.UserNameList.SelectedValue;
+        // create page links
+        this.CreatePageLinks();
+
+        // bind data
+        this.BindData();
       }
 
-      // save user, if there is no message specified, pass null
-      DB.user_medal_save(
-        this.UserID.Text, 
-        Request.QueryString.GetFirstOrDefault("m"), 
-        this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text, 
-        this.UserHide.Checked, 
-        this.UserOnlyRibbon.Checked, 
-        this.UserSortOrder.Text, 
-        null);
+      // set previews
+      this.SetPreview(this.MedalImage, this.MedalPreview);
+      this.SetPreview(this.RibbonImage, this.RibbonPreview);
+      this.SetPreview(this.SmallMedalImage, this.SmallMedalPreview);
+      this.SetPreview(this.SmallRibbonImage, this.SmallRibbonPreview);
+    }
 
-      // disable/hide edit controls
-      AddUserCancel_Click(sender, e);
-
-      // clear cache...
-      RemoveUserFromCache(Convert.ToInt32(this.UserID.Text));
-
-      // re-bind data
-      BindData();
+    /// <summary>
+    /// Removals all medals from the cache...
+    /// </summary>
+    protected void RemoveMedalsFromCache()
+    {
+      // remove all user medals...
+      this.PageContext.Cache.RemoveAllStartsWith(
+        YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(string.Empty)));
     }
 
     /// <summary>
@@ -525,11 +503,11 @@ namespace YAF.Pages.Admin
     protected void RemoveUserFromCache(int userId)
     {
       // remove user from cache...
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(userId)));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(userId)));
     }
 
     /// <summary>
-    /// Hides user add/edit controls.
+    /// Handles save button click.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -537,94 +515,154 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void AddUserCancel_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // set visibility
-      this.AddUserRow.Visible = true;
-      this.AddUserPanel.Visible = false;
-
-      // re-enable global save button
-      this.Save.Enabled = true;
-    }
-
-
-    /// <summary>
-    /// Handles click on add group button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <remarks>
-    /// Shows user-medal adding/editing controls.
-    /// </remarks>
-    protected void AddGroup_Click(object sender, EventArgs e)
-    {
-      // set title
-      this.GroupMedalEditTitle.Text = "Add Medal to a Group";
-
-      // clear controls
-      this.AvailableGroupList.SelectedIndex = -1;
-      this.GroupMessage.Text = null;
-      this.GroupOnlyRibbon.Checked = false;
-      this.GroupHide.Checked = false;
-      this.GroupSortOrder.Text = this.SortOrder.Text;
-
-      // set controls visibility and availability
-      this.AvailableGroupList.Enabled = true;
-
-      // show editing controls and hide row with add user button
-      this.AddGroupRow.Visible = false;
-      this.AddGroupPanel.Visible = true;
-
-      // focus on save button
-      this.AddGroupSave.Focus();
-
-      // disable global save button to prevent confusion
-      this.Save.Enabled = false;
-    }
-
-
-    /// <summary>
-    /// Handles click on save group button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void AddGroupSave_Click(object sender, EventArgs e)
-    {
-      // test if there is specified unsername/user id
-      if (this.AvailableGroupList.SelectedIndex < 0)
+      if (this.MedalImage.SelectedIndex <= 0)
       {
-        // no group selected
-        PageContext.AddLoadMessage("Please select user group!");
+        this.PageContext.AddLoadMessage("Medal image must be specified!");
+        return;
+      }
+      else if (this.SmallMedalImage.SelectedIndex <= 0)
+      {
+        this.PageContext.AddLoadMessage("Small medal image must be specified!");
         return;
       }
 
-      // save group, if there is no message specified, pass null
-      DB.group_medal_save(
-        this.AvailableGroupList.SelectedValue, 
-        Request.QueryString.GetFirstOrDefault("m"), 
-        this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text, 
-        this.GroupHide.Checked, 
-        this.GroupOnlyRibbon.Checked, 
-        this.GroupSortOrder.Text);
+      if (this.SortOrder.Text.Trim().Length == 0)
+      {
+        this.PageContext.AddLoadMessage("You must enter a value for sort order.");
+        return;
+      }
 
-      // disable/hide edit controls
-      AddGroupCancel_Click(sender, e);
+      short sortOrder = 0;
 
-      // re-bind data
-      BindData();
+      if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+        return;
+      }
+
+      if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      {
+        this.PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
+        return;
+      }
+
+      // data
+      object medalID = null;
+      object imageURL, smallImageURL, ribbonURL = null, smallRibbonURL = null;
+      object ribbonWidth = null, ribbonHeight = null;
+      Size imageSize;
+      var flags = new MedalFlags(0);
+
+      // retrieve medal ID, use null if we are creating new one
+      if (this.Request.QueryString.GetFirstOrDefault("m") != null)
+      {
+        medalID = this.Request.QueryString.GetFirstOrDefault("m");
+      }
+
+      // flags
+      flags.ShowMessage = this.ShowMessage.Checked;
+      flags.AllowRibbon = this.AllowRibbon.Checked;
+      flags.AllowReOrdering = this.AllowReOrdering.Checked;
+      flags.AllowHiding = this.AllowHiding.Checked;
+
+      // get medal images
+      imageURL = this.MedalImage.SelectedValue;
+      smallImageURL = this.SmallMedalImage.SelectedValue;
+      if (this.RibbonImage.SelectedIndex > 0)
+      {
+        ribbonURL = this.RibbonImage.SelectedValue;
+      }
+
+      if (this.SmallRibbonImage.SelectedIndex > 0)
+      {
+        smallRibbonURL = this.SmallRibbonImage.SelectedValue;
+
+        imageSize = this.GetImageSize(smallRibbonURL.ToString());
+        ribbonWidth = imageSize.Width;
+        ribbonHeight = imageSize.Height;
+      }
+
+      // get size of small image
+      imageSize = this.GetImageSize(smallImageURL.ToString());
+
+      // save medal
+      DB.medal_save(
+        this.PageContext.PageBoardID, 
+        medalID, 
+        this.Name.Text, 
+        this.Description.Text, 
+        this.Message.Text, 
+        this.Category.Text, 
+        imageURL, 
+        ribbonURL, 
+        smallImageURL, 
+        smallRibbonURL, 
+        imageSize.Width, 
+        imageSize.Height, 
+        ribbonWidth, 
+        ribbonHeight, 
+        sortOrder, 
+        flags.BitValue);
+
+      // go back to medals administration
+      YafBuildLink.Redirect(ForumPages.admin_medals);
     }
 
+    /// <summary>
+    /// Handles click on UserList repeaters item command link buttton.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+
+          // load user-medal to the controls
+          using (DataTable dt = DB.user_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
+          {
+            // prepare editing interface
+            this.AddUser_Click(null, e);
+
+            // tweak it for editing
+            this.UserMedalEditTitle.Text = "Edit Medal of a User";
+            this.UserName.Enabled = false;
+            this.FindUsers.Visible = false;
+
+            // we are intereseted inly in first row
+            DataRow r = dt.Rows[0];
+
+            // load data to controls
+            this.UserID.Text = r["UserID"].ToString();
+            this.UserName.Text = r["UserName"].ToString();
+            this.UserMessage.Text = r["MessageEx"].ToString();
+            this.UserSortOrder.Text = r["SortOrder"].ToString();
+            this.UserOnlyRibbon.Checked = (bool)r["OnlyRibbon"];
+            this.UserHide.Checked = (bool)r["Hide"];
+          }
+
+          break;
+        case "remove":
+
+          // delete user-medal
+          DB.user_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
+
+          // clear cache...
+          this.RemoveUserFromCache(Convert.ToInt32(this.Request.QueryString.GetFirstOrDefault("m")));
+          this.BindData();
+          break;
+      }
+    }
 
     /// <summary>
-    /// Hides group add/edit controls.
+    /// Adds javascript popup to remove user link button.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -632,19 +670,10 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void AddGroupCancel_Click(object sender, EventArgs e)
+    protected void UserRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // set visibility
-      this.AddGroupRow.Visible = true;
-      this.AddGroupPanel.Visible = false;
-
-      // re-enable global save button
-      this.Save.Enabled = true;
+      ControlHelper.AddOnClickConfirmDialog(sender, "Remove medal from this user?");
     }
-
-    #endregion
-
-    #region Data Bidining & Formatting
 
     /// <summary>
     /// Bind data for this control.
@@ -667,7 +696,9 @@ namespace YAF.Pages.Admin
         dt.Rows.Add(dr);
 
         // add files from medals folder
-        var dir = new DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
+        var dir =
+          new DirectoryInfo(
+            this.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
         FileInfo[] files = dir.GetFiles("*.*");
 
         long nFileID = 1;
@@ -711,22 +742,22 @@ namespace YAF.Pages.Admin
       }
 
       // bind data to controls
-      DataBind();
+      this.DataBind();
 
       // load existing medal if we are editing one
-      if (Request.QueryString.GetFirstOrDefault("m") != null)
+      if (this.Request.QueryString.GetFirstOrDefault("m") != null)
       {
         // load users and groups who has been assigned this medal
-        this.UserList.DataSource = DB.user_medal_list(null, Request.QueryString.GetFirstOrDefault("m"));
+        this.UserList.DataSource = DB.user_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
         this.UserList.DataBind();
-        this.GroupList.DataSource = DB.group_medal_list(null, Request.QueryString.GetFirstOrDefault("m"));
+        this.GroupList.DataSource = DB.group_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
         this.GroupList.DataBind();
 
         // enable adding users/groups
         this.AddUserRow.Visible = true;
         this.AddGroupRow.Visible = true;
 
-        using (DataTable dt = DB.medal_list(Request.QueryString.GetFirstOrDefault("m")))
+        using (DataTable dt = DB.medal_list(this.Request.QueryString.GetFirstOrDefault("m")))
         {
           // get data row
           DataRow row = dt.Rows[0];
@@ -752,7 +783,7 @@ namespace YAF.Pages.Admin
           SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, row["SmallRibbonURL"]);
         }
 
-        using (DataTable dt = DB.group_list(PageContext.PageBoardID, null))
+        using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, null))
         {
           // get data row
           DataRow row = dt.Rows[0];
@@ -773,57 +804,25 @@ namespace YAF.Pages.Admin
       }
     }
 
-
     /// <summary>
-    /// Creates link to group editing admin interface.
+    /// Gets size of image located in medals directory.
     /// </summary>
-    /// <param name="data">
-    /// The data.
+    /// <param name="filename">
+    /// Name of file.
     /// </param>
     /// <returns>
-    /// The format group link.
+    /// Size of image.
     /// </returns>
-    protected string FormatGroupLink(object data)
+    private Size GetImageSize([NotNull] string filename)
     {
-      var dr = (DataRowView) data;
-
-      return "<a href=\"{1}\">{0}</a>".FormatWith(dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
-    }
-
-
-    /// <summary>
-    /// Creates link to user editing admin interface.
-    /// </summary>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <returns>
-    /// The format user link.
-    /// </returns>
-    protected string FormatUserLink(object data)
-    {
-      var dr = (DataRowView) data;
-
-      return "<a href=\"{1}\">{0}</a>".FormatWith(this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
-
-    }
-
-
-    /// <summary>
-    /// Select image in dropdown list and sets appropriate preview.
-    /// </summary>
-    /// <param name="list">
-    /// DropDownList where to search.
-    /// </param>
-    /// <param name="preview">
-    /// Preview image.
-    /// </param>
-    /// <param name="imageURL">
-    /// URL to seach for.
-    /// </param>
-    private void SelectImage(DropDownList list, HtmlImage preview, object imageURL)
-    {
-      SelectImage(list, preview, imageURL.ToString());
+      using (
+        Image img =
+          Image.FromFile(
+            this.Server.MapPath(
+              "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
+      {
+        return img.Size;
+      }
     }
 
     /// <summary>
@@ -838,7 +837,24 @@ namespace YAF.Pages.Admin
     /// <param name="imageURL">
     /// URL to seach for.
     /// </param>
-    private void SelectImage(DropDownList list, HtmlImage preview, string imageURL)
+    private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] object imageURL)
+    {
+      this.SelectImage(list, preview, imageURL.ToString());
+    }
+
+    /// <summary>
+    /// Select image in dropdown list and sets appropriate preview.
+    /// </summary>
+    /// <param name="list">
+    /// DropDownList where to search.
+    /// </param>
+    /// <param name="preview">
+    /// Preview image.
+    /// </param>
+    /// <param name="imageURL">
+    /// URL to seach for.
+    /// </param>
+    private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] string imageURL)
     {
       // try to find item in a list
       ListItem item = list.Items.FindByText(imageURL);
@@ -849,7 +865,8 @@ namespace YAF.Pages.Admin
         item.Selected = true;
 
         // set preview image
-        preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
+        preview.Src = "{0}{1}/{2}".FormatWith(
+          YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
       }
       else
       {
@@ -857,7 +874,6 @@ namespace YAF.Pages.Admin
         preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
       }
     }
-
 
     /// <summary>
     /// Set onchange event for image selector DropDown to set preview image.
@@ -868,28 +884,12 @@ namespace YAF.Pages.Admin
     /// <param name="imagePreview">
     /// Image for showing preview.
     /// </param>
-    private void SetPreview(WebControl imageSelector, HtmlControl imagePreview)
+    private void SetPreview([NotNull] WebControl imageSelector, [NotNull] HtmlControl imagePreview)
     {
       // create javascript
-      imageSelector.Attributes["onchange"] = "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
-    }
-
-
-    /// <summary>
-    /// Gets size of image located in medals directory.
-    /// </summary>
-    /// <param name="filename">
-    /// Name of file.
-    /// </param>
-    /// <returns>
-    /// Size of image.
-    /// </returns>
-    private Size GetImageSize(string filename)
-    {
-      using (Image img = Image.FromFile(Server.MapPath("{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
-      {
-        return img.Size;
-      }
+      imageSelector.Attributes["onchange"] =
+        "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(
+          YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
     }
 
     #endregion

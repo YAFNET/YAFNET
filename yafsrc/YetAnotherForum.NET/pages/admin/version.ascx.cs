@@ -20,29 +20,42 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
   using YAF.RegisterForum;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for register.
   /// </summary>
   public partial class version : AdminPage
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _last version.
+    ///   The _last version.
     /// </summary>
     private long _lastVersion;
 
     /// <summary>
-    /// The _last version date.
+    ///   The _last version date.
     /// </summary>
     private DateTime _lastVersionDate;
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets LastVersion.
+    ///   Gets LastVersion.
     /// </summary>
     protected string LastVersion
     {
@@ -53,7 +66,7 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// Gets LastVersionDate.
+    ///   Gets LastVersionDate.
     /// </summary>
     protected string LastVersionDate
     {
@@ -62,6 +75,10 @@ namespace YAF.Pages.Admin
         return this.Get<IDateTime>().FormatDateShort(this._lastVersionDate);
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -72,11 +89,11 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Version Check", string.Empty);
       }
@@ -95,8 +112,9 @@ namespace YAF.Pages.Admin
 
       this.Upgrade.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
 
-
-      DataBind();
+      this.DataBind();
     }
+
+    #endregion
   }
 }

@@ -20,19 +20,28 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for mail.
   /// </summary>
   public partial class mail : AdminPage
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -42,28 +51,16 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Mail", string.Empty);
 
-        BindData();
+        this.BindData();
       }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.ToList.DataSource = DB.group_list(PageContext.PageBoardID, null);
-      DataBind();
-
-      var item = new ListItem("All Users", "0");
-      this.ToList.Items.Insert(0, item);
     }
 
     /// <summary>
@@ -75,7 +72,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Send_Click(object sender, EventArgs e)
+    protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       object GroupID = null;
       if (this.ToList.SelectedItem.Value != "0")
@@ -87,23 +84,41 @@ namespace YAF.Pages.Admin
 
       if (subject.IsNotSet())
       {
-        PageContext.AddLoadMessage("Subject is Required");
+        this.PageContext.AddLoadMessage("Subject is Required");
       }
       else
       {
-        using (DataTable dt = DB.user_emails(PageContext.PageBoardID, GroupID))
+        using (DataTable dt = DB.user_emails(this.PageContext.PageBoardID, GroupID))
         {
           foreach (DataRow row in dt.Rows)
           {
             // Wes - Changed to use queue to improve scalability
-            this.Get<ISendMail>().Queue(PageContext.BoardSettings.ForumEmail, (string) row["Email"], this.Subject.Text.Trim(), this.Body.Text.Trim());
+            this.Get<ISendMail>().Queue(
+              this.PageContext.BoardSettings.ForumEmail, 
+              (string)row["Email"], 
+              this.Subject.Text.Trim(), 
+              this.Body.Text.Trim());
           }
         }
 
         this.Subject.Text = string.Empty;
         this.Body.Text = string.Empty;
-        PageContext.AddLoadMessage("Mails queued.");
+        this.PageContext.AddLoadMessage("Mails queued.");
       }
     }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.ToList.DataSource = DB.group_list(this.PageContext.PageBoardID, null);
+      this.DataBind();
+
+      var item = new ListItem("All Users", "0");
+      this.ToList.Items.Insert(0, item);
+    }
+
+    #endregion
   }
 }

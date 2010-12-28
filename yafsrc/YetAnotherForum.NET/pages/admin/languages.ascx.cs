@@ -20,17 +20,40 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
-  using Classes;
-  using Classes.Core;
-    using Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for attachments.
   /// </summary>
-    public partial class languages : AdminPage
+  public partial class languages : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      List.ItemCommand += this.List_ItemCommand;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -40,15 +63,18 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (IsPostBack) return;
+      if (this.IsPostBack)
+      {
+        return;
+      }
 
-        PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        PageLinks.AddLink("Languages", string.Empty);
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+      this.PageLinks.AddLink("Languages", string.Empty);
 
-        BindData();
+      this.BindData();
     }
 
     /// <summary>
@@ -56,8 +82,16 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-        List.DataSource = StaticDataHelper.Cultures();
-        DataBind();
+      this.List.DataSource = StaticDataHelper.Cultures();
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
     }
 
     /// <summary>
@@ -69,39 +103,14 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {
         case "edit":
-            YafBuildLink.Redirect(ForumPages.admin_editlanguage, "x={0}", e.CommandArgument);
+          YafBuildLink.Redirect(ForumPages.admin_editlanguage, "x={0}", e.CommandArgument);
           break;
       }
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     #endregion

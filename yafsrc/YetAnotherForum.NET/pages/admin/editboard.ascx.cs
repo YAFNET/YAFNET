@@ -20,24 +20,34 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.IO;
   using System.Web;
   using System.Web.Security;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for WebForm1.
   /// </summary>
   public partial class editboard : AdminPage
   {
+    #region Properties
+
     /// <summary>
-    /// Gets BoardID.
+    ///   Gets BoardID.
     /// </summary>
     protected int? BoardID
     {
@@ -46,7 +56,7 @@ namespace YAF.Pages.Admin
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b").IsSet())
         {
           int boardId;
-          if (int.TryParse(Request.QueryString.GetFirstOrDefault("b"), out boardId))
+          if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out boardId))
           {
             return boardId;
           }
@@ -56,9 +66,12 @@ namespace YAF.Pages.Admin
       }
     }
 
+    #endregion
+
+    #region Methods
 
     /// <summary>
-    /// The page_ load.
+    /// The bind data_ access mask id.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -66,139 +79,11 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Boards", string.Empty);
-
-        this.Culture.DataSource = StaticDataHelper.Cultures();
-        this.Culture.DataValueField = "CultureTag";
-        this.Culture.DataTextField = "CultureNativeName";   
-
-        BindData();
-
-        if (this.Culture.Items.Count > 0)
-        {
-            this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
-        }
-
-        if (BoardID != null)
-        {
-          this.CreateNewAdminHolder.Visible = false;
-
-          using (DataTable dt = DB.board_list(BoardID))
-          {
-            DataRow row = dt.Rows[0];
-            this.Name.Text = (string) row["Name"];           
-            this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
-            this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
-          }
-        }
-        else
-        {
-          this.UserName.Text = User.UserName;
-          this.UserEmail.Text = User.Email;
-        }
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      DataBind();
-    }
-
-    /// <summary>
-    /// The save_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-      if (this.Name.Text.Trim().Length == 0)
-      {
-        this.PageContext.AddLoadMessage("You must enter a name for the board.");
-        return;
-      }
-
-      if (BoardID == null && this.CreateAdminUser.Checked)
-      {
-        if (this.UserName.Text.Trim().Length == 0)
-        {
-          PageContext.AddLoadMessage("You must enter the name of a administrator user.");
-          return;
-        }
-
-        if (this.UserEmail.Text.Trim().Length == 0)
-        {
-          PageContext.AddLoadMessage("You must enter the email address of the administrator user.");
-          return;
-        }
-
-        if (this.UserPass1.Text.Trim().Length == 0)
-        {
-          PageContext.AddLoadMessage("You must enter a password for the administrator user.");
-          return;
-        }
-
-        if (this.UserPass1.Text != this.UserPass2.Text)
-        {
-          PageContext.AddLoadMessage("The passwords don't match.");
-          return;
-        }
-      }
-
-      if (BoardID != null)
-      {
-          System.Data.DataTable cult = StaticDataHelper.Cultures();
-          string langFile = "en-US";
-          foreach (System.Data.DataRow drow in cult.Rows)
-          {
-              if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-              {
-                  langFile = (string)drow["CultureFile"];
-              }
-          }
-        // Save current board settings
-        DB.board_save(BoardID,langFile, this.Culture.SelectedItem.Value, this.Name.Text.Trim(), this.AllowThreaded.Checked);
-      }
-      else
-      {
-        // Create board
-        // MEK says : Purposefully set MembershipAppName without including RolesAppName yet, as the current providers don't support different Appnames.
-        if (this.CreateAdminUser.Checked)
-        {
-          CreateBoard(
-            this.UserName.Text.Trim(), 
-            this.UserPass1.Text, 
-            this.UserEmail.Text.Trim(), 
-            this.UserPasswordQuestion.Text.Trim(), 
-            this.UserPasswordAnswer.Text.Trim(), 
-            this.Name.Text.Trim(), 
-            this.BoardMembershipAppName.Text.Trim(), 
-            this.BoardMembershipAppName.Text.Trim(), 
-            true);
-        }
-        else
-        {
-          // create admin user from logged in user...
-          CreateBoard(
-            null, null, null, null, null, this.Name.Text.Trim(), this.BoardMembershipAppName.Text.Trim(), this.BoardMembershipAppName.Text.Trim(), false);
-        }
-      }
-
-      // Done
-      PageContext.BoardSettings = null;
-      YafBuildLink.Redirect(ForumPages.admin_boards);
+      ((DropDownList)sender).DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+      ((DropDownList)sender).DataValueField = "AccessMaskID";
+      ((DropDownList)sender).DataTextField = "Name";
     }
 
     /// <summary>
@@ -210,13 +95,13 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_boards);
     }
 
     /// <summary>
-    /// The bind data_ access mask id.
+    /// The create admin user_ checked changed.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -224,32 +109,9 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void BindData_AccessMaskID(object sender, EventArgs e)
+    protected void CreateAdminUser_CheckedChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((DropDownList) sender).DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
-      ((DropDownList) sender).DataValueField = "AccessMaskID";
-      ((DropDownList) sender).DataTextField = "Name";
-    }
-
-    /// <summary>
-    /// The set drop down index.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void SetDropDownIndex(object sender, EventArgs e)
-    {
-      try
-      {
-        var list = (DropDownList) sender;
-        list.Items.FindByValue(list.Attributes["value"]).Selected = true;
-      }
-      catch (Exception)
-      {
-      }
+      this.AdminInfo.Visible = this.CreateAdminUser.Checked;
     }
 
     /// <summary>
@@ -284,48 +146,43 @@ namespace YAF.Pages.Admin
     /// </param>
     /// <exception cref="ApplicationException">
     /// </exception>
-    protected void CreateBoard(
-      string adminName, 
-      string adminPassword, 
-      string adminEmail, 
-      string adminPasswordQuestion, 
-      string adminPasswordAnswer, 
-      string boardName, 
-      string boardMembershipAppName, 
-      string boardRolesAppName, 
-      bool createUserAndRoles)
+    protected void CreateBoard([NotNull] string adminName, [NotNull] string adminPassword, [NotNull] string adminEmail, [NotNull] string adminPasswordQuestion, [NotNull] string adminPasswordAnswer, [NotNull] string boardName, [NotNull] string boardMembershipAppName, [NotNull] string boardRolesAppName, 
+                               bool createUserAndRoles)
     {
       // Store current App Names
-      string currentMembershipAppName = PageContext.CurrentMembership.ApplicationName;
-      string currentRolesAppName = PageContext.CurrentRoles.ApplicationName;
+      string currentMembershipAppName = this.PageContext.CurrentMembership.ApplicationName;
+      string currentRolesAppName = this.PageContext.CurrentRoles.ApplicationName;
 
       if (boardMembershipAppName.IsSet() && boardRolesAppName.IsSet())
       {
         // Change App Names for new board
-        PageContext.CurrentMembership.ApplicationName = boardMembershipAppName;
-        PageContext.CurrentMembership.ApplicationName = boardRolesAppName;
+        this.PageContext.CurrentMembership.ApplicationName = boardMembershipAppName;
+        this.PageContext.CurrentMembership.ApplicationName = boardRolesAppName;
       }
 
       int newBoardID = 0;
-      System.Data.DataTable cult = StaticDataHelper.Cultures();
+      DataTable cult = StaticDataHelper.Cultures();
       string langFile = "english.xml";
-      foreach (System.Data.DataRow drow in cult.Rows)
+      foreach (DataRow drow in cult.Rows)
       {
-          if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-          {
-              langFile = (string)drow["CultureFile"];
-          }
+        if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
+        {
+          langFile = (string)drow["CultureFile"];
+        }
       }
+
       if (createUserAndRoles)
       {
         // Create new admin users
         MembershipCreateStatus createStatus;
-        MembershipUser newAdmin = PageContext.CurrentMembership.CreateUser(
+        MembershipUser newAdmin = this.PageContext.CurrentMembership.CreateUser(
           adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, null, out createStatus);
         if (createStatus != MembershipCreateStatus.Success)
         {
-          PageContext.AddLoadMessage("Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)));
-          throw new ApplicationException("Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)));
+          this.PageContext.AddLoadMessage(
+            "Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)));
+          throw new ApplicationException(
+            "Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)));
         }
 
         // Create groups required for the new board
@@ -336,7 +193,15 @@ namespace YAF.Pages.Admin
         RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
 
         // Create Board
-        newBoardID = DB.board_create(newAdmin.UserName, newAdmin.Email, newAdmin.ProviderUserKey, boardName, this.Culture.SelectedItem.Value, langFile, boardMembershipAppName, boardRolesAppName);
+        newBoardID = DB.board_create(
+          newAdmin.UserName, 
+          newAdmin.Email, 
+          newAdmin.ProviderUserKey, 
+          boardName, 
+          this.Culture.SelectedItem.Value, 
+          langFile, 
+          boardMembershipAppName, 
+          boardRolesAppName);
       }
       else
       {
@@ -344,14 +209,21 @@ namespace YAF.Pages.Admin
         MembershipUser newAdmin = UserMembershipHelper.GetUser();
 
         // Create Board
-        newBoardID = DB.board_create(newAdmin.UserName, newAdmin.Email, newAdmin.ProviderUserKey, boardName, this.Culture.SelectedItem.Value, langFile,boardMembershipAppName, boardRolesAppName);
+        newBoardID = DB.board_create(
+          newAdmin.UserName, 
+          newAdmin.Email, 
+          newAdmin.ProviderUserKey, 
+          boardName, 
+          this.Culture.SelectedItem.Value, 
+          langFile, 
+          boardMembershipAppName, 
+          boardRolesAppName);
       }
-
 
       if (newBoardID > 0 && Config.MultiBoardFolders)
       {
         // Successfully created the new board
-        string boardFolder = Server.MapPath(Path.Combine(Config.BoardRoot, newBoardID.ToString() + "/"));
+        string boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, newBoardID + "/"));
 
         // Create New Folders.
         if (!Directory.Exists(Path.Combine(boardFolder, "Images")))
@@ -381,24 +253,9 @@ namespace YAF.Pages.Admin
         }
       }
 
-
       // Return application name to as they were before.
       YafContext.Current.CurrentMembership.ApplicationName = currentMembershipAppName;
       YafContext.Current.CurrentRoles.ApplicationName = currentRolesAppName;
-    }
-
-    /// <summary>
-    /// The create admin user_ checked changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void CreateAdminUser_CheckedChanged(object sender, EventArgs e)
-    {
-      this.AdminInfo.Visible = this.CreateAdminUser.Checked;
     }
 
     /// <summary>
@@ -410,6 +267,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The get membership error message.
     /// </returns>
+    [NotNull]
     protected string GetMembershipErrorMessage(MembershipCreateStatus status)
     {
       switch (status)
@@ -444,8 +302,186 @@ namespace YAF.Pages.Admin
             "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
         default:
-          return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+          return
+            "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
       }
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Boards", string.Empty);
+
+        this.Culture.DataSource = StaticDataHelper.Cultures();
+        this.Culture.DataValueField = "CultureTag";
+        this.Culture.DataTextField = "CultureNativeName";
+
+        this.BindData();
+
+        if (this.Culture.Items.Count > 0)
+        {
+          this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
+        }
+
+        if (this.BoardID != null)
+        {
+          this.CreateNewAdminHolder.Visible = false;
+
+          using (DataTable dt = DB.board_list(this.BoardID))
+          {
+            DataRow row = dt.Rows[0];
+            this.Name.Text = (string)row["Name"];
+            this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
+            this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
+          }
+        }
+        else
+        {
+          this.UserName.Text = this.User.UserName;
+          this.UserEmail.Text = this.User.Email;
+        }
+      }
+    }
+
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.Name.Text.Trim().Length == 0)
+      {
+        this.PageContext.AddLoadMessage("You must enter a name for the board.");
+        return;
+      }
+
+      if (this.BoardID == null && this.CreateAdminUser.Checked)
+      {
+        if (this.UserName.Text.Trim().Length == 0)
+        {
+          this.PageContext.AddLoadMessage("You must enter the name of a administrator user.");
+          return;
+        }
+
+        if (this.UserEmail.Text.Trim().Length == 0)
+        {
+          this.PageContext.AddLoadMessage("You must enter the email address of the administrator user.");
+          return;
+        }
+
+        if (this.UserPass1.Text.Trim().Length == 0)
+        {
+          this.PageContext.AddLoadMessage("You must enter a password for the administrator user.");
+          return;
+        }
+
+        if (this.UserPass1.Text != this.UserPass2.Text)
+        {
+          this.PageContext.AddLoadMessage("The passwords don't match.");
+          return;
+        }
+      }
+
+      if (this.BoardID != null)
+      {
+        DataTable cult = StaticDataHelper.Cultures();
+        string langFile = "en-US";
+        foreach (DataRow drow in cult.Rows)
+        {
+          if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
+          {
+            langFile = (string)drow["CultureFile"];
+          }
+        }
+
+        // Save current board settings
+        DB.board_save(
+          this.BoardID, langFile, this.Culture.SelectedItem.Value, this.Name.Text.Trim(), this.AllowThreaded.Checked);
+      }
+      else
+      {
+        // Create board
+        // MEK says : Purposefully set MembershipAppName without including RolesAppName yet, as the current providers don't support different Appnames.
+        if (this.CreateAdminUser.Checked)
+        {
+          this.CreateBoard(
+            this.UserName.Text.Trim(), 
+            this.UserPass1.Text, 
+            this.UserEmail.Text.Trim(), 
+            this.UserPasswordQuestion.Text.Trim(), 
+            this.UserPasswordAnswer.Text.Trim(), 
+            this.Name.Text.Trim(), 
+            this.BoardMembershipAppName.Text.Trim(), 
+            this.BoardMembershipAppName.Text.Trim(), 
+            true);
+        }
+        else
+        {
+          // create admin user from logged in user...
+          this.CreateBoard(
+            null, 
+            null, 
+            null, 
+            null, 
+            null, 
+            this.Name.Text.Trim(), 
+            this.BoardMembershipAppName.Text.Trim(), 
+            this.BoardMembershipAppName.Text.Trim(), 
+            false);
+        }
+      }
+
+      // Done
+      this.PageContext.BoardSettings = null;
+      YafBuildLink.Redirect(ForumPages.admin_boards);
+    }
+
+    /// <summary>
+    /// The set drop down index.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      try
+      {
+        var list = (DropDownList)sender;
+        list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+      }
+      catch (Exception)
+      {
+      }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.DataBind();
+    }
+
+    #endregion
   }
 }

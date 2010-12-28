@@ -1,56 +1,96 @@
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-    using System;
-    using System.Web.Security;
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
+  // YAF.Pages
+  #region Using
 
-	public partial class im_msn : YAF.Classes.Core.ForumPage
-	{
-		public int UserID
-		{
-			get
-			{
-				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-			}
-		}
+  using System;
+  using System.Web.Security;
 
-        public im_msn()
-			: base( "IM_MSN" )
-		{
-		}
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			if ( User == null )
-			{
-				YafBuildLink.AccessDenied();
-			}
+  #endregion
 
-			if ( !IsPostBack )
-			{
-				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
+  /// <summary>
+  /// The im_msn.
+  /// </summary>
+  public partial class im_msn : ForumPage
+  {
+    #region Constructors and Destructors
 
-				if ( user == null )
-				{
-					YafBuildLink.AccessDenied(/*No such user exists*/);
-				}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="im_msn"/> class.
+    /// </summary>
+    public im_msn()
+      : base("IM_MSN")
+    {
+    }
 
-                string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
+    #endregion
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    #region Properties
 
-				// get full user data...
-				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
+    /// <summary>
+    /// Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      }
+    }
 
-                Msg.NavigateUrl = "msnim:chat?contact={0}".FormatWith(userData.Profile.MSN);
-				//Msg.Attributes.Add( "onclick", "return skypeCheck();" );
-                Img.Src = "http://messenger.services.live.com/users/{0}/presenceimage".FormatWith(userData.Profile.MSN);
-			}
-		}
-	}
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.User == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        // get user data...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+
+        if (user == null)
+        {
+          YafBuildLink.AccessDenied( /*No such user exists*/);
+        }
+
+        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        // get full user data...
+        var userData = new CombinedUserDataHelper(user, this.UserID);
+
+        this.Msg.NavigateUrl = "msnim:chat?contact={0}".FormatWith(userData.Profile.MSN);
+
+        // Msg.Attributes.Add( "onclick", "return skypeCheck();" );
+        this.Img.Src = "http://messenger.services.live.com/users/{0}/presenceimage".FormatWith(userData.Profile.MSN);
+      }
+    }
+
+    #endregion
+  }
 }

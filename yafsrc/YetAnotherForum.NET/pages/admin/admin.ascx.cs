@@ -20,21 +20,32 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// Summary description for main.
   /// </summary>
   public partial class admin : AdminPage
   {
+    #region Public Methods
+
     /// <summary>
-    /// The page_ load.
+    /// The board stats select_ changed.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -42,23 +53,82 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    public void BoardStatsSelect_Changed([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", string.Empty);
-
-        // bind data
-        BindBoardsList();
-        BindData();
-
-        // TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
-      }
+      // re-bind data
+      this.BindData();
     }
 
     /// <summary>
-    /// The delete_ load.
+    /// The user list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+          break;
+        case "delete":
+          string daysValue = this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
+          if (!ValidationHelper.IsValidInt(daysValue))
+          {
+            this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
+            return;
+          }
+
+          if (!Config.IsAnyPortal)
+          {
+            UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
+          }
+
+          DB.user_delete(e.CommandArgument);
+          this.BindData();
+          break;
+        case "approve":
+          UserMembershipHelper.ApproveUser(Convert.ToInt32(e.CommandArgument));
+          this.BindData();
+          break;
+        case "deleteall":
+
+          // vzrus: Should not delete the whole providers portal data? Under investigation.
+          string daysValueAll = this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
+          if (!ValidationHelper.IsValidInt(daysValueAll))
+          {
+            this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
+            return;
+          }
+
+          if (!Config.IsAnyPortal)
+          {
+            UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-Convert.ToInt32(daysValueAll)));
+          }
+
+          DB.user_deleteold(this.PageContext.PageBoardID, Convert.ToInt32(daysValueAll));
+          this.BindData();
+          break;
+        case "approveall":
+          UserMembershipHelper.ApproveAll();
+
+          // vzrus: Should delete users from send email list
+          DB.user_approveall(this.PageContext.PageBoardID);
+          this.BindData();
+          break;
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The approve all_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -66,9 +136,9 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this User?')";
+      ((Button)sender).Attributes["onclick"] = "return confirm('Approve all Users?')";
     }
 
     /// <summary>
@@ -80,9 +150,9 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Approve_Load(object sender, EventArgs e)
+    protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Approve this User?')";
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Approve this User?')";
     }
 
     /// <summary>
@@ -94,13 +164,14 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteAll_Load(object sender, EventArgs e)
+    protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button) sender).Attributes["onclick"] = "return confirm('Delete all Unapproved Users more than the specified number of days old?')";
+      ((Button)sender).Attributes["onclick"] =
+        "return confirm('Delete all Unapproved Users more than the specified number of days old?')";
     }
 
     /// <summary>
-    /// The approve all_ load.
+    /// The delete_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -108,9 +179,81 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ApproveAll_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button) sender).Attributes["onclick"] = "return confirm('Approve all Users?')";
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this User?')";
+    }
+
+    /// <summary>
+    /// The format forum link.
+    /// </summary>
+    /// <param name="ForumID">
+    /// The forum id.
+    /// </param>
+    /// <param name="ForumName">
+    /// The forum name.
+    /// </param>
+    /// <returns>
+    /// The format forum link.
+    /// </returns>
+    protected string FormatForumLink([NotNull] object ForumID, [NotNull] object ForumName)
+    {
+      if (ForumID.ToString() == string.Empty || ForumName.ToString() == string.Empty)
+      {
+        return string.Empty;
+      }
+
+      return
+        "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
+          YafBuildLink.GetLink(ForumPages.topics, "f={0}", ForumID), ForumName);
+    }
+
+    /// <summary>
+    /// The format topic link.
+    /// </summary>
+    /// <param name="TopicID">
+    /// The topic id.
+    /// </param>
+    /// <param name="TopicName">
+    /// The topic name.
+    /// </param>
+    /// <returns>
+    /// The format topic link.
+    /// </returns>
+    protected string FormatTopicLink([NotNull] object TopicID, [NotNull] object TopicName)
+    {
+      if (TopicID.ToString() == string.Empty || TopicName.ToString() == string.Empty)
+      {
+        return string.Empty;
+      }
+
+      return
+        "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
+          YafBuildLink.GetLink(ForumPages.posts, "t={0}", TopicID), TopicName);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", string.Empty);
+
+        // bind data
+        this.BindBoardsList();
+        this.BindData();
+
+        // TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
+      }
     }
 
     /// <summary>
@@ -119,7 +262,7 @@ namespace YAF.Pages.Admin
     private void BindBoardsList()
     {
       // only if user is hostadmin, otherwise boards' list is hidden
-      if (PageContext.IsHostAdmin)
+      if (this.PageContext.IsHostAdmin)
       {
         DataTable dt = DB.board_list(null);
 
@@ -136,37 +279,9 @@ namespace YAF.Pages.Admin
         this.BoardStatsSelect.DataBind();
 
         // select current board as default
-        this.BoardStatsSelect.SelectedIndex = this.BoardStatsSelect.Items.IndexOf(this.BoardStatsSelect.Items.FindByValue(PageContext.PageBoardID.ToString()));
-      }
-    }
-
-
-    /// <summary>
-    /// Gets board ID for which to show statistics.
-    /// </summary>
-    /// <returns>
-    /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
-    /// </returns>
-    private object GetSelectedBoardID()
-    {
-      // check dropdown only if user is hostadmin
-      if (PageContext.IsHostAdmin)
-      {
-        // -1 means all boards are selected
-        if (this.BoardStatsSelect.SelectedValue == "-1")
-        {
-          return null;
-        }
-        else
-        {
-          return this.BoardStatsSelect.SelectedValue;
-        }
-      }
-        
-        // for non host admin user, return board he's logged on
-      else
-      {
-        return PageContext.PageBoardID;
+        this.BoardStatsSelect.SelectedIndex =
+          this.BoardStatsSelect.Items.IndexOf(
+            this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
       }
     }
 
@@ -175,26 +290,31 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      
-        DataTable activeList =  DB.active_list(
-        PageContext.PageBoardID, true, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-        // Set colorOnly parameter to false, as we get active users style from database        
-        if (PageContext.BoardSettings.UseStyledNicks)
-        {
-            new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeList,false);
-        }
-        this.ActiveList.DataSource = activeList;
-        this.UserList.DataSource = DB.user_list(PageContext.PageBoardID, null, false);
-        DataBind();
+      DataTable activeList = DB.active_list(
+        this.PageContext.PageBoardID, 
+        true, 
+        true, 
+        this.PageContext.BoardSettings.ActiveListTime, 
+        this.PageContext.BoardSettings.UseStyledNicks);
+
+      // Set colorOnly parameter to false, as we get active users style from database        
+      if (this.PageContext.BoardSettings.UseStyledNicks)
+      {
+        this.Get<IStyleTransform>().DecodeStyleByTable(ref activeList, false);
+      }
+
+      this.ActiveList.DataSource = activeList;
+      this.UserList.DataSource = DB.user_list(this.PageContext.PageBoardID, null, false);
+      this.DataBind();
 
       // get stats for current board, selected board or all boards (see function)
-      DataRow row = DB.board_stats(GetSelectedBoardID());
+      DataRow row = DB.board_stats(this.GetSelectedBoardID());
 
       this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
       this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
       this.NumUsers.Text = "{0:N0}".FormatWith(row["NumUsers"]);
 
-      TimeSpan span = DateTime.UtcNow - (DateTime) row["BoardStart"];
+      TimeSpan span = DateTime.UtcNow - (DateTime)row["BoardStart"];
       double days = span.Days;
 
       this.BoardStart.Text = "{0:d} ({1:N0} days ago)".FormatWith(row["BoardStart"], days);
@@ -212,122 +332,36 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The user list_ item command.
+    /// Gets board ID for which to show statistics.
     /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void UserList_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
-          YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
-          break;
-        case "delete":
-          string daysValue = ControlHelper.FindControlRecursiveAs<TextBox>(PageContext.CurrentForumPage, "DaysOld").Text.Trim();
-          if (!ValidationHelper.IsValidInt(daysValue))
-          {
-              this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
-              return;
-          }
-          if (!Config.IsAnyPortal)
-          {
-              UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
-          }
-
-          YAF.Classes.Data.DB.user_delete(e.CommandArgument);
-          BindData();
-          break;
-        case "approve":
-          UserMembershipHelper.ApproveUser(Convert.ToInt32(e.CommandArgument));
-          BindData();
-          break;
-        case "deleteall":
-          // vzrus: Should not delete the whole providers portal data? Under investigation.
-          string daysValueAll = ControlHelper.FindControlRecursiveAs<TextBox>(PageContext.CurrentForumPage, "DaysOld").Text.Trim();
-          if (!ValidationHelper.IsValidInt(daysValueAll))
-          {
-              this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
-              return;
-          }
-          if (!Config.IsAnyPortal)
-          {
-              UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-Convert.ToInt32(daysValueAll)));
-          }
-
-          YAF.Classes.Data.DB.user_deleteold(PageContext.PageBoardID, Convert.ToInt32(daysValueAll));
-          BindData();
-          break;
-        case "approveall":
-          UserMembershipHelper.ApproveAll();
-          // vzrus: Should delete users from send email list
-          YAF.Classes.Data.DB.user_approveall( PageContext.PageBoardID );
-          BindData();
-          break;
-      }
-    }    
-
-    /// <summary>
-    /// The board stats select_ changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public void BoardStatsSelect_Changed(object sender, EventArgs e)
-    {
-      // re-bind data
-      BindData();
-    }
-
-    /// <summary>
-    /// The format forum link.
-    /// </summary>
-    /// <param name="ForumID">
-    /// The forum id.
-    /// </param>
-    /// <param name="ForumName">
-    /// The forum name.
-    /// </param>
     /// <returns>
-    /// The format forum link.
+    /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
     /// </returns>
-    protected string FormatForumLink(object ForumID, object ForumName)
+    private object GetSelectedBoardID()
     {
-      if (ForumID.ToString() == string.Empty || ForumName.ToString() == string.Empty)
+      // check dropdown only if user is hostadmin
+      if (this.PageContext.IsHostAdmin)
       {
-        return string.Empty;
+        // -1 means all boards are selected
+        if (this.BoardStatsSelect.SelectedValue == "-1")
+        {
+          return null;
+        }
+        else
+        {
+          return this.BoardStatsSelect.SelectedValue;
+        }
       }
-
-      return "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", ForumID), ForumName);
+        
+        
+        
+        // for non host admin user, return board he's logged on
+      else
+      {
+        return this.PageContext.PageBoardID;
+      }
     }
 
-    /// <summary>
-    /// The format topic link.
-    /// </summary>
-    /// <param name="TopicID">
-    /// The topic id.
-    /// </param>
-    /// <param name="TopicName">
-    /// The topic name.
-    /// </param>
-    /// <returns>
-    /// The format topic link.
-    /// </returns>
-    protected string FormatTopicLink(object TopicID, object TopicName)
-    {
-      if (TopicID.ToString() == string.Empty || TopicName.ToString() == string.Empty)
-      {
-        return string.Empty;
-      }
-
-      return "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.posts, "t={0}", TopicID), TopicName);
-    }
+    #endregion
   }
 }

@@ -20,194 +20,190 @@
 
 namespace YAF.Pages.Admin
 {
-	using System;
-	using System.Drawing;
-	using System.Web.UI.WebControls;
-	using YAF.Classes;
-	using YAF.Classes.Core;
-	using YAF.Classes.Data;
-	using YAF.Classes.Utils;
+  #region Using
 
-	/// <summary>
-	/// Summary description for forums.
-	/// </summary>
-	public partial class accessmasks : AdminPage
-	{
-		/* Construction */
-		#region Overridden Methods
+  using System;
+  using System.Drawing;
+  using System.Web.UI.WebControls;
 
-		/// <summary>
-		/// Creates navigation page links on top of forum (breadcrumbs).
-		/// </summary>
-		protected override void CreatePageLinks()
-		{
-			// board index
-			this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-			// administration index
-			this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-			// current page label (no link)
-			this.PageLinks.AddLink("Access Masks", string.Empty);
-		}
+  using YAF.Classes.Data;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-		#endregion
+  #endregion
 
+  /// <summary>
+  /// Summary description for forums.
+  /// </summary>
+  public partial class accessmasks : AdminPage
+  {
+    /* Construction */
+    #region Methods
 
-		/* Event Handlers */
+    /// <summary>
+    /// The bit set.
+    /// </summary>
+    /// <param name="_o">
+    /// The _o.
+    /// </param>
+    /// <param name="bitmask">
+    /// The bitmask.
+    /// </param>
+    /// <returns>
+    /// The bit set.
+    /// </returns>
+    protected bool BitSet([NotNull] object _o, int bitmask)
+    {
+      var i = (int)_o;
+      return (i & bitmask) != 0;
+    }
 
-		#region Page Events
+    /// <summary>
+    /// Creates navigation page links on top of forum (breadcrumbs).
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      // board index
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-		/// <summary>
-		/// The page_ load.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			if (!IsPostBack)
-			{
-				// create links
-				CreatePageLinks();
+      // administration index
+      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
 
-				// bind data
-				BindData();
-			}
-		}
-		
-		#endregion
+      // current page label (no link)
+      this.PageLinks.AddLink("Access Masks", string.Empty);
+    }
 
-		#region Controls Events
+    /* Event Handlers */
 
-		/// <summary>
-		/// The list_ item command.
-		/// </summary>
-		/// <param name="source">
-		/// The source.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
-		{
-			switch (e.CommandName)
-			{
-				case "edit":
-					// redirect to editing page
-					YafBuildLink.Redirect(ForumPages.admin_editaccessmask, "i={0}", e.CommandArgument);
-					break;
-				case "delete":
-					// attmempt to delete access masks
-					if (DB.accessmask_delete(e.CommandArgument))
-					{
-						// remove cache of forum moderators
-						PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-						BindData();
-					}
-					else
-					{
-						// used masks cannot be deleted
-						PageContext.AddLoadMessage("You cannot delete this access mask because it is in use.");
-					}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // add on click confirm dialog
+      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this access mask?");
+    }
 
-					// quit switch
-					break;
-			}
-		}
+    /// <summary>
+    /// Format access mask setting color formatting.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Set access mask flags are rendered red, rest black.
+    /// </returns>
+    protected Color GetItemColor(bool enabled)
+    {
+      // show enabled flag red
+      if (enabled)
+      {
+        return Color.Red;
+      }
+        
+        // unset flag black
+      else
+      {
+        return Color.Black;
+      }
+    }
 
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
 
-		/// <summary>
-		/// The delete_ load.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Delete_Load(object sender, EventArgs e)
-		{
-			// add on click confirm dialog
-			ControlHelper.AddOnClickConfirmDialog(sender, "Delete this access mask?");
-		}
+          // redirect to editing page
+          YafBuildLink.Redirect(ForumPages.admin_editaccessmask, "i={0}", e.CommandArgument);
+          break;
+        case "delete":
 
+          // attmempt to delete access masks
+          if (DB.accessmask_delete(e.CommandArgument))
+          {
+            // remove cache of forum moderators
+            this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+            this.BindData();
+          }
+          else
+          {
+            // used masks cannot be deleted
+            this.PageContext.AddLoadMessage("You cannot delete this access mask because it is in use.");
+          }
 
-		/// <summary>
-		/// The new_ click.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void New_Click(object sender, EventArgs e)
-		{
-			// redirect to page for access mask creation
-			YafBuildLink.Redirect(ForumPages.admin_editaccessmask);
-		}
+          // quit switch
+          break;
+      }
+    }
 
-		#endregion
+    /// <summary>
+    /// The new_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // redirect to page for access mask creation
+      YafBuildLink.Redirect(ForumPages.admin_editaccessmask);
+    }
 
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        // create links
+        this.CreatePageLinks();
 
-		/* Methods */
-		#region Data Binding
+        // bind data
+        this.BindData();
+      }
+    }
 
-		/// <summary>
-		/// The bind data.
-		/// </summary>
-		private void BindData()
-		{
-			// list all access masks for this boeard
-			this.List.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
-			DataBind();
-		}
+    /* Methods */
 
-		#endregion
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      // list all access masks for this boeard
+      this.List.DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+      this.DataBind();
+    }
 
-		#region Formatting
-
-		/// <summary>
-		/// Format access mask setting color formatting.
-		/// </summary>
-		/// <param name="enabled">
-		/// The enabled.
-		/// </param>
-		/// <returns>
-		/// Set access mask flags are rendered red, rest black.
-		/// </returns>
-		protected Color GetItemColor(bool enabled)
-		{
-			// show enabled flag red
-			if (enabled) return Color.Red;
-			// unset flag black
-			else return Color.Black;
-		}
-
-		#endregion
-
-		#region Data Checking Helper
-
-		/// <summary>
-		/// The bit set.
-		/// </summary>
-		/// <param name="_o">
-		/// The _o.
-		/// </param>
-		/// <param name="bitmask">
-		/// The bitmask.
-		/// </param>
-		/// <returns>
-		/// The bit set.
-		/// </returns>
-		protected bool BitSet(object _o, int bitmask)
-		{
-			var i = (int)_o;
-			return (i & bitmask) != 0;
-		}
-
-		#endregion
-	}
+    #endregion
+  }
 }

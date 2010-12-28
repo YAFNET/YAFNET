@@ -19,17 +19,27 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Handlers;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The runsql.
   /// </summary>
   public partial class runsql : AdminPage
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -39,24 +49,16 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Run SQL Code", string.Empty);
 
-        BindData();
+        this.BindData();
       }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      DataBind();
     }
 
     /// <summary>
@@ -68,7 +70,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void btnRunQuery_Click(object sender, EventArgs e)
+    protected void btnRunQuery_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.txtResult.Text = string.Empty;
       this.ResultHolder.Visible = true;
@@ -77,13 +79,21 @@ namespace YAF.Pages.Admin
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
         string sql = this.txtQuery.Text.Trim();
-        
+
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
         sql = sql.Replace("{databaseOwner}", Config.DatabaseOwner);
         sql = sql.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
         this.txtResult.Text = DB.db_runsql(sql, connMan, this.chkRunInTransaction.Checked);
       }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.DataBind();
     }
 
     /// <summary>
@@ -95,9 +105,11 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void connMan_InfoMessage(object sender, YafDBConnInfoMessageEventArgs e)
-    {      
+    private void connMan_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+    {
       this.txtResult.Text = "\r\n" + e.Message;
     }
+
+    #endregion
   }
 }

@@ -20,40 +20,69 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.Security;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
-  using YAF.Utilities;
 
-    /// <summary>
+  using YAF.Classes.Data;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Utilities;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
+
+  /// <summary>
   /// Summary description for edituser.
   /// </summary>
   public partial class edituser : AdminPage
   {
+    #region Properties
+
     /// <summary>
-    /// Gets user ID of edited user.
+    ///   Gets user ID of edited user.
     /// </summary>
     protected int CurrentUserID
     {
       get
       {
-          return (int)PageContext.QueryIDs["u"];
+        return (int)this.PageContext.QueryIDs["u"];
       }
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsGuestUser.
+    ///   Gets a value indicating whether IsGuestUser.
     /// </summary>
     protected bool IsGuestUser
     {
-        get
-        {
-            return UserMembershipHelper.IsGuestUser(this.CurrentUserID);
-        }
+      get
+      {
+        return UserMembershipHelper.IsGuestUser(this.CurrentUserID);
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The is user host admin.
+    /// </summary>
+    /// <param name="userRow">
+    /// The user row.
+    /// </param>
+    /// <returns>
+    /// The is user host admin.
+    /// </returns>
+    protected bool IsUserHostAdmin([NotNull] DataRow userRow)
+    {
+      var userFlags = new UserFlags(userRow["Flags"]);
+      return userFlags.IsHostAdmin;
     }
 
     /// <summary>
@@ -62,16 +91,17 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJQueryUI();
+      // setup jQuery and Jquery Ui Tabs.
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
 
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "EditUserTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID, false));
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "EditUserTabsJs", 
+        JavaScriptBlocks.JqueryUITabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID, false));
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -83,66 +113,53 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // we're in the admin section...
       this.ProfileEditControl.InAdminPages = true;
       this.SignatureEditControl.InAdminPages = true;
       this.AvatarEditControl.InAdminPages = true;
 
-      PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
       DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
 
-        if (dt.Rows.Count != 1)
-        {
-            return;
-        }
-        
-        DataRow userRow = dt.Rows[0];
+      if (dt.Rows.Count != 1)
+      {
+        return;
+      }
 
-        // do admin permission check...
-        if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
-        {
-            // user is not host admin and is attempted to edit host admin account...
-            YafBuildLink.AccessDenied();
-        }
+      DataRow userRow = dt.Rows[0];
 
-        if (this.IsPostBack)
-        {
-            return;
-        }
+      // do admin permission check...
+      if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
+      {
+        // user is not host admin and is attempted to edit host admin account...
+        YafBuildLink.AccessDenied();
+      }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
-        this.PageLinks.AddLink("Edit User \"{0}\"".FormatWith(userRow["Name"].ToString()));
+      if (this.IsPostBack)
+      {
+        return;
+      }
 
-        // do a quick user membership sync...
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+      this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
+      this.PageLinks.AddLink("Edit User \"{0}\"".FormatWith(userRow["Name"].ToString()));
 
-        // update if the user is not Guest
-        if (!this.IsGuestUser)
-        {
-            RoleMembershipHelper.UpdateForumUser(user, this.PageContext.PageBoardID);
-        }
+      // do a quick user membership sync...
+      MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
 
-        this.EditUserTabs.DataBind();
+      // update if the user is not Guest
+      if (!this.IsGuestUser)
+      {
+        RoleMembershipHelper.UpdateForumUser(user, this.PageContext.PageBoardID);
+      }
+
+      this.EditUserTabs.DataBind();
     }
 
-    /// <summary>
-    /// The is user host admin.
-    /// </summary>
-    /// <param name="userRow">
-    /// The user row.
-    /// </param>
-    /// <returns>
-    /// The is user host admin.
-    /// </returns>
-    protected bool IsUserHostAdmin(DataRow userRow)
-    {
-      var userFlags = new UserFlags(userRow["Flags"]);
-      return userFlags.IsHostAdmin;
-    }
+    #endregion
   }
 }

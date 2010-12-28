@@ -28,11 +28,13 @@ namespace YAF.Pages
   using System.Linq;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -103,8 +105,8 @@ namespace YAF.Pages
           "lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
         string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
-          by,
-          YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]),
+          by, 
+          YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]), 
           this.GetThemeContents("ICONS", "ICON_LATEST"));
 
         return html;
@@ -208,10 +210,10 @@ namespace YAF.Pages
 
         // save the settings...
         DB.user_savenotification(
-          this.PageContext.PageUserID,
-          this.PMNotificationEnabled.Checked,
-          autoWatchTopicsEnabled,
-          this.rblNotificationType.SelectedValue,
+          this.PageContext.PageUserID, 
+          this.PMNotificationEnabled.Checked, 
+          autoWatchTopicsEnabled, 
+          this.rblNotificationType.SelectedValue, 
           this.DailyDigestEnabled.Checked);
 
         // clear the cache for this user...

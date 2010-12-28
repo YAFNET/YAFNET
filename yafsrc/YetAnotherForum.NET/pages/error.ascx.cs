@@ -25,9 +25,10 @@ namespace YAF.Pages
   using System;
   using System.Web;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -39,7 +40,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="error"/> class.
+    ///   Initializes a new instance of the <see cref = "error" /> class.
     /// </summary>
     public error()
       : base("ERROR")
@@ -60,7 +61,7 @@ namespace YAF.Pages
     protected override void OnInit([NotNull] EventArgs e)
     {
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 

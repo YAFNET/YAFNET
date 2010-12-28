@@ -20,20 +20,71 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for bannedip_edit.
   /// </summary>
   public partial class extensions_edit : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The is valid extension.
+    /// </summary>
+    /// <param name="newExtension">
+    /// The new extension.
+    /// </param>
+    /// <returns>
+    /// The is valid extension.
+    /// </returns>
+    protected bool IsValidExtension([NotNull] string newExtension)
+    {
+      if (newExtension.IsNotSet())
+      {
+        this.PageContext.AddLoadMessage("You must enter something.");
+        return false;
+      }
+
+      if (newExtension.IndexOf('.') != -1)
+      {
+        this.PageContext.AddLoadMessage("Remove the period in the extension.");
+        return false;
+      }
+
+      // TODO: maybe check for duplicate?
+      return true;
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      save.Click += this.Add_Click;
+      cancel.Click += this.Cancel_Click;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -43,32 +94,20 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string strAddEdit = (Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
+      string strAddEdit = (this.Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink(strAddEdit + " File Extensions", string.Empty);
 
-        BindData();
+        this.BindData();
       }
 
       this.extension.Attributes.Add("style", "width:250px");
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i").IsSet())
-      {
-        DataRow row = DB.extension_edit(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
-        this.extension.Text = (string) row["Extension"];
-      }
     }
 
     /// <summary>
@@ -80,46 +119,32 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Add_Click(object sender, EventArgs e)
+    private void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       string ext = this.extension.Text.Trim();
 
-      if (!IsValidExtension(ext))
+      if (!this.IsValidExtension(ext))
       {
-        BindData();
+        this.BindData();
       }
       else
       {
-        DB.extension_save(Request.QueryString.GetFirstOrDefault("i"), PageContext.PageBoardID, ext);
+        DB.extension_save(this.Request.QueryString.GetFirstOrDefault("i"), this.PageContext.PageBoardID, ext);
         YafBuildLink.Redirect(ForumPages.admin_extensions);
       }
     }
 
     /// <summary>
-    /// The is valid extension.
+    /// The bind data.
     /// </summary>
-    /// <param name="newExtension">
-    /// The new extension.
-    /// </param>
-    /// <returns>
-    /// The is valid extension.
-    /// </returns>
-    protected bool IsValidExtension(string newExtension)
+    private void BindData()
     {
-      if (newExtension.IsNotSet())
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i").IsSet())
       {
-        PageContext.AddLoadMessage("You must enter something.");
-        return false;
+        DataRow row =
+          DB.extension_edit(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
+        this.extension.Text = (string)row["Extension"];
       }
-
-      if (newExtension.IndexOf('.') != -1)
-      {
-        PageContext.AddLoadMessage("Remove the period in the extension.");
-        return false;
-      }
-
-      // TODO: maybe check for duplicate?
-      return true;
     }
 
     /// <summary>
@@ -131,32 +156,14 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Cancel_Click(object sender, EventArgs e)
+    private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_extensions);
     }
 
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      save.Click += new EventHandler(Add_Click);
-      cancel.Click += new EventHandler(Cancel_Click);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
     /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {

@@ -25,11 +25,13 @@ namespace YAF.Pages
   using System;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
+  using YAF.Utils;
 
   #endregion
 
@@ -41,7 +43,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the Album class.
+    ///   Initializes a new instance of the Album class.
     /// </summary>
     public Album()
       : base("ALBUM")
@@ -50,7 +52,7 @@ namespace YAF.Pages
 
     #endregion
 
-    #region Overrides
+    #region Methods
 
     /// <summary>
     /// The On PreRender event.
@@ -58,23 +60,20 @@ namespace YAF.Pages
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and YAF JS...
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-        YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
+      // setup jQuery and YAF JS...
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+      YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-        // ceebox Js
-        YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
-        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
-        YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
+      // ceebox Js
+      YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
+      YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
+      YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
-
-    #endregion
-    #region Methods
 
     /// <summary>
     /// The page load event.
@@ -85,14 +84,15 @@ namespace YAF.Pages
     /// <param name="e">
     /// the e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.PageContext.BoardSettings.EnableAlbum)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u") == null || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u") == null ||
+          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == null)
       {
         YafBuildLink.AccessDenied();
       }
@@ -100,7 +100,7 @@ namespace YAF.Pages
       var userId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
       var albumId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
-      string displayName = this.PageContext.UserDisplayName.GetName((int)userId);
+      string displayName = this.PageContext.Get<IUserDisplayName>().GetName((int)userId);
 
       // Generate the page links.
       this.PageLinks.Clear();
@@ -110,7 +110,9 @@ namespace YAF.Pages
       this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
       // Set the title text.
-      this.LocalizedLabel1.Param0 = !string.IsNullOrEmpty(displayName) ? this.Server.HtmlEncode(displayName) : this.Server.HtmlEncode(this.PageContext.User.UserName);
+      this.LocalizedLabel1.Param0 = !string.IsNullOrEmpty(displayName)
+                                      ? this.Server.HtmlEncode(displayName)
+                                      : this.Server.HtmlEncode(this.PageContext.User.UserName);
       this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(DB.album_gettitle(albumId));
 
       // Initialize the Album Image List control.

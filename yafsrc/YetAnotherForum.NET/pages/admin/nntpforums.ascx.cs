@@ -25,11 +25,11 @@ namespace YAF.Pages.Admin
   using System;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
   #endregion
 
@@ -90,15 +90,6 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.RankList.DataSource = DB.nntpforum_list(this.PageContext.PageBoardID, null, null, DBNull.Value);
-      this.DataBind();
-    }
-
-    /// <summary>
     /// The rank list_ item command.
     /// </summary>
     /// <param name="source">
@@ -119,6 +110,15 @@ namespace YAF.Pages.Admin
           this.BindData();
           break;
       }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.RankList.DataSource = DB.nntpforum_list(this.PageContext.PageBoardID, null, null, DBNull.Value);
+      this.DataBind();
     }
 
     #endregion

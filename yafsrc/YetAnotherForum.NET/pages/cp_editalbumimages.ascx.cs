@@ -1,11 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="" file="cp_editalbumimages.ascx.cs">
-//   
 // </copyright>
 // <summary>
 //   The cp_editalbumimages.
 // </summary>
-// 
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace YAF.Pages
@@ -20,10 +18,14 @@ namespace YAF.Pages
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -45,7 +47,6 @@ namespace YAF.Pages
     #endregion
 
     #region Methods
-
 
     /// <summary>
     /// The back button click event handler.
@@ -83,8 +84,9 @@ namespace YAF.Pages
     /// </param>
     protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string sUpDir = this.Get<HttpRequestBase>().MapPath(
-        String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+      string sUpDir =
+        this.Get<HttpRequestBase>().MapPath(
+          String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
       YafAlbum.Album_Image_Delete(
         sUpDir, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
       YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
@@ -129,54 +131,51 @@ namespace YAF.Pages
     /// </param>
     protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
-        switch (e.CommandName)
-        {
-            case "delete":
-                string sUpDir =
-                    this.Get<HttpRequestBase>().MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-                YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID,
-                                            Convert.ToInt32(e.CommandArgument));
+      switch (e.CommandName)
+      {
+        case "delete":
+          string sUpDir =
+            this.Get<HttpRequestBase>().MapPath(
+              String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+          YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID, Convert.ToInt32(e.CommandArgument));
 
-                this.BindData();
+          this.BindData();
 
-                DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+          DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
+          int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
 
-                int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
+          var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
-                var usrAlbumImagesAllowed =
-                    sigData.GetFirstRowColumnAsValue<int?>(
-                        "UsrAlbumImages", null);
-                // Has the user uploaded maximum number of images?   
-                // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
-                if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
-                {
-                    if (List.Items.Count >= usrAlbumImagesAllowed)
-                    {
-                        this.uploadtitletr.Visible = false;
-                        this.selectfiletr.Visible = false;
-                    }
-                    else
-                    {
-                        this.uploadtitletr.Visible = true;
-                        this.selectfiletr.Visible = true;
-                    }
+          // Has the user uploaded maximum number of images?   
+          // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
+          if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
+          {
+            if (this.List.Items.Count >= usrAlbumImagesAllowed)
+            {
+              this.uploadtitletr.Visible = false;
+              this.selectfiletr.Visible = false;
+            }
+            else
+            {
+              this.uploadtitletr.Visible = true;
+              this.selectfiletr.Visible = true;
+            }
 
-                   this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted("IMAGES_INFO",
-                                                                                     List.Items.Count, usrAlbumImagesAllowed);
+            this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted(
+              "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
+          }
+          else
+          {
+            this.uploadtitletr.Visible = false;
+            this.selectfiletr.Visible = false;
+          }
 
-                }
-                else
-                {
-                    this.uploadtitletr.Visible = false;
-                    this.selectfiletr.Visible = false;
-                }
-
-                break;
-        }
+          break;
+      }
     }
 
-      /// <summary>
+    /// <summary>
     /// the page load event.
     /// </summary>
     /// <param name="sender">
@@ -194,12 +193,9 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-       DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+        DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-
-          var usrAlbumsAllowed =
-                 sigData.GetFirstRowColumnAsValue<int?>(
-                   "UsrAlbums", null);
+        var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
         int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
         int userID;
@@ -218,8 +214,7 @@ namespace YAF.Pages
             if (usrAlbumsAllowed.HasValue && usrAlbumsAllowed > 0)
             {
               // Albums count. If we reached limit then we go to info page.
-                if (usrAlbumsAllowed > 0 &&
-                  (albumSize[0] >= usrAlbumsAllowed))
+              if (usrAlbumsAllowed > 0 && (albumSize[0] >= usrAlbumsAllowed))
               {
                 YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
               }
@@ -235,8 +230,9 @@ namespace YAF.Pages
           default:
             userID =
               Convert.ToInt32(
-                DB.album_list(null, Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))).
-                  Rows[0]["UserID"]);
+                DB.album_list(
+                  null, Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a")))
+                  .Rows[0]["UserID"]);
             if (userID != this.PageContext.PageUserID)
             {
               YafBuildLink.AccessDenied();
@@ -261,32 +257,30 @@ namespace YAF.Pages
 
         this.BindData();
 
-        var usrAlbumImagesAllowed =
-             sigData.GetFirstRowColumnAsValue<int?>(
-               "UsrAlbumImages", null);
+        var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
+
         // Has the user uploaded maximum number of images?   
         // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
         if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
         {
-            if (List.Items.Count >= usrAlbumImagesAllowed)
-            {
-                this.uploadtitletr.Visible = false;
-                this.selectfiletr.Visible = false;
-            }
-            else
-            {
-                this.uploadtitletr.Visible = true;
-                this.selectfiletr.Visible = true;
-            }
+          if (this.List.Items.Count >= usrAlbumImagesAllowed)
+          {
+            this.uploadtitletr.Visible = false;
+            this.selectfiletr.Visible = false;
+          }
+          else
+          {
+            this.uploadtitletr.Visible = true;
+            this.selectfiletr.Visible = true;
+          }
 
-            this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted("IMAGES_INFO",
-                                                                                        List.Items.Count, usrAlbumImagesAllowed);
-
+          this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted(
+            "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
         }
         else
         {
-            this.uploadtitletr.Visible = false;
-            this.selectfiletr.Visible = false;
+          this.uploadtitletr.Visible = false;
+          this.selectfiletr.Visible = false;
         }
       }
     }
@@ -338,34 +332,32 @@ namespace YAF.Pages
 
         DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-
         int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
 
-        var usrAlbumImagesAllowed =
-            sigData.GetFirstRowColumnAsValue<int?>(
-                "UsrAlbumImages", null);
+        var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
+
         // Has the user uploaded maximum number of images?   
         // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
         if (usrAlbumImagesAllowed.HasValue && usrAlbumImagesAllowed > 0)
         {
-            if (List.Items.Count >= usrAlbumImagesAllowed)
-            {
-                this.uploadtitletr.Visible = false;
-                this.selectfiletr.Visible = false;
-            }
-            else
-            {
-                this.uploadtitletr.Visible = true;
-                this.selectfiletr.Visible = true;
-            }
+          if (this.List.Items.Count >= usrAlbumImagesAllowed)
+          {
+            this.uploadtitletr.Visible = false;
+            this.selectfiletr.Visible = false;
+          }
+          else
+          {
+            this.uploadtitletr.Visible = true;
+            this.selectfiletr.Visible = true;
+          }
 
-            this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted("IMAGES_INFO",
-                                                                            List.Items.Count, usrAlbumImagesAllowed);
+          this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted(
+            "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
         }
         else
         {
-            this.uploadtitletr.Visible = false;
-            this.selectfiletr.Visible = false;
+          this.uploadtitletr.Visible = false;
+          this.selectfiletr.Visible = false;
         }
       }
       catch (Exception x)
@@ -447,8 +439,9 @@ namespace YAF.Pages
         return;
       }
 
-      string sUpDir = this.Get<HttpRequestBase>().MapPath(
-        String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+      string sUpDir =
+        this.Get<HttpRequestBase>().MapPath(
+          String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
       string filename = file.PostedFile.FileName;
 
       int pos = filename.LastIndexOfAny(new[] { '/', '\\' });
@@ -473,39 +466,35 @@ namespace YAF.Pages
       // vzrus: the checks here are useless but in a case...
       DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-         var usrAlbumsAllowed =
-                 sigData.GetFirstRowColumnAsValue<int?>(
-                   "UsrAlbums", null);
-        var usrAlbumImagesAllowed =
-                  sigData.GetFirstRowColumnAsValue<int?>(
-                    "UsrAlbumImages", null);
+      var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+      var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
-        //if (!usrAlbums.HasValue || usrAlbums <= 0) return;
+      // if (!usrAlbums.HasValue || usrAlbums <= 0) return;
 
-        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
+      {
+        int[] alstats = DB.album_getstats(this.PageContext.PageUserID, null);
+
+        // Albums count. If we reached limit then we exit.
+        if (alstats[0] >= usrAlbumsAllowed)
         {
-            int[] alstats = DB.album_getstats(this.PageContext.PageUserID, null);
-
-
-            // Albums count. If we reached limit then we exit.
-            if (alstats[0] >= usrAlbumsAllowed)
-            {
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed));
-                return;
-            }
-
-            int albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
-            file.PostedFile.SaveAs(
-                "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
-            DB.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
+          this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed));
+          return;
         }
-        else
-        {
-            // vzrus: the checks here are useless but in a case...
-            int[] alstats = DB.album_getstats(
-                this.PageContext.PageUserID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
-            /*
+
+        int albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
+        file.PostedFile.SaveAs(
+          "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
+        DB.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
+        YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
+      }
+      else
+      {
+        // vzrus: the checks here are useless but in a case...
+        int[] alstats = DB.album_getstats(
+          this.PageContext.PageUserID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+
+        /*
             // Albums count. If we reached limit then we exit. 
             // Check it first as user could be in other group or prev YAF version was used;
             if (DB.album_getstats(this.PageContext.PageUserID, null)[0] >= usrAlbums)
@@ -514,25 +503,27 @@ namespace YAF.Pages
                return;
             }*/
 
-            // Images count. If we reached limit then we exit.
-            if (alstats[1] >= usrAlbumImagesAllowed)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed));
-                return;
-            }
-
-            file.PostedFile.SaveAs(
-                "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                    sUpDir, this.PageContext.PageUserID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), filename));
-            DB.album_image_save(
-                null, 
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), 
-                null, 
-                filename, 
-                file.PostedFile.ContentLength, 
-                file.PostedFile.ContentType);
+        // Images count. If we reached limit then we exit.
+        if (alstats[1] >= usrAlbumImagesAllowed)
+        {
+          this.PageContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed));
+          return;
         }
+
+        file.PostedFile.SaveAs(
+          "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
+            sUpDir, 
+            this.PageContext.PageUserID, 
+            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), 
+            filename));
+        DB.album_image_save(
+          null, 
+          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), 
+          null, 
+          filename, 
+          file.PostedFile.ContentLength, 
+          file.PostedFile.ContentType);
+      }
     }
 
     #endregion

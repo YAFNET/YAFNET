@@ -18,70 +18,122 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Web.Security;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for active.
-	/// </summary>
-	public partial class im_icq : YAF.Classes.Core.ForumPage
-	{
-		public int UserID
-		{
-			get
-			{
-				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-			}
-		}
+  // YAF.Pages
+  #region Using
 
-		public im_icq()
-			: base( "IM_ICQ" )
-		{
-		}
+  using System;
+  using System.Web.Security;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( User == null )
-				YafBuildLink.AccessDenied();
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
-			if ( !IsPostBack )
-			{
-				Send.Text = GetText( "SEND" );
-				From.Text = PageContext.User.UserName;
-				Email.Text = PageContext.User.Email;
+  #endregion
 
-				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
+  /// <summary>
+  /// Summary description for active.
+  /// </summary>
+  public partial class im_icq : ForumPage
+  {
+    #region Constructors and Destructors
 
-				if ( user == null )
-				{
-					YafBuildLink.AccessDenied(/*No such user exists*/);
-				}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="im_icq"/> class.
+    /// </summary>
+    public im_icq()
+      : base("IM_ICQ")
+    {
+    }
 
-                string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
+    #endregion
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    #region Properties
 
-				// get full user data...
-				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
+    /// <summary>
+    /// Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      }
+    }
 
-				ViewState ["to"] = userData.Profile.ICQ;
-				Status.Src = "http://web.icq.com/whitepages/online?icq={0}&img=5".FormatWith(userData.Profile.ICQ);
-			}
-		}
+    #endregion
 
-		protected void Send_Click( object sender, EventArgs e )
-		{
-			string html = "http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}".FormatWith(this.Server.UrlEncode( this.From.Text ), this.Server.UrlEncode( this.Email.Text ), this.Server.UrlEncode( "From WebPager Panel" ), this.ViewState ["to"], this.Server.UrlEncode( this.Body.Text ));
-			Response.Redirect( html );
-		}
-	}
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.User == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        this.Send.Text = this.GetText("SEND");
+        this.From.Text = this.PageContext.User.UserName;
+        this.Email.Text = this.PageContext.User.Email;
+
+        // get user data...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+
+        if (user == null)
+        {
+          YafBuildLink.AccessDenied( /*No such user exists*/);
+        }
+
+        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        // get full user data...
+        var userData = new CombinedUserDataHelper(user, this.UserID);
+
+        this.ViewState["to"] = userData.Profile.ICQ;
+        this.Status.Src = "http://web.icq.com/whitepages/online?icq={0}&img=5".FormatWith(userData.Profile.ICQ);
+      }
+    }
+
+    /// <summary>
+    /// The send_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      string html =
+        "http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}".FormatWith(
+          this.Server.UrlEncode(this.From.Text), 
+          this.Server.UrlEncode(this.Email.Text), 
+          this.Server.UrlEncode("From WebPager Panel"), 
+          this.ViewState["to"], 
+          this.Server.UrlEncode(this.Body.Text));
+      this.Response.Redirect(html);
+    }
+
+    #endregion
+  }
 }

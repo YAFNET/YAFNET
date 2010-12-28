@@ -23,13 +23,14 @@ namespace YAF.Pages
 
   using System;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Utilities;
+  using YAF.Utils;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The cp_pm.
@@ -39,7 +40,7 @@ namespace YAF.Pages
     #region Constants and Fields
 
     /// <summary>
-    /// The _view.
+    ///   The _view.
     /// </summary>
     private PMView _view;
 
@@ -48,7 +49,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="cp_pm"/> class.
+    ///   Initializes a new instance of the <see cref = "cp_pm" /> class.
     /// </summary>
     public cp_pm()
       : base("CP_PM")
@@ -60,7 +61,7 @@ namespace YAF.Pages
     #region Properties
 
     /// <summary>
-    /// Gets View.
+    ///   Gets View.
     /// </summary>
     protected PMView View
     {
@@ -80,16 +81,16 @@ namespace YAF.Pages
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJQueryUI();
+      // setup jQuery and Jquery Ui Tabs.
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJQueryUI();
 
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "yafPmTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID, false));
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "yafPmTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID, false));
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -101,7 +102,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // check if this feature is disabled
       if (!this.PageContext.BoardSettings.AllowPrivateMessages)
@@ -111,14 +112,14 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-          if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
-          {
-              this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+        if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
+        {
+          this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
-              this.hidLastTab.Value = ((int)this._view).ToString();
-          }
+          this.hidLastTab.Value = ((int)this._view).ToString();
+        }
 
-          // if (_view == PMView.Inbox)
+        // if (_view == PMView.Inbox)
         // this.PMTabs.ActiveTab = this.InboxTab;
         // else if (_view == PMView.Outbox)
         // this.PMTabs.ActiveTab = this.OutboxTab;

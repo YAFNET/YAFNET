@@ -20,18 +20,27 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for bannedip.
   /// </summary>
   public partial class bannedip : AdminPage
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -41,25 +50,16 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Banned IP Addresses", string.Empty);
 
-        BindData();
+        this.BindData();
       }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.list.DataSource = DB.bannedip_list(PageContext.PageBoardID, null);
-      DataBind();
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void list_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    protected void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
       if (e.CommandName == "add")
       {
@@ -86,13 +86,25 @@ namespace YAF.Pages.Admin
         // vzrus: Logging is disabled here as the log entries are not protected anyway from simply admins in the standard YAF edition  
         // string maskStr = DB.bannedip_list(this.PageContext.PageBoardID, e.CommandArgument).Rows[0]["Mask"].ToString();
         DB.bannedip_delete(e.CommandArgument);
+
         // DB.eventlog_create(this.PageContext.PageUserID, this, string.Format("Banned IP entry '{0}' was deleted.", maskStr), EventLogTypes.Information);
         // clear cache of banned IPs for this board
-        PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
-        BindData();
-        PageContext.AddLoadMessage("Removed IP address ban.");
+        this.BindData();
+        this.PageContext.AddLoadMessage("Removed IP address ban.");
       }
     }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.list.DataSource = DB.bannedip_list(this.PageContext.PageBoardID, null);
+      this.DataBind();
+    }
+
+    #endregion
   }
 }

@@ -21,26 +21,89 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Data;
   using System.Linq;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for printtopic.
   /// </summary>
   public partial class printtopic : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="printtopic"/> class.
+    ///   Initializes a new instance of the <see cref = "printtopic" /> class.
     /// </summary>
     public printtopic()
       : base("PRINTTOPIC")
     {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The get print body.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The get print body.
+    /// </returns>
+    protected string GetPrintBody([NotNull] object o)
+    {
+      var row = (DataRow)o;
+
+      string message = row["Message"].ToString();
+
+      message = YafFormatMessage.FormatMessage(message, new MessageFlags(Convert.ToInt32(row["Flags"])));
+
+      return message;
+    }
+
+    /// <summary>
+    /// The get print header.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The get print header.
+    /// </returns>
+    protected string GetPrintHeader([NotNull] object o)
+    {
+      var row = (DataRow)o;
+      return "<strong>{2}: {0}</strong> - {1}".FormatWith(
+        row["UserName"], this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
     }
 
     /// <summary>
@@ -52,28 +115,31 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (Request.QueryString.GetFirstOrDefault("t") == null || !PageContext.ForumReadAccess)
+      if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumReadAccess)
       {
         YafBuildLink.AccessDenied();
       }
 
-      ShowToolBar = false;
+      this.ShowToolBar = false;
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        if (PageContext.Settings.LockedForum == 0)
+        if (this.PageContext.Settings.LockedForum == 0)
         {
-          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(
+            this.PageContext.PageCategoryName, 
+            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
         }
 
-        this.PageLinks.AddForumLinks(PageContext.PageForumID);
-        this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
+        this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+        this.PageLinks.AddLink(
+          this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
         var dt = DB.post_list(
-          PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false);
+          this.PageContext.PageTopicID, 1, this.PageContext.BoardSettings.ShowDeletedMessages, false);
 
         // get max 500 rows
         var dataRows = dt.AsEnumerable().Take(500);
@@ -83,63 +149,13 @@ namespace YAF.Pages
 
         this.Posts.DataSource = dataRows;
 
-        DataBind();
+        this.DataBind();
       }
     }
 
     /// <summary>
-    /// The get print header.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The get print header.
-    /// </returns>
-    protected string GetPrintHeader(object o)
-    {
-      var row = (DataRow) o;
-      return "<strong>{2}: {0}</strong> - {1}".FormatWith(row["UserName"], this.Get<IDateTime>().FormatDateTime((DateTime) row["Posted"]), this.GetText("postedby"));
-    }
-
-    /// <summary>
-    /// The get print body.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The get print body.
-    /// </returns>
-    protected string GetPrintBody(object o)
-    {
-      var row = (DataRow) o;
-
-      string message = row["Message"].ToString();
-
-      message = YafFormatMessage.FormatMessage(message, new MessageFlags(Convert.ToInt32(row["Flags"])));
-
-      return message;
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {

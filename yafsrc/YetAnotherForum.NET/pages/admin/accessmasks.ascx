@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.accessmasks" Codebehind="accessmasks.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Flags" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">

@@ -20,43 +20,25 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for members.
   /// </summary>
   public partial class boards : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!PageContext.IsHostAdmin)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Boards", string.Empty);
-
-        BindData();
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// The delete_ load.
@@ -67,9 +49,50 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Delete_Load(object sender, EventArgs e)
+    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this board?')";
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this board?')";
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      this.List.ItemCommand += this.List_ItemCommand;
+      this.New.Click += this.New_Click;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.PageContext.IsHostAdmin)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Boards", string.Empty);
+
+        this.BindData();
+      }
     }
 
     /// <summary>
@@ -78,21 +101,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       this.List.DataSource = DB.board_list(null);
-      DataBind();
-    }
-
-    /// <summary>
-    /// The new_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void New_Click(object sender, EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_editboard);
+      this.DataBind();
     }
 
     /// <summary>
@@ -104,7 +113,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {
@@ -113,26 +122,23 @@ namespace YAF.Pages.Admin
           break;
         case "delete":
           DB.board_delete(e.CommandArgument);
-          BindData();
+          this.BindData();
           break;
       }
     }
 
-    #region Web Form Designer generated code
-
     /// <summary>
-    /// The on init.
+    /// The new_ click.
     /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    private void New_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.List.ItemCommand += new RepeaterCommandEventHandler(this.List_ItemCommand);
-      this.New.Click += new EventHandler(New_Click);
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      base.OnInit(e);
+      YafBuildLink.Redirect(ForumPages.admin_editboard);
     }
 
     #endregion

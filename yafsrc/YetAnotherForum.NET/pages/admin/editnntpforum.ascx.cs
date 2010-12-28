@@ -26,11 +26,12 @@ namespace YAF.Pages.Admin
   using System.Data;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -77,7 +78,10 @@ namespace YAF.Pages.Admin
         {
           using (
             DataTable dt = DB.nntpforum_list(
-              this.PageContext.PageBoardID, null, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s"), DBNull.Value))
+              this.PageContext.PageBoardID, 
+              null, 
+              this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s"), 
+              DBNull.Value))
           {
             DataRow row = dt.Rows[0];
             this.NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
@@ -121,7 +125,7 @@ namespace YAF.Pages.Admin
       DB.nntpforum_save(
         nntpForumID, 
         this.NntpServerID.SelectedValue, 
-        this.GroupName.Text,
+        this.GroupName.Text, 
         this.ForumID.SelectedValue, 
         this.Active.Checked);
       YafBuildLink.Redirect(ForumPages.admin_nntpforums);

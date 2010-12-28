@@ -33,11 +33,12 @@ namespace YAF.Pages
 
   using nStuff.UpdateControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -113,8 +114,8 @@ namespace YAF.Pages
         {
           case null:
             this._searchWhatCleaned =
-              StringHelper.RemoveMultipleSingleQuotes(
-                StringHelper.RemoveMultipleWhitespace(this.txtSearchStringWhat.Text.Trim()));
+              StringExtensions.RemoveMultipleSingleQuotes(
+                StringExtensions.RemoveMultipleWhitespace(this.txtSearchStringWhat.Text.Trim()));
             break;
         }
 
@@ -136,8 +137,8 @@ namespace YAF.Pages
       {
         return this._searchWhoCleaned ??
                (this._searchWhoCleaned =
-                StringHelper.RemoveMultipleSingleQuotes(
-                  StringHelper.RemoveMultipleWhitespace(this.txtSearchStringFromWho.Text.Trim())));
+                StringExtensions.RemoveMultipleSingleQuotes(
+                  StringExtensions.RemoveMultipleWhitespace(this.txtSearchStringFromWho.Text.Trim())));
       }
 
       set
@@ -551,6 +552,7 @@ namespace YAF.Pages
     /// <returns>
     /// An external search link with already inserted searchparameters.
     /// </returns>
+    [NotNull]
     private string GetExtSearchLink(int i)
     {
       string searchEngine = String.Empty;
@@ -583,7 +585,10 @@ namespace YAF.Pages
     /// <param name="searchParamsDefArraySep">
     /// A search word separator
     /// </param>
-    private void MatchParameterHelper([NotNull] ref string searchParamsOptArrayj, [NotNull] ref string searchEngine, [NotNull] string searchParamsDefArraySep)
+    private void MatchParameterHelper(
+      [NotNull] ref string searchParamsOptArrayj, 
+      [NotNull] ref string searchEngine, 
+      [NotNull] string searchParamsDefArraySep)
     {
       searchParamsOptArrayj = searchParamsOptArrayj.Replace(
         "{Word}", 

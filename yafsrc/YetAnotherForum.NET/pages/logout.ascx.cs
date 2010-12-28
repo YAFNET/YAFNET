@@ -21,24 +21,50 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Web.Security;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for logout.
   /// </summary>
   public partial class logout : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="logout"/> class.
+    ///   Initializes a new instance of the <see cref = "logout" /> class.
     /// </summary>
     public logout()
       : base("LOGOUT")
     {
-      PageContext.Globals.IsSuspendCheckEnabled = false;
+      this.PageContext.Globals.IsSuspendCheckEnabled = false;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
     }
 
     /// <summary>
@@ -50,36 +76,23 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       FormsAuthentication.SignOut();
+
       // Clearing user cache with permissions data and active users cache...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+      this.PageContext.Cache.Remove(
+        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
-      
-      Session.Abandon();      
+
+      this.Session.Abandon();
 
       YafBuildLink.Redirect(ForumPages.forum);
     }
 
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
     /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {

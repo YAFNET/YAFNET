@@ -17,29 +17,58 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Core;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
 
 namespace YAF.Pages
 {
-	public partial class cp_editavatar : ForumPageRegistered
-	{
-		public cp_editavatar()
-			: base( "CP_EDITAVATAR" )
-		{
-		}
+  #region Using
 
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
-			}
-		}
-	}
+  using System;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// The cp_editavatar.
+  /// </summary>
+  public partial class cp_editavatar : ForumPageRegistered
+  {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="cp_editavatar"/> class.
+    /// </summary>
+    public cp_editavatar()
+      : base("CP_EDITAVATAR")
+    {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+      }
+    }
+
+    #endregion
+  }
 }

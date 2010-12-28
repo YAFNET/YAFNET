@@ -20,45 +20,29 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Core.Tasks;
+  using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Utilities;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for forums.
   /// </summary>
   public partial class forums : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      PageContext.PageElements.RegisterJQuery();
-      PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
-
-      if (!IsPostBack)
-      {
-          this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
-
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Forums", string.Empty);
-
-        BindData();
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// The delete category_ load.
@@ -69,9 +53,9 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteCategory_Load(object sender, EventArgs e)
+    protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this category?')";
+      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this category?')";
     }
 
     /// <summary>
@@ -83,23 +67,10 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteForum_Load(object sender, EventArgs e)
+    protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton) sender).Attributes["onclick"] =
+      ((LinkButton)sender).Attributes["onclick"] =
         "return (confirm('Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?') && confirm('Are you POSITIVE?'));";
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      using (DataSet ds = DB.ds_forumadmin(PageContext.PageBoardID))
-      {
-        this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
-      }
-
-      DataBind();
     }
 
     /// <summary>
@@ -111,7 +82,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ForumList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {
@@ -121,74 +92,14 @@ namespace YAF.Pages.Admin
         case "delete":
 
           // schedule...
-          ForumDeleteTask.Start(PageContext.PageBoardID, Convert.ToInt32(e.CommandArgument));
+          ForumDeleteTask.Start(this.PageContext.PageBoardID, Convert.ToInt32(e.CommandArgument));
 
           // enable timer...
           this.UpdateStatusTimer.Enabled = true;
 
           // show blocking ui...
-          PageContext.PageElements.RegisterJsBlockStartup("BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage "));
-          break;
-      }
-    }
-
-    /// <summary>
-    /// The clear caches.
-    /// </summary>
-    private void ClearCaches()
-    {
-      // clear moderatorss cache
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-
-      // clear category cache...
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
-
-      // clear active discussions cache..
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions));
-    }
-
-    /// <summary>
-    /// The new forum_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void NewForum_Click(object sender, EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_editforum);
-    }
-
-    /// <summary>
-    /// The category list_ item command.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void CategoryList_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
-          YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
-          break;
-        case "delete":
-          if (DB.category_delete(e.CommandArgument))
-          {
-            BindData();
-            ClearCaches();
-          }
-          else
-          {
-            PageContext.AddLoadMessage(
-              "You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
-          }
-
+          this.PageContext.PageElements.RegisterJsBlockStartup(
+            "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage "));
           break;
       }
     }
@@ -202,9 +113,62 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void NewCategory_Click(object sender, EventArgs e)
+    protected void NewCategory_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_editcategory);
+    }
+
+    /// <summary>
+    /// The new forum_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_editforum);
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.PageContext.PageElements.RegisterJQuery();
+      this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
+
+      if (!this.IsPostBack)
+      {
+        this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Forums", string.Empty);
+
+        this.BindData();
+      }
     }
 
     /// <summary>
@@ -216,10 +180,11 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void UpdateStatusTimer_Tick(object sender, EventArgs e)
+    protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // see if the migration is done....
-      if (YafTaskModule.Current.TaskManager.ContainsKey(ForumDeleteTask.TaskName) && YafTaskModule.Current.TaskManager[ForumDeleteTask.TaskName].IsRunning)
+      if (YafTaskModule.Current.TaskManager.ContainsKey(ForumDeleteTask.TaskName) &&
+          YafTaskModule.Current.TaskManager[ForumDeleteTask.TaskName].IsRunning)
       {
         // continue...
         return;
@@ -228,37 +193,82 @@ namespace YAF.Pages.Admin
       this.UpdateStatusTimer.Enabled = false;
 
       // rebind...
-      BindData();
+      this.BindData();
 
       // clear caches...
-      ClearCaches();
+      this.ClearCaches();
 
       // done here...
       YafBuildLink.Redirect(ForumPages.admin_forums);
     }
 
-    #region Web Form Designer generated code
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      using (DataSet ds = DB.ds_forumadmin(this.PageContext.PageBoardID))
+      {
+        this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
+      }
+
+      this.DataBind();
+    }
 
     /// <summary>
-    /// The on init.
+    /// The category list_ item command.
     /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    private void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
+          break;
+        case "delete":
+          if (DB.category_delete(e.CommandArgument))
+          {
+            this.BindData();
+            this.ClearCaches();
+          }
+          else
+          {
+            this.PageContext.AddLoadMessage(
+              "You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
+          }
+
+          break;
+      }
+    }
+
+    /// <summary>
+    /// The clear caches.
+    /// </summary>
+    private void ClearCaches()
+    {
+      // clear moderatorss cache
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+
+      // clear category cache...
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+
+      // clear active discussions cache..
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions));
     }
 
     /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {
-      this.CategoryList.ItemCommand += new RepeaterCommandEventHandler(this.CategoryList_ItemCommand);
+      this.CategoryList.ItemCommand += this.CategoryList_ItemCommand;
     }
 
     #endregion

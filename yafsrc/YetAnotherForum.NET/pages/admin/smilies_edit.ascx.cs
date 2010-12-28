@@ -20,20 +20,47 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.IO;
+  using System.Text.RegularExpressions;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for smilies_edit.
   /// </summary>
   public partial class smilies_edit : AdminPage
   {
+    #region Methods
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit([NotNull] EventArgs e)
+    {
+      save.Click += this.save_Click;
+      cancel.Click += this.cancel_Click;
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -43,15 +70,15 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Smilies", string.Empty);
 
-        BindData();
+        this.BindData();
       }
     }
 
@@ -71,7 +98,10 @@ namespace YAF.Pages.Admin
         dr["Description"] = "Select Smiley Image";
         dt.Rows.Add(dr);
 
-        var dir = new DirectoryInfo(Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
+        var dir =
+          new DirectoryInfo(
+            this.Request.MapPath(
+              "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
         FileInfo[] files = dir.GetFiles("*.*");
         long nFileID = 1;
         foreach (FileInfo file in files)
@@ -94,11 +124,12 @@ namespace YAF.Pages.Admin
         this.Icon.DataTextField = "Description";
       }
 
-      DataBind();
+      this.DataBind();
 
-      if (Request["s"] != null)
+      if (this.Request["s"] != null)
       {
-        using (DataTable dt = DB.smiley_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("s")))
+        using (
+          DataTable dt = DB.smiley_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("s")))
         {
           if (dt.Rows.Count > 0)
           {
@@ -109,7 +140,8 @@ namespace YAF.Pages.Admin
               this.Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
             }
 
-            this.Preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
+            this.Preview.Src = "{0}{1}/{2}".FormatWith(
+              YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
             this.SortOrder.Text = dt.Rows[0]["SortOrder"].ToString(); // Ederon : 9/4/2007
           }
         }
@@ -119,75 +151,17 @@ namespace YAF.Pages.Admin
         this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
       }
 
-      this.Icon.Attributes["onchange"] = "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.Preview.ClientID);
+      this.Icon.Attributes["onchange"] =
+        "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(
+          YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.Preview.ClientID);
     }
 
     /// <summary>
-    /// The save_ click.
+    /// Required method for Designer support - do not modify
+    ///   the contents of this method with the code editor.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void save_Click(object sender, EventArgs e)
+    private void InitializeComponent()
     {
-      string code = this.Code.Text.Trim();
-      string emotion = this.Emotion.Text.Trim();
-      string icon = this.Icon.SelectedItem.Text.Trim();
-      int sortOrder;
-
-      if (emotion.Length > 50)
-      {
-          PageContext.AddLoadMessage("An emotion description is too long.");
-          return;
-      }
-
-      if (code.Length == 0)
-      {
-        PageContext.AddLoadMessage("Please enter the code to use for this emotion.");
-        return;
-      }
-
-      if (code.Length > 10)
-      {
-          PageContext.AddLoadMessage("The code to use for this emotion should not be more then 10 symbols.");
-          return;
-      }
-
-      if (!new System.Text.RegularExpressions.Regex(@"\[.+\]").IsMatch(code))
-      {               
-        PageContext.AddLoadMessage("Please enter the code to use for this emotion in square brackets.");
-        return;
-      }
-        
-      if (emotion.Length == 0)
-      {
-        PageContext.AddLoadMessage("Please enter an emotion for this icon.");
-        return;
-      }
-
-      if (this.Icon.SelectedIndex < 1)
-      {
-        PageContext.AddLoadMessage("Please select an icon to use for this emotion.");
-        return;
-      }
-
-      // Ederon 9/4/2007
-      if (!int.TryParse(this.SortOrder.Text, out sortOrder) || sortOrder < 0 || sortOrder > 255)
-      {
-        PageContext.AddLoadMessage("Sort order must be number between 0 and 255.");
-        return;
-      }
-
-      DB.smiley_save(Request.QueryString.GetFirstOrDefault("s"), PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
-
-      // invalidate the cache...
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-      ReplaceRulesCreator.ClearCache();
-
-      YafBuildLink.Redirect(ForumPages.admin_smilies);
     }
 
     /// <summary>
@@ -199,35 +173,78 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void cancel_Click(object sender, EventArgs e)
+    private void cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_smilies);
     }
 
-    #region Web Form Designer generated code
-
     /// <summary>
-    /// The on init.
+    /// The save_ click.
     /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    private void save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      save.Click += new EventHandler(save_Click);
-      cancel.Click += new EventHandler(cancel_Click);
+      string code = this.Code.Text.Trim();
+      string emotion = this.Emotion.Text.Trim();
+      string icon = this.Icon.SelectedItem.Text.Trim();
+      int sortOrder;
 
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
+      if (emotion.Length > 50)
+      {
+        this.PageContext.AddLoadMessage("An emotion description is too long.");
+        return;
+      }
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
+      if (code.Length == 0)
+      {
+        this.PageContext.AddLoadMessage("Please enter the code to use for this emotion.");
+        return;
+      }
+
+      if (code.Length > 10)
+      {
+        this.PageContext.AddLoadMessage("The code to use for this emotion should not be more then 10 symbols.");
+        return;
+      }
+
+      if (!new Regex(@"\[.+\]").IsMatch(code))
+      {
+        this.PageContext.AddLoadMessage("Please enter the code to use for this emotion in square brackets.");
+        return;
+      }
+
+      if (emotion.Length == 0)
+      {
+        this.PageContext.AddLoadMessage("Please enter an emotion for this icon.");
+        return;
+      }
+
+      if (this.Icon.SelectedIndex < 1)
+      {
+        this.PageContext.AddLoadMessage("Please select an icon to use for this emotion.");
+        return;
+      }
+
+      // Ederon 9/4/2007
+      if (!int.TryParse(this.SortOrder.Text, out sortOrder) || sortOrder < 0 || sortOrder > 255)
+      {
+        this.PageContext.AddLoadMessage("Sort order must be number between 0 and 255.");
+        return;
+      }
+
+      DB.smiley_save(
+        this.Request.QueryString.GetFirstOrDefault("s"), this.PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
+
+      // invalidate the cache...
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+      ReplaceRulesCreator.ClearCache();
+
+      YafBuildLink.Redirect(ForumPages.admin_smilies);
     }
 
     #endregion

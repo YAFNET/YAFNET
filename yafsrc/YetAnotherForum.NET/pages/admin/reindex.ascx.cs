@@ -19,17 +19,26 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Handlers;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The reindex.
   /// </summary>
   public partial class reindex : AdminPage
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -39,14 +48,14 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!PageContext.IsHostAdmin)
+      if (!this.PageContext.IsHostAdmin)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
         // Check and see if it should make panels enable or not
         this.PanelReindex.Visible = DB.PanelReindex;
@@ -60,20 +69,12 @@ namespace YAF.Pages.Admin
         this.btnShrink.Text = DB.btnShrinkName;
         this.btnRecoveryMode.Text = DB.btnRecoveryModeName;
 
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Reindex DB", string.Empty);
 
-        BindData();
+        this.BindData();
       }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      DataBind();
     }
 
     /// <summary>
@@ -85,11 +86,11 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void btnGetStats_Click(object sender, EventArgs e)
+    protected void btnGetStats_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       using (var connMan = new YafDBConnManager())
       {
-        connMan.InfoMessage += connMan_InfoMessage;
+        connMan.InfoMessage += this.connMan_InfoMessage;
 
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
         this.txtIndexStatistics.Text = DB.db_getstats_warning(connMan);
@@ -97,56 +98,6 @@ namespace YAF.Pages.Admin
       }
     }
 
-    // Reindexing Database
-    /// <summary>
-    /// The btn reindex_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnReindex_Click(object sender, EventArgs e)
-    {
-      using (var connMan = new YafDBConnManager())
-      {
-        connMan.InfoMessage += connMan_InfoMessage;
-        this.txtIndexStatistics.Text = DB.db_reindex_warning(connMan);
-        DB.db_reindex(connMan);
-      }
-    }
-
-    // Mod By Touradg (herman_herman) 2009/10/19
-    // Shrinking Database
-    /// <summary>
-    /// The btn shrink_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnShrink_Click(object sender, EventArgs e)
-    {
-      using (var DBName = new YafDBConnManager())
-      {
-        try
-        {
-          DBName.InfoMessage += connMan_InfoMessage;
-          this.txtIndexStatistics.Text = DB.db_shrink_warning(DBName);
-          DB.db_shrink(DBName);
-          this.txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
-        }
-        catch (Exception error)
-        {
-          this.txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
-        }
-      }
-    }
-
-    // Set Database Recovery Mode
     /// <summary>
     /// The btn recovery mode_ click.
     /// </summary>
@@ -156,7 +107,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void btnRecoveryMode_Click(object sender, EventArgs e)
+    protected void btnRecoveryMode_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       using (var DBName = new YafDBConnManager())
       {
@@ -178,17 +129,78 @@ namespace YAF.Pages.Admin
             dbRecoveryMode = "BULK_LOGGED";
           }
 
-          DBName.InfoMessage += connMan_InfoMessage;
+          DBName.InfoMessage += this.connMan_InfoMessage;
           this.txtIndexStatistics.Text = DB.db_recovery_mode_warning(DBName);
           DB.db_recovery_mode(DBName, dbRecoveryMode);
           this.txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
         }
         catch (Exception error)
         {
-          this.txtIndexStatistics.Text = "Something went wrong with this operation.The reported error is: " + error.Message;
+          this.txtIndexStatistics.Text = "Something went wrong with this operation.The reported error is: " +
+                                         error.Message;
         }
       }
     }
+
+    // Reindexing Database
+    /// <summary>
+    /// The btn reindex_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnReindex_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      using (var connMan = new YafDBConnManager())
+      {
+        connMan.InfoMessage += this.connMan_InfoMessage;
+        this.txtIndexStatistics.Text = DB.db_reindex_warning(connMan);
+        DB.db_reindex(connMan);
+      }
+    }
+
+    // Mod By Touradg (herman_herman) 2009/10/19
+    // Shrinking Database
+    /// <summary>
+    /// The btn shrink_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnShrink_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      using (var DBName = new YafDBConnManager())
+      {
+        try
+        {
+          DBName.InfoMessage += this.connMan_InfoMessage;
+          this.txtIndexStatistics.Text = DB.db_shrink_warning(DBName);
+          DB.db_shrink(DBName);
+          this.txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize +
+                                         "MB";
+        }
+        catch (Exception error)
+        {
+          this.txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
+        }
+      }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.DataBind();
+    }
+
+    // Set Database Recovery Mode
 
     // End of MOD
     /// <summary>
@@ -200,9 +212,11 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void connMan_InfoMessage(object sender, YafDBConnInfoMessageEventArgs e)
+    private void connMan_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
     {
       this.txtIndexStatistics.Text = e.Message;
     }
+
+    #endregion
   }
 }

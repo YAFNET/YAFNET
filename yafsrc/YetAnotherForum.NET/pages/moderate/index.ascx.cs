@@ -20,30 +20,39 @@
 
 namespace YAF.Pages.moderate
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Base root control for moderating, linking to other moderating controls/pages.
   /// </summary>
   public partial class index : ForumPage
   {
-    #region Construcotrs & Overridden Methods
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="index"/> class. 
-    /// Default constructor.
+    ///   Initializes a new instance of the <see cref = "index" /> class. 
+    ///   Default constructor.
     /// </summary>
     public index()
       : base("MODERATE_DEFAULT")
     {
     }
 
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// Creates page links for this page.
@@ -51,44 +60,11 @@ namespace YAF.Pages.moderate
     protected override void CreatePageLinks()
     {
       // forum index
-      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // moderation index
-      this.PageLinks.AddLink(GetText("TITLE"));
+      this.PageLinks.AddLink(this.GetText("TITLE"));
     }
-
-    #endregion
-
-    #region Event Handlers
-
-    /// <summary>
-    /// Handles page load event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      // Only moderators are allowed here
-      if (!PageContext.IsModerator)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
-      // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
-      {
-        // create page links
-        CreatePageLinks();
-
-        // bind data
-        BindData();
-      }
-    }
-
 
     /// <summary>
     /// Handles event of item commands for each forum.
@@ -99,7 +75,7 @@ namespace YAF.Pages.moderate
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ForumList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
       // which command are we handling
       switch (e.CommandName.ToLower())
@@ -108,7 +84,7 @@ namespace YAF.Pages.moderate
 
           // go to unapproved posts for selected forum
           YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
-          break;        
+          break;
         case "viewreportedposts":
 
           // go to spam reports for selected forum
@@ -117,9 +93,33 @@ namespace YAF.Pages.moderate
       }
     }
 
-    #endregion
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // Only moderators are allowed here
+      if (!this.PageContext.IsModerator)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-    #region Data Binding & Formatting
+      // this needs to be done just once, not during postbacks
+      if (!this.IsPostBack)
+      {
+        // create page links
+        this.CreatePageLinks();
+
+        // bind data
+        this.BindData();
+      }
+    }
 
     /// <summary>
     /// Bind data for this control.
@@ -127,13 +127,13 @@ namespace YAF.Pages.moderate
     private void BindData()
     {
       // get list of forums and their moderating data
-      using (DataSet ds = DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
+      using (DataSet ds = DB.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
       {
         this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
       }
 
       // bind data to controls
-      DataBind();
+      this.DataBind();
     }
 
     #endregion

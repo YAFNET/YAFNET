@@ -25,15 +25,17 @@ namespace YAF.Pages
   using System;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
+  using YAF.Utils;
 
   #endregion
 
   /// <summary>
-  ///   the Albums Page.
+  /// the Albums Page.
   /// </summary>
   public partial class Albums : ForumPage
   {
@@ -57,31 +59,31 @@ namespace YAF.Pages
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and YAF JS...
-        YafContext.Current.PageElements.RegisterJQuery();
-        YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-        YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
+      // setup jQuery and YAF JS...
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+      YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-        // ceebox Js
-        YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
-        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
-        YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
+      // ceebox Js
+      YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox-min.js");
+      YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
+      YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
-    ///   The page load event.
+    /// The page load event.
     /// </summary>
-    /// <param name = "sender">
-    ///   the sender.
+    /// <param name="sender">
+    /// the sender.
     /// </param>
-    /// <param name = "e">
-    ///   the e.
+    /// <param name="e">
+    /// the e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.PageContext.BoardSettings.EnableAlbum)
       {
@@ -104,8 +106,9 @@ namespace YAF.Pages
         displayName.IsSet()
           ? displayName
           : UserMembershipHelper.GetUserNameFromID(
-            Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
-        YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+            Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))), 
+        YafBuildLink.GetLink(
+          ForumPages.profile, "u={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
       this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
       // Initialize the Album List control.

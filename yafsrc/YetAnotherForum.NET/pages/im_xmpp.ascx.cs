@@ -20,94 +20,114 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-    using System;
-    using System.Web.Security;
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
+  // YAF.Pages
+  #region Using
+
+  using System;
+  using System.Web.Security;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// Class to communicate in XMPP.
+  /// </summary>
+  public partial class im_xmpp : ForumPage
+  {
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Class to communicate in XMPP.
+    ///   Initializes a new instance of the <see cref = "im_xmpp" /> class.
     /// </summary>
-    public partial class im_xmpp : ForumPage
+    public im_xmpp()
+      : base("IM_XMPP")
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="im_xmpp"/> class.
-        /// </summary>
-        public im_xmpp()
-            : base("IM_XMPP")
-        {
-        }
-
-        /// <summary>
-        /// Gets UserID.
-        /// </summary>
-        public int UserID
-        {
-            get
-            {
-                return (int)Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"));
-            }
-        }
-
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (User == null)
-            {
-                YafBuildLink.AccessDenied();
-            }
-
-            if (!IsPostBack)
-            {
-                // get user data...
-                MembershipUser userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
-               
-                string displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-
-                this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(!string.IsNullOrEmpty(displayNameHe) ? displayNameHe : userHe.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
-                this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
-                
-                if (this.UserID == PageContext.PageUserID)
-                {
-                    NotifyLabel.Text = GetText("SERVERYOU");
-                }
-                else
-                {                    
-                    if (userHe == null)
-                    {
-                        YafBuildLink.AccessDenied(/*No such user exists*/);
-                    }
-                    
-                    // Data for current page user
-                    MembershipUser userMe = UserMembershipHelper.GetMembershipUserById(PageContext.PageUserID);
-                   
-                    // get full user data...
-                    var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);
-                    var userDataMe = new CombinedUserDataHelper(userMe, PageContext.PageUserID);
-
-                    string serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@") + 1).Trim();
-                    string serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@") + 1).Trim();
-                    if (serverMe == serverHe)
-                    {
-                        NotifyLabel.Text = GetTextFormatted("SERVERSAME", userDataHe.Profile.XMPP);
-                    }
-                    else
-                    {
-                        NotifyLabel.Text = GetTextFormatted("SERVEROTHER", "http://" + serverHe);
-                    }
-                }
-            } 
-        }
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.User == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        // get user data...
+        MembershipUser userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
+
+        string displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayNameHe) ? displayNameHe : userHe.UserName, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+        if (this.UserID == this.PageContext.PageUserID)
+        {
+          this.NotifyLabel.Text = this.GetText("SERVERYOU");
+        }
+        else
+        {
+          if (userHe == null)
+          {
+            YafBuildLink.AccessDenied( /*No such user exists*/);
+          }
+
+          // Data for current page user
+          MembershipUser userMe = UserMembershipHelper.GetMembershipUserById(this.PageContext.PageUserID);
+
+          // get full user data...
+          var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);
+          var userDataMe = new CombinedUserDataHelper(userMe, this.PageContext.PageUserID);
+
+          string serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@") + 1).Trim();
+          string serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@") + 1).Trim();
+          if (serverMe == serverHe)
+          {
+            this.NotifyLabel.Text = this.GetTextFormatted("SERVERSAME", userDataHe.Profile.XMPP);
+          }
+          else
+          {
+            this.NotifyLabel.Text = this.GetTextFormatted("SERVEROTHER", "http://" + serverHe);
+          }
+        }
+      }
+    }
+
+    #endregion
+  }
 }

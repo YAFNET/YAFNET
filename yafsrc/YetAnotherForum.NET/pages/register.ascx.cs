@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Web;
-
 namespace YAF.Pages
 {
   // YAF.Pages
@@ -27,16 +25,22 @@ namespace YAF.Pages
 
   using System;
   using System.Net.Mail;
+  using System.Web;
   using System.Web.Security;
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -46,6 +50,11 @@ namespace YAF.Pages
   public partial class register : ForumPage
   {
     #region Constants and Fields
+
+    /// <summary>
+    ///   Gets User IP Info.
+    /// </summary>
+    public IPLocator _userIpLocator;
 
     /// <summary>
     ///   The recPH.
@@ -90,11 +99,6 @@ namespace YAF.Pages
       }
     }
 
-      /// <summary>
-      ///   Gets User IP Info.
-      /// </summary>
-      public IPLocator _userIpLocator;
-
     /// <summary>
     ///   Gets a value indicating whether RecaptchaControl.
     /// </summary>
@@ -113,12 +117,11 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CreateUserWizard1_ContinueButtonClick(object sender, EventArgs e)
+    protected void CreateUserWizard1_ContinueButtonClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // vzrus: to clear the cache to show user in the list at once
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
-        
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
 
       // redirect to the main forum URL      
       YafBuildLink.Redirect(ForumPages.forum);
@@ -133,7 +136,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CreateUserWizard1_CreateUserError(object sender, CreateUserErrorEventArgs e)
+    protected void CreateUserWizard1_CreateUserError([NotNull] object sender, [NotNull] CreateUserErrorEventArgs e)
     {
       string createUserError = string.Empty;
 
@@ -190,7 +193,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
+    protected void CreateUserWizard1_CreatedUser([NotNull] object sender, [NotNull] EventArgs e)
     {
       MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
@@ -242,8 +245,10 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    /// <exception cref="ArgumentNullException">Argument is null.</exception>
-    protected void CreateUserWizard1_CreatingUser(object sender, LoginCancelEventArgs e)
+    /// <exception cref="ArgumentNullException">
+    /// Argument is null.
+    /// </exception>
+    protected void CreateUserWizard1_CreatingUser([NotNull] object sender, [NotNull] LoginCancelEventArgs e)
     {
       string userName = this.CreateUserWizard1.UserName;
 
@@ -297,11 +302,11 @@ namespace YAF.Pages
             return;
           }
 
-          if (this.PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
+          if (this.PageContext.Get<IUserDisplayName>().GetId(displayName.Text.Trim()).HasValue)
           {
             this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
             e.Cancel = true;
-          } 
+          }
         }
       }
 
@@ -336,7 +341,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CreateUserWizard1_NextButtonClick(object sender, WizardNavigationEventArgs e)
+    protected void CreateUserWizard1_NextButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
     {
       if (this.CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID == "profile")
       {
@@ -350,9 +355,9 @@ namespace YAF.Pages
 
         // setup/save the profile
         YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
-       
+
         // Trying to consume data about user IP whereabouts
-      /*  if (_userIpLocator.Status == "OK" && String.IsNullOrEmpty(locationTextBox.Text.Trim()))
+        /*  if (_userIpLocator.Status == "OK" && String.IsNullOrEmpty(locationTextBox.Text.Trim()))
         {
        
             if (!String.IsNullOrEmpty(_userIpLocator.CountryName))
@@ -393,23 +398,24 @@ namespace YAF.Pages
           null, 
           null, 
           null, 
-          null,
+          null, 
           dstUser.Checked, 
-          null,
+          null, 
           null);
 
-        bool autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+        bool autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting ==
+                                      UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
         // save the settings...
         DB.user_savenotification(
-          userId,
-          true,
-          autoWatchTopicsEnabled,
-          this.PageContext.BoardSettings.DefaultNotificationSetting,
-          PageContext.BoardSettings.DefaultSendDigestEmail);
-       
-          // Clearing cache with old Active User Lazy Data ...
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
+          userId, 
+          true, 
+          autoWatchTopicsEnabled, 
+          this.PageContext.BoardSettings.DefaultNotificationSetting, 
+          this.PageContext.BoardSettings.DefaultSendDigestEmail);
+
+        // Clearing cache with old Active User Lazy Data ...
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
       }
     }
 
@@ -422,7 +428,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CreateUserWizard1_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
+    protected void CreateUserWizard1_PreviousButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
     {
     }
 
@@ -435,12 +441,10 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-
       if (!this.IsPostBack)
       {
-        
         this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
@@ -457,42 +461,45 @@ namespace YAF.Pages
         var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
         timeZones.DataSource = StaticDataHelper.TimeZones();
 
-        if (_userIpLocator == null)
+        if (this._userIpLocator == null)
         {
-            // vzrus: we should always get not null class here
-            _userIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
+          // vzrus: we should always get not null class here
+          this._userIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
         }
-          // fill dst field 
-        if (this._userIpLocator.Isdst.IsSet() && _userIpLocator.Status.ToUpper() == "OK")
-        {
-            this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = _userIpLocator.Isdst == "1" ? true : false;
-        }
-        // fill location field 
-        if (this._userIpLocator.Isdst.IsSet() && _userIpLocator.Status.ToUpper() == "OK")
-        {
-            // Trying to consume data about user IP whereabouts
-            if (_userIpLocator.Status == "OK")
-            {
 
-                string txtLoc = String.Empty;
-                if (this._userIpLocator.CountryName.IsSet())
-                {
-                    txtLoc += _userIpLocator.CountryName;
-                }
-                if (this._userIpLocator.RegionName.IsSet())
-                {
-                    txtLoc += ", " + _userIpLocator.RegionName;
-                }
-                if (this._userIpLocator.City.IsSet())
-                {
-                    txtLoc += ", " + _userIpLocator.City;
-                }
-                this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = txtLoc;
+        // fill dst field 
+        if (this._userIpLocator.Isdst.IsSet() && this._userIpLocator.Status.ToUpper() == "OK")
+        {
+          this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = this._userIpLocator.Isdst == "1"
+                                                                                         ? true
+                                                                                         : false;
+        }
+
+        // fill location field 
+        if (this._userIpLocator.Isdst.IsSet() && this._userIpLocator.Status.ToUpper() == "OK")
+        {
+          // Trying to consume data about user IP whereabouts
+          if (this._userIpLocator.Status == "OK")
+          {
+            string txtLoc = String.Empty;
+            if (this._userIpLocator.CountryName.IsSet())
+            {
+              txtLoc += this._userIpLocator.CountryName;
             }
 
-           
+            if (this._userIpLocator.RegionName.IsSet())
+            {
+              txtLoc += ", " + this._userIpLocator.RegionName;
+            }
+
+            if (this._userIpLocator.City.IsSet())
+            {
+              txtLoc += ", " + this._userIpLocator.City;
+            }
+
+            this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = txtLoc;
+          }
         }
-    
 
         if (!this.PageContext.BoardSettings.EmailVerification)
         {
@@ -517,14 +524,15 @@ namespace YAF.Pages
         this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
         this.DataBind();
-         int tz = 0;
-         if (_userIpLocator.Status == "OK")
-         {
-             if (this._userIpLocator.Gmtoffset.IsSet() && (this._userIpLocator.Isdst.IsSet()))
-             {
-                 tz = (Convert.ToInt32(_userIpLocator.Gmtoffset) - Convert.ToInt32(_userIpLocator.Isdst)*3600)/60;
-             }
-         }
+        int tz = 0;
+        if (this._userIpLocator.Status == "OK")
+        {
+          if (this._userIpLocator.Gmtoffset.IsSet() && this._userIpLocator.Isdst.IsSet())
+          {
+            tz = (Convert.ToInt32(this._userIpLocator.Gmtoffset) - Convert.ToInt32(this._userIpLocator.Isdst) * 3600) /
+                 60;
+          }
+        }
 
         timeZones.Items.FindByValue(tz.ToString()).Selected = true;
         this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
@@ -543,7 +551,6 @@ namespace YAF.Pages
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
       {
         this.SetupRecaptchaControl();
-        
       }
     }
 
@@ -553,14 +560,15 @@ namespace YAF.Pages
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SendRegistrationNotificationEmail(MembershipUser user)
+    private void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
     {
       string[] emails = this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
       var notifyAdmin = new YafTemplateEmail();
 
       string subject =
-        this.PageContext.Localization.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(this.PageContext.BoardSettings.Name);
+        this.PageContext.Localization.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
+          this.PageContext.BoardSettings.Name);
 
       notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
       notifyAdmin.TemplateParams["{user}"] = user.UserName;
@@ -587,7 +595,7 @@ namespace YAF.Pages
     /// <param name="userID">
     /// The user id.
     /// </param>
-    private void SendVerificationEmail(MembershipUser user, int? userID)
+    private void SendVerificationEmail([NotNull] MembershipUser user, int? userID)
     {
       var emailTextBox = (TextBox)this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
       string email = emailTextBox.Text.Trim();
@@ -667,7 +675,7 @@ namespace YAF.Pages
     /// <param name="enabled">
     /// The enabled.
     /// </param>
-    private void SetupDisplayNameUI(Control startControl, bool enabled)
+    private void SetupDisplayNameUI([NotNull] Control startControl, bool enabled)
     {
       startControl.FindControlAs<PlaceHolder>("DisplayNamePlaceHolder").Visible = enabled;
       startControl.FindControlAs<LocalizedRequiredFieldValidator>("DisplayNameRequired").Enabled = enabled;

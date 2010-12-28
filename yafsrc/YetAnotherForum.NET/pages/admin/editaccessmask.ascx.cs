@@ -20,185 +20,186 @@
 
 namespace YAF.Pages.Admin
 {
-	using System;
-	using System.Data;
+  #region Using
 
-	using YAF.Classes;
-	using YAF.Classes.Core;
-	using YAF.Classes.Data;
-	using YAF.Classes.Utils;
+  using System;
+  using System.Data;
 
-	/// <summary>
-	/// Summary description for WebForm1.
-	/// </summary>
-	public partial class editaccessmask : AdminPage
-	{
-		/* Construction */
-		#region Overridden Methods
+  using YAF.Classes.Data;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-		/// <summary>
-		/// Creates navigation page links on top of forum (breadcrumbs).
-		/// </summary>
-		protected override void CreatePageLinks()
-		{
-			// beard index
-			this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-			// administration index
-			this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-			// current page label (no link)
-			this.PageLinks.AddLink("Access Masks", string.Empty);
-		}
+  #endregion
 
-		#endregion
+  /// <summary>
+  /// Summary description for WebForm1.
+  /// </summary>
+  public partial class editaccessmask : AdminPage
+  {
+    /* Construction */
+    #region Methods
 
-		
-		/* Event Handlers */
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // get back to access masks administration
+      YafBuildLink.Redirect(ForumPages.admin_accessmasks);
+    }
 
-		#region Page Events
+    /// <summary>
+    /// Creates navigation page links on top of forum (breadcrumbs).
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      // beard index
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-		/// <summary>
-		/// The page_ load.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			if (!IsPostBack)
-			{
-				// create page links
-				CreatePageLinks();
+      // administration index
+      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
 
-				// bind data
-				BindData();
-			}
-		}
+      // current page label (no link)
+      this.PageLinks.AddLink("Access Masks", string.Empty);
+    }
 
-		#endregion
+    /* Event Handlers */
 
-		#region Control Events
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        // create page links
+        this.CreatePageLinks();
 
-		/// <summary>
-		/// The save_ click.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Save_Click(object sender, EventArgs e)
-		{
-			// retrieve access mask ID from parameter (if applicable)
-			object accessMaskID = null;
-			if (Request.QueryString.GetFirstOrDefault("i") != null) accessMaskID = Request.QueryString.GetFirstOrDefault("i");
+        // bind data
+        this.BindData();
+      }
+    }
 
-            if (this.Name.Text.Trim().Length <= 0)
-            {
-                PageContext.AddLoadMessage("You must enter a name for the Access Mask.");
-                return;
-            }
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // retrieve access mask ID from parameter (if applicable)
+      object accessMaskID = null;
+      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+      {
+        accessMaskID = this.Request.QueryString.GetFirstOrDefault("i");
+      }
 
-            short sortOrder = 0;
+      if (this.Name.Text.Trim().Length <= 0)
+      {
+        this.PageContext.AddLoadMessage("You must enter a name for the Access Mask.");
+        return;
+      }
 
-            if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
-            {
-                PageContext.AddLoadMessage("The Sort Order value should be a positive integer from 0 to 32767.");
-                return;
-            }            
+      short sortOrder = 0;
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
-            {
-                PageContext.AddLoadMessage("You must enter a number value from 0 to 32767 for sort order.");
-                return;
-            }
+      if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
+      {
+        this.PageContext.AddLoadMessage("The Sort Order value should be a positive integer from 0 to 32767.");
+        return;
+      }
 
-			// save it
-			DB.accessmask_save(
-			  accessMaskID,
-			  PageContext.PageBoardID,
-			  this.Name.Text,
-			  this.ReadAccess.Checked,
-			  this.PostAccess.Checked,
-			  this.ReplyAccess.Checked,
-			  this.PriorityAccess.Checked,
-			  this.PollAccess.Checked,
-			  this.VoteAccess.Checked,
-			  this.ModeratorAccess.Checked,
-			  this.EditAccess.Checked,
-			  this.DeleteAccess.Checked,
-			  this.UploadAccess.Checked,
-			  this.DownloadAccess.Checked,
-              sortOrder);
+      if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      {
+        this.PageContext.AddLoadMessage("You must enter a number value from 0 to 32767 for sort order.");
+        return;
+      }
 
-			// clear cache
-			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      // save it
+      DB.accessmask_save(
+        accessMaskID, 
+        this.PageContext.PageBoardID, 
+        this.Name.Text, 
+        this.ReadAccess.Checked, 
+        this.PostAccess.Checked, 
+        this.ReplyAccess.Checked, 
+        this.PriorityAccess.Checked, 
+        this.PollAccess.Checked, 
+        this.VoteAccess.Checked, 
+        this.ModeratorAccess.Checked, 
+        this.EditAccess.Checked, 
+        this.DeleteAccess.Checked, 
+        this.UploadAccess.Checked, 
+        this.DownloadAccess.Checked, 
+        sortOrder);
 
-			// get back to access masks administration
-			YafBuildLink.Redirect(ForumPages.admin_accessmasks);
-		}
+      // clear cache
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
+      // get back to access masks administration
+      YafBuildLink.Redirect(ForumPages.admin_accessmasks);
+    }
 
-		/// <summary>
-		/// The cancel_ click.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Cancel_Click(object sender, EventArgs e)
-		{
-			// get back to access masks administration
-			YafBuildLink.Redirect(ForumPages.admin_accessmasks);
-		}
+    /* Methods */
 
-		#endregion
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+      {
+        // load access mask
+        using (
+          DataTable dt = DB.accessmask_list(
+            this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
+        {
+          // we need just one
+          DataRow row = dt.Rows[0];
 
+          // get access mask properties
+          this.Name.Text = (string)row["Name"];
+          this.SortOrder.Text = row["SortOrder"].ToString();
 
-		/* Methods */
-		#region Data Binding
+          // get flags
+          var flags = new AccessFlags(row["Flags"]);
+          this.ReadAccess.Checked = flags.ReadAccess;
+          this.PostAccess.Checked = flags.PostAccess;
+          this.ReplyAccess.Checked = flags.ReplyAccess;
+          this.PriorityAccess.Checked = flags.PriorityAccess;
+          this.PollAccess.Checked = flags.PollAccess;
+          this.VoteAccess.Checked = flags.VoteAccess;
+          this.ModeratorAccess.Checked = flags.ModeratorAccess;
+          this.EditAccess.Checked = flags.EditAccess;
+          this.DeleteAccess.Checked = flags.DeleteAccess;
+          this.UploadAccess.Checked = flags.UploadAccess;
+          this.DownloadAccess.Checked = flags.DownloadAccess;
+        }
+      }
 
-		/// <summary>
-		/// The bind data.
-		/// </summary>
-		private void BindData()
-		{
-			if (Request.QueryString.GetFirstOrDefault("i") != null)
-			{
-				// load access mask
-				using (DataTable dt = DB.accessmask_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i")))
-				{
-					// we need just one
-					DataRow row = dt.Rows[0];
+      this.DataBind();
+    }
 
-					// get access mask properties
-					this.Name.Text = (string)row["Name"];
-					this.SortOrder.Text = row["SortOrder"].ToString();
-
-					// get flags
-					var flags = new AccessFlags(row["Flags"]);
-					this.ReadAccess.Checked = flags.ReadAccess;
-					this.PostAccess.Checked = flags.PostAccess;
-					this.ReplyAccess.Checked = flags.ReplyAccess;
-					this.PriorityAccess.Checked = flags.PriorityAccess;
-					this.PollAccess.Checked = flags.PollAccess;
-					this.VoteAccess.Checked = flags.VoteAccess;
-					this.ModeratorAccess.Checked = flags.ModeratorAccess;
-					this.EditAccess.Checked = flags.EditAccess;
-					this.DeleteAccess.Checked = flags.DeleteAccess;
-					this.UploadAccess.Checked = flags.UploadAccess;
-					this.DownloadAccess.Checked = flags.DownloadAccess;
-				}
-			}
-
-			DataBind();
-		}
-		
-		#endregion
-	}
+    #endregion
+  }
 }

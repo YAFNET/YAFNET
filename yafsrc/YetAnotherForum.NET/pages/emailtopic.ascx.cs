@@ -27,10 +27,13 @@ namespace YAF.Pages
   using System.Data;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -42,7 +45,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="emailtopic"/> class.
+    ///   Initializes a new instance of the <see cref = "emailtopic" /> class.
     /// </summary>
     public emailtopic()
       : base("EMAILTOPIC")
@@ -62,7 +65,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.Get<HttpRequestBase>().QueryString["t"] == null || !this.PageContext.ForumReadAccess ||
           !this.PageContext.BoardSettings.AllowEmailTopic)
@@ -107,7 +110,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SendEmail_Click(object sender, EventArgs e)
+    protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.EmailAddress.Text.Length == 0)
       {

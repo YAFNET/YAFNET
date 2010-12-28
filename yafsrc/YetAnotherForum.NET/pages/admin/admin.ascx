@@ -1,6 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" Codebehind="admin.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
-<%@ Import Namespace="YAF.Classes.Core.BBCode" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Core.BBCode" %>
+<%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">	
 	

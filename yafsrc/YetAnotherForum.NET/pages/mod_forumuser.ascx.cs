@@ -21,24 +21,32 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Data;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Control handling user invitations to forum (i.e. granting permissions by admin/moderator).
   /// </summary>
   public partial class mod_forumuser : ForumPage
   {
-    #region Constructors
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="mod_forumuser"/> class. 
-    /// Default constructor.
+    ///   Initializes a new instance of the <see cref = "mod_forumuser" /> class. 
+    ///   Default constructor.
     /// </summary>
     public mod_forumuser()
       : base("MOD_FORUMUSER")
@@ -47,35 +55,44 @@ namespace YAF.Pages
 
     #endregion
 
-    #region MyRegion
+    #region Public Methods
 
     /// <summary>
-    /// Creates page links for this page.
+    /// The data bind.
     /// </summary>
-    protected override void CreatePageLinks()
+    public override void DataBind()
     {
-      if (PageContext.Settings.LockedForum == 0)
-      {
-        // forum index
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      // load data
+      DataTable dt;
 
-        // category
-        this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+      // only admin can assign all access masks
+      if (!this.PageContext.IsAdmin)
+      {
+        // do not include access masks with this flags set
+        var flags = (int)AccessFlags.Flags.ModeratorAccess;
+
+        // non-admins cannot assign moderation access masks
+        dt = DB.accessmask_list(this.PageContext.PageBoardID, null, flags);
+      }
+      else
+      {
+        dt = DB.accessmask_list(this.PageContext.PageBoardID, null);
       }
 
-      // forum page
-      this.PageLinks.AddForumLinks(PageContext.PageForumID);
+      // setup datasource for access masks dropdown
+      this.AccessMaskID.DataSource = dt;
+      this.AccessMaskID.DataValueField = "AccessMaskID";
+      this.AccessMaskID.DataTextField = "Name";
 
-      // currect page
-      this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
+      base.DataBind();
     }
 
     #endregion
 
-    #region Page Events
+    #region Methods
 
     /// <summary>
-    /// Handles page load event.
+    /// Handles click event of cancel button.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -83,56 +100,34 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // only moderators/admins are allowed in
-      if (!PageContext.ForumModeratorAccess)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
-      // do not repeat on postbact
-      if (!IsPostBack)
-      {
-        // create page links
-        CreatePageLinks();
-
-        // load localized texts for buttons
-        this.FindUsers.Text = GetText("FIND");
-        this.Update.Text = GetText("UPDATE");
-        this.Cancel.Text = GetText("CANCEL");
-
-        // bind data
-        DataBind();
-
-        // if there is concrete user being handled
-        if (Request.QueryString.GetFirstOrDefault("u") != null)
-        {
-          using (DataTable dt = DB.userforum_list(Request.QueryString.GetFirstOrDefault("u"), PageContext.PageForumID))
-          {
-            foreach (DataRow row in dt.Rows)
-            {
-              // set username and disable its editing
-              this.UserName.Text = row["Name"].ToString();
-              this.UserName.Enabled = false;
-
-              // we don't need to find users now
-              this.FindUsers.Visible = false;
-
-              // get access mask for this user                
-              if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
-              {
-                  this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
-              }
-            }
-          }
-        }
-      }
+      // redirect to forum moderation page
+      YafBuildLink.Redirect(ForumPages.moderate, "f={0}", this.PageContext.PageForumID);
     }
 
-    #endregion
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      if (this.PageContext.Settings.LockedForum == 0)
+      {
+        // forum index
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-    #region Button Click Events
+        // category
+        this.PageLinks.AddLink(
+          this.PageContext.PageCategoryName, 
+          YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+      }
+
+      // forum page
+      this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+
+      // currect page
+      this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+    }
 
     /// <summary>
     /// Handles FindUsers button click event.
@@ -143,7 +138,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void FindUsers_Click(object sender, EventArgs e)
+    protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // we need at least two characters to search user by
       if (this.UserName.Text.Length < 2)
@@ -152,7 +147,7 @@ namespace YAF.Pages
       }
 
       // get found users
-      var foundUsers = PageContext.UserDisplayName.Find(this.UserName.Text.Trim());
+      var foundUsers = this.PageContext.Get<IUserDisplayName>().Find(this.UserName.Text.Trim());
 
       // have we found anyone?
       if (foundUsers.Count > 0)
@@ -173,6 +168,64 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // only moderators/admins are allowed in
+      if (!this.PageContext.ForumModeratorAccess)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      // do not repeat on postbact
+      if (!this.IsPostBack)
+      {
+        // create page links
+        this.CreatePageLinks();
+
+        // load localized texts for buttons
+        this.FindUsers.Text = this.GetText("FIND");
+        this.Update.Text = this.GetText("UPDATE");
+        this.Cancel.Text = this.GetText("CANCEL");
+
+        // bind data
+        this.DataBind();
+
+        // if there is concrete user being handled
+        if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+        {
+          using (
+            DataTable dt = DB.userforum_list(
+              this.Request.QueryString.GetFirstOrDefault("u"), this.PageContext.PageForumID))
+          {
+            foreach (DataRow row in dt.Rows)
+            {
+              // set username and disable its editing
+              this.UserName.Text = row["Name"].ToString();
+              this.UserName.Enabled = false;
+
+              // we don't need to find users now
+              this.FindUsers.Visible = false;
+
+              // get access mask for this user                
+              if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
+              {
+                this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /// <summary>
     /// Handles click event of Update button.
     /// </summary>
     /// <param name="sender">
@@ -181,12 +234,12 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Update_Click(object sender, EventArgs e)
+    protected void Update_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // no user was specified
       if (this.UserName.Text.Length <= 0)
       {
-        PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
+        this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));
         return;
       }
 
@@ -197,77 +250,28 @@ namespace YAF.Pages
       }
 
       // we need to verify user exists
-      var userId = PageContext.UserDisplayName.GetId(this.UserName.Text.Trim());
+      var userId = this.PageContext.Get<IUserDisplayName>().GetId(this.UserName.Text.Trim());
 
       // there is no such user or reference is ambiugous
       if (!userId.HasValue)
       {
-        PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
+        this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));
         return;
       }
       else if (UserMembershipHelper.IsGuestUser(userId))
       {
-        PageContext.AddLoadMessage(GetText("NOT_GUEST"));
+        this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"));
         return;
       }
 
       // save permission
-      DB.userforum_save(userId.Value, PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+      DB.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
 
       // redirect to forum moderation page
-      YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
+      YafBuildLink.Redirect(ForumPages.moderate, "f={0}", this.PageContext.PageForumID);
 
       // clear moderatorss cache
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-    }
-
-    /// <summary>
-    /// Handles click event of cancel button.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-      // redirect to forum moderation page
-      YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
-    }
-
-    #endregion
-
-    #region Data Bidining
-
-    /// <summary>
-    /// The data bind.
-    /// </summary>
-    public override void DataBind()
-    {
-      // load data
-      DataTable dt;
-
-      // only admin can assign all access masks
-      if (!PageContext.IsAdmin)
-      {
-        // do not include access masks with this flags set
-        var flags = (int) AccessFlags.Flags.ModeratorAccess;
-
-        // non-admins cannot assign moderation access masks
-        dt = DB.accessmask_list(PageContext.PageBoardID, null, flags);
-      }
-      else
-      {
-        dt = DB.accessmask_list(PageContext.PageBoardID, null);
-      }
-
-      // setup datasource for access masks dropdown
-      this.AccessMaskID.DataSource = dt;
-      this.AccessMaskID.DataValueField = "AccessMaskID";
-      this.AccessMaskID.DataTextField = "Name";
-
-      base.DataBind();
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
     }
 
     #endregion

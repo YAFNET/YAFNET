@@ -21,26 +21,38 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for rules.
   /// </summary>
   public partial class rules : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="rules"/> class.
+    ///   Initializes a new instance of the <see cref = "rules" /> class.
     /// </summary>
     public rules()
       : base("RULES")
     {
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets a value indicating whether IsProtected.
+    ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected
     {
@@ -50,8 +62,12 @@ namespace YAF.Pages
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
-    /// The page_ load.
+    /// The accept_ click.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -59,15 +75,14 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.PageContext.BoardSettings.UseSSLToRegister)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-
-        this.Accept.Text = GetText("ACCEPT");
-        this.Cancel.Text = GetText("DECLINE");
+        YafBuildLink.Redirect(ForumPages.register);
       }
+
+      this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"));
     }
 
     /// <summary>
@@ -79,13 +94,13 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.forum);
     }
 
     /// <summary>
-    /// The accept_ click.
+    /// The page_ load.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -93,14 +108,17 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Accept_Click(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (!this.PageContext.BoardSettings.UseSSLToRegister)
-        {
-            YafBuildLink.Redirect(ForumPages.register);
-        }
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-        this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"));
+        this.Accept.Text = this.GetText("ACCEPT");
+        this.Cancel.Text = this.GetText("DECLINE");
+      }
     }
+
+    #endregion
   }
 }

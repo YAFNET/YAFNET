@@ -19,36 +19,25 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The replacewords_import.
   /// </summary>
   public partial class replacewords_import : AdminPage
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Import Replace Words", string.Empty);
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// The cancel_ on click.
@@ -59,7 +48,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_OnClick(object sender, EventArgs e)
+    protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_replacewords);
     }
@@ -73,7 +62,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Import_OnClick(object sender, EventArgs e)
+    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // import selected file (if it's the proper format)...
       if (this.importFile.PostedFile.ContentType == "text/xml")
@@ -84,45 +73,71 @@ namespace YAF.Pages.Admin
           var dsReplaceWords = new DataSet();
           dsReplaceWords.ReadXml(this.importFile.PostedFile.InputStream);
 
-          if (dsReplaceWords.Tables["YafReplaceWords"] != null && dsReplaceWords.Tables["YafReplaceWords"].Columns["badword"] != null &&
+          if (dsReplaceWords.Tables["YafReplaceWords"] != null &&
+              dsReplaceWords.Tables["YafReplaceWords"].Columns["badword"] != null &&
               dsReplaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
           {
             int importedCount = 0;
 
-            DataTable replaceWordsList = DB.replace_words_list(PageContext.PageBoardID, null);
+            DataTable replaceWordsList = DB.replace_words_list(this.PageContext.PageBoardID, null);
 
             // import any extensions that don't exist...
             foreach (DataRow row in dsReplaceWords.Tables["YafReplaceWords"].Rows)
             {
-              if (replaceWordsList.Select("badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0)
+              if (
+                replaceWordsList.Select(
+                  "badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0)
               {
                 // add this...
-                DB.replace_words_save(PageContext.PageBoardID, null, row["badword"], row["goodword"]);
+                DB.replace_words_save(this.PageContext.PageBoardID, null, row["badword"], row["goodword"]);
                 importedCount++;
               }
             }
 
             if (importedCount > 0)
             {
-              PageContext.LoadMessage.AddSession("{0} new replacement word(s) were imported successfully.".FormatWith(importedCount));
+              this.PageContext.LoadMessage.AddSession(
+                "{0} new replacement word(s) were imported successfully.".FormatWith(importedCount));
             }
             else
             {
-              PageContext.LoadMessage.AddSession("Nothing imported: no new replacement words were found in the upload.".FormatWith(importedCount));
+              this.PageContext.LoadMessage.AddSession(
+                "Nothing imported: no new replacement words were found in the upload.".FormatWith(importedCount));
             }
 
             YafBuildLink.Redirect(ForumPages.admin_replacewords);
           }
           else
           {
-            PageContext.AddLoadMessage("Failed to import: Import file format is different than expected.");
+            this.PageContext.AddLoadMessage("Failed to import: Import file format is different than expected.");
           }
         }
         catch (Exception x)
         {
-          PageContext.AddLoadMessage("Failed to import: " + x.Message);
+          this.PageContext.AddLoadMessage("Failed to import: " + x.Message);
         }
       }
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Import Replace Words", string.Empty);
+      }
+    }
+
+    #endregion
   }
 }

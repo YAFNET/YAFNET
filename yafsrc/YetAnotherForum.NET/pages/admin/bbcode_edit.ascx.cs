@@ -19,26 +19,40 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Core.BBCode;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.BBCode;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// The bbcode_edit.
   /// </summary>
   public partial class bbcode_edit : AdminPage
   {
-    /// <summary>
-    /// The _bbcode id.
-    /// </summary>
-    private int? _bbcodeId = null;
+    #region Constants and Fields
 
     /// <summary>
-    /// Gets BBCodeID.
+    ///   The _bbcode id.
+    /// </summary>
+    private int? _bbcodeId;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets BBCodeID.
     /// </summary>
     protected int? BBCodeID
     {
@@ -48,10 +62,10 @@ namespace YAF.Pages.Admin
         {
           return this._bbcodeId;
         }
-        else if (Request.QueryString.GetFirstOrDefault("b") != null)
+        else if (this.Request.QueryString.GetFirstOrDefault("b") != null)
         {
           int id;
-          if (int.TryParse(Request.QueryString.GetFirstOrDefault("b"), out id))
+          if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out id))
           {
             this._bbcodeId = id;
             return id;
@@ -62,8 +76,12 @@ namespace YAF.Pages.Admin
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
-    /// The page_ load.
+    /// The add_ click.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -71,29 +89,40 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string strAddEdit = (BBCodeID == null) ? "Add" : "Edit";
+      short sortOrder = 0;
 
-      if (!IsPostBack)
+      if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(strAddEdit + " YafBBCode Extensions", string.Empty);
-
-        BindData();
+        this.PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+        return;
       }
 
-      this.txtName.Attributes.Add("style", "width:100%");
-      this.txtDescription.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtOnClickJS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtDisplayJS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtEditJS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtDisplayCSS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtSearchRegEx.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtReplaceRegEx.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtVariables.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtModuleClass.Attributes.Add("style", "width:100%");
+      if (!short.TryParse(this.txtExecOrder.Text.Trim(), out sortOrder))
+      {
+        this.PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
+        return;
+      }
+
+      DB.bbcode_save(
+        this.BBCodeID, 
+        this.PageContext.PageBoardID, 
+        this.txtName.Text.Trim(), 
+        this.txtDescription.Text, 
+        this.txtOnClickJS.Text, 
+        this.txtDisplayJS.Text, 
+        this.txtEditJS.Text, 
+        this.txtDisplayCSS.Text, 
+        this.txtSearchRegEx.Text, 
+        this.txtReplaceRegEx.Text, 
+        this.txtVariables.Text, 
+        this.chkUseModule.Checked, 
+        this.txtModuleClass.Text, 
+        sortOrder);
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
+      ReplaceRulesCreator.ClearCache();
+      YafBuildLink.Redirect(ForumPages.admin_bbcode);
     }
 
     /// <summary>
@@ -101,9 +130,9 @@ namespace YAF.Pages.Admin
     /// </summary>
     protected void BindData()
     {
-      if (BBCodeID != null)
+      if (this.BBCodeID != null)
       {
-        DataRow row = DB.bbcode_list(PageContext.PageBoardID, BBCodeID.Value).Rows[0];
+        DataRow row = DB.bbcode_list(this.PageContext.PageBoardID, this.BBCodeID.Value).Rows[0];
 
         // fill the control values...
         this.txtName.Text = row["Name"].ToString();
@@ -122,51 +151,6 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
-    /// The add_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Add_Click(object sender, EventArgs e)
-    {
-        short sortOrder = 0;
-
-        if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
-        {
-            PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
-            return;
-        }
-
-        if (!short.TryParse(this.txtExecOrder.Text.Trim(), out sortOrder))
-        {
-            PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
-            return;
-        }
-
-      DB.bbcode_save(
-        BBCodeID, 
-        PageContext.PageBoardID, 
-        this.txtName.Text.Trim(), 
-        this.txtDescription.Text, 
-        this.txtOnClickJS.Text, 
-        this.txtDisplayJS.Text, 
-        this.txtEditJS.Text, 
-        this.txtDisplayCSS.Text, 
-        this.txtSearchRegEx.Text, 
-        this.txtReplaceRegEx.Text, 
-        this.txtVariables.Text, 
-        this.chkUseModule.Checked, 
-        this.txtModuleClass.Text,
-        sortOrder);
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
-      ReplaceRulesCreator.ClearCache();
-      YafBuildLink.Redirect(ForumPages.admin_bbcode);
-    }
-
-    /// <summary>
     /// The cancel_ click.
     /// </summary>
     /// <param name="sender">
@@ -175,9 +159,45 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.admin_bbcode);
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      string strAddEdit = (this.BBCodeID == null) ? "Add" : "Edit";
+
+      if (!this.IsPostBack)
+      {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(strAddEdit + " YafBBCode Extensions", string.Empty);
+
+        this.BindData();
+      }
+
+      this.txtName.Attributes.Add("style", "width:100%");
+      this.txtDescription.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtOnClickJS.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtDisplayJS.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtEditJS.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtDisplayCSS.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtSearchRegEx.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtReplaceRegEx.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtVariables.Attributes.Add("style", "width:100%;height:75px;");
+      this.txtModuleClass.Attributes.Add("style", "width:100%");
+    }
+
+    #endregion
   }
 }

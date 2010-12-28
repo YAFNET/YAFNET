@@ -21,28 +21,44 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Web;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// Summary description for login.
   /// </summary>
   public partial class login : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="login"/> class.
+    ///   Initializes a new instance of the <see cref = "login" /> class.
     /// </summary>
     public login()
       : base("LOGIN")
     {
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets a value indicating whether IsProtected.
+    ///   Gets a value indicating whether IsProtected.
     /// </summary>
     public override bool IsProtected
     {
@@ -52,15 +68,77 @@ namespace YAF.Pages
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
     /// Inits the page.
     /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="e">Event Args.</param>
-    protected void Init(object sender, EventArgs e)
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// Event Args.
+    /// </param>
+    protected void Init([NotNull] object sender, [NotNull] EventArgs e)
     {
-
     }
+
+    /// <summary>
+    /// The login 1_ authenticate.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
+    {
+      var userName = this.Login1.FindControlAs<TextBox>("UserName");
+      var password = this.Login1.FindControlAs<TextBox>("Password");
+
+      e.Authenticated = this.PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
+
+      // vzrus: to clear the cache to show user in the list at once
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+    }
+
+    /// <summary>
+    /// The login 1_ login error.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      bool emptyFields = false;
+
+      var userName = this.Login1.FindControlAs<TextBox>("UserName");
+      var password = this.Login1.FindControlAs<TextBox>("Password");
+
+      if (userName.Text.Trim().Length == 0)
+      {
+        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
+        emptyFields = true;
+      }
+
+      if (password.Text.Trim().Length == 0)
+      {
+        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
+        emptyFields = true;
+      }
+
+      if (!emptyFields)
+      {
+        this.PageContext.AddLoadMessage(this.Login1.FailureText);
+      }
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -70,25 +148,25 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
         this.Login1.MembershipProvider = Config.MembershipProvider;
 
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(GetText("title"));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.GetText("title"));
 
         // Login1.CreateUserText = "Sign up for a new account.";
         // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
-        this.Login1.PasswordRecoveryText = GetText("lostpassword");
+        this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
         this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
-        this.Login1.FailureText = GetText("password_error");
+        this.Login1.FailureText = this.GetText("password_error");
 
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
         {
-          this.Login1.DestinationPageUrl = Server.UrlDecode(Request.QueryString.GetFirstOrDefault("ReturnUrl"));
+          this.Login1.DestinationPageUrl = this.Server.UrlDecode(
+            this.Request.QueryString.GetFirstOrDefault("ReturnUrl"));
         }
         else
         {
@@ -104,7 +182,7 @@ namespace YAF.Pages
 
         userName.Focus();
 
-          /*
+        /*
         RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
         RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
 
@@ -113,82 +191,28 @@ namespace YAF.Pages
         */
         if (rememberMe != null)
         {
-          rememberMe.Text = GetText("auto");
+          rememberMe.Text = this.GetText("auto");
         }
 
         if (forumLogin != null)
         {
-          forumLogin.Text = GetText("forum_login");
+          forumLogin.Text = this.GetText("forum_login");
         }
 
         if (passwordRecovery != null)
         {
-          passwordRecovery.Text = GetText("lostpassword");
+          passwordRecovery.Text = this.GetText("lostpassword");
         }
 
         if (password != null && forumLogin != null)
         {
-            password.Attributes.Add(
-              "onkeydown",
-              "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID +
-              "').click();return false;}} else {return true}; ");
-        }    
+          password.Attributes.Add(
+            "onkeydown", 
+            "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
+            forumLogin.ClientID + "').click();return false;}} else {return true}; ");
+        }
 
-        DataBind();
-      }
-    }
-
-    /// <summary>
-    /// The login 1_ authenticate.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
-    {
-      var userName = this.Login1.FindControlAs<TextBox>("UserName");
-      var password = this.Login1.FindControlAs<TextBox>("Password");
-
-      e.Authenticated = PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
-
-      // vzrus: to clear the cache to show user in the list at once
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
-    }
-
-    /// <summary>
-    /// The login 1_ login error.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Login1_LoginError(object sender, EventArgs e)
-    {
-      bool emptyFields = false;
-
-      var userName = this.Login1.FindControlAs<TextBox>("UserName");
-      var password = this.Login1.FindControlAs<TextBox>("Password");
-
-      if (userName.Text.Trim().Length == 0)
-      {
-        PageContext.AddLoadMessage(GetText("REGISTER", "NEED_USERNAME"));
-        emptyFields = true;
-      }
-
-      if (password.Text.Trim().Length == 0)
-      {
-        PageContext.AddLoadMessage(GetText("REGISTER", "NEED_PASSWORD"));
-        emptyFields = true;
-      }
-
-      if (!emptyFields)
-      {
-        PageContext.AddLoadMessage(this.Login1.FailureText);
+        this.DataBind();
       }
     }
 
@@ -201,9 +225,11 @@ namespace YAF.Pages
     /// <param name="e">
     /// event args
     /// </param>
-    protected void PasswordRecovery_Click(object sender, EventArgs e)
+    protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.recoverpassword);
     }
+
+    #endregion
   }
 }

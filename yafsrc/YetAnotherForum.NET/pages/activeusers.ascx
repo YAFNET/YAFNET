@@ -1,5 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" Codebehind="activeusers.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
+<%@ Import Namespace="YAF.Core"%>
+<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />

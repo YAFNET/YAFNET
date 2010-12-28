@@ -1,5 +1,9 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils" %>
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>

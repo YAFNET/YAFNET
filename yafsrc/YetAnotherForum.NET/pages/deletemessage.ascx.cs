@@ -26,10 +26,14 @@ namespace YAF.Pages
   using System.Web;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -41,36 +45,36 @@ namespace YAF.Pages
     #region Constants and Fields
 
     /// <summary>
-    /// The _forum flags.
+    ///   The _forum flags.
     /// </summary>
-    protected ForumFlags _forumFlags = null;
+    protected ForumFlags _forumFlags;
 
     /// <summary>
-    /// The _is moderator changed.
+    ///   The _is moderator changed.
     /// </summary>
     protected bool _isModeratorChanged;
 
     /// <summary>
-    /// The _message row.
+    ///   The _message row.
     /// </summary>
     protected DataRow _messageRow;
 
     /// <summary>
-    /// The _owner user id.
+    ///   The _owner user id.
     /// </summary>
     protected int _ownerUserId;
 
     /// <summary>
-    /// The _topic flags.
+    ///   The _topic flags.
     /// </summary>
-    protected TopicFlags _topicFlags = null;
+    protected TopicFlags _topicFlags;
 
     #endregion
 
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="deletemessage"/> class.
+    ///   Initializes a new instance of the <see cref = "deletemessage" /> class.
     /// </summary>
     public deletemessage()
       : base("DELETEMESSAGE")
@@ -82,7 +86,7 @@ namespace YAF.Pages
     #region Properties
 
     /// <summary>
-    /// Gets a value indicating whether CanDeletePost.
+    ///   Gets a value indicating whether CanDeletePost.
     /// </summary>
     public bool CanDeletePost
     {
@@ -96,7 +100,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// Gets a value indicating whether CanUnDeletePost.
+    ///   Gets a value indicating whether CanUnDeletePost.
     /// </summary>
     public bool CanUnDeletePost
     {
@@ -107,7 +111,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// Gets a value indicating whether PostDeleted.
+    ///   Gets a value indicating whether PostDeleted.
     /// </summary>
     private bool PostDeleted
     {
@@ -124,7 +128,7 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// Gets a value indicating whether PostLocked.
+    ///   Gets a value indicating whether PostLocked.
     /// </summary>
     private bool PostLocked
     {
@@ -156,7 +160,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    public void DeleteAllPosts_CheckedChanged1(object sender, EventArgs e)
+    public void DeleteAllPosts_CheckedChanged1([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.ViewState["delAll"] = ((CheckBox)sender).Checked;
     }
@@ -174,9 +178,10 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null ||
+          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
       {
         // reply to existing topic or editing of existing topic
         YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
@@ -230,15 +235,15 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
       // get the forum editor based on the settings
       // Message = yaf.editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
       // 	EditorLine.Controls.Add(Message);
-      this.LinkedPosts.ItemDataBound += new RepeaterItemEventHandler(this.LinkedPosts_ItemDataBound);
+      this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -251,14 +256,16 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this._messageRow = null;
 
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
       {
         this._messageRow =
-          DBHelper.GetFirstRowOrInvalid(DB.message_list(Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"))));
+          DB.message_list(
+            Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"))).
+            GetFirstRowOrInvalid();
 
         if (!this.PageContext.ForumModeratorAccess && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
         {
@@ -353,7 +360,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ToogleDeleteStatus_Click(object sender, EventArgs e)
+    protected void ToogleDeleteStatus_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.CanDeletePost)
       {
@@ -371,7 +378,7 @@ namespace YAF.Pages
       DB.message_delete(
         tmpMessageID, 
         this._isModeratorChanged, 
-        System.Web.HttpUtility.HtmlEncode(this.ReasonEditor.Text), 
+        HttpUtility.HtmlEncode(this.ReasonEditor.Text), 
         this.PostDeleted ? 0 : 1, 
         (bool)this.ViewState["delAll"], 
         this.EraseMessage.Checked);
@@ -392,7 +399,7 @@ namespace YAF.Pages
 
     /// <summary>
     /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
+    ///   the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent()
     {
@@ -407,7 +414,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void LinkedPosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    private void LinkedPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
       if (e.Item.ItemType == ListItemType.Header)
       {

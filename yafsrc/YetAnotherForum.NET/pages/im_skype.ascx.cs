@@ -19,35 +19,51 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
   using System.Web.Security;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The im_skype.
   /// </summary>
   public partial class im_skype : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="im_skype"/> class.
+    ///   Initializes a new instance of the <see cref = "im_skype" /> class.
     /// </summary>
     public im_skype()
       : base("IM_SKYPE")
     {
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets UserID.
+    ///   Gets UserID.
     /// </summary>
     public int UserID
     {
       get
       {
-        return (int) Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"));
+        return (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -58,35 +74,40 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (User == null)
+      if (this.User == null)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
         // get user data...
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(UserID);
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
         if (user == null)
         {
           YafBuildLink.AccessDenied( /*No such user exists*/);
         }
-        string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
 
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
-        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
+        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          !string.IsNullOrEmpty(displayName) ? displayName : user.UserName, 
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         // get full user data...
-        var userData = new CombinedUserDataHelper(user, UserID);
+        var userData = new CombinedUserDataHelper(user, this.UserID);
 
         this.Msg.NavigateUrl = "skype:{0}?call".FormatWith(userData.Profile.Skype);
         this.Msg.Attributes.Add("onclick", "return skypeCheck();");
         this.Img.Src = "http://mystatus.skype.com/bigclassic/{0}".FormatWith(userData.Profile.Skype);
       }
     }
+
+    #endregion
   }
 }
