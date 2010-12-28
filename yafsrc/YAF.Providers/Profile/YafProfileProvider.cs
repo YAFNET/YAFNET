@@ -27,8 +27,9 @@ namespace YAF.Providers.Profile
   using System.Text;
   using System.Web.Profile;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Pattern;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
   using YAF.Utils;
   using YAF.Providers.Utils;
 

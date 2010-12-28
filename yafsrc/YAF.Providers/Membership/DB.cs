@@ -26,9 +26,9 @@ namespace YAF.Providers.Membership
   using System.Web.Security;
 
   using YAF.Classes;
+  using YAF.Classes.Pattern;
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
   using YAF.Types;
 
   #endregion
@@ -36,7 +36,7 @@ namespace YAF.Providers.Membership
   /// <summary>
   /// The yaf membership db conn manager.
   /// </summary>
-  public class YafMembershipDBConnManager : YafDBConnManager
+  public class MsSqlMembershipDbConnectionManager : MsSqlDbConnectionManager
   {
     #region Properties
 
@@ -69,7 +69,7 @@ namespace YAF.Providers.Membership
     /// <summary>
     ///   The _db access.
     /// </summary>
-    private readonly YafDBAccess _dbAccess = new YafDBAccess();
+    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess();
 
     #endregion
 
@@ -80,7 +80,7 @@ namespace YAF.Providers.Membership
     /// </summary>
     public DB()
     {
-      this._dbAccess.SetConnectionManagerAdapter<YafMembershipDBConnManager>();
+      this._msSqlDbAccess.SetConnectionManagerAdapter<MsSqlMembershipDbConnectionManager>();
     }
 
     #endregion
@@ -125,7 +125,7 @@ namespace YAF.Providers.Membership
     /// </param>
     public void ChangePassword([NotNull] string appName, [NotNull] string username, [NotNull] string newPassword, [NotNull] string newSalt, int passwordFormat, [NotNull] string newPasswordAnswer)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_changepassword")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_changepassword")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -137,7 +137,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
         cmd.Parameters.AddWithValue("@PasswordAnswer", newPasswordAnswer);
 
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -158,7 +158,7 @@ namespace YAF.Providers.Membership
     /// </param>
     public void ChangePasswordQuestionAndAnswer([NotNull] string appName, [NotNull] string username, [NotNull] string passwordQuestion, [NotNull] string passwordAnswer)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_changepasswordquestionandanswer")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_changepasswordquestionandanswer")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -167,7 +167,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@Username", username);
         cmd.Parameters.AddWithValue("@PasswordQuestion", passwordQuestion);
         cmd.Parameters.AddWithValue("@PasswordAnswer", passwordAnswer);
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -208,7 +208,7 @@ namespace YAF.Providers.Membership
       int passwordFormat, [NotNull] string email, [NotNull] string passwordQuestion, [NotNull] string passwordAnswer, 
       bool isApproved, [NotNull] object providerUserKey)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_createuser")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_createuser")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -230,7 +230,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.Add(paramUserKey);
 
         // Execute
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
 
         // Retrieve Output Parameters
         providerUserKey = paramUserKey.Value;
@@ -251,7 +251,7 @@ namespace YAF.Providers.Membership
     /// </param>
     public void DeleteUser([NotNull] string appName, [NotNull] string username, bool deleteAllRelatedData)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_deleteuser")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_deleteuser")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -259,7 +259,7 @@ namespace YAF.Providers.Membership
         // Nonstandard args
         cmd.Parameters.AddWithValue("@Username", username);
         cmd.Parameters.AddWithValue("@DeleteAllRelated", deleteAllRelatedData);
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -282,7 +282,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public DataTable FindUsersByEmail([NotNull] string appName, [NotNull] string emailToMatch, int pageIndex, int pageSize)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_findusersbyemail")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_findusersbyemail")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -291,7 +291,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@EmailAddress", emailToMatch);
         cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
         cmd.Parameters.AddWithValue("@PageSize", pageSize);
-        return this._dbAccess.GetData(cmd);
+        return this._msSqlDbAccess.GetData(cmd);
       }
     }
 
@@ -314,7 +314,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public DataTable FindUsersByName([NotNull] string appName, [NotNull] string usernameToMatch, int pageIndex, int pageSize)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_findusersbyname")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_findusersbyname")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -323,7 +323,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@Username", usernameToMatch);
         cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
         cmd.Parameters.AddWithValue("@PageSize", pageSize);
-        return this._dbAccess.GetData(cmd);
+        return this._msSqlDbAccess.GetData(cmd);
       }
     }
 
@@ -343,7 +343,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public DataTable GetAllUsers([NotNull] string appName, int pageIndex, int pageSize)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_getallusers")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_getallusers")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -351,7 +351,7 @@ namespace YAF.Providers.Membership
         // Nonstandard args
         cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
         cmd.Parameters.AddWithValue("@PageSize", pageSize);
-        return this._dbAccess.GetData(cmd);
+        return this._msSqlDbAccess.GetData(cmd);
       }
     }
 
@@ -369,7 +369,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public int GetNumberOfUsersOnline([NotNull] string appName, int timeWindow)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_getnumberofusersonline")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_getnumberofusersonline")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -380,7 +380,7 @@ namespace YAF.Providers.Membership
         var p = new SqlParameter("ReturnValue", SqlDbType.Int);
         p.Direction = ParameterDirection.ReturnValue;
         cmd.Parameters.Add(p);
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
         return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
       }
     }
@@ -404,7 +404,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public DataRow GetUser([NotNull] string appName, [NotNull] object providerUserKey, [NotNull] string userName, bool userIsOnline)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_getuser")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_getuser")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -413,7 +413,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@UserName", userName);
         cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
         cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-        using (DataTable dt = this._dbAccess.GetData(cmd))
+        using (DataTable dt = this._msSqlDbAccess.GetData(cmd))
         {
           if (dt.Rows.Count > 0)
           {
@@ -440,14 +440,14 @@ namespace YAF.Providers.Membership
     /// </returns>
     public DataTable GetUserNameByEmail([NotNull] string appName, [NotNull] string email)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_getusernamebyemail")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_getusernamebyemail")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
         // Nonstandard args
         cmd.Parameters.AddWithValue("@Email", email);
-        return this._dbAccess.GetData(cmd);
+        return this._msSqlDbAccess.GetData(cmd);
       }
     }
 
@@ -467,7 +467,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public DataTable GetUserPasswordInfo([NotNull] string appName, [NotNull] string username, bool updateUser)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_getuser")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_getuser")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -475,7 +475,7 @@ namespace YAF.Providers.Membership
         // Nonstandard args
         cmd.Parameters.AddWithValue("@Username", username);
         cmd.Parameters.AddWithValue("@UserIsOnline", updateUser);
-        return this._dbAccess.GetData(cmd);
+        return this._msSqlDbAccess.GetData(cmd);
       }
     }
 
@@ -508,7 +508,7 @@ namespace YAF.Providers.Membership
       int maxInvalidPasswordAttempts, 
       int passwordAttemptWindow)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_resetpassword")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_resetpassword")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -522,7 +522,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@PasswordAttemptWindow", passwordAttemptWindow);
         cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
 
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -537,14 +537,14 @@ namespace YAF.Providers.Membership
     /// </param>
     public void UnlockUser([NotNull] string appName, [NotNull] string userName)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_unlockuser")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_unlockuser")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
         // Nonstandard args
         cmd.Parameters.AddWithValue("@UserName", userName);
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -565,7 +565,7 @@ namespace YAF.Providers.Membership
     /// </returns>
     public int UpdateUser([NotNull] object appName, [NotNull] MembershipUser user, bool requiresUniqueEmail)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_updateuser")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_updateuser")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -585,7 +585,7 @@ namespace YAF.Providers.Membership
         p.Direction = ParameterDirection.ReturnValue;
         cmd.Parameters.Add(p);
 
-        this._dbAccess.ExecuteNonQuery(cmd); // Execute Non SQL Query
+        this._msSqlDbAccess.ExecuteNonQuery(cmd); // Execute Non SQL Query
         return Convert.ToInt32(p.Value); // Return
       }
     }
@@ -601,7 +601,7 @@ namespace YAF.Providers.Membership
     /// </param>
     public void UpgradeMembership(int previousVersion, int newVersion)
     {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_upgrade")))
+      using (var cmd = new SqlCommand(MsSqlDbAccess.GetObjectName("prov_upgrade")))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -609,7 +609,7 @@ namespace YAF.Providers.Membership
         cmd.Parameters.AddWithValue("@PreviousVersion", previousVersion);
         cmd.Parameters.AddWithValue("@NewVersion", newVersion);
 
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 

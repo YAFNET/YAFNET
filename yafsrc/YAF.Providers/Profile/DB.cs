@@ -28,9 +28,9 @@ namespace YAF.Providers.Profile
   using System.Text;
 
   using YAF.Classes;
+  using YAF.Classes.Pattern;
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
   using YAF.Utils;
   using YAF.Types;
 
@@ -39,7 +39,7 @@ namespace YAF.Providers.Profile
   /// <summary>
   /// The yaf profile db conn manager.
   /// </summary>
-  public class YafProfileDBConnManager : YafDBConnManager
+  public class MsSqlProfileDbConnectionManager : MsSqlDbConnectionManager
   {
     #region Properties
 
@@ -72,7 +72,7 @@ namespace YAF.Providers.Profile
     /// <summary>
     ///   The _db access.
     /// </summary>
-    private readonly YafDBAccess _dbAccess = new YafDBAccess();
+    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess();
 
     #endregion
 
@@ -83,7 +83,7 @@ namespace YAF.Providers.Profile
     /// </summary>
     public DB()
     {
-      this._dbAccess.SetConnectionManagerAdapter<YafProfileDBConnManager>();
+      this._msSqlDbAccess.SetConnectionManagerAdapter<MsSqlProfileDbConnectionManager>();
     }
 
     #endregion
@@ -128,12 +128,12 @@ namespace YAF.Providers.Profile
       }
 
       string sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
-        YafDBAccess.GetObjectName("prov_Profile"), name, type);
+        MsSqlDbAccess.GetObjectName("prov_Profile"), name, type);
 
       using (var cmd = new SqlCommand(sql))
       {
         cmd.CommandType = CommandType.Text;
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
@@ -151,12 +151,12 @@ namespace YAF.Providers.Profile
     /// </returns>
     public int DeleteInactiveProfiles([NotNull] object appName, [NotNull] object inactiveSinceDate)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("prov_profile_deleteinactive"))
+      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("prov_profile_deleteinactive"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ApplicationName", appName);
         cmd.Parameters.AddWithValue("InactiveSinceDate", inactiveSinceDate);
-        return Convert.ToInt32(this._dbAccess.ExecuteScalar(cmd));
+        return Convert.ToInt32(this._msSqlDbAccess.ExecuteScalar(cmd));
       }
     }
 
@@ -174,12 +174,12 @@ namespace YAF.Providers.Profile
     /// </returns>
     public int DeleteProfiles([NotNull] object appName, [NotNull] object userNames)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("prov_profile_deleteprofiles"))
+      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("prov_profile_deleteprofiles"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ApplicationName", appName);
         cmd.Parameters.AddWithValue("UserNames", userNames);
-        return Convert.ToInt32(this._dbAccess.ExecuteScalar(cmd));
+        return Convert.ToInt32(this._msSqlDbAccess.ExecuteScalar(cmd));
       }
     }
 
@@ -197,12 +197,12 @@ namespace YAF.Providers.Profile
     /// </returns>
     public int GetNumberInactiveProfiles([NotNull] object appName, [NotNull] object inactiveSinceDate)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("prov_profile_getnumberinactiveprofiles"))
+      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("prov_profile_getnumberinactiveprofiles"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ApplicationName", appName);
         cmd.Parameters.AddWithValue("InactiveSinceDate", inactiveSinceDate);
-        return Convert.ToInt32(this._dbAccess.ExecuteScalar(cmd));
+        return Convert.ToInt32(this._msSqlDbAccess.ExecuteScalar(cmd));
       }
     }
 
@@ -213,12 +213,12 @@ namespace YAF.Providers.Profile
     /// </returns>
     public DataTable GetProfileStructure()
     {
-      string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(YafDBAccess.GetObjectName("prov_Profile"));
+      string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(MsSqlDbAccess.GetObjectName("prov_Profile"));
 
       using (var cmd = new SqlCommand(sql))
       {
         cmd.CommandType = CommandType.Text;
-        return this._dbAccess.GetData(cmd);
+        return this._msSqlDbAccess.GetData(cmd);
       }
     }
 
@@ -244,7 +244,7 @@ namespace YAF.Providers.Profile
     /// </returns>
     public DataSet GetProfiles([NotNull] object appName, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object userNameToMatch, [NotNull] object inactiveSinceDate)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("prov_profile_getprofiles"))
+      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("prov_profile_getprofiles"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -252,7 +252,7 @@ namespace YAF.Providers.Profile
         cmd.Parameters.AddWithValue("PageSize", pageSize);
         cmd.Parameters.AddWithValue("UserNameToMatch", userNameToMatch);
         cmd.Parameters.AddWithValue("InactiveSinceDate", inactiveSinceDate);
-        return this._dbAccess.GetDataset(cmd);
+        return this._msSqlDbAccess.GetDataset(cmd);
       }
     }
 
@@ -299,7 +299,7 @@ namespace YAF.Providers.Profile
     {
       using (var cmd = new SqlCommand())
       {
-        string table = YafDBAccess.GetObjectName("prov_Profile");
+        string table = MsSqlDbAccess.GetObjectName("prov_Profile");
 
         StringBuilder sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
         sqlCommand.Append(" WHERE UserId = @UserID) ");
@@ -354,7 +354,7 @@ namespace YAF.Providers.Profile
         cmd.CommandText = sqlCommand.ToString();
         cmd.CommandType = CommandType.Text;
 
-        this._dbAccess.ExecuteNonQuery(cmd);
+        this._msSqlDbAccess.ExecuteNonQuery(cmd);
       }
     }
 
