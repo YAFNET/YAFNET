@@ -46,7 +46,7 @@ namespace YAF.Controls
     {
       DataSet ds = this.Get<IDBBroker>().BoardLayout(
         this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
-      this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
+      this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
       this.CategoryList.DataBind();
     }
 

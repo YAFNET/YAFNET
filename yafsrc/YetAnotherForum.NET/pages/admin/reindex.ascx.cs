@@ -88,7 +88,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnGetStats_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var connMan = new YafDBConnManager())
+      using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
 
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnRecoveryMode_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var DBName = new YafDBConnManager())
+      using (var DBName = new MsSqlDbConnectionManager())
       {
         try
         {
@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnReindex_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var connMan = new YafDBConnManager())
+      using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
         this.txtIndexStatistics.Text = DB.db_reindex_warning(connMan);
@@ -175,7 +175,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnShrink_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var DBName = new YafDBConnManager())
+      using (var DBName = new MsSqlDbConnectionManager())
       {
         try
         {

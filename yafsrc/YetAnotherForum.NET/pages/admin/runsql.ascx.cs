@@ -75,7 +75,7 @@ namespace YAF.Pages.Admin
       this.txtResult.Text = string.Empty;
       this.ResultHolder.Visible = true;
 
-      using (var connMan = new YafDBConnManager())
+      using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
         string sql = this.txtQuery.Text.Trim();

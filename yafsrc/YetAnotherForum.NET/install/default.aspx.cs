@@ -136,7 +136,7 @@ namespace YAF.Install
                     return string.Empty;
                 }
 
-                return YafDBAccess.GetConnectionString(
+                return MsSqlDbAccess.GetConnectionString(
                     this.Parameter1_Value.Text.Trim(),
                     this.Parameter2_Value.Text.Trim(),
                     this.Parameter3_Value.Text.Trim(),
@@ -279,7 +279,7 @@ namespace YAF.Install
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set the connection manager to the dynamic...
-            YafDBAccess.Current.SetConnectionManagerAdapter<YafDynamicDBConnManager>();
+            MsSqlDbAccess.Current.SetConnectionManagerAdapter<MsSqlDynamicDbConnectionManager>();
         }
 
         /// <summary>
@@ -876,7 +876,7 @@ namespace YAF.Install
         /// </returns>
         private static bool TestDatabaseConnection([NotNull] out string exceptionMessage)
         {
-            return YafDBAccess.TestConnection(out exceptionMessage);
+            return MsSqlDbAccess.TestConnection(out exceptionMessage);
         }
 
         /// <summary>

@@ -209,7 +209,7 @@ namespace YAF.Pages.Admin
     {
       using (DataSet ds = DB.ds_forumadmin(this.PageContext.PageBoardID))
       {
-        this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
+        this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
       }
 
       this.DataBind();

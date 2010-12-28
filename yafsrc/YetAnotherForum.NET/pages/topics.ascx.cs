@@ -335,9 +335,9 @@ namespace YAF.Pages
         this.PageContext.PageUserID, 
         this.PageContext.PageCategoryID, 
         this.PageContext.PageForumID);
-      if (ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows.Count > 0)
+      if (ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].Rows.Count > 0)
       {
-        this.ForumList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows;
+        this.ForumList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].Rows;
         this.SubForums.Visible = true;
       }
 

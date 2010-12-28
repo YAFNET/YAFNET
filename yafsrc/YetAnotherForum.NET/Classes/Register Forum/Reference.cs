@@ -23,7 +23,6 @@ namespace YAF.RegisterForum
   using System.Web.Services.Description;
   using System.Web.Services.Protocols;
 
-  using YAF.Classes.Pattern;
   using YAF.Types;
 
   #endregion
