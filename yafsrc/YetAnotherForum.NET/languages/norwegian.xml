@@ -345,7 +345,7 @@
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
-    <Resource tag="POWERED_BY">Hostet av {0} versjon {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by</Resource>
     <Resource tag="REGMAIL_SENT">E-post er sendt. Sjekk innboksen din og klikk på linken i e-posten.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Når du registrerer deg vil det sendes en e-post til deg. Du må klikke på linken i denne e-posten før du kan logge inn.</Resource>
     <Resource tag="SAVE">Lagre</Resource>
