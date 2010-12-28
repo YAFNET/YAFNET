@@ -515,7 +515,7 @@ namespace YAF.Core
     /// </returns>
     public static int GetUserIDFromProviderUserKey(object providerUserKey)
     {
-      int userID = DB.user_get(YafContext.Current.PageBoardID, providerUserKey);
+      int userID = DB.user_get(YafContext.Current.PageBoardID, providerUserKey.ToString());
       return userID;
     }
 

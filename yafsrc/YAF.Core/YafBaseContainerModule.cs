@@ -57,6 +57,8 @@ namespace YAF.Core
     /// </param>
     protected override void Load([NotNull] ContainerBuilder builder)
     {
+      CodeContracts.ArgumentNotNull(builder, "builder");
+
       this.RegisterBasicBindings(builder);
 
       this.RegisterEventBindings(builder);
@@ -73,15 +75,17 @@ namespace YAF.Core
     /// <summary>
     /// The get assembly sort order.
     /// </summary>
-    /// <param name="a">
-    /// The a.
+    /// <param name="assembly">
+    /// The assembly.
     /// </param>
     /// <returns>
     /// The get assembly sort order.
     /// </returns>
-    private int GetAssemblySortOrder([NotNull] Assembly a)
+    private int GetAssemblySortOrder([NotNull] Assembly assembly)
     {
-      var attribute = a.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
+      CodeContracts.ArgumentNotNull(assembly, "assembly");
+
+      var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
 
       return attribute.Any() ? attribute.First().SortOrder : 9999;
     }
