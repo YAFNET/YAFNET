@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -27,16 +27,20 @@ namespace YAF.Classes.Core
   using System.Globalization;
   using System.Web;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
   /// The yaf localization.
   /// </summary>
-  public class YafLocalization
+  public class YafLocalization : ILocalization
   {
     #region Constants and Fields
 
@@ -65,14 +69,14 @@ namespace YAF.Classes.Core
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "YafLocalization" /> class.
+    ///   Initializes a new instance of the <see cref = "YAF.Core" /> class.
     /// </summary>
     public YafLocalization()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafLocalization"/> class.
+    /// Initializes a new instance of the <see cref="YAF.Core"/> class.
     /// </summary>
     /// <param name="transPage">
     /// The trans page.
