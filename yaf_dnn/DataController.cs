@@ -27,7 +27,7 @@ namespace YAF.DotNetNuke
 
     using global::DotNetNuke.Data;
 
-    using YAF.Classes.Utils;
+    using YAF.Utils;
 
     #endregion
 

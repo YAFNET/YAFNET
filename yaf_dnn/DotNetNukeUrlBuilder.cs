@@ -28,8 +28,8 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Tabs;
     using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
+    using YAF.Core;
+    using YAF.Utils;
 
     #endregion
 

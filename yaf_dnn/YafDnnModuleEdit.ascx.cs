@@ -23,15 +23,14 @@ namespace YAF.DotNetNuke
 
   using System;
   using System.Data;
-  using System.Web.UI;
-  using System.Web.UI.WebControls;
+    using System.Web.UI.WebControls;
 
   using global::DotNetNuke.Entities.Modules;
   using global::DotNetNuke.Framework;
 
-  using YAF.Classes;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+    using YAF.Classes.Data;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
   #endregion
 

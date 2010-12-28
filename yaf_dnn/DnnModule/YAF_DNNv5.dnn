@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="YetAnotherForumDotNet" type="Module" version="1.95.04296">
+    <package name="YetAnotherForumDotNet" type="Module" version="1.95.04350">
       <friendlyName>YetAnotherForumDotNet</friendlyName>
       <description>
         &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; as DotNetNuke Module. Yet Another Forum.NET (YAF) is an open source ASP.NET forum system.&lt;br /&gt;
@@ -84,25 +84,28 @@
               <name>YAF.Classes.Config.dll</name>
             </assembly>
             <assembly>
-              <name>YAF.Classes.Core.dll</name>
-            </assembly>
-            <assembly>
               <name>YAF.Classes.Data.dll</name>
-            </assembly>
-            <assembly>
-              <name>YAF.Classes.Utils.dll</name>
             </assembly>
             <assembly>
               <name>YAF.Controls.dll</name>
             </assembly>
             <assembly>
-              <name>YAF.Providers.dll</name>
+              <name>YAF.Core.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.dll</name>
             </assembly>
             <assembly>
               <name>YAF.DotNetNuke.Module.dll</name>
             </assembly>
             <assembly>
-              <name>YAF.dll</name>
+              <name>YAF.Providers.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Types.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Utils.dll</name>
             </assembly>
           </assemblies>
         </component>
@@ -133,11 +136,26 @@
             </assembly>
           </files>
         </component>
-        <component type="Cleanup" version="1.95.4296">
+        <component type="Cleanup" version="1.95.04350">
           <files>
             <basePath>bin</basePath>
             <assembly>
               <name>AjaxPro.2.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Classes.Core.dll</name>
+            </assembly>
+            <assembly>
+              <name>YAF.Classes.Utils.dll</name>
+            </assembly>
+            <assembly>
+              <name>DNA.dll</name>
+            </assembly>
+            <assembly>
+              <name>DNA.UI.JQuery.dll</name>
+            </assembly>
+            <assembly>
+              <name>jQueryNet.dll</name>
             </assembly>
           </files>
         </component>
@@ -197,28 +215,22 @@
                      <remove name="UrlRewriter" />
                   </node>
                   <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
-                     <add name="YafTaskModule" type="YAF.Classes.Core.YafTaskModule, YAF.Classes.Core" preCondition="managedHandler" />
+                     <add name="YafTaskModule" type="YAF.Core.YafTaskModule, YAF.Core" preCondition="managedHandler" />
                   </node>
                   <node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
                      <add name="UrlRewriter" type="Intelligencia.UrlRewriter.RewriterHttpModule,Intelligencia.UrlRewriter" preCondition="managedHandler" />
                   </node>
+                  <node path="/configuration/system.webServer/handlers" action="update" key="name" collision="overwrite">
+                    <add name="YafHandler" preCondition="integratedMode" verb="GET" path="Resource.ashx" type="YAF.YafResourceHandler, YAF" />
+                  </node>
                   <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
-                     <add name="YafTaskModule" type="YAF.Classes.Core.YafTaskModule, YAF.Classes.Core" />
+                     <add name="YafTaskModule" type="YAF.Core.YafTaskModule, YAF.Core" />
                   </node>
                   <node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
                     <add name="UrlRewriter" type="Intelligencia.UrlRewriter.RewriterHttpModule,Intelligencia.UrlRewriter" />
                   </node>
                   <node path="/configuration/system.web/compilation/assemblies" action="update" key="assembly" collision="overwrite">
                      <add assembly="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
-                  </node>
-                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
-                    <add tagPrefix="YAF" namespace="YAF.Classes.Utils" assembly="YAF.Classes.Utils" />
-                  </node>
-                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
-                    <add tagPrefix="YAF" namespace="YAF.Classes.Core" assembly="YAF.Classes.Core" />
-                  </node>
-                  <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
-                    <add tagPrefix="YAF" namespace="YAF.Classes.Data" assembly="YAF.Classes.Data" />
                   </node>
                   <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
                     <add tagPrefix="YAF" namespace="YAF.Controls" assembly="YAF.Controls" />
@@ -235,20 +247,9 @@
                   <node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
                     <add tagPrefix="editor" namespace="YAF.Editors" />
                   </node>
-                  <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
-                       <add namespace="YAF" />
-                  </node>
-                  <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
-                    <add namespace="YAF.Classes.Utils" />
-                  </node>
-                  <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
-                    <add namespace="YAF.Classes.Core" />
-                  </node>
-                  <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
-                    <add namespace="YAF.Controls" />
-                  </node>
-                  <node path="/configuration/system.web/pages/namespaces" action="update" key="namespace" collision="overwrite">
-                    <add namespace="YAF.Classes.Data" />
+                 
+                  <node path="/configuration/system.web/httpHandlers" action="update" key="type" collision="overwrite">
+                    <add verb="GET" path="Resource.ashx" type="YAF.YafResourceHandler, YAF" />
                   </node>
                   <node path="/configuration/system.web" action="update" key="enabled" collision="overwrite">
                     <roleManager enabled="true" defaultProvider="AspNetSqlRoleProvider">
@@ -262,7 +263,7 @@
                     <trace enabled="false" />
                   </node>
                   <node path="/configuration/system.web" action="update" key="enabled" collision="overwrite">
-                    <profile enabled="true" defaultProvider="AspNetSqlProfileProvider" inherits="YAF.Classes.Utils.YafUserProfile">
+                    <profile enabled="true" defaultProvider="AspNetSqlProfileProvider" inherits="YAF.Utils.YafUserProfile">
                       <providers>
                         <clear />
                         <add connectionStringName="SiteSqlServer" applicationName="DotNetNuke" name="AspNetSqlProfileProvider" type="System.Web.Profile.SqlProfileProvider" />
@@ -275,6 +276,14 @@
                   <node path="/configuration/system.web/pages/controls/add[@tagPrefix='DotNetAge']" action="remove" />
                   <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro.')]" action="remove"></node>
                   <node path="/configuration/system.webServer/handlers/add[@name='AjaxPro']" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.Utils')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.Core')]" action="remove" />
+                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF.Classes.Data')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
+                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
                 </nodes>
               </configuration>
             </install>
@@ -290,6 +299,7 @@
                   <node path="/configuration/system.webServer/modules/add[@name='YafTaskModule']" action="remove" />
                   <node path="/configuration/system.webServer/modules/add[@name='UrlRewriter']" action="remove" />
                   <node path="/configuration/system.webServer/handlers/add[@name='AjaxPro']" action="remove" />
+                  <node path="/configuration/system.webServer/handlers/add[@name='YafHandler']" action="remove" />
                   <node path="/configuration/system.web/httpModules/add[@name='YafTaskModule']" action="remove" />
                   <node path="/configuration/system.web/httpModules/add[@name='UrlRewriter']" action="remove" />
                   <node path="/configuration/system.web/roleManager[@enabled='true']" action="remove" />
@@ -302,14 +312,6 @@
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/controls/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
-                  <node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF')]" action="remove" />
                   <node path="/configuration/system.web/profile[starts-with(@inherits,'YAF')]" action="remove" />
                   <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
                   <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
@@ -328,6 +330,7 @@
                   <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
                   <node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
                   <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro.')]" action="remove" />
+                  <node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'YAF.')]" action="remove"></node>
                 </nodes>
               </configuration>
             </uninstall>
@@ -356,7 +359,7 @@
         </component>
       </components>
     </package>
-    <package name="YAF.WhatsNew" type="Module" version="1.95.04296">
+    <package name="YAF.WhatsNew" type="Module" version="1.95.04350">
       <friendlyName>YAF What's New</friendlyName>
       <description>
         &lt;p&gt;This Module displays the Latest Posts from a  &lt;strong&gt;YetAnotherForum.NET&lt;/strong&gt; Module. Based on the Current Users Authorization Level. You can define Which Forum should been used, and how many Posts should displayed.

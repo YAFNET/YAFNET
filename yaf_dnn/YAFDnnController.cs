@@ -29,7 +29,7 @@ namespace YAF.DotNetNuke
   using global::DotNetNuke.Entities.Modules;
   using global::DotNetNuke.Services.Search;
 
-  using YAF.Classes.Utils;
+  using YAF.Utils;
 
     #endregion
 

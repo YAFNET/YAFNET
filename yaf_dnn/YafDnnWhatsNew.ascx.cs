@@ -40,9 +40,11 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Services.Localization;
 
     using YAF.Classes;
-    using YAF.Classes.Core;
+    using YAF.Core;
     using YAF.Classes.Data;
-    using YAF.Classes.Utils;
+    using YAF.Core.Services;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
     using YAF.Controls;
 
 
@@ -370,7 +372,7 @@ namespace YAF.DotNetNuke
             if (currentRow["LastPosted"] != DBNull.Value)
             {
                 lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                            YafContext.Current.Get<YafSession>().GetTopicRead(
+                                            YafContext.Current.Get<IYafSession>().GetTopicRead(
                                                 currentRow["TopicID"].ToType<int>()))
                                                ? "ICON_NEWEST"
                                                : "ICON_LATEST";

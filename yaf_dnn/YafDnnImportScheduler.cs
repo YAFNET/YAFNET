@@ -21,20 +21,19 @@ namespace YAF.DotNetNuke
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.IO;
-  using System.Web;
-  using System.Web.Security;
-
-  using global::DotNetNuke.Common.Utilities;
-  using global::DotNetNuke.Entities.Users;
-  using global::DotNetNuke.Services.Exceptions;
-  using global::DotNetNuke.Services.Scheduling;
-
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+    using System;
+    using System.Data;
+    using System.IO;
+    using System.Web;
+    using System.Web.Security;
+    using global::DotNetNuke.Common.Utilities;
+    using global::DotNetNuke.Entities.Users;
+    using global::DotNetNuke.Services.Exceptions;
+    using global::DotNetNuke.Services.Scheduling;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types.Flags;
+    using YAF.Utils;
 
   #endregion
 

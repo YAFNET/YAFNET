@@ -29,7 +29,9 @@ namespace YAF.Editors
 
   using YAF.Classes;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Constants;
+  using YAF.Utils;
 
     #endregion
 
@@ -38,7 +40,7 @@ namespace YAF.Editors
   ///   Code provided by Balbes
   ///   http://forum.yetanotherforum.net/yaf_postst8907_DotNetNuke-HTMLEditorProvider-integration-UPDATED-to-YAF-1-9-4.aspx
   /// </summary>
-  public class DnnRichEditor : BaseForumEditor
+  public class DnnRichEditor : ForumEditor
   {
     #region Constants and Fields
 
@@ -99,14 +101,14 @@ namespace YAF.Editors
     /// <summary>
     /// Gets ModuleId.
     /// </summary>
-    public override int ModuleId
+    /*public override int ModuleId
     {
       get
       {
         // backward compatibility...
         return 9;
       }
-    }
+    }*/
 
     /// <summary>
     /// Gets or sets StyleSheet.

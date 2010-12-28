@@ -31,7 +31,7 @@ namespace YAF.DotNetNuke
   using global::DotNetNuke.Entities.Tabs;
   using global::DotNetNuke.Services.Exceptions;
 
-  using YAF.Classes.Utils;
+  using YAF.Utils;
 
     #endregion
 

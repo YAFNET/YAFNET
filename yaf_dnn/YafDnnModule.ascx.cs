@@ -29,7 +29,6 @@ namespace YAF.DotNetNuke
     using System.Web;
     using System.Web.Security;
     using System.Web.UI;
-
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
@@ -40,10 +39,10 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Security;
     using global::DotNetNuke.Services.Exceptions;
     using global::DotNetNuke.Services.Localization;
-
-    using YAF.Classes.Core;
     using YAF.Classes.Data;
-    using YAF.Classes.Utils;
+    using YAF.Core;
+    using YAF.Types.Flags;
+    using YAF.Utils;
 
     #endregion
 
@@ -399,8 +398,10 @@ namespace YAF.DotNetNuke
 
                 // Assign the new forum to this module
                 ModuleController objForumSettings = new ModuleController();
+
                 objForumSettings.UpdateModuleSetting(this.ModuleId, "forumboardid", largestBoardId.ToString());
                 objForumSettings.UpdateModuleSetting(this.ModuleId, "forumcategoryid", string.Empty);
+
                 this.forum1.BoardID = largestBoardId;
             }
         }
