@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="../../../controls/displaypost.ascx.cs"
     Inherits="YAF.Controls.DisplayPost" EnableViewState="false" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="../../../controls/DisplayPostFooter.ascx" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Import Namespace="YAF.Core" %>
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td id="NameCell" class="postUser" runat="server">

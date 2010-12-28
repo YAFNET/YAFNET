@@ -1,4 +1,11 @@
 <%@ Control Language="c#" CodeBehind="../../../controls/TopicLine.ascx.cs" AutoEventWireup="True" Inherits="YAF.Controls.TopicLine" %>
+<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
+<%@ Import Namespace="YAF.Controls" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
 <tr class="<%=this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post" %>">
      <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
         <td>
@@ -28,7 +35,7 @@
                 linkParams += "&find=unread";
             }
         %>
-        <a href="<%=YafBuildLink.GetLink(YAF.Classes.ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
+        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=YafFormatMessage.GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
             <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
         <%
@@ -55,7 +62,7 @@
             {
         %>
         <span class="topicPosted">,
-            <%= new DisplayDateTime() { Format = YAF.Classes.DateTimeFormat.BothTopic, DateTime = this.TopicRow["Posted"] }.RenderToString()%>
+            <%= new DisplayDateTime() { Format = DateTimeFormat.BothTopic, DateTime = this.TopicRow["Posted"] }.RenderToString()%>
         </span>            
         <%
             }
