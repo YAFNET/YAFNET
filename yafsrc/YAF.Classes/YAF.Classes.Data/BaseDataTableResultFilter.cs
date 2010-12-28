@@ -24,6 +24,8 @@ namespace YAF.Classes.Data
   using System.Data;
   using System.Linq;
 
+  using YAF.Types.Interfaces;
+
   #endregion
 
   /// <summary>

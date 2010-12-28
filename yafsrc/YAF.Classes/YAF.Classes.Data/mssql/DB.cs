@@ -17,21 +17,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Hosting;
-using System.Web.Security;
 
 namespace YAF.Classes.Data
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Data.SqlClient;
+  using System.IO;
+  using System.Linq;
+  using System.Text;
+  using System.Text.RegularExpressions;
+  using System.Web.Hosting;
+  using System.Web.Security;
   using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Objects;
 
   /// <summary>
   /// All the Database functions for YAF

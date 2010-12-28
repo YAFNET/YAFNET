@@ -23,7 +23,8 @@ using System.Web;
 
 namespace YAF.Classes.Data
 {
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
   /// The query counter.

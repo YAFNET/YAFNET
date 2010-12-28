@@ -25,7 +25,10 @@ namespace YAF.Classes.Data
   using System.Linq;
 
   using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Constants;
 
   #endregion
 

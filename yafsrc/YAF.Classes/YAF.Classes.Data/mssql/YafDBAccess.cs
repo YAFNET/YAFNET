@@ -28,7 +28,9 @@ namespace YAF.Classes.Data
   using System.Data.SqlClient;
 
   using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Interfaces;
 
   #endregion
 

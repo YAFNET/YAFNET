@@ -81,57 +81,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataTableResultFilter.cs" />
-    <Compile Include="Flags\ActiveFlags.cs" />
-    <Compile Include="Flags\PollFlags.cs" />
-    <Compile Include="Flags\PollGroupFlags.cs" />
-    <Compile Include="Object\SimpleForum.cs" />
-    <Compile Include="Object\SimpleTopic.cs" />
-    <Compile Include="Object\TypedAllThanks.cs" />
-    <Compile Include="Object\TypedForumListAll.cs" />
-    <Compile Include="Object\TypedMailList.cs" />
-    <Compile Include="Object\TypedMessageList.cs" />
-    <Compile Include="Object\TypedPollGroup.cs" />
-    <Compile Include="Object\TypedSmileyList.cs" />
-    <Compile Include="Object\TypedTopicSimpleList.cs" />
-    <Compile Include="Object\TypedUserFind.cs" />
-    <Compile Include="Object\TypedUserList.cs" />
-    <Compile Include="Object\PollSaveList.cs" />
     <Compile Include="DataRowConvert.cs" />
     <Compile Include="Import\DataImport.cs" />
-    <Compile Include="Flags\MedalFlags.cs" />
-    <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="mssql\DB.cs" />
-    <Compile Include="IDataTableResultFilter.cs" />
-    <Compile Include="mssql\IYafDBAccess.cs" />
-    <Compile Include="mssql\IYafDBConnManager.cs" />
-    <Compile Include="Object\SimpleModerator.cs" />
     <Compile Include="mssql\Search\SearchBuilder.cs" />
     <Compile Include="mssql\Search\SearchBuilderExtensions.cs" />
     <Compile Include="mssql\Search\SearchCondition.cs" />
     <Compile Include="mssql\Search\SearchConditionType.cs" />
     <Compile Include="mssql\SqlDataLayerConverter.cs" />
     <Compile Include="mssql\YafDBAccess.cs" />
-    <Compile Include="Flags\AccessFlags.cs" />
-    <Compile Include="Flags\FlagsBase.cs" />
-    <Compile Include="Flags\ForumFlags.cs" />
-    <Compile Include="Flags\GroupFlags.cs" />
-    <Compile Include="Flags\MessageFlags.cs" />
-    <Compile Include="Flags\RankFlags.cs" />
-    <Compile Include="Flags\UserFlags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCounter.cs" />
-    <Compile Include="YafDBConnInfoMessageEventArgs.cs" />
-    <Compile Include="YafDBConnInfoMessageEventHandler.cs" />
     <Compile Include="mssql\YafDBConnManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj">
+      <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
+      <Name>YAF.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\YAF.Utils\YAF.Utils.csproj">
+      <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
+      <Name>YAF.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
-      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
-      <Name>YAF.Classes.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

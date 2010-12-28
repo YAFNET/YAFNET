@@ -23,6 +23,9 @@ namespace YAF.Classes.Data
   using System.Data;
   using System.Data.SqlClient;
 
+  using YAF.Types.Handlers;
+  using YAF.Types.Interfaces;
+
   /// <summary>
   /// Provides open/close management for DB Connections
   /// </summary>

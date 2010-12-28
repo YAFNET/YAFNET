@@ -21,10 +21,10 @@ namespace YAF.Classes.Data
   using System.Collections.Generic;
   using System.Text;
 
-  using YAF.Classes.Extensions;
   using YAF.Classes.Pattern;
-
-  using EnumExtensions = YAF.Classes.Utils.EnumExtensions;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
 
   /// <summary>
   /// The search builder extensions.
@@ -56,7 +56,7 @@ namespace YAF.Classes.Data
             sb.Append(" ");
             if (!isFirst)
             {
-              sb.Append(EnumExtensions.GetStringValue(item.ConditionType));
+              sb.Append(item.ConditionType.GetStringValue());
               sb.Append(" ");
             }
 
