@@ -140,6 +140,14 @@ namespace YAF.Core
     {
       builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().SingleInstance();
       builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
+
+      // scan assemblies for events to wire up...
+      var assemblies =
+        AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf"))
+          .ToArray();
+
+      builder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(typeof(IHandleEvent<>)).AsImplementedInterfaces().
+        InstancePerLifetimeScope();
     }
 
     /// <summary>
