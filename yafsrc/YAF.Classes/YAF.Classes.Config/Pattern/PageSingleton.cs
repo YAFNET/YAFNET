@@ -75,12 +75,7 @@ namespace YAF.Classes.Pattern
     {
       if (HttpContext.Current == null)
       {
-        if (_instance == null)
-        {
-          _instance = (T)Activator.CreateInstance(typeof(T));
-        }
-
-        return _instance;
+        return _instance ?? (_instance = (T)Activator.CreateInstance(typeof(T)));
       }
 
       string typeStr = typeof(T).ToString();

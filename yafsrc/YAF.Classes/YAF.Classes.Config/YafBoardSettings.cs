@@ -21,8 +21,9 @@ namespace YAF.Classes
     using System;
     using System.Web.Security;
     using YAF.Classes.Pattern;
+    using YAF.Types.Constants;
 
-    /// <summary>
+  /// <summary>
     /// The yaf board settings.
     /// </summary>
     public class YafBoardSettings
@@ -740,16 +741,16 @@ namespace YAF.Classes
         /// <summary>
         /// Gets or sets ForumEditor.
         /// </summary>
-        public int ForumEditor
+        public string ForumEditor
         {
             get
             {
-                return this._reg.GetValue<int>("ForumEditor", 1);
+                return this._reg.GetValue<string>("ForumEditor", "1");
             }
 
             set
             {
-                this._reg.SetValue<int>("ForumEditor", value);
+              this._reg.SetValue<string>("ForumEditor", value);
             }
         }
 

@@ -22,8 +22,8 @@ namespace YAF.Classes
 
   using System;
 
-  using YAF.Classes.Interfaces;
   using YAF.Classes.Pattern;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -115,7 +115,7 @@ namespace YAF.Classes
         }
         else if (Config.EnableURLRewriting)
         {
-          urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Core";
+          urlAssembly = "YAF.Core.RewriteUrlBuilder,YAF.Core";
         }
         else
         {

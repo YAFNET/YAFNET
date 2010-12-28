@@ -27,8 +27,8 @@ namespace YAF.Classes
   using System.Web;
   using System.Web.Hosting;
 
-  using YAF.Classes.Interfaces;
-  using YAF.Classes.Pattern;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 

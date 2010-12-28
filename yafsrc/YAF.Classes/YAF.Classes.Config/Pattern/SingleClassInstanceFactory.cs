@@ -23,6 +23,8 @@ namespace YAF.Classes.Pattern
   using System;
   using System.Collections.Generic;
 
+  using YAF.Types;
+
   #endregion
 
   /// <summary>
