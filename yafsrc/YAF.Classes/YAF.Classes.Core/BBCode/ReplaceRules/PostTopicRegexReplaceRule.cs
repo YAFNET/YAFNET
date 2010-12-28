@@ -16,11 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode.ReplaceRules
 {
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types.Constants;
 
   /// <summary>
   /// For the font size with replace

@@ -16,14 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode
 {
   #region Using
 
   using System;
   using System.Collections.Generic;
 
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Core.BBCode.ReplaceRules;
 
   #endregion
 

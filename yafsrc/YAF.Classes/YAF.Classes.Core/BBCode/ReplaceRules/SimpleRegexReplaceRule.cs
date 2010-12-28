@@ -16,12 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode.ReplaceRules
 {
   using System.Text;
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
   /// For basic regex with no variables

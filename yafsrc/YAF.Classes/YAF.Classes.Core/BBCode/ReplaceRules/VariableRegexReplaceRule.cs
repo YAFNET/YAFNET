@@ -16,14 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode.ReplaceRules
 {
   using System;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web;
 
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
   /// For complex regex with variable/default and truncate support
@@ -249,7 +251,7 @@ namespace YAF.Classes.Core.BBCode
         {
           // special handling to truncate urls
           innerReplace.Replace(
-            "${innertrunc}", StringHelper.TruncateMiddle(m.Groups["inner"].Value, this._truncateLength));
+            "${innertrunc}", StringExtensions.TruncateMiddle(m.Groups["inner"].Value, this._truncateLength));
         }
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text

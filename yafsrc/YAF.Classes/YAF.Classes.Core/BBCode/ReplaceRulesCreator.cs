@@ -16,12 +16,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode
 {
   #region Using
 
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
 
   #endregion
 

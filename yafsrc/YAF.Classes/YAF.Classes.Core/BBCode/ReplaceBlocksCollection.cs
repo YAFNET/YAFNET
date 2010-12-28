@@ -16,14 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode
 {
   using System;
   using System.Collections.Generic;
   using System.Text;
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
   /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag

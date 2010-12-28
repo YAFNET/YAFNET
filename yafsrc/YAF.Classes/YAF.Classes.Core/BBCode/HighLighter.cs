@@ -5,7 +5,7 @@
 //		http://creativecommons.org/licenses/by-nc-sa/2.0/
 //****************************************************
 
-namespace YAF.Classes.Core.BBCode
+namespace YAF.Core.BBCode
 {
     #region Using
 
