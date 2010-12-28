@@ -40,7 +40,7 @@ namespace YAF.Editors
   ///   Code provided by Balbes
   ///   http://forum.yetanotherforum.net/yaf_postst8907_DotNetNuke-HTMLEditorProvider-integration-UPDATED-to-YAF-1-9-4.aspx
   /// </summary>
-  public class DnnRichEditor : ForumEditor
+  public class DnnRichEditor : RichClassEditor
   {
     #region Constants and Fields
 
@@ -101,14 +101,14 @@ namespace YAF.Editors
     /// <summary>
     /// Gets ModuleId.
     /// </summary>
-    /*public override int ModuleId
+    public override string ModuleId
     {
       get
       {
         // backward compatibility...
-        return 9;
+        return "9";
       }
-    }*/
+    }
 
     /// <summary>
     /// Gets or sets StyleSheet.
@@ -192,8 +192,7 @@ namespace YAF.Editors
       this._editor.Height = Unit.Pixel(400);
       this._editor.Width = Unit.Percentage(100);
 
-      // Controls.Add(_editor.HtmlEditorControl);
-      this.AddEditorControl(this._editor.HtmlEditorControl);
+      this.Controls.Add(this._editor.HtmlEditorControl);
 
       this.RegisterSmilieyScript();
     }
