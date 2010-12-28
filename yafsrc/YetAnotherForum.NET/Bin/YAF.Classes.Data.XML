@@ -5665,5 +5665,173 @@
             The verify bool.
             </returns>
         </member>
+        <member name="T:YAF.Types.Objects.TypedUserFind">
+            <summary>
+            The typed user find.
+            </summary>
+        </member>
+        <member name="M:YAF.Types.Objects.TypedUserFind.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Types.Objects.TypedUserFind"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AutoWatchTopics">
+            <summary>
+            Gets or sets AutoWatchTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Avatar">
+            <summary>
+            Gets or sets Avatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImage">
+            <summary>
+            Gets or sets AvatarImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.AvatarImageType">
+            <summary>
+            Gets or sets AvatarImageType.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Culture">
+            <summary>
+            Gets or sets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.DailyDigest">
+            <summary>
+            Gets or sets DailyDigest.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.DisplayName">
+            <summary>
+            Gets or sets DisplayName.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Email">
+            <summary>
+            Gets or sets Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Flags">
+            <summary>
+            Gets or sets Flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsActiveExcluded">
+            <summary>
+            Gets or sets IsActiveExcluded.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsApproved">
+            <summary>
+            Gets or sets IsApproved.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.IsGuest">
+            <summary>
+            Gets or sets IsGuest.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Joined">
+            <summary>
+            Gets or sets Joined.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.LanguageFile">
+            <summary>
+            Gets or sets LanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.LastVisit">
+            <summary>
+            Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.NotificationType">
+            <summary>
+            Gets or sets NotificationType.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.NumPosts">
+            <summary>
+            Gets or sets NumPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UseMobileTheme">
+            <summary>
+            Gets or sets UseMobileTheme.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.PMNotification">
+            <summary>
+            Gets or sets PMNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Password">
+            <summary>
+            Gets or sets Password.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Points">
+            <summary>
+            Gets or sets Points.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.ProviderUserKey">
+            <summary>
+            Gets or sets ProviderUserKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.RankID">
+            <summary>
+            Gets or sets RankID.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.Suspended">
+            <summary>
+            Gets or sets Suspended.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.ThemeFile">
+            <summary>
+            Gets or sets ThemeFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.TimeZone">
+            <summary>
+            Gets or sets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Types.Objects.TypedUserFind.UserID">
+            <summary>
+            Gets or sets UserID.
+            </summary>
+        </member>
     </members>
 </doc>
