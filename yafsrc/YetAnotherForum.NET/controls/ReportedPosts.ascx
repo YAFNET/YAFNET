@@ -1,6 +1,8 @@
 ﻿<%@ Import Namespace="System.Data" %>
 <%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.ReportedPosts" Codebehind="ReportedPosts.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Utils" %>
 <asp:Repeater ID="ReportedPostsRepeater" runat="server">
     <HeaderTemplate>
         <table width="100%" class="content">

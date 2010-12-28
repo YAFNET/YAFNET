@@ -25,12 +25,12 @@ namespace YAF.Controls
   using System;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Utilities;
+  using YAF.Utils;
 
   #endregion
 
@@ -69,63 +69,6 @@ namespace YAF.Controls
 
     #region Methods
 
-      /// <summary>
-      /// Pre Render
-      /// </summary>
-      /// <param name="e">
-      /// The esd.
-      /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-        if (this.UserID == this.PageContext.PageUserID)
-        {
-            // Register jQuery Ajax Plugin.
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
-            // Register Js Blocks.
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "AlbumEventsJs",
-                JavaScriptBlocks.AlbumEventsJs(
-                    this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"),
-                    this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
-            this.ltrTitleOnly.Visible = false;
-        }
-
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
-    /// Called when the page loads
-    /// </summary>
-    /// <param name="sender">
-    /// the sender.
-    /// </param>
-    /// <param name="e">
-    /// the e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        this._attachGroupID = Guid.NewGuid().ToString().Substring(0, 5);
-        if (this.UserID == this.PageContext.PageUserID)
-        {
-            this.ltrTitleOnly.Visible = false;
-
-            // Initialize the edit control.
-            this.EditAlbums.Visible = true;
-            this.EditAlbums.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
-        }
-
-        this.BindData();
-    }
-
     /// <summary>
     /// The ItemCommand method for the cover buttons. Sets/Removes cover image.
     /// </summary>
@@ -135,7 +78,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// the e.
     /// </param>
-    protected void AlbumImages_ItemCommand(object sender, CommandEventArgs e)
+    protected void AlbumImages_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
     {
       using (var dt = DB.album_list(null, this.AlbumID))
       {
@@ -161,22 +104,22 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void AlbumImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    protected void AlbumImages_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
-        if (this.UserID != this.PageContext.PageUserID)
-        {
-            return;
-        }
+      if (this.UserID != this.PageContext.PageUserID)
+      {
+        return;
+      }
 
-        var setCover = (Button)e.Item.FindControl("SetCover");
+      var setCover = (Button)e.Item.FindControl("SetCover");
 
-        if (setCover != null)
-        {
-            // Is this the cover image?
-            setCover.Text = setCover.CommandArgument == this._coverImageID
-                                ? this.PageContext.Localization.GetText("BUTTON_RESETCOVER")
-                                : this.PageContext.Localization.GetText("BUTTON_SETCOVER");
-        }
+      if (setCover != null)
+      {
+        // Is this the cover image?
+        setCover.Text = setCover.CommandArgument == this._coverImageID
+                          ? this.PageContext.Localization.GetText("BUTTON_RESETCOVER")
+                          : this.PageContext.Localization.GetText("BUTTON_SETCOVER");
+      }
     }
 
     /// <summary>
@@ -188,9 +131,66 @@ namespace YAF.Controls
     /// <param name="e">
     /// the e.
     /// </param>
-    protected void EditAlbums_Click(object sender, EventArgs e)
+    protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", this.AlbumID);
+    }
+
+    /// <summary>
+    /// Pre Render
+    /// </summary>
+    /// <param name="e">
+    /// The esd.
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+      if (this.UserID == this.PageContext.PageUserID)
+      {
+        // Register jQuery Ajax Plugin.
+        YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+
+        // Register Js Blocks.
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "AlbumEventsJs", 
+          JavaScriptBlocks.AlbumEventsJs(
+            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
+            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+        this.ltrTitleOnly.Visible = false;
+      }
+
+      base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this._attachGroupID = Guid.NewGuid().ToString().Substring(0, 5);
+      if (this.UserID == this.PageContext.PageUserID)
+      {
+        this.ltrTitleOnly.Visible = false;
+
+        // Initialize the edit control.
+        this.EditAlbums.Visible = true;
+        this.EditAlbums.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
+      }
+
+      this.BindData();
     }
 
     /// <summary>
@@ -202,7 +202,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Pager_PageChange(object sender, EventArgs e)
+    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.BindData();
     }
@@ -231,24 +231,24 @@ namespace YAF.Controls
                              ? string.Empty
                              : dtAlbum.Rows[0]["CoverImageID"].ToString();
 
-        if ((dtAlbumImageList == null) || (dtAlbumImageList.Rows.Count <= 0))
+      if ((dtAlbumImageList == null) || (dtAlbumImageList.Rows.Count <= 0))
+      {
+        return;
+      }
+
+      this.PagerTop.Count = dtAlbumImageList.Rows.Count;
+
+      // Create paged data source for the album image list
+      var pds = new PagedDataSource
         {
-            return;
-        }
+          DataSource = dtAlbumImageList.DefaultView, 
+          AllowPaging = true, 
+          CurrentPageIndex = this.PagerTop.CurrentPageIndex, 
+          PageSize = this.PagerTop.PageSize
+        };
 
-        this.PagerTop.Count = dtAlbumImageList.Rows.Count;
-
-        // Create paged data source for the album image list
-        var pds = new PagedDataSource
-            {
-                DataSource = dtAlbumImageList.DefaultView,
-                AllowPaging = true,
-                CurrentPageIndex = this.PagerTop.CurrentPageIndex,
-                PageSize = this.PagerTop.PageSize
-            };
-
-        this.AlbumImages.DataSource = pds;
-        this.DataBind();
+      this.AlbumImages.DataSource = pds;
+      this.DataBind();
     }
 
     #endregion

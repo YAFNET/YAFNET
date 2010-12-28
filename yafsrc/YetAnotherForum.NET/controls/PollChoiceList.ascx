@@ -1,5 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollChoiceList.ascx.cs"
     Inherits="YAF.Controls.PollChoiceList" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
             <asp:Repeater ID="Poll" runat="server" OnItemDataBound="Poll_OnItemDataBound" OnItemCommand="Poll_ItemCommand"
                 Visible="true" DataSource="<%# this.DataSource %>">
                 <HeaderTemplate> 

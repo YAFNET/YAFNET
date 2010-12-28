@@ -32,10 +32,13 @@ namespace YAF.Controls
   using System.Web.UI.WebControls;
   using System.Xml;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -55,14 +58,15 @@ namespace YAF.Controls
     {
       get
       {
-          if (this.ViewState["View"] != null)
+        if (this.ViewState["View"] != null)
         {
           return (PMView)this.ViewState["View"];
         }
-          return PMView.Inbox;
+
+        return PMView.Inbox;
       }
 
-        set
+      set
       {
         this.ViewState["View"] = value;
       }
@@ -81,7 +85,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ArchiveAll_Click(object source, EventArgs e)
+    protected void ArchiveAll_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       if (this.View != PMView.Inbox)
       {
@@ -101,7 +105,8 @@ namespace YAF.Controls
       }
 
       this.BindData();
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
+      this.PageContext.Cache.Remove(
+        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
       this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
     }
 
@@ -114,7 +119,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ArchiveAll_Load(object sender, EventArgs e)
+    protected void ArchiveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CONFIRM_ARCHIVEALL"));
@@ -129,7 +134,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ArchiveSelected_Click(object source, EventArgs e)
+    protected void ArchiveSelected_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       if (this.View != PMView.Inbox)
       {
@@ -147,11 +152,12 @@ namespace YAF.Controls
       }
 
       this.BindData();
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
-        this.PageContext.AddLoadMessage(archivedCount == 1
-                                            ? this.PageContext.Localization.GetText("MSG_ARCHIVED")
-                                            : this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(
-                                                archivedCount));
+      this.PageContext.Cache.Remove(
+        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+      this.PageContext.AddLoadMessage(
+        archivedCount == 1
+          ? this.PageContext.Localization.GetText("MSG_ARCHIVED")
+          : this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
     }
 
     /// <summary>
@@ -163,7 +169,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DateLink_Click(object sender, EventArgs e)
+    protected void DateLink_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.SetSort("Created", false);
       this.BindData();
@@ -178,7 +184,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteAll_Click(object source, EventArgs e)
+    protected void DeleteAll_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       long nItemCount = 0;
 
@@ -198,20 +204,20 @@ namespace YAF.Controls
 
       using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
       {
-          switch (this.View)
-          {
-              case PMView.Inbox:
-                  dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-                  break;
-              case PMView.Outbox:
-                  dv.RowFilter = "IsInOutbox = True";
-                  break;
-              case PMView.Archive:
-                  dv.RowFilter = "IsArchived = True";
-                  break;
-          }
+        switch (this.View)
+        {
+          case PMView.Inbox:
+            dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+            break;
+          case PMView.Outbox:
+            dv.RowFilter = "IsInOutbox = True";
+            break;
+          case PMView.Archive:
+            dv.RowFilter = "IsArchived = True";
+            break;
+        }
 
-          foreach (DataRowView item in dv)
+        foreach (DataRowView item in dv)
         {
           if (isoutbox)
           {
@@ -226,9 +232,10 @@ namespace YAF.Controls
         }
       }
 
-        this.BindData();
+      this.BindData();
       this.PageContext.AddLoadMessage(this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
+      this.PageContext.Cache.Remove(
+        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
     }
 
     /// <summary>
@@ -240,7 +247,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteAll_Load(object sender, EventArgs e)
+    protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CONFIRM_DELETEALL"));
@@ -255,32 +262,34 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteSelected_Click(object source, EventArgs e)
+    protected void DeleteSelected_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       long nItemCount = 0;
 
       foreach (GridViewRow item in
-          this.MessagesView.Rows.Cast<GridViewRow>().Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
+        this.MessagesView.Rows.Cast<GridViewRow>().Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
       {
-          switch (this.View)
-          {
-              case PMView.Outbox:
-                  DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
-                  break;
-              default:
-                  DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
-                  break;
-          }
+        switch (this.View)
+        {
+          case PMView.Outbox:
+            DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
+            break;
+          default:
+            DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
+            break;
+        }
 
-          nItemCount++;
+        nItemCount++;
       }
 
       this.BindData();
 
-      this.PageContext.AddLoadMessage(nItemCount == 1
-                                            ? this.PageContext.Localization.GetText("msgdeleted1")
-                                            : this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(PageContext.PageUserID)));
+      this.PageContext.AddLoadMessage(
+        nItemCount == 1
+          ? this.PageContext.Localization.GetText("msgdeleted1")
+          : this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
+      this.PageContext.Cache.Remove(
+        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
     }
 
     /// <summary>
@@ -292,7 +301,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteSelected_Load(object sender, EventArgs e)
+    protected void DeleteSelected_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CONFIRM_DELETE"));
@@ -307,7 +316,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ExportAll_Click(object source, EventArgs e)
+    protected void ExportAll_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       var messageList = (DataView)this.MessagesView.DataSource;
 
@@ -341,7 +350,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ExportSelected_Click(object source, EventArgs e)
+    protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       var alNotSelMessages = new ArrayList();
 
@@ -399,7 +408,7 @@ namespace YAF.Controls
     /// <returns>
     /// The format body.
     /// </returns>
-    protected string FormatBody(object o)
+    protected string FormatBody([NotNull] object o)
     {
       var row = (DataRowView)o;
       return (string)row["Body"];
@@ -414,14 +423,14 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void FromLink_Click(object sender, EventArgs e)
+    protected void FromLink_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.SetSort(this.View == PMView.Outbox ? "ToUser" : "FromUser", true);
+      this.SetSort(this.View == PMView.Outbox ? "ToUser" : "FromUser", true);
 
-        this.BindData();
+      this.BindData();
     }
 
-      /// <summary>
+    /// <summary>
     /// The get image.
     /// </summary>
     /// <param name="o">
@@ -430,9 +439,9 @@ namespace YAF.Controls
     /// <returns>
     /// The get image.
     /// </returns>
-    protected string GetImage(object o)
+    protected string GetImage([NotNull] object o)
     {
-      return this.PageContext.Theme.GetItem(
+      return this.PageContext.Get<ITheme>().GetItem(
         "ICONS", SqlDataLayerConverter.VerifyBool(((DataRowView)o)["IsRead"]) ? "TOPIC" : "TOPIC_NEW");
     }
 
@@ -445,7 +454,7 @@ namespace YAF.Controls
     /// <returns>
     /// The get localized text.
     /// </returns>
-    protected string GetLocalizedText(string text)
+    protected string GetLocalizedText([NotNull] string text)
     {
       return this.HtmlEncode(this.PageContext.Localization.GetText(text));
     }
@@ -459,7 +468,7 @@ namespace YAF.Controls
     /// <returns>
     /// The get message link.
     /// </returns>
-    protected string GetMessageLink(object messageId)
+    protected string GetMessageLink([NotNull] object messageId)
     {
       return YafBuildLink.GetLink(
         ForumPages.cp_message, "pm={0}&v={1}", messageId, PMViewConverter.ToQueryStringParam(this.View));
@@ -501,7 +510,12 @@ namespace YAF.Controls
     /// The get p message text.
     /// </returns>
     protected string GetPMessageText(
-      string text, object _total, object _inbox, object _outbox, object _archive, object _limit)
+      [NotNull] string text, 
+      [NotNull] object _total, 
+      [NotNull] object _inbox, 
+      [NotNull] object _outbox, 
+      [NotNull] object _archive, 
+      [NotNull] object _limit)
     {
       object _percentage = 0;
       if (Convert.ToInt32(_limit) != 0)
@@ -528,18 +542,18 @@ namespace YAF.Controls
     /// </returns>
     protected string GetTitle()
     {
-        switch (this.View)
-        {
-            case PMView.Outbox:
-                return this.GetLocalizedText("SENTITEMS");
-            case PMView.Inbox:
-                return this.GetLocalizedText("INBOX");
-            default:
-                return this.GetLocalizedText("ARCHIVE");
-        }
+      switch (this.View)
+      {
+        case PMView.Outbox:
+          return this.GetLocalizedText("SENTITEMS");
+        case PMView.Inbox:
+          return this.GetLocalizedText("INBOX");
+        default:
+          return this.GetLocalizedText("ARCHIVE");
+      }
     }
 
-      /// <summary>
+    /// <summary>
     /// The mark as read_ click.
     /// </summary>
     /// <param name="source">
@@ -548,7 +562,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void MarkAsRead_Click(object source, EventArgs e)
+    protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
     {
       if (this.View == PMView.Outbox)
       {
@@ -588,7 +602,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void MessagesView_RowCreated(object sender, GridViewRowEventArgs e)
+    protected void MessagesView_RowCreated([NotNull] object sender, [NotNull] GridViewRowEventArgs e)
     {
       if (e.Row.RowType == DataControlRowType.Header)
       {
@@ -608,15 +622,15 @@ namespace YAF.Controls
         SortFrom.Visible = (this.View == PMView.Outbox)
                              ? (string)this.ViewState["SortField"] == "ToUser"
                              : (string)this.ViewState["SortField"] == "FromUser";
-        SortFrom.ImageUrl = this.PageContext.Theme.GetItem(
+        SortFrom.ImageUrl = this.PageContext.Get<ITheme>().GetItem(
           "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 
         SortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
-        SortSubject.ImageUrl = this.PageContext.Theme.GetItem(
+        SortSubject.ImageUrl = this.PageContext.Get<ITheme>().GetItem(
           "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 
         SortDate.Visible = (string)this.ViewState["SortField"] == "Created";
-        SortDate.ImageUrl = this.PageContext.Theme.GetItem(
+        SortDate.ImageUrl = this.PageContext.Get<ITheme>().GetItem(
           "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
       }
       else if (e.Row.RowType == DataControlRowType.Footer)
@@ -641,7 +655,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.ViewState["SortField"] == null)
       {
@@ -678,7 +692,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void PagerTop_PageChange(object sender, EventArgs e)
+    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
       // rebind
       this.BindData();
@@ -712,7 +726,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SubjectLink_Click(object sender, EventArgs e)
+    protected void SubjectLink_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.SetSort("Subject", true);
       this.BindData();
@@ -739,15 +753,15 @@ namespace YAF.Controls
       {
         switch (this.View)
         {
-            case PMView.Inbox:
-                dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-                break;
-            case PMView.Outbox:
-                dv.RowFilter = "IsInOutbox = True";
-                break;
-            case PMView.Archive:
-                dv.RowFilter = "IsArchived = True";
-                break;
+          case PMView.Inbox:
+            dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+            break;
+          case PMView.Outbox:
+            dv.RowFilter = "IsInOutbox = True";
+            break;
+          case PMView.Archive:
+            dv.RowFilter = "IsArchived = True";
+            break;
         }
 
         dv.Sort = "{0} {1}".FormatWith(this.ViewState["SortField"], (bool)this.ViewState["SortAsc"] ? "asc" : "desc");
@@ -755,13 +769,13 @@ namespace YAF.Controls
 
         if (dv.Count > 0)
         {
-            lblExportType.Visible = true;
-            ExportType.Visible = true;
+          this.lblExportType.Visible = true;
+          this.ExportType.Visible = true;
         }
         else
         {
-            lblExportType.Visible = false;
-            ExportType.Visible = false;
+          this.lblExportType.Visible = false;
+          this.ExportType.Visible = false;
         }
 
         this.MessagesView.PageIndex = this.PagerTop.CurrentPageIndex;
@@ -778,7 +792,7 @@ namespace YAF.Controls
     /// <param name="messageList">
     /// DataView that Contains the Private Messages
     /// </param>
-    private void ExportCsvFile(DataView messageList)
+    private void ExportCsvFile([NotNull] DataView messageList)
     {
       HttpContext.Current.Response.Clear();
       HttpContext.Current.Response.ClearContent();
@@ -838,7 +852,7 @@ namespace YAF.Controls
     /// <param name="messageList">
     /// DataView that Contains the Private Messages
     /// </param>
-    private void ExportTextFile(DataView messageList)
+    private void ExportTextFile([NotNull] DataView messageList)
     {
       HttpContext.Current.Response.Clear();
       HttpContext.Current.Response.ClearContent();
@@ -881,7 +895,7 @@ namespace YAF.Controls
     /// <param name="messageList">
     /// DataView that Contains the Private Messages
     /// </param>
-    private void ExportXmlFile(DataView messageList)
+    private void ExportXmlFile([NotNull] DataView messageList)
     {
       HttpContext.Current.Response.Clear();
       HttpContext.Current.Response.ClearContent();
@@ -936,7 +950,7 @@ namespace YAF.Controls
     /// <param name="asc">
     /// The asc.
     /// </param>
-    private void SetSort(string field, bool asc)
+    private void SetSort([NotNull] string field, bool asc)
     {
       if (this.ViewState["SortField"] != null && (string)this.ViewState["SortField"] == field)
       {
@@ -987,7 +1001,7 @@ namespace YAF.Controls
     /// </param>
     /// <returns>
     /// </returns>
-    public static PMView FromQueryString(string param)
+    public static PMView FromQueryString([NotNull] string param)
     {
       if (param.IsNotSet())
       {
@@ -1015,6 +1029,7 @@ namespace YAF.Controls
     /// <returns>
     /// The to query string param.
     /// </returns>
+    [CanBeNull]
     public static string ToQueryStringParam(PMView view)
     {
       switch (view)

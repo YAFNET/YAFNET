@@ -24,10 +24,11 @@ namespace YAF.Controls
   using System;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -67,33 +68,64 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// Do Logout Dialog
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+
+      notification.Show(
+        this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION"), 
+        "Logout?", 
+        DialogBox.DialogIcon.Question, 
+        new DialogBox.DialogButton
+          {
+            Text = "Yes", 
+            CssClass = "StandardButton", 
+            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
+          }, 
+        new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton" });
+    }
+
+    /// <summary>
     /// The On PreRender event.
     /// </summary>
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        var searchIcon = this.PageContext.Theme.GetItem("ICONS", "SEARCH");
+      var searchIcon = this.PageContext.Get<ITheme>().GetItem("ICONS", "SEARCH");
 
-        if (!string.IsNullOrEmpty(searchIcon))
-        {
-            this.doQuickSearch.Text =
-                @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
-                    searchIcon, this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH"));
-        }
-        else
-        {
-            this.doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");   
-        }
+      if (!string.IsNullOrEmpty(searchIcon))
+      {
+        this.doQuickSearch.Text = @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
+          searchIcon, this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH"));
+      }
+      else
+      {
+        this.doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");
+      }
 
-        this.searchInput.Attributes["onkeydown"] = "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; ".FormatWith(this.doQuickSearch.ClientID);
-        this.searchInput.Attributes["onfocus"] = "if (this.value == '{0}') {{this.value = '';}}".FormatWith(this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
-        this.searchInput.Attributes["onblur"] = "if (this.value == '') {{this.value = '{0}';}}".FormatWith(this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+      this.searchInput.Attributes["onkeydown"] =
+        "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
+          .FormatWith(this.doQuickSearch.ClientID);
+      this.searchInput.Attributes["onfocus"] =
+        "if (this.value == '{0}') {{this.value = '';}}".FormatWith(
+          this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+      this.searchInput.Attributes["onblur"] =
+        "if (this.value == '') {{this.value = '{0}';}}".FormatWith(
+          this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
 
-        this.searchInput.Text = this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD");
+      this.searchInput.Text = this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD");
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -107,7 +139,6 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        
     }
 
     /// <summary>
@@ -119,43 +150,15 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void QuickSearchClick(object sender, EventArgs e)
+    protected void QuickSearchClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (string.IsNullOrEmpty(this.searchInput.Text))
-        {
-            return;
-        }
+      if (string.IsNullOrEmpty(this.searchInput.Text))
+      {
+        return;
+      }
 
-        YafBuildLink.Redirect(
-            ForumPages.search,
-            "search={0}",
-            this.searchInput.Text);
+      YafBuildLink.Redirect(ForumPages.search, "search={0}", this.searchInput.Text);
     }
-    
-    /// <summary>
-    /// Do Logout Dialog
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void LogOutClick(object sender, EventArgs e)
-    {
-        var notification = (DialogBox)PageContext.CurrentForumPage.Notification;
-
-        notification.Show(
-              this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION"),
-              "Logout?",
-              DialogBox.DialogIcon.Question,
-              new DialogBox.DialogButton { Text = "Yes", CssClass = "StandardButton", ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout } },
-              new DialogBox.DialogButton
-              {
-                  Text = "No",
-                  CssClass = "StandardButton"
-              });
-    } 
 
     #endregion
   }

@@ -27,11 +27,12 @@ namespace YAF.Controls
   using System.Data.SqlTypes;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -41,12 +42,12 @@ namespace YAF.Controls
   public enum TopicListMode
   {
     /// <summary>
-    /// The active.
+    ///   The active.
     /// </summary>
     Active, 
 
     /// <summary>
-    /// The favorite.
+    ///   The favorite.
     /// </summary>
     Favorite
   }
@@ -180,8 +181,7 @@ namespace YAF.Controls
         // styled nicks
         if (this.PageContext.BoardSettings.UseStyledNicks)
         {
-          new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(
-            ref topicList, true, "LastUserStyle", "StarterStyle");
+          this.Get<IStyleTransform>().DecodeStyleByTable(ref topicList, true, "LastUserStyle", "StarterStyle");
         }
 
         // let's page the results
@@ -360,13 +360,13 @@ namespace YAF.Controls
     /// </summary>
     private void BindFeeds()
     {
-        bool groupAccess = this.Get<IPermissions>().Check(PageContext.BoardSettings.ActiveTopicFeedAccess);
-        
-        this.AtomFeed.Visible = PageContext.BoardSettings.ShowAtomLink && groupAccess;
-        this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink && groupAccess;
-      
+      bool groupAccess = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveTopicFeedAccess);
+
+      this.AtomFeed.Visible = this.PageContext.BoardSettings.ShowAtomLink && groupAccess;
+      this.RssFeed.Visible = this.PageContext.BoardSettings.ShowRSSLink && groupAccess;
+
       // RSS link setup 
-        if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
+      if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
       {
         if (this.CurrentMode == TopicListMode.Active)
         {
@@ -391,7 +391,7 @@ namespace YAF.Controls
       }
 
       // Atom link setup 
-        if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
+      if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
       {
         {
           if (this.CurrentMode == TopicListMode.Active)

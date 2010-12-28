@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.yetanotherforum.net/Register" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.yetanotherforum.net/Register" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://yetanotherforum.net/Register" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.yetanotherforum.net/Register" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://www.yetanotherforum.net/Register">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://yetanotherforum.net/Register">
       <s:element name="RegisterForum">
         <s:complexType>
           <s:sequence>
@@ -78,7 +78,7 @@
   <binding name="RegisterSoap" type="s0:RegisterSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
     <operation name="RegisterForum">
-      <soap:operation soapAction="http://www.yetanotherforum.net/Register/RegisterForum" style="document" />
+      <soap:operation soapAction="http://yetanotherforum.net/Register/RegisterForum" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -87,7 +87,7 @@
       </output>
     </operation>
     <operation name="LatestVersion">
-      <soap:operation soapAction="http://www.yetanotherforum.net/Register/LatestVersion" style="document" />
+      <soap:operation soapAction="http://yetanotherforum.net/Register/LatestVersion" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -96,7 +96,7 @@
       </output>
     </operation>
     <operation name="LatestVersionDate">
-      <soap:operation soapAction="http://www.yetanotherforum.net/Register/LatestVersionDate" style="document" />
+      <soap:operation soapAction="http://yetanotherforum.net/Register/LatestVersionDate" style="document" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -108,7 +108,7 @@
   <service name="Register">
     <documentation>Yet Another Forum.net registration</documentation>
     <port name="RegisterSoap" binding="s0:RegisterSoap">
-      <soap:address location="http://www.yetanotherforum.net/Register.asmx" />
+      <soap:address location="http://yetanotherforum.net/Register.asmx" />
     </port>
   </service>
 </definitions>

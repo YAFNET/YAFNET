@@ -1,31 +1,23 @@
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Data;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+
+  #endregion
 
   /// <summary>
   /// The forum category list.
   /// </summary>
   public partial class ForumCategoryList : BaseUserControl
   {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      DataSet ds = this.Get<IDBBroker>().BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null);
-      this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
-      this.CategoryList.DataBind();
-    }
+    #region Methods
 
     /// <summary>
     /// The mark all_ click.
@@ -36,9 +28,28 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void MarkAll_Click(object sender, EventArgs e)
+    protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       YafContext.Current.Get<IYafSession>().LastVisit = DateTime.UtcNow;
     }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      DataSet ds = this.Get<IDBBroker>().BoardLayout(
+        this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
+      this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
+      this.CategoryList.DataBind();
+    }
+
+    #endregion
   }
 }

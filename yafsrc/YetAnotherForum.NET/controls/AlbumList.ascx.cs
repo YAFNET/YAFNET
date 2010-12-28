@@ -23,15 +23,17 @@ namespace YAF.Controls
   #region Using
 
   using System;
+  using System.Data;
   using System.Web;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Utilities;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -43,7 +45,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    ///  Gets or sets the User ID.
+    ///   Gets or sets the User ID.
     /// </summary>
     public int UserID { get; set; }
 
@@ -113,26 +115,26 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        if (this.UserID == this.PageContext.PageUserID)
-        {
-            // Register jQuery Ajax Plugin.
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+      if (this.UserID == this.PageContext.PageUserID)
+      {
+        // Register jQuery Ajax Plugin.
+        YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
 
-            // Register Js Blocks.
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "AlbumEventsJs",
-                JavaScriptBlocks.AlbumEventsJs(
-                    this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"),
-                    this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
-        }
+        // Register Js Blocks.
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "AlbumEventsJs", 
+          JavaScriptBlocks.AlbumEventsJs(
+            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
+            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+      }
 
-        base.OnPreRender(e);
+      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -146,61 +148,59 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.IsPostBack)
-        {
-            return;
-        }
+      if (this.IsPostBack)
+      {
+        return;
+      }
 
-        string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-        this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn)
-                                           ? this.HtmlEncode(umhdn)
-                                           : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
+      string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+      this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn)
+                                       ? this.HtmlEncode(umhdn)
+                                       : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
 
-        this.BindData();
-  
-        System.Data.DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-        System.Data.DataTable usrAlbumsData =
-            DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-        var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-        var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+      this.BindData();
+
+      DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+      DataTable usrAlbumsData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+      var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+      var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+      if (allowedAlbums.HasValue && allowedAlbums > 0)
+      {
+        // this.AddAlbum.Visible = true;
+        this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
+                                 this.UserID == this.PageContext.PageUserID)
+                                  ? true
+                                  : false;
+      }
+
+      if (this.AddAlbum.Visible)
+      {
+        this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");
+      }
+
+      HttpContext.Current.Session["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
+      HttpContext.Current.Session["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
+      HttpContext.Current.Session["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
+      HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
+
+      // Show Albums Max Info
+      if (this.UserID == this.PageContext.PageUserID)
+      {
         if (allowedAlbums.HasValue && allowedAlbums > 0)
         {
-            // this.AddAlbum.Visible = true;
-            this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
-                                     this.UserID == this.PageContext.PageUserID)
-                                        ? true
-                                        : false;
+          this.albumsInfo.Text = this.PageContext.Localization.GetTextFormatted("ALBUMS_INFO", numAlbums, allowedAlbums);
         }
-
-        if (this.AddAlbum.Visible)
+        else if (allowedAlbums.HasValue && allowedAlbums.Equals(0) || !allowedAlbums.HasValue)
         {
-            this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");
+          this.albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
         }
 
-        HttpContext.Current.Session["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
-        HttpContext.Current.Session["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
-        HttpContext.Current.Session["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
-        HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
-
-        // Show Albums Max Info
-        if (this.UserID == this.PageContext.PageUserID)
-        {
-            if (allowedAlbums.HasValue && allowedAlbums > 0)
-            {
-                this.albumsInfo.Text = this.PageContext.Localization.GetTextFormatted(
-                    "ALBUMS_INFO", numAlbums, allowedAlbums);
-            }
-            else if (allowedAlbums.HasValue && allowedAlbums.Equals(0) || !allowedAlbums.HasValue)
-            {
-                this.albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
-            }
-
-            this.albumsInfo.Visible = true;
-        }
-        else
-        {
-            this.albumsInfo.Visible = false;
-        }
+        this.albumsInfo.Visible = true;
+      }
+      else
+      {
+        this.albumsInfo.Visible = false;
+      }
     }
 
     /// <summary>
@@ -227,24 +227,24 @@ namespace YAF.Controls
       // set the Datatable
       var albumListDT = DB.album_list(this.UserID, null);
 
-        if ((albumListDT == null) || (albumListDT.Rows.Count <= 0))
+      if ((albumListDT == null) || (albumListDT.Rows.Count <= 0))
+      {
+        return;
+      }
+
+      this.PagerTop.Count = albumListDT.Rows.Count;
+
+      // create paged data source for the albumlist
+      var pds = new PagedDataSource
         {
-            return;
-        }
+          DataSource = albumListDT.DefaultView, 
+          AllowPaging = true, 
+          CurrentPageIndex = this.PagerTop.CurrentPageIndex, 
+          PageSize = this.PagerTop.PageSize
+        };
 
-        this.PagerTop.Count = albumListDT.Rows.Count;
-
-        // create paged data source for the albumlist
-        var pds = new PagedDataSource
-            {
-                DataSource = albumListDT.DefaultView, 
-                AllowPaging = true, 
-                CurrentPageIndex = this.PagerTop.CurrentPageIndex, 
-                PageSize = this.PagerTop.PageSize
-            };
-
-        this.Albums.DataSource = pds;
-        this.DataBind();
+      this.Albums.DataSource = pds;
+      this.DataBind();
     }
 
     #endregion

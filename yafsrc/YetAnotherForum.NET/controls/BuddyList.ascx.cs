@@ -20,469 +20,475 @@
 
 namespace YAF.Controls
 {
-    using System;
-    using System.Data;
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
- 
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Web.UI;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
+
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for buddies.
+  /// </summary>
+  public partial class BuddyList : BaseUserControl
+  {
+    #region Properties
+
     /// <summary>
-    /// Summary description for buddies.
+    ///   The parent control of the current control. (Used in rptBuddy_ItemCommand method)
     /// </summary>
-    public partial class BuddyList : BaseUserControl
+    public Control Container { get; set; }
+
+    /// <summary>
+    ///   Gets the user ID.
+    /// </summary>
+    public int CurrentUserID { get; set; }
+
+    /// <summary>
+    ///   Determines what is th current mode of the control.
+    /// </summary>
+    public int Mode { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The approve add all_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ApproveAddAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        /// <summary>
-        /// the control mode.
-        /// </summary>
-        private int _controlMode;
-
-        /// <summary>
-        /// the _parent.
-        /// </summary>
-        private Control _container;
-
-        /// <summary>
-        /// The parent control of the current control. (Used in rptBuddy_ItemCommand method)
-        /// </summary>
-        public Control Container
-        {
-            get
-            {
-                return _container;
-            }
-            set
-            {
-                _container = value;
-            }
-        }
-        /// <summary>
-        /// Determines what is th current mode of the control.
-        /// </summary>
-        public int Mode
-        {
-            get
-            {
-                return this._controlMode;
-            }
-            set
-            {
-                this._controlMode = value;
-            }
-
-        }
-        /// <summary>
-        /// the current user id.
-        /// </summary>
-        private int _currentUserID;
-
-        /// <summary>
-        /// Gets the user ID.
-        /// </summary>
-        public int CurrentUserID
-        {
-            get
-            {
-                return this._currentUserID;
-            }
-            set
-            {
-                this._currentUserID = value;
-            }
-        }
-        /// <summary>
-        /// Called when the page loads
-        /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                SetSort("Name", true);
-
-                this.UserName.Text = PageContext.Localization.GetText("username");
-                this.Rank.Text = PageContext.Localization.GetText("rank");
-                this.Joined.Text = PageContext.Localization.GetText("members", "joined");
-                this.Posts.Text = PageContext.Localization.GetText("CP_EDITBUDDIES", "POSTS");
-                this.Location.Text = PageContext.Localization.GetText("POSTS","LOCATION");
-                if (Mode == 4)
-                {
-                    this.LastColumn.Text = PageContext.Localization.GetText("REQUEST_DATE");
-                }
-                BindData();
-            }
-        }
-
-        /// <summary>
-        /// The deny_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Deny_Load(object sender, EventArgs e)
-        {
-            ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
-        }
-
-        /// <summary>
-        /// The remove_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Remove_Load(object sender, EventArgs e)
-        {
-            ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")); 
-        }
-
-        /// <summary>
-        /// The deny all_  load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void DenyAll_Load(object sender, EventArgs e)
-        {
-            ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")); 
-        }
-
-        /// <summary>
-        /// The approve all_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ApproveAll_Load(object sender, EventArgs e)
-        {
-            ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL")); 
-        }
-
-        /// <summary>
-        /// The approve add all_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ApproveAddAll_Load(object sender, EventArgs e)
-        {
-            ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD")); 
-        }
-
-
-        /// <summary>
-        /// protects from script in "location" field	    
-        /// </summary>
-        /// <param name="svalue">
-        /// </param>
-        /// <returns>
-        /// The get string safely.
-        /// </returns>
-        protected string GetStringSafely(object svalue)
-        {
-            return svalue == null ? string.Empty : this.HtmlEncode(svalue.ToString());
-        }
-
-        /// <summary>
-        /// Helper function for setting up the current sort on the memberlist view
-        /// </summary>
-        /// <param name="field">
-        /// </param>
-        /// <param name="asc">
-        /// </param>
-        private void SetSort(string field, bool asc)
-        {
-            if (ViewState["SortField"] != null && (string)ViewState["SortField"] == field)
-            {
-                ViewState["SortAscending"] = !(bool)ViewState["SortAscending"];
-            }
-            else
-            {
-                ViewState["SortField"] = field;
-                ViewState["SortAscending"] = asc;
-            }
-        }
-
-        /// <summary>
-        /// The user name_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void UserName_Click(object sender, EventArgs e)
-        {
-            SetSort("Name", true);
-            BindData();
-        }
-
-        /// <summary>
-        /// The joined_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Joined_Click(object sender, EventArgs e)
-        {
-            SetSort("Joined", true);
-            BindData();
-        }
-
-        /// <summary>
-        /// The posts_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Posts_Click(object sender, EventArgs e)
-        {
-            SetSort("NumPosts", false);
-            BindData();
-        }
-
-        /// <summary>
-        /// The rank_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Rank_Click(object sender, EventArgs e)
-        {
-            SetSort("RankName", true);
-            BindData();
-        }
-
-        /// <summary>
-        /// The requested_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Requested_Click(object sender, EventArgs e)
-        {
-            SetSort("Requested", true);
-            BindData();
-        }
-
-        /// <summary>
-        /// The pager_ page change.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Pager_PageChange(object sender, EventArgs e)
-        {
-            BindData();
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.Pager.PageSize = 20;
-            // set the Datatable
-            DataTable buddyListDataTable = YafBuddies.GetBuddiesForUser(CurrentUserID);
-
-
-            if ((buddyListDataTable != null) && (buddyListDataTable.Rows.Count > 0))
-            {
-                // get the view from the datatable
-                DataView buddyListDataView = buddyListDataTable.DefaultView;
-                
-                // In what mode should this control work?
-                // Refer to "rptBuddy_ItemCreate" event for more info.
-                switch (Mode)
-                {
-                    case 1:
-                        case 2:
-                        buddyListDataView.RowFilter = "Approved = 1".FormatWith(this.CurrentUserID);
-                        break;
-                    case 3:
-                        buddyListDataView.RowFilter = "Approved = 0 AND FromUserID <> {0}".FormatWith(this.CurrentUserID);
-                        break;
-                    case 4:
-                        buddyListDataView.RowFilter = "Approved = 0 AND FromUserID = {0}".FormatWith(this.CurrentUserID);
-                        break;
-                }
-
-                this.Pager.Count = buddyListDataView.Count;
-
-                // create paged data source for the buddylist
-                buddyListDataView.Sort = "{0} {1}".FormatWith(this.ViewState["SortField"], (bool)this.ViewState["SortAscending"] ? "asc" : "desc");
-                var pds = new PagedDataSource();
-                pds.DataSource = buddyListDataView;
-                pds.AllowPaging = true;
-                pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
-                pds.PageSize = this.Pager.PageSize;
-
-                this.rptBuddy.DataSource = pds;
-            }
-            DataBind();
-            // handle the sort fields at the top
-            // TODO: make these "sorts" into controls
-            ForumPage fp = new ForumPage();
-            this.SortUserName.Visible = (string)ViewState["SortField"] == "Name";
-            this.SortUserName.Src = fp.GetThemeContents("SORT", (bool)ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
-            this.SortRank.Visible = (string)ViewState["SortField"] == "RankName";
-            this.SortRank.Src = this.SortUserName.Src;
-            this.SortJoined.Visible = (string)ViewState["SortField"] == "Joined";
-            this.SortJoined.Src = this.SortUserName.Src;
-            this.SortPosts.Visible = (string)ViewState["SortField"] == "NumPosts";
-            this.SortPosts.Src = this.SortUserName.Src;
-        }
-
-        protected void rptBuddy_ItemCreated(object sender, RepeaterItemEventArgs e)
-        {
-            // In what mode should this control work?
-            // 1: Just display the buddy list
-            // 2: display the buddy list and ("Remove Buddy") buttons.
-            // 3: display pending buddy list posted to current user and add ("approve","approve all", "deny",
-            //    "deny all","approve and add", "approve and add all") buttons.
-            // 4: show the pending requests posted from the current user.
-            switch (Mode)
-            {
-                case 1:
-                    tdLastColHdr.Visible = false;
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                    {
-                        HtmlTableCell lastColumn = (HtmlTableCell)e.Item.FindControl("tdLastCol");
-                        lastColumn.Visible = false;
-                    }
-                    break;
-                case 2:
-                    tdLastColHdr.Visible = true;
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                    {
-                        Panel pnlLastCol = (Panel)e.Item.FindControl("pnlRemove");
-                        pnlLastCol.Visible = true;
-                    }
-                    break;
-                case 3:
-                    tdLastColHdr.Visible = true;
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                    {
-                        Panel pnlLastCol = (Panel)e.Item.FindControl("pnlPending");
-                        pnlLastCol.Visible = true;
-                    }
-                    if (e.Item.ItemType == ListItemType.Footer)
-                    {
-                        if (rptBuddy.Items.Count > 0)
-                        {
-                            HtmlTableRow rptFooter = (HtmlTableRow)e.Item.FindControl("rptFooter");
-                            rptFooter.Visible = true;
-                        }
-                    }
-                    break;
-                case 4:
-                    tdLastColHdr.Visible = true;
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                    {
-                        Panel pnlLastCol = (Panel)e.Item.FindControl("pnlRequests");
-                        pnlLastCol.Visible = true;
-                    }
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// The ItemCommand method for the link buttons in the last column.
-        /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
-        protected void rptBuddy_ItemCommand(object sender, CommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "remove":
-                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(YafBuddies.RemoveBuddy(Convert.ToInt32(e.CommandArgument))));
-                    CurrentUserID = PageContext.PageUserID;
-                    break;
-                case "approve":
-                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED").FormatWith(YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), false)));
-                    break;
-                case "approveadd":
-                    PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), true)));
-                    break;
-                case "approveall":
-                    YafBuddies.ApproveAllBuddyRequests(false);
-                    PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_ALL_APPROVED"));
-                    break;
-                case "approveaddall":
-                    YafBuddies.ApproveAllBuddyRequests(true);
-                    PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_ALL_APPROVED_ADDED"));
-                    break;
-                case "deny":
-                    YafBuddies.DenyBuddyRequest(Convert.ToInt32(e.CommandArgument));
-                    PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_BUDDYDENIED"));
-                    break;
-                case "denyall":
-                    YafBuddies.DenyAllBuddyRequests();
-                    PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_ALL_DENIED"));
-                    break;
-            }
-
-            // Update all buddy list controls in cp_editbuddies.ascx page.
-            UpdateBuddyList(ControlHelper.FindControlRecursiveAs<BuddyList>(Container, "BuddyList1"), 2);
-            UpdateBuddyList(ControlHelper.FindControlRecursiveAs<BuddyList>(Container, "PendingBuddyList"), 3);
-            UpdateBuddyList(ControlHelper.FindControlRecursiveAs<BuddyList>(Container, "BuddyRequested"), 4);
-        }
-        
-        /// <summary>
-        /// Initializes the values of BuddyList control's properties and calls the BindData() 
-        /// method of the control.
-        /// </summary>
-        /// <param name="customBuddyList">
-        /// The BuddyList control
-        /// </param>
-        /// <param name="BuddyListMode">
-        /// The mode of this BuddyList.
-        /// </param>
-        private void UpdateBuddyList(BuddyList customBuddyList, int BuddyListMode)
-        {
-            customBuddyList.Mode = BuddyListMode;
-            customBuddyList.CurrentUserID = this.CurrentUserID;
-            customBuddyList.Container = this.Container;
-            customBuddyList.BindData();
-        }
+      ((Button)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith(
+          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD"));
     }
+
+    /// <summary>
+    /// The approve all_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ((Button)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith(
+          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL"));
+    }
+
+    /// <summary>
+    /// The deny all_  load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void DenyAll_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ((Button)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith(
+          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED"));
+    }
+
+    /// <summary>
+    /// The deny_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Deny_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ((LinkButton)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
+    }
+
+    /// <summary>
+    /// protects from script in "location" field
+    /// </summary>
+    /// <param name="svalue">
+    /// </param>
+    /// <returns>
+    /// The get string safely.
+    /// </returns>
+    protected string GetStringSafely([NotNull] object svalue)
+    {
+      return svalue == null ? string.Empty : this.HtmlEncode(svalue.ToString());
+    }
+
+    /// <summary>
+    /// The joined_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Joined_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.SetSort("Joined", true);
+      this.BindData();
+    }
+
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.SetSort("Name", true);
+
+        this.UserName.Text = this.PageContext.Localization.GetText("username");
+        this.Rank.Text = this.PageContext.Localization.GetText("rank");
+        this.Joined.Text = this.PageContext.Localization.GetText("members", "joined");
+        this.Posts.Text = this.PageContext.Localization.GetText("CP_EDITBUDDIES", "POSTS");
+        this.Location.Text = this.PageContext.Localization.GetText("POSTS", "LOCATION");
+        if (this.Mode == 4)
+        {
+          this.LastColumn.Text = this.PageContext.Localization.GetText("REQUEST_DATE");
+        }
+
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// The pager_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.BindData();
+    }
+
+    /// <summary>
+    /// The posts_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Posts_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.SetSort("NumPosts", false);
+      this.BindData();
+    }
+
+    /// <summary>
+    /// The rank_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Rank_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.SetSort("RankName", true);
+      this.BindData();
+    }
+
+    /// <summary>
+    /// The remove_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Remove_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      ((LinkButton)sender).Attributes["onclick"] =
+        "return confirm('{0}')".FormatWith(
+          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+    }
+
+    /// <summary>
+    /// The requested_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Requested_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.SetSort("Requested", true);
+      this.BindData();
+    }
+
+    /// <summary>
+    /// The user name_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UserName_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.SetSort("Name", true);
+      this.BindData();
+    }
+
+    /// <summary>
+    /// The ItemCommand method for the link buttons in the last column.
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void rptBuddy_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "remove":
+          this.PageContext.AddLoadMessage(
+            this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
+              YafBuddies.RemoveBuddy(Convert.ToInt32(e.CommandArgument))));
+          this.CurrentUserID = this.PageContext.PageUserID;
+          break;
+        case "approve":
+          this.PageContext.AddLoadMessage(
+            this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED").FormatWith(
+              YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), false)));
+          break;
+        case "approveadd":
+          this.PageContext.AddLoadMessage(
+            this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(
+              YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), true)));
+          break;
+        case "approveall":
+          YafBuddies.ApproveAllBuddyRequests(false);
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_ALL_APPROVED"));
+          break;
+        case "approveaddall":
+          YafBuddies.ApproveAllBuddyRequests(true);
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_ALL_APPROVED_ADDED"));
+          break;
+        case "deny":
+          YafBuddies.DenyBuddyRequest(Convert.ToInt32(e.CommandArgument));
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYDENIED"));
+          break;
+        case "denyall":
+          YafBuddies.DenyAllBuddyRequests();
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_ALL_DENIED"));
+          break;
+      }
+
+      // Update all buddy list controls in cp_editbuddies.ascx page.
+      this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyList1"), 2);
+      this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("PendingBuddyList"), 3);
+      this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyRequested"), 4);
+    }
+
+    /// <summary>
+    /// The rpt buddy_ item created.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void rptBuddy_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    {
+      // In what mode should this control work?
+      // 1: Just display the buddy list
+      // 2: display the buddy list and ("Remove Buddy") buttons.
+      // 3: display pending buddy list posted to current user and add ("approve","approve all", "deny",
+      // "deny all","approve and add", "approve and add all") buttons.
+      // 4: show the pending requests posted from the current user.
+      switch (this.Mode)
+      {
+        case 1:
+          this.tdLastColHdr.Visible = false;
+          if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+          {
+            var lastColumn = (HtmlTableCell)e.Item.FindControl("tdLastCol");
+            lastColumn.Visible = false;
+          }
+
+          break;
+        case 2:
+          this.tdLastColHdr.Visible = true;
+          if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+          {
+            var pnlLastCol = (Panel)e.Item.FindControl("pnlRemove");
+            pnlLastCol.Visible = true;
+          }
+
+          break;
+        case 3:
+          this.tdLastColHdr.Visible = true;
+          if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+          {
+            var pnlLastCol = (Panel)e.Item.FindControl("pnlPending");
+            pnlLastCol.Visible = true;
+          }
+
+          if (e.Item.ItemType == ListItemType.Footer)
+          {
+            if (this.rptBuddy.Items.Count > 0)
+            {
+              var rptFooter = (HtmlTableRow)e.Item.FindControl("rptFooter");
+              rptFooter.Visible = true;
+            }
+          }
+
+          break;
+        case 4:
+          this.tdLastColHdr.Visible = true;
+          if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+          {
+            var pnlLastCol = (Panel)e.Item.FindControl("pnlRequests");
+            pnlLastCol.Visible = true;
+          }
+
+          break;
+      }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.Pager.PageSize = 20;
+
+      // set the Datatable
+      DataTable buddyListDataTable = YafBuddies.GetBuddiesForUser(this.CurrentUserID);
+
+      if ((buddyListDataTable != null) && (buddyListDataTable.Rows.Count > 0))
+      {
+        // get the view from the datatable
+        DataView buddyListDataView = buddyListDataTable.DefaultView;
+
+        // In what mode should this control work?
+        // Refer to "rptBuddy_ItemCreate" event for more info.
+        switch (this.Mode)
+        {
+          case 1:
+          case 2:
+            buddyListDataView.RowFilter = "Approved = 1".FormatWith(this.CurrentUserID);
+            break;
+          case 3:
+            buddyListDataView.RowFilter = "Approved = 0 AND FromUserID <> {0}".FormatWith(this.CurrentUserID);
+            break;
+          case 4:
+            buddyListDataView.RowFilter = "Approved = 0 AND FromUserID = {0}".FormatWith(this.CurrentUserID);
+            break;
+        }
+
+        this.Pager.Count = buddyListDataView.Count;
+
+        // create paged data source for the buddylist
+        buddyListDataView.Sort = "{0} {1}".FormatWith(
+          this.ViewState["SortField"], (bool)this.ViewState["SortAscending"] ? "asc" : "desc");
+        var pds = new PagedDataSource();
+        pds.DataSource = buddyListDataView;
+        pds.AllowPaging = true;
+        pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
+        pds.PageSize = this.Pager.PageSize;
+
+        this.rptBuddy.DataSource = pds;
+      }
+
+      this.DataBind();
+
+      // handle the sort fields at the top
+      // TODO: make these "sorts" into controls
+      var fp = new ForumPage();
+      this.SortUserName.Visible = (string)this.ViewState["SortField"] == "Name";
+      this.SortUserName.Src = fp.GetThemeContents(
+        "SORT", (bool)this.ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
+      this.SortRank.Visible = (string)this.ViewState["SortField"] == "RankName";
+      this.SortRank.Src = this.SortUserName.Src;
+      this.SortJoined.Visible = (string)this.ViewState["SortField"] == "Joined";
+      this.SortJoined.Src = this.SortUserName.Src;
+      this.SortPosts.Visible = (string)this.ViewState["SortField"] == "NumPosts";
+      this.SortPosts.Src = this.SortUserName.Src;
+    }
+
+    /// <summary>
+    /// Helper function for setting up the current sort on the memberlist view
+    /// </summary>
+    /// <param name="field">
+    /// </param>
+    /// <param name="asc">
+    /// </param>
+    private void SetSort([NotNull] string field, bool asc)
+    {
+      if (this.ViewState["SortField"] != null && (string)this.ViewState["SortField"] == field)
+      {
+        this.ViewState["SortAscending"] = !(bool)this.ViewState["SortAscending"];
+      }
+      else
+      {
+        this.ViewState["SortField"] = field;
+        this.ViewState["SortAscending"] = asc;
+      }
+    }
+
+    /// <summary>
+    /// Initializes the values of BuddyList control's properties and calls the BindData() 
+    ///   method of the control.
+    /// </summary>
+    /// <param name="customBuddyList">
+    /// The BuddyList control
+    /// </param>
+    /// <param name="BuddyListMode">
+    /// The mode of this BuddyList.
+    /// </param>
+    private void UpdateBuddyList([NotNull] BuddyList customBuddyList, int BuddyListMode)
+    {
+      customBuddyList.Mode = BuddyListMode;
+      customBuddyList.CurrentUserID = this.CurrentUserID;
+      customBuddyList.Container = this.Container;
+      customBuddyList.BindData();
+    }
+
+    #endregion
+  }
 }

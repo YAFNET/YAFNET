@@ -30,17 +30,17 @@ namespace YAF.Editors
   #endregion
 
   /// <summary>
-  /// The free text box editor.
+  /// The fck editor v 2.
   /// </summary>
-  public class FreeTextBoxEditor : RichClassEditor
+  public class FCKEditorV2 : RichClassEditor
   {
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "FreeTextBoxEditor" /> class.
+    ///   Initializes a new instance of the <see cref = "FCKEditorV2" /> class.
     /// </summary>
-    public FreeTextBoxEditor()
-      : base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
+    public FCKEditorV2()
+      : base("FredCK.FCKeditorV2.FCKeditor,FredCK.FCKeditorV2")
     {
       this.InitEditorObject();
     }
@@ -57,7 +57,7 @@ namespace YAF.Editors
     {
       get
       {
-        return "Free Text Box v2 (HTML)";
+        return "FCK Editor v2 (HTML)";
       }
     }
 
@@ -69,7 +69,7 @@ namespace YAF.Editors
       get
       {
         // backward compatibility...
-        return "3";
+        return "2";
       }
     }
 
@@ -83,7 +83,7 @@ namespace YAF.Editors
       {
         if (this._init)
         {
-          PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+          PropertyInfo pInfo = this._typEditor.GetProperty("Value");
           return Convert.ToString(pInfo.GetValue(this._editor, null));
         }
         else
@@ -96,7 +96,7 @@ namespace YAF.Editors
       {
         if (this._init)
         {
-          PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+          PropertyInfo pInfo = this._typEditor.GetProperty("Value");
           pInfo.SetValue(this._editor, value, null);
         }
       }
@@ -120,15 +120,11 @@ namespace YAF.Editors
       if (this._init && this._editor.Visible)
       {
         PropertyInfo pInfo;
-        pInfo = this._typEditor.GetProperty("SupportFolder");
-        pInfo.SetValue(this._editor, this.ResolveUrl("FreeTextBox/"), null);
-        pInfo = this._typEditor.GetProperty("Width");
-        pInfo.SetValue(this._editor, Unit.Percentage(100), null);
-        pInfo = this._typEditor.GetProperty("DesignModeCss");
-        pInfo.SetValue(this._editor, this.StyleSheet, null);
+        pInfo = this._typEditor.GetProperty("BasePath");
+        pInfo.SetValue(this._editor, this.ResolveUrl("FCKEditorV2/"), null);
 
-        // pInfo = typEditor.GetProperty("EnableHtmlMode");
-        // pInfo.SetValue(objEditor,false,null);
+        pInfo = this._typEditor.GetProperty("Height");
+        pInfo.SetValue(this._editor, Unit.Pixel(300), null);
       }
     }
 
@@ -145,13 +141,6 @@ namespace YAF.Editors
         this.Load += this.Editor_Load;
         PropertyInfo pInfo = this._typEditor.GetProperty("ID");
         pInfo.SetValue(this._editor, "edit", null);
-        pInfo = this._typEditor.GetProperty("AutoGenerateToolbarsFromString");
-        pInfo.SetValue(this._editor, true, null);
-        pInfo = this._typEditor.GetProperty("ToolbarLayout");
-        pInfo.SetValue(
-          this._editor, 
-          "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", 
-          null);
 
         this.AddEditorControl(this._editor);
       }
@@ -167,8 +156,9 @@ namespace YAF.Editors
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
+      YafContext.Current.PageElements.RegisterJsInclude("FckEditorJs", this.ResolveUrl("FCKEditorV2/FCKEditor.js"));
+
       this.RegisterSmilieyScript();
-      base.OnPreRender(e);
     }
 
     /// <summary>
@@ -176,8 +166,13 @@ namespace YAF.Editors
     /// </summary>
     protected virtual void RegisterSmilieyScript()
     {
+      // insert smiliey code -- can't get this working with FireFox!
       YafContext.Current.PageElements.RegisterJsBlock(
-        "InsertSmileyJs", "function insertsmiley(code){" + "FTB_InsertText('" + this.SafeID + "',code);" + "}\n");
+        "InsertSmileyJs", 
+        "function insertsmiley(code,img) {\n" + "var oEditor = FCKeditorAPI.GetInstance('" + this.SafeID + "');\n" +
+        "if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" +
+        "oEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }\n" +
+        "else alert( 'You must be on WYSIWYG mode!' );\n" + "}\n");
     }
 
     #endregion

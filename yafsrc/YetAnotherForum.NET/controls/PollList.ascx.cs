@@ -30,12 +30,13 @@ namespace YAF.Controls
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
-  using YAF.Controls;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -321,18 +322,18 @@ namespace YAF.Controls
                               where dr["Closes"] != DBNull.Value && pollId.ToType<int>() == dr["PollID"].ToType<int>()
                               select Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow)
       {
-          if (ts.TotalDays >= 1)
-          {
-              return ts.TotalDays.ToType<int>();
-          }
+        if (ts.TotalDays >= 1)
+        {
+          return ts.TotalDays.ToType<int>();
+        }
 
-          if (ts.TotalSeconds > 0)
-          {
-              soon = true;
-              return 1;
-          }
+        if (ts.TotalSeconds > 0)
+        {
+          soon = true;
+          return 1;
+        }
 
-          return 0;
+        return 0;
       }
 
       return null;
@@ -385,16 +386,17 @@ namespace YAF.Controls
     /// </returns>
     protected string GetPollQuestion([NotNull] object pollId)
     {
-        foreach (DataRow dr in
-            this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
-        {
-            return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(dr["Question"].ToString()));
-        }
+      foreach (DataRow dr in
+        this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>())
+        )
+      {
+        return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(dr["Question"].ToString()));
+      }
 
-        return string.Empty;
+      return string.Empty;
     }
 
-      /// <summary>
+    /// <summary>
     /// Get Theme Contents
     /// </summary>
     /// <param name="page">
@@ -408,7 +410,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
     {
-      return this.PageContext.Theme.GetItem(page, tag);
+      return this.PageContext.Get<ITheme>().GetItem(page, tag);
     }
 
     /// <summary>
@@ -422,16 +424,17 @@ namespace YAF.Controls
     /// </returns>
     protected string GetTotal([NotNull] object pollId)
     {
-        foreach (DataRow dr in
-            this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
-        {
-            return this.HtmlEncode(dr["Total"].ToString());
-        }
+      foreach (DataRow dr in
+        this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>())
+        )
+      {
+        return this.HtmlEncode(dr["Total"].ToString());
+      }
 
-        return string.Empty;
+      return string.Empty;
     }
 
-      /// <summary>
+    /// <summary>
     /// The is not voted.
     /// </summary>
     /// <param name="pollId">
@@ -462,33 +465,33 @@ namespace YAF.Controls
         string[] choiceArray = httpCookie.Value.Split(',');
         if (choiceArray.GetLength(0) > 0)
         {
-            pollChoices = new int?[choiceArray.GetLength(0)];
-            foreach (DataRow drch in
-                this._dtPollAllChoices.Rows.Cast<DataRow>().Where(drch => (int)drch["PollID"] == pollId))
+          pollChoices = new int?[choiceArray.GetLength(0)];
+          foreach (DataRow drch in
+            this._dtPollAllChoices.Rows.Cast<DataRow>().Where(drch => (int)drch["PollID"] == pollId))
+          {
+            for (int j = 0; j < choiceArray.GetLength(0); j++)
             {
-                for (int j = 0; j < choiceArray.GetLength(0); j++)
-                {
-                    int pollChoicesFromCookie;
+              int pollChoicesFromCookie;
 
-                    if (!int.TryParse(choiceArray[j], out pollChoicesFromCookie))
-                    {
-                        continue;
-                    }
+              if (!int.TryParse(choiceArray[j], out pollChoicesFromCookie))
+              {
+                continue;
+              }
 
-                    if (pollChoicesFromCookie != (int)drch["ChoiceID"])
-                    {
-                        continue;
-                    }
+              if (pollChoicesFromCookie != (int)drch["ChoiceID"])
+              {
+                continue;
+              }
 
-                    pollChoices[pchcntr1] = pollChoicesFromCookie;
-                    pchcntr1++;
-                }
-
-                choicescount++;
+              pollChoices[pchcntr1] = pollChoicesFromCookie;
+              pchcntr1++;
             }
+
+            choicescount++;
+          }
         }
 
-          if (pchcntr1 > 0)
+        if (pchcntr1 > 0)
         {
           hasVote = true;
           if (allowManyChoices)
@@ -513,7 +516,7 @@ namespace YAF.Controls
       // Check if a user already voted
       int pchcntr = this._dtAllPollGroupVotes.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
 
-          if (pchcntr == 0)
+      if (pchcntr == 0)
       {
         hasVote = false;
         return true;
@@ -529,23 +532,25 @@ namespace YAF.Controls
                                where (int)drch["PollID"] == pollId
                                select drch)
       {
-          DataRow drch2 = drch;
-          DataRow drch3 = drch;
+        DataRow drch2 = drch;
+        DataRow drch3 = drch;
 
-          foreach (DataRow drch1 in from DataRow drch1 in this._dtAllPollGroupVotes.Rows
-                                    where !drch2["ChoiceID"].IsNullOrEmptyDBField() && !drch1["ChoiceID"].IsNullOrEmptyDBField()
-                                    where (int)drch3["ChoiceID"] == (int)drch1["ChoiceID"]
-                                    select drch1)
-          {
-              pollChoices[pchcntr] = (int)drch["ChoiceID"];
+        foreach (DataRow drch1 in from DataRow drch1 in this._dtAllPollGroupVotes.Rows
+                                  where
+                                    !drch2["ChoiceID"].IsNullOrEmptyDBField() &&
+                                    !drch1["ChoiceID"].IsNullOrEmptyDBField()
+                                  where (int)drch3["ChoiceID"] == (int)drch1["ChoiceID"]
+                                  select drch1)
+        {
+          pollChoices[pchcntr] = (int)drch["ChoiceID"];
 
-              pchcntr++;
-          }
+          pchcntr++;
+        }
 
-          choicescount1++;
+        choicescount1++;
       }
 
-          if (pchcntr > 0)
+      if (pchcntr > 0)
       {
         hasVote = true;
         if (allowManyChoices)
@@ -651,15 +656,15 @@ namespace YAF.Controls
         // BindData();
       }
 
-        if (e.CommandName != "removegroupevery" || !this.PageContext.ForumVoteAccess)
-        {
-            return;
-        }
+      if (e.CommandName != "removegroupevery" || !this.PageContext.ForumVoteAccess)
+      {
+        return;
+      }
 
-        DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
-        this.ReturnToPage();
+      DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
+      this.ReturnToPage();
 
-        // BindData();
+      // BindData();
     }
 
     /// <summary>
@@ -683,7 +688,7 @@ namespace YAF.Controls
 
         // We don't display poll command row to everyone 
         item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
-                                                                             this.ShowButtons;
+                                                                              this.ShowButtons;
 
         // Binding question image
         this.BindPollQuestionImage(item, drowv);
@@ -751,7 +756,7 @@ namespace YAF.Controls
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
 
         // Poll voting is bounded - you can't see results before voting in each poll
-          int hasVoteEmptyCounter = 0;
+        int hasVoteEmptyCounter = 0;
         int cnt = 0;
 
         // compare a number of voted polls with number of polls
@@ -777,7 +782,8 @@ namespace YAF.Controls
           }
         }
 
-        bool warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count && hasVoteEmptyCounter > 0;
+        bool warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count &&
+                                    hasVoteEmptyCounter > 0;
         if (this._isBound)
         {
           // If user is voted in all polls or the poll allows multiple votes and he's voted for 1 choice
@@ -928,21 +934,21 @@ namespace YAF.Controls
       }
 
       // Populate PollGroup Repeater footer
-        if (item.ItemType != ListItemType.Footer)
-        {
-            return;
-        }
+      if (item.ItemType != ListItemType.Footer)
+      {
+        return;
+      }
 
-        if (this._groupNotificationString.IsSet())
-        {
-            // we don't display warnings row if no info
-            item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
-            var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
-            pgn.Text = this._groupNotificationString;
-            pgn.Visible = true;
-        }
+      if (this._groupNotificationString.IsSet())
+      {
+        // we don't display warnings row if no info
+        item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+        var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
+        pgn.Text = this._groupNotificationString;
+        pgn.Visible = true;
+      }
 
-        this.AddPollGroupButtonConfirmations(item);
+      this.AddPollGroupButtonConfirmations(item);
     }
 
     /// <summary>
@@ -1017,7 +1023,7 @@ namespace YAF.Controls
       if (!mimeType.IsNullOrEmptyDBField())
       {
         string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
-        decimal width = attrs[0].ToType<decimal>();
+        var width = attrs[0].ToType<decimal>();
         return width / attrs[1].ToType<decimal>();
       }
 
@@ -1059,21 +1065,21 @@ namespace YAF.Controls
       pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
 
       // return confirmations for poll group 
-        if (!pgcr.Visible)
-        {
-            return;
-        }
+      if (!pgcr.Visible)
+      {
+        return;
+      }
 
-        ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
-            "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
+      ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
+        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
 
-        ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
-            "return confirm('{0}');".FormatWith(
-                this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+      ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
+        "return confirm('{0}');".FormatWith(
+          this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
 
-        ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
-            "return confirm('{0}');".FormatWith(
-                this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
+      ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
+        "return confirm('{0}');".FormatWith(
+          this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
     }
 
     /// <summary>
@@ -1193,11 +1199,11 @@ namespace YAF.Controls
       // The image is not from theme
       if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
       {
-       // questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+        // questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
         questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
                                 ? this.GetThemeContents("VOTE", "POLL_CHOICE")
                                 : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-   
+
         questionImage.Src = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
@@ -1423,8 +1429,8 @@ namespace YAF.Controls
     private bool PollHasNoVotes([NotNull] object pollId)
     {
       return
-        this._dtPollAllChoices.Rows.Cast<DataRow>().Where(
-          dr => dr["PollID"].ToType<int>() == pollId.ToType<int>()).All(dr => dr["Votes"].ToType<int>() <= 0);
+        this._dtPollAllChoices.Rows.Cast<DataRow>().Where(dr => dr["PollID"].ToType<int>() == pollId.ToType<int>()).All(
+          dr => dr["Votes"].ToType<int>() <= 0);
     }
 
     /// <summary>

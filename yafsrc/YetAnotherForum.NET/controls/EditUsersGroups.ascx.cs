@@ -24,10 +24,13 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -39,7 +42,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets user ID of edited user.
+    ///   Gets user ID of edited user.
     /// </summary>
     protected int CurrentUserID
     {
@@ -62,7 +65,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
+    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // redurect to user admin page.
       YafBuildLink.Redirect(ForumPages.admin_users);
@@ -77,7 +80,7 @@ namespace YAF.Controls
     /// <returns>
     /// True if user is member of role (o &gt; 0), false otherwise.
     /// </returns>
-    protected bool IsMember(object o)
+    protected bool IsMember([NotNull] object o)
     {
       return long.Parse(o.ToString()) > 0;
     }
@@ -91,7 +94,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
@@ -112,7 +115,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click(object sender, EventArgs e)
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // go through all roles displayed on page
       for (int i = 0; i < this.UserGroups.Items.Count; i++)
@@ -156,7 +159,8 @@ namespace YAF.Controls
           }
 
           // Clearing cache with old permisssions data...
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
+          this.PageContext.Cache.Remove(
+            YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
         }
       }
 

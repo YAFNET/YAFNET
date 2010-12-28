@@ -23,9 +23,11 @@ namespace YAF.Controls
   using System;
   using System.Data;
 
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -45,7 +47,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.IsPostBack)
       {
@@ -62,7 +64,7 @@ namespace YAF.Controls
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref dt, false);
+        this.Get<IStyleTransform>().DecodeStyleByTable(ref dt, false);
       }
 
       this.Groups.DataSource = dt;
@@ -76,11 +78,12 @@ namespace YAF.Controls
       this.Joined.Text = this.Get<IDateTime>().FormatDateTime(this.PageContext.CurrentUserData.Joined);
       this.NumPosts.Text = "{0:N0}".FormatWith(this.PageContext.CurrentUserData.NumPosts);
 
-      this.DisplayNameHolder.Visible = PageContext.BoardSettings.EnableDisplayName;
+      this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
 
-      if (PageContext.BoardSettings.EnableDisplayName)
+      if (this.PageContext.BoardSettings.EnableDisplayName)
       {
-        this.DisplayName.Text = this.HtmlEncode(this.PageContext.UserDisplayName.GetName(this.PageContext.PageUserID));
+        this.DisplayName.Text =
+          this.HtmlEncode(this.PageContext.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID));
       }
 
       string avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();

@@ -18,40 +18,51 @@
  */
 namespace YAF.Editors
 {
+  #region Using
+
   using System;
   using System.Linq;
   using System.Reflection;
   using System.Web.UI;
 
-  using YAF.Classes.Pattern;
+  using YAF.Core;
+  using YAF.Types;
+
+  #endregion
 
   /// <summary>
   /// The rich class editor.
   /// </summary>
-  public abstract class RichClassEditor : BaseForumEditor
+  public abstract class RichClassEditor : ForumEditor
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _editor.
+    ///   The _editor.
     /// </summary>
     protected Control _editor;
 
     /// <summary>
-    /// The _init.
+    ///   The _init.
     /// </summary>
     protected bool _init;
 
     /// <summary>
-    /// The _style sheet.
+    ///   The _style sheet.
     /// </summary>
     protected string _styleSheet;
 
     /// <summary>
-    /// The _typ editor.
+    ///   The _typ editor.
     /// </summary>
     protected Type _typEditor;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="RichClassEditor"/> class.
+    ///   Initializes a new instance of the <see cref = "RichClassEditor" /> class.
     /// </summary>
     protected RichClassEditor()
     {
@@ -67,7 +78,7 @@ namespace YAF.Editors
     /// <param name="classBinStr">
     /// The class bin str.
     /// </param>
-    protected RichClassEditor(string classBinStr)
+    protected RichClassEditor([NotNull] string classBinStr)
     {
       this._init = false;
       this._styleSheet = string.Empty;
@@ -89,31 +100,90 @@ namespace YAF.Editors
       }
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// The init editor object.
+    ///   Gets a value indicating whether Active.
     /// </summary>
-    /// <returns>
-    /// The init editor object.
-    /// </returns>
-    protected bool InitEditorObject()
+    public override bool Active
     {
-      try
+      get
       {
-        if (!this._init && this._typEditor != null)
-        {
-          // create instance of main class
-          this._editor = (Control) Activator.CreateInstance(this._typEditor);
-          this._init = true;
-        }
+        return this._typEditor != null;
       }
-      catch (Exception)
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether IsInitialized.
+    /// </summary>
+    public bool IsInitialized
+    {
+      get
       {
-        // dll is not accessible
-        return false;
+        return this._init;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets StyleSheet.
+    /// </summary>
+    public override string StyleSheet
+    {
+      get
+      {
+        return this._styleSheet;
       }
 
-      return true;
+      set
+      {
+        this._styleSheet = value;
+      }
     }
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return true;
+      }
+    }
+
+    /// <summary>
+    ///   Gets SafeID.
+    /// </summary>
+    [NotNull]
+    protected virtual string SafeID
+    {
+      get
+      {
+        if (this._init)
+        {
+          return this._editor.ClientID.Replace("$", "_");
+        }
+
+        return string.Empty;
+      }
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The get interface in assembly.
@@ -134,82 +204,30 @@ namespace YAF.Editors
       return assembly.GetExportedTypes().FirstOrDefault(typ => typ.FullName == className);
     }
 
-    #region Properties
-
     /// <summary>
-    /// Gets a value indicating whether Active.
+    /// The init editor object.
     /// </summary>
-    public override bool Active
+    /// <returns>
+    /// The init editor object.
+    /// </returns>
+    protected bool InitEditorObject()
     {
-      get
+      try
       {
-        return this._typEditor != null;
-      }
-    }
-
-    /// <summary>
-    /// Gets SafeID.
-    /// </summary>
-    protected virtual string SafeID
-    {
-      get
-      {
-        if (this._init)
+        if (!this._init && this._typEditor != null)
         {
-          return this._editor.ClientID.Replace("$", "_");
+          // create instance of main class
+          this._editor = (Control)Activator.CreateInstance(this._typEditor);
+          this._init = true;
         }
-
-        return string.Empty;
       }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether IsInitialized.
-    /// </summary>
-    public bool IsInitialized
-    {
-      get
+      catch (Exception)
       {
-        return this._init;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets StyleSheet.
-    /// </summary>
-    public override string StyleSheet
-    {
-      get
-      {
-        return this._styleSheet;
-      }
-
-      set
-      {
-        this._styleSheet = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether UsesHTML.
-    /// </summary>
-    public override bool UsesHTML
-    {
-      get
-      {
-        return true;
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether UsesBBCode.
-    /// </summary>
-    public override bool UsesBBCode
-    {
-      get
-      {
+        // dll is not accessible
         return false;
       }
+
+      return true;
     }
 
     #endregion

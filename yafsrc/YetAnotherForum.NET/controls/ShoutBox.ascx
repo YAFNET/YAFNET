@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.ShoutBox" Codebehind="ShoutBox.ascx.cs" %>
+<%@ Import Namespace="YAF.Utils" %>
 
 <script type="text/javascript">
 	function insertsmiley(code, path) {

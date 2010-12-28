@@ -27,10 +27,13 @@ namespace YAF.Controls
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -108,8 +111,11 @@ namespace YAF.Controls
 
       if (row["ReadAccess"].ToType<int>() > 0)
       {
-          output = "<a href=\"{0}\" title=\"{1}\" alt=\"{1}\" >{2}</a>".FormatWith(
-          YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), this.Page.HtmlEncode(output));
+        output =
+          "<a href=\"{0}\" title=\"{1}\" alt=\"{1}\" >{2}</a>".FormatWith(
+            YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), 
+            this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), 
+            this.Page.HtmlEncode(output));
       }
       else
       {
@@ -208,7 +214,7 @@ namespace YAF.Controls
                 forumImage.Attributes.Add("alt", this.PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
                 forumImage.Attributes.Add("title", this.PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
                 forumImage.Attributes.Add(
-                  "src",
+                  "src", 
                   "{0}{1}/{2}".FormatWith(
                     YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
               }
@@ -430,14 +436,7 @@ namespace YAF.Controls
     protected string Topics([NotNull] object _o)
     {
       var row = (DataRow)_o;
-      if (row["RemoteURL"] == DBNull.Value)
-      {
-        return "{0:N0}".FormatWith(row["Topics"]);
-      }
-      else
-      {
-        return "-";
-      }
+      return row["RemoteURL"] == DBNull.Value ? "{0:N0}".FormatWith(row["Topics"]) : "-";
     }
 
     #endregion

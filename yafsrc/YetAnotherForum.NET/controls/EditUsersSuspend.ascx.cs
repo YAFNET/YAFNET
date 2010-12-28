@@ -18,39 +18,38 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// The edit users suspend.
   /// </summary>
   public partial class EditUsersSuspend : BaseUserControl
   {
-    /// <summary>
-    /// Gets CurrentUserID.
-    /// </summary>
-    protected long? CurrentUserID
-    {
-      get
-      {
-        return PageContext.QueryIDs["u"];
-      }
-    }
+    #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether ShowHeader.
+    ///   Gets or sets a value indicating whether ShowHeader.
     /// </summary>
     public bool ShowHeader
     {
       get
       {
-        if (ViewState["ShowHeader"] != null)
+        if (this.ViewState["ShowHeader"] != null)
         {
-          return Convert.ToBoolean(ViewState["ShowHeader"]);
+          return Convert.ToBoolean(this.ViewState["ShowHeader"]);
         }
 
         return true;
@@ -58,11 +57,45 @@ namespace YAF.Controls
 
       set
       {
-        ViewState["ShowHeader"] = value;
+        this.ViewState["ShowHeader"] = value;
       }
     }
 
-    #region Event Handlers
+    /// <summary>
+    ///   Gets CurrentUserID.
+    /// </summary>
+    protected long? CurrentUserID
+    {
+      get
+      {
+        return this.PageContext.QueryIDs["u"];
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Gets the time until user is suspended.
+    /// </summary>
+    /// <returns>
+    /// Date and time until when user is suspended. Empty string when user is not suspended.
+    /// </returns>
+    protected string GetSuspendedTo()
+    {
+      // is there suspension expiration in the viewstate?
+      if (this.ViewState["SuspendedUntil"] != null)
+      {
+        // return it
+        return (string)this.ViewState["SuspendedUntil"];
+      }
+      else
+      {
+        // return empty string
+        return string.Empty;
+      }
+    }
 
     /// <summary>
     /// Handles page load event.
@@ -73,18 +106,18 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // init ids...
-      PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
       // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
         // add items to the dropdown
-        this.SuspendUnit.Items.Add(new ListItem(PageContext.Localization.GetText("PROFILE", "DAYS"), "1"));
-        this.SuspendUnit.Items.Add(new ListItem(PageContext.Localization.GetText("PROFILE", "HOURS"), "2"));
-        this.SuspendUnit.Items.Add(new ListItem(PageContext.Localization.GetText("PROFILE", "MINUTES"), "3"));
+        this.SuspendUnit.Items.Add(new ListItem(this.PageContext.Localization.GetText("PROFILE", "DAYS"), "1"));
+        this.SuspendUnit.Items.Add(new ListItem(this.PageContext.Localization.GetText("PROFILE", "HOURS"), "2"));
+        this.SuspendUnit.Items.Add(new ListItem(this.PageContext.Localization.GetText("PROFILE", "MINUTES"), "3"));
 
         // select hours
         this.SuspendUnit.SelectedIndex = 1;
@@ -93,7 +126,7 @@ namespace YAF.Controls
         this.SuspendCount.Text = "2";
 
         // bind data
-        BindData();
+        this.BindData();
       }
     }
 
@@ -106,9 +139,27 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_PreRender(object sender, EventArgs e)
+    protected void Page_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.trHeader.Visible = ShowHeader;
+      this.trHeader.Visible = this.ShowHeader;
+    }
+
+    /// <summary>
+    /// Removes suspension from a user.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RemoveSuspension_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // un-suspend user
+      DB.user_suspend(this.CurrentUserID, null);
+
+      // re-bind data
+      this.BindData();
     }
 
     /// <summary>
@@ -120,11 +171,11 @@ namespace YAF.Controls
     /// <param name="e">
     /// The System.EventArgs inherit from Page.
     /// </param>
-    protected void Suspend_Click(object sender, EventArgs e)
+    protected void Suspend_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Admins can suspend anyone not admins
       // Forum Moderators can suspend anyone not admin or forum moderator
-      using (DataTable dt = DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
+      using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
       {
         foreach (DataRow row in dt.Rows)
         {
@@ -132,15 +183,15 @@ namespace YAF.Controls
           if (row["IsAdmin"] != DBNull.Value && Convert.ToInt32(row["IsAdmin"]) > 0)
           {
             // tell user he can't suspend admin
-            PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
+            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
             return;
           }
 
           // is user to be suspended forum moderator, while user suspending him is not admin?
-          if (!PageContext.IsAdmin && int.Parse(row["IsForumModerator"].ToString()) > 0)
+          if (!this.PageContext.IsAdmin && int.Parse(row["IsForumModerator"].ToString()) > 0)
           {
             // tell user he can't suspend forum moderator when he's not admin
-            PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
+            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
             return;
           }
 
@@ -149,7 +200,7 @@ namespace YAF.Controls
           // verify the user isn't guest...
           if (isGuest != DBNull.Value && Convert.ToInt32(isGuest) > 0)
           {
-            PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
+            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
             return;
           }
         }
@@ -187,34 +238,11 @@ namespace YAF.Controls
       }
 
       // suspend user by calling appropriate method
-      DB.user_suspend(CurrentUserID, suspend);
+      DB.user_suspend(this.CurrentUserID, suspend);
 
       // re-bind data
-      BindData();
+      this.BindData();
     }
-
-
-    /// <summary>
-    /// Removes suspension from a user.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void RemoveSuspension_Click(object sender, EventArgs e)
-    {
-      // un-suspend user
-      DB.user_suspend(CurrentUserID, null);
-
-      // re-bind data
-      BindData();
-    }
-
-    #endregion
-
-    #region Data Binding & Formatting
 
     /// <summary>
     /// Bind data for this control.
@@ -222,7 +250,7 @@ namespace YAF.Controls
     private void BindData()
     {
       // get user's info
-      using (DataTable dt = DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
+      using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
       {
         // there is no such user
         if (dt.Rows.Count < 1)
@@ -240,36 +268,14 @@ namespace YAF.Controls
         if (!user.IsNull("Suspended"))
         {
           // get time when his suspension expires to the view state
-          ViewState["SuspendedUntil"] = this.Get<IDateTime>().FormatDateTime(user["Suspended"]);
+          this.ViewState["SuspendedUntil"] = this.Get<IDateTime>().FormatDateTime(user["Suspended"]);
 
           // localize remove suspension button
-          this.RemoveSuspension.Text = PageContext.Localization.GetText("PROFILE", "REMOVESUSPENSION");
+          this.RemoveSuspension.Text = this.PageContext.Localization.GetText("PROFILE", "REMOVESUSPENSION");
         }
 
         // localize suspend button
-        this.Suspend.Text = PageContext.Localization.GetText("PROFILE", "SUSPEND");
-      }
-    }
-
-
-    /// <summary>
-    /// Gets the time until user is suspended.
-    /// </summary>
-    /// <returns>
-    /// Date and time until when user is suspended. Empty string when user is not suspended.
-    /// </returns>
-    protected string GetSuspendedTo()
-    {
-      // is there suspension expiration in the viewstate?
-      if (ViewState["SuspendedUntil"] != null)
-      {
-        // return it
-        return (string) ViewState["SuspendedUntil"];
-      }
-      else
-      {
-        // return empty string
-        return string.Empty;
+        this.Suspend.Text = this.PageContext.Localization.GetText("PROFILE", "SUSPEND");
       }
     }
 

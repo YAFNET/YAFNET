@@ -16,13 +16,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+#region Using
+
 using System;
 using System.Web.Services;
 
 using YAF.Classes;
-using YAF.Classes.Core;
+using YAF.Core;
 using YAF.Classes.Data;
-using YAF.Classes.Utils;
+using YAF.Utils;
+using YAF.Types;
+using YAF.Types.Interfaces;
+
+#endregion
 
 /// <summary>
 /// Summary description for YafForumWebService
@@ -31,6 +37,8 @@ using YAF.Classes.Utils;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 public class YafWebService : WebService
 {
+  #region Public Methods
+
   /// <summary>
   /// The create new topic.
   /// </summary>
@@ -67,7 +75,11 @@ public class YafWebService : WebService
   /// <exception cref="Exception">
   /// </exception>
   [WebMethod]
-  public long CreateNewTopic(string token, int forumid, int userid, string username, string subject, string post, string ip, int priority, int flags)
+  public long CreateNewTopic([NotNull] string token, 
+    int forumid, 
+    int userid, [NotNull] string username, [NotNull] string subject, [NotNull] string post, [NotNull] string ip, 
+    int priority, 
+    int flags)
   {
     // validate token...
     if (token != YafContext.Current.BoardSettings.WebServiceToken)
@@ -76,14 +88,32 @@ public class YafWebService : WebService
     }
 
     long messageId = 0;
-    string subjectEncoded = Server.HtmlEncode(subject);
+    string subjectEncoded = this.Server.HtmlEncode(subject);
 
-    return DB.topic_save(forumid, subjectEncoded, post, userid, priority, username, ip, null, null, flags, ref messageId);
+    return DB.topic_save(
+      forumid, subjectEncoded, post, userid, priority, username, ip, null, null, flags, ref messageId);
   }
 
-  /// <exception cref="Exception"><c>Exception</c>.</exception>
+  /// <summary>
+  /// The set display name from username.
+  /// </summary>
+  /// <param name="token">
+  /// The token.
+  /// </param>
+  /// <param name="username">
+  /// The username.
+  /// </param>
+  /// <param name="displayName">
+  /// The display Name.
+  /// </param>
+  /// <exception cref="Exception">
+  /// <c>Exception</c>.
+  /// </exception>
+  /// <returns>
+  /// The set display name from username.
+  /// </returns>
   [WebMethod]
-  public bool SetDisplayNameFromUsername(string token, string username, string displayName)
+  public bool SetDisplayNameFromUsername([NotNull] string token, [NotNull] string username, [NotNull] string displayName)
   {
     // validate token...
     if (token != YafContext.Current.BoardSettings.WebServiceToken)
@@ -98,7 +128,7 @@ public class YafWebService : WebService
     {
       var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
 
-      var displayNameId = YafContext.Current.UserDisplayName.GetId(displayName);
+      var displayNameId = YafContext.Current.Get<IUserDisplayName>().GetId(displayName);
 
       if (displayNameId.HasValue && displayNameId.Value != userId)
       {
@@ -110,21 +140,21 @@ public class YafWebService : WebService
       var userFields = DB.user_list(Config.BoardID, userId, null).Rows[0];
 
       DB.user_save(
-        userId,
-        Config.BoardID,
-        null,
-        displayName,
-        null,
-        userFields["TimeZone"],
-         userFields["LanguageFile"],
-         userFields["Culture"],
-         userFields["ThemeFile"],
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        userId, 
+        Config.BoardID, 
+        null, 
+        displayName, 
+        null, 
+        userFields["TimeZone"], 
+        userFields["LanguageFile"], 
+        userFields["Culture"], 
+        userFields["ThemeFile"], 
+        null, 
+        null, 
+        null, 
+        null, 
+        null, 
+        null, 
         null);
 
       UserMembershipHelper.ClearCacheForUserId(userId);
@@ -134,4 +164,6 @@ public class YafWebService : WebService
 
     return false;
   }
+
+  #endregion
 }

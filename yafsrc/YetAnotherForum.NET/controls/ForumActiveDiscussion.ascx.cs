@@ -24,11 +24,13 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -80,7 +82,7 @@ namespace YAF.Controls
         textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
         textMessageLink.ToolTip = this.PageContext.Localization.GetText("COMMON", "VIEW_TOPIC");
         textMessageLink.NavigateUrl = messageUrl;
-       
+
         imageMessageLink.NavigateUrl = messageUrl;
         lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 
@@ -141,7 +143,7 @@ namespace YAF.Controls
         // Set colorOnly parameter to true, as we get all but color from css in the place
         if (this.PageContext.BoardSettings.UseStyledNicks)
         {
-          new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
+          this.Get<IStyleTransform>().DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
         }
 
         if (this.PageContext.IsGuest)

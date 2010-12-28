@@ -16,64 +16,122 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	public partial class EditUsersPoints : YAF.Classes.Core.BaseUserControl
-	{
-		/// <summary>
-		/// Gets user ID of edited user.
-		/// </summary>
-		protected int CurrentUserID
-		{
-			get
-			{
-				return (int)this.PageContext.QueryIDs["u"];
-			}
-		}
+  #region Using
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+  using System;
 
-			if (!IsPostBack)
-			{
-				BindData();
-			}
-		}
+  using YAF.Classes.Data;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Utils.Helpers;
 
-		private void BindData()
-		{
-			ltrCurrentPoints.Text = YAF.Classes.Data.DB.user_getpoints(CurrentUserID).ToString();
-		}
+  #endregion
 
-		protected void AddPoints_Click(object sender, EventArgs e)
-		{
-			if (Page.IsValid)
-			{
-				YAF.Classes.Data.DB.user_addpoints(CurrentUserID, txtAddPoints.Text);
-				BindData();
-			}
-		}
+  /// <summary>
+  /// The edit users points.
+  /// </summary>
+  public partial class EditUsersPoints : BaseUserControl
+  {
+    #region Properties
 
-		protected void RemovePoints_Click(object sender, EventArgs e)
-		{
-			if (Page.IsValid)
-			{
-				YAF.Classes.Data.DB.user_removepoints(CurrentUserID, txtRemovePoints.Text);
-				BindData();
-			}
-		}
+    /// <summary>
+    ///   Gets user ID of edited user.
+    /// </summary>
+    protected int CurrentUserID
+    {
+      get
+      {
+        return (int)this.PageContext.QueryIDs["u"];
+      }
+    }
 
-		protected void SetUserPoints_Click(object sender, EventArgs e)
-		{
-			if (Page.IsValid)
-			{
-				YAF.Classes.Data.DB.user_setpoints(CurrentUserID, txtUserPoints.Text);
-				BindData();
-			}
-		}
-	}
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The add points_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.Page.IsValid)
+      {
+        DB.user_addpoints(this.CurrentUserID, this.txtAddPoints.Text);
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+
+      if (!this.IsPostBack)
+      {
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// The remove points_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.Page.IsValid)
+      {
+        DB.user_removepoints(this.CurrentUserID, this.txtRemovePoints.Text);
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// The set user points_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.Page.IsValid)
+      {
+        DB.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
+        this.BindData();
+      }
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.ltrCurrentPoints.Text = DB.user_getpoints(this.CurrentUserID).ToString();
+    }
+
+    #endregion
+  }
 }

@@ -18,29 +18,42 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.Security;
   using System.Web.UI.WebControls;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Flags;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// The edit users info.
   /// </summary>
   public partial class EditUsersInfo : BaseUserControl
   {
+    #region Properties
+
     /// <summary>
-    /// Gets user ID of edited user.
+    ///   Gets user ID of edited user.
     /// </summary>
     protected int CurrentUserID
     {
       get
       {
-        return (int) PageContext.QueryIDs["u"];
+        return (int)this.PageContext.QueryIDs["u"];
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -51,16 +64,74 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      this.IsHostAdminRow.Visible = PageContext.IsHostAdmin;
+      this.IsHostAdminRow.Visible = this.PageContext.IsHostAdmin;
 
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        BindData();
+        this.BindData();
       }
+    }
+
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      // Update the Membership
+      if (!this.IsGuestX.Checked)
+      {
+        MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
+
+        if (this.Email.Text.Trim() != user.Email)
+        {
+          // update the e-mail here too...
+          user.Email = this.Email.Text.Trim();
+        }
+
+        // Update IsApproved
+        user.IsApproved = this.IsApproved.Checked;
+        this.PageContext.CurrentMembership.UpdateUser(user);
+      }
+      else
+      {
+        if (!this.IsApproved.Checked)
+        {
+          this.PageContext.AddLoadMessage("The Guest user must be marked as Approved or your forum will be unstable.");
+          return;
+        }
+      }
+
+      var userFlags = new UserFlags
+        {
+          IsHostAdmin = this.IsHostAdminX.Checked, 
+          IsGuest = this.IsGuestX.Checked, 
+          IsCaptchaExcluded = this.IsCaptchaExcluded.Checked, 
+          IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked, 
+          IsApproved = this.IsApproved.Checked
+        };
+
+      DB.user_adminsave(
+        this.PageContext.PageBoardID, 
+        this.CurrentUserID, 
+        this.Name.Text.Trim(), 
+        this.DisplayName.Text.Trim(), 
+        this.Email.Text.Trim(), 
+        userFlags.BitValue, 
+        this.RankID.SelectedValue);
+
+      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
+
+      this.BindData();
     }
 
     /// <summary>
@@ -68,12 +139,12 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      this.RankID.DataSource = DB.rank_list(PageContext.PageBoardID, null);
+      this.RankID.DataSource = DB.rank_list(this.PageContext.PageBoardID, null);
       this.RankID.DataValueField = "RankID";
       this.RankID.DataTextField = "Name";
       this.RankID.DataBind();
 
-      using (DataTable dt = DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
+      using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
       {
         DataRow row = dt.Rows[0];
         var userFlags = new UserFlags(row["Flags"]);
@@ -97,55 +168,6 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// The save_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-      // Update the Membership
-      if (!this.IsGuestX.Checked)
-      {
-        MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
-
-        if (this.Email.Text.Trim() != user.Email)
-        {
-          // update the e-mail here too...
-          user.Email = this.Email.Text.Trim();
-        }
-
-        // Update IsApproved
-        user.IsApproved = this.IsApproved.Checked;
-        PageContext.CurrentMembership.UpdateUser(user);
-      }
-      else
-      {
-        if (!this.IsApproved.Checked)
-        {
-          PageContext.AddLoadMessage("The Guest user must be marked as Approved or your forum will be unstable.");
-          return;
-        }
-      }
-
-      var userFlags = new UserFlags
-        {
-          IsHostAdmin = this.IsHostAdminX.Checked, 
-          IsGuest = this.IsGuestX.Checked, 
-          IsCaptchaExcluded = this.IsCaptchaExcluded.Checked, 
-          IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked, 
-          IsApproved = this.IsApproved.Checked
-        };
-
-      DB.user_adminsave(this.PageContext.PageBoardID, this.CurrentUserID, this.Name.Text.Trim(), this.DisplayName.Text.Trim(), this.Email.Text.Trim(), userFlags.BitValue, this.RankID.SelectedValue);
-
-      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
-
-      BindData();
-    }
+    #endregion
   }
 }

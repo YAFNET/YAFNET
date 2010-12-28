@@ -4,14 +4,14 @@
 
   using System;
   using System.Data;
-  using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -27,58 +27,38 @@
     /// </summary>
     private string _altLastPost;
 
-    private DataRowView _theTopicRow;
-
+    /// <summary>
+    ///   The _selected checkbox.
+    /// </summary>
     private CheckBox _selectedCheckbox;
 
     /// <summary>
-    ///   The TopicRow.
+    ///   The _the topic row.
     /// </summary>
-    protected DataRowView TopicRow
-    {
-      get
-      {
-        return this._theTopicRow;
-      }
-    }
-
-    public int? TopicRowID
-    {
-      get
-      {
-        if (ViewState["TopicRowID"] == null)
-        {
-          return null;
-        }
-
-        return (int?)ViewState["TopicRowID"];
-      }
-
-      set
-      {
-        ViewState["TopicRowID"] = value;
-      }
-    }
+    private DataRowView _theTopicRow;
 
     #endregion
 
     #region Properties
 
+    /// <summary>
+    ///   Gets or sets a value indicating whether AllowSelection.
+    /// </summary>
     public bool AllowSelection
     {
       get
       {
-        if (ViewState["AllowSelection"] == null)
+        if (this.ViewState["AllowSelection"] == null)
         {
           return false;
         }
 
-        return (bool)ViewState["AllowSelection"];
+        return (bool)this.ViewState["AllowSelection"];
       }
 
       set
       {
-        ViewState["AllowSelection"] = value;
+        this.ViewState["AllowSelection"] = value;
       }
     }
 
@@ -138,6 +118,17 @@
     public bool IsAlt { get; set; }
 
     /// <summary>
+    ///   Gets a value indicating whether IsSelected.
+    /// </summary>
+    public bool IsSelected
+    {
+      get
+      {
+        return this.chkSelected.Checked;
+      }
+    }
+
+    /// <summary>
     ///   Gets or sets a value indicating whether ShowTopicPosted.
     /// </summary>
     public bool ShowTopicPosted
@@ -155,6 +146,38 @@
       set
       {
         this.ViewState["ShowTopicPosted"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets TopicRowID.
+    /// </summary>
+    public int? TopicRowID
+    {
+      get
+      {
+        if (this.ViewState["TopicRowID"] == null)
+        {
+          return null;
+        }
+
+        return (int?)this.ViewState["TopicRowID"];
+      }
+
+      set
+      {
+        this.ViewState["TopicRowID"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   The TopicRow.
+    /// </summary>
+    protected DataRowView TopicRow
+    {
+      get
+      {
+        return this._theTopicRow;
       }
     }
 
@@ -264,6 +287,39 @@
     }
 
     /// <summary>
+    /// The format views.
+    /// </summary>
+    /// <returns>
+    /// The format views.
+    /// </returns>
+    protected string FormatViews()
+    {
+      var nViews = this.TopicRow["Views"].ToType<int>();
+      return (this.TopicRow["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
+    }
+
+    /// <summary>
+    /// The get avatar url from id.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The get avatar url from id.
+    /// </returns>
+    protected string GetAvatarUrlFromID(int userID)
+    {
+      string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
+
+      if (avatarUrl.IsNotSet())
+      {
+        avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+      }
+
+      return avatarUrl;
+    }
+
+    /// <summary>
     /// Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
     /// </summary>
     /// <param name="row">
@@ -340,7 +396,7 @@
         if (row["TopicMovedID"].ToString().Length > 0)
         {
           imgTitle = this.PageContext.Localization.GetText("MOVED");
-          return this.PageContext.Theme.GetItem("ICONS", "TOPIC_MOVED");
+          return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
         }
 
         DateTime lastRead = YafContext.Current.Get<IYafSession>().GetTopicRead((int)row["TopicID"]);
@@ -357,27 +413,27 @@
           if (row["PollID"] != DBNull.Value)
           {
             imgTitle = this.PageContext.Localization.GetText("POLL_NEW");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_POLL_NEW");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
           }
           else if (row["Priority"].ToString() == "1")
           {
             imgTitle = this.PageContext.Localization.GetText("STICKY");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_STICKY");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
           }
           else if (row["Priority"].ToString() == "2")
           {
             imgTitle = this.PageContext.Localization.GetText("ANNOUNCEMENT");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
           }
           else if (topicFlags.IsLocked || forumFlags.IsLocked)
           {
             imgTitle = this.PageContext.Localization.GetText("NEW_POSTS_LOCKED");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_NEW_LOCKED");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
           }
           else
           {
             imgTitle = this.PageContext.Localization.GetText("NEW_POSTS");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_NEW");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
           }
         }
         else
@@ -385,95 +441,34 @@
           if (row["PollID"] != DBNull.Value)
           {
             imgTitle = this.PageContext.Localization.GetText("POLL");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_POLL");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
           }
           else if (row["Priority"].ToString() == "1")
           {
             imgTitle = this.PageContext.Localization.GetText("STICKY");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_STICKY");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
           }
           else if (row["Priority"].ToString() == "2")
           {
             imgTitle = this.PageContext.Localization.GetText("ANNOUNCEMENT");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
           }
           else if (topicFlags.IsLocked || forumFlags.IsLocked)
           {
             imgTitle = this.PageContext.Localization.GetText("NO_NEW_POSTS_LOCKED");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_LOCKED");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
           }
           else
           {
             imgTitle = this.PageContext.Localization.GetText("NO_NEW_POSTS");
-            return this.PageContext.Theme.GetItem("ICONS", "TOPIC");
+            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC");
           }
         }
       }
       catch (Exception)
       {
-        return this.PageContext.Theme.GetItem("ICONS", "TOPIC");
+        return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC");
       }
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.UpdateUI();
-    }
-
-    public bool IsSelected
-    {
-      get
-      {
-        return this.chkSelected.Checked;
-      }
-    }
-
-    private void UpdateUI()
-    {
-      this.SelectionHolder.Visible = this.AllowSelection;
-      this.chkSelected.Checked = this.IsSelected;
-    }
-
-    /// <summary>
-    /// The format views.
-    /// </summary>
-    /// <returns>
-    /// The format views.
-    /// </returns>
-    protected string FormatViews()
-    {
-      var nViews = this.TopicRow["Views"].ToType<int>();
-      return (this.TopicRow["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
-    }
-
-    /// <summary>
-    /// The get avatar url from id.
-    /// </summary>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    /// <returns>
-    /// The get avatar url from id.
-    /// </returns>
-    protected string GetAvatarUrlFromID(int userID)
-    {
-      string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-
-      if (avatarUrl.IsNotSet())
-      {
-        avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-      }
-
-      return avatarUrl;
     }
 
     /// <summary>
@@ -491,6 +486,29 @@
     protected string MakeLink([NotNull] string text, [NotNull] string link)
     {
       return "<a href=\"{0}\">{1}</a>".FormatWith(link, text);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.UpdateUI();
+    }
+
+    /// <summary>
+    /// The update ui.
+    /// </summary>
+    private void UpdateUI()
+    {
+      this.SelectionHolder.Visible = this.AllowSelection;
+      this.chkSelected.Checked = this.IsSelected;
     }
 
     #endregion

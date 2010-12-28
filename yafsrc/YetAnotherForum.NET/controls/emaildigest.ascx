@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="emaildigest.ascx.cs"
     Inherits="YAF.Controls.emaildigest" %>
-<%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Linq" %>
-<%@ Import Namespace="YAF.Classes" %>
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="YafHead" runat="server">

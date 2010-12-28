@@ -18,29 +18,30 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Collections;
   using System.Data;
   using System.Web.UI.WebControls;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The forum sub forum list.
   /// </summary>
   public partial class ForumSubForumList : BaseUserControl
   {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ForumSubForumList"/> class.
-    /// </summary>
-    public ForumSubForumList()
-      : base()
-    {
-    }
+    #region Properties
 
     /// <summary>
-    /// Sets DataSource.
+    ///   Sets DataSource.
     /// </summary>
     public IEnumerable DataSource
     {
@@ -49,6 +50,50 @@ namespace YAF.Controls
         this.SubforumList.DataSource = value;
       }
     }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Provides the "Forum Link Text" for the ForumList control.
+    ///   Automatically disables the link if the current user doesn't
+    ///   have proper permissions.
+    /// </summary>
+    /// <param name="row">
+    /// Current data row
+    /// </param>
+    /// <returns>
+    /// Forum link text
+    /// </returns>
+    public string GetForumLink([NotNull] DataRow row)
+    {
+      string output = string.Empty;
+      int forumID = Convert.ToInt32(row["ForumID"]);
+
+      // get the Forum Description
+      output = Convert.ToString(row["Forum"]);
+
+      if (int.Parse(row["ReadAccess"].ToString()) > 0)
+      {
+        output =
+          "<a href=\"{0}\" alt=\"{1}\" title=\"{1}\" >{2}</a>".FormatWith(
+            YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), 
+            this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), 
+            output);
+      }
+      else
+      {
+        // no access to this forum
+        output = "{0} {1}".FormatWith(output, this.PageContext.Localization.GetText("NO_FORUM_ACCESS"));
+      }
+
+      return output;
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The subforum list_ item created.
@@ -59,13 +104,13 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SubforumList_ItemCreated(object sender, RepeaterItemEventArgs e)
+    protected void SubforumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
       if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
       {
-        var row = (DataRow) e.Item.DataItem;
-        DateTime lastRead = YafContext.Current.Get<IYafSession>().GetForumRead((int) row["ForumID"]);
-        DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : lastRead;
+        var row = (DataRow)e.Item.DataItem;
+        DateTime lastRead = YafContext.Current.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+        DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
 
         var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
 
@@ -91,36 +136,6 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// Provides the "Forum Link Text" for the ForumList control.
-    /// Automatically disables the link if the current user doesn't
-    /// have proper permissions.
-    /// </summary>
-    /// <param name="row">
-    /// Current data row
-    /// </param>
-    /// <returns>
-    /// Forum link text
-    /// </returns>
-    public string GetForumLink(DataRow row)
-    {
-      string output = string.Empty;
-      int forumID = Convert.ToInt32(row["ForumID"]);
-
-      // get the Forum Description
-      output = Convert.ToString(row["Forum"]);
-
-      if (int.Parse(row["ReadAccess"].ToString()) > 0)
-      {
-          output = "<a href=\"{0}\" alt=\"{1}\" title=\"{1}\" >{2}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), output);
-      }
-      else
-      {
-        // no access to this forum
-        output = "{0} {1}".FormatWith(output, this.PageContext.Localization.GetText("NO_FORUM_ACCESS"));
-      }
-
-      return output;
-    }
+    #endregion
   }
 }

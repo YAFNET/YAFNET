@@ -18,23 +18,36 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The forum welcome.
   /// </summary>
   public partial class ForumWelcome : BaseUserControl
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForumWelcome"/> class.
+    ///   Initializes a new instance of the <see cref = "ForumWelcome" /> class.
     /// </summary>
     public ForumWelcome()
     {
-      PreRender += new EventHandler(this.ForumWelcome_PreRender);
+      this.PreRender += this.ForumWelcome_PreRender;
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The forum welcome_ pre render.
@@ -45,16 +58,16 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumWelcome_PreRender(object sender, EventArgs e)
+    private void ForumWelcome_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.TimeNow.Text = this.PageContext.Localization.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
+      this.TimeNow.Text = this.PageContext.Localization.GetTextFormatted(
+        "Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
       if (YafContext.Current.Get<IYafSession>().LastVisit != DateTime.MinValue)
       {
         this.TimeLastVisit.Visible = true;
         this.TimeLastVisit.Text = this.PageContext.Localization.GetTextFormatted(
-                                                                       "last_visit",
-                                                                       this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit));
+          "last_visit", this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit));
       }
       else
       {
@@ -67,13 +80,17 @@ namespace YAF.Controls
         this.UnreadMsgs.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_pm);
         if (this.PageContext.UnreadPrivate == 1)
         {
-            this.UnreadMsgs.Text = this.PageContext.Localization.GetTextFormatted("unread1", PageContext.UnreadPrivate);
+          this.UnreadMsgs.Text = this.PageContext.Localization.GetTextFormatted(
+            "unread1", this.PageContext.UnreadPrivate);
         }
         else
         {
-            this.UnreadMsgs.Text = this.PageContext.Localization.GetTextFormatted("unread0", PageContext.UnreadPrivate);
+          this.UnreadMsgs.Text = this.PageContext.Localization.GetTextFormatted(
+            "unread0", this.PageContext.UnreadPrivate);
         }
       }
     }
+
+    #endregion
   }
 }

@@ -28,7 +28,8 @@ namespace YAF.Controls
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes.Core;
+  using YAF.Core;
+  using YAF.Types;
 
   #endregion
 
@@ -38,12 +39,12 @@ namespace YAF.Controls
   public enum ThanksListMode
   {
     /// <summary>
-    /// The from user.
+    ///   The from user.
     /// </summary>
     FromUser, 
 
     /// <summary>
-    /// The to user.
+    ///   The to user.
     /// </summary>
     ToUser
   }
@@ -56,6 +57,15 @@ namespace YAF.Controls
     /* Data Fields */
 
     /* Properties */
+    #region Constants and Fields
+
+    /// <summary>
+    ///   The _count.
+    /// </summary>
+    private int _count;
+
+    #endregion
+
     #region Properties
 
     /// <summary>
@@ -73,19 +83,9 @@ namespace YAF.Controls
     /// </summary>
     public int UserID { get; set; }
 
-    // keeps count
-    private int _count = 0;
-
-    /// <summary>
-    /// Returns <see langword="true"/> if the count is odd
-    /// </summary>
-    /// <returns></returns>
-    protected bool IsOdd()
-    {
-      return (this._count++ % 2) == 0;
-    }
-
     #endregion
+
+    // keeps count
 
     /* Event Handlers */
 
@@ -101,7 +101,7 @@ namespace YAF.Controls
 
       if (!this.ThanksInfo.Columns.Contains("MessageThanksNumber"))
       {
-          this.ThanksInfo.Columns.Add("MessageThanksNumber", System.Type.GetType("System.Int32"));
+        this.ThanksInfo.Columns.Add("MessageThanksNumber", Type.GetType("System.Int32"));
       }
 
       // now depending on mode filter the table
@@ -119,19 +119,19 @@ namespace YAF.Controls
       }
       else if (this.CurrentMode == ThanksListMode.ToUser)
       {
-          int messageThanksNumber;
-          foreach (var dr in thanksData)
-          {
-              // update the message count
-              dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
-                                              ? dr["MessageThanksNumber"]
-                                              : thanksData.Where(
-                                                  x =>
-                                                  x.Field<int>("ThanksToUserID") == this.UserID &&
-                                                  x.Field<int>("MessageID") == (int)dr["MessageID"]).Count();
-          }
+        int messageThanksNumber;
+        foreach (var dr in thanksData)
+        {
+          // update the message count
+          dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
+                                        ? dr["MessageThanksNumber"]
+                                        : thanksData.Where(
+                                          x =>
+                                          x.Field<int>("ThanksToUserID") == this.UserID &&
+                                          x.Field<int>("MessageID") == (int)dr["MessageID"]).Count();
+        }
 
-          thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
+        thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
         // Remove duplicates.
         this.DistinctMessageID(thanksData);
@@ -156,8 +156,20 @@ namespace YAF.Controls
 
     #endregion
 
-    /* Methods */
     #region Methods
+
+    /// <summary>
+    /// Returns <see langword="true"/> if the count is odd
+    /// </summary>
+    /// <returns>
+    /// The is odd.
+    /// </returns>
+    protected bool IsOdd()
+    {
+      return (this._count++ % 2) == 0;
+    }
+
+    /* Methods */
 
     /// <summary>
     /// The page_ load.
@@ -168,7 +180,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.BindData();
     }
@@ -182,7 +194,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Pager_PageChange(object sender, EventArgs e)
+    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.BindData();
     }
@@ -197,7 +209,7 @@ namespace YAF.Controls
     /// The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> 
     ///   instance containing the event data.
     /// </param>
-    protected void ThanksRes_ItemCreated(object sender, RepeaterItemEventArgs e)
+    protected void ThanksRes_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
       // In what mode should this control work?
       // 1: Just display the buddy list
@@ -229,15 +241,17 @@ namespace YAF.Controls
     /// <summary>
     /// Removes rows with duplicate MessageIDs.
     /// </summary>
-    /// <param name="thanksData">The thanks data.</param>
-    private void DistinctMessageID(EnumerableRowCollection<DataRow> thanksData)
+    /// <param name="thanksData">
+    /// The thanks data.
+    /// </param>
+    private void DistinctMessageID([NotNull] EnumerableRowCollection<DataRow> thanksData)
     {
       int previousId = 0;
       int tempId;
 
       foreach (var dr in thanksData.OrderBy(x => x.Field<int>("MessageID")))
       {
-          tempId = dr.Field<int>("MessageID");
+        tempId = dr.Field<int>("MessageID");
         if (dr.Field<int>("MessageID") == previousId)
         {
           dr.Delete();

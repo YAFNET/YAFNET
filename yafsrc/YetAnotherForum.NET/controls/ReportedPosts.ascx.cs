@@ -3,7 +3,9 @@
   #region Using
 
   using System;
-  using Classes.Data;
+
+  using YAF.Classes.Data;
+  using YAF.Types;
 
   #endregion
 
@@ -23,12 +25,12 @@
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        ReportedPostsRepeater.DataSource = DB.message_listreporters(this.MessageID);
-        ReportedPostsRepeater.DataBind();
+        this.ReportedPostsRepeater.DataSource = DB.message_listreporters(this.MessageID);
+        this.ReportedPostsRepeater.DataBind();
       }
     }
 

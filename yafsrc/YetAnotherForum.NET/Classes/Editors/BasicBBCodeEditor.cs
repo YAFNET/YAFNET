@@ -1,5 +1,4 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ï»¿/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,61 +16,73 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Controls
+namespace YAF.Editors
 {
   #region Using
 
   using System;
 
-  using YAF.Core;
   using YAF.Types;
 
   #endregion
 
   /// <summary>
-  /// Summary description for DisplayAd.
+  /// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
+  ///   functionality.
   /// </summary>
-  public partial class DisplayAd : BaseUserControl
+  public class BasicBBCodeEditor : TextEditor
   {
     #region Properties
 
     /// <summary>
-    ///   Gets or sets a value indicating whether IsAlt.
+    ///   Gets Description.
     /// </summary>
-    public bool IsAlt { get; set; }
+    [NotNull]
+    public override string Description
+    {
+      get
+      {
+        return "Basic YafBBCode Editor";
+      }
+    }
+
+    /// <summary>
+    ///   Gets ModuleId.
+    /// </summary>
+    public override string ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return "5";
+      }
+    }
+
+    /// <summary>
+    ///   Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return true;
+      }
+    }
 
     #endregion
 
     #region Methods
 
     /// <summary>
-    /// The get post class.
+    /// The on init.
     /// </summary>
-    /// <returns>
-    /// The get post class.
-    /// </returns>
-    [NotNull]
-    protected string GetPostClass()
-    {
-      return this.IsAlt ? "post_alt" : "post";
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
-      this.AdMessage.Message = this.PageContext.BoardSettings.AdPost;
-      this.AdMessage.Signature = this.PageContext.Localization.GetText("AD_SIGNATURE");
-
-      this.AdMessage.MessageFlags.IsLocked = true;
-      this.AdMessage.MessageFlags.NotFormatted = true;
+      base.OnInit(e);
+      this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
     }
 
     #endregion

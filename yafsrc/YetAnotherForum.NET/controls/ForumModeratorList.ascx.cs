@@ -18,26 +18,38 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Collections;
   using System.Data;
-  using YAF.Classes.Core;
+
+  using YAF.Core;
+  using YAF.Types;
+
+  #endregion
 
   /// <summary>
   /// The forum moderator list.
   /// </summary>
   public partial class ForumModeratorList : BaseUserControl
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForumModeratorList"/> class.
+    ///   Initializes a new instance of the <see cref = "ForumModeratorList" /> class.
     /// </summary>
     public ForumModeratorList()
     {
-      PreRender += new EventHandler(ForumModeratorList_PreRender);
+      this.PreRender += this.ForumModeratorList_PreRender;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Sets DataSource.
+    ///   Sets DataSource.
     /// </summary>
     public IEnumerable DataSource
     {
@@ -46,6 +58,10 @@ namespace YAF.Controls
         this.ModeratorList.DataSource = value;
       }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The forum moderator list_ pre render.
@@ -56,13 +72,15 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumModeratorList_PreRender(object sender, EventArgs e)
+    private void ForumModeratorList_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (((DataRow[]) this.ModeratorList.DataSource).Length > 0)
+      if (((DataRow[])this.ModeratorList.DataSource).Length > 0)
       {
         // no need for the "blank dash"...
         this.BlankDash.Visible = false;
       }
     }
+
+    #endregion
   }
 }

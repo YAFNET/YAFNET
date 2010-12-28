@@ -22,17 +22,21 @@ namespace YAF
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.IO;
   using System.Web;
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// EventArgs class for the PageTitleSet event
@@ -42,7 +46,7 @@ namespace YAF
     #region Constants and Fields
 
     /// <summary>
-    /// The _title.
+    ///   The _title.
     /// </summary>
     private readonly string _title;
 
@@ -56,7 +60,7 @@ namespace YAF
     /// <param name="title">
     /// The title.
     /// </param>
-    public ForumPageTitleArgs(string title)
+    public ForumPageTitleArgs([NotNull] string title)
     {
       this._title = title;
     }
@@ -66,7 +70,7 @@ namespace YAF
     #region Properties
 
     /// <summary>
-    /// Gets Title.
+    ///   Gets Title.
     /// </summary>
     public string Title
     {
@@ -84,16 +88,6 @@ namespace YAF
   /// </summary>
   public class YafBeforeForumPageLoad : EventArgs
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafBeforeForumPageLoad"/> class.
-    /// </summary>
-    public YafBeforeForumPageLoad()
-    {
-    }
-
-    #endregion
   }
 
   /// <summary>
@@ -101,16 +95,6 @@ namespace YAF
   /// </summary>
   public class YafAfterForumPageLoad : EventArgs
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafAfterForumPageLoad"/> class.
-    /// </summary>
-    public YafAfterForumPageLoad()
-    {
-    }
-
-    #endregion
   }
 
   /// <summary>
@@ -122,41 +106,41 @@ namespace YAF
     #region Constants and Fields
 
     /// <summary>
-    /// The _current forum page.
+    ///   The _current forum page.
     /// </summary>
     private ForumPage _currentForumPage;
 
     /// <summary>
-    /// The _footer.
+    ///   The _footer.
     /// </summary>
     private Control _footer;
 
     /// <summary>
-    /// The _header
+    ///   The _header
     /// </summary>
     private Control _header;
 
     /// <summary>
-    /// The _header
+    ///   The _header
     /// </summary>
     private DialogBox _notificationBox;
 
     /// <summary>
-    /// The _topControl.
-    /// </summary>
-    private PlaceHolder _topControl;
-
-    /// <summary>
-    /// The _page.
+    ///   The _page.
     /// </summary>
     private ForumPages _page;
+
+    /// <summary>
+    ///   The _topControl.
+    /// </summary>
+    private PlaceHolder _topControl;
 
     #endregion
 
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Forum"/> class.
+    ///   Initializes a new instance of the <see cref = "Forum" /> class.
     /// </summary>
     public Forum()
     {
@@ -165,8 +149,16 @@ namespace YAF
       this.Unload += this.Forum_Unload;
 
       // init the modules and run them immediately...
-      YafContext.Current.BaseModuleManager.Load();
-      YafContext.Current.BaseModuleManager.CallInitModules(this);
+      var baseModules = YafContext.Current.Get<IModuleManager<IBaseForumModule>>();
+
+      // run services before modules...
+      YafContext.Current.RunStartupServices();
+
+      foreach (var module in baseModules.GetAll())
+      {
+        module.ForumControlObj = this;
+        module.Init();
+      }
     }
 
     #endregion
@@ -174,17 +166,17 @@ namespace YAF
     #region Events
 
     /// <summary>
-    /// The after forum page load.
+    ///   The after forum page load.
     /// </summary>
     public event EventHandler<YafAfterForumPageLoad> AfterForumPageLoad;
 
     /// <summary>
-    /// The before forum page load.
+    ///   The before forum page load.
     /// </summary>
     public event EventHandler<YafBeforeForumPageLoad> BeforeForumPageLoad;
 
     /// <summary>
-    /// The page title set.
+    ///   The page title set.
     /// </summary>
     public event EventHandler<ForumPageTitleArgs> PageTitleSet;
 
@@ -193,7 +185,7 @@ namespace YAF
     #region Properties
 
     /// <summary>
-    /// Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
+    ///   Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
     /// </summary>
     public int BoardID
     {
@@ -209,7 +201,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// Gets or sets the CategoryID for this instance of the forum control
+    ///   Gets or sets the CategoryID for this instance of the forum control
     /// </summary>
     public int CategoryID
     {
@@ -225,7 +217,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// Gets or sets The forum footer control
+    ///   Gets or sets The forum footer control
     /// </summary>
     public Control Footer
     {
@@ -241,7 +233,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// Gets or sets The forum header control
+    ///   Gets or sets The forum header control
     /// </summary>
     public Control Header
     {
@@ -257,23 +249,7 @@ namespace YAF
     }
 
     /// <summary>
-    /// Gets or sets The forum header control
-    /// </summary>
-    public DialogBox NotificationBox
-    {
-        get
-        {
-            return this._notificationBox;
-        }
-
-        set
-        {
-            this._notificationBox = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets LockedForum.
+    ///   Gets or sets LockedForum.
     /// </summary>
     public int LockedForum
     {
@@ -289,7 +265,23 @@ namespace YAF
     }
 
     /// <summary>
-    /// Gets UserID for the current User (Read Only)
+    ///   Gets or sets The forum header control
+    /// </summary>
+    public DialogBox NotificationBox
+    {
+      get
+      {
+        return this._notificationBox;
+      }
+
+      set
+      {
+        this._notificationBox = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets UserID for the current User (Read Only)
     /// </summary>
     public int PageUserID
     {
@@ -300,18 +292,18 @@ namespace YAF
     }
 
     /// <summary>
-    /// Gets UserName for the current User (Read Only)
+    ///   Gets UserName for the current User (Read Only)
     /// </summary>
     public string PageUserName
     {
       get
       {
-          return YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
+        return YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
       }
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Popup.
+    ///   Gets or sets a value indicating whether Popup.
     /// </summary>
     public bool Popup
     {
@@ -337,7 +329,7 @@ namespace YAF
     /// </param>
     /// <param name="e">
     /// </param>
-    public void FirePageTitleSet(object sender, ForumPageTitleArgs e)
+    public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
     {
       if (this.PageTitleSet != null)
       {
@@ -355,7 +347,7 @@ namespace YAF
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       // wrap the forum in one main div and then a page div for better CSS selection
       writer.WriteLine();
@@ -377,17 +369,17 @@ namespace YAF
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Forum_Init(object sender, EventArgs e)
+    private void Forum_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
       // handle script manager first...
-        if (ScriptManager.GetCurrent(this.Page) != null)
-        {
-            return;
-        }
+      if (ScriptManager.GetCurrent(this.Page) != null)
+      {
+        return;
+      }
 
-        // add a script manager since one doesn't exist...
-        var yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
-        this.Controls.Add(yafScriptManager);
+      // add a script manager since one doesn't exist...
+      var yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
+      this.Controls.Add(yafScriptManager);
     }
 
     /// <summary>
@@ -401,7 +393,7 @@ namespace YAF
     /// </param>
     /// <exception cref="ApplicationException">
     /// </exception>
-    private void Forum_Load(object sender, EventArgs e)
+    private void Forum_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // context is ready to be loaded, call the before page load event...
       if (this.BeforeForumPageLoad != null)
@@ -423,8 +415,8 @@ namespace YAF
       {
         this._currentForumPage = (ForumPage)this.LoadControl(src);
 
-        this._header =
-          this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
+        this._header = this.LoadControl(
+          "{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
 
         this._footer = new Footer();
       }
@@ -436,7 +428,7 @@ namespace YAF
       this._currentForumPage.ForumTopControl = this._topControl;
       this._currentForumPage.ForumFooter = this._footer;
       this._currentForumPage.ForumHeader = this._header;
-      
+
       // don't allow as a popup if it's not allowed by the page...
       if (!this._currentForumPage.AllowAsPopup && this.Popup)
       {
@@ -453,14 +445,15 @@ namespace YAF
       }
 
       // Add the LoginBox to Control, if used and User is Guest
-      if (YafContext.Current.BoardSettings.UseLoginBox && YafContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+      if (YafContext.Current.BoardSettings.UseLoginBox && YafContext.Current.IsGuest && !Config.IsAnyPortal &&
+          Config.AllowLoginAndLogoff)
       {
-          this.Controls.Add(
-              this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
+        this.Controls.Add(
+          this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
       }
 
       this._notificationBox =
-         (DialogBox)this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
+        (DialogBox)this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
 
       this._currentForumPage.Notification = this._notificationBox;
 
@@ -490,7 +483,7 @@ namespace YAF
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Forum_Unload(object sender, EventArgs e)
+    private void Forum_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
       // make sure the YafContext is disposed of...
       YafContext.Current.Dispose();
@@ -502,13 +495,15 @@ namespace YAF
     /// <returns>
     /// The get page source.
     /// </returns>
+    [NotNull]
     private string GetPageSource()
     {
       if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g") != null)
       {
         try
         {
-          this._page = YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
+          this._page =
+            YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
         }
         catch (Exception)
         {

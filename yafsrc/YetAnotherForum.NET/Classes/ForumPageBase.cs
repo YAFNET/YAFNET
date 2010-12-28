@@ -1,5 +1,4 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,47 +16,54 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Controls
+namespace YAF
 {
   #region Using
 
   using System;
+  using System.Web;
+  using System.Web.UI;
 
+  using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Services;
   using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// Summary description for DisplayAd.
+  /// Optional forum page base providing some helper functions.
   /// </summary>
-  public partial class DisplayAd : BaseUserControl
+  public class ForumPageBase : Page, IHaveServiceLocator
   {
     #region Properties
 
     /// <summary>
-    ///   Gets or sets a value indicating whether IsAlt.
+    ///   Gets ServiceLocator.
     /// </summary>
-    public bool IsAlt { get; set; }
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return YafContext.Current.ServiceLocator;
+      }
+    }
+
+    public YafContext PageContext
+    {
+      get
+      {
+        return YafContext.Current;
+      }
+    }
 
     #endregion
 
-    #region Methods
+    #region Public Methods
 
     /// <summary>
-    /// The get post class.
-    /// </summary>
-    /// <returns>
-    /// The get post class.
-    /// </returns>
-    [NotNull]
-    protected string GetPostClass()
-    {
-      return this.IsAlt ? "post_alt" : "post";
-    }
-
-    /// <summary>
-    /// The page_ load.
+    /// The page_ error.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -65,13 +71,15 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public void Page_Error([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.AdMessage.Message = this.PageContext.BoardSettings.AdPost;
-      this.AdMessage.Signature = this.PageContext.Localization.GetText("AD_SIGNATURE");
+      if (!this.Get<StartupInitializeDb>().Initialized)
+      {
+        return;
+      }
 
-      this.AdMessage.MessageFlags.IsLocked = true;
-      this.AdMessage.MessageFlags.NotFormatted = true;
+      var error = this.Get<HttpServerUtilityBase>().GetLastError();
+      DB.eventlog_create((int?)YafContext.Current.PageUserID, this, error);
     }
 
     #endregion

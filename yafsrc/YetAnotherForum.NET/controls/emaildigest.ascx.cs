@@ -9,10 +9,13 @@
   using System.Web.UI;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -39,6 +42,11 @@
     private string _languageFile;
 
     /// <summary>
+    ///   The _yaf localization.
+    /// </summary>
+    private ILocalization _localization;
+
+    /// <summary>
     ///   The _theme.
     /// </summary>
     private YafTheme _theme;
@@ -47,11 +55,6 @@
     ///   Numbers of hours to compute digest for...
     /// </summary>
     private int _topicHours = -24;
-
-    /// <summary>
-    ///   The _yaf localization.
-    /// </summary>
-    private YafLocalization _yafLocalization;
 
     #endregion
 
@@ -133,17 +136,17 @@
     /// </returns>
     public string GetText([NotNull] string tag)
     {
-      if (this._languageFile.IsSet() && this._yafLocalization == null)
+      if (this._languageFile.IsSet() && this._localization == null)
       {
-        this._yafLocalization = new YafLocalization();
-        this._yafLocalization.LoadTranslation(this._languageFile);
+        this._localization = new YafLocalization();
+        this._localization.LoadTranslation(this._languageFile);
       }
-      else if (this._yafLocalization == null)
+      else if (this._localization == null)
       {
-        this._yafLocalization = this.PageContext.Localization;
+        this._localization = this.PageContext.Localization;
       }
 
-      return this._yafLocalization.GetText("DIGEST", tag);
+      return this._localization.GetText("DIGEST", tag);
     }
 
     #endregion
@@ -165,8 +168,8 @@
     protected string GetMessageFormattedAndTruncated([NotNull] string lastMessage, int maxlength)
     {
       return
-        StringHelper.Truncate(
-          StringHelper.RemoveMultipleWhitespace(
+        StringExtensions.Truncate(
+          StringExtensions.RemoveMultipleWhitespace(
             BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))), 
           maxlength);
     }

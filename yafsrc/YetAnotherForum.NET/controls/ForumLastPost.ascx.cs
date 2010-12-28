@@ -23,10 +23,11 @@ namespace YAF.Controls
   using System;
   using System.Data;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -113,12 +114,13 @@ namespace YAF.Controls
           this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
             ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
           this.topicLink.Text =
-            StringHelper.Truncate(
+            StringExtensions.Truncate(
               this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(this.DataRow["LastUserID"]);
           this.ProfileUserLink.Style = this.PageContext.BoardSettings.UseStyledNicks
-                                             ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
-                                                 this.DataRow["Style"].ToString(), false) : string.Empty;
+                                         ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                           this.DataRow["Style"].ToString(), false)
+                                         : string.Empty;
           if (string.IsNullOrEmpty(this.Alt))
           {
             this.Alt = this.PageContext.Localization.GetText("GO_LAST_POST");
@@ -131,7 +133,7 @@ namespace YAF.Controls
                                 YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
-            this.Icon.Alt = this.LastTopicImgLink.ToolTip;
+          this.Icon.Alt = this.LastTopicImgLink.ToolTip;
 
           this.LastPostedHolder.Visible = true;
           this.NoPostsLabel.Visible = false;

@@ -18,39 +18,42 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Collections.Generic;
   using System.Data;
   using System.Linq;
   using System.Web.Security;
-  using YAF.Classes;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// The edit users kill.
   /// </summary>
   public partial class EditUsersKill : BaseUserControl
   {
-    /// <summary>
-    /// The _all posts by user.
-    /// </summary>
-    private DataTable _allPostsByUser = null;
+    #region Constants and Fields
 
     /// <summary>
-    /// Gets CurrentUserID.
+    ///   The _all posts by user.
     /// </summary>
-    protected long? CurrentUserID
-    {
-      get
-      {
-        return PageContext.QueryIDs["u"];
-      }
-    }
+    private DataTable _allPostsByUser;
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
-    /// Gets AllPostsByUser.
+    ///   Gets AllPostsByUser.
     /// </summary>
     public DataTable AllPostsByUser
     {
@@ -58,7 +61,8 @@ namespace YAF.Controls
       {
         if (this._allPostsByUser == null)
         {
-          this._allPostsByUser = DB.post_alluser(PageContext.PageBoardID, CurrentUserID, PageContext.PageUserID, null);
+          this._allPostsByUser = DB.post_alluser(
+            this.PageContext.PageBoardID, this.CurrentUserID, this.PageContext.PageUserID, null);
         }
 
         return this._allPostsByUser;
@@ -66,14 +70,55 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets IPAddresses.
+    ///   Gets IPAddresses.
     /// </summary>
+    [NotNull]
     public List<string> IPAddresses
     {
       get
       {
-        return AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
+        return this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
       }
+    }
+
+    /// <summary>
+    ///   Gets CurrentUserID.
+    /// </summary>
+    protected long? CurrentUserID
+    {
+      get
+      {
+        return this.PageContext.QueryIDs["u"];
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The kill_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (this.BanIps.Checked)
+      {
+        this.BanUserIps();
+      }
+
+      this.DeletePosts();
+
+      MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+      this.PageContext.AddLoadMessage("User {0} Killed!".FormatWith(user.UserName));
+
+      // update the displayed data...
+      this.BindData();
     }
 
     /// <summary>
@@ -85,22 +130,62 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // init ids...
-      PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
       // this needs to be done just once, not during postbacks
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
-        var userData = new CombinedUserDataHelper(user, (int) CurrentUserID.Value);
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+        var userData = new CombinedUserDataHelper(user, (int)this.CurrentUserID.Value);
 
-          this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", !userData.IsGuest ? userData.Membership.UserName : (!userData.DisplayName.IsNotSet() ? userData.DisplayName : userData.UserName));
+        this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+          ForumPages.search, 
+          "postedby={0}", 
+          !userData.IsGuest
+            ? userData.Membership.UserName
+            : (!userData.DisplayName.IsNotSet() ? userData.DisplayName : userData.UserName));
 
         // bind data
-        BindData();
+        this.BindData();
       }
+    }
+
+    /// <summary>
+    /// The ban user ips.
+    /// </summary>
+    private void BanUserIps()
+    {
+      var ips = this.IPAddresses;
+      var allIps = DB.bannedip_list(this.PageContext.PageBoardID, null).GetColumnAsList<string>("Mask").ToList();
+
+      // remove all IPs from ips if they already exist in allIps...
+      ips.RemoveAll(allIps.Contains);
+
+      // ban user ips...
+      string name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserID == null ? -1 : (int)this.CurrentUserID);
+
+      if (string.IsNullOrEmpty(name))
+      {
+        name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID == null ? -1 : (int)this.CurrentUserID);
+      }
+
+      this.IPAddresses.ForEach(
+        x =>
+        DB.bannedip_save(
+          null, 
+          this.PageContext.PageBoardID, 
+          x, 
+          @"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP".FormatWith(
+            this.CurrentUserID, 
+            YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), 
+            this.HtmlEncode(name)), 
+          this.PageContext.PageUserID));
+
+      // clear cache of banned IPs for this board
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
     }
 
     /// <summary>
@@ -109,38 +194,12 @@ namespace YAF.Controls
     private void BindData()
     {
       // load ip address history for user...
-      this.IpAddresses.Text = IPAddresses.ToDelimitedString("<br />");
+      this.IpAddresses.Text = this.IPAddresses.ToDelimitedString("<br />");
 
       // show post count...
-      this.PostCount.Text = AllPostsByUser.Rows.Count.ToString();
+      this.PostCount.Text = this.AllPostsByUser.Rows.Count.ToString();
 
-      DataBind();
-    }
-
-    /// <summary>
-    /// The ban user ips.
-    /// </summary>
-    private void BanUserIps()
-    {
-      var ips = IPAddresses;
-      var allIps = DB.bannedip_list(PageContext.PageBoardID, null).GetColumnAsList<string>("Mask").ToList();
-
-      // remove all IPs from ips if they already exist in allIps...
-      ips.RemoveAll(allIps.Contains);
-
-      // ban user ips...
-      string name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserID == null? -1: (int)this.CurrentUserID);
-
-      if (string.IsNullOrEmpty(name))
-      {
-          name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID == null ? -1 : (int)this.CurrentUserID);
-      } 
-        
-      IPAddresses.ForEach(x => DB.bannedip_save(null, PageContext.PageBoardID, x,
-          @"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP".FormatWith(this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), this.HtmlEncode(name)), this.PageContext.PageUserID));
-
-      // clear cache of banned IPs for this board
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+      this.DataBind();
     }
 
     /// <summary>
@@ -149,35 +208,12 @@ namespace YAF.Controls
     private void DeletePosts()
     {
       // delete posts...
-      var messageIds = (from m in AllPostsByUser.AsEnumerable()
-                        select m.Field<int>("MessageID")).Distinct().ToList();
+      var messageIds =
+        (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
 
       messageIds.ForEach(x => DB.message_delete(x, true, string.Empty, 1, true));
     }
 
-    /// <summary>
-    /// The kill_ on click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Kill_OnClick(object sender, EventArgs e)
-    {
-      if (this.BanIps.Checked)
-      {
-        BanUserIps();
-      }
-
-      DeletePosts();
-
-      MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
-      PageContext.AddLoadMessage("User {0} Killed!".FormatWith(user.UserName));
-
-      // update the displayed data...
-      BindData();
-    }
+    #endregion
   }
 }

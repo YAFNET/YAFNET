@@ -18,21 +18,33 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
-  using YAF.Classes.Core;
+
+  using YAF.Core;
+  using YAF.Types;
+
+  #endregion
 
   /// <summary>
   /// The forum icon legend.
   /// </summary>
   public partial class ForumIconLegend : BaseUserControl
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForumIconLegend"/> class.
+    ///   Initializes a new instance of the <see cref = "ForumIconLegend" /> class.
     /// </summary>
     public ForumIconLegend()
     {
-      PreRender += new EventHandler(ForumIconLegend_PreRender);
+      this.PreRender += this.ForumIconLegend_PreRender;
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The forum icon legend_ pre render.
@@ -43,8 +55,10 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumIconLegend_PreRender(object sender, EventArgs e)
+    private void ForumIconLegend_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
     }
+
+    #endregion
   }
 }

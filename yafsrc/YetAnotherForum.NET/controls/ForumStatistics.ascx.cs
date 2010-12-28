@@ -24,11 +24,14 @@ namespace YAF.Controls
   using System.Data;
   using System.Text;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -89,8 +92,9 @@ namespace YAF.Controls
         sb.Append(
           "<a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
             this.PageContext.Localization.GetTextFormatted(
-              activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
-            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
+              activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers), 
+            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0), 
+            this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
       }
       else
       {
@@ -106,8 +110,9 @@ namespace YAF.Controls
           canViewActive
             ? ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
               this.PageContext.Localization.GetTextFormatted(
-                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
-              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO"))
+                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers), 
+              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1), 
+              this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO"))
             : ", {0}".FormatWith(
               this.PageContext.Localization.GetTextFormatted(
                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
@@ -122,8 +127,9 @@ namespace YAF.Controls
           sb.Append(
             ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
               this.PageContext.Localization.GetTextFormatted(
-                activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
-              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
+                activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests), 
+              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2), 
+              this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
         }
         else
         {
@@ -142,7 +148,8 @@ namespace YAF.Controls
           sb.Append(
             ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\">{0}</a>".FormatWith(
               this.PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden), 
-              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3), this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
+              YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3), 
+              this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
         }
         else
         {
@@ -217,7 +224,7 @@ namespace YAF.Controls
 
             // Set colorOnly parameter to false, as we get here color from data field in the place
             dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks
-                                    ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
+                                    ? this.Get<IStyleTransform>().DecodeStyleByString(
                                       dr["LastUserStyle"].ToString(), false)
                                     : null;
             return dr;
@@ -259,8 +266,8 @@ namespace YAF.Controls
         this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
         this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
         this.StatsLastPost.Text = this.PageContext.Localization.GetTextFormatted(
-          "stats_lastpost",
-          new DisplayDateTime() { DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic }.
+          "stats_lastpost", 
+          new DisplayDateTime { DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic }.
             RenderToString());
       }
       else

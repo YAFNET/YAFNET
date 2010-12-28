@@ -18,18 +18,26 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Text;
-  using YAF.Classes.Core;
+
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// The forum profile access.
   /// </summary>
   public partial class ForumProfileAccess : BaseUserControl
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -39,13 +47,13 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (PageContext.IsAdmin || PageContext.IsForumModerator)
+      if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
       {
-        var userID = (int) Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"));
+        var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
-        using (DataTable dt2 = DB.user_accessmasks(PageContext.PageBoardID, userID))
+        using (DataTable dt2 = DB.user_accessmasks(this.PageContext.PageBoardID, userID))
         {
           var html = new StringBuilder();
           int nLastForumID = 0;
@@ -58,7 +66,9 @@ namespace YAF.Controls
                 html.AppendFormat("</td></tr>");
               }
 
-              html.AppendFormat("<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", this.HtmlEncode(row["ForumName"]));
+              html.AppendFormat(
+                "<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", 
+                this.HtmlEncode(row["ForumName"]));
               nLastForumID = Convert.ToInt32(row["ForumID"]);
             }
             else
@@ -78,5 +88,7 @@ namespace YAF.Controls
         }
       }
     }
+
+    #endregion
   }
 }

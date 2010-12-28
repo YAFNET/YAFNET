@@ -1,5 +1,9 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.ForumCategoryList" Codebehind="ForumCategoryList.ascx.cs" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
 	<ContentTemplate>
@@ -30,7 +34,7 @@
 						<YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
 							PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>'
 							AttachedControlID="forumList" />
-						&nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
+						&nbsp;&nbsp; <a href='<%# YAF.Utils.YafBuildLink.GetLink(ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
 							
 							<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
 							

@@ -18,61 +18,51 @@
  */
 namespace YAF.Editors
 {
-  using System;
+  using YAF.Core;
 
   /// <summary>
-  /// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
-  /// functionality.
+  /// The free text box editorv 3.
   /// </summary>
-  public class BasicBBCodeEditor : TextEditor
+  public class FreeTextBoxEditorv3 : FreeTextBoxEditor
   {
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      base.OnInit(e);
-      this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
-    }
-
-
     #region Properties
 
     /// <summary>
-    /// Gets Description.
+    ///   Gets Description.
     /// </summary>
     public override string Description
     {
       get
       {
-        return "Basic YafBBCode Editor";
+        return "Free Text Box v3 (HTML)";
       }
     }
 
     /// <summary>
-    /// Gets a value indicating whether UsesBBCode.
+    ///   Gets ModuleId.
     /// </summary>
-    public override bool UsesBBCode
-    {
-      get
-      {
-        return true;
-      }
-    }
-
-    /// <summary>
-    /// Gets ModuleId.
-    /// </summary>
-    public override int ModuleId
+    public override string ModuleId
     {
       get
       {
         // backward compatibility...
-        return 5;
+        return "6";
       }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected override void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "InsertSmileyJs", 
+        @"function insertsmiley(code,img){" + "FTB_API['" + this.SafeID +
+        "'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" + "}\n");
     }
 
     #endregion

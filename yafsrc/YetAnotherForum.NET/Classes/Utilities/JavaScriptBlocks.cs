@@ -18,32 +18,163 @@
  */
 namespace YAF.Utilities
 {
-  using Classes.Core;
+  #region Using
 
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for JavaScriptBlocks
   /// </summary>
   public static class JavaScriptBlocks
   {
+    #region Properties
+
     /// <summary>
-    /// Load Go to Anchor
+    ///   Gets the script for album/image title/image callback.
     /// </summary>
-    /// <param name="anchor"></param>
-    /// <returns></returns>
-    public static string LoadGotoAnchor(string anchor)
+    /// <returns>
+    ///   the callback success js.
+    /// </returns>
+    [NotNull]
+    public static string AlbumCallbackSuccessJS
     {
-      return
-        @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
-            function loadGotoAnchor() {{
-               window.location = window.location + ""#{0}""
-			      }}".FormatWith(anchor);
+      get
+      {
+        return
+          @"function changeTitleSuccess(res){{
+                  spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
+                  txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
+                  spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
+                  txtTitleVar.disabled = false;
+                  spnTitleVar.style.display = 'inline';
+                  txtTitleVar.style.display='none';}}";
+      }
+
+      /*get
+          {
+              return
+                  "function changeTitleSuccess(res){{" +
+                  "spnTitleVar = document.getElementById('spnTitle' + res.value.Id);" +
+                  "txtTitleVar = document.getElementById('txtTitle' + res.value.Id);" +
+                  "spnTitleVar.firstChild.nodeValue = res.value.NewTitle;" +
+                  "txtTitleVar.disabled = false;" +
+                  "spnTitleVar.style.display = 'inline';" +
+                  "txtTitleVar.style.display='none';}}";
+          }*/
     }
 
     /// <summary>
-    /// Gets ToggleMessageJs.
+    ///   Gets CeeBox Load Js.
     /// </summary>
+    [NotNull]
+    public static string CeeBoxLoadJs
+    {
+      get
+      {
+        return @"jQuery(document).ready(function() { 
+					jQuery('.ceebox').ceebox({titles:true});
+			});";
+      }
+    }
+
+    /// <summary>
+    ///   Gets the script for changing the album title.
+    /// </summary>
+    /// <returns>
+    ///   the change album title js.
+    /// </returns>
+    [NotNull]
+    public static string ChangeAlbumTitleJs
+    {
+      get
+      {
+        return
+          @"function changeAlbumTitle(albumId, txtTitleId){{
+                     var albId = albumId;var newTitleTxt = jQuery('#' + txtTitleId).val();
+                     jQuery.PageMethod('YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}";
+
+        // YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
+      }
+    }
+
+    /// <summary>
+    ///   Gets the script for changing the image caption.
+    /// </summary>
+    /// <returns></returns>
+    [NotNull]
+    public static string ChangeImageCaptionJs
+    {
+      get
+      {
+        return
+          @"function changeImageCaption(imageID, txtTitleId){{
+              var imgId = imageID;var newImgTitleTxt = jQuery('#' + txtTitleId).val();
+              jQuery.PageMethod('YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}";
+
+        // YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
+      }
+    }
+
+    /// <summary>
+    ///   Gets DisablePageManagerScrollJs.
+    /// </summary>
+    [NotNull]
+    public static string DisablePageManagerScrollJs
+    {
+      get
+      {
+        return
+          @"
+	var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+	prm.add_beginRequest(beginRequest);
+
+	function beginRequest() {
+		prm._scrollPosition = null;
+	}
+";
+      }
+    }
+
+    /// <summary>
+    ///   Gets SyntaxHighlightLoadJs.
+    /// </summary>
+    [NotNull]
+    public static string SyntaxHighlightLoadJs
+    {
+      get
+      {
+        return @"jQuery(document).ready(function() {
+					SyntaxHighlighter.all()});";
+      }
+    }
+
+    /// <summary>
+    ///   Gets TimeagoLoadJs.
+    /// </summary>
+    public static string TimeagoLoadJs
+    {
+      get
+      {
+        return
+          @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+            function loadTimeAgo() {				      	
+            " +
+          YafContext.Current.Localization.GetText("TIMEAGO_JS") +
+          @"
+              jQuery('abbr.timeago').timeago();	
+			      }";
+      }
+    }
+
+    /// <summary>
+    ///   Gets ToggleMessageJs.
+    /// </summary>
+    [NotNull]
     public static string ToggleMessageJs
     {
       get
@@ -67,66 +198,169 @@ function toggleMessage(divId)
     }
 
     /// <summary>
-    /// Gets DisablePageManagerScrollJs.
+    ///   If asynchronous callback encounters any problem, this javascript function will be called.
     /// </summary>
-    public static string DisablePageManagerScrollJs
+    /// <returns></returns>
+    [NotNull]
+    public static string asynchCallFailedJs
     {
       get
       {
-        return
-          @"
-	var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-	prm.add_beginRequest(beginRequest);
-
-	function beginRequest() {
-		prm._scrollPosition = null;
-	}
-";
+        return "function CallFailed(res){{alert('Error Occurred');}}";
       }
     }
 
+    #endregion
+
+    #region Public Methods
+
     /// <summary>
-    /// Gets TimeagoLoadJs.
+    /// Javascript events for Album pages.
     /// </summary>
-    public static string TimeagoLoadJs
+    /// <param name="AlbumEmptyTitle">
+    /// The Album Empty Title.
+    /// </param>
+    /// <param name="ImageEmptyCaption">
+    /// The Image Empty Caption.
+    /// </param>
+    /// <returns>
+    /// The album events js.
+    /// </returns>
+    public static string AlbumEventsJs([NotNull] string AlbumEmptyTitle, [NotNull] string ImageEmptyCaption)
     {
-      get
+      return
+        ("function showTexBox(spnTitleId){{" +
+         "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));" +
+         "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));" +
+         "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);" +
+         "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}" +
+         "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}" +
+         "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
+         "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';" +
+         "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}" +
+         "function checkKey(event, handler, id, isAlbum){{" + "if ((event.keyCode == 13) || (event.which == 13)){{" +
+         "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; " +
+         "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
+         "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}" +
+         "else resetBox(handler.id, isAlbum);}}" +
+         "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}" +
+         "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
+         "if (spnTitleVar.firstChild != null){{" + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
+         "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}" +
+         "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}").FormatWith(
+           AlbumEmptyTitle, ImageEmptyCaption);
+    }
+
+    /// <summary>
+    /// Requires {0} formatted elementId.
+    /// </summary>
+    /// <param name="elementId">
+    /// The element Id.
+    /// </param>
+    /// <returns>
+    /// The block ui execute js.
+    /// </returns>
+    public static string BlockUIExecuteJs([NotNull] string elementId)
+    {
+      return
+        @"jQuery(document).ready(function() {{ 
+            jQuery.blockUI({{ message: jQuery('#{0}') }}); 
+        }});"
+          .FormatWith(elementId);
+    }
+
+    /// <summary>
+    /// Generates jQuery UI DatePicker Script
+    /// </summary>
+    /// <param name="fieldId">
+    /// The Id of the Control to Bind the DatePicker
+    /// </param>
+    /// <param name="dateFormat">
+    /// Localized Date Format
+    /// </param>
+    /// <param name="altDateFormat">
+    /// The Alt Date Format
+    /// </param>
+    /// <param name="culture">
+    /// Current Culture
+    /// </param>
+    /// <returns>
+    /// The load js.
+    /// </returns>
+    public static string DatePickerLoadJs([NotNull] string fieldId, [NotNull] string dateFormat, [NotNull] string altDateFormat, [NotNull] string culture)
+    {
+      string cultureJs = string.Empty;
+
+      dateFormat = dateFormat.ToLower();
+
+      dateFormat = dateFormat.Replace("yyyy", "yy");
+
+      if (!string.IsNullOrEmpty(culture))
       {
-        return
-          @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-            function loadTimeAgo() {				      	
-            " + YafContext.Current.Localization.GetText("TIMEAGO_JS") + @"
-              jQuery('abbr.timeago').timeago();	
-			      }";
+        cultureJs = @"jQuery('#{0}').datepicker('option', jQuery.datepicker.regional['{1}']);".FormatWith(
+          fieldId, culture);
       }
+
+      return
+        @"jQuery(document).ready(function() {{jQuery('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }}); "
+          .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs);
     }
 
     /// <summary>
-    /// Gets CeeBox Load Js.
+    /// Gets JqueryUITabsLoadJs.
     /// </summary>
-    public static string CeeBoxLoadJs
+    /// <param name="tabId">
+    /// The tab Id.
+    /// </param>
+    /// <param name="hiddenId">
+    /// The hidden Id.
+    /// </param>
+    /// <param name="hightTransition">
+    /// Height Transition
+    /// </param>
+    /// <returns>
+    /// The jquery ui tabs load js.
+    /// </returns>
+    public static string JqueryUITabsLoadJs([NotNull] string tabId, [NotNull] string hiddenId, bool hightTransition)
     {
-        get
-        {
-            return
-              @"jQuery(document).ready(function() { 
-					jQuery('.ceebox').ceebox({titles:true});
-			});";
-        }
+      string heightTransitionJs = string.Empty;
+
+      if (hightTransition)
+      {
+        heightTransitionJs = ", fx:{height:'toggle'}";
+      }
+
+      return
+        @"jQuery(document).ready(function() {{
+					jQuery('#{0}').tabs(
+                    {{
+            show: function() {{
+                var sel = jQuery('#{0}').tabs('option', 'selected');
+                jQuery('#{1}').val(sel);
+            }},
+            selected: jQuery('#{1}').val()
+            {2}
+        }});
+                    }});"
+          .FormatWith(tabId, hiddenId, heightTransitionJs);
     }
 
     /// <summary>
-    /// Gets SyntaxHighlightLoadJs.
+    /// Load Go to Anchor
     /// </summary>
-    public static string SyntaxHighlightLoadJs
+    /// <param name="anchor">
+    /// </param>
+    /// <returns>
+    /// The load goto anchor.
+    /// </returns>
+    public static string LoadGotoAnchor([NotNull] string anchor)
     {
-        get
-        {
-            return
-                 @"jQuery(document).ready(function() {
-					SyntaxHighlighter.all()});";
-        }
+      return
+        @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+            function loadGotoAnchor() {{
+               window.location = window.location + ""#{0}""
+			      }}"
+          .FormatWith(anchor);
     }
 
     /// <summary>
@@ -141,111 +375,35 @@ function toggleMessage(divId)
     /// <returns>
     /// The yaf modal dialog load js.
     /// </returns>
-    public static string YafModalDialogLoadJs(string openLink, string dialogId)
+    public static string YafModalDialogLoadJs([NotNull] string openLink, [NotNull] string dialogId)
     {
-        return
-                @"jQuery(document).ready(function() {{jQuery('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});".FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"));
-    }
-
-      /// <summary>
-      /// Generates jQuery UI DatePicker Script
-      /// </summary>
-      /// <param name="fieldId">
-      /// The Id of the Control to Bind the DatePicker
-      /// </param>
-      /// <param name="dateFormat">
-      /// Localized Date Format</param>
-      /// <param name="altDateFormat">
-      /// The Alt Date Format
-      /// </param>
-      /// <param name="culture">
-      /// Current Culture
-      /// </param>
-      /// <returns>
-      /// The load js.
-      /// </returns>
-      public static string DatePickerLoadJs(string fieldId, string dateFormat, string altDateFormat, string culture)
-      {
-        string cultureJs = string.Empty;
-
-        dateFormat = dateFormat.ToLower();
-
-        dateFormat = dateFormat.Replace("yyyy", "yy");
-
-        if (!string.IsNullOrEmpty(culture))
-        {
-            cultureJs = @"jQuery('#{0}').datepicker('option', jQuery.datepicker.regional['{1}']);".FormatWith(fieldId, culture);
-        }
-
-        return
-            @"jQuery(document).ready(function() {{jQuery('#{0}').datepicker({{changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',altFormat:'{2}'}}); {3} }}); "
-                .FormatWith(fieldId, dateFormat, altDateFormat, cultureJs);
-    }
-
-      /// <summary>
-      /// Gets JqueryUITabsLoadJs.
-      /// </summary>
-      /// <param name="tabId">
-      /// The tab Id.
-      /// </param>
-      /// <param name="hiddenId">
-      /// The hidden Id.
-      /// </param>
-      /// <param name="hightTransition">
-      /// Height Transition
-      /// </param>
-      /// <returns>
-      /// The jquery ui tabs load js.
-      /// </returns>
-      public static string JqueryUITabsLoadJs(string tabId, string hiddenId, bool hightTransition)
-      {
-          string heightTransitionJs = string.Empty;
-
-          if (hightTransition)
-          {
-             heightTransitionJs = ", fx:{height:'toggle'}";
-          }
-
-          return @"jQuery(document).ready(function() {{
-					jQuery('#{0}').tabs(
-                    {{
-            show: function() {{
-                var sel = jQuery('#{0}').tabs('option', 'selected');
-                jQuery('#{1}').val(sel);
-            }},
-            selected: jQuery('#{1}').val()
-            {2}
-        }});
-                    }});".FormatWith(tabId, hiddenId, heightTransitionJs);
-      }
-      
-
-      /// <summary>
-    /// If asynchronous callback encounters any problem, this javascript function will be called.
-    /// </summary>
-    /// <returns></returns>
-    public static string asynchCallFailedJs
-    {
-      get
-      {
-        return "function CallFailed(res){{alert('Error Occurred');}}";
-      }
+      return
+        @"jQuery(document).ready(function() {{jQuery('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});".
+          FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"));
     }
 
     /// <summary>
-    /// Requires {0} formatted elementId.
+    /// script for the add Favorite Topic button
     /// </summary>
-    /// <param name="elementId">
-    /// The element Id.
+    /// <param name="untagButtonHTML">
+    /// HTML code for the "Untag As Favorite" button
     /// </param>
     /// <returns>
-    /// The block ui execute js.
+    /// The add Favorite Topic js.
     /// </returns>
-    public static string BlockUIExecuteJs(string elementId)
+    public static string addFavoriteTopicJs([NotNull] string untagButtonHTML)
     {
-      return @"jQuery(document).ready(function() {{ 
-            jQuery.blockUI({{ message: jQuery('#{0}') }}); 
-        }});".FormatWith(elementId);
+      return
+        @"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+          function addFavoriteTopicSuccess(res){{if (res.d != null) {{
+                   jQuery('#dvFavorite1').html({0});
+                   jQuery('#dvFavorite2').html({0});}}}}"
+          .FormatWith(untagButtonHTML);
+
+      /*("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
+         "function addFavoriteTopicSuccess(res){{" +
+         "jQuery('#dvFavorite1').html({0});" +
+         "jQuery('#dvFavorite2').html({0});}}").FormatWith(UntagButtonHTML);*/
     }
 
     /// <summary>
@@ -257,21 +415,45 @@ function toggleMessage(divId)
     /// <returns>
     /// The add thanks js.
     /// </returns>
-    public static string addThanksJs(string removeThankBoxHTML)
+    public static string addThanksJs([NotNull] string removeThankBoxHTML)
     {
-        return
-            @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+      return
+        @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
           function addThanksSuccess(res){{if (res.d != null) {{
                    jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
                    jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-                .FormatWith(removeThankBoxHTML);
+          .FormatWith(removeThankBoxHTML);
 
-        /*   @"function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}
+      /*   @"function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}
           function addThanksSuccess(res){{if (res.value != null) {{
                    jQuery('#dvThanks' + res.value.MessageID).html(res.value.Thanks);
                    jQuery('#dvThanksInfo' + res.value.MessageID).html(res.value.ThanksInfo);
                    jQuery('#dvThankBox' + res.value.MessageID).html({0});}}}}".FormatWith(RemoveThankBoxHTML);*/
+    }
+
+    /// <summary>
+    /// script for the remove Favorite Topic button
+    /// </summary>
+    /// <param name="tagButtonHTML">
+    /// HTML code for the "Tag As a Favorite" button
+    /// </param>
+    /// <returns>
+    /// The remove Favorite Topic js.
+    /// </returns>
+    public static string removeFavoriteTopicJs([NotNull] string tagButtonHTML)
+    {
+      return
+        @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+          function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
+                   jQuery('#dvFavorite1').html({0});
+                   jQuery('#dvFavorite2').html({0});}}}}"
+          .FormatWith(tagButtonHTML);
+
+      /*("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
+           "function removeFavoriteTopicSuccess(res){{" +
+           "jQuery('#dvFavorite1').html({0});" +
+           "jQuery('#dvFavorite2').html({0});}}").FormatWith(TagButtonHTML);*/
     }
 
     /// <summary>
@@ -283,165 +465,23 @@ function toggleMessage(divId)
     /// <returns>
     /// The remove thanks js.
     /// </returns>
-    public static string removeThanksJs(string addThankBoxHTML)
+    public static string removeThanksJs([NotNull] string addThankBoxHTML)
     {
       return
         @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
           function removeThanksSuccess(res){{if (res.d != null) {{
                    jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}".FormatWith(addThankBoxHTML);
+                   jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
+          .FormatWith(addThankBoxHTML);
 
-        /*@"function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}
+      /*@"function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}
          function removeThanksSuccess(res){{if (res.value != null) {{
          jQuery('#dvThanks' + res.value.MessageID).html(res.value.Thanks);
          jQuery('#dvThanksInfo' + res.value.MessageID).html(res.value.ThanksInfo);
          jQuery('#dvThankBox' + res.value.MessageID).html(0});}}}}".FormatWith(AddThankBoxHTML);*/
     }
 
-      /// <summary>
-      /// script for the add Favorite Topic button
-      /// </summary>
-      /// <param name="untagButtonHTML">HTML code for the "Untag As Favorite" button
-      /// </param>
-      /// <returns>
-      /// The add Favorite Topic js.
-      /// </returns>
-      public static string addFavoriteTopicJs(string untagButtonHTML)
-      {
-          return
-              @"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
-          function addFavoriteTopicSuccess(res){{if (res.d != null) {{
-                   jQuery('#dvFavorite1').html({0});
-                   jQuery('#dvFavorite2').html({0});}}}}"
-                  .FormatWith(untagButtonHTML);
-
-          /*("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
-         "function addFavoriteTopicSuccess(res){{" +
-         "jQuery('#dvFavorite1').html({0});" +
-         "jQuery('#dvFavorite2').html({0});}}").FormatWith(UntagButtonHTML);*/
-      }
-
-    /// <summary>
-    /// script for the remove Favorite Topic button
-    /// </summary>
-    /// <param name="tagButtonHTML">
-    /// HTML code for the "Tag As a Favorite" button
-    /// </param>
-    /// <returns>
-    /// The remove Favorite Topic js.
-    /// </returns>
-    public static string removeFavoriteTopicJs(string tagButtonHTML)
-    {
-        return
-            @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
-          function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
-                   jQuery('#dvFavorite1').html({0});
-                   jQuery('#dvFavorite2').html({0});}}}}"
-                .FormatWith(tagButtonHTML);
-
-        /*("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
-           "function removeFavoriteTopicSuccess(res){{" +
-           "jQuery('#dvFavorite1').html({0});" +
-           "jQuery('#dvFavorite2').html({0});}}").FormatWith(TagButtonHTML);*/
-    }
-
-      /// <summary>
-      /// Javascript events for Album pages.
-      /// </summary>
-    public static string AlbumEventsJs(string AlbumEmptyTitle, string ImageEmptyCaption)
-      {
-              return ("function showTexBox(spnTitleId){{" + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));" +
-                      "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));" +
-                      "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);" +
-                      "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}" +
-                      "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}" + 
-                     
-                      "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
-                      "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';" +
-                      "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}" +
-
-                      "function checkKey(event, handler, id, isAlbum){{" + 
-                      "if ((event.keyCode == 13) || (event.which == 13)){{" +
-                      "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; " +
-                      "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
-                      "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}" +
-                      "else resetBox(handler.id, isAlbum);}}" +
-                      "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}" +
-                     
-                      "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
-                      "if (spnTitleVar.firstChild != null){{" + 
-                      "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
-                      "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}" +
-                      "else resetBox(txtTitleId, isAlbum);}}" + 
-                      "else resetBox(txtTitleId, isAlbum);}}").FormatWith(AlbumEmptyTitle, ImageEmptyCaption);
-      }
-
-      /// <summary>
-      /// Gets the script for changing the album title.
-      /// </summary>
-      /// <returns>
-      /// the change album title js.
-      /// </returns>
-      public static string ChangeAlbumTitleJs
-      {
-          get
-          {
-              return @"function changeAlbumTitle(albumId, txtTitleId){{
-                     var albId = albumId;var newTitleTxt = jQuery('#' + txtTitleId).val();
-                     jQuery.PageMethod('YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}";
-                    // YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
-          }
-      }
-
-      /// <summary>
-      /// Gets the script for changing the image caption.
-      /// </summary>
-      /// <returns></returns>
-      public static string ChangeImageCaptionJs
-      {
-          get
-          {
-              return
-              @"function changeImageCaption(imageID, txtTitleId){{
-              var imgId = imageID;var newImgTitleTxt = jQuery('#' + txtTitleId).val();
-              jQuery.PageMethod('YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}";
-
-              // YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
-          }
-      }
-
-      /// <summary>
-      /// Gets the script for album/image title/image callback.
-      /// </summary>
-      /// <returns>
-      /// the callback success js.
-      /// </returns>
-      public static string AlbumCallbackSuccessJS
-      {
-          get
-          {
-              return
-                  @"function changeTitleSuccess(res){{
-                  spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
-                  txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
-                  spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
-                  txtTitleVar.disabled = false;
-                  spnTitleVar.style.display = 'inline';
-                  txtTitleVar.style.display='none';}}";
-          }
-
-          /*get
-          {
-              return
-                  "function changeTitleSuccess(res){{" +
-                  "spnTitleVar = document.getElementById('spnTitle' + res.value.Id);" +
-                  "txtTitleVar = document.getElementById('txtTitle' + res.value.Id);" +
-                  "spnTitleVar.firstChild.nodeValue = res.value.NewTitle;" +
-                  "txtTitleVar.disabled = false;" +
-                  "spnTitleVar.style.display = 'inline';" +
-                  "txtTitleVar.style.display='none';}}";
-          }*/
-      }
+    #endregion
   }
 }

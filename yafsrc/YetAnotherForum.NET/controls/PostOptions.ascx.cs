@@ -22,8 +22,8 @@ namespace YAF.Controls
 
   using System;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
+  using YAF.Core;
+  using YAF.Types;
 
   #endregion
 
@@ -67,7 +67,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsQuestionChecked.
+    ///   Gets or sets a value indicating whether IsQuestionChecked.
     /// </summary>
     public bool IsQuestionChecked
     {
@@ -83,7 +83,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsQuestionVisible.
+    ///   Gets or sets a value indicating whether IsQuestionVisible.
     /// </summary>
     public bool IsQuestionVisible
     {
@@ -153,7 +153,7 @@ namespace YAF.Controls
     {
       get
       {
-          return this.liAddPoll.Visible;
+        return this.liAddPoll.Visible;
       }
 
       set
