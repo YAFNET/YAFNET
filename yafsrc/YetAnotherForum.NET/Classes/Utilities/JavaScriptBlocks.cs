@@ -394,11 +394,11 @@ function toggleMessage(divId)
     public static string addFavoriteTopicJs([NotNull] string untagButtonHTML)
     {
       return
-        @"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+        @"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}/YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function addFavoriteTopicSuccess(res){{if (res.d != null) {{
                    jQuery('#dvFavorite1').html({0});
                    jQuery('#dvFavorite2').html({0});}}}}"
-          .FormatWith(untagButtonHTML);
+          .FormatWith(untagButtonHTML, YafForumInfo.ForumClientFileRoot);
 
       /*("function addFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
          "function addFavoriteTopicSuccess(res){{" +
@@ -418,12 +418,12 @@ function toggleMessage(divId)
     public static string addThanksJs([NotNull] string removeThankBoxHTML)
     {
       return
-        @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+        @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}/YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
           function addThanksSuccess(res){{if (res.d != null) {{
                    jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
                    jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-          .FormatWith(removeThankBoxHTML);
+          .FormatWith(removeThankBoxHTML, YafForumInfo.ForumClientFileRoot);
 
       /*   @"function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}
           function addThanksSuccess(res){{if (res.value != null) {{
@@ -444,11 +444,11 @@ function toggleMessage(divId)
     public static string removeFavoriteTopicJs([NotNull] string tagButtonHTML)
     {
       return
-        @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+        @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}/YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
                    jQuery('#dvFavorite1').html({0});
                    jQuery('#dvFavorite2').html({0});}}}}"
-          .FormatWith(tagButtonHTML);
+          .FormatWith(tagButtonHTML, YafForumInfo.ForumClientFileRoot);
 
       /*("function removeFavoriteTopic(topicID){{YAF.Classes.Core.IFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
            "function removeFavoriteTopicSuccess(res){{" +
@@ -468,12 +468,12 @@ function toggleMessage(divId)
     public static string removeThanksJs([NotNull] string addThankBoxHTML)
     {
       return
-        @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
+        @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}/YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
           function removeThanksSuccess(res){{if (res.d != null) {{
                    jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
                    jQuery('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-          .FormatWith(addThankBoxHTML);
+          .FormatWith(addThankBoxHTML, YafForumInfo.ForumClientFileRoot);
 
       /*@"function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}
          function removeThanksSuccess(res){{if (res.value != null) {{
