@@ -17,16 +17,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   using System;
   using System.Data;
-  using System.Linq;
   using System.Web;
   using System.Web.Security;
 
+  using YAF.Classes;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Utils.Structures;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// This is a stop-gap class to help with syncing operations
@@ -186,7 +194,7 @@ namespace YAF.Classes.Core
     /// </param>
     public static void ClearCacheForUserId(long userId)
     {
-      YafContext.Current.UserDisplayName.Clear((int)userId);
+      YafContext.Current.Get<IUserDisplayName>().Clear((int)userId);
       YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey("UserListForID{0}".FormatWith(userId)));
 
       string cacheKey =

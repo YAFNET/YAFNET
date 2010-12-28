@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -24,15 +24,21 @@ namespace YAF.Classes.Core
   using System.Data;
   using System.Web.Security;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
   /// Helps get a complete user profile from various locations
   /// </summary>
-  public class CombinedUserDataHelper
+  public class CombinedUserDataHelper : IUserData
   {
     #region Constants and Fields
 
@@ -107,7 +113,7 @@ namespace YAF.Classes.Core
     ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
     /// </summary>
     public CombinedUserDataHelper()
-      : this(YafContext.Current.PageUserID)
+      : this((int)YafContext.Current.PageUserID)
     {
     }
 
@@ -389,7 +395,7 @@ namespace YAF.Classes.Core
     /// <summary>
     ///   Gets Profile.
     /// </summary>
-    public YafUserProfile Profile
+    public IYafUserProfile Profile
     {
       get
       {

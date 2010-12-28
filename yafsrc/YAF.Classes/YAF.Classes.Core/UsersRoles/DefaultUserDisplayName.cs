@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -26,9 +26,10 @@ namespace YAF.Classes.Core
   using System.Linq;
 
   using YAF.Classes.Data;
-  using YAF.Classes.Extensions;
-  using YAF.Classes.Interfaces;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -40,16 +41,16 @@ namespace YAF.Classes.Core
     #region Constants and Fields
 
     /// <summary>
-    /// The _user display name collection.
+    ///   The _user display name collection.
     /// </summary>
-    private Dictionary<int, string> _userDisplayNameCollection = null;
+    private Dictionary<int, string> _userDisplayNameCollection;
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets UserDisplayNameCollection.
+    ///   Gets UserDisplayNameCollection.
     /// </summary>
     private Dictionary<int, string> UserDisplayNameCollection
     {
@@ -71,6 +72,29 @@ namespace YAF.Classes.Core
     #region Implemented Interfaces
 
     #region IUserDisplayName
+
+    /// <summary>
+    /// Remove the item from collection
+    /// </summary>
+    /// <param name="userId">
+    /// </param>
+    public void Clear(int userId)
+    {
+      // update collection...
+      if (this.UserDisplayNameCollection.ContainsKey(userId))
+      {
+        this.UserDisplayNameCollection.Remove(userId);
+      }
+    }
+
+    /// <summary>
+    /// Remove all the items from the collection
+    /// </summary>
+    public void Clear()
+    {
+      // update collection...
+      this.UserDisplayNameCollection.Clear();
+    }
 
     /// <summary>
     /// The find.
@@ -115,11 +139,14 @@ namespace YAF.Classes.Core
         return userId;
       }
 
-      if (this.UserDisplayNameCollection.Any(x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
+      if (
+        this.UserDisplayNameCollection.Any(
+          x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
       {
         userId =
-          this.UserDisplayNameCollection.Where(x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).
-            FirstOrDefault().Key;
+          this.UserDisplayNameCollection.Where(
+            x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault().
+            Key;
       }
       else
       {
@@ -196,28 +223,6 @@ namespace YAF.Classes.Core
       }
 
       return displayName;
-    }
-
-    /// <summary>
-    /// Remove the item from collection
-    /// </summary>
-    /// <param name="userId"></param>
-    public void Clear(int userId)
-    {
-      // update collection...
-      if (this.UserDisplayNameCollection.ContainsKey(userId))
-      {
-        this.UserDisplayNameCollection.Remove(userId);
-      }      
-    }
-
-    /// <summary>
-    /// Remove all the items from the collection
-    /// </summary>
-    public void Clear()
-    {
-      // update collection...
-      this.UserDisplayNameCollection.Clear();
     }
 
     #endregion

@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   using System;
   using System.Data;
@@ -25,8 +25,13 @@ namespace YAF.Classes.Core
   using System.Threading;
   using System.Web.Security;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
 
   /// <summary>
   /// The role membership helper.
