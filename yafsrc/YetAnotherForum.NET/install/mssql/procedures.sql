@@ -2001,7 +2001,7 @@ BEGIN
 				(a.Flags & 24) = 16
 				AND b.IsDeleted = 0 
 				AND d.BoardID = @BoardID 
-				AND c.[IsNoCount] <> (CASE WHEN @ShowNoCountPosts > 0 THEN 0 ELSE 1 END)
+				AND c.[IsNoCount] <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 1 END)
 			ORDER BY
 				a.Posted DESC
 		END
