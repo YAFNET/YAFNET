@@ -125,7 +125,6 @@
     <Compile Include="Objects\TypedPollGroup.cs" />
     <Compile Include="Objects\TypedSmileyList.cs" />
     <Compile Include="Objects\TypedTopicSimpleList.cs" />
-    <Compile Include="Objects\TypedUserFind.cs" />
     <Compile Include="Objects\TypedUserList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />

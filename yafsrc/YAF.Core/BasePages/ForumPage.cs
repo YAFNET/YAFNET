@@ -378,9 +378,7 @@ namespace YAF.Core
     /// </returns>
     public string GetCollapsiblePanelImageURL(string panelID, CollapsiblePanelState defaultState)
     {
-      // TODO: Fix Collapsible Panel Image Url.
-      //return this.PageContext.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
-      return String.Empty;
+      return this.PageContext.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
     }
 
     /// <summary>

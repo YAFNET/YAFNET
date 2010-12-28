@@ -22,8 +22,6 @@ namespace YAF.Core
 
   using Autofac;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-
   #endregion
 
   /// <summary>

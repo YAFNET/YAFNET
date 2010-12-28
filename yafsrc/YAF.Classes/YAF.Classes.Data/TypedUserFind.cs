@@ -23,6 +23,9 @@ namespace YAF.Types.Objects
   using System;
   using System.Data;
 
+  using YAF.Classes;
+  using YAF.Utils;
+
   #endregion
 
   /// <summary>
@@ -70,10 +73,8 @@ namespace YAF.Types.Objects
       this.NotificationType = row.Field<int?>("NotificationType");
       this.DailyDigest = row.Field<bool?>("DailyDigest");
       this.IsGuest = (row.Field<int?>("IsGuest") ?? 0) == 1;
-
-      // TODO: Abstract!
-      //this.ProviderUserKey = this.IsGuest ? null : ObjectExtensions.ConvertObjectToType(
-      //  row.Field<string>("ProviderUserKey"), Config.ProviderKeyType);
+      this.ProviderUserKey = this.IsGuest ? null : ObjectExtensions.ConvertObjectToType(
+        row.Field<string>("ProviderUserKey"), Config.ProviderKeyType);
     }
 
     #endregion
