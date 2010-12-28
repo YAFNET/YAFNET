@@ -16,49 +16,55 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Controls
+namespace YAF.Core
 {
+  #region Using
+
   using System;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
-  /// Control derived from Panel that includes a reference to the <see cref="YafContext"/>.
+  /// Control derived from Panel that includes a reference to the <see cref="Core.YafContext"/>.
   /// </summary>
-  public class BasePanel : Panel
+  public class BasePanel : Panel, IHaveServiceLocator
   {
+    #region Properties
+
     /// <summary>
-    /// Gets PageContext.
+    ///   Gets PageContext.
     /// </summary>
     public YafContext PageContext
     {
       get
       {
-        return this.PageContext();
+        return YafContext.Current;
       }
     }
 
+    #endregion
+
+    #region Implementation of IHaveServiceLocator
+
     /// <summary>
-    /// Creates a Unique ID
+    /// Gets ServiceLocator.
     /// </summary>
-    /// <param name="prefix">
-    /// </param>
-    /// <returns>
-    /// The get unique id.
-    /// </returns>
-    public string GetUniqueID(string prefix)
+    public IServiceLocator ServiceLocator
     {
-      if (prefix.IsSet())
+      get
       {
-        return prefix + Guid.NewGuid().ToString().Substring(0, 5);
-      }
-      else
-      {
-        return Guid.NewGuid().ToString().Substring(0, 10);
+        return this.PageContext.ServiceLocator;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Creates a ID Based on the Control Structure
@@ -68,13 +74,13 @@ namespace YAF.Controls
     /// <returns>
     /// The get extended id.
     /// </returns>
-    public string GetExtendedID(string prefix)
+    public string GetExtendedID([NotNull] string prefix)
     {
       string createdID = null;
 
       if (this.ID.IsSet())
       {
-        createdID = ID + "_";
+        createdID = this.ID + "_";
       }
 
       if (prefix.IsSet())
@@ -88,5 +94,27 @@ namespace YAF.Controls
 
       return createdID;
     }
+
+    /// <summary>
+    /// Creates a Unique ID
+    /// </summary>
+    /// <param name="prefix">
+    /// </param>
+    /// <returns>
+    /// The get unique id.
+    /// </returns>
+    public string GetUniqueID([NotNull] string prefix)
+    {
+      if (prefix.IsSet())
+      {
+        return prefix + Guid.NewGuid().ToString().Substring(0, 5);
+      }
+      else
+      {
+        return Guid.NewGuid().ToString().Substring(0, 10);
+      }
+    }
+
+    #endregion
   }
 }

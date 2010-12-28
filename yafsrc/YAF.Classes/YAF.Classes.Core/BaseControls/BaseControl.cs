@@ -17,30 +17,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Controls
+namespace YAF.Core
 {
+  #region Using
+
   using System;
   using System.Web.UI;
-  using YAF.Classes.Core;
-  using YAF.Classes.Interfaces;
+
+  using YAF.Types.Interfaces;
+
+  #endregion
 
   /// <summary>
   /// Summary description for BaseControl.
   /// </summary>
-  public class BaseControl : Control, IRaiseControlLifeCycles
+  public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator
   {
+    #region Properties
+
     /// <summary>
-    /// Gets PageContext.
+    ///   Gets PageContext.
     /// </summary>
     public YafContext PageContext
     {
       get
       {
-        return this.PageContext();
+        return YafContext.Current;
       }
     }
 
-    #region Implementation of IRaiseControlLifeCycles
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IRaiseControlLifeCycles
 
     /// <summary>
     /// The raise init.
@@ -64,6 +74,23 @@ namespace YAF.Controls
     void IRaiseControlLifeCycles.RaisePreRender()
     {
       this.OnPreRender(new EventArgs());
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Implementation of IHaveServiceLocator
+
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return this.PageContext.ServiceLocator;
+      }
     }
 
     #endregion

@@ -16,21 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
   using System;
   using System.Web.UI;
 
-  using YAF.Classes.Interfaces;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
   /// The base user control.
   /// </summary>
-  public class BaseUserControl : UserControl, IRaiseControlLifeCycles
+  public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator
   {
     #region Properties
 
@@ -41,7 +41,22 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this.PageContext();
+        return YafContext.Current;
+      }
+    }
+
+    #endregion
+
+    #region Implementation of IHaveServiceLocator
+
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return this.PageContext.ServiceLocator;
       }
     }
 
