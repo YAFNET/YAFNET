@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B9CF38B0-39CF-43C7-9589-166DCC665652}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YAF.Types</RootNamespace>
+    <AssemblyName>YAF.Types</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Annotations.cs" />
+    <Compile Include="Attributes\AltStringValueAttribute.cs" />
+    <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
+    <Compile Include="Attributes\StringValueAttribute.cs" />
+    <Compile Include="Attributes\YafModule.cs" />
+    <Compile Include="BadWordReplaceItem.cs" />
+    <Compile Include="CodeContracts.cs" />
+    <Compile Include="Constants\CollapsiblePanelState.cs" />
+    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\DateTimeFormat.cs" />
+    <Compile Include="Constants\EventLogTypes.cs" />
+    <Compile Include="Constants\ForumPages.cs" />
+    <Compile Include="Constants\SearchFieldFlags.cs" />
+    <Compile Include="Constants\SearchWhatFlags.cs" />
+    <Compile Include="Constants\UserNotificationSetting.cs" />
+    <Compile Include="Constants\ViewPermissions.cs" />
+    <Compile Include="Constants\YafRssFeeds.cs" />
+    <Compile Include="Constants\YafSyndicationFormats.cs" />
+    <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
+    <Compile Include="Flags\AccessFlags.cs" />
+    <Compile Include="Flags\ActiveFlags.cs" />
+    <Compile Include="Flags\FlagsBase.cs" />
+    <Compile Include="Flags\ForumFlags.cs" />
+    <Compile Include="Flags\GroupFlags.cs" />
+    <Compile Include="Flags\MedalFlags.cs" />
+    <Compile Include="Flags\MessageFlags.cs" />
+    <Compile Include="Flags\PollFlags.cs" />
+    <Compile Include="Flags\PollGroupFlags.cs" />
+    <Compile Include="Flags\RankFlags.cs" />
+    <Compile Include="Flags\TopicFlags.cs" />
+    <Compile Include="Flags\UserFlags.cs" />
+    <Compile Include="Handlers\YafDBConnInfoMessageEventArgs.cs" />
+    <Compile Include="Handlers\YafDBConnInfoMessageEventHandler.cs" />
+    <Compile Include="EventProxies\SimpleEvent.cs" />
+    <Compile Include="Interfaces\Events\IAmEvent.cs" />
+    <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
+    <Compile Include="Interfaces\Events\IFireEvent.cs" />
+    <Compile Include="Interfaces\IAvatars.cs" />
+    <Compile Include="Interfaces\IBadWordReplace.cs" />
+    <Compile Include="Interfaces\IBaseContext.cs" />
+    <Compile Include="Interfaces\IEditorModule.cs" />
+    <Compile Include="Interfaces\IBaseForumModule.cs" />
+    <Compile Include="Interfaces\IBaseModule.cs" />
+    <Compile Include="Interfaces\IDataTableResultFilter.cs" />
+    <Compile Include="Interfaces\IDateTime.cs" />
+    <Compile Include="Interfaces\IDBBroker.cs" />
+    <Compile Include="Interfaces\IDigest.cs" />
+    <Compile Include="Interfaces\IFavoriteTopic.cs" />
+    <Compile Include="Interfaces\Events\IHandleEvent.cs" />
+    <Compile Include="Interfaces\IHaveServiceLocator.cs" />
+    <Compile Include="Interfaces\ILocalization.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IModuleManager.cs" />
+    <Compile Include="Interfaces\IPanelSessionState.cs" />
+    <Compile Include="Interfaces\IPermissions.cs" />
+    <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
+    <Compile Include="Interfaces\IRequestSecure.cs" />
+    <Compile Include="Interfaces\ISendMail.cs" />
+    <Compile Include="Interfaces\ISendNotification.cs" />
+    <Compile Include="Interfaces\IServiceLocator.cs" />
+    <Compile Include="Interfaces\IStartupService.cs" />
+    <Compile Include="Interfaces\IStopWatch.cs" />
+    <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\IUrlBuilder.cs" />
+    <Compile Include="Interfaces\IUserData.cs" />
+    <Compile Include="Interfaces\IUserDisplayName.cs" />
+    <Compile Include="Interfaces\IUserIgnored.cs" />
+    <Compile Include="Interfaces\IYafDBAccess.cs" />
+    <Compile Include="Interfaces\IYafDBConnManager.cs" />
+    <Compile Include="Interfaces\IYafSession.cs" />
+    <Compile Include="Interfaces\ITheme.cs" />
+    <Compile Include="Interfaces\IYafUserProfile.cs" />
+    <Compile Include="LanguageResources.cs" />
+    <Compile Include="Objects\PollSaveList.cs" />
+    <Compile Include="Objects\SimpleForum.cs" />
+    <Compile Include="Objects\SimpleModerator.cs" />
+    <Compile Include="Objects\SimpleTopic.cs" />
+    <Compile Include="Objects\TypedAllThanks.cs" />
+    <Compile Include="Objects\TypedForumListAll.cs" />
+    <Compile Include="Objects\TypedMailList.cs" />
+    <Compile Include="Objects\TypedMessageList.cs" />
+    <Compile Include="Objects\TypedPollGroup.cs" />
+    <Compile Include="Objects\TypedSmileyList.cs" />
+    <Compile Include="Objects\TypedTopicSimpleList.cs" />
+    <Compile Include="Objects\TypedUserFind.cs" />
+    <Compile Include="Objects\TypedUserList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
+    <Compile Include="YafLifetimeScope.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
