@@ -124,6 +124,15 @@ namespace YAF.Types.Interfaces
     string GetText(string page, string tag);
 
     /// <summary>
+    /// Gets text with a language file.
+    /// </summary>
+    /// <param name="page"></param>
+    /// <param name="tag"></param>
+    /// <param name="languageFile"></param>
+    /// <returns></returns>
+    string GetText(string page, string tag, string languageFile);
+
+    /// <summary>
     /// The get text exists.
     /// </summary>
     /// <param name="page">
