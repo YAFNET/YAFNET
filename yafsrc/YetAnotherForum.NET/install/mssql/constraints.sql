@@ -1050,8 +1050,8 @@ if not exists (select top 1 1 from  dbo.sysobjects where name='FK_{objectQualifi
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] add constraint [FK_{objectQualifier}Thanks_{objectQualifier}User] foreign key (ThanksFromUserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
 
-if not exists (select top 1 1 from  dbo.sysobjects where name=N'FK_{objectQualifier}MesageHistory_MessageID' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-    ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageHistory] ADD CONSTRAINT [FK_{objectQualifier}MesageHistory_MessageID] FOREIGN KEY([MessageID]) REFERENCES [{databaseOwner}].[{objectQualifier}Message] ([MessageID]) on delete cascade
+if not exists (select top 1 1 from  dbo.sysobjects where name=N'FK_{objectQualifier}MessageHistory_MessageID' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageHistory] ADD CONSTRAINT [FK_{objectQualifier}MessageHistory_MessageID] FOREIGN KEY([MessageID]) REFERENCES [{databaseOwner}].[{objectQualifier}Message] ([MessageID]) on delete cascade
 GO
 
 /* Default Constraints */
