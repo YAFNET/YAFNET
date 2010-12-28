@@ -19,7 +19,7 @@
  */
 using System.Text.RegularExpressions;
 
-namespace YAF.Classes.Core.Nntp
+namespace YAF.Core.Nntp
 {
   #region Using
 
@@ -27,8 +27,10 @@ namespace YAF.Classes.Core.Nntp
   using System.Data;
   using System.Web;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types.Interfaces;
 
   #endregion
 
