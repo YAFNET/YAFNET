@@ -16,24 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Data;
-using System.Linq;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-  using YAF.Controls;
+  #region Using
+
+  using System.Data;
+  using System.Linq;
+  using System.Web.UI;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+
+  #endregion
 
   /// <summary>
   /// Provides an Online/Offline status for a YAF User
   /// </summary>
   public class OnlineStatusImage : ThemeImage
   {
+    #region Properties
+
     /// <summary>
-    /// The userid of the user.
+    ///   The userid of the user.
     /// </summary>
     public int UserID
     {
@@ -48,39 +56,47 @@ namespace YAF.Controls
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
     /// The render.
     /// </summary>
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
-      LocalizedTitlePage = "POSTS";
+      this.LocalizedTitlePage = "POSTS";
 
       if (Visible)
       {
         string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
         DataTable activeUsers = PageContext.Cache.GetItem(
-          key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
+          key, 
+          (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, 
+          () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
 
-        if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == UserID && !x.Field<bool>("IsHidden")))
+        if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == this.UserID && !x.Field<bool>("IsHidden")))
         {
           // online
-          LocalizedTitleTag = "USERONLINESTATUS";
-          ThemeTag = "USER_ONLINE";
-          Alt = "Online";
+          this.LocalizedTitleTag = "USERONLINESTATUS";
+          this.ThemeTag = "USER_ONLINE";
+          this.Alt = "Online";
         }
         else
         {
           // offline
-          LocalizedTitleTag = "USEROFFLINESTATUS";
-          ThemeTag = "USER_OFFLINE";
-          Alt = "Offline";
+          this.LocalizedTitleTag = "USEROFFLINESTATUS";
+          this.ThemeTag = "USER_OFFLINE";
+          this.Alt = "Offline";
         }
       }
 
       base.Render(output);
     }
+
+    #endregion
   }
 }

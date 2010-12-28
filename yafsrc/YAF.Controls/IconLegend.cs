@@ -16,24 +16,48 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Web.UI;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
+
+  #endregion
+
   /// <summary>
   /// Summary description for ForumUsers.
   /// </summary>
   public class IconLegend : BaseControl
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="IconLegend"/> class.
+    ///   Initializes a new instance of the <see cref = "IconLegend" /> class.
     /// </summary>
     public IconLegend()
     {
-      Load += new EventHandler(IconLegend_Load);
+      Load += new EventHandler(this.IconLegend_Load);
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter writer)
+    {
+      base.Render(writer);
     }
 
     /// <summary>
@@ -45,13 +69,15 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void IconLegend_Load(object sender, EventArgs e)
+    private void IconLegend_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       string[] themeImageTags = {
-                                  "TOPIC_NEW", "TOPIC", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT", "TOPIC_STICKY", "TOPIC_MOVED", "TOPIC_POLL"
+                                  "TOPIC_NEW", "TOPIC", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT", 
+                                  "TOPIC_STICKY", "TOPIC_MOVED", "TOPIC_POLL"
                                 };
       string[] localizedTags = {
-                                 "NEW_POSTS", "NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT", "STICKY", "MOVED", "POLL"
+                                 "NEW_POSTS", "NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT", 
+                                 "STICKY", "MOVED", "POLL"
                                };
 
       HtmlTableRow tr = null;
@@ -64,7 +90,7 @@ namespace YAF.Controls
 
       for (int i = 0; i < themeImageTags.Length; i++)
       {
-        if ((i%2) == 0 || tr == null)
+        if ((i % 2) == 0 || tr == null)
         {
           // add <tr>
           tr = new HtmlTableRow();
@@ -92,15 +118,6 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
-    {
-      base.Render(writer);
-    }
+    #endregion
   }
 }

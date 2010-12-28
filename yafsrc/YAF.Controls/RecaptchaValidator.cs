@@ -28,9 +28,10 @@ namespace YAF.Controls
   using System.Text;
   using System.Web;
 
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
 
   #endregion
 
@@ -42,27 +43,22 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The verify url.
+    ///   The verify url.
     /// </summary>
     private const string VerifyUrl = "http://api-verify.recaptcha.net/verify";
 
     /// <summary>
-    /// The challenge.
+    ///   The challenge.
     /// </summary>
     private string challenge;
 
     /// <summary>
-    /// The private key.
-    /// </summary>
-    private string privateKey;
-
-    /// <summary>
-    /// The remote ip.
+    ///   The remote ip.
     /// </summary>
     private string remoteIp;
 
     /// <summary>
-    /// The response.
+    ///   The response.
     /// </summary>
     private string response;
 
@@ -71,7 +67,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets or sets Challenge.
+    ///   Gets or sets Challenge.
     /// </summary>
     public string Challenge
     {
@@ -87,25 +83,14 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets PrivateKey.
+    ///   Gets or sets PrivateKey.
     /// </summary>
-    public string PrivateKey
-    {
-      get
-      {
-        return this.privateKey;
-      }
-
-      set
-      {
-        this.privateKey = value;
-      }
-    }
+    public string PrivateKey { get; set; }
 
     /// <summary>
-    /// Gets or sets RemoteIP.
+    ///   Gets or sets RemoteIP.
     /// </summary>
-    /// <exception cref="ArgumentException">
+    /// <exception cref = "ArgumentException">
     /// </exception>
     public string RemoteIP
     {
@@ -129,7 +114,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Response.
+    ///   Gets or sets Response.
     /// </summary>
     public string Response
     {
@@ -173,11 +158,13 @@ namespace YAF.Controls
       request.Method = "POST";
       request.UserAgent = "reCAPTCHA/ASP.NET";
       request.ContentType = "application/x-www-form-urlencoded";
-      string s = "privatekey={0}&remoteip={1}&challenge={2}&response={3}".FormatWith(new object[]
-        {
-          HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), 
-          HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response)
-        });
+      string s =
+        "privatekey={0}&remoteip={1}&challenge={2}&response={3}".FormatWith(
+          new object[]
+            {
+              HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), 
+              HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response)
+            });
       byte[] bytes = Encoding.ASCII.GetBytes(s);
       using (Stream stream = request.GetRequestStream())
       {
@@ -227,7 +214,7 @@ namespace YAF.Controls
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    private void CheckNotNull(object obj, string name)
+    private void CheckNotNull([NotNull] object obj, [NotNull] string name)
     {
       if (obj == null)
       {

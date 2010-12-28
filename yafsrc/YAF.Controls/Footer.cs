@@ -17,46 +17,39 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System.Text;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System.Text;
+  using System.Web.UI;
+
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Classes.Data;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+
+  #endregion
+
   /// <summary>
   /// Summary description for Footer.
   /// </summary>
   public class Footer : BaseControl
   {
-    /// <summary>
-    /// The _simple render.
-    /// </summary>
-    private bool _simpleRender = false;
-
-    #region IYafFooter Members
+    #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether SimpleRender.
+    ///   Gets or sets a value indicating whether SimpleRender.
     /// </summary>
-    public bool SimpleRender
-    {
-      get
-      {
-        return this._simpleRender;
-      }
-
-      set
-      {
-        this._simpleRender = value;
-      }
-    }
+    public bool SimpleRender { get; set; }
 
     /// <summary>
-    /// Gets ThisControl.
+    ///   Gets ThisControl.
     /// </summary>
+    [NotNull]
     public Control ThisControl
     {
       get
@@ -67,13 +60,15 @@ namespace YAF.Controls
 
     #endregion
 
+    #region Methods
+
     /// <summary>
     /// The render.
     /// </summary>
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       if (!this.SimpleRender)
       {
@@ -89,14 +84,14 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected void RenderRegular(ref HtmlTextWriter writer)
+    protected void RenderRegular([NotNull] ref HtmlTextWriter writer)
     {
       // BEGIN FOOTER
       var footer = new StringBuilder();
 
       // get the theme credit info from the theme file
       // it's not really an error if it doesn't exist
-      string themeCredit = PageContext.Theme.GetItem("THEME", "CREDIT", null);
+      string themeCredit = this.PageContext.Theme.GetItem("THEME", "CREDIT", null);
 
       this.Get<IStopWatch>().Stop();
 
@@ -111,7 +106,7 @@ namespace YAF.Controls
         br = true;
       }
 
-      if (PageContext.CurrentForumPage.IsAdminPage)
+      if (this.PageContext.CurrentForumPage.IsAdminPage)
       {
         if (br)
         {
@@ -133,22 +128,23 @@ namespace YAF.Controls
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
-            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"),
-            PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE")));
+            YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"), 
+            this.PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE")));
       }
-      else if (PageContext.Vars.ContainsKey("IsMobile") && PageContext.Vars["IsMobile"] != null && PageContext.Vars["IsMobile"].ToType<bool>())
+      else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null &&
+               this.PageContext.Vars["IsMobile"].ToType<bool>())
       {
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
-            YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"),
-            PageContext.Localization.GetText("COMMON", "MOBILE_VIEWSITE")));           
+            YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"), 
+            this.PageContext.Localization.GetText("COMMON", "MOBILE_VIEWSITE")));
       }
 
       footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
-      footer.Append(PageContext.Localization.GetText("COMMON", "POWERED_BY"));
+      footer.Append(this.PageContext.Localization.GetText("COMMON", "POWERED_BY"));
       footer.Append(@" YAF");
 
-      if (PageContext.BoardSettings.ShowYAFVersion)
+      if (this.PageContext.BoardSettings.ShowYAFVersion)
       {
         footer.AppendFormat(" {0} ", YafForumInfo.AppVersionName);
         if (Config.IsDotNetNuke)
@@ -174,16 +170,17 @@ namespace YAF.Controls
         "YetAnotherForum.NET", 
         "http://www.yetanotherforum.net");
 
-      if (PageContext.BoardSettings.ShowPageGenerationTime)
+      if (this.PageContext.BoardSettings.ShowPageGenerationTime)
       {
         footer.Append("<br />");
-        footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
+        footer.AppendFormat(
+          this.PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
       }
 
       footer.Append(@"</div>");
 
 #if DEBUG
-      if (PageContext.IsAdmin)
+      if (this.PageContext.IsAdmin)
       {
         footer.AppendFormat(
           @"<br /><br /><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
@@ -193,7 +190,7 @@ namespace YAF.Controls
           @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
           QueryCounter.Count, 
           QueryCounter.Duration, 
-          (100*QueryCounter.Duration)/this.Get<IStopWatch>().Duration, 
+          (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration, 
           QueryCounter.Commands);
         footer.Append("</div>");
       }
@@ -203,5 +200,7 @@ namespace YAF.Controls
       // write CSS, Refresh, then header...
       writer.Write(footer);
     }
+
+    #endregion
   }
 }

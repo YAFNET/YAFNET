@@ -28,10 +28,15 @@ namespace YAF.Controls
   using System.Web.UI;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
   using YAF.Classes.Data;
-  using YAF.Controls;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -43,22 +48,22 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The current data row.
+    ///   The current data row.
     /// </summary>
     private DataRow _row;
 
     /// <summary>
-    /// Instance of the style transformation class
+    ///   Instance of the style transformation class
     /// </summary>
-    private StyleTransform _styleTransforum;
+    private IStyleTransform _styleTransforum;
 
     /// <summary>
-    /// The _user profile.
+    ///   The _user profile.
     /// </summary>
     private YafUserProfile _userProfile;
 
     /// <summary>
-    /// The _message flags.
+    ///   The _message flags.
     /// </summary>
     private MessageFlags messageFlags;
 
@@ -67,7 +72,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets or sets DataRow.
+    ///   Gets or sets DataRow.
     /// </summary>
     public DataRow DataRow
     {
@@ -84,13 +89,14 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets PageCache.
+    ///   Gets or sets PageCache.
     /// </summary>
     public Hashtable PageCache { get; set; }
 
     /// <summary>
-    /// Gets or sets CachedUserBox.
+    ///   Gets or sets CachedUserBox.
     /// </summary>
+    [CanBeNull]
     protected string CachedUserBox
     {
       get
@@ -146,7 +152,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets UserId.
+    ///   Gets UserId.
     /// </summary>
     protected int UserId
     {
@@ -162,7 +168,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets UserProfile.
+    ///   Gets UserProfile.
     /// </summary>
     protected YafUserProfile UserProfile
     {
@@ -179,7 +185,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets a value indicating whether PostDeleted.
+    ///   Gets a value indicating whether PostDeleted.
     /// </summary>
     private bool PostDeleted
     {
@@ -190,15 +196,15 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Refines style string from other skins info
+    ///   Refines style string from other skins info
     /// </summary>
-    private StyleTransform TransformStyle
+    private IStyleTransform TransformStyle
     {
       get
       {
         if (this._styleTransforum == null)
         {
-          this._styleTransforum = new StyleTransform(YafContext.Current.Theme);
+          this._styleTransforum = this.Get<IStyleTransform>();
         }
 
         return this._styleTransforum;
@@ -241,12 +247,12 @@ namespace YAF.Controls
 
       // Groups
       userBox = this.MatchUserBoxGroups(userBox, roleRankStyleTable);
-     
+
       // ThanksFrom
       userBox = this.MatchUserBoxThanksFrom(userBox);
 
       // ThanksTo
-      userBox = this.MatchUserBoxThanksTo(userBox);     
+      userBox = this.MatchUserBoxThanksTo(userBox);
 
       if (!this.PostDeleted)
       {
@@ -258,11 +264,11 @@ namespace YAF.Controls
         userBox = this.MatchUserBoxPostCount(userBox);
 
         // Points
-        userBox = this.MatchUserBoxPoints(userBox); 
+        userBox = this.MatchUserBoxPoints(userBox);
 
         // Gender
         userBox = this.MatchUserBoxGender(userBox);
-       
+
         // Location
         userBox = this.MatchUserBoxLocation(userBox);
       }
@@ -272,26 +278,7 @@ namespace YAF.Controls
       }
 
       // vzrus: to remove empty dividers  
-      return RemoveEmptyDividers(userBox);
-
-    }
-
-   
-    private string RemoveEmptyDividers(string userBox)
-    {
-        if (userBox.IndexOf(@"<div class=""section""></div>") > 0)
-        {
-            if (userBox.IndexOf(@"<div class=""section""></div><br />") > 0)
-            {
-                userBox = userBox.Replace(@"<div class=""section""></div><br />", String.Empty);
-            }
-            else
-            {
-                userBox = userBox.Replace(@"<div class=""section""></div>", String.Empty);
-            }
-        }
-
-        return userBox;
+      return this.RemoveEmptyDividers(userBox);
     }
 
     /// <summary>
@@ -300,7 +287,7 @@ namespace YAF.Controls
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
       output.WriteLine(@"<div class=""yafUserBox"" id=""{0}"">".FormatWith(this.ClientID));
 
@@ -329,7 +316,8 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box avatar.
     /// </returns>
-    private string MatchUserBoxAvatar(string userBox)
+    [NotNull]
+    private string MatchUserBoxAvatar([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Avatar);
@@ -340,7 +328,9 @@ namespace YAF.Controls
 
         if (avatarUrl.IsSet())
         {
-          filler = this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(String.Format(@"<img class=""avatarimage"" src=""{0}"" alt="""" />", avatarUrl));
+          filler =
+            this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(
+              @"<img class=""avatarimage"" src=""{0}"" alt="""" />".FormatWith(avatarUrl));
         }
       }
 
@@ -358,7 +348,8 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box clear all.
     /// </returns>
-    private string MatchUserBoxClearAll(string userBox)
+    [NotNull]
+    private string MatchUserBoxClearAll([NotNull] string userBox)
     {
       string filler = string.Empty;
 
@@ -376,7 +367,51 @@ namespace YAF.Controls
       userBox = rx.Replace(userBox, filler);
 
       // vzrus: to remove empty dividers  
-      return RemoveEmptyDividers(userBox);
+      return this.RemoveEmptyDividers(userBox);
+    }
+
+    /// <summary>
+    /// The match user box gender.
+    /// </summary>
+    /// <param name="userBox">
+    /// The user box.
+    /// </param>
+    /// <returns>
+    /// The match user box gender.
+    /// </returns>
+    [NotNull]
+    private string MatchUserBoxGender([NotNull] string userBox)
+    {
+      string filler = string.Empty;
+      var rx = new Regex(Constants.UserBox.Gender);
+      int userGender = this.UserProfile.Gender;
+      string imagePath = string.Empty;
+      string imageAlt = string.Empty;
+
+      if (this.PageContext.BoardSettings.AllowGenderInUserBox)
+      {
+        if (userGender > 0)
+        {
+          if (userGender == 1)
+          {
+            imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
+            imageAlt = this.PageContext.Localization.GetText("USERGENDER_MAS");
+          }
+          else if (userGender == 2)
+          {
+            imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
+            imageAlt = this.PageContext.Localization.GetText("USERGENDER_FEM");
+          }
+
+          filler =
+            this.PageContext.BoardSettings.UserBoxGender.FormatWith(
+              @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
+        }
+      }
+
+      // replaces template placeholder with actual image
+      userBox = rx.Replace(userBox, filler);
+      return userBox;
     }
 
     /// <summary>
@@ -391,7 +426,8 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box groups.
     /// </returns>
-    private string MatchUserBoxGroups(string userBox, DataTable roleStyleTable)
+    [NotNull]
+    private string MatchUserBoxGroups([NotNull] string userBox, [NotNull] DataTable roleStyleTable)
     {
       const string StyledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
 
@@ -447,7 +483,8 @@ namespace YAF.Controls
           roleStyle = null;
         }
 
-        filler = this.PageContext.BoardSettings.UserBoxGroups.FormatWith(this.PageContext.Localization.GetText("groups"), groupsText);
+        filler = this.PageContext.BoardSettings.UserBoxGroups.FormatWith(
+          this.PageContext.Localization.GetText("groups"), groupsText);
 
         // mddubs : 02/21/2009
         // Remove the space before the first comma when multiple groups exist.
@@ -455,42 +492,6 @@ namespace YAF.Controls
       }
 
       // replaces template placeholder with actual groups
-      userBox = rx.Replace(userBox, filler);
-      return userBox;
-    }
-
-     private string MatchUserBoxGender(string userBox)
-    {
-      string filler = string.Empty;
-      var rx = new Regex(Constants.UserBox.Gender);
-      int userGender = UserProfile.Gender;
-      string imagePath = string.Empty;
-      string imageAlt = string.Empty;
-
-      if (this.PageContext.BoardSettings.AllowGenderInUserBox)
-      {
-          if (userGender > 0)
-          {
-
-              if (userGender == 1)
-              {
-                  imagePath = this.PageContext.Theme.GetItem("ICONS", "GENDER_MALE", null);
-                  imageAlt = this.PageContext.Localization.GetText("USERGENDER_MAS");
-              }
-              else if (userGender == 2)
-              {
-                  imagePath = this.PageContext.Theme.GetItem("ICONS", "GENDER_FEMALE", null);
-                  imageAlt = this.PageContext.Localization.GetText("USERGENDER_FEM");
-              }
-
-              filler = this.PageContext.BoardSettings.UserBoxGender.FormatWith(String.Format(
-                @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>",
-                imagePath, imageAlt));
-
-          }
-      }
-
-      // replaces template placeholder with actual image
       userBox = rx.Replace(userBox, filler);
       return userBox;
     }
@@ -504,14 +505,18 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box joined date.
     /// </returns>
-    private string MatchUserBoxJoinedDate(string userBox)
+    [NotNull]
+    private string MatchUserBoxJoinedDate([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.JoinDate);
 
       if (this.PageContext.BoardSettings.DisplayJoinDate)
       {
-        filler = this.PageContext.BoardSettings.UserBoxJoinDate.FormatWith(this.PageContext.Localization.GetText("joined"), this.Get<IDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]));
+        filler =
+          this.PageContext.BoardSettings.UserBoxJoinDate.FormatWith(
+            this.PageContext.Localization.GetText("joined"), 
+            this.Get<IDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]));
       }
 
       // replaces template placeholder with actual join date
@@ -528,14 +533,18 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box location.
     /// </returns>
-    private string MatchUserBoxLocation(string userBox)
+    [NotNull]
+    private string MatchUserBoxLocation([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Location);
 
       if (!this.UserProfile.Location.IsNotSet())
       {
-        filler = this.PageContext.BoardSettings.UserBoxLocation.FormatWith(this.PageContext.Localization.GetText("location"), YafFormatMessage.RepairHtml(this.UserProfile.Location, false));
+        filler =
+          this.PageContext.BoardSettings.UserBoxLocation.FormatWith(
+            this.PageContext.Localization.GetText("location"), 
+            YafFormatMessage.RepairHtml(this.UserProfile.Location, false));
       }
 
       // replaces template placeholder with actual location
@@ -552,7 +561,8 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box medals.
     /// </returns>
-    private string MatchUserBoxMedals(string userBox)
+    [NotNull]
+    private string MatchUserBoxMedals([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Medals);
@@ -564,7 +574,7 @@ namespace YAF.Controls
         // vzrus: If user doesn't have we shouldn't render this waisting resources
         if (dt.Rows.Count <= 0)
         {
-            return rx.Replace(userBox, filler);
+          return rx.Replace(userBox, filler);
         }
 
         var ribbonBar = new StringBuilder(500);
@@ -639,7 +649,8 @@ namespace YAF.Controls
           i++;
         }
 
-        filler = this.PageContext.BoardSettings.UserBoxMedals.FormatWith(this.PageContext.Localization.GetText("MEDALS"), ribbonBar, medals);
+        filler = this.PageContext.BoardSettings.UserBoxMedals.FormatWith(
+          this.PageContext.Localization.GetText("MEDALS"), ribbonBar, medals);
       }
 
       // replaces template placeholder with actual medals
@@ -657,13 +668,15 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box points.
     /// </returns>
-    private string MatchUserBoxPoints(string userBox)
+    [NotNull]
+    private string MatchUserBoxPoints([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Points);
       if (this.PageContext.BoardSettings.DisplayPoints)
       {
-        filler = this.PageContext.BoardSettings.UserBoxPoints.FormatWith(this.PageContext.Localization.GetText("points"), this.DataRow["Points"]);
+        filler = this.PageContext.BoardSettings.UserBoxPoints.FormatWith(
+          this.PageContext.Localization.GetText("points"), this.DataRow["Points"]);
       }
 
       // replaces template placeholder with actual points
@@ -680,15 +693,19 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box post count.
     /// </returns>
-    private string MatchUserBoxPostCount(string userBox)
+    [NotNull]
+    private string MatchUserBoxPostCount([NotNull] string userBox)
     {
       var rx = new Regex(Constants.UserBox.Posts);
 
       // vzrus: should not display posts count string if the user post only in a forum with no post count?
       // if ((int)this.DataRow["Posts"] > 0)
       // {
-          string filler = this.PageContext.BoardSettings.UserBoxPosts.FormatWith(this.PageContext.Localization.GetText("posts"), this.DataRow["Posts"]);
-     // }
+      string filler =
+        this.PageContext.BoardSettings.UserBoxPosts.FormatWith(
+          this.PageContext.Localization.GetText("posts"), this.DataRow["Posts"]);
+
+      // }
 
       // replaces template placeholder with actual post count
       userBox = rx.Replace(userBox, filler);
@@ -707,7 +724,8 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box rank.
     /// </returns>
-    private string MatchUserBoxRank(string userBox, DataTable roleStyleTable)
+    [NotNull]
+    private string MatchUserBoxRank([NotNull] string userBox, [NotNull] DataTable roleStyleTable)
     {
       string rankStyle = null;
 
@@ -727,11 +745,14 @@ namespace YAF.Controls
       var rx = new Regex(Constants.UserBox.Rank);
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(this.PageContext.Localization.GetText("rank"), string.Format(@"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>", this.DataRow["RankName"], rankStyle));
+        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(
+          this.PageContext.Localization.GetText("rank"), 
+          @"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>".FormatWith(this.DataRow["RankName"], rankStyle));
       }
       else
       {
-        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(this.PageContext.Localization.GetText("rank"), this.DataRow["RankName"]);
+        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(
+          this.PageContext.Localization.GetText("rank"), this.DataRow["RankName"]);
       }
 
       // replaces template placeholder with actual rank
@@ -748,18 +769,17 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box rank images.
     /// </returns>
-    private string MatchUserBoxRankImages(string userBox)
+    [NotNull]
+    private string MatchUserBoxRankImages([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.RankImage);
 
       if (!this.DataRow["RankImage"].IsNullOrEmptyDBField())
       {
-        filler = this.PageContext.BoardSettings.UserBoxRankImage.FormatWith(String.Format(
-          @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", 
-          YafForumInfo.ForumClientFileRoot, 
-          YafBoardFolders.Current.Ranks, 
-          this.DataRow["RankImage"]));
+        filler =
+          this.PageContext.BoardSettings.UserBoxRankImage.FormatWith(
+            @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.DataRow["RankImage"]));
       }
 
       // replaces template placeholder with actual rank image
@@ -776,20 +796,27 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box thanks from.
     /// </returns>
-    private string MatchUserBoxThanksFrom(string userBox)
+    [NotNull]
+    private string MatchUserBoxThanksFrom([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.ThanksFrom);
 
       // vzrus: should not display if no thanks?
-      if (PageContext.BoardSettings.EnableThanksMod)
+      if (this.PageContext.BoardSettings.EnableThanksMod)
       {
-       if ((int)this.DataRow["ThanksFromUserNumber"] > 0 )
-       {
-          filler = this.PageContext.BoardSettings.UserBoxThanksFrom.FormatWith(String.Format(this.UserProfile.Gender == 1 ? this.PageContext.Localization.GetText("thanksfrom_musc") : (this.UserProfile.Gender == 2 ? this.PageContext.Localization.GetText("thanksfrom_fem") : this.PageContext.Localization.GetText("thanksfrom")), this.DataRow["ThanksFromUserNumber"]));
-       }
-     }
-     
+        if ((int)this.DataRow["ThanksFromUserNumber"] > 0)
+        {
+          filler =
+            this.PageContext.BoardSettings.UserBoxThanksFrom.FormatWith(
+              (this.UserProfile.Gender == 1
+                 ? this.PageContext.Localization.GetText("thanksfrom_musc")
+                 : (this.UserProfile.Gender == 2
+                      ? this.PageContext.Localization.GetText("thanksfrom_fem")
+                      : this.PageContext.Localization.GetText("thanksfrom"))).FormatWith(this.DataRow["ThanksFromUserNumber"]));
+        }
+      }
+
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
 
@@ -805,25 +832,52 @@ namespace YAF.Controls
     /// <returns>
     /// String with Thanks string added to UserBox .
     /// </returns>
-    private string MatchUserBoxThanksTo(string userBox)
+    [NotNull]
+    private string MatchUserBoxThanksTo([NotNull] string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.ThanksTo);
 
       // vzrus: should not display if no thanks?
-       if (PageContext.BoardSettings.EnableThanksMod)
+      if (this.PageContext.BoardSettings.EnableThanksMod)
       {
-      if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
-       {
- 
-          filler = this.PageContext.BoardSettings.UserBoxThanksTo.FormatWith(String.Format(
-            this.PageContext.Localization.GetText("thanksto"),
-            this.DataRow["ThanksToUserNumber"],
-            this.DataRow["ThanksToUserPostsNumber"]));
+        if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
+        {
+          filler =
+            this.PageContext.BoardSettings.UserBoxThanksTo.FormatWith(
+              this.PageContext.Localization.GetText("thanksto").FormatWith(this.DataRow["ThanksToUserNumber"], this.DataRow["ThanksToUserPostsNumber"]));
+        }
       }
-     }
+
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
+
+      return userBox;
+    }
+
+    /// <summary>
+    /// The remove empty dividers.
+    /// </summary>
+    /// <param name="userBox">
+    /// The user box.
+    /// </param>
+    /// <returns>
+    /// The remove empty dividers.
+    /// </returns>
+    [NotNull]
+    private string RemoveEmptyDividers([NotNull] string userBox)
+    {
+      if (userBox.IndexOf(@"<div class=""section""></div>") > 0)
+      {
+        if (userBox.IndexOf(@"<div class=""section""></div><br />") > 0)
+        {
+          userBox = userBox.Replace(@"<div class=""section""></div><br />", String.Empty);
+        }
+        else
+        {
+          userBox = userBox.Replace(@"<div class=""section""></div>", String.Empty);
+        }
+      }
 
       return userBox;
     }

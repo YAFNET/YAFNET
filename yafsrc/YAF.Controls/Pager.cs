@@ -25,9 +25,11 @@ namespace YAF.Controls
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -161,7 +163,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets the current item index.
+    ///   Gets the current item index.
     /// </summary>
     public int SkipIndex
     {
@@ -192,6 +194,7 @@ namespace YAF.Controls
     /// </summary>
     /// <exception cref = "Exception">
     /// </exception>
+    [CanBeNull]
     protected Pager CurrentLinkedPager
     {
       get
@@ -224,7 +227,7 @@ namespace YAF.Controls
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    public void RaisePostBackEvent(string eventArgument)
+    public void RaisePostBackEvent([NotNull] string eventArgument)
     {
       if (this.LinkedPager != null)
       {
@@ -251,7 +254,7 @@ namespace YAF.Controls
     /// <param name="toPager">
     /// The to pager.
     /// </param>
-    protected void CopyPagerSettings(Pager toPager)
+    protected void CopyPagerSettings([NotNull] Pager toPager)
     {
       toPager.Count = this.Count;
       toPager.CurrentPageIndex = this.CurrentPageIndex;
@@ -310,14 +313,15 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
       base.OnInit(e);
 
       if (!this._ignorePageIndex && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p") != null)
       {
         // set a new page...
-        this.CurrentPageIndex = (int)Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
+        this.CurrentPageIndex =
+          (int)Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
       }
 
       this._pageLabel.ID = this.GetExtendedID("PageLabel");
@@ -336,7 +340,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnLoad(EventArgs e)
+    protected override void OnLoad([NotNull] EventArgs e)
     {
       base.OnLoad(e);
 
@@ -380,13 +384,15 @@ gotoForm.fadeIn( 'slow', function() {{
   jQuery('#{1}').focus();
 }});
 }};
-".FormatWith(this._gotoPageForm.ClientID, this._gotoPageForm.GotoTextBoxClientID);
+"
+          .FormatWith(this._gotoPageForm.ClientID, this._gotoPageForm.GotoTextBoxClientID);
 
       // register...
       this.PageContext.PageElements.RegisterJsBlock("OpenGotoPageFormJs", modalFunction);
       this.PageContext.PageElements.RegisterJsBlockStartup(
         @"LoadPagerForm_{0}".FormatWith(this.ClientID), 
-        @"Sys.Application.add_load(function() {{ jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }}); }});".FormatWith(this._pageLabel.ClientID));
+        @"Sys.Application.add_load(function() {{ jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }}); }});".
+          FormatWith(this._pageLabel.ClientID));
     }
 
     /// <summary>
@@ -395,7 +401,7 @@ gotoForm.fadeIn( 'slow', function() {{
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
       if (this.LinkedPager != null)
       {
@@ -464,7 +470,7 @@ gotoForm.fadeIn( 'slow', function() {{
     /// <param name="postBack">
     /// The post back.
     /// </param>
-    private void OutputLinks(HtmlTextWriter output, bool postBack)
+    private void OutputLinks([NotNull] HtmlTextWriter output, bool postBack)
     {
       int iStart = this.CurrentPageIndex - 2;
       int iEnd = this.CurrentPageIndex + 3;
@@ -566,7 +572,7 @@ gotoForm.fadeIn( 'slow', function() {{
     /// <param name="e">
     /// The e.
     /// </param>
-    private void _gotoPageForm_GotoPageClick(object sender, GotoPageForumEventArgs e)
+    private void _gotoPageForm_GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
     {
       int newPage = e.GotoPage - 1;
 

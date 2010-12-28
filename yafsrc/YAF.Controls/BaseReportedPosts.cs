@@ -24,11 +24,12 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -158,7 +159,7 @@ namespace YAF.Controls
               this.PageContext.Localization.GetText("RESOLVEDBY"), 
               YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)), 
               !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy)))
-                ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy)))
+                ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(Convert.ToInt32(this.ResolvedBy)))
                 : this.Server.HtmlEncode(resolvedByName), 
               this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
             writer.WriteLine(@"</td></tr>");
@@ -169,7 +170,7 @@ namespace YAF.Controls
           writer.Write(
             @"<span class=""YafReported_Complainer"">{3}</span><a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>", 
             !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])))
-              ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])))
+              ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(Convert.ToInt32(reporter["UserID"])))
               : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), 
             howMany, 
@@ -221,7 +222,7 @@ namespace YAF.Controls
           writer.Write(
             @"<a class=""YafReported_Link"" href=""{1}"">{2} {0}</a>", 
             !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])))
-              ? this.Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])))
+              ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(Convert.ToInt32(reporter["UserID"])))
               : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
             YafBuildLink.GetLink(
               ForumPages.pmessage, "u={0}&r={1}", Convert.ToInt32(reporter["UserID"]), this.MessageID), 

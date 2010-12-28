@@ -24,9 +24,10 @@ namespace YAF.Controls
   using System.Collections.Generic;
   using System.Web.UI;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core.Services;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Flags;
 
   #endregion
 
@@ -35,22 +36,10 @@ namespace YAF.Controls
   /// </summary>
   public class MessagePost : MessageBase
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MessagePost"/> class.
-    /// </summary>
-    public MessagePost()
-      : base()
-    {
-    }
-
-    #endregion
-
     #region Properties
 
     /// <summary>
-    /// Gets or sets DisplayUserID.
+    ///   Gets or sets DisplayUserID.
     /// </summary>
     public virtual int? DisplayUserID
     {
@@ -71,8 +60,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Words to highlight in this message
+    ///   Words to highlight in this message
     /// </summary>
+    [CanBeNull]
     public virtual IList<string> HighlightWords
     {
       get
@@ -92,7 +82,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsModeratorChanged.
+    ///   Gets or sets a value indicating whether IsModeratorChanged.
     /// </summary>
     public virtual bool IsModeratorChanged
     {
@@ -113,7 +103,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Message.
+    ///   Gets or sets Message.
     /// </summary>
     public virtual string Message
     {
@@ -134,7 +124,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets MessageFlags.
+    ///   Gets or sets MessageFlags.
     /// </summary>
     public virtual MessageFlags MessageFlags
     {
@@ -155,7 +145,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Signature.
+    ///   Gets or sets Signature.
     /// </summary>
     public virtual string Signature
     {
@@ -180,12 +170,33 @@ namespace YAF.Controls
     #region Methods
 
     /// <summary>
+    /// Highlight a Message
+    /// </summary>
+    /// <param name="message">
+    /// The Message to Hightlight
+    /// </param>
+    /// <returns>
+    /// The Message with the Span Tag and Css Class "highlight" that Hightlights it
+    /// </returns>
+    protected virtual string HighlightMessage([NotNull] string message)
+    {
+      if (this.HighlightWords.Count > 0)
+      {
+        // highlight word list
+        message = YafFormatMessage.SurroundWordList(
+          message, this.HighlightWords, @"<span class=""highlight"">", @"</span>");
+      }
+
+      return message;
+    }
+
+    /// <summary>
     /// The on pre render.
     /// </summary>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
       if (this.Signature.IsSet())
       {
@@ -202,7 +213,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       writer.BeginRender();
       writer.WriteBeginTag("div");
@@ -224,7 +235,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected virtual void RenderDeletedMessage(HtmlTextWriter writer)
+    protected virtual void RenderDeletedMessage([NotNull] HtmlTextWriter writer)
     {
       // if message was deleted then write that instead of real body
       if (this.MessageFlags.IsDeleted)
@@ -241,22 +252,6 @@ namespace YAF.Controls
         }
       }
     }
-    /// <summary>
-    /// Highlight a Message
-    /// </summary>
-    /// <param name="message">The Message to Hightlight</param>
-    /// <returns>The Message with the Span Tag and Css Class "highlight" that Hightlights it</returns>
-    protected virtual string HighlightMessage(string message)
-    {
-      if (this.HighlightWords.Count > 0)
-      {
-        // highlight word list
-        message = YafFormatMessage.SurroundWordList(
-          message, this.HighlightWords, @"<span class=""highlight"">", @"</span>");
-      }
-
-      return message;
-    }
 
     /// <summary>
     /// The render message.
@@ -264,7 +259,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected virtual void RenderMessage(HtmlTextWriter writer)
+    protected virtual void RenderMessage([NotNull] HtmlTextWriter writer)
     {
       if (this.MessageFlags.IsDeleted)
       {
@@ -277,7 +272,7 @@ namespace YAF.Controls
       }
       else
       {
-        string formattedMessage = HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags));
+        string formattedMessage = this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags));
 
         if (this.MessageFlags.IsBBCode)
         {

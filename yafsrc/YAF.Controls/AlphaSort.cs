@@ -16,38 +16,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-  using YAF.Classes.Core;
+  #region Using
+
+  using System;
+  using System.Web;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+
+  #endregion
 
   /// <summary>
   /// Control displaying list of letters and/or characters for filtering list of members.
   /// </summary>
   public class AlphaSort : BaseControl
   {
-    #region Constructors
+    #region Properties
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AlphaSort"/> class. 
-    /// Default constructor
-    /// </summary>
-    public AlphaSort()
-    {
-    }
-
-    #endregion
-
-    #region Page Arguments
-
-    /// <summary>
-    /// Gets actually selected letter.
+    ///   Gets actually selected letter.
     /// </summary>
     public char CurrentLetter
     {
@@ -73,7 +68,7 @@ namespace YAF.Controls
 
     #endregion
 
-    #region Control Load & Rendering
+    #region Methods
 
     /// <summary>
     /// Raises the Load event.
@@ -81,7 +76,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnLoad(EventArgs e)
+    protected override void OnLoad([NotNull] EventArgs e)
     {
       // IMPORTANT: call base implementation - calls event handlers
       base.OnLoad(e);
@@ -94,52 +89,52 @@ namespace YAF.Controls
       table.Width = "100%";
 
       // add table to our control so it can be rendered
-      Controls.Add(table);
+      this.Controls.Add(table);
 
       // get the localized character set
-      string[] charSet = PageContext.Localization.GetText("LANGUAGE", "CHARSET").Split('/');
+      string[] charSet = this.PageContext.Localization.GetText("LANGUAGE", "CHARSET").Split('/');
 
       for (int i = 0; i < charSet.Length; i++)
       {
-      // create row for letters and attach it to the table
-      var tr = new HtmlTableRow();
-      table.Controls.Add(tr);      
-     
-          // get the current selected character (if there is one)
-          char selectedLetter = CurrentLetter;
+        // create row for letters and attach it to the table
+        var tr = new HtmlTableRow();
+        table.Controls.Add(tr);
 
-          // go through all letters in a set
-          foreach (char letter in charSet[i])
+        // get the current selected character (if there is one)
+        char selectedLetter = this.CurrentLetter;
+
+        // go through all letters in a set
+        foreach (char letter in charSet[i])
+        {
+          // create cell for the letter and define its properties
+          var cell = new HtmlTableCell();
+          cell.Align = "center";
+
+          // is letter selected?
+          if (selectedLetter != char.MinValue && selectedLetter == letter)
           {
-              // create cell for the letter and define its properties
-              var cell = new HtmlTableCell();
-              cell.Align = "center";
-
-              // is letter selected?
-              if (selectedLetter != char.MinValue && selectedLetter == letter)
-              {
-                  // current letter is selected, use specified style
-                  cell.Attributes["class"] = "postheader";
-              }
-              else
-              {
-                  // regular non-selected letter
-                  cell.Attributes["class"] = "post";
-              }
-
-              // create a link to this letter
-              var link = new HyperLink();
-              link.Text = letter.ToString();
-              link.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.members, "letter={0}", letter == '#' ? '_' : letter);
-
-              // add link to the cell
-              cell.Controls.Add(link);
-
-              // add this cell to the row
-              tr.Cells.Add(cell);
+            // current letter is selected, use specified style
+            cell.Attributes["class"] = "postheader";
           }
+          else
+          {
+            // regular non-selected letter
+            cell.Attributes["class"] = "post";
+          }
+
+          // create a link to this letter
+          var link = new HyperLink();
+          link.Text = letter.ToString();
+          link.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            ForumPages.members, "letter={0}", letter == '#' ? '_' : letter);
+
+          // add link to the cell
+          cell.Controls.Add(link);
+
+          // add this cell to the row
+          tr.Cells.Add(cell);
+        }
       }
-  
     }
 
     #endregion

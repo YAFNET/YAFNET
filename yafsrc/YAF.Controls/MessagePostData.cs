@@ -24,8 +24,10 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Flags;
 
   #endregion
 
@@ -37,38 +39,26 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The _row.
+    ///   The _row.
     /// </summary>
-    private DataRow _row = null;
+    private DataRow _row;
 
     /// <summary>
-    /// The _show attachments.
+    ///   The _show attachments.
     /// </summary>
     private bool _showAttachments = true;
 
     /// <summary>
-    /// The _show signature.
+    ///   The _show signature.
     /// </summary>
     private bool _showSignature = true;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MessagePostData"/> class.
-    /// </summary>
-    public MessagePostData()
-      : base()
-    {
-    }
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    /// Gets or sets DataRow.
+    ///   Gets or sets DataRow.
     /// </summary>
     public DataRow DataRow
     {
@@ -88,7 +78,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets Edited.
+    ///   Gets Edited.
     /// </summary>
     public DateTime Edited
     {
@@ -104,7 +94,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets Message.
+    ///   Gets Message.
     /// </summary>
     public override string Message
     {
@@ -122,7 +112,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets Posted.
+    ///   Gets Posted.
     /// </summary>
     public DateTime Posted
     {
@@ -138,7 +128,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether ShowAttachments.
+    ///   Gets or sets a value indicating whether ShowAttachments.
     /// </summary>
     public bool ShowAttachments
     {
@@ -154,7 +144,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether ShowSignature.
+    ///   Gets or sets a value indicating whether ShowSignature.
     /// </summary>
     public bool ShowSignature
     {
@@ -170,8 +160,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets Signature.
+    ///   Gets Signature.
     /// </summary>
+    [CanBeNull]
     public override string Signature
     {
       get
@@ -201,7 +192,7 @@ namespace YAF.Controls
     /// <returns>
     /// The truncate message.
     /// </returns>
-    public static string TruncateMessage(string message)
+    public static string TruncateMessage([NotNull] string message)
     {
       // validate the size...
       if (YafContext.Current.BoardSettings.MaxPostSize < 0)
@@ -235,7 +226,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
       if (this.DataRow != null && !this.MessageFlags.IsDeleted)
       {
@@ -251,16 +242,16 @@ namespace YAF.Controls
           var attached = new MessageAttached();
           attached.MessageID = Convert.ToInt32(this.DataRow["MessageID"]);
 
-          if  (this.DataRow["UserID"] != DBNull.Value && PageContext.BoardSettings.EnableDisplayName)
+          if (this.DataRow["UserID"] != DBNull.Value && PageContext.BoardSettings.EnableDisplayName)
           {
-             attached.UserName = UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.DataRow["UserID"]));
+            attached.UserName = UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.DataRow["UserID"]));
           }
           else
           {
-              attached.UserName = this.DataRow["UserName"].ToString();
+            attached.UserName = this.DataRow["UserName"].ToString();
           }
 
-            this.Controls.Add(attached);
+          this.Controls.Add(attached);
         }
       }
 
@@ -273,7 +264,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void RenderMessage(HtmlTextWriter writer)
+    protected override void RenderMessage([NotNull] HtmlTextWriter writer)
     {
       if (this.DataRow != null)
       {
@@ -306,13 +297,16 @@ namespace YAF.Controls
           {
             this.RenderModulesInBBCode(
               writer, 
-              this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
+              this.HighlightMessage(
+                YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
               this.MessageFlags, 
               this.DisplayUserID);
           }
           else
           {
-            writer.Write(HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
+            writer.Write(
+              this.HighlightMessage(
+                YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
           }
         }
         else
@@ -321,7 +315,10 @@ namespace YAF.Controls
           if (this.MessageFlags.IsBBCode)
           {
             this.RenderModulesInBBCode(
-              writer, this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags)), this.MessageFlags, this.DisplayUserID);
+              writer, 
+              this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags)), 
+              this.MessageFlags, 
+              this.DisplayUserID);
           }
           else
           {

@@ -26,9 +26,11 @@ namespace YAF.Controls
   using System.Web;
   using System.Web.UI;
 
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -79,7 +81,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       writer.BeginRender();
       writer.WriteBeginTag("div");
@@ -103,19 +105,23 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected void RenderAttachedFiles(HtmlTextWriter writer)
+    protected void RenderAttachedFiles([NotNull] HtmlTextWriter writer)
     {
       string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
       string stats = this.PageContext.Localization.GetText("ATTACHMENTINFO");
-      string strFileIcon = this.PageContext.Theme.GetItem("ICONS", "ATTACHED_FILE");
+      string strFileIcon = this.PageContext.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
 
       string attachGroupId = Guid.NewGuid().ToString().Substring(0, 5);
 
-      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
-      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
-      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
-      YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] = this.PageContext.Localization.LanguageFileName;
+      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewWidth"] =
+        this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
+      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewHeight"] =
+        this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
+      YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewCropped"] =
+        this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
+      YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] =
+        this.PageContext.Localization.LanguageFileName;
 
       using (DataTable attachListDT = DB.attachment_list(this.MessageID, null, null))
       {
@@ -148,7 +154,7 @@ namespace YAF.Controls
                 writer.Write(@"<div class=""imgtitle"">");
                 writer.Write(
                   this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
-                   this.HtmlEncode(Convert.ToString(this.UserName))));
+                    this.HtmlEncode(Convert.ToString(this.UserName))));
                 writer.Write("</div>");
                 bFirstItem = false;
               }
@@ -166,17 +172,17 @@ namespace YAF.Controls
                 else
                 {
                   // TommyB: Start MOD: Preview Images
-                    writer.Write(
-                        @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
-                            .FormatWith(
-                                YafForumInfo.ForumClientFileRoot,
-                                dr["AttachmentID"],
-                                "{0} {1}".FormatWith(
-                                    this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
-                                        this.HtmlEncode(Convert.ToString(this.UserName))),
-                                    this.HtmlEncode(dr["FileName"]))));
+                  writer.Write(
+                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>"
+                      .FormatWith(
+                        YafForumInfo.ForumClientFileRoot, 
+                        dr["AttachmentID"], 
+                        "{0} {1}".FormatWith(
+                          this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
+                            this.HtmlEncode(Convert.ToString(this.UserName))), 
+                          this.HtmlEncode(dr["FileName"]))));
 
-                    // TommyB: End MOD: Preview Images
+                  // TommyB: End MOD: Preview Images
                 }
               }
               else

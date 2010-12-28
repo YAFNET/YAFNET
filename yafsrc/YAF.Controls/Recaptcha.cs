@@ -8,6 +8,8 @@
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
+  using YAF.Types;
+
   #endregion
 
   /// <summary>
@@ -18,78 +20,69 @@
     #region Constants and Fields
 
     /// <summary>
-    /// The recaptch a_ challeng e_ field.
+    ///   The recaptch a_ challeng e_ field.
     /// </summary>
     private const string RECAPTCHA_CHALLENGE_FIELD = "recaptcha_challenge_field";
 
     /// <summary>
-    /// The recaptch a_ host.
+    ///   The recaptch a_ host.
     /// </summary>
     private const string RECAPTCHA_HOST = "http://api.recaptcha.net";
 
     /// <summary>
-    /// The recaptch a_ respons e_ field.
+    ///   The recaptch a_ respons e_ field.
     /// </summary>
     private const string RECAPTCHA_RESPONSE_FIELD = "recaptcha_response_field";
 
     /// <summary>
-    /// The recaptch a_ secur e_ host.
+    ///   The recaptch a_ secur e_ host.
     /// </summary>
     private const string RECAPTCHA_SECURE_HOST = "https://api-secure.recaptcha.net";
 
     /// <summary>
-    /// The allow multiple instances.
+    ///   The allow multiple instances.
     /// </summary>
     private bool allowMultipleInstances;
 
     // = YafContext.Current.BoardSettings.RecaptureMultipleInstances;
     /// <summary>
-    /// The custom theme widget.
+    ///   The custom theme widget.
     /// </summary>
     private string customThemeWidget;
 
     /// <summary>
-    /// The error message.
+    ///   The error message.
     /// </summary>
     private string errorMessage;
 
     /// <summary>
-    /// The language.
+    ///   The language.
     /// </summary>
     private string language;
 
     /// <summary>
-    /// The override secure mode.
+    ///   The override secure mode.
     /// </summary>
     private bool overrideSecureMode;
 
-    /// <summary>
-    /// The private key.
-    /// </summary>
-    private string privateKey;
-
     // = YafContext.Current.BoardSettings.RecaptchaPrivateKey; 
     // ConfigurationManager.AppSettings["RecaptchaPrivateKey"];
-    /// <summary>
-    /// The public key.
-    /// </summary>
-    private string publicKey;
 
     // = YafContext.Current.BoardSettings.RecaptchaPublicKey;
     // ConfigurationManager.AppSettings["RecaptchaPublicKey"];
 
     /// <summary>
-    /// The recaptcha response.
+    ///   The recaptcha response.
     /// </summary>
     private RecaptchaResponse recaptchaResponse;
 
     /// <summary>
-    /// The skip recaptcha.
+    ///   The skip recaptcha.
     /// </summary>
     private bool skipRecaptcha;
 
     /// <summary>
-    /// The theme.
+    ///   The theme.
     /// </summary>
     private string theme;
 
@@ -98,7 +91,7 @@
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RecaptchaControl"/> class.
+    ///   Initializes a new instance of the <see cref = "RecaptchaControl" /> class.
     /// </summary>
     public RecaptchaControl()
     {
@@ -115,7 +108,7 @@
     #region Properties
 
     /// <summary>
-    /// Gets or sets a value indicating whether AllowMultipleInstances.
+    ///   Gets or sets a value indicating whether AllowMultipleInstances.
     /// </summary>
     [Category("Settings")]
     [DefaultValue(false)]
@@ -136,7 +129,7 @@
     }
 
     /// <summary>
-    /// Gets or sets CustomThemeWidget.
+    ///   Gets or sets CustomThemeWidget.
     /// </summary>
     [Category("Appearence")]
     [Description("When using custom theming, this is a div element which contains the widget. ")]
@@ -155,9 +148,9 @@
     }
 
     /// <summary>
-    /// Gets or sets ErrorMessage.
+    ///   Gets or sets ErrorMessage.
     /// </summary>
-    [DefaultValue("The verification words are incorrect.")]
+    [NotNull, DefaultValue("The verification words are incorrect.")]
     [Localizable(true)]
     public string ErrorMessage
     {
@@ -178,9 +171,9 @@
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether IsValid.
+    ///   Gets or sets a value indicating whether IsValid.
     /// </summary>
-    /// <exception cref="NotImplementedException">
+    /// <exception cref = "NotImplementedException">
     /// </exception>
     [Browsable(false)]
     public bool IsValid
@@ -207,7 +200,7 @@
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether OverrideSecureMode.
+    ///   Gets or sets a value indicating whether OverrideSecureMode.
     /// </summary>
     [Category("Settings")]
     [Description("Set this to true to override reCAPTCHA usage of Secure API.")]
@@ -226,43 +219,21 @@
     }
 
     /// <summary>
-    /// Gets or sets PrivateKey.
+    ///   Gets or sets PrivateKey.
     /// </summary>
     [Description("The private key from admin.recaptcha.net. Can also be set using RecaptchaPrivateKey in AppSettings.")]
     [Category("Settings")]
-    public string PrivateKey
-    {
-      get
-      {
-        return this.privateKey;
-      }
-
-      set
-      {
-        this.privateKey = value;
-      }
-    }
+    public string PrivateKey { get; set; }
 
     /// <summary>
-    /// Gets or sets PublicKey.
+    ///   Gets or sets PublicKey.
     /// </summary>
     [Category("Settings")]
     [Description("The public key from admin.recaptcha.net. Can also be set using RecaptchaPublicKey in AppSettings.")]
-    public string PublicKey
-    {
-      get
-      {
-        return this.publicKey;
-      }
-
-      set
-      {
-        this.publicKey = value;
-      }
-    }
+    public string PublicKey { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether SkipRecaptcha.
+    ///   Gets or sets a value indicating whether SkipRecaptcha.
     /// </summary>
     [Description(
       "Set this to true to stop reCAPTCHA validation. Useful for testing platform. Can also be set using RecaptchaSkipValidation in AppSettings."
@@ -283,7 +254,7 @@
     }
 
     /// <summary>
-    /// Gets or sets Theme.
+    ///   Gets or sets Theme.
     /// </summary>
     [DefaultValue("red")]
     [Description("The theme for the reCAPTCHA control. Currently supported values are red, blackglass, white, and clean"
@@ -351,7 +322,7 @@
     /// </param>
     /// <exception cref="ApplicationException">
     /// </exception>
-    protected override void OnInit(EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
       base.OnInit(e);
 
@@ -372,7 +343,7 @@
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       if (this.skipRecaptcha)
       {
@@ -390,7 +361,7 @@
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void RenderContents(HtmlTextWriter output)
+    protected override void RenderContents([NotNull] HtmlTextWriter output)
     {
       output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");
       output.RenderBeginTag(HtmlTextWriterTag.Script);
@@ -463,6 +434,7 @@
     /// <returns>
     /// The generate challenge url.
     /// </returns>
+    [NotNull]
     private string GenerateChallengeUrl(bool noScript)
     {
       var builder = new StringBuilder();

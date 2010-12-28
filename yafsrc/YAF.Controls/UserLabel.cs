@@ -18,33 +18,29 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
   using System.Web.UI;
-  
-  using Classes.Core;
-  using Classes.Utils;
 
-  ///<summary>
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
+
+  #endregion
+
+  /// <summary>
   /// The UserLabel
-  ///</summary>
+  /// </summary>
   public class UserLabel : BaseControl
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UserLink"/> class.
-    /// </summary>
-    public UserLabel()
-    {
-    }
-
-    #endregion
-
     #region Properties
 
     /// <summary>
-    /// Gets or sets CssClass.
+    ///   Gets or sets CssClass.
     /// </summary>
+    [NotNull]
     public string CssClass
     {
       get
@@ -64,8 +60,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The onclick value for the profile link
+    ///   The onclick value for the profile link
     /// </summary>
+    [NotNull]
     public string OnClick
     {
       get
@@ -85,8 +82,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The onmouseover value for the profile link
+    ///   The onmouseover value for the profile link
     /// </summary>
+    [NotNull]
     public string OnMouseOver
     {
       get
@@ -106,8 +104,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The name of the user for this profile link
+    ///   The name of the user for this profile link
     /// </summary>
+    [NotNull]
     public string PostfixText
     {
       get
@@ -127,8 +126,31 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets Style.
+    ///   The replace name of this user for the link
     /// </summary>
+    [NotNull]
+    public string ReplaceName
+    {
+      get
+      {
+        if (this.ViewState["ReplaceName"] != null)
+        {
+          return this.ViewState["ReplaceName"].ToString();
+        }
+
+        return string.Empty;
+      }
+
+      set
+      {
+        this.ViewState["ReplaceName"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets Style.
+    /// </summary>
+    [NotNull]
     public string Style
     {
       get
@@ -148,7 +170,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The userid of this user for the link
+    ///   The userid of this user for the link
     /// </summary>
     public int UserID
     {
@@ -168,27 +190,6 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// The replace name of this user for the link
-    /// </summary>
-    public string ReplaceName
-    {
-        get
-        {
-            if (this.ViewState["ReplaceName"] != null)
-            {
-                return this.ViewState["ReplaceName"].ToString();
-            }
-
-            return string.Empty;
-        }
-
-        set
-        {
-            this.ViewState["ReplaceName"] = value;
-        }
-    }
-
     #endregion
 
     #region Methods
@@ -199,9 +200,9 @@ namespace YAF.Controls
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
-      string displayName = this.PageContext.UserDisplayName.GetName(this.UserID);
+      string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
 
       if (this.UserID != -1 && !displayName.IsNotSet())
       {
@@ -229,8 +230,9 @@ namespace YAF.Controls
     /// <summary>
     /// Renders "id", "style", "onclick", "onmouseover" and "class"
     /// </summary>
-    /// <param name="output"></param>
-    protected void RenderMainTagAttributes(HtmlTextWriter output)
+    /// <param name="output">
+    /// </param>
+    protected void RenderMainTagAttributes([NotNull] HtmlTextWriter output)
     {
       if (this.ClientID.IsSet())
       {
@@ -258,6 +260,6 @@ namespace YAF.Controls
       }
     }
 
-    #endregion    
+    #endregion
   }
 }

@@ -23,8 +23,10 @@ namespace YAF.Controls
   using System;
   using System.Web.UI;
 
-  using Classes;
-  using Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
 
   #endregion
 
@@ -36,17 +38,17 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The _attribute collection.
+    ///   The _attribute collection.
     /// </summary>
     protected AttributeCollection _attributeCollection;
 
     /// <summary>
-    /// The _localized label.
+    ///   The _localized label.
     /// </summary>
     protected LocalizedLabel _localizedLabel = new LocalizedLabel();
 
     /// <summary>
-    /// The _theme image.
+    ///   The _theme image.
     /// </summary>
     protected ThemeImage _themeImage = new ThemeImage();
 
@@ -55,12 +57,11 @@ namespace YAF.Controls
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RssFeedLink"/> class.
+    ///   Initializes a new instance of the <see cref = "RssFeedLink" /> class.
     /// </summary>
     public RssFeedLink()
-      : base()
     {
-      this.Load += new EventHandler(this.RssFeedLink_Load);
+      this.Load += this.RssFeedLink_Load;
       this._attributeCollection = new AttributeCollection(this.ViewState);
       this._localizedLabel.LocalizedTag = "RSSFEED";
       this.ImageThemeTag = "RSSFEED";
@@ -72,7 +73,23 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets Attributes.
+    ///   Gets or Sets additional rss feed url parameters.
+    /// </summary>
+    public string AdditionalParameters
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault("AdditionalParameters", string.Empty);
+      }
+
+      set
+      {
+        this.ViewState["AdditionalParameters"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets Attributes.
     /// </summary>
     public AttributeCollection Attributes
     {
@@ -83,8 +100,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Defaults to "rssfeedlink"
+    ///   Defaults to "rssfeedlink"
     /// </summary>
+    [CanBeNull]
     public string CssClass
     {
       get
@@ -99,77 +117,15 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or Sets if a spacer should be inserted before the link. (Default <see langword="false"/>)
-    /// </summary>
-    public bool ShowSpacerBefore
-    {
-      get
-      {
-        return this.ViewState.ToTypeOrDefault<bool>("ShowSpacerBefore", false);
-      }
-
-      set
-      {
-        this.ViewState["ShowSpacerBefore"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or Sets if a spacer should be inserted after the link. (Default <see langword="false"/>)
-    /// </summary>
-    public bool ShowSpacerAfter
-    {
-      get
-      {
-        return this.ViewState.ToTypeOrDefault<bool>("ShowSpacerAfter", false);
-      }
-
-      set
-      {
-        this.ViewState["ShowSpacerAfter"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or Sets if this is a link to atom feed. (Default <see langword="false"/>)
-    /// </summary>
-    public bool IsAtomFeed
-    {
-        get
-        {
-            return this.ViewState.ToTypeOrDefault<bool>("IsAtomFeed", false);
-        }
-
-        set
-        {
-            this.ViewState["IsAtomFeed"] = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or Sets additional rss feed url parameters.
-    /// </summary>
-    public string AdditionalParameters
-    {
-      get
-      {
-        return this.ViewState.ToTypeOrDefault<string>("AdditionalParameters", string.Empty);
-      }
-
-      set
-      {
-        this.ViewState["AdditionalParameters"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Defaults to "Forum"
+    ///   Defaults to "Forum"
     /// </summary>
     public YafRssFeeds FeedType
     {
       get
       {
-        return (this.ViewState["FeedType"] != null) ? this.ViewState["FeedType"].ToEnum<YafRssFeeds>() : YafRssFeeds.Forum;
+        return (this.ViewState["FeedType"] != null)
+                 ? this.ViewState["FeedType"].ToEnum<YafRssFeeds>()
+                 : YafRssFeeds.Forum;
       }
 
       set
@@ -179,7 +135,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// ThemePage for the optional button image
+    ///   ThemePage for the optional button image
     /// </summary>
     public string ImageThemePage
     {
@@ -195,7 +151,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// ThemeTag for the optional button image
+    ///   ThemeTag for the optional button image
     /// </summary>
     public string ImageThemeTag
     {
@@ -211,7 +167,55 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Localized Page for the optional button text
+    ///   Gets or Sets if this is a link to atom feed. (Default <see langword = "false" />)
+    /// </summary>
+    public bool IsAtomFeed
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault("IsAtomFeed", false);
+      }
+
+      set
+      {
+        this.ViewState["IsAtomFeed"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or Sets if a spacer should be inserted after the link. (Default <see langword = "false" />)
+    /// </summary>
+    public bool ShowSpacerAfter
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault("ShowSpacerAfter", false);
+      }
+
+      set
+      {
+        this.ViewState["ShowSpacerAfter"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or Sets if a spacer should be inserted before the link. (Default <see langword = "false" />)
+    /// </summary>
+    public bool ShowSpacerBefore
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault("ShowSpacerBefore", false);
+      }
+
+      set
+      {
+        this.ViewState["ShowSpacerBefore"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Localized Page for the optional button text
     /// </summary>
     public string TextLocalizedPage
     {
@@ -227,7 +231,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Localized Tag for the optional button text
+    ///   Localized Tag for the optional button text
     /// </summary>
     public string TextLocalizedTag
     {
@@ -243,8 +247,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Localized Page for the optional link description (title)
+    ///   Localized Page for the optional link description (title)
     /// </summary>
+    [CanBeNull]
     public string TitleLocalizedPage
     {
       get
@@ -261,8 +266,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Localized Tag for the optional link description (title)
+    ///   Localized Tag for the optional link description (title)
     /// </summary>
+    [CanBeNull]
     public string TitleLocalizedTag
     {
       get
@@ -290,7 +296,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetLocalizedTitle()
     {
-      if (this.Site != null && this.Site.DesignMode == true && this.TitleLocalizedTag.IsSet())
+      if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
       {
         return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
       }
@@ -312,7 +318,7 @@ namespace YAF.Controls
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
       if (this.Visible)
       {
@@ -340,15 +346,13 @@ namespace YAF.Controls
         }
 
         output.WriteAttribute(
-          "href",
+          "href", 
           YafBuildLink.GetLink(
-            ForumPages.rsstopic,
-            "pg={0}&ft={1}{2}",
-            this.FeedType.ToInt(),
-            IsAtomFeed ? 1 : 0,
-            this.AdditionalParameters.IsNotSet()
-              ? string.Empty
-              : "&{0}".FormatWith(this.AdditionalParameters)));
+            ForumPages.rsstopic, 
+            "pg={0}&ft={1}{2}", 
+            this.FeedType.ToInt(), 
+            this.IsAtomFeed ? 1 : 0, 
+            this.AdditionalParameters.IsNotSet() ? string.Empty : "&{0}".FormatWith(this.AdditionalParameters)));
 
         // handle additional attributes (if any)
         if (this._attributeCollection.Count > 0)
@@ -393,7 +397,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void RssFeedLink_Load(object sender, EventArgs e)
+    private void RssFeedLink_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // render the text if available
       if (this._localizedLabel.LocalizedTag.IsSet())

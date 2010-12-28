@@ -25,10 +25,12 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
 
   #endregion
 
@@ -73,7 +75,7 @@ namespace YAF.Controls
     /// <returns>
     /// The load post data.
     /// </returns>
-    public virtual bool LoadPostData(string postDataKey, NameValueCollection postCollection)
+    public virtual bool LoadPostData([NotNull] string postDataKey, [NotNull] NameValueCollection postCollection)
     {
       int forumID;
       if (int.TryParse(postCollection[postDataKey], out forumID) && forumID != this.ForumID)
@@ -113,7 +115,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    protected override void OnInit([NotNull] EventArgs e)
     {
       this.Load += this.Page_Load;
       base.OnInit(e);
@@ -125,7 +127,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       string cacheKey =
         YafCache.GetBoardCacheKey(
@@ -173,7 +175,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Page_Load(object sender, EventArgs e)
+    private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (!this.Page.IsPostBack)
       {

@@ -26,11 +26,12 @@ namespace YAF.Controls
     using System.Text;
     using System.Web.UI;
     using System.Xml.Serialization;
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
 
-    /// <summary>
+    using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+    using YAF.Utils;
+    using YAF.Types.Constants;
+
+  /// <summary>
     /// Summary description for AdminMenu.
     /// </summary>
     public class AdminMenu : BasePanel

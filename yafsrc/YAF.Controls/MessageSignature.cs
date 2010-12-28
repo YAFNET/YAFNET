@@ -22,10 +22,13 @@ namespace YAF.Controls
 
   using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Utils;
+  using YAF.Utils.Structures;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Flags;
 
   #endregion
 
@@ -81,7 +84,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       writer.BeginRender();
       writer.WriteBeginTag("div");
@@ -116,7 +119,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected void RenderSignature(HtmlTextWriter writer)
+    protected void RenderSignature([NotNull] HtmlTextWriter writer)
     {
       if (!this.DisplayUserID.HasValue)
       {

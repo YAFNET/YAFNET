@@ -22,6 +22,8 @@ namespace YAF.Controls
 
   using System.Web.UI;
 
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+
   #endregion
 
   /// <summary>

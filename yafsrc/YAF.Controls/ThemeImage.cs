@@ -22,8 +22,10 @@ namespace YAF.Controls
 
   using System.Web.UI;
 
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -262,7 +264,7 @@ namespace YAF.Controls
     {
       if (this._themePage.IsSet() && this._themeTag.IsSet())
       {
-        return this.PageContext.Theme.GetItem(this.ThemePage, this.ThemeTag, null);
+        return this.PageContext.Get<ITheme>().GetItem(this.ThemePage, this.ThemeTag, null);
       }
 
       return null;

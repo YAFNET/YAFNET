@@ -16,52 +16,47 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Collections.Generic;
-using YAF.Classes.Data;
-using YAF.Controls;
-
-namespace YAF.Modules
+namespace YAF.Controls
 {
-  using YAF.Classes.Core;
+  #region Using
+
+  using System.Collections.Generic;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Types;
+  using YAF.Types.Flags;
+
+  #endregion
 
   /// <summary>
   /// The yaf bb code control.
   /// </summary>
   public class YafBBCodeControl : BaseControl
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _current message flags.
+    ///   The _current message flags.
     /// </summary>
     protected MessageFlags _currentMessageFlags = null;
 
     /// <summary>
-    /// The _display user id.
+    ///   The _display user id.
     /// </summary>
-    protected int? _displayUserId = null;
+    protected int? _displayUserId;
 
     /// <summary>
-    /// The _parameters.
+    ///   The _parameters.
     /// </summary>
     protected Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
-    /// <summary>
-    /// Gets or sets Parameters.
-    /// </summary>
-    public Dictionary<string, string> Parameters
-    {
-      get
-      {
-        return this._parameters;
-      }
+    #endregion
 
-      set
-      {
-        this._parameters = value;
-      }
-    }
+    #region Properties
 
     /// <summary>
-    /// Gets or sets CurrentMessageFlags.
+    ///   Gets or sets CurrentMessageFlags.
     /// </summary>
     public MessageFlags CurrentMessageFlags
     {
@@ -77,7 +72,7 @@ namespace YAF.Modules
     }
 
     /// <summary>
-    /// Gets or sets DisplayUserID.
+    ///   Gets or sets DisplayUserID.
     /// </summary>
     public int? DisplayUserID
     {
@@ -93,18 +88,24 @@ namespace YAF.Modules
     }
 
     /// <summary>
-    /// The process bb code string.
+    ///   Gets or sets Parameters.
     /// </summary>
-    /// <param name="bbCodeString">
-    /// The bb code string.
-    /// </param>
-    /// <returns>
-    /// The process bb code string.
-    /// </returns>
-    protected string ProcessBBCodeString(string bbCodeString)
+    public Dictionary<string, string> Parameters
     {
-      return YafFormatMessage.FormatMessage(bbCodeString, CurrentMessageFlags);
+      get
+      {
+        return this._parameters;
+      }
+
+      set
+      {
+        this._parameters = value;
+      }
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The localized string.
@@ -118,14 +119,30 @@ namespace YAF.Modules
     /// <returns>
     /// The localized string.
     /// </returns>
-    protected string LocalizedString(string tag, string defaultStr)
+    protected string LocalizedString([NotNull] string tag, [NotNull] string defaultStr)
     {
-      if (PageContext.Localization.GetTextExists("BBCODEMODULE", tag))
+      if (this.PageContext.Localization.GetTextExists("BBCODEMODULE", tag))
       {
-        return PageContext.Localization.GetText("BBCODEMODULE", tag);
+        return this.PageContext.Localization.GetText("BBCODEMODULE", tag);
       }
 
       return defaultStr;
     }
+
+    /// <summary>
+    /// The process bb code string.
+    /// </summary>
+    /// <param name="bbCodeString">
+    /// The bb code string.
+    /// </param>
+    /// <returns>
+    /// The process bb code string.
+    /// </returns>
+    protected string ProcessBBCodeString([NotNull] string bbCodeString)
+    {
+      return YafFormatMessage.FormatMessage(bbCodeString, this.CurrentMessageFlags);
+    }
+
+    #endregion
   }
 }

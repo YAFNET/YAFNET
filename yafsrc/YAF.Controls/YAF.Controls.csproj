@@ -136,17 +136,21 @@
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Core\YAF.Classes.Core.csproj">
-      <Project>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</Project>
-      <Name>YAF.Classes.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
-      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
-      <Name>YAF.Classes.Utils</Name>
+    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
+      <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
+      <Name>YAF.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
+      <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
+      <Name>YAF.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
+      <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
+      <Name>YAF.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

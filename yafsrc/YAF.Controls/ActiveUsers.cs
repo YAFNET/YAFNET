@@ -25,7 +25,11 @@ namespace YAF.Controls
   using System.Linq;
   using System.Web.UI;
 
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -47,8 +51,9 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets or sets list of users to display in control.
+    ///   Gets or sets list of users to display in control.
     /// </summary>
+    [CanBeNull]
     public DataTable ActiveUserTable
     {
       get
@@ -78,24 +83,24 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets whether treat displaying of guest users same way as that of hidden users.
+    ///   Gets or sets whether treat displaying of guest users same way as that of hidden users.
     /// </summary>
     public bool TreatGuestAsHidden
     {
-        get
+      get
+      {
+        if (this.ViewState["TreatGuestAsHidden"] != null)
         {
-            if (this.ViewState["TreatGuestAsHidden"] != null)
-            {
-                return Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
-            }
-
-            return false;
+          return Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
         }
 
-        set
-        {
-            this.ViewState["TreatGuestAsHidden"] = value;
-        }
+        return false;
+      }
+
+      set
+      {
+        this.ViewState["TreatGuestAsHidden"] = value;
+      }
     }
 
     #endregion
@@ -108,7 +113,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
       // IMPORTANT : call base implementation, raises PreRender event
       base.OnPreRender(e);
@@ -127,44 +132,43 @@ namespace YAF.Controls
         // go through the table and process each row
         foreach (DataRow row in this.ActiveUserTable.Rows)
         {
-          
           UserLink userLink;
+
           // indicates whether user link should be added or not
           bool addControl = true;
           bool isCrawler = Convert.ToInt32(row["IsCrawler"]) > 0;
+
           // create new link and set its parameters
           if (isCrawler)
           {
             userLink = new UserLink
-                             {
-                                 ReplaceName = row["Browser"].ToString(),
-                                 UserID = Convert.ToInt32(row["UserID"]),
-                                 Style =
-                                     this.PageContext.BoardSettings.UseStyledNicks
-                                         ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
-                                             row["Style"].ToString(), false)
-                                         : string.Empty
-                             };
+              {
+                ReplaceName = row["Browser"].ToString(), 
+                UserID = Convert.ToInt32(row["UserID"]), 
+                Style =
+                  this.PageContext.BoardSettings.UseStyledNicks
+                    ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
+                    : string.Empty
+              };
           }
           else
           {
-              userLink = new UserLink
-                             {
-                                 UserID = Convert.ToInt32(row["UserID"]),
-                                 Style =
-                                     this.PageContext.BoardSettings.UseStyledNicks
-                                         ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
-                                             row["Style"].ToString(), false)
-                                         : string.Empty
-                             };
+            userLink = new UserLink
+              {
+                UserID = Convert.ToInt32(row["UserID"]), 
+                Style =
+                  this.PageContext.BoardSettings.UseStyledNicks
+                    ? this.Get<IStyleTransform>().DecodeStyleByString(row["Style"].ToString(), false)
+                    : string.Empty
+              };
           }
-           
 
-          userLink.ID = "UserLink" + userLink.UserID ;
+          userLink.ID = "UserLink" + userLink.UserID;
           if (isCrawler)
           {
-              userLink.ID += userLink.ReplaceName; 
+            userLink.ID += userLink.ReplaceName;
           }
+
           // how many users of this type is present (valid for guests, others have it 1)
           int userCount = Convert.ToInt32(row["UserCount"]);
 
@@ -200,13 +204,14 @@ namespace YAF.Controls
           // add user link if it's not supressed
           if (addControl)
           {
-              // vzrus: if guests there can be a control with the same id. 
-              UserLink ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
-              if (ul != null)
-              {
-                  this.Controls.Remove(ul);
-              }  
-              this.Controls.Add(userLink);
+            // vzrus: if guests there can be a control with the same id. 
+            var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
+            if (ul != null)
+            {
+              this.Controls.Remove(ul);
+            }
+
+            this.Controls.Add(userLink);
           }
         }
       }
@@ -218,7 +223,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       // writes starting tag
       writer.WriteLine(@"<div class=""yafactiveusers"" id=""{0}"">".FormatWith(this.ClientID));
@@ -251,13 +256,5 @@ namespace YAF.Controls
     }
 
     #endregion
-
-    /* Data */
-
-    /* Construction & Desctruction */
-
-    /* Properties */
-
-    /* Control Processing Methods */
   }
 }

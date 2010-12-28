@@ -18,131 +18,123 @@
  */
 namespace YAF.Controls
 {
-    #region Using
+  #region Using
 
-    using System;
-    using System.Web.UI;
+  using System;
+  using System.Web.UI;
 
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+
+  #endregion
+
+  /// <summary>
+  /// Provides a basic "profile link" for a YAF User
+  /// </summary>
+  public class UserLink : UserLabel
+  {
+    #region Properties
+
+    /// <summary>
+    ///   Make the link target "blank" to open in a new window.
+    /// </summary>
+    public bool BlankTarget
+    {
+      get
+      {
+        if (this.ViewState["BlankTarget"] != null)
+        {
+          return Convert.ToBoolean(this.ViewState["BlankTarget"]);
+        }
+
+        return false;
+      }
+
+      set
+      {
+        this.ViewState["BlankTarget"] = value;
+      }
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// Provides a basic "profile link" for a YAF User
+    /// The On PreRender event.
     /// </summary>
-    public class UserLink : UserLabel
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserLink"/> class.
-        /// </summary>
-        public UserLink()
-        {
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Make the link target "blank" to open in a new window.
-        /// </summary>
-        public bool BlankTarget
-        {
-            get
-            {
-                if (this.ViewState["BlankTarget"] != null)
-                {
-                    return Convert.ToBoolean(this.ViewState["BlankTarget"]);
-                }
-
-                return false;
-            }
-
-            set
-            {
-                this.ViewState["BlankTarget"] = value;
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            if (PageContext.BoardSettings.EnableIrkoo && !PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
-            {
-                YafContext.Current.PageElements.RegisterJsBlockStartup("IrkooMethods", YafIrkoo.IrkJsCode());
-            }
-        }
-
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="output">
-        /// The output.
-        /// </param>
-        protected override void Render(HtmlTextWriter output)
-        {
-            string displayName = PageContext.UserDisplayName.GetName(this.UserID);
-
-            if (this.UserID != -1 && displayName.IsSet())
-            {
-                // is this the guest user? If so, guest's don't have a profile.
-                bool isGuest = UserMembershipHelper.IsGuestUser(this.UserID);
-
-                output.BeginRender();
-
-                if (!isGuest)
-                {
-                    output.WriteBeginTag("a");
-
-                    output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
-
-                    output.WriteAttribute("title", this.PageContext.Localization.GetText("COMMON", "VIEW_USRPROFILE"));
-
-                    if (this.BlankTarget)
-                    {
-                        output.WriteAttribute("target", "_blank");
-                    }
-                }
-                else
-                {
-                    output.WriteBeginTag("span");
-                }
-
-                RenderMainTagAttributes(output);
-
-                output.Write(HtmlTextWriter.TagRightChar);
-                output.WriteEncodedText(this.ReplaceName.IsNotSet() ? displayName : this.ReplaceName);
-
-                output.WriteEndTag(!isGuest ? "a" : "span");
-
-                if (this.PostfixText.IsSet())
-                {
-                    output.Write(this.PostfixText);
-                }
-
-                // Show Irkoo reputation in userlinks?
-                if (PageContext.BoardSettings.EnableIrkoo && !PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
-                {
-                    output.Write(YafIrkoo.IrkRating(this.UserID));
-                }
-
-                output.EndRender();
-            }
-        }
-
-        #endregion
+      if (this.PageContext.BoardSettings.EnableIrkoo && !this.PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
+      {
+        YafContext.Current.PageElements.RegisterJsBlockStartup("IrkooMethods", YafIrkoo.IrkJsCode());
+      }
     }
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    protected override void Render([NotNull] HtmlTextWriter output)
+    {
+      string displayName = this.Get<IUserDisplayName>().GetName(this.UserID);
+
+      if (this.UserID != -1 && displayName.IsSet())
+      {
+        // is this the guest user? If so, guest's don't have a profile.
+        bool isGuest = UserMembershipHelper.IsGuestUser(this.UserID);
+
+        output.BeginRender();
+
+        if (!isGuest)
+        {
+          output.WriteBeginTag("a");
+
+          output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+
+          output.WriteAttribute("title", this.PageContext.Localization.GetText("COMMON", "VIEW_USRPROFILE"));
+
+          if (this.BlankTarget)
+          {
+            output.WriteAttribute("target", "_blank");
+          }
+        }
+        else
+        {
+          output.WriteBeginTag("span");
+        }
+
+        this.RenderMainTagAttributes(output);
+
+        output.Write(HtmlTextWriter.TagRightChar);
+        output.WriteEncodedText(this.ReplaceName.IsNotSet() ? displayName : this.ReplaceName);
+
+        output.WriteEndTag(!isGuest ? "a" : "span");
+
+        if (this.PostfixText.IsSet())
+        {
+          output.Write(this.PostfixText);
+        }
+
+        // Show Irkoo reputation in userlinks?
+        if (this.PageContext.BoardSettings.EnableIrkoo && !this.PageContext.BoardSettings.ShowIrkooRepOnlyInTopics)
+        {
+          output.Write(YafIrkoo.IrkRating(this.UserID));
+        }
+
+        output.EndRender();
+      }
+    }
+
+    #endregion
+  }
 }

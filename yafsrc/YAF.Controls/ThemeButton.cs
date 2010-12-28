@@ -16,200 +16,107 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 namespace YAF.Controls
 {
-  using YAF.Classes.Utils;
+  #region Using
+
+  using System;
+  using System.Web.UI;
+  using System.Web.UI.WebControls;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+
+  #endregion
 
   /// <summary>
   /// The theme button.
   /// </summary>
   public class ThemeButton : BaseControl, IPostBackEventHandler
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _click event.
+    ///   The _click event.
     /// </summary>
     protected static object _clickEvent = new object();
 
     /// <summary>
-    /// The _command event.
+    ///   The _command event.
     /// </summary>
     protected static object _commandEvent = new object();
 
     /// <summary>
-    /// The _attribute collection.
+    ///   The _attribute collection.
     /// </summary>
     protected AttributeCollection _attributeCollection;
 
     /// <summary>
-    /// The _localized label.
+    ///   The _localized label.
     /// </summary>
     protected LocalizedLabel _localizedLabel = new LocalizedLabel();
 
     /// <summary>
-    /// The _theme image.
+    ///   The _theme image.
     /// </summary>
     protected ThemeImage _themeImage = new ThemeImage();
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="ThemeButton"/> class.
+    ///   Initializes a new instance of the <see cref = "ThemeButton" /> class.
     /// </summary>
     public ThemeButton()
-      : base()
     {
-      Load += new EventHandler(ThemeButton_Load);
+      Load += new EventHandler(this.ThemeButton_Load);
       this._attributeCollection = new AttributeCollection(ViewState);
     }
 
+    #endregion
+
+    #region Events
+
     /// <summary>
-    /// ThemePage for the optional button image
+    ///   The click.
     /// </summary>
-    public string ImageThemePage
+    public event EventHandler Click
     {
-      get
+      add
       {
-        return this._themeImage.ThemePage;
+        Events.AddHandler(_clickEvent, value);
       }
 
-      set
+      remove
       {
-        this._themeImage.ThemePage = value;
+        Events.RemoveHandler(_clickEvent, value);
       }
     }
 
     /// <summary>
-    /// ThemeTag for the optional button image
+    ///   The command.
     /// </summary>
-    public string ImageThemeTag
+    public event CommandEventHandler Command
     {
-      get
+      add
       {
-        return this._themeImage.ThemeTag;
+        Events.AddHandler(_commandEvent, value);
       }
 
-      set
+      remove
       {
-        this._themeImage.ThemeTag = value;
+        Events.RemoveHandler(_commandEvent, value);
       }
     }
 
-    /// <summary>
-    /// Localized Page for the optional button text
-    /// </summary>
-    public string TextLocalizedPage
-    {
-      get
-      {
-        return this._localizedLabel.LocalizedPage;
-      }
+    #endregion
 
-      set
-      {
-        this._localizedLabel.LocalizedPage = value;
-      }
-    }
+    #region Properties
 
     /// <summary>
-    /// Localized Tag for the optional button text
-    /// </summary>
-    public string TextLocalizedTag
-    {
-      get
-      {
-        return this._localizedLabel.LocalizedTag;
-      }
-
-      set
-      {
-        this._localizedLabel.LocalizedTag = value;
-      }
-    }
-
-    /// <summary>
-    /// Defaults to "yafcssbutton"
-    /// </summary>
-    public string CssClass
-    {
-      get
-      {
-        return (ViewState["CssClass"] != null) ? ViewState["CssClass"] as string : "yafcssbutton";
-      }
-
-      set
-      {
-        ViewState["CssClass"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Setting the link property will make this control non-postback.
-    /// </summary>
-    public string NavigateUrl
-    {
-      get
-      {
-        return (ViewState["NavigateUrl"] != null) ? ViewState["NavigateUrl"] as string : string.Empty;
-      }
-
-      set
-      {
-        ViewState["NavigateUrl"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Localized Page for the optional link description (title)
-    /// </summary>
-    public string TitleLocalizedPage
-    {
-      get
-      {
-        return (ViewState["TitleLocalizedPage"] != null) ? ViewState["TitleLocalizedPage"] as string : "BUTTON";
-      }
-
-      set
-      {
-        ViewState["TitleLocalizedPage"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Localized Tag for the optional link description (title)
-    /// </summary>
-    public string TitleLocalizedTag
-    {
-      get
-      {
-        return (ViewState["TitleLocalizedTag"] != null) ? ViewState["TitleLocalizedTag"] as string : string.Empty;
-      }
-
-      set
-      {
-        ViewState["TitleLocalizedTag"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Non-localized Title for optional link description
-    /// </summary>
-    public string TitleNonLocalized
-    {
-      get
-      {
-        return (ViewState["TitleNonLocalized"] != null) ? ViewState["TitleNonLocalized"] as string : string.Empty;
-      }
-
-      set
-      {
-        ViewState["TitleNonLocalized"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets Attributes.
+    ///   Gets Attributes.
     /// </summary>
     public AttributeCollection Attributes
     {
@@ -220,7 +127,28 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets CommandName.
+    ///   Gets or sets CommandArgument.
+    /// </summary>
+    public string CommandArgument
+    {
+      get
+      {
+        if (ViewState["commandArgument"] != null)
+        {
+          return ViewState["commandArgument"].ToString();
+        }
+
+        return null;
+      }
+
+      set
+      {
+        ViewState["commandArgument"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets CommandName.
     /// </summary>
     public string CommandName
     {
@@ -241,27 +169,159 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets CommandArgument.
+    ///   Defaults to "yafcssbutton"
     /// </summary>
-    public string CommandArgument
+    [CanBeNull]
+    public string CssClass
     {
       get
       {
-        if (ViewState["commandArgument"] != null)
-        {
-          return ViewState["commandArgument"].ToString();
-        }
-
-        return null;
+        return (ViewState["CssClass"] != null) ? ViewState["CssClass"] as string : "yafcssbutton";
       }
 
       set
       {
-        ViewState["commandArgument"] = value;
+        ViewState["CssClass"] = value;
       }
     }
 
-    #region IPostBackEventHandler Members
+    /// <summary>
+    ///   ThemePage for the optional button image
+    /// </summary>
+    public string ImageThemePage
+    {
+      get
+      {
+        return this._themeImage.ThemePage;
+      }
+
+      set
+      {
+        this._themeImage.ThemePage = value;
+      }
+    }
+
+    /// <summary>
+    ///   ThemeTag for the optional button image
+    /// </summary>
+    public string ImageThemeTag
+    {
+      get
+      {
+        return this._themeImage.ThemeTag;
+      }
+
+      set
+      {
+        this._themeImage.ThemeTag = value;
+      }
+    }
+
+    /// <summary>
+    ///   Setting the link property will make this control non-postback.
+    /// </summary>
+    [CanBeNull]
+    public string NavigateUrl
+    {
+      get
+      {
+        return (ViewState["NavigateUrl"] != null) ? ViewState["NavigateUrl"] as string : string.Empty;
+      }
+
+      set
+      {
+        ViewState["NavigateUrl"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Localized Page for the optional button text
+    /// </summary>
+    public string TextLocalizedPage
+    {
+      get
+      {
+        return this._localizedLabel.LocalizedPage;
+      }
+
+      set
+      {
+        this._localizedLabel.LocalizedPage = value;
+      }
+    }
+
+    /// <summary>
+    ///   Localized Tag for the optional button text
+    /// </summary>
+    public string TextLocalizedTag
+    {
+      get
+      {
+        return this._localizedLabel.LocalizedTag;
+      }
+
+      set
+      {
+        this._localizedLabel.LocalizedTag = value;
+      }
+    }
+
+    /// <summary>
+    ///   Localized Page for the optional link description (title)
+    /// </summary>
+    [CanBeNull]
+    public string TitleLocalizedPage
+    {
+      get
+      {
+        return (ViewState["TitleLocalizedPage"] != null) ? ViewState["TitleLocalizedPage"] as string : "BUTTON";
+      }
+
+      set
+      {
+        ViewState["TitleLocalizedPage"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Localized Tag for the optional link description (title)
+    /// </summary>
+    [CanBeNull]
+    public string TitleLocalizedTag
+    {
+      get
+      {
+        return (ViewState["TitleLocalizedTag"] != null) ? ViewState["TitleLocalizedTag"] as string : string.Empty;
+      }
+
+      set
+      {
+        ViewState["TitleLocalizedTag"] = value;
+      }
+    }
+
+    /// <summary>
+    ///   Non-localized Title for optional link description
+    /// </summary>
+    [CanBeNull]
+    public string TitleNonLocalized
+    {
+      get
+      {
+        return (ViewState["TitleNonLocalized"] != null) ? ViewState["TitleNonLocalized"] as string : string.Empty;
+      }
+
+      set
+      {
+        ViewState["TitleNonLocalized"] = value;
+      }
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IPostBackEventHandler
 
     /// <summary>
     /// The i post back event handler. raise post back event.
@@ -269,34 +329,73 @@ namespace YAF.Controls
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    void IPostBackEventHandler.RaisePostBackEvent(string eventArgument)
+    void IPostBackEventHandler.RaisePostBackEvent([NotNull] string eventArgument)
     {
-      OnCommand(new CommandEventArgs(CommandName, CommandArgument));
-      OnClick(EventArgs.Empty);
+      this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
+      this.OnClick(EventArgs.Empty);
     }
 
     #endregion
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
-    /// Setup the controls before render
+    /// The get localized title.
     /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    private void ThemeButton_Load(object sender, EventArgs e)
+    /// <returns>
+    /// The get localized title.
+    /// </returns>
+    protected string GetLocalizedTitle()
     {
-      if (this._themeImage.ThemeTag.IsSet())
+      if (Site != null && Site.DesignMode == true && this.TitleLocalizedTag.IsSet())
       {
-        // add the theme image...
-        Controls.Add(this._themeImage);
+        return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
+      }
+      else if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
+      {
+        return PageContext.Localization.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag);
+      }
+      else if (this.TitleLocalizedTag.IsSet())
+      {
+        return PageContext.Localization.GetText(this.TitleLocalizedTag);
       }
 
-      // render the text if available
-      if (this._localizedLabel.LocalizedTag.IsSet())
+      return null;
+    }
+
+    /// <summary>
+    /// The on click.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void OnClick([NotNull] EventArgs e)
+    {
+      var handler = (EventHandler)Events[_clickEvent];
+      if (handler != null)
       {
-        Controls.Add(this._localizedLabel);
+        handler(this, e);
       }
+    }
+
+    /// <summary>
+    /// The on command.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void OnCommand([NotNull] CommandEventArgs e)
+    {
+      var handler = (CommandEventHandler)Events[_commandEvent];
+
+      if (handler != null)
+      {
+        handler(this, e);
+      }
+
+      RaiseBubbleEvent(this, e);
     }
 
     /// <summary>
@@ -305,17 +404,17 @@ namespace YAF.Controls
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter output)
+    protected override void Render([NotNull] HtmlTextWriter output)
     {
       // get the title...
-      string title = GetLocalizedTitle();
+      string title = this.GetLocalizedTitle();
 
       output.BeginRender();
       output.WriteBeginTag("a");
       output.WriteAttribute("id", ClientID);
       if (this.CssClass.IsSet())
       {
-        output.WriteAttribute("class", CssClass);
+        output.WriteAttribute("class", this.CssClass);
       }
 
       if (title.IsSet())
@@ -324,12 +423,12 @@ namespace YAF.Controls
       }
       else if (this.TitleNonLocalized.IsSet())
       {
-        output.WriteAttribute("title", TitleNonLocalized);
+        output.WriteAttribute("title", this.TitleNonLocalized);
       }
 
       if (this.NavigateUrl.IsSet())
       {
-        output.WriteAttribute("href", NavigateUrl.Replace("&", "&amp;"));
+        output.WriteAttribute("href", this.NavigateUrl.Replace("&", "&amp;"));
       }
       else
       {
@@ -349,7 +448,10 @@ namespace YAF.Controls
           if (key.ToLower() == "onclick")
           {
             // special handling... add to it...
-            output.WriteAttribute(key, "{0};{1}".FormatWith(this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
+            output.WriteAttribute(
+              key, 
+              "{0};{1}".FormatWith(
+                this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
             wroteOnClick = true;
           }
           else if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
@@ -380,92 +482,27 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The get localized title.
+    /// Setup the controls before render
     /// </summary>
-    /// <returns>
-    /// The get localized title.
-    /// </returns>
-    protected string GetLocalizedTitle()
-    {
-      if (Site != null && Site.DesignMode == true && this.TitleLocalizedTag.IsSet())
-      {
-        return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
-      }
-      else if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
-      {
-        return PageContext.Localization.GetText(TitleLocalizedPage, TitleLocalizedTag);
-      }
-      else if (this.TitleLocalizedTag.IsSet())
-      {
-        return PageContext.Localization.GetText(TitleLocalizedTag);
-      }
-
-      return null;
-    }
-
-    /// <summary>
-    /// The on click.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
+    /// <param name="sender">
     /// </param>
-    protected virtual void OnClick(EventArgs e)
-    {
-      var handler = (EventHandler) Events[_clickEvent];
-      if (handler != null)
-      {
-        handler(this, e);
-      }
-    }
-
-    /// <summary>
-    /// The on command.
-    /// </summary>
     /// <param name="e">
-    /// The e.
     /// </param>
-    protected virtual void OnCommand(CommandEventArgs e)
+    private void ThemeButton_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      var handler = (CommandEventHandler) Events[_commandEvent];
-
-      if (handler != null)
+      if (this._themeImage.ThemeTag.IsSet())
       {
-        handler(this, e);
+        // add the theme image...
+        Controls.Add(this._themeImage);
       }
 
-      RaiseBubbleEvent(this, e);
-    }
-
-    /// <summary>
-    /// The click.
-    /// </summary>
-    public event EventHandler Click
-    {
-      add
+      // render the text if available
+      if (this._localizedLabel.LocalizedTag.IsSet())
       {
-        Events.AddHandler(_clickEvent, value);
-      }
-
-      remove
-      {
-        Events.RemoveHandler(_clickEvent, value);
+        Controls.Add(this._localizedLabel);
       }
     }
 
-    /// <summary>
-    /// The command.
-    /// </summary>
-    public event CommandEventHandler Command
-    {
-      add
-      {
-        Events.AddHandler(_commandEvent, value);
-      }
-
-      remove
-      {
-        Events.RemoveHandler(_commandEvent, value);
-      }
-    }
+    #endregion
   }
 }

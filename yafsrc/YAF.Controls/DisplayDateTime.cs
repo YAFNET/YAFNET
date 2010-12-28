@@ -23,10 +23,11 @@ namespace YAF.Controls
   using System;
   using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -38,7 +39,7 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The _controlHtml.
+    ///   The _controlHtml.
     /// </summary>
     protected string _controlHtml = @"<abbr class=""timeago"" title=""{0}"">{1}</abbr>";
 

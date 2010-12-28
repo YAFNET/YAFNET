@@ -18,6 +18,8 @@
  */
 namespace YAF.Controls
 {
+  using YAF.Types;
+
   /// <summary>
   /// The recaptcha response.
   /// </summary>
@@ -26,30 +28,30 @@ namespace YAF.Controls
     #region Constants and Fields
 
     /// <summary>
-    /// The invalid solution.
+    ///   The invalid solution.
     /// </summary>
     public static readonly RecaptchaResponse InvalidSolution = new RecaptchaResponse(false, "incorrect-captcha-sol");
 
     /// <summary>
-    /// The recaptcha not reachable.
+    ///   The recaptcha not reachable.
     /// </summary>
     public static readonly RecaptchaResponse RecaptchaNotReachable = new RecaptchaResponse(
       false, "recaptcha-not-reachable");
 
     /// <summary>
-    /// The valid.
+    ///   The valid.
     /// </summary>
     public static readonly RecaptchaResponse Valid = new RecaptchaResponse(true, string.Empty);
 
     /// <summary>
-    /// The error code.
+    ///   The error code.
     /// </summary>
-    private string errorCode;
+    private readonly string errorCode;
 
     /// <summary>
-    /// The is valid.
+    ///   The is valid.
     /// </summary>
-    private bool isValid;
+    private readonly bool isValid;
 
     #endregion
 
@@ -64,7 +66,7 @@ namespace YAF.Controls
     /// <param name="errorCode">
     /// The error code.
     /// </param>
-    internal RecaptchaResponse(bool isValid, string errorCode)
+    internal RecaptchaResponse(bool isValid, [NotNull] string errorCode)
     {
       this.isValid = isValid;
       this.errorCode = errorCode;
@@ -75,7 +77,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets ErrorCode.
+    ///   Gets ErrorCode.
     /// </summary>
     public string ErrorCode
     {
@@ -86,7 +88,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsValid.
+    ///   Gets a value indicating whether IsValid.
     /// </summary>
     public bool IsValid
     {
@@ -109,7 +111,7 @@ namespace YAF.Controls
     /// <returns>
     /// The equals.
     /// </returns>
-    public override bool Equals(object obj)
+    public override bool Equals([NotNull] object obj)
     {
       var response = (RecaptchaResponse)obj;
       if (response == null)

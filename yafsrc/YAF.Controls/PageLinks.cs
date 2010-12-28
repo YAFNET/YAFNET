@@ -24,10 +24,11 @@ namespace YAF.Controls
   using System.Data;
   using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
 
   #endregion
 
@@ -41,6 +42,7 @@ namespace YAF.Controls
     /// <summary>
     ///   Gets or sets LinkedPageLinkID.
     /// </summary>
+    [CanBeNull]
     public string LinkedPageLinkID
     {
       get
@@ -62,6 +64,7 @@ namespace YAF.Controls
     /// <summary>
     ///   Gets or sets PageLinkDT.
     /// </summary>
+    [CanBeNull]
     protected DataTable PageLinkDT
     {
       get
@@ -128,7 +131,7 @@ namespace YAF.Controls
     /// <param name="title">
     /// The title.
     /// </param>
-    public void AddLink(string title)
+    public void AddLink([NotNull] string title)
     {
       this.AddLink(title, string.Empty);
     }
@@ -142,7 +145,7 @@ namespace YAF.Controls
     /// <param name="url">
     /// The url.
     /// </param>
-    public void AddLink(string title, string url)
+    public void AddLink([NotNull] string title, [NotNull] string url)
     {
       DataTable dt = this.PageLinkDT;
 
@@ -181,7 +184,7 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       DataTable linkDataTable = null;
 
@@ -214,7 +217,7 @@ namespace YAF.Controls
       {
         if (!bFirst)
         {
-            writer.WriteLine(@"<span class=""linkSeperator"">&nbsp;&#187;&nbsp;</span>");
+          writer.WriteLine(@"<span class=""linkSeperator"">&nbsp;&#187;&nbsp;</span>");
         }
         else
         {

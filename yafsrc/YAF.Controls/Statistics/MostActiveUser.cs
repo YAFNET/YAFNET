@@ -16,17 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Text;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
 
 namespace YAF.Controls.Statistics
 {
-  using YAF.Classes.Utils;
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Text;
+  using System.Web.UI;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Classes.Data;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+
+  #endregion
 
   /// <summary>
   /// The most active users.
@@ -34,26 +41,24 @@ namespace YAF.Controls.Statistics
   [ToolboxData("<{0}:MostActiveUsers runat=\"server\"></{0}:MostActiveUsers>")]
   public class MostActiveUsers : BaseControl
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _display number.
+    ///   The _display number.
     /// </summary>
     private int _displayNumber = 10;
 
     /// <summary>
-    /// The _last num of days.
+    ///   The _last num of days.
     /// </summary>
     private int _lastNumOfDays = 7;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MostActiveUsers"/> class. 
-    /// The default constructor for MostActiveUsers.
-    /// </summary>
-    public MostActiveUsers()
-    {
-    }
+    #endregion
+
+    #region Properties
 
     /// <summary>
-    /// Gets or sets DisplayNumber.
+    ///   Gets or sets DisplayNumber.
     /// </summary>
     public int DisplayNumber
     {
@@ -69,7 +74,7 @@ namespace YAF.Controls.Statistics
     }
 
     /// <summary>
-    /// Gets or sets LastNumOfDays.
+    ///   Gets or sets LastNumOfDays.
     /// </summary>
     public int LastNumOfDays
     {
@@ -84,19 +89,27 @@ namespace YAF.Controls.Statistics
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
     /// Renders the MostActiveUsers class.
     /// </summary>
     /// <param name="writer">
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       int currentRank = 1;
       string actRank = string.Empty;
       string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.MostActiveUsers);
 
-      DataTable rankDt = PageContext.Cache.GetItem(
-        cacheKey, 5, () => DB.user_activity_rank(PageContext.PageBoardID, DateTime.UtcNow.AddDays(-LastNumOfDays), DisplayNumber));
+      DataTable rankDt = this.PageContext.Cache.GetItem(
+        cacheKey, 
+        5, 
+        () =>
+        DB.user_activity_rank(
+          this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber));
 
       //// create XML data document...
       // XmlDocument xml = new XmlDocument();
@@ -122,9 +135,9 @@ namespace YAF.Controls.Statistics
 
       var html = new StringBuilder();
 
-      html.AppendFormat(@"<div id=""{0}"" class=""yaf_activeuser"">", ClientID);
+      html.AppendFormat(@"<div id=""{0}"" class=""yaf_activeuser"">", this.ClientID);
       html.AppendFormat(@"<h2 class=""yaf_header"">{0}</h2>", "Most Active Users");
-      html.AppendFormat(@"<h4 class=""yaf_subheader"">Last {0} Days</h4>", LastNumOfDays);
+      html.AppendFormat(@"<h4 class=""yaf_subheader"">Last {0} Days</h4>", this.LastNumOfDays);
 
       html.AppendLine("<ol>");
 
@@ -136,17 +149,11 @@ namespace YAF.Controls.Statistics
         writer.WriteLine("<li>");
 
         // render UserLink...
-        var userLink = new UserLink()
-          {
-            UserID = row.Field<int>("ID"), 
-          };
+        var userLink = new UserLink { UserID = row.Field<int>("ID"), };
         userLink.RenderControl(writer);
 
         // render online image...
-        var onlineStatusImage = new OnlineStatusImage()
-          {
-            UserID = row.Field<int>("ID")
-          };
+        var onlineStatusImage = new OnlineStatusImage { UserID = row.Field<int>("ID") };
         onlineStatusImage.RenderControl(writer);
 
         writer.WriteLine(" ");
@@ -157,5 +164,7 @@ namespace YAF.Controls.Statistics
       writer.WriteLine("</ol>");
       writer.EndRender();
     }
+
+    #endregion
   }
 }

@@ -18,13 +18,13 @@
  */
 namespace YAF.Controls
 {
-  using System;
   using System.Web.UI;
 
-  using Classes.Core;
+  using YAF.Core;
 
-  using YAF.Classes.Core.BBCode;
-  using YAF.Classes.Utils;
+  using YAF.Core.BBCode;
+  using YAF.Utils;
+  using YAF.Types;
 
   /// <summary>
   /// The localization support extensions.
@@ -45,8 +45,11 @@ namespace YAF.Controls
     /// <returns>
     /// The get current item.
     /// </returns>
-    public static string Localize(this ILocalizationSupport supportItem, Control currentControl)
+    public static string Localize([NotNull] this ILocalizationSupport supportItem, [NotNull] Control currentControl)
     {
+      CodeContracts.ArgumentNotNull(supportItem, "supportItem");
+      CodeContracts.ArgumentNotNull(currentControl, "currentControl");
+
       if (currentControl.Site != null && currentControl.Site.DesignMode == true)
       {
         return "[PAGE:{0}|TAG:{1}]".FormatWith(supportItem.LocalizedPage, supportItem.LocalizedTag);
@@ -75,8 +78,11 @@ namespace YAF.Controls
     /// <returns>
     /// The localize and render.
     /// </returns>
-    public static string LocalizeAndRender(this ILocalizationSupport supportedItem, Control currentControl)
+    public static string LocalizeAndRender([NotNull] this ILocalizationSupport supportedItem, [NotNull] Control currentControl)
     {
+      CodeContracts.ArgumentNotNull(supportedItem, "supportedItem");
+      CodeContracts.ArgumentNotNull(currentControl, "currentControl");
+
       string localizedItem = supportedItem.Localize(currentControl);
 
       // convert from YafBBCode to HTML

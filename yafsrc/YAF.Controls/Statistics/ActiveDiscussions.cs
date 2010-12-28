@@ -25,11 +25,13 @@ namespace YAF.Controls.Statistics
   using System.Text;
   using System.Web.UI;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
   using YAF.Classes.Data;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -97,7 +99,7 @@ namespace YAF.Controls.Statistics
         // Set colorOnly parameter to true, as we get all but color from css in the place
         if (this.PageContext.BoardSettings.UseStyledNicks)
         {
-          var styleTransform = new StyleTransform(YafContext.Current.Theme);
+          var styleTransform = this.Get<IStyleTransform>();
           styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
         }
 

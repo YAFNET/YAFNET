@@ -16,36 +16,77 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Compilation;
-using System.Web.UI;
-using YAF.Classes.Data;
-using YAF.Modules;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Collections.Generic;
+  using System.Text;
+  using System.Text.RegularExpressions;
+  using System.Web.Compilation;
+  using System.Web.UI;
+
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
+  using YAF.Types.Flags;
+
+  #endregion
+
   /// <summary>
   /// The message base.
   /// </summary>
   public class MessageBase : BaseControl
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _options.
+    ///   The _options.
     /// </summary>
     private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
 
     /// <summary>
-    /// The _rgx module.
+    ///   The _rgx module.
     /// </summary>
-    private static string _rgxModule = @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.+?))\</YafModuleFactoryInvocation\>";
+    private static string _rgxModule =
+      @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.+?))\</YafModuleFactoryInvocation\>";
 
     /// <summary>
-    /// The _rgx module param.
+    ///   The _rgx module param.
     /// </summary>
     private static string _rgxModuleParam = @"\<Param Name=\""(?<name>(.*?))\""\>(?<inner>(.+?))\</Param\>";
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The get module parameters.
+    /// </summary>
+    /// <param name="paramDic">
+    /// The param dic.
+    /// </param>
+    /// <param name="invokeString">
+    /// The invoke string.
+    /// </param>
+    protected virtual void GetModuleParameters([NotNull] ref Dictionary<string, string> paramDic, [NotNull] string invokeString)
+    {
+      var regExSearch = new Regex(_rgxModuleParam, _options);
+      Match m = regExSearch.Match(invokeString);
+
+      var sb = new StringBuilder(invokeString);
+
+      while (m.Success)
+      {
+        paramDic.Add(m.Groups["name"].Value, m.Groups["inner"].Value);
+
+        // remove old param...
+        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
+
+        // match updated string...
+        m = regExSearch.Match(sb.ToString());
+      }
+    }
 
     /// <summary>
     /// The render modules in bb code.
@@ -62,7 +103,7 @@ namespace YAF.Controls
     /// <param name="displayUserId">
     /// The display user id.
     /// </param>
-    protected virtual void RenderModulesInBBCode(HtmlTextWriter writer, string message, MessageFlags theseFlags, int? displayUserId)
+    protected virtual void RenderModulesInBBCode([NotNull] HtmlTextWriter writer, [NotNull] string message, MessageFlags theseFlags, int? displayUserId)
     {
       var _regExSearch = new Regex(_rgxModule, _options);
       Match m = _regExSearch.Match(message);
@@ -83,7 +124,7 @@ namespace YAF.Controls
 
         // create/render the control...
         Type module = BuildManager.GetType(className, true, false);
-        var customModule = (YafBBCodeControl) Activator.CreateInstance(module);
+        var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
 
         // assign parameters...
         customModule.CurrentMessageFlags = theseFlags;
@@ -103,32 +144,6 @@ namespace YAF.Controls
       writer.Write(message);
     }
 
-    /// <summary>
-    /// The get module parameters.
-    /// </summary>
-    /// <param name="paramDic">
-    /// The param dic.
-    /// </param>
-    /// <param name="invokeString">
-    /// The invoke string.
-    /// </param>
-    protected virtual void GetModuleParameters(ref Dictionary<string, string> paramDic, string invokeString)
-    {
-      var regExSearch = new Regex(_rgxModuleParam, _options);
-      Match m = regExSearch.Match(invokeString);
-
-      var sb = new StringBuilder(invokeString);
-
-      while (m.Success)
-      {
-        paramDic.Add(m.Groups["name"].Value, m.Groups["inner"].Value);
-
-        // remove old param...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
-
-        // match updated string...
-        m = regExSearch.Match(sb.ToString());
-      }
-    }
+    #endregion
   }
 }
