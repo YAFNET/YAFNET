@@ -16,76 +16,80 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Globalization;
-using System.Threading;
-using YAF.Classes.Data;
-
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
-  public interface ILocalizationHandler
-  {
-    /// <summary>
-    /// Gets or sets Localization.
-    /// </summary>
-    YafLocalization Localization { get; set; }
+  #region Using
 
-    /// <summary>
-    /// Current TransPage for Localization
-    /// </summary>
-    string TranslationPage { get; set; }
+  using System;
+  using System.Globalization;
+  using System.Threading;
 
-    /// <summary>
-    /// The before init.
-    /// </summary>
-    event EventHandler<EventArgs> BeforeInit;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Classes.Data;
+  using YAF.Types.Interfaces;
 
-    /// <summary>
-    /// The after init.
-    /// </summary>
-    event EventHandler<EventArgs> AfterInit;
-  }
+  #endregion
 
   /// <summary>
   /// The localization handler.
   /// </summary>
-  public class LocalizationHandler : ILocalizationHandler
+  public class LocalizationProvider
   {
-    /// <summary>
-    /// The _init culture.
-    /// </summary>
-    private bool _initCulture = false;
+    #region Constants and Fields
 
     /// <summary>
-    /// The _init localization.
+    ///   The _init culture.
     /// </summary>
-    private bool _initLocalization = false;
+    private bool _initCulture;
 
     /// <summary>
-    /// The _localization.
+    ///   The _init localization.
     /// </summary>
-    private YafLocalization _localization = null;
+    private bool _initLocalization;
 
     /// <summary>
-    /// The _trans page.
+    ///   The _localization.
+    /// </summary>
+    private ILocalization _localization;
+
+    /// <summary>
+    ///   The _trans page.
     /// </summary>
     private string _transPage = string.Empty;
 
+    #endregion
+
+    #region Events
+
     /// <summary>
-    /// Gets or sets Localization.
+    ///   The after init.
     /// </summary>
-    public YafLocalization Localization
+    public event EventHandler<EventArgs> AfterInit;
+
+    /// <summary>
+    ///   The before init.
+    /// </summary>
+    public event EventHandler<EventArgs> BeforeInit;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    ///   Gets or sets Localization.
+    /// </summary>
+    public ILocalization Localization
     {
       get
       {
         if (!this._initLocalization)
         {
-          InitLocalization();
+          this.InitLocalization();
         }
 
         if (!this._initCulture)
         {
-          InitCulture();
+          this.InitCulture();
         }
 
         return this._localization;
@@ -100,7 +104,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Current TransPage for Localization
+    ///   Current TransPage for Localization
     /// </summary>
     public string TranslationPage
     {
@@ -118,42 +122,15 @@ namespace YAF.Classes.Core
           if (this._initLocalization)
           {
             // re-init localization
-            Localization = null;
+            this.Localization = null;
           }
         }
       }
     }
 
-    /// <summary>
-    /// The before init.
-    /// </summary>
-    public event EventHandler<EventArgs> BeforeInit;
+    #endregion
 
-    /// <summary>
-    /// The after init.
-    /// </summary>
-    public event EventHandler<EventArgs> AfterInit;
-
-    /// <summary>
-    /// Set up the localization
-    /// </summary>
-    protected void InitLocalization()
-    {
-      if (!this._initLocalization)
-      {
-        if (BeforeInit != null)
-        {
-          BeforeInit(this, new EventArgs());
-        }
-
-        Localization = new YafLocalization(TranslationPage);
-
-        if (AfterInit != null)
-        {
-          AfterInit(this, new EventArgs());
-        }
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// Set the culture and UI culture to the browser's accept language
@@ -189,7 +166,7 @@ namespace YAF.Classes.Core
         catch (Exception ex)
         {
           DB.eventlog_create(YafContext.Current.PageUserID, this, ex);
-          throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
+          throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex);
         }
 
 #else
@@ -205,5 +182,28 @@ namespace YAF.Classes.Core
         this._initCulture = true;
       }
     }
+
+    /// <summary>
+    /// Set up the localization
+    /// </summary>
+    protected void InitLocalization()
+    {
+      if (!this._initLocalization)
+      {
+        if (this.BeforeInit != null)
+        {
+          this.BeforeInit(this, new EventArgs());
+        }
+
+        this.Localization = new YafLocalization(this.TranslationPage);
+
+        if (this.AfterInit != null)
+        {
+          this.AfterInit(this, new EventArgs());
+        }
+      }
+    }
+
+    #endregion
   }
 }
