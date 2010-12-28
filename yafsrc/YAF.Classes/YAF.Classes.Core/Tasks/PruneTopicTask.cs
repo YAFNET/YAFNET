@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Data;
-
-namespace YAF.Classes.Core
+namespace YAF.Core.Tasks
 {
-  using YAF.Classes.Utils;
+  using System;
+
+  using YAF.Classes.Data;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
   /// Run when we want to do migration of users in the background...

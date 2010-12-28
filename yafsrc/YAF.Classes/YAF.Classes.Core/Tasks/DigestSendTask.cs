@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -27,9 +27,16 @@ namespace YAF.Classes.Core
   using System.Net;
   using System.Text.RegularExpressions;
 
+  using YAF.Classes;
+  using YAF.Core;
+  using YAF.Core.Services;
+  using YAF.Core.Tasks;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
-  using YAF.Classes.Utils.Extensions;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
 
   #endregion
 
@@ -192,7 +199,7 @@ namespace YAF.Classes.Core
 
         try
         {
-          digestHtml = YafContext.Current.Get<YafDigest>().GetDigestHtml(user.UserID ?? 0, boardId);
+          digestHtml = YafContext.Current.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId);
         }
         catch (Exception e)
         {

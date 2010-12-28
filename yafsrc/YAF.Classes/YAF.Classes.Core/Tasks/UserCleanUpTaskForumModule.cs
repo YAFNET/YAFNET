@@ -16,58 +16,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Modules
+namespace YAF.Core.Tasks
 {
+  #region Using
+
   using System;
 
-  using Classes.Core;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+
+  #endregion
 
   /// <summary>
   /// The user clean up task module.
   /// </summary>
   [YafModule("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
-  public class UserCleanUpTaskModule : IBaseModule
+  public class UserCleanUpTaskForumModule : BaseForumModule
   {
-    /// <summary>
-    /// The _forum control obj.
-    /// </summary>
-    private object _forumControlObj;
-
-    #region IBaseModule Members
-
-    /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    public object ForumControlObj
-    {
-      get
-      {
-        return this._forumControlObj;
-      }
-
-      set
-      {
-        this._forumControlObj = value;
-      }
-    }
+    #region Public Methods
 
     /// <summary>
     /// The init.
     /// </summary>
-    public void Init()
+    public override void Init()
     {
       // hook the page init for mail sending...
-      YafContext.Current.AfterInit += new EventHandler<EventArgs>(this.Current_AfterInit);
-    }
-
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public void Dispose()
-    {
+      this.PageContext.AfterInit += this.Current_AfterInit;
     }
 
     #endregion
+
+    #region Methods
 
     /// <summary>
     /// The current_ after init.
@@ -78,7 +57,7 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_AfterInit(object sender, EventArgs e)
+    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // add the mailing task if it's not already added...
       if (YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists(UserCleanUpTask.TaskName))
@@ -87,5 +66,7 @@ namespace YAF.Modules
         YafTaskModule.Current.StartTask(UserCleanUpTask.TaskName, new UserCleanUpTask());
       }
     }
+
+    #endregion
   }
 }

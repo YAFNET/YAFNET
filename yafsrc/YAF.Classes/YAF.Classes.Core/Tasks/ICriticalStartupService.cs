@@ -1,4 +1,4 @@
-﻿namespace YAF.Classes.Core
+﻿namespace YAF.Core.Tasks
 {
   internal interface ICriticalStartupService
   {

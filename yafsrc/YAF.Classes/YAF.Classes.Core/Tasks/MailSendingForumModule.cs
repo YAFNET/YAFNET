@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* Yet Another Forum.net
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,63 +16,46 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Modules
+namespace YAF.Core.Tasks
 {
+  #region Using
+
   using System;
 
-  using YAF.Classes.Core;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+
+  #endregion
 
   /// <summary>
   /// The mail sending module.
   /// </summary>
-  [YafModule("Digest Send Starting Module", "Tiny Gecko", 1)]
-  public class DigestSendModule : IBaseModule
+  [YafModule("Mail Queue Starting Module", "Tiny Gecko", 1)]
+  public class MailSendingForumModule : BaseForumModule
   {
-    /// <summary>
-    /// The _key name.
-    /// </summary>
-    private const string _keyName = "DigestSendTask";
+    #region Constants and Fields
 
     /// <summary>
-    /// The _forum control obj.
+    ///   The _key name.
     /// </summary>
-    private object _forumControlObj;
+    private const string _keyName = "MailSendTask";
 
-    #region IBaseModule Members
+    #endregion
 
-    /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    public object ForumControlObj
-    {
-      get
-      {
-        return this._forumControlObj;
-      }
-
-      set
-      {
-        this._forumControlObj = value;
-      }
-    }
+    #region Public Methods
 
     /// <summary>
     /// The init.
     /// </summary>
-    public void Init()
+    public override void Init()
     {
       // hook the page init for mail sending...
-      YafContext.Current.AfterInit += new EventHandler<EventArgs>(this.Current_AfterInit);
-    }
-
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public void Dispose()
-    {
+      YafContext.Current.AfterInit += this.Current_AfterInit;
     }
 
     #endregion
+
+    #region Methods
 
     /// <summary>
     /// The current_ after init.
@@ -83,14 +66,16 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_AfterInit(object sender, EventArgs e)
+    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // add the mailing task if it's not already added...
       if (YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists(_keyName))
       {
         // start it...
-        YafTaskModule.Current.StartTask(_keyName, new DigestSendTask());
+        YafTaskModule.Current.StartTask(_keyName, new MailSendTask());
       }
     }
+
+    #endregion
   }
 }

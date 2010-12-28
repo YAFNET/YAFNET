@@ -16,13 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core.Tasks
 {
   using System;
-  using System.Linq;
   using System.Web;
 
-  using Autofac.Builder;
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
 
   /// <summary>
   /// The base background task.
