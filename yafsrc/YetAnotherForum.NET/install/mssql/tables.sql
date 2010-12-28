@@ -172,8 +172,11 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
-		[IsHidden]		AS (CONVERT([bit],sign([Flags]&(2)),(0))),
 		Flags			int not null constraint [DF_{objectQualifier}Forum_Flags] default (0),
+		[IsLocked]		AS (CONVERT([bit],sign([Flags]&(1)),(0))),
+		[IsHidden]		AS (CONVERT([bit],sign([Flags]&(2)),(0))),
+		[IsNoCount]		AS (CONVERT([bit],sign([Flags]&(4)),(0))),
+		[IsModerated]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		ThemeURL		nvarchar(50) NULL,
 		PollGroupID     int null 
 	)
@@ -1351,6 +1354,25 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsHidden] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 end
 GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsLocked')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsLocked] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsNoCount')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsNoCount] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsModerated')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [IsModerated] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
 
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
 begin

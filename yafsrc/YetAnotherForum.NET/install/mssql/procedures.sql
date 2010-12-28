@@ -1983,8 +1983,12 @@ BEGIN
 		LastUserID	= a.UserID,
 		LastUser	= e.Name,
 		LastUserStyle =  case(@StyledNicks)
-			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			when 1 then  ISNULL(
+			( SELECT TOP 1 g.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] ug 
+		    join [{databaseOwner}].[{objectQualifier}Group] g 
+			on g.GroupID=ug.GroupID WHERE ug.UserID=a.UserID 
+			AND LEN(g.Style) > 2 ORDER BY g.SortOrder), 
+			r.Style)  
 			else ''	 end 	
 			FROM 
 				[{databaseOwner}].[{objectQualifier}Message] a 
@@ -1995,8 +1999,9 @@ BEGIN
 				JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=e.RankID		
 			WHERE 
 				(a.Flags & 24) = 16
-				AND (b.Flags & 8) <> 8 
-				AND d.BoardID = @BoardID AND (c.Flags & 8) <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 8 END)
+				AND b.IsDeleted = 0 
+				AND d.BoardID = @BoardID 
+				AND c.[IsNoCount] <> (CASE WHEN @ShowNoCountPosts > 0 THEN 0 ELSE 1 END)
 			ORDER BY
 				a.Posted DESC
 		END
