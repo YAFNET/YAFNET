@@ -26,19 +26,20 @@ namespace YAF.Core
   using System.Linq;
   using System.Web;
 
-  using YAF.Core;
+  using Autofac;
+
   using YAF.Core.Tasks;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
   /// <summary>
   /// Runs Tasks in the background -- controlled by the context.
   /// </summary>
-  public class YafTaskModule : IHttpModule
+  public class YafTaskModule : IHttpModule, IHaveServiceLocator
   {
     #region Constants and Fields
 
@@ -300,7 +301,10 @@ namespace YAF.Core
           }
         }
 
-        // now lock is released and the static variable is true..
+        // now lock is released and the static variable is true...
+
+        // app init notification -- no event logging is allowed at this point.
+        this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(_appInstance), null);
       }
     }
 
@@ -354,6 +358,21 @@ namespace YAF.Core
         {
           this.TaskManager[instanceName] = newTask;
         }
+      }
+    }
+
+    #endregion
+
+    #region Implementation of IHaveServiceLocator
+
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return GlobalContainer.Container.Resolve<IServiceLocator>();
       }
     }
 
