@@ -16,14 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Utils
+namespace YAF.Utils
 {
   using System.Collections;
   using System.Collections.Generic;
   using System.Collections.Specialized;
   using System.Linq;
 
-  using YAF.Classes.Pattern;
+  using YAF.Types;
 
   public static class NameValueCollectionExtensions
   {

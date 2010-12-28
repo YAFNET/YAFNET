@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Utils
+namespace YAF.Utils
 {
   #region Using
 
@@ -30,6 +30,8 @@ namespace YAF.Classes.Utils
   using System.Text.RegularExpressions;
   using System.Web.UI;
 
+  using YAF.Types;
+
   #endregion
 
   /// <summary>
@@ -38,19 +40,6 @@ namespace YAF.Classes.Utils
   public static class ObjectExtensions
   {
     #region Public Methods
-
-    /// <summary>
-    /// Provides a chaining action with the object.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="obj"></param>
-    /// <param name="action"></param>
-    /// <returns></returns>
-    public static T DoWith<T>(this T obj, Action<T> action)
-    {
-      action(obj);
-      return obj;
-    }
 
     /// <summary>
     /// Converts an object to a type.
@@ -64,7 +53,8 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The convert object to type.
     /// </returns>
-    public static object ConvertObjectToType(object value, string type)
+    [CanBeNull]
+    public static object ConvertObjectToType([NotNull] object value, [NotNull] string type)
     {
       if (value == null)
       {
@@ -87,6 +77,7 @@ namespace YAF.Classes.Utils
         switch (convertType.ToString())
         {
           case "System.Guid":
+
             // do a "manual conversion" from string to Guid
             return new Guid(Convert.ToString(value));
           case "System.Int32":
@@ -100,30 +91,76 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// The get custom attributes.
+    /// Provides a chaining action with the object.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="obj">
+    /// </param>
+    /// <param name="action">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static T DoWith<T>(this T obj, [NotNull] Action<T> action)
+    {
+      action(obj);
+      return obj;
+    }
+
+    /// <summary>
+    /// The get attribute.
     /// </summary>
     /// <param name="objectType">
     /// The object type.
     /// </param>
-    /// <param name="attributeType">
-    /// The attribute type.
-    /// </param>
+    /// <typeparam name="TAttribute">
+    /// </typeparam>
     /// <returns>
     /// </returns>
-    public static object[] GetCustomAttributes(Type objectType, Type attributeType)
+    public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
     {
-      object[] myAttrOnType = objectType.GetCustomAttributes(attributeType, false);
-      if (myAttrOnType.Length > 0)
-      {
-        return myAttrOnType;
-      }
+      CodeContracts.ArgumentNotNull(objectType, "objectType");
 
-      return null;
+      return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
+    }
+
+    /// <summary>
+    /// The get attributes.
+    /// </summary>
+    /// <param name="objectType">
+    /// The object type.
+    /// </param>
+    /// <typeparam name="TAttribute">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    public static IEnumerable<TAttribute> GetAttributes<TAttribute>([NotNull] this Type objectType)
+      where TAttribute : Attribute
+    {
+      CodeContracts.ArgumentNotNull(objectType, "objectType");
+
+      return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>();
+    }
+
+    /// <summary>
+    /// Does this instance have this interface?
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="instance">
+    /// </param>
+    /// <returns>
+    /// The has interface.
+    /// </returns>
+    public static bool HasInterface<T>([NotNull] this object instance)
+    {
+      return typeof(T).IsAssignableFrom(instance.GetType());
     }
 
     /// <summary>
     /// Converts the object to the class (T) or returns null if it's not 
-    /// an instance of that class or instance is null.
+    ///   an instance of that class or instance is null.
     /// </summary>
     /// <typeparam name="T">
     /// </typeparam>
@@ -131,7 +168,8 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static T ToClass<T>(this object instance) where T : class
+    [CanBeNull]
+    public static T ToClass<T>([NotNull] this object instance) where T : class
     {
       if (instance != null && instance is T)
       {
@@ -143,7 +181,7 @@ namespace YAF.Classes.Utils
 
     /// <summary>
     /// Converts an object to a different object (class) by copying fields (if they exist).
-    /// Used to convert annonomous objects to strongly typed objects.
+    ///   Used to convert annonomous objects to strongly typed objects.
     /// </summary>
     /// <typeparam name="T">
     /// </typeparam>
@@ -151,7 +189,8 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static T ToDifferentClassType<T>(this object obj) where T : class
+    [NotNull]
+    public static T ToDifferentClassType<T>([NotNull] this object obj) where T : class
     {
       // create instance of T type object:
       var tmp = Activator.CreateInstance(typeof(T));
@@ -182,7 +221,8 @@ namespace YAF.Classes.Utils
     /// </typeparam>
     /// <returns>
     /// </returns>
-    public static List<T> ToGenericList<T>(this IList listObjects)
+    [NotNull]
+    public static List<T> ToGenericList<T>([NotNull] this IList listObjects)
     {
       var convertedList = new List<T>(listObjects.Count);
 
@@ -200,52 +240,53 @@ namespace YAF.Classes.Utils
 
     /// <summary>
     /// Enables you to get a string representation of the object using string 
-    /// formatting with property names, rather than index based values.
+    ///   formatting with property names, rather than index based values.
     /// </summary>
     /// <param name="anObject">
     /// The object being extended.
     /// </param>
     /// <param name="aFormat">
     /// The formatting string, like "Hi, my name 
-    /// is {FirstName} {LastName}".
+    ///   is {FirstName} {LastName}".
     /// </param>
     /// <returns>
     /// A formatted string with the values from the object replaced 
-    /// in the format string.
+    ///   in the format string.
     /// </returns>
     /// <remarks>
     /// To embed a pair of {} on the string, simply double them: 
-    /// "I am a {{Literal}}".
+    ///   "I am a {{Literal}}".
     /// </remarks>
-    public static string ToString(this object anObject, string aFormat)
+    public static string ToString([NotNull] this object anObject, [NotNull] string aFormat)
     {
-      return ObjectExtensions.ToString(anObject, aFormat, null);
+      return anObject.ToString(aFormat, null);
     }
 
     /// <summary>
     /// Enables you to get a string representation of the object using string 
-    /// formatting with property names, rather than index based values.
+    ///   formatting with property names, rather than index based values.
     /// </summary>
     /// <param name="anObject">
     /// The object being extended.
     /// </param>
     /// <param name="aFormat">
     /// The formatting string, like "Hi, my name is 
-    /// {FirstName} {LastName}".
+    ///   {FirstName} {LastName}".
     /// </param>
     /// <param name="formatProvider">
     /// An System.<see cref="IFormatProvider"/> that 
-    /// provides culture-specific formatting information.
+    ///   provides culture-specific formatting information.
     /// </param>
     /// <returns>
     /// A formatted string with the values from the object replaced in 
-    /// the format string.
+    ///   the format string.
     /// </returns>
     /// <remarks>
     /// To embed a pair of {} on the string, simply double them: 
-    /// "I am a {{Literal}}".
+    ///   "I am a {{Literal}}".
     /// </remarks>
-    public static string ToString(this object anObject, string aFormat, IFormatProvider formatProvider)
+    [NotNull]
+    public static string ToString([NotNull] this object anObject, [NotNull] string aFormat, [NotNull] IFormatProvider formatProvider)
     {
       var sb = new StringBuilder();
       Type type = anObject.GetType();
@@ -275,7 +316,7 @@ namespace YAF.Classes.Utils
         }
 
         // Make sure we're not dealing 
-        if (!getValue.StartsWith("{")) 
+        if (!getValue.StartsWith("{"))
         {
           // with a string literal wrapped in {}
           // Get the object's value using DataBinder.Eval.
@@ -287,7 +328,7 @@ namespace YAF.Classes.Utils
 
           sb.Append(result);
         }
-        else 
+        else
         {
           // Property name started with a { which means we treat it as a literal.
           sb.Append(g.Value);
@@ -313,7 +354,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static T ToType<T>(this object instance)
+    public static T ToType<T>([NotNull] this object instance)
     {
       if (instance == null)
       {
@@ -358,7 +399,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The valid int.
     /// </returns>
-    public static int ValidInt(object expression)
+    public static int ValidInt([NotNull] object expression)
     {
       int value = 0;
 
@@ -385,7 +426,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The verify bool.
     /// </returns>
-    public static bool VerifyBool(object o)
+    public static bool VerifyBool([NotNull] object o)
     {
       return Convert.ToBoolean(o);
     }
@@ -399,20 +440,9 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The verify int 32.
     /// </returns>
-    public static int VerifyInt32(object o)
+    public static int VerifyInt32([NotNull] object o)
     {
       return Convert.ToInt32(o);
-    }
-
-    /// <summary>
-    /// Does this instance have this interface?
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="instance"></param>
-    /// <returns></returns>
-    public static bool HasInterface<T>(this object instance)
-    {
-      return typeof(T).IsAssignableFrom(instance.GetType());
     }
 
     #endregion
