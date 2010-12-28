@@ -16,23 +16,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Pattern;
-
 namespace YAF.Providers.Roles
 {
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Data.SqlClient;
+
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
+
+  #endregion
+
   /// <summary>
   /// The yaf roles db conn manager.
   /// </summary>
   public class YafRolesDBConnManager : YafDBConnManager
   {
+    #region Properties
+
     /// <summary>
-    /// Gets ConnectionString.
+    ///   Gets ConnectionString.
     /// </summary>
     public override string ConnectionString
     {
@@ -46,6 +53,8 @@ namespace YAF.Providers.Roles
         return Config.ConnectionString;
       }
     }
+
+    #endregion
   }
 
   /// <summary>
@@ -53,21 +62,31 @@ namespace YAF.Providers.Roles
   /// </summary>
   public class DB
   {
-    /// <summary>
-    /// The _db access.
-    /// </summary>
-    private YafDBAccess _dbAccess = new YafDBAccess();
+    #region Constants and Fields
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DB"/> class.
+    ///   The _db access.
+    /// </summary>
+    private readonly YafDBAccess _dbAccess = new YafDBAccess();
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "DB" /> class.
     /// </summary>
     public DB()
     {
       this._dbAccess.SetConnectionManagerAdapter<YafRolesDBConnManager>();
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets Current.
+    ///   Gets Current.
     /// </summary>
     public static DB Current
     {
@@ -76,6 +95,10 @@ namespace YAF.Providers.Roles
         return PageSingleton<DB>.Instance;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Database Action - Add User to Role
@@ -179,29 +202,6 @@ namespace YAF.Providers.Roles
     }
 
     /// <summary>
-    /// Database Action - Get Roles
-    /// </summary>
-    /// <param name="appName">
-    /// Application Name
-    /// </param>
-    /// <param name="username">
-    /// The username.
-    /// </param>
-    /// <returns>
-    /// Database containing Role Information
-    /// </returns>
-    public DataTable GetRoles(object appName, object username)
-    {
-      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_getroles")))
-      {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ApplicationName", appName);
-        cmd.Parameters.AddWithValue("Username", username);
-        return this._dbAccess.GetData(cmd);
-      }
-    }
-
-    /// <summary>
     /// Database Action - Get Role Exists
     /// </summary>
     /// <param name="appName">
@@ -221,6 +221,29 @@ namespace YAF.Providers.Roles
         cmd.Parameters.AddWithValue("ApplicationName", appName);
         cmd.Parameters.AddWithValue("RoleName", roleName);
         return this._dbAccess.ExecuteScalar(cmd);
+      }
+    }
+
+    /// <summary>
+    /// Database Action - Get Roles
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="username">
+    /// The username.
+    /// </param>
+    /// <returns>
+    /// Database containing Role Information
+    /// </returns>
+    public DataTable GetRoles(object appName, object username)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_getroles")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("Username", username);
+        return this._dbAccess.GetData(cmd);
       }
     }
 
@@ -274,5 +297,7 @@ namespace YAF.Providers.Roles
         this._dbAccess.ExecuteNonQuery(cmd);
       }
     }
+
+    #endregion
   }
 }

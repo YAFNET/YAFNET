@@ -29,8 +29,8 @@ namespace YAF.Providers.Membership
   using System.Text.RegularExpressions;
   using System.Web.Security;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
   using YAF.Providers.Utils;
 
   /// <summary>

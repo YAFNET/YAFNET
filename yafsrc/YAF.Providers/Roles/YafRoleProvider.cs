@@ -25,10 +25,9 @@ namespace YAF.Providers.Roles
   using System.Linq;
   using System.Web.Security;
 
-  using Classes.Utils;
-
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Pattern;
+  using YAF.Utils;
   using YAF.Providers.Utils;
 
   /// <summary>
@@ -52,11 +51,6 @@ namespace YAF.Providers.Roles
     /// The _conn str name.
     /// </summary>
     private string _connStrName;
-
-    /// <summary>
-    /// The _provider localization.
-    /// </summary>
-    private YafLocalization _providerLocalization;
 
     #endregion
 
@@ -349,8 +343,6 @@ namespace YAF.Providers.Roles
       {
         this._appName = "YetAnotherForum";
       }
-
-      this._providerLocalization = new YafLocalization();
     }
 
     /// <summary>

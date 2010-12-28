@@ -28,10 +28,11 @@ namespace YAF.Providers.Profile
   using System.Text;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Types;
 
   #endregion
 

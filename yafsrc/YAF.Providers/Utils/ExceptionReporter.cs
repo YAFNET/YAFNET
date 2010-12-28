@@ -17,23 +17,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Configuration.Provider;
-using System.Web;
-using System.Xml;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
 namespace YAF.Providers.Utils
 {
+  #region Using
+
+  using System;
+  using System.Configuration.Provider;
+  using System.Web;
+  using System.Xml;
+
+  using YAF.Classes;
+  using YAF.Utils;
+  using YAF.Types;
+
+  #endregion
+
   /// <summary>
   /// The exception reporter.
   /// </summary>
   public static class ExceptionReporter
   {
+    #region Properties
+
     /// <summary>
-    /// Get Exception XML File Name from AppSettings
+    ///   Get Exception XML File Name from AppSettings
     /// </summary>
+    [NotNull]
     private static string ProviderExceptionFile
     {
       get
@@ -42,21 +51,9 @@ namespace YAF.Providers.Utils
       }
     }
 
-    /// <summary>
-    /// Return XMLDocument containing text for the Exceptions
-    /// </summary>
-    private static XmlDocument ExceptionXML()
-    {
-      if (ProviderExceptionFile.IsNotSet())
-      {
-        throw new ApplicationException("Exceptionfile cannot be null or empty!");
-      }
+    #endregion
 
-      var exceptionXmlDoc = new XmlDocument();
-      exceptionXmlDoc.Load(HttpContext.Current.Server.MapPath("{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, ProviderExceptionFile)));
-
-      return exceptionXmlDoc;
-    }
+    #region Public Methods
 
     /// <summary>
     /// Get Exception String
@@ -70,9 +67,10 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The get report.
     /// </returns>
-    public static string GetReport(string providerSection, string tag)
+    public static string GetReport([NotNull] string providerSection, [NotNull] string tag)
     {
-      string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(providerSection.ToUpper(), tag.ToUpper());
+      string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
+        providerSection.ToUpper(), tag.ToUpper());
       XmlNode node = ExceptionXML().SelectSingleNode(select);
 
       if (node != null)
@@ -97,7 +95,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The throw.
     /// </returns>
-    public static string Throw(string providerSection, string tag)
+    public static string Throw([NotNull] string providerSection, [NotNull] string tag)
     {
       throw new ApplicationException(GetReport(providerSection, tag));
     }
@@ -114,7 +112,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The throw argument.
     /// </returns>
-    public static string ThrowArgument(string providerSection, string tag)
+    public static string ThrowArgument([NotNull] string providerSection, [NotNull] string tag)
     {
       throw new ArgumentException(GetReport(providerSection, tag));
     }
@@ -131,7 +129,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The throw argument null.
     /// </returns>
-    public static string ThrowArgumentNull(string providerSection, string tag)
+    public static string ThrowArgumentNull([NotNull] string providerSection, [NotNull] string tag)
     {
       throw new ArgumentNullException(GetReport(providerSection, tag));
     }
@@ -148,7 +146,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The throw not supported.
     /// </returns>
-    public static string ThrowNotSupported(string providerSection, string tag)
+    public static string ThrowNotSupported([NotNull] string providerSection, [NotNull] string tag)
     {
       throw new NotSupportedException(GetReport(providerSection, tag));
     }
@@ -165,9 +163,34 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The throw provider.
     /// </returns>
-    public static string ThrowProvider(string providerSection, string tag)
+    public static string ThrowProvider([NotNull] string providerSection, [NotNull] string tag)
     {
       throw new ProviderException(GetReport(providerSection, tag));
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Return XMLDocument containing text for the Exceptions
+    /// </summary>
+    [NotNull]
+    private static XmlDocument ExceptionXML()
+    {
+      if (ProviderExceptionFile.IsNotSet())
+      {
+        throw new ApplicationException("Exceptionfile cannot be null or empty!");
+      }
+
+      var exceptionXmlDoc = new XmlDocument();
+      exceptionXmlDoc.Load(
+        HttpContext.Current.Server.MapPath(
+          "{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, ProviderExceptionFile)));
+
+      return exceptionXmlDoc;
+    }
+
+    #endregion
   }
 }
