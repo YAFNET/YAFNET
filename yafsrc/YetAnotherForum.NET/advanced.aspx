@@ -1,17 +1,14 @@
-<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
-
+<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
+<%@ Register TagPrefix="YAF" Assembly="YAF.Controls" Namespace="YAF" %>
+
 <script runat="server">
     void Page_Load(object sender, System.EventArgs e)
     {
         yafForum.Header = yafHeader;
         yafForum.Footer = yafFooter;
     }
-    public void Page_Error(object sender, System.EventArgs e)
-    {
-        Exception x = Server.GetLastError();
-        YAF.Classes.Data.DB.eventlog_create(YafContext.Current.Get<StartupInitializeDb>().Initialized ? (int?)YafContext.Current.PageUserID : null, this, x);
-    }		
+
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
