@@ -4,7 +4,9 @@ namespace YAF.Modules
 
   using Autofac;
 
-  using YAF.Classes.Pattern;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  
 
   #endregion
 

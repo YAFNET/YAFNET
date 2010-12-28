@@ -6,8 +6,13 @@ namespace YAF.Modules
   using System.Web;
 
   using YAF.Classes;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  
 
   #endregion
 
@@ -15,7 +20,7 @@ namespace YAF.Modules
   /// The page requires secure connection module.
   /// </summary>
   [YafModule("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
-  public class PageRequiresSecureConnectionModule : SimpleBaseModule
+  public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
   {
     #region Public Methods
 

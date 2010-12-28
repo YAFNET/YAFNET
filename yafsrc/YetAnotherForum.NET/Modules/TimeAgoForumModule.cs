@@ -23,8 +23,13 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Classes.Core;
-    using YAF.Classes.Pattern;
+    using YAF.Core;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces; using YAF.Types.Constants;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Constants;
+    
     using YAF.Utilities;
 
     #endregion
@@ -33,7 +38,7 @@ namespace YAF.Modules
     /// The time ago module.
     /// </summary>
     [YafModule("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
-    public class TimeAgoModule : SimpleBaseModule
+    public class TimeAgoForumModule : SimpleBaseForumModule
     {
         #region Public Methods
 

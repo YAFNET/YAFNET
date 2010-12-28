@@ -23,18 +23,24 @@ namespace YAF.Modules
   using System;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Utils;
   using YAF.Controls;
+  using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// Summary description for PageTitleModule
   /// </summary>
   [YafModule("Page Title Module", "Tiny Gecko", 1)]
-  public class PagePmPopupModule : SimpleBaseModule
+  public class PagePmPopupForumModule : SimpleBaseForumModule
   {
     #region Public Methods
 

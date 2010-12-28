@@ -22,9 +22,15 @@ namespace YAF.Modules
 
   using System;
   using System.Web.UI;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  
 
   #endregion
 
@@ -32,7 +38,7 @@ namespace YAF.Modules
   /// Summary description for PagePopupModule
   /// </summary>
   [YafModule("Page Popup Module", "Tiny Gecko", 1)]
-  public class PagePopupModule : SimpleBaseModule
+  public class PagePopupForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields
 

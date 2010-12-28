@@ -22,13 +22,18 @@ namespace YAF.Modules
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
   using YAF.Classes;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
 
   /// <summary>
   /// Summary description for PageTitleModule
   /// </summary>
   [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
-  public class PageLogoHandlerModule : SimpleBaseModule
+  public class PageLogoHandlerForumModule : SimpleBaseForumModule
   {
     /// <summary>
     /// The init after page.

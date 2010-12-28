@@ -23,8 +23,14 @@ namespace YAF.Modules
   using System;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -32,7 +38,7 @@ namespace YAF.Modules
   /// Module that handles page permission feature
   /// </summary>
   [YafModule("Page Permission Module", "Tiny Gecko", 1)]
-  public class PagePermissionModule : SimpleBaseModule
+  public class PagePermissionForumModule : SimpleBaseForumModule
   {
     #region Public Methods
 

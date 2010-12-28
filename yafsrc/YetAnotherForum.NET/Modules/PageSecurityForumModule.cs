@@ -20,13 +20,16 @@ namespace YAF.Modules
 {
   using System;
   using YAF.Classes;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils;
 
   /// <summary>
   /// Module that handles individual page security features -- needs to be expanded.
   /// </summary>
   [YafModule("Page Security Module", "Tiny Gecko", 1)]
-  public class PageSecurityModule : SimpleBaseModule
+  public class PageSecurityForumModule : SimpleBaseForumModule
   {
     /// <summary>
     /// The init before page.

@@ -22,15 +22,22 @@ namespace YAF.Modules
   using System.Text;
   using System.Web.UI.HtmlControls;
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Utils;
   using YAF.Controls;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// Summary description for PageTitleModule
   /// </summary>
   [YafModule("Page Title Module", "Tiny Gecko", 1)]
-  public class PageTitleModule : SimpleBaseModule
+  public class PageTitleForumModule : SimpleBaseForumModule
   {
     /// <summary>
     /// The _forum page title.
@@ -38,9 +45,9 @@ namespace YAF.Modules
     protected string _forumPageTitle = null;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageTitleModule"/> class.
+    /// Initializes a new instance of the <see cref="PageTitleForumModule"/> class.
     /// </summary>
-    public PageTitleModule()
+    public PageTitleForumModule()
     {
     }
 

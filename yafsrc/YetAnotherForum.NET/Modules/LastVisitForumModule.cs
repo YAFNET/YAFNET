@@ -20,14 +20,18 @@ namespace YAF.Modules
 {
   using System;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants; using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Utils;
+  using YAF.Types.Interfaces;
 
   /// <summary>
   /// Summary description for Last Visit Module
   /// </summary>
   [YafModule("Last Visit Module", "Tiny Gecko", 1)]
-  public class LastVisitModule : SimpleBaseModule
+  public class LastVisitForumModule : SimpleBaseForumModule
   {
     /// <summary>
     /// The init before page.

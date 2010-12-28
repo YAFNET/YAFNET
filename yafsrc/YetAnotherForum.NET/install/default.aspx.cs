@@ -35,13 +35,20 @@ namespace YAF.Install
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Core;
+    using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+    using YAF.Utils.Helpers;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Core.Services;
+    using YAF.Core.Tasks;
     using YAF.Classes.Data;
     using YAF.Classes.Data.Import;
-    using YAF.Classes.Pattern;
-    using YAF.Classes.Utils;
+    using YAF.Types.Constants;
+    using YAF.Utils;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
     /// <summary>
     /// Summary description for install.

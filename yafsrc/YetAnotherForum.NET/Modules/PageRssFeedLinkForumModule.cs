@@ -24,9 +24,18 @@ namespace YAF.Modules
   using System.Web.UI.HtmlControls;
 
   using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Core.Services;
+  using YAF.Types.Constants;
+  using YAF.Utils;
+  using YAF.Types.Interfaces;
+
+  using IPermissionsExtensions = YAF.Core.IPermissionsExtensions;
 
   #endregion
 
@@ -34,7 +43,7 @@ namespace YAF.Modules
   /// Summary description for PageRssFeedLinkModule
   /// </summary>
   [YafModule("Page Rss Feed Link Module", "Tiny Gecko", 1)]
-  public class PageRssFeedLinkModule : SimpleBaseModule
+  public class PageRssFeedLinkForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields
 
@@ -83,7 +92,7 @@ namespace YAF.Modules
       if (head != null)
       {
         bool groupAccess =
-          YafContext.Current.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+          IPermissionsExtensions.Check(YafContext.Current.Get<IPermissions>(), this.PageContext.BoardSettings.PostLatestFeedAccess);
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
         {
           // setup the rss link...

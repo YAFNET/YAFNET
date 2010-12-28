@@ -22,8 +22,11 @@ namespace YAF.Modules
   using System.Text;
   using System.Web.UI;
 
-  using YAF.Classes.Core;
-  using YAF.Classes.Utils;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Utils.Helpers;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Utils;
   using YAF.Controls;
 
   public class UserLinkBBCodeModule : YafBBCodeControl
@@ -51,7 +54,7 @@ namespace YAF.Modules
         return;
       }
 
-      var foundUsers = YafContext.Current.UserDisplayName.Find(userName.Trim());
+      var foundUsers = YafContext.Current.Get<IUserDisplayName>().Find(userName.Trim());
 
       if (foundUsers.Any())
       {

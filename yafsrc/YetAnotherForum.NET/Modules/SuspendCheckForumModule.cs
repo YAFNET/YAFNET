@@ -20,14 +20,18 @@ namespace YAF.Modules
 {
   using System;
   using System.Web;
+
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
 
   /// <summary>
   /// Summary description for SuspendCheckModule
   /// </summary>
   [YafModule("Suspend Check Module", "Tiny Gecko", 1)]
-  public class SuspendCheckModule : SimpleBaseModule
+  public class SuspendCheckForumModule : SimpleBaseForumModule
   {
     /// <summary>
     /// The init before page.

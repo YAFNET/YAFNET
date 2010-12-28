@@ -19,14 +19,17 @@
 namespace YAF.Modules
 {
   using YAF.Classes;
-  using YAF.Classes.Core.BBCode;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.BBCode;
   using YAF.Controls;
 
   /// <summary>
   /// Summary description for PageTitleModule
   /// </summary>
   [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
-  public class PageBBCodeRegistration : SimpleBaseModule
+  public class PageBBCodeRegistration : SimpleBaseForumModule
   {
     /// <summary>
     /// The init after page.
