@@ -7429,7 +7429,7 @@ namespace YAF.Classes.Data
           object sortJoined, 
           object sortPosts)
     {
-        using (SqlCommand cmd = YafDBAccess.GetCommand("user_listmembers"))
+        using (var cmd = MsSqlDbAccess.GetCommand("user_listmembers"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("BoardID", boardId);
@@ -7447,7 +7447,7 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("SortRank", sortRank);
             cmd.Parameters.AddWithValue("SortJoined", sortJoined);
             cmd.Parameters.AddWithValue("SortPosts", sortPosts);
-            return YafDBAccess.Current.GetData(cmd);
+            return MsSqlDbAccess.Current.GetData(cmd);
         }
     }
 
