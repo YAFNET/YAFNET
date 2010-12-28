@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes.Core
+namespace YAF.Core
 {
   #region Using
 
@@ -26,17 +26,22 @@ namespace YAF.Classes.Core
   using System.Web;
   using System.Xml;
 
+  using YAF.Classes;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core.Services;
   using YAF.Classes.Data;
-  using YAF.Classes.Interfaces;
-  using YAF.Classes.Pattern;
-  using YAF.Classes.Utils;
+  using YAF.Utils;
+  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
   /// The yaf theme.
   /// </summary>
-  public class YafTheme : IYafTheme
+  public class YafTheme : ITheme
   {
     #region Constants and Fields
 
@@ -123,8 +128,6 @@ namespace YAF.Classes.Core
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
     /// Basic testing of the theme's validity...
     /// </summary>
@@ -160,38 +163,9 @@ namespace YAF.Classes.Core
             String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", themeFile.Trim())));
     }
 
-    /// <summary>
-    /// Gets the collapsible panel image url (expanded or collapsed).
-    ///   </summary>
-    /// <param name="panelID">
-    /// ID of collapsible panel
-    /// </param>
-    /// <param name="defaultState">
-    /// Default Panel State
-    /// </param>
-    /// <returns>
-    /// Image URL
-    /// </returns>
-    public string GetCollapsiblePanelImageURL([NotNull] string panelID, PanelSessionState.CollapsiblePanelState defaultState)
-    {
-      CodeContracts.ArgumentNotNull(panelID, "panelID");
-
-      PanelSessionState.CollapsiblePanelState stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelID];
-      if (stateValue == PanelSessionState.CollapsiblePanelState.None)
-      {
-        stateValue = defaultState;
-        YafContext.Current.Get<IYafSession>().PanelState[panelID] = defaultState;
-      }
-
-      return this.GetItem(
-        "ICONS", stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND");
-    }
-
-    #endregion
-
     #region Implemented Interfaces
 
-    #region IYafTheme
+    #region ITheme
 
     /// <summary>
     /// Gets full path to the given theme file.
