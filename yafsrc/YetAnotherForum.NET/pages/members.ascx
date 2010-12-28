@@ -1,27 +1,27 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" Codebehind="members.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" CodeBehind="members.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table cellspacing="0" cellpadding="0" class="content" width="100%">
         <tr>
             <td class="header1" colspan="4">
-                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="Search_Members" />
+                <YAF:LocalizedLabel ID="SearchMembersLocalizedLabel" runat="server" LocalizedTag="Search_Members" />
             </td>
         </tr>
         <tr class="header2">
             <td>
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="Search_Role" />
+                <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" LocalizedTag="Search_Role" />
             </td>
             <td>
-                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="Search_Rank" />
+                <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" LocalizedTag="Search_Rank" />
             </td>
             <td>
-                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Search_Member" />
+                <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" LocalizedTag="Search_Member" />
             </td>
         </tr>
         <tr class="post">
             <td>
-                <asp:DropDownList ID="group" runat="server" Width="95%">
+                <asp:DropDownList ID="Group" runat="server" Width="95%">
                 </asp:DropDownList>
             </td>
             <td>
@@ -29,12 +29,15 @@
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:TextBox ID="name" runat="server" Width="95%"></asp:TextBox>
+                <asp:TextBox ID="UserSearchName" runat="server" Width="95%"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="footer1" colspan="4" align="right">
-                <asp:Button ID="search" runat="server" OnClick="search_Click" Text="Search"></asp:Button>
+            <td class="footer1" colspan="1" align="left">
+            <asp:Button ID="ResetUserSearch" runat="server" OnClick="Reset_Click" Text='<%# this.GetText("Cancel") %>' ></asp:Button>
+            </td>
+            <td class="footer1" colspan="3" align="right">
+             <asp:Button ID="SearchByUserName" runat="server" OnClick="Search_Click" Text='<%# this.GetText("BTNSEARCH") %>' ></asp:Button>
             </td>
         </tr>
     </table>

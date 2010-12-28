@@ -7368,6 +7368,87 @@ namespace YAF.Classes.Data
       }
     }
 
+      /// <summary>
+      /// The user_list20members.
+      /// </summary>
+      /// <param name="boardId">
+      /// The board id.
+      /// </param>
+      /// <param name="userId">
+      /// The user id.
+      /// </param>
+      /// <param name="approved">
+      /// The approved.
+      /// </param>
+      /// <param name="groupId">
+      /// The group id.
+      /// </param>
+      /// <param name="rankId">
+      /// The rank id.
+      /// </param>
+      /// <param name="useStyledNicks">
+      /// Return style info.
+      /// </param>
+      /// <param name="lastUserId">
+      /// The last user Id.
+      /// </param>
+      /// <param name="literals">
+      /// The literals.
+      /// </param>
+      /// <param name="exclude">
+      /// The exclude.
+      /// </param>
+      /// <param name="beginsWith">
+      /// The begins with.
+      /// </param>
+      /// <param name="pageIndex">
+      /// The page index.
+      /// </param>
+      /// <param name="pageSize">
+      /// The page size.
+      /// </param>
+      /// <returns>
+      /// </returns>
+      public static DataTable user_listmembers(
+          object boardId, 
+          object userId, 
+          object approved, 
+          object groupId, 
+          object rankId, 
+          object useStyledNicks, 
+          object lastUserId, 
+          object literals, 
+          object exclude, 
+          object beginsWith,
+          object pageIndex, 
+          object pageSize,
+          object sortName, 
+          object sortRank, 
+          object sortJoined, 
+          object sortPosts)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("user_listmembers"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+            cmd.Parameters.AddWithValue("UserID", userId);
+            cmd.Parameters.AddWithValue("Approved", approved);
+            cmd.Parameters.AddWithValue("GroupID", groupId);
+            cmd.Parameters.AddWithValue("RankID", rankId);
+            cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+            cmd.Parameters.AddWithValue("Literals", literals);
+            cmd.Parameters.AddWithValue("Exclude", exclude);
+            cmd.Parameters.AddWithValue("BeginsWith", beginsWith);
+            cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+            cmd.Parameters.AddWithValue("PageSize", pageSize);
+            cmd.Parameters.AddWithValue("SortName", sortName);
+            cmd.Parameters.AddWithValue("SortRank", sortRank);
+            cmd.Parameters.AddWithValue("SortJoined", sortJoined);
+            cmd.Parameters.AddWithValue("SortPosts", sortPosts);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
     /// <summary>
     /// Get the user list as a typed list.
     /// </summary>

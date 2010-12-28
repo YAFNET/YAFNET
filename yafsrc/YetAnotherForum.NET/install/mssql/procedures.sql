@@ -712,6 +712,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_list]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_listmembers]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_listmembers]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_listmedals]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_listmedals]
 GO
@@ -6189,6 +6193,135 @@ begin
 			(@RankID is null or a.RankID=@RankID)
 		order by 
 			a.Name
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}user_listmembers](
+                @BoardID int,
+				@UserID int=null,
+				@Approved bit=null,
+				@GroupID int=null,
+				@RankID int=null,
+				@StyledNicks bit = null,
+				@Literals nvarchar(255), 
+				@Exclude bit = null, 
+				@BeginsWith bit = null, 				
+				@PageIndex int, 
+				@PageSize int,
+				@SortName bit = 0,
+				@SortRank bit = 0,
+				@SortJoined bit = 0,
+				@SortPosts bit = 0) as
+begin
+  
+   declare @user_totalrowsnumber int 
+   declare @firstselectrownum int 
+   declare @firstselectrowid int
+
+   -- get total number of users in the db
+   select @user_totalrowsnumber = count(a.UserID) 
+    from [{databaseOwner}].[{objectQualifier}User] a  with(nolock) 
+	  join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock)
+	  on b.RankID=a.RankID 
+	  where
+	   a.BoardID = @BoardID	   
+	   and
+		(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
+		(@GroupID is null or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
+		(@RankID is null or a.RankID=@RankID) AND
+		ISNULL(a.Flags & 4,0) <> 4
+			AND
+		LOWER(a.DisplayName) LIKE CASE 
+			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
+			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
+			ELSE '%' END  
+		order by 1  
+
+	--	SET @user_totalrowsnumber = @@ROWCOUNT
+
+    
+   set nocount on
+   select @PageIndex = @PageIndex+1;   
+   select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1
+
+     
+      set rowcount @firstselectrownum	 
+
+      select @firstselectrowid = a.UserID  
+      from [{databaseOwner}].[{objectQualifier}User] a
+	  join [{databaseOwner}].[{objectQualifier}Rank] b 
+	  on b.RankID=a.RankID 
+	  where
+	   a.BoardID = @BoardID	   
+	   and
+		(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
+		(@GroupID is null or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
+		(@RankID is null or a.RankID=@RankID) AND
+		ISNULL(a.Flags & 4,0) <> 4
+			AND
+		LOWER(a.DisplayName) LIKE CASE 
+			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
+			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
+			ELSE '%' END 
+      order by 1
+
+	 if (@firstselectrownum is not null)
+	 set rowcount @PageSize
+	 else
+	 set rowcount 1
+
+      select
+	  		a.*,
+			a.NumPosts,
+			CultureUser = a.Culture,
+			IsAdmin = (select COUNT(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
+			IsHostAdmin	= ISNULL(a.Flags & 1,0),
+			b.RankID,
+			RankName = b.Name,
+			Style = case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			else ''	 end,
+			TotalCount =  @user_totalrowsnumber 
+			from [{databaseOwner}].[{objectQualifier}User] a 
+			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID	
+      where a.UserID >= @firstselectrowid and 
+	         a.BoardID = @BoardID and
+			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
+			(@GroupID is null or exists(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
+			(@RankID is null or a.RankID=@RankID) AND
+			ISNULL(a.Flags & 4,0) <> 4
+			AND
+			LOWER(a.DisplayName) LIKE CASE 
+			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
+			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
+			ELSE '%' END 
+    ORDER BY  (case 
+        when @SortName = 0 then a.UserID 
+        else null  end) DESC,
+		(case 
+        when @SortName = 1 then a.UserID 
+        else null  end) ASC, 
+		(case 
+        when @SortRank = 0 then a.RankID 
+        else null  end) DESC,
+		(case 
+        when @SortRank = 1 then a.RankID 
+        else null  end) ASC,		
+		(case 
+        when @SortJoined = 0 then a.Joined 
+        else null  end) DESC,
+		(case 
+        when @SortJoined = 1 then a.Joined 
+        else null  end) ASC,
+		(case
+		 when @SortPosts = 0 then a.NumPosts 
+        else null  end) DESC, 
+   		(case
+		 when @SortPosts = 1 then a.NumPosts 
+        else null  end) ASC 
+   
+   set nocount off
 end
 GO
 

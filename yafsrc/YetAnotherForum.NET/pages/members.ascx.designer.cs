@@ -22,49 +22,49 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// SearchMembersLocalizedLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.LocalizedLabel SearchMembersLocalizedLabel;
         
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// SearchRolesLocalizedLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel SearchRolesLocalizedLabel;
         
         /// <summary>
-        /// LocalizedLabel4 control.
+        /// SearchRankLocalizedLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.LocalizedLabel SearchRankLocalizedLabel;
         
         /// <summary>
-        /// LocalizedLabel5 control.
+        /// SearchMemberLocalizedLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.LocalizedLabel SearchMemberLocalizedLabel;
         
         /// <summary>
-        /// group control.
+        /// Group control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList group;
+        protected global::System.Web.UI.WebControls.DropDownList Group;
         
         /// <summary>
         /// Ranks control.
@@ -76,22 +76,31 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.DropDownList Ranks;
         
         /// <summary>
-        /// name control.
+        /// UserSearchName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox name;
+        protected global::System.Web.UI.WebControls.TextBox UserSearchName;
         
         /// <summary>
-        /// search control.
+        /// ResetUserSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button search;
+        protected global::System.Web.UI.WebControls.Button ResetUserSearch;
+        
+        /// <summary>
+        /// SearchByUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SearchByUserName;
         
         /// <summary>
         /// AlphaSort1 control.
