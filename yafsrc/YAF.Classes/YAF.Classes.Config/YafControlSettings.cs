@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System;
 using YAF.Types;
 
 namespace YAF.Classes
@@ -32,12 +33,17 @@ namespace YAF.Classes
     /// <summary>
     /// The _board id.
     /// </summary>
-    private int _boardID;
+    private int _boardId;
+
+    /// <summary>
+    /// The _board uid.
+    /// </summary>
+    private Guid _boardUid;
 
     /// <summary>
     /// The _category id.
     /// </summary>
-    private int _categoryID;
+    private int _categoryId;
 
     /// <summary>
     /// The _locked forum.
@@ -54,14 +60,13 @@ namespace YAF.Classes
     /// </summary>
     public YafControlSettings()
     {
-      if (!int.TryParse(Config.CategoryID, out this._categoryID))
+      if (!int.TryParse(Config.CategoryID, out this._categoryId))
       {
-        this._categoryID = 0; // Ederon : 6/16/2007 - changed from 1 to 0
+        this._categoryId = 0; // Ederon : 6/16/2007 - changed from 1 to 0
       }
-
-      if (!int.TryParse(Config.BoardID, out this._boardID))
+      if (!int.TryParse(Config.BoardID, out this._boardId))
       {
-        this._boardID = 1;
+        this._boardId = 1;
       }
     }
 
@@ -83,13 +88,29 @@ namespace YAF.Classes
     {
       get
       {
-        return this._boardID;
+        return this._boardId;
       }
 
       set
       {
-        this._boardID = value;
+        this._boardId = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets BoardUid.
+    /// </summary>
+    public Guid BoardUid
+    {
+        get
+        {
+            return this._boardUid;
+        }
+
+        set
+        {
+            this._boardUid = value;
+        }
     }
 
     /// <summary>
@@ -99,12 +120,12 @@ namespace YAF.Classes
     {
       get
       {
-        return this._categoryID;
+        return this._categoryId;
       }
 
       set
       {
-        this._categoryID = value;
+        this._categoryId = value;
       }
     }
 

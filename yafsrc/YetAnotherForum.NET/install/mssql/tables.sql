@@ -457,7 +457,8 @@ begin
 		Name			nvarchar(50) NOT NULL,
 		AllowThreaded	bit NOT NULL,
 		MembershipAppName nvarchar(255) NULL,
-		RolesAppName nvarchar(255) NULL
+		RolesAppName nvarchar(255) NULL,
+		BoardUID        uniqueidentifier default newid() 
 	)
 end
 GO
@@ -661,6 +662,23 @@ GO
 /*
 ** Added columns
 */
+
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
+begin
+alter table [{databaseOwner}].[{objectQualifier}Board] add [BoardUID]  uniqueidentifier constraint DF_{objectQualifier}Board_BoardUID default newid() 
+end
+GO
+
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
+BEGIN		
+		-- Verify that all boards have uuid
+		grant update on [{databaseOwner}].[{objectQualifier}Board] to public
+		exec('update [{databaseOwner}].[{objectQualifier}Board] set BoardUID = newid() WHERE BoardUID IS NULL')
+		revoke update on [{databaseOwner}].[{objectQualifier}Board] from public
+		-- alter table [{databaseOwner}].[{objectQualifier}Board] alter column [BoardUID]  uniqueidentifier constraint DF_{objectQualifier}Board_BoardUID default newid() 
+
+END
+GO
 
 -- Mail Table
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
