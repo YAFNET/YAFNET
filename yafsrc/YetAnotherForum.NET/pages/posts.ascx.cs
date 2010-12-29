@@ -277,8 +277,8 @@ namespace YAF.Pages
 
       // Threaded
       string brief =
-        StringExtensions.RemoveMultipleWhitespace(
-          BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString()))));
+       StringExtensions.RemoveMultipleWhitespace(
+       BBCodeHelper.StripBBCode(BBCodeHelper.StripBBCodeQuotes(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))));
 
       brief = StringExtensions.Truncate(this.Get<IBadWordReplace>().Replace(brief), 100);
       brief = YafFormatMessage.AddSmiles(brief);
