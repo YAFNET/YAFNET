@@ -4561,15 +4561,15 @@ namespace YAF.Classes.Data
     /// Returns message data based on user access rights
     /// </summary>
     /// <param name="MessageID">The Message Id.</param>
-    /// <param name="UserID">The UserId.</param>
+    /// <param name="pageUserId">The page User Id.</param>
     /// <returns></returns>
-    public static DataTable message_secdata(int MessageID, object UserID)
+    public static DataTable message_secdata(int MessageID, object pageUserId)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_secdata"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
-        cmd.Parameters.AddWithValue("UserID", UserID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         cmd.Parameters.AddWithValue("MessageID", MessageID);
 
         return MsSqlDbAccess.Current.GetData(cmd);
@@ -6604,19 +6604,19 @@ namespace YAF.Classes.Data
     /// <param name="numOfPostsToRetrieve">
     /// The num of posts to retrieve.
     /// </param>
-    /// <param name="userID">
-    /// The user id.
+    /// <param name="pageUserId">
+    /// The page User Id.
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable topic_announcements(object boardID, object numOfPostsToRetrieve, object userID)
+    public static DataTable topic_announcements(object boardID, object numOfPostsToRetrieve, object pageUserId)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_announcements"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
-        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         return MsSqlDbAccess.Current.GetData(cmd);
       }
     }
@@ -6630,22 +6630,22 @@ namespace YAF.Classes.Data
     /// <param name="numOfPostsToRetrieve">
     /// The num of posts to retrieve.
     /// </param>
-    /// <param name="userID">
-    /// The user id.
+    /// <param name="pageUserId">
+    /// The page UserId id. 
     /// </param>
     /// <param name="useStyledNicks">
     /// If true returns string for userID style.
     /// </param>
-    /// <returns>
+    /// <returns> 
     /// </returns>
-    public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object userID, bool useStyledNicks, bool showNoCountPosts)
+    public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object pageUserId, bool useStyledNicks, bool showNoCountPosts)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_latest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
-        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
         return MsSqlDbAccess.Current.GetData(cmd);
@@ -6661,22 +6661,22 @@ namespace YAF.Classes.Data
     /// <param name="numOfPostsToRetrieve">
     /// The num of posts to retrieve.
     /// </param>
-    /// <param name="userID">
-    /// The user id.
+    /// <param name="pageUserId">
+    /// The page UserId id.
     /// </param>
     /// <param name="useStyledNicks">
     /// If true returns string for userID style.
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable rss_topic_latest(object boardID, object numOfPostsToRetrieve, object userID, bool useStyledNicks, bool showNoCountPosts)
+    public static DataTable rss_topic_latest(object boardID, object numOfPostsToRetrieve, object pageUserId, bool useStyledNicks, bool showNoCountPosts)
     {
         using (SqlCommand cmd = MsSqlDbAccess.GetCommand("rss_topic_latest"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("BoardID", boardID);
             cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
-            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("PageUserID", pageUserId);
             cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
             cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
             return MsSqlDbAccess.Current.GetData(cmd);
@@ -6689,8 +6689,8 @@ namespace YAF.Classes.Data
     /// <param name="boardID">
     /// The board id.
     /// </param>
-    /// <param name="userID">
-    /// The user id.
+    /// <param name="pageUserId">
+    /// The page user id.
     /// </param>
     /// <param name="since">
     /// The since.
@@ -6703,13 +6703,13 @@ namespace YAF.Classes.Data
     /// </param>    
     /// <returns>
     /// </returns>
-    public static DataTable topic_active(object boardID, object userID, object since, object categoryID, object useStyledNicks)
+    public static DataTable topic_active(object boardID, object pageUserId, object since, object categoryID, object useStyledNicks)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_active"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
-        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         cmd.Parameters.AddWithValue("Since", since);
         cmd.Parameters.AddWithValue("CategoryID", categoryID);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
@@ -6950,7 +6950,7 @@ namespace YAF.Classes.Data
     /// <param name="boardID">
     /// The board id.
     /// </param>
-    /// <param name="userID">
+    /// <param name="pageUserId">
     /// The user id.
     /// </param>
     /// <param name="since">
@@ -6963,15 +6963,15 @@ namespace YAF.Classes.Data
     /// Set to true to get color nicks for last user and topic starter.
     /// </param>    
     /// <returns>
-    /// a Data Table containing the current user's favorite topics with details.
+    /// a Data Table containing the current page user's favorite topics with details.
     /// </returns>
-    public static DataTable topic_favorite_details(object boardID, object userID, object since, object categoryID, object useStyledNicks)
+    public static DataTable topic_favorite_details(object boardID, object pageUserId, object since, object categoryID, object useStyledNicks)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_favorite_details"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
-        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         cmd.Parameters.AddWithValue("Since", since);
         cmd.Parameters.AddWithValue("CategoryID", categoryID);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);

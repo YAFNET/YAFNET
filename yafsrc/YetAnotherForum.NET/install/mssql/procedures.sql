@@ -3302,11 +3302,11 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata]( @UserID int, @MessageID int ) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata]( @PageUserID int, @MessageID int ) AS
 BEGIN
 -- BoardID=@BoardID and
-if (@UserID is null)
-select top 1 @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where  (Flags & 4)<>0 ORDER BY Joined DESC
+if (@PageUserID is null)
+select top 1 @PageUserID = UserID from [{databaseOwner}].[{objectQualifier}User] where  (Flags & 4)<>0 ORDER BY Joined DESC
 SELECT
 		m.MessageID,
 		m.UserID,
@@ -3335,7 +3335,7 @@ SELECT
 		join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
 		left join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=IsNull(t.ForumID,0)
 	WHERE
-		m.MessageID = @MessageID AND x.UserID=@UserID  AND  CONVERT(int,x.ReadAccess) > 0
+		m.MessageID = @MessageID AND x.UserID=@PageUserID  AND  CONVERT(int,x.ReadAccess) > 0
 END
 GO
 
@@ -4835,7 +4835,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
+create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
 begin
 		select
 		c.ForumID,
@@ -4846,7 +4846,7 @@ begin
 		[Subject] = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
-		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
@@ -4882,7 +4882,7 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
 	where
 		@Since < c.LastPosted and
-		x.UserID = @UserID and
+		x.UserID = @PageUserID and
 		CONVERT(int,x.ReadAccess) <> 0 and
 		cat.BoardID = @BoardID and
 		(@CategoryID is null or cat.CategoryID=@CategoryID) and
@@ -5144,7 +5144,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_announcements]
 (
 	@BoardID int,
 	@NumPosts int,
-	@UserID int
+	@PageUserID int
 )
 AS
 BEGIN
@@ -5153,7 +5153,7 @@ BEGIN
 	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM'
 	SET @SQL = @SQL + ' [{databaseOwner}].[{objectQualifier}Topic] t INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
 	SET @SQL = @SQL + ' join [{databaseOwner}].[{objectQualifier}ActiveAccess] v on v.ForumID=f.ForumID'
-	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@PageUserID) + ' AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
 
 	EXEC(@SQL)	
 
@@ -5164,7 +5164,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
 (
 	@BoardID int,
 	@NumPosts int,
-	@UserID int,
+	@PageUserID int,
 	@StyledNicks bit = 0,
 	@ShowNoCountPosts  bit = 0
 )
@@ -5200,7 +5200,7 @@ BEGIN
 	WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
-		AND v.UserID=@UserID
+		AND v.UserID=@PageUserID
 		AND (CONVERT(int,v.ReadAccess) <> 0)
 		AND t.IsDeleted != 1
 		AND t.LastPosted IS NOT NULL
@@ -5215,7 +5215,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 (
 	@BoardID int,
 	@NumPosts int,
-	@UserID int,
+	@PageUserID int,
 	@StyledNicks bit = 0,
 	@ShowNoCountPosts  bit = 0
 )
@@ -5255,7 +5255,7 @@ BEGIN
 	WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
-		AND v.UserID=@UserID
+		AND v.UserID=@PageUserID
 		AND (CONVERT(int,v.ReadAccess) <> 0)
 		AND t.IsDeleted != 1
 		AND t.LastPosted IS NOT NULL
@@ -8231,7 +8231,7 @@ BEGIN
 END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}topic_favorite_details](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_favorite_details](@BoardID int,@PageUserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
 begin
 		select
 		c.ForumID,
@@ -8242,7 +8242,7 @@ begin
 		[Subject] = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
-		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@PageUserID IS NOT NULL AND mes.UserID = @PageUserID) OR (@PageUserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
 		[Views] = c.[Views],
 		LastPosted = c.LastPosted,
@@ -8276,10 +8276,10 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
 		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
-		JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@UserID
+		JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@PageUserID
 	where
 		@Since < c.LastPosted and
-		x.UserID = @UserID and
+		x.UserID = @PageUserID and
 		CONVERT(int,x.ReadAccess) <> 0 and
 		cat.BoardID = @BoardID and
 		(@CategoryID is null or cat.CategoryID=@CategoryID) and
