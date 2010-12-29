@@ -57,7 +57,7 @@ namespace YAF.DotNetNuke.Controller
     public static DataTable TopicLatest(
       object boardId, object numOfPostsToRetrieve, object userId, bool useStyledNicks, bool showNoCountPosts)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("topic_latest"))
+      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_latest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardId);
@@ -66,7 +66,7 @@ namespace YAF.DotNetNuke.Controller
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
 
-        return YafDBAccess.Current.GetData(cmd);
+        return MsSqlDbAccess.Current.GetData(cmd, true);
       }
     }
 

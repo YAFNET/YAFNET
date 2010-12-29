@@ -339,7 +339,7 @@ namespace YAF.DotNetNuke
             var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
 
             // populate them...
-            textMessageLink.Text = YafContext.Current.Get<YafBadWordReplace>().Replace(currentRow["Topic"].ToString());
+            textMessageLink.Text = YafContext.Current.Get<IBadWordReplace>().Replace(currentRow["Topic"].ToString());
             textMessageLink.NavigateUrl = sMessageUrl;
             imageMessageLink.NavigateUrl = sMessageUrl;
 
