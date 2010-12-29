@@ -156,7 +156,6 @@
     </Compile>
     <Compile Include="controls\PollChoiceList.ascx.cs">
       <DependentUpon>PollChoiceList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PollChoiceList.ascx.designer.cs">
       <DependentUpon>PollChoiceList.ascx</DependentUpon>
@@ -220,7 +219,6 @@
     </Compile>
     <Compile Include="controls\PollList.ascx.cs">
       <DependentUpon>PollList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PollList.ascx.designer.cs">
       <DependentUpon>PollList.ascx</DependentUpon>
@@ -233,14 +231,12 @@
     </Compile>
     <Compile Include="controls\TopicLine.ascx.cs">
       <DependentUpon>TopicLine.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\TopicLine.ascx.designer.cs">
       <DependentUpon>TopicLine.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\YafHeader.ascx.cs">
       <DependentUpon>YafHeader.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\YafHeader.ascx.designer.cs">
       <DependentUpon>YafHeader.ascx</DependentUpon>
@@ -304,7 +300,6 @@
     </Compile>
     <Compile Include="pages\admin\digest.ascx.cs">
       <DependentUpon>digest.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\digest.ascx.designer.cs">
       <DependentUpon>digest.ascx</DependentUpon>
@@ -326,7 +321,6 @@
     </Compile>
     <Compile Include="pages\admin\editlanguage.ascx.cs">
       <DependentUpon>editlanguage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editlanguage.ascx.designer.cs">
       <DependentUpon>editlanguage.ascx</DependentUpon>
@@ -369,7 +363,6 @@
     </Compile>
     <Compile Include="pages\admin\languages.ascx.cs">
       <DependentUpon>languages.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\languages.ascx.designer.cs">
       <DependentUpon>languages.ascx</DependentUpon>
@@ -415,7 +408,6 @@
     </Compile>
     <Compile Include="pages\admin\restartapp.ascx.cs">
       <DependentUpon>restartapp.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\restartapp.ascx.designer.cs">
       <DependentUpon>restartapp.ascx</DependentUpon>
@@ -434,14 +426,12 @@
     </Compile>
     <Compile Include="pages\admin\taskmanager.ascx.cs">
       <DependentUpon>taskmanager.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\taskmanager.ascx.designer.cs">
       <DependentUpon>taskmanager.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\test_data.ascx.cs">
       <DependentUpon>test_data.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\test_data.ascx.designer.cs">
       <DependentUpon>test_data.ascx</DependentUpon>
@@ -454,14 +444,12 @@
     </Compile>
     <Compile Include="pages\album.ascx.cs">
       <DependentUpon>album.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\album.ascx.designer.cs">
       <DependentUpon>album.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\albums.ascx.cs">
       <DependentUpon>albums.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\albums.ascx.designer.cs">
       <DependentUpon>albums.ascx</DependentUpon>
@@ -480,7 +468,6 @@
     </Compile>
     <Compile Include="pages\cp_editalbumimages.ascx.cs">
       <DependentUpon>cp_editalbumimages.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_editalbumimages.ascx.designer.cs">
       <DependentUpon>cp_editalbumimages.ascx</DependentUpon>
@@ -490,7 +477,6 @@
     </Compile>
     <Compile Include="pages\cp_editbuddies.ascx.cs">
       <DependentUpon>cp_editbuddies.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_editbuddies.ascx.designer.cs">
       <DependentUpon>cp_editbuddies.ascx</DependentUpon>
@@ -521,7 +507,6 @@
     </Compile>
     <Compile Include="controls\emaildigest.ascx.cs">
       <DependentUpon>emaildigest.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\emaildigest.ascx.designer.cs">
       <DependentUpon>emaildigest.ascx</DependentUpon>
@@ -546,7 +531,6 @@
     </Compile>
     <Compile Include="pages\im_msn.ascx.cs">
       <DependentUpon>im_msn.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_msn.ascx.designer.cs">
       <DependentUpon>im_msn.ascx</DependentUpon>
@@ -556,7 +540,6 @@
     </Compile>
     <Compile Include="pages\im_xmpp.ascx.cs">
       <DependentUpon>im_xmpp.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_xmpp.ascx.designer.cs">
       <DependentUpon>im_xmpp.ascx</DependentUpon>
@@ -578,7 +561,6 @@
     </Compile>
     <Compile Include="pages\messagehistory.ascx.cs">
       <DependentUpon>messagehistory.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\messagehistory.ascx.designer.cs">
       <DependentUpon>messagehistory.ascx</DependentUpon>
@@ -612,7 +594,6 @@
     </Compile>
     <Compile Include="pages\polledit.ascx.cs">
       <DependentUpon>polledit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\polledit.ascx.designer.cs">
       <DependentUpon>polledit.ascx</DependentUpon>
@@ -655,7 +636,6 @@
     </Compile>
     <Compile Include="pages\team.ascx.cs">
       <DependentUpon>team.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\team.ascx.designer.cs">
       <DependentUpon>team.ascx</DependentUpon>
@@ -665,7 +645,6 @@
     </Compile>
     <Compile Include="pages\viewthanks.ascx.cs">
       <DependentUpon>viewthanks.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\viewthanks.ascx.designer.cs">
       <DependentUpon>viewthanks.ascx</DependentUpon>
@@ -746,17 +725,38 @@
     <Content Include="error.aspx" />
     <Content Include="images\avatars\Common\SampleAvatar.gif" />
     <Content Include="images\blank.gif" />
+    <Content Include="images\medals\award_star_bronze_3.png" />
+    <Content Include="images\medals\award_star_bronze_3_small.png" />
+    <Content Include="images\medals\award_star_gold_2.png" />
+    <Content Include="images\medals\award_star_gold_2_small.png" />
+    <Content Include="images\medals\medal.png" />
+    <Content Include="images\medals\medal_bronze_1.png" />
+    <Content Include="images\medals\medal_bronze_1_small.png" />
+    <Content Include="images\medals\medal_bronze_2.png" />
+    <Content Include="images\medals\medal_bronze_2_small.png" />
+    <Content Include="images\medals\medal_bronze_3.png" />
+    <Content Include="images\medals\medal_bronze_3_small.png" />
+    <Content Include="images\medals\medal_gold_1.png" />
+    <Content Include="images\medals\medal_gold_1_small.png" />
+    <Content Include="images\medals\medal_gold_2.png" />
+    <Content Include="images\medals\medal_gold_2_small.png" />
+    <Content Include="images\medals\medal_gold_3.png" />
+    <Content Include="images\medals\medal_gold_3_small.png" />
+    <Content Include="images\medals\medal_silver_1.png" />
+    <Content Include="images\medals\medal_silver_1_small.png" />
+    <Content Include="images\medals\medal_silver_2.png" />
+    <Content Include="images\medals\medal_silver_2_small.png" />
+    <Content Include="images\medals\medal_small.png" />
+    <Content Include="images\YafLogo.png" />
     <Content Include="resources\images\ceebox\cee-close-btn.png" />
     <Content Include="resources\images\ceebox\cee-next-btn.gif" />
     <Content Include="resources\images\ceebox\cee-next-btn.png" />
     <Content Include="resources\images\ceebox\cee-prev-btn.gif" />
     <Content Include="resources\images\ceebox\cee-prev-btn.png" />
     <Content Include="resources\images\ceebox\loader.gif" />
-    <Content Include="images\closelabel.png" />
     <Content Include="images\categories\categoryImageSample.gif" />
     <Content Include="images\folder.gif" />
     <Content Include="images\forums\forumImageSample.gif" />
-    <Content Include="images\medals\SampleMedalImage.gif" />
     <Content Include="images\noavatar.gif" />
     <Content Include="images\noCover.png" />
     <Content Include="images\ranks\Administration.png" />
@@ -766,7 +766,6 @@
     <Content Include="images\ranks\Moderator.png" />
     <Content Include="images\ranks\Newbie.png" />
     <Content Include="images\spacer.gif" />
-    <Content Include="images\YAFLogo.jpg" />
     <Content Include="install\BBCodeExtensions.xml" />
     <Content Include="install\default.aspx">
       <SubType>Form</SubType>
@@ -1339,9 +1338,8 @@
     <Content Include="resources\icons\wrench.png" />
     <Content Include="resources\images\closelabel.png" />
     <Content Include="resources\images\DialogBackground.png" />
-    <Content Include="resources\images\loading-black.gif" />
+    <Content Include="resources\images\loader.gif" />
     <Content Include="resources\images\loading-white.gif" />
-    <Content Include="resources\images\loading.gif" />
     <Content Include="resources\js\DataPanel.js" />
     <Content Include="resources\js\jquery-1.4.4.min.js" />
     <Content Include="resources\js\jquery.blockUI.js" />
@@ -1355,182 +1353,147 @@
     <Content Include="resources\ProviderExceptions.xml" />
     <Compile Include="controls\AlbumImageList.ascx.cs">
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\AlbumImageList.ascx.designer.cs">
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\AlbumList.ascx.cs">
       <DependentUpon>AlbumList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\AlbumList.ascx.designer.cs">
       <DependentUpon>AlbumList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\BuddyList.ascx.cs">
       <DependentUpon>BuddyList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\BuddyList.ascx.designer.cs">
       <DependentUpon>BuddyList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\DisplayAd.ascx.cs">
       <DependentUpon>DisplayAd.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DisplayPost.ascx.cs">
       <DependentUpon>DisplayPost.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DisplayPostFooter.ascx.cs">
       <DependentUpon>DisplayPostFooter.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DisplayPostFooter.ascx.designer.cs">
       <DependentUpon>DisplayPostFooter.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersAvatar.ascx.cs">
       <DependentUpon>EditUsersAvatar.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersGroups.ascx.cs">
       <DependentUpon>EditUsersGroups.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersInfo.ascx.cs">
       <DependentUpon>EditUsersInfo.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersKill.ascx.cs">
       <DependentUpon>EditUsersKill.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersKill.ascx.designer.cs">
       <DependentUpon>EditUsersKill.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersPoints.ascx.cs">
       <DependentUpon>EditUsersPoints.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersProfile.ascx.cs">
       <DependentUpon>EditUsersProfile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersResetPass.ascx.cs">
       <DependentUpon>EditUsersResetPass.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersSignature.ascx.cs">
       <DependentUpon>EditUsersSignature.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersSuspend.ascx.cs">
       <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumActiveDiscussion.ascx.cs">
       <DependentUpon>ForumActiveDiscussion.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumCategoryList.ascx.cs">
       <DependentUpon>ForumCategoryList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumCategoryList.ascx.designer.cs">
       <DependentUpon>ForumCategoryList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\ForumIconLegend.ascx.cs">
       <DependentUpon>ForumIconLegend.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumLastPost.ascx.cs">
       <DependentUpon>ForumLastPost.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumList.ascx.cs">
       <DependentUpon>ForumList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumModeratorList.ascx.cs">
       <DependentUpon>ForumModeratorList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumProfileAccess.ascx.cs">
       <DependentUpon>ForumProfileAccess.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumProfileAccess.ascx.designer.cs">
       <DependentUpon>ForumProfileAccess.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\ForumStatistics.ascx.cs">
       <DependentUpon>ForumStatistics.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumSubForumList.ascx.cs">
       <DependentUpon>ForumSubForumList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumWelcome.ascx.cs">
       <DependentUpon>ForumWelcome.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LastPosts.ascx.cs">
       <DependentUpon>LastPosts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LastPosts.ascx.designer.cs">
       <DependentUpon>LastPosts.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\LoginBox.ascx.cs">
       <DependentUpon>LoginBox.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LoginBox.ascx.designer.cs">
       <DependentUpon>LoginBox.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\MyTopicsList.ascx.cs">
       <DependentUpon>MyTopicsList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\MyTopicsList.ascx.designer.cs">
       <DependentUpon>MyTopicsList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\PMList.ascx.cs">
       <DependentUpon>PMList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PostOptions.ascx.cs">
       <DependentUpon>PostOptions.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PostOptions.ascx.designer.cs">
       <DependentUpon>PostOptions.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\ProfileYourAccount.ascx.cs">
       <DependentUpon>ProfileYourAccount.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ReportedPosts.ascx.cs">
       <DependentUpon>ReportedPosts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ReportedPosts.ascx.designer.cs">
       <DependentUpon>ReportedPosts.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\ShoutBox.ascx.cs">
       <DependentUpon>ShoutBox.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ShoutBox.ascx.designer.cs">
       <DependentUpon>ShoutBox.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\smileys.ascx.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ViewThanksList.ascx.cs">
       <DependentUpon>ViewThanksList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ViewThanksList.ascx.designer.cs">
       <DependentUpon>ViewThanksList.ascx</DependentUpon>
@@ -1545,384 +1508,434 @@
     </Compile>
     <Compile Include="pages\activeusers.ascx.cs">
       <DependentUpon>activeusers.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\accessmasks.ascx.cs">
       <DependentUpon>accessmasks.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\admin.ascx.cs">
       <DependentUpon>admin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\attachments.ascx.cs">
       <DependentUpon>attachments.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bannedip.ascx.cs">
       <DependentUpon>bannedip.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bannedip_edit.ascx.cs">
       <DependentUpon>bannedip_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bbcode.ascx.cs">
       <DependentUpon>bbcode.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bbcode_edit.ascx.cs">
       <DependentUpon>bbcode_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bbcode_import.ascx.cs">
       <DependentUpon>bbcode_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\boards.ascx.cs">
       <DependentUpon>boards.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\boardsettings.ascx.cs">
       <DependentUpon>boardsettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editaccessmask.ascx.cs">
       <DependentUpon>editaccessmask.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editboard.ascx.cs">
       <DependentUpon>editboard.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editcategory.ascx.cs">
       <DependentUpon>editcategory.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editforum.ascx.cs">
       <DependentUpon>editforum.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editgroup.ascx.cs">
       <DependentUpon>editgroup.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editmedal.ascx.cs">
       <DependentUpon>editmedal.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editnntpforum.ascx.cs">
       <DependentUpon>editnntpforum.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editnntpserver.ascx.cs">
       <DependentUpon>editnntpserver.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\editrank.ascx.cs">
       <DependentUpon>editrank.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\edituser.ascx.cs">
       <DependentUpon>edituser.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\eventlog.ascx.cs">
       <DependentUpon>eventlog.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\extensions.ascx.cs">
       <DependentUpon>extensions.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\extensions_edit.ascx.cs">
       <DependentUpon>extensions_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\extensions_import.ascx.cs">
       <DependentUpon>extensions_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\forums.ascx.cs">
       <DependentUpon>forums.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\groups.ascx.cs">
       <DependentUpon>groups.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\hostsettings.ascx.cs">
       <DependentUpon>hostsettings.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\mail.ascx.cs">
       <DependentUpon>mail.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\medals.ascx.cs">
       <DependentUpon>medals.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\nntpforums.ascx.cs">
       <DependentUpon>nntpforums.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\nntpretrieve.ascx.cs">
       <DependentUpon>nntpretrieve.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\nntpservers.ascx.cs">
       <DependentUpon>nntpservers.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\pm.ascx.cs">
       <DependentUpon>pm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\prune.ascx.cs">
       <DependentUpon>prune.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\ranks.ascx.cs">
       <DependentUpon>ranks.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\reguser.ascx.cs">
       <DependentUpon>reguser.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\reindex.ascx.cs">
       <DependentUpon>reindex.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\replacewords.ascx.cs">
       <DependentUpon>replacewords.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\replacewords_edit.ascx.cs">
       <DependentUpon>replacewords_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\replacewords_import.ascx.cs">
       <DependentUpon>replacewords_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\runsql.ascx.cs">
       <DependentUpon>runsql.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\smilies.ascx.cs">
       <DependentUpon>smilies.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\smilies_edit.ascx.cs">
       <DependentUpon>smilies_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\smilies_import.ascx.cs">
       <DependentUpon>smilies_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\users.ascx.cs">
       <DependentUpon>users.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\version.ascx.cs">
       <DependentUpon>version.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\approve.ascx.cs">
       <DependentUpon>approve.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\attachments.ascx.cs">
       <DependentUpon>attachments.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\avatar.ascx.cs">
       <DependentUpon>avatar.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_changepassword.ascx.cs">
       <DependentUpon>cp_changepassword.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_editavatar.ascx.cs">
       <DependentUpon>cp_editavatar.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_editprofile.ascx.cs">
       <DependentUpon>cp_editprofile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_message.ascx.cs">
       <DependentUpon>cp_message.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_pm.ascx.cs">
       <DependentUpon>cp_pm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_profile.ascx.cs">
       <DependentUpon>cp_profile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_signature.ascx.cs">
       <DependentUpon>cp_signature.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_subscriptions.ascx.cs">
       <DependentUpon>cp_subscriptions.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\deletemessage.ascx.cs">
       <DependentUpon>deletemessage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\emailtopic.ascx.cs">
       <DependentUpon>emailtopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\error.ascx.cs">
       <DependentUpon>error.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\forum.ascx.cs">
       <DependentUpon>forum.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\help\index.ascx.cs">
       <DependentUpon>index.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_aim.ascx.cs">
       <DependentUpon>im_aim.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_email.ascx.cs">
       <DependentUpon>im_email.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_icq.ascx.cs">
       <DependentUpon>im_icq.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_skype.ascx.cs">
       <DependentUpon>im_skype.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\im_yim.ascx.cs">
       <DependentUpon>im_yim.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\info.ascx.cs">
       <DependentUpon>info.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\login.ascx.cs">
       <DependentUpon>login.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\logout.ascx.cs">
       <DependentUpon>logout.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\members.ascx.cs">
       <DependentUpon>members.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\moderate.ascx.cs">
       <DependentUpon>moderate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\moderate\index.ascx.cs">
       <DependentUpon>index.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\moderate\reportedposts.ascx.cs">
       <DependentUpon>reportedposts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\moderate\unapprovedposts.ascx.cs">
       <DependentUpon>unapprovedposts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\mod_forumuser.ascx.cs">
       <DependentUpon>mod_forumuser.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\movemessage.ascx.cs">
       <DependentUpon>movemessage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\movetopic.ascx.cs">
       <DependentUpon>movetopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\mytopics.ascx.cs">
       <DependentUpon>mytopics.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\pmessage.ascx.cs">
       <DependentUpon>pmessage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\postmessage.ascx.cs">
       <DependentUpon>postmessage.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\posts.ascx.cs">
       <DependentUpon>posts.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\printtopic.ascx.cs">
       <DependentUpon>printtopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\profile.ascx.cs">
       <DependentUpon>profile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\recoverpassword.ascx.cs">
       <DependentUpon>recoverpassword.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\register.ascx.cs">
       <DependentUpon>register.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\reportpost.ascx.cs">
       <DependentUpon>reportpost.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\rsstopic.ascx.cs">
       <DependentUpon>rsstopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\rules.ascx.cs">
       <DependentUpon>rules.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\search.ascx.cs">
       <DependentUpon>search.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\shoutbox.ascx.cs">
       <DependentUpon>shoutbox.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\showsmilies.ascx.cs">
       <DependentUpon>showsmilies.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\topics.ascx.cs">
       <DependentUpon>topics.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Content Include="app.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Browsers\w3cvalidator.browser" />
+    <Content Include="themes\BlackGrey.xml" />
+    <Content Include="themes\BlackGrey\atomfeed.png" />
+    <Content Include="themes\BlackGrey\ButtonActive.png" />
+    <Content Include="themes\BlackGrey\ButtonHover.png" />
+    <Content Include="themes\BlackGrey\collapse.gif" />
+    <Content Include="themes\BlackGrey\DownArrow.png" />
+    <Content Include="themes\BlackGrey\DownArrowWhite.png" />
+    <Content Include="themes\BlackGrey\error.png" />
+    <Content Include="themes\BlackGrey\expand.gif" />
+    <Content Include="themes\BlackGrey\female.gif" />
+    <Content Include="themes\BlackGrey\folder_stats.gif" />
+    <Content Include="themes\BlackGrey\folder_stats.png" />
+    <Content Include="themes\BlackGrey\folder_who.gif" />
+    <Content Include="themes\BlackGrey\folder_who.png" />
+    <Content Include="themes\BlackGrey\FooterBack.png" />
+    <Content Include="themes\BlackGrey\handpointer1.png" />
+    <Content Include="themes\BlackGrey\Header2Back.png" />
+    <Content Include="themes\BlackGrey\HeaderBack.png" />
+    <Content Include="themes\BlackGrey\icon_aim.png" />
+    <Content Include="themes\BlackGrey\icon_blog.png" />
+    <Content Include="themes\BlackGrey\icon_email.png" />
+    <Content Include="themes\BlackGrey\icon_file.gif" />
+    <Content Include="themes\BlackGrey\icon_home.png" />
+    <Content Include="themes\BlackGrey\icon_icq.png" />
+    <Content Include="themes\BlackGrey\icon_latest_reply.gif" />
+    <Content Include="themes\BlackGrey\icon_msn.png" />
+    <Content Include="themes\BlackGrey\icon_newest_reply.gif" />
+    <Content Include="themes\BlackGrey\icon_pm.png" />
+    <Content Include="themes\BlackGrey\icon_search.png" />
+    <Content Include="themes\BlackGrey\icon_skype.png" />
+    <Content Include="themes\BlackGrey\icon_subforum.gif" />
+    <Content Include="themes\BlackGrey\icon_subforum_new.gif" />
+    <Content Include="themes\BlackGrey\icon_useroffline.png" />
+    <Content Include="themes\BlackGrey\icon_useronline.png" />
+    <Content Include="themes\BlackGrey\icon_xmpp.png" />
+    <Content Include="themes\BlackGrey\icon_yahoo.png" />
+    <Content Include="themes\BlackGrey\js\ColorGrey.js" />
+    <Content Include="themes\BlackGrey\js\jquery.corner.js" />
+    <Content Include="themes\BlackGrey\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\BlackGrey\LeftArrow.png" />
+    <Content Include="themes\BlackGrey\LeftArrowWhite.png" />
+    <Content Include="themes\BlackGrey\lock_small.png" />
+    <Content Include="themes\BlackGrey\male.gif" />
+    <Content Include="themes\BlackGrey\mask.gif" />
+    <Content Include="themes\BlackGrey\poll_choice.png" />
+    <Content Include="themes\BlackGrey\poll_question.png" />
+    <Content Include="themes\BlackGrey\PostHeader.png" />
+    <Content Include="themes\BlackGrey\RightArrow.png" />
+    <Content Include="themes\BlackGrey\RightArrowWhite.png" />
+    <Content Include="themes\BlackGrey\rssfeed.gif" />
+    <Content Include="themes\BlackGrey\sandclock.gif" />
+    <Content Include="themes\BlackGrey\sort_down.gif" />
+    <Content Include="themes\BlackGrey\sort_up.gif" />
+    <Content Include="themes\BlackGrey\tab-line.png" />
+    <Content Include="themes\BlackGrey\tab.png" />
+    <Content Include="themes\BlackGrey\theme.css" />
+    <Content Include="themes\BlackGrey\topic.gif" />
+    <Content Include="themes\BlackGrey\topic_announce.gif" />
+    <Content Include="themes\BlackGrey\topic_announce_new.gif" />
+    <Content Include="themes\BlackGrey\topic_lock.gif" />
+    <Content Include="themes\BlackGrey\topic_lock_new.gif" />
+    <Content Include="themes\BlackGrey\topic_moved.gif" />
+    <Content Include="themes\BlackGrey\topic_new.gif" />
+    <Content Include="themes\BlackGrey\topic_poll.gif" />
+    <Content Include="themes\BlackGrey\topic_poll_new.gif" />
+    <Content Include="themes\BlackGrey\topic_sticky.gif" />
+    <Content Include="themes\BlackGrey\user_rank1.gif" />
+    <Content Include="themes\BlackGrey\user_rank2.gif" />
+    <Content Include="themes\BlackGrey\user_rank3.gif" />
+    <Content Include="themes\BlackGrey\vote_lcap.gif" />
+    <Content Include="themes\BlackGrey\vote_rcap.gif" />
+    <Content Include="themes\BlackGrey\voting_bar.gif" />
+    <Content Include="themes\BlueGrey.xml" />
+    <Content Include="themes\BlueGrey\atomfeed.png" />
+    <Content Include="themes\BlueGrey\ButtonActive.png" />
+    <Content Include="themes\BlueGrey\ButtonHover.png" />
+    <Content Include="themes\BlueGrey\collapse.gif" />
+    <Content Include="themes\BlueGrey\DownArrow.png" />
+    <Content Include="themes\BlueGrey\DownArrowWhite.png" />
+    <Content Include="themes\BlueGrey\error.png" />
+    <Content Include="themes\BlueGrey\expand.gif" />
+    <Content Include="themes\BlueGrey\female.gif" />
+    <Content Include="themes\BlueGrey\folder_stats.gif" />
+    <Content Include="themes\BlueGrey\folder_stats.png" />
+    <Content Include="themes\BlueGrey\folder_who.gif" />
+    <Content Include="themes\BlueGrey\folder_who.png" />
+    <Content Include="themes\BlueGrey\FooterBack.png" />
+    <Content Include="themes\BlueGrey\handpointer1.png" />
+    <Content Include="themes\BlueGrey\Header2Back.png" />
+    <Content Include="themes\BlueGrey\HeaderBack.png" />
+    <Content Include="themes\BlueGrey\icon_aim.png" />
+    <Content Include="themes\BlueGrey\icon_blog.png" />
+    <Content Include="themes\BlueGrey\icon_email.png" />
+    <Content Include="themes\BlueGrey\icon_file.gif" />
+    <Content Include="themes\BlueGrey\icon_home.png" />
+    <Content Include="themes\BlueGrey\icon_icq.png" />
+    <Content Include="themes\BlueGrey\icon_latest_reply.gif" />
+    <Content Include="themes\BlueGrey\icon_msn.png" />
+    <Content Include="themes\BlueGrey\icon_newest_reply.gif" />
+    <Content Include="themes\BlueGrey\icon_pm.png" />
+    <Content Include="themes\BlueGrey\icon_search.png" />
+    <Content Include="themes\BlueGrey\icon_skype.png" />
+    <Content Include="themes\BlueGrey\icon_subforum.gif" />
+    <Content Include="themes\BlueGrey\icon_subforum_new.gif" />
+    <Content Include="themes\BlueGrey\icon_useroffline.png" />
+    <Content Include="themes\BlueGrey\icon_useronline.png" />
+    <Content Include="themes\BlueGrey\icon_xmpp.png" />
+    <Content Include="themes\BlueGrey\icon_yahoo.png" />
+    <Content Include="themes\BlueGrey\js\ColorGrey.js" />
+    <Content Include="themes\BlueGrey\js\jquery.corner.js" />
+    <Content Include="themes\BlueGrey\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\BlueGrey\LeftArrow.png" />
+    <Content Include="themes\BlueGrey\LeftArrowWhite.png" />
+    <Content Include="themes\BlueGrey\lock_small.png" />
+    <Content Include="themes\BlueGrey\male.gif" />
+    <Content Include="themes\BlueGrey\mask.gif" />
+    <Content Include="themes\BlueGrey\poll_choice.png" />
+    <Content Include="themes\BlueGrey\poll_question.png" />
+    <Content Include="themes\BlueGrey\PostHeader.png" />
+    <Content Include="themes\BlueGrey\RightArrow.png" />
+    <Content Include="themes\BlueGrey\RightArrowWhite.png" />
+    <Content Include="themes\BlueGrey\rssfeed.gif" />
+    <Content Include="themes\BlueGrey\sandclock.gif" />
+    <Content Include="themes\BlueGrey\sort_down.gif" />
+    <Content Include="themes\BlueGrey\sort_up.gif" />
+    <Content Include="themes\BlueGrey\tab-line.png" />
+    <Content Include="themes\BlueGrey\tab.png" />
+    <Content Include="themes\BlueGrey\theme.css" />
+    <Content Include="themes\BlueGrey\topic.gif" />
+    <Content Include="themes\BlueGrey\topic_announce.gif" />
+    <Content Include="themes\BlueGrey\topic_announce_new.gif" />
+    <Content Include="themes\BlueGrey\topic_lock.gif" />
+    <Content Include="themes\BlueGrey\topic_lock_new.gif" />
+    <Content Include="themes\BlueGrey\topic_moved.gif" />
+    <Content Include="themes\BlueGrey\topic_new.gif" />
+    <Content Include="themes\BlueGrey\topic_poll.gif" />
+    <Content Include="themes\BlueGrey\topic_poll_new.gif" />
+    <Content Include="themes\BlueGrey\topic_sticky.gif" />
+    <Content Include="themes\BlueGrey\user_rank1.gif" />
+    <Content Include="themes\BlueGrey\user_rank2.gif" />
+    <Content Include="themes\BlueGrey\user_rank3.gif" />
+    <Content Include="themes\BlueGrey\vote_lcap.gif" />
+    <Content Include="themes\BlueGrey\vote_rcap.gif" />
+    <Content Include="themes\BlueGrey\voting_bar.gif" />
     <Content Include="themes\cleanSlate.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -1986,6 +1999,317 @@
     <Content Include="themes\cleanSlate\vote_rcap.gif" />
     <Content Include="themes\cleanSlate\voting_bar.gif" />
     <Content Include="themes\cleanSlate\cleanslate.js" />
+    <Content Include="themes\GreenGrey.xml" />
+    <Content Include="themes\GreenGrey\atomfeed.png" />
+    <Content Include="themes\GreenGrey\ButtonActive.png" />
+    <Content Include="themes\GreenGrey\ButtonHover.png" />
+    <Content Include="themes\GreenGrey\collapse.gif" />
+    <Content Include="themes\GreenGrey\DownArrow.png" />
+    <Content Include="themes\GreenGrey\DownArrowWhite.png" />
+    <Content Include="themes\GreenGrey\error.png" />
+    <Content Include="themes\GreenGrey\expand.gif" />
+    <Content Include="themes\GreenGrey\female.gif" />
+    <Content Include="themes\GreenGrey\folder_stats.gif" />
+    <Content Include="themes\GreenGrey\folder_stats.png" />
+    <Content Include="themes\GreenGrey\folder_who.gif" />
+    <Content Include="themes\GreenGrey\folder_who.png" />
+    <Content Include="themes\GreenGrey\FooterBack.png" />
+    <Content Include="themes\GreenGrey\handpointer1.png" />
+    <Content Include="themes\GreenGrey\Header2Back.png" />
+    <Content Include="themes\GreenGrey\HeaderBack.png" />
+    <Content Include="themes\GreenGrey\icon_aim.png" />
+    <Content Include="themes\GreenGrey\icon_blog.png" />
+    <Content Include="themes\GreenGrey\icon_email.png" />
+    <Content Include="themes\GreenGrey\icon_file.gif" />
+    <Content Include="themes\GreenGrey\icon_home.png" />
+    <Content Include="themes\GreenGrey\icon_icq.png" />
+    <Content Include="themes\GreenGrey\icon_latest_reply.gif" />
+    <Content Include="themes\GreenGrey\icon_msn.png" />
+    <Content Include="themes\GreenGrey\icon_newest_reply.gif" />
+    <Content Include="themes\GreenGrey\icon_pm.png" />
+    <Content Include="themes\GreenGrey\icon_search.png" />
+    <Content Include="themes\GreenGrey\icon_skype.png" />
+    <Content Include="themes\GreenGrey\icon_subforum.gif" />
+    <Content Include="themes\GreenGrey\icon_subforum_new.gif" />
+    <Content Include="themes\GreenGrey\icon_useroffline.png" />
+    <Content Include="themes\GreenGrey\icon_useronline.png" />
+    <Content Include="themes\GreenGrey\icon_xmpp.png" />
+    <Content Include="themes\GreenGrey\icon_yahoo.png" />
+    <Content Include="themes\GreenGrey\js\ColorGrey.js" />
+    <Content Include="themes\GreenGrey\js\jquery.corner.js" />
+    <Content Include="themes\GreenGrey\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\GreenGrey\LeftArrow.png" />
+    <Content Include="themes\GreenGrey\LeftArrowWhite.png" />
+    <Content Include="themes\GreenGrey\lock_small.png" />
+    <Content Include="themes\GreenGrey\male.gif" />
+    <Content Include="themes\GreenGrey\mask.gif" />
+    <Content Include="themes\GreenGrey\poll_choice.png" />
+    <Content Include="themes\GreenGrey\poll_question.png" />
+    <Content Include="themes\GreenGrey\PostHeader.png" />
+    <Content Include="themes\GreenGrey\reflection.js" />
+    <Content Include="themes\GreenGrey\RightArrow.png" />
+    <Content Include="themes\GreenGrey\RightArrowWhite.png" />
+    <Content Include="themes\GreenGrey\rssfeed.gif" />
+    <Content Include="themes\GreenGrey\sandclock.gif" />
+    <Content Include="themes\GreenGrey\sort_down.gif" />
+    <Content Include="themes\GreenGrey\sort_up.gif" />
+    <Content Include="themes\GreenGrey\tab-line.png" />
+    <Content Include="themes\GreenGrey\tab.png" />
+    <Content Include="themes\GreenGrey\theme.css" />
+    <Content Include="themes\GreenGrey\topic.gif" />
+    <Content Include="themes\GreenGrey\topic_announce.gif" />
+    <Content Include="themes\GreenGrey\topic_announce_new.gif" />
+    <Content Include="themes\GreenGrey\topic_lock.gif" />
+    <Content Include="themes\GreenGrey\topic_lock_new.gif" />
+    <Content Include="themes\GreenGrey\topic_moved.gif" />
+    <Content Include="themes\GreenGrey\topic_new.gif" />
+    <Content Include="themes\GreenGrey\topic_poll.gif" />
+    <Content Include="themes\GreenGrey\topic_poll_new.gif" />
+    <Content Include="themes\GreenGrey\topic_sticky.gif" />
+    <Content Include="themes\GreenGrey\user_rank1.gif" />
+    <Content Include="themes\GreenGrey\user_rank2.gif" />
+    <Content Include="themes\GreenGrey\user_rank3.gif" />
+    <Content Include="themes\GreenGrey\vote_lcap.gif" />
+    <Content Include="themes\GreenGrey\vote_rcap.gif" />
+    <Content Include="themes\GreenGrey\voting_bar.gif" />
+    <Content Include="themes\GreyGrey.xml" />
+    <Content Include="themes\GreyGrey\atomfeed.png" />
+    <Content Include="themes\GreyGrey\ButtonActive.png" />
+    <Content Include="themes\GreyGrey\ButtonHover.png" />
+    <Content Include="themes\GreyGrey\collapse.gif" />
+    <Content Include="themes\GreyGrey\DownArrow.png" />
+    <Content Include="themes\GreyGrey\error.png" />
+    <Content Include="themes\GreyGrey\expand.gif" />
+    <Content Include="themes\GreyGrey\female.gif" />
+    <Content Include="themes\GreyGrey\folder_stats.gif" />
+    <Content Include="themes\GreyGrey\folder_stats.png" />
+    <Content Include="themes\GreyGrey\folder_who.gif" />
+    <Content Include="themes\GreyGrey\folder_who.png" />
+    <Content Include="themes\GreyGrey\FooterBack.png" />
+    <Content Include="themes\GreyGrey\handpointer1.png" />
+    <Content Include="themes\GreyGrey\Header2Back.png" />
+    <Content Include="themes\GreyGrey\HeaderBack.png" />
+    <Content Include="themes\GreyGrey\icon_aim.png" />
+    <Content Include="themes\GreyGrey\icon_blog.png" />
+    <Content Include="themes\GreyGrey\icon_email.png" />
+    <Content Include="themes\GreyGrey\icon_file.gif" />
+    <Content Include="themes\GreyGrey\icon_home.png" />
+    <Content Include="themes\GreyGrey\icon_icq.png" />
+    <Content Include="themes\GreyGrey\icon_latest_reply.gif" />
+    <Content Include="themes\GreyGrey\icon_msn.png" />
+    <Content Include="themes\GreyGrey\icon_newest_reply.gif" />
+    <Content Include="themes\GreyGrey\icon_pm.png" />
+    <Content Include="themes\GreyGrey\icon_search.png" />
+    <Content Include="themes\GreyGrey\icon_skype.png" />
+    <Content Include="themes\GreyGrey\icon_subforum.gif" />
+    <Content Include="themes\GreyGrey\icon_subforum_new.gif" />
+    <Content Include="themes\GreyGrey\icon_useroffline.png" />
+    <Content Include="themes\GreyGrey\icon_useronline.png" />
+    <Content Include="themes\GreyGrey\icon_xmpp.png" />
+    <Content Include="themes\GreyGrey\icon_yahoo.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-icons_222222_256x240.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-icons_454545_256x240.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-icons_888888_256x240.png" />
+    <Content Include="themes\GreyGrey\jquery\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="themes\GreyGrey\jquery\jquery-ui.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.accordion.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.all.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.base.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.core.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.datepicker.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.dialog.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.progressbar.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.resizable.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.slider.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.tabs.css" />
+    <Content Include="themes\GreyGrey\jquery\ui.theme.css" />
+    <Content Include="themes\GreyGrey\js\ColorGrey.js" />
+    <Content Include="themes\GreyGrey\js\jquery.corner.js" />
+    <Content Include="themes\GreyGrey\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\GreyGrey\LeftArrow.png" />
+    <Content Include="themes\GreyGrey\lock_small.png" />
+    <Content Include="themes\GreyGrey\male.gif" />
+    <Content Include="themes\GreyGrey\mask.gif" />
+    <Content Include="themes\GreyGrey\poll_choice.png" />
+    <Content Include="themes\GreyGrey\poll_question.png" />
+    <Content Include="themes\GreyGrey\PostHeader.png" />
+    <Content Include="themes\GreyGrey\RightArrow.png" />
+    <Content Include="themes\GreyGrey\rssfeed.gif" />
+    <Content Include="themes\GreyGrey\sandclock.gif" />
+    <Content Include="themes\GreyGrey\sort_down.gif" />
+    <Content Include="themes\GreyGrey\sort_up.gif" />
+    <Content Include="themes\GreyGrey\tab-line.png" />
+    <Content Include="themes\GreyGrey\tab.png" />
+    <Content Include="themes\GreyGrey\theme.css" />
+    <Content Include="themes\GreyGrey\topic.gif" />
+    <Content Include="themes\GreyGrey\topic_announce.gif" />
+    <Content Include="themes\GreyGrey\topic_announce_new.gif" />
+    <Content Include="themes\GreyGrey\topic_lock.gif" />
+    <Content Include="themes\GreyGrey\topic_lock_new.gif" />
+    <Content Include="themes\GreyGrey\topic_moved.gif" />
+    <Content Include="themes\GreyGrey\topic_new.gif" />
+    <Content Include="themes\GreyGrey\topic_poll.gif" />
+    <Content Include="themes\GreyGrey\topic_poll_new.gif" />
+    <Content Include="themes\GreyGrey\topic_sticky.gif" />
+    <Content Include="themes\GreyGrey\user_rank1.gif" />
+    <Content Include="themes\GreyGrey\user_rank2.gif" />
+    <Content Include="themes\GreyGrey\user_rank3.gif" />
+    <Content Include="themes\GreyGrey\vote_lcap.gif" />
+    <Content Include="themes\GreyGrey\vote_rcap.gif" />
+    <Content Include="themes\GreyGrey\voting_bar.gif" />
+    <Content Include="themes\OrangeGrey.xml" />
+    <Content Include="themes\OrangeGrey\atomfeed.png" />
+    <Content Include="themes\OrangeGrey\ButtonActive.png" />
+    <Content Include="themes\OrangeGrey\ButtonHover.png" />
+    <Content Include="themes\OrangeGrey\collapse.gif" />
+    <Content Include="themes\OrangeGrey\DownArrow.png" />
+    <Content Include="themes\OrangeGrey\DownArrowWhite.png" />
+    <Content Include="themes\OrangeGrey\error.png" />
+    <Content Include="themes\OrangeGrey\expand.gif" />
+    <Content Include="themes\OrangeGrey\female.gif" />
+    <Content Include="themes\OrangeGrey\folder_stats.gif" />
+    <Content Include="themes\OrangeGrey\folder_stats.png" />
+    <Content Include="themes\OrangeGrey\folder_who.gif" />
+    <Content Include="themes\OrangeGrey\folder_who.png" />
+    <Content Include="themes\OrangeGrey\FooterBack.png" />
+    <Content Include="themes\OrangeGrey\handpointer1.png" />
+    <Content Include="themes\OrangeGrey\Header2Back.png" />
+    <Content Include="themes\OrangeGrey\HeaderBack.png" />
+    <Content Include="themes\OrangeGrey\icon_aim.png" />
+    <Content Include="themes\OrangeGrey\icon_blog.png" />
+    <Content Include="themes\OrangeGrey\icon_email.png" />
+    <Content Include="themes\OrangeGrey\icon_file.gif" />
+    <Content Include="themes\OrangeGrey\icon_home.png" />
+    <Content Include="themes\OrangeGrey\icon_icq.png" />
+    <Content Include="themes\OrangeGrey\icon_latest_reply.gif" />
+    <Content Include="themes\OrangeGrey\icon_msn.png" />
+    <Content Include="themes\OrangeGrey\icon_newest_reply.gif" />
+    <Content Include="themes\OrangeGrey\icon_pm.png" />
+    <Content Include="themes\OrangeGrey\icon_search.png" />
+    <Content Include="themes\OrangeGrey\icon_skype.png" />
+    <Content Include="themes\OrangeGrey\icon_subforum.gif" />
+    <Content Include="themes\OrangeGrey\icon_subforum_new.gif" />
+    <Content Include="themes\OrangeGrey\icon_useroffline.png" />
+    <Content Include="themes\OrangeGrey\icon_useronline.png" />
+    <Content Include="themes\OrangeGrey\icon_xmpp.png" />
+    <Content Include="themes\OrangeGrey\icon_yahoo.png" />
+    <Content Include="themes\OrangeGrey\js\ColorGrey.js" />
+    <Content Include="themes\OrangeGrey\js\jquery.corner.js" />
+    <Content Include="themes\OrangeGrey\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\OrangeGrey\LeftArrow.png" />
+    <Content Include="themes\OrangeGrey\LeftArrowWhite.png" />
+    <Content Include="themes\OrangeGrey\lock_small.png" />
+    <Content Include="themes\OrangeGrey\male.gif" />
+    <Content Include="themes\OrangeGrey\mask.gif" />
+    <Content Include="themes\OrangeGrey\poll_choice.png" />
+    <Content Include="themes\OrangeGrey\poll_question.png" />
+    <Content Include="themes\OrangeGrey\PostHeader.png" />
+    <Content Include="themes\OrangeGrey\RightArrow.png" />
+    <Content Include="themes\OrangeGrey\RightArrowWhite.png" />
+    <Content Include="themes\OrangeGrey\rssfeed.gif" />
+    <Content Include="themes\OrangeGrey\sandclock.gif" />
+    <Content Include="themes\OrangeGrey\sort_down.gif" />
+    <Content Include="themes\OrangeGrey\sort_up.gif" />
+    <Content Include="themes\OrangeGrey\tab-line.png" />
+    <Content Include="themes\OrangeGrey\tab.png" />
+    <Content Include="themes\OrangeGrey\theme.css" />
+    <Content Include="themes\OrangeGrey\topic.gif" />
+    <Content Include="themes\OrangeGrey\topic_announce.gif" />
+    <Content Include="themes\OrangeGrey\topic_announce_new.gif" />
+    <Content Include="themes\OrangeGrey\topic_lock.gif" />
+    <Content Include="themes\OrangeGrey\topic_lock_new.gif" />
+    <Content Include="themes\OrangeGrey\topic_moved.gif" />
+    <Content Include="themes\OrangeGrey\topic_new.gif" />
+    <Content Include="themes\OrangeGrey\topic_poll.gif" />
+    <Content Include="themes\OrangeGrey\topic_poll_new.gif" />
+    <Content Include="themes\OrangeGrey\topic_sticky.gif" />
+    <Content Include="themes\OrangeGrey\user_rank1.gif" />
+    <Content Include="themes\OrangeGrey\user_rank2.gif" />
+    <Content Include="themes\OrangeGrey\user_rank3.gif" />
+    <Content Include="themes\OrangeGrey\vote_lcap.gif" />
+    <Content Include="themes\OrangeGrey\vote_rcap.gif" />
+    <Content Include="themes\OrangeGrey\voting_bar.gif" />
+    <Content Include="themes\RedGrey.xml" />
+    <Content Include="themes\RedGrey\atomfeed.png" />
+    <Content Include="themes\RedGrey\ButtonActive.png" />
+    <Content Include="themes\RedGrey\ButtonHover.png" />
+    <Content Include="themes\RedGrey\collapse.gif" />
+    <Content Include="themes\RedGrey\DownArrow.png" />
+    <Content Include="themes\RedGrey\DownArrowWhite.png" />
+    <Content Include="themes\RedGrey\error.png" />
+    <Content Include="themes\RedGrey\expand.gif" />
+    <Content Include="themes\RedGrey\female.gif" />
+    <Content Include="themes\RedGrey\folder_stats.gif" />
+    <Content Include="themes\RedGrey\folder_stats.png" />
+    <Content Include="themes\RedGrey\folder_who.gif" />
+    <Content Include="themes\RedGrey\folder_who.png" />
+    <Content Include="themes\RedGrey\FooterBack.png" />
+    <Content Include="themes\RedGrey\handpointer1.png" />
+    <Content Include="themes\RedGrey\Header2Back.png" />
+    <Content Include="themes\RedGrey\HeaderBack.png" />
+    <Content Include="themes\RedGrey\icon_aim.png" />
+    <Content Include="themes\RedGrey\icon_blog.png" />
+    <Content Include="themes\RedGrey\icon_email.png" />
+    <Content Include="themes\RedGrey\icon_file.gif" />
+    <Content Include="themes\RedGrey\icon_home.png" />
+    <Content Include="themes\RedGrey\icon_icq.png" />
+    <Content Include="themes\RedGrey\icon_latest_reply.gif" />
+    <Content Include="themes\RedGrey\icon_msn.png" />
+    <Content Include="themes\RedGrey\icon_newest_reply.gif" />
+    <Content Include="themes\RedGrey\icon_pm.png" />
+    <Content Include="themes\RedGrey\icon_search.png" />
+    <Content Include="themes\RedGrey\icon_skype.png" />
+    <Content Include="themes\RedGrey\icon_subforum.gif" />
+    <Content Include="themes\RedGrey\icon_subforum_new.gif" />
+    <Content Include="themes\RedGrey\icon_useroffline.png" />
+    <Content Include="themes\RedGrey\icon_useronline.png" />
+    <Content Include="themes\RedGrey\icon_xmpp.png" />
+    <Content Include="themes\RedGrey\icon_yahoo.png" />
+    <Content Include="themes\RedGrey\js\ColorGrey.js" />
+    <Content Include="themes\RedGrey\js\jquery.corner.js" />
+    <Content Include="themes\RedGrey\js\jquery.tipTip.minified.js" />
+    <Content Include="themes\RedGrey\LeftArrow.png" />
+    <Content Include="themes\RedGrey\LeftArrowWhite.png" />
+    <Content Include="themes\RedGrey\lock_small.png" />
+    <Content Include="themes\RedGrey\male.gif" />
+    <Content Include="themes\RedGrey\mask.gif" />
+    <Content Include="themes\RedGrey\poll_choice.png" />
+    <Content Include="themes\RedGrey\poll_question.png" />
+    <Content Include="themes\RedGrey\PostHeader.png" />
+    <Content Include="themes\RedGrey\RightArrow.png" />
+    <Content Include="themes\RedGrey\RightArrowWhite.png" />
+    <Content Include="themes\RedGrey\rssfeed.gif" />
+    <Content Include="themes\RedGrey\sandclock.gif" />
+    <Content Include="themes\RedGrey\sort_down.gif" />
+    <Content Include="themes\RedGrey\sort_up.gif" />
+    <Content Include="themes\RedGrey\tab-line.png" />
+    <Content Include="themes\RedGrey\tab.png" />
+    <Content Include="themes\RedGrey\theme.css" />
+    <Content Include="themes\RedGrey\topic.gif" />
+    <Content Include="themes\RedGrey\topic_announce.gif" />
+    <Content Include="themes\RedGrey\topic_announce_new.gif" />
+    <Content Include="themes\RedGrey\topic_lock.gif" />
+    <Content Include="themes\RedGrey\topic_lock_new.gif" />
+    <Content Include="themes\RedGrey\topic_moved.gif" />
+    <Content Include="themes\RedGrey\topic_new.gif" />
+    <Content Include="themes\RedGrey\topic_poll.gif" />
+    <Content Include="themes\RedGrey\topic_poll_new.gif" />
+    <Content Include="themes\RedGrey\topic_sticky.gif" />
+    <Content Include="themes\RedGrey\user_rank1.gif" />
+    <Content Include="themes\RedGrey\user_rank2.gif" />
+    <Content Include="themes\RedGrey\user_rank3.gif" />
+    <Content Include="themes\RedGrey\vote_lcap.gif" />
+    <Content Include="themes\RedGrey\vote_rcap.gif" />
+    <Content Include="themes\RedGrey\voting_bar.gif" />
     <Content Include="themes\soclean\atomfeed.png" />
     <Content Include="themes\soclean\female.gif" />
     <Content Include="themes\soclean\icon_search.png" />
@@ -2014,20 +2338,6 @@
     <Content Include="themes\Yafmobile\icon_useroffline.png" />
     <Content Include="themes\Yafmobile\icon_useronline.png" />
     <Content Include="themes\Yafmobile\mask.gif" />
-    <Content Include="themes\Yafmobile\MobilePages\displaypost.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forum.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumactivediscussion.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumcategorylist.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumList.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumwelcome.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\mytopics.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\mytopicslist.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\pmessage.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\postmessage.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\posts.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\profile.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\TopicLine.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
     <Content Include="themes\Yafmobile\poll_choice.png" />
     <Content Include="themes\Yafmobile\poll_question.png" />
     <Content Include="themes\Yafmobile\sort_down.png" />
@@ -2084,7 +2394,6 @@
     </Content>
     <None Include="images\emoticons\eusa.pak" />
     <None Include="images\emoticons\ModernSmileyPack.pak" />
-    <None Include="images\medals\eusa.pak" />
     <Content Include="mail.config">
       <SubType>Designer</SubType>
     </Content>
