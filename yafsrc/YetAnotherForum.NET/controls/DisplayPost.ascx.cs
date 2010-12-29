@@ -25,6 +25,7 @@ namespace YAF.Controls
   using System;
   using System.Data;
   using System.Text;
+  using System.Web;
 
   using YAF.Core;
   using YAF.Core.Services;
@@ -415,6 +416,7 @@ namespace YAF.Controls
     /// </summary>
     private void FormatThanksRow()
     {
+
       this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
                            YafContext.Current.BoardSettings.EnableThanksMod;
 
@@ -444,13 +446,13 @@ namespace YAF.Controls
       if (thanksNumber == 1)
       {
         this.ThanksDataLiteral.Text =
-          this.PageContext.Localization.GetText("THANKSINFOSINGLE").FormatWith(
-            this.HtmlEncode(this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
+         this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(
+            this.Get<HttpServerUtilityBase>().HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
       }
       else
       {
-        this.ThanksDataLiteral.Text = this.PageContext.Localization.GetText("THANKSINFO").FormatWith(
-          thanksNumber, this.HtmlEncode(this.PageContext.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
+          this.ThanksDataLiteral.Text = this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(
+          thanksNumber, this.Get<HttpServerUtilityBase>().HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PostData.UserId)));
       }
 
       this.ThanksDataLiteral.Visible = true;

@@ -306,15 +306,15 @@ namespace YAF.Pages
         brief);
 
       html.Append(" (");
-      html.Append(
-        new UserLink { ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID") }.
-          RenderToString());
+        html.Append(
+            new UserLink { ID = "UserLinkForRow{0}".FormatWith(messageId), UserID = row.Field<int>("UserID") }.
+                RenderToString());
 
-      html.AppendFormat(
-        " - {0})</span>", 
-        new DisplayDateTime { DateTime = row["Posted"], Format = DateTimeFormat.BothTopic }.RenderToString());
+        html.AppendFormat(
+            " - {0})</span>",
+            new DisplayDateTime { DateTime = row["Posted"], Format = DateTimeFormat.BothTopic }.RenderToString());
 
-      html.AppendFormat("</td></tr>");
+        html.AppendFormat("</td></tr>");
 
       return html.ToString();
     }
@@ -371,26 +371,30 @@ namespace YAF.Pages
     /// </param>
     protected void MessageList_OnItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
     {
-      if (this.Pager.CurrentPageIndex == 0 && e.Item.ItemIndex == 0)
-      {
+        if (this.Pager.CurrentPageIndex != 0 || e.Item.ItemIndex != 0)
+        {
+            return;
+        }
+
         // check if need to display the ad...
         bool showAds = true;
 
         if (this.User != null)
         {
-          showAds = this.PageContext.BoardSettings.ShowAdsToSignedInUsers;
+            showAds = this.PageContext.BoardSettings.ShowAdsToSignedInUsers;
         }
 
-        if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.AdPost) && showAds)
+        if (string.IsNullOrEmpty(this.PageContext.BoardSettings.AdPost) || !showAds)
         {
-          // first message... show the ad below this message
-          var adControl = (DisplayAd)e.Item.FindControl("DisplayAd");
-          if (adControl != null)
-          {
-            adControl.Visible = true;
-          }
+            return;
         }
-      }
+
+        // first message... show the ad below this message
+        var adControl = (DisplayAd)e.Item.FindControl("DisplayAd");
+        if (adControl != null)
+        {
+            adControl.Visible = true;
+        }
     }
 
     /// <summary>
@@ -931,13 +935,17 @@ namespace YAF.Pages
               // General Thanks Info
               // new DataColumn("ThanksInfo", Type.GetType("System.String")),
               // How many times has this message been thanked.
-              new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")), 
+              new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
+ 
               // How many times has the message poster thanked others?   
               new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")), 
+              
               // How many times has the message poster been thanked?
               new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")), 
+              
               // In how many posts has the message poster been thanked? 
               new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")), 
+              
               // In how many posts has the message poster been thanked? 
               new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
             });
@@ -1332,12 +1340,14 @@ namespace YAF.Pages
       switch (e.Item.ToLower())
       {
         case "normal":
-          this.IsThreaded = false;
-          this.BindData();
+         /* this.IsThreaded = false;
+          this.BindData();*/
+              YafBuildLink.Redirect(ForumPages.posts, "t={0}&threaded=false", this.PageContext.PageTopicID);
           break;
         case "threaded":
-          this.IsThreaded = true;
-          this.BindData();
+          /*this.IsThreaded = true;
+          this.BindData();*/
+          YafBuildLink.Redirect(ForumPages.posts, "t={0}&threaded=true", this.PageContext.PageTopicID);
           break;
         default:
           throw new ApplicationException(e.Item);
@@ -1379,8 +1389,16 @@ namespace YAF.Pages
       }
 
       // view menu
-      this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"));
-      this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"));
+        if (this.IsThreaded)
+        {
+            this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"));
+            this.ViewMenu.AddPostBackItem("threaded", "&#187; {0}".FormatWith(this.GetText("THREADED")));
+        }
+        else
+        {
+            this.ViewMenu.AddPostBackItem("normal", "&#187; {0}".FormatWith(this.GetText("NORMAL")));
+            this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"));
+        }
 
       // attach both the menus to HyperLinks
       this.OptionsMenu.Attach(this.OptionsLink);
