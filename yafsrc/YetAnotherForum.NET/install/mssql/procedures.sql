@@ -4330,6 +4330,8 @@ BEGIN
 		pg.IsBound, 
 		b.IsClosedBound, 	
 		b.AllowMultipleChoices,
+		b.ShowVoters,
+		b.AllowSkipVote,
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
@@ -4362,6 +4364,8 @@ BEGIN
 		pg.IsBound,
 		b.IsClosedBound,		
 		b.AllowMultipleChoices,
+		b.ShowVoters,
+		b.AllowSkipVote,
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		[Stats] = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
@@ -8706,6 +8710,7 @@ begin
 		a.ProviderUserKey,
 		UserFlags			= a.Flags,
 		UserName			= a.Name,
+		DisplayName			= a.DisplayName,
 		Suspended			= a.Suspended,
 		ThemeFile			= a.ThemeFile,
 		LanguageFile		= a.LanguageFile,

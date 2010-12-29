@@ -162,7 +162,7 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		CategoryID		int NOT NULL ,
 		ParentID		int NULL ,
 		Name			nvarchar (50) NOT NULL ,
-		[Description]		nvarchar (255) NOT NULL ,
+		[Description]	nvarchar (255) NOT NULL ,
 		SortOrder		smallint NOT NULL ,
 		LastPosted		datetime NULL ,
 		LastTopicID		int NULL ,
@@ -178,7 +178,8 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		[IsNoCount]		AS (CONVERT([bit],sign([Flags]&(4)),(0))),
 		[IsModerated]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		ThemeURL		nvarchar(50) NULL,
-		PollGroupID     int null 
+		PollGroupID     int null,
+		UserID          int null 
 	)
 GO
 
@@ -192,10 +193,10 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Group](
-		GroupID			int IDENTITY (1, 1) NOT NULL ,
-		BoardID			int NOT NULL ,
+		GroupID		int IDENTITY (1, 1) NOT NULL ,
+		BoardID		int NOT NULL ,
 		[Name]		nvarchar (255) NOT NULL ,
-		Flags			int not null constraint DF_{objectQualifier}Group_Flags default (0)
+		Flags		int not null constraint DF_{objectQualifier}Group_Flags default (0)
 	)
 GO
 
@@ -218,37 +219,37 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Message]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Message](
-		MessageID		int IDENTITY (1, 1) NOT NULL ,
-		TopicID			int NOT NULL ,
-		ReplyTo			int NULL ,
-		Position		int NOT NULL ,
-		Indent			int NOT NULL ,
-		UserID			int NOT NULL ,
-		UserName		nvarchar (255) NULL ,
-		Posted			datetime NOT NULL ,
-		[Message]		ntext NOT NULL ,
-		IP				nvarchar (15) NOT NULL ,
-		Edited			datetime NULL ,
-		Flags			int NOT NULL constraint [DF_{objectQualifier}Message_Flags] default (23),
-		EditReason      nvarchar (100) NULL ,
-		IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_{objectQualifier}Message_IsModeratorChanged] DEFAULT (0),
-	    DeleteReason    nvarchar (100)  NULL,
-		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0)),
-		IsApproved		AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+		MessageID		    int IDENTITY (1, 1) NOT NULL ,
+		TopicID			    int NOT NULL ,
+		ReplyTo			    int NULL ,
+		Position		    int NOT NULL ,
+		Indent			    int NOT NULL ,
+		UserID			    int NOT NULL ,
+		UserName		    nvarchar (255) NULL ,
+		Posted			    datetime NOT NULL ,
+		[Message]		    ntext NOT NULL ,
+		IP				    nvarchar (15) NOT NULL ,
+		Edited			    datetime NULL ,
+		Flags			    int NOT NULL constraint [DF_{objectQualifier}Message_Flags] default (23),
+		EditReason          nvarchar (100) NULL ,
+		IsModeratorChanged  bit NOT NULL CONSTRAINT [DF_{objectQualifier}Message_IsModeratorChanged] DEFAULT (0),
+	    DeleteReason        nvarchar (100)  NULL,
+		IsDeleted		    AS (CONVERT([bit],sign([Flags]&(8)),0)),
+		IsApproved		    AS (CONVERT([bit],sign([Flags]&(16)),(0)))
 	)
 GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}MessageHistory](
 		MessageHistoryID uniqueidentifier NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_MessageHistoryID] DEFAULT (newid()),
-		MessageID		int NOT NULL ,
-		[Message]			ntext NOT NULL ,
-		IP				nvarchar (15) NOT NULL ,
-		Edited			datetime NULL,
-		EditedBy		int NULL,	
-		EditReason      nvarchar (100) NULL ,
-		IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_IsModeratorChanged] DEFAULT (0),
-		Flags int NOT NULL constraint [DF_{objectQualifier}MessageHistory_Flags] default (23)	  
+		MessageID		    int NOT NULL ,
+		[Message]		    ntext NOT NULL ,
+		IP				    nvarchar (15) NOT NULL ,
+		Edited			    datetime NULL,
+		EditedBy		    int NULL,	
+		EditReason          nvarchar (100) NULL ,
+		IsModeratorChanged  bit NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_IsModeratorChanged] DEFAULT (0),
+		Flags               int NOT NULL constraint [DF_{objectQualifier}MessageHistory_Flags] default (23)	  
 	)
 GO
 
@@ -271,13 +272,12 @@ IF NOT EXISTS (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		)
 GO
 
-
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}PMessage](
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,
 		FromUserID		int NOT NULL ,
 		Created			datetime NOT NULL ,
-		[Subject]			nvarchar (100) NOT NULL ,
+		[Subject]		nvarchar (100) NOT NULL ,
 		Body			ntext NOT NULL,
 		Flags			int NOT NULL 
 	)
@@ -286,9 +286,9 @@ GO
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
 		PollGroupID int IDENTITY (1, 1) NOT NULL,
-		UserID	int not NULL,
-		[Flags] int NOT NULL,
-		[IsBound]		AS (CONVERT([bit],sign([Flags]&(2)),(0)))	
+		UserID	    int not NULL,
+		[Flags]     int NOT NULL constraint [DF_{objectQualifier}PollGroupCluster_Flags] default (0),
+		[IsBound]   AS (CONVERT([bit],sign([Flags]&(2)),(0)))	
 	)
 GO
 
@@ -301,9 +301,11 @@ if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseO
 		UserID int not NULL,	
 		[ObjectPath] nvarchar(255) NULL,
 		[MimeType] varchar(50) NULL,
-		[Flags] int NULL,		
+		[Flags] int NOT NULL constraint [DF_{objectQualifier}Poll_Flags] default (0),		
 		[IsClosedBound]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
-		[AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+		[AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0))),
+		[ShowVoters] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
+		[AllowSkipVote] AS (CONVERT([bit],sign([Flags]&(32)),(0)))
 	)
 GO
 
@@ -320,26 +322,27 @@ GO
 
 if not exists (select top 1 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Topic](
-		TopicID			int IDENTITY (1, 1) NOT NULL ,
-		ForumID			int NOT NULL ,
-		UserID			int NOT NULL ,
-		UserName		nvarchar (255) NULL ,
-		Posted			datetime NOT NULL ,
-		Topic			nvarchar (100) NOT NULL ,
-		[Views]			int NOT NULL ,
-		Priority		smallint NOT NULL ,
-		PollID			int NULL ,
-		TopicMovedID	int NULL ,
-		LastPosted		datetime NULL ,
-		LastMessageID	int NULL ,
-		LastUserID		int NULL ,
-		LastUserName	nvarchar (255) NULL,
-		NumPosts		int NOT NULL,
-		Flags			int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
-		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0)),
-		[IsQuestion]    AS (CONVERT([bit],sign([Flags]&(1024)),(0))),
-		[AnswerMessageId] [int] NULL,
-		[LastMessageFlags]	[int] NULL
+		TopicID			    int IDENTITY (1, 1) NOT NULL ,
+		ForumID			    int NOT NULL ,
+		UserID			    int NOT NULL ,
+		UserName		    nvarchar (255) NULL ,		
+		Posted			    datetime NOT NULL ,
+		Topic			    nvarchar (100) NOT NULL ,
+		[Views]			    int NOT NULL ,
+		Priority		    smallint NOT NULL ,
+		PollID			    int NULL ,
+		TopicMovedID	    int NULL ,
+		LastPosted		    datetime NULL ,
+		LastMessageID	    int NULL ,
+		LastUserID		    int NULL ,
+		LastUserName	    nvarchar (255) NULL,		
+		NumPosts		    int NOT NULL,
+		Flags			    int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
+		IsDeleted		    AS (CONVERT([bit],sign([Flags]&(8)),0)),
+		[IsQuestion]        AS (CONVERT([bit],sign([Flags]&(1024)),(0))),
+		[AnswerMessageId]   [int] NULL,
+		[LastMessageFlags]	[int] NULL,
+		[TopicImage]        nvarchar(255) NULL
 	)
 GO
 
@@ -832,6 +835,12 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='AnswerMessageId')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add AnswerMessageId INT NULL
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='TopicImage')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add TopicImage nvarchar(255) NULL
 end
 GO
 
@@ -1373,6 +1382,11 @@ begin
 end
 GO
 
+if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='UserID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [UserID]  int null 
+end
+GO
 
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
 begin
@@ -1682,6 +1696,18 @@ GO
 if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'AllowMultipleChoices')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add [AllowMultipleChoices] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'ShowVoters')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [ShowVoters] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'AllowSkipVote')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [AllowSkipVote] AS (CONVERT([bit],sign([Flags]&(32)),(0)))
 end
 GO
 
