@@ -6140,15 +6140,15 @@ begin
 			NumDays = datediff(d,a.Joined,GETUTCDATE() )+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
-			IsAdmin	= IsNull(CONVERT(int,c.IsAdmin),0),
+			IsAdmin	= IsNull(c.IsAdmin,0),
 			IsGuest	= IsNull(a.Flags & 4,0),
 			IsHostAdmin	= IsNull(a.Flags & 1,0),
-			IsForumModerator = IsNull(CONVERT(int,c.IsForumModerator),0),
-			IsModerator		= IsNull(CONVERT(int,c.IsModerator),0)
+			IsForumModerator	= IsNull(c.IsForumModerator,0),
+			IsModerator		= IsNull(c.IsModerator,0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
 			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID			
-			left join [{databaseOwner}].[{objectQualifier}ActiveAccess] c on c.UserID=a.UserID
+			left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
 		where 
 			a.UserID = @UserID and
 			a.BoardID = @BoardID and
@@ -6156,6 +6156,7 @@ begin
 			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2))
 		order by 
 			a.Name 
+
 	else if @GroupID is null and @RankID is null
 		select 
 			a.*,
