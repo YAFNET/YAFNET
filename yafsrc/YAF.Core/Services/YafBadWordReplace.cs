@@ -129,7 +129,7 @@ namespace YAF.Core.Services
         {
           // disable this regular expression henceforth...
           item.Active = false;
-          DB.eventlog_create(null, "BadWordReplace", x, EventLogTypes.Warning);
+          LegacyDb.eventlog_create(null, "BadWordReplace", x, EventLogTypes.Warning);
         }
 
 #endif

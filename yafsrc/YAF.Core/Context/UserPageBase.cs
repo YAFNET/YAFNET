@@ -916,7 +916,7 @@ namespace YAF.Core
 #if !DEBUG
   
   // log the exception...
-					YAF.Classes.Data.DB.eventlog_create( null, "Failure Initializing User/Page.", x, EventLogTypes.Warning );
+					LegacyDb.eventlog_create( null, "Failure Initializing User/Page.", x, EventLogTypes.Warning );
 					
 // log the user out...
 					FormsAuthentication.SignOut();

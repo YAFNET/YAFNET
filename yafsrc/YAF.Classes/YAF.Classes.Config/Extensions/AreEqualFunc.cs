@@ -23,6 +23,8 @@ namespace YAF.Utils
   using System;
   using System.Collections.Generic;
 
+  using YAF.Types;
+
   #endregion
 
   /// <summary>
@@ -51,12 +53,9 @@ namespace YAF.Utils
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    public AreEqualFunc(Func<T, T, bool> comparer)
+    public AreEqualFunc([NotNull] Func<T, T, bool> comparer)
     {
-      if (comparer == null)
-      {
-        throw new ArgumentNullException("comparer");
-      }
+      CodeContracts.ArgumentNotNull(comparer, "comparer");
 
       this._comparer = comparer;
     }
