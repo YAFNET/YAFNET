@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
         this.btnRecoveryMode.Text = DB.btnRecoveryModeName;
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
         this.PageLinks.AddLink("Reindex DB", string.Empty);
 
         this.BindData();

@@ -1,27 +1,17 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version" Codebehind="version.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="adminmenu1" runat="server">
 	<table width="100%" cellspacing="0" cellpadding="0" class="content">
 		<tr>
 			<td class="header1">
-				Version Check
+				 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_VERSION" />
 			</td>
 		</tr>
 		<tr class="post">
 			<td>
-				<p>
-					You are running YetAnotherForum.NET version <strong>
-						<%#YafForumInfo.AppVersionName%></strong> (Date:
-					<%#this.Get<IDateTime>().FormatDateShort( YafForumInfo.AppVersionDate ) %>).</p>
-				<p>
-					The latest final version available is <strong>
-						<%#LastVersion%></strong> released <strong>
-							<%#LastVersionDate%></strong> .</p>
-				<p runat="server" id="Upgrade" visible="false">
-					You can download the latest version from <a target="_top" href="http://sourceforge.net/project/showfiles.php?group_id=90539">
-						here</a>.</p>
+                 <p><asp:Label id="RunningVersion" runat="server"></asp:Label></p>
+                 <p><asp:Label id="LatestVersion" runat="server"></asp:Label></p>
+                 <p><YAF:LocalizedLabel ID="Upgrade" runat="server" LocalizedTag="UPGRADE_VERSION" LocalizedPage="ADMIN_VERSION" Visible="false" /></p>
 			</td>
 		</tr>
 	</table>

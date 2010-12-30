@@ -93,24 +93,33 @@ namespace YAF.Pages.Admin
     {
       if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Version Check", string.Empty);
-      }
-      {
-        // try
-        using (var reg = new Register())
-        {
-          this._lastVersion = reg.LatestVersion();
-          this._lastVersionDate = reg.LatestVersionDate();
-        }
-      }
-      {
-        // catch ( Exception )
-        // _lastVersion = 0;
-      }
+          using (var reg = new Register())
+          {
+              this._lastVersion = reg.LatestVersion();
+              this._lastVersionDate = reg.LatestVersionDate();
+          }
 
-      this.Upgrade.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
+          this.Upgrade.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
+
+
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
+
+          this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"), 
+              this.GetText("ADMIN_VERSION", "TITLE"));
+
+          this.RunningVersion.Text = this.GetTextFormatted(
+              "RUNNING_VERSION",
+              YafForumInfo.AppVersionName,
+              this.Get<IDateTime>().FormatDateShort(YafForumInfo.AppVersionDate));
+
+           this.LatestVersion.Text = this.GetTextFormatted(
+             "LATEST_VERSION",
+             this.LastVersion, 
+             this.LastVersionDate);
+      }
 
       this.DataBind();
     }

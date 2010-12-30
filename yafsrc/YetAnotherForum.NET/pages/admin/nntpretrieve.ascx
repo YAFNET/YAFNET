@@ -7,17 +7,21 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td colspan="3" class="header1">
-				Retrieve NNTP Articles</td>
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_NNTPRETRIEVE" />
+			</td>
 		</tr>
 		<asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
 				<tr class="header2">
 					<td>
-						Groups ready for retrieval</td>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPS" LocalizedPage="ADMIN_NNTPRETRIEVE" />
+					</td>
 					<td align="right">
-						Last Message</td>
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="LAST_MESSAGE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
+					</td>
 					<td>
-						Last Update</td>
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LAST_UPDATE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
+					</td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -36,30 +40,16 @@
 		</asp:Repeater>
 		<tr>
 			<td colspan="2" class="postheader" width="50%">
-				Specify how much time article retrieval should use.</td>
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" />
+				</td>
 			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Seconds" Text="30" />&nbsp;seconds</td>
+				<asp:TextBox runat="server" ID="Seconds" Text="30" />&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SECONDS" LocalizedPage="ADMIN_NNTPRETRIEVE" /></td>
 		</tr>
 		<tr>
 			<td colspan="3" align="center" class="footer1">
 				<asp:Button runat="server" ID="Retrieve" Text="Retrieve" OnClick="Retrieve_Click" /></td>
 		</tr>
 	</table>
-	<p style="color: red">
-		The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.
-		Bugs you should look for is character set conversion, and incorrect time on posts.
-		Usenet articles will be posted to the forum with the date from the article header,
-		meaning that you well could get future dates. Please let me know of any unknown
-		time zones that are encountered.
-	</p>
-	<p style="color: red">
-		The forums usenet artiles are posted to should be read-only, as messages will <strong>not</strong>
-		be posted back to the usenet. For speed purposes usenet articles are automatically
-		approved, meaning that if the forum is moderated, the posts will be automatically
-		approved.
-	</p>
-	<p style="color: red">
-		To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
-	</p>
+    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BETA_WARNING" LocalizedPage="ADMIN_NNTPRETRIEVE" />
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

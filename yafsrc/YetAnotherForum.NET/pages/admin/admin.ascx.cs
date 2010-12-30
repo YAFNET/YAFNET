@@ -85,14 +85,14 @@ namespace YAF.Pages.Admin
 
           if (!Config.IsAnyPortal)
           {
-            UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
+            UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
           }
 
           DB.user_delete(e.CommandArgument);
           this.BindData();
           break;
         case "approve":
-          UserMembershipHelper.ApproveUser(Convert.ToInt32(e.CommandArgument));
+          UserMembershipHelper.ApproveUser(e.CommandArgument.ToType<int>());
           this.BindData();
           break;
         case "deleteall":
@@ -107,10 +107,10 @@ namespace YAF.Pages.Admin
 
           if (!Config.IsAnyPortal)
           {
-            UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-Convert.ToInt32(daysValueAll)));
+            UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
           }
 
-          DB.user_deleteold(this.PageContext.PageBoardID, Convert.ToInt32(daysValueAll));
+          DB.user_deleteold(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
           this.BindData();
           break;
         case "approveall":
@@ -243,17 +243,21 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+
+        this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
 
         // bind data
         this.BindBoardsList();
         this.BindData();
 
         // TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
-      }
     }
 
     /// <summary>
@@ -261,9 +265,12 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindBoardsList()
     {
-      // only if user is hostadmin, otherwise boards' list is hidden
-      if (this.PageContext.IsHostAdmin)
-      {
+        // only if user is hostadmin, otherwise boards' list is hidden
+        if (!this.PageContext.IsHostAdmin)
+        {
+            return;
+        }
+
         DataTable dt = DB.board_list(null);
 
         // add row for "all boards" (null value)
@@ -280,9 +287,8 @@ namespace YAF.Pages.Admin
 
         // select current board as default
         this.BoardStatsSelect.SelectedIndex =
-          this.BoardStatsSelect.Items.IndexOf(
-            this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
-      }
+            this.BoardStatsSelect.Items.IndexOf(
+                this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
     }
 
     /// <summary>
@@ -339,29 +345,16 @@ namespace YAF.Pages.Admin
     /// </returns>
     private object GetSelectedBoardID()
     {
-      // check dropdown only if user is hostadmin
-      if (this.PageContext.IsHostAdmin)
-      {
+        // check dropdown only if user is hostadmin
+        if (!this.PageContext.IsHostAdmin)
+        {
+            return this.PageContext.PageBoardID;
+        }
+
         // -1 means all boards are selected
-        if (this.BoardStatsSelect.SelectedValue == "-1")
-        {
-          return null;
-        }
-        else
-        {
-          return this.BoardStatsSelect.SelectedValue;
-        }
-      }
-        
-        
-        
-        // for non host admin user, return board he's logged on
-      else
-      {
-        return this.PageContext.PageBoardID;
-      }
+        return this.BoardStatsSelect.SelectedValue == "-1" ? null : this.BoardStatsSelect.SelectedValue;
     }
 
-    #endregion
+      #endregion
   }
 }

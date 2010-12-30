@@ -51,7 +51,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this forum?')";
+        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM"));
     }
 
     /// <summary>
@@ -82,8 +82,15 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("NNTP Forums", string.Empty);
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_NNTPFORUMS", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+             this.GetText("ADMIN_ADMIN", "Administration"),
+             this.GetText("ADMIN_NNTPFORUMS", "TITLE"));
+
+        this.NewForum.Text = this.GetText("ADMIN_NNTPFORUMS", "NEW_FORUM");
 
         this.BindData();
       }

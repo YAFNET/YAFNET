@@ -1874,4 +1874,68 @@ Visit {forumname} at {forumlink}
       <Resource tag="NNTP">NNTP</Resource>
       <Resource tag="Upgrade">Upgrade</Resource>
 	</page>
+	<page name="ADMIN_ADMIN">
+      <Resource tag="Administration">Administration</Resource>
+	</page>
+	<page name="ADMIN_VERSION">
+      <Resource tag="TITLE">Version Check</Resource>
+	  <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target=&quot;_top&quot; href=&quot;http://yafnet.codeplex.com/&quot;&gt;
+						here&lt;/a&gt;.</Resource>
+	  <Resource tag="RUNNING_VERSION">You are running YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Date: {1}).</Resource>
+	  <Resource tag="LATEST_VERSION">The latest final version available is &lt;strong&gt;{0}&lt;/strong&gt; released &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
+	</page>
+	<page name="ADMIN_NNTPRETRIEVE">
+	  <Resource tag="TITLE">NNTP Retrieve</Resource>
+	  <Resource tag="Retrieved">Retrieved {0} articles. {1:N2} articles per second.</Resource>
+	  <Resource tag="HEADER">Retrieve NNTP Articles</Resource>
+	  <Resource tag="GROUPS">Groups ready for retrieval</Resource>
+	  <Resource tag="LAST_MESSAGE">Last Message</Resource>
+	  <Resource tag="LAST_UPDATE">Last Update</Resource>
+	  <Resource tag="TIME">Specify how much time article retrieval should use.</Resource>
+	  <Resource tag="SECONDS">seconds</Resource>
+	  <Resource tag="RETRIEVE">Retrieve</Resource>
+	  <Resource tag="BETA_WARNING">&lt;p style=&quot;color: red&quot;&gt;
+		The NNTP feature of Yet Another Forum.net is still beta, and &lt;strong&gt;will&lt;/strong&gt; have bugs.
+		Bugs you should look for is character set conversion, and incorrect time on posts.
+		Usenet articles will be posted to the forum with the date from the article header,
+		meaning that you well could get future dates. Please let me know of any unknown
+		time zones that are encountered.
+	&lt;/p&gt;
+	&lt;p style=&quot;color: red&quot;&gt;
+		The forums usenet artiles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
+		be posted back to the usenet. For speed purposes usenet articles are automatically
+		approved, meaning that if the forum is moderated, the posts will be automatically
+		approved.
+	&lt;/p&gt;
+	&lt;p style=&quot;color: red&quot;&gt;
+		To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
+	&lt;/p&gt;</Resource>
+	 </page>
+	 <page name="ADMIN_NNTPFORUMS">
+	   <Resource tag="TITLE">NNTP Forums</Resource>
+	   <Resource tag="DELETE_FORUM">Delete this forum?</Resource>
+	   <Resource tag="NEW_FORUM">New Forum</Resource>
+	   <Resource tag="EDIT">Edit</Resource>
+	   <Resource tag="SERVER">Server</Resource>
+	   <Resource tag="GROUP">Group</Resource>
+	   <Resource tag="FORUM">Forum</Resource>
+	   <Resource tag="ACTIVE">Active</Resource>
+	   <Resource tag="DELETE">Delete</Resource>
+	 </page>
+	 <page name="ADMIN_NNTPSERVERS">
+	   <Resource tag="TITLE">NNTP Servers</Resource>
+	   <Resource tag="DELETE_SERVER">Delete this server?</Resource>
+	   <Resource tag="NAME">Name</Resource>
+	   <Resource tag="ADRESS">Adress</Resource>
+	   <Resource tag="USERNAME">User Name</Resource>
+	   <Resource tag="NEW_SERVER">New Server</Resource>
+	 </page>
+	 <page name="ADMIN_RUNSQL">
+	   <Resource tag="TITLE">Run SQL Code</Resource>
+	   <Resource tag="HEADER">Run SQL Query</Resource>
+	   <Resource tag="SQL_COMMAND">SQL Command:</Resource>
+	   <Resource tag="RUN_QUERY">Run Query</Resource>
+	   <Resource tag="RUN_TRANSCATION">Run In Transaction</Resource>
+	   <Resource tag="NEW_SERVER">New Server</Resource>
+	 </page>
 </Resources>

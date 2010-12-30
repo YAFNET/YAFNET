@@ -162,7 +162,7 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
         // administration index second
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
 
         // we are now in event log
         this.PageLinks.AddLink("Event Log", string.Empty);

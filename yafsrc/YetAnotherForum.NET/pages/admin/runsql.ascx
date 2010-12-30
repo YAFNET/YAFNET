@@ -4,12 +4,12 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="2">
-				Run SQL Query
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_RUNSQL" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" style="width: 100px" valign="top">
-				<strong>SQL Command:</strong>
+				<strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SQL_COMMAND" LocalizedPage="ADMIN_RUNSQL" /></strong>
 			</td>
 			<td class="post">
 				<asp:TextBox ID="txtQuery" runat="server" TextMode="MultiLine" Width="100%" Height="100px"></asp:TextBox>

@@ -1,5 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" Codebehind="admin.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Core.BBCode" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -7,6 +6,20 @@
 <YAF:AdminMenu ID="Adminmenu1" runat="server">	
 	
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
+     <tr>
+          <td class="header1" colspan="4">
+            Who is Online</td>
+        </tr>
+        <tr>
+          <td class="header2">
+            Name</td>
+          <td class="header2">
+            IP Address</td>
+          <td class="header2">
+            Location</td>
+          <td class="header2">
+            Board Location</td>   
+        </tr>
 		
 	<asp:Repeater ID="ActiveList" runat="server">
     <HeaderTemplate>
