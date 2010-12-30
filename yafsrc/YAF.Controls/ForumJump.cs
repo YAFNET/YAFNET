@@ -140,7 +140,7 @@ namespace YAF.Controls
       }
       else
       {
-        dataTable = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+        dataTable = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
         this.PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.UtcNow.AddMinutes(5), TimeSpan.Zero);
       }
 

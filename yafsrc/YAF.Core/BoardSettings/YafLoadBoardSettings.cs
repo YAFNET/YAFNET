@@ -53,7 +53,7 @@ namespace YAF.Core
       this._boardID = boardID;
 
       // get the board table
-      DataTable dataTable = DB.board_list(this._boardID);
+      DataTable dataTable = LegacyDb.board_list(this._boardID);
 
       if (dataTable.Rows.Count == 0)
       {
@@ -79,12 +79,12 @@ namespace YAF.Core
       // loop through all values and commit them to the DB
       foreach (string key in this._reg.Keys)
       {
-        DB.registry_save(key, this._reg[key]);
+        LegacyDb.registry_save(key, this._reg[key]);
       }
 
       foreach (string key in this._regBoard.Keys)
       {
-        DB.registry_save(key, this._regBoard[key], this._boardID);
+        LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
       }
     }
 
@@ -106,7 +106,7 @@ namespace YAF.Core
       }
 
       DataTable dataTable;
-      using (dataTable = DB.registry_list())
+      using (dataTable = LegacyDb.registry_list())
       {
         // get all the registry settings into our hash table
         foreach (DataRow dr in dataTable.Rows)
@@ -122,7 +122,7 @@ namespace YAF.Core
         }
       }
 
-      using (dataTable = DB.registry_list(null, this._boardID))
+      using (dataTable = LegacyDb.registry_list(null, this._boardID))
       {
         // get all the registry settings into our hash table
         foreach (DataRow dr in dataTable.Rows)

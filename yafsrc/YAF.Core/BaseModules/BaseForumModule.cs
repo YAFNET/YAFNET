@@ -104,7 +104,10 @@ namespace YAF.Core
     /// <summary>
     /// The initialization function.
     /// </summary>
-    public abstract void Init();
+    public virtual void Init()
+    {
+      // do nothing... 
+    }
 
     #endregion
 

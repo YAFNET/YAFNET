@@ -122,12 +122,12 @@ namespace YAF.Core.Tasks
     {
       try
       {
-        DB.forum_delete(this.ForumId);
-        DB.eventlog_create(null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
+        LegacyDb.forum_delete(this.ForumId);
+        LegacyDb.eventlog_create(null, TaskName, "Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId), 2);
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
+        LegacyDb.eventlog_create(null, TaskName, "Error In Forum (ID: {0}) Delete Task: {1}".FormatWith(this.ForumId, x));
       }
     }
 

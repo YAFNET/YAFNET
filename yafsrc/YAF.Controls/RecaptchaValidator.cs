@@ -183,7 +183,7 @@ namespace YAF.Controls
       }
       catch (WebException exception)
       {
-        DB.eventlog_create(YafContext.Current.PageUserID, this, exception.Message, EventLogEntryType.Error);
+        LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, exception.Message, EventLogEntryType.Error);
         return RecaptchaResponse.RecaptchaNotReachable;
       }
 

@@ -112,26 +112,6 @@ namespace YAF.Core
     public event EventHandler<EventArgs> Init;
 
     /// <summary>
-    ///   On ForumPage Init Call
-    /// </summary>
-    public event EventHandler<EventArgs> PageInit;
-
-    /// <summary>
-    ///   On ForumPage Load Call
-    /// </summary>
-    public event EventHandler<EventArgs> PageLoad;
-
-    /// <summary>
-    ///   On ForumPage PreLoad (Before Load) Call
-    /// </summary>
-    public event EventHandler<EventArgs> PagePreLoad;
-
-    /// <summary>
-    ///   On ForumPage Unload Call
-    /// </summary>
-    public event EventHandler<EventArgs> PageUnload;
-
-    /// <summary>
     ///   On YafContext Unload Call
     /// </summary>
     public event EventHandler<EventArgs> Unload;
@@ -232,8 +212,6 @@ namespace YAF.Core
       set
       {
         this._currentForumPage = value;
-        value.Load += this.ForumPageLoad;
-        value.Unload += this.ForumPageUnload;
       }
     }
 
@@ -547,74 +525,6 @@ namespace YAF.Core
     }
 
     #endregion
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Fired from ForumPage
-    /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    internal void ForumPageInit([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.PageInit != null)
-      {
-        this.PageInit(this, new EventArgs());
-      }
-    }
-
-    /// <summary>
-    /// Fired from ForumPage
-    /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    internal void ForumPagePreLoad([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.PagePreLoad != null)
-      {
-        this.PagePreLoad(this, new EventArgs());
-      }
-    }
-
-    /// <summary>
-    /// The forum page load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.PageLoad != null)
-      {
-        this.PageLoad(this, new EventArgs());
-      }
-    }
-
-    /// <summary>
-    /// The forum page unload.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ForumPageUnload([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this.PageUnload != null)
-      {
-        this.PageUnload(this, new EventArgs());
-      }
-    }
 
     #endregion
   }

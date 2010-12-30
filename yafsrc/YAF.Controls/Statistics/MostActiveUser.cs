@@ -108,7 +108,7 @@ namespace YAF.Controls.Statistics
         cacheKey, 
         5, 
         () =>
-        DB.user_activity_rank(
+        LegacyDb.user_activity_rank(
           this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber));
 
       //// create XML data document...

@@ -82,7 +82,7 @@ namespace YAF.Core.Nntp
       try
       {
         // Only those not updated in the last 30 minutes
-        using (DataTable forumsDataTable = DB.nntpforum_list(boardID, lastUpdate, null, true))
+        using (DataTable forumsDataTable = LegacyDb.nntpforum_list(boardID, lastUpdate, null, true))
         {
           foreach (DataRow forumDataRow in forumsDataTable.Rows)
           {
@@ -140,7 +140,7 @@ namespace YAF.Core.Nntp
 
                 if (createUsers)
                 {
-                  guestUserId = DB.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
+                  guestUserId = LegacyDb.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
                 // Incorrect tags fixes which are common in nntp messages and cause display problems.
@@ -164,7 +164,7 @@ namespace YAF.Core.Nntp
                 //body = body.Replace("&lt;quote&gt;", @"[quote]");
                 //body = body.Replace("&lt;/quote&gt;", @"[/quote]");
 
-                DB.nntptopic_savemessage(forumDataRow["NntpForumID"], subject, body, guestUserId, fromName, hostAddress, dateTime, thread);
+                LegacyDb.nntptopic_savemessage(forumDataRow["NntpForumID"], subject, body, guestUserId, fromName, hostAddress, dateTime, thread);
                 lastMessageNo = currentMessage;
                 articleCount++;
 
@@ -183,7 +183,7 @@ namespace YAF.Core.Nntp
               }
             }
 
-            DB.nntpforum_update(forumDataRow["NntpForumID"], lastMessageNo, guestUserId);
+            LegacyDb.nntpforum_update(forumDataRow["NntpForumID"], lastMessageNo, guestUserId);
 
             // Total time x seconds for all groups
             if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)

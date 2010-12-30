@@ -231,7 +231,7 @@ namespace YAF.Controls
         YafContext.Current.Cache.GetItem(
           YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles), 
           YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout, 
-          () => DB.group_rank_style(YafContext.Current.PageBoardID));
+          () => LegacyDb.group_rank_style(YafContext.Current.PageBoardID));
 
       // Avatar
       userBox = this.MatchUserBoxAvatar(userBox);

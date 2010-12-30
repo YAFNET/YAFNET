@@ -324,7 +324,7 @@ namespace YAF.Core.Nntp
       }
       else
       {
-        DB.eventlog_create(
+        LegacyDb.eventlog_create(
           YafContext.Current.PageUserID, 
           "NNTP Feature", 
           "Unhandled NNTP DateTime nntpDateTime '{0}'".FormatWith(nntpDateTime), 

@@ -628,7 +628,7 @@ namespace YAF.Core.BBCode
       if (YafContext.Current.Cache[cacheKey] == null)
       {
         // get the bbcode table from the db...
-        bbCodeTable = DB.bbcode_list(YafContext.Current.PageBoardID, null);
+        bbCodeTable = LegacyDb.bbcode_list(YafContext.Current.PageBoardID, null);
 
         // cache it indefinately (or until it gets updated)
         YafContext.Current.Cache[cacheKey] = bbCodeTable;

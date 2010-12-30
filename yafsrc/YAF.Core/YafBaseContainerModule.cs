@@ -44,6 +44,8 @@ namespace YAF.Core
   /// </summary>
   public class YafBaseContainerModule : Module
   {
+    private List<IModule> _externalModules = new List<IModule>();
+
     #region Methods
 
     /// <summary>
@@ -138,7 +140,7 @@ namespace YAF.Core
     /// </param>
     private void RegisterEventBindings([NotNull] ContainerBuilder builder)
     {
-      builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().SingleInstance();
+      builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
       builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
       // scan assemblies for events to wire up...
@@ -173,10 +175,10 @@ namespace YAF.Core
       // TODO: create real abstracted plugin model. This is a stop-gap.
       var modules = moduleList.FindModules<IModule>();
 
-      foreach (var moduleInstance in modules)
-      {
-        builder.RegisterModule(Activator.CreateInstance(moduleInstance) as IModule);
-      }
+      // create module instances...
+      modules.ForEach(mi => this._externalModules.Add(Activator.CreateInstance(mi) as IModule));
+
+      this._externalModules.ForEach(m => builder.RegisterModule(m));
     }
 
     /// <summary>

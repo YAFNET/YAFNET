@@ -148,7 +148,7 @@ namespace YAF.Core
     {
       try
       {
-        var boardIds = DB.board_list(null).AsEnumerable().Select(b => b.Field<int>("BoardID"));
+        var boardIds = LegacyDb.board_list(null).AsEnumerable().Select(b => b.Field<int>("BoardID"));
 
         foreach (var boardId in boardIds)
         {
@@ -162,13 +162,13 @@ namespace YAF.Core
           if (Config.BaseUrlMask.IsNotSet())
           {
             // fail...
-            DB.eventlog_create(null, "DigestSendTask", "Failed to send digest because BaseUrlMask value is not set in your appSettings.");
+            LegacyDb.eventlog_create(null, "DigestSendTask", "Failed to send digest because BaseUrlMask value is not set in your appSettings.");
             return;
           }
 
           // get users with digest enabled...
           var usersWithDigest =
-            DB.UserFind(boardId, false, null, null, null, null, true).Where(x => !x.IsGuest && (x.IsApproved ?? false));
+            LegacyDb.UserFind(boardId, false, null, null, null, null, true).Where(x => !x.IsGuest && (x.IsApproved ?? false));
 
           if (usersWithDigest.Any())
           {
@@ -179,7 +179,7 @@ namespace YAF.Core
       }
       catch (Exception ex)
       {
-        DB.eventlog_create(null, TaskName, "Error In {0} Task: {1}".FormatWith(TaskName, ex));
+        LegacyDb.eventlog_create(null, TaskName, "Error In {0} Task: {1}".FormatWith(TaskName, ex));
       }
     }
 
@@ -203,7 +203,7 @@ namespace YAF.Core
         }
         catch (Exception e)
         {
-          DB.eventlog_create(
+          LegacyDb.eventlog_create(
             null, TaskName, "Error In Creating Digest for User {0}: {1}".FormatWith(user.UserID, e.ToString()));
         }
 

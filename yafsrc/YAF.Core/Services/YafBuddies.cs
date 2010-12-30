@@ -50,7 +50,7 @@ namespace YAF.Core.Services
     {
       ClearBuddyCache(ToUserID);
 
-      return DB.buddy_addrequest(YafContext.Current.PageUserID, ToUserID);
+      return LegacyDb.buddy_addrequest(YafContext.Current.PageUserID, ToUserID);
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ namespace YAF.Core.Services
     public static string ApproveBuddyRequest(int ToUserID, bool Mutual)
     {
       ClearBuddyCache(ToUserID);
-      return DB.buddy_approveRequest(ToUserID, YafContext.Current.PageUserID, Mutual);
+      return LegacyDb.buddy_approveRequest(ToUserID, YafContext.Current.PageUserID, Mutual);
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ namespace YAF.Core.Services
     public static string DenyBuddyRequest(int ToUserID)
     {
       ClearBuddyCache(ToUserID);
-      return DB.buddy_denyRequest(ToUserID, YafContext.Current.PageUserID);
+      return LegacyDb.buddy_denyRequest(ToUserID, YafContext.Current.PageUserID);
     }
 
     /// <summary>
@@ -218,7 +218,7 @@ namespace YAF.Core.Services
     public static string RemoveBuddy(int ToUserID)
     {
       ClearBuddyCache(ToUserID);
-      return DB.buddy_remove(YafContext.Current.PageUserID, ToUserID);
+      return LegacyDb.buddy_remove(YafContext.Current.PageUserID, ToUserID);
     }
 
     #endregion

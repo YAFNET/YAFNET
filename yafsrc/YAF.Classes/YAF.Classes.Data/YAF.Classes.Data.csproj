@@ -85,7 +85,7 @@
     <Compile Include="DataModule.cs" />
     <Compile Include="DataRowConvert.cs" />
     <Compile Include="Import\DataImport.cs" />
-    <Compile Include="mssql\DB.cs" />
+    <Compile Include="mssql\LegacyDb.cs" />
     <Compile Include="mssql\Search\SearchBuilder.cs" />
     <Compile Include="mssql\Search\SearchBuilderExtensions.cs" />
     <Compile Include="mssql\Search\SearchCondition.cs" />

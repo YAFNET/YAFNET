@@ -386,7 +386,7 @@ namespace YAF.Core
       if (row == null)
       {
         // get the section desired...
-        DataTable list = DB.category_simplelist(this.LowRange(id), this.CacheSize);
+        DataTable list = LegacyDb.category_simplelist(this.LowRange(id), this.CacheSize);
 
         // set it up in the cache
         row = this.SetupDataToCache(ref list, type, id, primaryKey);
@@ -454,7 +454,7 @@ namespace YAF.Core
       if (row == null)
       {
         // get the section desired...
-        DataTable list = DB.forum_simplelist(this.LowRange(id), this.CacheSize);
+        DataTable list = LegacyDb.forum_simplelist(this.LowRange(id), this.CacheSize);
 
         // set it up in the cache
         row = this.SetupDataToCache(ref list, type, id, primaryKey);
@@ -488,7 +488,7 @@ namespace YAF.Core
       if (row == null)
       {
         // get the section desired...
-        DataTable list = DB.user_simplelist(this.LowRange(id), this.CacheSize);
+        DataTable list = LegacyDb.user_simplelist(this.LowRange(id), this.CacheSize);
 
         // set it up in the cache
         row = this.SetupDataToCache(ref list, type, id, primaryKey);
@@ -522,7 +522,7 @@ namespace YAF.Core
       if (row == null)
       {
         // get the section desired...
-        DataTable list = DB.topic_simplelist(this.LowRange(id), this.CacheSize);
+        DataTable list = LegacyDb.topic_simplelist(this.LowRange(id), this.CacheSize);
 
         // set it up in the cache
         row = this.SetupDataToCache(ref list, type, id, primaryKey);
@@ -555,7 +555,7 @@ namespace YAF.Core
       if (row == null)
       {
         // get the section desired...
-        DataTable list = DB.message_simplelist(this.LowRange(id), this.CacheSize);
+        DataTable list = LegacyDb.message_simplelist(this.LowRange(id), this.CacheSize);
 
         // set it up in the cache
         row = this.SetupDataToCache(ref list, type, id, primaryKey);

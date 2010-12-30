@@ -16,38 +16,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.EventProxies
 {
   #region Using
 
-  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// The inject services extensions.
+  /// The forum page init event.
   /// </summary>
-  public static class InjectServicesExtensions
+  public class ForumPageInitEvent : IAmEvent
   {
-    #region Public Methods
+  }
 
-    /// <summary>
-    /// Injects instance with public properties marked with Inject attribute.
-    /// </summary>
-    /// <param name="injectServices">
-    /// The inject services.
-    /// </param>
-    /// <param name="instance">
-    /// The instance.
-    /// </param>
-    public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
-    {
-      CodeContracts.ArgumentNotNull(injectServices, "injectServices");
-      CodeContracts.ArgumentNotNull(instance, "instance");
+  /// <summary>
+  /// The forum page pre load event.
+  /// </summary>
+  public class ForumPagePreLoadEvent : IAmEvent
+  {
+  }
 
-      injectServices.InjectMarked<Inject>(instance);
-    }
+  /// <summary>
+  /// The forum page post load event.
+  /// </summary>
+  public class ForumPagePostLoadEvent : IAmEvent
+  {
+  }
 
-    #endregion
+  /// <summary>
+  /// The forum page unload load event.
+  /// </summary>
+  public class ForumPageUnloadEvent : IAmEvent
+  {
   }
 }

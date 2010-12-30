@@ -68,13 +68,13 @@ namespace YAF.Core.Tasks
       try
       {
         // get all boards...
-        List<int> boardIds = DB.board_list(null).GetColumnAsList<int>("BoardID");
+        List<int> boardIds = LegacyDb.board_list(null).GetColumnAsList<int>("BoardID");
 
         // go through each board...
         foreach (int boardId in boardIds)
         {
           // get users for this board...
-          List<DataRow> users = DB.user_list(boardId, null, null).Rows.Cast<DataRow>().ToList();
+          List<DataRow> users = LegacyDb.user_list(boardId, null, null).Rows.Cast<DataRow>().ToList();
 
           // handle unsuspension...
           var suspendedUsers = from u in users
@@ -84,7 +84,7 @@ namespace YAF.Core.Tasks
           // unsuspend these users...
           foreach (var user in suspendedUsers)
           {
-            DB.user_suspend(user["UserId"], null);
+            LegacyDb.user_suspend(user["UserId"], null);
 
             // sleep for a quarter of a second so we don't pound the server...
             Thread.Sleep(250);
@@ -96,7 +96,7 @@ namespace YAF.Core.Tasks
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, "Exception In {1}: {0}".FormatWith(x, TaskName));
+        LegacyDb.eventlog_create(null, TaskName, "Exception In {1}: {0}".FormatWith(x, TaskName));
       }
     }
   }

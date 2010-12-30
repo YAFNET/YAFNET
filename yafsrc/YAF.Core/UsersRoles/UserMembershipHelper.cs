@@ -61,7 +61,7 @@ namespace YAF.Core
         if (YafContext.Current.Cache[cacheKey] == null)
         {
           // get the guest user for this board...
-          guestUserID = DB.user_guest(YafContext.Current.PageBoardID);
+          guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
 
           if (!guestUserID.HasValue)
           {
@@ -69,7 +69,7 @@ namespace YAF.Core
             //FixGuestUserForBoard(YafContext.Current.PageBoardID);
 
             // attempt to get the guestUser again...
-            guestUserID = DB.user_guest(YafContext.Current.PageBoardID);
+            guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
           }
 
           if (!guestUserID.HasValue)
@@ -113,7 +113,7 @@ namespace YAF.Core
     {
       get
       {
-        return DB.user_list(YafContext.Current.PageBoardID, GuestUserId, false).GetFirstRowColumnAsValue<string>(
+        return LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, false).GetFirstRowColumnAsValue<string>(
           "Name", null);
       }
     }
@@ -148,7 +148,7 @@ namespace YAF.Core
             int id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
             if (id > 0)
             {
-              DB.user_approve(id);
+              LegacyDb.user_approve(id);
             }
           }
         }
@@ -179,7 +179,7 @@ namespace YAF.Core
         }
 
         YafContext.Current.CurrentMembership.UpdateUser(user);
-        DB.user_approve(userID);
+        LegacyDb.user_approve(userID);
 
         return true;
       }
@@ -231,7 +231,7 @@ namespace YAF.Core
           if (!user.IsApproved && user.CreationDate < createdCutoff)
           {
             // delete this user...
-            DB.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
+            LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
             YafContext.Current.CurrentMembership.DeleteUser(user.UserName, true);
           }
         }
@@ -258,7 +258,7 @@ namespace YAF.Core
         // Delete the images/albums both from database and physically.
         string sUpDir =
           HttpContext.Current.Server.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-        using (DataTable dt = DB.album_list(userID, null))
+        using (DataTable dt = LegacyDb.album_list(userID, null))
         {
           foreach (DataRow dr in dt.Rows)
           {
@@ -267,7 +267,7 @@ namespace YAF.Core
         }
 
         YafContext.Current.CurrentMembership.DeleteUser(userName, true);
-        DB.user_delete(userID);
+        LegacyDb.user_delete(userID);
         return true;
       }
 
@@ -515,7 +515,7 @@ namespace YAF.Core
     /// </returns>
     public static int GetUserIDFromProviderUserKey(object providerUserKey)
     {
-      int userID = DB.user_get(YafContext.Current.PageBoardID, providerUserKey.ToString());
+      int userID = LegacyDb.user_get(YafContext.Current.PageBoardID, providerUserKey.ToString());
       return userID;
     }
 
@@ -580,14 +580,14 @@ namespace YAF.Core
     {
       if (!allowCached)
       {
-        return DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow();
+        return LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow();
       }
 
       // get the item cached...
       string cacheKey = YafCache.GetBoardCacheKey("UserListForID{0}".FormatWith(userID));
 
       var userRow = YafContext.Current.Cache.GetItem<DataRow>(
-        cacheKey, 5, () => DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow());
+        cacheKey, 5, () => LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow());
 
       return userRow;
     }
@@ -695,7 +695,7 @@ namespace YAF.Core
 
         YafContext.Current.CurrentMembership.UpdateUser(user);
 
-        DB.user_aspnet(YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
+        LegacyDb.user_aspnet(YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
 
         return true;
       }

@@ -79,7 +79,7 @@ namespace YAF.Core.Services
     /// </param>
     public void AddIgnored(int ignoredUserId)
     {
-      DB.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
+      LegacyDb.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
       ClearIgnoreCache();
     }
 
@@ -91,7 +91,7 @@ namespace YAF.Core.Services
     /// </param>
     public void RemoveIgnored(int ignoredUserId)
     {
-      DB.user_removeignoreduser(YafContext.Current.PageUserID, ignoredUserId);
+      LegacyDb.user_removeignoreduser(YafContext.Current.PageUserID, ignoredUserId);
       ClearIgnoreCache();
     }
   }

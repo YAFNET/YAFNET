@@ -86,7 +86,7 @@ namespace YAF.Core.Tasks
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, "Error In SyncMembershipUsers Task: {0}".FormatWith(x));
+        LegacyDb.eventlog_create(null, TaskName, "Error In SyncMembershipUsers Task: {0}".FormatWith(x));
       }
     }
   }

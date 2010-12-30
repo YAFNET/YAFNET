@@ -20,10 +20,9 @@ namespace YAF.Core
 {
   #region Using
 
-  using System;
-
-  using YAF.Types;
   using YAF.Types.Attributes;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -31,7 +30,7 @@ namespace YAF.Core
   /// The provider settings module.
   /// </summary>
   [YafModule("Provider Settings Module", "Tiny Gecko", 1)]
-  public class ProviderSettingsForumModule : BaseForumModule
+  public class ProviderSettingsForumModule : BaseForumModule, IHandleEvent<ForumPageInitEvent>
   {
     #region Properties
 
@@ -46,32 +45,36 @@ namespace YAF.Core
       }
     }
 
-    #endregion
-
-    #region Public Methods
-
     /// <summary>
-    /// The init.
+    /// The initialization function.
     /// </summary>
     public override void Init()
     {
-      YafContext.Current.PageInit += this.Current_PageInit;
+      
     }
 
     #endregion
 
-    #region Methods
+    #region Implementation of IHandleEvent<in ForumPageInitEvent>
 
     /// <summary>
-    /// The current_ page init.
+    /// Gets Order.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
+    public int Order
+    {
+      get
+      {
+        return 1000;
+      }
+    }
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
     /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Current_PageInit([NotNull] object sender, [NotNull] EventArgs e)
+    public void Handle(ForumPageInitEvent @event)
     {
       // initialize the providers...
       if (!this.PageContext.CurrentMembership.ApplicationName.Equals(this.PageContext.BoardSettings.MembershipAppName))

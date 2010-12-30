@@ -110,12 +110,12 @@ namespace YAF.Core
 
       if (YafContext.Current.BoardSettings.EnableDisplayName)
       {
-        var found = DB.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
+        var found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
         found.ForEach(u => usersFound.Add(u.UserID ?? 0, u.DisplayName));
       }
       else
       {
-        var found = DB.UserFind(YafContext.Current.PageBoardID, true, contains, null, null, null, null);
+        var found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, contains, null, null, null, null);
         found.ForEach(u => usersFound.Add(u.UserID ?? 0, u.DisplayName));
       }
 
@@ -153,7 +153,7 @@ namespace YAF.Core
         // find the username...
         if (YafContext.Current.BoardSettings.EnableDisplayName)
         {
-          var user = DB.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
+          var user = LegacyDb.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
           if (user != null)
           {
             userId = user.UserID ?? 0;
@@ -167,7 +167,7 @@ namespace YAF.Core
         }
         else
         {
-          var user = DB.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
+          var user = LegacyDb.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
           if (user != null)
           {
             userId = user.UserID ?? 0;

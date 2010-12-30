@@ -89,7 +89,7 @@ namespace YAF.Controls.Statistics
       if (dt == null)
       {
         // nothing was cached, retrieve it from the database
-        dt = DB.topic_latest(
+        dt = LegacyDb.topic_latest(
           this.PageContext.PageBoardID, 
           this._displayNumber, 
           this.PageContext.PageUserID, 

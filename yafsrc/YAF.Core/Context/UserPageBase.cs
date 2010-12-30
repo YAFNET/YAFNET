@@ -803,12 +803,12 @@ namespace YAF.Core
           {
             if (userAgent.IsNotSet())
             {
-              DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
+              LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
             }
 
             if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
             {
-              DB.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Platform, YafContext.Current.Get<HttpRequestBase>().Browser.Browser, YafContext.Current.Get<HttpRequestBase>().Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+              LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Platform, YafContext.Current.Get<HttpRequestBase>().Browser.Browser, YafContext.Current.Get<HttpRequestBase>().Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
             }
           }
 
@@ -823,7 +823,7 @@ namespace YAF.Core
 
           do
           {
-              pageRow = DB.pageload(
+              pageRow = LegacyDb.pageload(
               YafContext.Current.Get<HttpSessionStateBase>().SessionID,
               PageBoardID,
               userKey,

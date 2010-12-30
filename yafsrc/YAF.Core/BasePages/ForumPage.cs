@@ -29,7 +29,9 @@ namespace YAF.Core
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Core.Services;
   using YAF.Classes.Data;
   using YAF.Utils;
@@ -577,7 +579,7 @@ namespace YAF.Core
     {
       // This doesn't seem to work...
       Exception x = this.Server.GetLastError();
-      DB.eventlog_create(this.PageContext.PageUserID, this, x);
+      LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
 
       // if (!YafForumInfo.IsLocal)
       // {
@@ -594,8 +596,7 @@ namespace YAF.Core
     /// </param>
     private void ForumPage_Init(object sender, EventArgs e)
     {
-      // fire init event...
-      YafContext.Current.ForumPageInit(this, new EventArgs());
+      this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
 
       if (this._noDataBase)
       {
@@ -610,7 +611,7 @@ namespace YAF.Core
       YafContext.Current.Get<LocalizationProvider>().TranslationPage = this._transPage;
 
       // fire preload event...
-      YafContext.Current.ForumPagePreLoad(this, new EventArgs());
+      this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
     }
 
     /// <summary>
@@ -626,6 +627,9 @@ namespace YAF.Core
       {
         Security.CheckRequestValidity(this.Request);
       }
+
+      // fire preload event...
+      this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
     }
 
     /// <summary>
@@ -656,6 +660,8 @@ namespace YAF.Core
     /// </param>
     private void ForumPage_Unload(object sender, EventArgs e)
     {
+      this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
+
       // release cache
       if (this._pageCache != null)
       {

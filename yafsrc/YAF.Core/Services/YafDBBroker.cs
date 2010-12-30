@@ -68,7 +68,7 @@ namespace YAF.Core.Services
         key, 
         YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout, 
         () =>
-        DB.user_lazydata(
+        LegacyDb.user_lazydata(
           userID, 
           YafContext.Current.PageBoardID, 
           YafContext.Current.BoardSettings.AllowEmailSending, 
@@ -95,7 +95,7 @@ namespace YAF.Core.Services
 
       // Iterate through all the thanks relating to this topic and make appropriate
       // changes in columns.
-      var allThanks = DB.MessageGetAllThanks(StringExtensions.ToDelimitedString(messageIds, ","));
+      var allThanks = LegacyDb.MessageGetAllThanks(StringExtensions.ToDelimitedString(messageIds, ","));
 
       foreach (var f in
           allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID).SelectMany(thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
@@ -148,7 +148,7 @@ namespace YAF.Core.Services
       string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.Smilies);
 
       return YafContext.Current.Cache.GetItem(
-        cacheKey, 60, () => DB.SmileyList(YafContext.Current.PageBoardID, null));
+        cacheKey, 60, () => LegacyDb.SmileyList(YafContext.Current.PageBoardID, null));
     }
 
     /// <summary>
@@ -194,7 +194,7 @@ namespace YAF.Core.Services
           YafContext.Current.BoardSettings.BoardCategoriesCacheTimeout, 
           () =>
             {
-              var catDt = DB.category_list(boardID, null);
+              var catDt = LegacyDb.category_list(boardID, null);
               catDt.TableName = MsSqlDbAccess.GetObjectName("Category");
               return catDt;
             });
@@ -217,7 +217,7 @@ namespace YAF.Core.Services
           categoryTable.AcceptChanges();
         }
 
-        DataTable forum = DB.forum_listread(boardID, userID, categoryID, parentID, YafContext.Current.BoardSettings.UseStyledNicks);
+        DataTable forum = LegacyDb.forum_listread(boardID, userID, categoryID, parentID, YafContext.Current.BoardSettings.UseStyledNicks);
         forum.TableName = MsSqlDbAccess.GetObjectName("Forum");
         ds.Tables.Add(forum.Copy());
 
@@ -273,7 +273,7 @@ namespace YAF.Core.Services
       if (favoriteTopicList == null)
       {
         // get fresh values
-        DataTable favoriteTopicListDt = DB.topic_favorite_list(userID);
+        DataTable favoriteTopicListDt = LegacyDb.topic_favorite_list(userID);
 
         // convert to list...
         favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
@@ -317,7 +317,7 @@ namespace YAF.Core.Services
     {
       return
         this.StyleTransformDataTable(
-          DB.active_list(
+          LegacyDb.active_list(
             YafContext.Current.PageBoardID, guests, crawlers, activeTime, YafContext.Current.BoardSettings.UseStyledNicks));
     }
 
@@ -362,14 +362,14 @@ namespace YAF.Core.Services
     public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
     {
       var forumData =
-        DB.forum_listall(boardId, userId).SelectTypedList(x => new SimpleForum() { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") }).ToList();
+        LegacyDb.forum_listall(boardId, userId).SelectTypedList(x => new SimpleForum() { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") }).ToList();
 
       // get topics for all forums...
       foreach (var forum in forumData)
       {
         // add topics
         var topics =
-          DB.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false, false).SelectTypedList(
+          LegacyDb.topic_list(forum.ForumID, userId, -1, timeFrame, 0, maxCount, false, false).SelectTypedList(
             x => this.LoadSimpleTopic(x, forum)).Where(x => x.LastPostDate >= timeFrame).ToList();
 
         forum.Topics = topics;
@@ -408,7 +408,7 @@ namespace YAF.Core.Services
           LastUserName = UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),
           LastMessageID = row.Field<int>("LastMessageID"),
           FirstMessage = row.Field<string>("FirstMessage"),
-          LastMessage = DB.MessageList(row.Field<int>("LastMessageID")).First().Message,
+          LastMessage = LegacyDb.MessageList(row.Field<int>("LastMessageID")).First().Message,
           Forum = forum
         };
     }
@@ -460,7 +460,7 @@ namespace YAF.Core.Services
     {
       return
         this.StyleTransformDataTable(
-          DB.topic_latest(
+          LegacyDb.topic_latest(
             YafContext.Current.PageBoardID, 
             numberOfPosts, 
             userId, 
@@ -476,7 +476,7 @@ namespace YAF.Core.Services
     /// </returns>
     public DataTable GetModerators()
     {
-        DataTable moderator = DB.forum_moderators(YafContext.Current.BoardSettings.UseStyledNicks);
+        DataTable moderator = LegacyDb.forum_moderators(YafContext.Current.BoardSettings.UseStyledNicks);
       moderator.TableName = MsSqlDbAccess.GetObjectName("Moderator");
 
       return moderator;
@@ -492,7 +492,7 @@ namespace YAF.Core.Services
       var messageIds =
         dataRows.AsEnumerable().Where(x => StringExtensions.IsNotSet(x.Field<string>("Message"))).Select(x => x.Field<int>("MessageID"));
 
-      var messageTextTable = DB.message_GetTextByIds(StringExtensions.ToDelimitedString(messageIds, ","));
+      var messageTextTable = LegacyDb.message_GetTextByIds(StringExtensions.ToDelimitedString(messageIds, ","));
 
       if (messageTextTable == null)
       {
@@ -569,7 +569,7 @@ namespace YAF.Core.Services
     public DataTable UserBuddyList(int UserID)
     {
       string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserBuddies, UserID));
-      DataTable buddyList = YafContext.Current.Cache.GetItem(key, 10, () => DB.buddy_list(UserID));
+      DataTable buddyList = YafContext.Current.Cache.GetItem(key, 10, () => LegacyDb.buddy_list(UserID));
       return buddyList;
     }
 
@@ -592,7 +592,7 @@ namespace YAF.Core.Services
       if (userList == null)
       {
         // get fresh values
-        DataTable userListDt = DB.user_ignoredlist(userId);
+        DataTable userListDt = LegacyDb.user_ignoredlist(userId);
 
         // convert to list...
         userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
@@ -617,7 +617,7 @@ namespace YAF.Core.Services
       string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserMedals, userId));
 
       // get the medals cached...
-      DataTable dt = YafContext.Current.Cache.GetItem(key, 10, () => DB.user_listmedals(userId));
+      DataTable dt = YafContext.Current.Cache.GetItem(key, 10, () => LegacyDb.user_listmedals(userId));
 
       return dt;
     }

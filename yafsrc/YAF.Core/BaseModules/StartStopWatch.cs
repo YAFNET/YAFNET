@@ -24,6 +24,7 @@ namespace YAF.Core
 
   using YAF.Types;
   using YAF.Types.Attributes;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -32,7 +33,7 @@ namespace YAF.Core
   /// The init services module.
   /// </summary>
   [YafModule("Start Stop Watch Module", "Tiny Gecko", 1)]
-  public class StartStopWatch : BaseForumModule
+  public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<ForumPageUnloadEvent>
   {
     #region Constants and Fields
 
@@ -58,34 +59,38 @@ namespace YAF.Core
 
     #endregion
 
-    #region Public Methods
+    #region Implementation of IHandleEvent<in ForumPageUnloadEvent>
 
     /// <summary>
-    /// The init.
+    /// Gets Order.
     /// </summary>
-    public override void Init()
+    public int Order
     {
-      // initialize the base services before anyone notices...
-      this._stopWatch.Start();
-
-      // hook unload...
-      this.PageContext.PageUnload += this.Current_PageUnload;
+      get
+      {
+        return 1000;
+      }
     }
 
-    #endregion
-
-    #region Methods
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    public void Handle(ForumPageInitEvent @event)
+    {
+      // start the stop watch on init...
+      this._stopWatch.Start();      
+    }
 
     /// <summary>
-    /// The current_ page unload.
+    /// The handle.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
+    /// <param name="event">
+    /// The event.
     /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Current_PageUnload([NotNull] object sender, [NotNull] EventArgs e)
+    public void Handle(ForumPageUnloadEvent @event)
     {
       // stop the stop watch in case the footer did not...
       this._stopWatch.Stop();

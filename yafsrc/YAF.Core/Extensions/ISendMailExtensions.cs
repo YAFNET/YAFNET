@@ -74,7 +74,7 @@ namespace YAF.Core
       [CanBeNull] string bodyText, 
       [CanBeNull] string bodyHtml)
     {
-      DB.mail_create(fromEmail, fromName, toEmail, toName, subject, bodyText, bodyHtml);
+      LegacyDb.mail_create(fromEmail, fromName, toEmail, toName, subject, bodyText, bodyHtml);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ namespace YAF.Core
       [CanBeNull] string subject, 
       [CanBeNull] string body)
     {
-      DB.mail_create(fromEmail, null, toEmail, null, subject, body, null);
+      LegacyDb.mail_create(fromEmail, null, toEmail, null, subject, body, null);
     }
 
     /// <summary>

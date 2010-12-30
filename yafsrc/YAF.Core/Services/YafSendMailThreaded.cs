@@ -60,7 +60,7 @@ namespace YAF.Core.Services
           Debug.WriteLine("Retrieving queued mail...");
           Thread.BeginCriticalRegion();
 
-          mailList = DB.MailList(uniqueId);
+          mailList = LegacyDb.MailList(uniqueId);
 
           Debug.WriteLine("Got {0} Messages...".FormatWith(mailList.Count()));
         }
@@ -99,13 +99,13 @@ namespace YAF.Core.Services
               // email address is no good -- delete this email...
               Debug.WriteLine("Invalid Email Address: {0}".FormatWith(ex.ToString()));
 #if (DEBUG)
-              DB.eventlog_create(null, "Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
+              LegacyDb.eventlog_create(null, "Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
 #endif
             }
             else if (ex is SmtpException)
             {
 #if (DEBUG)
-              DB.eventlog_create(null, "SendMailThread SmtpException", ex.ToString());
+              LegacyDb.eventlog_create(null, "SendMailThread SmtpException", ex.ToString());
 #endif
               Debug.WriteLine("Send Exception: {0}".FormatWith(ex.ToString()));
 
@@ -116,7 +116,7 @@ namespace YAF.Core.Services
               }
               else
               {
-                DB.eventlog_create(null, "SendMailThread Failed for the 2nd time:", ex.ToString());
+                LegacyDb.eventlog_create(null, "SendMailThread Failed for the 2nd time:", ex.ToString());
               }
             }
             else
@@ -124,7 +124,7 @@ namespace YAF.Core.Services
               // general exception...
               Debug.WriteLine("Exception Thrown in SendMail Thread: " + ex.ToString());
 #if (DEBUG)
-              DB.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
+              LegacyDb.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
 #endif
             }
           });
@@ -133,7 +133,7 @@ namespace YAF.Core.Services
         {
           // all is well, delete this message...
           Debug.WriteLine("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.MailID));
-          DB.mail_delete(message.MailID);
+          LegacyDb.mail_delete(message.MailID);
         }
       }
       catch (Exception ex)
@@ -141,7 +141,7 @@ namespace YAF.Core.Services
         // general exception...
         Debug.WriteLine("Exception Thrown in SendMail Thread: " + ex.ToString());
 #if (DEBUG)
-        DB.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
+        LegacyDb.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
 #endif
       }
 

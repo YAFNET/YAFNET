@@ -125,7 +125,7 @@ namespace YAF.Core.Services
           toEMail = userList.First().Email;
         }*/
 
-        var userList = DB.user_list(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+        var userList = LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
 
         if (userList.Rows.Count > 0)
         {
@@ -143,7 +143,7 @@ namespace YAF.Core.Services
           // get the PM ID
           // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
           // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-          userPMessageId = DB.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
+          userPMessageId = LegacyDb.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
 
           // get the sender e-mail -- DISABLED: too much information...
           // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
@@ -175,7 +175,7 @@ namespace YAF.Core.Services
       catch (Exception x)
       {
         // report exception to the forum's event log
-        DB.eventlog_create(YafContext.Current.PageUserID, "SendPmNotification", x);
+        LegacyDb.eventlog_create(YafContext.Current.PageUserID, "SendPmNotification", x);
 
         // tell user about failure
         YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetTextFormatted("Failed", x.Message));
@@ -195,11 +195,11 @@ namespace YAF.Core.Services
       if (YafContext.Current.BoardSettings.AllowNotificationAllPostsAllTopics)
       {
         // TODO: validate permissions!
-        usersWithAll = DB.UserFind(
+        usersWithAll = LegacyDb.UserFind(
           YafContext.Current.PageBoardID, false, null, null, null, UserNotificationSetting.AllTopics.ToInt(), null);
       }
 
-      foreach (var message in DB.MessageList(newMessageId))
+      foreach (var message in LegacyDb.MessageList(newMessageId))
       {
         int userId = message.UserID ?? 0;
 

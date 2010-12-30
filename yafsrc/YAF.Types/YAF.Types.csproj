@@ -60,6 +60,7 @@
     <Compile Include="Constants\ViewPermissions.cs" />
     <Compile Include="Constants\YafRssFeeds.cs" />
     <Compile Include="Constants\YafSyndicationFormats.cs" />
+    <Compile Include="EventProxies\ForumPageEvents.cs" />
     <Compile Include="EventProxies\HttpApplicationInitEvent.cs" />
     <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
     <Compile Include="Flags\AccessFlags.cs" />

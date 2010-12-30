@@ -91,18 +91,18 @@ namespace YAF.Core
 
       try
       {
-        userID = DB.user_aspnet(pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
+        userID = LegacyDb.user_aspnet(pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
 
         foreach (string role in GetRolesForUser(user.UserName))
         {
-          DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
+          LegacyDb.user_setrole(pageBoardID, user.ProviderUserKey, role);
         }
 
         // YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
       }
       catch (Exception x)
       {
-        DB.eventlog_create(DBNull.Value, "CreateForumUser", x);
+        LegacyDb.eventlog_create(DBNull.Value, "CreateForumUser", x);
       }
 
       return userID;
@@ -280,7 +280,7 @@ namespace YAF.Core
     /// </param>
     public static void SetupUserRoles(int pageBoardID, string userName)
     {
-      using (DataTable dt = DB.group_list(pageBoardID, DBNull.Value))
+      using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
       {
         foreach (DataRow row in dt.Rows)
         {
@@ -334,7 +334,7 @@ namespace YAF.Core
     public static void SyncRoles(int pageBoardID)
     {
       // get all the groups in YAF DB and create them if they do not exist as a role in membership
-      using (DataTable dt = DB.group_list(pageBoardID, DBNull.Value))
+      using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
       {
         foreach (DataRow row in dt.Rows)
         {
@@ -378,13 +378,13 @@ namespace YAF.Core
     public static void SyncUsers(int pageBoardID)
     {
       // first sync unapproved users...
-      using (DataTable dt = DB.user_list(pageBoardID, DBNull.Value, false))
+      using (DataTable dt = LegacyDb.user_list(pageBoardID, DBNull.Value, false))
       {
         MigrateUsersFromDataTable(pageBoardID, false, dt);
       }
 
       // then sync approved users...
-      using (DataTable dt = DB.user_list(pageBoardID, DBNull.Value, true))
+      using (DataTable dt = LegacyDb.user_list(pageBoardID, DBNull.Value, true))
       {
         MigrateUsersFromDataTable(pageBoardID, true, dt);
       }
@@ -411,10 +411,10 @@ namespace YAF.Core
       // is this a new user?
       var isNewUser = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey) <= 0;
 
-      int userId = DB.user_aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
+      int userId = LegacyDb.user_aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
 
       // get user groups...
-      DataTable groupTable = DB.group_member(pageBoardID, userId);
+      DataTable groupTable = LegacyDb.group_member(pageBoardID, userId);
       string[] roles = GetRolesForUser(user.UserName);
 
       // add groups...
@@ -423,7 +423,7 @@ namespace YAF.Core
         if (!GroupInGroupTable(role, groupTable))
         {
           // add the role...
-          DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
+          LegacyDb.user_setrole(pageBoardID, user.ProviderUserKey, role);
         }
       }
 
@@ -433,7 +433,7 @@ namespace YAF.Core
         if (!RoleInRoleArray(row["Name"].ToString(), roles))
         {
           // remove since there is no longer an association in the membership...
-          DB.usergroup_save(userId, row["GroupID"], 0);
+          LegacyDb.usergroup_save(userId, row["GroupID"], 0);
         }
       }
 
@@ -448,7 +448,7 @@ namespace YAF.Core
           bool autoWatchTopicsEnabled = defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
           // save the settings...
-          DB.user_savenotification(
+          LegacyDb.user_savenotification(
             userId,
             true,
             autoWatchTopicsEnabled,
@@ -457,7 +457,7 @@ namespace YAF.Core
         }
         catch (Exception ex)
         {
-          DB.eventlog_create(
+          LegacyDb.eventlog_create(
             userId,
             "UpdateForumUser",
             "Failed to save default notifications for new user: " + ex.ToString());
@@ -569,12 +569,12 @@ namespace YAF.Core
 
             if (status != MembershipCreateStatus.Success)
             {
-              DB.eventlog_create(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
+              LegacyDb.eventlog_create(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
             }
             else
             {
               // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-              DB.user_migrate(row["UserID"], user.ProviderUserKey, isYafProvider);
+              LegacyDb.user_migrate(row["UserID"], user.ProviderUserKey, isYafProvider);
 
               user.Comment = "Migrated from YetAnotherForum.NET";
 
@@ -658,11 +658,11 @@ namespace YAF.Core
           else
           {
             // just update the link just in case...
-            DB.user_migrate(row["UserID"], user.ProviderUserKey, false);
+            LegacyDb.user_migrate(row["UserID"], user.ProviderUserKey, false);
           }
 
           // setup roles for this user...
-          using (DataTable dtGroups = DB.usergroup_list(row["UserID"]))
+          using (DataTable dtGroups = LegacyDb.usergroup_list(row["UserID"]))
           {
             foreach (DataRow rowGroup in dtGroups.Rows)
             {

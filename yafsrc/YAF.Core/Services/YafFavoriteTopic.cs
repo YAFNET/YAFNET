@@ -62,7 +62,7 @@ namespace YAF.Core.Services
     /// </returns>
     public int AddFavoriteTopic(int topicId)
     {
-      DB.topic_favorite_add(YafContext.Current.PageUserID, topicId);
+      LegacyDb.topic_favorite_add(YafContext.Current.PageUserID, topicId);
       this.ClearFavoriteTopicCache();
 
       if (YafContext.Current.CurrentUserData.NotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
@@ -99,7 +99,7 @@ namespace YAF.Core.Services
       string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
 
       return
-        YafContext.Current.Cache.GetItem(key, (double)90000, () => DB.TopicFavoriteCount(topicId) as object).ToType<int>
+        YafContext.Current.Cache.GetItem(key, (double)90000, () => LegacyDb.TopicFavoriteCount(topicId) as object).ToType<int>
           ();
     }
 
@@ -114,7 +114,7 @@ namespace YAF.Core.Services
     /// </returns>
     public DataTable FavoriteTopicDetails(DateTime sinceDate)
     {
-      return DB.topic_favorite_details(
+      return LegacyDb.topic_favorite_details(
         YafContext.Current.PageBoardID, 
         YafContext.Current.PageUserID, 
         sinceDate, 
@@ -154,7 +154,7 @@ namespace YAF.Core.Services
     /// </returns>
     public int RemoveFavoriteTopic(int topicId)
     {
-      DB.topic_favorite_remove(YafContext.Current.PageUserID, topicId);
+      LegacyDb.topic_favorite_remove(YafContext.Current.PageUserID, topicId);
       this.ClearFavoriteTopicCache();
 
       if (YafContext.Current.CurrentUserData.NotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
@@ -195,7 +195,7 @@ namespace YAF.Core.Services
     /// </returns>
     private int? TopicWatchedId(int userId, int topicId)
     {
-      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+      return LegacyDb.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
     }
 
     /// <summary>
@@ -213,7 +213,7 @@ namespace YAF.Core.Services
       if (watchedId.HasValue)
       {
         // subscribe to this forum
-        DB.watchtopic_delete(watchedId);
+        LegacyDb.watchtopic_delete(watchedId);
       }
     }
 
@@ -230,7 +230,7 @@ namespace YAF.Core.Services
       if (!this.TopicWatchedId(userId, topicId).HasValue)
       {
         // subscribe to this forum
-        DB.watchtopic_add(userId, topicId);
+        LegacyDb.watchtopic_add(userId, topicId);
       }
     }
 

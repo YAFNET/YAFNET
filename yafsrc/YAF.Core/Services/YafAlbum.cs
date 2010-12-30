@@ -60,7 +60,7 @@ namespace YAF.Core.Services
     {
       if (albumID != null)
       {
-        var dt = DB.album_image_list(albumID, null);
+        var dt = LegacyDb.album_image_list(albumID, null);
 
         foreach (var fullName in from DataRow dr in dt.Rows
                                  select "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]) into fullName 
@@ -71,11 +71,11 @@ namespace YAF.Core.Services
             File.Delete(fullName);
         }
 
-        DB.album_delete(albumID);
+        LegacyDb.album_delete(albumID);
       }
       else
       {
-        using (DataTable dt = DB.album_image_list(null, imageID))
+        using (DataTable dt = LegacyDb.album_image_list(null, imageID))
         {
           var dr = dt.Rows[0];
           var fileName = dr["FileName"].ToString();
@@ -88,7 +88,7 @@ namespace YAF.Core.Services
           }
         }
 
-        DB.album_image_delete(imageID);
+        LegacyDb.album_image_delete(imageID);
       }
     }
 
@@ -112,7 +112,7 @@ namespace YAF.Core.Services
       YafContext.Current.Get<StartupInitializeDb>().Run();
 
       // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-      DB.album_save(albumID, null, newTitle, null);
+      LegacyDb.album_save(albumID, null, newTitle, null);
 
       var returnObject = new ReturnClass { NewTitle = newTitle };
 
@@ -143,7 +143,7 @@ namespace YAF.Core.Services
       YafContext.Current.Get<StartupInitializeDb>().Run();
 
       // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
-      DB.album_image_save(imageID, null, newCaption, null, null, null);
+      LegacyDb.album_image_save(imageID, null, newCaption, null, null, null);
       var returnObject = new ReturnClass { NewTitle = newCaption };
 
         returnObject.NewTitle = (newCaption == string.Empty)

@@ -162,13 +162,13 @@ namespace YAF.Core.Tasks
     {
       try
       {
-        int count = DB.topic_prune(this.BoardID, this.ForumId, this.Days, this.PermDelete);
+        int count = LegacyDb.topic_prune(this.BoardID, this.ForumId, this.Days, this.PermDelete);
 
-        DB.eventlog_create(null, TaskName, "Prune Task Complete. Pruned {0} topics.".FormatWith(count), 2);
+        LegacyDb.eventlog_create(null, TaskName, "Prune Task Complete. Pruned {0} topics.".FormatWith(count), 2);
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, "Error In Prune Topic Task: {0}".FormatWith(x));
+        LegacyDb.eventlog_create(null, TaskName, "Error In Prune Topic Task: {0}".FormatWith(x));
       }
     }
   }

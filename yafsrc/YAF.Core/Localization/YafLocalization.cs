@@ -275,7 +275,7 @@ namespace YAF.Core
 
         HttpContext.Current.Cache.Remove( "Localizer." + filename );
 #endif
-        DB.eventlog_create(
+        LegacyDb.eventlog_create(
           YafContext.Current.PageUserID, 
           page.ToLower() + ".ascx", 
           "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()), 
@@ -347,7 +347,7 @@ namespace YAF.Core
 
             HttpContext.Current.Cache.Remove("Localizer." + filename);
 #endif
-        DB.eventlog_create(
+        LegacyDb.eventlog_create(
           YafContext.Current.PageUserID, 
           page.ToLower() + ".ascx", 
           "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()), 

@@ -245,7 +245,7 @@ namespace YAF.Core
         {
           if (this.LogMissingThemeItem)
           {
-            DB.eventlog_create(
+            LegacyDb.eventlog_create(
               YafContext.Current.PageUserID, 
               page.ToLower() + ".ascx", 
               "Missing Theme Item: {0}.{1}".FormatWith(page.ToUpper(), tag.ToUpper()), 

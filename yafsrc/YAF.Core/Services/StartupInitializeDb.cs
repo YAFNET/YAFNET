@@ -72,7 +72,7 @@ namespace YAF.Core.Services
       if (HttpContext.Current != null)
       {
         // attempt to init the db...
-        if (!DB.forumpage_initdb(out errorStr, debugging))
+        if (!LegacyDb.forumpage_initdb(out errorStr, debugging))
         {
           // unable to connect to the DB...
           YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorStr;
@@ -80,7 +80,7 @@ namespace YAF.Core.Services
         }
 
         // step 2: validate the database version...
-        string redirectStr = DB.forumpage_validateversion(YafForumInfo.AppVersion);
+        string redirectStr = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
         if (redirectStr.IsSet())
         {
           YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);

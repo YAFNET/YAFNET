@@ -67,7 +67,7 @@ namespace YAF.Core.Services
           30, 
           () =>
             {
-              var replaceWords = DB.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
+              var replaceWords = LegacyDb.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
 
               // move to collection...
               return

@@ -81,7 +81,7 @@ namespace YAF.Core.Services
       if (bannedIPs == null)
       {
         // load the table and cache it...
-        bannedIPs = DB.bannedip_list(YafContext.Current.PageBoardID, null);
+        bannedIPs = LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null);
         YafContext.Current.Cache[key] = bannedIPs;
       }
 

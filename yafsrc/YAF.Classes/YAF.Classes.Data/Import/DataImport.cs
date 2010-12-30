@@ -34,7 +34,7 @@ namespace YAF.Classes.Data.Import
       if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
           dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
       {
-        DataTable bbcodeList = DB.bbcode_list(boardId, null);
+        DataTable bbcodeList = LegacyDb.bbcode_list(boardId, null);
 
         // import any extensions that don't exist...
         foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
@@ -44,7 +44,7 @@ namespace YAF.Classes.Data.Import
           if (bbcodeList.Select(String.Format("Name = '{0}'", name)).Length == 0)
           {
             // add this bbcode...
-            DB.bbcode_save(
+            LegacyDb.bbcode_save(
               null, 
               boardId, 
               row["Name"], 
@@ -94,7 +94,7 @@ namespace YAF.Classes.Data.Import
 
       if (dsExtensions.Tables["YafExtension"] != null && dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
       {
-        DataTable extensionList = DB.extension_list(boardId);
+        DataTable extensionList = LegacyDb.extension_list(boardId);
 
         // import any extensions that don't exist...
         foreach (DataRow row in dsExtensions.Tables["YafExtension"].Rows)
@@ -104,7 +104,7 @@ namespace YAF.Classes.Data.Import
           if (extensionList.Select(String.Format("Extension = '{0}'", ext)).Length == 0)
           {
             // add this...
-            DB.extension_save(null, boardId, ext);
+            LegacyDb.extension_save(null, boardId, ext);
             importedCount++;
           }
         }

@@ -256,7 +256,7 @@ namespace YAF.Core.Services
       if (useSendThread)
       {
         // create this email in the send mail table...
-        DB.mail_create(fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody);
+        LegacyDb.mail_create(fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody);
       }
       else
       {
@@ -293,7 +293,7 @@ namespace YAF.Core.Services
         htmlBody = null;
       }
 
-      DB.mail_createwatch(topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
+      LegacyDb.mail_createwatch(topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
     }
   }
 }
