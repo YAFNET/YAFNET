@@ -660,7 +660,7 @@ namespace YAF.Pages
       this.UpdateHistory.AddEntry(this.Pager.CurrentPageIndex + "|" + this.Pager.PageSize);
 
       var pagedData =
-        YafContext.Current.Get<IYafSession>().SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(
+        this.Get<IYafSession>().SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(
           this.Pager.PageSize);
 
       // only load required messages
@@ -672,7 +672,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-          DB.eventlog_create(this.PageContext.PageUserID, this, x);
+          LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
 
           this.PageContext.AddLoadMessage(
               this.PageContext.IsAdmin ? "{0}".FormatWith(x) : "An error occurred while searching.");
