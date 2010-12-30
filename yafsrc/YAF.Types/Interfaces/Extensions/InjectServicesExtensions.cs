@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,41 +16,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Attributes
+namespace YAF.Types.Interfaces
 {
   #region Using
 
-  using System;
+  using YAF.Types.Attributes;
 
   #endregion
 
   /// <summary>
-  /// The assembly sort order -- sorts the assembly load order in the modules.
+  /// The inject services extensions.
   /// </summary>
-  [AttributeUsage(AttributeTargets.Assembly)]
-  public class AssemblyModuleSortOrder : Attribute
+  public static class InjectServicesExtensions
   {
-    #region Constructors and Destructors
+    #region Public Methods
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyLoadOrder"/> class.
+    /// Injects instance public properties marked with Inject attribute.
     /// </summary>
-    /// <param name="value">
-    /// The value.
+    /// <param name="injectServices">
+    /// The inject services.
     /// </param>
-    public AssemblyModuleSortOrder(int value)
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
     {
-      this.SortOrder = value;
+      CodeContracts.ArgumentNotNull(injectServices, "injectServices");
+      CodeContracts.ArgumentNotNull(instance, "instance");
+
+      injectServices.InjectMarked<Inject>(instance);
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets SortOrder.
-    /// </summary>
-    public int SortOrder { get; protected set; }
 
     #endregion
   }

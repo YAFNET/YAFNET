@@ -44,6 +44,7 @@
     <Compile Include="Annotations.cs" />
     <Compile Include="Attributes\AltStringValueAttribute.cs" />
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
+    <Compile Include="Attributes\InjectAttribute.cs" />
     <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
     <Compile Include="Interfaces\IEditorModule.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
     <Compile Include="Interfaces\IHaveServiceLocator.cs" />
+    <Compile Include="Interfaces\IInjectServices.cs" />
     <Compile Include="Interfaces\ILocalization.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IModuleManager.cs" />

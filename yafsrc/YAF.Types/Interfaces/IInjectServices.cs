@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Attributes
+namespace YAF.Types.Interfaces
 {
   #region Using
 
@@ -25,32 +25,22 @@ namespace YAF.Types.Attributes
   #endregion
 
   /// <summary>
-  /// The assembly sort order -- sorts the assembly load order in the modules.
+  /// The interface that marks a container with support for injection into an object.
   /// </summary>
-  [AttributeUsage(AttributeTargets.Assembly)]
-  public class AssemblyModuleSortOrder : Attribute
+  public interface IInjectServices
   {
-    #region Constructors and Destructors
+    #region Public Methods
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyLoadOrder"/> class.
+    /// Inject an object with services.
     /// </summary>
-    /// <param name="value">
-    /// The value.
+    /// <typeparam name="TAttribute">
+    /// TAttribute is the attribute that marks properties to inject to.
+    /// </typeparam>
+    /// <param name="instance">
+    /// the object to inject
     /// </param>
-    public AssemblyModuleSortOrder(int value)
-    {
-      this.SortOrder = value;
-    }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets SortOrder.
-    /// </summary>
-    public int SortOrder { get; protected set; }
+    void InjectMarked<TAttribute>([NotNull] object instance) where TAttribute : Attribute;
 
     #endregion
   }

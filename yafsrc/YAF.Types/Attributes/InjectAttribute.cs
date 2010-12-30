@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -25,33 +25,10 @@ namespace YAF.Types.Attributes
   #endregion
 
   /// <summary>
-  /// The assembly sort order -- sorts the assembly load order in the modules.
+  /// The inject attribute -- mark a property that needs injection. Must be public.
   /// </summary>
-  [AttributeUsage(AttributeTargets.Assembly)]
-  public class AssemblyModuleSortOrder : Attribute
+  [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+  public class Inject : Attribute
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyLoadOrder"/> class.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    public AssemblyModuleSortOrder(int value)
-    {
-      this.SortOrder = value;
-    }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets SortOrder.
-    /// </summary>
-    public int SortOrder { get; protected set; }
-
-    #endregion
   }
 }
