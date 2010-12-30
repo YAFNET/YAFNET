@@ -881,7 +881,7 @@ namespace YAF.Classes.Data
 
     public static void activeaccess_reset()
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("activeaccess_reset"))
+        using (var cmd = MsSqlDbAccess.GetCommand("activeaccess_reset"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
@@ -959,7 +959,7 @@ namespace YAF.Classes.Data
       {
         try
         {
-          using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pageload"))
+          using (var cmd = MsSqlDbAccess.GetCommand("pageload"))
           {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("SessionID", sessionID);
@@ -1066,7 +1066,7 @@ namespace YAF.Classes.Data
 
       string searchSql = new SearchBuilder().BuildSearchSql(toSearchWhat, toSearchFromWho, searchFromWhoMethod, searchWhatMethod, userID, searchDisplayName, boardId, maxResults, useFullText, forumIds);
 
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand(searchSql, true))
+      using (var cmd = MsSqlDbAccess.GetCommand(searchSql, true))
       {
         return MsSqlDbAccess.Current.GetData(cmd);
       }
@@ -1158,7 +1158,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable accessmask_list(object boardID, object accessMaskID, object excludeFlags)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("accessmask_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("accessmask_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1179,7 +1179,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool accessmask_delete(object accessMaskID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("accessmask_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("accessmask_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("AccessMaskID", accessMaskID);
@@ -1252,7 +1252,7 @@ namespace YAF.Classes.Data
       object downloadAccess,
       object sortOrder)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("accessmask_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("accessmask_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("AccessMaskID", accessMaskID);
@@ -1297,7 +1297,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable active_list(object boardID, object Guests, object showCrawlers, int activeTime, object styledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("active_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("active_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1331,7 +1331,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable active_list_user(object boardID, object userID, object Guests, object showCrawlers, int activeTime, object styledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("active_list_user"))
+      using (var cmd = MsSqlDbAccess.GetCommand("active_list_user"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1358,7 +1358,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable active_listforum(object forumID, object styledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("active_listforum"))
+      using (var cmd = MsSqlDbAccess.GetCommand("active_listforum"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -1381,7 +1381,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable active_listtopic(object topicID, object styledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("active_listtopic"))
+      using (var cmd = MsSqlDbAccess.GetCommand("active_listtopic"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -1401,7 +1401,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataRow active_stats(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("active_stats"))
+      using (var cmd = MsSqlDbAccess.GetCommand("active_stats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1433,7 +1433,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable attachment_list(object messageID, object attachmentID, object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("attachment_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("attachment_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -1463,7 +1463,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void attachment_save(object messageID, object fileName, object bytes, object contentType, Stream stream)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("attachment_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("attachment_save"))
       {
         byte[] fileData = null;
         if (stream != null)
@@ -1496,7 +1496,7 @@ namespace YAF.Classes.Data
       // If the files are actually saved in the Hard Drive
       if (!useFileTable)
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("attachment_list"))
+        using (var cmd = MsSqlDbAccess.GetCommand("attachment_list"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("AttachmentID", attachmentID);
@@ -1522,7 +1522,7 @@ namespace YAF.Classes.Data
         }
       }
 
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("attachment_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("attachment_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("AttachmentID", attachmentID);
@@ -1540,7 +1540,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void attachment_download(object attachmentID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("attachment_download"))
+      using (var cmd = MsSqlDbAccess.GetCommand("attachment_download"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("AttachmentID", attachmentID);
@@ -1566,7 +1566,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable bannedip_list(object boardID, object ID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("bannedip_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("bannedip_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1589,7 +1589,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void bannedip_save(object ID, object boardID, object Mask, string reason, int userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("bannedip_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("bannedip_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ID", ID);
@@ -1609,7 +1609,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void bannedip_delete(object ID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("bannedip_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("bannedip_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ID", ID);
@@ -1632,7 +1632,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable board_list(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1657,7 +1657,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataRow board_poststats(int? boardId, bool useStyledNick, bool showNoCountPosts)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_poststats"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_poststats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardId);
@@ -1673,7 +1673,7 @@ namespace YAF.Classes.Data
        
       }
         // vzrus - this happens at new install only when we don't have posts or when they are not visible to a user 
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_poststats"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_poststats"))
       {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("BoardID", boardId);
@@ -1701,7 +1701,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataRow board_userstats(int? boardId)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_userstats"))
+        using (var cmd = MsSqlDbAccess.GetCommand("board_userstats"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("BoardID", boardId);
@@ -1728,7 +1728,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void board_resync(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_resync"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_resync"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1757,7 +1757,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataRow board_stats(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_stats"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_stats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1786,7 +1786,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int board_save(object boardID, object languageFile, object culture, object name, object allowThreaded)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1821,7 +1821,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int board_create(object adminUsername, object adminUserEmail, object adminUserKey, object boardName, object culture, object languageFile, object boardMembershipName, object boardRolesName)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_create"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_create"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardName", boardName);
@@ -1845,7 +1845,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void board_delete(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("board_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("board_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1868,7 +1868,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool category_delete(object CategoryID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("category_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("category_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("CategoryID", CategoryID);
@@ -1890,7 +1890,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable category_list(object boardID, object categoryID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("category_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("category_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1912,7 +1912,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable category_listread(object boardID, object userID, object categoryID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("category_listread"))
+      using (var cmd = MsSqlDbAccess.GetCommand("category_listread"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1935,7 +1935,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable category_simplelist(int startID, int limit)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("category_simplelist"))
+      using (var cmd = MsSqlDbAccess.GetCommand("category_simplelist"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("StartID", startID);
@@ -1964,7 +1964,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void category_save(object boardID, object categoryId, object name, object categoryImage, object sortOrder)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("category_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("category_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -1994,7 +1994,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void checkemail_save(object userID, object hash, object email)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("checkemail_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("checkemail_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -2015,7 +2015,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable checkemail_update(object hash)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("checkemail_update"))
+      using (var cmd = MsSqlDbAccess.GetCommand("checkemail_update"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("Hash", hash);
@@ -2034,7 +2034,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable checkemail_list(object email)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("checkemail_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("checkemail_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("Email", email);
@@ -2060,7 +2060,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void choice_vote(object choiceID, object userID, object remoteIP)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("choice_vote"))
+      using (var cmd = MsSqlDbAccess.GetCommand("choice_vote"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ChoiceID", choiceID);
@@ -2098,7 +2098,7 @@ namespace YAF.Classes.Data
           userID = DBNull.Value;
         }
 
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("eventlog_create"))
+        using (var cmd = MsSqlDbAccess.GetCommand("eventlog_create"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("Type", type);
@@ -2165,7 +2165,7 @@ namespace YAF.Classes.Data
     /// </param>
     private static void eventlog_delete(object eventLogID, object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("eventlog_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("eventlog_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("EventLogID", eventLogID);
@@ -2184,7 +2184,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable eventlog_list(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("eventlog_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("eventlog_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2206,7 +2206,7 @@ namespace YAF.Classes.Data
     {
       try
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("extension_delete"))
+        using (var cmd = MsSqlDbAccess.GetCommand("extension_delete"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("ExtensionId", extensionId);
@@ -2230,7 +2230,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable extension_edit(object extensionId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("extension_edit"))
+      using (var cmd = MsSqlDbAccess.GetCommand("extension_edit"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("extensionId", extensionId);
@@ -2252,7 +2252,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable extension_list(object boardID, object extension)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("extension_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("extension_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2272,7 +2272,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable extension_list(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("extension_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("extension_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2298,7 +2298,7 @@ namespace YAF.Classes.Data
     {
       try
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("extension_save"))
+        using (var cmd = MsSqlDbAccess.GetCommand("extension_save"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("extensionId", extensionId);
@@ -2331,7 +2331,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static DataTable pollvote_check(object pollid, object userid, object remoteip)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pollvote_check"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pollvote_check"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("PollID", pollid);
@@ -2355,7 +2355,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static DataTable pollgroup_votecheck(object pollGroupId, object userId, object remoteIp)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pollgroup_votecheck"))
+        using (var cmd = MsSqlDbAccess.GetCommand("pollgroup_votecheck"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("PollGroupID", pollGroupId);
@@ -2378,7 +2378,7 @@ namespace YAF.Classes.Data
     /// </param>
     private static void forum_deleteAttachments(object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listtopics"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listtopics"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -2408,7 +2408,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool forum_delete(object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listSubForums"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listSubForums"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -2448,7 +2448,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_listallMyModerated(object boardID, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listallmymoderated"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listallmymoderated"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2472,7 +2472,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_list(object boardID, object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2550,7 +2550,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_listall(object boardID, object userID, object startAt)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listall"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listall"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2588,7 +2588,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_simplelist(int StartID, int Limit)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_simplelist"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_simplelist"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("StartID", StartID);
@@ -2614,7 +2614,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_listall_fromCat(object boardID, object categoryID, bool emptyFirstRow)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listall_fromCat"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listall_fromCat"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2638,7 +2638,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_listpath(object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listpath"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listpath"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -2666,7 +2666,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_listread(object boardID, object userID, object categoryID, object parentID, object useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_listread"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_listread"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2768,7 +2768,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forum_moderators(bool  useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_moderators"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_moderators"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
@@ -2798,7 +2798,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void forum_resync(object boardID, object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_resync"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_resync"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -2879,7 +2879,7 @@ namespace YAF.Classes.Data
       object styles,
        bool dummy)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forum_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forum_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -2911,7 +2911,7 @@ namespace YAF.Classes.Data
     /// <returns>Integer value for a found dependency</returns>
     public static int forum_save_parentschecker(object forumID, object parentID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("SELECT " + MsSqlDbAccess.GetObjectName("forum_save_parentschecker") + "(@ForumID,@ParentID)", true))
+      using (var cmd = MsSqlDbAccess.GetCommand("SELECT " + MsSqlDbAccess.GetObjectName("forum_save_parentschecker") + "(@ForumID,@ParentID)", true))
       {
         cmd.CommandType = CommandType.Text;
         cmd.Parameters.AddWithValue("@ForumID", forumID);
@@ -3197,7 +3197,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forumaccess_list(object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forumaccess_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forumaccess_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -3219,7 +3219,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void forumaccess_save(object forumID, object groupID, object accessMaskID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forumaccess_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forumaccess_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -3239,7 +3239,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable forumaccess_group(object groupID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("forumaccess_group"))
+      using (var cmd = MsSqlDbAccess.GetCommand("forumaccess_group"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("GroupID", groupID);
@@ -3264,7 +3264,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable group_list(object boardID, object groupID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -3281,7 +3281,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void group_delete(object groupID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("GroupID", groupID);
@@ -3302,7 +3302,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable group_member(object boardID, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_member"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_member"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -3384,7 +3384,7 @@ namespace YAF.Classes.Data
       object usrAlbums,
       object usrAlbumImages)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("GroupID", groupID);
@@ -3421,7 +3421,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void mail_delete(object mailID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("mail_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("mail_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MailID", mailID);
@@ -3439,7 +3439,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static IEnumerable<TypedMailList> MailList(long processId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("mail_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("mail_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ProcessID", processId);
@@ -3474,7 +3474,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void mail_createwatch(object topicID, object from, object fromName, object subject, object body, object bodyHtml, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("mail_createwatch"))
+      using (var cmd = MsSqlDbAccess.GetCommand("mail_createwatch"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -3514,7 +3514,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void mail_create(object from, object fromName, object to, object toName, object subject, object body, object bodyHtml)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("mail_create"))
+      using (var cmd = MsSqlDbAccess.GetCommand("mail_create"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("From", from);
@@ -3551,7 +3551,7 @@ namespace YAF.Classes.Data
       /// </returns>
       public static DataTable post_list(object topicID, object updateViewCount, bool showDeleted, bool styledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("post_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("post_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -3573,7 +3573,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable post_list_reverse10(object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("post_list_reverse10"))
+      using (var cmd = MsSqlDbAccess.GetCommand("post_list_reverse10"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -3621,7 +3621,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable post_alluser(object boardID, object userID, object pageUserID, object topCount)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("post_alluser"))
+      using (var cmd = MsSqlDbAccess.GetCommand("post_alluser"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -3651,7 +3651,7 @@ namespace YAF.Classes.Data
       list.Columns.Add("UserName", typeof(string));
       list.Columns.Add("Signature", typeof(string));
 
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_reply_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_reply_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3692,7 +3692,7 @@ namespace YAF.Classes.Data
     /// </param>
     private static void message_getRepliesList_populate(DataTable listsource, DataTable list, int messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_reply_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_reply_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3734,7 +3734,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static long topic_create_by_message(object messageID, object forumId, object newTopicSubj)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_create_by_message"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_create_by_message"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3756,7 +3756,7 @@ namespace YAF.Classes.Data
     [Obsolete("Use MessageList(int messageId) instead")]
     public static DataTable message_list(object messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3774,7 +3774,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static IEnumerable<TypedMessageList> MessageList(int messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3842,7 +3842,7 @@ namespace YAF.Classes.Data
       /// </returns>
       public static DataTable message_listreported(object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_listreported"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_listreported"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -3861,7 +3861,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_listreporters(int messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_listreporters"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_listreporters"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3883,7 +3883,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_listreporters(int messageID, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_listreporters"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_listreporters"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3910,7 +3910,7 @@ namespace YAF.Classes.Data
       /// </param>
       public static void message_report(object messageID, object userID, object reportedDateTime, object reportText)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_report"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_report"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3930,7 +3930,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void message_reportcopyover(object messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_reportcopyover"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_reportcopyover"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -3953,7 +3953,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void message_reportresolve(object messageFlag, object messageID, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_reportresolve"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_reportresolve"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageFlag", messageFlag);
@@ -4022,7 +4022,7 @@ namespace YAF.Classes.Data
       if (deleteLinked)
       {
         // Delete replies
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_getReplies"))
+        using (var cmd = MsSqlDbAccess.GetCommand("message_getReplies"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4038,7 +4038,7 @@ namespace YAF.Classes.Data
       // If the files are actually saved in the Hard Drive
       if (!useFileTable)
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("attachment_list"))
+        using (var cmd = MsSqlDbAccess.GetCommand("attachment_list"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4067,7 +4067,7 @@ namespace YAF.Classes.Data
       // Ederon : erase message for good
       if (eraseMessages)
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_delete"))
+        using (var cmd = MsSqlDbAccess.GetCommand("message_delete"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4079,7 +4079,7 @@ namespace YAF.Classes.Data
       {
         // Delete Message
         // undelete function added
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_deleteundelete"))
+        using (var cmd = MsSqlDbAccess.GetCommand("message_deleteundelete"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4099,7 +4099,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void message_approve(object messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_approve"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_approve"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4118,7 +4118,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_simplelist(int StartID, int Limit)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_simplelist"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_simplelist"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("StartID", StartID);
@@ -4203,7 +4203,7 @@ namespace YAF.Classes.Data
         object originalMessage,
         object editedBy)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_update"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_update"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4257,7 +4257,7 @@ namespace YAF.Classes.Data
     public static bool message_save(
       object topicID, object userID, object message, object userName, object ip, object posted, object replyTo, object flags, ref long messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_save"))
       {
         var paramMessageID = new SqlParameter("MessageID", messageID);
         paramMessageID.Direction = ParameterDirection.Output;
@@ -4289,7 +4289,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_unapproved(object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_unapproved"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_unapproved"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -4310,7 +4310,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_findunread(object topicID, object lastRead)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_findunread"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_findunread"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -4333,7 +4333,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void message_move(object messageID, object moveToTopic, bool moveAll)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_move"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_move"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4345,7 +4345,7 @@ namespace YAF.Classes.Data
       // it's in charge of moving answers of moved post
       if (moveAll)
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_getReplies"))
+        using (var cmd = MsSqlDbAccess.GetCommand("message_getReplies"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
           cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4372,7 +4372,7 @@ namespace YAF.Classes.Data
       bool UseFileTable = GetBooleanRegistryValue("UseFileTable");
 
       // Delete replies
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_getReplies"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_getReplies"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", messageID);
@@ -4407,7 +4407,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int message_ThanksNumber(object messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_thanksnumber"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_thanksnumber"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter();
@@ -4430,7 +4430,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_GetThanks(object MessageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_getthanks"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_getthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageID", MessageID);
@@ -4449,7 +4449,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable message_GetTextByIds(string messageIDs)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_gettextbyids"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_gettextbyids"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageIDs", messageIDs);
@@ -4468,7 +4468,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static IEnumerable<TypedAllThanks> MessageGetAllThanks(string messageIdsSeparatedWithColon)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_getallthanks"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_getallthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("MessageIDs", messageIdsSeparatedWithColon);
@@ -4491,7 +4491,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string message_AddThanks(object FromUserID, object MessageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_Addthanks"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_Addthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -4518,7 +4518,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string message_RemoveThanks(object FromUserID, object MessageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_Removethanks"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_Removethanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -4545,7 +4545,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable messagehistory_list(int messageId, int daysToClean)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("messagehistory_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("messagehistory_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4565,7 +4565,7 @@ namespace YAF.Classes.Data
     /// <returns></returns>
     public static DataTable message_secdata(int MessageID, object pageUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("message_secdata"))
+      using (var cmd = MsSqlDbAccess.GetCommand("message_secdata"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4622,7 +4622,7 @@ namespace YAF.Classes.Data
     /// </param>
     private static DataTable medal_list(object boardID, object medalID, object category)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("medal_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("medal_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4646,7 +4646,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable medal_listusers(object medalID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("medal_listusers"))
+      using (var cmd = MsSqlDbAccess.GetCommand("medal_listusers"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4696,7 +4696,7 @@ namespace YAF.Classes.Data
     /// </param>
     private static void medal_delete(object boardID, object medalID, object category)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("medal_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("medal_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4781,7 +4781,7 @@ namespace YAF.Classes.Data
       object sortOrder,
       object flags)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("medal_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("medal_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4822,7 +4822,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void medal_resort(object boardID, object medalID, int move)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("medal_resort"))
+      using (var cmd = MsSqlDbAccess.GetCommand("medal_resort"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4846,7 +4846,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void group_medal_delete(object groupID, object medalID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_medal_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_medal_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4869,7 +4869,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static DataTable group_medal_list(object groupID, object medalID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_medal_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_medal_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4904,7 +4904,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void group_medal_save(object groupID, object medalID, object message, object hide, object onlyRibbon, object sortOrder)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_medal_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_medal_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4931,7 +4931,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_medal_delete(object userID, object medalID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_medal_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_medal_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4954,7 +4954,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static DataTable user_medal_list(object userID, object medalID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_medal_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_medal_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -4992,7 +4992,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_medal_save(object userID, object medalID, object message, object hide, object onlyRibbon, object sortOrder, object dateAwarded)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_medal_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_medal_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -5020,7 +5020,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_listmedals(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_listmedals"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_listmedals"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -5053,7 +5053,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable nntpforum_list(object boardID, object minutes, object nntpForumID, object active)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpforum_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpforum_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -5078,7 +5078,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void nntpforum_update(object nntpForumID, object lastMessageNo, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpforum_update"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpforum_update"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
@@ -5108,7 +5108,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void nntpforum_save(object nntpForumID, object nntpServerID, object groupName, object forumID, object active)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpforum_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpforum_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
@@ -5128,7 +5128,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void nntpforum_delete(object nntpForumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpforum_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpforum_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
@@ -5153,7 +5153,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable nntpserver_list(object boardID, object nntpServerID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpserver_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpserver_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -5188,7 +5188,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void nntpserver_save(object nntpServerID, object boardID, object name, object address, object port, object userName, object userPass)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpserver_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpserver_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NntpServerID", nntpServerID);
@@ -5210,7 +5210,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void nntpserver_delete(object nntpServerID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntpserver_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntpserver_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NntpServerID", nntpServerID);
@@ -5232,7 +5232,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable nntptopic_list(object thread)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntptopic_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntptopic_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("Thread", thread);
@@ -5270,7 +5270,7 @@ namespace YAF.Classes.Data
     public static void nntptopic_savemessage(
       object nntpForumID, object topic, object body, object userID, object userName, object ip, object posted, object thread)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("nntptopic_savemessage"))
+      using (var cmd = MsSqlDbAccess.GetCommand("nntptopic_savemessage"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NntpForumID", nntpForumID);
@@ -5306,7 +5306,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable pmessage_list(object toUserID, object fromUserID, object userPMessageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pmessage_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pmessage_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ToUserID", toUserID);
@@ -5344,7 +5344,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void pmessage_delete(object userPMessageID, bool fromOutbox)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pmessage_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pmessage_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserPMessageID", userPMessageID);
@@ -5400,7 +5400,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void pmessage_save(object fromUserID, object toUserID, object subject, object body, object Flags)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pmessage_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pmessage_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("FromUserID", fromUserID);
@@ -5420,7 +5420,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void pmessage_markread(object userPMessageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pmessage_markread"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pmessage_markread"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserPMessageID", userPMessageID);
@@ -5435,7 +5435,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable pmessage_info()
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pmessage_info"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pmessage_info"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         return MsSqlDbAccess.Current.GetData(cmd);
@@ -5453,7 +5453,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void pmessage_prune(object daysRead, object daysUnread)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pmessage_prune"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pmessage_prune"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("DaysRead", daysRead);
@@ -5476,7 +5476,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable pollgroup_stats(int? pollGroupId)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pollgroup_stats"))
+        using (var cmd = MsSqlDbAccess.GetCommand("pollgroup_stats"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("PollGroupID", pollGroupId);
@@ -5494,7 +5494,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int pollgroup_attach(int? pollGroupId, int? topicId, int? forumId, int? categoryId, int? boardId)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pollgroup_attach"))
+        using (var cmd = MsSqlDbAccess.GetCommand("pollgroup_attach"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("PollGroupID", pollGroupId);
@@ -5517,7 +5517,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable poll_stats(int? pollId)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("poll_stats"))
+        using (var cmd = MsSqlDbAccess.GetCommand("poll_stats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("PollID", pollId);
@@ -5640,7 +5640,7 @@ namespace YAF.Classes.Data
   
         sb.Append("END;  ");
 
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand(sb.ToString(), true))
+        using (var cmd = MsSqlDbAccess.GetCommand(sb.ToString(), true))
         {
           SqlParameter ret = new SqlParameter();
           ret.ParameterName = "@PollID";
@@ -5772,7 +5772,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void poll_update(object pollID, object question, object closes, object isBounded, bool isClosedBounded, bool allowMultipleChoices, bool showVoters, bool allowSkipVote, object questionPath, object questionMime)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("poll_update"))
+      using (var cmd = MsSqlDbAccess.GetCommand("poll_update"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("PollID", pollID);
@@ -5809,7 +5809,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void poll_remove(object pollGroupID, object pollID, object boardId, bool removeCompletely, bool removeEverywhere)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("poll_remove"))
+      using (var cmd = MsSqlDbAccess.GetCommand("poll_remove"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("PollGroupID", pollGroupID);
@@ -5837,7 +5837,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static IEnumerable<TypedPollGroup> PollGroupList(int userID, int? forumId, int boardId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pollgroup_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("pollgroup_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -5869,7 +5869,7 @@ namespace YAF.Classes.Data
       /// <param name="removeEverywhere"></param>
       public static void pollgroup_remove(object pollGroupID, object topicId, object forumId, object categoryId, object boardId, bool removeCompletely, bool removeEverywhere)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("pollgroup_remove"))
+        using (var cmd = MsSqlDbAccess.GetCommand("pollgroup_remove"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("PollGroupID", pollGroupID);
@@ -5893,7 +5893,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void choice_delete(object choiceID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("choice_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("choice_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ChoiceID", choiceID);
@@ -5912,7 +5912,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void choice_update(object choiceID, object choice, object path, object mime)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("choice_update"))
+      using (var cmd = MsSqlDbAccess.GetCommand("choice_update"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ChoiceID", choiceID);
@@ -5934,7 +5934,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void choice_add(object pollID, object choice, object path, object mime)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("choice_add"))
+      using (var cmd = MsSqlDbAccess.GetCommand("choice_add"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("PollID", pollID);
@@ -5962,7 +5962,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable rank_list(object boardID, object rankID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("rank_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("rank_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6040,7 +6040,7 @@ namespace YAF.Classes.Data
       object usrAlbums,
       object usrAlbumImages)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("rank_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("rank_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("RankID", rankID);
@@ -6072,7 +6072,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void rank_delete(object rankID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("rank_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("rank_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("RankID", rankID);
@@ -6097,7 +6097,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable smiley_list(object boardID, object smileyID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("smiley_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("smiley_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6119,7 +6119,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static IEnumerable<TypedSmileyList> SmileyList(int boardID, int? smileyID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("smiley_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("smiley_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6139,7 +6139,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable smiley_listunique(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("smiley_listunique"))
+      using (var cmd = MsSqlDbAccess.GetCommand("smiley_listunique"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6155,7 +6155,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void smiley_delete(object smileyID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("smiley_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("smiley_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("SmileyID", smileyID);
@@ -6189,7 +6189,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void smiley_save(object smileyID, object boardID, object code, object icon, object emoticon, object sortOrder, object replace)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("smiley_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("smiley_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("SmileyID", smileyID);
@@ -6217,7 +6217,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void smiley_resort(object boardID, object smileyID, int move)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("smiley_resort"))
+      using (var cmd = MsSqlDbAccess.GetCommand("smiley_resort"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6244,7 +6244,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable bbcode_list(object boardID, object bbcodeID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("bbcode_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("bbcode_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6261,7 +6261,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void bbcode_delete(object bbcodeID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("bbcode_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("bbcode_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BBCodeID", bbcodeID);
@@ -6330,7 +6330,7 @@ namespace YAF.Classes.Data
       object moduleclass,
       object execorder)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("bbcode_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("bbcode_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BBCodeID", bbcodeID);
@@ -6369,7 +6369,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable registry_list(object name, object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("registry_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("registry_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("Name", name);
@@ -6414,7 +6414,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void registry_save(object name, object value)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("registry_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("registry_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("Name", name);
@@ -6437,7 +6437,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void registry_save(object name, object value, object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("registry_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("registry_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("Name", name);
@@ -6458,7 +6458,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable system_list()
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("system_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("system_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         return MsSqlDbAccess.Current.GetData(cmd);
@@ -6471,7 +6471,7 @@ namespace YAF.Classes.Data
 
     public static void topic_updatetopic(int topicId, string topic)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_updatetopic"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_updatetopic"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicId);
@@ -6501,7 +6501,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int topic_prune(object boardID, object forumID, object days, object permDelete)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_prune"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_prune"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6542,7 +6542,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_list(object forumID, object userId, object announcement, object date, object offset, object count, object useStyledNicks, object showMoved)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -6568,7 +6568,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_simplelist(int StartID, int Limit)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_simplelist"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_simplelist"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("StartID", StartID);
@@ -6591,7 +6591,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void topic_move(object topicID, object forumID, object showMoved)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_move"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_move"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6617,7 +6617,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_announcements(object boardID, object numOfPostsToRetrieve, object pageUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_announcements"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_announcements"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6646,7 +6646,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object pageUserId, bool useStyledNicks, bool showNoCountPosts)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_latest"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_latest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6677,7 +6677,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable rss_topic_latest(object boardID, object numOfPostsToRetrieve, object pageUserId, bool useStyledNicks, bool showNoCountPosts)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("rss_topic_latest"))
+        using (var cmd = MsSqlDbAccess.GetCommand("rss_topic_latest"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6711,7 +6711,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_active(object boardID, object pageUserId, object since, object categoryID, object useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_active"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_active"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6732,7 +6732,7 @@ namespace YAF.Classes.Data
     /// </param>
     private static void topic_deleteAttachments(object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_listmessages"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_listmessages"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6773,7 +6773,7 @@ namespace YAF.Classes.Data
       topic_deleteAttachments(topicID);
 
       // END ABOT CHANGE 16.04.04
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6792,7 +6792,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_findprev(object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_findprev"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_findprev"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6810,7 +6810,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_findnext(object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_findnext"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_findnext"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6829,7 +6829,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void topic_lock(object topicID, object locked)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_lock"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_lock"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6890,7 +6890,7 @@ namespace YAF.Classes.Data
       object flags,
       ref long messageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ForumID", forumID);
@@ -6921,7 +6921,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataRow topic_info(object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_info"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_info"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -6941,7 +6941,7 @@ namespace YAF.Classes.Data
 
     public static int topic_findduplicate(object topicName)
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_findduplicate"))
+        using (var cmd = MsSqlDbAccess.GetCommand("topic_findduplicate"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("TopicName", topicName);
@@ -6973,7 +6973,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_favorite_details(object boardID, object pageUserId, object since, object categoryID, object useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_favorite_details"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_details"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -6995,7 +6995,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable topic_favorite_list(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_favorite_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7014,7 +7014,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void topic_favorite_remove(object userID, object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_favorite_remove"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_remove"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7034,7 +7034,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void topic_favorite_add(object userID, object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_favorite_add"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_add"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7051,7 +7051,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static int TopicFavoriteCount(int topicId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_favorite_count"))
+      using (var cmd = MsSqlDbAccess.GetCommand("topic_favorite_count"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicId);
@@ -7079,7 +7079,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable replace_words_list(object boardId, object id)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("replace_words_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("replace_words_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardId);
@@ -7105,7 +7105,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void replace_words_save(object boardId, object id, object badword, object goodword)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("replace_words_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("replace_words_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ID", id);
@@ -7124,7 +7124,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void replace_words_delete(object ID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("replace_words_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("replace_words_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ID", ID);
@@ -7147,7 +7147,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_addignoreduser(object userId, object ignoredUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_addignoreduser"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_addignoreduser"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserId", userId);
@@ -7167,7 +7167,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_removeignoreduser(object userId, object ignoredUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_removeignoreduser"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_removeignoreduser"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserId", userId);
@@ -7190,7 +7190,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool user_isuserignored(object userId, object ignoredUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_isuserignored"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_isuserignored"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserId", userId);
@@ -7214,7 +7214,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_ignoredlist(object userId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_ignoredlist"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_ignoredlist"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserId", userId);
@@ -7241,7 +7241,7 @@ namespace YAF.Classes.Data
       {
         try
         {
-          using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_lazydata"))
+          using (var cmd = MsSqlDbAccess.GetCommand("user_lazydata"))
           {
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("UserID", userID);
@@ -7362,7 +7362,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_list(object boardID, object userID, object approved, object groupID, object rankID, object useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7483,7 +7483,7 @@ namespace YAF.Classes.Data
     [NotNull]
     public static IEnumerable<TypedUserList> UserList(int boardID, int? userID, bool? approved, int? groupID, int? rankID, bool? useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7508,7 +7508,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_simplelist(int StartID, int Limit)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_simplelist"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_simplelist"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("StartID", StartID);
@@ -7525,7 +7525,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_delete(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7547,7 +7547,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_setrole(int boardID, object providerUserKey, object role)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_setrole"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_setrole"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7570,7 +7570,7 @@ namespace YAF.Classes.Data
     public static void user_setinfo(int boardID, MembershipUser user)
     {
       using (
-        SqlCommand cmd =
+        var cmd =
           MsSqlDbAccess.GetCommand(
             "update {databaseOwner}.{objectQualifier}User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true))
       {
@@ -7597,7 +7597,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_migrate(object userID, object providerUserKey, object updateProvider)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_migrate"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_migrate"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ProviderUserKey", providerUserKey);
@@ -7615,7 +7615,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_deleteold(object boardID, object days)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_deleteold"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_deleteold"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7632,7 +7632,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_approve(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_approve"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_approve"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7648,7 +7648,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_approveall(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_approveall"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_approveall"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7667,7 +7667,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_suspend(object userID, object suspend)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_suspend"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_suspend"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7684,7 +7684,7 @@ namespace YAF.Classes.Data
     /// <returns>Data Table</returns>
     public static DataTable user_getsignaturedata(object userID, object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_getsignaturedata"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_getsignaturedata"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7700,7 +7700,7 @@ namespace YAF.Classes.Data
     /// <param name="boardID">The boardID</param>  
     public static DataTable user_getalbumsdata(object userID, object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_getalbumsdata"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_getalbumsdata"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7726,7 +7726,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool user_changepassword(object userID, object oldPassword, object newPassword)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_changepassword"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_changepassword"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7746,7 +7746,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_pmcount(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_pmcount"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_pmcount"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7809,7 +7809,7 @@ namespace YAF.Classes.Data
       object hideUser,
       object notificationType)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7848,7 +7848,7 @@ namespace YAF.Classes.Data
           object notificationType,
           object dailyDigest)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_savenotification"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_savenotification"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -7883,7 +7883,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_adminsave(object boardID, object userID, object name, object displayName, object email, object flags, object rankID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_adminsave"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_adminsave"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7910,7 +7910,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_emails(object boardID, object groupID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_emails"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_emails"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -7933,7 +7933,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_accessmasks(object boardID, object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_accessmasks"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_accessmasks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -8067,7 +8067,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static object user_recoverpassword(object boardID, object userName, object email)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_recoverpassword"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_recoverpassword"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -8088,7 +8088,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_savepassword(object userID, object password)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_savepassword"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_savepassword"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8114,7 +8114,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static object user_login(object boardID, object name, object password)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_login"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_login"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -8134,7 +8134,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_avatarimage(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_avatarimage"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_avatarimage"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8157,7 +8157,7 @@ namespace YAF.Classes.Data
     public static int user_get(int boardID, object providerUserKey)
     {
       using (
-        SqlCommand cmd =
+        var cmd =
           MsSqlDbAccess.GetCommand("select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true))
       {
         cmd.CommandType = CommandType.Text;
@@ -8189,7 +8189,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static IEnumerable<TypedUserFind> UserFind(int boardID, bool filter, string userName, string email, string displayName, object notificationType, object dailyDigest)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_find"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_find"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -8216,7 +8216,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string user_getsignature(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_getsignature"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_getsignature"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8235,7 +8235,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_savesignature(object userID, object signature)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_savesignature"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_savesignature"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8261,7 +8261,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_saveavatar(object userID, object avatar, Stream stream, object avatarImageType)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_saveavatar"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_saveavatar"))
       {
         byte[] data = null;
 
@@ -8289,7 +8289,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_deleteavatar(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_deleteavatar"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_deleteavatar"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8340,7 +8340,7 @@ namespace YAF.Classes.Data
         {
           try
           {
-            using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_save", connMan.DBConnection))
+            using (var cmd = MsSqlDbAccess.GetCommand("user_save", connMan.DBConnection))
             {
               cmd.Transaction = trans;
               cmd.CommandType = CommandType.StoredProcedure;
@@ -8399,7 +8399,7 @@ namespace YAF.Classes.Data
     {
       try
       {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_aspnet"))
+        using (var cmd = MsSqlDbAccess.GetCommand("user_aspnet"))
         {
           cmd.CommandType = CommandType.StoredProcedure;
 
@@ -8430,7 +8430,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int? user_guest(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_guest"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_guest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -8454,7 +8454,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_activity_rank(object boardID, object startDate, object displayNumber)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_activity_rank"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_activity_rank"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -8481,7 +8481,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int user_nntp(object boardID, object userName, object email, int? timeZone)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_nntp"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_nntp"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
@@ -8504,7 +8504,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_addpoints(object userID, object points)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_addpoints"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_addpoints"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8524,7 +8524,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_removepointsByTopicID(object topicID, object points)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_removepointsbytopicid"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_removepointsbytopicid"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
@@ -8544,7 +8544,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_removepoints(object userID, object points)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_removepoints"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_removepoints"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8564,7 +8564,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void user_setpoints(object userID, object points)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_setpoints"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_setpoints"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8584,7 +8584,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int user_getpoints(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_getpoints"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_getpoints"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8605,7 +8605,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int user_getthanks_from(object userID, object pageUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_getthanks_from"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_getthanks_from"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8626,7 +8626,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int[] user_getthanks_to(object userID, object pageUserId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_getthanks_to"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_getthanks_to"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramThanksToNumber = new SqlParameter("ThanksToNumber", 0);
@@ -8669,7 +8669,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_viewallthanks(object UserID, object pageUserID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("user_viewallthanks"))
+      using (var cmd = MsSqlDbAccess.GetCommand("user_viewallthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", UserID);
@@ -8695,7 +8695,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable userforum_list(object userID, object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("userforum_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("userforum_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8715,7 +8715,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void userforum_delete(object userID, object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("userforum_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("userforum_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8738,7 +8738,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void userforum_save(object userID, object forumID, object accessMaskID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("userforum_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("userforum_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8762,7 +8762,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable usergroup_list(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("usergroup_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("usergroup_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8784,7 +8784,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void usergroup_save(object userID, object groupID, object member)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("usergroup_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("usergroup_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8809,7 +8809,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void watchforum_add(object userID, object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchforum_add"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchforum_add"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8828,7 +8828,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable watchforum_list(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchforum_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchforum_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8849,7 +8849,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable watchforum_check(object userID, object forumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchforum_check"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchforum_check"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8866,7 +8866,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void watchforum_delete(object watchForumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchforum_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchforum_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("WatchForumID", watchForumID);
@@ -8888,7 +8888,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable watchtopic_list(object userID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchtopic_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchtopic_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8909,7 +8909,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable watchtopic_check(object userID, object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchtopic_check"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchtopic_check"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -8926,7 +8926,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void watchtopic_delete(object watchTopicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchtopic_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchtopic_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("WatchTopicID", watchTopicID);
@@ -8945,7 +8945,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void watchtopic_add(object userID, object topicID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("watchtopic_add"))
+      using (var cmd = MsSqlDbAccess.GetCommand("watchtopic_add"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -9073,7 +9073,7 @@ namespace YAF.Classes.Data
       sb.Append("from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID = @ForumID and b.ForumID = a.ForumID and a.TopicMovedID is null and a.IsDeleted = 0");
       sb.Append(" order by a.Posted desc");
 
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand(sb.ToString(), true))
+      using (var cmd = MsSqlDbAccess.GetCommand(sb.ToString(), true))
       {
         cmd.CommandType = CommandType.Text;
         cmd.Parameters.AddWithValue("ForumID", forumId);
@@ -9376,7 +9376,7 @@ namespace YAF.Classes.Data
     public static void system_deleteinstallobjects()
     {
       string tSQL = "DROP PROCEDURE" + MsSqlDbAccess.GetObjectName("system_initialize");
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand(tSQL, true))
+      using (var cmd = MsSqlDbAccess.GetCommand(tSQL, true))
       {
         cmd.CommandType = CommandType.Text;
         MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
@@ -9507,7 +9507,7 @@ namespace YAF.Classes.Data
             using (var dt = new DataTable("sysobjects"))
             {
               da.Fill(dt);
-              using (SqlCommand cmd = connMan.DBConnection.CreateCommand())
+              using (var cmd = connMan.DBConnection.CreateCommand())
               {
                 cmd.Transaction = trans;
                 cmd.CommandType = CommandType.Text;
@@ -9597,7 +9597,7 @@ namespace YAF.Classes.Data
     public static void system_initialize(
       string forumName, string timeZone, string culture, string languageFile, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("system_initialize"))
+      using (var cmd = MsSqlDbAccess.GetCommand("system_initialize"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@Name", forumName);
@@ -9624,7 +9624,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void system_updateversion(int version, string versionname)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("system_updateversion"))
+      using (var cmd = MsSqlDbAccess.GetCommand("system_updateversion"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@Version", version);
@@ -9635,7 +9635,7 @@ namespace YAF.Classes.Data
 
     public static ushort SqlServerMajorVersionAsShort()
     {
-        using (SqlCommand cmd = MsSqlDbAccess.GetCommand("SELECT SUBSTRING(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')), 1, PATINDEX('%.%', CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')))-1)", true))
+        using (var cmd = MsSqlDbAccess.GetCommand("SELECT SUBSTRING(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')), 1, PATINDEX('%.%', CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')))-1)", true))
       {
         return Convert.ToUInt16(MsSqlDbAccess.Current.ExecuteScalar(cmd));
       }
@@ -9651,7 +9651,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static DataTable group_rank_style(object boardID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("group_rank_style"))
+      using (var cmd = MsSqlDbAccess.GetCommand("group_rank_style"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@BoardID", boardID);
@@ -9677,7 +9677,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable shoutbox_getmessages(int boardId, int numberOfMessages, object useStyledNicks)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("shoutbox_getmessages"))
+      using (var cmd = MsSqlDbAccess.GetCommand("shoutbox_getmessages"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("NumberOfMessages", numberOfMessages);
@@ -9707,7 +9707,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool shoutbox_savemessage(int boardId, string message, string userName, int userID, object ip)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("shoutbox_savemessage"))
+      using (var cmd = MsSqlDbAccess.GetCommand("shoutbox_savemessage"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardId", boardId);
@@ -9728,7 +9728,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static bool shoutbox_clearmessages(int boardId)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("shoutbox_clearmessages"))
+      using (var cmd = MsSqlDbAccess.GetCommand("shoutbox_clearmessages"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardId", boardId);
@@ -9834,7 +9834,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string[] buddy_addrequest(object FromUserID, object ToUserID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("buddy_addrequest"))
+      using (var cmd = MsSqlDbAccess.GetCommand("buddy_addrequest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -9867,7 +9867,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string buddy_approveRequest(object FromUserID, object ToUserID, object Mutual)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("buddy_approverequest"))
+      using (var cmd = MsSqlDbAccess.GetCommand("buddy_approverequest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -9895,7 +9895,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string buddy_denyRequest(object FromUserID, object ToUserID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("buddy_denyrequest"))
+      using (var cmd = MsSqlDbAccess.GetCommand("buddy_denyrequest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -9922,7 +9922,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string buddy_remove(object FromUserID, object ToUserID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("buddy_remove"))
+      using (var cmd = MsSqlDbAccess.GetCommand("buddy_remove"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -9946,7 +9946,7 @@ namespace YAF.Classes.Data
       /// </returns>
       public static DataTable buddy_list(object FromUserID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("buddy_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("buddy_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("FromUserID", FromUserID);
@@ -9974,7 +9974,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static int album_save(object albumID, object userID, object title, object coverImageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter();
@@ -10004,7 +10004,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable album_list(object userID, object albumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
@@ -10021,7 +10021,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void album_delete(object albumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("AlbumID", albumID);
@@ -10037,7 +10037,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static string album_gettitle(object albumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_gettitle"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_gettitle"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
@@ -10064,7 +10064,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static int[] album_getstats(object userID, object albumID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_getstats"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_getstats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         var paramAlbumNumber = new SqlParameter("AlbumNumber", 0);
@@ -10109,7 +10109,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void album_image_save(object imageID, object albumID, object caption, object fileName, object bytes, object contentType)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_image_save"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_image_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ImageID", imageID);
@@ -10137,7 +10137,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable album_image_list(object albumID, object imageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_image_list"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_image_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("AlbumID", albumID);
@@ -10154,7 +10154,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void album_image_delete(object imageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_image_delete"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_image_delete"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ImageID", imageID);
@@ -10170,7 +10170,7 @@ namespace YAF.Classes.Data
     /// </param>
     public static void album_image_download(object imageID)
     {
-      using (SqlCommand cmd = MsSqlDbAccess.GetCommand("album_image_download"))
+      using (var cmd = MsSqlDbAccess.GetCommand("album_image_download"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ImageID", imageID);
