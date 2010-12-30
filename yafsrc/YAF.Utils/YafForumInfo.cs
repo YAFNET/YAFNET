@@ -136,7 +136,7 @@ namespace YAF.Utils
     {
       get
       {
-        return 0x01095121;
+        return 0x01095521;
       }
     }
 
@@ -147,7 +147,7 @@ namespace YAF.Utils
     {
       get
       {
-        return new DateTime(2010, 12, 28);
+        return new DateTime(2010, 12, 30);
       }
     }
 
