@@ -105,7 +105,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      DB.bbcode_save(
+      LegacyDb.bbcode_save(
         this.BBCodeID, 
         this.PageContext.PageBoardID, 
         this.txtName.Text.Trim(), 
@@ -132,7 +132,7 @@ namespace YAF.Pages.Admin
     {
       if (this.BBCodeID != null)
       {
-        DataRow row = DB.bbcode_list(this.PageContext.PageBoardID, this.BBCodeID.Value).Rows[0];
+        DataRow row = LegacyDb.bbcode_list(this.PageContext.PageBoardID, this.BBCodeID.Value).Rows[0];
 
         // fill the control values...
         this.txtName.Text = row["Name"].ToString();

@@ -373,7 +373,7 @@ namespace YAF.Pages
           if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
           {
               var pollGroup =
-                  DB.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+                  LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
                       new AreEqualFunc<TypedPollGroup>((id1, id2) => id1.PollGroupID == id2.PollGroupID)).ToList();
 
               pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
@@ -422,14 +422,14 @@ namespace YAF.Pages
       if (this._returnForum > 0)
       {
         this.PageLinks.AddLink(
-          DB.forum_list(this.PageContext.PageBoardID, this._returnForum).Rows[0]["Name"].ToString(), 
+          LegacyDb.forum_list(this.PageContext.PageBoardID, this._returnForum).Rows[0]["Name"].ToString(), 
           YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum));
       }
 
       if (this._forumId > 0)
       {
         this.PageLinks.AddLink(
-          DB.forum_list(this.PageContext.PageBoardID, this._returnForum).Rows[0]["Name"].ToString(), 
+          LegacyDb.forum_list(this.PageContext.PageBoardID, this._returnForum).Rows[0]["Name"].ToString(), 
           YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._forumId));
       }
 
@@ -517,7 +517,7 @@ namespace YAF.Pages
          }
 
 
-          DB.poll_update(
+          LegacyDb.poll_update(
           this.PollId, 
           this.Question.Text, 
           this._datePollExpire, 
@@ -563,16 +563,16 @@ namespace YAF.Pages
           if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
             // add choice
-              DB.choice_add(this.PollId, choice, choiceObjectPath, choiceImageMime);
+              LegacyDb.choice_add(this.PollId, choice, choiceObjectPath, choiceImageMime);
           }
           else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
-              DB.choice_update(chid, choice, choiceObjectPath, choiceImageMime);
+              LegacyDb.choice_update(chid, choice, choiceObjectPath, choiceImageMime);
           }
           else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
           {
             // remove choice
-            DB.choice_delete(chid);
+            LegacyDb.choice_delete(chid);
           }
         }
 
@@ -584,7 +584,7 @@ namespace YAF.Pages
         // The value was selected, we attach an existing poll
         if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) > 0)
         {
-            int result = DB.pollgroup_attach(
+            int result = LegacyDb.pollgroup_attach(
                 Convert.ToInt32(this.PollGroupListDropDown.SelectedValue),
                 this._topicId,
                 this._forumId,
@@ -686,7 +686,7 @@ namespace YAF.Pages
               this.IsBoundCheckBox.Checked, 
               this.IsClosedBoundCheckBox.Checked,
               this.AllowMultipleChoicesCheckBox.Checked));
-          DB.poll_save(pollSaveList);
+          LegacyDb.poll_save(pollSaveList);
           return true;
         }
 
@@ -702,7 +702,7 @@ namespace YAF.Pages
     private void InitPollUI(int? pollID)
     {
       // we should get the schema anyway
-      this._choices = DB.poll_stats(pollID);
+      this._choices = LegacyDb.poll_stats(pollID);
       this._choices.Columns.Add("ChoiceOrderID", typeof(int));
 
       // First existing values alway 1!
@@ -763,7 +763,7 @@ namespace YAF.Pages
           {
             pgidt = (int)this._topicInfo["PollID"];
 
-            DataTable pollGroupData = DB.pollgroup_stats(pgidt);
+            DataTable pollGroupData = LegacyDb.pollgroup_stats(pgidt);
 
             this.IsBoundCheckBox.Checked = Convert.ToBoolean(pollGroupData.Rows[0]["IsBound"]);
             // this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
@@ -772,25 +772,25 @@ namespace YAF.Pages
         else if (this._forumId > 0 && (!(this._topicId > 0) || (!(this._editTopicId > 0))))
         {
           // forumid should not be null here
-          pgidt = (int)DB.forum_list(this.PageContext.PageBoardID, this._forumId).Rows[0]["PollGroupID"];
+          pgidt = (int)LegacyDb.forum_list(this.PageContext.PageBoardID, this._forumId).Rows[0]["PollGroupID"];
         }
         else if (this._categoryId > 0)
         {
           // categoryid should not be null here
           pgidt =
             (int)
-            DB.category_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, this._categoryId).Rows[0][
+            LegacyDb.category_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, this._categoryId).Rows[0][
               "PollGroupID"];
         }
 
         if (pgidt > 0)
         {
-          if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsBound"]) == 2)
+          if (Convert.ToInt32(LegacyDb.pollgroup_stats(pgidt).Rows[0]["IsBound"]) == 2)
           {
             this.IsBoundCheckBox.Checked = true;
           }
 
-          if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]) == 4)
+          if (Convert.ToInt32(LegacyDb.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]) == 4)
           {
             this.IsClosedBoundCheckBox.Checked = true;
           }
@@ -848,7 +848,7 @@ namespace YAF.Pages
         if (this.PageContext.QueryIDs.ContainsKey("t"))
         {
           this._topicId = (int)this.PageContext.QueryIDs["t"];
-          this._topicInfo = DB.topic_info(this._topicId);
+          this._topicInfo = LegacyDb.topic_info(this._topicId);
         }
 
         if (this.PageContext.QueryIDs.ContainsKey("m"))
@@ -1075,7 +1075,7 @@ namespace YAF.Pages
                 // Remove repeating PollID values   
                 var hTable = new Hashtable();
                 var duplicateList = new ArrayList();
-                DataTable dtPollGroup = DB.pollgroup_stats(pollGroupId);
+                DataTable dtPollGroup = LegacyDb.pollgroup_stats(pollGroupId);
 
                 foreach (DataRow drow in dtPollGroup.Rows)
                 {

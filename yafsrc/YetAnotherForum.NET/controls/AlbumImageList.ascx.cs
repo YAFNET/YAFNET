@@ -80,15 +80,15 @@ namespace YAF.Controls
     /// </param>
     protected void AlbumImages_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
     {
-      using (var dt = DB.album_list(null, this.AlbumID))
+      using (var dt = LegacyDb.album_list(null, this.AlbumID))
       {
         if (dt.Rows[0]["CoverImageID"].ToString() == e.CommandArgument.ToString())
         {
-          DB.album_save(this.AlbumID, null, null, 0);
+          LegacyDb.album_save(this.AlbumID, null, null, 0);
         }
         else
         {
-          DB.album_save(dt.Rows[0]["AlbumID"], null, null, e.CommandArgument);
+          LegacyDb.album_save(dt.Rows[0]["AlbumID"], null, null, e.CommandArgument);
         }
       }
 
@@ -213,7 +213,7 @@ namespace YAF.Controls
     private void BindData()
     {
       this.PagerTop.PageSize = YafContext.Current.BoardSettings.AlbumImagesPerPage;
-      string albumTitle = DB.album_gettitle(this.AlbumID);
+      string albumTitle = LegacyDb.album_gettitle(this.AlbumID);
 
       // if (UserID == PageContext.PageUserID)
       // ltrTitle.Visible = false;
@@ -223,8 +223,8 @@ namespace YAF.Controls
                              : this.HtmlEncode(albumTitle);
 
       // set the Datatable
-      var dtAlbumImageList = DB.album_image_list(this.AlbumID, null);
-      var dtAlbum = DB.album_list(null, this.AlbumID);
+      var dtAlbumImageList = LegacyDb.album_image_list(this.AlbumID, null);
+      var dtAlbum = LegacyDb.album_list(null, this.AlbumID);
 
       // Does this album has a cover?
       this._coverImageID = dtAlbum.Rows[0]["CoverImageID"] == DBNull.Value

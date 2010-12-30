@@ -385,7 +385,7 @@ namespace YAF.Pages
         // save the time zone...
         int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-        DB.user_save(
+        LegacyDb.user_save(
           userId, 
           this.PageContext.PageBoardID, 
           null, 
@@ -407,7 +407,7 @@ namespace YAF.Pages
                                       UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
         // save the settings...
-        DB.user_savenotification(
+        LegacyDb.user_savenotification(
           userId, 
           true, 
           autoWatchTopicsEnabled, 
@@ -604,7 +604,7 @@ namespace YAF.Pages
       string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
       // save verification record...
-      DB.checkemail_save(userID, hash, user.Email);
+      LegacyDb.checkemail_save(userID, hash, user.Email);
 
       var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
@@ -691,7 +691,7 @@ namespace YAF.Pages
           string.IsNullOrEmpty(this.PageContext.BoardSettings.RecaptchaPrivateKey))
       {
         // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
-        DB.eventlog_create(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
+        LegacyDb.eventlog_create(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
         YafBuildLink.AccessDenied();
       }
 

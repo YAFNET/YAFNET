@@ -95,7 +95,7 @@ namespace YAF.Classes
       var messageID = msgID.ToType<int>();
 
       string username =
-        DB.message_AddThanks(
+        LegacyDb.message_AddThanks(
           UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
 
       // if the user is empty, return a null object...
@@ -156,7 +156,7 @@ namespace YAF.Classes
     {
       var filler = new StringBuilder();
 
-      using (DataTable dt = DB.message_GetThanks(messageId))
+      using (DataTable dt = LegacyDb.message_GetThanks(messageId))
       {
         foreach (DataRow dr in dt.Rows)
         {
@@ -217,7 +217,7 @@ namespace YAF.Classes
       var messageID = msgID.ToType<int>();
 
       string username =
-        DB.message_RemoveThanks(
+        LegacyDb.message_RemoveThanks(
           UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), messageID);
 
       return this.CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
@@ -242,7 +242,7 @@ namespace YAF.Classes
     /// </returns>
     protected string ThanksNumber([NotNull] string username, int messageID)
     {
-      int thanksNumber = DB.message_ThanksNumber(messageID);
+      int thanksNumber = LegacyDb.message_ThanksNumber(messageID);
 
       // get the user's display name.
       string displayName =

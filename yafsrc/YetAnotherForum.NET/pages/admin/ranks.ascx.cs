@@ -153,7 +153,7 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
           break;
         case "delete":
-          DB.rank_delete(e.CommandArgument);
+          LegacyDb.rank_delete(e.CommandArgument);
           this.BindData();
           break;
       }
@@ -164,7 +164,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.RankList.DataSource = DB.rank_list(this.PageContext.PageBoardID, null);
+      this.RankList.DataSource = LegacyDb.rank_list(this.PageContext.PageBoardID, null);
       this.DataBind();
     }
 

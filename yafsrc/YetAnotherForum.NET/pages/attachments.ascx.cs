@@ -160,7 +160,7 @@ namespace YAF.Pages
       switch (e.CommandName)
       {
         case "delete":
-          DB.attachment_delete(e.CommandArgument);
+          LegacyDb.attachment_delete(e.CommandArgument);
           this.BindData();
           this.uploadtitletr.Visible = true;
           this.selectfiletr.Visible = true;
@@ -179,12 +179,12 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+      using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
       {
         this._forum = dt.Rows[0];
       }
 
-      this._topic = DB.topic_info(this.PageContext.PageTopicID);
+      this._topic = LegacyDb.topic_info(this.PageContext.PageTopicID);
 
       if (this.IsPostBack)
       {
@@ -215,7 +215,7 @@ namespace YAF.Pages
       // Check that non-moderators only edit messages they have written
       if (!this.PageContext.ForumModeratorAccess)
       {
-        using (DataTable dt = DB.message_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
+        using (DataTable dt = LegacyDb.message_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
         {
           if ((int)dt.Rows[0]["UserID"] != this.PageContext.PageUserID)
           {
@@ -249,7 +249,7 @@ namespace YAF.Pages
       this.Upload.Text = this.GetText("UPLOAD");
 
       // MJ : 10/14/2007 - list of allowed file extensions
-      DataTable extensionTable = DB.extension_list(this.PageContext.PageBoardID);
+      DataTable extensionTable = LegacyDb.extension_list(this.PageContext.PageBoardID);
 
       string types = string.Empty;
       bool bFirst = true;
@@ -304,7 +304,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+        LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
         this.PageContext.AddLoadMessage(x.Message);
         return;
       }
@@ -315,7 +315,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      DataTable dt = DB.attachment_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), null, null);
+      DataTable dt = LegacyDb.attachment_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), null, null);
       this.List.DataSource = dt;
 
       this.List.Visible = (dt.Rows.Count > 0) ? true : false;
@@ -361,7 +361,7 @@ namespace YAF.Pages
       extension = extension.Replace(".", string.Empty);
 
       // If we don't get a match from the db, then the extension is not allowed
-      DataTable dt = DB.extension_list(this.PageContext.PageBoardID, extension);
+      DataTable dt = LegacyDb.extension_list(this.PageContext.PageBoardID, extension);
 
       bool bInList = dt.Rows.Count > 0;
       bool bError = false;
@@ -435,13 +435,13 @@ namespace YAF.Pages
 
       if (this.PageContext.BoardSettings.UseFileTable)
       {
-        DB.attachment_save(
+        LegacyDb.attachment_save(
           messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, file.PostedFile.InputStream);
       }
       else
       {
         file.PostedFile.SaveAs("{0}/{1}.{2}.yafupload".FormatWith(previousDirectory, messageID, filename));
-        DB.attachment_save(messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null);
+        LegacyDb.attachment_save(messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null);
       }
     }
 

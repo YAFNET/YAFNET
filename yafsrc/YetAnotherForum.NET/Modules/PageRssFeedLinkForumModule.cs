@@ -23,19 +23,13 @@ namespace YAF.Modules
   using System;
   using System.Web.UI.HtmlControls;
 
-  using YAF.Classes;
   using YAF.Core;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils.Helpers;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Types.Constants;
-  using YAF.Utils;
   using YAF.Types.Interfaces;
-
-  using IPermissionsExtensions = YAF.Core.IPermissionsExtensions;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -92,7 +86,7 @@ namespace YAF.Modules
       if (head != null)
       {
         bool groupAccess =
-          IPermissionsExtensions.Check(YafContext.Current.Get<IPermissions>(), this.PageContext.BoardSettings.PostLatestFeedAccess);
+          this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
         {
           // setup the rss link...

@@ -223,7 +223,7 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      using (DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+      using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
       {
         this._forum = dt.Rows[0];
       }
@@ -277,7 +277,7 @@ namespace YAF.Pages
 
       if (this.WatchForumID.InnerText == string.Empty)
       {
-        DB.watchforum_add(this.PageContext.PageUserID, this.PageContext.PageForumID);
+        LegacyDb.watchforum_add(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
         // PageContext.AddLoadMessage(GetText("INFO_WATCH_FORUM"));
         var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
@@ -292,7 +292,7 @@ namespace YAF.Pages
       else
       {
         var tmpID = this.WatchForumID.InnerText.ToType<int>();
-        DB.watchforum_delete(tmpID);
+        LegacyDb.watchforum_delete(tmpID);
 
         // PageContext.AddLoadMessage(GetText("INFO_UNWATCH_FORUM"));
         var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
@@ -358,7 +358,7 @@ namespace YAF.Pages
 
       DataTable dt =
         this.StyleTransformDataTable(
-          DB.topic_list(
+          LegacyDb.topic_list(
             this.PageContext.PageForumID, userId, 1, null, 0, 10, this.PageContext.BoardSettings.UseStyledNicks, true));
 
       int nPageSize = Math.Max(5, this.Pager.PageSize - dt.Rows.Count);
@@ -381,7 +381,7 @@ namespace YAF.Pages
       {
         dtTopics =
           this.StyleTransformDataTable(
-            DB.topic_list(
+            LegacyDb.topic_list(
               this.PageContext.PageForumID, 
               userId, 
               0, 
@@ -424,7 +424,7 @@ namespace YAF.Pages
 
         dtTopics =
           this.StyleTransformDataTable(
-            DB.topic_list(
+            LegacyDb.topic_list(
               this.PageContext.PageForumID, 
               userId, 
               0, 
@@ -465,7 +465,7 @@ namespace YAF.Pages
       }
 
       // check if this forum is being watched by this user
-      using (DataTable dt = DB.watchforum_check(this.PageContext.PageUserID, this.PageContext.PageForumID))
+      using (DataTable dt = LegacyDb.watchforum_check(this.PageContext.PageUserID, this.PageContext.PageForumID))
       {
         if (dt.Rows.Count > 0)
         {

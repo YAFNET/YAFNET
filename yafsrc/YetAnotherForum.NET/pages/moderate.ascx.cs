@@ -78,7 +78,7 @@ namespace YAF.Pages
     {
       var pds = new PagedDataSource { AllowPaging = true, PageSize = this.PagerTop.PageSize };
 
-      DataTable dt = DB.topic_list(
+      DataTable dt = LegacyDb.topic_list(
         this.PageContext.PageForumID, 
         null, 
         -1, 
@@ -104,7 +104,7 @@ namespace YAF.Pages
       }
 
       this.topiclist.DataSource = pds;
-      this.UserList.DataSource = DB.userforum_list(null, this.PageContext.PageForumID);
+      this.UserList.DataSource = LegacyDb.userforum_list(null, this.PageContext.PageForumID);
       this.DataBind();
 
       this.PagerTop.Count = rowCount;
@@ -125,7 +125,7 @@ namespace YAF.Pages
         this.topiclist.Controls.OfType<RepeaterItem>().SelectMany(x => x.Controls.OfType<TopicLine>()).Where(
           x => x.IsSelected && x.TopicRowID.HasValue).ToList();
 
-      list.ForEach(x => DB.topic_delete(x.TopicRowID));
+      list.ForEach(x => LegacyDb.topic_delete(x.TopicRowID));
 
       this.PageContext.AddLoadMessage(this.GetText("deleted"));
       this.BindData();
@@ -230,7 +230,7 @@ namespace YAF.Pages
             ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
           break;
         case "remove":
-          DB.userforum_delete(e.CommandArgument, this.PageContext.PageForumID);
+          LegacyDb.userforum_delete(e.CommandArgument, this.PageContext.PageForumID);
           this.BindData();
 
           // clear moderatorss cache
@@ -252,7 +252,7 @@ namespace YAF.Pages
     {
       if (e.CommandName == "delete")
       {
-        DB.topic_delete(e.CommandArgument);
+        LegacyDb.topic_delete(e.CommandArgument);
         this.PageContext.AddLoadMessage(this.GetText("deleted"));
         this.BindData();
       }

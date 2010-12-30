@@ -125,7 +125,7 @@ namespace YAF.Pages
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
       }
 
-      DataTable thanksInfo = DB.user_viewallthanks(userID, this.PageContext.PageUserID);
+      DataTable thanksInfo = LegacyDb.user_viewallthanks(userID, this.PageContext.PageUserID);
       this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
       this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
     }

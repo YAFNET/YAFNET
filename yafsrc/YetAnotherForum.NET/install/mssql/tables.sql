@@ -816,15 +816,15 @@ begin
 end
 GO
 
-if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
-begin
-	update  [{databaseOwner}].[{objectQualifier}User] SET [NotificationType]=10 WHERE [NotificationType] IS NULL
-end
-GO
-
 if not exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] ADD NotificationType int default(10)
+end
+GO
+
+if exists (select top 1 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
+begin
+	update  [{databaseOwner}].[{objectQualifier}User] SET [NotificationType]=10 WHERE [NotificationType] IS NULL
 end
 GO
 

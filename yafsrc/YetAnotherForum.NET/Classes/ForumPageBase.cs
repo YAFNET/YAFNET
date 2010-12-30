@@ -79,7 +79,7 @@ namespace YAF
       }
 
       var error = this.Get<HttpServerUtilityBase>().GetLastError();
-      DB.eventlog_create((int?)YafContext.Current.PageUserID, this, error);
+      LegacyDb.eventlog_create((int?)YafContext.Current.PageUserID, this, error);
     }
 
     #endregion

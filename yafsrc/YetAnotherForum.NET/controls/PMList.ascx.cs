@@ -93,13 +93,13 @@ namespace YAF.Controls
       }
 
       long archivedCount = 0;
-      using (DataView dv = DB.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
+      using (DataView dv = LegacyDb.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
       {
         dv.RowFilter = "IsDeleted = False AND IsArchived = False";
 
         foreach (DataRowView item in dv)
         {
-          DB.pmessage_archive(item["UserPMessageID"]);
+          LegacyDb.pmessage_archive(item["UserPMessageID"]);
           archivedCount++;
         }
       }
@@ -146,7 +146,7 @@ namespace YAF.Controls
       {
         if (((CheckBox)item.FindControl("ItemCheck")).Checked)
         {
-          DB.pmessage_archive(this.MessagesView.DataKeys[item.RowIndex].Value);
+          LegacyDb.pmessage_archive(this.MessagesView.DataKeys[item.RowIndex].Value);
           archivedCount++;
         }
       }
@@ -202,7 +202,7 @@ namespace YAF.Controls
         toUserID = this.PageContext.PageUserID;
       }
 
-      using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
+      using (DataView dv = LegacyDb.pmessage_list(toUserID, fromUserID, null).DefaultView)
       {
         switch (this.View)
         {
@@ -221,11 +221,11 @@ namespace YAF.Controls
         {
           if (isoutbox)
           {
-            DB.pmessage_delete(item["UserPMessageID"], true);
+            LegacyDb.pmessage_delete(item["UserPMessageID"], true);
           }
           else
           {
-            DB.pmessage_delete(item["UserPMessageID"]);
+            LegacyDb.pmessage_delete(item["UserPMessageID"]);
           }
 
           nItemCount++;
@@ -272,10 +272,10 @@ namespace YAF.Controls
         switch (this.View)
         {
           case PMView.Outbox:
-            DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
+            LegacyDb.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
             break;
           default:
-            DB.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
+            LegacyDb.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
             break;
         }
 
@@ -569,7 +569,7 @@ namespace YAF.Controls
         return;
       }
 
-      using (DataView dv = DB.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
+      using (DataView dv = LegacyDb.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
       {
         if (this.View == PMView.Inbox)
         {
@@ -582,7 +582,7 @@ namespace YAF.Controls
 
         foreach (DataRowView item in dv)
         {
-          DB.pmessage_markread(item["UserPMessageID"]);
+          LegacyDb.pmessage_markread(item["UserPMessageID"]);
 
           // Clearing cache with old permissions data...
           this.PageContext.Cache.Remove(
@@ -704,7 +704,7 @@ namespace YAF.Controls
     protected void Stats_Renew()
     {
       // Renew PM Statistics
-      DataTable dt = DB.user_pmcount(this.PageContext.PageUserID);
+      DataTable dt = LegacyDb.user_pmcount(this.PageContext.PageUserID);
       if (dt.Rows.Count > 0)
       {
         this.PMInfoLink.Text = this.GetPMessageText(
@@ -749,7 +749,7 @@ namespace YAF.Controls
         toUserID = this.PageContext.PageUserID;
       }
 
-      using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
+      using (DataView dv = LegacyDb.pmessage_list(toUserID, fromUserID, null).DefaultView)
       {
         switch (this.View)
         {

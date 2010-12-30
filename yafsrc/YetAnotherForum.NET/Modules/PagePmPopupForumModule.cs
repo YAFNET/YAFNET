@@ -22,17 +22,13 @@ namespace YAF.Modules
 
   using System;
 
-  using YAF.Classes;
-  using YAF.Core;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Types.Constants;
-  using YAF.Utils;
   using YAF.Controls;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -112,7 +108,7 @@ namespace YAF.Modules
     /// </param>
     private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.GeneratePopUp();
+      this.GeneratePopUp();
     }
 
     /// <summary>
@@ -120,44 +116,49 @@ namespace YAF.Modules
     /// </summary>
     private void GeneratePopUp()
     {
-      var notification = (DialogBox)PageContext.CurrentForumPage.Notification;
+      var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
       // This happens when user logs in
       if (this.DisplayPMPopup())
       {
-          notification.Show(
-              this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
-              this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG_TITLE"),
-              DialogBox.DialogIcon.Mail,
-              new DialogBox.DialogButton
-                  {
-                      Text = "Yes",
-                      CssClass = "StandardButton",
-                      ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
-                  },
-              new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton" });
+        notification.Show(
+          this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate), 
+          this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG_TITLE"), 
+          DialogBox.DialogIcon.Mail, 
+          new DialogBox.DialogButton
+            {
+              Text = "Yes", 
+              CssClass = "StandardButton", 
+              ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
+            }, 
+          new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton" });
 
-          this.PageContext.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
+        this.PageContext.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
       }
 
-        if (!this.DisplayPendingBuddies())
-        {
-            return;
-        }
+      if (!this.DisplayPendingBuddies())
+      {
+        return;
+      }
 
-        notification.Show(
-            this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies),
-            this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
-            DialogBox.DialogIcon.Info,
-            new DialogBox.DialogButton { Text = "Yes", CssClass = "StandardButton", ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies } },
-            new DialogBox.DialogButton
-            {
-                Text = "No",
-                CssClass = "StandardButton",
-                ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
-            });
+      notification.Show(
+        this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies), 
+        this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES_TITLE"), 
+        DialogBox.DialogIcon.Info, 
+        new DialogBox.DialogButton
+          {
+            Text = "Yes", 
+            CssClass = "StandardButton", 
+            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
+          }, 
+        new DialogBox.DialogButton
+          {
+            Text = "No", 
+            CssClass = "StandardButton", 
+            ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
+          });
 
-        this.PageContext.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+      this.PageContext.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
     }
 
     #endregion

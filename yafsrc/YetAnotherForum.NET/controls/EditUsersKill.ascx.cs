@@ -61,7 +61,7 @@ namespace YAF.Controls
       {
         if (this._allPostsByUser == null)
         {
-          this._allPostsByUser = DB.post_alluser(
+          this._allPostsByUser = LegacyDb.post_alluser(
             this.PageContext.PageBoardID, this.CurrentUserID, this.PageContext.PageUserID, null);
         }
 
@@ -159,7 +159,7 @@ namespace YAF.Controls
     private void BanUserIps()
     {
       var ips = this.IPAddresses;
-      var allIps = DB.bannedip_list(this.PageContext.PageBoardID, null).GetColumnAsList<string>("Mask").ToList();
+      var allIps = LegacyDb.bannedip_list(this.PageContext.PageBoardID, null).GetColumnAsList<string>("Mask").ToList();
 
       // remove all IPs from ips if they already exist in allIps...
       ips.RemoveAll(allIps.Contains);
@@ -174,7 +174,7 @@ namespace YAF.Controls
 
       this.IPAddresses.ForEach(
         x =>
-        DB.bannedip_save(
+        LegacyDb.bannedip_save(
           null, 
           this.PageContext.PageBoardID, 
           x, 
@@ -211,7 +211,7 @@ namespace YAF.Controls
       var messageIds =
         (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
 
-      messageIds.ForEach(x => DB.message_delete(x, true, string.Empty, 1, true));
+      messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true));
     }
 
     #endregion

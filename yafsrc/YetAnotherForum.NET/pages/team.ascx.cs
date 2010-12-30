@@ -103,7 +103,7 @@ namespace YAF.Pages
     [NotNull]
     protected DataTable GetAdmins()
     {
-      DataTable adminListDataTable = DB.user_list(
+      DataTable adminListDataTable = LegacyDb.user_list(
         this.PageContext.PageBoardID, null, true, null, 1, YafContext.Current.BoardSettings.UseStyledNicks);
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
@@ -362,7 +362,7 @@ namespace YAF.Pages
         return;
       }
 
-      var allForums = DB.ForumListAll(this.PageContext.PageBoardID, this.PageContext.PageUserID).ToList();
+      var allForums = LegacyDb.ForumListAll(this.PageContext.PageBoardID, this.PageContext.PageUserID).ToList();
 
       var modForums = (DropDownList)e.Item.FindControl("ModForums");
 

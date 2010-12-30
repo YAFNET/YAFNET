@@ -124,11 +124,11 @@ namespace YAF.Pages
       {
         if (this.IsOutbox)
         {
-          DB.pmessage_delete(e.CommandArgument, true);
+          LegacyDb.pmessage_delete(e.CommandArgument, true);
         }
         else
         {
-          DB.pmessage_delete(e.CommandArgument);
+          LegacyDb.pmessage_delete(e.CommandArgument);
         }
 
         this.BindData();
@@ -200,7 +200,7 @@ namespace YAF.Pages
     {
       using (
         DataTable dt =
-          DB.pmessage_list(
+          LegacyDb.pmessage_list(
             Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
       {
         if (dt.Rows.Count > 0)
@@ -248,7 +248,7 @@ namespace YAF.Pages
 
       if (!this.IsOutbox)
       {
-        DB.pmessage_markread(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
+        LegacyDb.pmessage_markread(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
 
         // Clearing cache with old permissions data...
         this.PageContext.Cache.Remove(

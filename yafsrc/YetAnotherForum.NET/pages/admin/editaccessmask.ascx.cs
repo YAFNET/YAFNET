@@ -136,7 +136,7 @@ namespace YAF.Pages.Admin
       }
 
       // save it
-      DB.accessmask_save(
+      LegacyDb.accessmask_save(
         accessMaskID, 
         this.PageContext.PageBoardID, 
         this.Name.Text, 
@@ -171,7 +171,7 @@ namespace YAF.Pages.Admin
       {
         // load access mask
         using (
-          DataTable dt = DB.accessmask_list(
+          DataTable dt = LegacyDb.accessmask_list(
             this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
         {
           // we need just one

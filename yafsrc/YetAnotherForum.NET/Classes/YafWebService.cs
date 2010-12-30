@@ -90,7 +90,7 @@ public class YafWebService : WebService
     long messageId = 0;
     string subjectEncoded = this.Server.HtmlEncode(subject);
 
-    return DB.topic_save(
+    return LegacyDb.topic_save(
       forumid, subjectEncoded, post, userid, priority, username, ip, null, null, flags, ref messageId);
   }
 
@@ -137,9 +137,9 @@ public class YafWebService : WebService
           "Display Name must be unique. {0} display name already exists in the database.".FormatWith(displayName));
       }
 
-      var userFields = DB.user_list(Config.BoardID, userId, null).Rows[0];
+      var userFields = LegacyDb.user_list(Config.BoardID, userId, null).Rows[0];
 
-      DB.user_save(
+      LegacyDb.user_save(
         userId, 
         Config.BoardID, 
         null, 

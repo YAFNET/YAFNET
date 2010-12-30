@@ -138,7 +138,7 @@ namespace YAF.Pages
         this.PageLinks.AddLink(
           this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
-        var dt = DB.post_list(
+        var dt = LegacyDb.post_list(
           this.PageContext.PageTopicID, 1, this.PageContext.BoardSettings.ShowDeletedMessages, false);
 
         // get max 500 rows

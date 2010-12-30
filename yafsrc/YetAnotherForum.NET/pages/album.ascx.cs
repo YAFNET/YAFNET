@@ -113,7 +113,7 @@ namespace YAF.Pages
       this.LocalizedLabel1.Param0 = !string.IsNullOrEmpty(displayName)
                                       ? this.Server.HtmlEncode(displayName)
                                       : this.Server.HtmlEncode(this.PageContext.User.UserName);
-      this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(DB.album_gettitle(albumId));
+      this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(LegacyDb.album_gettitle(albumId));
 
       // Initialize the Album Image List control.
       this.AlbumImageList1.UserID = (int)userId;

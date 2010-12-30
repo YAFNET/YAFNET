@@ -122,7 +122,7 @@ namespace YAF.Pages
       {
         string senderEmail = null;
 
-        using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
+        using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
         {
           senderEmail = (string)dt.Rows[0]["Email"];
         }
@@ -135,7 +135,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+        LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
         this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message));
       }
     }

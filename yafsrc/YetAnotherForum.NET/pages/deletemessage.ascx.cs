@@ -263,7 +263,7 @@ namespace YAF.Pages
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
       {
         this._messageRow =
-          DB.message_list(
+          LegacyDb.message_list(
             Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"))).
             GetFirstRowOrInvalid();
 
@@ -315,7 +315,7 @@ namespace YAF.Pages
           // delete message...
           this.PreviewRow.Visible = true;
 
-          DataTable tempdb = DB.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+          DataTable tempdb = LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
           if (tempdb.Rows.Count != 0 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
           {
@@ -375,7 +375,7 @@ namespace YAF.Pages
       // Toogle delete message -- if the message is currently deleted it will be undeleted.
       // If it's not deleted it will be marked deleted.
       // If it is the last message of the topic, the topic is also deleted
-      DB.message_delete(
+      LegacyDb.message_delete(
         tmpMessageID, 
         this._isModeratorChanged, 
         HttpUtility.HtmlEncode(this.ReasonEditor.Text), 
@@ -384,7 +384,7 @@ namespace YAF.Pages
         this.EraseMessage.Checked);
 
       // retrieve topic information.
-      DataRow topic = DB.topic_info(tmpTopicID);
+      DataRow topic = LegacyDb.topic_info(tmpTopicID);
 
       // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
       if (topic == null)

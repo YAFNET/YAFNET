@@ -133,7 +133,7 @@ namespace YAF.Controls
 
       if (activeTopics == null)
       {
-        activeTopics = DB.topic_latest(
+        activeTopics = LegacyDb.topic_latest(
           this.PageContext.PageBoardID, 
           this.PageContext.BoardSettings.ActiveDiscussionsCount, 
           this.PageContext.PageUserID, 

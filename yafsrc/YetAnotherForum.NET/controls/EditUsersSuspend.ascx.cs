@@ -156,7 +156,7 @@ namespace YAF.Controls
     protected void RemoveSuspension_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // un-suspend user
-      DB.user_suspend(this.CurrentUserID, null);
+      LegacyDb.user_suspend(this.CurrentUserID, null);
 
       // re-bind data
       this.BindData();
@@ -175,7 +175,7 @@ namespace YAF.Controls
     {
       // Admins can suspend anyone not admins
       // Forum Moderators can suspend anyone not admin or forum moderator
-      using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
+      using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
       {
         foreach (DataRow row in dt.Rows)
         {
@@ -238,7 +238,7 @@ namespace YAF.Controls
       }
 
       // suspend user by calling appropriate method
-      DB.user_suspend(this.CurrentUserID, suspend);
+      LegacyDb.user_suspend(this.CurrentUserID, suspend);
 
       // re-bind data
       this.BindData();
@@ -250,7 +250,7 @@ namespace YAF.Controls
     private void BindData()
     {
       // get user's info
-      using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
+      using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
       {
         // there is no such user
         if (dt.Rows.Count < 1)

@@ -163,7 +163,7 @@ namespace YAF.Controls
       if (this.CurrentMode == TopicListMode.Active)
       {
         // we are getting active topics
-        topicList = DB.topic_active(
+        topicList = LegacyDb.topic_active(
           this.PageContext.PageBoardID, 
           this.PageContext.PageUserID, 
           this.sinceDate, 

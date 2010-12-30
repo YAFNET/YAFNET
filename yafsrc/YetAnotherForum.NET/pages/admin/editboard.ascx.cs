@@ -81,7 +81,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((DropDownList)sender).DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+      ((DropDownList)sender).DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       ((DropDownList)sender).DataValueField = "AccessMaskID";
       ((DropDownList)sender).DataTextField = "Name";
     }
@@ -193,7 +193,7 @@ namespace YAF.Pages.Admin
         RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
 
         // Create Board
-        newBoardID = DB.board_create(
+        newBoardID = LegacyDb.board_create(
           newAdmin.UserName, 
           newAdmin.Email, 
           newAdmin.ProviderUserKey, 
@@ -209,7 +209,7 @@ namespace YAF.Pages.Admin
         MembershipUser newAdmin = UserMembershipHelper.GetUser();
 
         // Create Board
-        newBoardID = DB.board_create(
+        newBoardID = LegacyDb.board_create(
           newAdmin.UserName, 
           newAdmin.Email, 
           newAdmin.ProviderUserKey, 
@@ -339,7 +339,7 @@ namespace YAF.Pages.Admin
         {
           this.CreateNewAdminHolder.Visible = false;
 
-          using (DataTable dt = DB.board_list(this.BoardID))
+          using (DataTable dt = LegacyDb.board_list(this.BoardID))
           {
             DataRow row = dt.Rows[0];
             this.Name.Text = (string)row["Name"];
@@ -412,7 +412,7 @@ namespace YAF.Pages.Admin
         }
 
         // Save current board settings
-        DB.board_save(
+        LegacyDb.board_save(
           this.BoardID, langFile, this.Culture.SelectedItem.Value, this.Name.Text.Trim(), this.AllowThreaded.Checked);
       }
       else

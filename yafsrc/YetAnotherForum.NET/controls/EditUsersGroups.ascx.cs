@@ -128,7 +128,7 @@ namespace YAF.Controls
 
         // get role name
         string roleName = string.Empty;
-        using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, roleID))
+        using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, roleID))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -140,7 +140,7 @@ namespace YAF.Controls
         bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
 
         // save user in role
-        DB.usergroup_save(this.CurrentUserID, roleID, isChecked);
+        LegacyDb.usergroup_save(this.CurrentUserID, roleID, isChecked);
 
         // update roles if this user isn't the guest
         if (!UserMembershipHelper.IsGuestUser(this.CurrentUserID))
@@ -179,7 +179,7 @@ namespace YAF.Controls
     private void BindData()
     {
       // get user roles
-      this.UserGroups.DataSource = DB.group_member(this.PageContext.PageBoardID, this.CurrentUserID);
+      this.UserGroups.DataSource = LegacyDb.group_member(this.PageContext.PageBoardID, this.CurrentUserID);
 
       // bind data to controls
       this.DataBind();

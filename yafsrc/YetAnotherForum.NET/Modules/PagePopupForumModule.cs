@@ -22,15 +22,11 @@ namespace YAF.Modules
 
   using System;
   using System.Web.UI;
-  using YAF.Core;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Types;
-  using YAF.Types.Constants;
+
   using YAF.Core.Services;
-  using YAF.Types.Constants;
+  using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Utils;
-  
 
   #endregion
 

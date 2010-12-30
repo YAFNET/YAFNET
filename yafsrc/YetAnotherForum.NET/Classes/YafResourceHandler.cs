@@ -617,7 +617,7 @@ namespace YAF
         // return;
         // }
 
-        using (DataTable dt = DB.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
+        using (DataTable dt = LegacyDb.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -680,12 +680,12 @@ namespace YAF
       {
         if (userAgent.IsNotSet())
         {
-          DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
+          LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
         }
 
         if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
         {
-          DB.eventlog_create(
+          LegacyDb.eventlog_create(
             YafContext.Current.PageUserID,
             this,
             "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'."
@@ -706,7 +706,7 @@ namespace YAF
         userKey = user.ProviderUserKey;
       }
 
-      DataRow pageRow = DB.pageload(
+      DataRow pageRow = LegacyDb.pageload(
         HttpContext.Current.Session.SessionID,
         boardID,
         userKey,
@@ -808,7 +808,7 @@ namespace YAF
           }
           else
           {
-            using (DataTable dt = DB.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("cover")))
+            using (DataTable dt = LegacyDb.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("cover")))
             {
               if (dt.Rows.Count > 0)
               {
@@ -839,7 +839,7 @@ namespace YAF
           // reset position...
           data.Position = 0;
           string imagesNumber =
-            DB.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].ToString();
+            LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].ToString();
           MemoryStream ms = GetCoverResized(data, previewMaxWidth, previewMaxHeight, previewCropped, localizationFile, imagesNumber);
 
           context.Response.ContentType = "image/png";
@@ -856,7 +856,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -881,7 +881,7 @@ namespace YAF
         }
 
         // ImageID
-        using (DataTable dt = DB.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("image")))
+        using (DataTable dt = LegacyDb.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("image")))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -913,14 +913,14 @@ namespace YAF
             context.Response.OutputStream.Write(data, 0, data.Length);
 
             // add a download count...
-            DB.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
+            LegacyDb.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
             break;
           }
         }
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -971,7 +971,7 @@ namespace YAF
       try
       {
         // ImageID
-        using (DataTable dt = DB.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("imgprv")))
+        using (DataTable dt = LegacyDb.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("imgprv")))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1020,7 +1020,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1036,7 +1036,7 @@ namespace YAF
       try
       {
         // AttachmentID
-        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("a"), null))
+        using (DataTable dt = LegacyDb.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("a"), null))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1082,14 +1082,14 @@ namespace YAF
               "attachment; filename={0}".FormatWith(
                 HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
             context.Response.OutputStream.Write(data, 0, data.Length);
-            DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("a"));
+            LegacyDb.attachment_download(context.Request.QueryString.GetFirstOrDefault("a"));
             break;
           }
         }
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1141,12 +1141,12 @@ namespace YAF
         if (CheckETag(context, eTag))
         {
           // found eTag... no need to resend/create this image -- just mark another view?
-          DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
+          LegacyDb.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
           return;
         }
 
         // AttachmentID
-        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("i"), null))
+        using (DataTable dt = LegacyDb.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("i"), null))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1192,14 +1192,14 @@ namespace YAF
             context.Response.OutputStream.Write(data, 0, data.Length);
 
             // add a download count...
-            DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
+            LegacyDb.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
             break;
           }
         }
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1250,7 +1250,7 @@ namespace YAF
       try
       {
         // AttachmentID
-        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("p"), null))
+        using (DataTable dt = LegacyDb.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("p"), null))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1315,7 +1315,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1331,7 +1331,7 @@ namespace YAF
       if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.Medium)
       {
         // don't bother... not supported.
-        DB.eventlog_create(
+        LegacyDb.eventlog_create(
           null,
           this.GetType().ToString(),
           "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",

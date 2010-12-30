@@ -64,9 +64,9 @@ namespace YAF.Pages
     {
       if (this.TopicSubject.Text != string.Empty)
       {
-        long nTopicId = DB.topic_create_by_message(
+        long nTopicId = LegacyDb.topic_create_by_message(
           this.Request.QueryString.GetFirstOrDefault("m"), this.ForumList.SelectedValue, this.TopicSubject.Text);
-        DB.message_move(this.Request.QueryString.GetFirstOrDefault("m"), nTopicId, true);
+        LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), nTopicId, true);
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
       else
@@ -86,7 +86,7 @@ namespace YAF.Pages
     /// </param>
     protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.TopicsList.DataSource = DB.topic_list(this.ForumList.SelectedValue, null, 0, null, 0, 32762, false, false);
+      this.TopicsList.DataSource = LegacyDb.topic_list(this.ForumList.SelectedValue, null, 0, null, 0, 32762, false, false);
       this.TopicsList.DataTextField = "Subject";
       this.TopicsList.DataValueField = "TopicID";
       this.TopicsList.DataBind();
@@ -107,7 +107,7 @@ namespace YAF.Pages
     {
       if (Convert.ToInt32(this.TopicsList.SelectedValue) != this.PageContext.PageTopicID)
       {
-        DB.message_move(this.Request.QueryString.GetFirstOrDefault("m"), this.TopicsList.SelectedValue, true);
+        LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), this.TopicsList.SelectedValue, true);
       }
 
       YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
@@ -142,7 +142,7 @@ namespace YAF.Pages
         this.Move.Text = this.GetText("MOVE_MESSAGE");
         this.CreateAndMove.Text = this.GetText("CREATE_TOPIC");
 
-        this.ForumList.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+        this.ForumList.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
         this.ForumList.DataTextField = "Title";
         this.ForumList.DataValueField = "ForumID";
         this.DataBind();

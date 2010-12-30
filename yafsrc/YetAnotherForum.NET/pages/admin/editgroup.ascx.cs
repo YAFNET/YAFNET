@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
       var c = (DropDownList)sender;
 
       // list all access masks as data source
-      c.DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+      c.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
 
       // set value and text field names
       c.DataValueField = "AccessMaskID";
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin
 
           // get data about edited role
           using (
-            DataTable dt = DB.group_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
+            DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
           {
             // get it as row
             DataRow row = dt.Rows[0];
@@ -219,7 +219,7 @@ namespace YAF.Pages.Admin
       if (roleID != 0)
       {
         // get the current role name in the DB
-        using (DataTable dt = DB.group_list(YafContext.Current.PageBoardID, roleID))
+        using (DataTable dt = LegacyDb.group_list(YafContext.Current.PageBoardID, roleID))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -229,7 +229,7 @@ namespace YAF.Pages.Admin
       }
 
       // save role and get its ID if it's new (if it's old role, we get it anyway)
-      roleID = DB.group_save(
+      roleID = LegacyDb.group_save(
         roleID, 
         this.PageContext.PageBoardID, 
         roleName, 
@@ -289,7 +289,7 @@ namespace YAF.Pages.Admin
           int forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
 
           // save forum access maks for this role
-          DB.forumaccess_save(forumID, roleID, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+          LegacyDb.forumaccess_save(forumID, roleID, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
         }
 
         YafBuildLink.Redirect(ForumPages.admin_groups);
@@ -337,7 +337,7 @@ namespace YAF.Pages.Admin
       // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
       if (this.Request.QueryString.GetFirstOrDefault("i") != null)
       {
-        this.AccessList.DataSource = DB.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
+        this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
       }
 
       // bind data to controls

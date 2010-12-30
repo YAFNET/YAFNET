@@ -72,11 +72,11 @@ namespace YAF.Pages
         var flags = (int)AccessFlags.Flags.ModeratorAccess;
 
         // non-admins cannot assign moderation access masks
-        dt = DB.accessmask_list(this.PageContext.PageBoardID, null, flags);
+        dt = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null, flags);
       }
       else
       {
-        dt = DB.accessmask_list(this.PageContext.PageBoardID, null);
+        dt = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       }
 
       // setup datasource for access masks dropdown
@@ -202,7 +202,7 @@ namespace YAF.Pages
         if (this.Request.QueryString.GetFirstOrDefault("u") != null)
         {
           using (
-            DataTable dt = DB.userforum_list(
+            DataTable dt = LegacyDb.userforum_list(
               this.Request.QueryString.GetFirstOrDefault("u"), this.PageContext.PageForumID))
           {
             foreach (DataRow row in dt.Rows)
@@ -265,7 +265,7 @@ namespace YAF.Pages
       }
 
       // save permission
-      DB.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+      LegacyDb.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
 
       // redirect to forum moderation page
       YafBuildLink.Redirect(ForumPages.moderate, "f={0}", this.PageContext.PageForumID);

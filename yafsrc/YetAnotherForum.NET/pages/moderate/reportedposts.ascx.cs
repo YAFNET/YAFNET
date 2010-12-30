@@ -174,7 +174,7 @@ namespace YAF.Pages.moderate
     private void BindData()
     {
       // get reported posts for this forum
-      this.List.DataSource = DB.message_listreported(this.PageContext.PageForumID);
+      this.List.DataSource = LegacyDb.message_listreported(this.PageContext.PageForumID);
 
       // bind data to controls
       this.DataBind();
@@ -205,7 +205,7 @@ namespace YAF.Pages.moderate
         case "delete":
 
           // delete message
-          DB.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+          LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
 
           // Update statistics
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
@@ -227,7 +227,7 @@ namespace YAF.Pages.moderate
           this.BindData();
 
           // update message text
-          DB.message_reportcopyover(e.CommandArgument);
+          LegacyDb.message_reportcopyover(e.CommandArgument);
           break;
         case "viewhistory":
 
@@ -239,7 +239,7 @@ namespace YAF.Pages.moderate
         case "resolved":
 
           // mark message as resolved
-          DB.message_reportresolve(7, e.CommandArgument, this.PageContext.PageUserID);
+          LegacyDb.message_reportresolve(7, e.CommandArgument, this.PageContext.PageUserID);
 
           // re-bind data
           this.BindData();
@@ -250,7 +250,7 @@ namespace YAF.Pages.moderate
       }
 
       // see if there are any items left...
-      DataTable dt = DB.message_listreported(this.PageContext.PageForumID);
+      DataTable dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
 
       if (dt.Rows.Count == 0)
       {

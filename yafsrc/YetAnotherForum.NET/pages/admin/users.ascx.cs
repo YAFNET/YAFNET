@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
           }
 
           // get user(s) we are about to delete                
-          using (DataTable dt = DB.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
+          using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
           {
             // examine each if he's possible to delete
             foreach (DataRow row in dt.Rows)
@@ -253,7 +253,7 @@ namespace YAF.Pages.Admin
       this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
 
       // get list of user groups for filtering
-      using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, null))
+      using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
       {
         // add empty item for no filtering
         DataRow newRow = dt.NewRow();
@@ -267,7 +267,7 @@ namespace YAF.Pages.Admin
       }
 
       // get list of user ranks for filtering
-      using (DataTable dt = DB.rank_list(this.PageContext.PageBoardID, null))
+      using (DataTable dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
       {
         // add empty for for no filtering
         DataRow newRow = dt.NewRow();
@@ -425,7 +425,7 @@ namespace YAF.Pages.Admin
 
       // get users, eventually filter by groups or ranks
       using (
-        DataTable dt = DB.user_list(
+        DataTable dt = LegacyDb.user_list(
           this.PageContext.PageBoardID, 
           null, 
           null, 

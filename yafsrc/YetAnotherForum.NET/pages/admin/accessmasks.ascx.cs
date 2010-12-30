@@ -139,7 +139,7 @@ namespace YAF.Pages.Admin
         case "delete":
 
           // attmempt to delete access masks
-          if (DB.accessmask_delete(e.CommandArgument))
+          if (LegacyDb.accessmask_delete(e.CommandArgument))
           {
             // remove cache of forum moderators
             this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       // list all access masks for this boeard
-      this.List.DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+      this.List.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       this.DataBind();
     }
 

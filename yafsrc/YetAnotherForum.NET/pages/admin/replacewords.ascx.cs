@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.list.DataSource = DB.replace_words_list(this.PageContext.PageBoardID, null);
+      this.list.DataSource = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
       this.DataBind();
     }
 
@@ -130,13 +130,13 @@ namespace YAF.Pages.Admin
       }
       else if (e.CommandName == "delete")
       {
-        DB.replace_words_delete(e.CommandArgument);
+        LegacyDb.replace_words_delete(e.CommandArgument);
         this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords));
         this.BindData();
       }
       else if (e.CommandName == "export")
       {
-        DataTable replaceDT = DB.replace_words_list(this.PageContext.PageBoardID, null);
+        DataTable replaceDT = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
         replaceDT.DataSet.DataSetName = "YafReplaceWordsList";
         replaceDT.TableName = "YafReplaceWords";
         replaceDT.Columns.Remove("ID");

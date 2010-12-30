@@ -211,7 +211,7 @@ namespace YAF.Pages
     private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
     {
       // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
-      DataTable activeUsers = DB.active_list_user(
+      DataTable activeUsers = LegacyDb.active_list_user(
         this.PageContext.PageBoardID, 
         this.PageContext.PageUserID, 
         showGuests, 

@@ -272,7 +272,7 @@ namespace YAF.Pages
 
           // get quoted message
           DataRow row =
-            DB.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).
+            LegacyDb.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).
               GetFirstRow();
 
           // there is such a message
@@ -341,7 +341,7 @@ namespace YAF.Pages
             {
               // get quoted message
               DataRow messagesRow =
-                DB.message_listreporters(
+                LegacyDb.message_listreporters(
                   Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).
                     ToType<int>(), 
                   Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).
@@ -391,7 +391,7 @@ namespace YAF.Pages
 
           if (Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
           {
-            DataRow currentRow = DB.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+            DataRow currentRow = LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 
             if (currentRow != null)
             {
@@ -450,7 +450,7 @@ namespace YAF.Pages
 
       if (YafContext.Current.BoardSettings.AllowSignatures)
       {
-        using (DataTable userDT = DB.user_list(YafContext.Current.PageBoardID, YafContext.Current.PageUserID, true))
+        using (DataTable userDT = LegacyDb.user_list(YafContext.Current.PageBoardID, YafContext.Current.PageUserID, true))
         {
           if (!userDT.Rows[0].IsNull("Signature"))
           {
@@ -507,7 +507,7 @@ namespace YAF.Pages
         messageFlags.IsHtml = this._editor.UsesHTML;
         messageFlags.IsBBCode = this._editor.UsesBBCode;
 
-        DB.pmessage_save(YafContext.Current.PageUserID, 0, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
+        LegacyDb.pmessage_save(YafContext.Current.PageUserID, 0, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
 
         // redirect to outbox (sent items), not control panel
         YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
@@ -545,7 +545,7 @@ namespace YAF.Pages
 
         // test sending user's PM count
         // get user's name
-        DataRow drPMInfo = DB.user_pmcount(YafContext.Current.PageUserID).Rows[0];
+        DataRow drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
 
         if ((Convert.ToInt32(drPMInfo["NumberTotal"]) > Convert.ToInt32(drPMInfo["NumberAllowed"]) + recipients.Count) &&
             !YafContext.Current.IsAdmin)
@@ -581,8 +581,8 @@ namespace YAF.Pages
           }
 
           // test receiving user's PM count
-          if ((DB.user_pmcount(userId.Value).Rows[0]["NumberTotal"].ToType<int>() >=
-               DB.user_pmcount(userId.Value).Rows[0]["NumberAllowed"].ToType<int>()) && !YafContext.Current.IsAdmin &&
+          if ((LegacyDb.user_pmcount(userId.Value).Rows[0]["NumberTotal"].ToType<int>() >=
+               LegacyDb.user_pmcount(userId.Value).Rows[0]["NumberAllowed"].ToType<int>()) && !YafContext.Current.IsAdmin &&
               !(bool)
                Convert.ChangeType(UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"], typeof(bool)))
           {
@@ -602,7 +602,7 @@ namespace YAF.Pages
           messageFlags.IsHtml = this._editor.UsesHTML;
           messageFlags.IsBBCode = this._editor.UsesBBCode;
 
-          DB.pmessage_save(
+          LegacyDb.pmessage_save(
             YafContext.Current.PageUserID, userId, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
 
           // reset reciever's lazy data as he should be informed at once

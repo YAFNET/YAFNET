@@ -18,14 +18,19 @@
  */
 namespace YAF.Modules
 {
+  #region Using
+
   using System;
   using System.Web;
 
-  using YAF.Core;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for SuspendCheckModule
@@ -33,16 +38,35 @@ namespace YAF.Modules
   [YafModule("Suspend Check Module", "Tiny Gecko", 1)]
   public class SuspendCheckForumModule : SimpleBaseForumModule
   {
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-      PageContext.PagePreLoad += PageContext_PagePreLoad;
-    }
+    #region Constants and Fields
 
     /// <summary>
-    /// The page context_ page pre load.
+    /// The _pre load page.
+    /// </summary>
+    private readonly IFireEvent<ForumPagePreLoadEvent> _preLoadPage;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SuspendCheckForumModule"/> class.
+    /// </summary>
+    /// <param name="preLoadPage">
+    /// The pre load page.
+    /// </param>
+    public SuspendCheckForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> preLoadPage)
+    {
+      this._preLoadPage = preLoadPage;
+      this._preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The _pre load page_ handle event.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -50,14 +74,14 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void PageContext_PagePreLoad(object sender, EventArgs e)
+    private void _preLoadPage_HandleEvent([NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
     {
       // check for suspension if enabled...
-      if (PageContext.Globals.IsSuspendCheckEnabled && PageContext.IsSuspended)
+      if (this.PageContext.Globals.IsSuspendCheckEnabled && this.PageContext.IsSuspended)
       {
-        if (PageContext.SuspendedUntil < DateTime.UtcNow)
+        if (this.PageContext.SuspendedUntil < DateTime.UtcNow)
         {
-          DB.user_suspend(PageContext.PageUserID, null);
+          LegacyDb.user_suspend(this.PageContext.PageUserID, null);
           HttpContext.Current.Response.Redirect(General.GetSafeRawUrl());
         }
         else
@@ -66,5 +90,7 @@ namespace YAF.Modules
         }
       }
     }
+
+    #endregion
   }
 }

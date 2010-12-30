@@ -100,7 +100,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       this.Pager.PageSize = 25;
-      DataView dv = DB.smiley_list(this.PageContext.PageBoardID, null).DefaultView;
+      DataView dv = LegacyDb.smiley_list(this.PageContext.PageBoardID, null).DefaultView;
       this.Pager.Count = dv.Count;
       var pds = new PagedDataSource();
       pds.DataSource = dv;
@@ -139,7 +139,7 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_smilies_edit, "s={0}", e.CommandArgument);
           break;
         case "moveup":
-          DB.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
+          LegacyDb.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
 
           // invalidate the cache...
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
@@ -147,7 +147,7 @@ namespace YAF.Pages.Admin
           ReplaceRulesCreator.ClearCache();
           break;
         case "movedown":
-          DB.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
+          LegacyDb.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
 
           // invalidate the cache...
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
@@ -155,7 +155,7 @@ namespace YAF.Pages.Admin
           ReplaceRulesCreator.ClearCache();
           break;
         case "delete":
-          DB.smiley_delete(e.CommandArgument);
+          LegacyDb.smiley_delete(e.CommandArgument);
 
           // invalidate the cache...
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));

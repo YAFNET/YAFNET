@@ -162,7 +162,7 @@ namespace YAF.Pages
         /// </returns>
         protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
         {
-            _userListDataTable =  DB.user_listmembers(
+            _userListDataTable =  LegacyDb.user_listmembers(
                 PageContext.PageBoardID,
                 null,
                 true,
@@ -244,7 +244,7 @@ namespace YAF.Pages
             this.Posts.Text = this.GetText("posts");
             this.Location.Text = this.GetText("location");
 
-            using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, null))
+            using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
             {
                 // add empty item for no filtering
                 DataRow newRow = dt.NewRow();
@@ -272,7 +272,7 @@ namespace YAF.Pages
             }
 
             // get list of user ranks for filtering
-            using (DataTable dt = DB.rank_list(this.PageContext.PageBoardID, null))
+            using (DataTable dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
             {
                 // add empty for for no filtering
                 DataRow newRow = dt.NewRow();

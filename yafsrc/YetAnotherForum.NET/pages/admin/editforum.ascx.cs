@@ -76,7 +76,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((DropDownList)sender).DataSource = DB.accessmask_list(this.PageContext.PageBoardID, null);
+      ((DropDownList)sender).DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       ((DropDownList)sender).DataValueField = "AccessMaskID";
       ((DropDownList)sender).DataTextField = "Name";
     }
@@ -170,7 +170,7 @@ namespace YAF.Pages.Admin
         if (this.Request.QueryString.GetFirstOrDefault("f") != null)
         {
           using (
-            DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("f")))
+            DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("f")))
           {
             DataRow row = dt.Rows[0];
             var flags = new ForumFlags(row["Flags"]);
@@ -244,13 +244,13 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       int forumId = 0;
-      this.CategoryList.DataSource = DB.category_list(this.PageContext.PageBoardID, null);
+      this.CategoryList.DataSource = LegacyDb.category_list(this.PageContext.PageBoardID, null);
       this.CategoryList.DataBind();
 
       if (this.Request.QueryString.GetFirstOrDefault("f") != null &&
           int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
       {
-        this.AccessList.DataSource = DB.forumaccess_list(forumId);
+        this.AccessList.DataSource = LegacyDb.forumaccess_list(forumId);
         this.AccessList.DataBind();
       }
 
@@ -276,7 +276,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindParentList()
     {
-      this.ParentList.DataSource = DB.forum_listall_fromCat(
+      this.ParentList.DataSource = LegacyDb.forum_listall_fromCat(
         this.PageContext.PageBoardID, this.CategoryList.SelectedValue);
       this.ParentList.DataValueField = "ForumID";
       this.ParentList.DataTextField = "Title";
@@ -409,7 +409,7 @@ namespace YAF.Pages.Admin
       // a new forum is creating
       if (ForumID == 0)
       {
-        DataTable dt = DB.forum_list(this.PageContext.PageBoardID, null);
+        DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null);
         if (dt.Rows.Count > 0)
         {
           foreach (DataRow dr in dt.Rows)
@@ -427,7 +427,7 @@ namespace YAF.Pages.Admin
       // If we update a forum ForumID > 0 
       if (ForumID > 0 && parentID != null)
       {
-        int dependency = DB.forum_save_parentschecker(ForumID, parentID);
+        int dependency = LegacyDb.forum_save_parentschecker(ForumID, parentID);
         if (dependency > 0)
         {
           this.PageContext.AddLoadMessage("The choosen forum cannot be child forum as it's a parent.");
@@ -441,7 +441,7 @@ namespace YAF.Pages.Admin
         themeURL = this.ThemeList.SelectedValue;
       }
 
-      ForumID = DB.forum_save(
+      ForumID = LegacyDb.forum_save(
         ForumID, 
         this.CategoryList.SelectedValue, 
         parentID, 
@@ -459,7 +459,7 @@ namespace YAF.Pages.Admin
         this.Styles.Text, 
         false);
 
-      DB.activeaccess_reset();
+      LegacyDb.activeaccess_reset();
 
       // Access
       if (this.Request.QueryString.GetFirstOrDefault("f") != null)
@@ -468,7 +468,7 @@ namespace YAF.Pages.Admin
         {
           RepeaterItem item = this.AccessList.Items[i];
           int groupId = int.Parse(((Label)item.FindControl("GroupID")).Text);
-          DB.forumaccess_save(ForumID, groupId, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+          LegacyDb.forumaccess_save(ForumID, groupId, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 
           // Update statistics
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));

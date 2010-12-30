@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s") != null)
         {
           using (
-            DataTable dt = DB.nntpforum_list(
+            DataTable dt = LegacyDb.nntpforum_list(
               this.PageContext.PageBoardID, 
               null, 
               this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s"), 
@@ -122,7 +122,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      DB.nntpforum_save(
+      LegacyDb.nntpforum_save(
         nntpForumID, 
         this.NntpServerID.SelectedValue, 
         this.GroupName.Text, 
@@ -136,10 +136,10 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.NntpServerID.DataSource = DB.nntpserver_list(this.PageContext.PageBoardID, null);
+      this.NntpServerID.DataSource = LegacyDb.nntpserver_list(this.PageContext.PageBoardID, null);
       this.NntpServerID.DataValueField = "NntpServerID";
       this.NntpServerID.DataTextField = "Name";
-      this.ForumID.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+      this.ForumID.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
       this.ForumID.DataValueField = "ForumID";
       this.ForumID.DataTextField = "Title";
       this.DataBind();

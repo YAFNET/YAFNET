@@ -100,7 +100,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      using (DataTable dt = DB.pmessage_info())
+      using (DataTable dt = LegacyDb.pmessage_info())
       {
         this.Count.Text = dt.Rows[0]["NumTotal"].ToString();
       }
@@ -125,7 +125,7 @@ namespace YAF.Pages.Admin
     /// </param>
     private void commit_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      DB.pmessage_prune(this.Days1.Text, this.Days2.Text);
+      LegacyDb.pmessage_prune(this.Days1.Text, this.Days2.Text);
       this.BindData();
     }
 

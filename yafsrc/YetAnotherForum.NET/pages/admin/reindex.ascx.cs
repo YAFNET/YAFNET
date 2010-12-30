@@ -58,16 +58,16 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         // Check and see if it should make panels enable or not
-        this.PanelReindex.Visible = DB.PanelReindex;
-        this.PanelShrink.Visible = DB.PanelShrink;
-        this.PanelRecoveryMode.Visible = DB.PanelRecoveryMode;
-        this.PanelGetStats.Visible = DB.PanelGetStats;
+        this.PanelReindex.Visible = LegacyDb.PanelReindex;
+        this.PanelShrink.Visible = LegacyDb.PanelShrink;
+        this.PanelRecoveryMode.Visible = LegacyDb.PanelRecoveryMode;
+        this.PanelGetStats.Visible = LegacyDb.PanelGetStats;
 
         // Get the name of buttons
-        this.btnReindex.Text = DB.btnReindexName;
-        this.btnGetStats.Text = DB.btnGetStatsName;
-        this.btnShrink.Text = DB.btnShrinkName;
-        this.btnRecoveryMode.Text = DB.btnRecoveryModeName;
+        this.btnReindex.Text = LegacyDb.btnReindexName;
+        this.btnGetStats.Text = LegacyDb.btnGetStatsName;
+        this.btnShrink.Text = LegacyDb.btnShrinkName;
+        this.btnRecoveryMode.Text = LegacyDb.btnRecoveryModeName;
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
@@ -93,8 +93,8 @@ namespace YAF.Pages.Admin
         connMan.InfoMessage += this.connMan_InfoMessage;
 
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-        this.txtIndexStatistics.Text = DB.db_getstats_warning(connMan);
-        DB.db_getstats(connMan);
+        this.txtIndexStatistics.Text = LegacyDb.db_getstats_warning(connMan);
+        LegacyDb.db_getstats(connMan);
       }
     }
 
@@ -130,8 +130,8 @@ namespace YAF.Pages.Admin
           }
 
           DBName.InfoMessage += this.connMan_InfoMessage;
-          this.txtIndexStatistics.Text = DB.db_recovery_mode_warning(DBName);
-          DB.db_recovery_mode(DBName, dbRecoveryMode);
+          this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning(DBName);
+          LegacyDb.db_recovery_mode(DBName, dbRecoveryMode);
           this.txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
         }
         catch (Exception error)
@@ -157,8 +157,8 @@ namespace YAF.Pages.Admin
       using (var connMan = new MsSqlDbConnectionManager())
       {
         connMan.InfoMessage += this.connMan_InfoMessage;
-        this.txtIndexStatistics.Text = DB.db_reindex_warning(connMan);
-        DB.db_reindex(connMan);
+        this.txtIndexStatistics.Text = LegacyDb.db_reindex_warning(connMan);
+        LegacyDb.db_reindex(connMan);
       }
     }
 
@@ -180,9 +180,9 @@ namespace YAF.Pages.Admin
         try
         {
           DBName.InfoMessage += this.connMan_InfoMessage;
-          this.txtIndexStatistics.Text = DB.db_shrink_warning(DBName);
-          DB.db_shrink(DBName);
-          this.txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize +
+          this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning(DBName);
+          LegacyDb.db_shrink(DBName);
+          this.txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + LegacyDb.DBSize +
                                          "MB";
         }
         catch (Exception error)

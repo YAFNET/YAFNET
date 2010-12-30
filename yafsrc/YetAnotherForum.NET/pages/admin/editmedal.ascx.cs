@@ -83,7 +83,7 @@ namespace YAF.Pages.Admin
       }
 
       // save group, if there is no message specified, pass null
-      DB.group_medal_save(
+      LegacyDb.group_medal_save(
         this.AvailableGroupList.SelectedValue, 
         this.Request.QueryString.GetFirstOrDefault("m"), 
         this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text, 
@@ -176,7 +176,7 @@ namespace YAF.Pages.Admin
       else if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
       {
         // only username is specified, we must find id for it
-        var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+        var users = LegacyDb.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
 
         if (users.Count() > 1)
         {
@@ -203,7 +203,7 @@ namespace YAF.Pages.Admin
       }
 
       // save user, if there is no message specified, pass null
-      DB.user_medal_save(
+      LegacyDb.user_medal_save(
         this.UserID.Text, 
         this.Request.QueryString.GetFirstOrDefault("m"), 
         this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text, 
@@ -335,7 +335,7 @@ namespace YAF.Pages.Admin
     protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // try to find users by user name
-      var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+      var users = LegacyDb.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
 
       if (users.Any())
       {
@@ -407,7 +407,7 @@ namespace YAF.Pages.Admin
         case "edit":
 
           // load group-medal to the controls
-          using (DataTable dt = DB.group_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
+          using (DataTable dt = LegacyDb.group_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
           {
             // prepare editing interface
             this.AddGroup_Click(null, e);
@@ -433,7 +433,7 @@ namespace YAF.Pages.Admin
 
           break;
         case "remove":
-          DB.group_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
+          LegacyDb.group_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
 
           // remove all user medals...
           this.RemoveMedalsFromCache();
@@ -588,7 +588,7 @@ namespace YAF.Pages.Admin
       imageSize = this.GetImageSize(smallImageURL.ToString());
 
       // save medal
-      DB.medal_save(
+      LegacyDb.medal_save(
         this.PageContext.PageBoardID, 
         medalID, 
         this.Name.Text, 
@@ -626,7 +626,7 @@ namespace YAF.Pages.Admin
         case "edit":
 
           // load user-medal to the controls
-          using (DataTable dt = DB.user_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
+          using (DataTable dt = LegacyDb.user_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
           {
             // prepare editing interface
             this.AddUser_Click(null, e);
@@ -652,7 +652,7 @@ namespace YAF.Pages.Admin
         case "remove":
 
           // delete user-medal
-          DB.user_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
+          LegacyDb.user_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
 
           // clear cache...
           this.RemoveUserFromCache(Convert.ToInt32(this.Request.QueryString.GetFirstOrDefault("m")));
@@ -748,16 +748,16 @@ namespace YAF.Pages.Admin
       if (this.Request.QueryString.GetFirstOrDefault("m") != null)
       {
         // load users and groups who has been assigned this medal
-        this.UserList.DataSource = DB.user_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
+        this.UserList.DataSource = LegacyDb.user_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
         this.UserList.DataBind();
-        this.GroupList.DataSource = DB.group_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
+        this.GroupList.DataSource = LegacyDb.group_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
         this.GroupList.DataBind();
 
         // enable adding users/groups
         this.AddUserRow.Visible = true;
         this.AddGroupRow.Visible = true;
 
-        using (DataTable dt = DB.medal_list(this.Request.QueryString.GetFirstOrDefault("m")))
+        using (DataTable dt = LegacyDb.medal_list(this.Request.QueryString.GetFirstOrDefault("m")))
         {
           // get data row
           DataRow row = dt.Rows[0];
@@ -783,7 +783,7 @@ namespace YAF.Pages.Admin
           SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, row["SmallRibbonURL"]);
         }
 
-        using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, null))
+        using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
         {
           // get data row
           DataRow row = dt.Rows[0];

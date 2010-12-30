@@ -187,8 +187,8 @@ namespace YAF.Pages
       }
 
       // Take away 10 points once!
-      DB.user_removepointsByTopicID(this.PageContext.PageTopicID, 10);
-      DB.topic_delete(this.PageContext.PageTopicID);
+      LegacyDb.user_removepointsByTopicID(this.PageContext.PageTopicID, 10);
+      LegacyDb.topic_delete(this.PageContext.PageTopicID);
       YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
     }
 
@@ -348,7 +348,7 @@ namespace YAF.Pages
     /// </param>
     protected void LockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      DB.topic_lock(this.PageContext.PageTopicID, true);
+      LegacyDb.topic_lock(this.PageContext.PageTopicID, true);
       this.BindData();
       this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"));
       this.LockTopic1.Visible = !this.LockTopic1.Visible;
@@ -447,7 +447,7 @@ namespace YAF.Pages
     /// </param>
     protected void NextTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (DataTable dt = DB.topic_findnext(this.PageContext.PageTopicID))
+      using (DataTable dt = LegacyDb.topic_findnext(this.PageContext.PageTopicID))
       {
         if (dt.Rows.Count == 0)
         {
@@ -555,7 +555,7 @@ namespace YAF.Pages
       this._quickReplyEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this._quickReplyEditor.StyleSheet = this.PageContext.Theme.BuildThemePath("theme.css");
 
-      this._topic = DB.topic_info(this.PageContext.PageTopicID);
+      this._topic = LegacyDb.topic_info(this.PageContext.PageTopicID);
 
       // in case topic is deleted or not existant
       if (this._topic == null)
@@ -566,7 +566,7 @@ namespace YAF.Pages
       // get topic flags
       this._topicFlags = new TopicFlags(this._topic["Flags"]);
 
-      using (DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+      using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
       {
         this._forum = dt.Rows[0];
       }
@@ -726,7 +726,7 @@ namespace YAF.Pages
     /// </param>
     protected void PrevTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (DataTable dt = DB.topic_findprev(this.PageContext.PageTopicID))
+      using (DataTable dt = LegacyDb.topic_findprev(this.PageContext.PageTopicID))
       {
         if (dt.Rows.Count == 0)
         {
@@ -785,13 +785,13 @@ namespace YAF.Pages
 
       if (this.WatchTopicID.InnerText == string.Empty)
       {
-        DB.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+        LegacyDb.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
         this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"));
       }
       else
       {
         int tmpID = Convert.ToInt32(this.WatchTopicID.InnerText);
-        DB.watchtopic_delete(tmpID);
+        LegacyDb.watchtopic_delete(tmpID);
         this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"));
       }
 
@@ -811,7 +811,7 @@ namespace YAF.Pages
     /// </param>
     protected void UnlockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      DB.topic_lock(this.PageContext.PageTopicID, false);
+      LegacyDb.topic_lock(this.PageContext.PageTopicID, false);
       this.BindData();
       this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"));
       this.LockTopic1.Visible = !this.LockTopic1.Visible;
@@ -914,7 +914,7 @@ namespace YAF.Pages
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
 
-      DataTable postListDataTable = DB.post_list(
+      DataTable postListDataTable = LegacyDb.post_list(
         this.PageContext.PageTopicID, 
         this.IsPostBack ? 0 : 1, 
         this.PageContext.BoardSettings.ShowDeletedMessages, 
@@ -1068,7 +1068,7 @@ namespace YAF.Pages
         {
           // Find next unread
           using (
-            DataTable unread = DB.message_findunread(
+            DataTable unread = LegacyDb.message_findunread(
               this.PageContext.PageTopicID, YafContext.Current.Get<IYafSession>().LastVisit))
           {
             var unreadFirst = unread.AsEnumerable().FirstOrDefault();
@@ -1082,7 +1082,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+        LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
       }
 
       return findMessageId;
@@ -1102,7 +1102,7 @@ namespace YAF.Pages
       }
 
       // check if this forum is being watched by this user
-      using (DataTable dt = DB.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
+      using (DataTable dt = LegacyDb.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
       {
         if (dt.Rows.Count > 0)
         {
@@ -1258,7 +1258,7 @@ namespace YAF.Pages
 
       // Bypass Approval if Admin or Moderator.
       if (
-        !DB.message_save(
+        !LegacyDb.message_save(
           topicID, 
           this.PageContext.PageUserID, 
           msg, 
@@ -1275,19 +1275,19 @@ namespace YAF.Pages
       // Check to see if the user has enabled "auto watch topic" option in his/her profile.
       if (this.PageContext.CurrentUserData.AutoWatchTopics)
       {
-        using (DataTable dt = DB.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
+        using (DataTable dt = LegacyDb.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
         {
           if (dt.Rows.Count == 0)
           {
             // subscribe to this forum
-            DB.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+            LegacyDb.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
           }
         }
       }
 
       bool bApproved = false;
 
-      using (DataTable dt = DB.message_list(nMessageId))
+      using (DataTable dt = LegacyDb.message_list(nMessageId))
       {
         foreach (DataRow row in dt.Rows)
         {

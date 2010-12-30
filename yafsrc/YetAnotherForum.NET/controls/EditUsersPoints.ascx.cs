@@ -64,7 +64,7 @@ namespace YAF.Controls
     {
       if (this.Page.IsValid)
       {
-        DB.user_addpoints(this.CurrentUserID, this.txtAddPoints.Text);
+        LegacyDb.user_addpoints(this.CurrentUserID, this.txtAddPoints.Text);
         this.BindData();
       }
     }
@@ -101,7 +101,7 @@ namespace YAF.Controls
     {
       if (this.Page.IsValid)
       {
-        DB.user_removepoints(this.CurrentUserID, this.txtRemovePoints.Text);
+        LegacyDb.user_removepoints(this.CurrentUserID, this.txtRemovePoints.Text);
         this.BindData();
       }
     }
@@ -119,7 +119,7 @@ namespace YAF.Controls
     {
       if (this.Page.IsValid)
       {
-        DB.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
+        LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
         this.BindData();
       }
     }
@@ -129,7 +129,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      this.ltrCurrentPoints.Text = DB.user_getpoints(this.CurrentUserID).ToString();
+      this.ltrCurrentPoints.Text = LegacyDb.user_getpoints(this.CurrentUserID).ToString();
     }
 
     #endregion

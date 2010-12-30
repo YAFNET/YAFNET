@@ -53,7 +53,7 @@ namespace YAF.Controls
       {
         var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
-        using (DataTable dt2 = DB.user_accessmasks(this.PageContext.PageBoardID, userID))
+        using (DataTable dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
         {
           var html = new StringBuilder();
           int nLastForumID = 0;

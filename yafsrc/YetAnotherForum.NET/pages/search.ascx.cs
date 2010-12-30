@@ -454,7 +454,7 @@ namespace YAF.Pages
 
       this.Page.Form.DefaultButton = this.btnSearch.UniqueID;
 
-      this.listForum.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+      this.listForum.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
       this.listForum.DataValueField = "ForumID";
       this.listForum.DataTextField = "Title";
       this.listForum.DataBind();
@@ -627,7 +627,7 @@ namespace YAF.Pages
         var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
         int forumId = int.Parse(this.listForum.SelectedValue);
 
-        var searchResults = DB.GetSearchResult(
+        var searchResults = LegacyDb.GetSearchResult(
           this.SearchWhatCleaned, 
           this.SearchWhoCleaned, 
           sfw, 

@@ -88,7 +88,7 @@ namespace YAF.Pages.Admin
       }
       else
       {
-        using (DataTable dt = DB.user_emails(this.PageContext.PageBoardID, GroupID))
+        using (DataTable dt = LegacyDb.user_emails(this.PageContext.PageBoardID, GroupID))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -112,7 +112,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.ToList.DataSource = DB.group_list(this.PageContext.PageBoardID, null);
+      this.ToList.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
       this.DataBind();
 
       var item = new ListItem("All Users", "0");

@@ -122,7 +122,7 @@ namespace YAF.Pages.Admin
 
       this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      DataTable dt = DB.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
+      DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
 
       if (dt.Rows.Count != 1)
       {

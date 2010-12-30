@@ -88,7 +88,7 @@ namespace YAF.Pages.Admin
             UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
           }
 
-          DB.user_delete(e.CommandArgument);
+          LegacyDb.user_delete(e.CommandArgument);
           this.BindData();
           break;
         case "approve":
@@ -110,14 +110,14 @@ namespace YAF.Pages.Admin
             UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
           }
 
-          DB.user_deleteold(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
+          LegacyDb.user_deleteold(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
           this.BindData();
           break;
         case "approveall":
           UserMembershipHelper.ApproveAll();
 
           // vzrus: Should delete users from send email list
-          DB.user_approveall(this.PageContext.PageBoardID);
+          LegacyDb.user_approveall(this.PageContext.PageBoardID);
           this.BindData();
           break;
       }
@@ -271,7 +271,7 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        DataTable dt = DB.board_list(null);
+        DataTable dt = LegacyDb.board_list(null);
 
         // add row for "all boards" (null value)
         DataRow r = dt.NewRow();
@@ -296,7 +296,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      DataTable activeList = DB.active_list(
+      DataTable activeList = LegacyDb.active_list(
         this.PageContext.PageBoardID, 
         true, 
         true, 
@@ -310,11 +310,11 @@ namespace YAF.Pages.Admin
       }
 
       this.ActiveList.DataSource = activeList;
-      this.UserList.DataSource = DB.user_list(this.PageContext.PageBoardID, null, false);
+      this.UserList.DataSource = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
       this.DataBind();
 
       // get stats for current board, selected board or all boards (see function)
-      DataRow row = DB.board_stats(this.GetSelectedBoardID());
+      DataRow row = LegacyDb.board_stats(this.GetSelectedBoardID());
 
       this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
       this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
@@ -334,7 +334,7 @@ namespace YAF.Pages.Admin
       this.DayTopics.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
       this.DayUsers.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
-      this.DBSize.Text = "{0} MB".FormatWith(DB.DBSize);
+      this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.DBSize);
     }
 
     /// <summary>

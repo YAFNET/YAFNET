@@ -87,17 +87,17 @@ namespace YAF.Pages.Admin
         case "delete":
 
           // delete medal
-          DB.medal_delete(e.CommandArgument);
+          LegacyDb.medal_delete(e.CommandArgument);
 
           // re-bind data
           this.BindData();
           break;
         case "moveup":
-          DB.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
+          LegacyDb.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
           this.BindData();
           break;
         case "movedown":
-          DB.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
+          LegacyDb.medal_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
           this.BindData();
           break;
       }
@@ -188,7 +188,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       // list medals for this board
-      this.MedalList.DataSource = DB.medal_list(this.PageContext.PageBoardID, null);
+      this.MedalList.DataSource = LegacyDb.medal_list(this.PageContext.PageBoardID, null);
 
       // bind data to controls
       this.DataBind();

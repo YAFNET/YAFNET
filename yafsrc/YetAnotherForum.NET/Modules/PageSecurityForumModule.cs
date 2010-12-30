@@ -18,12 +18,16 @@
  */
 namespace YAF.Modules
 {
-  using System;
-  using YAF.Classes;
-  using YAF.Core;
+  #region Using
+
+  using YAF.Types;
   using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// Module that handles individual page security features -- needs to be expanded.
@@ -31,16 +35,35 @@ namespace YAF.Modules
   [YafModule("Page Security Module", "Tiny Gecko", 1)]
   public class PageSecurityForumModule : SimpleBaseForumModule
   {
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-      PageContext.PagePreLoad += CurrentForumPage_PreLoad;
-    }
+    #region Constants and Fields
 
     /// <summary>
-    /// The current forum page_ pre load.
+    /// The _page pre load.
+    /// </summary>
+    private readonly IFireEvent<ForumPagePreLoadEvent> _pagePreLoad;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PageSecurityForumModule"/> class.
+    /// </summary>
+    /// <param name="pagePreLoad">
+    /// The page pre load.
+    /// </param>
+    public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
+    {
+      this._pagePreLoad = pagePreLoad;
+      this._pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page pre load_ handle event.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -48,53 +71,56 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void CurrentForumPage_PreLoad(object sender, EventArgs e)
+    private void PagePreLoad_HandleEvent([NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
     {
       // no security features for login/logout pages
-      if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout || ForumPageType == ForumPages.recoverpassword)
+      if (this.ForumPageType == ForumPages.login || this.ForumPageType == ForumPages.approve ||
+          this.ForumPageType == ForumPages.logout || this.ForumPageType == ForumPages.recoverpassword)
       {
         return;
       }
 
       // check if login is required
-      if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && CurrentForumPage.IsProtected)
+      if (this.PageContext.BoardSettings.RequireLogin && this.PageContext.IsGuest && this.CurrentForumPage.IsProtected)
       {
         // redirect to login page if login is required
-        CurrentForumPage.RedirectNoAccess();
+        this.CurrentForumPage.RedirectNoAccess();
       }
 
       // check if it's a "registered user only page" and check permissions.
-      if (CurrentForumPage.IsRegisteredPage && CurrentForumPage.User == null)
+      if (this.CurrentForumPage.IsRegisteredPage && this.CurrentForumPage.User == null)
       {
-        CurrentForumPage.RedirectNoAccess();
+        this.CurrentForumPage.RedirectNoAccess();
       }
 
       // not totally necessary... but provides another layer of protection...
-      if (CurrentForumPage.IsAdminPage && !PageContext.IsAdmin)
+      if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
       {
         YafBuildLink.AccessDenied();
         return;
       }
 
       // handle security features...
-      switch (ForumPageType)
+      switch (this.ForumPageType)
       {
         case ForumPages.register:
-          if (PageContext.BoardSettings.DisableRegistrations)
+          if (this.PageContext.BoardSettings.DisableRegistrations)
           {
             YafBuildLink.AccessDenied();
           }
 
           break;
         default:
-          if (PageContext.IsPrivate && CurrentForumPage.User == null)
+          if (this.PageContext.IsPrivate && this.CurrentForumPage.User == null)
           {
             // register users only...
-            CurrentForumPage.RedirectNoAccess();
+            this.CurrentForumPage.RedirectNoAccess();
           }
 
           break;
       }
     }
+
+    #endregion
   }
 }

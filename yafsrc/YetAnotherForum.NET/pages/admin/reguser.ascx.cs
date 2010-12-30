@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
         userProfile.Save();
 
         // save the time zone...
-        DB.user_save(
+        LegacyDb.user_save(
           UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
           this.PageContext.PageBoardID, 
           null, 

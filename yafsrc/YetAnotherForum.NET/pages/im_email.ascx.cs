@@ -137,7 +137,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+        LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
         if (this.PageContext.IsAdmin)
         {
           this.PageContext.AddLoadMessage(x.Message);

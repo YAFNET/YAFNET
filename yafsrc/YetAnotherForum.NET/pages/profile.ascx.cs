@@ -114,7 +114,7 @@ namespace YAF.Pages
       // Add check if Albums Tab is visible 
       if (!this.PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
       {
-        int albumCount = DB.album_getstats(albumUser, null)[0];
+        int albumCount = LegacyDb.album_getstats(albumUser, null)[0];
 
         // Check if the user already has albums.
         if (albumCount > 0)
@@ -127,7 +127,7 @@ namespace YAF.Pages
         {
           // Check if a user have permissions to have albums, even if he has no albums at all.
           var usrAlbums =
-            DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+            LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
               "UsrAlbums", null);
 
           if (usrAlbums.HasValue && usrAlbums > 0)
@@ -375,7 +375,7 @@ namespace YAF.Pages
       if (this.LastPosts.Visible)
       {
         this.LastPosts.DataSource =
-          DB.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10).AsEnumerable();
+          LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10).AsEnumerable();
         this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userDisplayName);
       }
 
@@ -596,8 +596,8 @@ namespace YAF.Pages
       // Handled in localization. 
       this.Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);
 
-      this.ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
-      int[] thanksToArray = DB.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+      this.ThanksFrom.Text = LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
+      int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
       this.ThanksToTimes.Text = thanksToArray[0].ToString();
       this.ThanksToPosts.Text = thanksToArray[1].ToString();
       this.OnlineStatusImage1.UserID = userID;

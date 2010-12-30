@@ -410,7 +410,7 @@ namespace YAF.Pages
           urlAlphaNum);
 
       using (
-        DataTable dt = DB.topic_active(
+        DataTable dt = LegacyDb.topic_active(
           this.PageContext.PageBoardID, this.PageContext.PageUserID, toActDate, categoryActiveId, false))
       {
         foreach (DataRow row in dt.Rows)
@@ -522,7 +522,7 @@ namespace YAF.Pages
       }
 
       using (
-        DataTable dt = DB.topic_favorite_details(
+        DataTable dt = LegacyDb.topic_favorite_details(
           this.PageContext.PageBoardID, this.PageContext.PageUserID, toFavDate, categoryActiveId, false))
       {
         string urlAlphaNum = FormatUrlForFeed(YafForumInfo.ForumBaseUrl);
@@ -599,7 +599,7 @@ namespace YAF.Pages
     {
       var syndicationItems = new List<SyndicationItem>();
       using (
-        DataTable dt = DB.forum_listread(
+        DataTable dt = LegacyDb.forum_listread(
           this.PageContext.PageBoardID, this.PageContext.PageUserID, categoryId, null, false))
       {
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
@@ -677,7 +677,7 @@ namespace YAF.Pages
       [NotNull] ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar)
     {
       var syndicationItems = new List<SyndicationItem>();
-      using (DataTable dt = DB.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
+      using (DataTable dt = LegacyDb.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
       {
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
@@ -738,7 +738,7 @@ namespace YAF.Pages
     private List<SyndicationLink> GetMediaLinks(int messageId)
     {
       var attachementLinks = new List<SyndicationLink>();
-      using (var attList = DB.attachment_list(messageId, null, this.PageContext.PageBoardID))
+      using (var attList = LegacyDb.attachment_list(messageId, null, this.PageContext.PageBoardID))
       {
         if (attList.Rows.Count > 0)
         {
@@ -793,7 +793,7 @@ namespace YAF.Pages
       var syndicationItems = new List<SyndicationItem>();
 
       using (
-        DataTable dataTopics = DB.rss_topic_latest(
+        DataTable dataTopics = LegacyDb.rss_topic_latest(
           this.PageContext.PageBoardID, 
           this.PageContext.BoardSettings.ActiveDiscussionsCount <= 50
             ? this.PageContext.BoardSettings.ActiveDiscussionsCount
@@ -878,7 +878,7 @@ namespace YAF.Pages
       [NotNull] ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar, int topicId)
     {
       var syndicationItems = new List<SyndicationItem>();
-      using (DataTable dt = DB.post_list(topicId, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
+      using (DataTable dt = LegacyDb.post_list(topicId, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
       {
         // convert to linq...
         var rowList = dt.AsEnumerable().OrderByDescending(x => x.Field<DateTime>("Posted"));
@@ -992,7 +992,7 @@ namespace YAF.Pages
       var syndicationItems = new List<SyndicationItem>();
 
       // vzrus changed to separate DLL specific code
-      using (DataTable dt = DB.rsstopic_list(forumId))
+      using (DataTable dt = LegacyDb.rsstopic_list(forumId))
       {
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 

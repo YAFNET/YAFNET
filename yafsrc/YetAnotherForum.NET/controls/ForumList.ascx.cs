@@ -343,7 +343,7 @@ namespace YAF.Controls
       if (this.HasSubforums(row))
       {
         return
-          DB.forum_listread(
+          LegacyDb.forum_listread(
             this.PageContext.PageBoardID, this.PageContext.PageUserID, row["CategoryID"], row["ForumID"], false).Rows;
       }
 

@@ -74,7 +74,7 @@ namespace YAF.Pages
       if (Convert.ToInt32(this.ForumList.SelectedValue) != this.PageContext.PageForumID)
       {
         // Ederon : 7/14/2007
-        DB.topic_move(this.PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
+        LegacyDb.topic_move(this.PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
       }
 
       YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
@@ -128,7 +128,7 @@ namespace YAF.Pages
         // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
         this.LeavePointer.Checked = this.PageContext.BoardSettings.ShowMoved;
 
-        this.ForumList.DataSource = DB.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+        this.ForumList.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
 
         this.DataBind();
 

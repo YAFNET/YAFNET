@@ -184,7 +184,7 @@ namespace YAF.Pages.Admin
       }
 
       // save category
-      DB.category_save(this.PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder);
+      LegacyDb.category_save(this.PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder);
 
       // remove category cache...
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
@@ -203,7 +203,7 @@ namespace YAF.Pages.Admin
       if (this.Request.QueryString.GetFirstOrDefault("c") != null)
       {
         using (
-          DataTable dt = DB.category_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("c"))
+          DataTable dt = LegacyDb.category_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("c"))
           )
         {
           DataRow row = dt.Rows[0];

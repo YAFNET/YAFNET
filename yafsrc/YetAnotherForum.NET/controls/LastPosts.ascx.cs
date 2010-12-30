@@ -92,7 +92,7 @@ namespace YAF.Controls
     private void BindData()
     {
       this.repLastPosts.DataSource = this.TopicID.HasValue
-                                       ? DB.post_list_reverse10(this.TopicID.Value).AsEnumerable()
+                                       ? LegacyDb.post_list_reverse10(this.TopicID.Value).AsEnumerable()
                                        : null;
       this.repLastPosts.DataBind();
     }

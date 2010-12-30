@@ -173,7 +173,7 @@ namespace YAF.Pages.moderate
     private void BindData()
     {
       // get unapproved posts for this forum
-      this.List.DataSource = DB.message_unapproved(this.PageContext.PageForumID);
+      this.List.DataSource = LegacyDb.message_unapproved(this.PageContext.PageForumID);
 
       // bind data to controls
       this.DataBind();
@@ -204,7 +204,7 @@ namespace YAF.Pages.moderate
         case "approve":
 
           // approve post
-          DB.message_approve(e.CommandArgument);
+          LegacyDb.message_approve(e.CommandArgument);
 
           // Update statistics
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
@@ -221,7 +221,7 @@ namespace YAF.Pages.moderate
         case "delete":
 
           // delete message
-          DB.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+          LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
 
           // Update statistics
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
@@ -235,7 +235,7 @@ namespace YAF.Pages.moderate
       }
 
       // see if there are any items left...
-      DataTable dt = DB.message_unapproved(this.PageContext.PageForumID);
+      DataTable dt = LegacyDb.message_unapproved(this.PageContext.PageForumID);
 
       if (dt.Rows.Count == 0)
       {

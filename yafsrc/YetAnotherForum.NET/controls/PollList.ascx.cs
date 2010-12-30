@@ -622,7 +622,7 @@ namespace YAF.Controls
         // ChangePollShowStatus(false);
         if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
         {
-          DB.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, false, false);
+          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, false, false);
           this.ReturnToPage();
 
           // BindData();
@@ -633,7 +633,7 @@ namespace YAF.Controls
       {
         if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
         {
-          DB.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true, false);
+          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true, false);
           this.ReturnToPage();
 
           // BindData();
@@ -642,7 +642,7 @@ namespace YAF.Controls
 
       if (e.CommandName == "removegroup" && this.PageContext.ForumVoteAccess)
       {
-        DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
         this.ReturnToPage();
 
         // BindData();
@@ -650,7 +650,7 @@ namespace YAF.Controls
 
       if (e.CommandName == "removegroupall" && this.PageContext.ForumVoteAccess)
       {
-        DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, false);
+        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, false);
         this.ReturnToPage();
 
         // BindData();
@@ -661,7 +661,7 @@ namespace YAF.Controls
         return;
       }
 
-      DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
+      LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
       this.ReturnToPage();
 
       // BindData();
@@ -1102,12 +1102,12 @@ namespace YAF.Controls
     private void BindData()
     {
       this.PollNumber = 0;
-      this._dtPollAllChoices = DB.pollgroup_stats(this.PollGroupId);
+      this._dtPollAllChoices = LegacyDb.pollgroup_stats(this.PollGroupId);
 
       // Here should be a poll group, remove the value to avoid exception if a deletion was not safe. 
       if (!(this._dtPollAllChoices.Rows.Count > 0))
       {
-        DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
       }
 
       // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
@@ -1169,7 +1169,7 @@ namespace YAF.Controls
           userId = this.PageContext.PageUserID;
         }
 
-        this._dtAllPollGroupVotes = DB.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
+        this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
 
         this._isBound = this._dtPollGroupAllChoices.Rows[0]["IsBound"].ToType<bool>();
 
@@ -1293,7 +1293,7 @@ namespace YAF.Controls
       // Only if this control is in a topic we find the topic creator
       if (this.TopicId > 0)
       {
-        DataRow dti = DB.topic_info(this.TopicId);
+        DataRow dti = LegacyDb.topic_info(this.TopicId);
         this._topicUser = dti["UserID"].ToType<int>();
         if (!dti["PollID"].IsNullOrEmptyDBField())
         {

@@ -129,7 +129,7 @@ namespace YAF.Pages.Admin
       if (this.Request["s"] != null)
       {
         using (
-          DataTable dt = DB.smiley_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("s")))
+          DataTable dt = LegacyDb.smiley_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("s")))
         {
           if (dt.Rows.Count > 0)
           {
@@ -237,7 +237,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      DB.smiley_save(
+      LegacyDb.smiley_save(
         this.Request.QueryString.GetFirstOrDefault("s"), this.PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
 
       // invalidate the cache...

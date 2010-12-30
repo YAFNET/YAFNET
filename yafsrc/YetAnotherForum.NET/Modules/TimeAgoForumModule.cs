@@ -19,51 +19,56 @@
 
 namespace YAF.Modules
 {
-    #region Using
+  #region Using
 
-    using System;
+  using System;
 
-    using YAF.Core;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces; using YAF.Types.Constants;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Constants;
-    
-    using YAF.Utilities;
+  using YAF.Core;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Utilities;
+
+  #endregion
+
+  /// <summary>
+  /// The time ago module.
+  /// </summary>
+  [YafModule("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
+  public class TimeAgoForumModule : SimpleBaseForumModule
+  {
+    #region Public Methods
+
+    /// <summary>
+    /// The init before page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+      this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
+    }
 
     #endregion
 
+    #region Methods
+
     /// <summary>
-    /// The time ago module.
+    /// The current forum page_ pre render.
     /// </summary>
-    [YafModule("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
-    public class TimeAgoForumModule : SimpleBaseForumModule
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        #region Public Methods
-
-        /// <summary>
-        /// The init before page.
-        /// </summary>
-        public override void InitAfterPage()
-        {
-            CurrentForumPage.PreRender += new EventHandler(CurrentForumPage_PreRender);
-        }
-
-        #endregion
-
-        #region Methods
-
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (PageContext.BoardSettings.ShowRelativeTime && !this.PageContext.Vars.ContainsKey("RegisteredTimeago"))
-            {
-                YafContext.Current.PageElements.RegisterJsResourceInclude("timeagojs", "js/jquery.timeago.js");
-                YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs);
-                this.PageContext.Vars["RegisteredTimeago"] = true;
-            }
-        }
-
-        #endregion
+      if (this.PageContext.BoardSettings.ShowRelativeTime && !this.PageContext.Vars.ContainsKey("RegisteredTimeago"))
+      {
+        YafContext.Current.PageElements.RegisterJsResourceInclude("timeagojs", "js/jquery.timeago.js");
+        YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs);
+        this.PageContext.Vars["RegisteredTimeago"] = true;
+      }
     }
+
+    #endregion
+  }
 }

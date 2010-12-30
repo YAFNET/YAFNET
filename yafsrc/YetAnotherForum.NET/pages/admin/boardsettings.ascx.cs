@@ -103,7 +103,7 @@ namespace YAF.Pages.Admin
 
         // bind poll group list
         var pollGroup =
-          DB.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+          LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
             new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
         pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
@@ -207,7 +207,7 @@ namespace YAF.Pages.Admin
         languageFile = cultures.First().Field<string>("CultureFile");
       }
 
-      DB.board_save(
+      LegacyDb.board_save(
         this.PageContext.PageBoardID, 
         languageFile, 
         this.Culture.SelectedValue, 
@@ -284,7 +284,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       DataRow row;
-      using (DataTable dt = DB.board_list(this.PageContext.PageBoardID))
+      using (DataTable dt = LegacyDb.board_list(this.PageContext.PageBoardID))
       {
         row = dt.Rows[0];
       }

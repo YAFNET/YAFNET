@@ -83,10 +83,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.5.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL" />
     <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=72f3f55dd4809977, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
@@ -256,9 +253,9 @@
     </Compile>
     <Compile Include="Modules\PopupDialogNotification.cs" />
     <Compile Include="Modules\TimeAgoForumModule.cs" />
-    <Compile Include="Modules\UserLinkBBCodeModule.cs" />
-    <Compile Include="Modules\ExampleBBCodeModule.cs" />
-    <Compile Include="Modules\LastVisitForumModule.cs" />
+    <Compile Include="Modules\BBCode\UserLinkBBCodeModule.cs" />
+    <Compile Include="Modules\BBCode\ExampleBBCodeModule.cs" />
+    <Compile Include="Modules\Events\LastVisitEventHandler.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
     <Compile Include="Modules\PageLogoHandlerForumModule.cs" />
     <Compile Include="Modules\PagePermissionForumModule.cs" />
@@ -270,7 +267,7 @@
     <Compile Include="Modules\PageTitleForumModule.cs" />
     <Compile Include="Modules\SearchDataCleanupForumModule.cs" />
     <Compile Include="Modules\SimpleBaseForumModule.cs" />
-    <Compile Include="Modules\SpoilerBBCodeModule.cs" />
+    <Compile Include="Modules\BBCode\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\SuspendCheckForumModule.cs" />
     <Compile Include="pages\activeusers.ascx.designer.cs">
       <DependentUpon>activeusers.ascx</DependentUpon>
@@ -2683,7 +2680,9 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

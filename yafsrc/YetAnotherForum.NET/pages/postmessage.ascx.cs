@@ -278,7 +278,7 @@ namespace YAF.Pages
         return false;
       }
 
-      if (DB.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
+      if (LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
           this.EditMessageID == null)
       {
         this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));
@@ -341,7 +341,7 @@ namespace YAF.Pages
       // we reply to a post with a quote
       if (this.QuotedMessageID != null)
       {
-        currentRow = DB.message_list(this.QuotedMessageID).GetFirstRowOrInvalid();
+        currentRow = LegacyDb.message_list(this.QuotedMessageID).GetFirstRowOrInvalid();
         this.OriginalMessage = currentRow["Message"].ToString();
 
         if (Convert.ToInt32(currentRow["TopicID"]) != this.PageContext.PageTopicID)
@@ -368,7 +368,7 @@ namespace YAF.Pages
       }
       else if (this.EditMessageID != null)
       {
-        currentRow = DB.message_list(this.EditMessageID).GetFirstRowOrInvalid();
+        currentRow = LegacyDb.message_list(this.EditMessageID).GetFirstRowOrInvalid();
         this.OriginalMessage = currentRow["Message"].ToString();
 
         this._ownerUserId = Convert.ToInt32(currentRow["UserId"]);
@@ -547,7 +547,7 @@ namespace YAF.Pages
       // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
       // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
       // retrieve message flags
-      var messageFlags = new MessageFlags(DB.message_list(this.EditMessageID).Rows[0]["Flags"])
+      var messageFlags = new MessageFlags(LegacyDb.message_list(this.EditMessageID).Rows[0]["Flags"])
         {
           IsHtml = this._forumEditor.UsesHTML, 
           IsBBCode = this._forumEditor.UsesBBCode, 
@@ -555,7 +555,7 @@ namespace YAF.Pages
         };
 
       bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
-      DB.message_update(
+      LegacyDb.message_update(
         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), 
         this.Priority.SelectedValue, 
         this._forumEditor.Text.Trim(), 
@@ -609,7 +609,7 @@ namespace YAF.Pages
       string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
       // Save to Db
-      topicId = DB.topic_save(
+      topicId = LegacyDb.topic_save(
         this.PageContext.PageForumID, 
         this.TopicSubjectTextBox.Text.Trim(), 
         this._forumEditor.Text, 
@@ -659,7 +659,7 @@ namespace YAF.Pages
       messageFlags.IsPersistent = this.PostOptions1.PersistantChecked;
       messageFlags.IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator;
 
-      DB.message_save(
+      LegacyDb.message_save(
         this.TopicID.Value, 
         this.PageContext.PageUserID, 
         this._forumEditor.Text, 
@@ -747,7 +747,7 @@ namespace YAF.Pages
 
       // Check if message is approved
       bool isApproved = false;
-      using (DataTable dt = DB.message_list(messageId))
+      using (DataTable dt = LegacyDb.message_list(messageId))
       {
         foreach (DataRow row in dt.Rows)
         {
@@ -860,7 +860,7 @@ namespace YAF.Pages
 
       if (this.PageContext.BoardSettings.AllowSignatures)
       {
-        using (DataTable userDt = DB.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
+        using (DataTable userDt = LegacyDb.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
         {
           if (userDt.Rows.Count > 0)
           {
@@ -901,8 +901,8 @@ namespace YAF.Pages
       DataRow forumInfo, topicInfo;
 
       // get topic and forum information
-      topicInfo = DB.topic_info(this.PageContext.PageTopicID);
-      using (DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+      topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+      using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
       {
         forumInfo = dt.Rows[0];
       }
@@ -943,8 +943,8 @@ namespace YAF.Pages
       DataRow forumInfo, topicInfo;
 
       // get topic and forum information
-      topicInfo = DB.topic_info(this.PageContext.PageTopicID);
-      using (DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+      topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+      using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
       {
         forumInfo = dt.Rows[0];
       }
@@ -1091,7 +1091,7 @@ namespace YAF.Pages
     /// </summary>
     private void InitReplyToTopic()
     {
-      DataRow topic = DB.topic_info(this.TopicID);
+      DataRow topic = LegacyDb.topic_info(this.TopicID);
       var topicFlags = new TopicFlags(SqlDataLayerConverter.VerifyInt32(topic["Flags"]));
 
       // Ederon : 9/9/2007 - moderators can reply in locked topics
@@ -1134,7 +1134,7 @@ namespace YAF.Pages
     /// </returns>
     private int? TopicWatchedId(int userId, int topicId)
     {
-      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
+      return LegacyDb.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
     }
 
     /// <summary>
@@ -1151,7 +1151,7 @@ namespace YAF.Pages
       if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
       {
         // unsubscribe...
-        DB.watchtopic_delete(topicWatchedID.Value);
+        LegacyDb.watchtopic_delete(topicWatchedID.Value);
       }
       else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
       {
@@ -1173,7 +1173,7 @@ namespace YAF.Pages
       if (!this.TopicWatchedId(userId, topicId).HasValue)
       {
         // subscribe to this forum
-        DB.watchtopic_add(userId, topicId);
+        LegacyDb.watchtopic_add(userId, topicId);
       }
     }
 

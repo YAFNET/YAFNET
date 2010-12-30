@@ -1,4 +1,4 @@
-﻿/* YetAnotherForum.NET
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,40 +18,32 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+  using System.Web.UI;
 
-  using YAF.Core.BBCode;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-
-  #endregion
+  using YAF.Controls;
 
   /// <summary>
-  /// Summary description for PageTitleModule
+  /// The example bb code module.
   /// </summary>
-  [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
-  public class PageBBCodeRegistration : SimpleBaseForumModule
+  public class ExampleBBCodeModule : YafBBCodeControl
   {
-    #region Public Methods
-
     /// <summary>
-    /// The init after page.
+    /// Initializes a new instance of the <see cref="ExampleBBCodeModule"/> class.
     /// </summary>
-    public override void InitAfterPage()
+    public ExampleBBCodeModule()
+      : base()
     {
-      switch (this.PageContext.ForumPageType)
-      {
-        case ForumPages.cp_message:
-        case ForumPages.search:
-        case ForumPages.lastposts:
-        case ForumPages.posts:
-        case ForumPages.profile:
-          YafBBCode.RegisterCustomBBCodePageElements(
-            this.PageContext.CurrentForumPage.Page, this.PageContext.CurrentForumPage.GetType());
-          break;
-      }
     }
 
-    #endregion
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.Write("Hello, you wrote this: " + Parameters["inner"]);
+    }
   }
 }

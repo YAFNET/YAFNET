@@ -170,12 +170,12 @@ namespace YAF.Pages.Admin
         // Delete existing smilies?
         if (this.DeleteExisting.Checked)
         {
-          DB.smiley_delete(null);
+          LegacyDb.smiley_delete(null);
         }
         else
         {
           // Get max value of SortOrder
-          using (DataView dv = DB.smiley_listunique(this.PageContext.PageBoardID).DefaultView)
+          using (DataView dv = LegacyDb.smiley_listunique(this.PageContext.PageBoardID).DefaultView)
           {
             dv.Sort = "SortOrder desc";
             if (dv.Count > 0)
@@ -205,7 +205,7 @@ namespace YAF.Pages.Admin
 
           if (lineSplit.Length == 3)
           {
-            DB.smiley_save(null, this.PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
+            LegacyDb.smiley_save(null, this.PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
             sortOrder++;
           }
         }

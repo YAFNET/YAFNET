@@ -106,7 +106,7 @@ namespace YAF.Pages
       }
 
       // Save the reported message
-      DB.message_report(this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
+      LegacyDb.message_report(this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
 
       // Redirect to reported post
       this.RedirectToPost();
@@ -165,13 +165,13 @@ namespace YAF.Pages
       if (!this.IsPostBack)
       {
         // Get reported message text for better quoting                    
-        DataTable messageRow = DB.message_secdata(this.messageID, this.PageContext.PageUserID);
+        DataTable messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
 
         // Checking if the user has a right to view the message and getting data  
         if (messageRow.Rows.Count > 0)
         {
           // populate the repeater with the message datarow...
-          this.MessageList.DataSource = DB.message_secdata(this.messageID, this.PageContext.PageUserID);
+          this.MessageList.DataSource = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
           this.MessageList.DataBind();
         }
         else

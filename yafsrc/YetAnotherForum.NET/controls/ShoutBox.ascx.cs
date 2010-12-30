@@ -189,7 +189,7 @@ namespace YAF.Controls
 
       if (username != null && this.messageTextBox.Text != String.Empty)
       {
-        DB.shoutbox_savemessage(
+        LegacyDb.shoutbox_savemessage(
           this.PageContext.PageBoardID, 
           this.messageTextBox.Text, 
           username, 
@@ -222,7 +222,7 @@ namespace YAF.Controls
     /// </param>
     protected void btnClear_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      bool bl = DB.shoutbox_clearmessages(this.PageContext.PageBoardID);
+      bool bl = LegacyDb.shoutbox_clearmessages(this.PageContext.PageBoardID);
 
       // cleared... re-load from cache...
       this.PageContext.Cache.Remove(this.CacheKey);
@@ -243,7 +243,7 @@ namespace YAF.Controls
 
       if (shoutBoxMessages == null)
       {
-        shoutBoxMessages = DB.shoutbox_getmessages(
+        shoutBoxMessages = LegacyDb.shoutbox_getmessages(
           this.PageContext.PageBoardID, 
           this.PageContext.BoardSettings.ShoutboxShowMessageCount, 
           this.PageContext.BoardSettings.UseStyledNicks);
@@ -273,7 +273,7 @@ namespace YAF.Controls
       this.shoutBoxRepeater.DataSource = shoutBoxMessages;
       if (this.PageContext.BoardSettings.ShowShoutboxSmiles)
       {
-        this.smiliesRepeater.DataSource = DB.smiley_listunique(this.PageContext.PageBoardID);
+        this.smiliesRepeater.DataSource = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
       }
     }
 

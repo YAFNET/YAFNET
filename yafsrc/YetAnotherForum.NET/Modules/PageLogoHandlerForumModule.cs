@@ -18,16 +18,19 @@
  */
 namespace YAF.Modules
 {
+  #region Using
+
   using System;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using YAF.Core;
+  using YAF.Types;
   using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Utils;
   using YAF.Utils.Helpers;
-  using YAF.Types;
+
+  #endregion
 
   /// <summary>
   /// Summary description for PageTitleModule
@@ -35,12 +38,14 @@ namespace YAF.Modules
   [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
   public class PageLogoHandlerForumModule : SimpleBaseForumModule
   {
+    #region Public Methods
+
     /// <summary>
     /// The init after page.
     /// </summary>
     public override void InitAfterPage()
     {
-      CurrentForumPage.PreRender += ForumPage_PreRender;
+      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
     }
 
     /// <summary>
@@ -49,6 +54,10 @@ namespace YAF.Modules
     public override void InitBeforePage()
     {
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The forum page_ pre render.
@@ -59,12 +68,12 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_PreRender(object sender, EventArgs e)
+    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      var htmlImgBanner = ControlHelper.FindControlRecursiveBothAs<HtmlImage>(CurrentForumPage, "imgBanner");
-      var imgBanner = ControlHelper.FindControlRecursiveBothAs<Image>(CurrentForumPage, "imgBanner");
+      var htmlImgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("imgBanner");
+      var imgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("imgBanner");
 
-      if (!CurrentForumPage.ShowToolBar)
+      if (!this.CurrentForumPage.ShowToolBar)
       {
         if (htmlImgBanner != null)
         {
@@ -76,9 +85,9 @@ namespace YAF.Modules
         }
       }
 
-      if (PageContext.BoardSettings.AllowThemedLogo && !Config.IsAnyPortal)
+      if (this.PageContext.BoardSettings.AllowThemedLogo && !Config.IsAnyPortal)
       {
-        string graphicSrc = PageContext.Theme.GetItem("FORUM", "BANNER", null);
+        string graphicSrc = this.PageContext.Theme.GetItem("FORUM", "BANNER", null);
 
         if (graphicSrc.IsSet())
         {
@@ -93,5 +102,7 @@ namespace YAF.Modules
         }
       }
     }
+
+    #endregion
   }
 }

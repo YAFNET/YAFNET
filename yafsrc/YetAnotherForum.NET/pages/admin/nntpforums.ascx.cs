@@ -113,7 +113,7 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_editnntpforum, "s={0}", e.CommandArgument);
           break;
         case "delete":
-          DB.nntpforum_delete(e.CommandArgument);
+          LegacyDb.nntpforum_delete(e.CommandArgument);
           this.BindData();
           break;
       }
@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.RankList.DataSource = DB.nntpforum_list(this.PageContext.PageBoardID, null, null, DBNull.Value);
+      this.RankList.DataSource = LegacyDb.nntpforum_list(this.PageContext.PageBoardID, null, null, DBNull.Value);
       this.DataBind();
     }
 

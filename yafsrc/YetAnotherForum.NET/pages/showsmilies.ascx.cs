@@ -96,7 +96,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      this.List.DataSource = DB.smiley_listunique(this.PageContext.PageBoardID);
+      this.List.DataSource = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
       this.DataBind();
     }
 

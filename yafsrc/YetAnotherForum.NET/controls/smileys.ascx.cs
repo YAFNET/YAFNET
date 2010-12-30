@@ -89,7 +89,7 @@ namespace YAF.Controls
 
       this._perrow = bs.SmiliesPerRow;
 
-      this._dtSmileys = DB.smiley_listunique(this.PageContext.PageBoardID);
+      this._dtSmileys = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
 
       if (this._dtSmileys.Rows.Count == 0)
       {

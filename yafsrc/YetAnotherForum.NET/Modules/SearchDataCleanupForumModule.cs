@@ -1,6 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SearchDataCleanupModule.cs" company="">
-//   
 // </copyright>
 // <summary>
 //   The search data cleanup module.
@@ -11,15 +10,9 @@ namespace YAF.Modules
 {
   #region Using
 
-  using System;
-
-  using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Types;
   using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Types.Constants;
-  using YAF.Utils;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -29,14 +22,28 @@ namespace YAF.Modules
   /// </summary>
   public class SearchDataCleanupForumModule : SimpleBaseForumModule
   {
-    #region Public Methods
+    #region Constants and Fields
 
     /// <summary>
-    /// The init before page.
+    /// The _page pre load.
     /// </summary>
-    public override void InitBeforePage()
+    private readonly IFireEvent<ForumPagePreLoadEvent> _pagePreLoad;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SearchDataCleanupForumModule"/> class.
+    /// </summary>
+    /// <param name="pagePreLoad">
+    /// The page pre load.
+    /// </param>
+    public SearchDataCleanupForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
     {
-      this.PageContext.PagePreLoad += this.PageContext_PagePreLoad;
+      this._pagePreLoad = pagePreLoad;
+
+      this._pagePreLoad.HandleEvent += this._pagePreLoad_HandleEvent;
     }
 
     #endregion
@@ -44,7 +51,7 @@ namespace YAF.Modules
     #region Methods
 
     /// <summary>
-    /// The page context_ page pre load.
+    /// The _page pre load_ handle event.
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -52,7 +59,7 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void PageContext_PagePreLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void _pagePreLoad_HandleEvent([NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
     {
       // no security features for login/logout pages
       if (this.ForumPageType == ForumPages.search)
@@ -61,11 +68,11 @@ namespace YAF.Modules
       }
 
       // clear out any search data in the session.... just in case...
-      if (PageContext.Get<IYafSession>().SearchData != null)
+      if (this.Get<IYafSession>().SearchData != null)
       {
         // clear it...
-        PageContext.Get<IYafSession>().SearchData.Dispose();
-        PageContext.Get<IYafSession>().SearchData = null;
+        this.Get<IYafSession>().SearchData.Dispose();
+        this.Get<IYafSession>().SearchData = null;
       }
     }
 

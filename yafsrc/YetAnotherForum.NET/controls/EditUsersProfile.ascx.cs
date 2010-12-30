@@ -377,7 +377,7 @@ namespace YAF.Controls
       }
 
       // save remaining settings to the DB
-      DB.user_save(
+      LegacyDb.user_save(
         this.CurrentUserID, 
         this.PageContext.PageBoardID, 
         null, 
@@ -555,7 +555,7 @@ namespace YAF.Controls
       changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
       // save a change email reference to the db
-      DB.checkemail_save(this.CurrentUserID, hash, newEmail);
+      LegacyDb.checkemail_save(this.CurrentUserID, hash, newEmail);
 
       // send a change email message...
       changeEmail.SendEmail(

@@ -22,13 +22,9 @@ namespace YAF.Modules
 
   using System;
 
-  using YAF.Classes;
   using YAF.Core;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Core.Services;
+  using YAF.Types.Attributes;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
 
@@ -40,6 +36,30 @@ namespace YAF.Modules
   [YafModule("Page Permission Module", "Tiny Gecko", 1)]
   public class PagePermissionForumModule : SimpleBaseForumModule
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _permissions.
+    /// </summary>
+    private readonly IPermissions _permissions;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PagePermissionForumModule"/> class.
+    /// </summary>
+    /// <param name="permissions">
+    /// The permissions.
+    /// </param>
+    public PagePermissionForumModule([NotNull] IPermissions permissions)
+    {
+      this._permissions = permissions;
+    }
+
+    #endregion
+
     #region Public Methods
 
     /// <summary>
@@ -69,19 +89,19 @@ namespace YAF.Modules
       switch (this.ForumPageType)
       {
         case ForumPages.activeusers:
-          PageContext.Get<IPermissions>().HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+          this._permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
           break;
         case ForumPages.members:
-          PageContext.Get<IPermissions>().HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+          this._permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
         case ForumPages.profile:
         case ForumPages.albums:
         case ForumPages.album:
-          PageContext.Get<IPermissions>().HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+          this._permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
           break;
         case ForumPages.search:
-          PageContext.Get<IPermissions>().HandleRequest(
-            PageContext.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions)
+          this._permissions.HandleRequest(
+            this._permissions.Check(this.PageContext.BoardSettings.SearchPermissions)
               ? this.PageContext.BoardSettings.SearchPermissions
               : this.PageContext.BoardSettings.ExternalSearchPermissions);
           break;

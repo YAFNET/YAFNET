@@ -399,7 +399,7 @@ namespace YAF.Install
 
                     break;
                 case "WizCreateForum":
-                    if (DB.IsForumInstalled)
+                    if (LegacyDb.IsForumInstalled)
                     {
                         this.InstallWizard.ActiveStepIndex++;
                     }
@@ -413,7 +413,7 @@ namespace YAF.Install
                     }
                     else
                     {
-                        object version = this.Cache["DBVersion"] ?? DB.DBVersion;
+                        object version = this.Cache["DBVersion"] ?? LegacyDb.DBVersion;
 
                         if (((int)version) >= 30 || ((int)version) == -1)
                         {
@@ -428,7 +428,7 @@ namespace YAF.Install
                     if (this.CurrentWizardStepID == "WizMigrateUsers")
                     {
                         this.lblMigrateUsersCount.Text =
-                            DB.user_list(this.PageBoardID, null, true).Rows.Count.ToString();
+                            LegacyDb.user_list(this.PageBoardID, null, true).Rows.Count.ToString();
                     }
 
                     break;
@@ -954,7 +954,7 @@ namespace YAF.Install
         /// </returns>
         private bool CreateForum()
         {
-            if (DB.IsForumInstalled)
+            if (LegacyDb.IsForumInstalled)
             {
                 this.AddLoadMessage("Forum is already installed.");
                 return false;
@@ -1060,7 +1060,7 @@ namespace YAF.Install
                     langFile = (string)drow["CultureFile"];
                 }
 
-                DB.system_initialize(
+                LegacyDb.system_initialize(
                     this.TheForumName.Text,
                     this.TimeZones.SelectedValue,
                     this.Culture.SelectedValue,
@@ -1071,8 +1071,8 @@ namespace YAF.Install
                     user.Email,
                     user.ProviderUserKey);
 
-                DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-                DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 
                 // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
                 // YAF.Classes.Data.DB.system_deleteinstallobjects();
@@ -1139,7 +1139,7 @@ namespace YAF.Install
                 throw new Exception("Failed to read " + scriptFile, x);
             }
 
-            DB.system_initialize_executescripts(script, scriptFile, useTransactions);
+            LegacyDb.system_initialize_executescripts(script, scriptFile, useTransactions);
         }
 
         /// <summary>
@@ -1170,7 +1170,7 @@ namespace YAF.Install
         /// </param>
         private void FixAccess(bool bGrant)
         {
-            DB.system_initialize_fixaccess(bGrant);
+            LegacyDb.system_initialize_fixaccess(bGrant);
         }
 
         /// <summary>
@@ -1226,7 +1226,7 @@ namespace YAF.Install
                 }
                 else
                 {
-                    this.Cache["DBVersion"] = DB.DBVersion;
+                    this.Cache["DBVersion"] = LegacyDb.DBVersion;
 
                     this.CurrentWizardStepID = this.IsInstalled ? "WizEnterPassword" : "WizValidatePermission";
 
@@ -1237,7 +1237,7 @@ namespace YAF.Install
                         YafContext.Current.BoardSettings = new YafBoardSettings();
                     }
 
-                    this.FullTextSupport.Visible = DB.FullTextSupported;
+                    this.FullTextSupport.Visible = LegacyDb.FullTextSupported;
 
                     this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
 
@@ -1253,85 +1253,85 @@ namespace YAF.Install
                         this.Culture.Items.FindByValue("en-US").Selected = true;
                     }
 
-                    this.DBUsernamePasswordHolder.Visible = DB.PasswordPlaceholderVisible;
+                    this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;
 
                     // Connection string parameters text boxes
-                    this.Parameter1_Name.Text = DB.Parameter1_Name;
-                    this.Parameter1_Value.Text = DB.Parameter1_Value;
-                    this.Parameter1_Value.Visible = DB.Parameter1_Visible;
+                    this.Parameter1_Name.Text = LegacyDb.Parameter1_Name;
+                    this.Parameter1_Value.Text = LegacyDb.Parameter1_Value;
+                    this.Parameter1_Value.Visible = LegacyDb.Parameter1_Visible;
 
-                    this.Parameter2_Name.Text = DB.Parameter2_Name;
-                    this.Parameter2_Value.Text = DB.Parameter2_Value;
-                    this.Parameter2_Value.Visible = DB.Parameter2_Visible;
+                    this.Parameter2_Name.Text = LegacyDb.Parameter2_Name;
+                    this.Parameter2_Value.Text = LegacyDb.Parameter2_Value;
+                    this.Parameter2_Value.Visible = LegacyDb.Parameter2_Visible;
 
-                    this.Parameter3_Name.Text = DB.Parameter3_Name;
-                    this.Parameter3_Value.Text = DB.Parameter3_Value;
-                    this.Parameter3_Value.Visible = DB.Parameter3_Visible;
+                    this.Parameter3_Name.Text = LegacyDb.Parameter3_Name;
+                    this.Parameter3_Value.Text = LegacyDb.Parameter3_Value;
+                    this.Parameter3_Value.Visible = LegacyDb.Parameter3_Visible;
 
-                    this.Parameter4_Name.Text = DB.Parameter4_Name;
-                    this.Parameter4_Value.Text = DB.Parameter4_Value;
-                    this.Parameter4_Value.Visible = DB.Parameter4_Visible;
+                    this.Parameter4_Name.Text = LegacyDb.Parameter4_Name;
+                    this.Parameter4_Value.Text = LegacyDb.Parameter4_Value;
+                    this.Parameter4_Value.Visible = LegacyDb.Parameter4_Visible;
 
-                    this.Parameter5_Name.Text = DB.Parameter5_Name;
-                    this.Parameter5_Value.Text = DB.Parameter5_Value;
-                    this.Parameter5_Value.Visible = DB.Parameter5_Visible;
+                    this.Parameter5_Name.Text = LegacyDb.Parameter5_Name;
+                    this.Parameter5_Value.Text = LegacyDb.Parameter5_Value;
+                    this.Parameter5_Value.Visible = LegacyDb.Parameter5_Visible;
 
-                    this.Parameter6_Name.Text = DB.Parameter6_Name;
-                    this.Parameter6_Value.Text = DB.Parameter6_Value;
-                    this.Parameter6_Value.Visible = DB.Parameter6_Visible;
+                    this.Parameter6_Name.Text = LegacyDb.Parameter6_Name;
+                    this.Parameter6_Value.Text = LegacyDb.Parameter6_Value;
+                    this.Parameter6_Value.Visible = LegacyDb.Parameter6_Visible;
 
-                    this.Parameter7_Name.Text = DB.Parameter7_Name;
-                    this.Parameter7_Value.Text = DB.Parameter7_Value;
-                    this.Parameter7_Value.Visible = DB.Parameter7_Visible;
+                    this.Parameter7_Name.Text = LegacyDb.Parameter7_Name;
+                    this.Parameter7_Value.Text = LegacyDb.Parameter7_Value;
+                    this.Parameter7_Value.Visible = LegacyDb.Parameter7_Visible;
 
-                    this.Parameter8_Name.Text = DB.Parameter8_Name;
-                    this.Parameter8_Value.Text = DB.Parameter8_Value;
-                    this.Parameter8_Value.Visible = DB.Parameter8_Visible;
+                    this.Parameter8_Name.Text = LegacyDb.Parameter8_Name;
+                    this.Parameter8_Value.Text = LegacyDb.Parameter8_Value;
+                    this.Parameter8_Value.Visible = LegacyDb.Parameter8_Visible;
 
-                    this.Parameter9_Name.Text = DB.Parameter9_Name;
-                    this.Parameter9_Value.Text = DB.Parameter9_Value;
-                    this.Parameter9_Value.Visible = DB.Parameter9_Visible;
+                    this.Parameter9_Name.Text = LegacyDb.Parameter9_Name;
+                    this.Parameter9_Value.Text = LegacyDb.Parameter9_Value;
+                    this.Parameter9_Value.Visible = LegacyDb.Parameter9_Visible;
 
-                    this.Parameter10_Name.Text = DB.Parameter10_Name;
-                    this.Parameter10_Value.Text = DB.Parameter10_Value;
-                    this.Parameter10_Value.Visible = DB.Parameter10_Visible;
+                    this.Parameter10_Name.Text = LegacyDb.Parameter10_Name;
+                    this.Parameter10_Value.Text = LegacyDb.Parameter10_Value;
+                    this.Parameter10_Value.Visible = LegacyDb.Parameter10_Visible;
 
                     // Connection string parameters  check boxes
-                    this.Parameter11_Value.Text = DB.Parameter11_Name;
-                    this.Parameter11_Value.Checked = DB.Parameter11_Value;
-                    this.Parameter11_Value.Visible = DB.Parameter11_Visible;
+                    this.Parameter11_Value.Text = LegacyDb.Parameter11_Name;
+                    this.Parameter11_Value.Checked = LegacyDb.Parameter11_Value;
+                    this.Parameter11_Value.Visible = LegacyDb.Parameter11_Visible;
 
-                    this.Parameter12_Value.Text = DB.Parameter12_Name;
-                    this.Parameter12_Value.Checked = DB.Parameter12_Value;
-                    this.Parameter12_Value.Visible = DB.Parameter12_Visible;
+                    this.Parameter12_Value.Text = LegacyDb.Parameter12_Name;
+                    this.Parameter12_Value.Checked = LegacyDb.Parameter12_Value;
+                    this.Parameter12_Value.Visible = LegacyDb.Parameter12_Visible;
 
-                    this.Parameter13_Value.Text = DB.Parameter13_Name;
-                    this.Parameter13_Value.Checked = DB.Parameter13_Value;
-                    this.Parameter13_Value.Visible = DB.Parameter13_Visible;
+                    this.Parameter13_Value.Text = LegacyDb.Parameter13_Name;
+                    this.Parameter13_Value.Checked = LegacyDb.Parameter13_Value;
+                    this.Parameter13_Value.Visible = LegacyDb.Parameter13_Visible;
 
-                    this.Parameter14_Value.Text = DB.Parameter14_Name;
-                    this.Parameter14_Value.Checked = DB.Parameter14_Value;
-                    this.Parameter14_Value.Visible = DB.Parameter14_Visible;
+                    this.Parameter14_Value.Text = LegacyDb.Parameter14_Name;
+                    this.Parameter14_Value.Checked = LegacyDb.Parameter14_Value;
+                    this.Parameter14_Value.Visible = LegacyDb.Parameter14_Visible;
 
-                    this.Parameter15_Value.Text = DB.Parameter15_Name;
-                    this.Parameter15_Value.Checked = DB.Parameter15_Value;
-                    this.Parameter15_Value.Visible = DB.Parameter15_Visible;
+                    this.Parameter15_Value.Text = LegacyDb.Parameter15_Name;
+                    this.Parameter15_Value.Checked = LegacyDb.Parameter15_Value;
+                    this.Parameter15_Value.Visible = LegacyDb.Parameter15_Visible;
 
-                    this.Parameter16_Value.Text = DB.Parameter16_Name;
-                    this.Parameter16_Value.Checked = DB.Parameter16_Value;
-                    this.Parameter16_Value.Visible = DB.Parameter16_Visible;
+                    this.Parameter16_Value.Text = LegacyDb.Parameter16_Name;
+                    this.Parameter16_Value.Checked = LegacyDb.Parameter16_Value;
+                    this.Parameter16_Value.Visible = LegacyDb.Parameter16_Visible;
 
-                    this.Parameter17_Value.Text = DB.Parameter17_Name;
-                    this.Parameter17_Value.Checked = DB.Parameter17_Value;
-                    this.Parameter17_Value.Visible = DB.Parameter17_Visible;
+                    this.Parameter17_Value.Text = LegacyDb.Parameter17_Name;
+                    this.Parameter17_Value.Checked = LegacyDb.Parameter17_Value;
+                    this.Parameter17_Value.Visible = LegacyDb.Parameter17_Visible;
 
-                    this.Parameter18_Value.Text = DB.Parameter18_Name;
-                    this.Parameter18_Value.Checked = DB.Parameter18_Value;
-                    this.Parameter18_Value.Visible = DB.Parameter18_Visible;
+                    this.Parameter18_Value.Text = LegacyDb.Parameter18_Name;
+                    this.Parameter18_Value.Checked = LegacyDb.Parameter18_Value;
+                    this.Parameter18_Value.Visible = LegacyDb.Parameter18_Visible;
 
-                    this.Parameter19_Value.Text = DB.Parameter19_Name;
-                    this.Parameter19_Value.Checked = DB.Parameter19_Value;
-                    this.Parameter19_Value.Visible = DB.Parameter19_Visible;
+                    this.Parameter19_Value.Text = LegacyDb.Parameter19_Name;
+                    this.Parameter19_Value.Checked = LegacyDb.Parameter19_Value;
+                    this.Parameter19_Value.Visible = LegacyDb.Parameter19_Visible;
                 }
             }
         }
@@ -1371,7 +1371,7 @@ namespace YAF.Install
                 {
                     if (
                         !this._config.WriteConnectionString(
-                            Config.ConnectionStringName, this.CurrentConnString, DB.ProviderAssemblyName))
+                            Config.ConnectionStringName, this.CurrentConnString, LegacyDb.ProviderAssemblyName))
                     {
                         // failure to write db Settings..
                         return UpdateDBFailureType.ConnectionStringWrite;
@@ -1401,25 +1401,25 @@ namespace YAF.Install
                 // try
                 this.FixAccess(false);
 
-                foreach (string script in DB.ScriptList)
+                foreach (string script in LegacyDb.ScriptList)
                 {
                     this.ExecuteScript(script, true);
                 }
 
                 this.FixAccess(true);
 
-                int prevVersion = DB.DBVersion;
+                int prevVersion = LegacyDb.DBVersion;
 
-                DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 
                 // Ederon : 9/7/2007
                 // resync all boards - necessary for propr last post bubbling
-                DB.board_resync();
+                LegacyDb.board_resync();
 
                 // upgrade providers...
                 Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
 
-                if (DB.IsForumInstalled && prevVersion < 30)
+                if (LegacyDb.IsForumInstalled && prevVersion < 30)
                 {
                     // load default bbcode if available...
                     if (File.Exists(this.Request.MapPath(_bbcodeImport)))
@@ -1444,10 +1444,10 @@ namespace YAF.Install
                     }
                 }
 
-                if (DB.IsForumInstalled && prevVersion < 42)
+                if (LegacyDb.IsForumInstalled && prevVersion < 42)
                 {
                     // un-html encode all topic subject names...
-                    DB.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
+                    LegacyDb.unencode_all_topics_subjects(t => Server.HtmlDecode(t));
                 }
 
                 // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
@@ -1461,11 +1461,11 @@ namespace YAF.Install
 			}*/
 
             // attempt to apply fulltext support if desired
-            if (fullText && DB.FullTextSupported)
+            if (fullText && LegacyDb.FullTextSupported)
             {
                 try
                 {
-                    this.ExecuteScript(DB.FullTextScript, false);
+                    this.ExecuteScript(LegacyDb.FullTextScript, false);
                 }
                 catch (Exception x)
                 {

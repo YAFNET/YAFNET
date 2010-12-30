@@ -115,7 +115,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.RankList.DataSource = DB.nntpserver_list(this.PageContext.PageBoardID, null);
+      this.RankList.DataSource = LegacyDb.nntpserver_list(this.PageContext.PageBoardID, null);
       this.DataBind();
     }
 
@@ -145,7 +145,7 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_editnntpserver, "s={0}", e.CommandArgument);
           break;
         case "delete":
-          DB.nntpserver_delete(e.CommandArgument);
+          LegacyDb.nntpserver_delete(e.CommandArgument);
           this.BindData();
           break;
       }

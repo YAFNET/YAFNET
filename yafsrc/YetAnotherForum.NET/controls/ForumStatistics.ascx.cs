@@ -208,7 +208,7 @@ namespace YAF.Controls
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
       // "Active Users" Count and Most Users Count
-      DataRow activeStats = DB.active_stats(this.PageContext.PageBoardID);
+      DataRow activeStats = LegacyDb.active_stats(this.PageContext.PageBoardID);
       this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
 
       // Forum Statistics
@@ -219,7 +219,7 @@ namespace YAF.Controls
         () =>
           {
             // get the post stats
-            DataRow dr = DB.board_poststats(
+            DataRow dr = LegacyDb.board_poststats(
               this.PageContext.PageBoardID, this.PageContext.BoardSettings.UseStyledNicks, true);
 
             // Set colorOnly parameter to false, as we get here color from data field in the place
@@ -235,7 +235,7 @@ namespace YAF.Controls
         this.PageContext.Cache.GetItem(
           YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats), 
           this.PageContext.BoardSettings.BoardUserStatsCacheTimeout, 
-          () => DB.board_userstats(this.PageContext.PageBoardID));
+          () => LegacyDb.board_userstats(this.PageContext.PageBoardID));
 
       // show max users...
       if (!userStatisticsDataRow.IsNull("MaxUsers"))

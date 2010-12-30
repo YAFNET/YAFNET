@@ -122,7 +122,7 @@ namespace YAF.Pages.Admin
       }
       else if (e.CommandName == "delete")
       {
-        DB.bbcode_delete(e.CommandArgument);
+        LegacyDb.bbcode_delete(e.CommandArgument);
         this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
         this.BindData();
       }
@@ -133,7 +133,7 @@ namespace YAF.Pages.Admin
         if (bbCodeIds.Count > 0)
         {
           // export this list as XML...
-          DataTable dtBBCode = DB.bbcode_list(this.PageContext.PageBoardID, null);
+          DataTable dtBBCode = LegacyDb.bbcode_list(this.PageContext.PageBoardID, null);
 
           // remove all but required bbcodes...
           foreach (DataRow row in dtBBCode.Rows)
@@ -176,7 +176,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.bbCodeList.DataSource = DB.bbcode_list(this.PageContext.PageBoardID, null);
+      this.bbCodeList.DataSource = LegacyDb.bbcode_list(this.PageContext.PageBoardID, null);
       this.DataBind();
     }
 

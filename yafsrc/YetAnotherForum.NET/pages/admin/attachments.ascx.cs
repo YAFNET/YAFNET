@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.List.DataSource = DB.attachment_list(null, null, this.PageContext.PageBoardID);
+      this.List.DataSource = LegacyDb.attachment_list(null, null, this.PageContext.PageBoardID);
       this.DataBind();
     }
 
@@ -120,7 +120,7 @@ namespace YAF.Pages.Admin
       switch (e.CommandName)
       {
         case "delete":
-          DB.attachment_delete(e.CommandArgument);
+          LegacyDb.attachment_delete(e.CommandArgument);
           this.BindData();
           break;
       }

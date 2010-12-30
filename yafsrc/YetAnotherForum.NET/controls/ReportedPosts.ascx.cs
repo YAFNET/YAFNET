@@ -29,7 +29,7 @@
     {
       if (!this.IsPostBack)
       {
-        this.ReportedPostsRepeater.DataSource = DB.message_listreporters(this.MessageID);
+        this.ReportedPostsRepeater.DataSource = LegacyDb.message_listreporters(this.MessageID);
         this.ReportedPostsRepeater.DataBind();
       }
     }

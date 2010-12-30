@@ -160,14 +160,14 @@ namespace YAF.Controls
 
       this.BindData();
 
-      DataTable sigData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-      DataTable usrAlbumsData = DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+      DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+      DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
       var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
       var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
       if (allowedAlbums.HasValue && allowedAlbums > 0)
       {
         // this.AddAlbum.Visible = true;
-        this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
+        this.AddAlbum.Visible = (LegacyDb.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
                                  this.UserID == this.PageContext.PageUserID)
                                   ? true
                                   : false;
@@ -225,7 +225,7 @@ namespace YAF.Controls
       this.PagerTop.PageSize = YafContext.Current.BoardSettings.AlbumsPerPage;
 
       // set the Datatable
-      var albumListDT = DB.album_list(this.UserID, null);
+      var albumListDT = LegacyDb.album_list(this.UserID, null);
 
       if ((albumListDT == null) || (albumListDT.Rows.Count <= 0))
       {

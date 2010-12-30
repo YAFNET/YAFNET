@@ -207,7 +207,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      using (DataSet ds = DB.ds_forumadmin(this.PageContext.PageBoardID))
+      using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
       {
         this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
       }
@@ -232,7 +232,7 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
           break;
         case "delete":
-          if (DB.category_delete(e.CommandArgument))
+          if (LegacyDb.category_delete(e.CommandArgument))
           {
             this.BindData();
             this.ClearCaches();

@@ -115,7 +115,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.List.DataSource = DB.nntpforum_list(this.PageContext.PageBoardID, 10, null, true);
+      this.List.DataSource = LegacyDb.nntpforum_list(this.PageContext.PageBoardID, 10, null, true);
       this.DataBind();
     }
 

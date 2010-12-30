@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
       if (this.Request.QueryString.GetFirstOrDefault("i") != null &&
           int.TryParse(this.Request.QueryString.GetFirstOrDefault("i"), out id))
       {
-        DataRow row = DB.replace_words_list(this.PageContext.PageBoardID, id).Rows[0];
+        DataRow row = LegacyDb.replace_words_list(this.PageContext.PageBoardID, id).Rows[0];
         this.badword.Text = (string)row["badword"];
         this.goodword.Text = (string)row["goodword"];
       }
@@ -118,7 +118,7 @@ namespace YAF.Pages.Admin
     /// </param>
     private void add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      DB.replace_words_save(
+      LegacyDb.replace_words_save(
         this.PageContext.PageBoardID, 
         this.Request.QueryString.GetFirstOrDefault("i"), 
         this.badword.Text, 
