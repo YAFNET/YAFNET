@@ -7368,7 +7368,9 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
     @QuestionMimeType varchar(50),
 	@IsBounded  bit,
 	@IsClosedBounded  bit,
-	@AllowMultipleChoices bit
+	@AllowMultipleChoices bit,
+	@ShowVoters bit,
+	@AllowSkipVote bit
 
 ) as
 begin
@@ -7391,6 +7393,18 @@ begin
 		SET @flags = (CASE				
 		WHEN @AllowMultipleChoices > 0 AND (@flags & 8) <> 8 THEN @flags | 8		
 		WHEN @AllowMultipleChoices <= 0 AND (@flags & 8) = 8  THEN @flags ^ 8
+		ELSE @flags END)
+		
+		-- show who's voted for a poll flag
+		SET @flags = (CASE				
+		WHEN @ShowVoters > 0 AND (@flags & 16) <> 16 THEN @flags | 16		
+		WHEN @ShowVoters <= 0 AND (@flags & 16) = 16  THEN @flags ^ 16
+		ELSE @flags END)
+
+		-- allow users don't vote and see results
+		SET @flags = (CASE				
+		WHEN @AllowSkipVote > 0 AND (@flags & 32) <> 32 THEN @flags | 32		
+		WHEN @AllowSkipVote <= 0 AND (@flags & 32) = 32  THEN @flags ^ 32
 		ELSE @flags END)
 
 	  update [{databaseOwner}].[{objectQualifier}Poll]

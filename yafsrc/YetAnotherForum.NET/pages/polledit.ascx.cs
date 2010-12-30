@@ -524,6 +524,8 @@ namespace YAF.Pages
           this.IsBoundCheckBox.Checked, 
           this.IsClosedBoundCheckBox.Checked, 
           this.AllowMultipleChoicesCheckBox.Checked,
+          false,
+          false,
           questionPath, 
           questionMime);
 

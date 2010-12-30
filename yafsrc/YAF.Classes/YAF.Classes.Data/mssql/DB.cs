@@ -5672,10 +5672,6 @@ namespace YAF.Classes.Data
             {
                 groupFlags = groupFlags | 2;
             }
-            if (question.IsClosedBound)
-            {
-                groupFlags = groupFlags | 4;
-            }
           cmd.Parameters.AddWithValue("@UserID", question.UserId);
           cmd.Parameters.AddWithValue("@Flags", groupFlags);
           cmd.Parameters.AddWithValue("@QuestionObjectPath",
@@ -5693,6 +5689,13 @@ namespace YAF.Classes.Data
             pollFlags = question.AllowMultipleChoices
                                 ? pollFlags | 8
                                 : pollFlags;
+            pollFlags = question.ShowVoters
+                                ? pollFlags | 16
+                                : pollFlags;
+            pollFlags = question.AllowSkipVote
+                                ? pollFlags | 32
+                                : pollFlags;
+
             cmd.Parameters.AddWithValue("@PollFlags",
                                     pollFlags);
      
@@ -5767,7 +5770,7 @@ namespace YAF.Classes.Data
     /// <param name="questionMime">
     /// The question file mime type.
     /// </param>
-    public static void poll_update(object pollID, object question, object closes, object isBounded, bool isClosedBounded, bool allowMultipleChoices, object questionPath, object questionMime)
+    public static void poll_update(object pollID, object question, object closes, object isBounded, bool isClosedBounded, bool allowMultipleChoices, bool showVoters, bool allowSkipVote, object questionPath, object questionMime)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("poll_update"))
       {
@@ -5780,6 +5783,9 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("IsBounded", isBounded);
         cmd.Parameters.AddWithValue("IsClosedBounded", isClosedBounded);
         cmd.Parameters.AddWithValue("AllowMultipleChoices", allowMultipleChoices);
+        cmd.Parameters.AddWithValue("ShowVoters", allowMultipleChoices);
+        cmd.Parameters.AddWithValue("AllowSkipVote", allowMultipleChoices);
+        
 
         MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
       }

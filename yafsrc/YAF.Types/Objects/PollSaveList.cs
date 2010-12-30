@@ -138,6 +138,16 @@ namespace YAF.Types.Objects
     /// </summary>
     public bool AllowMultipleChoices { get; set; }
 
+    /// <summary>
+    ///   Gets or Sets value for ShowVoters. Users can see who voted. 
+    /// </summary>
+    public bool ShowVoters { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for AllowSkipVote. Users can be allowed to skip voting. 
+    /// </summary>
+    public bool AllowSkipVote { get; set; }
+
     #endregion
   }
 }
