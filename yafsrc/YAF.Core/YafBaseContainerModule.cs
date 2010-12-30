@@ -95,7 +95,8 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(builder, "builder");
 
-      builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().OwnedByLifetimeScope();
+      builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().
+        OwnedByLifetimeScope();
 
       // the scopes will probably change
       builder.RegisterType<YafSendMail>().As<ISendMail>().OwnedByLifetimeScope();

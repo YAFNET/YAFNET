@@ -21,6 +21,8 @@ namespace YAF.Core
   #region Using
 
   using System;
+  using System.Linq;
+  using System.Reflection;
 
   using Autofac;
 
@@ -32,8 +34,17 @@ namespace YAF.Core
   /// <summary>
   /// The auto fac service locator provider.
   /// </summary>
-  public class AutoFacServiceLocatorProvider : IServiceLocator
+  public class AutoFacServiceLocatorProvider : IServiceLocator, IInjectServices
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The default flags.
+    /// </summary>
+    private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.Instance;
+
+    #endregion
+
     #region Constructors and Destructors
 
     /// <summary>
@@ -54,13 +65,43 @@ namespace YAF.Core
     #region Properties
 
     /// <summary>
-    /// Gets or sets Container.
+    ///   Gets or sets Container.
     /// </summary>
     public ILifetimeScope Container { get; set; }
 
     #endregion
 
     #region Implemented Interfaces
+
+    #region IInjectServices
+
+    /// <summary>
+    /// Inject an object with services.
+    /// </summary>
+    /// <typeparam name="TAttribute">
+    /// TAttribute is the attribute that marks properties to inject to.
+    /// </typeparam>
+    /// <param name="instance">
+    /// the object to inject
+    /// </param>
+    public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
+    {
+      CodeContracts.ArgumentNotNull(instance, "instance");
+
+      var type = instance.GetType();
+
+      var properties =
+        type.GetProperties(DefaultFlags).Where(
+          p => Attribute.IsDefined(p, typeof(TAttribute)) && p.GetSetMethod(false) != null).ToList();
+
+      foreach (var injectProp in properties)
+      {
+        var serviceInstance = this.Container.Resolve(injectProp.PropertyType);
+        injectProp.SetValue(instance, serviceInstance, null);
+      }
+    }
+
+    #endregion
 
     #region IServiceLocator
 
@@ -144,26 +185,29 @@ namespace YAF.Core
 
     #endregion
 
-    #endregion
-
-    #region Implementation of IServiceProvider
+    #region IServiceProvider
 
     /// <summary>
     /// Gets the service object of the specified type.
     /// </summary>
     /// <returns>
     /// A service object of type <paramref name="serviceType"/>.
-    ///                     -or- 
-    ///                 null if there is no service object of type <paramref name="serviceType"/>.
+    ///   -or- 
+    ///   null if there is no service object of type <paramref name="serviceType"/>.
     /// </returns>
-    /// <param name="serviceType">An object that specifies the type of service object to get. 
-    ///                 </param><filterpriority>2</filterpriority>
-    public object GetService(Type serviceType)
+    /// <param name="serviceType">
+    /// An object that specifies the type of service object to get. 
+    /// </param>
+    /// <filterpriority>2</filterpriority>
+    [CanBeNull]
+    public object GetService([NotNull] Type serviceType)
     {
       object instance;
 
       return this.TryGet(serviceType, out instance) ? instance : null;
     }
+
+    #endregion
 
     #endregion
   }
