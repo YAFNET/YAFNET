@@ -131,13 +131,6 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // if already logged in..
-      if (this.User == null)
-      {
-        // redirect to front page...
-        YafBuildLink.Redirect(ForumPages.forum);
-      }
-
       if (this.IsPostBack)
       {
         return;
