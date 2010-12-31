@@ -117,6 +117,8 @@ namespace YAF.Core
 
       builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope();
 
+      builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().OwnedByLifetimeScope();
+
       builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").OwnedByLifetimeScope();
 
       builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerLifetimeScope();
