@@ -121,6 +121,60 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.CheckBox AllowMultipleChoicesCheckBox;
         
         /// <summary>
+        /// tr_AllowSkipVote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_AllowSkipVote;
+        
+        /// <summary>
+        /// AllowSkipVoteLocalizedLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel AllowSkipVoteLocalizedLabel;
+        
+        /// <summary>
+        /// AllowSkipVoteCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowSkipVoteCheckBox;
+        
+        /// <summary>
+        /// tr_ShowVoters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_ShowVoters;
+        
+        /// <summary>
+        /// ShowVotersLocalizedLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel ShowVotersLocalizedLabel;
+        
+        /// <summary>
+        /// ShowVotersCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowVotersCheckBox;
+        
+        /// <summary>
         /// PollRowExpire control.
         /// </summary>
         /// <remarks>

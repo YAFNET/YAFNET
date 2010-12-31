@@ -1151,6 +1151,10 @@
 		<Resource tag="EDITPOLL">Edit Poll</Resource>
     <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
     <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
+    <Resource tag="POLL_ALLOWSKIPVOTE">Allow to not vote and see results.</Resource>
+    <Resource tag="POLL_ALLOWSKIPVOTE_INFO">You can skip voting and results.</Resource>
+    <Resource tag="POLL_SHOWVOTERS">Show who is voted</Resource>
+    <Resource tag="POLL_SHOWVOTERS_INFO">Show who is voted.</Resource>
 		<Resource tag="POLL_EXPIRED">The poll is expired.</Resource>
 		<Resource tag="POLL_IMGWIDTH">Image width in px:</Resource>
     <Resource tag="POLLIMAGE_TOOBIG">Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. </Resource>

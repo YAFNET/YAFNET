@@ -940,6 +940,7 @@ namespace YAF.Classes.Data
       public static DataRow pageload(
       object sessionID,
       object boardID,
+      Guid boardUid,
       object userKey,
       object ip,
       object location,
@@ -964,6 +965,7 @@ namespace YAF.Classes.Data
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("SessionID", sessionID);
             cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("BoardUID", boardUid);
             cmd.Parameters.AddWithValue("UserKey", userKey);
             cmd.Parameters.AddWithValue("IP", ip);
             cmd.Parameters.AddWithValue("Location", location);

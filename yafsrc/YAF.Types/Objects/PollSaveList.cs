@@ -52,7 +52,7 @@ namespace YAF.Types.Objects
     /// </param>
     public PollSaveList(string pollQuestion, string[,] pollChoices, DateTime? pollCloses, 
         int userId, int? topicId, int? forumId, int? categoryId, int? boardId,
-        string questionObjectPath, string questionMimeType, bool isBound, bool isClosedBound, bool allowMultipleChoices)
+        string questionObjectPath, string questionMimeType, bool isBound, bool isClosedBound, bool allowMultipleChoices, bool showVoters, bool allowSkipVote)
     {
         this.Question = pollQuestion;
         this.Choice = pollChoices;
@@ -66,7 +66,9 @@ namespace YAF.Types.Objects
         this.QuestionMimeType = questionMimeType;
         this.IsBound = isBound;
         this.IsClosedBound = isClosedBound;
+        this.AllowSkipVote = allowSkipVote;
         this.AllowMultipleChoices = allowMultipleChoices;
+        this.ShowVoters = showVoters;
     }
 
     #endregion

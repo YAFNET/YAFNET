@@ -73,6 +73,26 @@
                  <asp:CheckBox ID="AllowMultipleChoicesCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
 	    </td>		
 	</tr> 
+    <tr id="tr_AllowSkipVote" runat="server" visible="<%# PageContext.BoardSettings.AllowMultipleChoices %>">	
+       	<td class="postformheader" width="20%">
+			<em>
+				 <YAF:LocalizedLabel ID="AllowSkipVoteLocalizedLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
+			</em>
+		</td>
+		<td class="post" width="80%">
+                 <asp:CheckBox ID="AllowSkipVoteCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
+	    </td>		
+	</tr> 
+    <tr id="tr_ShowVoters" runat="server" visible="<%# PageContext.BoardSettings.AllowMultipleChoices %>">	
+       	<td class="postformheader" width="20%">
+			<em>
+				 <YAF:LocalizedLabel ID="ShowVotersLocalizedLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
+			</em>
+		</td>
+		<td class="post" width="80%">
+                 <asp:CheckBox ID="ShowVotersCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
+	    </td>		
+	</tr> 
      <tr id="PollRowExpire" runat="server" visible="false">
 		<td class="postformheader" width="20%">
 			<em>

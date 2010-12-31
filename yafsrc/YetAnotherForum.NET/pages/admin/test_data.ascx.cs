@@ -1031,6 +1031,8 @@ namespace YAF.Pages.Admin
               null, 
               false, 
               false, 
+              false,
+              false,
               false));
           pollID = LegacyDb.poll_save(pollList);
         }

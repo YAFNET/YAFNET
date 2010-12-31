@@ -345,6 +345,17 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// Gets PageBoardUID.
+    /// </summary>
+    public Guid PageBoardUid
+    {
+        get
+        {
+            return YafContext.Current.Settings == null ? Guid.Empty : YafContext.Current.Settings.BoardUid;
+        }
+    }
+
+    /// <summary>
     /// Gets the UserID of the current user.
     /// </summary>
     public int PageUserID
@@ -826,6 +837,7 @@ namespace YAF.Core
               pageRow = LegacyDb.pageload(
               YafContext.Current.Get<HttpSessionStateBase>().SessionID,
               PageBoardID,
+              PageBoardUid,
               userKey,
               YafContext.Current.Get<HttpRequestBase>().UserHostAddress,
               YafContext.Current.Get<HttpRequestBase>().FilePath,

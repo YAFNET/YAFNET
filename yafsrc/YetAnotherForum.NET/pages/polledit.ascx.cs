@@ -524,8 +524,8 @@ namespace YAF.Pages
           this.IsBoundCheckBox.Checked, 
           this.IsClosedBoundCheckBox.Checked, 
           this.AllowMultipleChoicesCheckBox.Checked,
-          false,
-          false,
+          this.ShowVotersCheckBox.Checked,
+          this.AllowSkipVoteCheckBox.Checked,
           questionPath, 
           questionMime);
 
@@ -685,7 +685,9 @@ namespace YAF.Pages
               questionMime, 
               this.IsBoundCheckBox.Checked, 
               this.IsClosedBoundCheckBox.Checked,
-              this.AllowMultipleChoicesCheckBox.Checked));
+              this.AllowMultipleChoicesCheckBox.Checked,
+              this.ShowVotersCheckBox.Checked,
+              this.AllowSkipVoteCheckBox.Checked));
           LegacyDb.poll_save(pollSaveList);
           return true;
         }
@@ -722,7 +724,8 @@ namespace YAF.Pages
         this.IsBoundCheckBox.Checked = this._choices.Rows[0]["IsBound"].ToType<bool>();
         this.IsClosedBoundCheckBox.Checked = this._choices.Rows[0]["IsClosedBound"].ToType<bool>();
         this.AllowMultipleChoicesCheckBox.Checked = this._choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
-
+        this.AllowSkipVoteCheckBox.Checked = this._choices.Rows[0]["AllowSkipVote"].ToType<bool>();
+        this.ShowVotersCheckBox.Checked = this._choices.Rows[0]["ShowVoters"].ToType<bool>();
         this.Question.Text = this._choices.Rows[0]["Question"].ToString();
         this.QuestionObjectPath.Text = this._choices.Rows[0]["QuestionObjectPath"].ToString();
 
@@ -821,7 +824,9 @@ namespace YAF.Pages
       this.PollRow1.Visible = true;
       this.PollRowExpire.Visible = true;
       this.IsClosedBound.Visible = this.IsBound.Visible = PageContext.BoardSettings.AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
-      this.tr_AllowMultipleChoices.Visible = PageContext.BoardSettings.AllowMultipleChoices || PageContext.IsAdmin || PageContext.IsForumModerator;  
+      this.tr_AllowMultipleChoices.Visible = PageContext.BoardSettings.AllowMultipleChoices || PageContext.IsAdmin || PageContext.IsForumModerator;
+      this.tr_ShowVoters.Visible = false;
+      this.tr_AllowSkipVote.Visible = false;  
     }
 
     /// <summary>
