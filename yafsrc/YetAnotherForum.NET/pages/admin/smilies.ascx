@@ -10,24 +10,24 @@
                     <HeaderTemplate>
                         <tr>
                             <td class="header1" colspan="5">
-                                Smilies
+                                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                         </tr>
                         <tr>
                             <td class="header2">
-                                Order
+                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ORDER" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                             <td class="header2">
-                                Code
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CODE" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                             <td class="header2" align="center">
-                                Smile
+                                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SMILEY" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                             <td class="header2">
-                                Emotion
+                                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="EMOTION" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                             <td class="header2">
-                                Commands
+                                <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COMANDS" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                         </tr>
                     </HeaderTemplate>
@@ -40,31 +40,33 @@
                                 <%# Eval("Code") %>
                             </td>
                             <td class="post" align="center">
-                                <img src="<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons %>/<%# Eval("Icon") %>" />
+                                <img src="<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons %>/<%# Eval("Icon") %>" alt="<%# Eval("Icon") %>" />
                             </td>
                             <td class="post">
                                 <%# Eval("Emoticon") %>
                             </td>
                             <td class="post">
-                                <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("SmileyID") %>'
-                                    Text="Edit" />
+                                <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("SmileyID") %>'>
+                                  <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" LocalizedPage="COMMON" />
+                                </asp:LinkButton>
                                 |
                                 <asp:LinkButton ID="MoveUp" runat="server" CommandName="moveup" CommandArgument='<%# Eval("SmileyID") %>'
                                     Text="▲" />
                                 <asp:LinkButton ID="MoveDown" runat="server" CommandName="movedown" CommandArgument='<%# Eval("SmileyID") %>'
                                     Text="▼" />
                                 |
-                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval("SmileyID") %>'
-                                    Text="Delete" />
+                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval("SmileyID") %>'>
+                                  <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="DELETE" LocalizedPage="COMMON" />
+                                </asp:LinkButton>
                             </td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
                         <tr>
                             <td class="footer1" colspan="5">
-                                <asp:LinkButton runat="server" CommandName="add">Add Smiley</asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="add"> <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
                                 |
-                                <asp:LinkButton runat="server" CommandName="import">Import Smiley Pack</asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="import"> <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
                             </td>
                         </tr>
                     </FooterTemplate>

@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // administration index
-      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+     this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       // current page label (no link)
       this.PageLinks.AddLink("Access Masks", string.Empty);
@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       // list all access masks for this boeard
-      this.List.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
+        this.List.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       this.DataBind();
     }
 

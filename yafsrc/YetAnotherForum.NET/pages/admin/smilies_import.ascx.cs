@@ -53,11 +53,11 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      import.Click += this.import_Click;
-      cancel.Click += this.cancel_Click;
+      this.import.Click += this.import_Click;
+      this.cancel.Click += this.cancel_Click;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -72,14 +72,25 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Smilies Import", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_SMILIES", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_smilies));
+        this.PageLinks.AddLink(this.GetText("ADMIN_SMILIES_IMPORT", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_SMILIES", "TITLE"),
+              this.GetText("ADMIN_SMILIES_IMPORT", "TITLE"));
+
+        this.import.Text = this.GetText("ADMIN_SMILIES_IMPORT", "IMPORT");
+        this.cancel.Text = this.GetText("COMMON", "CANCEL");
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -93,7 +104,7 @@ namespace YAF.Pages.Admin
         dt.Columns.Add("FileName", typeof(string));
         DataRow dr = dt.NewRow();
         dr["FileID"] = 0;
-        dr["FileName"] = "Select File (*.pak)";
+        dr["FileName"] = this.GetText("ADMIN_SMILIES_IMPORT", "SELECT_FILE");
         dt.Rows.Add(dr);
 
         var dir =
@@ -153,7 +164,7 @@ namespace YAF.Pages.Admin
     {
       if (long.Parse(this.File.SelectedValue) < 1)
       {
-        this.PageContext.AddLoadMessage("You must select a .pak file to import.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_IMPORT", "ERROR_SELECT_FILE"));
         return;
       }
 
@@ -203,11 +214,13 @@ namespace YAF.Pages.Admin
 
           string[] lineSplit = Regex.Split(line, split, RegexOptions.None);
 
-          if (lineSplit.Length == 3)
-          {
+            if (lineSplit.Length != 3)
+            {
+                continue;
+            }
+
             LegacyDb.smiley_save(null, this.PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
             sortOrder++;
-          }
         }
         while (true);
 

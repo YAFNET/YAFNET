@@ -22,6 +22,24 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
+        /// LocalizedLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        
+        /// <summary>
         /// Code control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Code;
+        
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// Icon control.
@@ -49,6 +76,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.HtmlControls.HtmlImage Preview;
         
         /// <summary>
+        /// LocalizedLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        
+        /// <summary>
         /// Emotion control.
         /// </summary>
         /// <remarks>
@@ -56,6 +92,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Emotion;
+        
+        /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// SortOrder control.

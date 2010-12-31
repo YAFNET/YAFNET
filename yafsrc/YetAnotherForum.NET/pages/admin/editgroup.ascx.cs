@@ -90,7 +90,7 @@ namespace YAF.Pages.Admin
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // admin index
-      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+     this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       // roles index
       this.PageLinks.AddLink("Roles", YafBuildLink.GetLink(ForumPages.admin_groups));

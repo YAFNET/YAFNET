@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Mail", string.Empty);
 
         this.BindData();

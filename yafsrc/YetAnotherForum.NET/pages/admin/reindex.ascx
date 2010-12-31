@@ -4,7 +4,7 @@
 	<table cellpadding="0" cellspacing="1" class="content" width="100%">
 		<tr>
 			<td colspan="2" class="header1">
-				YAF DB Operation Report:
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" />
 			</td>
 		</tr>
 		<tr class="post">
@@ -19,7 +19,7 @@
 					<asp:Button ID="btnGetStats" runat="server" OnClick="btnGetStats_Click" Text="Table Index Statistics"
 						Width="200px" />
 					<br />
-					Show statistical information about YAF table indexes.
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SHOW_STATS" LocalizedPage="ADMIN_REINDEX" />
 				</td>
 			</asp:Placeholder>
 			<asp:Placeholder ID="PanelRecoveryMode" runat="server" Visible="False">

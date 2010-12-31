@@ -5,17 +5,19 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="2">
-				Edit Smiley</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES_EDIT" />
+            </td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<strong>Code:</strong></td>
+				<strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CODE" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong></td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="Code" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<strong>Icon:</strong></td>
+				<strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ICON" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong>
+            </td>
 			<td class="post" width="50%">
 				<asp:DropDownList ID="Icon" runat="server" />
 				&nbsp;
@@ -24,13 +26,15 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<strong>Emotion:</strong></td>
+				<strong><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="EMOTION" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong>
+            </td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="Emotion" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<strong>Sort Order:</strong></td>
+				<strong><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong>
+            </td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" /></td>
 		</tr>

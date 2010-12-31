@@ -53,7 +53,8 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this Word Replacement?')";
+        ((LinkButton)sender).Attributes["onclick"] =
+            "return confirm('{0}')".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE"));
     }
 
     /// <summary>
@@ -64,10 +65,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      list.ItemCommand += this.list_ItemCommand;
+      this.list.ItemCommand += this.list_ItemCommand;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -82,14 +83,20 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Replace Words", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -120,39 +127,40 @@ namespace YAF.Pages.Admin
     /// </param>
     private void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
-      if (e.CommandName == "add")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_replacewords_edit);
-      }
-      else if (e.CommandName == "edit")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_replacewords_edit, "i={0}", e.CommandArgument);
-      }
-      else if (e.CommandName == "delete")
-      {
-        LegacyDb.replace_words_delete(e.CommandArgument);
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords));
-        this.BindData();
-      }
-      else if (e.CommandName == "export")
-      {
-        DataTable replaceDT = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
-        replaceDT.DataSet.DataSetName = "YafReplaceWordsList";
-        replaceDT.TableName = "YafReplaceWords";
-        replaceDT.Columns.Remove("ID");
-        replaceDT.Columns.Remove("BoardID");
+        switch (e.CommandName)
+        {
+            case "add":
+                YafBuildLink.Redirect(ForumPages.admin_replacewords_edit);
+                break;
+            case "edit":
+                YafBuildLink.Redirect(ForumPages.admin_replacewords_edit, "i={0}", e.CommandArgument);
+                break;
+            case "delete":
+                LegacyDb.replace_words_delete(e.CommandArgument);
+                this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords));
+                this.BindData();
+                break;
+            case "export":
+                {
+                    DataTable replaceDT = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
+                    replaceDT.DataSet.DataSetName = "YafReplaceWordsList";
+                    replaceDT.TableName = "YafReplaceWords";
+                    replaceDT.Columns.Remove("ID");
+                    replaceDT.Columns.Remove("BoardID");
 
-        this.Response.ContentType = "text/xml";
-        this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafReplaceWordsExport.xml");
-        replaceDT.DataSet.WriteXml(this.Response.OutputStream);
-        this.Response.End();
-      }
-      else if (e.CommandName == "import")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_replacewords_import);
-      }
+                    this.Response.ContentType = "text/xml";
+                    this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafReplaceWordsExport.xml");
+                    replaceDT.DataSet.WriteXml(this.Response.OutputStream);
+                    this.Response.End();
+                }
+
+                break;
+            case "import":
+                YafBuildLink.Redirect(ForumPages.admin_replacewords_import);
+                break;
+        }
     }
 
-    #endregion
+      #endregion
   }
 }

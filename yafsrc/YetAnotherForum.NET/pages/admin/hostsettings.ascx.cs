@@ -155,7 +155,7 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Host Settings", string.Empty);
 
         this.BindData();
@@ -368,7 +368,7 @@ namespace YAF.Pages.Admin
     {
       this.ForumEditor.DataSource = this.PageContext.EditorModuleManager.ActiveAsDataTable("Editors");
 
-      // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.DB.FullTextSupported  property.)
+      // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.LegacyDb.FullTextSupported  property.)
       this.DataBind();
 
       // load Board Setting collection information...

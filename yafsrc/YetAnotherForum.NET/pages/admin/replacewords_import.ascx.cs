@@ -23,6 +23,7 @@ namespace YAF.Pages.Admin
 
   using System;
   using System.Data;
+  using System.Linq;
 
   using YAF.Classes.Data;
   using YAF.Core;
@@ -82,39 +83,29 @@ namespace YAF.Pages.Admin
             DataTable replaceWordsList = LegacyDb.replace_words_list(this.PageContext.PageBoardID, null);
 
             // import any extensions that don't exist...
-            foreach (DataRow row in dsReplaceWords.Tables["YafReplaceWords"].Rows)
+            foreach (DataRow row in
+                dsReplaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(row => replaceWordsList.Select("badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0))
             {
-              if (
-                replaceWordsList.Select(
-                  "badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0)
-              {
                 // add this...
                 LegacyDb.replace_words_save(this.PageContext.PageBoardID, null, row["badword"], row["goodword"]);
                 importedCount++;
-              }
             }
 
-            if (importedCount > 0)
-            {
               this.PageContext.LoadMessage.AddSession(
-                "{0} new replacement word(s) were imported successfully.".FormatWith(importedCount));
-            }
-            else
-            {
-              this.PageContext.LoadMessage.AddSession(
-                "Nothing imported: no new replacement words were found in the upload.".FormatWith(importedCount));
-            }
+                  importedCount > 0
+                      ? this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
+                      : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"));
 
-            YafBuildLink.Redirect(ForumPages.admin_replacewords);
+              YafBuildLink.Redirect(ForumPages.admin_replacewords);
           }
           else
           {
-            this.PageContext.AddLoadMessage("Failed to import: Import file format is different than expected.");
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"));
           }
         }
         catch (Exception x)
         {
-          this.PageContext.AddLoadMessage("Failed to import: " + x.Message);
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(x.Message));
         }
       }
     }
@@ -130,12 +121,23 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Import Replace Words", string.Empty);
-      }
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_replacewords));
+        this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
+            this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"));
+
+        this.Import.Text = this.GetText("COMMON", "IMPORT");
+        this.cancel.Text = this.GetText("COMMON", "CANCEL");
     }
 
     #endregion

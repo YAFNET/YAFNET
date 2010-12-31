@@ -55,8 +55,11 @@ namespace YAF.Pages.Admin
         YafBuildLink.AccessDenied();
       }
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // Check and see if it should make panels enable or not
         this.PanelReindex.Visible = LegacyDb.PanelReindex;
         this.PanelShrink.Visible = LegacyDb.PanelShrink;
@@ -70,11 +73,14 @@ namespace YAF.Pages.Admin
         this.btnRecoveryMode.Text = LegacyDb.btnRecoveryModeName;
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Reindex DB", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_REINDEX", "TITLE"));
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -109,7 +115,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnRecoveryMode_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var DBName = new MsSqlDbConnectionManager())
+      using (var dbName = new MsSqlDbConnectionManager())
       {
         try
         {
@@ -129,9 +135,9 @@ namespace YAF.Pages.Admin
             dbRecoveryMode = "BULK_LOGGED";
           }
 
-          DBName.InfoMessage += this.connMan_InfoMessage;
-          this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning(DBName);
-          LegacyDb.db_recovery_mode(DBName, dbRecoveryMode);
+          dbName.InfoMessage += this.connMan_InfoMessage;
+          this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning(dbName);
+          LegacyDb.db_recovery_mode(dbName, dbRecoveryMode);
           this.txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
         }
         catch (Exception error)
@@ -142,9 +148,8 @@ namespace YAF.Pages.Admin
       }
     }
 
-    // Reindexing Database
     /// <summary>
-    /// The btn reindex_ click.
+    /// Reindexing Database
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -162,10 +167,9 @@ namespace YAF.Pages.Admin
       }
     }
 
-    // Mod By Touradg (herman_herman) 2009/10/19
-    // Shrinking Database
     /// <summary>
-    /// The btn shrink_ click.
+    /// Mod By Touradg (herman_herman) 2009/10/19
+    /// Shrinking Database
     /// </summary>
     /// <param name="sender">
     /// The sender.
@@ -200,11 +204,8 @@ namespace YAF.Pages.Admin
       this.DataBind();
     }
 
-    // Set Database Recovery Mode
-
-    // End of MOD
     /// <summary>
-    /// The conn man_ info message.
+    ///  Set Database Recovery Mode.
     /// </summary>
     /// <param name="sender">
     /// The sender.

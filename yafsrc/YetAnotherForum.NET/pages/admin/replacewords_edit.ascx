@@ -7,55 +7,29 @@
 		
 		<tr>
 			<td class="header1" colspan="2">
-			
-			Add/Edit Word Replace</td>
-			
+			  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
+             </td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-			
-			<strong>"Bad" Expression:</strong>
-			<br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).</td>
-			
-			
-			
-			
+              <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
+            </td>
 			<td class="post" width="50%">
-			
-			<asp:TextBox ID="badword" runat="server"></asp:TextBox></td>
-			
-			
-			
+			  <asp:TextBox ID="badword" runat="server"></asp:TextBox>
+            </td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-			
-			<strong>"Good" Expression:</strong>
-			<br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).</td>
-			
-			
-			
-			
+			  <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
+            </td>
 			<td class="post" width="50%">
-			
-			<asp:TextBox ID="goodword" runat="server"></asp:TextBox></td>
-			
-			
-			
+			  <asp:TextBox ID="goodword" runat="server"></asp:TextBox>
+            </td>
 		</tr>
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
-			
-			<asp:Button ID="save" runat="server" Text="Save"></asp:Button>
-			
-			
-			
-			
-			<asp:Button ID="cancel" runat="server" Text="Cancel"></asp:Button></td>
-			
-			
-			
-			
+			  <asp:Button ID="save" runat="server"></asp:Button>
+			  <asp:Button ID="cancel" runat="server"></asp:Button></td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

@@ -8,20 +8,18 @@
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="3">
-                Task Manager:
                 <asp:Label ID="lblTaskCount" runat="server"></asp:Label>
-                Task(s) Running
             </td>
         </tr>
         <tr class="header2">
             <td>
-                Name
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_NNTPSERVERS" />
             </td>
             <td>
-                Is Running
+                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="RUNNING" LocalizedPage="ADMIN_TASKMANAGER" />
             </td>
             <td>
-                Duration
+               <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DURATION" LocalizedPage="ADMIN_TASKMANAGER" />
             </td>
         </tr>
         <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="taskRepeater_ItemCommand">
@@ -31,7 +29,7 @@
                         <strong>
                             <%# Eval("Key") %></strong>
                             <asp:PlaceHolder ID="StopTaskHolder" runat="server" Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
-                            [<asp:LinkButton ID="stop" Text="Stop Task" runat="server" CommandName="stop" CommandArgument=<%# Eval("Key") %>></asp:LinkButton>]
+                            [<asp:LinkButton ID="stop" runat="server" CommandName="stop" CommandArgument=<%# Eval("Key") %>><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="STOP_TASK" LocalizedPage="ADMIN_TASKMANAGER" /></asp:LinkButton>]
                         </asp:PlaceHolder>
                     </td>
                     <td>

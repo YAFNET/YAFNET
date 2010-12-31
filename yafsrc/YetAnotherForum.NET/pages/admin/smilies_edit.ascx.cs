@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Text.RegularExpressions;
 
   using YAF.Classes;
@@ -53,11 +54,11 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      save.Click += this.save_Click;
-      cancel.Click += this.cancel_Click;
+      this.save.Click += this.save_Click;
+      this.cancel.Click += this.cancel_Click;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -72,14 +73,25 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Smilies", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_SMILIES", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_smilies));
+        this.PageLinks.AddLink(this.GetText("ADMIN_SMILIES_EDIT", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_SMILIES", "TITLE"),
+              this.GetText("ADMIN_SMILIES_EDIT", "TITLE"));
+
+        this.cancel.Text = this.GetText("COMMON", "CANCEL");
+        this.save.Text = this.GetText("COMMON", "SAVE");
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -95,7 +107,7 @@ namespace YAF.Pages.Admin
         DataRow dr = dt.NewRow();
         dr["FileID"] = 0;
         dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-        dr["Description"] = "Select Smiley Image";
+        dr["Description"] = this.GetText("ADMIN_SMILIES_EDIT", "SELECT_SMILEY");
         dt.Rows.Add(dr);
 
         var dir =
@@ -104,19 +116,17 @@ namespace YAF.Pages.Admin
               "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
         FileInfo[] files = dir.GetFiles("*.*");
         long nFileID = 1;
-        foreach (FileInfo file in files)
-        {
-          string sExt = file.Extension.ToLower();
-          if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
-          {
-            continue;
-          }
 
-          dr = dt.NewRow();
-          dr["FileID"] = nFileID++;
-          dr["FileName"] = file.Name;
-          dr["Description"] = file.Name;
-          dt.Rows.Add(dr);
+        foreach (FileInfo file in from file in files
+                                  let sExt = file.Extension.ToLower()
+                                  where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
+                                  select file)
+        {
+            dr = dt.NewRow();
+            dr["FileID"] = nFileID++;
+            dr["FileName"] = file.Name;
+            dr["Description"] = file.Name;
+            dt.Rows.Add(dr);
         }
 
         this.Icon.DataSource = dt;
@@ -196,44 +206,44 @@ namespace YAF.Pages.Admin
 
       if (emotion.Length > 50)
       {
-        this.PageContext.AddLoadMessage("An emotion description is too long.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_TOO_LONG"));
         return;
       }
 
       if (code.Length == 0)
       {
-        this.PageContext.AddLoadMessage("Please enter the code to use for this emotion.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_MISSING"));
         return;
       }
 
       if (code.Length > 10)
       {
-        this.PageContext.AddLoadMessage("The code to use for this emotion should not be more then 10 symbols.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_LONG"));
         return;
       }
 
       if (!new Regex(@"\[.+\]").IsMatch(code))
       {
-        this.PageContext.AddLoadMessage("Please enter the code to use for this emotion in square brackets.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_BRACK"));
         return;
       }
 
       if (emotion.Length == 0)
       {
-        this.PageContext.AddLoadMessage("Please enter an emotion for this icon.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_NO_EMOTICON"));
         return;
       }
 
       if (this.Icon.SelectedIndex < 1)
       {
-        this.PageContext.AddLoadMessage("Please select an icon to use for this emotion.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_NO_ICON"));
         return;
       }
 
       // Ederon 9/4/2007
       if (!int.TryParse(this.SortOrder.Text, out sortOrder) || sortOrder < 0 || sortOrder > 255)
       {
-        this.PageContext.AddLoadMessage("Sort order must be number between 0 and 255.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_SORT_NMBR"));
         return;
       }
 

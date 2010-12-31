@@ -159,16 +159,18 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Users", string.Empty);
 
         this.TimeZones.DataSource = StaticDataHelper.TimeZones();
         this.DataBind();
         this.TimeZones.Items.FindByValue("0").Selected = true;
-      }
     }
 
     /// <summary>

@@ -4,13 +4,13 @@
 	<table width="100%" cellspacing="0" cellpadding="0" class="content">
 		<tr>
 			<td class="header1">
-				Restart Application
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
 			</td>
 		</tr>
 		<tr class="post">
 			<td>
 				<p>
-					Restarting the application will reload all .config files.
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="INFO" LocalizedPage="ADMIN_RESTARTAPP" />
 				</p>
 			</td>
 		</tr>

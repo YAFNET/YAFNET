@@ -49,10 +49,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      commit.Click += this.commit_Click;
+      this.commit.Click += this.commit_Click;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Prune", string.Empty);
 
         this.days.Text = "60";
@@ -79,12 +79,14 @@ namespace YAF.Pages.Admin
 
       this.lblPruneInfo.Text = string.Empty;
 
-      if (YafTaskModule.Current.IsTaskRunning(PruneTopicTask.TaskName))
-      {
+        if (!YafTaskModule.Current.IsTaskRunning(PruneTopicTask.TaskName))
+        {
+            return;
+        }
+
         this.lblPruneInfo.Text =
-          "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
+            "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
         this.commit.Enabled = false;
-      }
     }
 
     /// <summary>
@@ -107,12 +109,15 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.forumlist.DataSource = LegacyDb.forum_listread(
-        this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false);
-      this.forumlist.DataValueField = "ForumID";
-      this.forumlist.DataTextField = "Forum";
-      this.DataBind();
-      this.forumlist.Items.Insert(0, new ListItem("All Forums", "0"));
+        this.forumlist.DataSource = LegacyDb.forum_listread(
+            this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false);
+
+        this.forumlist.DataValueField = "ForumID";
+        this.forumlist.DataTextField = "Forum";
+
+        this.DataBind();
+
+        this.forumlist.Items.Insert(0, new ListItem("All Forums", "0"));
     }
 
     /// <summary>
@@ -136,9 +141,10 @@ namespace YAF.Pages.Admin
     {
       PruneTopicTask.Start(
         this.PageContext.PageBoardID, 
-        Convert.ToInt32(this.forumlist.SelectedValue), 
-        Convert.ToInt32(this.days.Text), 
+        this.forumlist.SelectedValue.ToType<int>(), 
+        this.days.Text.ToType<int>(), 
         this.permDeleteChkBox.Checked);
+
       this.PageContext.AddLoadMessage("Prune Task Scheduled");
     }
 

@@ -52,9 +52,15 @@ namespace YAF.Pages.Admin
     {
       if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Restart Application");
+       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+       this.PageLinks.AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_RESTARTAPP", "TITLE"));
+
+        this.RestartApp.Text = this.GetText("ADMIN_RESTARTAPP", "TITLE");
       }
 
       this.DataBind();
@@ -77,7 +83,7 @@ namespace YAF.Pages.Admin
       }
       else
       {
-        this.PageContext.LoadMessage.Add("Must have High/Unrestricted Trust to Unload Application. Restart Failed.");
+          this.PageContext.LoadMessage.Add(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"));
       }
     }
 

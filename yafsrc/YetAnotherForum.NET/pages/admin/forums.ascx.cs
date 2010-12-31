@@ -164,7 +164,7 @@ namespace YAF.Pages.Admin
         this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Forums", string.Empty);
 
         this.BindData();

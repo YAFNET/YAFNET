@@ -317,7 +317,7 @@ namespace YAF.Pages.Admin
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // administration index
-      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+     this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       // currect page
       this.PageLinks.AddLink("Edit Medal", string.Empty);

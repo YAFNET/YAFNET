@@ -44,7 +44,8 @@ namespace YAF.Pages.Admin
     /// </summary>
     protected void BindData()
     {
-      this.lblTaskCount.Text = YafTaskModule.Current.TaskCount.ToString();
+        this.lblTaskCount.Text = this.GetText("ADMIN_TASKMANAGER", "HEADER").FormatWith(YafTaskModule.Current.TaskCount.ToString());
+
       this.taskRepeater.DataSource = YafTaskModule.Current.TaskManagerSnapshot;
       this.taskRepeater.DataBind();
     }
@@ -79,8 +80,14 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Task Manager", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_TASKMANAGER", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.GetText("ADMIN_TASKMANAGER", "TITLE"));
+
       }
 
       this.BindData();
@@ -95,14 +102,16 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void taskRepeater_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
     {
-      if (e.CommandName.Equals("stop"))
-      {
+        if (!e.CommandName.Equals("stop"))
+        {
+            return;
+        }
+
         // attempt to stop a task...
         YafTaskModule.Current.StopTask(e.CommandArgument.ToString());
 
         // refresh the display
         this.BindData();
-      }
     }
 
     #endregion

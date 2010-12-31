@@ -31,6 +31,33 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.Label lblTaskCount;
         
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
+        /// LocalizedLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        
+        /// <summary>
         /// taskRepeater control.
         /// </summary>
         /// <remarks>

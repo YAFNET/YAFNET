@@ -7,15 +7,15 @@
 			<table class="content" cellspacing="1" cellpadding="0" width="100%">
 				<tr>
 					<td class="header1" colspan="3">
-						Replace Words
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_REPLACEWORDS" />
 					</td>
 				</tr>
 				<tr>
 					<td class="header2">
-						"Bad" (Find) Expression
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS" />
 					</td>
 					<td class="header2">
-						"Good" (Replace) Expression
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS" />
 					</td>
 					<td class="header2">
 						&nbsp;
@@ -44,11 +44,17 @@
 		<FooterTemplate>
 			<tr>
 				<td class="footer1" colspan="3">
-					<asp:LinkButton runat="server" Text="Add" CommandName='add' ID="Linkbutton3"></asp:LinkButton>
+					<asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3">
+                      <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_REPLACEWORDS" />
+                    </asp:LinkButton>
 					|
-					<asp:LinkButton runat="server" Text="Import from XML" CommandName='import' ID="Linkbutton5"></asp:LinkButton>
+					<asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5">
+                      <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_REPLACEWORDS" />
+                    </asp:LinkButton>
 					|
-					<asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>
+					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4">
+                      <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="EXPORT" LocalizedPage="ADMIN_REPLACEWORDS" />
+                    </asp:LinkButton>
 				</td>
 			</tr>
 			</table>

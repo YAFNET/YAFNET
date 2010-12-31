@@ -31,6 +31,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.AdminMenu AdminMenu1;
         
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
         /// txtIndexStatistics control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetStats;
+        
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// PanelRecoveryMode control.

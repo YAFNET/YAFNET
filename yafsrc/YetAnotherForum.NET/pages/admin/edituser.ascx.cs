@@ -144,7 +144,7 @@ namespace YAF.Pages.Admin
       }
 
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+     this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
       this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
       this.PageLinks.AddLink("Edit User \"{0}\"".FormatWith(userRow["Name"].ToString()));
 

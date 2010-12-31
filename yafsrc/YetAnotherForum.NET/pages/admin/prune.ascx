@@ -8,7 +8,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="header2" colspan="2">
+			<td class="header2" colspan="2" height="30px">
 				<asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
 			</td>
 		</tr>

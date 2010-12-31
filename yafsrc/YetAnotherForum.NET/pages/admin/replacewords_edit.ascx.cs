@@ -49,11 +49,11 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      save.Click += this.add_Click;
-      cancel.Click += this.cancel_Click;
+      this.save.Click += this.add_Click;
+      this.cancel.Click += this.cancel_Click;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -72,14 +72,24 @@ namespace YAF.Pages.Admin
 
       if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink(strAddEdit + " Word Replace", string.Empty);
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(
+              this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+          this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_replacewords));
+          this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS_EDIT", "TITLE"), string.Empty);
 
-        this.BindData();
+          this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
+              this.GetText("ADMIN_REPLACEWORDS_EDIT", "TITLE"));
+
+          this.save.Text = this.GetText("COMMON", "SAVE");
+          this.cancel.Text = this.GetText("COMMON", "CANCEL");
+
+          this.BindData();
       }
 
-      this.badword.Attributes.Add("style", "width:250px");
+        this.badword.Attributes.Add("style", "width:250px");
       this.goodword.Attributes.Add("style", "width:250px");
     }
 

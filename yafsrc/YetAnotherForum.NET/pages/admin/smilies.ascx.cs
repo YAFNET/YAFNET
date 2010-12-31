@@ -54,7 +54,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this smiley?')";
+        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_SMILIES", "MSG_DELETE"));
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ namespace YAF.Pages.Admin
       this.List.ItemCommand += this.List_ItemCommand;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -84,14 +84,20 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-        this.PageLinks.AddLink("Smilies", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_SMILIES", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.GetText("ADMIN_SMILIES", "TITLE"));
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -102,12 +108,16 @@ namespace YAF.Pages.Admin
       this.Pager.PageSize = 25;
       DataView dv = LegacyDb.smiley_list(this.PageContext.PageBoardID, null).DefaultView;
       this.Pager.Count = dv.Count;
-      var pds = new PagedDataSource();
-      pds.DataSource = dv;
-      pds.AllowPaging = true;
-      pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
-      pds.PageSize = this.Pager.PageSize;
-      this.List.DataSource = pds;
+
+      var pds = new PagedDataSource
+          {
+              DataSource = dv,
+              AllowPaging = true,
+              CurrentPageIndex = this.Pager.CurrentPageIndex,
+              PageSize = this.Pager.PageSize
+          };
+
+        this.List.DataSource = pds;
       this.DataBind();
     }
 

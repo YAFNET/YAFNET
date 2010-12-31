@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
     protected override void OnInit([NotNull] EventArgs e)
     {
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
         }
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink(this.GetText("ADMIN_NNTPSERVERS", "TITLE"), string.Empty);
 
         this.Page.Header.Title = "{0} - {1}".FormatWith(

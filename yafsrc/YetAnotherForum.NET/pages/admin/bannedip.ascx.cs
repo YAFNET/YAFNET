@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Banned IP Addresses", string.Empty);
 
         this.BindData();
@@ -84,10 +84,10 @@ namespace YAF.Pages.Admin
       else if (e.CommandName == "delete")
       {
         // vzrus: Logging is disabled here as the log entries are not protected anyway from simply admins in the standard YAF edition  
-        // string maskStr = DB.bannedip_list(this.PageContext.PageBoardID, e.CommandArgument).Rows[0]["Mask"].ToString();
+        // string maskStr = LegacyDb.bannedip_list(this.PageContext.PageBoardID, e.CommandArgument).Rows[0]["Mask"].ToString();
         LegacyDb.bannedip_delete(e.CommandArgument);
 
-        // DB.eventlog_create(this.PageContext.PageUserID, this, string.Format("Banned IP entry '{0}' was deleted.", maskStr), EventLogTypes.Information);
+        // LegacyDb.eventlog_create(this.PageContext.PageUserID, this, string.Format("Banned IP entry '{0}' was deleted.", maskStr), EventLogTypes.Information);
         // clear cache of banned IPs for this board
         this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
