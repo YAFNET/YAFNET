@@ -263,7 +263,7 @@ namespace YAF.DotNetNuke
     private void CreateYafHostUser(int yafUserId)
     {
       // get this user information...
-      DataTable userInfo = DB.user_list(this.iBoardId, yafUserId, null, null, null);
+      DataTable userInfo = LegacyDb.user_list(this.iBoardId, yafUserId, null, null, null);
 
       if (userInfo.Rows.Count <= 0)
       {
@@ -281,7 +281,7 @@ namespace YAF.DotNetNuke
       var userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
 
       // update...
-      DB.user_adminsave(
+      LegacyDb.user_adminsave(
         this.iBoardId, yafUserId, row["Name"], row["DisplayName"], row["Email"], userFlags.BitValue, row["RankID"]);
     }
 
@@ -325,7 +325,7 @@ namespace YAF.DotNetNuke
       int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
       // Save User
-      DB.user_save(
+      LegacyDb.user_save(
         yafUserId, 
         this.iBoardId, 
         null, 
@@ -480,7 +480,7 @@ namespace YAF.DotNetNuke
             MarkRolesChanged();
           }
 
-          int yafUserId = DB.user_get(this.iBoardId, dnnUser.ProviderUserKey);
+          int yafUserId = LegacyDb.user_get(this.iBoardId, dnnUser.ProviderUserKey);
 
             if (yafUserId.Equals(0))
             {
@@ -490,7 +490,7 @@ namespace YAF.DotNetNuke
 
           /*try
           {
-            yafUserId = DB.user_get(this.iBoardId, dnnUser.ProviderUserKey);
+            yafUserId = LegacyDb.user_get(this.iBoardId, dnnUser.ProviderUserKey);
           }
           catch (Exception)
           {

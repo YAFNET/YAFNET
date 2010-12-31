@@ -92,7 +92,7 @@ namespace YAF.DotNetNuke
     /// </summary>
     private void BindCategories()
     {
-      using (DataTable dt = DB.category_list(this.BoardID.SelectedValue, DBNull.Value))
+      using (DataTable dt = LegacyDb.category_list(this.BoardID.SelectedValue, DBNull.Value))
       {
         DataRow row = dt.NewRow();
         row["Name"] = "[All Categories]";
@@ -156,7 +156,7 @@ namespace YAF.DotNetNuke
             return;
         }
 
-        using (DataTable dt = DB.board_list(DBNull.Value))
+        using (DataTable dt = LegacyDb.board_list(DBNull.Value))
         {
             this.BoardID.DataSource = dt;
             this.BoardID.DataTextField = "Name";

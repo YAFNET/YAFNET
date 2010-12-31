@@ -201,7 +201,7 @@ namespace YAF.DotNetNuke
             if (row == null)
             {
                 // get the section desired...
-                DataTable list = DB.forum_simplelist(this.LowRange(id), CacheSize);
+                DataTable list = LegacyDb.forum_simplelist(this.LowRange(id), CacheSize);
 
                 // set it up in the cache
                 row = this.SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -235,7 +235,7 @@ namespace YAF.DotNetNuke
             if (row == null)
             {
                 // get the section desired...
-                DataTable list = DB.topic_simplelist(this.LowRange(id), CacheSize);
+                DataTable list = LegacyDb.topic_simplelist(this.LowRange(id), CacheSize);
 
                 // set it up in the cache
                 row = this.SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -268,7 +268,7 @@ namespace YAF.DotNetNuke
             if (row == null)
             {
                 // get the section desired...
-                DataTable list = DB.message_simplelist(this.LowRange(id), CacheSize);
+                DataTable list = LegacyDb.message_simplelist(this.LowRange(id), CacheSize);
 
                 // set it up in the cache
                 row = this.SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -581,7 +581,7 @@ namespace YAF.DotNetNuke
 
             try
             {
-                iYafUserId = DB.user_get(1, dnnUser.ProviderUserKey);
+                iYafUserId = LegacyDb.user_get(1, dnnUser.ProviderUserKey);
             }
             catch (Exception)
             {

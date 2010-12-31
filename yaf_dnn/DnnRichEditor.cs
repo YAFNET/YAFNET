@@ -29,7 +29,6 @@ namespace YAF.Editors
 
   using YAF.Classes;
   using YAF.Classes.Data;
-  using YAF.Core;
   using YAF.Types.Constants;
   using YAF.Utils;
 
@@ -277,7 +276,7 @@ namespace YAF.Editors
       }
       catch (Exception ex)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), ex, EventLogTypes.Error);
+        LegacyDb.eventlog_create(null, this.GetType().ToString(), ex, EventLogTypes.Error);
       }
 
       return false;

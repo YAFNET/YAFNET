@@ -108,7 +108,7 @@ namespace YAF.DotNetNuke
     private static void CreateYafHostUser(int userId, int boardId)
     {
       // get this user information...
-      DataTable userInfo = DB.user_list(boardId, userId, null, null, null);
+      DataTable userInfo = LegacyDb.user_list(boardId, userId, null, null, null);
 
       if (userInfo.Rows.Count <= 0)
       {
@@ -126,7 +126,7 @@ namespace YAF.DotNetNuke
       var userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
 
       // update...
-      DB.user_adminsave(
+      LegacyDb.user_adminsave(
         boardId, userId, row["Name"], row["DisplayName"], row["Email"], userFlags.BitValue, row["RankID"]);
     }
 
@@ -173,7 +173,7 @@ namespace YAF.DotNetNuke
       int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
       // Save User
-      DB.user_save(
+      LegacyDb.user_save(
         yafUserId, 
         boardId, 
         null, 
@@ -333,7 +333,7 @@ namespace YAF.DotNetNuke
 
           try
           {
-            yafUserId = DB.user_get(board, dnnUser.ProviderUserKey);
+            yafUserId = LegacyDb.user_get(board, dnnUser.ProviderUserKey);
           }
           catch (Exception)
           {

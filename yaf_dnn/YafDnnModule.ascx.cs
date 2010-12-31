@@ -158,7 +158,7 @@ namespace YAF.DotNetNuke
         protected override void OnError(EventArgs e)
         {
             Exception x = this.Server.GetLastError();
-            DB.eventlog_create(YafContext.Current.PageUserID, this, x);
+            LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, x);
             base.OnError(e);
         }
 
@@ -386,7 +386,7 @@ namespace YAF.DotNetNuke
                 YafCultureInfo yafCultureInfo = GetYafCultureInfo(
                     Localization.GetPageLocale(this.CurrentPortalSettings));
 
-                int largestBoardId = DB.board_create(
+                int largestBoardId = LegacyDb.board_create(
                     dnnUserInfo.Username, 
                     dnnUserInfo.Email, 
                     dnnUser.ProviderUserKey, 
@@ -415,7 +415,7 @@ namespace YAF.DotNetNuke
         private void CreateYafHostUser(int yafUserId)
         {
             // get this user information...
-            DataTable userInfo = DB.user_list(this.forum1.BoardID, yafUserId, null, null, null);
+            DataTable userInfo = LegacyDb.user_list(this.forum1.BoardID, yafUserId, null, null, null);
 
             if (userInfo.Rows.Count <= 0)
             {
@@ -433,7 +433,7 @@ namespace YAF.DotNetNuke
             UserFlags userFlags = new UserFlags(row["Flags"]) { IsHostAdmin = true };
 
             // update...
-            DB.user_adminsave(
+            LegacyDb.user_adminsave(
                 this.forum1.BoardID, 
                 yafUserId, 
                 row["Name"], 
@@ -485,7 +485,7 @@ namespace YAF.DotNetNuke
             int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
             // Save User
-            DB.user_save(
+            LegacyDb.user_save(
                 yafUserId, 
                 this.forum1.BoardID,
                 dnnUserInfo.DisplayName,
@@ -581,7 +581,7 @@ namespace YAF.DotNetNuke
 
                 try
                 {
-                    yafUserId = DB.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
+                    yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
                     if (yafUserId > 0)
                     {
                         this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
