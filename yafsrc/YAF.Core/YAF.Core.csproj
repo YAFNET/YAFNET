@@ -139,6 +139,7 @@
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
     <Compile Include="Services\CreateMail.cs" />
+    <Compile Include="Services\JavaScriptBuilder.cs" />
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />
     <Compile Include="Services\PanelSessionState.cs" />

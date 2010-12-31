@@ -102,6 +102,7 @@
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />
     <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
+    <Compile Include="Interfaces\IScriptBuilder.cs" />
     <Compile Include="Interfaces\ISendMail.cs" />
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />

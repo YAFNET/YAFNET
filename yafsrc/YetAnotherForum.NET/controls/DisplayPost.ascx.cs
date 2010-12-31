@@ -269,14 +269,28 @@ namespace YAF.Controls
         const string RemoveThankBoxHTML =
           "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "addThanksJs", JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML));
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "removeThanksJs", JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
-        YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+          var sb = this.Get<IScriptBuilder>();
 
-        this.FormatThanksRow();
+          var thanksJs =
+              sb.JqueryNoConflict().AddFunctionComplete(JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML)).AddFunctionComplete(JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
+
+          YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "ThanksJs", thanksJs.Build());
+
+          var asynchCallFailedJs = sb.AddFunction("CallFailed", new[] { "res" }, "alert('Error Occurred');");
+
+          YafContext.Current.PageElements.RegisterJsBlockStartup(
+            "asynchCallFailedJs", asynchCallFailedJs.Build());
+
+          /* YafContext.Current.PageElements.RegisterJsBlockStartup(
+             "addThanksJs", JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML));
+
+           YafContext.Current.PageElements.RegisterJsBlockStartup(
+             "removeThanksJs", JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
+           YafContext.Current.PageElements.RegisterJsBlockStartup(
+             "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);*/
+
+          this.FormatThanksRow();
       }
 
       this.PopMenu1.Visible = !this.IsGuest;

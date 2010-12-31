@@ -122,6 +122,29 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets jQuery Alias
+    /// </summary>
+    public static string JQueryAlias
+    {
+        get
+        {
+            if (IsDotNetNuke)
+            {
+                return "jQuery";
+            }
+
+            string jQueryAlias = GetConfigValueAsString("YAF.JQueryAlias") ?? "jQuery";
+
+            if (!jQueryAlias.Equals("jQuery") || !jQueryAlias.Equals("$"))
+            {
+                return "jQuery";
+            }
+            
+            return jQueryAlias;
+        }
+    }
+
+    /// <summary>
     /// Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
     /// </summary>
     public static string ForceScriptName
