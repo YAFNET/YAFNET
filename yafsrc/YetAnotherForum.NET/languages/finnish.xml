@@ -135,7 +135,36 @@
     <Resource tag="USERNAME">Käyttäjätunnus</Resource>
   </page>
   <page name="ADMIN_ADMIN">
+    <Resource tag="ADMIN_APPROVE">Approve</Resource>
+    <Resource tag="ADMIN_DELETE">Delete</Resource>
+    <Resource tag="ADMIN_EMAIL">E-Mail</Resource>
+    <Resource tag="ADMIN_IPADRESS">IP Address</Resource>
+    <Resource tag="ADMIN_JOINED">Joined</Resource>
+    <Resource tag="ADMIN_LOCATION">Board Location</Resource>
+    <Resource tag="ADMIN_NAME">Name</Resource>
+    <Resource tag="ADMIN_UPGRADE"> and update your database.</Resource>
     <Resource tag="Administration">Administration</Resource>
+    <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
+    <Resource tag="APROVE_ALL">Approve All</Resource>
+    <Resource tag="BOARD_STARTED">Board started:</Resource>
+    <Resource tag="CONFIRM_APROVE">Approve this User?</Resource>
+    <Resource tag="CONFIRM_APROVE_ALL">Approve all Users?</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete this User?</Resource>
+    <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
+    <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
+    <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
+    <Resource tag="HEADER1">Who is Online</Resource>
+    <Resource tag="HEADER2">Unverified Users</Resource>
+    <Resource tag="HEADER3">Statistics for</Resource>
+    <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
+    <Resource tag="NUM_POSTS">Number of posts:</Resource>
+    <Resource tag="NUM_TOPICS">Number of topics:</Resource>
+    <Resource tag="NUM_USERS">Number of users:</Resource>
+    <Resource tag="POSTS_DAY">Posts per day:</Resource>
+    <Resource tag="SIZE_DATABASE">Size of database:</Resource>
+    <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
+    <Resource tag="TOPICS_DAY">Topics per day:</Resource>
+    <Resource tag="USERS_DAY">Users per day:</Resource>
   </page>
   <page name="ADMIN_ATTACHMENTS">
     <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>

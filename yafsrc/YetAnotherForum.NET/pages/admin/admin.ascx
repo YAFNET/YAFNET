@@ -6,37 +6,27 @@
 <YAF:AdminMenu ID="Adminmenu1" runat="server">	
 	
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
-     <tr>
-          <td class="header1" colspan="4">
-            Who is Online</td>
-        </tr>
-        <tr>
-          <td class="header2">
-            Name</td>
-          <td class="header2">
-            IP Address</td>
-          <td class="header2">
-            Location</td>
-          <td class="header2">
-            Board Location</td>   
-        </tr>
-		
-	<asp:Repeater ID="ActiveList" runat="server">
+    <asp:Repeater ID="ActiveList" runat="server">
     <HeaderTemplate>
       
         <tr>
           <td class="header1" colspan="4">
-            Who is Online</td>
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
+          </td>
         </tr>
         <tr>
           <td class="header2">
-            Name</td>
+            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME" LocalizedPage="ADMIN_ADMIN" />
+          </td>
           <td class="header2">
-            IP Address</td>
+            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
+          </td>
           <td class="header2">
-            Location</td>
+            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
+          </td>
           <td class="header2">
-            Board Location</td>   
+              <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
+           </td>   
         </tr>
     		</HeaderTemplate>
     <ItemTemplate>
@@ -67,17 +57,18 @@
       
         <tr>
           <td class="header1" colspan="5">
-            Unverified Users</td>
+              <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
+          </td>
         </tr>
         <tr>
           <td class="header2">
-            Name</td>
+             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME" LocalizedPage="ADMIN_ADMIN" /></td>
           <td class="header2">
-            Email</td>
+           <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL" LocalizedPage="ADMIN_ADMIN" /></td>
           <td class="header2">
-            Location</td>
+             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" /></td>
           <td class="header2">
-            Joined</td>
+            <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED" LocalizedPage="ADMIN_ADMIN" /></td>
           <td class="header2">
             &nbsp;</td>
         </tr>
@@ -94,22 +85,24 @@
           <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval( "Name" ).ToString() ).Location )%>
         </td>
         <td class="post">
-          <%# this.Get<IDateTime>().FormatDateTime(Eval("Joined")) %>
+          <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
         </td>
         <td class="post">
-          <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'
-            Text="Approve" />
+          <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'> 
+             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="ADMIN_APPROVE" LocalizedPage="ADMIN_ADMIN"></YAF:LocalizedLabel> 
+           </asp:LinkButton>
           |
-          <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval("UserID") %>'
-            Text="Delete" />
+          <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval("UserID") %>'> 
+            <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_DELETE" LocalizedPage="ADMIN_ADMIN" />
+           </asp:LinkButton>
         </td>
       </tr>
     		</ItemTemplate>
     <FooterTemplate>
       <tr>
         <td class="footer1" colspan="5">
-          <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton" Text="Approve All" runat="server" />
-          <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" Text="Delete All More Than Days Old:" />
+          <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton"  runat="server" />
+          <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" />
           <asp:TextBox ID="DaysOld" runat="server" Width="40px" MaxLength="5"  Text="14" ></asp:TextBox>
           </td>          
       </tr>
@@ -122,91 +115,70 @@
 		
 		<tr>
 			<td class="header1" colspan="4">
-			Statistics<span runat="server" id="boardSelector" Visible='<%# this.PageContext.IsHostAdmin %>' > for <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID" OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" /></span></td>
-			
-			
-			
-			
-			
-			
-			
+			  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />
+          <span runat="server" id="boardSelector" Visible='<%# this.PageContext.IsHostAdmin %>' > for <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID" OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" /></span></td>
 			
 		</tr>
 		<tr>
 			<td class="postheader" width="25%">
-			
-			Number of posts:</td>
-			
+              <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="NUM_POSTS" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post" width="25%">
 			<asp:Label ID="NumPosts" runat="server"></asp:Label></td>
 			
 			<td class="postheader" width="25%">
-			
-			Posts per day:</td>
+			  <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="POSTS_DAY" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post" width="25%">
 			<asp:Label ID="DayPosts" runat="server"></asp:Label></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-			Number of topics:</td>
-			
+              <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="NUM_TOPICS" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post">
-			<asp:Label ID="NumTopics" runat="server"></asp:Label></td>
-			
+			<asp:Label ID="NumTopics" runat="server"></asp:Label>
+            </td>
 			<td class="postheader">
-			Topics per day:</td>
+              <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TOPICS_DAY" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post">
 			<asp:Label ID="DayTopics" runat="server"></asp:Label></td>
-			
 		</tr>
 		<tr>
 			<td class="postheader">
-			Number of users:</td>
-			
+              <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NUM_USERS" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post">
-			<asp:Label ID="NumUsers" runat="server"></asp:Label></td>
-			
+			<asp:Label ID="NumUsers" runat="server"></asp:Label>
+            </td>
 			<td class="postheader">
-			Users per day:</td>
+              <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="USERS_DAY" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post">
 			<asp:Label ID="DayUsers" runat="server"></asp:Label></td>
-		
 		</tr>
 		<tr>
 			<td class="postheader">
-			Board started:</td>
+			<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_STARTED" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post">
 			<asp:Label ID="BoardStart" runat="server"></asp:Label></td>
-			
-			
-			
-			
-			
-			
-			
-			
 			<td class="postheader">
-			Size of database:</td>
-			
+			  <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="SIZE_DATABASE" LocalizedPage="ADMIN_ADMIN" />
+            </td>
 			<td class="post">
 			<asp:Label ID="DBSize" runat="server"></asp:Label></td>
-
 		</tr>
 		<tr>
 			<td class="postfooter" colspan="4">
-			
-			These statistics don&#39;t count deleted topics and posts.</td>
-			
-			
-			
-			
-			
+			<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="STATS_DONTCOUNT" LocalizedPage="ADMIN_ADMIN" />
+			</td>
 		</tr>
 	</table>
 		<p id="UpgradeNotice" runat="server" visible="false">
-		The installed version of Yet Another Forum.net and the version of your database
-    does not match. You should go to <a href="install/" target='_"top"'>install</a>
-		and update your database.
+          <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_UPGRADE" LocalizedPage="ADMIN_ADMIN" />
+		
 		</p>
 	
 </YAF:AdminMenu>

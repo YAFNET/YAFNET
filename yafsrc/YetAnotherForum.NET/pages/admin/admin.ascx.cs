@@ -79,7 +79,7 @@ namespace YAF.Pages.Admin
           string daysValue = this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
           if (!ValidationHelper.IsValidInt(daysValue))
           {
-            this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"));
             return;
           }
 
@@ -101,7 +101,7 @@ namespace YAF.Pages.Admin
           string daysValueAll = this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
           if (!ValidationHelper.IsValidInt(daysValueAll))
           {
-            this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"));
             return;
           }
 
@@ -138,7 +138,8 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button)sender).Attributes["onclick"] = "return confirm('Approve all Users?')";
+        ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
+        ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
     }
 
     /// <summary>
@@ -152,7 +153,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Approve this User?')";
+        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
     }
 
     /// <summary>
@@ -166,8 +167,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
+        ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
+
       ((Button)sender).Attributes["onclick"] =
-        "return confirm('Delete all Unapproved Users more than the specified number of days old?')";
+        "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
     }
 
     /// <summary>
@@ -181,7 +184,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this User?')";
+        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -277,7 +280,7 @@ namespace YAF.Pages.Admin
         DataRow r = dt.NewRow();
 
         r["BoardID"] = -1;
-        r["Name"] = " - All Boards -";
+        r["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
 
         dt.Rows.InsertAt(r, 0);
 
@@ -323,7 +326,7 @@ namespace YAF.Pages.Admin
       TimeSpan span = DateTime.UtcNow - (DateTime)row["BoardStart"];
       double days = span.Days;
 
-      this.BoardStart.Text = "{0:d} ({1:N0} days ago)".FormatWith(row["BoardStart"], days);
+      this.BoardStart.Text = this.GetText("ADMIN_ADMIN", "DAYS_AGO").FormatWith(row["BoardStart"], days);
 
       if (days < 1)
       {
