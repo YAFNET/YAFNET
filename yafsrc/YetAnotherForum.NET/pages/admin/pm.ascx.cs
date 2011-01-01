@@ -52,9 +52,8 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteButton_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith(
-          "Do you really want to delete private messages? This process is irreversible.");
+        ((Button)sender).Attributes["onclick"] =
+            "return confirm('{0}')".FormatWith(this.GetText("ADMIN_PM", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -65,10 +64,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      commit.Click += this.commit_Click;
+      this.commit.Click += this.commit_Click;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -83,16 +82,24 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("PM Maintenance", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_PM", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_PM", "TITLE"));
+
+        this.commit.Text = this.GetText("COMMON", "DELETE");
 
         this.Days1.Text = "60";
         this.Days2.Text = "180";
         this.BindData();
-      }
     }
 
     /// <summary>

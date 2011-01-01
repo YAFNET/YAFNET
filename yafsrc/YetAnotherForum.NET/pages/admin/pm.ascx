@@ -4,31 +4,38 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">
-				Private messages</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PM" />
+            </td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				Number of private messages:</td>
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_NUMBER" LocalizedPage="ADMIN_PM" />
+            </td>
 			<td class="post" width="50%">
-				<asp:Label runat="server" ID="Count" /></td>
+				<asp:Label runat="server" ID="Count" />
+            </td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				Delete read messages older than:</td>
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
+                </td>
 			<td class="post" width="50%">
 				<asp:TextBox runat="server" ID="Days1" />
-				days</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DAYS" LocalizedPage="ADMIN_PM" />
+            </td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				Delete unread messages older than:</td>
+                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />
+            </td>
 			<td class="post" width="50%">
 				<asp:TextBox runat="server" ID="Days2" />
-				days</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="DAYS" LocalizedPage="ADMIN_PM" />
+            </td>
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="commit" runat="server" Text="Delete" OnLoad="DeleteButton_Load" />
+				<asp:Button ID="commit" runat="server" OnLoad="DeleteButton_Load" />
 			</td>
 		</tr>
 	</table>

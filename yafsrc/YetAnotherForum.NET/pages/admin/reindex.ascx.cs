@@ -22,6 +22,7 @@ namespace YAF.Pages.Admin
   #region Using
 
   using System;
+  using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
   using YAF.Core;
@@ -72,6 +73,15 @@ namespace YAF.Pages.Admin
         this.btnShrink.Text = LegacyDb.btnShrinkName;
         this.btnRecoveryMode.Text = LegacyDb.btnRecoveryModeName;
 
+        this.btnShrink.OnClientClick =
+            "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK"));
+        
+        this.btnReindex.OnClientClick =
+            "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX"));
+        
+        this.btnRecoveryMode.OnClientClick =
+            "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY"));
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
@@ -79,6 +89,12 @@ namespace YAF.Pages.Admin
         this.Page.Header.Title = "{0} - {1}".FormatWith(
               this.GetText("ADMIN_ADMIN", "Administration"),
               this.GetText("ADMIN_REINDEX", "TITLE"));
+
+        this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1")));
+        this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2")));
+        this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY3")));
+
+        this.RadioButtonList1.SelectedIndex = 0;
 
         this.BindData();
     }
@@ -138,12 +154,11 @@ namespace YAF.Pages.Admin
           dbName.InfoMessage += this.connMan_InfoMessage;
           this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning(dbName);
           LegacyDb.db_recovery_mode(dbName, dbRecoveryMode);
-          this.txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
+          this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS").FormatWith(dbRecoveryMode);
         }
         catch (Exception error)
         {
-          this.txtIndexStatistics.Text = "Something went wrong with this operation.The reported error is: " +
-                                         error.Message;
+          this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error.Message);
         }
       }
     }
@@ -179,19 +194,18 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnShrink_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      using (var DBName = new MsSqlDbConnectionManager())
+      using (var dbName = new MsSqlDbConnectionManager())
       {
         try
         {
-          DBName.InfoMessage += this.connMan_InfoMessage;
-          this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning(DBName);
-          LegacyDb.db_shrink(DBName);
-          this.txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + LegacyDb.DBSize +
-                                         "MB";
+          dbName.InfoMessage += this.connMan_InfoMessage;
+          this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning(dbName);
+          LegacyDb.db_shrink(dbName);
+          this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(LegacyDb.DBSize);
         }
         catch (Exception error)
         {
-          this.txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
+          this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error.Message);
         }
       }
     }

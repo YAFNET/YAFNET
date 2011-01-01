@@ -8,32 +8,32 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="8">
-				Attachments
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_ATTACHMENTS" />
 			</td>
 		</tr>
 		<asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
 				<tr class="header2">
 					<td>
-						Forum
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUM" />
 					</td>
 					<td>
-						Topic
+						<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOPIC" />
 					</td>
 					<td>
-						Posted
+						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="POSTED" LocalizedPage="ADMIN_ATTACHMENTS" />
 					</td>
 					<td>
-						File Name
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FILENAME" />
 					</td>
 					<td align="right">
-						Downloads
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DOWNLOADS" />
 					</td>
 					<td>
-						Content Type
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CONTENT_TYPE" />
 					</td>
 					<td align="right">
-						Size
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SIZE" />
 					</td>
 					<td>
 						&nbsp;

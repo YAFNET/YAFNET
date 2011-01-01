@@ -5,13 +5,12 @@
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="2">
-                Edit NNTP Forum
+               <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>Server:</strong><br />
-                What server this groups is located.
+                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post" width="50%">
                 <asp:DropDownList ID="NntpServerID" runat="server" />
@@ -19,8 +18,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Group:</strong><br />
-                The name of the newsgroup.
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GROUP" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
                 <asp:TextBox ID="GroupName" runat="server" />
@@ -28,8 +26,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Forum:</strong><br />
-                The forum messages will be inserted into.
+                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
                 <asp:DropDownList ID="ForumID" runat="server" />
@@ -37,15 +34,14 @@
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Active:</strong><br />
-                Check this to make the forum active.
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
                 <asp:CheckBox ID="Active" runat="server" Checked="true" />
             </td>
         </tr>
         <tr>
-            <td class="postfooter" align="middle" colspan="2">
+            <td class="postfooter" align="center" colspan="2">
                 <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />&nbsp;
                 <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" />
             </td>

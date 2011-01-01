@@ -83,9 +83,9 @@ namespace YAF.Pages.Admin
 
     #region Properties
 
-    ///<summary>
+    /// <summary>
     ///  List of attributes for Resources in destination translation file
-    ///</summary>
+    /// </summary>
     private StringDictionary ResourcesAttributes
     {
       get
@@ -94,9 +94,9 @@ namespace YAF.Pages.Admin
       }
     }
 
-    ///<summary>
+    /// <summary>
     ///  List of namespaces for Resources in destination translation file
-    ///</summary>
+    /// </summary>
     private StringDictionary ResourcesNamespaces
     {
       get
@@ -207,7 +207,18 @@ namespace YAF.Pages.Admin
 
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-      this.PageLinks.AddLink("Language Translator", string.Empty);
+
+     this.PageLinks.AddLink(this.GetText("ADMIN_LANGUAGES", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_languages));
+     this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
+
+     this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+           this.GetText("ADMIN_ADMIN", "Administration"),
+           this.GetText("ADMIN_LANGUAGES", "TITLE"),
+           this.GetText("ADMIN_EDITLANGUAGE", "TITLE"));
+
+     this.btnLoadPageLocalization.Text = this.GetText("ADMIN_EDITLANGUAGE", "LOAD_PAGE");
+     this.btnSave.Text = this.GetText("COMMON", "SAVE");
+     this.btnCancel.Text = this.GetText("COMMON", "CANCEL");
 
       this.dDLPages.Items.FindByText("DEFAULT").Selected = true;
 
@@ -217,7 +228,7 @@ namespace YAF.Pages.Admin
       {
         this.lblInfo.Visible = true;
 
-        this.lblInfo.Text = "Missing Translation Resources are Automatically Syncronized and Updated.";
+        this.lblInfo.Text =  this.GetText("ADMIN_EDITLANGUAGE", "AUTO_SYNC");
 
         this.SaveLanguageFile();
       }

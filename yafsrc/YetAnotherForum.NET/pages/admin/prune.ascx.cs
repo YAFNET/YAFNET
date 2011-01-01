@@ -71,7 +71,13 @@ namespace YAF.Pages.Admin
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Prune", string.Empty);
+       this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
+
+       this.Page.Header.Title = "{0} - {1}".FormatWith(
+             this.GetText("ADMIN_ADMIN", "Administration"),
+             this.GetText("ADMIN_PRUNE", "TITLE"));
+
+          this.commit.Text = this.GetText("ADMIN_PRUNE", "PRUNE_START");
 
         this.days.Text = "60";
         this.BindData();
@@ -84,8 +90,8 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.lblPruneInfo.Text =
-            "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
+        this.lblPruneInfo.Text = this.GetText("ADMIN_PRUNE", "PRUNE_INFO");
+
         this.commit.Enabled = false;
     }
 
@@ -101,7 +107,7 @@ namespace YAF.Pages.Admin
     protected void PruneButton_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((Button)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith("Do you really want to prune topics? This process is irreversible.");
+        "return confirm('{0}')".FormatWith(this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE"));
     }
 
     /// <summary>
@@ -117,7 +123,7 @@ namespace YAF.Pages.Admin
 
         this.DataBind();
 
-        this.forumlist.Items.Insert(0, new ListItem("All Forums", "0"));
+        this.forumlist.Items.Insert(0, new ListItem(this.GetText("ADMIN_PRUNE", "ALL_FORUMS"), "0"));
     }
 
     /// <summary>
@@ -145,7 +151,7 @@ namespace YAF.Pages.Admin
         this.days.Text.ToType<int>(), 
         this.permDeleteChkBox.Checked);
 
-      this.PageContext.AddLoadMessage("Prune Task Scheduled");
+      this.PageContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"));
     }
 
     #endregion

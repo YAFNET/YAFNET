@@ -4,7 +4,7 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">
-				Prune Topics
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 		</tr>
 		<tr>
@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<strong>Select forum to prune:</strong>
+                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 			<td class="post" width="50%">
 				<asp:DropDownList ID="forumlist" runat="server">
@@ -23,8 +23,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Enter minimum age in days:</strong><br />
-				Topics with the last post older than this will be deleted.
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 			<td class="post">
 				<asp:TextBox ID="days" runat="server"></asp:TextBox>
@@ -32,8 +31,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Permanently remove from DB:</strong><br />
-				All Topics marked with the Deleted flag will be permanently deleted.
+                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 			<td class="post">
 				<asp:CheckBox ID="permDeleteChkBox" runat="server" />
@@ -41,7 +39,7 @@
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="commit" runat="server" class="pbutton" Text="Start Prune Task" OnLoad="PruneButton_Load">
+				<asp:Button ID="commit" runat="server" class="pbutton" OnLoad="PruneButton_Load">
 				</asp:Button>
 			</td>
 		</tr>

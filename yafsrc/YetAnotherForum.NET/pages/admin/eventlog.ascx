@@ -7,19 +7,24 @@
             <table class="content" width="100%" cellspacing="1" cellpadding="0">
                 <tr>
                     <td class="header1" colspan="8">
-                        Event Log</td>
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
+                    </td>
                 </tr>
                 <asp:Repeater runat="server" ID="List">
                     <HeaderTemplate>
                         <tr class="header2">
                             <td width="1%">
-                                Type</td>
+                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TYPE" LocalizedPage="ADMIN_EVENTLOG" />
+                            </td>
                             <td>
-                                User</td>
+                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USER" LocalizedPage="ADMIN_EVENTLOG" />
+                            </td>
                             <td>
-                                Time</td>
+                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_EVENTLOG" />
+                            </td>
                             <td>
-                                Source</td>
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SOURCE" LocalizedPage="ADMIN_EVENTLOG" />
+                            </td>
                             <td>
                                 &nbsp;</td>
                         </tr>
@@ -39,9 +44,13 @@
                                 <%# HtmlEncode(Eval( "Source")) %>
                             </td>
                             <td>
-                                <asp:LinkButton runat="server" ID="showbutton" CommandName="show">Show</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="showbutton" CommandName="show">
+                                  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" />
+                                </asp:LinkButton>
                                 |
-                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "EventLogID") %>'>Delete</asp:LinkButton>
+                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "EventLogID") %>'>
+                                  <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="DELETE" />
+                                </asp:LinkButton>
                             </td>
                         </tr>
                         <tr class="post" runat="server" visible="false" id="details">
@@ -52,8 +61,11 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         <tr class="footer1">
-                            <td colspan="5">
-                                <asp:Button runat="server" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click" Text="Delete All" /></td>
+                            <td colspan="5" align="center">
+                                <asp:LinkButton runat="server" OnLoad="DeleteAll_Load" CssClass="pbutton" OnClick="DeleteAll_Click">
+                                  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DELETE_ALL" LocalizedPage="ADMIN_EVENTLOG" />
+                                </asp:LinkButton>
+                             </td>
                         </tr>
                     </FooterTemplate>
                 </asp:Repeater>

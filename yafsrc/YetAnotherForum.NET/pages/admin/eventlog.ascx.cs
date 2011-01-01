@@ -74,7 +74,7 @@ namespace YAF.Pages.Admin
     /// </remarks>
     protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Button)sender).Attributes["onclick"] = "return confirm('Delete all event log entries?')";
+        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin
     /// </remarks>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this event log entry?')";
+        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -136,10 +136,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      List.ItemCommand += this.List_ItemCommand;
+      this.List.ItemCommand += this.List_ItemCommand;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -155,23 +155,29 @@ namespace YAF.Pages.Admin
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // do it only once, not on postbacks
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // create page links
         // board index first
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
         // administration index second
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
-        // we are now in event log
-        this.PageLinks.AddLink("Event Log", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOG", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_EVENTLOG", "TITLE"));
+
 
         this.PagerTop.PageSize = 25;
 
         // bind data to controls
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -262,7 +268,9 @@ namespace YAF.Pages.Admin
           ctl.Visible = !ctl.Visible;
 
           // change visibility state of detail and label of linkbutton too
-          showbutton.Text = ctl.Visible ? "Hide" : "Show";
+              showbutton.Text = ctl.Visible
+                                    ? this.GetText("ADMIN_EVENTLOG", "HIDE")
+                                    : this.GetText("ADMIN_EVENTLOG", "SHOW");
 
           break;
       }

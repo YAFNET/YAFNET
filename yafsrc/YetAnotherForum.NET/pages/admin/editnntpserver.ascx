@@ -5,45 +5,46 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="11">
-				Edit NNTP Server</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+             </td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<strong>Name:</strong><br />
-				Name of this server.</td>
+                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="NNTP_NAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+            </td>
 			<td class="post" colspan="7">
 				<asp:TextBox Style="width: 300px" ID="Name" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<strong>Address:</strong><br />
-				The host name of the server.</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NNTP_ADRESS" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+            </td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="Address" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<strong>Port:</strong><br />
-				The port number to connect to.</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NNTP_PORT" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+            </td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="Port" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<strong>User Name:</strong><br />
-				The user name used to log on to the nntp server.</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NNTP_USERNAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+            </td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="UserName" runat="server" Enabled="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<strong>Password:</strong><br />
-				The password used to log on to the nntp server.</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NNTP_PASSWORD" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+            </td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="UserPass" runat="server" Enabled="true" /></td>
 		</tr>
 		<tr>
-			<td class="postfooter" align="middle" colspan="11">
+			<td class="postfooter" align="center" colspan="11">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>&nbsp;
 				<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button></td>
 		</tr>

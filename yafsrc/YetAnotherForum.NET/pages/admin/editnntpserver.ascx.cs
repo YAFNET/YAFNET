@@ -65,32 +65,43 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("NNTP Servers", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_NNTPSERVERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_nntpservers));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EDITNNTPSERVER", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+             this.GetText("ADMIN_ADMIN", "Administration"),
+             this.GetText("ADMIN_NNTPSERVERS", "TITLE"),
+             this.GetText("ADMIN_EDITNNTPSERVER", "TITLE"));
+
+        this.Save.Text = this.GetText("COMMON", "SAVE");
+        this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
         this.BindData();
         if (this.Request.QueryString.GetFirstOrDefault("s") != null)
         {
-          using (
-            DataTable dt = LegacyDb.nntpserver_list(
-              this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("s")))
-          {
-            DataRow row = dt.Rows[0];
-            this.Name.Text = row["Name"].ToString();
-            this.Address.Text = row["Address"].ToString();
-            this.Port.Text = row["Port"].ToString();
-            this.UserName.Text = row["UserName"].ToString();
-            this.UserPass.Text = row["UserPass"].ToString();
-          }
+            using (
+                DataTable dt = LegacyDb.nntpserver_list(
+                    this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("s")))
+            {
+                DataRow row = dt.Rows[0];
+                this.Name.Text = row["Name"].ToString();
+                this.Address.Text = row["Address"].ToString();
+                this.Port.Text = row["Port"].ToString();
+                this.UserName.Text = row["UserName"].ToString();
+                this.UserPass.Text = row["UserPass"].ToString();
+            }
         }
         else
         {
-          this.Port.Text = "119";
+            this.Port.Text = "119";
         }
-      }
     }
 
     /// <summary>
@@ -106,13 +117,13 @@ namespace YAF.Pages.Admin
     {
       if (this.Name.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("Missing server name.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_NAME"));
         return;
       }
 
       if (this.Address.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("Missing server address.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_ADR"));
         return;
       }
 

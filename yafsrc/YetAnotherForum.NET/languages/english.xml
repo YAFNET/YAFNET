@@ -553,6 +553,8 @@
 		<Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
 	</page>
 	<page name="COMMON">
+    	<Resource tag="DELETE">Delete</Resource>
+     	<Resource tag="EDIT">Edit</Resource>
 		<Resource tag="BACK">Back</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
@@ -1151,7 +1153,7 @@
 		<Resource tag="EDITPOLL">Edit Poll</Resource>
     <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
     <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
-    <Resource tag="POLL_ALLOWSKIPVOTE">Allow to not vote and see results.</Resource>
+	<Resource tag="POLL_ALLOWSKIPVOTE">Allow to not vote and see results.</Resource>
     <Resource tag="POLL_ALLOWSKIPVOTE_INFO">You can skip voting and results.</Resource>
     <Resource tag="POLL_SHOWVOTERS">Show who is voted</Resource>
     <Resource tag="POLL_SHOWVOTERS_INFO">Show who is voted.</Resource>
@@ -1940,6 +1942,183 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="SQL_COMMAND">SQL Command:</Resource>
 	   <Resource tag="RUN_QUERY">Run Query</Resource>
 	   <Resource tag="RUN_TRANSCATION">Run In Transaction</Resource>
-	   <Resource tag="NEW_SERVER">New Server</Resource>
+	 </page>
+	  <page name="ADMIN_TASKMANAGER">
+	   <Resource tag="TITLE">Task Manger</Resource>
+	   <Resource tag="HEADER">Task Manager: {0} Task(s) Running</Resource>
+	   <Resource tag="DURATION">Duration</Resource>
+	   <Resource tag="RUNNING">Is Running</Resource>
+	   <Resource tag="STOP_TASK">Stop Task</Resource>
+	 </page>
+	 <page name="ADMIN_SMILIES_IMPORT">
+	   <Resource tag="TITLE">Smilies Import</Resource>
+	   <Resource tag="HEADER">Import Smiley Pack</Resource>
+	   <Resource tag="IMPORT">Import</Resource>
+	   <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
+	   <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
+	   <Resource tag="CHOOSE_PAK"><![CDATA[<strong>Choose .pak file:</strong><br />You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).]]></Resource>
+	   <Resource tag="DELETE_EXISTING"><![CDATA[<strong>Delete existing smilies:</strong><br />Will delete all existing smilies if you check this.]]></Resource>
+	 </page>
+	 <page name="ADMIN_SMILIES_EDIT">
+	   <Resource tag="TITLE">Add/Edit Smiley</Resource>
+	   <Resource tag="CODE">Code:</Resource>
+	   <Resource tag="ICON">Icon:</Resource>
+	   <Resource tag="EMOTION">Emotion:</Resource>
+	   <Resource tag="SORT_ORDER">Sort Order:</Resource>
+	   <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
+	   <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
+	   <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
+	   <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
+	   <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
+	   <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
+	   <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
+	   <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
+	 </page>
+	  <page name="ADMIN_SMILIES">
+	   <Resource tag="TITLE">Smilies</Resource>
+	   <Resource tag="ADD">Add Smiley</Resource>
+	   <Resource tag="IMPORT">Import Smiley Pack</Resource>
+	   <Resource tag="CODE">Code</Resource>
+	   <Resource tag="SMILEY">Smiley</Resource>
+	   <Resource tag="ORDER">Order</Resource>
+	   <Resource tag="EMOTION">Emotion</Resource>
+	   <Resource tag="COMANDS">Emotion</Resource>
+	   <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
+	 </page>
+	 <page name="ADMIN_RESTARTAPP">
+	   <Resource tag="TITLE">Restart Application</Resource>
+	   <Resource tag="INFO">Restarting the application will reload all .config files.</Resource>
+	   <Resource tag="MSG_TRUST">Must have High/Unrestricted Trust to Unload Application. Restart Failed.</Resource>
+	 </page>
+	 <page name="ADMIN_REPLACEWORDS">
+	   <Resource tag="TITLE">Replace Words</Resource>
+       <Resource tag="BAD">"Bad" (Find) Expression</Resource>
+	   <Resource tag="GOOD">"Good" (Replace) Expression</Resource>
+	   <Resource tag="ADD">Add</Resource>
+	   <Resource tag="IMPORT">Import from XML</Resource>
+	   <Resource tag="EXPORT">Export to XML</Resource>
+	   <Resource tag="MSG_DELETE">Delete this Word Replacement?</Resource>
+	 </page>
+	 <page name="ADMIN_REPLACEWORDS_IMPORT">
+	   <Resource tag="TITLE">Import Replace Words</Resource>
+	   <Resource tag="HEADER">Import Replace Word List</Resource>
+       <Resource tag="SELECT_IMPORT"><![CDATA[<strong>Select Import File:</strong><br />(Must be *.xml file)]]></Resource>
+	   <Resource tag="MSG_IMPORTED">{0} new replacement word(s) were imported successfully.</Resource>
+	   <Resource tag="MSG_NOTHING">Nothing imported: no new replacement words were found in the upload.</Resource>
+	   <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
+	   <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
+	 </page>
+	 <page name="ADMIN_REPLACEWORDS_EDIT">
+	   <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+	   <Resource tag="BAD"><![CDATA[<strong>"Bad" Expression:</strong><br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).]]></Resource>
+	   <Resource tag="GOOD"><![CDATA[<strong>"Good" Expression:</strong><br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).]]></Resource>
+	 </page>
+	 <page name="ADMIN_REINDEX">
+	   <Resource tag="TITLE">Reindex DB</Resource>
+	   <Resource tag="HEADER">YAF DB Operation Report:</Resource>
+	   <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
+	   <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
+	   <Resource tag="CONFIRM_RECOVERY">Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!</Resource>
+	   <Resource tag="RECOVERY1">Full (Full Recovery allows the database to be recovered to the point of failure.)</Resource>
+	   <Resource tag="RECOVERY2">Simple (Simple Recovery allows the database to be recovered to the most recent backup.You need to backup your DB regularly.)</Resource>
+	   <Resource tag="RECOVERY3">Bulk-Logged (Bulk-Logged Recovery allows bulk-logged operations.)</Resource>
+       <Resource tag="SHOW_STATS">Show statistical information about YAF table indexes.</Resource>
+	   <Resource tag="INDEX_STATS">Database recovery mode was successfuly set to {0}</Resource>
+	   <Resource tag="INDEX_STATS_FAIL">Something went wrong with this operation.The reported error is: {0}</Resource>
+	   <Resource tag="INDEX_SHRINK">Shrink operation was Successful.Your database size is now: {0}MB</Resource>
+	   <Resource tag="REINDEX">With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance.</Resource>
+	   <Resource tag="SHRINK">You can use the Shrink method to reduce the size of the files that make up the database manually. The data is stored more densely and unused pages are removed</Resource>
+	 </page>
+	 <page name="ADMIN_EDITNNTPFORUM">
+	   <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
+	   <Resource tag="SERVER"><![CDATA[<strong>Server:</strong><br />What server this groups is located.]]></Resource>
+	   <Resource tag="GROUP"><![CDATA[<strong>Group:</strong><br />The name of the newsgroup.]]></Resource>
+	   <Resource tag="FORUM"><![CDATA[<strong>Forum:</strong><br />The forum messages will be inserted into.]]></Resource>
+	   <Resource tag="ACTIVE"><![CDATA[<strong>Active:</strong><br />Check this to make the forum active.]]></Resource>
+	   <Resource tag="MSG_VALID_GROUP">You should enter a valid group name.</Resource>
+       <Resource tag="MSG_SELECT_FORUM">You must select a forum to save NNTP messages.</Resource>
+	 </page>
+	 <page name="ADMIN_EDITNNTPSERVER">
+	   <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
+	   <Resource tag="NNTP_NAME"><![CDATA[<strong>Name:</strong><br />Name of this server.]]></Resource>
+	   <Resource tag="NNTP_ADRESS"><![CDATA[<strong>Address:</strong><br />The host name of the server.]]></Resource>
+	   <Resource tag="NNTP_PORT"><![CDATA[<strong>Port:</strong><br />The port number to connect to.]]></Resource>
+	   <Resource tag="NNTP_USERNAME"><![CDATA[<strong>User Name:</strong><br />The user name used to log on to the nntp server.]]></Resource>
+	   <Resource tag="NNTP_PASSWORD"><![CDATA[<strong>Password:</strong><br />The password used to log on to the nntp server.]]></Resource>
+	   <Resource tag="MSG_SERVER_NAME">Missing server name.</Resource>
+       <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
+	 </page>
+	  <page name="ADMIN_PRUNE">
+	   <Resource tag="TITLE">Prune Topics</Resource>
+	   <Resource tag="PRUNE_INFO">NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.</Resource>
+	   <Resource tag="CONFIRM_PRUNE">Do you really want to prune topics? This process is irreversible.</Resource>
+	   <Resource tag="ALL_FORUMS">All Forums</Resource>
+	   <Resource tag="MSG_TASK">Prune Task Scheduled</Resource>
+	   <Resource tag="PRUNE_START">Start Prune Task</Resource>
+	   <Resource tag="PRUNE_FORUM"><![CDATA[<strong>Select forum to prune:</strong>]]></Resource>
+	   <Resource tag="PRUNE_DAYS"><![CDATA[<strong>Enter minimum age in days:</strong><br />Topics with the last post older than this will be deleted.]]></Resource>
+	   <Resource tag="PRUNE_PERMANENT"><![CDATA[<strong>Permanently remove from DB:</strong><br />All Topics marked with the Deleted flag will be permanently deleted.]]></Resource>
+	 </page>
+	  <page name="ADMIN_PM">
+	   <Resource tag="TITLE">PM Maintenance</Resource>
+	   <Resource tag="HEADER">Private messages</Resource>
+       <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
+	   <Resource tag="DAYS">days</Resource>
+	   <Resource tag="PM_NUMBER">Number of private messages:</Resource>
+	   <Resource tag="DELETE_READ">Delete read messages older than:</Resource>
+	   <Resource tag="DELETE_UNREAD">Delete unread messages older than:</Resource>
+	 </page>
+	 <page name="ADMIN_ATTACHMENTS">
+	   <Resource tag="TITLE">Attachments</Resource>
+       <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>
+	   <Resource tag="POSTED">Posted</Resource>
+	   <Resource tag="DOWNLOADS">Downloads</Resource>
+	   <Resource tag="CONTENT_TYPE">Content Type</Resource>
+	 </page>
+	 <page name="ADMIN_DIGEST">
+	   <Resource tag="TITLE">Digest</Resource>
+	   <Resource tag="HEADER2">View Current Digest</Resource>
+	   <Resource tag="HEADER3">Send Test Digest</Resource>
+	   <Resource tag="DIGEST_NEVER">Never</Resource>
+       <Resource tag="MSG_FORCE_SEND">Digest Send Scheduled for Immediate Sending</Resource>
+	   <Resource tag="MSG_VALID_MAIL">Please enter a valid email address to send a test.</Resource>
+	   <Resource tag="MSG_SEND_SUC">Sent via {0} successfully.</Resource>
+	   <Resource tag="MSG_SEND_ERR">Exception Getting Digest: {0}</Resource>
+	   <Resource tag="SEND_TEST">Send Test</Resource>
+	   <Resource tag="GENERATE_DIGEST">Generate Digest</Resource>
+	   <Resource tag="FORCE_SEND">Force Digest Send</Resource>
+	   <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
+	   <Resource tag="DIGEST_ENABLED"><![CDATA[<strong>Digest Enabled:</strong><br />Change in your Board Settings.]]></Resource>
+	   <Resource tag="DIGEST_LAST"><![CDATA[<strong>Last Digest Send:</strong><br />The last time (based on server time) the digest task was run.]]></Resource>
+	   <Resource tag="DIGEST_EMAIL"><![CDATA[<strong>Email:</strong><br />Send a test digest to the email.]]></Resource>
+	   <Resource tag="DIGEST_METHOD"><![CDATA[<strong>Send Method:</strong><br />Type of System Send to Test.]]></Resource>
+	   <Resource tag="DIGEST_GENERATE"><![CDATA[<strong>Digest:</strong><br />Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an email client.)]]></Resource>
+	 </page>
+	  <page name="ADMIN_LANGUAGES">
+	   <Resource tag="TITLE">Languages</Resource>
+       <Resource tag="NATIVE_NAME">Language Native Name</Resource>
+	   <Resource tag="CULTURE_TAG">Culture Tag</Resource>
+	   <Resource tag="LANG_NAME">Language English Name</Resource>
+	 </page>
+	 <page name="ADMIN_EDITLANGUAGE">
+	   <Resource tag="TITLE">Language Translator</Resource>
+       <Resource tag="LOAD_PAGE">Load Page Localization</Resource>
+	   <Resource tag="HEADER"><![CDATA[Language Translation - <em>Current Ressource Page : ]]></Resource>
+	   <Resource tag="SELECT_PAGE">Select a Page:</Resource>
+	   <Resource tag="RESOURCE_NAME">Resource Name</Resource>
+	   <Resource tag="ORIGINAL_RESOURCE">Original Resource</Resource>
+	   <Resource tag="LOCALIZED_RESOURCE">Localized Resource</Resource>
+	   <Resource tag="AUTO_SYNC">Missing Translation Resources are Automatically Syncronized and Updated.</Resource>
+	 </page>
+	 <page name="ADMIN_EVENTLOG">
+	   <Resource tag="TITLE">Event Log</Resource>
+       <Resource tag="DELETE_ALL">Delete All</Resource>
+	   <Resource tag="SHOW">Show</Resource>
+	   <Resource tag="HIDE">Hide</Resource>
+	   <Resource tag="CONFIRM_DELETE_ALL">Delete all event log entries?</Resource>
+	   <Resource tag="CONFIRM_DELETE">Delete this event log entry?</Resource>
+	   <Resource tag="TYPE">Type</Resource>
+	   <Resource tag="SOURCE">Source</Resource>
+	   <Resource tag="TIME">Time</Resource>
 	 </page>
 </Resources>

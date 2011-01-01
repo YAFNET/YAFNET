@@ -31,6 +31,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.AdminMenu Adminmenu1;
         
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
         /// lblPageName control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.Label lblPageName;
         
         /// <summary>
-        /// lblPages control.
+        /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPages;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// dDLPages control.

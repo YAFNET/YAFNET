@@ -51,7 +51,7 @@ namespace YAF.Pages.Admin
       YafContext.Current.BoardSettings.ForceDigestSend = true;
       ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
 
-      this.PageContext.AddLoadMessage("Digest Send Scheduled for Immediate Sending");
+      this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"));
     }
 
     /// <summary>
@@ -81,18 +81,31 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Digest", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_DIGEST", "TITLE"));
 
         this.LastDigestSendLabel.Text = this.PageContext.BoardSettings.LastDigestSend.IsNotSet()
-                                          ? "Never"
-                                          : this.PageContext.BoardSettings.LastDigestSend;
+                                            ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
+                                            : this.PageContext.BoardSettings.LastDigestSend;
 
         this.DigestEnabled.Text = this.PageContext.BoardSettings.AllowDigestEmail ? "True" : "False";
-      }
+
+        this.TestSend.Text = this.GetText("ADMIN_DIGEST", "SEND_TEST");
+
+        this.GenerateDigest.Text = this.GetText("ADMIN_DIGEST", "GENERATE_DIGEST");
+        this.Button2.Text = this.GetText("ADMIN_DIGEST", "FORCE_SEND");
+
+        this.Button2.OnClientClick = "return confirm('{0}');".FormatWith(this.GetText("ADMIN_DIGEST", "CONFIRM_FORCE"));
     }
 
     /// <summary>
@@ -108,7 +121,7 @@ namespace YAF.Pages.Admin
     {
       if (this.TextSendEmail.Text.IsNotSet())
       {
-        this.PageContext.AddLoadMessage("Please enter a valid email address to send a test.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"));
       }
 
       try
@@ -124,11 +137,11 @@ namespace YAF.Pages.Admin
           "Digest Send Test", 
           this.SendMethod.SelectedItem.Text == "Queued");
 
-        this.PageContext.AddLoadMessage("Sent via {0} successfully.".FormatWith(this.SendMethod.SelectedItem.Text));
+        this.PageContext.AddLoadMessage(this.GetText("MSG_SEND_SUC", "MSG_VALID_MAIL").FormatWith(this.SendMethod.SelectedItem.Text));
       }
       catch (Exception ex)
       {
-        this.PageContext.AddLoadMessage("Exception Getting Digest: " + ex);
+        this.PageContext.AddLoadMessage(this.GetText("MSG_SEND_ERR", "MSG_VALID_MAIL").FormatWith(ex));
       }
     }
 
