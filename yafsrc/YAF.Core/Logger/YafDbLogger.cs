@@ -97,6 +97,17 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// Gets a value indicating the logging type.
+    /// </summary>
+    public Type Type
+    {
+      get
+      {
+        throw new NotImplementedException();
+      }
+    }
+
+    /// <summary>
     /// The debug.
     /// </summary>
     /// <param name="format">
