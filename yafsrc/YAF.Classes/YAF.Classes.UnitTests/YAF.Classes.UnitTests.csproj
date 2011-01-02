@@ -83,6 +83,7 @@
     <Reference Include="xunit.should, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScriptBuilderTests.cs" />
     <Compile Include="SpamClientTester.cs" />
     <Compile Include="ProviderTests.cs" />
     <Compile Include="UtilTests.cs" />
