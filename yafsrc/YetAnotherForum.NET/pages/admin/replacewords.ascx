@@ -43,16 +43,16 @@
 		</ItemTemplate>
 		<FooterTemplate>
 			<tr>
-				<td class="footer1" colspan="3">
-					<asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3">
+				<td class="footer1" colspan="3" align="center">
+					<asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="pbutton">
                       <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_REPLACEWORDS" />
                     </asp:LinkButton>
 					|
-					<asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5">
+					<asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5" CssClass="pbutton">
                       <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_REPLACEWORDS" />
                     </asp:LinkButton>
 					|
-					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4">
+					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="pbutton">
                       <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="EXPORT" LocalizedPage="ADMIN_REPLACEWORDS" />
                     </asp:LinkButton>
 				</td>

@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
+    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BETA_WARNING" LocalizedPage="ADMIN_NNTPRETRIEVE" />
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td colspan="3" class="header1">
@@ -47,9 +48,8 @@
 		</tr>
 		<tr>
 			<td colspan="3" align="center" class="footer1">
-				<asp:Button runat="server" ID="Retrieve" Text="Retrieve" OnClick="Retrieve_Click" /></td>
+				<asp:Button runat="server" ID="Retrieve" Text="Retrieve" CssClass="pbutton" OnClick="Retrieve_Click" /></td>
 		</tr>
 	</table>
-    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BETA_WARNING" LocalizedPage="ADMIN_NNTPRETRIEVE" />
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

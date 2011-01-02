@@ -5,6 +5,9 @@
 		<tr>
 			<td class="header1" colspan="2"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REPLACEWORDS_IMPORT" /></td>
 		</tr>
+        <tr>
+	      <td class="header2" height="30" colspan="2"></td>
+		</tr>
 		<tr>
 			<td class="postheader" width="50%"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_REPLACEWORDS_IMPORT" />
             </td>
@@ -14,8 +17,8 @@
 		</tr>
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
-				<asp:button id="Import" runat="server" OnClick="Import_OnClick"></asp:button>
-				<asp:button id="cancel" runat="server" OnClick="Cancel_OnClick"></asp:button></td>
+				<asp:button id="Import" runat="server" OnClick="Import_OnClick" CssClass="pbutton"></asp:button>
+				<asp:button id="cancel" runat="server" OnClick="Cancel_OnClick" CssClass="pbutton"></asp:button></td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

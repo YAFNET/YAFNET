@@ -43,7 +43,7 @@
                         <%# Eval( "Active") %>
                     </td>
                     <td class="post">
-                        <asp:LinkButton runat="server"  CommandName="edit" CommandArgument='<%# Eval( "NntpForumID") %>'><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" /></asp:LinkButton>
+                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "NntpForumID") %>'><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" /></asp:LinkButton>
                         |
                         <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "NntpForumID") %>'><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE" LocalizedPage="ADMIN_NNTPFORUMS" /></asp:LinkButton>
                     </td>
@@ -51,8 +51,8 @@
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="5">
-                <asp:LinkButton ID="NewForum" runat="server" Text="New Forum" OnClick="NewForum_Click" />
+            <td class="footer1" colspan="5" align="center">
+                <asp:Button ID="NewForum" runat="server" CssClass="pbutton" OnClick="NewForum_Click" />
             </td>
         </tr>
     </table>

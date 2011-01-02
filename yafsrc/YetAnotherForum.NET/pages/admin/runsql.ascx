@@ -7,6 +7,9 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_RUNSQL" />
 			</td>
 		</tr>
+        <tr>
+			    <td class="header2" height="30" colspan="2"></td>
+		</tr>
 		<tr>
 			<td class="postheader" style="width: 100px" valign="top">
 				<strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SQL_COMMAND" LocalizedPage="ADMIN_RUNSQL" /></strong>
@@ -18,7 +21,7 @@
 		<tr class="footer1">
 			<td colspan="2" align="center">                
                 <asp:Checkbox ID="chkRunInTransaction" runat="server" Text="Run In Transaction" Checked="true" />
-				<asp:Button ID="btnRunQuery" runat="server" Text="Run Query" OnClick="btnRunQuery_Click" />                
+				<asp:Button ID="btnRunQuery" runat="server" CssClass="pbutton" Text="Run Query" OnClick="btnRunQuery_Click" />                
 			</td>
 		</tr>
 		<asp:PlaceHolder ID="ResultHolder" runat="server" Visible="false">

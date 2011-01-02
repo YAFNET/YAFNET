@@ -7,9 +7,12 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
 			</td>
 		</tr>
+        <tr>
+	      <td class="header2" height="30"></td>
+		</tr>
 		<tr class="post">
 			<td>
-				<p>
+				<p style="text-align:center">
 					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="INFO" LocalizedPage="ADMIN_RESTARTAPP" />
 				</p>
 			</td>

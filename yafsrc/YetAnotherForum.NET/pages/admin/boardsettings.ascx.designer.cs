@@ -31,6 +31,33 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.AdminMenu Adminmenu1;
         
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
+        /// LocalizedLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        
+        /// <summary>
         /// Name control.
         /// </summary>
         /// <remarks>
@@ -38,6 +65,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Name;
+        
+        /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// AllowThreaded control.
@@ -49,6 +85,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowThreaded;
         
         /// <summary>
+        /// LocalizedLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        
+        /// <summary>
         /// Theme control.
         /// </summary>
         /// <remarks>
@@ -56,6 +101,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Theme;
+        
+        /// <summary>
+        /// LocalizedLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
         /// MobileTheme control.
@@ -67,6 +121,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList MobileTheme;
         
         /// <summary>
+        /// LocalizedLabel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        
+        /// <summary>
         /// AllowThemedLogo control.
         /// </summary>
         /// <remarks>
@@ -74,6 +137,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AllowThemedLogo;
+        
+        /// <summary>
+        /// LocalizedLabel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// JqueryUITheme control.
@@ -85,6 +157,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList JqueryUITheme;
         
         /// <summary>
+        /// LocalizedLabel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
+        
+        /// <summary>
         /// JqueryUIThemeCDNHosted control.
         /// </summary>
         /// <remarks>
@@ -92,6 +173,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox JqueryUIThemeCDNHosted;
+        
+        /// <summary>
+        /// LocalizedLabel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
         
         /// <summary>
         /// Culture control.
@@ -103,6 +193,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList Culture;
         
         /// <summary>
+        /// LocalizedLabel11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
+        
+        /// <summary>
         /// ShowTopic control.
         /// </summary>
         /// <remarks>
@@ -110,6 +209,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ShowTopic;
+        
+        /// <summary>
+        /// LocalizedLabel12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
         /// FileExtensionAllow control.
@@ -148,6 +256,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList PollGroupListDropDown;
         
         /// <summary>
+        /// LocalizedLabel13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel13;
+        
+        /// <summary>
         /// NotificationOnUserRegisterEmailList control.
         /// </summary>
         /// <remarks>
@@ -155,6 +272,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox NotificationOnUserRegisterEmailList;
+        
+        /// <summary>
+        /// LocalizedLabel14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel14;
         
         /// <summary>
         /// EmailModeratorsOnModeratedPost control.
@@ -166,6 +292,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EmailModeratorsOnModeratedPost;
         
         /// <summary>
+        /// LocalizedLabel15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel15;
+        
+        /// <summary>
         /// AllowDigestEmail control.
         /// </summary>
         /// <remarks>
@@ -175,6 +310,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowDigestEmail;
         
         /// <summary>
+        /// LocalizedLabel16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel16;
+        
+        /// <summary>
         /// DefaultSendDigestEmail control.
         /// </summary>
         /// <remarks>
@@ -182,6 +326,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox DefaultSendDigestEmail;
+        
+        /// <summary>
+        /// LocalizedLabel17 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel17;
         
         /// <summary>
         /// DefaultNotificationSetting control.

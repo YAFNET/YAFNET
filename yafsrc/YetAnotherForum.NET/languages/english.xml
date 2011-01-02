@@ -553,6 +553,8 @@
 		<Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
 	</page>
 	<page name="COMMON">
+	    <Resource tag="ALLOWED">Allowed</Resource>
+     	<Resource tag="DISALLOWED">Disallowed</Resource>
     	<Resource tag="DELETE">Delete</Resource>
      	<Resource tag="EDIT">Edit</Resource>
 		<Resource tag="BACK">Back</Resource>
@@ -2149,5 +2151,25 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="TYPE">Type</Resource>
 	   <Resource tag="SOURCE">Source</Resource>
 	   <Resource tag="TIME">Time</Resource>
+	 </page>
+	 <page name="ADMIN_BOARDSETTINGS">
+	   <Resource tag="TITLE">Board Settings</Resource>
+       <Resource tag="HEADER">Current Board Settings</Resource>
+	   <Resource tag="BOARD_SETUP">Board Setup</Resource>
+	   <Resource tag="BOARD_NAME"><![CDATA[<strong>Board Name:</strong><br />The name of the board.]]></Resource>
+	   <Resource tag="BOARD_THREADED"><![CDATA[<strong>Allow Threaded:</strong><br />Allow threaded view for posts.]]></Resource>
+	   <Resource tag="BOARD_THEME"><![CDATA[<strong>Theme:</strong><br />The theme to use on this board.]]></Resource>
+	   <Resource tag="BOARD_MOBILE_THEME"><![CDATA[<strong>Mobile Theme:</strong><br />The mobile theme to use on this board.]]></Resource>
+	   <Resource tag="BOARD_THEME_LOGO"><![CDATA[<strong>Allow Themed Logo :</strong><br />Gets logo from theme file (Does not work in portal).]]></Resource>
+	   <Resource tag="BOARD_JQ_THEME"><![CDATA[<strong>jQuery UI Theme:</strong><br />The jQuery UI Theme to use on this board for the Tabs and Accordion.]]></Resource>
+	   <Resource tag="BOARD_CDN_HOSTED"><![CDATA[<strong>Use Google Hosted CDN jQuery UI CSS File?</strong><br />You can use the Google Hosted CSS Files, or instead use internal.]]></Resource>
+	   <Resource tag="BOARD_CULTURE"><![CDATA[<strong>Culture:</strong><br />The default culture &amp; language for this forum.]]></Resource>
+	   <Resource tag="BOARD_TOPIC_DEFAULT"><![CDATA[<strong>Show Topic Default:</strong><br />The default board show topic interval selection.]]></Resource>
+	   <Resource tag="BOARD_FILE_EXTENSIONS"><![CDATA[<strong>File Extensions List is:</strong><br />Is the list of file extensions allowed files or disallowed files (less secure)?]]></Resource>
+	   <Resource tag="BOARD_EMAIL_ONREGISTER"><![CDATA[<strong>Send Email Notification On User Register to Emails:</strong><br />Semi-colon (;) separated list of emails to send a notification to on user registration.]]></Resource>
+	   <Resource tag="BOARD_ALLOW_DIGEST"><![CDATA[<strong>Allow Digest Email Sending for Users Once Daily:</strong><br />Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.]]></Resource>
+	   <Resource tag="BOARD_DIGEST_NEWUSERS"><![CDATA[<strong>Default Send Digest "On" for New Users?</strong><br />When a new user account is created, default send digest to true?]]></Resource>
+	   <Resource tag="BOARD_DEFAULT_NOTIFICATION"><![CDATA[<strong>Default Notification Setting:</strong><br />When a new user account is created, what notification setting does it default to?]]></Resource>
+	   <Resource tag="BOARD_EMAIL_MODS"><![CDATA[<strong>Email Moderators On New Moderated Post:</strong><br />Should all the moderators of a forum be notified if a new post that needs approval is created?]]></Resource>
 	 </page>
 </Resources>

@@ -44,7 +44,9 @@
 </asp:Repeater>
 
 <tr>
-	<td class="footer1" colspan="5"><asp:linkbutton id="NewServer" runat="server" text="New Server" onclick="NewServer_Click" /></td>
+	<td class="footer1" colspan="5" align="center">
+      <asp:Button id="NewServer" runat="server" CssClass="pbutton" onclick="NewServer_Click" />
+      </td>
 </tr>
 </table>
 

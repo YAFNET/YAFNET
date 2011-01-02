@@ -7,8 +7,12 @@
 				 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_VERSION" />
 			</td>
 		</tr>
-		<tr class="post">
-			<td>
+        <tr>
+			<td class="header2" height="30">
+			</td>
+		</tr>
+		<tr>
+			<td class="post">
                  <p><asp:Label id="RunningVersion" runat="server"></asp:Label></p>
                  <p><asp:Label id="LatestVersion" runat="server"></asp:Label></p>
                  <p><YAF:LocalizedLabel ID="Upgrade" runat="server" LocalizedTag="UPGRADE_VERSION" LocalizedPage="ADMIN_VERSION" Visible="false" /></p>

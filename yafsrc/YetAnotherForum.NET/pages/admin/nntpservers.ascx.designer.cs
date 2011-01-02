@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton NewServer;
+        protected global::System.Web.UI.WebControls.Button NewServer;
         
         /// <summary>
         /// SmartScroller1 control.

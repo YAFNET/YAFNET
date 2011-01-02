@@ -63,10 +63,10 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         <tr>
-                            <td class="footer1" colspan="5">
-                                <asp:LinkButton runat="server" CommandName="add"> <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
+                            <td class="footer1" colspan="5" align="center">
+                                <asp:LinkButton runat="server" CommandName="add" CssClass="pbutton"> <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
                                 |
-                                <asp:LinkButton runat="server" CommandName="import"> <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
+                                <asp:LinkButton runat="server" CommandName="import" CssClass="pbutton"> <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
                             </td>
                         </tr>
                     </FooterTemplate>

@@ -74,7 +74,8 @@ namespace YAF.Pages.Admin
     /// </remarks>
     protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
+        ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALL");
+        ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
     }
 
     /// <summary>

@@ -9,8 +9,11 @@
 	<td class="header1" colspan="2"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_SMILIES_IMPORT" /></td>
 </tr>
 <tr>
+	      <td class="header2" height="30" colspan="2"></td>
+		</tr>
+<tr>
 	<td class="postheader" width="50%"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="CHOOSE_PAK" LocalizedPage="ADMIN_SMILIES_IMPORT" /></td>
-	<td class="post" width="50"><asp:dropdownlist id="File" runat="server"/></td>
+	<td class="post" width="50"><asp:dropdownlist id="File" runat="server" Width="250"/></td>
 </tr>
 <tr>
 	<td class="postheader" width="50%"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE_EXISTING" LocalizedPage="ADMIN_SMILIES_IMPORT" /></td>
@@ -18,8 +21,8 @@
 </tr>
 <tr>
 	<td class="footer1" colspan="2" align="center">
-		<asp:button id="import" runat="server" text="Import"/>
-		<asp:button id="cancel" runat="server" text="Cancel"/>
+		<asp:button id="import" runat="server"  CssClass="pbutton"/>
+		<asp:button id="cancel" runat="server"  CssClass="pbutton"/>
 	</td>
 </tr>
 </table>

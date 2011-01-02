@@ -1,4 +1,4 @@
-<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
+f<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:AdminMenu runat="server" id="Adminmenu1">
   <table class="content" width="100%" cellspacing="0" cellpadding="0">
@@ -63,8 +63,8 @@
     </tr>
     <tr>
       <td class="postfooter" style="text-align:center">
-	    <asp:Button runat="server" id="btnSave" />&nbsp;
-	    <asp:Button runat="server" id="btnCancel" />
+	    <asp:Button runat="server" CssClass="pbutton" id="btnSave" />&nbsp;
+	    <asp:Button runat="server" CssClass="pbutton" id="btnCancel" />
       </td>
     </tr>
   </table>

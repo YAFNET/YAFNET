@@ -5,138 +5,140 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">
-				Current Board Settings</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BOARDSETTINGS" />
+             </td>
 		</tr>
 		<tr>
 			<td class="header2" colspan="2">
-				Board Setup</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP" LocalizedPage="ADMIN_BOARDSETTINGS" />
+             </td>
 		</tr>
 		<tr>
-			<td class="postheader" width="50%">
-				<strong>Board Name:</strong><br />
-				The name of the board.</td>
-			<td class="post" width="50%">
-				<asp:TextBox ID="Name" runat="server" Width="100%"></asp:TextBox></td>
+			<td class="postheader" style="width:50%">
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BOARD_NAME" LocalizedPage="ADMIN_BOARDSETTINGS" />
+				
+            </td>
+			<td class="post" style="width:50%">
+				<asp:TextBox ID="Name" runat="server" Width="400"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Allow Threaded:</strong><br />
-				Allow threaded view for posts.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="BOARD_THREADED" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
 				<asp:CheckBox ID="AllowThreaded" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Theme:</strong><br />
-				The theme to use on this board.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BOARD_THEME" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="Theme" runat="server">
+				<asp:DropDownList ID="Theme" runat="server" Width="400">
 				</asp:DropDownList></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Mobile Theme:</strong><br />
-				The mobile theme to use on this board.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="BOARD_MOBILE_THEME" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="MobileTheme" runat="server">
+				<asp:DropDownList ID="MobileTheme" runat="server" Width="400">
                     <asp:ListItem Text="[None Selected]" Value=""></asp:ListItem>
 				</asp:DropDownList></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Allow Themed Logo :</strong><br />
-				Gets logo from theme file (Does not work in portal).</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BOARD_THEME_LOGO" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
 				<asp:CheckBox ID="AllowThemedLogo" runat="server"></asp:CheckBox></td>
 		</tr>
         <tr>
 			<td class="postheader">
-				<strong>jQuery UI Theme:</strong><br />
-				The jQuery UI Theme to use on this board for the Tabs and Accordion.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="BOARD_JQ_THEME" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="JqueryUITheme" runat="server">
+				<asp:DropDownList ID="JqueryUITheme" runat="server" Width="400">
 				</asp:DropDownList></td>
 		</tr>
         <tr>
 			<td class="postheader">
-				<strong>Use Google Hosted CDN jQuery UI CSS File?</strong><br />
-				You can use the Google Hosted CSS Files, or instead use internal.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="BOARD_CDN_HOSTED" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
 				<asp:CheckBox ID="JqueryUIThemeCDNHosted" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Culture:</strong><br />
-				The default culture &amp; language for this forum.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="BOARD_CULTURE" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="Culture" runat="server">
+				<asp:DropDownList ID="Culture" runat="server" Width="400">
 				</asp:DropDownList></td>
 		</tr>        	
 		<tr>
 			<td class="postheader">
-				<strong>Show Topic Default:</strong><br />
-				The default board show topic interval selection.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="BOARD_TOPIC_DEFAULT" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="ShowTopic" runat="server">
+				<asp:DropDownList ID="ShowTopic" runat="server" Width="400">
 				</asp:DropDownList></td>
 		</tr>		
 		<tr>
 			<td class="postheader">
-				<strong>File Extensions List is:</strong><br />
-				Is the list of file extensions allowed files or disallowed files (less secure)?</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_FILE_EXTENSIONS" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="FileExtensionAllow" runat="server">
-				</asp:DropDownList></td>
+				<asp:DropDownList ID="FileExtensionAllow" runat="server" Width="400"></asp:DropDownList></td>
 		</tr>	
        <tr id="PollGroupList" runat="server" visible="false">
-		<td class="postformheader" width="20%">
+		<td class="postformheader" style="width:20%">
 			<em>
 				<YAF:LocalizedLabel ID="PollGroupListLabel" runat="server" LocalizedTag="pollgroup_list" />
 			</em>
 		</td>
-		<td class="post" width="80%">
-			<asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="edit" MaxLength="10" Width="400" />			
+		<td class="post" style="width:80%">
+			<asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="edit" Width="400" />			
 		</td>
 	</tr> 
 		<tr>
 			<td class="postheader">
-				<strong>Send Email Notification On User Register to Emails:</strong><br />
-				Semi-colon (;) separated list of emails to send a notification to on user registration.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="BOARD_EMAIL_ONREGISTER" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:TextBox ID="NotificationOnUserRegisterEmailList" runat="server" Width="100%"></asp:TextBox></td>
+				<asp:TextBox ID="NotificationOnUserRegisterEmailList" runat="server" Width="400"></asp:TextBox></td>
 		</tr>			
 		<tr>
 			<td class="postheader">
-				<strong>Email Moderators On New Moderated Post:</strong><br />
-				Should all the moderators of a forum be notified if a new post that needs approval is created?</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="BOARD_EMAIL_MODS" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
 				<asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Allow Digest Email Sending for Users Once Daily:</strong><br />
-				Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="BOARD_ALLOW_DIGEST" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
 				<asp:CheckBox ID="AllowDigestEmail" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Default Send Digest "On" for New Users?</strong><br />
-				When a new user account is created, default send digest to true?</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="BOARD_DIGEST_NEWUSERS" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
 				<asp:CheckBox ID="DefaultSendDigestEmail" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<strong>Default Notification Setting:</strong><br />
-				When a new user account is created, what notification setting does it default to?</td>
+				 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="BOARD_DEFAULT_NOTIFICATION" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
 			<td class="post">
-				<asp:DropDownList ID="DefaultNotificationSetting" runat="server">
+				<asp:DropDownList ID="DefaultNotificationSetting" runat="server" Width="400">
 				</asp:DropDownList></td>
 		</tr>
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
-				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>
+				<asp:Button ID="Save" CssClass="pbutton" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

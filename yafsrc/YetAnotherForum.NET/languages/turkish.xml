@@ -173,6 +173,26 @@
     <Resource tag="POSTED">Posted</Resource>
     <Resource tag="TITLE">Attachments</Resource>
   </page>
+  <page name="ADMIN_BOARDSETTINGS">
+    <Resource tag="BOARD_ALLOW_DIGEST">&lt;strong&gt;Allow Digest Email Sending for Users Once Daily:&lt;/strong&gt;&lt;br /&gt;Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.</Resource>
+    <Resource tag="BOARD_CDN_HOSTED">&lt;strong&gt;Use Google Hosted CDN jQuery UI CSS File?&lt;/strong&gt;&lt;br /&gt;You can use the Google Hosted CSS Files, or instead use internal.</Resource>
+    <Resource tag="BOARD_CULTURE">&lt;strong&gt;Culture:&lt;/strong&gt;&lt;br /&gt;The default culture &amp;amp; language for this forum.</Resource>
+    <Resource tag="BOARD_DEFAULT_NOTIFICATION">&lt;strong&gt;Default Notification Setting:&lt;/strong&gt;&lt;br /&gt;When a new user account is created, what notification setting does it default to?</Resource>
+    <Resource tag="BOARD_DIGEST_NEWUSERS">&lt;strong&gt;Default Send Digest "On" for New Users?&lt;/strong&gt;&lt;br /&gt;When a new user account is created, default send digest to true?</Resource>
+    <Resource tag="BOARD_EMAIL_MODS">&lt;strong&gt;Email Moderators On New Moderated Post:&lt;/strong&gt;&lt;br /&gt;Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>
+    <Resource tag="BOARD_EMAIL_ONREGISTER">&lt;strong&gt;Send Email Notification On User Register to Emails:&lt;/strong&gt;&lt;br /&gt;Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
+    <Resource tag="BOARD_FILE_EXTENSIONS">&lt;strong&gt;File Extensions List is:&lt;/strong&gt;&lt;br /&gt;Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
+    <Resource tag="BOARD_JQ_THEME">&lt;strong&gt;jQuery UI Theme:&lt;/strong&gt;&lt;br /&gt;The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
+    <Resource tag="BOARD_MOBILE_THEME">&lt;strong&gt;Mobile Theme:&lt;/strong&gt;&lt;br /&gt;The mobile theme to use on this board.</Resource>
+    <Resource tag="BOARD_NAME">&lt;strong&gt;Board Name:&lt;/strong&gt;&lt;br /&gt;The name of the board.</Resource>
+    <Resource tag="BOARD_SETUP">Board Setup</Resource>
+    <Resource tag="BOARD_THEME">&lt;strong&gt;Theme:&lt;/strong&gt;&lt;br /&gt;The theme to use on this board.</Resource>
+    <Resource tag="BOARD_THEME_LOGO">&lt;strong&gt;Allow Themed Logo :&lt;/strong&gt;&lt;br /&gt;Gets logo from theme file (Does not work in portal).</Resource>
+    <Resource tag="BOARD_THREADED">&lt;strong&gt;Allow Threaded:&lt;/strong&gt;&lt;br /&gt;Allow threaded view for posts.</Resource>
+    <Resource tag="BOARD_TOPIC_DEFAULT">&lt;strong&gt;Show Topic Default:&lt;/strong&gt;&lt;br /&gt;The default board show topic interval selection.</Resource>
+    <Resource tag="HEADER">Current Board Settings</Resource>
+    <Resource tag="TITLE">Board Settings</Resource>
+  </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
     <Resource tag="DIGEST_EMAIL">&lt;strong&gt;Email:&lt;/strong&gt;&lt;br /&gt;Send a test digest to the email.</Resource>
@@ -560,6 +580,7 @@
     <Resource tag="MAXNUMBEROF">Bir mesajdaki maksimum harf sayısı: {0}</Resource>
   </page>
   <page name="COMMON">
+    <Resource tag="ALLOWED">Allowed</Resource>
     <Resource tag="BACK">Geri</Resource>
     <Resource tag="BAD_CAPTCHA">Girdiklerinizde güvenlik kodundaki karakterler uyuşmuyor.</Resource>
     <Resource tag="BAD_USERNAME">Kullanıcı adı noktalı virgül içeremez(;).</Resource>
@@ -591,6 +612,7 @@
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CUSTOM_BBCODE">Daha fazla BBCode</Resource>
     <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DISALLOWED">Disallowed</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Posta onayı</Resource>
     <Resource tag="FONT_COLOR">Font Rengi:</Resource>

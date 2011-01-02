@@ -8,18 +8,21 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES_EDIT" />
             </td>
 		</tr>
+        <tr>
+	      <td class="header2" height="30" colspan="2"></td>
+		</tr>
 		<tr>
 			<td class="postheader" width="50%">
 				<strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CODE" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong></td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="Code" runat="server" /></td>
+				<asp:TextBox ID="Code" runat="server" Width="250" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
 				<strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ICON" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong>
             </td>
 			<td class="post" width="50%">
-				<asp:DropDownList ID="Icon" runat="server" />
+				<asp:DropDownList ID="Icon" runat="server" Width="250" />
 				&nbsp;
 				<img style="vertical-align: middle" runat="server" id="Preview" src="" alt="" />
 			</td>
@@ -29,19 +32,19 @@
 				<strong><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="EMOTION" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong>
             </td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="Emotion" runat="server" /></td>
+				<asp:TextBox ID="Emotion" runat="server" Width="250" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
 				<strong><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_SMILIES_EDIT" /></strong>
             </td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" /></td>
+				<asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" Width="250" /></td>
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="save" runat="server" Text="Save" />
-				<asp:Button ID="cancel" runat="server" Text="Cancel" />
+				<asp:Button ID="save" runat="server" Text="Save" CssClass="pbutton" />
+				<asp:Button ID="cancel" runat="server" Text="Cancel" CssClass="pbutton" />
 			</td>
 		</tr>
 	</table>

@@ -10,6 +10,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
                     </td>
                 </tr>
+
                 <asp:Repeater runat="server" ID="List">
                     <HeaderTemplate>
                         <tr class="header2">
@@ -62,9 +63,7 @@
                     <FooterTemplate>
                         <tr class="footer1">
                             <td colspan="5" align="center">
-                                <asp:LinkButton runat="server" OnLoad="DeleteAll_Load" CssClass="pbutton" OnClick="DeleteAll_Click">
-                                  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DELETE_ALL" LocalizedPage="ADMIN_EVENTLOG" />
-                                </asp:LinkButton>
+                                <asp:Button runat="server" OnLoad="DeleteAll_Load" CssClass="pbutton" OnClick="DeleteAll_Click"></asp:Button>
                              </td>
                         </tr>
                     </FooterTemplate>

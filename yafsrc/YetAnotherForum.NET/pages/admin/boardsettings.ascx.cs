@@ -56,34 +56,43 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Board Settings", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
+
+        this.Save.Text = this.GetText("COMMON", "SAVE");
 
         // create list boxes by populating datasources from Data class
         var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
 
         if (themeData.Any())
         {
-          this.Theme.DataSource = themeData.CopyToDataTable();
-          this.Theme.DataTextField = "Theme";
-          this.Theme.DataValueField = "FileName";
+            this.Theme.DataSource = themeData.CopyToDataTable();
+            this.Theme.DataTextField = "Theme";
+            this.Theme.DataValueField = "FileName";
         }
 
         var mobileThemeData = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile"));
 
         if (mobileThemeData.Any())
         {
-          this.MobileTheme.DataSource = mobileThemeData.CopyToDataTable();
-          this.MobileTheme.DataTextField = "Theme";
-          this.MobileTheme.DataValueField = "FileName";
+            this.MobileTheme.DataSource = mobileThemeData.CopyToDataTable();
+            this.MobileTheme.DataTextField = "Theme";
+            this.MobileTheme.DataValueField = "FileName";
         }
 
         this.Culture.DataSource =
-          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable(
-            );
+            StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
+
         this.Culture.DataTextField = "CultureNativeName";
         this.Culture.DataValueField = "CultureTag";
 
@@ -103,30 +112,30 @@ namespace YAF.Pages.Admin
 
         // bind poll group list
         var pollGroup =
-          LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
-            new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
+            LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+                new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
         pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
 
         // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
         this.PollGroupListDropDown.Items.AddRange(
-          pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+            pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
         // population default notification setting options...
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
         if (!this.PageContext.BoardSettings.AllowNotificationAllPostsAllTopics)
         {
-          // remove it...
-          items.Remove(UserNotificationSetting.AllTopics.ToInt());
+            // remove it...
+            items.Remove(UserNotificationSetting.AllTopics.ToInt());
         }
 
         var notificationItems =
-          items.Select(
-            x =>
-            new ListItem(
-              HtmlHelper.StripHtml(this.PageContext.Localization.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
-            .ToArray();
+            items.Select(
+                x =>
+                new ListItem(
+                    HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
+                .ToArray();
 
         this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
@@ -148,24 +157,24 @@ namespace YAF.Pages.Admin
         SetSelectedOnList(ref this.Culture, this.PageContext.BoardSettings.Culture);
         if (this.Culture.SelectedIndex == 0)
         {
-          // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-          SetSelectedOnList(
-            ref this.Culture, 
-            langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
-              ? this.PageContext.BoardSettings.Culture
-              : langFileCulture);
+            // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
+            SetSelectedOnList(
+                ref this.Culture, 
+                langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
+                    ? this.PageContext.BoardSettings.Culture
+                    : langFileCulture);
         }
 
         SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
         SetSelectedOnList(
-          ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
+            ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
         SetSelectedOnList(
-          ref this.DefaultNotificationSetting, 
-          this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt().ToString());
+            ref this.DefaultNotificationSetting, 
+            this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt().ToString());
 
         this.NotificationOnUserRegisterEmailList.Text =
-          this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
+            this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
         this.AllowThemedLogo.Checked = this.PageContext.BoardSettings.AllowThemedLogo;
         this.EmailModeratorsOnModeratedPost.Checked = this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
         this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
@@ -174,15 +183,14 @@ namespace YAF.Pages.Admin
 
         if (this.PageContext.BoardSettings.BoardPollID > 0)
         {
-          this.PollGroupListDropDown.SelectedValue = this.PageContext.BoardSettings.BoardPollID.ToString();
+            this.PollGroupListDropDown.SelectedValue = this.PageContext.BoardSettings.BoardPollID.ToString();
         }
         else
         {
-          this.PollGroupListDropDown.SelectedIndex = 0;
+            this.PollGroupListDropDown.SelectedIndex = 0;
         }
 
         this.PollGroupList.Visible = true;
-      }
     }
 
     /// <summary>
@@ -250,7 +258,7 @@ namespace YAF.Pages.Admin
       this.PageContext.BoardSettings = null;
 
       // Clearing cache with old users permissions data to get new default styles...
-      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
+      this.PageContext.Cache.Remove(x => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
       YafBuildLink.Redirect(ForumPages.admin_admin);
     }
 
