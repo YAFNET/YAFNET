@@ -61,6 +61,11 @@ namespace YAF.Types.Interfaces
     /// </summary>
     bool IsWarnEnabled { get; }
 
+    /// <summary>
+    /// Gets a value indicating the logging type.
+    /// </summary>
+    Type Type { get; }
+
     #endregion
 
     #region Public Methods

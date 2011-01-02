@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,46 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.Interfaces
 {
-  #region Using
-
-  using YAF.Types.Interfaces;
-
-  #endregion
+  using System.Collections.Generic;
 
   /// <summary>
-  /// The forum page init event.
+  /// The i script function.
   /// </summary>
-  public class ForumPageInitEvent : IAmEvent
+  public interface IScriptFunction : IScriptStatement
   {
-  }
+    #region Properties
 
-  /// <summary>
-  /// The forum page pre load event.
-  /// </summary>
-  public class ForumPagePreLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// Gets or sets Name.
+    /// </summary>
+    string Name { get; set; }
 
-  /// <summary>
-  /// The forum page post load event.
-  /// </summary>
-  public class ForumPagePostLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// Gets or sets Params.
+    /// </summary>
+    IList<object> Params { get; set; }
 
-  /// <summary>
-  /// The forum page prerender event.
-  /// </summary>
-  public class ForumPagePreRenderEvent : IAmEvent
-  {
-  }
-
-  /// <summary>
-  /// The forum page unload load event.
-  /// </summary>
-  public class ForumPageUnloadEvent : IAmEvent
-  {
+    #endregion
   }
 }

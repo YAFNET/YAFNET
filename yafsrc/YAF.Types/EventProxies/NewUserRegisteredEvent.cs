@@ -20,42 +20,50 @@ namespace YAF.Types.EventProxies
 {
   #region Using
 
+  using System.Web.Security;
+
   using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// The forum page init event.
+  /// The new user registered event.
   /// </summary>
-  public class ForumPageInitEvent : IAmEvent
+  public class NewUserRegisteredEvent : IAmEvent
   {
-  }
+    #region Constructors and Destructors
 
-  /// <summary>
-  /// The forum page pre load event.
-  /// </summary>
-  public class ForumPagePreLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NewUserRegisteredEvent"/> class.
+    /// </summary>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    public NewUserRegisteredEvent([NotNull] MembershipUser user, int userId)
+    {
+      CodeContracts.ArgumentNotNull(user, "user");
 
-  /// <summary>
-  /// The forum page post load event.
-  /// </summary>
-  public class ForumPagePostLoadEvent : IAmEvent
-  {
-  }
+      this.User = user;
+      this.UserId = userId;
+    }
 
-  /// <summary>
-  /// The forum page prerender event.
-  /// </summary>
-  public class ForumPagePreRenderEvent : IAmEvent
-  {
-  }
+    #endregion
 
-  /// <summary>
-  /// The forum page unload load event.
-  /// </summary>
-  public class ForumPageUnloadEvent : IAmEvent
-  {
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets User.
+    /// </summary>
+    public MembershipUser User { get; set; }
+
+    /// <summary>
+    /// Gets or sets UserId.
+    /// </summary>
+    public int UserId { get; set; }
+
+    #endregion
   }
 }

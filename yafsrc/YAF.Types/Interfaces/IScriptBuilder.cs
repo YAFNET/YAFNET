@@ -19,71 +19,41 @@
 
 namespace YAF.Types.Interfaces
 {
-    using System.Text;
+  #region Using
+
+  using System.Collections.Generic;
+
+  #endregion
+
+  /// <summary>
+  /// The i script builder.
+  /// </summary>
+  public interface IScriptBuilder
+  {
+    #region Properties
 
     /// <summary>
-    /// The Script builder Interface.
+    ///   Gets the ScriptSelector.
     /// </summary>
-    public interface IScriptBuilder
-    {
-        /// <summary>
-        /// Gets StringBuilder Scripts
-        /// </summary>
-        StringBuilder Scripts { get; }
+    string ScriptSelector { get; }
 
-        /// <summary>
-        /// Add the script to jQuery document.ready
-        /// </summary>
-        /// <param name="javasScript">
-        /// script body which need to register
-        /// </param>
-        /// <returns>
-        /// The jquery document ready script.
-        /// </returns>
-        IScriptBuilder JqueryDocumentReadyScript(string javasScript);
+    /// <summary>
+    ///   Gets Statements.
+    /// </summary>
+    IList<IScriptStatement> Statements { get; }
 
-        /// <summary>
-        /// Add a Complete Java Script Function
-        /// </summary>
-        /// <param name="javasScript">
-        /// the Complete Java Script Function
-        /// </param>
-        /// <returns>
-        /// The jquery Function script.
-        /// </returns>
-        IScriptBuilder AddFunctionComplete([NotNull] string javasScript);
+    #endregion
 
-        /// <summary>
-        /// Add A JavaScript Function
-        /// </summary>
-        /// <param name="functionName">
-        /// The function name.
-        /// </param>
-        /// <param name="functionParams">
-        /// The function params.
-        /// </param>
-        /// <param name="functionScript">
-        /// The function script.
-        /// </param>
-        /// <returns>
-        /// The Script
-        /// </returns>
-        IScriptBuilder AddFunction(string functionName, string[] functionParams, string functionScript);
+    #region Public Methods
 
-        /// <summary>
-        /// Add the script jQuery.noConflict();
-        /// </summary>
-        /// <returns>
-        /// The jquery no conflict.
-        /// </returns>
-        IScriptBuilder JqueryNoConflict();
+    /// <summary>
+    /// The build.
+    /// </summary>
+    /// <returns>
+    /// The build.
+    /// </returns>
+    string Build();
 
-        /// <summary>
-        /// Get the script's result as String
-        /// </summary>
-        /// <returns>
-        /// The Complete Script
-        /// </returns>
-        string Build();
-    }
+    #endregion
+  }
 }

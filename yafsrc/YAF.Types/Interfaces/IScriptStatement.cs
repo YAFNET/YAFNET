@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,46 +16,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.EventProxies
+
+namespace YAF.Types.Interfaces
 {
-  #region Using
-
-  using YAF.Types.Interfaces;
-
-  #endregion
-
   /// <summary>
-  /// The forum page init event.
+  /// The Script builder Interface.
   /// </summary>
-  public class ForumPageInitEvent : IAmEvent
+  public interface IScriptStatement
   {
-  }
+    #region Public Methods
 
-  /// <summary>
-  /// The forum page pre load event.
-  /// </summary>
-  public class ForumPagePreLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// Add to the script
+    /// </summary>
+    /// <param name="js">
+    /// The js.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    void Add([NotNull] string js);
 
-  /// <summary>
-  /// The forum page post load event.
-  /// </summary>
-  public class ForumPagePostLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// Get the script's result as String
+    /// </summary>
+    /// <returns>
+    /// The Completed Script
+    /// </returns>
+    string Build(IScriptBuilder scriptBuilder);
 
-  /// <summary>
-  /// The forum page prerender event.
-  /// </summary>
-  public class ForumPagePreRenderEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// Clears the entire statment.
+    /// </summary>
+    void Clear();
 
-  /// <summary>
-  /// The forum page unload load event.
-  /// </summary>
-  public class ForumPageUnloadEvent : IAmEvent
-  {
+    #endregion
   }
 }

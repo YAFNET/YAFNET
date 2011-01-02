@@ -25,7 +25,6 @@ namespace YAF.Types
   /// </summary>
   public static class CodeContracts
   {
-    
     /// <summary>
     /// Validates argument (obj) is not <see langword="null"/>. Throws exception
     /// if it is.
