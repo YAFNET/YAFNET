@@ -340,6 +340,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <b>Member List Page Size:</b><br />
+                            Number entries on a page in the members list. 
+                        </td>
+                        <td class="post">
+                            <asp:TextBox runat="server" ID="MemberListPageSize" />                          
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <b>Show User Online/Offline Status:</b><br />
                             If checked, current user status is displayed in the forum. Hidden users are always
                             displayed as offline.

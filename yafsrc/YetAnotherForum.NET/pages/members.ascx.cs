@@ -369,9 +369,9 @@ namespace YAF.Pages
         /// </param>
         private void BindData(bool isSearch)
         {
-            this.Pager.PageSize = 5;
+            this.Pager.PageSize = PageContext.BoardSettings.MemberListPageSize;
             char selectedCharLetter = this.AlphaSort1.CurrentLetter;
-            string selectedLetter = String.Empty;
+            string selectedLetter;
 
             // get the user list...
             int totalCount = 0;

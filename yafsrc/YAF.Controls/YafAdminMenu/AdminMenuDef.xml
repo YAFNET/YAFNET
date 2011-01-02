@@ -143,7 +143,7 @@
       <Title>Create Test Data</Title>
       <ForumPage>admin_test_data</ForumPage>
       <Image>database-import</Image>
-			<Debug>true</Debug>
+			<Debug>false</Debug>
      </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="NNTP" Tag="NNTP" HostAdminOnly="false">

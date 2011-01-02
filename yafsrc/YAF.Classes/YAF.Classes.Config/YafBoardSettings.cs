@@ -470,6 +470,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets MemberListPageSize in minutes.
+        /// </summary>
+        public int MemberListPageSize
+        {
+            get
+            {
+                return this._reg.GetValue<int>("MemberListPageSize", 20);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("MemberListPageSize", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets PostLatestFeedAccess.
         /// </summary>
         public int PostLatestFeedAccess
