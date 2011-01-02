@@ -160,9 +160,9 @@ namespace YAF.Core
                 scriptStatement.Add(", ");
               }
 
-              if (param.HasInterface<IScriptFunction>())
+              if (param.HasInterface<IScriptStatementContext>())
               {
-                scriptStatement.Add(param.ToClass<IScriptFunction>().Build(scriptStatement.ScriptBuilder));
+                scriptStatement.Add(param.ToClass<IScriptStatementContext>().ScriptStatement.Build(scriptStatement.ScriptBuilder));
               }
               else if (param is string)
               {
