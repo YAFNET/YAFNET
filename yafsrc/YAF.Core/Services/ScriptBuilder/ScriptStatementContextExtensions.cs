@@ -21,7 +21,6 @@ namespace YAF.Core
   #region Using
 
   using System;
-  using System.Collections.Generic;
   using System.Linq;
 
   using YAF.Types;
@@ -89,8 +88,8 @@ namespace YAF.Core
     /// <param name="arrayName">
     /// The array name.
     /// </param>
-    /// <param name="stringList">
-    /// The string list.
+    /// <param name="parameters">
+    /// The parameters.
     /// </param>
     /// <returns>
     /// </returns>
@@ -98,24 +97,15 @@ namespace YAF.Core
     public static IScriptStatementContext AddArray(
       [NotNull] this IScriptStatementContext scriptStatement, 
       [NotNull] string arrayName, 
-      [NotNull] IEnumerable<string> stringList)
+      [NotNull] params object[] parameters)
     {
       CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
       CodeContracts.ArgumentNotNull(arrayName, "arrayName");
-      CodeContracts.ArgumentNotNull(stringList, "stringList");
 
       scriptStatement.AddLine();
       scriptStatement.AddFormat("var {0} = Array(", arrayName);
-      stringList.ForEachFirst(
-        (str, isFirst) =>
-          {
-            if (!isFirst)
-            {
-              scriptStatement.Add(", ");
-            }
 
-            scriptStatement.AddFormat(@"""{0}""", str.ToJsString());
-          });
+      AddParameters(scriptStatement, false, parameters);
 
       scriptStatement.Add(");");
 
@@ -150,30 +140,7 @@ namespace YAF.Core
 
       scriptStatement.AddFormat("{0}(", functionName);
 
-      if (parameters.Any())
-      {
-        parameters.ForEachFirst(
-          (param, isFirst) =>
-            {
-              if (!isFirst)
-              {
-                scriptStatement.Add(", ");
-              }
-
-              if (param.HasInterface<IScriptStatementContext>())
-              {
-                scriptStatement.Add(param.ToClass<IScriptStatementContext>().ScriptStatement.Build(scriptStatement.ScriptBuilder));
-              }
-              else if (param is string)
-              {
-                scriptStatement.AddString(param.ToString());
-              }
-              else
-              {
-                scriptStatement.Add(param.ToString());
-              }
-            });
-      }
+      AddParameters(scriptStatement, true, parameters);
 
       scriptStatement.Add(")");
 
@@ -467,6 +434,51 @@ namespace YAF.Core
       CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
 
       return scriptStatement.Add(";");
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The add parameters.
+    /// </summary>
+    /// <param name="scriptStatement">
+    /// The script statement.
+    /// </param>
+    /// <param name="allowStatement">
+    /// The allow statement.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    private static void AddParameters([NotNull] this IScriptStatementContext scriptStatement, bool allowStatement, [NotNull] object[] parameters)
+    {
+      if (parameters.Any())
+      {
+        parameters.ForEachFirst(
+          (param, isFirst) =>
+            {
+              if (!isFirst)
+              {
+                scriptStatement.Add(", ");
+              }
+
+              if (allowStatement && param.HasInterface<IScriptStatementContext>())
+              {
+                scriptStatement.Add(
+                  param.ToClass<IScriptStatementContext>().ScriptStatement.Build(scriptStatement.ScriptBuilder));
+              }
+              else if (param is string)
+              {
+                scriptStatement.AddString(param.ToString());
+              }
+              else
+              {
+                scriptStatement.Add(param.ToString());
+              }
+            });
+      }
     }
 
     #endregion
