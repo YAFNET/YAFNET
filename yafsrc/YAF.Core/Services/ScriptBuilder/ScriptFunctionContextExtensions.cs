@@ -38,7 +38,7 @@ namespace YAF.Core
     #region Public Methods
 
     /// <summary>
-    /// The func.
+    /// Defines the function inner statement.
     /// </summary>
     /// <param name="scriptFunction">
     /// The script function.
@@ -57,7 +57,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The name.
+    /// The function Name (optional).
     /// </summary>
     /// <param name="scriptFunction">
     /// The script function.
@@ -76,7 +76,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The with params.
+    /// The function parameters.
     /// </summary>
     /// <param name="scriptFunction">
     /// The script function.

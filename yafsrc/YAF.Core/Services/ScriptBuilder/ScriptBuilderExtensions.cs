@@ -15,7 +15,7 @@
     #region Public Methods
 
     /// <summary>
-    /// The create function.
+    /// Creates a function statement. AddFunction is you want the function statement inserted into the Builder.
     /// </summary>
     /// <param name="scriptBuilder">
     /// The script builder.
@@ -41,7 +41,7 @@
     }
 
     /// <summary>
-    /// The create function.
+    /// Creates a function statement and adds it to the builder.
     /// </summary>
     /// <param name="scriptBuilder">
     /// The script builder.
@@ -57,7 +57,7 @@
     }
 
     /// <summary>
-    /// The create statement.
+    /// Creates a statement and optionally adds it to the builder.
     /// </summary>
     /// <param name="scriptBuilder">
     /// The script builder.
@@ -84,7 +84,7 @@
     }
 
     /// <summary>
-    /// The create statement.
+    /// Creates a statement and adds it to the builder.
     /// </summary>
     /// <param name="scriptBuilder">
     /// The script builder.

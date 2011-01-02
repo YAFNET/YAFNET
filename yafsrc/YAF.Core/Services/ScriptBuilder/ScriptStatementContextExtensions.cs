@@ -21,6 +21,7 @@ namespace YAF.Core
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.Linq;
 
   using YAF.Types;
@@ -37,7 +38,7 @@ namespace YAF.Core
     #region Public Methods
 
     /// <summary>
-    /// The add a dot.
+    /// Adds a script string without a closeing;
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -80,7 +81,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add array.
+    /// Adds an array to the output: var arrayName = Array(parameters);
     /// </summary>
     /// <param name="scriptStatement">
     /// The script statement.
@@ -115,7 +116,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Adds a quoted escaped string to the statement: e.g. "jsString"
+    /// Adds a call. E.g. functionName(parameters) to the statement.
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -148,7 +149,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Add the script to document.ready event
+    /// Add a document.ready event to the statement.
     /// </summary>
     /// <param name="scriptStatement">
     /// The script Builder.
@@ -163,6 +164,9 @@ namespace YAF.Core
     public static IScriptStatementContext AddDocumentReady(
       [NotNull] this IScriptStatementContext scriptStatement, [NotNull] Action<IScriptFunctionContext> buildInner)
     {
+      CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
+      CodeContracts.ArgumentNotNull(buildInner, "buildInner");
+
       var function = scriptStatement.ScriptBuilder.CreateFunction(false);
 
       buildInner(function);
@@ -173,7 +177,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add format.
+    /// Adds a formatted string to the statement.
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -200,7 +204,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add func.
+    /// Adds a function (using the IScriptFunctionContext) to the statement.
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -214,6 +218,9 @@ namespace YAF.Core
     public static IScriptStatementContext AddFunc(
       [NotNull] this IScriptStatementContext scriptStatement, [NotNull] Action<IScriptFunctionContext> buildFunction)
     {
+      CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
+      CodeContracts.ArgumentNotNull(buildFunction, "buildFunction");
+
       var function = scriptStatement.ScriptBuilder.CreateFunction(false);
 
       buildFunction(function);
@@ -222,7 +229,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add func.
+    /// Adds a simple annonymous function to the statement.
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -236,6 +243,9 @@ namespace YAF.Core
     public static IScriptStatementContext AddFunc(
       [NotNull] this IScriptStatementContext scriptStatement, [NotNull] string jsInner)
     {
+      CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
+      CodeContracts.ArgumentNotNull(jsInner, "jsInner");
+
       return scriptStatement.AddFormat("function() {{ {0} }}", jsInner);
     }
 
@@ -272,7 +282,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add line.
+    /// Adds a line.
     /// </summary>
     /// <param name="scriptStatement">
     /// The script statement.
@@ -288,7 +298,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add no conflict.
+    /// Adds no conflict.
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -298,6 +308,8 @@ namespace YAF.Core
     [NotNull]
     public static IScriptStatementContext AddNoConflict([NotNull] this IScriptStatementContext scriptStatement)
     {
+      CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
+
       return scriptStatement.Add("$$$.noConflict();");
     }
 
@@ -389,7 +401,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The build.
+    /// Builds the Statement from the context and returns the built string.
     /// </summary>
     /// <param name="scriptStatementContext">
     /// The script statement context.
@@ -405,7 +417,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add a dot.
+    /// Adds a dot.
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -421,7 +433,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The add an endstatement
+    /// The add an end to the statement. E.g. ;
     /// </summary>
     /// <param name="scriptStatement">
     /// the script statement.
@@ -433,7 +445,7 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
 
-      return scriptStatement.Add(";");
+      return scriptStatement.Add(";\r\n");
     }
 
     #endregion
@@ -441,7 +453,7 @@ namespace YAF.Core
     #region Methods
 
     /// <summary>
-    /// The add parameters.
+    /// Add parameters to the script statement.
     /// </summary>
     /// <param name="scriptStatement">
     /// The script statement.
@@ -452,7 +464,7 @@ namespace YAF.Core
     /// <param name="parameters">
     /// The parameters.
     /// </param>
-    private static void AddParameters([NotNull] this IScriptStatementContext scriptStatement, bool allowStatement, [NotNull] object[] parameters)
+    private static void AddParameters([NotNull] this IScriptStatementContext scriptStatement, bool allowStatement, [NotNull] IEnumerable<object> parameters)
     {
       if (parameters.Any())
       {
