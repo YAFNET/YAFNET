@@ -394,7 +394,7 @@ function toggleMessage(divId)
     public static string addFavoriteTopicJs([NotNull] string untagButtonHTML)
     {
       return
-        @"function addFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}/YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+        @"function addFavoriteTopic(topicID){{ var topId = topicID; jQuery.PageMethod('{1}/YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function addFavoriteTopicSuccess(res){{if (res.d != null) {{
                    jQuery('#dvFavorite1').html({0});
                    jQuery('#dvFavorite2').html({0});}}}}"

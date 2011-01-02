@@ -516,14 +516,13 @@ namespace YAF.Pages
               this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), 
               this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
 
-        var sb = this.Get<IScriptBuilder>();
-
         // Register the client side script for the "Favorite Topic".
         var favoriteTopicJs =
-           sb.JqueryNoConflict().AddFunctionComplete(JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML)).AddFunctionComplete(JavaScriptBlocks.removeFavoriteTopicJs(tagButtonHTML));
+          this.Get<IScriptBuilder>().CreateStatement().AddNoConflict().Add(JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML)).AddLine
+            ().Add(JavaScriptBlocks.removeFavoriteTopicJs(tagButtonHTML));
 
         YafContext.Current.PageElements.RegisterJsBlockStartup(
-       "favoriteTopicJs", favoriteTopicJs.Build());
+       "favoriteTopicJs", favoriteTopicJs);
 
        /* YafContext.Current.PageElements.RegisterJsBlockStartup(
           "addFavoriteTopicJs", JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML));
@@ -531,10 +530,12 @@ namespace YAF.Pages
           "removeFavoriteTopicJs", JavaScriptBlocks.removeFavoriteTopicJs(tagButtonHTML));*/
 
 
-        var asynchCallFailedJs = sb.AddFunction("CallFailed", new[] { "res" }, "alert('Error Occurred');");
+        var asynchCallFailedJs =
+          this.Get<IScriptBuilder>().CreateStatement().AddFunc(
+            f => f.Name("CallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
 
         YafContext.Current.PageElements.RegisterJsBlockStartup(
-          "asynchCallFailedJs", asynchCallFailedJs.Build());
+          "asynchCallFailedJs", asynchCallFailedJs);
 
         /*YafContext.Current.PageElements.RegisterJsBlockStartup(
           "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);*/

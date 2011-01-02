@@ -38,6 +38,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -416,6 +417,8 @@ namespace YAF.Pages
 
         // Clearing cache with old Active User Lazy Data ...
         this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
+
+        this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
       }
     }
 
