@@ -26,6 +26,7 @@ namespace YAF.Core
   using System.Reflection;
 
   using YAF.Types;
+  using YAF.Types.Attributes;
 
   #endregion
 
@@ -56,6 +57,24 @@ namespace YAF.Core
       }
 
       return moduleClassTypes.Distinct();
+    }
+
+    /// <summary>
+    /// The get assembly sort order.
+    /// </summary>
+    /// <param name="assembly">
+    /// The assembly.
+    /// </param>
+    /// <returns>
+    /// The get assembly sort order.
+    /// </returns>
+    public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
+    {
+      CodeContracts.ArgumentNotNull(assembly, "assembly");
+
+      var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
+
+      return attribute.Any() ? attribute.First().SortOrder : 9999;
     }
 
     /// <summary>

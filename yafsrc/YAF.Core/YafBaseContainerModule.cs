@@ -44,8 +44,6 @@ namespace YAF.Core
   /// </summary>
   public class YafBaseContainerModule : Module
   {
-    private List<IModule> _externalModules = new List<IModule>();
-
     #region Methods
 
     /// <summary>
@@ -65,26 +63,6 @@ namespace YAF.Core
       this.RegisterServices(builder);
 
       this.RegisterModules(builder);
-
-      this.RegisterExternalModules(builder);
-    }
-
-    /// <summary>
-    /// The get assembly sort order.
-    /// </summary>
-    /// <param name="assembly">
-    /// The assembly.
-    /// </param>
-    /// <returns>
-    /// The get assembly sort order.
-    /// </returns>
-    private int GetAssemblySortOrder([NotNull] Assembly assembly)
-    {
-      CodeContracts.ArgumentNotNull(assembly, "assembly");
-
-      var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
-
-      return attribute.Any() ? attribute.First().SortOrder : 9999;
     }
 
     /// <summary>
@@ -117,7 +95,8 @@ namespace YAF.Core
 
       builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope();
 
-      builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().OwnedByLifetimeScope();
+      // needs to be "instance per dependancy" so that each new request gets a new ScripBuilder.
+      builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency();
 
       builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").OwnedByLifetimeScope();
 
@@ -152,35 +131,6 @@ namespace YAF.Core
 
       builder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(typeof(IHandleEvent<>)).AsImplementedInterfaces().
         InstancePerLifetimeScope();
-    }
-
-    /// <summary>
-    /// The register external modules.
-    /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private void RegisterExternalModules([NotNull] ContainerBuilder builder)
-    {
-      CodeContracts.ArgumentNotNull(builder, "builder");
-
-      var moduleList =
-        AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf"))
-          .ToList();
-
-      // make sure we don't include this assembly -- otherwise we'll have a recusive situation.
-      moduleList.Remove(Assembly.GetExecutingAssembly());
-
-      // little bit of filtering...
-      moduleList.OrderByDescending(this.GetAssemblySortOrder);
-
-      // TODO: create real abstracted plugin model. This is a stop-gap.
-      var modules = moduleList.FindModules<IModule>();
-
-      // create module instances...
-      modules.ForEach(mi => this._externalModules.Add(Activator.CreateInstance(mi) as IModule));
-
-      this._externalModules.ForEach(m => builder.RegisterModule(m));
     }
 
     /// <summary>

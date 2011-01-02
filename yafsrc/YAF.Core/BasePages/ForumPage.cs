@@ -643,7 +643,9 @@ namespace YAF.Core
     /// </param>
     private void ForumPage_PreRender(object sender, EventArgs e)
     {
-      // sets up the head elements in addition to the Css and image elements
+      this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
+
+      // sets up the head elements in addition to the Css and image elements));
       this.SetupHeaderElements();
 
       // setup the forum control header & footer properties

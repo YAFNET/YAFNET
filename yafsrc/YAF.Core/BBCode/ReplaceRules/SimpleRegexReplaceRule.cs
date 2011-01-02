@@ -21,9 +21,7 @@ namespace YAF.Core.BBCode.ReplaceRules
   using System.Text;
   using System.Text.RegularExpressions;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
 
   /// <summary>
   /// For basic regex with no variables

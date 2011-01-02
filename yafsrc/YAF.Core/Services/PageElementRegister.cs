@@ -294,6 +294,20 @@ namespace YAF.Core.Services
     /// <summary>
     /// Registers a Javascript block using the script manager. Adds script tags.
     /// </summary>
+    /// <param name="name">
+    /// Unique name of JS Block
+    /// </param>
+    /// <param name="script">
+    /// Script code to register
+    /// </param>
+    public void RegisterJsBlock(string name, IScriptStatementContext scriptStatement)
+    {
+      this.RegisterJsBlock(YafContext.Current.CurrentForumPage, name, scriptStatement.Build());
+    }
+
+    /// <summary>
+    /// Registers a Javascript block using the script manager. Adds script tags.
+    /// </summary>
     /// <param name="thisControl">
     /// </param>
     /// <param name="name">
@@ -319,6 +333,18 @@ namespace YAF.Core.Services
     public void RegisterJsBlockStartup(string name, string script)
     {
       this.RegisterJsBlockStartup(YafContext.Current.CurrentForumPage, name, script);
+    }
+
+    /// <summary>
+    /// Registers a Javascript block using the script manager. Adds script tags.
+    /// </summary>
+    /// <param name="name">
+    /// </param>
+    /// <param name="script">
+    /// </param>
+    public void RegisterJsBlockStartup(string name, IScriptStatementContext scriptStatement)
+    {
+      this.RegisterJsBlockStartup(YafContext.Current.CurrentForumPage, name, scriptStatement.Build());
     }
 
     /// <summary>

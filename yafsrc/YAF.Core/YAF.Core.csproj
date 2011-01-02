@@ -55,7 +55,7 @@
     </Compile>
     <Compile Include="BaseModules\ForumEditor.cs" />
     <Compile Include="BaseModules\MobileThemeForumModule.cs" />
-    <Compile Include="BaseModules\ProviderSettingsForumModule.cs" />
+    <Compile Include="Events\UpdateProviderOnInitEvent.cs" />
     <Compile Include="BaseModules\StartStopWatch.cs" />
     <Compile Include="BaseModules\UnloadSessionForumModule.cs" />
     <Compile Include="BaseModules\StandardModuleManager.cs" />
@@ -130,6 +130,8 @@
     <Compile Include="Nntp\YafNntp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseStartupService.cs" />
+    <Compile Include="Services\ScriptBuilder\JavaScriptBuilder.cs" />
+    <Compile Include="Services\ScriptBuilder\JavaScriptFunction.cs" />
     <Compile Include="Services\CheckForSpam\AkismetSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\AntiSpamTypePadClient.cs" />
     <Compile Include="Services\CheckForSpam\CheckForSpamClientBase.cs" />
@@ -139,10 +141,15 @@
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
     <Compile Include="Services\CreateMail.cs" />
-    <Compile Include="Services\JavaScriptBuilder.cs" />
+    <Compile Include="Services\ScriptBuilder\JavaScriptStatement.cs" />
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />
     <Compile Include="Services\PanelSessionState.cs" />
+    <Compile Include="Services\ScriptBuilder\ScriptBuilderExtensions.cs" />
+    <Compile Include="Services\ScriptBuilder\ScriptFunctionContext.cs" />
+    <Compile Include="Services\ScriptBuilder\ScriptStatementContext.cs" />
+    <Compile Include="Services\ScriptBuilder\ScriptStatementContextExtensions.cs" />
+    <Compile Include="Services\ScriptBuilder\ScriptFunctionContextExtensions.cs" />
     <Compile Include="Services\StartupCheckBannedIps.cs" />
     <Compile Include="Services\StartupInitializeDb.cs" />
     <Compile Include="Services\YafAlbum.cs" />

@@ -41,7 +41,7 @@ namespace YAF.Core
     /// <summary>
     /// The default flags.
     /// </summary>
-    private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.Instance;
+    private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.Instance;
 
     #endregion
 
@@ -90,14 +90,23 @@ namespace YAF.Core
 
       var type = instance.GetType();
 
-      var properties =
-        type.GetProperties(DefaultFlags).Where(
-          p => Attribute.IsDefined(p, typeof(TAttribute)) && p.GetSetMethod(false) != null).ToList();
+      var properties = type.GetProperties(DefaultFlags).Where(
+        p => Attribute.IsDefined(p, typeof(TAttribute)) && p.GetSetMethod(false) != null).Select(
+          p =>
+          new
+          {
+            PropertyInfo = p,
+            p.PropertyType,
+            IndexParameters = p.GetIndexParameters(),
+            Accessors = p.GetAccessors(false)
+          })
+        // must not be an indexer
+        .Where(x => x.IndexParameters.Count() == 0);
 
       foreach (var injectProp in properties)
       {
         var serviceInstance = this.Container.Resolve(injectProp.PropertyType);
-        injectProp.SetValue(instance, serviceInstance, null);
+        injectProp.PropertyInfo.SetValue(instance, serviceInstance, null);
       }
     }
 
