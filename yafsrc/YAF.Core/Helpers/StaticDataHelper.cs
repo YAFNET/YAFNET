@@ -19,22 +19,19 @@
 
 namespace YAF.Core
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Data;
-  using System.IO;
-  using System.Linq;
-  using System.Web;
-  using System.Xml;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Xml;
+    using YAF.Classes;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
-  using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  /// <summary>
+    /// <summary>
   /// The static data helper.
   /// </summary>
   public class StaticDataHelper
@@ -50,20 +47,23 @@ namespace YAF.Core
     {
       using (var dt = new DataTable("AllowDisallow"))
       {
-        dt.Columns.Add("Text", typeof(string));
-        dt.Columns.Add("Value", typeof(int));
+          dt.Columns.Add("Text", typeof(string));
+          dt.Columns.Add("Value", typeof(int));
 
-        string[] tTextArray = { "Allowed", "Disallowed" };
+          string[] tTextArray = {
+                                    YafContext.Current.Get<ILocalization>().GetText("COMMON", "ALLOWED"),
+                                    YafContext.Current.Get<ILocalization>().GetText("COMMON", "DISALLOWED")
+                                };
 
-        for (int i = 0; i < tTextArray.Length; i++)
-        {
-          DataRow dr = dt.NewRow();
-          dr["Text"] = tTextArray[i];
-          dr["Value"] = i;
-          dt.Rows.Add(dr);
-        }
+          for (int i = 0; i < tTextArray.Length; i++)
+          {
+              DataRow dr = dt.NewRow();
+              dr["Text"] = tTextArray[i];
+              dr["Value"] = i;
+              dt.Rows.Add(dr);
+          }
 
-        return dt;
+          return dt;
       }
     }
 
@@ -372,9 +372,9 @@ namespace YAF.Core
         for (int i = 0; i < 8; i++)
         {
           DataRow dr = dt.NewRow();
-          dr["TopicText"] = (YafContext.Current.Localization.TransPage == null)
+          dr["TopicText"] = (YafContext.Current.Get<ILocalization>().TransPage == null)
                               ? tTextArrayProp[i]
-                              : YafContext.Current.Localization.GetText(tTextArray[i]);
+                              : YafContext.Current.Get<ILocalization>().GetText(tTextArray[i]);
           dr["TopicValue"] = i;
           dt.Rows.Add(dr);
         }
