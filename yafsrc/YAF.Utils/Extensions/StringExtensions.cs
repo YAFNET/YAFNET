@@ -40,6 +40,30 @@ namespace YAF.Utils
     #region Public Methods
 
     /// <summary>
+    /// Converts a string to an escaped JavaString string.
+    /// </summary>
+    /// <param name="str">
+    /// </param>
+    /// <returns>
+    /// The to js string.
+    /// </returns>
+    public static string ToJsString([CanBeNull] this string str)
+    {
+      if (!str.IsSet())
+      {
+        return str;
+      }
+
+      str = str.Replace("\\", @"\\");
+      str = str.Replace("'", @"\'");
+      str = str.Replace("\r", @"\r");
+      str = str.Replace("\n", @"\n");
+      str = str.Replace("\"", @"\""");
+
+      return str;
+    }
+
+    /// <summary>
     /// Function to check a max word length, used i.e. in topic names.
     /// </summary>
     /// <param name="text">
