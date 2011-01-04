@@ -599,13 +599,15 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
+      #region !IsPostBack
+
       if (!this.IsPostBack)
       {
         if (this.PageContext.Settings.LockedForum == 0)
         {
           this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(
-            this.PageContext.PageCategoryName, 
+            this.PageContext.PageCategoryName,
             YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
         }
 
@@ -625,9 +627,9 @@ namespace YAF.Pages
                                        this.PageContext.Settings.LockedForum == 0;
 
         this.RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-          ForumPages.rsstopic, 
-          "pg={0}&t={1}", 
-          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"), 
+          ForumPages.rsstopic,
+          "pg={0}&t={1}",
+          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g"),
           this.PageContext.PageTopicID);
         this.RssTopic.Visible = this.PageContext.BoardSettings.ShowRSSLink;
 
@@ -681,7 +683,9 @@ namespace YAF.Pages
           this.LockTopic2.Visible = this.LockTopic1.Visible;
           this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
         }
-      }
+      } 
+
+      #endregion
 
       // Mark topic read
       YafContext.Current.Get<IYafSession>().SetTopicRead(this.PageContext.PageTopicID, DateTime.UtcNow);
@@ -1019,10 +1023,9 @@ namespace YAF.Pages
             (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
         }
 
-        // NOTE : tha_watcha: I think Not Needed anymore
         // move to this message on load...
-        /* PageContext.PageElements.RegisterJsBlockStartup(
-                    this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));*/
+        PageContext.PageElements.RegisterJsBlockStartup(
+          this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
       }
 
       var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
