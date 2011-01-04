@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="BaseModules\ForumEditor.cs" />
     <Compile Include="BaseModules\MobileThemeForumModule.cs" />
+    <Compile Include="BaseModules\YafModuleScanner.cs" />
     <Compile Include="Events\UpdateProviderOnInitEvent.cs" />
     <Compile Include="BaseModules\StartStopWatch.cs" />
     <Compile Include="BaseModules\UnloadSessionForumModule.cs" />

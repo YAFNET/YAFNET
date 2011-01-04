@@ -52,8 +52,7 @@ namespace YAF.Core
             a =>
             a.GetExportedTypes().Where(t => !t.IsAbstract).ToList()))
       {
-        moduleClassTypes.AddRange(
-          types.Where(modClass => modClass.GetInterfaces().Any(i => i.Equals(implementedInterfaceType))));
+        moduleClassTypes.AddRange(types.Where(implementedInterfaceType.IsAssignableFrom));
       }
 
       return moduleClassTypes.Distinct();
@@ -112,7 +111,7 @@ namespace YAF.Core
             a.GetExportedTypes().Where(t => t.Namespace != null && !t.IsAbstract && t.Namespace.Equals(namespaceName))
               .ToList()))
       {
-        moduleClassTypes.AddRange(types.Where(modClass => modClass.GetInterfaces().Any(i => i.Equals(implementedInterfaceType))));
+        moduleClassTypes.AddRange(types.Where(implementedInterfaceType.IsAssignableFrom));
       }
 
       return moduleClassTypes.Distinct();

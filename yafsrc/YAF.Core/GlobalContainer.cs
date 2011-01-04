@@ -51,11 +51,6 @@ namespace YAF.Core
     /// </summary>
     private static IContainer _container;
 
-    /// <summary>
-    /// Autofac external modules.
-    /// </summary>
-    private static List<IModule> _externalModules = new List<IModule>();
-
     #endregion
 
     #region Properties
@@ -95,44 +90,12 @@ namespace YAF.Core
     private static IContainer CreateContainer()
     {
       var builder = new ContainerBuilder();
-      builder.RegisterModule(new YafBaseContainerModule());
 
-      // register all IModules...
-      RegisterExternalModules(builder);
+      var mainModule = new YafBaseContainerModule();
+
+      builder.RegisterModule(mainModule);
 
       return builder.Build();
-    }
-
-    /// <summary>
-    /// The register external modules.
-    /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private static void RegisterExternalModules([NotNull] ContainerBuilder builder)
-    {
-      CodeContracts.ArgumentNotNull(builder, "builder");
-
-      _externalModules.Clear();
-
-      var moduleList =
-        AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf"))
-          .ToList();
-
-      // make sure we don't include this assembly -- otherwise we'll have a recusive situation.
-      moduleList.Remove(Assembly.GetExecutingAssembly());
-
-      // little bit of filtering...
-      moduleList.OrderByDescending(x => x.GetAssemblySortOrder());
-
-      // TODO: create real abstracted plugin model. This is a stop-gap.
-      var modules = moduleList.FindModules<IModule>();
-
-      // create module instances...
-      modules.ForEach(mi => _externalModules.Add(Activator.CreateInstance(mi) as IModule));
-
-      _externalModules.ForEach(m => builder.RegisterModule(m));
-
     }
 
     #endregion

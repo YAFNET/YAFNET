@@ -31,7 +31,6 @@ namespace YAF.Core
   using YAF.Classes;
   using YAF.Core.Services;
   using YAF.Types;
-  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -44,6 +43,8 @@ namespace YAF.Core
   /// </summary>
   public class YafBaseContainerModule : Module
   {
+    public IList<Assembly> ExtensionAssemblies { get; protected set; }
+
     #region Methods
 
     /// <summary>
@@ -56,6 +57,11 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(builder, "builder");
 
+      this.ExtensionAssemblies =
+        new YafModuleScanner().GetModules("YAF*.dll").OrderByDescending(x => x.GetAssemblySortOrder()).ToList();
+
+      this.ExtensionAssemblies.Remove(Assembly.GetExecutingAssembly());
+
       this.RegisterBasicBindings(builder);
 
       this.RegisterEventBindings(builder);
@@ -63,6 +69,8 @@ namespace YAF.Core
       this.RegisterServices(builder);
 
       this.RegisterModules(builder);
+
+      this.RegisterExternalModules(builder);
     }
 
     /// <summary>
@@ -125,12 +133,8 @@ namespace YAF.Core
       builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
       // scan assemblies for events to wire up...
-      var assemblies =
-        AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf"))
-          .ToArray();
-
-      builder.RegisterAssemblyTypes(assemblies).AsClosedTypesOf(typeof(IHandleEvent<>)).AsImplementedInterfaces().
-        InstancePerLifetimeScope();
+      builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
+        AsImplementedInterfaces().InstancePerLifetimeScope();
     }
 
     /// <summary>
@@ -143,16 +147,12 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(builder, "builder");
 
-      var assemblies =
-        AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.IsSet() && a.FullName.ToLower().StartsWith("yaf"))
-          .ToArray();
-
       // forum modules...
-      builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>().
+      builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AssignableTo<IBaseForumModule>().As<IBaseForumModule>().
         InstancePerLifetimeScope();
 
       // editor modules...
-      builder.RegisterAssemblyTypes(assemblies).AssignableTo<ForumEditor>().As<ForumEditor>().InstancePerLifetimeScope();
+      builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AssignableTo<ForumEditor>().As<ForumEditor>().InstancePerLifetimeScope();
     }
 
     /// <summary>
@@ -172,6 +172,22 @@ namespace YAF.Core
         x =>
         x.Resolve<IEnumerable<IStartupService>>().Where(t => t is StartupInitializeDb).FirstOrDefault() as
         StartupInitializeDb).InstancePerLifetimeScope();
+    }
+
+    /// <summary>
+    /// The register external modules.
+    /// </summary>
+    /// <param name="builder">
+    /// The builder.
+    /// </param>
+    private void RegisterExternalModules([NotNull] ContainerBuilder builder)
+    {
+      CodeContracts.ArgumentNotNull(builder, "builder");
+
+      var modules =
+        this.ExtensionAssemblies.FindModules<IModule>().Select(m => Activator.CreateInstance(m) as IModule);
+
+      modules.ForEach(m => builder.RegisterModule(m));
     }
 
     #endregion
