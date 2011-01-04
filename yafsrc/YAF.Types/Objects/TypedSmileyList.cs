@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System;
+
 namespace YAF.Types.Objects
 {
   #region Using
@@ -44,7 +46,7 @@ namespace YAF.Types.Objects
       this.Code = row.Field<string>("Code");
       this.Icon = row.Field<string>("Icon");
       this.Emoticon = row.Field<string>("Emoticon");
-      this.SortOrder = row.Field<byte?>("SortOrder");
+      this.SortOrder = Convert.ToInt32(row["SortOrder"]);
     }
 
     /// <summary>
@@ -68,7 +70,7 @@ namespace YAF.Types.Objects
     /// <param name="sortorder">
     /// The sortorder.
     /// </param>
-    public TypedSmileyList(int? smileyid, int? boardid, [NotNull] string code, [CanBeNull] string icon, [CanBeNull] string emoticon, byte? sortorder)
+    public TypedSmileyList(int? smileyid, int? boardid, [NotNull] string code, [CanBeNull] string icon, [CanBeNull] string emoticon, int? sortorder)
     {
       this.SmileyID = smileyid;
       this.BoardID = boardid;
@@ -110,7 +112,7 @@ namespace YAF.Types.Objects
     /// <summary>
     /// Gets or sets SortOrder.
     /// </summary>
-    public byte? SortOrder { get; set; }
+    public int? SortOrder { get; set; }
 
     #endregion
   }

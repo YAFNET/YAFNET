@@ -4731,9 +4731,23 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}smiley_list](@BoardID int,@SmileyID int=null) as
 begin
 		if @SmileyID is null
-		select * from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID order by SortOrder, LEN(Code) desc
+		select
+		SmileyID,
+		BoardID,
+		Code,
+		Icon,
+		Emoticon,
+		SortOrder = CONVERT(int,SortOrder)	 
+		from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID order by SortOrder, LEN(Code) desc
 	else
-		select * from [{databaseOwner}].[{objectQualifier}Smiley] where SmileyID=@SmileyID order by SortOrder
+		select 	
+		SmileyID,
+		BoardID,
+		Code,
+		Icon,
+		Emoticon,
+		SortOrder = CONVERT(int,SortOrder)	 
+		from [{databaseOwner}].[{objectQualifier}Smiley] where SmileyID=@SmileyID order by SortOrder
 end
 GO
 
