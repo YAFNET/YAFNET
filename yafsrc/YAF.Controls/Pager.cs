@@ -486,28 +486,26 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (iStart > 0)
       {
+        output.RenderAnchorBegin(this.GetLinkUrl(1, postBack), "pagelinkfirst", "Go to First Page");
+
         output.WriteBeginTag("span");
-        output.WriteAttribute("class", "pagelinkfirst");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        output.RenderAnchorBegin(this.GetLinkUrl(1, postBack), null, "Go to First Page");
-
         output.Write("&laquo;");
-        output.WriteEndTag("a");
         output.WriteEndTag("span");
+        output.WriteEndTag("a");
       }
 
       if (this.CurrentPageIndex > iStart)
       {
+        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex, postBack), "pagelink", "Prev Page");
+
         output.WriteBeginTag("span");
-        output.WriteAttribute("class", "pagelink");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex, postBack), null, "Prev Page");
-
         output.Write("&lt;");
-        output.WriteEndTag("a");
         output.WriteEndTag("span");
+        output.WriteEndTag("a");
       }
 
       for (int i = iStart; i < iEnd; i++)
@@ -524,42 +522,39 @@ gotoForm.fadeIn( 'slow', function() {{
         {
           string page = (i + 1).ToString();
 
+          output.RenderAnchorBegin(this.GetLinkUrl(i + 1, postBack), "pagelink", page);
+
           output.WriteBeginTag("span");
-          output.WriteAttribute("class", "pagelink");
           output.Write(HtmlTextWriter.TagRightChar);
 
-          output.RenderAnchorBegin(this.GetLinkUrl(i + 1, postBack), null, page);
-
           output.Write(page);
-          output.WriteEndTag("a");
           output.WriteEndTag("span");
+          output.WriteEndTag("a");
         }
       }
 
       if (this.CurrentPageIndex < (this.PageCount - 1))
       {
+        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), "pagelink", "Next Page");
+
         output.WriteBeginTag("span");
-        output.WriteAttribute("class", "pagelink");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), null, "Next Page");
-
         output.Write("&gt;");
-        output.WriteEndTag("a");
         output.WriteEndTag("span");
+        output.WriteEndTag("a");
       }
 
       if (iEnd < this.PageCount)
       {
+        output.RenderAnchorBegin(this.GetLinkUrl(this.PageCount, postBack), "pagelinklast", "Go to Last Page");
+
         output.WriteBeginTag("span");
-        output.WriteAttribute("class", "pagelinklast");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        output.RenderAnchorBegin(this.GetLinkUrl(this.PageCount, postBack), null, "Go to Last Page");
-
         output.Write("&raquo;");
-        output.WriteEndTag("a");
         output.WriteEndTag("span");
+        output.WriteEndTag("a");
       }
     }
 

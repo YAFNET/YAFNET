@@ -594,11 +594,13 @@
     color: #555555;
     margin: 6px 0px 6px 0px;
 }
-.yafnet .pagelink,
-.yafnet .pagelinkfirst,
-.yafnet .pagelinklast,
+.yafnet a.pagelink,
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast,
 .yafnet .pagecurrent,
-.yafnet .pagecount{
+.yafnet .pagecount
+{
+    text-decoration: none;
     background: #F5F5F5;
     border: 1px solid #444444;
     padding: 1px 3px 1px 3px;
@@ -607,16 +609,16 @@
 .yafnet .pagecount {
     margin-right: 5px;
 }
-.yafnet .pagelinkfirst,
-.yafnet .pagelinklast{
+.yafnet a.pagelinkfirst,
+.yafnet a.pagelinklast{
     background: #e0e0e0;
 }
 .yafnet .pagecurrent{
     background: #dddddd;
 }
-.yafnet .pagelink a,
-.yafnet .pagelinkfirst a,
-.yafnet .pagelinklast a {
+.yafnet a.pagelink ,
+.yafnet a.pagelinkfirst ,
+.yafnet a.pagelinklast  {
     text-decoration: none;
     color: #000090;
 }
