@@ -6891,7 +6891,7 @@ begin
 		select
 		a.*,
 		TopicName = b.Topic,
-		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=b.TopicID),
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=b.TopicID) -1,
 		b.[Views],
 		b.LastPosted,
 		b.LastMessageID,
