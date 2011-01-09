@@ -48,6 +48,9 @@
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
+         <tr>
+           <td class="footer1" align="center" colspan="8" style="height:30px"></td>
+         </tr>
 	</table>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

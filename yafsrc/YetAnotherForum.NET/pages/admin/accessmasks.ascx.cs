@@ -71,10 +71,14 @@ namespace YAF.Pages.Admin
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // administration index
-     this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       // current page label (no link)
-      this.PageLinks.AddLink("Access Masks", string.Empty);
+      this.PageLinks.AddLink(this.GetText("ADMIN_ACCESSMASKS", "TITLE"), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1}".FormatWith(
+         this.GetText("ADMIN_ADMIN", "Administration"),
+         this.GetText("ADMIN_ACCESSMASKS", "TITLE"));
     }
 
     /* Event Handlers */
@@ -91,7 +95,7 @@ namespace YAF.Pages.Admin
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // add on click confirm dialog
-      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this access mask?");
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -105,20 +109,11 @@ namespace YAF.Pages.Admin
     /// </returns>
     protected Color GetItemColor(bool enabled)
     {
-      // show enabled flag red
-      if (enabled)
-      {
-        return Color.Red;
-      }
-        
-        // unset flag black
-      else
-      {
-        return Color.Black;
-      }
+        // show enabled flag red
+        return enabled ? Color.Red : Color.Black;
     }
 
-    /// <summary>
+      /// <summary>
     /// The list_ item command.
     /// </summary>
     /// <param name="source">
@@ -148,7 +143,7 @@ namespace YAF.Pages.Admin
           else
           {
             // used masks cannot be deleted
-            this.PageContext.AddLoadMessage("You cannot delete this access mask because it is in use.");
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"));
           }
 
           // quit switch
@@ -182,14 +177,18 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.New.Text = this.GetText("ADMIN_ACCESSMASKS", "NEW_MASK");
+
         // create links
         this.CreatePageLinks();
 
         // bind data
         this.BindData();
-      }
     }
 
     /* Methods */

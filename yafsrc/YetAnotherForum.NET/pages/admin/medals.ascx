@@ -41,7 +41,9 @@
 						<%# ((string)Eval( "Description")).Substring(0, Math.Min(Eval( "Description").ToString().Length, 100)) + "..." %>
 					</td>
 					<td class="post">
-						<asp:LinkButton ID="EditMedal" runat="server" CommandName="edit" CommandArgument='<%# Eval("MedalID") %>'>Edit</asp:LinkButton>
+						<asp:LinkButton ID="EditMedal" runat="server" CommandName="edit" CommandArgument='<%# Eval("MedalID") %>'>
+                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
+                        </asp:LinkButton>
 						|
 						<asp:LinkButton ID="MoveUp" runat="server" CommandName="moveup" CommandArgument='<%# Eval("MedalID") %>'
 							Text="▲" />
@@ -49,14 +51,16 @@
 							Text="▼" />
 						|
 						<asp:LinkButton ID="DeleteMedal" runat="server" OnLoad="Delete_Load" CommandName="delete"
-							CommandArgument='<%# Eval("MedalID") %>'>Delete</asp:LinkButton>
+							CommandArgument='<%# Eval("MedalID") %>'>
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
+                        </asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr>
-			<td class="footer1" colspan="6">
-				<asp:LinkButton ID="NewMedal" runat="server" Text="New Medal" OnClick="NewMedal_Click" /></td>
+			<td class="footer1" colspan="6" align="center">
+				<asp:LinkButton ID="NewMedal" runat="server" Text="New Medal" OnClick="NewMedal_Click" CssClass="pbutton" /></td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

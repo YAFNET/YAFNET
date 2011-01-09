@@ -32,8 +32,9 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for attachments.
@@ -75,7 +76,7 @@ namespace YAF.Pages.Admin
     protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         ((Button)sender).Text = this.GetText("ADMIN_EVENTLOG", "DELETE_ALL");
-        ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
     }
 
     /// <summary>
@@ -92,7 +93,7 @@ namespace YAF.Pages.Admin
     /// </remarks>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE"));
     }
 
     /// <summary>

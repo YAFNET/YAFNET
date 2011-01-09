@@ -13,7 +13,7 @@
 		</tr>
         <tr>
             <td class="postheader" width="50%">
-                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post" width="50%">
                 <asp:DropDownList ID="NntpServerID" runat="server" Width="250" />
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GROUP" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GROUP" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
                 <asp:TextBox ID="GroupName" runat="server" Width="250" />
@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
                 <asp:DropDownList ID="ForumID" runat="server" Width="250" />
@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
                 <asp:CheckBox ID="Active" runat="server" Checked="true" />

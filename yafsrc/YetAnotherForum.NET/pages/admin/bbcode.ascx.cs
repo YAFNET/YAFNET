@@ -23,6 +23,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Linq;
   using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
@@ -31,8 +32,9 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The bbcode.
@@ -52,35 +54,27 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this YafBBCode Extension?')";
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE"));
     }
 
     /// <summary>
     /// The get selected bb code i ds.
     /// </summary>
     /// <returns>
+    /// The Id of the BB Code
     /// </returns>
     [NotNull]
     protected List<int> GetSelectedBBCodeIDs()
     {
-      var idList = new List<int>();
-
-      // get checked items....
-      foreach (RepeaterItem item in this.bbCodeList.Items)
-      {
-        var sel = (CheckBox)item.FindControl("chkSelected");
-        if (sel.Checked)
-        {
-          var hiddenId = (HiddenField)item.FindControl("hiddenBBCodeID");
-
-          idList.Add(Convert.ToInt32(hiddenId.Value));
-        }
-      }
-
-      return idList;
+        // get checked items....
+        return (from RepeaterItem item in this.bbCodeList.Items
+                let sel = (CheckBox)item.FindControl("chkSelected")
+                where sel.Checked
+                select (HiddenField)item.FindControl("hiddenBBCodeID") into hiddenId 
+                select hiddenId.Value.ToType<int>()).ToList();
     }
 
-    /// <summary>
+      /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -91,14 +85,20 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("YafBBCode Extensions", string.Empty);
+          if (this.IsPostBack)
+          {
+              return;
+          }
 
-        this.BindData();
-      }
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+          this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
+
+          this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BBCODE", "TITLE"));
+
+          this.BindData();
     }
 
     /// <summary>
@@ -112,66 +112,67 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void bbCodeList_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
-      if (e.CommandName == "add")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_bbcode_edit);
-      }
-      else if (e.CommandName == "edit")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument);
-      }
-      else if (e.CommandName == "delete")
-      {
-        LegacyDb.bbcode_delete(e.CommandArgument);
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
-        this.BindData();
-      }
-      else if (e.CommandName == "export")
-      {
-        List<int> bbCodeIds = this.GetSelectedBBCodeIDs();
-
-        if (bbCodeIds.Count > 0)
+        switch (e.CommandName)
         {
-          // export this list as XML...
-          DataTable dtBBCode = LegacyDb.bbcode_list(this.PageContext.PageBoardID, null);
+            case "add":
+                YafBuildLink.Redirect(ForumPages.admin_bbcode_edit);
+                break;
+            case "edit":
+                YafBuildLink.Redirect(ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument);
+                break;
+            case "delete":
+                LegacyDb.bbcode_delete(e.CommandArgument);
+                this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
+                this.BindData();
+                break;
+            case "export":
+                {
+                    List<int> bbCodeIds = this.GetSelectedBBCodeIDs();
 
-          // remove all but required bbcodes...
-          foreach (DataRow row in dtBBCode.Rows)
-          {
-            int id = Convert.ToInt32(row["BBCodeID"]);
-            if (!bbCodeIds.Contains(id))
-            {
-              // remove from this table...
-              row.Delete();
-            }
-          }
+                    if (bbCodeIds.Count > 0)
+                    {
+                        // export this list as XML...
+                        DataTable dtBBCode = LegacyDb.bbcode_list(this.PageContext.PageBoardID, null);
 
-          // store delete changes...
-          dtBBCode.AcceptChanges();
+                        // remove all but required bbcodes...
+                        foreach (DataRow row in
+                            from DataRow row in dtBBCode.Rows
+                            let id = row["BBCodeID"].ToType<int>()
+                            where !bbCodeIds.Contains(id)
+                            select row)
+                        {
+                            // remove from this table...
+                            row.Delete();
+                        }
 
-          // export...
-          dtBBCode.DataSet.DataSetName = "YafBBCodeList";
-          dtBBCode.TableName = "YafBBCode";
-          dtBBCode.Columns.Remove("BBCodeID");
-          dtBBCode.Columns.Remove("BoardID");
+                        // store delete changes...
+                        dtBBCode.AcceptChanges();
 
-          this.Response.ContentType = "text/xml";
-          this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafBBCodeExport.xml");
-          dtBBCode.DataSet.WriteXml(this.Response.OutputStream);
-          this.Response.End();
+                        // export...
+                        dtBBCode.DataSet.DataSetName = "YafBBCodeList";
+                        dtBBCode.TableName = "YafBBCode";
+                        dtBBCode.Columns.Remove("BBCodeID");
+                        dtBBCode.Columns.Remove("BoardID");
+
+                        this.Response.ContentType = "text/xml";
+                        this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafBBCodeExport.xml");
+                        dtBBCode.DataSet.WriteXml(this.Response.OutputStream);
+                        this.Response.End();
+                    }
+                    else
+                    {
+                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"));
+                    }
+                }
+
+                break;
+            case "import":
+                YafBuildLink.Redirect(ForumPages.admin_bbcode_import);
+                break;
         }
-        else
-        {
-          this.PageContext.AddLoadMessage("Nothing selected to export.");
-        }
-      }
-      else if (e.CommandName == "import")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_bbcode_import);
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()

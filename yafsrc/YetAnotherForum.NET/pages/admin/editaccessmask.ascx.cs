@@ -70,8 +70,15 @@ namespace YAF.Pages.Admin
       // administration index
      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
-      // current page label (no link)
-      this.PageLinks.AddLink("Access Masks", string.Empty);
+     this.PageLinks.AddLink(this.GetText("ADMIN_ACCESSMASKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_accessmasks));
+
+     // current page label (no link)
+     this.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
+
+     this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+        this.GetText("ADMIN_ADMIN", "Administration"),
+        this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
+        this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"));
     }
 
     /* Event Handlers */
@@ -87,14 +94,19 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.Save.Text = this.GetText("COMMON", "SAVE");
+        this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+
         // create page links
         this.CreatePageLinks();
 
         // bind data
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -117,21 +129,21 @@ namespace YAF.Pages.Admin
 
       if (this.Name.Text.Trim().Length <= 0)
       {
-        this.PageContext.AddLoadMessage("You must enter a name for the Access Mask.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_MASK_NAME"));
         return;
       }
 
-      short sortOrder = 0;
+      short sortOrder;
 
       if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("The Sort Order value should be a positive integer from 0 to 32767.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"));
         return;
       }
 
       if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
       {
-        this.PageContext.AddLoadMessage("You must enter a number value from 0 to 32767 for sort order.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_NUMBER_SORT"));
         return;
       }
 

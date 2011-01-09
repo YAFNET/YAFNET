@@ -53,14 +53,24 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Mail", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_MAIL", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_MAIL", "TITLE"));
+
+
+        this.Send.Text = this.GetText("ADMIN_MAIL", "SEND_MAIL");
+        this.Send.OnClientClick = "return confirm('{0}');".FormatWith(this.GetText("ADMIN_MAIL", "CONFIRM_SEND"));
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -74,21 +84,22 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      object GroupID = null;
+      object groupID = null;
+
       if (this.ToList.SelectedItem.Value != "0")
       {
-        GroupID = this.ToList.SelectedValue;
+        groupID = this.ToList.SelectedValue;
       }
 
       string subject = this.Subject.Text.Trim();
 
       if (subject.IsNotSet())
       {
-        this.PageContext.AddLoadMessage("Subject is Required");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_SUBJECT"));
       }
       else
       {
-        using (DataTable dt = LegacyDb.user_emails(this.PageContext.PageBoardID, GroupID))
+        using (DataTable dt = LegacyDb.user_emails(this.PageContext.PageBoardID, groupID))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -103,7 +114,7 @@ namespace YAF.Pages.Admin
 
         this.Subject.Text = string.Empty;
         this.Body.Text = string.Empty;
-        this.PageContext.AddLoadMessage("Mails queued.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"));
       }
     }
 
@@ -115,7 +126,7 @@ namespace YAF.Pages.Admin
       this.ToList.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
       this.DataBind();
 
-      var item = new ListItem("All Users", "0");
+      var item = new ListItem(this.GetText("ADMIN_MAIL", "ALL_USERS"), "0");
       this.ToList.Items.Insert(0, item);
     }
 

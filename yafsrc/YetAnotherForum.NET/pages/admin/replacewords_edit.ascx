@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-              <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
+              <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
             </td>
 			<td class="post" width="50%">
 			  <asp:TextBox ID="badword" runat="server" Width="250"></asp:TextBox>
@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-			  <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
+			  <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
             </td>
 			<td class="post" width="50%">
 			  <asp:TextBox ID="goodword" runat="server" Width="250"></asp:TextBox>

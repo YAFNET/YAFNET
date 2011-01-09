@@ -34,8 +34,9 @@ namespace YAF.Pages.Admin
   using YAF.Types.Constants;
   using YAF.Utilities;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for forums.
@@ -55,7 +56,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this category?')";
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
     }
 
     /// <summary>
@@ -69,8 +70,9 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] =
-        "return (confirm('Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?') && confirm('Are you POSITIVE?'));";
+        ((LinkButton)sender).Attributes["onclick"] =
+            "return (confirm('{0}') && confirm('{1}'));"
+                .FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"), this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
     }
 
     /// <summary>
@@ -92,7 +94,7 @@ namespace YAF.Pages.Admin
         case "delete":
 
           // schedule...
-          ForumDeleteTask.Start(this.PageContext.PageBoardID, Convert.ToInt32(e.CommandArgument));
+          ForumDeleteTask.Start(this.PageContext.PageBoardID, e.CommandArgument.ToType<int>());
 
           // enable timer...
           this.UpdateStatusTimer.Enabled = true;
@@ -141,7 +143,7 @@ namespace YAF.Pages.Admin
     protected override void OnInit([NotNull] EventArgs e)
     {
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -159,16 +161,25 @@ namespace YAF.Pages.Admin
       this.PageContext.PageElements.RegisterJQuery();
       this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Forums", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("TEAM", "FORUMS"));
+
+        this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
+        this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -239,8 +250,7 @@ namespace YAF.Pages.Admin
           }
           else
           {
-            this.PageContext.AddLoadMessage(
-              "You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
+              this.PageContext.AddLoadMessage(this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"));
           }
 
           break;

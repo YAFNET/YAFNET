@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Web;
   using System.Web.Security;
   using System.Web.UI.WebControls;
@@ -146,8 +147,16 @@ namespace YAF.Pages.Admin
     /// </param>
     /// <exception cref="ApplicationException">
     /// </exception>
-    protected void CreateBoard([NotNull] string adminName, [NotNull] string adminPassword, [NotNull] string adminEmail, [NotNull] string adminPasswordQuestion, [NotNull] string adminPasswordAnswer, [NotNull] string boardName, [NotNull] string boardMembershipAppName, [NotNull] string boardRolesAppName, 
-                               bool createUserAndRoles)
+    protected void CreateBoard(
+        [NotNull] string adminName,
+        [NotNull] string adminPassword,
+        [NotNull] string adminEmail,
+        [NotNull] string adminPasswordQuestion,
+        [NotNull] string adminPasswordAnswer,
+        [NotNull] string boardName,
+        [NotNull] string boardMembershipAppName,
+        [NotNull] string boardRolesAppName,
+        bool createUserAndRoles)
     {
       // Store current App Names
       string currentMembershipAppName = this.PageContext.CurrentMembership.ApplicationName;
@@ -160,15 +169,14 @@ namespace YAF.Pages.Admin
         this.PageContext.CurrentMembership.ApplicationName = boardRolesAppName;
       }
 
-      int newBoardID = 0;
+      int newBoardID;
       DataTable cult = StaticDataHelper.Cultures();
       string langFile = "english.xml";
-      foreach (DataRow drow in cult.Rows)
+
+      foreach (DataRow drow in
+          cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
       {
-        if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-        {
           langFile = (string)drow["CultureFile"];
-        }
       }
 
       if (createUserAndRoles)
@@ -270,41 +278,38 @@ namespace YAF.Pages.Admin
     [NotNull]
     protected string GetMembershipErrorMessage(MembershipCreateStatus status)
     {
-      switch (status)
-      {
-        case MembershipCreateStatus.DuplicateUserName:
-          return "Username already exists. Please enter a different user name.";
+        switch (status)
+        {
+            case MembershipCreateStatus.DuplicateUserName:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_NAME");
 
-        case MembershipCreateStatus.DuplicateEmail:
-          return "A username for that e-mail address already exists. Please enter a different e-mail address.";
+            case MembershipCreateStatus.DuplicateEmail:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_EMAIL");
 
-        case MembershipCreateStatus.InvalidPassword:
-          return "The password provided is invalid. Please enter a valid password value.";
+            case MembershipCreateStatus.InvalidPassword:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_PASS");
 
-        case MembershipCreateStatus.InvalidEmail:
-          return "The e-mail address provided is invalid. Please check the value and try again.";
+            case MembershipCreateStatus.InvalidEmail:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_MAIL");
 
-        case MembershipCreateStatus.InvalidAnswer:
-          return "The password retrieval answer provided is invalid. Please check the value and try again.";
+            case MembershipCreateStatus.InvalidAnswer:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_ANSWER");
 
-        case MembershipCreateStatus.InvalidQuestion:
-          return "The password retrieval question provided is invalid. Please check the value and try again.";
+            case MembershipCreateStatus.InvalidQuestion:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_QUESTION");
 
-        case MembershipCreateStatus.InvalidUserName:
-          return "The user name provided is invalid. Please check the value and try again.";
+            case MembershipCreateStatus.InvalidUserName:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_NAME");
 
-        case MembershipCreateStatus.ProviderError:
-          return
-            "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+            case MembershipCreateStatus.ProviderError:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_PROVIDER_ERR");
 
-        case MembershipCreateStatus.UserRejected:
-          return
-            "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+            case MembershipCreateStatus.UserRejected:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_USR_REJECTED");
 
-        default:
-          return
-            "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-      }
+            default:
+                return this.GetText("ADMIN_EDITBOARD", "STATUS_UNKNOWN");
+        }
     }
 
     /// <summary>
@@ -318,11 +323,23 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Boards", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_editboard));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_BOARDS", "TITLE"),
+              this.GetText("ADMIN_EDITBOARD", "TITLE"));
+
+        this.Save.Text = this.GetText("SAVE");
+        this.Cancel.Text = this.GetText("CANCEL");
 
         this.Culture.DataSource = StaticDataHelper.Cultures();
         this.Culture.DataValueField = "CultureTag";
@@ -332,27 +349,26 @@ namespace YAF.Pages.Admin
 
         if (this.Culture.Items.Count > 0)
         {
-          this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
+            this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
         }
 
         if (this.BoardID != null)
         {
-          this.CreateNewAdminHolder.Visible = false;
+            this.CreateNewAdminHolder.Visible = false;
 
-          using (DataTable dt = LegacyDb.board_list(this.BoardID))
-          {
-            DataRow row = dt.Rows[0];
-            this.Name.Text = (string)row["Name"];
-            this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
-            this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
-          }
+            using (DataTable dt = LegacyDb.board_list(this.BoardID))
+            {
+                DataRow row = dt.Rows[0];
+                this.Name.Text = (string)row["Name"];
+                this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
+                this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
+            }
         }
         else
         {
-          this.UserName.Text = this.User.UserName;
-          this.UserEmail.Text = this.User.Email;
+            this.UserName.Text = this.User.UserName;
+            this.UserEmail.Text = this.User.Email;
         }
-      }
     }
 
     /// <summary>
@@ -368,7 +384,7 @@ namespace YAF.Pages.Admin
     {
       if (this.Name.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("You must enter a name for the board.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"));
         return;
       }
 
@@ -376,25 +392,25 @@ namespace YAF.Pages.Admin
       {
         if (this.UserName.Text.Trim().Length == 0)
         {
-          this.PageContext.AddLoadMessage("You must enter the name of a administrator user.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_ADMIN"));
           return;
         }
 
         if (this.UserEmail.Text.Trim().Length == 0)
         {
-          this.PageContext.AddLoadMessage("You must enter the email address of the administrator user.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_EMAIL_ADMIN"));
           return;
         }
 
         if (this.UserPass1.Text.Trim().Length == 0)
         {
-          this.PageContext.AddLoadMessage("You must enter a password for the administrator user.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_PASS_ADMIN"));
           return;
         }
 
         if (this.UserPass1.Text != this.UserPass2.Text)
         {
-          this.PageContext.AddLoadMessage("The passwords don't match.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"));
           return;
         }
       }
@@ -403,12 +419,11 @@ namespace YAF.Pages.Admin
       {
         DataTable cult = StaticDataHelper.Cultures();
         string langFile = "en-US";
-        foreach (DataRow drow in cult.Rows)
+
+        foreach (DataRow drow in
+            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
         {
-          if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-          {
             langFile = (string)drow["CultureFile"];
-          }
         }
 
         // Save current board settings

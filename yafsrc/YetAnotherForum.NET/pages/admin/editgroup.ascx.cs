@@ -267,9 +267,8 @@ namespace YAF.Pages.Admin
           this.PageContext.CurrentRoles.AddUsersToRoles(users, new[] { roleName });
         }
       }
-        
-        
-        // if role doesn't exist in provider's data source, create it
+
+      // if role doesn't exist in provider's data source, create it
       else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {
         // simply create it

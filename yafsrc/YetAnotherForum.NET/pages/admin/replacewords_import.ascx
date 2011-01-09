@@ -9,7 +9,7 @@
 	      <td class="header2" height="30" colspan="2"></td>
 		</tr>
 		<tr>
-			<td class="postheader" width="50%"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_REPLACEWORDS_IMPORT" />
+			<td class="postheader" width="50%"><YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_REPLACEWORDS_IMPORT" />
             </td>
 			<td class="post" width="50%">
 			<input type="file" id="importFile" class="pbutton" runat="server" />

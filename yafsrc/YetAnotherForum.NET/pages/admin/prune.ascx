@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE" />
+                <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 			<td class="post" width="50%">
 				<asp:DropDownList ID="forumlist" runat="server">
@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE" />
+                <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 			<td class="post">
 				<asp:TextBox ID="days" runat="server"></asp:TextBox>
@@ -31,7 +31,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE" />
+                <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE" />
 			</td>
 			<td class="post">
 				<asp:CheckBox ID="permDeleteChkBox" runat="server" />

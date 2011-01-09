@@ -102,17 +102,21 @@
 					</td>
 					<td class="post">
 						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) == true ? false : true)%>'
-							CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>Edit</asp:LinkButton>
+							CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
+                         </asp:LinkButton>
 						|
 						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) == true ? false : true)%>'
-							CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>Delete from YAF</asp:LinkButton>
+							CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
+                        </asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr>
-			<td class="footer1" colspan="7">
-				<asp:LinkButton ID="NewGroup" runat="server" OnClick="NewGroup_Click">New Role</asp:LinkButton>
+			<td class="footer1" colspan="7" align="center">
+				<asp:LinkButton ID="NewGroup" runat="server" OnClick="NewGroup_Click" CssClass="pbutton">New Role</asp:LinkButton>
 			</td>
 		</tr>
 	</table>

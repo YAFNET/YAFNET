@@ -37,7 +37,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel2;
         
         /// <summary>
         /// Name control.
@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel3;
         
         /// <summary>
         /// Address control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
         
         /// <summary>
         /// Port control.
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
         
         /// <summary>
         /// UserName control.
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel6;
         
         /// <summary>
         /// UserPass control.

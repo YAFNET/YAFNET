@@ -118,20 +118,24 @@
                     </td>
                     <td class="post" align="center">
                         <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                            ID="Linkbutton3" name="Linkbutton1">Edit</asp:LinkButton>
+                            ID="Linkbutton3" name="Linkbutton1">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
+                        </asp:LinkButton>
                         |
                         <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                            ID="Linkbutton4" name="Linkbutton2">Delete</asp:LinkButton>
+                            ID="Linkbutton4" name="Linkbutton2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
+                        </asp:LinkButton>
                     </td>
                 </tr>
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="8">
+            <td class="footer1" colspan="8" align="center">
                 <strong>
-                    <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></strong>
+                    <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton">New User</asp:LinkButton></strong>
                 | <strong>
-                    <asp:LinkButton ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" OnClientClick="return confirm('Are you sure?');">Sync All Membership Users</asp:LinkButton></strong>
+                    <asp:LinkButton ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" OnClientClick="return confirm('Are you sure?');" CssClass="pbutton">Sync All Membership Users</asp:LinkButton></strong>
             </td>
         </tr>
     </table>

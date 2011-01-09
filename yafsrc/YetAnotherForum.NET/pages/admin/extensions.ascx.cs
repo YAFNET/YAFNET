@@ -31,8 +31,9 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for bannedip.
@@ -52,7 +53,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this Extension?')";
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EXTENSIONS", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -66,8 +67,11 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ExtensionTitle_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((Label)sender).Text = (this.PageContext.BoardSettings.FileExtensionAreAllowed ? "Allowed" : "Disallowed") +
-                             " File Extensions";
+        ((Label)sender).Text = "{0} {1}".FormatWith(
+            this.PageContext.BoardSettings.FileExtensionAreAllowed
+                ? this.GetText("COMMON", "ALLOWED")
+                : this.GetText("COMMON", "DISALLOWED"),
+                this.GetText("ADMIN_EXTENSIONS", "TITLE"));
     }
 
     /// <summary>
@@ -78,10 +82,10 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      list.ItemCommand += this.list_ItemCommand;
+      this.list.ItemCommand += this.list_ItemCommand;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -96,14 +100,20 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("File Extensions", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_EXTENSIONS", "TITLE"));
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -134,39 +144,40 @@ namespace YAF.Pages.Admin
     /// </param>
     private void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
-      if (e.CommandName == "add")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_extensions_edit);
-      }
-      else if (e.CommandName == "edit")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
-      }
-      else if (e.CommandName == "delete")
-      {
-        LegacyDb.extension_delete(e.CommandArgument);
-        this.BindData();
-      }
-      else if (e.CommandName == "export")
-      {
-        // export this list as XML...
-        DataTable extensionList = LegacyDb.extension_list(this.PageContext.PageBoardID);
-        extensionList.DataSet.DataSetName = "YafExtensionList";
-        extensionList.TableName = "YafExtension";
-        extensionList.Columns.Remove("ExtensionID");
-        extensionList.Columns.Remove("BoardID");
+        switch (e.CommandName)
+        {
+            case "add":
+                YafBuildLink.Redirect(ForumPages.admin_extensions_edit);
+                break;
+            case "edit":
+                YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
+                break;
+            case "delete":
+                LegacyDb.extension_delete(e.CommandArgument);
+                this.BindData();
+                break;
+            case "export":
+                {
+                    // export this list as XML...
+                    DataTable extensionList = LegacyDb.extension_list(this.PageContext.PageBoardID);
+                    extensionList.DataSet.DataSetName = "YafExtensionList";
+                    extensionList.TableName = "YafExtension";
+                    extensionList.Columns.Remove("ExtensionID");
+                    extensionList.Columns.Remove("BoardID");
 
-        this.Response.ContentType = "text/xml";
-        this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafExtensionExport.xml");
-        extensionList.DataSet.WriteXml(this.Response.OutputStream);
-        this.Response.End();
-      }
-      else if (e.CommandName == "import")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_extensions_import);
-      }
+                    this.Response.ContentType = "text/xml";
+                    this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafExtensionExport.xml");
+                    extensionList.DataSet.WriteXml(this.Response.OutputStream);
+                    this.Response.End();
+                }
+
+                break;
+            case "import":
+                YafBuildLink.Redirect(ForumPages.admin_extensions_import);
+                break;
+        }
     }
 
-    #endregion
+      #endregion
   }
 }

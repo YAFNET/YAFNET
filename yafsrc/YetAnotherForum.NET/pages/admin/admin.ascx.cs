@@ -139,7 +139,7 @@ namespace YAF.Pages.Admin
     protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
-        ((Button)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
     }
 
     /// <summary>
@@ -153,7 +153,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
     }
 
     /// <summary>
@@ -169,8 +169,7 @@ namespace YAF.Pages.Admin
     {
         ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
 
-      ((Button)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
     }
 
     /// <summary>
@@ -184,7 +183,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
     }
 
     /// <summary>

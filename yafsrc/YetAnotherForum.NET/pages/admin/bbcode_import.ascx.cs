@@ -63,35 +63,32 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // import selected file (if it's the proper format)...
-      if (this.importFile.PostedFile.ContentType == "text/xml")
-      {
+        // import selected file (if it's the proper format)...
+        if (this.importFile.PostedFile.ContentType != "text/xml")
+        {
+            return;
+        }
+
         try
         {
-          int importedCount = DataImport.BBCodeExtensionImport(
-            this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
+            int importedCount = DataImport.BBCodeExtensionImport(
+                this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
-          if (importedCount > 0)
-          {
             this.PageContext.LoadMessage.AddSession(
-              "{0} new custom bbcode(s) imported successfully.".FormatWith(importedCount));
-          }
-          else
-          {
-            this.PageContext.LoadMessage.AddSession(
-              "Nothing imported: no new custom bbcode was found in the upload.".FormatWith(importedCount));
-          }
+                importedCount > 0
+                    ? this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+                    : this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_NOTHING"));
 
-          YafBuildLink.Redirect(ForumPages.admin_bbcode);
+            YafBuildLink.Redirect(ForumPages.admin_bbcode);
         }
         catch (Exception x)
         {
-          this.PageContext.AddLoadMessage("Failed to import: " + x.Message);
+            this.PageContext.AddLoadMessage(
+                this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
         }
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -102,12 +99,23 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Import Custom YafBBCode", string.Empty);
-      }
+          if (this.IsPostBack)
+          {
+              return;
+          }
+
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+          this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bbcode));
+          this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE_IMPORT", "TITLE"), string.Empty);
+
+          this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BBCODE", "TITLE"),
+                this.GetText("ADMIN_BBCODE_IMPORT", "TITLE"));
+
+          this.Import.Text = this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT");
+          this.cancel.Text = this.GetText("CANCEL");
     }
 
     #endregion

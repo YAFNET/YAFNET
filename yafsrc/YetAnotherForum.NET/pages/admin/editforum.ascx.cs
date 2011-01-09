@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web.UI.WebControls;
 
@@ -94,7 +95,7 @@ namespace YAF.Pages.Admin
         DataRow dr = dt.NewRow();
         dr["FileID"] = 0;
         dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-        dr["Description"] = "None";
+        dr["Description"] = this.GetText("COMMON", "NONE");
         dt.Rows.Add(dr);
 
         var dir =
@@ -104,19 +105,17 @@ namespace YAF.Pages.Admin
         {
           FileInfo[] files = dir.GetFiles("*.*");
           long nFileID = 1;
-          foreach (FileInfo file in files)
-          {
-            string sExt = file.Extension.ToLower();
-            if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg" && sExt != ".jpeg")
-            {
-              continue;
-            }
 
-            dr = dt.NewRow();
-            dr["FileID"] = nFileID++;
-            dr["FileName"] = file.Name;
-            dr["Description"] = file.Name;
-            dt.Rows.Add(dr);
+          foreach (FileInfo file in from file in files
+                                    let sExt = file.Extension.ToLower()
+                                    where sExt == ".png" || sExt == ".gif" || sExt == ".jpg" || sExt == ".jpeg"
+                                    select file)
+          {
+              dr = dt.NewRow();
+              dr["FileID"] = nFileID++;
+              dr["FileName"] = file.Name;
+              dr["Description"] = file.Name;
+              dt.Rows.Add(dr);
           }
         }
 
@@ -152,26 +151,42 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Forums", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+        this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("TEAM", "FORUMS"),
+              this.GetText("ADMIN_EDITFORUM", "TITLE"));
+
+        this.Save.Text = this.GetText("SAVE");
+        this.Cancel.Text = this.GetText("CANCEL");
 
         // Populate Forum Images Table
         this.CreateImagesDataTable();
 
         this.ForumImages.Attributes["onchange"] =
-          "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
-            YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
+            "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
+                YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
 
         this.BindData();
 
-        if (this.Request.QueryString.GetFirstOrDefault("f") != null)
+        if (this.Request.QueryString.GetFirstOrDefault("f") == null)
         {
-          using (
+            return;
+        }
+
+        using (
             DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("f")))
-          {
+        {
             DataRow row = dt.Rows[0];
             var flags = new ForumFlags(row["Flags"]);
             this.Name.Text = (string)row["Name"];
@@ -191,9 +206,9 @@ namespace YAF.Pages.Admin
             ListItem item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
             if (item != null)
             {
-              item.Selected = true;
-              this.Preview.Src = "{0}{2}/{1}".FormatWith(
-                YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
+                item.Selected = true;
+                this.Preview.Src = "{0}{2}/{1}".FormatWith(
+                    YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
             }
 
             // populate parent forums list with forums according to selected category
@@ -201,20 +216,18 @@ namespace YAF.Pages.Admin
 
             if (!row.IsNull("ParentID"))
             {
-              this.ParentList.SelectedValue = row["ParentID"].ToString();
+                this.ParentList.SelectedValue = row["ParentID"].ToString();
             }
 
             if (!row.IsNull("ThemeURL"))
             {
-              this.ThemeList.SelectedValue = row["ThemeURL"].ToString();
+                this.ThemeList.SelectedValue = row["ThemeURL"].ToString();
             }
 
             this.remoteurl.Text = row["RemoteURL"].ToString();
-          }
-
-          this.NewGroupRow.Visible = false;
         }
-      }
+
+        this.NewGroupRow.Visible = false;
     }
 
     /// <summary>
@@ -243,7 +256,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      int forumId = 0;
+      int forumId;
       this.CategoryList.DataSource = LegacyDb.category_list(this.PageContext.PageBoardID, null);
       this.CategoryList.DataBind();
 
@@ -258,11 +271,9 @@ namespace YAF.Pages.Admin
       this.BindParentList();
 
       // Load forum's themes
-      var listheader = new ListItem();
-      listheader.Text = "Choose a theme";
-      listheader.Value = string.Empty;
+      var listheader = new ListItem { Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), Value = string.Empty };
 
-      this.AccessMaskID.DataBind();
+        this.AccessMaskID.DataBind();
 
       this.ThemeList.DataSource = StaticDataHelper.Themes();
       this.ThemeList.DataTextField = "Theme";
@@ -329,39 +340,39 @@ namespace YAF.Pages.Admin
     {
       if (this.CategoryList.SelectedValue.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("You must select a category for the forum.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"));
         return;
       }
 
       if (this.Name.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("You must enter a name for the forum.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_NAME_FORUM"));
         return;
       }
 
       if (this.Description.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("You must enter a description for the forum.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_DESCRIPTION"));
         return;
       }
 
       if (this.SortOrder.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage("You must enter a value for sort order.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"));
         return;
       }
 
-      short sortOrder = 0;
+      short sortOrder;
 
       if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"));
         return;
       }
 
       if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
       {
-        this.PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_NUMBER"));
         return;
       }
 
@@ -375,7 +386,7 @@ namespace YAF.Pages.Admin
 
         if (!ValidationHelper.IsValidURL(this.remoteurl.Text))
         {
-          this.PageContext.AddLoadMessage("Your entered an invalid Url address.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_INVALID_URL"));
           return;
         }
       }
@@ -390,7 +401,7 @@ namespace YAF.Pages.Admin
       }
       else if (this.AccessMaskID.SelectedValue.Length == 0)
       {
-        this.PageContext.AddLoadMessage("You must select an initial access mask for the forum.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_INITAL_MASK"));
         return;
       }
 
@@ -402,7 +413,7 @@ namespace YAF.Pages.Admin
 
       if (parentID != null && parentID.ToString() == this.Request.QueryString.GetFirstOrDefault("f"))
       {
-        this.PageContext.AddLoadMessage("Forum cannot be parent of self.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"));
         return;
       }
 
@@ -412,13 +423,10 @@ namespace YAF.Pages.Admin
         DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null);
         if (dt.Rows.Count > 0)
         {
-          foreach (DataRow dr in dt.Rows)
+          if (dt.Rows.Cast<DataRow>().Any(dr => dr["Name"].ToString() == this.Name.Text.Trim()))
           {
-            if (dr["Name"].ToString() == this.Name.Text.Trim())
-            {
-              this.PageContext.AddLoadMessage("A forum with such a name already exists.");
+              this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"));
               return;
-            }
           }
         }
       }
@@ -430,7 +438,7 @@ namespace YAF.Pages.Admin
         int dependency = LegacyDb.forum_save_parentschecker(ForumID, parentID);
         if (dependency > 0)
         {
-          this.PageContext.AddLoadMessage("The choosen forum cannot be child forum as it's a parent.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
           return;
         }
       }

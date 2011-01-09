@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DIGEST_ENABLED" LocalizedPage="ADMIN_DIGEST" />
+                <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DIGEST_ENABLED" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
                 <b>
@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DIGEST_LAST" LocalizedPage="ADMIN_DIGEST" />
+                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DIGEST_LAST" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
                 <b>
@@ -66,7 +66,7 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DIGEST_EMAIL" LocalizedPage="ADMIN_DIGEST" />
+                 <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DIGEST_EMAIL" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
                 <asp:TextBox ID="TextSendEmail" runat="server"></asp:TextBox>
@@ -74,7 +74,7 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
+                <YAF:HelpLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
                 <asp:DropDownList ID="SendMethod" runat="server">

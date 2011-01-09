@@ -36,15 +36,19 @@
 						<%# Eval( "PMLimit" ) %>
 					</td>
 					<td class="post">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "RankID") %>'>Edit</asp:LinkButton>						|
-						<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "RankID") %>'>Delete</asp:LinkButton>
+						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "RankID") %>'>
+                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
+                        </asp:LinkButton>						|
+						<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "RankID") %>'>
+                          <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
+                        </asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr>
-			<td class="footer1" colspan="6">
-				<asp:LinkButton ID="NewRank" runat="server" Text="New Rank" OnClick="NewRank_Click" /></td>
+			<td class="footer1" colspan="6" align="center">
+				<asp:LinkButton ID="NewRank" runat="server" Text="New Rank" OnClick="NewRank_Click" CssClass="pbutton" /></td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

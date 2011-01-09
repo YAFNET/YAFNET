@@ -4,7 +4,7 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="3">
-				Forums
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUMS" LocalizedPage="TEAM" />
 			</td>
 		</tr>
 		<asp:Repeater ID="CategoryList" runat="server">
@@ -17,10 +17,10 @@
 						<%# Eval( "SortOrder") %>
 					</td>
 					<td class="header2" width="15%" style="font-weight: normal">
-						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "CategoryID") %>'>Edit</asp:LinkButton>
+						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "CategoryID") %>'><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
 						|
 						<asp:LinkButton runat='server' OnLoad="DeleteCategory_Load" CommandName='delete'
-							CommandArgument='<%# Eval( "CategoryID") %>'>Delete</asp:LinkButton>
+							CommandArgument='<%# Eval( "CategoryID") %>'><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
 					</td>
 				</tr>
 				<asp:Repeater ID="ForumList" OnItemCommand="ForumList_ItemCommand" runat="server"
@@ -36,9 +36,9 @@
 								<%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
 							</td>
 							<td>
-								<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'>Edit</asp:LinkButton>
+								<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
 								|
-								<asp:LinkButton runat='server' OnLoad="DeleteForum_Load" CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'>Delete</asp:LinkButton>
+								<asp:LinkButton runat='server' OnLoad="DeleteForum_Load" CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
 							</td>
 						</tr>
 					</ItemTemplate>
@@ -46,10 +46,10 @@
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr>
-			<td class="footer1" colspan="3">
-				<asp:LinkButton ID="NewCategory" runat="server" OnClick="NewCategory_Click">New Category</asp:LinkButton>
+			<td class="footer1" colspan="3" align="center">
+				<asp:Button ID="NewCategory" runat="server" OnClick="NewCategory_Click" CssClass="pbutton"></asp:Button>
 				|
-				<asp:LinkButton ID="NewForum" runat="server" OnClick="NewForum_Click">New Forum</asp:LinkButton>
+				<asp:Button ID="NewForum" runat="server" OnClick="NewForum_Click" CssClass="pbutton"></asp:Button>
 			</td>
 		</tr>
 	</table>
@@ -65,9 +65,8 @@
 <div>
 	<div id="DeleteForumMessage" style="display:none" class="ui-overlay">
 		<div class="ui-widget ui-widget-content ui-corner-all">
-		<h2>
-			Deleting Forum</h2>
-		<p>Please do not navigate away from this page while the deletion is in progress...</p>
+		<h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_FORUMS" /></h2>
+		<p><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_FORUMS" /></p>
 		<div align="center">
 			<asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
 		</div>

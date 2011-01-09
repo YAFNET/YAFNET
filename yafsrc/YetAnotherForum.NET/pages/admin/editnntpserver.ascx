@@ -13,35 +13,35 @@
 		</tr>
         <tr>
 			<td class="postheader" colspan="4">
-                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="NNTP_NAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+                <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="NNTP_NAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
             </td>
 			<td class="post" colspan="7">
 				<asp:TextBox Width="250" ID="Name" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NNTP_ADRESS" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+				<YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NNTP_ADRESS" LocalizedPage="ADMIN_EDITNNTPSERVER" />
             </td>
 			<td class="post" colspan="7">
 				<asp:TextBox Width="250" ID="Address" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NNTP_PORT" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+				<YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NNTP_PORT" LocalizedPage="ADMIN_EDITNNTPSERVER" />
             </td>
 			<td class="post" colspan="7">
 				<asp:TextBox Width="250" ID="Port" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NNTP_USERNAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+				<YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NNTP_USERNAME" LocalizedPage="ADMIN_EDITNNTPSERVER" />
             </td>
 			<td class="post" colspan="7">
 				<asp:TextBox Width="250" ID="UserName" runat="server" Enabled="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NNTP_PASSWORD" LocalizedPage="ADMIN_EDITNNTPSERVER" />
+				<YAF:HelpLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NNTP_PASSWORD" LocalizedPage="ADMIN_EDITNNTPSERVER" />
             </td>
 			<td class="post" colspan="7">
 				<asp:TextBox Width="250" ID="UserPass" runat="server" Enabled="true" /></td>

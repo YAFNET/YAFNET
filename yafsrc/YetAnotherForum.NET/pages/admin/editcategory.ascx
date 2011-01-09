@@ -2,65 +2,44 @@
     Inherits="YAF.Pages.Admin.editcategory" Codebehind="editcategory.ascx.cs" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
-    
-	
-&nbsp;&nbsp;&nbsp; 
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		
 		<tr>
 			<td class="header1" colspan="2">
-			
-			Edit Category:
+			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITCATEGORY" />
 			<asp:Label ID="CategoryNameTitle" runat="server"></asp:Label></td>
 		</tr>
-		<tr>
-			<td class="postheader">
-			
-			<strong>Category Name:</strong><br />
-			
-			Name of this category.</td>
-			
-			<td class="post">
-			
-			<asp:TextBox ID="Name" runat="server" MaxLength="50" CssClass="edit"></asp:TextBox></td>
-			
-			
+        <tr>
+	      <td class="header2" height="30" colspan="2"></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-			
-			<strong>Category Image:</strong><br />
-			
-			This image will be shown next to this category.</td>
-			
+			  <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="CATEGORY_NAME" LocalizedPage="ADMIN_EDITCATEGORY" />
+			</td>
 			<td class="post">
-			
-			<asp:DropDownList ID="CategoryImages" runat="server" />
-			
-			<img align="middle" runat="server" id="Preview" />
+			<asp:TextBox ID="Name" runat="server" MaxLength="50" Width="250"></asp:TextBox></td>
+		</tr>
+		<tr>
+			<td class="postheader">
+			  <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="CATEGORY_IMAGE" LocalizedPage="ADMIN_EDITCATEGORY" />
+			</td>
+			<td class="post">
+			<asp:DropDownList ID="CategoryImages" Width="250" runat="server" />
+			<img align="middle" alt="Preview" runat="server" id="Preview" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader">
-			
-			<strong>Sort Order:</strong><br />
-			
-			Order the display of this category. Number, lower first.</td>
-			
+			  <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITCATEGORY" />
+			</td>
 			<td class="post">
-			
-			<asp:TextBox ID="SortOrder" runat="server" Style="width: 50px" MaxLength="5"></asp:TextBox></td>
-			
-			
+			<asp:TextBox ID="SortOrder" runat="server" Width="250" MaxLength="5"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="postfooter" colspan="2" align="center">
-			
-			<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>
-			
-			<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button></td>
-			
-			
+			  <asp:Button ID="Save" runat="server" OnClick="Save_Click" CssClass="pbutton"></asp:Button>
+			  <asp:Button ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="pbutton"></asp:Button>
+            </td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

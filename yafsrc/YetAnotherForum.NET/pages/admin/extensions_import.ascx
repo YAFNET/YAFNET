@@ -4,22 +4,24 @@
 	
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
-			<td class="header1" colspan="2">Import Extension List</td>
+			<td class="header1" colspan="2">
+              <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
+            </td>
 		</tr>
 		<tr>
-			<td class="postheader" width="50%"><strong>Select Import File:</strong><br />(Must be *.xml file)</td>
-			
-			
+			<td class="postheader" width="50%">
+              <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
+            </td>
 			<td class="post" width="50%">
-			<input type="file" id="importFile" class="pbutton" runat="server" />
+			  <input type="file" id="importFile" class="pbutton" runat="server" style="width:250px" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
-				<asp:button id="Import" runat="server" text="Import" OnClick="Import_OnClick"></asp:button>
+				<asp:button id="Import" runat="server" CssClass="pbutton" OnClick="Import_OnClick"></asp:button>
 			
 			
-				<asp:button id="cancel" runat="server" text="Cancel" OnClick="Cancel_OnClick"></asp:button></td>
+				<asp:button id="cancel" runat="server" CssClass="pbutton" OnClick="Cancel_OnClick"></asp:button></td>
 			
 			
 		</tr>

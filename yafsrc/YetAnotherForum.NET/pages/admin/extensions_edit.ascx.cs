@@ -55,13 +55,13 @@ namespace YAF.Pages.Admin
     {
       if (newExtension.IsNotSet())
       {
-        this.PageContext.AddLoadMessage("You must enter something.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EXTENSIONS_EDIT", "MSG_ENTER"));
         return false;
       }
 
       if (newExtension.IndexOf('.') != -1)
       {
-        this.PageContext.AddLoadMessage("Remove the period in the extension.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EXTENSIONS_EDIT", "MSG_REMOVE"));
         return false;
       }
 
@@ -77,11 +77,11 @@ namespace YAF.Pages.Admin
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      save.Click += this.Add_Click;
-      cancel.Click += this.Cancel_Click;
+      this.save.Click += this.Add_Click;
+      this.cancel.Click += this.Cancel_Click;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -96,18 +96,29 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string strAddEdit = (this.Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
+      //string strAddEdit = (this.Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(strAddEdit + " File Extensions", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_extensions));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS_EDIT", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.GetText("ADMIN_EXTENSIONS", "TITLE"),
+            this.GetText("ADMIN_EXTENSIONS_EDIT", "TITLE"));
+
+        this.save.Text = this.GetText("SAVE");
+        this.cancel.Text = this.GetText("CANCEL");
 
         this.BindData();
-      }
 
-      this.extension.Attributes.Add("style", "width:250px");
+        //this.extension.Attributes.Add("style", "width:250px");
     }
 
     /// <summary>
@@ -139,12 +150,14 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i").IsSet())
-      {
+        if (!this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i").IsSet())
+        {
+            return;
+        }
+
         DataRow row =
-          LegacyDb.extension_edit(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
+            LegacyDb.extension_edit(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
         this.extension.Text = (string)row["Extension"];
-      }
     }
 
     /// <summary>

@@ -71,22 +71,17 @@ namespace YAF.Pages.Admin
           int importedCount = DataImport.FileExtensionImport(
             this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
-          if (importedCount > 0)
-          {
             this.PageContext.LoadMessage.AddSession(
-              "{0} new extension(s) imported successfully.".FormatWith(importedCount));
-          }
-          else
-          {
-            this.PageContext.LoadMessage.AddSession(
-              "Nothing imported: no new extensions were found in the upload.".FormatWith(importedCount));
-          }
+                importedCount > 0
+                    ? this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+                    : this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT_NOTHING"));
 
-          YafBuildLink.Redirect(ForumPages.admin_extensions);
+            YafBuildLink.Redirect(ForumPages.admin_extensions);
         }
         catch (Exception x)
         {
-          this.PageContext.AddLoadMessage("Failed to import: " + x.Message);
+            this.PageContext.AddLoadMessage(
+                this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
         }
       }
     }
@@ -102,12 +97,23 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Import Extensions", string.Empty);
-      }
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_extensions));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS_IMPORT", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+            this.GetText("ADMIN_ADMIN", "Administration"),
+            this.GetText("ADMIN_EXTENSIONS", "TITLE"),
+            this.GetText("ADMIN_EXTENSIONS_IMPORT", "TITLE"));
+
+        this.Import.Text = this.GetText("ADMIN_EXTENSIONS_IMPORT", "IMPORT");
+        this.cancel.Text = this.GetText("CANCEL");
     }
 
     #endregion

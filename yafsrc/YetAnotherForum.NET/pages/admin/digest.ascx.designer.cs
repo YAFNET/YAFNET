@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
         
         /// <summary>
         /// DigestEnabled control.
@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
         
         /// <summary>
         /// LastDigestSendLabel control.
@@ -145,7 +145,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel7;
         
         /// <summary>
         /// TextSendEmail control.
@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel8;
         
         /// <summary>
         /// SendMethod control.

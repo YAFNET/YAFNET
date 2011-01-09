@@ -8,7 +8,7 @@
 			</td>
 		</tr>
         <tr>
-	      <td class="header2" height="30"></td>
+	      <td class="header2" style="height:30px"></td>
 		</tr>
 		<tr class="post">
 			<td>
@@ -19,8 +19,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" class="postfooter" align="center">
-				<asp:Button ID="RestartApp" runat="server" Text="Restart Application" CssClass="pbutton"
-					OnClick="RestartApp_Click"></asp:Button>
+				<asp:Button ID="RestartApp" runat="server" Text="Restart Application" CssClass="pbutton" OnClick="RestartApp_Click"></asp:Button>
 			</td>
 		</tr>
 	</table>

@@ -49,13 +49,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// HelpLabel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.HelpLabel HelpLabel1;
         
         /// <summary>
         /// Name control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
         
         /// <summary>
         /// AllowThreaded control.
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
         
         /// <summary>
         /// Theme control.
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel6;
         
         /// <summary>
         /// MobileTheme control.
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel7;
         
         /// <summary>
         /// AllowThemedLogo control.
@@ -145,7 +145,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel8;
         
         /// <summary>
         /// JqueryUITheme control.
@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel9;
         
         /// <summary>
         /// JqueryUIThemeCDNHosted control.
@@ -181,7 +181,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel10;
         
         /// <summary>
         /// Culture control.
@@ -199,7 +199,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel11;
         
         /// <summary>
         /// ShowTopic control.
@@ -217,7 +217,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel12;
         
         /// <summary>
         /// FileExtensionAllow control.
@@ -244,7 +244,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollGroupListLabel;
+        protected global::YAF.Controls.HelpLabel PollGroupListLabel;
         
         /// <summary>
         /// PollGroupListDropDown control.
@@ -262,7 +262,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel13;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel13;
         
         /// <summary>
         /// NotificationOnUserRegisterEmailList control.
@@ -280,7 +280,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel14;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel14;
         
         /// <summary>
         /// EmailModeratorsOnModeratedPost control.
@@ -298,7 +298,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel15;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel15;
         
         /// <summary>
         /// AllowDigestEmail control.
@@ -316,7 +316,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel16;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel16;
         
         /// <summary>
         /// DefaultSendDigestEmail control.
@@ -334,7 +334,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel17;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel17;
         
         /// <summary>
         /// DefaultNotificationSetting control.

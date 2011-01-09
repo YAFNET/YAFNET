@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
@@ -83,19 +84,17 @@ namespace YAF.Pages.Admin
         {
           FileInfo[] files = dir.GetFiles("*.*");
           long nFileID = 1;
-          foreach (FileInfo file in files)
-          {
-            string sExt = file.Extension.ToLower();
-            if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
-            {
-              continue;
-            }
 
-            dr = dt.NewRow();
-            dr["FileID"] = nFileID++;
-            dr["FileName"] = file.Name;
-            dr["Description"] = file.Name;
-            dt.Rows.Add(dr);
+          foreach (FileInfo file in from file in files
+                                    let sExt = file.Extension.ToLower()
+                                    where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
+                                    select file)
+          {
+              dr = dt.NewRow();
+              dr["FileID"] = nFileID++;
+              dr["FileName"] = file.Name;
+              dr["Description"] = file.Name;
+              dt.Rows.Add(dr);
           }
         }
 
@@ -117,24 +116,35 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Forums", YafBuildLink.GetLink(ForumPages.admin_forums));
-        this.PageLinks.AddLink("Category");
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+        this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+        this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+             this.GetText("ADMIN_ADMIN", "Administration"),
+             this.GetText("TEAM", "FORUMS"),
+             this.GetText("ADMIN_EDITCATEGORY", "TITLE"));
+
+        this.Save.Text = this.GetText("SAVE");
+        this.Cancel.Text = this.GetText("CANCEL");
 
         // Populate Category Table
         this.CreateImagesDataTable();
 
         this.CategoryImages.Attributes["onchange"] =
-          "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
-            YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Categories);
+            "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
+                YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Categories);
 
-        this.Name.Style.Add("width", "100%");
+        //this.Name.Style.Add("width", "100%");
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -148,10 +158,11 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      int CategoryID = 0;
+      int categoryID = 0;
+
       if (this.Request.QueryString.GetFirstOrDefault("c") != null)
       {
-        CategoryID = int.Parse(this.Request.QueryString.GetFirstOrDefault("c"));
+        categoryID = int.Parse(this.Request.QueryString.GetFirstOrDefault("c"));
       }
 
       short sortOrder;
@@ -165,26 +176,26 @@ namespace YAF.Pages.Admin
 
       if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("The Sort Order value should be a positive integer from 0 to 32767.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"));
         return;
       }
 
       if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
       {
         // error...
-        this.PageContext.AddLoadMessage("Invalid value entered for sort order: must enter a number.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"));
         return;
       }
 
       if (string.IsNullOrEmpty(name))
       {
         // error...
-        this.PageContext.AddLoadMessage("Must enter a value for the category name field.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"));
         return;
       }
 
       // save category
-      LegacyDb.category_save(this.PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder);
+      LegacyDb.category_save(this.PageContext.PageBoardID, categoryID, name, categoryImage, sortOrder);
 
       // remove category cache...
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
@@ -200,28 +211,32 @@ namespace YAF.Pages.Admin
     {
       this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
 
-      if (this.Request.QueryString.GetFirstOrDefault("c") != null)
-      {
-        using (
-          DataTable dt = LegacyDb.category_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("c"))
-          )
+        if (this.Request.QueryString.GetFirstOrDefault("c") == null)
         {
-          DataRow row = dt.Rows[0];
-          this.Name.Text = (string)row["Name"];
-          this.SortOrder.Text = row["SortOrder"].ToString();
-          this.CategoryNameTitle.Text = this.Name.Text;
+            return;
+        }
 
-          ListItem item = this.CategoryImages.Items.FindByText(row["CategoryImage"].ToString());
-          if (item != null)
-          {
+        using (
+            DataTable dt = LegacyDb.category_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("c")))
+        {
+            DataRow row = dt.Rows[0];
+            this.Name.Text = (string)row["Name"];
+            this.SortOrder.Text = row["SortOrder"].ToString();
+            this.CategoryNameTitle.Text = this.Name.Text;
+
+            ListItem item = this.CategoryImages.Items.FindByText(row["CategoryImage"].ToString());
+
+            if (item == null)
+            {
+                return;
+            }
+
             item.Selected = true;
             this.Preview.Src = "{0}{2}/{1}".FormatWith(
-              YafForumInfo.ForumClientFileRoot, row["CategoryImage"], YafBoardFolders.Current.Categories);
+                YafForumInfo.ForumClientFileRoot, row["CategoryImage"], YafBoardFolders.Current.Categories);
               
-              // path corrected
-          }
+            // path corrected
         }
-      }
     }
 
     #endregion

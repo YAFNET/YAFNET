@@ -62,17 +62,18 @@ namespace YAF.Pages.Admin
         {
           return this._bbcodeId;
         }
-        else if (this.Request.QueryString.GetFirstOrDefault("b") != null)
+
+        if (this.Request.QueryString.GetFirstOrDefault("b") != null)
         {
-          int id;
-          if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out id))
-          {
-            this._bbcodeId = id;
-            return id;
-          }
+            int id;
+            if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out id))
+            {
+                this._bbcodeId = id;
+                return id;
+            }
         }
 
-        return null;
+          return null;
       }
     }
 
@@ -91,17 +92,17 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      short sortOrder = 0;
+      short sortOrder;
 
       if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"));
         return;
       }
 
       if (!short.TryParse(this.txtExecOrder.Text.Trim(), out sortOrder))
       {
-        this.PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE_EDIT", "MSG_NUMBER"));
         return;
       }
 
@@ -130,8 +131,11 @@ namespace YAF.Pages.Admin
     /// </summary>
     protected void BindData()
     {
-      if (this.BBCodeID != null)
-      {
+        if (this.BBCodeID == null)
+        {
+            return;
+        }
+
         DataRow row = LegacyDb.bbcode_list(this.PageContext.PageBoardID, this.BBCodeID.Value).Rows[0];
 
         // fill the control values...
@@ -147,7 +151,6 @@ namespace YAF.Pages.Admin
         this.txtVariables.Text = row["Variables"].ToString();
         this.txtModuleClass.Text = row["ModuleClass"].ToString();
         this.chkUseModule.Checked = Convert.ToBoolean((row["UseModule"] == DBNull.Value) ? false : row["UseModule"]);
-      }
     }
 
     /// <summary>
@@ -175,27 +178,33 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string strAddEdit = (this.BBCodeID == null) ? "Add" : "Edit";
+        string strAddEdit = (this.BBCodeID == null) ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
       if (!this.IsPostBack)
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(strAddEdit + " YafBBCode Extensions", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bbcode));
+        this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_BBCODE", "TITLE"),
+              this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
 
         this.BindData();
       }
 
-      this.txtName.Attributes.Add("style", "width:100%");
-      this.txtDescription.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtOnClickJS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtDisplayJS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtEditJS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtDisplayCSS.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtSearchRegEx.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtReplaceRegEx.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtVariables.Attributes.Add("style", "width:100%;height:75px;");
-      this.txtModuleClass.Attributes.Add("style", "width:100%");
+      this.txtName.Attributes.Add("style", "width:99%");
+      this.txtDescription.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtOnClickJS.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtDisplayJS.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtEditJS.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtDisplayCSS.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtSearchRegEx.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtReplaceRegEx.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtVariables.Attributes.Add("style", "width:99%;height:75px;");
+      this.txtModuleClass.Attributes.Add("style", "width:99%");
     }
 
     #endregion

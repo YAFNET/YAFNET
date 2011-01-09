@@ -6,96 +6,102 @@
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="2">
-                Edit Board</td>
+               <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITBOARD" />
+            </td>
         </tr>
         <tr>
+	      <td class="header2" height="30" colspan="2"></td>
+		</tr>
+        <tr>
             <td width="50%" class="postheader">
-                <strong>Name:</strong><br />
-                The name of the board.</td>
+                <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
+            </td>
             <td width="50%" class="post">
-                <asp:TextBox ID="Name" runat="server" Style="width: 100%"></asp:TextBox></td>
+                <asp:TextBox ID="Name" runat="server" Width="350"></asp:TextBox></td>
         </tr>
               <tr>
             <td width="50%" class="postheader">
-                <strong>Culture:</strong><br />
-                The Culture of the board.</td>
+                <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="CULTURE" LocalizedPage="ADMIN_EDITBOARD" />
+            </td>
             <td width="50%" class="post">
-            <asp:DropDownList ID="Culture" runat="server" />               
+            <asp:DropDownList ID="Culture" runat="server" Width="350" />               
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Allow Threaded:</strong><br />
-                Allow threaded view for posts.</td>
+                <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="THREADED" LocalizedPage="ADMIN_EDITBOARD" />
+            </td>
             <td class="post">
                 <asp:CheckBox runat="server" ID="AllowThreaded" /></td>
         </tr>                  
         <tr>
             <td width="50%" class="postheader">
-                <strong>Membership Application Name:</strong><br />
-                Application name required for provider, blank will use ApplicationName in web.config.</td>
+                <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="MEMBSHIP_APP_NAME" LocalizedPage="ADMIN_EDITBOARD" />
+            </td>
             <td width="50%" class="post">
-                <asp:TextBox ID="BoardMembershipAppName" runat="server" Style="width: 100%"></asp:TextBox></td>
+                <asp:TextBox ID="BoardMembershipAppName" runat="server"  Width="350"></asp:TextBox></td>
         </tr>
         <asp:PlaceHolder runat="server" ID="CreateNewAdminHolder">
         <tr>
             <td class="postheader">
-                <strong>Create New Admin User:</strong><br />
-                Only required when creating a board using a new &amp; different membership application name.</td>
+                <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="ADMIN_USER" LocalizedPage="ADMIN_EDITBOARD" />
+            </td>
             <td class="post">
                 <asp:CheckBox runat="server" ID="CreateAdminUser" AutoPostBack="true" OnCheckedChanged="CreateAdminUser_CheckedChanged" /></td>
         </tr>
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server" ID="AdminInfo" Visible="false">
             <tr>
-                <td colspan="2" class="header2">New Administrator Information</td>
+                <td colspan="2" class="header2">
+                  <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <strong>User Name:</strong><br />
-                    This will be the administrator for the board.</td>
+                    <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="USER_NAME" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
                 <td class="post">
-                    <asp:TextBox runat="server" ID="UserName" /></td>
+                    <asp:TextBox runat="server" ID="UserName" Width="350" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <strong>User Email:</strong><br />
-                    Email address for administrator.</td>
+                    <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="USER_MAIL" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
                 <td class="post">
-                    <asp:TextBox runat="server" ID="UserEmail" /></td>
+                    <asp:TextBox runat="server" ID="UserEmail" Width="350" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <strong>Password:</strong><br />
-                    Enter password for administrator here.</td>
+                    <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
                 <td class="post">
-                    <asp:TextBox runat="server" ID="UserPass1" TextMode="password" /></td>
+                    <asp:TextBox runat="server" ID="UserPass1" TextMode="password" Width="350" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <strong>Verify Password:</strong><br />
-                    Verify the password.</td>
+                    <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="VERIFY_PASS" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
                 <td class="post">
-                    <asp:TextBox runat="server" ID="UserPass2" TextMode="password" /></td>
+                    <asp:TextBox runat="server" ID="UserPass2" TextMode="password" Width="350" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <strong>Security Question:</strong><br />
-                    The question you will be asked when you need to retrieve your lost password.</td>
+                    <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="SECURITY_QUESTION" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
                 <td class="post">
-                    <asp:TextBox runat="server" ID="UserPasswordQuestion" /></td>
+                    <asp:TextBox runat="server" ID="UserPasswordQuestion" Width="350" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <strong>Security Answer:</strong><br />
-                    The answer to the security question.</td>
+                    <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="SECURITY_ANSWER" LocalizedPage="ADMIN_EDITBOARD" />
+                </td>
                 <td class="post">
-                    <asp:TextBox runat="server" ID="UserPasswordAnswer" /></td>
+                    <asp:TextBox runat="server" ID="UserPasswordAnswer" Width="350" /></td>
             </tr>
         </asp:PlaceHolder>
         <tr>
             <td class="postfooter" align="center" colspan="2">
-                <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />
-                <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" />
+                <asp:Button ID="Save" runat="server" OnClick="Save_Click" CssClass="pbutton" />
+                <asp:Button ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="pbutton" />
             </td>
         </tr>
     </table>

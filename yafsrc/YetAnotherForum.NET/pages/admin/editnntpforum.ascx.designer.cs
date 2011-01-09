@@ -37,7 +37,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel2;
         
         /// <summary>
         /// NntpServerID control.
@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel3;
         
         /// <summary>
         /// GroupName control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
         
         /// <summary>
         /// ForumID control.
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
         
         /// <summary>
         /// Active control.

@@ -30,8 +30,9 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for ranks.
@@ -51,7 +52,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM"));
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM"));
     }
 
     /// <summary>

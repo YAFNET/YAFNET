@@ -5,45 +5,45 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="13">
-				Access Masks
+				  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 		</tr>
 		<tr class="header2">
 			<td>
-				Name
+				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NAME" />
 			</td>
 			<td align="center">
-				Read
+				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ" />
 			</td>
 			<td align="center">
-				Post
+				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST" />
 			</td>
 			<td align="center">
-				Reply
+				<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPLY" />
 			</td>
 			<td align="center">
-				Priority
+				<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="PRIORITY" />
 			</td>
 			<td align="center">
-				Poll
+				<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="POLL" />
 			</td>
 			<td align="center">
-				Vote
+				<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="VOTE" />
 			</td>
 			<td align="center">
-				Moderator
+				<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="MODERATOR" />
 			</td>
 			<td align="center">
-				Edit
+				<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="EDIT" />
 			</td>
 			<td align="center">
-				Delete
+				<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="DELETE" />
 			</td>
 			<td align="center">
-				Upload
+				<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="UPLOAD" />
 			</td>
 			<td align="center">
-				Download
+				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD" />
 			</td>
 			<td>
 				&nbsp;
@@ -89,16 +89,20 @@
 						<asp:Label ID="Label11" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess) %></asp:Label>
 					</td>
 					<td width="15%" style="font-weight: normal">
-						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>'>Edit</asp:LinkButton>
+						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>'>
+                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
+                        </asp:LinkButton>
 						|
-						<asp:LinkButton runat='server' OnLoad="Delete_Load" CommandName='delete' CommandArgument='<%# Eval( "AccessMaskID") %>'>Delete</asp:LinkButton>
+						<asp:LinkButton runat='server' OnLoad="Delete_Load" CommandName='delete' CommandArgument='<%# Eval( "AccessMaskID") %>'>
+                          <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
+                        </asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
-		<tr class="footer1">
+		<tr class="footer1" align="center">
 			<td colspan="13">
-				<asp:LinkButton ID="New" runat="server" Text="New Access Mask" OnClick="New_Click" />
+				<asp:LinkButton ID="New" runat="server" OnClick="New_Click" CssClass="pbutton" />
 			</td>
 		</tr>
 	</table>

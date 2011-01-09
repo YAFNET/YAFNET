@@ -30,8 +30,9 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Utils;
+  using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for members.
@@ -51,7 +52,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this board?')";
+        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -85,14 +86,22 @@ namespace YAF.Pages.Admin
         YafBuildLink.AccessDenied();
       }
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Boards", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+              this.GetText("ADMIN_ADMIN", "Administration"),
+              this.GetText("ADMIN_BOARDS", "TITLE"));
+
+        this.New.Text = this.GetText("ADMIN_BOARDS", "NEW_BOARD");
 
         this.BindData();
-      }
     }
 
     /// <summary>

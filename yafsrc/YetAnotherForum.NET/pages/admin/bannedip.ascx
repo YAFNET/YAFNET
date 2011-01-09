@@ -40,16 +40,20 @@
 				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# string.IsNullOrEmpty(Eval("UserID").ToString())? -1 :Eval("UserID") %>' />
 				</td>
 				<td class="post">
-					<asp:LinkButton runat="server" Text="Edit" CommandName='edit' CommandArgument='<%# Eval("ID") %>'></asp:LinkButton>
+					<asp:LinkButton runat="server" CommandName='edit' CommandArgument='<%# Eval("ID") %>'>
+                      <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
+                    </asp:LinkButton>
 					|
-					<asp:LinkButton runat="server" Text="Delete" CommandName='delete' CommandArgument='<%# Eval("ID") %>'></asp:LinkButton>
+					<asp:LinkButton runat="server" CommandName='delete' CommandArgument='<%# Eval("ID") %>'>
+                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
+                    </asp:LinkButton>
 				</td>
 			</tr>
 			</ItemTemplate>
 		<FooterTemplate>
 			<tr>
-				<td class="footer1" colspan="5">
-					<asp:LinkButton runat="server" Text="Add" CommandName='add'></asp:LinkButton></td>
+				<td class="footer1" colspan="5" align="center">
+					<asp:LinkButton runat="server" Text="Add" CommandName='add' CssClass="pbutton"></asp:LinkButton></td>
 			</tr>
 			</table>
 			</FooterTemplate>
