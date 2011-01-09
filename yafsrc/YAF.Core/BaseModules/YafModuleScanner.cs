@@ -20,9 +20,13 @@ namespace YAF.Core
 {
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.IO;
   using System.Linq;
   using System.Reflection;
+  using System.Security;
+  using System.Security.Permissions;
+  using System.Security.Policy;
 
   using YAF.Types;
   using YAF.Utils;
@@ -45,7 +49,9 @@ namespace YAF.Core
     [NotNull]
     public IEnumerable<Assembly> GetModules([NotNull] string pattern)
     {
-      return GetValidateAssemblies(GetMatchingFiles(pattern)).Select(Assembly.Load).ToList();
+      var files = GetMatchingFiles(pattern).ToList();
+
+      return GetValidateAssemblies(files).ToList();
     }
 
     #endregion
@@ -112,41 +118,25 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    private static IEnumerable<AssemblyName> GetValidateAssemblies([NotNull] IEnumerable<string> filenames)
+    private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> filenames)
     {
-      var temporaryDomain = AppDomain.CreateDomain(
-        "YafScannerDomain", AppDomain.CurrentDomain.Evidence, AppDomain.CurrentDomain.SetupInformation);
+      CodeContracts.ArgumentNotNull(filenames, "filenames");
 
-      try
+      foreach (var assemblyFile in filenames.Where(File.Exists))
       {
-        foreach (var assemblyFile in filenames)
+        Assembly assembly;
+
+        try
         {
-          Assembly assembly;
-
-          if (File.Exists(assemblyFile))
-          {
-            try
-            {
-              var name = new AssemblyName { CodeBase = assemblyFile };
-              assembly = temporaryDomain.Load(name);
-            }
-            catch (BadImageFormatException)
-            {
-              // fail on native images...
-              continue;
-            }
-          }
-          else
-          {
-            assembly = temporaryDomain.Load(assemblyFile);
-          }
-
-          yield return assembly.GetName();
+          assembly = Assembly.LoadFrom(assemblyFile);
         }
-      }
-      finally
-      {
-        AppDomain.Unload(temporaryDomain);
+        catch (BadImageFormatException)
+        {
+          // fail on native images...
+          continue;
+        }
+
+        yield return assembly;
       }
     }
 

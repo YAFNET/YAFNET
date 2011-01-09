@@ -58,7 +58,7 @@ namespace YAF.Core
       CodeContracts.ArgumentNotNull(builder, "builder");
 
       this.ExtensionAssemblies =
-        new YafModuleScanner().GetModules("YAF*.dll").OrderByDescending(x => x.GetAssemblySortOrder()).ToList();
+        new YafModuleScanner().GetModules("YAF*.dll").ToList(); //.OrderByDescending(x => x.GetAssemblySortOrder()).ToList();
 
       this.ExtensionAssemblies.Remove(Assembly.GetExecutingAssembly());
 
@@ -108,7 +108,7 @@ namespace YAF.Core
 
       builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").OwnedByLifetimeScope();
 
-      builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerLifetimeScope();
+      builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
 
       // localization registration...
       builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope();
