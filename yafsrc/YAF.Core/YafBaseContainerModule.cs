@@ -58,9 +58,7 @@ namespace YAF.Core
       CodeContracts.ArgumentNotNull(builder, "builder");
 
       this.ExtensionAssemblies =
-        new YafModuleScanner().GetModules("YAF*.dll").ToList(); //.OrderByDescending(x => x.GetAssemblySortOrder()).ToList();
-
-      this.ExtensionAssemblies.Remove(Assembly.GetExecutingAssembly());
+        new YafModuleScanner().GetModules("YAF*.dll").OrderByDescending(x => x.GetAssemblySortOrder()).ToList();
 
       this.RegisterBasicBindings(builder);
 
@@ -185,7 +183,8 @@ namespace YAF.Core
       CodeContracts.ArgumentNotNull(builder, "builder");
 
       var modules =
-        this.ExtensionAssemblies.FindModules<IModule>().Select(m => Activator.CreateInstance(m) as IModule);
+        this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()).FindModules<IModule>().Select(
+          m => Activator.CreateInstance(m) as IModule);
 
       modules.ForEach(m => builder.RegisterModule(m));
     }
