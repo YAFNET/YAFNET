@@ -918,3 +918,88 @@
 .yafnet .NextTopicLink {
 	background: url("RightArrow.png") transparent no-repeat 100% 50%;
 }
+
+/* clean up model dialog */
+.ModalDialog .DialogContent {
+  display:table;
+  width: 370px;
+  padding: 4px;
+  background: #eee;
+}
+.ModalDialog .modalHeader 
+{
+    padding: 4px;
+  text-shadow: 0;
+  -webkit-box-shadow: 0;
+  moz-box-shadow: 0;
+  box-shadow: 0;
+  color: #fff;
+  background: #999;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  text-align:center;
+  
+  font-size: 10pt;
+}
+
+.ModalDialog .modalHeader h3
+{
+    display: inline;
+}
+
+.ModalDialog .modalFooter
+{
+    padding: 2px;
+    text-align: right;
+}
+
+.ModalDialog input, .ModalDialog select
+{
+    padding: 0px;
+}
+
+.ModalDialog hr
+{
+    height: 1px;
+    border: 0;
+    background-color: #aaa;
+    clear:both;
+}
+
+.ModalDialog .modalInner
+{
+    padding: 10px;
+    display: inline;
+}
+
+.StandardButton {
+	border: none;
+
+	vertical-align: baseline;
+	margin: 0;
+	cursor: pointer;
+	text-align: center!important;
+	text-decoration: none;
+	font: none !important;
+	padding: .1em 0.5em .1em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+	color: #fff!important;
+	border: solid 1px #333;
+	background: #aaa !important;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#446bb8), to(#2a4985));
+	background: -moz-linear-gradient(top,  #446bb8,  #2a4985);
+	
+    height:auto;
+	width:80px;
+}
