@@ -171,7 +171,7 @@ namespace YAF.Controls
     {
       var titleControl = new HtmlGenericControl("div");
 
-      titleControl.Attributes.Add("class", "header");
+      titleControl.Attributes.Add("class", "modalHeader");
 
       titleControl.InnerHtml = "<h3>{0}</h3>".FormatWith(this.Title);
 
@@ -222,6 +222,11 @@ namespace YAF.Controls
 
       if (this.Buttons != null && this.Buttons.Count > 0)
       {
+        var divFooter = new HtmlGenericControl("div") { ID = "YafModalFooter" };
+        divFooter.Attributes.Add("class", "modalFooter");
+
+        this.Controls.Add(divFooter);
+
         foreach (HyperLink btnLink in
           this.Buttons.Select(
             btn => new HyperLink { CssClass = btn.CssClass, ID = Guid.NewGuid().ToString(), Text = btn.Text }))
@@ -231,7 +236,7 @@ namespace YAF.Controls
           btnLink.Attributes.Add(
             "onclick", "jQuery(this).YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(this.ClientID));
 
-          this.Controls.Add(btnLink);
+          divFooter.Controls.Add(btnLink);
         }
       }
 
