@@ -1987,8 +1987,9 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="IMPORT">Import</Resource>
 	   <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
 	   <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-	   <Resource tag="CHOOSE_PAK"><![CDATA[<strong>Choose .pak file:</strong><br />You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).]]></Resource>
-	   <Resource tag="DELETE_EXISTING"><![CDATA[<strong>Delete existing smilies:</strong><br />Will delete all existing smilies if you check this.]]></Resource>
+	   <Resource tag="CHOOSE_PAK"><![CDATA[Choose .pak file: ]]></Resource>
+     <Resource tag="CHOOSE_PAK_HELP"><![CDATA[You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).]]></Resource>
+	   <Resource tag="DELETE_EXISTING"><![CDATA[Delete existing smilies:]]></Resource><Resource tag="DELETE_EXISTING_HELP"><![CDATA[Will delete all existing smilies if you check this.]]></Resource>
 	 </page>
 	 <page name="ADMIN_SMILIES_EDIT">
 	   <Resource tag="TITLE">Add/Edit Smiley</Resource>
@@ -2033,7 +2034,7 @@ Visit {forumname} at {forumlink}
 	 <page name="ADMIN_REPLACEWORDS_IMPORT">
 	   <Resource tag="TITLE">Import Replace Words</Resource>
 	   <Resource tag="HEADER">Import Replace Word List</Resource>
-       <Resource tag="SELECT_IMPORT"><![CDATA[<strong>Select Import File:</strong><br />(Must be *.xml file)]]></Resource>
+       <Resource tag="SELECT_IMPORT"><![CDATA[Select Import File:]]></Resource><Resource tag="SELECT_IMPORT_HELP"><![CDATA[(Must be *.xml file)]]></Resource>
 	   <Resource tag="MSG_IMPORTED">{0} new replacement word(s) were imported successfully.</Resource>
 	   <Resource tag="MSG_NOTHING">Nothing imported: no new replacement words were found in the upload.</Resource>
 	   <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
@@ -2041,8 +2042,8 @@ Visit {forumname} at {forumlink}
 	 </page>
 	 <page name="ADMIN_REPLACEWORDS_EDIT">
 	   <Resource tag="TITLE">Add/Edit Word Replace</Resource>
-	   <Resource tag="BAD"><![CDATA[<strong>"Bad" Expression:</strong><br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).]]></Resource>
-	   <Resource tag="GOOD"><![CDATA[<strong>"Good" Expression:</strong><br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).]]></Resource>
+	   <Resource tag="BAD"><![CDATA["Bad" Expression:]]></Resource><Resource tag="BAD_HELP"><![CDATA[Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).]]></Resource>
+	   <Resource tag="GOOD"><![CDATA["Good" Expression:]]></Resource><Resource tag="GOOD_HELP"><![CDATA[Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).]]></Resource>
 	 </page>
 	 <page name="ADMIN_REINDEX">
 	   <Resource tag="TITLE">Reindex DB</Resource>
@@ -2062,20 +2063,20 @@ Visit {forumname} at {forumlink}
 	 </page>
 	 <page name="ADMIN_EDITNNTPFORUM">
 	   <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
-	   <Resource tag="SERVER"><![CDATA[<strong>Server:</strong><br />What server this groups is located.]]></Resource>
-	   <Resource tag="GROUP"><![CDATA[<strong>Group:</strong><br />The name of the newsgroup.]]></Resource>
-	   <Resource tag="FORUM"><![CDATA[<strong>Forum:</strong><br />The forum messages will be inserted into.]]></Resource>
-	   <Resource tag="ACTIVE"><![CDATA[<strong>Active:</strong><br />Check this to make the forum active.]]></Resource>
+	   <Resource tag="SERVER"><![CDATA[Server:]]></Resource><Resource tag="SERVER_HELP"><![CDATA[What server this groups is located.]]></Resource>
+	   <Resource tag="GROUP"><![CDATA[Group:]]></Resource><Resource tag="GROUP_HELP"><![CDATA[The name of the newsgroup.]]></Resource>
+	   <Resource tag="FORUM"><![CDATA[Forum:]]></Resource><Resource tag="FORUM_HELP"><![CDATA[The forum messages will be inserted into.]]></Resource>
+	   <Resource tag="ACTIVE"><![CDATA[Active:]]></Resource><Resource tag="ACTIVE_HELP"><![CDATA[Check this to make the forum active.]]></Resource>
 	   <Resource tag="MSG_VALID_GROUP">You should enter a valid group name.</Resource>
        <Resource tag="MSG_SELECT_FORUM">You must select a forum to save NNTP messages.</Resource>
 	 </page>
 	 <page name="ADMIN_EDITNNTPSERVER">
 	   <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
-	   <Resource tag="NNTP_NAME"><![CDATA[<strong>Name:</strong><br />Name of this server.]]></Resource>
-	   <Resource tag="NNTP_ADRESS"><![CDATA[<strong>Address:</strong><br />The host name of the server.]]></Resource>
-	   <Resource tag="NNTP_PORT"><![CDATA[<strong>Port:</strong><br />The port number to connect to.]]></Resource>
-	   <Resource tag="NNTP_USERNAME"><![CDATA[<strong>User Name:</strong><br />The user name used to log on to the nntp server.]]></Resource>
-	   <Resource tag="NNTP_PASSWORD"><![CDATA[<strong>Password:</strong><br />The password used to log on to the nntp server.]]></Resource>
+	   <Resource tag="NNTP_NAME"><![CDATA[Name:]]></Resource><Resource tag="NNTP_NAME_HELP"><![CDATA[Name of this server.]]></Resource>
+	   <Resource tag="NNTP_ADRESS"><![CDATA[Address:]]></Resource><Resource tag="NNTP_ADRESS_HELP"><![CDATA[The host name of the server.]]></Resource>
+	   <Resource tag="NNTP_PORT"><![CDATA[Port:]]></Resource><Resource tag="NNTP_PORT_HELP"><![CDATA[The port number to connect to.]]></Resource>
+	   <Resource tag="NNTP_USERNAME"><![CDATA[User Name:]]></Resource><Resource tag="NNTP_USERNAME_HELP"><![CDATA[The user name used to log on to the nntp server.]]></Resource>
+	   <Resource tag="NNTP_PASSWORD"><![CDATA[Password:]]></Resource><Resource tag="NNTP_PASSWORD_HELP"><![CDATA[The password used to log on to the nntp server.]]></Resource>
 	   <Resource tag="MSG_SERVER_NAME">Missing server name.</Resource>
        <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
 	 </page>
@@ -2087,8 +2088,8 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="MSG_TASK">Prune Task Scheduled</Resource>
 	   <Resource tag="PRUNE_START">Start Prune Task</Resource>
 	   <Resource tag="PRUNE_FORUM"><![CDATA[<strong>Select forum to prune:</strong>]]></Resource>
-	   <Resource tag="PRUNE_DAYS"><![CDATA[<strong>Enter minimum age in days:</strong><br />Topics with the last post older than this will be deleted.]]></Resource>
-	   <Resource tag="PRUNE_PERMANENT"><![CDATA[<strong>Permanently remove from DB:</strong><br />All Topics marked with the Deleted flag will be permanently deleted.]]></Resource>
+	   <Resource tag="PRUNE_DAYS"><![CDATA[Enter minimum age in days:]]></Resource><Resource tag="PRUNE_DAYS_HELP"><![CDATA[Topics with the last post older than this will be deleted.]]></Resource>
+	   <Resource tag="PRUNE_PERMANENT"><![CDATA[Permanently remove from DB:]]></Resource><Resource tag="PRUNE_PERMANENT_HELP"><![CDATA[All Topics marked with the Deleted flag will be permanently deleted.]]></Resource>
 	 </page>
 	  <page name="ADMIN_PM">
 	   <Resource tag="TITLE">PM Maintenance</Resource>
@@ -2119,11 +2120,11 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="GENERATE_DIGEST">Generate Digest</Resource>
 	   <Resource tag="FORCE_SEND">Force Digest Send</Resource>
 	   <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
-	   <Resource tag="DIGEST_ENABLED"><![CDATA[<strong>Digest Enabled:</strong><br />Change in your Board Settings.]]></Resource>
-	   <Resource tag="DIGEST_LAST"><![CDATA[<strong>Last Digest Send:</strong><br />The last time (based on server time) the digest task was run.]]></Resource>
-	   <Resource tag="DIGEST_EMAIL"><![CDATA[<strong>Email:</strong><br />Send a test digest to the email.]]></Resource>
-	   <Resource tag="DIGEST_METHOD"><![CDATA[<strong>Send Method:</strong><br />Type of System Send to Test.]]></Resource>
-	   <Resource tag="DIGEST_GENERATE"><![CDATA[<strong>Digest:</strong><br />Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an email client.)]]></Resource>
+	   <Resource tag="DIGEST_ENABLED"><![CDATA[Digest Enabled:]]></Resource><Resource tag="DIGEST_ENABLED_HELP"><![CDATA[Change in your Board Settings.]]></Resource>
+	   <Resource tag="DIGEST_LAST"><![CDATA[Last Digest Send:]]></Resource><Resource tag="DIGEST_LAST_HELP"><![CDATA[The last time (based on server time) the digest task was run.]]></Resource>
+	   <Resource tag="DIGEST_EMAIL"><![CDATA[Email:]]></Resource><Resource tag="DIGEST_EMAIL_HELP"><![CDATA[Send a test digest to the email.]]></Resource>
+	   <Resource tag="DIGEST_METHOD"><![CDATA[Send Method:]]></Resource><Resource tag="DIGEST_METHOD_HELP"><![CDATA[Type of System Send to Test.]]></Resource>
+	   <Resource tag="DIGEST_GENERATE"><![CDATA[Digest:]]></Resource><Resource tag="DIGEST_GENERATE_HELP"><![CDATA[Generate Digest for this admin account and currently selected theme. (May not actually look like this rendered in an email client.)]]></Resource>
 	 </page>
 	  <page name="ADMIN_LANGUAGES">
 	   <Resource tag="TITLE">Languages</Resource>
@@ -2156,20 +2157,21 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="TITLE">Board Settings</Resource>
        <Resource tag="HEADER">Current Board Settings</Resource>
 	   <Resource tag="BOARD_SETUP">Board Setup</Resource>
-	   <Resource tag="BOARD_NAME"><![CDATA[<strong>Board Name:</strong><br />The name of the board.]]></Resource>
-	   <Resource tag="BOARD_THREADED"><![CDATA[<strong>Allow Threaded:</strong><br />Allow threaded view for posts.]]></Resource>
-	   <Resource tag="BOARD_THEME"><![CDATA[<strong>Theme:</strong><br />The theme to use on this board.]]></Resource>
-	   <Resource tag="BOARD_MOBILE_THEME"><![CDATA[<strong>Mobile Theme:</strong><br />The mobile theme to use on this board.]]></Resource>
-	   <Resource tag="BOARD_THEME_LOGO"><![CDATA[<strong>Allow Themed Logo :</strong><br />Gets logo from theme file (Does not work in portal).]]></Resource>
-	   <Resource tag="BOARD_JQ_THEME"><![CDATA[<strong>jQuery UI Theme:</strong><br />The jQuery UI Theme to use on this board for the Tabs and Accordion.]]></Resource>
-	   <Resource tag="BOARD_CDN_HOSTED"><![CDATA[<strong>Use Google Hosted CDN jQuery UI CSS File?</strong><br />You can use the Google Hosted CSS Files, or instead use internal.]]></Resource>
-	   <Resource tag="BOARD_CULTURE"><![CDATA[<strong>Culture:</strong><br />The default culture &amp; language for this forum.]]></Resource>
-	   <Resource tag="BOARD_TOPIC_DEFAULT"><![CDATA[<strong>Show Topic Default:</strong><br />The default board show topic interval selection.]]></Resource>
-	   <Resource tag="BOARD_FILE_EXTENSIONS"><![CDATA[<strong>File Extensions List is:</strong><br />Is the list of file extensions allowed files or disallowed files (less secure)?]]></Resource>
-	   <Resource tag="BOARD_EMAIL_ONREGISTER"><![CDATA[<strong>Send Email Notification On User Register to Emails:</strong><br />Semi-colon (;) separated list of emails to send a notification to on user registration.]]></Resource>
-	   <Resource tag="BOARD_ALLOW_DIGEST"><![CDATA[<strong>Allow Digest Email Sending for Users Once Daily:</strong><br />Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.]]></Resource>
-	   <Resource tag="BOARD_DIGEST_NEWUSERS"><![CDATA[<strong>Default Send Digest "On" for New Users?</strong><br />When a new user account is created, default send digest to true?]]></Resource>
-	   <Resource tag="BOARD_DEFAULT_NOTIFICATION"><![CDATA[<strong>Default Notification Setting:</strong><br />When a new user account is created, what notification setting does it default to?]]></Resource>
-	   <Resource tag="BOARD_EMAIL_MODS"><![CDATA[<strong>Email Moderators On New Moderated Post:</strong><br />Should all the moderators of a forum be notified if a new post that needs approval is created?]]></Resource>
+	   <Resource tag="BOARD_NAME"><![CDATA[Board Name:]]></Resource>
+     <Resource tag="BOARD_NAME_HELP"><![CDATA[The name of the board]]></Resource>     
+     <Resource tag="BOARD_THREADED"><![CDATA[Allow Threaded:]]></Resource><Resource tag="BOARD_THREADED_HELP"><![CDATA[Allow threaded view for posts.]]></Resource>
+	   <Resource tag="BOARD_THEME"><![CDATA[Theme:]]></Resource><Resource tag="BOARD_THEME_HELP"><![CDATA[The theme to use on this board.]]></Resource>
+	   <Resource tag="BOARD_MOBILE_THEME"><![CDATA[Mobile Theme:]]></Resource><Resource tag="BOARD_MOBILE_THEME_HELP"><![CDATA[The mobile theme to use on this board.]]></Resource>
+	   <Resource tag="BOARD_THEME_LOGO"><![CDATA[Allow Themed Logo :]]></Resource><Resource tag="BOARD_THEME_LOGO_HELP"><![CDATA[Gets logo from theme file (Does not work in portal).]]></Resource>
+	   <Resource tag="BOARD_JQ_THEME"><![CDATA[jQuery UI Theme:]]></Resource><Resource tag="BOARD_JQ_THEME_HELP"><![CDATA[The jQuery UI Theme to use on this board for the Tabs and Accordion.]]></Resource>
+	   <Resource tag="BOARD_CDN_HOSTED"><![CDATA[Use Google Hosted CDN jQuery UI CSS File?]]></Resource><Resource tag="BOARD_CDN_HOSTED_HELP"><![CDATA[You can use the Google Hosted CSS Files, or instead use internal.]]></Resource>
+	   <Resource tag="BOARD_CULTURE"><![CDATA[Culture:]]></Resource><Resource tag="BOARD_CULTURE_HELP"><![CDATA[The default culture &amp; language for this forum.]]></Resource>
+	   <Resource tag="BOARD_TOPIC_DEFAULT"><![CDATA[Show Topic Default:]]></Resource><Resource tag="BOARD_TOPIC_DEFAULT_HELP"><![CDATA[The default board show topic interval selection.]]></Resource>
+	   <Resource tag="BOARD_FILE_EXTENSIONS"><![CDATA[File Extensions List is:]]></Resource><Resource tag="BOARD_FILE_EXTENSIONS_HELP"><![CDATA[Is the list of file extensions allowed files or disallowed files (less secure)?]]></Resource>
+	   <Resource tag="BOARD_EMAIL_ONREGISTER"><![CDATA[Send Email Notification On User Register to Emails:]]></Resource><Resource tag="BOARD_EMAIL_ONREGISTER_HELP"><![CDATA[Semi-colon (;) separated list of emails to send a notification to on user registration.]]></Resource>
+	   <Resource tag="BOARD_ALLOW_DIGEST"><![CDATA[Allow Digest Email Sending for Users Once Daily:]]></Resource><Resource tag="BOARD_ALLOW_DIGEST_HELP"><![CDATA[Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.]]></Resource>
+	   <Resource tag="BOARD_DIGEST_NEWUSERS"><![CDATA[Default Send Digest "On" for New Users?]]></Resource><Resource tag="BOARD_DIGEST_NEWUSERS_HELP"><![CDATA[When a new user account is created, default send digest to true?]]></Resource>
+	   <Resource tag="BOARD_DEFAULT_NOTIFICATION"><![CDATA[Default Notification Setting:]]></Resource><Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP"><![CDATA[When a new user account is created, what notification setting does it default to?]]></Resource>
+	   <Resource tag="BOARD_EMAIL_MODS"><![CDATA[Email Moderators On New Moderated Post:]]></Resource><Resource tag="BOARD_EMAIL_MODS_HELP"><![CDATA[Should all the moderators of a forum be notified if a new post that needs approval is created?]]></Resource>
 	 </page>
 </Resources>
