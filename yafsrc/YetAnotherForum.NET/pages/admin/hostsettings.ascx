@@ -980,7 +980,7 @@
                             If checked, Crawlers will be displayed In Active Lists.
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="ShowCrawlersInDetailedActiveList" runat="server"></asp:CheckBox>
+                            <asp:CheckBox ID="ShowCrawlersInActiveList" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>

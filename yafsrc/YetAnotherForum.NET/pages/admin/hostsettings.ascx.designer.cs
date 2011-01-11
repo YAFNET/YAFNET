@@ -877,13 +877,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowGuestsInDetailedActiveList;
         
         /// <summary>
-        /// ShowCrawlersInDetailedActiveList control.
+        /// ShowCrawlersInActiveList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowCrawlersInDetailedActiveList;
+        protected global::System.Web.UI.WebControls.CheckBox ShowCrawlersInActiveList;
         
         /// <summary>
         /// ShowDeletedMessages control.
