@@ -29,16 +29,12 @@ namespace YAF.Core
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Core;
+  using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Core.Services;
   using YAF.Classes.Data;
   using YAF.Utils;
   using YAF.Utils.Helpers;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -99,7 +95,9 @@ namespace YAF.Core
     /// </param>
     public ForumPage(string transPage)
     {
-      // create empty hashtable for cache entries
+      this.Get<IInjectServices>().Inject(this);
+
+      // create empty hashtable for cache entries));
       this._pageCache = new Hashtable();
 
       this._transPage = transPage;
@@ -139,6 +137,12 @@ namespace YAF.Core
         return true;
       }
     }
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    [Inject]
+    public ILogger Logger { get; set; }
 
     /// <summary>
     ///   Gets or sets ForumFooter.

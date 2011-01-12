@@ -22,12 +22,14 @@ namespace YAF.Core.Tasks
   using System.Web;
 
   using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
+  using YAF.Types.Attributes;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
 
   /// <summary>
   /// The base background task.
   /// </summary>
-  public abstract class BaseBackgroundTask : IBackgroundTask
+  public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
   {
     /// <summary>
     /// The _app context.
@@ -154,5 +156,15 @@ namespace YAF.Core.Tasks
     /// The run once.
     /// </summary>
     public abstract void RunOnce();
+
+    #region Implementation of IHaveServiceLocator
+
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    [Inject]
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
   }
 }

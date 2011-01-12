@@ -25,6 +25,7 @@ namespace YAF.Core
   using System.Reflection;
 
   using Autofac;
+  using Autofac.Features.Indexed;
 
   using YAF.Types;
   using YAF.Types.Interfaces;
@@ -105,7 +106,18 @@ namespace YAF.Core
 
       foreach (var injectProp in properties)
       {
-        var serviceInstance = this.Container.Resolve(injectProp.PropertyType);
+        object serviceInstance = null;
+
+        if (injectProp.PropertyType == typeof(ILogger))
+        {
+          // we're getting the logger via the logger factory...
+          serviceInstance = this.Container.Resolve<ILoggerProvider>().Create(injectProp.PropertyInfo.DeclaringType);
+        }
+        else
+        {
+          serviceInstance = this.Container.Resolve(injectProp.PropertyType);
+        }
+
         injectProp.PropertyInfo.SetValue(instance, serviceInstance, null);
       }
     }

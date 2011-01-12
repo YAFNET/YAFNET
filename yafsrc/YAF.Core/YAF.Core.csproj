@@ -98,6 +98,8 @@
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\IDateTimeExtensions.cs" />
+    <Compile Include="IHaveComponentRegistry.cs" />
+    <Compile Include="Extensions\IHaveComponentRegistryExtensions.cs" />
     <Compile Include="Extensions\IModuleManagerExtensions.cs" />
     <Compile Include="Extensions\IPermissionsExtensions.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
@@ -118,7 +120,9 @@
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\LocalizerLoader.cs" />
     <Compile Include="Localization\YafLocalization.cs" />
+    <Compile Include="Logger\LoggerModule.cs" />
     <Compile Include="Logger\YafDbLogger.cs" />
+    <Compile Include="Logger\YafDbLoggerProvider.cs" />
     <Compile Include="Nntp\Article.cs" />
     <Compile Include="Nntp\ArticleBody.cs" />
     <Compile Include="Nntp\ArticleHeader.cs" />

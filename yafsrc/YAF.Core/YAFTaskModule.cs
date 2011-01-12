@@ -195,6 +195,7 @@ namespace YAF.Core
 
           // setup and run...
           start.AppContext = _appInstance;
+          this.Get<IInjectServices>().Inject(start);
           start.Run();
 
           // add it after so that IsRunning is set first...

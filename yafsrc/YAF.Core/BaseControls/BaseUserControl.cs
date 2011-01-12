@@ -23,6 +23,7 @@ namespace YAF.Core
   using System;
   using System.Web.UI;
 
+  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -32,7 +33,26 @@ namespace YAF.Core
   /// </summary>
   public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator
   {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BaseUserControl"/> class. 
+    ///   Initializes a new instance of the <see cref="BaseControl"/> class.
+    /// </summary>
+    public BaseUserControl()
+    {
+      this.Get<IInjectServices>().Inject(this);
+    }
+
+    #endregion
+
     #region Properties
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    [Inject]
+    public ILogger Logger { get; set; }
 
     /// <summary>
     ///   Gets PageContext.
@@ -45,12 +65,8 @@ namespace YAF.Core
       }
     }
 
-    #endregion
-
-    #region Implementation of IHaveServiceLocator
-
     /// <summary>
-    /// Gets ServiceLocator.
+    ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator
     {

@@ -28,9 +28,10 @@ namespace YAF.Core.Services
   using System.Threading;
 
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Types.Objects;
+  using YAF.Utils;
 
   #endregion
 
@@ -38,17 +39,54 @@ namespace YAF.Core.Services
   /// Separate class since SendThreaded isn't needed functionality
   ///   for any instance except the <see cref="HttpModule"/> instance.
   /// </summary>
-  public class YafSendMailThreaded : YafSendMail
+  public class YafSendMailThreaded
   {
+    #region Constants and Fields
+
+    /// <summary>
+    ///   The _unique id.
+    /// </summary>
+    protected int _uniqueId;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafSendMailThreaded"/> class.
+    /// </summary>
+    /// <param name="sendMail">
+    /// The send mail.
+    /// </param>
+    public YafSendMailThreaded([NotNull] ISendMail sendMail, ILogger logger)
+    {
+      CodeContracts.ArgumentNotNull(sendMail, "sendMail");
+
+      this.SendMail = sendMail;
+      Logger = logger;
+      var rand = new Random();
+      this._uniqueId = rand.Next();
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets SendMail.
+    /// </summary>
+    public ISendMail SendMail { get; set; }
+
+    public ILogger Logger { get; set; }
+
+    #endregion
+
     #region Public Methods
 
     /// <summary>
     /// The send threaded.
     /// </summary>
-    /// <param name="uniqueId">
-    /// The unique id.
-    /// </param>
-    public void SendThreaded(int uniqueId)
+    public void SendThreaded()
     {
       try
       {
@@ -57,12 +95,12 @@ namespace YAF.Core.Services
 
         try
         {
-          Debug.WriteLine("Retrieving queued mail...");
+          this.Logger.Debug("Retrieving queued mail...");
           Thread.BeginCriticalRegion();
 
-          mailList = LegacyDb.MailList(uniqueId);
+          mailList = LegacyDb.MailList(this._uniqueId);
 
-          Debug.WriteLine("Got {0} Messages...".FormatWith(mailList.Count()));
+          this.Logger.Debug("Got {0} Messages...".FormatWith(mailList.Count()));
         }
         finally
         {
@@ -90,62 +128,62 @@ namespace YAF.Core.Services
           mailMessages.Add(newMessage, mail);
         }
 
-        this.SendAllIsolated(
-          mailMessages.Select(x => x.Key),
+        this.SendMail.SendAllIsolated(
+          mailMessages.Select(x => x.Key), 
           (message, ex) =>
-          {
-            if (ex is FormatException)
             {
-              // email address is no good -- delete this email...
-              Debug.WriteLine("Invalid Email Address: {0}".FormatWith(ex.ToString()));
-#if (DEBUG)
-              LegacyDb.eventlog_create(null, "Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
-#endif
-            }
-            else if (ex is SmtpException)
-            {
-#if (DEBUG)
-              LegacyDb.eventlog_create(null, "SendMailThread SmtpException", ex.ToString());
-#endif
-              Debug.WriteLine("Send Exception: {0}".FormatWith(ex.ToString()));
-
-              if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
+              if (ex is FormatException)
               {
-                // remove from the collection so it doesn't get deleted...
-                mailMessages.Remove(message);
+                // email address is no good -- delete this email...
+                this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()));
+#if (DEBUG)
+                this.Logger.Warn("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
+#endif
+              }
+              else if (ex is SmtpException)
+              {
+#if (DEBUG)
+                this.Logger.Warn("SendMailThread SmtpException", ex.ToString());
+#endif
+                this.Logger.Debug("Send Exception: {0}".FormatWith(ex.ToString()));
+
+                if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
+                {
+                  // remove from the collection so it doesn't get deleted...
+                  mailMessages.Remove(message);
+                }
+                else
+                {
+                  this.Logger.Warn("SendMailThread Failed for the 2nd time:", ex.ToString());
+                }
               }
               else
               {
-                LegacyDb.eventlog_create(null, "SendMailThread Failed for the 2nd time:", ex.ToString());
-              }
-            }
-            else
-            {
-              // general exception...
-              Debug.WriteLine("Exception Thrown in SendMail Thread: " + ex.ToString());
+                // general exception...
+                this.Logger.Debug("Exception Thrown in SendMail Thread: " + ex.ToString());
 #if (DEBUG)
-              LegacyDb.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
+                this.Logger.Warn("SendMailThread General Exception", ex.ToString());
 #endif
-            }
-          });
+              }
+            });
 
         foreach (var message in mailMessages.Values)
         {
           // all is well, delete this message...
-          Debug.WriteLine("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.MailID));
+          this.Logger.Debug("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.MailID));
           LegacyDb.mail_delete(message.MailID);
         }
       }
       catch (Exception ex)
       {
         // general exception...
-        Debug.WriteLine("Exception Thrown in SendMail Thread: " + ex.ToString());
+        this.Logger.Debug("Exception Thrown in SendMail Thread: " + ex);
 #if (DEBUG)
-        LegacyDb.eventlog_create(null, "SendMailThread General Exception", ex.ToString());
+        this.Logger.Warn("SendMailThread General Exception", ex.ToString());
 #endif
       }
 
-      Debug.WriteLine("SendMailThread exiting");
+      this.Logger.Debug("SendMailThread exiting");
     }
 
     #endregion

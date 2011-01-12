@@ -24,6 +24,7 @@ namespace YAF.Core
   using System.Web.UI.WebControls;
 
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -34,6 +35,18 @@ namespace YAF.Core
   /// </summary>
   public class BasePanel : Panel, IHaveServiceLocator
   {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BasePanel"/> class.
+    /// </summary>
+    public BasePanel()
+    {
+      this.Get<IInjectServices>().Inject(this);
+    }
+
+    #endregion
+
     #region Properties
 
     /// <summary>
@@ -61,6 +74,12 @@ namespace YAF.Core
         return this.PageContext.ServiceLocator;
       }
     }
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    [Inject]
+    public ILogger Logger { get; set; }
 
     #endregion
 

@@ -34,58 +34,97 @@ namespace YAF.Core
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
-  using Module = Autofac.Module;
-
   #endregion
 
   /// <summary>
   /// The module for all singleton scoped items...
   /// </summary>
-  public class YafBaseContainerModule : Module
+  public class YafBaseContainerModule : IModule, IHaveComponentRegistry
   {
-    public IList<Assembly> ExtensionAssemblies { get; protected set; }
-
-    #region Methods
+    #region Properties
 
     /// <summary>
-    /// The load.
+    /// Gets or sets ComponentRegistry.
     /// </summary>
-    /// <param name="builder">
-    /// The builder.
+    public IComponentRegistry ComponentRegistry { get; set; }
+
+    /// <summary>
+    /// Gets or sets ExtensionAssemblies.
+    /// </summary>
+    public IList<Assembly> ExtensionAssemblies { get; protected set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IModule
+
+    /// <summary>
+    /// Apply the module to the component registry.
+    /// </summary>
+    /// <param name="componentRegistry">
+    /// Component registry to apply configuration to.
     /// </param>
-    protected override void Load([NotNull] ContainerBuilder builder)
+    public void Configure([NotNull] IComponentRegistry componentRegistry)
     {
-      CodeContracts.ArgumentNotNull(builder, "builder");
+      CodeContracts.ArgumentNotNull(componentRegistry, "componentRegistry");
+
+      this.ComponentRegistry = componentRegistry;
 
       this.ExtensionAssemblies =
         new YafModuleScanner().GetModules("YAF*.dll").OrderByDescending(x => x.GetAssemblySortOrder()).ToList();
 
-      this.RegisterBasicBindings(builder);
-
-      this.RegisterEventBindings(builder);
-
-      this.RegisterServices(builder);
-
-      this.RegisterModules(builder);
-
-      this.RegisterExternalModules(builder);
+      // handle registration...
+      this.RegisterExternalModules();
+      this.RegisterBasicBindings();
+      this.RegisterEventBindings();
+      this.RegisterServices();
+      this.RegisterModules();
     }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The register basic bindings.
     /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private void RegisterBasicBindings([NotNull] ContainerBuilder builder)
+    private void RegisterBasicBindings()
     {
-      CodeContracts.ArgumentNotNull(builder, "builder");
+      var builder = new ContainerBuilder();
 
       builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().
         OwnedByLifetimeScope();
 
-      // the scopes will probably change
-      builder.RegisterType<YafSendMail>().As<ISendMail>().OwnedByLifetimeScope();
+      // optional defaults.
+      if (this.IsNotRegistered<ISendMail>())
+      {
+        builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance();
+      }
+
+      if (this.IsNotRegistered<ISendNotification>())
+      {
+        builder.RegisterType<YafSendNotification>().As<ISendNotification>().OwnedByLifetimeScope();
+      }
+
+      if (this.IsNotRegistered<IDigest>())
+      {
+        builder.RegisterType<YafDigest>().As<IDigest>().OwnedByLifetimeScope();
+      }
+
+      if (this.IsNotRegistered<IUserDisplayName>())
+      {
+        builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().OwnedByLifetimeScope();
+      }
+
+      if (this.IsNotRegistered<IUrlBuilder>())
+      {
+        builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope();
+      }
+
+      // staionary bindings...
       builder.RegisterType<YafSession>().As<IYafSession>().OwnedByLifetimeScope();
       builder.RegisterType<YafDBBroker>().As<IDBBroker>().OwnedByLifetimeScope();
       builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().OwnedByLifetimeScope();
@@ -94,12 +133,6 @@ namespace YAF.Core
       builder.RegisterType<YafAvatars>().As<IAvatars>().OwnedByLifetimeScope();
       builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().OwnedByLifetimeScope();
       builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().OwnedByLifetimeScope();
-      builder.RegisterType<YafSendNotification>().As<ISendNotification>().OwnedByLifetimeScope();
-      builder.RegisterType<YafDigest>().As<IDigest>().OwnedByLifetimeScope();
-
-      builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().OwnedByLifetimeScope();
-
-      builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope();
 
       // needs to be "instance per dependancy" so that each new request gets a new ScripBuilder.
       builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency();
@@ -118,50 +151,70 @@ namespace YAF.Core
 
       // module resolution bindings...
       builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
+
+      // background task.
+      builder.RegisterType<YafSendMailThreaded>().AsSelf().SingleInstance();
+
+      this.UpdateRegistry(builder);
     }
 
     /// <summary>
     /// Register event bindings
     /// </summary>
-    /// <param name="builder">
-    /// </param>
-    private void RegisterEventBindings([NotNull] ContainerBuilder builder)
+    private void RegisterEventBindings()
     {
+      var builder = new ContainerBuilder();
+
       builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
       builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
       // scan assemblies for events to wire up...
-      builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
+      builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
         AsImplementedInterfaces().InstancePerLifetimeScope();
+
+      this.UpdateRegistry(builder);
+    }
+
+    /// <summary>
+    /// The register external modules.
+    /// </summary>
+    private void RegisterExternalModules()
+    {
+      var builder = new ContainerBuilder();
+
+      var modules =
+        this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()).FindModules<IModule>().Select(
+          m => Activator.CreateInstance(m) as IModule);
+
+      modules.ForEach(m => builder.RegisterModule(m));
+
+      this.UpdateRegistry(builder);
     }
 
     /// <summary>
     /// The register modules.
     /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private void RegisterModules([NotNull] ContainerBuilder builder)
+    private void RegisterModules()
     {
-      CodeContracts.ArgumentNotNull(builder, "builder");
+      var builder = new ContainerBuilder();
 
       // forum modules...
-      builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AssignableTo<IBaseForumModule>().As<IBaseForumModule>().
-        InstancePerLifetimeScope();
+      builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<IBaseForumModule>().As
+        <IBaseForumModule>().InstancePerLifetimeScope();
 
       // editor modules...
-      builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AssignableTo<ForumEditor>().As<ForumEditor>().InstancePerLifetimeScope();
+      builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<ForumEditor>().As<ForumEditor>().
+        InstancePerLifetimeScope();
+
+      this.UpdateRegistry(builder);
     }
 
     /// <summary>
     /// The register services.
     /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private void RegisterServices([NotNull] ContainerBuilder builder)
+    private void RegisterServices()
     {
-      CodeContracts.ArgumentNotNull(builder, "builder");
+      var builder = new ContainerBuilder();
 
       builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AssignableTo<IStartupService>().As<IStartupService>
         ().InstancePerLifetimeScope();
@@ -170,23 +223,8 @@ namespace YAF.Core
         x =>
         x.Resolve<IEnumerable<IStartupService>>().Where(t => t is StartupInitializeDb).FirstOrDefault() as
         StartupInitializeDb).InstancePerLifetimeScope();
-    }
 
-    /// <summary>
-    /// The register external modules.
-    /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    private void RegisterExternalModules([NotNull] ContainerBuilder builder)
-    {
-      CodeContracts.ArgumentNotNull(builder, "builder");
-
-      var modules =
-        this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()).FindModules<IModule>().Select(
-          m => Activator.CreateInstance(m) as IModule);
-
-      modules.ForEach(m => builder.RegisterModule(m));
+      this.UpdateRegistry(builder);
     }
 
     #endregion

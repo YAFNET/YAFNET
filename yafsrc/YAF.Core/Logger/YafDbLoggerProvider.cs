@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,65 +16,68 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core
 {
   #region Using
 
   using System;
-  using System.Diagnostics;
 
-  using YAF.Types.Attributes;
+  using YAF.Types;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Core.Services;
 
   #endregion
 
   /// <summary>
-  /// Sends Email in the background.
+  /// The yaf db logger provider.
   /// </summary>
-  public class MailSendTask : IntermittentBackgroundTask
+  public class YafDbLoggerProvider : ILoggerProvider
   {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _send mail threaded.
-    /// </summary>
-    [Inject]
-    public YafSendMailThreaded SendMailThreaded { get; set; }
-    
-    #endregion
-
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "MailSendTask" /> class.
+    /// Initializes a new instance of the <see cref="YafDbLoggerProvider"/> class.
     /// </summary>
-    public MailSendTask()
+    /// <param name="injectServices">
+    /// The inject services.
+    /// </param>
+    public YafDbLoggerProvider([NotNull] IInjectServices injectServices)
     {
-      // set the unique value...
-      var rand = new Random();
-
-      // set interval values...
-      this.RunPeriodMs = (rand.Next(30) + 15) * 1000;
-      this.StartDelayMs = (rand.Next(30) + 15) * 1000;
+      this.InjectServices = injectServices;
     }
 
     #endregion
 
-    #region Public Methods
+    #region Properties
 
     /// <summary>
-    /// The run once.
+    /// Gets or sets InjectServices.
     /// </summary>
-    public override void RunOnce()
-    {
-      Debug.WriteLine("Running Send Mail Thread Under {0}...".FormatWith(Environment.UserName));
+    public IInjectServices InjectServices { get; set; }
 
-      // send thread handles it's own exception...
-      this.SendMailThreaded.SendThreaded();
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region ILoggerProvider
+
+    /// <summary>
+    /// The create.
+    /// </summary>
+    /// <param name="type">
+    /// The type.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    public ILogger Create([CanBeNull] Type type)
+    {
+      var logger = new YafDbLogger(type);
+      this.InjectServices.Inject(logger);
+
+      return logger;
     }
+
+    #endregion
 
     #endregion
   }

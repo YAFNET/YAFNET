@@ -20,17 +20,10 @@ namespace YAF.Core
 {
   #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Reflection;
-
   using Autofac;
-  using Autofac.Core;
 
   using YAF.Types;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 
@@ -92,8 +85,10 @@ namespace YAF.Core
       var builder = new ContainerBuilder();
 
       var mainModule = new YafBaseContainerModule();
+      var logModule = new LoggingModule();
 
       builder.RegisterModule(mainModule);
+      builder.RegisterModule(logModule);
 
       return builder.Build();
     }

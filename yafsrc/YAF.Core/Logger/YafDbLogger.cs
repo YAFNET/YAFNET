@@ -1,10 +1,32 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 namespace YAF.Core
 {
   #region Using
 
   using System;
+  using System.Web;
 
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Types.Constants;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -14,35 +36,44 @@ namespace YAF.Core
   /// </summary>
   public class YafDbLogger : ILogger
   {
-    public YafDbLogger()
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafDbLogger"/> class.
+    /// </summary>
+    /// <param name="logType">
+    /// The log type.
+    /// </param>
+    public YafDbLogger([CanBeNull] Type logType)
     {
-      
+      this.Type = logType;
     }
 
 #if (DEBUG)
+
+    /// <summary>
+    /// The _is debug.
+    /// </summary>
     private bool _isDebug = true;
 #else
     private bool _isDebug = false;
 #endif
-    
 
     #region Implemented Interfaces
 
     #region ILogger
 
     /// <summary>
-    /// Gets a value indicating whether IsDebugEnabled.
+    ///   Gets a value indicating whether IsDebugEnabled.
     /// </summary>
     public bool IsDebugEnabled
     {
       get
       {
-        return !_isDebug;
+        return !this._isDebug;
       }
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsErrorEnabled.
+    ///   Gets a value indicating whether IsErrorEnabled.
     /// </summary>
     public bool IsErrorEnabled
     {
@@ -53,7 +84,7 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsFatalEnabled.
+    ///   Gets a value indicating whether IsFatalEnabled.
     /// </summary>
     public bool IsFatalEnabled
     {
@@ -64,29 +95,29 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsInfoEnabled.
+    ///   Gets a value indicating whether IsInfoEnabled.
     /// </summary>
     public bool IsInfoEnabled
     {
       get
       {
-        return !_isDebug;
+        return !this._isDebug;
       }
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsTraceEnabled.
+    ///   Gets a value indicating whether IsTraceEnabled.
     /// </summary>
     public bool IsTraceEnabled
     {
       get
       {
-        return !_isDebug;
+        return !this._isDebug;
       }
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsWarnEnabled.
+    ///   Gets a value indicating whether IsWarnEnabled.
     /// </summary>
     public bool IsWarnEnabled
     {
@@ -97,138 +128,144 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Gets a value indicating the logging type.
+    ///   Gets a value indicating the logging type.
     /// </summary>
-    public Type Type
+    public Type Type { get; set; }
+
+    /// <summary>
+    /// The log.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="logTypes">
+    /// The log types.
+    /// </param>
+    private void Log([NotNull] string message, EventLogTypes logTypes)
     {
-      get
+      string typeName = "Unknown";
+
+      if (this.Type != null)
       {
-        throw new NotImplementedException();
+        typeName = this.Type.FullName;
+      }
+
+      // TODO: come up with userid if the database is available.
+      LegacyDb.eventlog_create(null, typeName, message, logTypes);
+    }
+
+    /// <summary>
+    /// The debug.
+    /// </summary>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Debug(string format, params object[] args)
+    {
+      System.Diagnostics.Debug.WriteLine(String.Format(format, args));
+    }
+
+    /// <summary>
+    /// The debug.
+    /// </summary>
+    /// <param name="exception">
+    /// The exception.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Debug(Exception exception, string format, params object[] args)
+    {
+      System.Diagnostics.Debug.WriteLine(String.Format(format, args));
+      System.Diagnostics.Debug.WriteLine(exception.ToString());
+    }
+
+    /// <summary>
+    /// The error.
+    /// </summary>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Error(string format, params object[] args)
+    {
+      this.Log(String.Format(format, args), EventLogTypes.Error);
+    }
+
+    /// <summary>
+    /// The error.
+    /// </summary>
+    /// <param name="exception">
+    /// The exception.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Error(Exception exception, string format, params object[] args)
+    {
+      this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
+    }
+
+    /// <summary>
+    /// The fatal.
+    /// </summary>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Fatal(string format, params object[] args)
+    {
+      this.Log(String.Format(format, args), EventLogTypes.Error);
+    }
+
+    /// <summary>
+    /// The fatal.
+    /// </summary>
+    /// <param name="exception">
+    /// The exception.
+    /// </param>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Fatal(Exception exception, string format, params object[] args)
+    {
+      this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Error);
+    }
+
+    /// <summary>
+    /// The info.
+    /// </summary>
+    /// <param name="format">
+    /// The format.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    public void Info(string format, params object[] args)
+    {
+      if (this.IsDebugEnabled)
+      {
+        this.Log(String.Format(format, args), EventLogTypes.Information);
       }
     }
 
     /// <summary>
-    /// The debug.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Debug(string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// The debug.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Debug(Exception exception, string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// The error.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Error(string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// The error.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Error(Exception exception, string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// The fatal.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Fatal(string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// The fatal.
-    /// </summary>
-    /// <param name="exception">
-    /// The exception.
-    /// </param>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Fatal(Exception exception, string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// The info.
-    /// </summary>
-    /// <param name="format">
-    /// The format.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    public void Info(string format, params object[] args)
-    {
-      throw new NotImplementedException();
-    }
-
-    /// <summary>
     /// The info.
     /// </summary>
     /// <param name="exception">
@@ -240,11 +277,12 @@ namespace YAF.Core
     /// <param name="args">
     /// The args.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
     public void Info(Exception exception, string format, params object[] args)
     {
-      throw new NotImplementedException();
+      if (this.IsDebugEnabled)
+      {
+        this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Information);
+      }
     }
 
     /// <summary>
@@ -256,11 +294,9 @@ namespace YAF.Core
     /// <param name="args">
     /// The args.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
     public void Trace(string format, params object[] args)
     {
-      throw new NotImplementedException();
+      System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
     }
 
     /// <summary>
@@ -275,11 +311,10 @@ namespace YAF.Core
     /// <param name="args">
     /// The args.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
     public void Trace(Exception exception, string format, params object[] args)
     {
-      throw new NotImplementedException();
+      System.Diagnostics.Trace.TraceInformation(String.Format(format, args));
+      System.Diagnostics.Trace.TraceError(exception.ToString());
     }
 
     /// <summary>
@@ -291,11 +326,9 @@ namespace YAF.Core
     /// <param name="args">
     /// The args.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
     public void Warn(string format, params object[] args)
     {
-      throw new NotImplementedException();
+      this.Log(String.Format(format, args), EventLogTypes.Warning);
     }
 
     /// <summary>
@@ -310,11 +343,9 @@ namespace YAF.Core
     /// <param name="args">
     /// The args.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
     public void Warn(Exception exception, string format, params object[] args)
     {
-      throw new NotImplementedException();
+      this.Log(String.Format(format, args) + "\r\n" + exception, EventLogTypes.Warning);
     }
 
     #endregion

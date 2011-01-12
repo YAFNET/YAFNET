@@ -99,6 +99,7 @@
     <Compile Include="Interfaces\IInjectServices.cs" />
     <Compile Include="Interfaces\ILocalization.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\ILoggerProvider.cs" />
     <Compile Include="Interfaces\IModuleManager.cs" />
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />
