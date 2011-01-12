@@ -73,18 +73,7 @@ namespace YAF.Controls
     ///   Gets or sets the DataRow.
     /// </summary>
     [CanBeNull]
-    public DataRow DataRow
-    {
-      get
-      {
-        return this._postDataHelperWrapper.DataRow ?? null;
-      }
-
-      set
-      {
-        this._postDataHelperWrapper = new PostDataHelperWrapper(value);
-      }
-    }
+    public DataRow DataRow { get; set; }
 
     /// <summary>
     ///   Gets or sets a value indicating whether IsAlt.
@@ -114,6 +103,11 @@ namespace YAF.Controls
     {
       get
       {
+        if (this._postDataHelperWrapper == null && DataRow != null)
+        {
+         this._postDataHelperWrapper = new PostDataHelperWrapper(this.DataRow);         
+        }
+
         return this._postDataHelperWrapper;
       }
     }
@@ -401,7 +395,7 @@ namespace YAF.Controls
             "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
           var thanksJs =
-            this.Get<IScriptBuilder>().CreateStatement().AddNoConflict().Add(JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML)).AddLine().Add(
+            this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML)).AddLine().Add(
               JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
 
           YafContext.Current.PageElements.RegisterJsBlockStartup(

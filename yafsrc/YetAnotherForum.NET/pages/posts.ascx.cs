@@ -518,7 +518,7 @@ namespace YAF.Pages
 
         // Register the client side script for the "Favorite Topic".
         var favoriteTopicJs =
-          this.Get<IScriptBuilder>().CreateStatement().AddNoConflict().Add(JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML)).AddLine
+          this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML)).AddLine
             ().Add(JavaScriptBlocks.removeFavoriteTopicJs(tagButtonHTML));
 
         YafContext.Current.PageElements.RegisterJsBlockStartup(
