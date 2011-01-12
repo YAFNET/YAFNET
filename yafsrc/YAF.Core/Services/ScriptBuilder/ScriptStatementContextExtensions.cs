@@ -298,22 +298,6 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Adds no conflict.
-    /// </summary>
-    /// <param name="scriptStatement">
-    /// the script statement.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    public static IScriptStatementContext AddNoConflict([NotNull] this IScriptStatementContext scriptStatement)
-    {
-      CodeContracts.ArgumentNotNull(scriptStatement, "scriptStatement");
-
-      return scriptStatement.Add("$$$.noConflict();");
-    }
-
-    /// <summary>
     /// Adds a jQuery selector to the builder statement. E.g.: jQuery('selector')
     /// </summary>
     /// <param name="scriptStatement">
