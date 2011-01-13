@@ -1821,7 +1821,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The board_create.
     /// </returns>
-    public static int board_create(object adminUsername, object adminUserEmail, object adminUserKey, object boardName, object culture, object languageFile, object boardMembershipName, object boardRolesName)
+    public static int board_create(object adminUsername, object adminUserEmail, object adminUserKey, object boardName, object culture, object languageFile, object boardMembershipName, object boardRolesName, object rolePrefix)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("board_create"))
       {
@@ -1835,6 +1835,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("UserEmail", adminUserEmail);
         cmd.Parameters.AddWithValue("UserKey", adminUserKey);
         cmd.Parameters.AddWithValue("IsHostAdmin", 0);
+        cmd.Parameters.AddWithValue("RolePrefix", rolePrefix);
+
         return (int)MsSqlDbAccess.Current.ExecuteScalar(cmd);
       }
     }
@@ -9597,7 +9599,7 @@ namespace YAF.Classes.Data
     /// The provider user key.
     /// </param>
     public static void system_initialize(
-      string forumName, string timeZone, string culture, string languageFile, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey)
+      string forumName, string timeZone, string culture, string languageFile, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey, string rolePrefix)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("system_initialize"))
       {
@@ -9611,6 +9613,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("@User", userName);
         cmd.Parameters.AddWithValue("@UserEmail", userEmail);
         cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
+        cmd.Parameters.AddWithValue("@RolePrefix", rolePrefix);
         MsSqlDbAccess.Current.ExecuteNonQuery(cmd);
       }
     }

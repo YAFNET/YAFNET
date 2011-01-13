@@ -5,6 +5,8 @@
  * Creation date:10/3/09
  */
 
+using YAF.Classes;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -405,8 +407,9 @@ namespace YAF.Pages.Admin
           boardName, 
           "en-US", 
           "english.xml", 
-          this.BoardMembershipName.Text.Trim(), 
-          this.BoardRolesName.Text.Trim());
+          this.BoardMembershipName.Text.Trim(),
+          this.BoardRolesName.Text.Trim(),
+          Config.IsAnyPortal ? "YAF " : String.Empty);
         this.CreateUsers(curboard, _usersNumber);
       }
 

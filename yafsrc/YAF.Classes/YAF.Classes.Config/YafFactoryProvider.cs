@@ -88,15 +88,11 @@ namespace YAF.Classes
     {
       get
       {
-        string urlAssembly;
+        var urlAssembly = Config.GetProvider("UrlBuilder");
 
-        if (!String.IsNullOrEmpty(Config.GetProvider("UrlBuilder")))
+        if (!String.IsNullOrEmpty(urlAssembly))
         {
-          urlAssembly = Config.GetProvider("UrlBuilder");
-        }
-        else if (Config.IsRainbow)
-        {
-          urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
+          return urlAssembly;
         }
         else if (Config.IsDotNetNuke)
         {
@@ -105,6 +101,10 @@ namespace YAF.Classes
         else if (Config.IsMojoPortal)
         {
             urlAssembly = "YAF.Mojo.MojoPortalUrlBuilder,YAF.Mojo";
+        }
+        else if (Config.IsRainbow)
+        {
+            urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
         }
         else if (Config.IsPortal)
         {

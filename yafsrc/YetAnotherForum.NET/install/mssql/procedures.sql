@@ -1824,7 +1824,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@UserName		nvarchar(255),
 	@UserEmail		nvarchar(255),
 	@UserKey		nvarchar(64),
-	@IsHostAdmin	bit
+	@IsHostAdmin	bit,
+	@RolePrefix     nvarchar(255)
 ) as 
 begin
 	declare @BoardID				int
@@ -1887,11 +1888,11 @@ begin
 	VALUES(@BoardID,'No Access',0,0)
 
 	-- Group
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Administrators',1,2147483647,'default!font-size: 8pt; color: red/flatearth!font-size: 8pt; color:blue',0,256,'URL,IMG,SPOILER,QUOTE',10,120)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID, ISNULL(@RolePrefix,'') + 'Administrators',1,2147483647,'default!font-size: 8pt; color: red/flatearth!font-size: 8pt; color:blue',0,256,'URL,IMG,SPOILER,QUOTE',10,120)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Guests',2,0,1,0,null,0,0)
 	SET @GroupIDGuest = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Registered',4,100,1,128,'URL,IMG,SPOILER,QUOTE',5,30)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,ISNULL(@RolePrefix,'') + 'Registered',4,100,1,128,'URL,IMG,SPOILER,QUOTE',5,30)
 	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- User (GUEST)
@@ -4829,7 +4830,8 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@SmtpServer	nvarchar(50),
 	@User		nvarchar(255),
 	@UserEmail	nvarchar(255),
-	@Userkey	nvarchar(64)
+	@Userkey	nvarchar(64),
+	@RolePrefix nvarchar(255)
 	
 ) as 
 begin
@@ -4846,7 +4848,7 @@ begin
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'forumemail', @ForumEmail
 
 	-- initalize new board
-	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, '','',@User,@UserEmail,@UserKey,1
+	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, '','',@User,@UserEmail,@UserKey,1,@RolePrefix
 end
 GO
 

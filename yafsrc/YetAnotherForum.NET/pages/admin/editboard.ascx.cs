@@ -199,7 +199,7 @@ namespace YAF.Pages.Admin
 
         // Add new admin users to group
         RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
-
+         
         // Create Board
         newBoardID = LegacyDb.board_create(
           newAdmin.UserName, 
@@ -209,7 +209,8 @@ namespace YAF.Pages.Admin
           this.Culture.SelectedItem.Value, 
           langFile, 
           boardMembershipAppName, 
-          boardRolesAppName);
+          boardRolesAppName,
+          Config.IsAnyPortal ? "YAF " : String.Empty);
       }
       else
       {
@@ -224,8 +225,9 @@ namespace YAF.Pages.Admin
           boardName, 
           this.Culture.SelectedItem.Value, 
           langFile, 
-          boardMembershipAppName, 
-          boardRolesAppName);
+          boardMembershipAppName,
+          boardRolesAppName,
+          Config.IsAnyPortal ? "YAF " : String.Empty);
       }
 
       if (newBoardID > 0 && Config.MultiBoardFolders)

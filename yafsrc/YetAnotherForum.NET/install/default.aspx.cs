@@ -1033,20 +1033,22 @@ namespace YAF.Install
 
             try
             {
+
+                string prefix = Config.IsAnyPortal ? "YAF " : String.Empty;
                 // add administrators and registered if they don't already exist...
-                if (!RoleMembershipHelper.RoleExists("Administrators"))
+                if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
                 {
-                    RoleMembershipHelper.CreateRole("Administrators");
+                    RoleMembershipHelper.CreateRole("{0}Administrators".FormatWith(prefix));
                 }
 
-                if (!RoleMembershipHelper.RoleExists("Registered"))
+                if (!RoleMembershipHelper.RoleExists("{0}Registered".FormatWith(prefix)))
                 {
-                    RoleMembershipHelper.CreateRole("Registered");
+                    RoleMembershipHelper.CreateRole("{0}Registered".FormatWith(prefix));
                 }
 
-                if (!RoleMembershipHelper.IsUserInRole(user.UserName, "Administrators"))
+                if (!RoleMembershipHelper.IsUserInRole(user.UserName, "{0}Administrators".FormatWith(prefix)))
                 {
-                    RoleMembershipHelper.AddUserToRole(user.UserName, "Administrators");
+                    RoleMembershipHelper.AddUserToRole(user.UserName, "{0}Administrators".FormatWith(prefix));
                 }
 
                 // logout administrator...
@@ -1069,7 +1071,8 @@ namespace YAF.Install
                     string.Empty,
                     user.UserName,
                     user.Email,
-                    user.ProviderUserKey);
+                    user.ProviderUserKey,
+                    Config.IsAnyPortal ? "YAF " : String.Empty);
 
                 LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
                 LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
