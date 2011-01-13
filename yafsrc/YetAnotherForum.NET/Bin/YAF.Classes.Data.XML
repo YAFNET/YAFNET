@@ -116,351 +116,6 @@
             The as string.
             </returns>
         </member>
-        <member name="T:YAF.Classes.Data.YafDBAccess">
-            <summary>
-            The yaf db access for SQL Server.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._isolationLevel">
-            <summary>
-            The _isolation level.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._connectionManagerType">
-            <summary>
-            The _connection manager type.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._resultFilterList">
-            <summary>
-            Result filter list
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean)">
-            <summary>
-            Creates new SqlCommand based on command text applying all qualifiers to the name.
-            </summary>
-            <param name="commandText">
-            Command text to qualify.
-            </param>
-            <param name="isText">
-            Determines whether command text is text or stored procedure.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
-            <summary>
-            Creates new SqlCommand based on command text applying all qualifiers to the name.
-            </summary>
-            <param name="commandText">
-            Command text to qualify.
-            </param>
-            <param name="isText">
-            Determines whether command text is text or stored procedure.
-            </param>
-            <param name="connection">
-            Connection to use with command.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String)">
-            <summary>
-            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-            </summary>
-            <param name="storedProcedure">
-            Base of stored procedure name.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
-            <summary>
-            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-            </summary>
-            <param name="storedProcedure">
-            Base of stored procedure name.
-            </param>
-            <param name="connection">
-            Connection to use with command.
-            </param>
-            <returns>
-            New SqlCommand
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommandTextReplaced(System.String)">
-            <summary>
-            Gets command text replaced with {databaseOwner} and {objectQualifier}.
-            </summary>
-            <param name="commandText">
-            Test to transform.
-            </param>
-            <returns>
-            The get command text replaced.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.CleanForSQLServerVersion(System.String,System.UInt16)">
-            <summary>
-            A method to handle custom scripts execution tags 
-            </summary>
-            <param name="scriptChunk">Input string</param>
-            <param name="versionSQL">SQL server version as ushort</param>
-            <returns>Returns an empty string if condition was not and cleanedfrom tags string if was.</returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
-            <summary>
-            Creates a Connection String from the parameters. 
-            </summary>
-            <param name="parm1">
-            </param>
-            <param name="parm2">
-            </param>
-            <param name="parm3">
-            </param>
-            <param name="parm4">
-            </param>
-            <param name="parm5">
-            </param>
-            <param name="parm6">
-            </param>
-            <param name="parm7">
-            </param>
-            <param name="parm8">
-            </param>
-            <param name="parm9">
-            </param>
-            <param name="parm10">
-            </param>
-            <param name="parm11">
-            </param>
-            <param name="parm12">
-            </param>
-            <param name="parm13">
-            </param>
-            <param name="parm14">
-            </param>
-            <param name="parm15">
-            </param>
-            <param name="parm16">
-            </param>
-            <param name="parm17">
-            </param>
-            <param name="parm18">
-            </param>
-            <param name="parm19">
-            </param>
-            <param name="userID">
-            </param>
-            <param name="userPassword">
-            </param>
-            <returns>
-            The get connection string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetObjectName(System.String)">
-            <summary>
-            Gets qualified object name
-            </summary>
-            <param name="name">
-            Base name of an object
-            </param>
-            <returns>
-            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.TestConnection(System.String@)">
-            <summary>
-            Test the DB Connection.
-            </summary>
-            <param name="exceptionMessage">
-            outbound ExceptionMessage
-            </param>
-            <returns>
-            true if successfully connected
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionManager">
-            <summary>
-            The get connection manager.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.SetConnectionManagerAdapter``1">
-            <summary>
-            Change the Connection Manager used in all DB operations.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Executes a NonQuery
-            </summary>
-            <param name="cmd">
-            NonQuery to execute
-            </param>
-            <remarks>
-            Without transaction
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The execute non query.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            The execute scalar.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Gets data out of the database
-            </summary>
-            <param name="cmd">
-            The SQL Command
-            </param>
-            <returns>
-            DataTable with the results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String)">
-            <summary>
-            Gets data out of database using a plain text string command
-            </summary>
-            <param name="commandText">
-            command text to be executed
-            </param>
-            <returns>
-            DataTable with results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String,System.Boolean)">
-            <summary>
-            The get data.
-            </summary>
-            <param name="commandText">
-            The command text.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            Gets a whole dataset out of the database
-            </summary>
-            <param name="cmd">
-            The SQL Command
-            </param>
-            <returns>
-            Dataset with the results
-            </returns>
-            <remarks>
-            Without transaction.
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            The get dataset.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
-            <param name="transaction">
-            The transaction.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
-            <summary>
-            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
-            </summary>
-            <param name="dataTable">data table to process</param>
-            <param name="sqlCommand"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDatasetBasic(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            Used internally to get data for all the other functions
-            </summary>
-            <param name="cmd">
-            </param>
-            <param name="transaction">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.Current">
-            <summary>
-            Gets Current.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.IsolationLevel">
-            <summary>
-            Gets IsolationLevel.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.ResultFilterList">
-            <summary>
-            Gets the Result Filter List.
-            </summary>
-            <exception cref="T:System.NotImplementedException">
-            </exception>
-        </member>
         <member name="T:YAF.Classes.Data.SearchConditionType">
             <summary>
             The search condition type.
@@ -474,67 +129,6 @@
         <member name="F:YAF.Classes.Data.SearchConditionType.OR">
             <summary>
               The or.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnManager">
-            <summary>
-            Provides open/close management for DB Connections
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBConnManager._connection">
-            <summary>
-            The _connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnManager"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.Dispose">
-            <summary>
-            The dispose.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.CloseConnection">
-            <summary>
-            The close connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
-            <summary>
-            The init connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
-            <summary>
-            The connection_ info message.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
-            <summary>
-            The info message.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.ConnectionString">
-            <summary>
-            Gets ConnectionString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.DBConnection">
-            <summary>
-            Gets the current DB Connection in any state.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
-            <summary>
-            Gets an open connection to the DB. Can be called any number of times.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.QueryCounter">
@@ -555,84 +149,27 @@
             The dispose.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.Import.DataImport">
-            <summary>
-            The data import.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
-            <summary>
-            The bb code extension import.
-            </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The bb code extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
-            <summary>
-            The file extension import.
-            </summary>
-            <param name="boardId">
-            The board id.
-            </param>
-            <param name="imputStream">
-            The imput stream.
-            </param>
-            <returns>
-            The file extension import.
-            </returns>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="T:YAF.Classes.Data.SearchCondition">
-            <summary>
-            The search condition.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
-            <summary>
-              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
-            <summary>
-              Gets or sets Condition.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
-            <summary>
-              Gets or sets ConditionType.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.DB">
+        <member name="T:YAF.Classes.Data.LegacyDb">
             <summary>
             All the Database functions for YAF
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.DB._scriptList">
+        <member name="F:YAF.Classes.Data.LegacyDb._scriptList">
             <summary>
             The _script list.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.DB._fullTextScript">
+        <member name="F:YAF.Classes.Data.LegacyDb._fullTextScript">
             <summary>
             The _full text script.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.DB._fullTextSupported">
+        <member name="F:YAF.Classes.Data.LegacyDb._fullTextSupported">
             <summary>
             The _full text supported.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.DB.GetBooleanRegistryValue(System.String)">
+        <member name="M:YAF.Classes.Data.LegacyDb.GetBooleanRegistryValue(System.String)">
             <summary>
             The get boolean registry value.
             </summary>
@@ -643,7 +180,7 @@
             The get boolean registry value.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pageload(System.Object,System.Object,System.Guid,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pageload.
             </summary>
@@ -695,7 +232,7 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
-        <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Types.Constants.SearchWhatFlags,YAF.Types.Constants.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.GetSearchResult(System.String,System.String,YAF.Types.Constants.SearchWhatFlags,YAF.Types.Constants.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Returns Search results
             </summary>
@@ -730,7 +267,7 @@
             Results
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.ds_forumadmin(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.ds_forumadmin(System.Object)">
             <summary>
             Gets a list of categories????
             </summary>
@@ -741,7 +278,7 @@
             DataSet with categories
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.accessmask_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.accessmask_list(System.Object,System.Object)">
             <summary>
             Gets a list of access mask properities
             </summary>
@@ -754,7 +291,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.accessmask_list(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.accessmask_list(System.Object,System.Object,System.Object)">
             <summary>
             Gets a list of access mask properities
             </summary>
@@ -770,7 +307,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.accessmask_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.accessmask_delete(System.Object)">
             <summary>
             Deletes an access mask
             </summary>
@@ -781,7 +318,7 @@
             The accessmask_delete.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.accessmask_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.accessmask_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves changes to a access mask 
             </summary>
@@ -831,7 +368,7 @@
             Sort Order?
             </param> 
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object,System.Object,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.active_list(System.Object,System.Object,System.Object,System.Int32,System.Object)">
             <summary>
             Gets list of active users
             </summary>
@@ -850,7 +387,7 @@
             Returns a DataTable of active users
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_list_user(System.Object,System.Object,System.Object,System.Object,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.active_list_user(System.Object,System.Object,System.Object,System.Object,System.Int32,System.Object)">
             <summary>
             Gets list of active users for a specific user with access fixes to not display him forbidden locations. 
             </summary>
@@ -872,7 +409,7 @@
             Returns a DataTable of active users
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_listforum(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.active_listforum(System.Object,System.Object)">
             <summary>
             Gets the list of active users within a certain forum
             </summary>
@@ -886,7 +423,7 @@
             DataTable of all ative users in a forum
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_listtopic(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.active_listtopic(System.Object,System.Object)">
             <summary>
             Gets the list of active users in a topic
             </summary>
@@ -900,7 +437,7 @@
             DataTable of all users that are in a topic
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_stats(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.active_stats(System.Object)">
             <summary>
             Gets the activity statistics for a board
             </summary>
@@ -911,7 +448,7 @@
             DataRow of activity stata
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.attachment_list(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.attachment_list(System.Object,System.Object,System.Object)">
             <summary>
             Gets a list of attachments
             </summary>
@@ -928,7 +465,7 @@
             DataTable with attachement list
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.attachment_save(System.Object,System.Object,System.Object,System.Object,System.IO.Stream)">
+        <member name="M:YAF.Classes.Data.LegacyDb.attachment_save(System.Object,System.Object,System.Object,System.Object,System.IO.Stream)">
             <summary>
             saves attachment
             </summary>
@@ -948,7 +485,7 @@
             stream of bytes
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.attachment_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.attachment_delete(System.Object)">
             <summary>
             Delete attachment
             </summary>
@@ -956,7 +493,7 @@
             ID of attachment to delete
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.attachment_download(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.attachment_download(System.Object)">
             <summary>
             Attachement dowload
             </summary>
@@ -964,7 +501,7 @@
             ID of attachemnt to download
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.bannedip_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bannedip_list(System.Object,System.Object)">
             <summary>
             List of Baned IP's
             </summary>
@@ -978,7 +515,7 @@
             DataTable of banned IPs
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.bannedip_save(System.Object,System.Object,System.Object,System.String,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bannedip_save(System.Object,System.Object,System.Object,System.String,System.Int32)">
             <summary>
             Saves baned ip in database
             </summary>
@@ -992,7 +529,7 @@
             Mask
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.bannedip_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bannedip_delete(System.Object)">
             <summary>
             Deletes Banned IP
             </summary>
@@ -1000,7 +537,7 @@
             ID of banned ip to delete
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_list(System.Object)">
             <summary>
             Gets a list of information about a board
             </summary>
@@ -1011,7 +548,7 @@
             DataTable
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_poststats(System.Nullable{System.Int32},System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_poststats(System.Nullable{System.Int32},System.Boolean,System.Boolean)">
             <summary>
             Gets posting statistics
             </summary>
@@ -1028,7 +565,7 @@
             DataRow of Poststats
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_userstats(System.Nullable{System.Int32})">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_userstats(System.Nullable{System.Int32})">
             <summary>
             Gets users statistics
             </summary>
@@ -1039,12 +576,12 @@
             DataRow of Poststats
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_resync">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_resync">
             <summary>
             Recalculates topic and post numbers and updates last post for all forums in all boards
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_resync(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_resync(System.Object)">
             <summary>
             Recalculates topic and post numbers and updates last post for specified board
             </summary>
@@ -1052,7 +589,7 @@
             BoardID of board to do re-sync for, if null, all boards are re-synced
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_stats">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_stats">
             <summary>
             Gets statistica about number of posts etc.
             </summary>
@@ -1060,7 +597,7 @@
             DataRow
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_stats(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_stats(System.Object)">
             <summary>
             The board_stats.
             </summary>
@@ -1070,7 +607,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves board information
             </summary>
@@ -1087,7 +624,7 @@
             The board_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Creates a new board
             </summary>
@@ -1110,7 +647,7 @@
             The board_create.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_delete(System.Object)">
             <summary>
             Deletes a board
             </summary>
@@ -1118,7 +655,7 @@
             ID of board to delete
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.category_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.category_delete(System.Object)">
             <summary>
             Deletes a category
             </summary>
@@ -1129,7 +666,7 @@
             Bool value indicationg if category was deleted
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.category_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.category_list(System.Object,System.Object)">
             <summary>
             Gets a list of forums in a category
             </summary>
@@ -1143,7 +680,7 @@
             DataTable with a list of forums in a category
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.category_listread(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.category_listread(System.Object,System.Object,System.Object)">
             <summary>
             Gets a list of forum categories
             </summary>
@@ -1156,7 +693,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.category_simplelist(System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.category_simplelist(System.Int32,System.Int32)">
             <summary>
             Lists categories very simply (for URL rewriting)
             </summary>
@@ -1169,7 +706,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.category_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.category_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves changes to a category
             </summary>
@@ -1189,7 +726,7 @@
             The sort Order.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.checkemail_save(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.checkemail_save(System.Object,System.Object,System.Object)">
             <summary>
             Saves a new email into the table for verification
             </summary>
@@ -1203,7 +740,7 @@
             The email.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.checkemail_update(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.checkemail_update(System.Object)">
             <summary>
             Updates a hash
             </summary>
@@ -1214,7 +751,7 @@
             DataTable with user information
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.checkemail_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.checkemail_list(System.Object)">
             <summary>
             Gets a check email entry based on email or all if no email supplied
             </summary>
@@ -1225,7 +762,7 @@
             DataTable with check email information
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.choice_vote(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.choice_vote(System.Object,System.Object,System.Object)">
             <summary>
             Saves a vote in the database
             </summary>
@@ -1239,7 +776,7 @@
             The remote IP.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.eventlog_create(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_create(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The eventlog_create.
             </summary>
@@ -1256,7 +793,7 @@
             The type.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.eventlog_create(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_create(System.Object,System.Object,System.Object)">
             <summary>
             The eventlog_create.
             </summary>
@@ -1270,7 +807,7 @@
             The description.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.eventlog_delete(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Int32)">
             <summary>
             Deletes all event log entries for given board.
             </summary>
@@ -1278,7 +815,7 @@
             ID of board.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.eventlog_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Object)">
             <summary>
             Deletes event log entry of given ID.
             </summary>
@@ -1286,7 +823,7 @@
             ID of event log entry.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.eventlog_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_delete(System.Object,System.Object)">
             <summary>
             Calls underlying stroed procedure for deletion of event log entry(ies).
             </summary>
@@ -1297,7 +834,7 @@
             Specifies board. It is ignored if eventLogID parameter is not null.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.eventlog_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.eventlog_list(System.Object)">
             <summary>
             The eventlog_list.
             </summary>
@@ -1307,7 +844,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.extension_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.extension_delete(System.Object)">
             <summary>
             The extension_delete.
             </summary>
@@ -1315,7 +852,7 @@
             The extension id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.extension_edit(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.extension_edit(System.Object)">
             <summary>
             The extension_edit.
             </summary>
@@ -1325,7 +862,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.extension_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.extension_list(System.Object,System.Object)">
             <summary>
             The extension_list.
             </summary>
@@ -1338,7 +875,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.extension_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.extension_list(System.Object)">
             <summary>
             The extension_list.
             </summary>
@@ -1348,7 +885,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.extension_save(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.extension_save(System.Object,System.Object,System.Object)">
             <summary>
             The extension_save.
             </summary>
@@ -1362,7 +899,7 @@
             The extension.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pollvote_check(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pollvote_check(System.Object,System.Object,System.Object)">
             <summary>
             Checks for a vote in the database
             </summary>
@@ -1376,7 +913,7 @@
             The remoteip.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pollgroup_votecheck(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pollgroup_votecheck(System.Object,System.Object,System.Object)">
             <summary>
             Checks for a vote in the database 
             </summary>
@@ -1390,7 +927,7 @@
             The remoteip.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_deleteAttachments(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_deleteAttachments(System.Object)">
             <summary>
             Deletes attachments out of a entire forum
             </summary>
@@ -1398,7 +935,7 @@
             The forum ID.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_delete(System.Object)">
             <summary>
             Deletes a forum
             </summary>
@@ -1409,7 +946,7 @@
             bool to indicate that forum has been deleted
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listallMyModerated(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listallMyModerated(System.Object,System.Object)">
             <summary>
             Lists all moderated forums for a user
             </summary>
@@ -1423,7 +960,7 @@
             DataTable of moderated forums
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_list(System.Object,System.Object)">
             <summary>
             Gets a list of topics in a forum
             </summary>
@@ -1437,7 +974,7 @@
             DataTable with list of topics from a forum
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall(System.Object,System.Object)">
             <summary>
             Listes all forums accessible to a user
             </summary>
@@ -1451,7 +988,7 @@
             DataTable of all accessible forums
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall(System.Object,System.Object,System.Object)">
             <summary>
             Lists all forums accessible to a user
             </summary>
@@ -1468,7 +1005,7 @@
             DataTable of all accessible forums
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall_fromCat(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall_fromCat(System.Object,System.Object)">
             <summary>
             Lists all forums within a given subcategory
             </summary>
@@ -1482,7 +1019,7 @@
             DataTable with list
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_simplelist(System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_simplelist(System.Int32,System.Int32)">
             <summary>
             Lists forums very simply (for URL rewriting)
             </summary>
@@ -1493,7 +1030,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall_fromCat(System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall_fromCat(System.Object,System.Object,System.Boolean)">
             <summary>
             Lists all forums within a given subcategory
             </summary>
@@ -1510,7 +1047,7 @@
             DataTable with list
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listpath(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listpath(System.Object)">
             <summary>
             Sorry no idea what this does
             </summary>
@@ -1519,7 +1056,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listread(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listread(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Lists read topics
             </summary>
@@ -1539,7 +1076,7 @@
             DataTable with list
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_moderatelist(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_moderatelist(System.Object,System.Object)">
             <summary>
             Return admin view of Categories with Forums/Subforums ordered accordingly.
             </summary>
@@ -1553,14 +1090,14 @@
             DataSet with categories
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_moderators(System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_moderators(System.Boolean)">
             <summary>
             The forum_moderators.
             </summary>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_resync(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_resync(System.Object)">
             <summary>
             Updates topic and post count and last topic for all forums in specified board
             </summary>
@@ -1568,7 +1105,7 @@
             BoardID
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_resync(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_resync(System.Object,System.Object)">
             <summary>
             Updates topic and post count and last topic for specified forum
             </summary>
@@ -1579,7 +1116,7 @@
             If null, all forums in board are updated
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             The forum_save.
             </summary>
@@ -1635,7 +1172,7 @@
             The forum_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_save_parentschecker(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_save_parentschecker(System.Object,System.Object)">
             <summary>
             The method returns an integer value for a  found parent forum 
             if a forum is a parent of an existing child to avoid circular dependency
@@ -1645,7 +1182,7 @@
             <param name="parentID"></param>
             <returns>Integer value for a found dependency</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.Int32[])">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.Int32[])">
             <summary>
             The forum_sort_list.
             </summary>
@@ -1667,7 +1204,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.Int32[],System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.Int32[],System.Boolean)">
             <summary>
             The forum_sort_list.
             </summary>
@@ -1692,7 +1229,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall_sorted(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall_sorted(System.Object,System.Object)">
             <summary>
             The forum_listall_sorted.
             </summary>
@@ -1705,7 +1242,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall_sorted(System.Object,System.Object,System.Int32[])">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall_sorted(System.Object,System.Object,System.Int32[])">
             <summary>
             The forum_listall_sorted.
             </summary>
@@ -1721,7 +1258,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_listall_sorted(System.Object,System.Object,System.Int32[],System.Boolean,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_listall_sorted(System.Object,System.Object,System.Int32[],System.Boolean,System.Int32)">
             <summary>
             The forum_listall_sorted.
             </summary>
@@ -1743,7 +1280,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_list_sort_basic(System.Data.DataTable,System.Data.DataTable,System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_list_sort_basic(System.Data.DataTable,System.Data.DataTable,System.Int32,System.Int32)">
             <summary>
             The forum_list_sort_basic.
             </summary>
@@ -1760,7 +1297,7 @@
             The current lvl.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_sort_list_recursive(System.Data.DataTable,System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forum_sort_list_recursive(System.Data.DataTable,System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
             <summary>
             The forum_sort_list_recursive.
             </summary>
@@ -1780,7 +1317,7 @@
             The current indent.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forumaccess_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forumaccess_list(System.Object)">
             <summary>
             The forumaccess_list.
             </summary>
@@ -1790,7 +1327,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forumaccess_save(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forumaccess_save(System.Object,System.Object,System.Object)">
             <summary>
             The forumaccess_save.
             </summary>
@@ -1804,7 +1341,7 @@
             The access mask id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forumaccess_group(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forumaccess_group(System.Object)">
             <summary>
             The forumaccess_group.
             </summary>
@@ -1814,7 +1351,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_list(System.Object,System.Object)">
             <summary>
             The group_list.
             </summary>
@@ -1827,7 +1364,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_delete(System.Object)">
             <summary>
             The group_delete.
             </summary>
@@ -1835,7 +1372,7 @@
             The group id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_member(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_member(System.Object,System.Object)">
             <summary>
             The group_member.
             </summary>
@@ -1848,7 +1385,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The group_save.
             </summary>
@@ -1904,7 +1441,7 @@
             The group_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.mail_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.mail_delete(System.Object)">
             <summary>
             The mail_delete.
             </summary>
@@ -1912,7 +1449,7 @@
             The mail id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.MailList(System.Int64)">
+        <member name="M:YAF.Classes.Data.LegacyDb.MailList(System.Int64)">
             <summary>
             The mail_list.
             </summary>
@@ -1922,7 +1459,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.mail_createwatch(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.mail_createwatch(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The mail_createwatch.
             </summary>
@@ -1948,7 +1485,7 @@
             The user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.mail_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.mail_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The mail_create.
             </summary>
@@ -1974,7 +1511,7 @@
             The body html.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.post_list(System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The post_list.
             </summary>
@@ -1993,7 +1530,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.post_list_reverse10(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_list_reverse10(System.Object)">
             <summary>
             The post_list_reverse 10.
             </summary>
@@ -2003,7 +1540,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.post_last10user(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_last10user(System.Object,System.Object,System.Object)">
             <summary>
             The post_last 10 user.
             </summary>
@@ -2019,7 +1556,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.post_alluser(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_alluser(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Gets all the post by a user.
             </summary>
@@ -2038,7 +1575,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_getRepliesList(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_getRepliesList(System.Object)">
             <summary>
             gets list of replies to message
             </summary>
@@ -2048,7 +1585,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_getRepliesList_populate(System.Data.DataTable,System.Data.DataTable,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_getRepliesList_populate(System.Data.DataTable,System.Data.DataTable,System.Int32)">
             <summary>
             The message_get replies list_populate.
             </summary>
@@ -2062,7 +1599,7 @@
             The message id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_create_by_message(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_create_by_message(System.Object,System.Object,System.Object)">
             <summary>
             The topic_create_by_message.
             </summary>
@@ -2079,7 +1616,7 @@
             The topic_create_by_message.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_list(System.Object)">
             <summary>
             The message_list.
             </summary>
@@ -2089,7 +1626,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.MessageList(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.MessageList(System.Int32)">
             <summary>
             The message_list.
             </summary>
@@ -2099,7 +1636,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_delete(System.Object,System.Boolean,System.String,System.Int32,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_delete(System.Object,System.Boolean,System.String,System.Int32,System.Boolean)">
             <summary>
             The message_delete.
             </summary>
@@ -2119,7 +1656,7 @@
             The delete linked.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_delete(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_delete(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             The message_delete.
             </summary>
@@ -2142,7 +1679,7 @@
             The erase message.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_listreported(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_listreported(System.Object)">
             <summary>
             Retrieve all reported messages with the correct forumID argument.
             </summary>
@@ -2152,7 +1689,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_listreporters(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_listreporters(System.Int32)">
             <summary>
             Here we get reporters list for a reported message
             </summary>
@@ -2163,7 +1700,7 @@
             Returns reporters DataTable for a reported message.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_listreporters(System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_listreporters(System.Int32,System.Object)">
             <summary>
             The message_listreporters.
             </summary>
@@ -2176,7 +1713,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_report(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_report(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_report.
             </summary>
@@ -2193,7 +1730,7 @@
             The report text.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_reportcopyover(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_reportcopyover(System.Object)">
             <summary>
             The message_reportcopyover.
             </summary>
@@ -2201,7 +1738,7 @@
             The message id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_reportresolve(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_reportresolve(System.Object,System.Object,System.Object)">
             <summary>
             The message_reportresolve.
             </summary>
@@ -2215,7 +1752,7 @@
             The user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_deleteRecursively(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_deleteRecursively(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Delete message and all subsequent releated messages to that ID
             </summary>
@@ -2238,7 +1775,7 @@
             The is linked.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_deleteRecursively(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_deleteRecursively(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             The message_delete recursively.
             </summary>
@@ -2264,7 +1801,7 @@
             The erase messages.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_approve(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_approve(System.Object)">
             <summary>
             Set flag on message to approved and store in DB
             </summary>
@@ -2272,7 +1809,7 @@
             The message id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_simplelist(System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_simplelist(System.Int32,System.Int32)">
             <summary>
             Get message topic IDs (for URL rewriting)
             </summary>
@@ -2283,7 +1820,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_update.
             </summary>
@@ -2312,7 +1849,7 @@
             UserId of who edited the message.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_update.
             </summary>
@@ -2347,7 +1884,7 @@
             UserId of who edited the message.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
             <summary>
             The message_save.
             </summary>
@@ -2382,7 +1919,7 @@
             The message_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_unapproved(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_unapproved(System.Object)">
             <summary>
             The message_unapproved.
             </summary>
@@ -2392,7 +1929,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_findunread(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_findunread(System.Object,System.Object)">
             <summary>
             The message_findunread.
             </summary>
@@ -2405,7 +1942,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_move(System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_move(System.Object,System.Object,System.Boolean)">
             <summary>
             message movind function
             </summary>
@@ -2419,7 +1956,7 @@
             The move all.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_moveRecursively(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_moveRecursively(System.Object,System.Object)">
             <summary>
             moves answers of moved post
             </summary>
@@ -2430,7 +1967,7 @@
             The move to topic.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_ThanksNumber(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_ThanksNumber(System.Object)">
             <summary>
             The message_ thanks number.
             </summary>
@@ -2441,7 +1978,7 @@
             The message_ thanks number.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_GetThanks(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_GetThanks(System.Object)">
             <summary>
             Returns the UserIDs and UserNames who have thanked the message
             with the provided messageID.
@@ -2452,7 +1989,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_GetTextByIds(System.String)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_GetTextByIds(System.String)">
             <summary>
             Retuns All the message text for the Message IDs which are in the 
             delimited string variable MessageIDs
@@ -2463,7 +2000,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.MessageGetAllThanks(System.String)">
+        <member name="M:YAF.Classes.Data.LegacyDb.MessageGetAllThanks(System.String)">
             <summary>
             Retuns All the Thanks for the Message IDs which are in the 
             delimited string variable MessageIDs
@@ -2474,7 +2011,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_AddThanks(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_AddThanks(System.Object,System.Object)">
             <summary>
             The message_ add thanks.
             </summary>
@@ -2488,7 +2025,7 @@
             The message_ add thanks.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_RemoveThanks(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_RemoveThanks(System.Object,System.Object)">
             <summary>
             The message_ remove thanks.
             </summary>
@@ -2502,7 +2039,7 @@
             The message_ remove thanks.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.messagehistory_list(System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.messagehistory_list(System.Int32,System.Int32)">
             <summary>
             The messagehistory_list.
             </summary>
@@ -2516,15 +2053,15 @@
             List of all message changes. 
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_secdata(System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_secdata(System.Int32,System.Object)">
             <summary>
             Returns message data based on user access rights
             </summary>
             <param name="MessageID">The Message Id.</param>
-            <param name="UserID">The UserId.</param>
+            <param name="pageUserId">The page User Id.</param>
             <returns></returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_list(System.Object)">
             <summary>
             Lists given medal.
             </summary>
@@ -2532,7 +2069,7 @@
             ID of medal to list.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_list(System.Object,System.Object)">
             <summary>
             Lists given medals.
             </summary>
@@ -2543,7 +2080,7 @@
             Cateogry of medals to list. Can be null. In such case this parameter is ignored.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_list(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_list(System.Object,System.Object,System.Object)">
             <summary>
             Lists medals.
             </summary>
@@ -2557,7 +2094,7 @@
             Cateogry of medals to list. Must be complemented with not-null boardID parameter.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_listusers(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_listusers(System.Object)">
             <summary>
             List users who own this medal.
             </summary>
@@ -2568,7 +2105,7 @@
             List of users with their user id and usernames, who own this medal.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_delete(System.Object)">
             <summary>
             Deletes given medal.
             </summary>
@@ -2576,7 +2113,7 @@
             ID of medal to delete.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_delete(System.Object,System.Object)">
             <summary>
             Deletes given medals.
             </summary>
@@ -2587,7 +2124,7 @@
             Cateogry of medals to delete. Can be null. In such case this parameter is ignored.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_delete(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_delete(System.Object,System.Object,System.Object)">
             <summary>
             Deletes medals.
             </summary>
@@ -2601,7 +2138,7 @@
             Cateogry of medals to delete. Must be complemented with not-null boardID parameter.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The medal_save.
             </summary>
@@ -2657,7 +2194,7 @@
             The medal_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.medal_resort(System.Object,System.Object,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.medal_resort(System.Object,System.Object,System.Int32)">
             <summary>
             Changes medal's sort order.
             </summary>
@@ -2671,7 +2208,7 @@
             Change of sort.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_medal_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_medal_delete(System.Object,System.Object)">
             <summary>
             Deletes medal allocation to a group.
             </summary>
@@ -2682,7 +2219,7 @@
             ID of medal.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_medal_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_medal_list(System.Object,System.Object)">
             <summary>
             Lists medal(s) assigned to the group
             </summary>
@@ -2693,7 +2230,7 @@
             ID of medal to list.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves new or update existing group-medal allocation.
             </summary>
@@ -2716,7 +2253,7 @@
             Sort order in user box. Overrides medal's default sort order.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_medal_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_medal_delete(System.Object,System.Object)">
             <summary>
             Deletes medal allocation to a user.
             </summary>
@@ -2727,7 +2264,7 @@
             ID of medal.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_medal_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_medal_list(System.Object,System.Object)">
             <summary>
             Lists medal(s) assigned to the group
             </summary>
@@ -2738,7 +2275,7 @@
             ID of medal to list.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves new or update existing user-medal allocation.
             </summary>
@@ -2764,7 +2301,7 @@
             Date when medal was awarded to a user. Is ignored when existing user-medal allocation is edited.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_listmedals(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_listmedals(System.Object)">
             <summary>
             Lists all medals held by user as they are to be shown in user box.
             </summary>
@@ -2775,7 +2312,7 @@
             List of medals, ribbon bar only first.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpforum_list(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpforum_list(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The nntpforum_list.
             </summary>
@@ -2794,7 +2331,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpforum_update(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpforum_update(System.Object,System.Object,System.Object)">
             <summary>
             The nntpforum_update.
             </summary>
@@ -2808,7 +2345,7 @@
             The user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpforum_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpforum_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The nntpforum_save.
             </summary>
@@ -2828,7 +2365,7 @@
             The active.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpforum_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpforum_delete(System.Object)">
             <summary>
             The nntpforum_delete.
             </summary>
@@ -2836,7 +2373,7 @@
             The nntp forum id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpserver_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpserver_list(System.Object,System.Object)">
             <summary>
             The nntpserver_list.
             </summary>
@@ -2849,7 +2386,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpserver_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpserver_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The nntpserver_save.
             </summary>
@@ -2875,7 +2412,7 @@
             The user pass.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntpserver_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntpserver_delete(System.Object)">
             <summary>
             The nntpserver_delete.
             </summary>
@@ -2883,7 +2420,7 @@
             The nntp server id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntptopic_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntptopic_list(System.Object)">
             <summary>
             The nntptopic_list.
             </summary>
@@ -2893,7 +2430,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.nntptopic_savemessage(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.nntptopic_savemessage(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The nntptopic_savemessage.
             </summary>
@@ -2922,7 +2459,7 @@
             The thread.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_list(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_list(System.Object,System.Object,System.Object)">
             <summary>
             Returns a list of private messages based on the arguments specified.
             If pMessageID != null, returns the PM of id pMessageId.
@@ -2939,7 +2476,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_list(System.Object)">
             <summary>
             Returns a list of private messages based on the arguments specified.
             If pMessageID != null, returns the PM of id pMessageId.
@@ -2952,7 +2489,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_delete(System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_delete(System.Object,System.Boolean)">
             <summary>
             Deletes the private message from the database as per the given parameter.  If <paramref name="fromOutbox"/> is true,
             the message is only removed from the user's outbox.  Otherwise, it is completely delete from the database.
@@ -2964,7 +2501,7 @@
             If true, removes the message from the outbox.  Otherwise deletes the message completely.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_delete(System.Object)">
             <summary>
             Deletes the private message from the database as per the given parameter.  If fromOutbox is true,
             the message is only deleted from the user's outbox.  Otherwise, it is completely delete from the database.
@@ -2972,7 +2509,7 @@
             <param name="userPMessageID">
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_archive(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_archive(System.Object)">
             <summary>
             Archives the private message of the given id.  Archiving moves the message from the user's inbox to his message archive.
             </summary>
@@ -2980,7 +2517,7 @@
             The user P Message ID.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The pmessage_save.
             </summary>
@@ -3000,7 +2537,7 @@
             The flags.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_markread(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_markread(System.Object)">
             <summary>
             The pmessage_markread.
             </summary>
@@ -3008,14 +2545,14 @@
             The user p message id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_info">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_info">
             <summary>
             The pmessage_info.
             </summary>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pmessage_prune(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pmessage_prune(System.Object,System.Object)">
             <summary>
             The pmessage_prune.
             </summary>
@@ -3026,7 +2563,7 @@
             The days unread.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pollgroup_stats(System.Nullable{System.Int32})">
+        <member name="M:YAF.Classes.Data.LegacyDb.pollgroup_stats(System.Nullable{System.Int32})">
             <summary>
             The pollgroup_stats.
             </summary>
@@ -3036,7 +2573,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pollgroup_attach(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:YAF.Classes.Data.LegacyDb.pollgroup_attach(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             The pollgroup_attach.
             </summary>
@@ -3046,7 +2583,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.poll_stats(System.Nullable{System.Int32})">
+        <member name="M:YAF.Classes.Data.LegacyDb.poll_stats(System.Nullable{System.Int32})">
             <summary>
             The poll_stats.
             </summary>
@@ -3056,14 +2593,14 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.poll_save(System.Collections.Generic.List{YAF.Types.Objects.PollSaveList})">
+        <member name="M:YAF.Classes.Data.LegacyDb.poll_save(System.Collections.Generic.List{YAF.Types.Objects.PollSaveList})">
             <summary>
             The method saves many questions and answers to them in a single transaction 
             </summary>
             <param name="pollList">List to hold all polls data</param>
             <returns>Last saved poll id.</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.poll_update(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.poll_update(System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Object,System.Object)">
             <summary>
             The poll_update.
             </summary>
@@ -3092,7 +2629,7 @@
             The question file mime type.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.poll_remove(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.poll_remove(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The poll_remove.
             </summary>
@@ -3110,7 +2647,7 @@
             else only one poll is deleted completely. 
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.PollGroupList(System.Int32,System.Nullable{System.Int32},System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.PollGroupList(System.Int32,System.Nullable{System.Int32},System.Int32)">
             <summary>
             Gets a typed poll group list.
             </summary>
@@ -3126,7 +2663,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pollgroup_remove(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.pollgroup_remove(System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The poll_remove.
             </summary>
@@ -3146,7 +2683,7 @@
             <param name="forumId"></param>
             <param name="removeEverywhere"></param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.choice_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.choice_delete(System.Object)">
             <summary>
             The choice_delete.
             </summary>
@@ -3154,7 +2691,7 @@
             The choice id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.choice_update(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.choice_update(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The choice_update.
             </summary>
@@ -3165,7 +2702,7 @@
             The choice.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.choice_add(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.choice_add(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The choice_add.
             </summary>
@@ -3176,7 +2713,7 @@
             The choice.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.rank_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.rank_list(System.Object,System.Object)">
             <summary>
             The rank_list.
             </summary>
@@ -3189,7 +2726,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.rank_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.rank_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The rank_save.
             </summary>
@@ -3242,7 +2779,7 @@
             The group_save.
             </returns>   
         </member>
-        <member name="M:YAF.Classes.Data.DB.rank_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.rank_delete(System.Object)">
             <summary>
             The rank_delete.
             </summary>
@@ -3250,7 +2787,7 @@
             The rank id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.smiley_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.smiley_list(System.Object,System.Object)">
             <summary>
             The smiley_list.
             </summary>
@@ -3263,7 +2800,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.SmileyList(System.Int32,System.Nullable{System.Int32})">
+        <member name="M:YAF.Classes.Data.LegacyDb.SmileyList(System.Int32,System.Nullable{System.Int32})">
             <summary>
             The smiley_list.
             </summary>
@@ -3276,7 +2813,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.smiley_listunique(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.smiley_listunique(System.Object)">
             <summary>
             The smiley_listunique.
             </summary>
@@ -3286,7 +2823,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.smiley_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.smiley_delete(System.Object)">
             <summary>
             The smiley_delete.
             </summary>
@@ -3294,7 +2831,7 @@
             The smiley id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.smiley_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.smiley_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The smiley_save.
             </summary>
@@ -3320,7 +2857,7 @@
             The replace.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.smiley_resort(System.Object,System.Object,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.smiley_resort(System.Object,System.Object,System.Int32)">
             <summary>
             The smiley_resort.
             </summary>
@@ -3334,7 +2871,7 @@
             The move.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.bbcode_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bbcode_list(System.Object,System.Object)">
             <summary>
             The bbcode_list.
             </summary>
@@ -3347,7 +2884,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.bbcode_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bbcode_delete(System.Object)">
             <summary>
             The bbcode_delete.
             </summary>
@@ -3355,7 +2892,7 @@
             The bbcode id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.bbcode_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.bbcode_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The bbcode_save.
             </summary>
@@ -3402,7 +2939,7 @@
             The execorder.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.registry_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.registry_list(System.Object,System.Object)">
             <summary>
             Retrieves entries in the board settings registry
             </summary>
@@ -3416,7 +2953,7 @@
             DataTable filled will registry entries
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.registry_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.registry_list(System.Object)">
             <summary>
             Retrieves entries in the board settings registry
             </summary>
@@ -3427,7 +2964,7 @@
             DataTable filled will registry entries
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.registry_list">
+        <member name="M:YAF.Classes.Data.LegacyDb.registry_list">
             <summary>
             Retrieves all the entries in the board settings registry
             </summary>
@@ -3435,7 +2972,7 @@
             DataTable filled will all registry entries
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.registry_save(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.registry_save(System.Object,System.Object)">
             <summary>
             Saves a single registry entry pair to the database.
             </summary>
@@ -3446,7 +2983,7 @@
             The value.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.registry_save(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.registry_save(System.Object,System.Object,System.Object)">
             <summary>
             Saves a single registry entry pair to the database.
             </summary>
@@ -3460,14 +2997,14 @@
             The board ID.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.system_list">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_list">
             <summary>
             Not in use anymore. Only required for old database versions.
             </summary>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_prune(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_prune(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_prune.
             </summary>
@@ -3487,7 +3024,7 @@
             The topic_prune.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_list.
             </summary>
@@ -3515,7 +3052,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_simplelist(System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_simplelist(System.Int32,System.Int32)">
             <summary>
             Lists topics very simply (for URL rewriting)
             </summary>
@@ -3526,7 +3063,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_move(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_move(System.Object,System.Object,System.Object)">
             <summary>
             The topic_move.
             </summary>
@@ -3540,7 +3077,7 @@
             The show moved.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_announcements(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_announcements(System.Object,System.Object,System.Object)">
             <summary>
             The topic_announcements.
             </summary>
@@ -3550,13 +3087,13 @@
             <param name="numOfPostsToRetrieve">
             The num of posts to retrieve.
             </param>
-            <param name="userID">
-            The user id.
+            <param name="pageUserId">
+            The page User Id.
             </param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The topic_latest.
             </summary>
@@ -3566,16 +3103,16 @@
             <param name="numOfPostsToRetrieve">
             The num of posts to retrieve.
             </param>
-            <param name="userID">
-            The user id.
+            <param name="pageUserId">
+            The page UserId id. 
             </param>
             <param name="useStyledNicks">
             If true returns string for userID style.
             </param>
-            <returns>
+            <returns> 
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.rss_topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.rss_topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The rss_topic_latest.
             </summary>
@@ -3585,8 +3122,8 @@
             <param name="numOfPostsToRetrieve">
             The num of posts to retrieve.
             </param>
-            <param name="userID">
-            The user id.
+            <param name="pageUserId">
+            The page UserId id.
             </param>
             <param name="useStyledNicks">
             If true returns string for userID style.
@@ -3594,15 +3131,15 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_active(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_active.
             </summary>
             <param name="boardID">
             The board id.
             </param>
-            <param name="userID">
-            The user id.
+            <param name="pageUserId">
+            The page user id.
             </param>
             <param name="since">
             The since.
@@ -3616,7 +3153,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_deleteAttachments(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_deleteAttachments(System.Object)">
             <summary>
             The topic_delete attachments.
             </summary>
@@ -3624,7 +3161,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_delete(System.Object)">
             <summary>
             The topic_delete.
             </summary>
@@ -3632,7 +3169,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_delete(System.Object,System.Object)">
             <summary>
             The topic_delete.
             </summary>
@@ -3643,7 +3180,7 @@
             The erase topic.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_findprev(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_findprev(System.Object)">
             <summary>
             The topic_findprev.
             </summary>
@@ -3653,7 +3190,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_findnext(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_findnext(System.Object)">
             <summary>
             The topic_findnext.
             </summary>
@@ -3663,7 +3200,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_lock(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_lock(System.Object,System.Object)">
             <summary>
             The topic_lock.
             </summary>
@@ -3674,7 +3211,7 @@
             The locked.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
             <summary>
             The topic_save.
             </summary>
@@ -3715,7 +3252,7 @@
             The topic_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_info(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_info(System.Object)">
             <summary>
             The topic_info.
             </summary>
@@ -3725,14 +3262,14 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_favorite_details(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_favorite_details(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_ favorite_ details.
             </summary>
             <param name="boardID">
             The board id.
             </param>
-            <param name="userID">
+            <param name="pageUserId">
             The user id.
             </param>
             <param name="since">
@@ -3745,10 +3282,10 @@
             Set to true to get color nicks for last user and topic starter.
             </param>    
             <returns>
-            a Data Table containing the current user's favorite topics with details.
+            a Data Table containing the current page user's favorite topics with details.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_favorite_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_favorite_list(System.Object)">
             <summary>
             The topic_favorite_list.
             </summary>
@@ -3758,7 +3295,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_favorite_remove(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_favorite_remove(System.Object,System.Object)">
             <summary>
             The topic_favorite_remove.
             </summary>
@@ -3769,7 +3306,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_favorite_add(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.topic_favorite_add(System.Object,System.Object)">
             <summary>
             The topic_favorite_add.
             </summary>
@@ -3780,7 +3317,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.TopicFavoriteCount(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.TopicFavoriteCount(System.Int32)">
             <summary>
             Get the favorite count for a topic...
             </summary>
@@ -3788,7 +3325,7 @@
             The topic Id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.replace_words_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.replace_words_list(System.Object,System.Object)">
             <summary>
             Gets a list of replace words
             </summary>
@@ -3802,7 +3339,7 @@
             DataTable with replace words
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.replace_words_save(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.replace_words_save(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves changs to a words
             </summary>
@@ -3819,7 +3356,7 @@
             good word
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.replace_words_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.replace_words_delete(System.Object)">
             <summary>
             Deletes a bad/good word
             </summary>
@@ -3827,7 +3364,7 @@
             ID of bad/good word to delete
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_addignoreduser(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_addignoreduser(System.Object,System.Object)">
             <summary>
             The user_addignoreduser.
             </summary>
@@ -3838,7 +3375,7 @@
             The ignored user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_removeignoreduser(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_removeignoreduser(System.Object,System.Object)">
             <summary>
             The user_removeignoreduser.
             </summary>
@@ -3849,7 +3386,7 @@
             The ignored user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_isuserignored(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_isuserignored(System.Object,System.Object)">
             <summary>
             The user_isuserignored.
             </summary>
@@ -3863,7 +3400,7 @@
             The user_isuserignored.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_ignoredlist(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_ignoredlist(System.Object)">
             <summary>
             The user_ignoredlist.
             </summary>
@@ -3873,7 +3410,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_lazydata(System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_lazydata(System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             To return a rather rarely updated active user data
             </summary>
@@ -3881,7 +3418,7 @@
             <param name="styledNicks">If styles should be returned.</param>
             <returns>A DataRow, it should never return a null value.</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_list(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_list(System.Object,System.Object,System.Object)">
             <summary>
             The user_list.
             </summary>
@@ -3897,7 +3434,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_list(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_list(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_list.
             </summary>
@@ -3916,7 +3453,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_list(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_list(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_list.
             </summary>
@@ -3938,7 +3475,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_list.
             </summary>
@@ -3963,7 +3500,50 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.UserList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_listmembers(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            The user_list20members.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="approved">
+            The approved.
+            </param>
+            <param name="groupId">
+            The group id.
+            </param>
+            <param name="rankId">
+            The rank id.
+            </param>
+            <param name="useStyledNicks">
+            Return style info.
+            </param>
+            <param name="lastUserId">
+            The last user Id.
+            </param>
+            <param name="literals">
+            The literals.
+            </param>
+            <param name="exclude">
+            The exclude.
+            </param>
+            <param name="beginsWith">
+            The begins with.
+            </param>
+            <param name="pageIndex">
+            The page index.
+            </param>
+            <param name="pageSize">
+            The page size.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.UserList(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean})">
             <summary>
             Get the user list as a typed list.
             </summary>
@@ -3988,7 +3568,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_simplelist(System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_simplelist(System.Int32,System.Int32)">
             <summary>
             For URL Rewriting
             </summary>
@@ -3999,7 +3579,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_delete(System.Object)">
             <summary>
             The user_delete.
             </summary>
@@ -4007,7 +3587,7 @@
             The user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_setrole(System.Int32,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_setrole(System.Int32,System.Object,System.Object)">
             <summary>
             The user_setrole.
             </summary>
@@ -4021,7 +3601,7 @@
             The role.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_setinfo(System.Int32,System.Web.Security.MembershipUser)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_setinfo(System.Int32,System.Web.Security.MembershipUser)">
             <summary>
             The user_setinfo.
             </summary>
@@ -4032,7 +3612,7 @@
             The user.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_migrate(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_migrate(System.Object,System.Object,System.Object)">
             <summary>
             The user_migrate.
             </summary>
@@ -4046,7 +3626,7 @@
             The update provider.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_deleteold(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_deleteold(System.Object,System.Object)">
             <summary>
             The user_deleteold.
             </summary>
@@ -4054,7 +3634,7 @@
             The board id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_approve(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_approve(System.Object)">
             <summary>
             The user_approve.
             </summary>
@@ -4062,7 +3642,7 @@
             The user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_approveall(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_approveall(System.Object)">
             <summary>
             The user_approveall.
             </summary>
@@ -4070,7 +3650,7 @@
             The board id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_suspend(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_suspend(System.Object,System.Object)">
             <summary>
             The user_suspend.
             </summary>
@@ -4081,7 +3661,7 @@
             The suspend.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_getsignaturedata(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_getsignaturedata(System.Object,System.Object)">
             <summary>
             Returns data about allowed signature tags and character limits
             </summary>
@@ -4089,14 +3669,14 @@
             <param name="boardID">The boardID</param>
             <returns>Data Table</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_getalbumsdata(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_getalbumsdata(System.Object,System.Object)">
             <summary>
             Returns data about albums: allowed number of images and albums
             </summary>
             <param name="userID">The userID</param>
             <param name="boardID">The boardID</param>  
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_changepassword(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_changepassword(System.Object,System.Object,System.Object)">
             <summary>
             The user_changepassword.
             </summary>
@@ -4113,7 +3693,7 @@
             The user_changepassword.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_pmcount(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_pmcount(System.Object)">
             <summary>
             The user_pmcount.
             </summary>
@@ -4123,7 +3703,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
             </summary>
@@ -4162,7 +3742,7 @@
             The pm notification.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_savenotification(System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_savenotification(System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves the notification type for a user
             </summary>
@@ -4173,7 +3753,7 @@
             The notification type.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_adminsave.
             </summary>
@@ -4196,7 +3776,7 @@
             The rank id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_emails(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_emails(System.Object,System.Object)">
             <summary>
             The user_emails.
             </summary>
@@ -4209,7 +3789,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_accessmasks(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_accessmasks(System.Object,System.Object)">
             <summary>
             The user_accessmasks.
             </summary>
@@ -4222,7 +3802,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.userforumaccess_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.userforumaccess_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
             <summary>
             The userforumaccess_sort_list.
             </summary>
@@ -4241,7 +3821,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.userforumaccess_sort_list_recursive(System.Data.DataTable,System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.userforumaccess_sort_list_recursive(System.Data.DataTable,System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
             <summary>
             The userforumaccess_sort_list_recursive.
             </summary>
@@ -4261,7 +3841,7 @@
             The current indent.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_recoverpassword(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_recoverpassword(System.Object,System.Object,System.Object)">
             <summary>
             The user_recoverpassword.
             </summary>
@@ -4278,7 +3858,7 @@
             The user_recoverpassword.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_savepassword(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_savepassword(System.Object,System.Object)">
             <summary>
             The user_savepassword.
             </summary>
@@ -4289,7 +3869,7 @@
             The password.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_login(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_login(System.Object,System.Object,System.Object)">
             <summary>
             The user_login.
             </summary>
@@ -4306,7 +3886,7 @@
             The user_login.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_avatarimage(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_avatarimage(System.Object)">
             <summary>
             The user_avatarimage.
             </summary>
@@ -4316,7 +3896,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_get(System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_get(System.Int32,System.Object)">
             <summary>
             The user_get.
             </summary>
@@ -4330,7 +3910,7 @@
             The user_get.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.UserFind(System.Int32,System.Boolean,System.String,System.String,System.String,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.UserFind(System.Int32,System.Boolean,System.String,System.String,System.String,System.Object,System.Object)">
             <summary>
             The UserFind.
             </summary>
@@ -4352,7 +3932,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_getsignature(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_getsignature(System.Object)">
             <summary>
             The user_getsignature.
             </summary>
@@ -4363,7 +3943,7 @@
             The user_getsignature.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_savesignature(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_savesignature(System.Object,System.Object)">
             <summary>
             The user_savesignature.
             </summary>
@@ -4374,7 +3954,7 @@
             The signature.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_saveavatar(System.Object,System.Object,System.IO.Stream,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_saveavatar(System.Object,System.Object,System.IO.Stream,System.Object)">
             <summary>
             The user_saveavatar.
             </summary>
@@ -4391,7 +3971,7 @@
             The avatar image type.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_deleteavatar(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_deleteavatar(System.Object)">
             <summary>
             The user_deleteavatar.
             </summary>
@@ -4399,7 +3979,7 @@
             The user id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_register(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_register(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             The user_register.
             </summary>
@@ -4434,7 +4014,7 @@
             The user_register.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_aspnet(System.Int32,System.String,System.String,System.String,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_aspnet(System.Int32,System.String,System.String,System.String,System.Object,System.Object)">
             <summary>
             The user_aspnet.
             </summary>
@@ -4457,7 +4037,7 @@
             The user_aspnet.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_guest(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_guest(System.Object)">
             <summary>
             The user_guest.
             </summary>
@@ -4468,7 +4048,7 @@
             The user_guest.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_activity_rank(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_activity_rank(System.Object,System.Object,System.Object)">
             <summary>
             The user_activity_rank.
             </summary>
@@ -4484,7 +4064,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_nntp(System.Object,System.Object,System.Object,System.Nullable{System.Int32})">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_nntp(System.Object,System.Object,System.Object,System.Nullable{System.Int32})">
             <summary>
             The user_nntp.
             </summary>
@@ -4501,7 +4081,7 @@
             The user_nntp.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_addpoints(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_addpoints(System.Object,System.Object)">
             <summary>
             The user_addpoints.
             </summary>
@@ -4512,7 +4092,7 @@
             The points.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_removepointsByTopicID(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_removepointsByTopicID(System.Object,System.Object)">
             <summary>
             The user_removepoints by topic id.
             </summary>
@@ -4523,7 +4103,7 @@
             The points.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_removepoints(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_removepoints(System.Object,System.Object)">
             <summary>
             The user_removepoints.
             </summary>
@@ -4534,7 +4114,7 @@
             The points.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_setpoints(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_setpoints(System.Object,System.Object)">
             <summary>
             The user_setpoints.
             </summary>
@@ -4545,7 +4125,7 @@
             The points.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_getpoints(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_getpoints(System.Object)">
             <summary>
             The user_getpoints.
             </summary>
@@ -4556,7 +4136,7 @@
             The user_getpoints.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_getthanks_from(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_getthanks_from(System.Object,System.Object)">
             <summary>
             The user_getthanks_from.
             </summary>
@@ -4567,7 +4147,7 @@
             The user_getthanks_from.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_getthanks_to(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_getthanks_to(System.Object,System.Object)">
             <summary>
             The user_getthanks_to.
             </summary>
@@ -4577,7 +4157,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_viewallthanks(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_viewallthanks(System.Object,System.Object)">
             <summary>
             Returns the posts which is thanked by the user + the posts which are posted by the user and 
             are thanked by other users.
@@ -4588,7 +4168,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.userforum_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.userforum_list(System.Object,System.Object)">
             <summary>
             The userforum_list.
             </summary>
@@ -4601,7 +4181,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.userforum_delete(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.userforum_delete(System.Object,System.Object)">
             <summary>
             The userforum_delete.
             </summary>
@@ -4612,7 +4192,7 @@
             The forum id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.userforum_save(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.userforum_save(System.Object,System.Object,System.Object)">
             <summary>
             The userforum_save.
             </summary>
@@ -4626,7 +4206,7 @@
             The access mask id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.usergroup_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.usergroup_list(System.Object)">
             <summary>
             The usergroup_list.
             </summary>
@@ -4636,7 +4216,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.usergroup_save(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.usergroup_save(System.Object,System.Object,System.Object)">
             <summary>
             The usergroup_save.
             </summary>
@@ -4650,7 +4230,7 @@
             The member.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchforum_add(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchforum_add(System.Object,System.Object)">
             <summary>
             The watchforum_add.
             </summary>
@@ -4661,7 +4241,7 @@
             The forum id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchforum_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchforum_list(System.Object)">
             <summary>
             The watchforum_list.
             </summary>
@@ -4671,7 +4251,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchforum_check(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchforum_check(System.Object,System.Object)">
             <summary>
             The watchforum_check.
             </summary>
@@ -4684,7 +4264,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchforum_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchforum_delete(System.Object)">
             <summary>
             The watchforum_delete.
             </summary>
@@ -4692,7 +4272,7 @@
             The watch forum id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchtopic_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchtopic_list(System.Object)">
             <summary>
             The watchtopic_list.
             </summary>
@@ -4702,7 +4282,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchtopic_check(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchtopic_check(System.Object,System.Object)">
             <summary>
             The watchtopic_check.
             </summary>
@@ -4715,7 +4295,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchtopic_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchtopic_delete(System.Object)">
             <summary>
             The watchtopic_delete.
             </summary>
@@ -4723,7 +4303,7 @@
             The watch topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.watchtopic_add(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.watchtopic_add(System.Object,System.Object)">
             <summary>
             The watchtopic_add.
             </summary>
@@ -4734,7 +4314,7 @@
             The topic id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.rsstopic_list(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.rsstopic_list(System.Int32)">
             <summary>
             The rsstopic_list.
             </summary>
@@ -4744,59 +4324,59 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_getstats_warning(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_getstats_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_getstats_warning.
             </summary>
-            <param name="connMan">
+            <param name="connectionManager">
             The conn man.
             </param>
             <returns>
             The db_getstats_warning.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_getstats(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_getstats(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_getstats.
             </summary>
-            <param name="connMan">
+            <param name="connectionManager">
             The conn man.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_reindex_warning(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_reindex_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_reindex_warning.
             </summary>
-            <param name="connMan">
+            <param name="connectionManager">
             The conn man.
             </param>
             <returns>
             The db_reindex_warning.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_reindex(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_reindex(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_reindex.
             </summary>
-            <param name="connMan">
+            <param name="connectionManager">
             The conn man.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_runsql(System.String,YAF.Classes.Data.YafDBConnManager,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_runsql(System.String,YAF.Classes.Data.MsSqlDbConnectionManager,System.Boolean)">
             <summary>
             The db_runsql.
             </summary>
             <param name="sql">
             The sql.
             </param>
-            <param name="connMan">
+            <param name="connectionManager">
             The conn man.
             </param>
             <returns>
             The db_runsql.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.InnerRunSqlExecuteReader(System.Data.SqlClient.SqlCommand,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.InnerRunSqlExecuteReader(System.Data.SqlClient.SqlCommand,System.Boolean)">
             <summary>
             Called from db_runsql -- just runs a sql command according to specificiations.
             </summary>
@@ -4804,7 +4384,7 @@
             <param name="useTransaction"></param>
             <returns></returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forumpage_initdb(System.String@,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forumpage_initdb(System.String@,System.Boolean)">
             <summary>
             The forumpage_initdb.
             </summary>
@@ -4818,7 +4398,7 @@
             The forumpage_initdb.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forumpage_validateversion(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.forumpage_validateversion(System.Int32)">
             <summary>
             The forumpage_validateversion.
             </summary>
@@ -4829,12 +4409,12 @@
             The forumpage_validateversion.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.system_deleteinstallobjects">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_deleteinstallobjects">
             <summary>
             The system_deleteinstallobjects.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.DB.system_initialize_executescripts(System.String,System.String,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_initialize_executescripts(System.String,System.String,System.Boolean)">
             <summary>
             The system_initialize_executescripts.
             </summary>
@@ -4850,7 +4430,7 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <member name="M:YAF.Classes.Data.DB.system_initialize_fixaccess(System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_initialize_fixaccess(System.Boolean)">
             <summary>
             The system_initialize_fixaccess.
             </summary>
@@ -4858,7 +4438,7 @@
             The grant.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.system_initialize(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_initialize(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
             <summary>
             The system_initialize.
             </summary>
@@ -4884,7 +4464,7 @@
             The provider user key.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.system_updateversion(System.Int32,System.String)">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_updateversion(System.Int32,System.String)">
             <summary>
             The system_updateversion.
             </summary>
@@ -4895,7 +4475,7 @@
             The versionname.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_rank_style(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.group_rank_style(System.Object)">
             <summary>
             Returns info about all Groups and Rank styles. 
             Used in GroupRankStyles cache.
@@ -4905,7 +4485,7 @@
             The board ID.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.shoutbox_getmessages(System.Int32,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.shoutbox_getmessages(System.Int32,System.Int32,System.Object)">
             <summary>
             The shoutbox_getmessages.
             </summary>
@@ -4919,7 +4499,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.shoutbox_savemessage(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.shoutbox_savemessage(System.Int32,System.String,System.String,System.Int32,System.Object)">
             <summary>
             The shoutbox_savemessage.
             </summary>
@@ -4939,7 +4519,7 @@
             The shoutbox_savemessage.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.shoutbox_clearmessages(System.Int32)">
+        <member name="M:YAF.Classes.Data.LegacyDb.shoutbox_clearmessages(System.Int32)">
             <summary>
             The shoutbox_clearmessages.
             </summary>
@@ -4947,7 +4527,7 @@
             The shoutbox_clearmessages.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_shrink_warning(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_shrink_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_shrink_warning.
             </summary>
@@ -4958,7 +4538,7 @@
             The db_shrink_warning.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_shrink(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_shrink(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_shrink.
             </summary>
@@ -4966,7 +4546,7 @@
             The db name.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_recovery_mode_warning(YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_recovery_mode_warning(YAF.Classes.Data.MsSqlDbConnectionManager)">
             <summary>
             The db_recovery_mode_warning.
             </summary>
@@ -4977,7 +4557,7 @@
             The db_recovery_mode_warning.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_recovery_mode(YAF.Classes.Data.YafDBConnManager,System.String)">
+        <member name="M:YAF.Classes.Data.LegacyDb.db_recovery_mode(YAF.Classes.Data.MsSqlDbConnectionManager,System.String)">
             <summary>
             The db_recovery_mode.
             </summary>
@@ -4988,7 +4568,7 @@
             The db recovery mode.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.buddy_addrequest(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.buddy_addrequest(System.Object,System.Object)">
             <summary>
             Adds a buddy request. (Should be approved later by "ToUserID")
             </summary>
@@ -5002,7 +4582,7 @@
             The name of the second user + Whether this request is approved or not.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.buddy_approveRequest(System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.buddy_approveRequest(System.Object,System.Object,System.Object)">
             <summary>
             Approves a buddy request.
             </summary>
@@ -5019,7 +4599,7 @@
             the name of the second user.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.buddy_denyRequest(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.buddy_denyRequest(System.Object,System.Object)">
             <summary>
             Denies a buddy request.
             </summary>
@@ -5033,7 +4613,7 @@
             the name of the second user.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.buddy_remove(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.buddy_remove(System.Object,System.Object)">
             <summary>
             Removes the "ToUserID" from "FromUserID"'s buddy list.
             </summary>
@@ -5047,7 +4627,7 @@
             The name of the second user.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.buddy_list(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.buddy_list(System.Object)">
             <summary>
             Gets all the buddies of a certain user.
             </summary>
@@ -5058,7 +4638,7 @@
             a Datatable containing the buddy list.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_save(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_save(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Inserts/Saves a user album.
             </summary>
@@ -5075,7 +4655,7 @@
             New Cover image id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_list(System.Object,System.Object)">
             <summary>
             Lists all the albums associated with the UserID or gets all the
             specifications for the specified album id.
@@ -5090,7 +4670,7 @@
             a Datatable containing the albums.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_delete(System.Object)">
             <summary>
             Deletes an album and all Images in that album.
             </summary>
@@ -5098,7 +4678,7 @@
             the album id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_gettitle(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_gettitle(System.Object)">
             <summary>
             Deletes an album and all Images in that album.
             </summary>
@@ -5106,7 +4686,7 @@
             the album id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_getstats(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_getstats(System.Object,System.Object)">
             <summary>
             The album_ get stats method.
             </summary>
@@ -5121,7 +4701,7 @@
             Otherwise, it gets the number of images in the album with AlbumID.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_image_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_image_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Inserts/Saves a user image.
             </summary>
@@ -5144,7 +4724,7 @@
             the content type.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_image_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_image_list(System.Object,System.Object)">
             <summary>
             Lists all the images associated with the AlbumID or
             the image with the ImageID.
@@ -5159,7 +4739,7 @@
             a Datatable containing the image(s).
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_image_delete(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_image_delete(System.Object)">
             <summary>
             Deletes the image which has the specified image id.
             </summary>
@@ -5167,7 +4747,7 @@
             the image id.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.album_image_download(System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.album_image_download(System.Object)">
             <summary>
             Increments the image's download times.
             </summary>
@@ -5175,495 +4755,408 @@
             the image id.
             </param>
         </member>
-        <member name="P:YAF.Classes.Data.DB.ProviderAssemblyName">
+        <member name="P:YAF.Classes.Data.LegacyDb.ProviderAssemblyName">
             <summary>
             Gets ProviderAssemblyName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.PasswordPlaceholderVisible">
+        <member name="P:YAF.Classes.Data.LegacyDb.PasswordPlaceholderVisible">
             <summary>
             Gets a value indicating whether PasswordPlaceholderVisible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter1_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter1_Name">
             <summary>
             Gets Parameter1_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter1_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter1_Value">
             <summary>
             Gets Parameter1_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter1_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter1_Visible">
             <summary>
             Gets a value indicating whether Parameter1_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter2_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter2_Name">
             <summary>
             Gets Parameter2_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter2_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter2_Value">
             <summary>
             Gets Parameter2_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter2_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter2_Visible">
             <summary>
             Gets a value indicating whether Parameter2_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter3_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter3_Name">
             <summary>
             Gets Parameter3_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter3_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter3_Value">
             <summary>
             Gets Parameter3_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter3_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter3_Visible">
             <summary>
             Gets a value indicating whether Parameter3_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter4_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter4_Name">
             <summary>
             Gets Parameter4_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter4_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter4_Value">
             <summary>
             Gets Parameter4_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter4_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter4_Visible">
             <summary>
             Gets a value indicating whether Parameter4_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter5_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter5_Name">
             <summary>
             Gets Parameter5_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter5_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter5_Value">
             <summary>
             Gets Parameter5_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter5_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter5_Visible">
             <summary>
             Gets a value indicating whether Parameter5_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter6_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter6_Name">
             <summary>
             Gets Parameter6_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter6_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter6_Value">
             <summary>
             Gets Parameter6_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter6_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter6_Visible">
             <summary>
             Gets a value indicating whether Parameter6_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter7_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter7_Name">
             <summary>
             Gets Parameter7_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter7_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter7_Value">
             <summary>
             Gets Parameter7_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter7_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter7_Visible">
             <summary>
             Gets a value indicating whether Parameter7_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter8_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter8_Name">
             <summary>
             Gets Parameter8_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter8_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter8_Value">
             <summary>
             Gets Parameter8_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter8_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter8_Visible">
             <summary>
             Gets a value indicating whether Parameter8_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter9_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter9_Name">
             <summary>
             Gets Parameter9_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter9_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter9_Value">
             <summary>
             Gets Parameter9_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter9_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter9_Visible">
             <summary>
             Gets a value indicating whether Parameter9_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter10_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter10_Name">
             <summary>
             Gets Parameter10_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter10_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter10_Value">
             <summary>
             Gets Parameter10_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter10_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter10_Visible">
             <summary>
             Gets a value indicating whether Parameter10_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter11_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter11_Name">
             <summary>
             Gets Parameter11_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter11_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter11_Value">
             <summary>
             Gets a value indicating whether Parameter11_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter11_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter11_Visible">
             <summary>
             Gets a value indicating whether Parameter11_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter12_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter12_Name">
             <summary>
             Gets Parameter12_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter12_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter12_Value">
             <summary>
             Gets a value indicating whether Parameter12_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter12_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter12_Visible">
             <summary>
             Gets a value indicating whether Parameter12_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter13_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter13_Name">
             <summary>
             Gets Parameter13_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter13_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter13_Value">
             <summary>
             Gets a value indicating whether Parameter13_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter13_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter13_Visible">
             <summary>
             Gets a value indicating whether Parameter13_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter14_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter14_Name">
             <summary>
             Gets Parameter14_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter14_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter14_Value">
             <summary>
             Gets a value indicating whether Parameter14_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter14_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter14_Visible">
             <summary>
             Gets a value indicating whether Parameter14_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter15_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter15_Name">
             <summary>
             Gets Parameter15_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter15_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter15_Value">
             <summary>
             Gets a value indicating whether Parameter15_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter15_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter15_Visible">
             <summary>
             Gets a value indicating whether Parameter15_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter16_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter16_Name">
             <summary>
             Gets Parameter16_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter16_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter16_Value">
             <summary>
             Gets a value indicating whether Parameter16_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter16_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter16_Visible">
             <summary>
             Gets a value indicating whether Parameter16_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter17_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter17_Name">
             <summary>
             Gets Parameter17_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter17_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter17_Value">
             <summary>
             Gets a value indicating whether Parameter17_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter17_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter17_Visible">
             <summary>
             Gets a value indicating whether Parameter17_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter18_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter18_Name">
             <summary>
             Gets Parameter18_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter18_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter18_Value">
             <summary>
             Gets a value indicating whether Parameter18_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter18_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter18_Visible">
             <summary>
             Gets a value indicating whether Parameter18_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter19_Name">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter19_Name">
             <summary>
             Gets Parameter19_Name.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter19_Value">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter19_Value">
             <summary>
             Gets a value indicating whether Parameter19_Value.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.Parameter19_Visible">
+        <member name="P:YAF.Classes.Data.LegacyDb.Parameter19_Visible">
             <summary>
             Gets a value indicating whether Parameter19_Visible.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.DBSize">
+        <member name="P:YAF.Classes.Data.LegacyDb.DBSize">
             <summary>
             Gets the database size
             </summary>
             <returns>intager value for database size</returns>
         </member>
-        <member name="P:YAF.Classes.Data.DB.IsForumInstalled">
+        <member name="P:YAF.Classes.Data.LegacyDb.IsForumInstalled">
             <summary>
             Gets a value indicating whether IsForumInstalled.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.DBVersion">
+        <member name="P:YAF.Classes.Data.LegacyDb.DBVersion">
             <summary>
             Gets DBVersion.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.FullTextSupported">
+        <member name="P:YAF.Classes.Data.LegacyDb.FullTextSupported">
             <summary>
             Gets or sets a value indicating whether FullTextSupported.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.FullTextScript">
+        <member name="P:YAF.Classes.Data.LegacyDb.FullTextScript">
             <summary>
             Gets or sets FullTextScript.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.ScriptList">
+        <member name="P:YAF.Classes.Data.LegacyDb.ScriptList">
             <summary>
             Gets ScriptList.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.btnGetStatsName">
+        <member name="P:YAF.Classes.Data.LegacyDb.btnGetStatsName">
             <summary>
             Gets btnGetStatsName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.btnShrinkName">
+        <member name="P:YAF.Classes.Data.LegacyDb.btnShrinkName">
             <summary>
             Gets btnShrinkName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.btnRecoveryModeName">
+        <member name="P:YAF.Classes.Data.LegacyDb.btnRecoveryModeName">
             <summary>
             Gets btnRecoveryModeName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.btnReindexName">
+        <member name="P:YAF.Classes.Data.LegacyDb.btnReindexName">
             <summary>
             Gets btnReindexName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.PanelGetStats">
+        <member name="P:YAF.Classes.Data.LegacyDb.PanelGetStats">
             <summary>
             Gets a value indicating whether PanelGetStats.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.PanelRecoveryMode">
+        <member name="P:YAF.Classes.Data.LegacyDb.PanelRecoveryMode">
             <summary>
             Gets a value indicating whether PanelRecoveryMode.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.PanelReindex">
+        <member name="P:YAF.Classes.Data.LegacyDb.PanelReindex">
             <summary>
             Gets a value indicating whether PanelReindex.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.DB.PanelShrink">
+        <member name="P:YAF.Classes.Data.LegacyDb.PanelShrink">
             <summary>
             Gets a value indicating whether PanelShrink.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
+        <member name="T:YAF.Classes.Data.Import.DataImport">
             <summary>
-            The search builder extensions.
+            The data import.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
+        <member name="M:YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport(System.Int32,System.IO.Stream)">
             <summary>
-            The build sql.
+            The bb code extension import.
             </summary>
-            <param name="conditions">
-            The conditions.
-            </param>
-            <param name="surroundWithParathesis">
-            The surround with parathesis.
-            </param>
-            <returns>
-            The build sql.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.SearchBuilder">
-            <summary>
-            The search builder.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SearchBuilder.BuildSearchSql(System.String,System.String,YAF.Types.Constants.SearchWhatFlags,YAF.Types.Constants.SearchWhatFlags,System.Int32,System.Boolean,System.Int32,System.Int32,System.Boolean,System.Collections.Generic.IEnumerable{System.Int32})">
-            <summary>
-            The build search sql.
-            </summary>
-            <param name="toSearchWhat">
-            The to search what.
-            </param>
-            <param name="toSearchFromWho">
-            The to search from who.
-            </param>
-            <param name="searchFromWhoMethod">
-            The search from who method.
-            </param>
-            <param name="searchWhatMethod">
-            The search what method.
-            </param>
-            <param name="userID">
-            The user id.
-            </param>
-            <param name="searchDisplayName">
-            The search display name.
-            </param>
             <param name="boardId">
             The board id.
             </param>
-            <param name="maxResults">
-            The max results.
-            </param>
-            <param name="useFullText">
-            The use full text.
-            </param>
-            <param name="forumIds">
-            The forum ids.
+            <param name="imputStream">
+            The imput stream.
             </param>
             <returns>
-            The build search sql.
+            The bb code extension import.
             </returns>
+            <exception cref="T:System.Exception">
+            </exception>
         </member>
-        <member name="M:YAF.Classes.Data.SearchBuilder.BuildWhatConditions(System.String,YAF.Types.Constants.SearchWhatFlags,System.String,System.Boolean)">
+        <member name="M:YAF.Classes.Data.Import.DataImport.FileExtensionImport(System.Int32,System.IO.Stream)">
             <summary>
-            The build search who conditions.
+            The file extension import.
             </summary>
-            <param name="toSearchWhat">
-            The to Search What.
+            <param name="boardId">
+            The board id.
             </param>
-            <param name="searchWhatMethod">
-            The search What Method.
-            </param>
-            <param name="dbField">
-            The db Field.
-            </param>
-            <param name="useFullText">
-            The use Full Text.
+            <param name="imputStream">
+            The imput stream.
             </param>
             <returns>
+            The file extension import.
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.SearchBuilder.BuildWhoConditions(System.String,YAF.Types.Constants.SearchWhatFlags,System.Boolean)">
-            <summary>
-            The build search who conditions.
-            </summary>
-            <param name="toSearchFromWho">
-            The to search from who.
-            </param>
-            <param name="searchFromWhoMethod">
-            The search from who method.
-            </param>
-            <param name="searchDisplayName">
-            The search display name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
-            <summary>
-            The sql data layer converter.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
+            <exception cref="T:System.Exception">
+            </exception>
         </member>
         <member name="T:YAF.Types.Objects.TypedUserFind">
             <summary>
@@ -5832,6 +5325,525 @@
             <summary>
             Gets or sets UserID.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MsSqlDbAccess">
+            <summary>
+            The yaf db access for SQL Server.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbAccess._resultFilterList">
+            <summary>
+              Result filter list
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbAccess._isolationLevel">
+            <summary>
+              The _isolation level.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbAccess._connectionManagerType">
+            <summary>
+              The _connection manager type.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.CleanForSQLServerVersion(System.String,System.UInt16)">
+            <summary>
+            A method to handle custom scripts execution tags
+            </summary>
+            <param name="scriptChunk">
+            Input string
+            </param>
+            <param name="versionSQL">
+            SQL server version as ushort
+            </param>
+            <returns>
+            Returns an empty string if condition was not and cleanedfrom tags string if was.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Boolean)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">
+            Command text to qualify.
+            </param>
+            <param name="isText">
+            Determines whether command text is text or stored procedure.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">
+            Command text to qualify.
+            </param>
+            <param name="isText">
+            Determines whether command text is text or stored procedure.
+            </param>
+            <param name="connection">
+            Connection to use with command.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">
+            Base of stored procedure name.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">
+            Base of stored procedure name.
+            </param>
+            <param name="connection">
+            Connection to use with command.
+            </param>
+            <returns>
+            New SqlCommand
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetCommandTextReplaced(System.String)">
+            <summary>
+            Gets command text replaced with {databaseOwner} and {objectQualifier}.
+            </summary>
+            <param name="commandText">
+            Test to transform.
+            </param>
+            <returns>
+            The get command text replaced.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
+            <summary>
+            Creates a Connection String from the parameters.
+            </summary>
+            <param name="parm1">
+            </param>
+            <param name="parm2">
+            </param>
+            <param name="parm3">
+            </param>
+            <param name="parm4">
+            </param>
+            <param name="parm5">
+            </param>
+            <param name="parm6">
+            </param>
+            <param name="parm7">
+            </param>
+            <param name="parm8">
+            </param>
+            <param name="parm9">
+            </param>
+            <param name="parm10">
+            </param>
+            <param name="parm11">
+            </param>
+            <param name="parm12">
+            </param>
+            <param name="parm13">
+            </param>
+            <param name="parm14">
+            </param>
+            <param name="parm15">
+            </param>
+            <param name="parm16">
+            </param>
+            <param name="parm17">
+            </param>
+            <param name="parm18">
+            </param>
+            <param name="parm19">
+            </param>
+            <param name="userID">
+            </param>
+            <param name="userPassword">
+            </param>
+            <returns>
+            The get connection string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetObjectName(System.String)">
+            <summary>
+            Gets qualified object name
+            </summary>
+            <param name="name">
+            Base name of an object
+            </param>
+            <returns>
+            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.TestConnection(System.String@)">
+            <summary>
+            Test the DB Connection.
+            </summary>
+            <param name="exceptionMessage">
+            outbound ExceptionMessage
+            </param>
+            <returns>
+            true if successfully connected
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.SetConnectionManagerAdapter``1">
+            <summary>
+            Change the Connection Manager used in all DB operations.
+            </summary>
+            <typeparam name="TManager">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ExecuteNonQuery(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The execute non query.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ExecuteScalar(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetConnectionManager">
+            <summary>
+            The get connection manager.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetData(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetData(System.String,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="commandText">
+            The command text.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetDataset(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            The get dataset.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.GetDatasetBasic(System.Data.IDbCommand,System.Boolean)">
+            <summary>
+            Used internally to get data for all the other functions
+            </summary>
+            <param name="cmd">
+            </param>
+            <param name="transaction">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
+            <summary>
+            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
+            </summary>
+            <param name="dataTable">
+            data table to process
+            </param>
+            <param name="sqlCommand">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.Current">
+            <summary>
+              Gets Current IDbAccess -- needs to be switched to direct injection into all DB classes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.IsolationLevel">
+            <summary>
+              Gets IsolationLevel.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbAccess.ResultFilterList">
+            <summary>
+              Gets the Result Filter List.
+            </summary>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchCondition">
+            <summary>
+            The search condition.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchCondition.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Data.SearchCondition"/> class.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.Condition">
+            <summary>
+              Gets or sets Condition.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SearchCondition.ConditionType">
+            <summary>
+              Gets or sets ConditionType.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MsSqlDbConnectionManager">
+            <summary>
+            Provides open/close management for DB Connections
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.MsSqlDbConnectionManager._connection">
+            <summary>
+              The _connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Data.MsSqlDbConnectionManager"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.CloseConnection">
+            <summary>
+            The close connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.InitConnection">
+            <summary>
+            The init connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.MsSqlDbConnectionManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
+            <summary>
+            The connection_ info message.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="E:YAF.Classes.Data.MsSqlDbConnectionManager.InfoMessage">
+            <summary>
+              The info message.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.ConnectionString">
+            <summary>
+              Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.DBConnection">
+            <summary>
+              Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.OpenDBConnection">
+            <summary>
+              Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.YAF#Types#Interfaces#IDbConnectionManager#DBConnection">
+            <summary>
+            Gets DBConnection.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MsSqlDbConnectionManager.YAF#Types#Interfaces#IDbConnectionManager#OpenDBConnection">
+            <summary>
+            Gets OpenDBConnection.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchBuilderExtensions">
+            <summary>
+            The search builder extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilderExtensions.BuildSql(System.Collections.Generic.IEnumerable{YAF.Classes.Data.SearchCondition},System.Boolean)">
+            <summary>
+            The build sql.
+            </summary>
+            <param name="conditions">
+            The conditions.
+            </param>
+            <param name="surroundWithParathesis">
+            The surround with parathesis.
+            </param>
+            <returns>
+            The build sql.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.SearchBuilder">
+            <summary>
+            The search builder.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilder.BuildSearchSql(System.String,System.String,YAF.Types.Constants.SearchWhatFlags,YAF.Types.Constants.SearchWhatFlags,System.Int32,System.Boolean,System.Int32,System.Int32,System.Boolean,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            The build search sql.
+            </summary>
+            <param name="toSearchWhat">
+            The to search what.
+            </param>
+            <param name="toSearchFromWho">
+            The to search from who.
+            </param>
+            <param name="searchFromWhoMethod">
+            The search from who method.
+            </param>
+            <param name="searchWhatMethod">
+            The search what method.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="searchDisplayName">
+            The search display name.
+            </param>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="maxResults">
+            The max results.
+            </param>
+            <param name="useFullText">
+            The use full text.
+            </param>
+            <param name="forumIds">
+            The forum ids.
+            </param>
+            <returns>
+            The build search sql.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilder.BuildWhatConditions(System.String,YAF.Types.Constants.SearchWhatFlags,System.String,System.Boolean)">
+            <summary>
+            The build search who conditions.
+            </summary>
+            <param name="toSearchWhat">
+            The to Search What.
+            </param>
+            <param name="searchWhatMethod">
+            The search What Method.
+            </param>
+            <param name="dbField">
+            The db Field.
+            </param>
+            <param name="useFullText">
+            The use Full Text.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SearchBuilder.BuildWhoConditions(System.String,YAF.Types.Constants.SearchWhatFlags,System.Boolean)">
+            <summary>
+            The build search who conditions.
+            </summary>
+            <param name="toSearchFromWho">
+            The to search from who.
+            </param>
+            <param name="searchFromWhoMethod">
+            The search from who method.
+            </param>
+            <param name="searchDisplayName">
+            The search display name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
+            <summary>
+            The sql data layer converter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.DataModule">
+            <summary>
+            The data module.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DataModule.Load(Autofac.ContainerBuilder)">
+            <summary>
+            The load.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
         </member>
     </members>
 </doc>

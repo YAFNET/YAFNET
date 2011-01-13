@@ -553,6 +553,133 @@
               Gets Signature.
             </summary>
         </member>
+        <member name="T:YAF.Controls.HelpLabel">
+            <summary>
+            Makes a very simple localized label
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._enableBBCode">
+            <summary>
+            The _enable bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._suffix">
+            <summary>
+            The _suffix.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._localizedPage">
+            <summary>
+            The _localized page.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._localizedTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._localizedHelpTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._param0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._param1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._param2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._paramHelp0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._paramHelp1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.HelpLabel._paramHelp2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.HelpLabel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.HelpLabel"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.HelpLabel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Shows the localized text string (if available)
+            </summary>
+            <param name="output">
+            </param>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.Suffix">
+            <summary>
+            Gets or sets Suffix. e.g: ":" or "?"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.LocalizedHelpTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.Param2">
+            <summary>
+            Gets or sets Param2.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.ParamHelp0">
+            <summary>
+            Gets or sets ParamHelp0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.ParamHelp1">
+            <summary>
+            Gets or sets ParamHelp1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.HelpLabel.ParamHelp2">
+            <summary>
+            Gets or sets ParamHelp2.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.HelpMenu">
             <summary>
             Summary description for HelpMenu.

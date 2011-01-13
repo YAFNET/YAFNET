@@ -375,8 +375,13 @@ namespace YAF.Classes
     {
       get
       {
-        object obj = HttpContext.Current.Items["PortalSettings"];
-        return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
+        if (HttpContext.Current != null)
+        {
+          object obj = HttpContext.Current.Items["PortalSettings"];
+          return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0; 
+        }
+
+        return false;
       }
     }
 
@@ -387,8 +392,13 @@ namespace YAF.Classes
     {
       get
       {
-        object obj = HttpContext.Current.Items["SiteSettings"];
-        return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
+        if (HttpContext.Current != null)
+        {
+          object obj = HttpContext.Current.Items["SiteSettings"];
+          return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0; 
+        }
+
+        return false;
       }
     }
 
@@ -399,8 +409,13 @@ namespace YAF.Classes
     {
       get
       {
-        object obj = HttpContext.Current.Items["PortalSettings"];
-        return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
+        if (HttpContext.Current != null)
+        {
+          object obj = HttpContext.Current.Items["PortalSettings"];
+          return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0; 
+        }
+
+        return false;
       }
     }
 
@@ -411,7 +426,7 @@ namespace YAF.Classes
     {
       get
       {
-        return HttpContext.Current.Session["YetAnotherPortal.net"] != null;
+        return HttpContext.Current != null ? HttpContext.Current.Session["YetAnotherPortal.net"] != null : false;
       }
     }
 
@@ -422,7 +437,7 @@ namespace YAF.Classes
     {
       get
       {
-        return HttpContext.Current.Session["Portalomatic.NET"] != null;
+        return HttpContext.Current != null ? HttpContext.Current.Session["Portalomatic.NET"] != null : false;
       }
     }
 

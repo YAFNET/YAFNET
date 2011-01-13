@@ -4,12 +4,12 @@
         <name>YAF.Providers</name>
     </assembly>
     <members>
-        <member name="T:YAF.Providers.Profile.YafProfileDBConnManager">
+        <member name="T:YAF.Providers.Profile.MsSqlProfileDbConnectionManager">
             <summary>
             The yaf profile db conn manager.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Profile.YafProfileDBConnManager.ConnectionString">
+        <member name="P:YAF.Providers.Profile.MsSqlProfileDbConnectionManager.ConnectionString">
             <summary>
               Gets ConnectionString.
             </summary>
@@ -19,7 +19,7 @@
             The db.
             </summary>
         </member>
-        <member name="F:YAF.Providers.Profile.DB._dbAccess">
+        <member name="F:YAF.Providers.Profile.DB._msSqlDbAccess">
             <summary>
               The _db access.
             </summary>
@@ -913,12 +913,12 @@
             Gets a value indicating whether RequiresUniqueEmail.
             </summary>
         </member>
-        <member name="T:YAF.Providers.Membership.YafMembershipDBConnManager">
+        <member name="T:YAF.Providers.Membership.MsSqlMembershipDbConnectionManager">
             <summary>
             The yaf membership db conn manager.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Membership.YafMembershipDBConnManager.ConnectionString">
+        <member name="P:YAF.Providers.Membership.MsSqlMembershipDbConnectionManager.ConnectionString">
             <summary>
               Gets ConnectionString.
             </summary>
@@ -928,7 +928,7 @@
             The db.
             </summary>
         </member>
-        <member name="F:YAF.Providers.Membership.DB._dbAccess">
+        <member name="F:YAF.Providers.Membership.DB._msSqlDbAccess">
             <summary>
               The _db access.
             </summary>
@@ -2509,12 +2509,12 @@
             The to hex string.
             </returns>
         </member>
-        <member name="T:YAF.Providers.Roles.YafRolesDBConnManager">
+        <member name="T:YAF.Providers.Roles.MsSqlRolesDbConnectionManager">
             <summary>
             The yaf roles db conn manager.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Roles.YafRolesDBConnManager.ConnectionString">
+        <member name="P:YAF.Providers.Roles.MsSqlRolesDbConnectionManager.ConnectionString">
             <summary>
               Gets ConnectionString.
             </summary>
@@ -2524,7 +2524,7 @@
             The db.
             </summary>
         </member>
-        <member name="F:YAF.Providers.Roles.DB._dbAccess">
+        <member name="F:YAF.Providers.Roles.DB._msSqlDbAccess">
             <summary>
               The _db access.
             </summary>

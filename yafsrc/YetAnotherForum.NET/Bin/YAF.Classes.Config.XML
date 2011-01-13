@@ -143,6 +143,66 @@
             Gets or sets ApplicationInstance.
             </summary>
         </member>
+        <member name="T:YAF.Classes.YafBoardFolders">
+            <summary>
+            The yaf board folders.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.BoardFolder">
+            <summary>
+            Gets BoardFolder.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Uploads">
+            <summary>
+            Gets Uploads.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Themes">
+            <summary>
+            Gets Themes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Images">
+            <summary>
+            Gets Images.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Avatars">
+            <summary>
+            Gets Avatars.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Categories">
+            <summary>
+            Gets Categories.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Forums">
+            <summary>
+            Gets Categories.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Emoticons">
+            <summary>
+            Gets Emoticons.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Medals">
+            <summary>
+            Gets Medals.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Ranks">
+            <summary>
+            Gets Ranks.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.TypeDictionary">
             <summary>
             Allows basic type conversion of Dictionary objects.
@@ -205,191 +265,6 @@
             <returns>
             The as string.
             </returns>
-        </member>
-        <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
-            <summary>
-            Provides a method for automatic overriding of a base hash...
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Pattern.RegistryDictionary">
-            <summary>
-            The registry dictionary.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionary.GetValue``1(System.String,``0)">
-            <summary>
-            The get value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionary.SetValue``1(System.String,``0)">
-            <summary>
-            The set value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultGetOverride">
-            <summary>
-            The _default get override.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultSetOverride">
-            <summary>
-            The _default set override.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0)">
-            <summary>
-            The get value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0,System.Boolean)">
-            <summary>
-            The get value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <param name="allowOverride">
-            The allow override.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0)">
-            <summary>
-            The set value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0,System.Boolean)">
-            <summary>
-            The set value.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <param name="value">
-            The value.
-            </param>
-            <param name="setOverrideOnly">
-            The set override only.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultGetOverride">
-            <summary>
-            Gets or sets a value indicating whether DefaultGetOverride.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultSetOverride">
-            <summary>
-            Gets or sets a value indicating whether DefaultSetOverride.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.OverrideDictionary">
-            <summary>
-            Gets or sets OverrideDictionary.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.YafBoardFolders">
-            <summary>
-            The yaf board folders.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Current">
-            <summary>
-            Gets Current.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.BoardFolder">
-            <summary>
-            Gets BoardFolder.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Uploads">
-            <summary>
-            Gets Uploads.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Themes">
-            <summary>
-            Gets Themes.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Images">
-            <summary>
-            Gets Images.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Avatars">
-            <summary>
-            Gets Avatars.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Categories">
-            <summary>
-            Gets Categories.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Forums">
-            <summary>
-            Gets Categories.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Emoticons">
-            <summary>
-            Gets Emoticons.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Medals">
-            <summary>
-            Gets Medals.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardFolders.Ranks">
-            <summary>
-            Gets Ranks.
-            </summary>
         </member>
         <member name="T:YAF.Classes.Pattern.IThreadSafeDictionary`2">
             <summary>
@@ -751,6 +626,131 @@
             The dispose.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
+            <summary>
+            Provides a method for automatic overriding of a base hash...
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.RegistryDictionary">
+            <summary>
+            The registry dictionary.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionary.GetValue``1(System.String,``0)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionary.SetValue``1(System.String,``0)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultGetOverride">
+            <summary>
+            The _default get override.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultSetOverride">
+            <summary>
+            The _default set override.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0,System.Boolean)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <param name="allowOverride">
+            The allow override.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0,System.Boolean)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <param name="setOverrideOnly">
+            The set override only.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultGetOverride">
+            <summary>
+            Gets or sets a value indicating whether DefaultGetOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultSetOverride">
+            <summary>
+            Gets or sets a value indicating whether DefaultSetOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.OverrideDictionary">
+            <summary>
+            Gets or sets OverrideDictionary.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.BaseUrlBuilder">
             <summary>
             The base url builder.
@@ -1065,6 +1065,11 @@
         <member name="P:YAF.Classes.Config.JQueryUILangFile">
             <summary>
             Gets jQuery UI date picker lang File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryAlias">
+            <summary>
+            Gets jQuery Alias
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ForceScriptName">
@@ -1417,6 +1422,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.ServerTimeCorrection">
             <summary>
             Gets or sets ServerTimeCorrection.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MemberListPageSize">
+            <summary>
+            Gets or sets MemberListPageSize in minutes.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.PostLatestFeedAccess">
@@ -2361,12 +2371,17 @@
             Class provides glue/settings transfer between YAF forum control and base classes
             </summary>
         </member>
-        <member name="F:YAF.Classes.YafControlSettings._boardID">
+        <member name="F:YAF.Classes.YafControlSettings._boardId">
             <summary>
             The _board id.
             </summary>
         </member>
-        <member name="F:YAF.Classes.YafControlSettings._categoryID">
+        <member name="F:YAF.Classes.YafControlSettings._boardUid">
+            <summary>
+            The _board uid.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafControlSettings._categoryId">
             <summary>
             The _category id.
             </summary>
@@ -2394,6 +2409,11 @@
         <member name="P:YAF.Classes.YafControlSettings.BoardID">
             <summary>
             Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafControlSettings.BoardUid">
+            <summary>
+            Gets or sets BoardUid.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafControlSettings.CategoryID">
