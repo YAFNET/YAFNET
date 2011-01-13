@@ -178,6 +178,17 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Use it if distinct YAF role names are required. Used in integration environments only. 
+    /// </summary>
+    public static bool CreateDistinctRoles
+    {
+        get
+        {
+            return GetConfigValueAsBool("YAF.CreateDistinctRoles", false);
+        }
+    }
+
+    /// <summary>
     /// Gets a Provider type string from the config.
     /// </summary>
     /// <param name="providerName"></param>

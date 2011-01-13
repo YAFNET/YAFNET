@@ -409,7 +409,7 @@ namespace YAF.Pages.Admin
           "english.xml", 
           this.BoardMembershipName.Text.Trim(),
           this.BoardRolesName.Text.Trim(),
-          Config.IsAnyPortal ? "YAF " : String.Empty);
+          Config.CreateDistinctRoles &&  Config.IsAnyPortal ? "YAF " : String.Empty);
         this.CreateUsers(curboard, _usersNumber);
       }
 

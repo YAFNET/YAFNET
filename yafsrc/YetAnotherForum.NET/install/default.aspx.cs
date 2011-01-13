@@ -1034,7 +1034,7 @@ namespace YAF.Install
             try
             {
 
-                string prefix = Config.IsAnyPortal ? "YAF " : String.Empty;
+                string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : String.Empty;
                 // add administrators and registered if they don't already exist...
                 if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
                 {
@@ -1072,7 +1072,7 @@ namespace YAF.Install
                     user.UserName,
                     user.Email,
                     user.ProviderUserKey,
-                    Config.IsAnyPortal ? "YAF " : String.Empty);
+                    Config.CreateDistinctRoles &&  Config.IsAnyPortal ? "YAF " : String.Empty);
 
                 LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
                 LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);

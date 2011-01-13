@@ -210,7 +210,7 @@ namespace YAF.Pages.Admin
           langFile, 
           boardMembershipAppName, 
           boardRolesAppName,
-          Config.IsAnyPortal ? "YAF " : String.Empty);
+          Config.CreateDistinctRoles &&  Config.IsAnyPortal ? "YAF " : String.Empty);
       }
       else
       {
@@ -227,7 +227,7 @@ namespace YAF.Pages.Admin
           langFile, 
           boardMembershipAppName,
           boardRolesAppName,
-          Config.IsAnyPortal ? "YAF " : String.Empty);
+          Config.CreateDistinctRoles &&  Config.IsAnyPortal ? "YAF " : String.Empty);
       }
 
       if (newBoardID > 0 && Config.MultiBoardFolders)
