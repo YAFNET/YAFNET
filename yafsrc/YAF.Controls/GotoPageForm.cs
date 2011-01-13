@@ -198,10 +198,24 @@ namespace YAF.Controls
       this._divInner.Controls.Add(this._gotoTextBox);
       this._divInner.Controls.Add(this._gotoButton);
 
-      this.PageContext.PageElements.RegisterJsBlockStartup(
-        @"GotoPageFormKeyUp_{0}".FormatWith(this.ClientID), 
-        @"jQuery.noConflict();Sys.Application.add_load(function() {{ jQuery('#{0}').bind('keydown', function(e) {{ if(e.keyCode == 13) {{ jQuery('#{1}').click(); return false; }} }}); }});"
-          .FormatWith(this._gotoTextBox.ClientID, this._gotoButton.ClientID));
+      var sb = this.Get<IScriptBuilder>().CreateStatement();
+
+      sb.AddCall(
+        "Sys.Application.add_load",
+        sb.ScriptBuilder.CreateFunction().Func(
+          i =>
+          i.AddSelectorFormat("'#{0}'", this._gotoTextBox.ClientID).Dot().AddCall(
+            "bind",
+            "keydown",
+            sb.ScriptBuilder.CreateFunction().WithParams("e").Func(
+              f =>
+              f.AddIf(
+                "e.keyCode == 13",
+                c =>
+                c.AddSelectorFormat("'#{0}'", this._gotoButton.ClientID).Dot().AddCall("click").End().AddWithEnd(
+                  "return false")))))).End();
+
+      this.PageContext.PageElements.RegisterJsBlockStartup(@"GotoPageFormKeyUp_{0}".FormatWith(this.ClientID), sb);
 
       // add enter key support...
       // _gotoTextBox.Attributes.Add( "onkeydown",
