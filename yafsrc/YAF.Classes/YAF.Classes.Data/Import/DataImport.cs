@@ -4,6 +4,10 @@ using System.IO;
 
 namespace YAF.Classes.Data.Import
 {
+  using System.Linq;
+
+  using YAF.Utils;
+
   /// <summary>
   /// The data import.
   /// </summary>
@@ -34,14 +38,14 @@ namespace YAF.Classes.Data.Import
       if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
           dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
       {
-        DataTable bbcodeList = LegacyDb.bbcode_list(boardId, null);
+        var bbcodeList = LegacyDb.BBCodeList(boardId, null);
 
         // import any extensions that don't exist...
         foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
         {
           string name = row["Name"].ToString();
 
-          if (bbcodeList.Select(String.Format("Name = '{0}'", name)).Length == 0)
+          if (!bbcodeList.Any(b => b.Name == name))
           {
             // add this bbcode...
             LegacyDb.bbcode_save(

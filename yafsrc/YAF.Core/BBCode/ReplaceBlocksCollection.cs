@@ -44,11 +44,6 @@ namespace YAF.Core.BBCode
     private int _currentIndex;
 
     /// <summary>
-    ///   The _options.
-    /// </summary>
-    private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-
-    /// <summary>
     ///   The _random instance.
     /// </summary>
     private int _randomInstance;

@@ -25,6 +25,7 @@ namespace YAF.Core.Services
   using System.Data;
   using System.Linq;
   using System.Web;
+  using System.Web.Caching;
 
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
@@ -50,6 +51,19 @@ namespace YAF.Core.Services
     }
 
     #region Public Methods
+
+    /// <summary>
+    /// The get custom bb code.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public IEnumerable<TypedBBCode> GetCustomBBCode()
+    {
+      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode);
+
+      return YafContext.Current.Cache.GetItem(
+        cacheKey, 999, CacheItemPriority.High, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null));
+    }
 
     /// <summary>
     /// The user lazy data.

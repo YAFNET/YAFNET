@@ -35,6 +35,8 @@ namespace YAF.Types.Interfaces
   {
     #region Public Methods
 
+    IEnumerable<TypedBBCode> GetCustomBBCode();
+
     /// <summary>
     /// The user lazy data.
     /// </summary>

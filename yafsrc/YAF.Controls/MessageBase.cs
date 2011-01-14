@@ -22,14 +22,18 @@ namespace YAF.Controls
 
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web.Compilation;
   using System.Web.UI;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
   using YAF.Types;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -69,7 +73,8 @@ namespace YAF.Controls
     /// <param name="invokeString">
     /// The invoke string.
     /// </param>
-    protected virtual void GetModuleParameters([NotNull] ref Dictionary<string, string> paramDic, [NotNull] string invokeString)
+    protected virtual void GetModuleParameters(
+      [NotNull] ref Dictionary<string, string> paramDic, [NotNull] string invokeString)
     {
       var regExSearch = new Regex(_rgxModuleParam, _options);
       Match m = regExSearch.Match(invokeString);
@@ -94,8 +99,8 @@ namespace YAF.Controls
     /// <param name="writer">
     /// The writer.
     /// </param>
-    /// <param name="message">
-    /// The message.
+    /// <param name="messageStr">
+    /// The message Str.
     /// </param>
     /// <param name="theseFlags">
     /// The these flags.
@@ -103,45 +108,82 @@ namespace YAF.Controls
     /// <param name="displayUserId">
     /// The display user id.
     /// </param>
-    protected virtual void RenderModulesInBBCode([NotNull] HtmlTextWriter writer, [NotNull] string message, MessageFlags theseFlags, int? displayUserId)
+    protected virtual void RenderModulesInBBCode(
+      [NotNull] HtmlTextWriter writer, [NotNull] string messageStr, [NotNull] MessageFlags theseFlags, int? displayUserId)
     {
-      var _regExSearch = new Regex(_rgxModule, _options);
-      Match m = _regExSearch.Match(message);
+      var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
 
-      while (m.Success)
+      string workingMessage = messageStr;
+
+      // handle custom bbcodes row by row...
+      foreach (
+        var codeRow in bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()))
       {
-        // get the class name
-        string className = m.Groups["classname"].Value;
+        Match match = null;
 
-        // get all parameters as a name/value dictionary
-        var paramDic = new Dictionary<string, string>();
+        do
+        {
+          match = this.GetMatch(codeRow.SearchRegex, workingMessage);
 
-        // pull the parameters...
-        this.GetModuleParameters(ref paramDic, m.Groups["inner"].Value);
+          if (!match.Success)
+          {
+            continue;
+          }
 
-        // render what is before the control...
-        writer.Write(message.Substring(0, m.Groups[0].Index));
+          var sb = new StringBuilder();
 
-        // create/render the control...
-        Type module = BuildManager.GetType(className, true, false);
-        var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
+          var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
 
-        // assign parameters...
-        customModule.CurrentMessageFlags = theseFlags;
-        customModule.DisplayUserID = displayUserId;
-        customModule.Parameters = paramDic;
+          if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
+          {
+            var vars = codeRow.Variables.Split(';');
 
-        // render this control...
-        customModule.RenderControl(writer);
+            foreach (var v in vars.Where(v => match.Groups[v] != null))
+            {
+              paramDic.Add(v, match.Groups[v].Value);
+            }
+          }
 
-        // now we are just concerned with what is after...
-        message = message.Substring(m.Groups[0].Index + m.Groups[0].Length);
+          sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
 
-        m = _regExSearch.Match(message);
+          // create/render the control...
+          Type module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+          var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
+
+          // assign parameters...
+          customModule.CurrentMessageFlags = theseFlags;
+          customModule.DisplayUserID = displayUserId;
+          customModule.Parameters = paramDic;
+
+          // render this control...
+          sb.Append(customModule.RenderToString());
+
+          sb.Append(workingMessage.Substring(match.Groups[0].Index + match.Groups[0].Length));
+
+          workingMessage = sb.ToString();
+        }
+        while (match.Success);
       }
 
-      // render anything remaining...
-      writer.Write(message);
+      writer.Write(workingMessage);
+    }
+
+    /// <summary>
+    /// The get match.
+    /// </summary>
+    /// <param name="searchRegEx">
+    /// The search reg ex.
+    /// </param>
+    /// <param name="searchString">
+    /// The search string.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    private Match GetMatch([NotNull] string searchRegEx, [NotNull] string searchString)
+    {
+      var regExSearch = new Regex(searchRegEx, _options);
+      return regExSearch.Match(searchString);
     }
 
     #endregion

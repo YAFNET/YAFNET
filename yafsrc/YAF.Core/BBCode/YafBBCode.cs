@@ -21,6 +21,7 @@ namespace YAF.Core.BBCode
 {
   using System;
   using System.Data;
+  using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web;
@@ -526,121 +527,33 @@ namespace YAF.Core.BBCode
     /// The rules Engine.
     /// </param>
     protected static void AddCustomBBCodeRules(ref ProcessReplaceRules rulesEngine)
-    {
-      DataTable bbcodeTable = GetCustomBBCode();
+      {
+        var bbcodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
 
       // handle custom bbcodes row by row...
-      foreach (DataRow codeRow in bbcodeTable.Rows)
-      {
-        if (codeRow["UseModule"] != DBNull.Value && Convert.ToBoolean(codeRow["UseModule"]) && codeRow["ModuleClass"] != DBNull.Value &&
-            codeRow["SearchRegEx"] != DBNull.Value)
+        foreach (var codeRow in
+          bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()))
         {
-          // code module!
-          string searchRegEx = codeRow["SearchRegEx"].ToString();
-          string moduleClass = codeRow["ModuleClass"].ToString();
-          string rawVariables = codeRow["Variables"].ToString();
-
-          // create Module Invocation XML Document
-          var moduleInfoDoc = new XmlDocument();
-          XmlElement mainNode = moduleInfoDoc.CreateElement("YafModuleFactoryInvocation");
-          mainNode.SetAttribute("ClassName", moduleClass);
-          moduleInfoDoc.AppendChild(mainNode);
-          XmlElement paramsNode = moduleInfoDoc.CreateElement("Parameters");
-          mainNode.AppendChild(paramsNode);
-
-          // add "inner" param as all have inner...
-          XmlElement innerParam = moduleInfoDoc.CreateElement("Param");
-          innerParam.SetAttribute("Name", "inner");
-          XmlText innerText = moduleInfoDoc.CreateTextNode("${inner}");
-          innerParam.AppendChild(innerText);
-          paramsNode.AppendChild(innerParam);
-
-          if (rawVariables.IsSet())
+          if (codeRow.Variables.IsSet())
           {
             // handle variables...
-            string[] variables = rawVariables.Split(
+            string[] variables = codeRow.Variables.Split(
               new[]
                 {
                   ';'
                 });
 
-            // add variables to the XML
-            foreach (string var in variables)
-            {
-              innerParam = moduleInfoDoc.CreateElement("Param");
-              innerParam.SetAttribute("Name", var);
-              innerText = moduleInfoDoc.CreateTextNode("${" + var + "}");
-              innerParam.AppendChild(innerText);
-              paramsNode.AppendChild(innerParam);
-            }
-
-            var rule = new VariableRegexReplaceRule(searchRegEx, moduleInfoDoc.OuterXml, _options, variables)
-                           {RuleRank = 50};
-              rulesEngine.AddRule(rule);
+            var rule = new VariableRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _options, variables) {RuleRank = 50};
+            rulesEngine.AddRule(rule);
           }
           else
           {
             // just standard replace...
-            var rule = new SimpleRegexReplaceRule(searchRegEx, moduleInfoDoc.OuterXml, _options) {RuleRank = 50};
-              rulesEngine.AddRule(rule);
-          }
-        }
-        else if (codeRow["SearchRegEx"] != DBNull.Value && codeRow["ReplaceRegEx"] != DBNull.Value &&
-                 codeRow["SearchRegEx"].ToString().Trim().IsSet())
-        {
-          string searchRegEx = codeRow["SearchRegEx"].ToString();
-          string replaceRegEx = codeRow["ReplaceRegEx"].ToString();
-          string rawVariables = codeRow["Variables"].ToString();
-
-          if (rawVariables.IsSet())
-          {
-            // handle variables...
-            string[] variables = rawVariables.Split(
-              new[]
-                {
-                  ';'
-                });
-
-            var rule = new VariableRegexReplaceRule(searchRegEx, replaceRegEx, _options, variables) {RuleRank = 50};
-              rulesEngine.AddRule(rule);
-          }
-          else
-          {
-            // just standard replace...
-            var rule = new SimpleRegexReplaceRule(searchRegEx, replaceRegEx, _options) {RuleRank = 50};
-              rulesEngine.AddRule(rule);
+            var rule = new SimpleRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _options) {RuleRank = 50};
+            rulesEngine.AddRule(rule);
           }
         }
       }
-    }
-
-    /// <summary>
-    /// The get custom bb code.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    public static DataTable GetCustomBBCode()
-    {
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode);
-      DataTable bbCodeTable;
-
-      // check if there is value cached
-      if (YafContext.Current.Cache[cacheKey] == null)
-      {
-        // get the bbcode table from the db...
-        bbCodeTable = LegacyDb.bbcode_list(YafContext.Current.PageBoardID, null);
-
-        // cache it indefinately (or until it gets updated)
-        YafContext.Current.Cache[cacheKey] = bbCodeTable;
-      }
-      else
-      {
-        // retrieve bbcode Table from the cache
-        bbCodeTable = (DataTable) YafContext.Current.Cache[cacheKey];
-      }
-
-      return bbCodeTable;
-    }
 
     /// <summary>
     /// Helper function that dandles registering "custom bbcode" javascript (if there is any)
@@ -672,7 +585,7 @@ namespace YAF.Core.BBCode
     /// </param>
     public static void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
     {
-      DataTable bbCodeTable = GetCustomBBCode();
+      var bbCodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
       const string scriptID = "custombbcode";
       var jsScriptBuilder = new StringBuilder();
       var cssBuilder = new StringBuilder();
@@ -680,19 +593,19 @@ namespace YAF.Core.BBCode
       jsScriptBuilder.Append("\r\n");
       cssBuilder.Append("\r\n");
 
-      foreach (DataRow row in bbCodeTable.Rows)
+      foreach (var row in bbCodeTable)
       {
         string displayScript = null;
         string editScript = null;
 
-        if (row["DisplayJS"] != DBNull.Value)
+        if (row.DisplayJS.IsSet())
         {
-          displayScript = LocalizeCustomBBCodeElement(row["DisplayJS"].ToString().Trim());
+          displayScript = LocalizeCustomBBCodeElement(row.DisplayJS.Trim());
         }
 
-        if (editorID.IsSet() && row["EditJS"] != DBNull.Value)
+        if (editorID.IsSet() && row.EditJS.IsSet())
         {
-          editScript = LocalizeCustomBBCodeElement(row["EditJS"].ToString().Trim());
+          editScript = LocalizeCustomBBCodeElement(row.EditJS.Trim());
 
           // replace any instances of editor ID in the javascript in case the ID is needed
           editScript = editScript.Replace("{editorid}", editorID);
@@ -704,10 +617,10 @@ namespace YAF.Core.BBCode
         }
 
         // see if there is any CSS associated with this YafBBCode
-        if (row["DisplayCSS"] != DBNull.Value && row["DisplayCSS"].ToString().Trim().IsSet())
+        if (row.DisplayCSS.IsSet() && row.DisplayCSS.IsSet())
         {
           // yes, add it into the builder
-          cssBuilder.AppendLine(LocalizeCustomBBCodeElement(row["DisplayCSS"].ToString().Trim()));
+          cssBuilder.AppendLine(LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));
         }
       }
 

@@ -6269,6 +6269,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
+    [NotNull]
     public static DataTable bbcode_list(object boardID, object bbcodeID)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("bbcode_list"))
@@ -6276,8 +6277,26 @@ namespace YAF.Classes.Data
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("BBCodeID", bbcodeID);
+
         return MsSqlDbAccess.Current.GetData(cmd);
       }
+    }
+
+    /// <summary>
+    /// The bbcode_list.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="bbcodeID">
+    /// The bbcode id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    [NotNull]
+    public static IEnumerable<TypedBBCode> BBCodeList(int boardID, int? bbcodeID)
+    {
+        return bbcode_list(boardID, bbcodeID).AsEnumerable().Select(o => new TypedBBCode(o));
     }
 
     /// <summary>
