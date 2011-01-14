@@ -51,6 +51,16 @@ namespace YAF.Core.Services
     /// </summary>
     public LoadMessage()
     {
+
+      if (this.SessionLoadString.Any())
+      {
+        // get this as the current "loadstring"
+        this._loadStringList.AddRange(this.SessionLoadString);
+
+        // session load string no longer needed
+        this.SessionLoadString.Clear();
+      }
+
       YafContext.Current.Unload += this.Current_Unload;
     }
 
@@ -78,7 +88,7 @@ namespace YAF.Core.Services
     {
       get
       {
-        if (this.LoadStringList.Count() == 0)
+        if (!this.LoadStringList.Any())
         {
           return String.Empty;
         }
@@ -95,14 +105,7 @@ namespace YAF.Core.Services
     {
       get
       {
-        if (this.SessionLoadString.Any())
-        {
-          // get this as the current "loadstring"
-          this._loadStringList.AddRange(this.SessionLoadString);
 
-          // session load string no longer needed
-          this.SessionLoadString.Clear();
-        }
 
         return this._loadStringList;
       }
