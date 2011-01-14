@@ -394,7 +394,8 @@ namespace YAF.DotNetNuke
                     yafCultureInfo.Culture, 
                     yafCultureInfo.LanguageFile, 
                     "DotNetNuke", 
-                    "DotNetNuke");
+                    "DotNetNuke",
+                    String.Empty);
 
                 // Assign the new forum to this module
                 ModuleController objForumSettings = new ModuleController();
