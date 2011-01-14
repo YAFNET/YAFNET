@@ -1,5 +1,5 @@
 ﻿/* Yet Another Forum.NET
- * Copyright (C) 2006-2010 Jaben Cargman
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -23,10 +23,12 @@ namespace YAF.Editors
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Linq;
   using System.Web.UI;
 
   using YAF.Core;
   using YAF.Core.BBCode;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Controls;
   using YAF.Types;
@@ -272,9 +274,9 @@ namespace YAF.Editors
         YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNRIGHT"), 
         "yafEditor/justifyright.gif");
 
-      DataTable customBbCode = YafBBCode.GetCustomBBCode();
+      var customBbCode = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
 
-      if (customBbCode.Rows.Count > 0)
+      if (customBbCode.Any())
       {
         writer.WriteLine("&nbsp;");
 
@@ -289,29 +291,19 @@ namespace YAF.Editors
               YafContext.Current.Localization.GetText("COMMON", "TT_CUSTOMBBCODE"), 
               this.ResolveUrl("yafEditor/bbcode.gif")));
 
-        foreach (DataRow row in customBbCode.Rows)
+        foreach (var row in customBbCode)
         {
-          string name = row["Name"].ToString();
+          string name = row.Name;
 
-          if (row["Description"] != DBNull.Value && row["Description"].ToString().IsSet())
+          if (row.Description.IsSet())
           {
             // use the description as the option "name"
-            name = YafBBCode.LocalizeCustomBBCodeElement(row["Description"].ToString());
+            name = YafBBCode.LocalizeCustomBBCodeElement(row.Description.Trim());
           }
 
-          string onclickJS;
+          string onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : "setStyle('{0}','')".FormatWith(row.Name.Trim());
 
-          if (row["OnClickJS"] != DBNull.Value && row["OnClickJS"].ToString().IsSet())
-          {
-            onclickJS = row["OnClickJS"].ToString();
-          }
-          else
-          {
-            // assume the bbcode is just the name... 
-            onclickJS = "setStyle('{0}','')".FormatWith(row["Name"].ToString().Trim());
-          }
-
-          this._popMenuBBCustom.AddClientScriptItem(name, onclickJS);
+          this._popMenuBBCustom.AddClientScriptItem(name, onclickJs);
         }
       }
 
@@ -324,12 +316,12 @@ namespace YAF.Editors
         "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
       writer.WriteLine("<option value=\"\">Default</option>");
 
-      string[] Colors = {
+      string[] colors = {
                           "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", 
                           "Indigo", "Violet", "White", "Black"
                         };
 
-      foreach (string color in Colors)
+      foreach (string color in colors)
       {
         string tValue = color.Replace(" ", string.Empty).ToLower();
         writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
