@@ -21,14 +21,9 @@ namespace YAF.Core
   #region Using
 
   using System;
-  using System.ComponentModel;
-  using System.Linq;
   using System.Reflection;
 
   using Autofac;
-  using Autofac.Features.Indexed;
-
-  using Hyper.ComponentModel;
 
   using YAF.Types;
   using YAF.Types.Interfaces;
