@@ -11,7 +11,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF")]
-[assembly: AssemblyCopyright("Copyright © 2006-2010 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2011 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

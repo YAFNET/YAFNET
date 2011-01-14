@@ -517,14 +517,11 @@
     color: Black;
 }
 .yafnet .innercode {
-    padding: 4px;
     background-color: #efefef;
     border: solid 1px #808080;
     color: #000000;
     line-height: 1.3em;
     font-family: "courier new", "times new roman", monospace;
-    overflow: scroll;
-    width: 600px;
     white-space: nowrap;
 }
 .yafnet .smallfont	{ font-size: 10px; }
