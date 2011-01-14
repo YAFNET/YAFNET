@@ -2072,7 +2072,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_setguid](@BoardID int,@BoardUID nvarchar(50), @LanguageFile nvarchar(50), @Culture char(5), @AllowThreaded bit) as
+create procedure [{databaseOwner}].[{objectQualifier}board_setguid](@BoardID int,@BoardUID uuid) as
 begin		
 	update [{databaseOwner}].[{objectQualifier}Board] set
 		BoardUID = @BoardUID
