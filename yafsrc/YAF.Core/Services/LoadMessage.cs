@@ -40,7 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///   The _load string list.
     /// </summary>
-    private List<string> _loadStringList;
+    private List<string> _loadStringList = new List<string>();
 
     #endregion
 
@@ -57,6 +57,19 @@ namespace YAF.Core.Services
     #endregion
 
     #region Properties
+
+    protected List<string> SessionLoadString
+    {
+      get
+      {
+        if (YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] == null)
+        {
+          YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = new List<string>();
+        }
+
+        return YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<string>;
+      }
+    }
 
     /// <summary>
     ///   Gets LoadString.
@@ -77,22 +90,18 @@ namespace YAF.Core.Services
     /// <summary>
     ///   Gets LoadStringList.
     /// </summary>
-    [CanBeNull]
+    [NotNull]
     public List<string> LoadStringList
     {
       get
       {
-        if (this._loadStringList == null && YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] != null)
+        if (this.SessionLoadString.Any())
         {
           // get this as the current "loadstring"
-          this._loadStringList = YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<string>;
+          this._loadStringList.AddRange(this.SessionLoadString);
 
           // session load string no longer needed
-          YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = null;
-        }
-        else if (this._loadStringList == null)
-        {
-          this._loadStringList = new List<string>();
+          this.SessionLoadString.Clear();
         }
 
         return this._loadStringList;
@@ -154,22 +163,8 @@ namespace YAF.Core.Services
     /// </param>
     public void AddSession([NotNull] string message)
     {
-      List<string> list = null;
-
-      if (YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] != null)
-      {
-        list = YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<string>;
-      }
-      else
-      {
-        list = new List<string>();
-      }
-
       // add it too the session list...
-      if (list != null)
-      {
-        list.Add(message);
-      }
+      this.SessionLoadString.Add(message);
     }
 
     /// <summary>
@@ -191,7 +186,7 @@ namespace YAF.Core.Services
     /// </returns>
     public string LoadStringDelimited([NotNull] string delimiter)
     {
-      if (this.LoadStringList.Count() == 0)
+      if (!this.LoadStringList.Any())
       {
         return String.Empty;
       }
@@ -215,7 +210,7 @@ namespace YAF.Core.Services
     private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
       // clear the load message...
-      _loadStringList.Clear();
+      this.Clear();
     }
 
     #endregion
