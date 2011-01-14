@@ -95,7 +95,7 @@ namespace YAF.Utilities
         return
           @"function changeAlbumTitle(albumId, txtTitleId){{
                      var albId = albumId;var newTitleTxt = jQuery('#' + txtTitleId).val();
-                     jQuery.PageMethod('YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}";
+                     jQuery.PageMethod('{0}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}".FormatWith(YafForumInfo.ForumClientFileRoot);
 
         // YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
       }
@@ -113,7 +113,7 @@ namespace YAF.Utilities
         return
           @"function changeImageCaption(imageID, txtTitleId){{
               var imgId = imageID;var newImgTitleTxt = jQuery('#' + txtTitleId).val();
-              jQuery.PageMethod('YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}";
+              jQuery.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}".FormatWith(YafForumInfo.ForumClientFileRoot);
 
         // YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
       }
@@ -394,7 +394,7 @@ function toggleMessage(divId)
     public static string addFavoriteTopicJs([NotNull] string untagButtonHTML)
     {
       return
-        @"function addFavoriteTopic(topicID){{ var topId = topicID; jQuery.PageMethod('{1}/YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+        @"function addFavoriteTopic(topicID){{ var topId = topicID; jQuery.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function addFavoriteTopicSuccess(res){{if (res.d != null) {{
                    jQuery('#dvFavorite1').html({0});
                    jQuery('#dvFavorite2').html({0});}}}}"
@@ -418,7 +418,7 @@ function toggleMessage(divId)
     public static string addThanksJs([NotNull] string removeThankBoxHTML)
     {
       return
-        @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}/YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+        @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
           function addThanksSuccess(res){{if (res.d != null) {{
                    jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
@@ -444,7 +444,7 @@ function toggleMessage(divId)
     public static string removeFavoriteTopicJs([NotNull] string tagButtonHTML)
     {
       return
-        @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}/YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+        @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
                    jQuery('#dvFavorite1').html({0});
                    jQuery('#dvFavorite2').html({0});}}}}"
@@ -468,7 +468,7 @@ function toggleMessage(divId)
     public static string removeThanksJs([NotNull] string addThankBoxHTML)
     {
       return
-        @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}/YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
+        @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
           function removeThanksSuccess(res){{if (res.d != null) {{
                    jQuery('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    jQuery('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
