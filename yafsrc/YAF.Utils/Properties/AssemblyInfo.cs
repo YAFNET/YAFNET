@@ -1,7 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Tiny Gecko">
 //  YetAnotherForum.NET
-//  Copyright (C) 2006-2010 Jaben Cargman
+//  Copyright (C) 2006-2011 Jaben Cargman
 //  http://www.yetanotherforum.net/
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF.Types")]
-[assembly: AssemblyCopyright("Copyright © 2006-2010 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2011 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

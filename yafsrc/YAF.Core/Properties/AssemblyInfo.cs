@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Tiny Gecko" file="AssemblyInfo.cs">
-//   Copyright (c) 2006-2010 Jaben Cargman
+//   Copyright (c) 2006-2011 Jaben Cargman
 // </copyright>
 // <summary>
 //   AssemblyInfo.cs
@@ -21,7 +21,7 @@ using YAF.Types.Attributes;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF.Classes.Core")]
-[assembly: AssemblyCopyright("Copyright © 2006-2010 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2011 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyModuleSortOrder(10)]
