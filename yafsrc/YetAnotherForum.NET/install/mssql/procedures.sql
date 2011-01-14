@@ -98,6 +98,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_save]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}board_setguid]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_setguid]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}board_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_stats]
 GO
@@ -2067,6 +2071,15 @@ begin
 	select @BoardID 
 end
 GO
+
+create procedure [{databaseOwner}].[{objectQualifier}board_setguid](@BoardID int,@BoardUID nvarchar(50), @LanguageFile nvarchar(50), @Culture char(5), @AllowThreaded bit) as
+begin		
+	update [{databaseOwner}].[{objectQualifier}Board] set
+		BoardUID = @BoardUID
+	where BoardID=@BoardID	
+end
+GO
+
 
 create procedure [{databaseOwner}].[{objectQualifier}board_stats]
 	@BoardID	int = null

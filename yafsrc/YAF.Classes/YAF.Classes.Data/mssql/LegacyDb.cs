@@ -1801,6 +1801,29 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// Saves board unique id.
+    /// </summary>
+    /// <param name="boardId">
+    /// The Board Id.
+    /// </param>
+    /// <param name="boardUid">
+    /// The Board Uid.
+    /// </param>
+    /// <returns>
+    /// The board_setguid.
+    /// </returns>
+    public static void board_setguid(object boardId, object boardUid)
+    {
+        using (var cmd = MsSqlDbAccess.GetCommand("board_setguid"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+            cmd.Parameters.AddWithValue("BoardUID", boardUid);
+            MsSqlDbAccess.Current.ExecuteNonQuery(cmd, true);
+        }
+    }
+
+    /// <summary>
     /// Creates a new board
     /// </summary>
     /// <param name="adminUsername">
