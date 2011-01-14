@@ -113,6 +113,7 @@ namespace YAF.Core.Services
           // Build a MailMessage
           if (mail.FromUser.IsNotSet() || mail.ToUser.IsNotSet())
           {
+            LegacyDb.mail_delete(mail.MailID);
             continue;
           }
 

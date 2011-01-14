@@ -215,7 +215,7 @@ namespace YAF.Core.Services
     private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
       // clear the load message...
-      this.Clear();
+      _loadStringList.Clear();
     }
 
     #endregion
