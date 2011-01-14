@@ -21,11 +21,14 @@ namespace YAF.Core
   #region Using
 
   using System;
+  using System.ComponentModel;
   using System.Linq;
   using System.Reflection;
 
   using Autofac;
   using Autofac.Features.Indexed;
+
+  using Hyper.ComponentModel;
 
   using YAF.Types;
   using YAF.Types.Interfaces;
@@ -89,37 +92,45 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(instance, "instance");
 
-      var type = instance.GetType();
+      Container.InjectUnsetProperties(instance);
 
-      var properties = type.GetProperties(DefaultFlags).Where(
-        p => Attribute.IsDefined(p, typeof(TAttribute)) && p.GetSetMethod(false) != null).Select(
-          p =>
-          new
-          {
-            PropertyInfo = p,
-            p.PropertyType,
-            IndexParameters = p.GetIndexParameters(),
-            Accessors = p.GetAccessors(false)
-          })
-        // must not be an indexer
-        .Where(x => x.IndexParameters.Count() == 0);
+      //var type = instance.GetType();
 
-      foreach (var injectProp in properties)
-      {
-        object serviceInstance = null;
+      //var properties = type.GetProperties(DefaultFlags).Where(
+      //  p => Attribute.IsDefined(p, typeof(TAttribute)) && p.GetSetMethod(false) != null).Select(
+      //    p =>
+      //    new
+      //    {
+      //      PropertyInfo = p,
+      //      p.PropertyType,
+      //      IndexParameters = p.GetIndexParameters(),
+      //      Accessors = p.GetAccessors(false)
+      //    })
+      //  // must not be an indexer
+      //  .Where(x => x.IndexParameters.Count() == 0);
 
-        if (injectProp.PropertyType == typeof(ILogger))
-        {
-          // we're getting the logger via the logger factory...
-          serviceInstance = this.Container.Resolve<ILoggerProvider>().Create(injectProp.PropertyInfo.DeclaringType);
-        }
-        else
-        {
-          serviceInstance = this.Container.Resolve(injectProp.PropertyType);
-        }
+      //if (properties.Any())
+      //{
+      //  HyperTypeDescriptionProvider.Add(type);
+      //  PropertyDescriptorCollection typeProps = TypeDescriptor.GetProperties(instance);
 
-        injectProp.PropertyInfo.SetValue(instance, serviceInstance, null);
-      }
+      //  foreach (var injectProp in properties)
+      //  {
+      //    object serviceInstance = null;
+
+      //    if (injectProp.PropertyType == typeof(ILogger))
+      //    {
+      //      // we're getting the logger via the logger factory...
+      //      serviceInstance = this.Container.Resolve<ILoggerProvider>().Create(injectProp.PropertyInfo.DeclaringType);
+      //    }
+      //    else
+      //    {
+      //      serviceInstance = this.Container.Resolve(injectProp.PropertyType);
+      //    }
+
+      //    typeProps[injectProp.PropertyInfo.Name].SetValue(instance, serviceInstance);
+      //  }
+      //}
     }
 
     #endregion
