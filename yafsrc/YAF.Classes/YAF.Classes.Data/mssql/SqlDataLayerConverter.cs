@@ -1,6 +1,5 @@
-﻿
-/* Yet Another Forum.NET
- * Copyright (C) 2006-2010 Jaben Cargman
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
