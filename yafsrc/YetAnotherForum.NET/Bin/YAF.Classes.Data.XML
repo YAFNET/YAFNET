@@ -624,7 +624,21 @@
             The board_save.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.board_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.board_setguid(System.Object,System.Object)">
+            <summary>
+            Saves board unique id.
+            </summary>
+            <param name="boardId">
+            The Board Id.
+            </param>
+            <param name="boardUid">
+            The Board Uid.
+            </param>
+            <returns>
+            The board_setguid.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.board_create(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Creates a new board
             </summary>
@@ -2884,6 +2898,19 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.LegacyDb.BBCodeList(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            The bbcode_list.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="bbcodeID">
+            The bbcode id.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.LegacyDb.bbcode_delete(System.Object)">
             <summary>
             The bbcode_delete.
@@ -4438,7 +4465,7 @@
             The grant.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.system_initialize(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.system_initialize(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object,System.String)">
             <summary>
             The system_initialize.
             </summary>

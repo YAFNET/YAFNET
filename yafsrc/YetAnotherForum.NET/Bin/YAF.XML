@@ -32952,9 +32952,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.ShowCrawlersInDetailedActiveList">
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowCrawlersInActiveList">
             <summary>
-            ShowCrawlersInDetailedActiveList control.
+            ShowCrawlersInActiveList control.
             </summary>
             <remarks>
             Auto-generated field.

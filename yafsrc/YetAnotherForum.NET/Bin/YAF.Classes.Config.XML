@@ -1087,6 +1087,11 @@
             Prefix used for Url Rewriting -- default is "yaf_"
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.CreateDistinctRoles">
+            <summary>
+            Use it if distinct YAF role names are required. Used in integration environments only. 
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.ServerFileRoot">
             <summary>
             Gets ServerFileRoot.

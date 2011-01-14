@@ -393,8 +393,8 @@
             <param name="writer">
             The writer.
             </param>
-            <param name="message">
-            The message.
+            <param name="messageStr">
+            The message Str.
             </param>
             <param name="theseFlags">
             The these flags.
@@ -402,6 +402,19 @@
             <param name="displayUserId">
             The display user id.
             </param>
+        </member>
+        <member name="M:YAF.Controls.MessageBase.GetMatch(System.String,System.String)">
+            <summary>
+            The get match.
+            </summary>
+            <param name="searchRegEx">
+            The search reg ex.
+            </param>
+            <param name="searchString">
+            The search string.
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Controls.MessagePost.HighlightMessage(System.String)">
             <summary>
