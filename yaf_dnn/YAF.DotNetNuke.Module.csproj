@@ -66,6 +66,7 @@
     <Compile Include="Controller\DataController.cs" />
     <Compile Include="DataController.cs" />
     <Compile Include="DnnRichEditor.cs" />
+    <Compile Include="DnnSendMail.cs" />
     <Compile Include="DotNetNukeUrlBuilder.cs" />
     <Compile Include="YafDnnWhatsNew.ascx.cs">
       <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
