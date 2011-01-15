@@ -512,7 +512,7 @@ namespace YAF.Pages
 
           // success notification localization
           ((Literal)this.CreateUserWizard1.FindWizardControlRecursive("AccountCreated")).Text =
-            YafBBCode.MakeHtml(this.GetText("ACCOUNT_CREATED"), true, false);
+            this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED"), true, false);
         }
         else
         {
@@ -521,7 +521,7 @@ namespace YAF.Pages
 
           // success notification localization
           ((Literal)this.CreateUserWizard1.FindWizardControlRecursive("AccountCreated")).Text =
-            YafBBCode.MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
+            this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
         }
 
         this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;

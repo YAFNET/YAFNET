@@ -281,7 +281,7 @@ namespace YAF.Pages
        BBCodeHelper.StripBBCode(BBCodeHelper.StripBBCodeQuotes(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))));
 
       brief = StringExtensions.Truncate(this.Get<IBadWordReplace>().Replace(brief), 100);
-      brief = YafFormatMessage.AddSmiles(brief);
+      brief = this.Get<IBBCode>().AddSmiles(brief);
 
       if (brief.IsNotSet())
       {
@@ -857,7 +857,7 @@ namespace YAF.Pages
 
       if (this.Page.Header != null && this.PageContext.BoardSettings.AddDynamicPageMetaTags)
       {
-        YafFormatMessage.MessageCleaned message = YafFormatMessage.GetCleanedTopicMessage(
+        MessageCleaned message = this.Get<IFormatMessage>().GetCleanedTopicMessage(
           firstMessage, this.PageContext.PageTopicID);
         var meta = this.Page.Header.FindControlType<HtmlMeta>();
 

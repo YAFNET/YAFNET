@@ -111,7 +111,7 @@ namespace YAF.Editors
       // register custom YafBBCode javascript (if there is any)
       // this call is supposed to be after editor load since it may use
       // JS variables created in editor_load...
-      YafBBCode.RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
+      this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
       YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
     }
 
@@ -298,7 +298,7 @@ namespace YAF.Editors
           if (row.Description.IsSet())
           {
             // use the description as the option "name"
-            name = YafBBCode.LocalizeCustomBBCodeElement(row.Description.Trim());
+            name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
           }
 
           string onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : "setStyle('{0}','')".FormatWith(row.Name.Trim());

@@ -37,6 +37,7 @@ namespace YAF.Pages
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Types.Objects;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -283,7 +284,7 @@ namespace YAF.Pages
           // If it's admin or moderator we don't check tags
           if (!PageContext.IsAdmin || PageContext.IsForumModerator)
           {
-              string tagPoll = YafFormatMessage.CheckHtmlTags(this.Question.Text.Trim(),
+              string tagPoll = this.Get<IFormatMessage>().CheckHtmlTags(this.Question.Text.Trim(),
                                                               PageContext.BoardSettings.AcceptedHeadersHTML, ',');
 
               if (tagPoll.IsSet())
@@ -306,7 +307,7 @@ namespace YAF.Pages
                   // If it's admin or moderator we don't check tags
                   if (!PageContext.IsAdmin || PageContext.IsForumModerator)
                   {
-                      string tagChoice = YafFormatMessage.CheckHtmlTags(value,
+                      string tagChoice = this.Get<IFormatMessage>().CheckHtmlTags(value,
                                                                         PageContext.BoardSettings.AcceptedHeadersHTML,
                                                                         ',');
                       if (tagChoice.IsSet())

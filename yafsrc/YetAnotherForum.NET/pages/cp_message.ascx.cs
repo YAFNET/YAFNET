@@ -172,7 +172,7 @@ namespace YAF.Pages
         this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
 
         // handle custom YafBBCode javascript or CSS...
-        YafBBCode.RegisterCustomBBCodePageElements(this.Page, this.GetType());
+        this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType());
 
         this.BindData();
       }

@@ -312,7 +312,7 @@ namespace YAF.Pages
 
               if (YafContext.Current.BoardSettings.RemoveNestedQuotes)
               {
-                body = YafFormatMessage.RemoveNestedQuotes(body);
+                body = this.Get<IFormatMessage>().RemoveNestedQuotes(body);
               }
 
               // Ensure quoted replies have bad words removed from them

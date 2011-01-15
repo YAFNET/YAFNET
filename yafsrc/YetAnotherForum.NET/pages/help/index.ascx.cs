@@ -194,9 +194,9 @@ namespace YAF.Pages.help
 
       foreach (YafHelpContent item in searchlist)
       {
-        item.HelpContent = YafFormatMessage.SurroundWordList(
+        item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
           item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
-        item.HelpTitle = YafFormatMessage.SurroundWordList(
+        item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
           item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
       }
 

@@ -281,7 +281,7 @@ namespace YAF.Controls
       string body = this._sig.Text;
 
       // find forbidden BBcodes in signature
-      string detectedBbCode = YafFormatMessage.BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
+      string detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
       if (this._allowedBbcodes.IndexOf("ALL") < 0)
       {
         if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
@@ -301,7 +301,7 @@ namespace YAF.Controls
       // find forbidden HTMLTags in signature
       if (!this.PageContext.IsAdmin && this._allowedHtml.IndexOf("ALL") < 0)
       {
-        string detectedHtmlTag = YafFormatMessage.CheckHtmlTags(body, this._allowedHtml, ',');
+        string detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
         if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
         {
           this.PageContext.AddLoadMessage(detectedHtmlTag);
@@ -315,7 +315,7 @@ namespace YAF.Controls
         }
       }
 
-      // body = YafFormatMessage.RepairHtml(this,body,false);
+      // body = this.Get<IFormatMessage>().RepairHtml(this,body,false);
       if (this._sig.Text.Length > 0)
       {
         if (this._sig.Text.Length <= this._allowedNumberOfCharacters)

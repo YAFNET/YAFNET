@@ -98,7 +98,7 @@ namespace YAF.Pages.moderate
     /// Message data row.
     /// </param>
     /// <returns>
-    /// Formatted string with escaped HTML markup and formatted YafBBCode.
+    /// Formatted string with escaped HTML markup and formatted this.Get<IBBCode>().
     /// </returns>
     protected string FormatMessage([NotNull] DataRowView row)
     {
@@ -117,7 +117,7 @@ namespace YAF.Pages.moderate
       else
       {
         // fully format message (YafBBCode, smilies)
-        msg = YafFormatMessage.FormatMessage(
+        msg = this.Get<IFormatMessage>().FormatMessage(
           row["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
       }
 

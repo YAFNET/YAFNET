@@ -23,6 +23,7 @@ namespace YAF.Modules
   using YAF.Core.BBCode;
   using YAF.Types.Attributes;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -46,7 +47,7 @@ namespace YAF.Modules
         case ForumPages.lastposts:
         case ForumPages.posts:
         case ForumPages.profile:
-          YafBBCode.RegisterCustomBBCodePageElements(
+          this.Get<IBBCode>().RegisterCustomBBCodePageElements(
             this.PageContext.CurrentForumPage.Page, this.PageContext.CurrentForumPage.GetType());
           break;
       }

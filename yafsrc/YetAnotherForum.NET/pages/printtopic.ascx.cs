@@ -72,7 +72,7 @@ namespace YAF.Pages
 
       string message = row["Message"].ToString();
 
-      message = YafFormatMessage.FormatMessage(message, new MessageFlags(Convert.ToInt32(row["Flags"])));
+      message = this.Get<IFormatMessage>().FormatMessage(message, new MessageFlags(Convert.ToInt32(row["Flags"])));
 
       return message;
     }

@@ -712,7 +712,7 @@ namespace YAF.Pages
       // vzrus: Common users should not use HTML tags in a topic header if not allowed
       if (!(this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin))
       {
-        string tag = YafFormatMessage.CheckHtmlTags(
+        string tag = this.Get<IFormatMessage>().CheckHtmlTags(
           this.TopicSubjectTextBox.Text, this.PageContext.BoardSettings.AcceptedHeadersHTML, ',');
 
         if (tag.IsSet())
@@ -1004,7 +1004,7 @@ namespace YAF.Pages
       // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
       if (messageFlags.IsBBCode && this._forumEditor.UsesHTML)
       {
-        message = YafBBCode.ConvertBBCodeToHtmlForEdit(message);
+        message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
       }
 
       this._forumEditor.Text = message;
@@ -1066,13 +1066,13 @@ namespace YAF.Pages
     {
       if (this.PageContext.BoardSettings.RemoveNestedQuotes)
       {
-        message = YafFormatMessage.RemoveNestedQuotes(message);
+        message = this.Get<IFormatMessage>().RemoveNestedQuotes(message);
       }
 
       // If the message being quoted in YafBBCode but the editor uses HTML, convert the message text to HTML
       if (messageFlags.IsBBCode && this._forumEditor.UsesHTML)
       {
-        message = YafBBCode.ConvertBBCodeToHtmlForEdit(message);
+        message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
       }
 
       // Ensure quoted replies have bad words removed from them

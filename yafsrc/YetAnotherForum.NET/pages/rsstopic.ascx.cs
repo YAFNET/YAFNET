@@ -332,7 +332,7 @@ namespace YAF.Pages
       int flags, 
       bool altItem)
     {
-      text = YafFormatMessage.FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
+      text = YafContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
       return
         @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" />&nbsp;{4}</a></td></tr><table>"
           .FormatWith(text, link, imgUrl, imgAlt, linkName);
@@ -938,7 +938,7 @@ namespace YAF.Pages
 
           syndicationItems.AddSyndicationItem(
             row["Subject"].ToString(), 
-            YafFormatMessage.FormatSyndicationMessage(
+            this.Get<IFormatMessage>().FormatSyndicationMessage(
               row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 4000), 
             null, 
             YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", row["MessageID"]), 

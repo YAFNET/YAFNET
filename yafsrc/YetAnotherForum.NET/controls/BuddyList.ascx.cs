@@ -31,6 +31,7 @@ namespace YAF.Controls
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -439,9 +440,8 @@ namespace YAF.Controls
 
       // handle the sort fields at the top
       // TODO: make these "sorts" into controls
-      var fp = new ForumPage();
       this.SortUserName.Visible = (string)this.ViewState["SortField"] == "Name";
-      this.SortUserName.Src = fp.GetThemeContents(
+      this.SortUserName.Src = this.Get<ITheme>().GetItem(
         "SORT", (bool)this.ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
       this.SortRank.Visible = (string)this.ViewState["SortField"] == "RankName";
       this.SortRank.Src = this.SortUserName.Src;

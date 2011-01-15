@@ -258,10 +258,10 @@ namespace YAF.Controls
 
         for (int i = 0; i < shoutBoxMessages.Rows.Count; i++)
         {
-          string formattedMessage = YafFormatMessage.FormatMessage(
+          string formattedMessage = this.Get<IFormatMessage>().FormatMessage(
             shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
 
-          // Extra Formating not needed already done tru YafFormatMessage.FormatMessage
+          // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
           // formattedMessage = FormatHyperLink(formattedMessage);
           shoutBoxMessages.Rows[i]["Message"] = formattedMessage;
         }
