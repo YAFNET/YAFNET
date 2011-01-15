@@ -8,18 +8,17 @@
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="7">
-						Provider Roles
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="7" class="post">
-						Note: Deleting a role here removes it completely from the provider. "Add to YAF"
-						to make this role accessible in the forum.
+					<td colspan="7" class="header2" style="text-align:center">
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
 					<td class="header2" colspan="6">
-						Name
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
 					</td>
 					<td class="header2">
 						&nbsp;
@@ -45,34 +44,32 @@
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="7">
-						YetAnotherForum Roles
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="COMMON" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="7" class="post">
-						Note: Deleting one of these "linked" roles outside of YAF will cause user data loss.
-						If you want to delete the role, first "Delete from YAF" then the role can be managed
-						outside of YAF.
+					<td colspan="7" class="header2" style="text-align:center">
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE_LINKED" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
 					<td class="header2">
-						Name
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
 					</td>
 					<td class="header2">
-						Is Guest
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="IS_GUEST" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 					<td class="header2">
-						Is Start
+						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="IS_START" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 					<td class="header2">
-						Is Moderator
+						<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="IS_MOD" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 					<td class="header2">
-						Is Admin
+						<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 					<td class="header2">
-						PMs
+						<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="PMS" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 					<td class="header2">
 						&nbsp;
@@ -116,7 +113,7 @@
 		</asp:Repeater>
 		<tr>
 			<td class="footer1" colspan="7" align="center">
-				<asp:LinkButton ID="NewGroup" runat="server" OnClick="NewGroup_Click" CssClass="pbutton">New Role</asp:LinkButton>
+				<asp:Button ID="NewGroup" runat="server" OnClick="NewGroup_Click" CssClass="pbutton"></asp:Button>
 			</td>
 		</tr>
 	</table>

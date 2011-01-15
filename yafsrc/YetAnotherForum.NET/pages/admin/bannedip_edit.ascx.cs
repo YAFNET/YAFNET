@@ -23,6 +23,7 @@ namespace YAF.Pages.Admin
 
   using System;
   using System.Data;
+  using System.Text;
 
   using YAF.Classes.Data;
   using YAF.Core;
@@ -65,14 +66,28 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Banned IP Addresses", YafBuildLink.GetLink(ForumPages.admin_bannedip));
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bannedip));
+
+        // current page label (no link)
+        this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP_EDIT", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+           this.GetText("ADMIN_ADMIN", "Administration"),
+           this.GetText("ADMIN_BANNEDIP", "TITLE"),
+           this.GetText("ADMIN_BANNEDIP_EDIT", "TITLE"));
+
+        this.save.Text = this.GetText("COMMON", "SAVE");
+        this.cancel.Text = this.GetText("COMMON", "CANCEL");
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -89,30 +104,28 @@ namespace YAF.Pages.Admin
       string[] ipParts = this.mask.Text.Trim().Split('.');
 
       // do some validation...
-      string ipError = string.Empty;
+      var ipError = new StringBuilder(); 
 
       if (ipParts.Length != 4)
       {
-        ipError += "Invalid IP address.";
+        ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"));
       }
-
-      // see if they are numbers...
-      ulong number;
 
       foreach (string ip in ipParts)
       {
-        if (!ulong.TryParse(ip, out number))
+          // see if they are numbers...
+          ulong number;
+          if (!ulong.TryParse(ip, out number))
         {
           if (ip.Trim() != "*")
           {
             if (ip.Trim().Length == 0)
             {
-              ipError +=
-                "\r\nOne of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard.";
+              ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
             }
             else
             {
-              ipError += "\r\n\"{0}\" is not a valid IP section value.".FormatWith(ip);
+              ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
             }
 
             break;
@@ -123,15 +136,15 @@ namespace YAF.Pages.Admin
           // try parse succeeded... verify number amount...
           if (number > 255)
           {
-            ipError += "\r\n\"{0}\" is not a valid IP section value (must be less then 255).".FormatWith(ip);
+              ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
           }
         }
       }
 
-      // show error(s) if not valid...
-      if (ipError.IsSet())
+        // show error(s) if not valid...
+      if (ipError.Length > 0)
       {
-        this.PageContext.AddLoadMessage(ipError);
+        this.PageContext.AddLoadMessage(ipError.ToString());
         return;
       }
 
@@ -154,12 +167,14 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      if (this.Request.QueryString.GetFirstOrDefault("i") != null)
-      {
+        if (this.Request.QueryString.GetFirstOrDefault("i") == null)
+        {
+            return;
+        }
+
         DataRow row =
-          LegacyDb.bannedip_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")).Rows[0];
+            LegacyDb.bannedip_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")).Rows[0];
         this.mask.Text = (string)row["Mask"];
-      }
     }
 
     #endregion

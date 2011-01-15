@@ -5,26 +5,30 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="2">
-				Edit Banned IP Address</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
+             </td>
+		</tr>
+        <tr>
+	      <td class="header2" colspan="2" style="height:30px"></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<strong>Mask:</strong><br />
-				The ip address to ban. You can use wildcards (127.0.0.*).</td>
+				<YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+            </td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="mask" runat="server"></asp:TextBox></td>
+				<asp:TextBox Style="width: 250px" ID="mask" runat="server"></asp:TextBox></td>
 		</tr>
 			<tr>
 			<td class="postheader" width="50%">
-				<strong>Reason:</strong><br />
-				The reason why the ip was banned.</td>
+				<YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+            </td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="BanReason" runat="server"></asp:TextBox></td>
+				<asp:TextBox Style="width: 250px" ID="BanReason" runat="server"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>
-				<asp:Button ID="cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button>
+				<asp:Button ID="save" runat="server" OnClick="Save_Click" CssClass="pbutton"></asp:Button>
+				<asp:Button ID="cancel" runat="server" OnClick="Cancel_Click" CssClass="pbutton"></asp:Button>
 			</td>
 		</tr>
 	</table>

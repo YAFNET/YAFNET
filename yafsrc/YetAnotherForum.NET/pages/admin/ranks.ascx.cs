@@ -20,154 +20,159 @@
 
 namespace YAF.Pages.Admin
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Flags;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for ranks.
-  /// </summary>
-  public partial class ranks : AdminPage
-  {
-    #region Methods
-
-    /// <summary>
-    /// The bit set.
-    /// </summary>
-    /// <param name="_o">
-    /// The _o.
-    /// </param>
-    /// <param name="bitmask">
-    /// The bitmask.
-    /// </param>
-    /// <returns>
-    /// The bit set.
-    /// </returns>
-    protected bool BitSet([NotNull] object _o, int bitmask)
-    {
-      var i = (int)_o;
-      return (i & bitmask) != 0;
-    }
-
-    /// <summary>
-    /// The delete_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this rank?");
-    }
-
-    /// <summary>
-    /// The ladder info.
-    /// </summary>
-    /// <param name="_o">
-    /// The _o.
-    /// </param>
-    /// <returns>
-    /// The ladder info.
-    /// </returns>
-    protected string LadderInfo([NotNull] object _o)
-    {
-      var dr = (DataRowView)_o;
-
-      // object IsLadder,object MinPosts
-      // Eval( "IsLadder"),Eval( "MinPosts")
-      bool isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
-
-      string tmp = "{0}".FormatWith(isLadder);
-      if (isLadder)
-      {
-        tmp += " ({0} posts)".FormatWith(dr["MinPosts"]);
-      }
-
-      return tmp;
-    }
-
-    /// <summary>
-    /// The new rank_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void NewRank_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_editrank);
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.IsPostBack)
-      {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Ranks", string.Empty);
-
-        this.BindData();
-      }
-    }
-
-    /// <summary>
-    /// The rank list_ item command.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void RankList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-    {
-      switch (e.CommandName)
-      {
-        case "edit":
-          YafBuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
-          break;
-        case "delete":
-          LegacyDb.rank_delete(e.CommandArgument);
-          this.BindData();
-          break;
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.RankList.DataSource = LegacyDb.rank_list(this.PageContext.PageBoardID, null);
-      this.DataBind();
-    }
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Flags;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
-  }
+
+    /// <summary>
+    /// Summary description for ranks.
+    /// </summary>
+    public partial class ranks : AdminPage
+    {
+        #region Methods
+
+        /// <summary>
+        /// The bit set.
+        /// </summary>
+        /// <param name="_o">
+        /// The _o.
+        /// </param>
+        /// <param name="bitmask">
+        /// The bitmask.
+        /// </param>
+        /// <returns>
+        /// The bit set.
+        /// </returns>
+        protected bool BitSet([NotNull] object _o, int bitmask)
+        {
+            var i = (int)_o;
+            return (i & bitmask) != 0;
+        }
+
+        /// <summary>
+        /// The delete_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_RANKS", "CONFIRM_DELETE"));
+        }
+
+        /// <summary>
+        /// The ladder info.
+        /// </summary>
+        /// <param name="_o">
+        /// The _o.
+        /// </param>
+        /// <returns>
+        /// The ladder info.
+        /// </returns>
+        protected string LadderInfo([NotNull] object _o)
+        {
+            var dr = (DataRowView)_o;
+
+            // object IsLadder,object MinPosts
+            // Eval( "IsLadder"),Eval( "MinPosts")
+            bool isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
+
+            return isLadder
+                       ? "{0} ({1} {2})".FormatWith(isLadder, dr["MinPosts"], this.GetText("ADMIN_RANKS", "POSTS"))
+                       : isLadder.ToString();
+        }
+
+        /// <summary>
+        /// The new rank_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void NewRank_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.admin_editrank);
+        }
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+               this.GetText("ADMIN_ADMIN", "Administration"),
+               this.GetText("ADMIN_RANKS", "TITLE"));
+
+            this.NewRank.Text = this.GetText("ADMIN_RANKS", "NEW_RANK");
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The rank list_ item command.
+        /// </summary>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void RankList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "edit":
+                    YafBuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
+                    break;
+                case "delete":
+                    LegacyDb.rank_delete(e.CommandArgument);
+                    this.BindData();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            this.RankList.DataSource = LegacyDb.rank_list(this.PageContext.PageBoardID, null);
+            this.DataBind();
+        }
+
+        #endregion
+    }
 }

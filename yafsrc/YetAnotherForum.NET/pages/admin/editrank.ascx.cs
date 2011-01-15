@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Data;
   using System.IO;
+  using System.Linq;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
@@ -68,7 +69,7 @@ namespace YAF.Pages.Admin
     protected override void OnInit([NotNull] EventArgs e)
     {
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -87,9 +88,22 @@ namespace YAF.Pages.Admin
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Ranks", string.Empty);
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_ranks));
+
+      // current page label (no link)
+      this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+         this.GetText("ADMIN_ADMIN", "Administration"),
+         this.GetText("ADMIN_RANKS", "TITLE"),
+         this.GetText("ADMIN_EDITRANK", "TITLE"));
+
+      this.Save.Text = this.GetText("COMMON", "SAVE");
+      this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
         this.BindData();
+
         if (this.Request.QueryString.GetFirstOrDefault("r") != null)
         {
           using (
@@ -148,31 +162,31 @@ namespace YAF.Pages.Admin
     {
       if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("Rank Priority should be small integer.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"));
         return;
       }
 
@@ -197,15 +211,15 @@ namespace YAF.Pages.Admin
         this.IsLadder.Checked, 
         this.MinPosts.Text, 
         rankImage, 
-        Convert.ToInt32(this.PMLimit.Text.Trim()), 
+        this.PMLimit.Text.Trim().ToType<int>(), 
         this.Style.Text.Trim(), 
         this.RankPriority.Text.Trim(), 
         this.Description.Text, 
-        Convert.ToInt32(this.UsrSigChars.Text.Trim()), 
+        this.UsrSigChars.Text.Trim().ToType<int>(), 
         this.UsrSigBBCodes.Text.Trim(), 
         this.UsrSigHTMLTags.Text.Trim(), 
-        Convert.ToInt32(this.UsrAlbums.Text.Trim()), 
-        Convert.ToInt32(this.UsrAlbumImages.Text.Trim()));
+        this.UsrAlbums.Text.Trim().ToType<int>(), 
+        this.UsrAlbumImages.Text.Trim().ToType<int>());
 
       // Clearing cache with old permisssions data...
       this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
@@ -226,7 +240,7 @@ namespace YAF.Pages.Admin
         DataRow dr = dt.NewRow();
         dr["FileID"] = 0;
         dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-        dr["Description"] = "Select Rank Image";
+        dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
         dt.Rows.Add(dr);
 
         var dir =
@@ -234,19 +248,17 @@ namespace YAF.Pages.Admin
             this.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
         FileInfo[] files = dir.GetFiles("*.*");
         long nFileID = 1;
-        foreach (FileInfo file in files)
-        {
-          string sExt = file.Extension.ToLower();
-          if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
-          {
-            continue;
-          }
 
-          dr = dt.NewRow();
-          dr["FileID"] = nFileID++;
-          dr["FileName"] = file.Name;
-          dr["Description"] = file.Name;
-          dt.Rows.Add(dr);
+        foreach (FileInfo file in from file in files
+                                  let sExt = file.Extension.ToLower()
+                                  where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
+                                  select file)
+        {
+            dr = dt.NewRow();
+            dr["FileID"] = nFileID++;
+            dr["FileName"] = file.Name;
+            dr["Description"] = file.Name;
+            dt.Rows.Add(dr);
         }
 
         this.RankImage.DataSource = dt;

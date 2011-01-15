@@ -6,6 +6,11 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
 		</td>
 	</tr>
+    <tr>
+			<td class="header2" height="30" colspan="2">
+			</td>
+		</tr>
+	<tr>
 	<tr runat="server" id="SuspendedRow">
 		<td class="postheader">
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="PROFILE" LocalizedTag="ENDS" />
@@ -21,7 +26,7 @@
 		</td>
 		<td class="post">
 			<asp:TextBox runat="server" ID="SuspendCount" Style="width: 60px" />&nbsp;<asp:DropDownList
-				runat="server" ID="SuspendUnit" />&nbsp;<asp:Button runat="server" ID="Suspend" OnClick="Suspend_Click" />
+				runat="server" ID="SuspendUnit" />&nbsp;<asp:Button runat="server" ID="Suspend" OnClick="Suspend_Click" CssClass="pbutton"  />
 		</td>
 	</tr>
 </table>

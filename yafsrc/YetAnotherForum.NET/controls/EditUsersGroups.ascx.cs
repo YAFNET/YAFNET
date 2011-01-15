@@ -29,6 +29,7 @@ namespace YAF.Controls
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -96,17 +97,21 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+        this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      // this needs to be done just once, not during postbacks
-      if (!this.IsPostBack)
-      {
+        // this needs to be done just once, not during postbacks
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.Save.Text = this.Get<ILocalization>().GetText("COMMON", "SAVE");
+
         // bind data
         this.BindData();
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// Handles click on save button.
     /// </summary>
     /// <param name="sender">
@@ -143,25 +148,27 @@ namespace YAF.Controls
         LegacyDb.usergroup_save(this.CurrentUserID, roleID, isChecked);
 
         // update roles if this user isn't the guest
-        if (!UserMembershipHelper.IsGuestUser(this.CurrentUserID))
-        {
+          if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
+          {
+              continue;
+          }
+
           // get user's name
           string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
 
           // add/remove user from roles in membership provider
           if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
           {
-            RoleMembershipHelper.AddUserToRole(userName, roleName);
+              RoleMembershipHelper.AddUserToRole(userName, roleName);
           }
           else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
           {
-            RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
+              RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
           }
 
           // Clearing cache with old permisssions data...
           this.PageContext.Cache.Remove(
-            YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
-        }
+              YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
       }
 
       // update forum moderators cache just in case something was changed...

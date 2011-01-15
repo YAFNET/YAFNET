@@ -5,23 +5,26 @@
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="11">
-                Add/Edit Role
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
         </tr>
         <tr>
+	      <td class="header2" colspan="11" style="height:30px"></td>
+		</tr>
+        <tr>
             <td class="postheader" width="50%">
-                <strong>Name:</strong><br />
-                Name of this role.
+                <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="ROLE_NAME" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 300px" ID="Name" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="Name" runat="server" />
                 <asp:RequiredFieldValidator ID="postNameRequired" runat="server" Display="Dynamic" ControlToValidate="Name" ErrorMessage="Role name is required."></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Is Start:</strong><br />
-                If this is checked, all new users will be a member of this role.
+                <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="IS_START" LocalizedPage="ADMIN_EDITGROUP" />
+                
+                
             </td>
             <td class="post">
                 <asp:CheckBox ID="IsStartX" runat="server"></asp:CheckBox>
@@ -29,9 +32,9 @@
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Is Forum Moderator:</strong><br />
-                When this is checked, members of this role will have some admin access rights in
-                YAF.
+                <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="FORUM_MOD" LocalizedPage="ADMIN_EDITGROUP" />
+                
+                
             </td>
             <td class="post">
                 <asp:CheckBox ID="IsModeratorX" runat="server"></asp:CheckBox>
@@ -39,8 +42,9 @@
         </tr>
         <tr>
             <td class="postheader">
-                <strong>Is Admin:</strong><br />
-                Means that users in this role are admins in YAF.
+                <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_EDITGROUP" />
+                
+                
             </td>
             <td class="post">
                 <asp:CheckBox ID="IsAdminX" runat="server"></asp:CheckBox>
@@ -48,92 +52,85 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>PMessages:</strong><br />
-                Max Private Messages allowed to Group members.
+                <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="PMMESSAGES" LocalizedPage="ADMIN_EDITGROUP" />
+                
+                
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 80px" ID="PMLimit" Text="0" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="PMLimit" Text="0" runat="server" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>Description:</strong><br />
-                Enter here a role description.
+                <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP" />
+                
+                
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 300px" ID="Description" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="Description" runat="server" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>Max number of chars in a user signature:</strong><br />
-                Max number of chars in a user signature in the role.
+                <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />
+                
+                
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 80px" ID="UsrSigChars" runat="server"  Text="128" />
+                <asp:TextBox Style="width: 350px" ID="UsrSigChars" runat="server"  Text="128" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>User signature BBCodes:</strong><br />
-                Comma separated BBCodes allowed in a user signature in the role.
+                <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 300px" ID="UsrSigBBCodes" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="UsrSigBBCodes" runat="server" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>User signature HTML tags:</strong><br />
-                Comma separated HTML tags allowed in a user signature in the group.
+                <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />                
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 300px" ID="UsrSigHTMLTags" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="UsrSigHTMLTags" runat="server" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>User Albums Number:</strong><br />
-                Integer value for a user allowed albums number.
+                <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 80px" ID="UsrAlbums" runat="server" Text="0" />
+                <asp:TextBox Style="width: 350px" ID="UsrAlbums" runat="server" Text="0" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>Album Images Number:</strong><br />
-                Integer value for a user allowed images per album.
+                <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" Text="0" />
+                <asp:TextBox Style="width: 350px" ID="UsrAlbumImages" runat="server" Text="0" />
             </td>
         </tr>
         <tr>
             <td class="postheader" style="width: 50%">
-                <strong>Priority:</strong><br />
-                Enter here priority for different tasks.
+                <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="PRIORITY" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" style="width: 50%">
-                <asp:TextBox Style="width: 50px" ID="Priority" MaxLength="5" Text="0" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="Priority" MaxLength="5" Text="0" runat="server" />
             </td>
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <strong>Style:</strong><br />
-                Enter here a combined style string for coloured nicks.
+                <YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />            
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 100%" ID="StyleTextBox" TextMode="MultiLine" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="StyleTextBox" TextMode="MultiLine" runat="server" />
             </td>
         </tr>
         <tr runat="server" visible="false" id="IsGuestTR">
             <td class="postheader">
-                <strong>Is Guest:</strong><br />
-                This flag is internal and makes the role unavailable to .NET membership. Never assign
-                this role to any users except the (1) guest user. If you do flag this role as IsGuest,
-                the guest user must a member of it. Never use this flag in conjunction with any
-                other flags.
+                <YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="IS_GUEST" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post">
                 <asp:CheckBox ID="IsGuestX" runat="server"></asp:CheckBox>
@@ -141,26 +138,25 @@
         </tr>
         <tr runat="server" id="NewGroupRow">
             <td class="postheader">
-                <strong>Initial Access Mask:</strong><br />
-                The initial access mask for all forums.
+                <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="INITIAL_MASK" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post">
-                <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" />
+                <asp:DropDownList Style="width: 350px" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" />
             </td>
         </tr>
         <asp:Repeater ID="AccessList" runat="server">
             <HeaderTemplate>
                 <tr>
                     <td class="header1" colspan="11">
-                        Access
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITGROUP" />
                     </td>
                 </tr>
                 <tr>
                     <td class="header2">
-                        Forum
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="FORUM"  LocalizedPage="ADMIN_EDITGROUP" />
                     </td>
                     <td class="header2">
-                        Access Mask
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCESS_MASK" />
                     </td>
                 </tr>
             </HeaderTemplate>
@@ -172,14 +168,16 @@
                             <%# Eval( "ForumName") %>
                         </strong>
                         <br />
-                        Board:
+                        <em>
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BOARD"  LocalizedPage="ADMIN_EDITGROUP" />
                         <%# Eval( "BoardName") %>
                         <br />
-                        Category:
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="CATEGORY"  LocalizedPage="ADMIN_EDITGROUP" />
                         <%# Eval( "CategoryName") %>
+                        </em>
                     </td>
                     <td class="post">
-                        <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID"
+                        <asp:DropDownList Style="width: 350px" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID"
                             OnPreRender="SetDropDownIndex" value='<%# Eval("AccessMaskID") %>' />
                         ...
                     </td>
@@ -187,9 +185,9 @@
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="postfooter" align="center" colspan="11">
-                <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>&nbsp;
-                <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button>
+            <td class="footer1" align="center" colspan="11">
+                <asp:Button ID="Save" runat="server" OnClick="Save_Click" CssClass="pbutton"></asp:Button>&nbsp;
+                <asp:Button ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="pbutton"></asp:Button>
             </td>
         </tr>
     </table>

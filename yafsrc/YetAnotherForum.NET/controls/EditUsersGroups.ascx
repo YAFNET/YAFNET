@@ -5,13 +5,14 @@
 		<HeaderTemplate>
 			<tr>
 				<td class="header1" colspan="2">
-					User Groups</td>
+					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_USER_GROUPS" LocalizedPage="ADMIN_EDITUSER" />
+                </td>
 			</tr>
 			<tr>
 				<td class="header2">
-					Member</td>
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MEMBER" LocalizedPage="ADMIN_EDITUSER" /></td>
 				<td class="header2">
-					Group</td>
+					<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GROUP" LocalizedPage="COMMON" /></td>
 			</tr>
 		</HeaderTemplate>
 		<ItemTemplate>
@@ -29,7 +30,7 @@
 	</asp:Repeater>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
-			<asp:Button ID="Save" runat="server" CssClass="pbutton" Text="Save" OnClick="Save_Click" />
+			<asp:Button ID="Save" runat="server" CssClass="pbutton" OnClick="Save_Click" />
 		</td>
 	</tr>
 </table>

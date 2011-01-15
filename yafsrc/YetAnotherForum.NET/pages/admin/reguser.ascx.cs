@@ -54,21 +54,24 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ForumRegister_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Page.IsValid)
-      {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
         string newEmail = this.Email.Text.Trim();
         string newUsername = this.UserName.Text.Trim();
 
         if (!ValidationHelper.IsValidEmail(newEmail))
         {
-          this.PageContext.AddLoadMessage("You have entered an illegal e-mail address.");
-          return;
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"));
+            return;
         }
 
         if (UserMembershipHelper.UserExists(this.UserName.Text.Trim(), newEmail))
         {
-          this.PageContext.AddLoadMessage("Username or email are already registered.");
-          return;
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"));
+            return;
         }
 
         string hashinput = DateTime.UtcNow + newEmail + Security.CreatePassword(20);
@@ -76,20 +79,20 @@ namespace YAF.Pages.Admin
 
         MembershipCreateStatus status;
         MembershipUser user = this.PageContext.CurrentMembership.CreateUser(
-          newUsername, 
-          this.Password.Text.Trim(), 
-          newEmail, 
-          this.Question.Text.Trim(), 
-          this.Answer.Text.Trim(), 
-          !this.PageContext.BoardSettings.EmailVerification, 
-          null, 
-          out status);
+            newUsername, 
+            this.Password.Text.Trim(), 
+            newEmail, 
+            this.Question.Text.Trim(), 
+            this.Answer.Text.Trim(), 
+            !this.PageContext.BoardSettings.EmailVerification, 
+            null, 
+            out status);
 
         if (status != MembershipCreateStatus.Success)
         {
-          // error of some kind
-          this.PageContext.AddLoadMessage("Membership Error Creating User: " + status);
-          return;
+            // error of some kind
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_ERROR_CREATE").FormatWith(status));
+            return;
         }
 
         // setup inital roles (if any) for this user
@@ -108,44 +111,43 @@ namespace YAF.Pages.Admin
 
         // save the time zone...
         LegacyDb.user_save(
-          UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
-          this.PageContext.PageBoardID, 
-          null, 
-          null, 
-          null, 
-          Convert.ToInt32(this.TimeZones.SelectedValue), 
-          null, 
-          null, 
-          null, 
-          null, 
-          null, 
-          null, 
-          null, 
-          null, 
-          null, 
-          null);
+            UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
+            this.PageContext.PageBoardID, 
+            null, 
+            null, 
+            null, 
+            this.TimeZones.SelectedValue.ToType<int>(), 
+            null, 
+            null, 
+            null, 
+            null, 
+            null, 
+            null, 
+            null, 
+            null, 
+            null, 
+            null);
 
         if (this.PageContext.BoardSettings.EmailVerification)
         {
-          // send template email
-          var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
+            // send template email
+            var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-          verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink(ForumPages.approve, true, "k={0}", hash);
-          verifyEmail.TemplateParams["{key}"] = hash;
-          verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
-          verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(this.ForumURL);
+            verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink(ForumPages.approve, true, "k={0}", hash);
+            verifyEmail.TemplateParams["{key}"] = hash;
+            verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+            verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(this.ForumURL);
 
-          string subject =
-            this.PageContext.Localization.GetText("COMMON", "EMAILVERIFICATION_SUBJECT").FormatWith(
-              this.PageContext.BoardSettings.Name);
+            string subject =
+                this.GetText("COMMON", "EMAILVERIFICATION_SUBJECT").FormatWith(
+                    this.PageContext.BoardSettings.Name);
 
-          verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
+            verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
         }
 
         // success
-        this.PageContext.AddLoadMessage("User {0} Created Successfully.".FormatWith(this.UserName.Text.Trim()));
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_CREATED").FormatWith(this.UserName.Text.Trim()));
         YafBuildLink.Redirect(ForumPages.admin_reguser);
-      }
     }
 
     /// <summary>
@@ -166,7 +168,19 @@ namespace YAF.Pages.Admin
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Users", string.Empty);
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
+
+        // current page label (no link)
+        this.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+           this.GetText("ADMIN_ADMIN", "Administration"),
+           this.GetText("ADMIN_USERS", "TITLE"),
+           this.GetText("ADMIN_REGUSER", "TITLE"));
+
+        this.ForumRegister.Text = this.GetText("ADMIN_REGUSER", "REGISTER");
+        this.cancel.Text = this.GetText("COMMON", "CANCEL");
 
         this.TimeZones.DataSource = StaticDataHelper.TimeZones();
         this.DataBind();

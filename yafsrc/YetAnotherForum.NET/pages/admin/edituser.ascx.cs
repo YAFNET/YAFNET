@@ -145,8 +145,17 @@ namespace YAF.Pages.Admin
 
       this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-      this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
-      this.PageLinks.AddLink("Edit User \"{0}\"".FormatWith(userRow["Name"].ToString()));
+
+      this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
+
+      // current page label (no link)
+      this.PageLinks.AddLink(this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userRow["Name"].ToString()), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+         this.GetText("ADMIN_ADMIN", "Administration"),
+         this.GetText("ADMIN_USERS", "TITLE"),
+         this.GetText("ADMIN_EDITUSER", "TITLE"));
+
 
       // do a quick user membership sync...
       MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);

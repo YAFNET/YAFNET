@@ -3,14 +3,12 @@
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
         <td class="header1" colspan="2">
-            User Details
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_USER_DETAILS" LocalizedPage="ADMIN_EDITUSER" />
         </td>
     </tr>
     <tr>
         <td class="postheader">
-            <strong>Username:</strong>
-            <br />
-            Cannot be modified.
+            <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="USERINFO_NAME" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:TextBox Style="width: 300px" ID="Name" runat="server" Enabled="false" />
@@ -18,9 +16,7 @@
     </tr>
     <tr>
         <td class="postheader">
-            <strong>Display Name:</strong>
-            <br />
-            Only visible if Display Names are enabled.
+            <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="USERINFO_DISPLAYNAME" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:TextBox Style="width: 300px" ID="DisplayName" runat="server" />
@@ -28,7 +24,7 @@
     </tr>
     <tr>
         <td class="postheader">
-            <strong>E-mail:</strong>
+            <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="EMAIL" LocalizedPage="PROFILE" />
         </td>
         <td class="post">
             <asp:TextBox Style="width: 300px" ID="Email" runat="server" />
@@ -36,17 +32,17 @@
     </tr>
     <tr>
         <td class="postheader">
-            <strong>Rank:</strong>
+            <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="RANK" LocalizedPage="ADMIN_USERS" />
         </td>
         <td class="post">
-            <asp:DropDownList ID="RankID" runat="server" />
+            <asp:DropDownList Style="width: 300px" ID="RankID" runat="server" />
         </td>
     </tr>
+
+
     <tr runat="server" id="IsHostAdminRow">
         <td class="postheader">
-            <strong>Host Admin:</strong>
-            <br />
-            Gives user access to modify "Host Settings" section.
+            <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="USERINFO_HOST" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:CheckBox runat="server" ID="IsHostAdminX" />
@@ -54,8 +50,7 @@
     </tr>
     <tr runat="server" id="IsCaptchaExcludedRow">
         <td class="postheader">
-            <strong>Exclude from CAPTCHA:</strong><br />
-            CAPTCHA is disabled for this user specifically.
+            <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="USERINFO_EX_CAPTCHA" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:CheckBox runat="server" ID="IsCaptchaExcluded" />
@@ -63,8 +58,7 @@
     </tr>
     <tr runat="server" id="IsExcludedFromActiveUsersRow">
         <td class="postheader">
-            <strong>Exclude from Active Users:</strong><br />
-            User is not shown in Active User lists.
+            <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="USERINFO_EX_ACTIVE" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:CheckBox runat="server" ID="IsExcludedFromActiveUsers" />
@@ -72,7 +66,7 @@
     </tr>
     <tr>
         <td class="postheader">
-            <strong>Is Approved:</strong>
+            <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="USERINFO_APPROVED" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:CheckBox runat="server" ID="IsApproved" />
@@ -81,7 +75,7 @@
     <!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->
     <tr runat="server" id="IsGuestRow" visible="false">
         <td class="postheader">
-            <strong>Is Guest:</strong>
+            <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="USERINFO_GUEST" LocalizedPage="ADMIN_EDITUSER" />
         </td>
         <td class="post">
             <asp:CheckBox runat="server" ID="IsGuestX" />
@@ -89,23 +83,24 @@
     </tr>
     <tr>
         <td class="postheader">
-            <strong>Joined:</strong>
+            <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="JOINED" LocalizedPage="PROFILE" />
+
         </td>
         <td class="post">
-            <asp:TextBox ID="Joined" runat="server" Enabled="False" />
+            <asp:TextBox Style="width: 300px" ID="Joined" runat="server" Enabled="False" />
         </td>
     </tr>
     <tr>
         <td class="postheader">
-            <strong>Last Visit:</strong>
+            <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="LASTVISIT" LocalizedPage="PROFILE" />
         </td>
         <td class="post">
-            <asp:TextBox ID="LastVisit" runat="server" Enabled="False" />
+            <asp:TextBox Style="width: 300px" ID="LastVisit" runat="server" Enabled="False" />
         </td>
     </tr>
     <tr>
         <td class="postfooter" colspan="2" align="center">
-            <asp:Button ID="Save" runat="server" Text="Save" CssClass="pbutton" OnClick="Save_Click" />
+            <asp:Button ID="Save" runat="server" CssClass="pbutton" OnClick="Save_Click" />
         </td>
     </tr>
 </table>

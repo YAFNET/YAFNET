@@ -5,24 +5,28 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="4">
-				Add/Edit Medal</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITMEDAL" />
+             </td>
+		</tr>
+        <tr>
+	      <td class="header2" colspan="4" style="height:30px"></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Name:</strong><br />
-				Name of medal.</td>
+				<YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="MEDAL_NAME" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 300px" ID="Name" runat="server" MaxLength="100" />
+				<asp:TextBox Style="width: 250px" ID="Name" runat="server" MaxLength="100" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="Name" Display="Dynamic"
 					ValidationGroup="Medal" Text="Required" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Description:</strong><br />
-				Description of medal.</td>
+				<YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="MEDAL_DESC" LocalizedPage="ADMIN_EDITMEDAL" />
+		    </td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 300px; height: 100px;" ID="Description" TextMode="MultiLine"
+				<asp:TextBox Style="width: 250px;height: 100px;" ID="Description" TextMode="MultiLine"
 					runat="server" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="Description" Display="Dynamic"
 					ValidationGroup="Medal" Text="Required" />
@@ -30,110 +34,114 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Message:</strong><br />
-				Default message.</td>
+				<YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="MEDAL_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 300px" ID="Message" runat="server" MaxLength="100" />
+				<asp:TextBox Style="width: 250px" ID="Message" runat="server" MaxLength="100" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="Message" Display="Dynamic"
 					ValidationGroup="Medal" Text="Required" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Category:</strong><br />
-				Medal's category.</td>
+				<YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="MEDAL_CATEGORY" LocalizedPage="ADMIN_EDITMEDAL" />
+				</td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 300px" ID="Category" MaxLength="50" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="Category" MaxLength="50" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Medal Image:</strong><br />
-				This image will be shown in medal's info.</td>
+				<YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="MEDAL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:DropDownList ID="MedalImage" runat="server" />
+				<asp:DropDownList Style="width: 250px" ID="MedalImage" runat="server" />
 				<img style="vertical-align: top;" runat="server" id="MedalPreview" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Ribbon Bar Image:</strong><br />
-				This image will be shown in medal's info (optional).</td>
+				<YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="RIBBON_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:DropDownList ID="RibbonImage" runat="server" />
+				<asp:DropDownList Style="width: 250px" ID="RibbonImage" runat="server" />
 				<img style="vertical-align: top;" runat="server" id="RibbonPreview" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Small Medal Image:</strong><br />
-				This image will be shown in user box.</td>
+				<YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="SMALL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:DropDownList ID="SmallMedalImage" runat="server" />
+				<asp:DropDownList Style="width: 250px" ID="SmallMedalImage" runat="server" />
 				<img style="vertical-align: top;" runat="server" id="SmallMedalPreview" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Small Ribbon Bar Image:</strong><br />
-				This image will be shown in user box (optional).</td>
+				<YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="SMALL_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:DropDownList ID="SmallRibbonImage" runat="server" />
+				<asp:DropDownList Style="width: 250px" ID="SmallRibbonImage" runat="server" />
 				<img style="vertical-align: top;" runat="server" id="SmallRibbonPreview" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Sort Order:</strong><br />
-				Default sort order of a medal.</td>
+				<YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 50px" ID="SortOrder" MaxLength="5" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="SortOrder" MaxLength="5" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Show Message:</strong><br />
-				Means that message describing why user received medal will be shown/hidden.</td>
+				<YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="SHOW_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="ShowMessage" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Allow Ribbon Bar:</strong><br />
-				Means that ribbon bar display of this medal will be allowed/disallowed.</td>
+				<YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="ALLOW_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowRibbon" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Allow Hiding:</strong><br />
-				Means that users will be allowed/disallowed to hide this medal.</td>
+				<YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="ALLOW_HIDING" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowHiding" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<strong>Allow Re-Ordering:</strong><br />
-				Means that users will be allowed/disallowed to change order of this medal.</td>
+				<YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="ALLOW_REORDER" LocalizedPage="ADMIN_EDITMEDAL" />
+            </td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowReOrdering" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
-			<td class="postfooter" align="center" colspan="11">
-				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" ValidationGroup="Medal" />&nbsp;
-				<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" /></td>
+			<td class="footer1" align="center" colspan="11">
+				<asp:Button ID="Save" runat="server" OnClick="Save_Click" ValidationGroup="Medal" CssClass="pbutton" />&nbsp;
+				<asp:Button ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="pbutton" /></td>
 		</tr>
+        </table>
+
+        <table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupList_ItemCommand">
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="4">
-						Group Holders</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITMEDAL" />
+                    </td>
 				</tr>
 				<tr>
 					<td class="header2">
-						Group</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUP" /></td>
 					<td class="header2" colspan="2">
-						Message</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="MESSAGE" LocalizedPage="COMMON" /></td>
 					<td class="header2">
-						Command</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="COMMAND" /></td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -145,64 +153,61 @@
 						<%# Eval("Message") %>
 					</td>
 					<td class="post">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("GroupID") %>'>Edit</asp:LinkButton>
+						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("GroupID") %>'><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
 						|
 						<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# Eval("GroupID") %>'
-							OnLoad="GroupRemove_Load">Remove</asp:LinkButton>
+							OnLoad="GroupRemove_Load"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REMOVE" /></asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
-		<tr runat="server" id="AddGroupRow" visible="false">
+		<tr runat="server" id="AddGroupRow" visible="false" style="text-align:center">
 			<td class="footer1" colspan="4">
-				<asp:LinkButton runat="server" OnClick="AddGroup_Click">Add Group</asp:LinkButton>
+				<asp:Button runat="server" OnClick="AddGroup_Click" ID="AddGroup" CssClass="pbutton"></asp:Button>
 			</td>
 		</tr>
 		<asp:Panel runat="server" ID="AddGroupPanel" Visible="false">
 			<tr>
-				<td class="footer1" colspan="4" style="text-align: center;">
+				<td class="header2" colspan="4" style="text-align: center;">
 					<strong>
 						<asp:Label runat="server" ID="GroupMedalEditTitle" /></strong>
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Group:</strong></td>
+					<YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="MEDAL_GROUP" LocalizedPage="ADMIN_EDITMEDAL" />
+                </td>
 				<td class="post" colspan="2">
-					<asp:DropDownList runat="server" ID="AvailableGroupList" />
+					<asp:DropDownList style="width: 250px" runat="server" ID="AvailableGroupList" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Message:</strong><br />
-					Overrides default if specified (Optional)
-				</td>
+					<YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="OVERRIDE_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
+                </td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 300px" ID="GroupMessage" runat="server" MaxLength="100" />
+					<asp:TextBox Style="width: 250px" ID="GroupMessage" runat="server" MaxLength="100" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Sort Order:</strong><br />
-					Overrides default if specified (Optional)
-				</td>
+					<YAF:HelpLabel ID="HelpLabel16" runat="server" LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
+                </td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 75px" ID="GroupSortOrder" runat="server" />
+					<asp:TextBox Style="width: 250px" ID="GroupSortOrder" runat="server" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Show Only Ribbon Bar:</strong><br />
-					If checked, only ribbon bar is displayed in user box.
-				</td>
+					<YAF:HelpLabel ID="HelpLabel17" runat="server" LocalizedTag="ONLY_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
+                </td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="GroupOnlyRibbon" Checked="false" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Hide:</strong><br />
-					If checked, medal is not displayed in user box.
+                    <YAF:HelpLabel ID="HelpLabel18" runat="server" LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL" />
 				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="GroupHide" Checked="false" />
@@ -210,26 +215,30 @@
 			</tr>
 			<tr>
 				<td class="footer1" colspan="4" style="text-align: center;">
-					<asp:Button runat="server" Text="Save" OnClick="AddGroupSave_Click" ID="AddGroupSave" />
-					<asp:Button runat="server" Text="Cancel" OnClick="AddGroupCancel_Click" />
+					<asp:Button runat="server"  OnClick="AddGroupSave_Click" ID="AddGroupSave" CssClass="pbutton" />
+					<asp:Button runat="server"  OnClick="AddGroupCancel_Click" ID="AddGroupCancel" CssClass="pbutton" />
 				</td>
 			</tr>
 		</asp:Panel>
+        </table>
+
+        <table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="4">
-						Individual Holders</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_EDITMEDAL" />
+                    </td>
 				</tr>
 				<tr>
 					<td class="header2">
-						User</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" /></td>
 					<td class="header2">
-						Message</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="MESSAGE" LocalizedPage="COMMON" /></td>
 					<td class="header2">
-						Date Awarded</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DATE_AWARDED" LocalizedPage="ADMIN_EDITMEDAL" /></td>
 					<td class="header2">
-						Command</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="COMMAND" /></td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -244,59 +253,57 @@
 						<%# this.Get<IDateTime>().FormatDateTimeTopic((DateTime)Eval("DateAwarded")) %>
 					</td>
 					<td class="post">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'>Edit</asp:LinkButton>
+						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
 						|
 						<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# Eval("UserID") %>'
-							OnLoad="UserRemove_Load">Remove</asp:LinkButton>
+							OnLoad="UserRemove_Load"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REMOVE" /></asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr runat="server" id="AddUserRow" visible="false">
-			<td class="footer1" colspan="4">
-				<asp:LinkButton runat="server" OnClick="AddUser_Click">Add User</asp:LinkButton>
+			<td class="footer1" colspan="4" style="text-align:center">
+				<asp:Button runat="server" OnClick="AddUser_Click" ID="AddUser" CssClass="pbutton"></asp:Button>
 			</td>
 		</tr>
 		<asp:Panel runat="server" ID="AddUserPanel" Visible="false">
 			<tr>
-				<td class="footer1" colspan="4" style="text-align: center;">
+				<td class="header2" colspan="4" style="text-align: center;">
 					<strong>
 						<asp:Label runat="server" ID="UserMedalEditTitle" /></strong>
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					User:</td>
+					<YAF:HelpLabel ID="HelpLabel23" runat="server" LocalizedTag="MEDAL_USER" LocalizedPage="ADMIN_EDITMEDAL" />
+                </td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 125px" ID="UserName" runat="server" />
-					<asp:DropDownList runat="server" ID="UserNameList" Visible="false" />
-					<asp:Button runat="server" ID="FindUsers" Text="Find Users" OnClick="FindUsers_Click" />
-					<asp:Button runat="server" ID="Clear" Text="Clear" OnClick="Clear_Click" Visible="false" />
+					<asp:TextBox Style="width: 250px" ID="UserName" runat="server" />
+					<asp:DropDownList  Style="width: 250px" runat="server" ID="UserNameList" Visible="false" />
+					<asp:Button runat="server" ID="FindUsers" Text="Find Users" OnClick="FindUsers_Click" CssClass="pbutton" />
+					<asp:Button runat="server" ID="Clear" Text="Clear" OnClick="Clear_Click" Visible="false" CssClass="pbutton" />
 					<asp:TextBox Visible="false" ID="UserID" runat="server" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Message:</strong><br />
-					Overrides default if specified (Optional)
+					<YAF:HelpLabel ID="HelpLabel19" runat="server" LocalizedTag="OVERRIDE_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
 				</td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 300px" ID="UserMessage" runat="server" MaxLength="100" />
+					<asp:TextBox Style="width: 250px" ID="UserMessage" runat="server" MaxLength="100" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Sort Order:</strong><br />
-					Overrides default if specified (Optional)
+					<YAF:HelpLabel ID="HelpLabel20" runat="server" LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
 				</td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 75px" ID="UserSortOrder" runat="server" />
+					<asp:TextBox Style="width: 250px" ID="UserSortOrder" runat="server" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Show Only Ribbon Bar:</strong><br />
-					If checked, only ribbon bar is displayed in user box.
+					<YAF:HelpLabel ID="HelpLabel21" runat="server" LocalizedTag="ONLY_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
 				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="UserOnlyRibbon" Checked="false" />
@@ -304,8 +311,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<strong>Hide:</strong><br />
-					If checked, medal is not displayed in user box.
+					<YAF:HelpLabel ID="HelpLabel22" runat="server" LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL" />
 				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="UserHide" Checked="false" />
@@ -313,8 +319,8 @@
 			</tr>
 			<tr>
 				<td class="footer1" colspan="4" style="text-align: center;">
-					<asp:Button runat="server" Text="Save" OnClick="AddUserSave_Click" ID="AddUserSave" />
-					<asp:Button runat="server" Text="Cancel" OnClick="AddUserCancel_Click" />
+					<asp:Button runat="server" OnClick="AddUserSave_Click" ID="AddUserSave" CssClass="pbutton" />
+					<asp:Button runat="server" OnClick="AddUserCancel_Click" ID="AddUserCancel" CssClass="pbutton" />
 				</td>
 			</tr>
 		</asp:Panel>

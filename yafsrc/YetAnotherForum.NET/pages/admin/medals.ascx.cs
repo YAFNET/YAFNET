@@ -1,21 +1,3 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2006-2011 Jaben Cargman
- * http://www.yetanotherforum.net/
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -66,8 +48,12 @@ namespace YAF.Pages.Admin
       // administration index
       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
-      // currect page
-      this.PageLinks.AddLink("Medals", string.Empty);
+      // current page label (no link)
+      this.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1}".FormatWith(
+         this.GetText("ADMIN_ADMIN", "Administration"),
+         this.GetText("ADMIN_MEDALS", "TITLE"));
     }
 
     /// <summary>
@@ -81,7 +67,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this Medal?");
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -148,14 +134,18 @@ namespace YAF.Pages.Admin
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // this needs to be done just once, not during postbacks
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // create page links
         this.CreatePageLinks();
 
+        this.NewMedal.Text = this.GetText("ADMIN_MEDALS", "NEW_MEDAL");
+
         // bind data
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -181,7 +171,7 @@ namespace YAF.Pages.Admin
         dr["SmallMedalURL"], 
         dr["SmallMedalWidth"], 
         dr["SmallMedalHeight"], 
-        "Medal image as it'll be displayed in user box.", 
+        this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"), 
         YafBoardFolders.Current.Medals);
 
       // if available, create also ribbon bar image of medal
@@ -193,7 +183,7 @@ namespace YAF.Pages.Admin
           dr["SmallRibbonURL"], 
           dr["SmallRibbonWidth"], 
           dr["SmallRibbonHeight"], 
-          "Ribbon bar image as it'll be displayed in user box.", 
+          this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"), 
           YafBoardFolders.Current.Medals);
       }
 

@@ -52,15 +52,38 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Banned IP Addresses", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+        this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+           this.GetText("ADMIN_ADMIN", "Administration"),
+           this.GetText("ADMIN_BANNEDIP", "TITLE"));
 
         this.BindData();
-      }
     }
+
+      /// <summary>
+      /// The Add_Load
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
+      protected void Add_Load([NotNull] object sender, [NotNull] EventArgs e)
+      {
+          var addButton = (Button)sender;
+          
+          addButton.Text = this.GetText("ADMIN_BANNEDIP", "ADD_IP");
+      }
 
     /// <summary>
     /// The list_ item command.
@@ -73,30 +96,24 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
     {
-      if (e.CommandName == "add")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_bannedip_edit);
-      }
-      else if (e.CommandName == "edit")
-      {
-        YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
-      }
-      else if (e.CommandName == "delete")
-      {
-        // vzrus: Logging is disabled here as the log entries are not protected anyway from simply admins in the standard YAF edition  
-        // string maskStr = LegacyDb.bannedip_list(this.PageContext.PageBoardID, e.CommandArgument).Rows[0]["Mask"].ToString();
-        LegacyDb.bannedip_delete(e.CommandArgument);
-
-        // LegacyDb.eventlog_create(this.PageContext.PageUserID, this, string.Format("Banned IP entry '{0}' was deleted.", maskStr), EventLogTypes.Information);
-        // clear cache of banned IPs for this board
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
-
-        this.BindData();
-        this.PageContext.AddLoadMessage("Removed IP address ban.");
-      }
+        switch (e.CommandName)
+        {
+            case "add":
+                YafBuildLink.Redirect(ForumPages.admin_bannedip_edit);
+                break;
+            case "edit":
+                YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
+                break;
+            case "delete":
+                LegacyDb.bannedip_delete(e.CommandArgument);
+                this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+                this.BindData();
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
+                break;
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()

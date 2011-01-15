@@ -23,10 +23,12 @@ namespace YAF.Controls
   using System;
   using System.Net.Mail;
   using System.Web.Security;
+  using System.Web.UI.WebControls;
 
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -65,32 +67,45 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+        this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      if (!this.PageContext.IsAdmin)
-      {
-        YafBuildLink.AccessDenied();
-      }
-
-      if (!this.IsPostBack)
-      {
-        this.lblPassRequirements.Text =
-          "{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).".FormatWith(
-            this.PageContext.CurrentMembership.MinRequiredPasswordLength, 
-            this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters);
-
-        if (!this.PageContext.CurrentMembership.EnablePasswordReset)
+        if (!this.PageContext.IsAdmin)
         {
-          this.PasswordResetErrorHolder.Visible = true;
-          this.btnResetPassword.Enabled = false;
-          this.rblPasswordResetFunction.Enabled = false;
+            YafBuildLink.AccessDenied();
         }
-      }
 
-      this.BindData();
+        if (!this.IsPostBack)
+        {
+            this.rblPasswordResetFunction.Items.Add(new ListItem(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_OPTION_RESET"), "reset", true));
+            this.rblPasswordResetFunction.Items.Add(new ListItem(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_OPTION_CHANGE"), "change"));
+
+            this.rblPasswordResetFunction.SelectedIndex = 0;
+
+
+            this.btnResetPassword.Text = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "RESET_PASS");
+            this.btnChangePassword.Text = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "CHANGE_PASS");
+
+            this.lblPassRequirements.Text =
+                this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_REQUIREMENT").FormatWith(
+                    this.PageContext.CurrentMembership.MinRequiredPasswordLength,
+                    this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters);
+
+            this.PasswordValidator.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_NEW_PASS");
+            this.RequiredFieldValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_CONFIRM_PASS");
+            this.CompareValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH");
+
+            if (!this.PageContext.CurrentMembership.EnablePasswordReset)
+            {
+                this.PasswordResetErrorHolder.Visible = true;
+                this.btnResetPassword.Enabled = false;
+                this.rblPasswordResetFunction.Enabled = false;
+            }
+        }
+
+        this.BindData();
     }
 
-    /// <summary>
+      /// <summary>
     /// The toggle change pass ui enabled.
     /// </summary>
     /// <param name="status">
@@ -142,7 +157,7 @@ namespace YAF.Controls
             var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
             string subject =
-              this.PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
+              this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
                 this.PageContext.BoardSettings.Name);
 
             passwordRetrieval.TemplateParams["{username}"] = user.UserName;
@@ -152,17 +167,17 @@ namespace YAF.Controls
 
             passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
-            this.PageContext.AddLoadMessage("User Password Changed and Notification Email Sent");
+            this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"));
           }
           else
           {
-            this.PageContext.AddLoadMessage("User Password Changed");
+            this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED"));
           }
         }
       }
       catch (Exception x)
       {
-        this.PageContext.AddLoadMessage("Exception: " + x.Message);
+        this.PageContext.AddLoadMessage("Exception: {0}".FormatWith(x.Message));
       }
     }
 
@@ -192,7 +207,7 @@ namespace YAF.Controls
           var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
           string subject =
-            this.PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
+            this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
               this.PageContext.BoardSettings.Name);
 
           passwordRetrieval.TemplateParams["{username}"] = user.UserName;
@@ -202,12 +217,12 @@ namespace YAF.Controls
 
           passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
-          this.PageContext.AddLoadMessage("User Password Reset and Notification Email Sent");
+          this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"));
         }
       }
       catch (Exception x)
       {
-        this.PageContext.AddLoadMessage("Exception: " + x.Message);
+        this.PageContext.AddLoadMessage("Exception: {0}".FormatWith(x.Message));
       }
     }
 

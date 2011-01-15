@@ -4,21 +4,27 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="6">
-				Ranks</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RANKS" />
+            </td>
 		</tr>
 		<asp:Repeater ID="RankList" OnItemCommand="RankList_ItemCommand" runat="server">
 			<HeaderTemplate>
 				<tr>
 					<td class="header2">
-						Name</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
+                    </td>
 					<td class="header2">
-						Is Start</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IS_START" LocalizedPage="ADMIN_RANKS" />
+                    </td>
 					<td class="header2">
-						Is Ladder</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="IS_LADDER" LocalizedPage="ADMIN_RANKS" />
+                    </td>
 					<td class="header2">
-						PM limit</td>	
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_LIMIT" LocalizedPage="ADMIN_RANKS" />
+                    </td>	
 					<td class="header2">
-						Command</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="COMMAND" LocalizedPage="ADMIN_RANKS" />
+                    </td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -48,7 +54,7 @@
 		</asp:Repeater>
 		<tr>
 			<td class="footer1" colspan="6" align="center">
-				<asp:LinkButton ID="NewRank" runat="server" Text="New Rank" OnClick="NewRank_Click" CssClass="pbutton" /></td>
+				<asp:Button ID="NewRank" runat="server" OnClick="NewRank_Click" CssClass="pbutton" /></td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

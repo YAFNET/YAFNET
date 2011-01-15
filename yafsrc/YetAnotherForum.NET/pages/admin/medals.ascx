@@ -4,23 +4,24 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="6">
-				Medals</td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_MEDALS" />
+            </td>
 		</tr>
 		<asp:Repeater ID="MedalList" OnItemCommand="MedalList_ItemCommand" runat="server">
 			<HeaderTemplate>
 				<tr>
 					<td class="header2" style="width: 20px;">
-						Order</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ORDER" /></td>
 					<td class="header2" style="width: 50px;">
-						Image</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IMAGE_TEXT" /></td>
 					<td class="header2">
-						Name</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" /></td>
 					<td class="header2">
-						Category</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CATEGORY" /></td>
 					<td class="header2">
-						Description</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_BBCODE" /></td>
 					<td class="header2" style="width: 125px;">
-						Command</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COMMAND" /></td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -60,7 +61,8 @@
 		</asp:Repeater>
 		<tr>
 			<td class="footer1" colspan="6" align="center">
-				<asp:LinkButton ID="NewMedal" runat="server" Text="New Medal" OnClick="NewMedal_Click" CssClass="pbutton" /></td>
+				<asp:Button ID="NewMedal" runat="server" OnClick="NewMedal_Click" CssClass="pbutton" />
+            </td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

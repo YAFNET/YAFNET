@@ -13,6 +13,24 @@ namespace YAF.Controls {
     public partial class EditUsersInfo {
         
         /// <summary>
+        /// LocalizedLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
+        /// HelpLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel1;
+        
+        /// <summary>
         /// Name control.
         /// </summary>
         /// <remarks>
@@ -20,6 +38,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Name;
+        
+        /// <summary>
+        /// HelpLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel2;
         
         /// <summary>
         /// DisplayName control.
@@ -31,6 +58,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.TextBox DisplayName;
         
         /// <summary>
+        /// HelpLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel3;
+        
+        /// <summary>
         /// Email control.
         /// </summary>
         /// <remarks>
@@ -38,6 +74,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Email;
+        
+        /// <summary>
+        /// HelpLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel4;
         
         /// <summary>
         /// RankID control.
@@ -58,6 +103,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow IsHostAdminRow;
         
         /// <summary>
+        /// HelpLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel5;
+        
+        /// <summary>
         /// IsHostAdminX control.
         /// </summary>
         /// <remarks>
@@ -74,6 +128,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow IsCaptchaExcludedRow;
+        
+        /// <summary>
+        /// HelpLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel6;
         
         /// <summary>
         /// IsCaptchaExcluded control.
@@ -94,6 +157,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow IsExcludedFromActiveUsersRow;
         
         /// <summary>
+        /// HelpLabel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel7;
+        
+        /// <summary>
         /// IsExcludedFromActiveUsers control.
         /// </summary>
         /// <remarks>
@@ -101,6 +173,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox IsExcludedFromActiveUsers;
+        
+        /// <summary>
+        /// HelpLabel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel8;
         
         /// <summary>
         /// IsApproved control.
@@ -121,6 +202,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow IsGuestRow;
         
         /// <summary>
+        /// HelpLabel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel9;
+        
+        /// <summary>
         /// IsGuestX control.
         /// </summary>
         /// <remarks>
@@ -130,6 +220,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.CheckBox IsGuestX;
         
         /// <summary>
+        /// HelpLabel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel10;
+        
+        /// <summary>
         /// Joined control.
         /// </summary>
         /// <remarks>
@@ -137,6 +236,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Joined;
+        
+        /// <summary>
+        /// HelpLabel11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel11;
         
         /// <summary>
         /// LastVisit control.

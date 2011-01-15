@@ -31,6 +31,7 @@ namespace YAF.Controls
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -59,13 +60,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (this._allPostsByUser == null)
-        {
-          this._allPostsByUser = LegacyDb.post_alluser(
-            this.PageContext.PageBoardID, this.CurrentUserID, this.PageContext.PageUserID, null);
-        }
-
-        return this._allPostsByUser;
+          return this._allPostsByUser ??
+                 (this._allPostsByUser =
+                  LegacyDb.post_alluser(
+                      this.PageContext.PageBoardID, this.CurrentUserID, this.PageContext.PageUserID, null));
       }
     }
 
@@ -115,7 +113,7 @@ namespace YAF.Controls
       this.DeletePosts();
 
       MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-      this.PageContext.AddLoadMessage("User {0} Killed!".FormatWith(user.UserName));
+      this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
 
       // update the displayed data...
       this.BindData();
@@ -136,21 +134,23 @@ namespace YAF.Controls
       this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
       // this needs to be done just once, not during postbacks
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
         var userData = new CombinedUserDataHelper(user, (int)this.CurrentUserID.Value);
 
         this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-          ForumPages.search, 
-          "postedby={0}", 
-          !userData.IsGuest
-            ? userData.Membership.UserName
-            : (!userData.DisplayName.IsNotSet() ? userData.DisplayName : userData.UserName));
+            ForumPages.search, 
+            "postedby={0}", 
+            !userData.IsGuest
+                ? userData.Membership.UserName
+                : (userData.DisplayName.IsSet() ? userData.DisplayName : userData.UserName));
 
         // bind data
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -178,7 +178,7 @@ namespace YAF.Controls
           null, 
           this.PageContext.PageBoardID, 
           x, 
-          @"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP".FormatWith(
+          this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN").FormatWith(
             this.CurrentUserID, 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), 
             this.HtmlEncode(name)), 

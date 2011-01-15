@@ -12,15 +12,15 @@
 <YAF:AdminMenu runat="server">
     <asp:Panel id="EditUserTabs" runat="server">
                <ul>
-                 <li><a href="#View1">User Details</a></li>
-                 <li><a href="#View2">User Roles</a></li>
-                 <li><a href="#View3">User Profile</a></li>
-                 <li><a href="#View4">User Avatar</a></li>
-                 <li><a href="#View5">User Signature</a></li>		        
-                 <li runat="server" id="View6Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View6.ClientID %>'>User Password</a></li>	
-                 <li><a href="#View7">User Points</a></li>
-                 <li runat="server" id="View8Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View8.ClientID %>'>User Suspend</a></li>
-                 <li runat="server" id="View9Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View9.ClientID %>'>User Kill Activity</a></li>
+                 <li><a href="#View1"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="USER_DETAILS" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li><a href="#View2"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER_ROLES" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li><a href="#View3"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USER_PROFILE" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li><a href="#View4"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="USER_AVATAR" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li><a href="#View5"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="USER_SIG" LocalizedPage="ADMIN_EDITUSER" /></a></li>		        
+                 <li runat="server" id="View6Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View6.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITUSER" /></a></li>	
+                 <li><a href="#View7"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="USER_POINTS" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li runat="server" id="View8Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View8.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER_SUSPEND" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                 <li runat="server" id="View9Li" Visible="<%#!IsGuestUser%>"><a href='#<%# this.View9.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="USER_KILL" LocalizedPage="ADMIN_EDITUSER" /></a></li>
                </ul>
                 <div id="View1">
                    <uc1:QuickEdit ID="QuickEditControl" runat="server" />

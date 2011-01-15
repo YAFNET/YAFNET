@@ -25,6 +25,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Collections.Specialized;
   using System.Data;
+  using System.Linq;
   using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
@@ -65,7 +66,11 @@ namespace YAF.Pages.Admin
      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       // roles
-      this.PageLinks.AddLink("Roles", string.Empty);
+     this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), string.Empty);
+
+     this.Page.Header.Title = "{0} - {1}".FormatWith(
+        this.GetText("ADMIN_ADMIN", "Administration"),
+        this.GetText("ADMIN_GROUPS", "TITLE"));
     }
 
     /// <summary>
@@ -79,7 +84,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this Role?");
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -94,18 +99,11 @@ namespace YAF.Pages.Admin
     [NotNull]
     protected string GetLinkedStatus([NotNull] DataRowView currentRow)
     {
-      // check whether role is Guests role, which can't be linked
-      if (currentRow["Flags"].BinaryAnd(2))
-      {
-        return "Unlinkable";
-      }
-      else
-      {
-        return "Linked";
-      }
+        // check whether role is Guests role, which can't be linked
+        return currentRow["Flags"].BinaryAnd(2) ? this.GetText("ADMIN_GROUPS", "UNLINKABLE") : this.GetText("ADMIN_GROUPS", "LINKED");
     }
 
-    /// <summary>
+      /// <summary>
     /// Handles click on new role button
     /// </summary>
     /// <param name="sender">
@@ -131,18 +129,22 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // this needs to be done just once, not during postbacks
-      if (!this.IsPostBack)
-      {
+        // this needs to be done just once, not during postbacks
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // create page links
         this.CreatePageLinks();
+
+        this.NewGroup.Text = this.GetText("ADMIN_GROUPS", "NEW_ROLE");
 
         // sync roles just in case...
         RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
 
         // bind data
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -244,20 +246,14 @@ namespace YAF.Pages.Admin
       this._availableRoles.Clear();
 
       // get all provider roles
-      foreach (string role in RoleMembershipHelper.GetAllRoles())
+      foreach (string role in from role in RoleMembershipHelper.GetAllRoles()
+                              let filter = "Name='{0}'".FormatWith(role.Replace("'", "''"))
+                              let rows = dt.Select(filter)
+                              where rows.Length == 0
+                              select role)
       {
-        // make filter string, we want to filer by role name
-        string filter = "Name='{0}'".FormatWith(role.Replace("'", "''"));
-
-        // get given role of YAF
-        DataRow[] rows = dt.Select(filter);
-
-        // if this role is not in YAF DB, add it to the list of provider roles for syncing
-        if (rows.Length == 0)
-        {
           // doesn't exist in the Yaf Groups
           this._availableRoles.Add(role);
-        }
       }
 
       // check if there are any roles for syncing

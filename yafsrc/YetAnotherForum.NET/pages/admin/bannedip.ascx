@@ -10,17 +10,22 @@
 
 				<tr>
 					<td class="header1" colspan="5">
-						Banned IP Addresses</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDIP" />
+                     </td>
 				</tr>
 				<tr>
 					<td class="header2">
-						Mask</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
+                    </td>
 					<td class="header2">
-						Since</td>
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDIP" />
+                    </td>
 					<td class="header2">
-						Reason</td>	
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP" />
+                    </td>	
 					<td class="header2">
-						Banned By</td>		
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BAN_BY" LocalizedPage="ADMIN_BANNEDIP" />
+                    </td>		
 					<td class="header2">
 						&nbsp;</td>
 				</tr>
@@ -53,7 +58,7 @@
 		<FooterTemplate>
 			<tr>
 				<td class="footer1" colspan="5" align="center">
-					<asp:LinkButton runat="server" Text="Add" CommandName='add' CssClass="pbutton"></asp:LinkButton></td>
+					<asp:Button runat="server" OnLoad="Add_Load" CommandName='add' CssClass="pbutton"></asp:Button></td>
 			</tr>
 			</table>
 			</FooterTemplate>

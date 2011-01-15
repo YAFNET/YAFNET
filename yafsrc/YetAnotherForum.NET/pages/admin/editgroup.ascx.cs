@@ -92,11 +92,15 @@ namespace YAF.Pages.Admin
       // admin index
      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
-      // roles index
-      this.PageLinks.AddLink("Roles", YafBuildLink.GetLink(ForumPages.admin_groups));
+      this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_groups));
 
-      // edit role
-      this.PageLinks.AddLink("Edit Role");
+      // current page label (no link)
+      this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+         this.GetText("ADMIN_ADMIN", "Administration"),
+         this.GetText("ADMIN_GROUPS", "TITLE"),
+         this.GetText("ADMIN_EDITGROUP", "TITLE"));
     }
 
     /// <summary>
@@ -110,25 +114,34 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // this needs to be done just once, not during postbacks
-      if (!this.IsPostBack)
-      {
+        // this needs to be done just once, not during postbacks
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         // create page links
         this.CreatePageLinks();
+
+        this.Save.Text = this.GetText("COMMON", "SAVE");
+        this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
         // bind data
         this.BindData();
 
         // is this editing of existing role or creation of new one?
-        if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+        if (this.Request.QueryString.GetFirstOrDefault("i") == null)
         {
-          // we are not creating new role
-          this.NewGroupRow.Visible = false;
+            return;
+        }
 
-          // get data about edited role
-          using (
+        // we are not creating new role
+        this.NewGroupRow.Visible = false;
+
+        // get data about edited role
+        using (
             DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
-          {
+        {
             // get it as row
             DataRow row = dt.Rows[0];
 
@@ -154,11 +167,9 @@ namespace YAF.Pages.Admin
             // IsGuest flag can be set for only one role. if it isn't for this, disable that row
             if (flags.IsGuest)
             {
-              this.IsGuestTR.Visible = true;
+                this.IsGuestTR.Visible = true;
             }
-          }
         }
-      }
     }
 
     /// <summary>
@@ -174,31 +185,31 @@ namespace YAF.Pages.Admin
     {
       if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for priority.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"));
         return;
       }
 
       if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"));
         return;
       }
 
@@ -267,10 +278,10 @@ namespace YAF.Pages.Admin
           this.PageContext.CurrentRoles.AddUsersToRoles(users, new[] { roleName });
         }
       }
-
-      // if role doesn't exist in provider's data source, create it
-      else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+      else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked) 
       {
+          // if role doesn't exist in provider's data source, create it
+
         // simply create it
         RoleMembershipHelper.CreateRole(roleName);
       }

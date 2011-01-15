@@ -9,21 +9,21 @@
     <table cellspacing="0" cellpadding="0" class="content" width="100%">
         <tr>
             <td class="header1" colspan="4">
-                <strong>Search Users</strong>
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_USERS" />
             </td>
         </tr>
         <tr class="header2">
             <td>
-                Role:
+                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="ROLE" LocalizedPage="ADMIN_USERS" />
             </td>
             <td>
-                Rank:
+                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="RANK" LocalizedPage="ADMIN_USERS" />
             </td>
             <td>
-                User Name Contains:
+                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NAME_CONTAINS" LocalizedPage="ADMIN_USERS" />
             </td>
             <td>
-                Email Contains:
+                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="EMAIL_CONTAINS" LocalizedPage="ADMIN_USERS" />
             </td>
         </tr>
         <tr class="post">
@@ -44,15 +44,15 @@
         </tr>
         <tr>
             <td class="post" colspan="3" align="right">
-                Filter by join date since:
+                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" />
             </td>
             <td>
                 <asp:DropDownList ID="Since" runat="server" Width="95%" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" />
             </td>
         </tr>
         <tr>
-            <td class="footer1" colspan="4" align="right">
-                <asp:Button ID="search" runat="server" OnClick="search_Click" Text="Search"></asp:Button>
+            <td class="footer1" colspan="4" align="center">
+                <asp:Button ID="search" runat="server" OnClick="search_Click" CssClass="pbutton"></asp:Button>
             </td>
         </tr>
     </table>
@@ -61,30 +61,30 @@
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="8">
-                Users
+                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
             </td>
         </tr>
         <tr>
             <td class="header2">
-                User Name
+                <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="USER_NAME" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
-                Display Name
+                <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="DISPLAY_NAME" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
-                Email
+                <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
-                Rank
+               <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK" />
             </td>
             <td class="header2" align="center">
-                Posts
+                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2" align="center">
-                Approved
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="APPROVED" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
-                Last Visit
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />
             </td>
             <td class="header2">
                 &nbsp;
@@ -133,9 +133,9 @@
         <tr>
             <td class="footer1" colspan="8" align="center">
                 <strong>
-                    <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton">New User</asp:LinkButton></strong>
+                    <asp:Button ID="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
                 | <strong>
-                    <asp:LinkButton ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" OnClientClick="return confirm('Are you sure?');" CssClass="pbutton">Sync All Membership Users</asp:LinkButton></strong>
+                    <asp:Button ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
             </td>
         </tr>
     </table>

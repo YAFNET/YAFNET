@@ -25,6 +25,7 @@ namespace YAF.Controls
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils.Helpers;
 
   #endregion
@@ -62,11 +63,13 @@ namespace YAF.Controls
     /// </param>
     protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Page.IsValid)
-      {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
         LegacyDb.user_addpoints(this.CurrentUserID, this.txtAddPoints.Text);
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -82,10 +85,16 @@ namespace YAF.Controls
     {
       this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.Button1.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+        this.btnAddPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+        this.btnUserPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -99,11 +108,13 @@ namespace YAF.Controls
     /// </param>
     protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Page.IsValid)
-      {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
         LegacyDb.user_removepoints(this.CurrentUserID, this.txtRemovePoints.Text);
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -117,11 +128,13 @@ namespace YAF.Controls
     /// </param>
     protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (this.Page.IsValid)
-      {
+        if (!this.Page.IsValid)
+        {
+            return;
+        }
+
         LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
         this.BindData();
-      }
     }
 
     /// <summary>

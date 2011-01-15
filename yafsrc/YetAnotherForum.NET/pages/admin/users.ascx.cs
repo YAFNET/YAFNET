@@ -60,7 +60,7 @@ namespace YAF.Pages.Admin
     public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // add confirmation method on click
-      ControlHelper.AddOnClickConfirmDialog(sender, "Delete this user?");
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ namespace YAF.Pages.Admin
           if (this.PageContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
           {
             // deleting yourself isn't an option
-            this.PageContext.AddLoadMessage("You can't delete yourself.");
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"));
             return;
           }
 
@@ -115,17 +115,19 @@ namespace YAF.Pages.Admin
               if (SqlDataLayerConverter.VerifyInt32(row["IsGuest"]) > 0)
               {
                 // we cannot detele guest
-                this.PageContext.AddLoadMessage("You can't delete the Guest.");
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"));
                 return;
               }
 
-              if ((row["IsAdmin"] != DBNull.Value && SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) > 0) ||
-                  (row["IsHostAdmin"] != DBNull.Value && row["IsHostAdmin"].ToType<int>() > 0))
-              {
+                if ((row["IsAdmin"] == DBNull.Value || SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) <= 0) &&
+                    (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
+                {
+                    continue;
+                }
+
                 // admin are not deletable either
-                this.PageContext.AddLoadMessage("You can't delete the Admin.");
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"));
                 return;
-              }
             }
           }
 
@@ -189,7 +191,11 @@ namespace YAF.Pages.Admin
       this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
       // current page label (no link)
-      this.PageLinks.AddLink("Users", string.Empty);
+      this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1}".FormatWith(
+         this.GetText("ADMIN_ADMIN", "Administration"),
+         this.GetText("ADMIN_USERS", "TITLE"));
     }
 
     /// <summary>
@@ -244,6 +250,13 @@ namespace YAF.Pages.Admin
 
       // create page links
       this.CreatePageLinks();
+
+      this.search.Text = this.GetText("ADMIN_USERS", "SEARCH");
+
+      this.NewUser.Text = this.GetText("ADMIN_USERS", "NEW_USER");
+      this.SyncUsers.Text = this.GetText("ADMIN_USERS", "SYNC_ALL");
+
+      ControlHelper.AddOnClickConfirmDialog(this.SyncUsers, this.GetText("ADMIN_USERS", "CONFIRM_SYNC"));
 
       // intialize since filter items
       this.InitSinceDropdown();

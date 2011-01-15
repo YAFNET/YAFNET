@@ -29,6 +29,7 @@ namespace YAF.Controls
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utils.Helpers;
 
   #endregion
@@ -66,17 +67,21 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+        this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-      this.IsHostAdminRow.Visible = this.PageContext.IsHostAdmin;
+        this.IsHostAdminRow.Visible = this.PageContext.IsHostAdmin;
 
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
+        this.Save.Text = this.Get<ILocalization>().GetText("COMMON", "SAVE");
+
         this.BindData();
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// The save_ click.
     /// </summary>
     /// <param name="sender">
@@ -106,7 +111,7 @@ namespace YAF.Controls
       {
         if (!this.IsApproved.Checked)
         {
-          this.PageContext.AddLoadMessage("The Guest user must be marked as Approved or your forum will be unstable.");
+          this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"));
           return;
         }
       }
