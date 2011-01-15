@@ -166,7 +166,7 @@ namespace YAF.Controls
       }
 
       footer.AppendFormat(
-        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2010, Yet Another Forum.NET</a>", 
+        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2011, Yet Another Forum.NET</a>", 
         "YetAnotherForum.NET", 
         "http://www.yetanotherforum.net");
 

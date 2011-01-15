@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF for DotNetNuke")]
-[assembly: AssemblyCopyright("Copyright © 2006-2010 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2011 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
