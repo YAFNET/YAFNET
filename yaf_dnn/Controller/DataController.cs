@@ -44,7 +44,7 @@ namespace YAF.DotNetNuke.Controller
     /// <param name="numOfPostsToRetrieve">
     /// How many post should been retrieved
     /// </param>
-    /// <param name="userId">
+      /// <param name="pageUserId">
     /// Current Users Id
     /// </param>
     /// <param name="useStyledNicks">
@@ -55,14 +55,14 @@ namespace YAF.DotNetNuke.Controller
     /// Data Table of Latest Posts
     /// </returns>
     public static DataTable TopicLatest(
-      object boardId, object numOfPostsToRetrieve, object userId, bool useStyledNicks, bool showNoCountPosts)
+      object boardId, object numOfPostsToRetrieve, object pageUserId, bool useStyledNicks, bool showNoCountPosts)
     {
       using (SqlCommand cmd = MsSqlDbAccess.GetCommand("topic_latest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardId);
         cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
-        cmd.Parameters.AddWithValue("UserID", userId);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
 
