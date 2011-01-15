@@ -215,7 +215,7 @@
 		  </p>
 		  <h2>
 		  YetAnotherForum.NET DotNetNuke® Module Installation/Upgrading Instructions</h2>
-			<p>Thank you for downloading Yet Another Forum.NET ASP.NET Open Source Forum solution. The Yet Another Forum (YAF) project is an international collaboriation of like-minded, skilled,
+			<p>Thank you for downloading Yet Another Forum.NET ASP.NET Open Source Forum solution. The Yet Another Forum (YAF) project is an international collaboration of like-minded, skilled,
 			and creative individuals who are striving to make YAF the most robust and malleable forum solutions available. If you have any thoughts or would like to contribute, please see the 
 			contact information at the bottom of this document.
 			</p>
@@ -223,9 +223,9 @@
 		<div id="content-wrap">
 			<div id="content">
 			<h3>
-				STEP 1.Installation Requirments</h3>
+				STEP 1.Installation Requirements</h3>
 				<p>
-				Make sure your server / Host has the following requirments:</p>
+				Make sure your server / Host has the following requirements:</p>
 				<ol>
 					<li>Microsoft .NET Framework 3.5 SP1 (Use version 1.9.3 or earlier for .NET 
                         Framework 2.0)</li>
@@ -234,32 +234,32 @@
 				</ol>
 				<h3>STEP 2. BACKUP</h3>
 				<ol>
-					<li>Backup all your existing DotNetNuke installation</li>
+					<li>Backup your existing DotNetNuke installation</li>
 					<li><span class="style1"> <strong>BACKUP YOUR DATABASE</strong></span></li>
 				</ol>
 		    <h3>STEP 3. INSTALLING</h3>
 				<ol>
-					<li> Install the Module <strong>YAF_DNN5_1.94.xxxx.</strong><strong>zip</strong> in your DotNetNuke (Host-&gt;Extensions-&gt;Install Extension Wizard)</li>
+					<li> Install the Module <strong>YAF_DNN5_1.95.x-xxxx.</strong><strong>zip</strong> in your DotNetNuke (Host-&gt;Extensions-&gt;Install Extension Wizard)</li>
 				</ol>
 				<h3>STEP 4. Modify the root web.config of your DotNetnuke. <span style="color:red;">This is the most important step.</span></h3>
 			  <ol>
 					<li>
-					  <p><strong> </strong>Replace the <strong>YAF Config Password</strong> <code>&lt;add key=&quot;YAF.ConfigPassword&quot; value=&quot;<strong>pass</strong>&quot; /&gt; with one you like.</code>				      </p>
-				</ol>
-			  <h3>STEP 5. (OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
+					  <p><strong> </strong>Replace the <strong>YAF Config Password</strong> <code>&lt;add key=&quot;YAF.ConfigPassword&quot; value=&quot;<strong>XXXX</strong>&quot; /&gt;</code> with one you like.				      </p>
+			  </ol>
+			  <h3>STEP 5. MODIFY &quot;mail.config&quot; FILE:</h3>
 				<ol>
 					<li>Modify the SMTP settings by entering your mail server information. If you SMTP
 						server requires SSL, you must add:
 						<br>
 				  <strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong> to your app.config or appSettings.</li>
 </ol>
-				<h3>STEP 8a. NEW INSTALLATION:</h3>
+				<h3>STEP 6a. NEW INSTALLATION:</h3>
 				<p>Now you can place the YAF Module on a Page you like, but make sure you are logged into DNN using the HOST account, it will automatically starts the Installation!</p>
-<h3>STEP 8b. UPGRADE:</h3>
+<h3>STEP 6b. UPGRADE:</h3>
 				<p>
 					Open the file YourWebsite.com/DesktopModules/YetAnotherForumDotNet/install/ on your web site. If you are testing
 					on your local computer, under a directory called YetAnotherForum.Net, the address
-					should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/DesktopModules/YetAnotherForumDotNet/install/Default.aspx</a></p>
+					should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/DotNetNuke/DesktopModules/YetAnotherForumDotNet/install/Default.aspx</a></p>
 				<p>
 					The wizard will guide you through the upgrade process.
 		    </p>

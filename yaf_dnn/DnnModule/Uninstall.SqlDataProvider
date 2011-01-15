@@ -1681,3 +1681,11 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_topic_findduplicate') AND Objectproperty(id,N'IsProcedure') = 1)
 drop procedure {databaseOwner}{objectQualifier}yaf_topic_findduplicate
 GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_board_setguid') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_board_setguid
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}{objectQualifier}yaf_user_listmembers') AND Objectproperty(id,N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}yaf_user_listmembers
+GO

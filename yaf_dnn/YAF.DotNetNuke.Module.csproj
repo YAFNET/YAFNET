@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetNuke">
-      <HintPath>..\..\bin 5.2\DotNetNuke.dll</HintPath>
+      <HintPath>Libaries\DotNetNuke.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -61,11 +61,6 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="YAF, Version=1.9.4.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YetAnotherForum.NET\Bin\YAF.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DataController.cs" />
@@ -123,37 +118,41 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Controls\YAF.Controls.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Controls\YAF.Controls.csproj">
       <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
       <Name>YAF.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Core\YAF.Core.csproj">
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Providers\YAF.Providers.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Providers\YAF.Providers.csproj">
       <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>
       <Name>YAF.Providers</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
       <Name>YAF.Types</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
+    <ProjectReference Include="..\yafsrc\YAF.Utils\YAF.Utils.csproj">
       <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
       <Name>YAF.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\yafsrc\YetAnotherForum.NET\YAF.csproj">
+      <Project>{555357E5-A150-4C4D-BC81-97F4AE19086A}</Project>
+      <Name>YAF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
