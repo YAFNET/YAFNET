@@ -23,6 +23,7 @@ namespace YAF.Controls
   using YAF.Core;
 
   using YAF.Core.BBCode;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Types;
 
@@ -78,7 +79,7 @@ namespace YAF.Controls
     /// <returns>
     /// The localize and render.
     /// </returns>
-    public static string LocalizeAndRender([NotNull] this ILocalizationSupport supportedItem, [NotNull] Control currentControl)
+    public static string LocalizeAndRender([NotNull] this ILocalizationSupport supportedItem, [NotNull] BaseControl currentControl)
     {
       CodeContracts.ArgumentNotNull(supportedItem, "supportedItem");
       CodeContracts.ArgumentNotNull(currentControl, "currentControl");
@@ -88,7 +89,7 @@ namespace YAF.Controls
       // convert from YafBBCode to HTML
       if (supportedItem.EnableBBCode)
       {
-        localizedItem = YafBBCode.MakeHtml(localizedItem, true, false);
+        localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, true, false);
       }
 
       return localizedItem.FormatWith(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);

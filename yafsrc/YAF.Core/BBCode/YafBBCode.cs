@@ -20,27 +20,23 @@
 namespace YAF.Core.BBCode
 {
   using System;
-  using System.Data;
   using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web;
   using System.Web.UI;
-  using System.Xml;
 
   using YAF.Core;
   using YAF.Core.BBCode.ReplaceRules;
   using YAF.Core.Services;
+  using YAF.Types;
   using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types.Constants;
 
   /// <summary>
   /// Summary description for YafBBCode.
   /// </summary>
-  public class YafBBCode
+  public class YafBBCode : IBBCode
   {
     /* Ederon : 6/16/2007 - conventions */
 
@@ -209,13 +205,6 @@ namespace YAF.Core.BBCode
         @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.+?))\[/url\]", _options | RegexOptions.Compiled);
 
     /// <summary>
-    /// Prevents a default instance of the <see cref="YafBBCode"/> class from being created.
-    /// </summary>
-    private YafBBCode()
-    {
-    }
-
-    /// <summary>
     /// Converts a string containing YafBBCode to the equivalent HTML string.
     /// </summary>
     /// <param name="inputString">
@@ -228,7 +217,7 @@ namespace YAF.Core.BBCode
     /// <returns>
     /// The make html.
     /// </returns>
-    public static string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
+    public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
     {
       // get the rules engine from the creator...
       ProcessReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
@@ -239,7 +228,7 @@ namespace YAF.Core.BBCode
 
       if (!ruleEngine.HasRules)
       {
-        CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks);
+        this.CreateBBCodeRules(ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks);
       }
 
       ruleEngine.Process(ref inputString);
@@ -260,7 +249,7 @@ namespace YAF.Core.BBCode
     /// <returns>
     /// The converted text
     /// </returns>
-    public static string ConvertBBCodeToHtmlForEdit(string message)
+    public string ConvertBBCodeToHtmlForEdit(string message)
     {
       bool doFormatting = true;
       bool targetBlankOverride = false;
@@ -276,7 +265,7 @@ namespace YAF.Core.BBCode
       if (!ruleEngine.HasRules)
       {
         // Do not convert BBQuotes to HTML when editing -- "[quote]...[/quote]" will remain in plaintext in the rich text editor
-        CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, false /*convertBBQuotes*/);
+        CreateBBCodeRules(ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, false /*convertBBQuotes*/);
       }
 
       ruleEngine.Process(ref message);
@@ -299,30 +288,10 @@ namespace YAF.Core.BBCode
     /// <param name="useNoFollow">
     /// The use No Follow.
     /// </param>
-    public static void CreateBBCodeRules(ref ProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
-    {
-      CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride, useNoFollow, true);
-    }
-
-    /// <summary>
-    /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
-    /// </summary>
-    /// <param name="ruleEngine">
-    /// The rule Engine.
-    /// </param>
-    /// <param name="doFormatting">
-    /// The do Formatting.
-    /// </param>
-    /// <param name="targetBlankOverride">
-    /// The target Blank Override.
-    /// </param>
-    /// <param name="useNoFollow">
-    /// The use No Follow.
-    /// </param>
     /// <param name="convertBBQuotes">
     /// The convert BB Quotes.
     /// </param>
-    public static void CreateBBCodeRules(ref ProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes)
+    public void CreateBBCodeRules(IProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes)
     {
         string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride)
                             ? "target=\"_blank\""
@@ -451,7 +420,7 @@ namespace YAF.Core.BBCode
                         }));
 
             // handle custom YafBBCode
-            AddCustomBBCodeRules(ref ruleEngine);
+            AddCustomBBCodeRules(ruleEngine);
 
             // basic hr and br rules
             var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
@@ -465,14 +434,11 @@ namespace YAF.Core.BBCode
         }
 
         // add smilies
-        YafFormatMessage.AddSmiles(ref ruleEngine);
+        this.AddSmiles(ruleEngine);
 
         if (convertBBQuotes)
         {
             // "quote" handling...
-
-            ForumPage fp = new ForumPage();
-
             string tmpReplaceStr2 =
                 @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
                     FormatWith(localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
@@ -492,12 +458,16 @@ namespace YAF.Core.BBCode
 
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr1));
 
-            string tmpReplaceStr3 =
-               @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></span><div class=""innerquote"">{4}</div></div>"
-                   .
-                   FormatWith(localQuotePostedStr.Replace("{0}", "${quote}"),
-                              YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
-                              fp.GetThemeContents("ICONS", "ICON_LATEST"), fp.GetText("COMMON","BBCODE_QUOTEPOSTED_TT"), "${inner}");
+          var sl = Core.YafContext.Current.ServiceLocator;
+
+          string tmpReplaceStr3 =
+            @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></span><div class=""innerquote"">{4}</div></div>"
+              .FormatWith(
+                localQuotePostedStr.Replace("{0}", "${quote}"),
+                YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", "${id}"),
+                sl.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
+                sl.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"),
+                "${inner}");
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -520,13 +490,57 @@ namespace YAF.Core.BBCode
                                                          _options));
     }
 
+    /// <summary>
+    /// Adds smiles replacement rules to the collection from the DB
+    /// </summary>
+    /// <param name="rules">
+    /// The rules.
+    /// </param>
+    public void AddSmiles([NotNull] IProcessReplaceRules rules)
+    {
+      CodeContracts.ArgumentNotNull(rules, "rules");
+
+      var smiles = YafContext.Current.Get<IDBBroker>().GetSmilies();
+      int codeOffset = 0;
+
+      foreach (var smile in smiles)
+      {
+        string code = smile.Code;
+        code = code.Replace("&", "&amp;");
+        code = code.Replace(">", "&gt;");
+        code = code.Replace("<", "&lt;");
+        code = code.Replace("\"", "&quot;");
+
+        // add new rules for smilies...
+        var lowerRule = new SimpleReplaceRule(
+          code.ToLower(),
+          @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
+            YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+
+        var upperRule = new SimpleReplaceRule(
+          code.ToUpper(),
+          @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
+            YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+
+        // increase the rank as we go...
+        lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
+        upperRule.RuleRank = upperRule.RuleRank + 100 + codeOffset;
+
+        rules.AddRule(lowerRule);
+        rules.AddRule(upperRule);
+
+        // add a bit more rank
+        codeOffset++;
+      }
+    }
+
       /// <summary>
     /// Applies Custom YafBBCode Rules from the YafBBCode table
     /// </summary>
     /// <param name="rulesEngine">
     /// The rules Engine.
     /// </param>
-    protected static void AddCustomBBCodeRules(ref ProcessReplaceRules rulesEngine)
+    protected void AddCustomBBCodeRules(IProcessReplaceRules rulesEngine)
       {
         var bbcodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
 
@@ -565,7 +579,7 @@ namespace YAF.Core.BBCode
     /// <param name="currentType">
     /// The current Type.
     /// </param>
-    public static void RegisterCustomBBCodePageElements(Page currentPage, Type currentType)
+    public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType)
     {
       RegisterCustomBBCodePageElements(currentPage, currentType, null);
     }
@@ -583,7 +597,7 @@ namespace YAF.Core.BBCode
     /// <param name="editorID">
     /// The editor ID.
     /// </param>
-    public static void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
+    public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
     {
       var bbCodeTable = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
       const string scriptID = "custombbcode";
@@ -645,7 +659,7 @@ namespace YAF.Core.BBCode
     /// <returns>
     /// The localize custom bb code element.
     /// </returns>
-    public static string LocalizeCustomBBCodeElement(string strToLocalize)
+    public string LocalizeCustomBBCodeElement(string strToLocalize)
     {
       var regExSearch = new Regex(_rgxBBCodeLocalizationTag, _options);
 
@@ -674,32 +688,6 @@ namespace YAF.Core.BBCode
       }
 
       return sb.ToString();
-    }
-
-    /// <summary>
-    /// Encodes HTML - same as <see cref="HttpServerUtility.HtmlEncode(string)"/>
-    /// </summary>
-    /// <param name="html">
-    /// </param>
-    /// <returns>
-    /// The encode html.
-    /// </returns>
-    public static string EncodeHTML(string html)
-    {
-      return HttpContext.Current.Server.HtmlEncode(html);
-    }
-
-    /// <summary>
-    /// Decodes HTML - same as <see cref="HttpServerUtility.HtmlDecode(string)"/>
-    /// </summary>
-    /// <param name="text">
-    /// </param>
-    /// <returns>
-    /// The decode html.
-    /// </returns>
-    public static string DecodeHTML(string text)
-    {
-      return HttpContext.Current.Server.HtmlDecode(text);
     }
   }
 }

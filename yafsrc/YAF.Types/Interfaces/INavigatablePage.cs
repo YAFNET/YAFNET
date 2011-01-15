@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,38 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.BBCode
+namespace YAF.Types.Interfaces
 {
-  using System;
-
   /// <summary>
-  /// Base Replace Rules Interface
+  /// The i navigatable page.
   /// </summary>
-  public interface IReplaceRule
+  public interface INavigatablePage
   {
     #region Properties
 
     /// <summary>
-    ///   Gets RuleDescription.
+    /// Gets PageCategory.
     /// </summary>
-    string RuleDescription { get; }
-
-    #endregion
-
-    #region Public Methods
+    string PageCategory { get; }
 
     /// <summary>
-    /// The replace.
+    /// Gets ParentPageName.
     /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="replacement">
-    /// The replacement.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    void Replace(ref string text, IReplaceBlocks replacement);
+    string ParentPageName { get; }
 
     #endregion
   }

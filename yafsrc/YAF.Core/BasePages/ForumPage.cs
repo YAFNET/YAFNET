@@ -41,7 +41,7 @@ namespace YAF.Core
   /// <summary>
   /// The class that all YAF forum pages are derived from.
   /// </summary>
-  public class ForumPage : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator
+  public abstract class ForumPage : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator, ILocatablePage
   {
     #region Constants and Fields
 
@@ -691,5 +691,14 @@ namespace YAF.Core
     }
 
     #endregion
+
+
+    public string PageName
+    {
+      get
+      {
+        return this.GetType().Name.Replace("aspx", string.Empty);
+      }
+    }
   }
 }

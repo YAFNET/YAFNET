@@ -16,32 +16,38 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.BBCode
+namespace YAF.Types.Interfaces
 {
+  using System;
+
   /// <summary>
-  /// The i add replace block.
+  /// Base Replace Rules Interface
   /// </summary>
-  public interface IReplaceBlocks
+  public interface IReplaceRule
   {
+    #region Properties
+
+    /// <summary>
+    ///   Gets RuleDescription.
+    /// </summary>
+    string RuleDescription { get; }
+
+    #endregion
+
     #region Public Methods
 
     /// <summary>
-    /// The add replacement.
+    /// The replace.
     /// </summary>
-    /// <param name="newItem">
-    /// The new item.
+    /// <param name="text">
+    /// The text.
     /// </param>
-    /// <returns>
-    /// The add replacement.
-    /// </returns>
-    int Add(string newItem);
-
-    /// <summary>
-    /// Gets the replacement value from the index.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    string Get(int index);
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    /// <exception cref="NotImplementedException">
+    /// </exception>
+    void Replace(ref string text, IReplaceBlocks replacement);
 
     #endregion
   }

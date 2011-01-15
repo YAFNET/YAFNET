@@ -63,6 +63,9 @@ namespace YAF.Controls
                 }
             }
 
+            //// select the view that has the current page...
+            string currentPage = this.PageContext.ForumPageType.ToString();
+
            // build menu...
             foreach (var value in this._menuDef.Items)
             {
@@ -72,9 +75,6 @@ namespace YAF.Controls
                 {
                     continue;
                 }
-
-                //// select the view that has the current page...
-                string currentPage = this.PageContext.ForumPageType.ToString();
 
                 if (value.YafMenuItem.Any(x => x.ForumPage == currentPage))
                 {

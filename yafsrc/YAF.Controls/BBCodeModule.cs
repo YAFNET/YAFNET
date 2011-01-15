@@ -140,7 +140,7 @@ namespace YAF.Controls
     /// </returns>
     protected string ProcessBBCodeString([NotNull] string bbCodeString)
     {
-      return YafFormatMessage.FormatMessage(bbCodeString, this.CurrentMessageFlags);
+      return this.Get<IFormatMessage>().FormatMessage(bbCodeString, this.CurrentMessageFlags);
     }
 
     #endregion

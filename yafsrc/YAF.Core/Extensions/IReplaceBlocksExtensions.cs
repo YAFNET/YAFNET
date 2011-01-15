@@ -24,6 +24,7 @@ namespace YAF.Core
   using System.Text.RegularExpressions;
 
   using YAF.Core.BBCode;
+  using YAF.Types.Interfaces;
 
   #endregion
 

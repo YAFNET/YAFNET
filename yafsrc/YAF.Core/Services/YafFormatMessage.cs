@@ -45,8 +45,18 @@ namespace YAF.Core.Services
   /// <summary>
   /// YafFormatMessage provides functions related to formatting the post messages.
   /// </summary>
-  public static class YafFormatMessage
+  public class YafFormatMessage : IFormatMessage, IHaveServiceLocator
   {
+    public IServiceLocator ServiceLocator { get; set; }
+
+    public HttpServerUtilityBase HttpServer { get; set; }
+
+    public YafFormatMessage(IServiceLocator serviceLocator, HttpServerUtilityBase httpServer)
+    {
+      ServiceLocator = serviceLocator;
+      HttpServer = httpServer;
+    }
+
     /* Ederon : 6/16/2007 - conventions */
     #region Constants and Fields
 
@@ -58,69 +68,6 @@ namespace YAF.Core.Services
     #endregion
 
     #region Public Methods
-
-    /// <summary>
-    /// For backwards compatibility
-    /// </summary>
-    /// <param name="message">
-    /// the message to add smiles to.
-    /// </param>
-    /// <returns>
-    /// The add smiles.
-    /// </returns>
-    public static string AddSmiles([NotNull] string message)
-    {
-      var layers = new ProcessReplaceRules();
-      AddSmiles(ref layers);
-
-      // apply...
-      layers.Process(ref message);
-      return message;
-    }
-
-    /// <summary>
-    /// Adds smiles replacement rules to the collection from the DB
-    /// </summary>
-    /// <param name="rules">
-    /// The rules.
-    /// </param>
-    public static void AddSmiles([NotNull] ref ProcessReplaceRules rules)
-    {
-      CodeContracts.ArgumentNotNull(rules, "rules");
-
-      var smiles = YafContext.Current.Get<IDBBroker>().GetSmilies();
-      int codeOffset = 0;
-
-      foreach (var smile in smiles)
-      {
-        string code = smile.Code;
-        code = code.Replace("&", "&amp;");
-        code = code.Replace(">", "&gt;");
-        code = code.Replace("<", "&lt;");
-        code = code.Replace("\"", "&quot;");
-
-        // add new rules for smilies...
-        var lowerRule = new SimpleReplaceRule(
-          code.ToLower(),
-          @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
-            YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
-
-        var upperRule = new SimpleReplaceRule(
-          code.ToUpper(),
-          @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
-            YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
-
-        // increase the rank as we go...
-        lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
-        upperRule.RuleRank = upperRule.RuleRank + 100 + codeOffset;
-
-        rules.AddRule(lowerRule);
-        rules.AddRule(upperRule);
-
-        // add a bit more rank
-        codeOffset++;
-      }
-    }
 
     /// <summary>
     /// The method to detect a forbidden BBCode tag from delimited by 'delim' list 
@@ -138,7 +85,7 @@ namespace YAF.Core.Services
     /// Returns a string containing a forbidden BBCode or a null string
     /// </returns>
     [CanBeNull]
-    public static string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
+    public string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
     {
       // TODO: Convert to Regular Expression -- use the match function below -- BREAK DOWN INTO REUSABLE FUNCTIONS.
       bool checker = string.IsNullOrEmpty(stringToMatch);
@@ -241,7 +188,7 @@ namespace YAF.Core.Services
     /// <returns>
     /// A message string.
     /// </returns>
-    public static string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
+    public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
     {
       string detectedHtmlTag = HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
       if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
@@ -266,43 +213,6 @@ namespace YAF.Core.Services
     /// <param name="messageFlags">
     /// The message flags.
     /// </param>
-    /// <returns>
-    /// The formatted message.
-    /// </returns>
-    public static string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags)
-    {
-      return FormatMessage(message, messageFlags, false);
-    }
-
-    /// <summary>
-    /// The format message.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
-    /// <param name="targetBlankOverride">
-    /// The target blank override.
-    /// </param>
-    /// <returns>
-    /// The formated message.
-    /// </returns>
-    public static string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride)
-    {
-      return FormatMessage(message, messageFlags, targetBlankOverride, DateTime.UtcNow);
-    }
-
-    /// <summary>
-    /// The format message.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
     /// <param name="targetBlankOverride">
     /// The target blank override.
     /// </param>
@@ -312,7 +222,7 @@ namespace YAF.Core.Services
     /// <returns>
     /// The formatted message.
     /// </returns>
-    public static string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
+    public string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
     {
       bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
 
@@ -340,7 +250,7 @@ namespace YAF.Core.Services
         // populate
 
         // get rules for YafBBCode and Smilies
-        YafBBCode.CreateBBCodeRules(ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow);
+        this.Get<IBBCode>().CreateBBCodeRules(ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow);
 
         // add email rule
         // vzrus: it's freezing  when post body contains full email adress.
@@ -433,11 +343,11 @@ namespace YAF.Core.Services
     /// The formatted message.
     /// </returns>
     [NotNull]
-    public static string FormatSyndicationMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch)
+    public string FormatSyndicationMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch)
     {
       message =
         @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
-          altItem ? "content postContainer" : "content postContainer_Alt", FormatMessage(message, messageFlags, false));
+          altItem ? "content postContainer" : "content postContainer_Alt", this.FormatMessage(message, messageFlags, false));
       message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
       return message;
 
@@ -457,7 +367,7 @@ namespace YAF.Core.Services
     /// <returns>
     /// The get cleaned topic message.
     /// </returns>
-    public static MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId)
+    public MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId)
     {
       CodeContracts.ArgumentNotNull(topicMessage, "topicMessage");
       CodeContracts.ArgumentNotNull(topicId, "topicId");
@@ -538,7 +448,7 @@ namespace YAF.Core.Services
     /// Returns a forbidden HTML tag or a null string
     /// </returns>
     [CanBeNull]
-    public static string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
+    public string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
     {
       // TODO: Convert to Regular Expression -- THIS IS WHAT REGEX IF FOR!
       bool checker = string.IsNullOrEmpty(stringToMatch);
@@ -634,7 +544,7 @@ namespace YAF.Core.Services
     /// A version of <paramref name="body"/> that contains no nested quotes.
     /// </returns>
     [NotNull]
-    public static string RemoveNestedQuotes([NotNull] string body)
+    public string RemoveNestedQuotes([NotNull] string body)
     {
       RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
       var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", options);
@@ -655,7 +565,7 @@ namespace YAF.Core.Services
     /// <returns>
     /// The repaired html.
     /// </returns>
-    public static string RepairHtml([NotNull] string html, bool allowHtml)
+    public string RepairHtml([NotNull] string html, bool allowHtml)
     {
       // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
       // These are '\n\r' things related to multiline regexps.
@@ -673,7 +583,7 @@ namespace YAF.Core.Services
 
       if (!allowHtml)
       {
-        html = YafBBCode.EncodeHTML(html);
+        html = this.HttpServer.HtmlEncode(html);
       }
       else
       {
@@ -696,7 +606,7 @@ namespace YAF.Core.Services
     /// <returns>
     /// The repaired html.
     /// </returns>
-    public static string RepairHtmlFeeds([NotNull] string html, bool allowHtml)
+    public string RepairHtmlFeeds([NotNull] string html, bool allowHtml)
     {
       // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
       // These are '\n\r' things related to multiline regexps.
@@ -714,7 +624,7 @@ namespace YAF.Core.Services
 
       if (!allowHtml)
       {
-        html = YafBBCode.EncodeHTML(html);
+        html = this.HttpServer.HtmlEncode(html);
       }
       else
       {
@@ -739,7 +649,7 @@ namespace YAF.Core.Services
     /// <returns>
     /// The surround word list.
     /// </returns>
-    public static string SurroundWordList(
+    public string SurroundWordList(
       [NotNull] string message, [NotNull] IList<string> wordList, [NotNull] string prefix, [NotNull] string postfix)
     {
       CodeContracts.ArgumentNotNull(message, "message");
@@ -862,52 +772,5 @@ namespace YAF.Core.Services
     }
 
     #endregion
-
-    /// <summary>
-    /// The message cleaned class (internal)
-    /// </summary>
-    [Serializable]
-    public class MessageCleaned
-    {
-      #region Constructors and Destructors
-
-      /// <summary>
-      ///   Initializes a new instance of the <see cref = "MessageCleaned" /> class.
-      /// </summary>
-      public MessageCleaned()
-      {
-      }
-
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MessageCleaned"/> class.
-      /// </summary>
-      /// <param name="messageTruncated">
-      /// The message truncated.
-      /// </param>
-      /// <param name="messageKeywords">
-      /// The message keywords.
-      /// </param>
-      public MessageCleaned([NotNull] string messageTruncated, [NotNull] List<string> messageKeywords)
-      {
-        this.MessageTruncated = messageTruncated;
-        this.MessageKeywords = messageKeywords;
-      }
-
-      #endregion
-
-      #region Properties
-
-      /// <summary>
-      ///   Gets or sets MessageKeywords.
-      /// </summary>
-      public List<string> MessageKeywords { get; set; }
-
-      /// <summary>
-      ///   Gets or sets MessageTruncated.
-      /// </summary>
-      public string MessageTruncated { get; set; }
-
-      #endregion
-    }
   }
 }

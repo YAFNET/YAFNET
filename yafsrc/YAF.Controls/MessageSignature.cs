@@ -138,7 +138,7 @@ namespace YAF.Controls
       }
       else
       {
-        signatureRendered = YafFormatMessage.FormatMessage(this.Signature, signatureFlags);
+        signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
         cache[this.DisplayUserID.Value] = signatureRendered;
       }
 

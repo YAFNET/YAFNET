@@ -23,6 +23,7 @@ namespace YAF.Core.BBCode
   using System;
   using System.Collections.Generic;
 
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
   using YAF.Core.BBCode.ReplaceRules;
@@ -118,7 +119,7 @@ namespace YAF.Core.BBCode
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    public void AddRule(BaseReplaceRule newRule)
+    public void AddRule(IReplaceRule newRule)
     {
       if (newRule == null)
       {
@@ -167,7 +168,7 @@ namespace YAF.Core.BBCode
       }
 
       // apply all rules...
-      foreach (BaseReplaceRule rule in localRulesList)
+      foreach (IReplaceRule rule in localRulesList)
       {
         rule.Replace(ref text, mainCollection);
       }

@@ -29,6 +29,7 @@ namespace YAF.Core
   using Autofac.Core;
 
   using YAF.Classes;
+  using YAF.Core.BBCode;
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Interfaces;
@@ -80,6 +81,7 @@ namespace YAF.Core
       this.RegisterEventBindings();
       this.RegisterServices();
       this.RegisterModules();
+      this.RegisterPages();
     }
 
     #endregion
@@ -124,13 +126,31 @@ namespace YAF.Core
         builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope();
       }
 
-      // staionary bindings...
+      if (this.IsNotRegistered<IBBCode>())
+      {
+        builder.RegisterType<YafBBCode>().As<IBBCode>().OwnedByLifetimeScope();
+      }
+
+      if (this.IsNotRegistered<IFormatMessage>())
+      {
+        builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().OwnedByLifetimeScope();
+      }
+
+      if (this.IsNotRegistered<IDBBroker>())
+      {
+        builder.RegisterType<YafDBBroker>().As<IDBBroker>().OwnedByLifetimeScope();
+      }
+
+      if (this.IsNotRegistered<IAvatars>())
+      {
+        builder.RegisterType<YafAvatars>().As<IAvatars>().OwnedByLifetimeScope();
+      }
+
+      // stationary bindings...
       builder.RegisterType<YafSession>().As<IYafSession>().OwnedByLifetimeScope();
-      builder.RegisterType<YafDBBroker>().As<IDBBroker>().OwnedByLifetimeScope();
       builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().OwnedByLifetimeScope();
       builder.RegisterType<YafPermissions>().As<IPermissions>().OwnedByLifetimeScope();
       builder.RegisterType<YafDateTime>().As<IDateTime>().OwnedByLifetimeScope();
-      builder.RegisterType<YafAvatars>().As<IAvatars>().OwnedByLifetimeScope();
       builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().OwnedByLifetimeScope();
       builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().OwnedByLifetimeScope();
 
@@ -223,6 +243,18 @@ namespace YAF.Core
         x =>
         x.Resolve<IEnumerable<IStartupService>>().Where(t => t is StartupInitializeDb).FirstOrDefault() as
         StartupInitializeDb).InstancePerLifetimeScope();
+
+      this.UpdateRegistry(builder);
+    }
+
+    /// <summary>
+    /// The register pages
+    private void RegisterPages()
+    {
+      var builder = new ContainerBuilder();
+
+      builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<ILocatablePage>().
+        AsImplementedInterfaces().SingleInstance();
 
       this.UpdateRegistry(builder);
     }

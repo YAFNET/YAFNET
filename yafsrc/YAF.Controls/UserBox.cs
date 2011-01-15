@@ -544,7 +544,7 @@ namespace YAF.Controls
         filler =
           this.PageContext.BoardSettings.UserBoxLocation.FormatWith(
             this.PageContext.Localization.GetText("location"), 
-            YafFormatMessage.RepairHtml(this.UserProfile.Location, false));
+            this.Get<IFormatMessage>().RepairHtml(this.UserProfile.Location, false));
       }
 
       // replaces template placeholder with actual location

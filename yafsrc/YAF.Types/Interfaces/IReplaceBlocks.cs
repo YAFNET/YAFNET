@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+﻿/* Yet Another Forum.net
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,45 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.BBCode
+namespace YAF.Types.Interfaces
 {
-  using System;
-
-  using YAF.Core.BBCode.ReplaceRules;
-
   /// <summary>
-  /// Replace Rules Interface
+  /// The i add replace block.
   /// </summary>
-  public interface IProcessReplaceRules
+  public interface IReplaceBlocks
   {
-    #region Properties
-
-    /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
-    /// </summary>
-    bool HasRules { get; }
-
-    #endregion
-
     #region Public Methods
 
     /// <summary>
-    /// The add rule.
+    /// The add replacement.
     /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
+    /// <param name="newItem">
+    /// The new item.
     /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule(BaseReplaceRule newRule);
+    /// <returns>
+    /// The add replacement.
+    /// </returns>
+    int Add(string newItem);
 
     /// <summary>
-    /// Process text using the rules.
+    /// Gets the replacement value from the index.
     /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process(ref string text);
+    /// <param name="index"></param>
+    /// <returns></returns>
+    string Get(int index);
 
     #endregion
   }

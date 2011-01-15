@@ -86,6 +86,7 @@
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
+    <Compile Include="Interfaces\IBBCode.cs" />
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
     <Compile Include="Interfaces\IBaseModule.cs" />
@@ -95,15 +96,21 @@
     <Compile Include="Interfaces\IDigest.cs" />
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
+    <Compile Include="Interfaces\IFormatMessage.cs" />
     <Compile Include="Interfaces\IHaveServiceLocator.cs" />
     <Compile Include="Interfaces\IInjectServices.cs" />
     <Compile Include="Interfaces\ILocalization.cs" />
+    <Compile Include="Interfaces\ILocatablePage.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ILoggerProvider.cs" />
     <Compile Include="Interfaces\IModuleManager.cs" />
+    <Compile Include="Interfaces\INavigatablePage.cs" />
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />
+    <Compile Include="Interfaces\IProcessReplaceRules.cs" />
     <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
+    <Compile Include="Interfaces\IReplaceBlocks.cs" />
+    <Compile Include="Interfaces\IReplaceRule.cs" />
     <Compile Include="Interfaces\IScriptBuilder.cs" />
     <Compile Include="Interfaces\IScriptFunction.cs" />
     <Compile Include="Interfaces\IScriptFunctionContext.cs" />
@@ -124,6 +131,7 @@
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
     <Compile Include="Interfaces\IYafUserProfile.cs" />
+    <Compile Include="MessageCleaned.cs" />
     <Compile Include="LanguageResources.cs" />
     <Compile Include="Objects\PollSaveList.cs" />
     <Compile Include="Objects\SimpleForum.cs" />

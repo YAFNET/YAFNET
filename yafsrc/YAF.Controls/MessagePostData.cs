@@ -298,7 +298,7 @@ namespace YAF.Controls
             this.RenderModulesInBBCode(
               writer, 
               this.HighlightMessage(
-                YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
+                this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
               this.MessageFlags, 
               this.DisplayUserID);
           }
@@ -306,7 +306,7 @@ namespace YAF.Controls
           {
             writer.Write(
               this.HighlightMessage(
-                YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
+                this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
           }
         }
         else
@@ -316,13 +316,13 @@ namespace YAF.Controls
           {
             this.RenderModulesInBBCode(
               writer, 
-              this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags)), 
+              this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)), 
               this.MessageFlags, 
               this.DisplayUserID);
           }
           else
           {
-            writer.Write(this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags)));
+            writer.Write(this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags)));
           }
         }
       }
