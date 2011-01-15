@@ -242,7 +242,7 @@ namespace YAF.Core.Services
       else
       {
           this.RegisterCssIncludeResource(
-               "css/jquery-ui-themes/{0}/jquery-ui-1.8.7.custom.css".FormatWith(
+               "css/jquery-ui-themes/{0}/jquery-ui-1.8.8.custom.css".FormatWith(
                    YafContext.Current.BoardSettings.JqueryUITheme));
       }
     }
