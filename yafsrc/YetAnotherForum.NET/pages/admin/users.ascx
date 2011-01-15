@@ -95,11 +95,11 @@
                 <tr>
                     <td class="post">
                         <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'
-                            Text='<%# YafBBCode.EncodeHTML( Eval("Name").ToString() ) %>' />
+                            Text='<%# this.HtmlEncode( Eval("Name").ToString() ) %>' />
                     </td>
                     <td class="post">
                         <asp:LinkButton ID="DisplayNameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'
-                            Text='<%# YafBBCode.EncodeHTML( Eval("DisplayName").ToString() ) %>' />
+                            Text='<%# this.HtmlEncode( Eval("DisplayName").ToString() ) %>' />
                     </td>
                     <td class="post">
                         <%# DataBinder.Eval(Container.DataItem,"Email") %>

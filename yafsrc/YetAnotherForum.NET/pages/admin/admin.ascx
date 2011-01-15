@@ -38,7 +38,7 @@
         <a href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
         </td>
         <td class="post">
-          <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval("UserName").ToString() ).Location ) %>
+          <%# this.HtmlEncode(YafUserProfile.GetProfile(Eval("UserName").ToString()).Location)%>
         </td>
          <td class="post">
          <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>'  ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
@@ -82,7 +82,7 @@
           <%# Eval("Email") %>
         </td>
         <td class="post">
-          <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval( "Name" ).ToString() ).Location )%>
+          <%# this.HtmlEncode(YafUserProfile.GetProfile(Eval("Name").ToString()).Location)%>
         </td>
         <td class="post">
           <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
