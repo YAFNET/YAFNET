@@ -89,8 +89,19 @@ namespace YAF.Controls
             PageContext.PageElements.RegisterJQuery();
             YafContext.Current.PageElements.RegisterJQueryUI();
 
-            var accordianJs = @"jQuery(document).ready(function() {{
+            var accordianJs = string.Empty;
+
+            if (viewIndex >= 7)
+            {
+                // TODO : Shows default Tab on sub pages. Needs a better detection for subpages that are not included in Admin Menu.
+                accordianJs = @"jQuery(document).ready(function() {
+					jQuery('.adminMenuAccordian').accordion({ autoHeight:false,animated:'bounceslide',event:'click' });});";
+            }
+            else
+            {
+                accordianJs = @"jQuery(document).ready(function() {{
 					jQuery('.adminMenuAccordian').accordion({{ autoHeight:false,animated:'bounceslide',event:'click',active: {0} }});}});".FormatWith(viewIndex);
+            }
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                "accordianJs",
