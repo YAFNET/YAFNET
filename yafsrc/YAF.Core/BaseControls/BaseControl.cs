@@ -59,11 +59,18 @@ namespace YAF.Core
       }
     }
 
+    private ILogger _logger = null;
+
     /// <summary>
     /// Gets or sets Logger.
     /// </summary>
-    [Inject]
-    public ILogger Logger { get; set; }
+    public ILogger Logger
+    {
+      get
+      {
+        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+      }
+    }
 
     /// <summary>
     ///   Gets ServiceLocator.

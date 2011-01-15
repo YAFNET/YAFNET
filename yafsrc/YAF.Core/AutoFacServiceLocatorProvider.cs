@@ -21,10 +21,14 @@ namespace YAF.Core
   #region Using
 
   using System;
+  using System.Collections.Generic;
+  using System.ComponentModel;
+  using System.Linq;
   using System.Reflection;
 
   using Autofac;
 
+  using YAF.Classes.Pattern;
   using YAF.Types;
   using YAF.Types.Interfaces;
 
@@ -36,6 +40,9 @@ namespace YAF.Core
   public class AutoFacServiceLocatorProvider : IServiceLocator, IInjectServices
   {
     #region Constants and Fields
+
+    private static IThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>> _injectionCache =
+      new ThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>>();
 
     /// <summary>
     /// The default flags.
@@ -87,45 +94,44 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(instance, "instance");
 
-      Container.InjectUnsetProperties(instance);
+      //Container.InjectUnsetProperties(instance);
 
-      //var type = instance.GetType();
+      var type = instance.GetType();
+      var attributeType = typeof(TAttribute);
 
-      //var properties = type.GetProperties(DefaultFlags).Where(
-      //  p => Attribute.IsDefined(p, typeof(TAttribute)) && p.GetSetMethod(false) != null).Select(
-      //    p =>
-      //    new
-      //    {
-      //      PropertyInfo = p,
-      //      p.PropertyType,
-      //      IndexParameters = p.GetIndexParameters(),
-      //      Accessors = p.GetAccessors(false)
-      //    })
-      //  // must not be an indexer
-      //  .Where(x => x.IndexParameters.Count() == 0);
+      var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
 
-      //if (properties.Any())
-      //{
-      //  HyperTypeDescriptionProvider.Add(type);
-      //  PropertyDescriptorCollection typeProps = TypeDescriptor.GetProperties(instance);
+      IList<PropertyInfo> properties;
 
-      //  foreach (var injectProp in properties)
-      //  {
-      //    object serviceInstance = null;
+      if (!_injectionCache.TryGetValue(keyPair, out properties))
+      {
+        // find them...
+        properties =
+          type.GetProperties(DefaultFlags).Where(
+            p =>
+            p.GetSetMethod(false) != null && p.GetIndexParameters().Count() == 0 && p.IsDefined(attributeType, true)).
+            ToList();
 
-      //    if (injectProp.PropertyType == typeof(ILogger))
-      //    {
-      //      // we're getting the logger via the logger factory...
-      //      serviceInstance = this.Container.Resolve<ILoggerProvider>().Create(injectProp.PropertyInfo.DeclaringType);
-      //    }
-      //    else
-      //    {
-      //      serviceInstance = this.Container.Resolve(injectProp.PropertyType);
-      //    }
+        _injectionCache.MergeSafe(keyPair, properties);
+      }
 
-      //    typeProps[injectProp.PropertyInfo.Name].SetValue(instance, serviceInstance);
-      //  }
-      //}
+      foreach (var injectProp in properties)
+      {
+        object serviceInstance;
+
+        if (injectProp.PropertyType == typeof(ILogger))
+        {
+          // we're getting the logger via the logger factory...
+          serviceInstance = this.Container.Resolve<ILoggerProvider>().Create(injectProp.DeclaringType);
+        }
+        else
+        {
+          serviceInstance = this.Container.Resolve(injectProp.PropertyType);
+        }
+
+        // set value is super slow... best not to use it very much.
+        injectProp.SetValue(instance, serviceInstance, null);
+      }
     }
 
     #endregion
