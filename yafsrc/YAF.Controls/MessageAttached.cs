@@ -215,7 +215,7 @@ namespace YAF.Controls
               if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
               {
                 writer.Write(
-                  @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>"
+                  @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>"
                     .FormatWith(
                       strFileIcon, 
                       YafForumInfo.ForumClientFileRoot, 
