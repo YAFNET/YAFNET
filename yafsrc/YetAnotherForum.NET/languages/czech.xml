@@ -157,7 +157,7 @@
     <Resource tag="CONFIRM_APROVE_ALL">Approve all Users?</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this User?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
-    <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
+    <Resource tag="DAYS_AGO">{0:d} ({1:N0} days ago)</Resource>
     <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
     <Resource tag="HEADER1">Who is Online</Resource>
     <Resource tag="HEADER2">Unverified Users</Resource>

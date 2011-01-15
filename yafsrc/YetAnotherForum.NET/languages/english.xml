@@ -1900,7 +1900,7 @@ Visit {forumname} at {forumlink}
 	  <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
 	  <Resource tag="CONFIRM_DELETE">Delete this User?</Resource>
 	  <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
-	  <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
+	  <Resource tag="DAYS_AGO">{0:d} ({1:N0} days ago)</Resource>
 	  <Resource tag="HEADER1">Who is Online</Resource>
 	  <Resource tag="HEADER2">Unverified Users</Resource>
 	  <Resource tag="HEADER3">Statistics for</Resource>
