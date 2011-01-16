@@ -5,28 +5,27 @@
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
   <asp:Panel id="HostSettingsTabs" runat="server">
     <ul>
-		<li><a href="#View1">Host Settings</a></li>
-		<li><a href="#View2">Features</a></li>
-		<li><a href="#View3">Display</a></li>
-        <li><a href="#View4">Adverts</a></li>
-        <li><a href="#View5">Editors</a></li>
-        <li><a href="#View6">Permission</a></li>
-        <li><a href="#View7">Templates</a></li>
-        <li><a href="#View8">Avatars</a></li>
-        <li><a href="#View9">Cache</a></li>
-        <li><a href="#View10">Search</a></li>
+		<li><a href="#View1"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+		<li><a href="#View2"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+		<li><a href="#View3"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View4"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View5"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HOST_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View6"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View7"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="HOST_TEMPLATES" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View8"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View9"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li><a href="#View10"><YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
 	</ul>
     <div id="View1">
 		<table class="content" cellspacing="2" width="100%" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Host Setup
+                           <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader" width="50%">
-                            <b>SQL Server Version:</b><br />
-                            What version of SQL Server is running.
+                            <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="SERVER_VERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post" width="50%">
                             <asp:Label ID="SQLVersion" runat="server" CssClass="smallfont"></asp:Label>
@@ -34,28 +33,24 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Server Time Zone Correction:</b><br />
-                            Enter a positive or a negative value in minutes between -720 and 720, if the server
-                            UTC time value is incorrect: <b>
-                                <%# DateTime.UtcNow %></b>.
+                            <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="SERVERTIME_CORRECT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <strong><%# DateTime.UtcNow %></strong>.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ServerTimeCorrection" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="ServerTimeCorrection" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Forum Email:</b><br />
-                            The from address when sending emails to users.
+                            <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="FORUM_EMAIL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ForumEmail" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="ForumEmail" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Require Email Verification:</b><br />
-                            If unchecked users will not need to verify their email address.
+                            <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="EMAIL_VERIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EmailVerification" runat="server"></asp:CheckBox>
@@ -63,8 +58,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use File Table:</b><br />
-                            Uploaded files will be saved in the database instead of the file system.
+                            <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseFileTable" runat="server"></asp:CheckBox>
@@ -72,9 +66,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Abandon Sessions for "Don't Track" Users:</b><br />
-                            Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots.
-                            Enable if you're having any session issues.
+                            <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="ABANDON_TRACKUSR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AbandonSessionsForDontTrack" runat="server"></asp:CheckBox>
@@ -83,83 +75,73 @@
 
                     <tr>
                         <td class="postheader">
-                            <b>Maximum Number of Attachments per Post:</b><br />
-                            Maximum Number of uploaded files per Post. Set to 0 for unlimited.
+                            <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="MAX_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max File Size:</b><br />
-                            Maximum size of uploaded files. Leave empty for no limit.
+                            <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="MAX_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="MaxFileSize" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="MaxFileSize" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Post editing timeout:</b><br />
-                            Number of seconds while post may be modified without showing that to other users
+                            <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="POSTEDIT_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="EditTimeOut" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="EditTimeOut" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Web Service Token:</b><br />
-                            Token used to make secure web service calls. Constantly changing until you save
-                            your host settings.
+                            <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="WSERVICE_TOKEN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="WebServiceToken" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="WebServiceToken" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>User Name Max Length:</b><br />
-                            Max Allowed User Name or User Display Name Max Length.
+                            <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="NAME_LENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserNameMaxLength" runat="server" />
+                            <asp:TextBox Style="width:350px" ID="UserNameMaxLength" runat="server" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Report Post Chars:</b><br />
-                            Max Allowed Report Post length.
+                            <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="MAX_POST_CHARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="MaxReportPostChars" runat="server" />
+                            <asp:TextBox Style="width:350px" ID="MaxReportPostChars" runat="server" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Post Size:</b><br />
-                            Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).
+                            <YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="MAX_POST_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="MaxPostSize" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="MaxPostSize" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Post Flood Delay:</b><br />
-                            Number of seconds before another post can be entered. (Does not apply to admins
-                            or mods.)
+                            <YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="FLOOT_DELAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="PostFloodDelay" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="PostFloodDelay" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Url Referrer Security Check:</b><br />
-                            Validates all POSTs are from the same domain as the referring domain. (No cross
-                            domain POSTs.)
+                            <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="REFERRER_CHECK" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <strong></strong><br />
+                            
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="DoUrlReferrerSecurityCheck" runat="server"></asp:CheckBox>
@@ -167,10 +149,7 @@
                     </tr>      
                     <tr>
                         <td class="postheader">
-                            <b>Create NNTP user names:</b><br />
-                            Check to allow users to automatically be created when downloading usenet messages.
-                            Only enable this in a test environment, and <em>NEVER</em> in a production environment.
-                            The main purpose of this option is for performance testing.
+                            <YAF:HelpLabel ID="HelpLabel16" runat="server" LocalizedTag="CREATE_NNTPNAMES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="CreateNntpUsers" runat="server"></asp:CheckBox>
@@ -178,13 +157,12 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Login/Registration Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Disable New Registrations:</b><br />
-                            New users won't be able to register.
+                            <YAF:HelpLabel ID="HelpLabel17" runat="server" LocalizedTag="DISABLE_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="DisableRegistrations" runat="server"></asp:CheckBox>
@@ -192,21 +170,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Custom Login Redirect Url:</b><br />
-                            If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to "false"),
-                            this is the URL users will be redirected to when they need
-                            to access the forum. Optionally add "{0}" to the URL to pass the return URL to the
-                            custom Url. E.g. "http://mydomain.com/login.aspx?PreviousUrl={0}"
+                            <YAF:HelpLabel ID="HelpLabel18" runat="server" LocalizedTag="LOGIN_REDIR_URL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="CustomLoginRedirectUrl" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="CustomLoginRedirectUrl" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Require User Login:</b><br />
-                            If checked, users will be required to log in before they can see any content. They'll
-                            be redirected straight to login page.
+                            <YAF:HelpLabel ID="HelpLabel19" runat="server" LocalizedTag="REQUIRE_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="RequireLogin" runat="server" />
@@ -214,8 +186,7 @@
                     </tr>
                     <tr>
                          <td class="postheader">
-                            <b>Use Login Box (Modal PopUp Dialog):</b><br />
-                            If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.
+                            <YAF:HelpLabel ID="HelpLabel20" runat="server" LocalizedTag="MODAL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseLoginBox" runat="server" />
@@ -223,23 +194,20 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Image Attachment Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="HEADER_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Image Attachment Display Treshold:</b><br />
-                            Maximum size of picture attachment to display as picture. Pictures over this size
-                            will be displayed as links.
+                            <YAF:HelpLabel ID="HelpLabel21" runat="server" LocalizedTag="DISPLAY_TRESHOLD_IMGATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="PictureAttachmentDisplayTreshold" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="PictureAttachmentDisplayTreshold" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Image Attachment Resize:</b><br />
-                            Attached images will be resized to thumbnails if they are too large.
+                            <YAF:HelpLabel ID="HelpLabel22" runat="server" LocalizedTag="IMAGE_ATTACH_RESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableImageAttachmentResize" runat="server" />
@@ -247,26 +215,23 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Image Attachment Resize Max Width:</b><br />
-                            Maximum Width of the resized attachment images.
+                            <YAF:HelpLabel ID="HelpLabel23" runat="server" LocalizedTag="IMAGE_RESIZE_WIDTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ImageAttachmentResizeWidth" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="ImageAttachmentResizeWidth" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Image Attachment Resize Max Height:</b><br />
-                            Maximum Height of the resized attachment images.
+                            <YAF:HelpLabel ID="HelpLabel24" runat="server" LocalizedTag="IMAGE_RESIZE_HEIGHT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Crop Image Attachment Preview:</b><br />
-                            Crop the Preview of the Image and use above Dimensions as Image Size.
+                            <YAF:HelpLabel ID="HelpLabel25" runat="server" LocalizedTag="CROP_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
@@ -278,12 +243,12 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Features
+                            <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>          
                     <tr>
-                        <td class="postheader">
-                            <b>Show Relative Time:</b><br />
+                        <td class="postheader" style="width:50%">
+                            <strong>Show Relative Time:</strong><br />
                             If checked, client-side "Time Ago" library will be used to show "relative times" to users
                             instead of UTC and or imperfect server-side times.
                         </td>
@@ -293,7 +258,7 @@
                     </tr>                              
                     <tr>
                         <td class="postheader">
-                            <b>Add Dynamic Page Meta Tags:</b><br />
+                            <strong>Add Dynamic Page Meta Tags:</strong><br />
                             If checked, description and keywords meta tags will be created dynamically on the
                             post pages.
                         </td>
@@ -303,7 +268,7 @@
                     </tr>                   
                     <tr>
                         <td class="postheader">
-                            <b>Allow Display Gender:</b><br />
+                            <strong>Allow Display Gender:</strong><br />
                             If checked, the user gender is displayed in the user data in messages list.
                         </td>
                         <td class="post">
@@ -312,7 +277,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow User To Hide Himself:</b><br />
+                            <strong>Allow User To Hide Himself:</strong><br />
                             If checked, the user who checked it will not be visible in the active users list.
                         </td>
                         <td class="post">
@@ -321,7 +286,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <b>Enable Display Name:</b><br />
+                            <strong>Enable Display Name:</strong><br />
                             If checked, YAF uses an alternative "Display Name" instead of the UserName.
                         </td>
                         <td class="post">
@@ -330,7 +295,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Display Name Modification:</b><br />
+                            <strong>Allow Display Name Modification:</strong><br />
                             If checked, and "Enable Display Name" checked, allow modification of Display Name
                             in Edit Profile.
                         </td>
@@ -340,16 +305,16 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Member List Page Size:</b><br />
+                            <strong>Member List Page Size:</strong><br />
                             Number entries on a page in the members list. 
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="MemberListPageSize" />                          
+                            <asp:TextBox Style="width:350px" runat="server" ID="MemberListPageSize" />                          
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show User Online/Offline Status:</b><br />
+                            <strong>Show User Online/Offline Status:</strong><br />
                             If checked, current user status is displayed in the forum. Hidden users are always
                             displayed as offline.
                         </td>
@@ -359,7 +324,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Users to Thank Posts:</b><br />
+                            <strong>Allow Users to Thank Posts:</strong><br />
                             If checked users can thank posts they consider useful.
                         </td>
                         <td class="post">
@@ -368,7 +333,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Buddy List:</b><br />
+                            <strong>Enable Buddy List:</strong><br />
                             If checked users can add each other as buddies.
                         </td>
                         <td class="post">
@@ -377,7 +342,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show The Date on Which Users Have Thanked Posts:</b><br />
+                            <strong>Show The Date on Which Users Have Thanked Posts:</strong><br />
                             If checked users can see on which date posts have been thanked. (Thanks Mod must
                             be enabled first.)
                         </td>
@@ -387,7 +352,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Remove Nested Quotes:</b><br />
+                            <strong>Remove Nested Quotes:</strong><br />
                             Automatically remove nested [quote] tags from replies.
                         </td>
                         <td class="post">
@@ -396,27 +361,26 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br />
+                            <strong>Disable "NoFollow" Tag on Links on Posts Older Than:</strong><br />
                             If "NoFollow" is enabled above, this is disable no follow for links on messages
                             older then X days old (which takes into consideration last edited).
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Smilies Display Grid Size:</b><br />
-                            Number of smilies to show by number of rows and columns.
+                            <strong>Smilies Display per Row:</strong><br />
+                            Number of smilies to show per row.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SmiliesPerRow" runat="server"></asp:TextBox><b>x</b>
-                            <asp:TextBox ID="SmiliesColumns" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="SmiliesPerRow" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Display Points System:</b><br />
+                            <strong>Display Points System:</strong><br />
                             If checked, points for posting will be displayed for each user.
                         </td>
                         <td class="post">
@@ -425,17 +389,17 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Days before posts are locked:</b><br />
+                            <strong>Days before posts are locked:</strong><br />
                             Number of days until posts are locked and not possible to edit or delete. Set to
                             0 for no limit.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="LockPosts" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="LockPosts" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <b>Enable IP Info Service:</b><br />
+                            <strong>Enable IP Info Service:</strong><br />
                             If checked, we will get info about a registering user from a web service.
                         </td>
                         <td class="post">
@@ -444,26 +408,26 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>IP Info XML Web Service URL:</b><br />
+                            <strong>IP Info XML Web Service URL:</strong><br />
                             Set it to get details about user IPs as XML data.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="IPLocatorPath" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="IPLocatorPath" runat="server"></asp:TextBox>
                         </td>
                     </tr>           
                     <tr>
                         <td class="postheader">
-                            <b>IP Info Page URL:</b><br />
+                            <strong>IP Info Page URL:</strong><br />
                             Set it to get details about IPs whereabouts as web page.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="IPInfoPageURL" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="IPInfoPageURL" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                
                     <tr>
                         <td class="postheader">
-                            <b>Allow Post to Blog:</b><br />
+                            <strong>Allow Post to Blog:</strong><br />
                             If checked, post to blog feature is enabled.
                         </td>
                         <td class="post">
@@ -472,7 +436,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Email Topic:</b><br />
+                            <strong>Allow Email Topic:</strong><br />
                             If checked, users will be allowed to email topics.
                         </td>
                         <td class="post">
@@ -481,7 +445,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Quick Answer:</b><br />
+                            <strong>Allow Quick Answer:</strong><br />
                             Enable or disable display of the Quick Reply Box at the bottom of the Posts page
                         </td>
                         <td class="post">
@@ -490,7 +454,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable calendar:</b><br />
+                            <strong>Enable calendar:</strong><br />
                             Enables/disables calendar in profile, if it causes troubles on servers/for users
                             with different cultures.
                         </td>
@@ -500,30 +464,30 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Poll Options
+                            <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="HEADER_POLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allowed Poll Number:</b><br />
+                            <strong>Allowed Poll Number:</strong><br />
                             Number of polls, max value no more then 99.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AllowedPollNumber" MaxLength="2" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AllowedPollNumber" MaxLength="2" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allowed Poll Choice Number:</b><br />
+                            <strong>Allowed Poll Choice Number:</strong><br />
                             Number of a question choices, max value no more then 99.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Poll Votes Dependant on IP:</b><br />
+                            <strong>Poll Votes Dependant on IP:</strong><br />
                             By default, poll voting is tracked via username and client-side cookie. (One vote
                             per username. Cookies are used if guest voting is allowed.) If this option is enabled,
                             votes also use IP as a reference providing the most security against voter fraud.
@@ -534,7 +498,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Poll Changes After First Vote:</b><br />
+                            <strong>Allow Poll Changes After First Vote:</strong><br />
                             If enabled a poll creator can change choices and question after the first vote was
                             given.
                         </td>
@@ -544,7 +508,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Multiple Choices Voting:</b><br />
+                            <strong>Allow Multiple Choices Voting:</strong><br />
                             If enabled users can create poll questions allowing multiple choices voting.
                         </td>
                         <td class="post">
@@ -553,7 +517,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Users Hide Poll Results:</b><br />
+                            <strong>Allow Users Hide Poll Results:</strong><br />
                             If enabled a poll creator can hide results before voting end or if not all polls in a group are voted.
                         </td>
                         <td class="post">
@@ -562,7 +526,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Guests View Poll Options:</b><br />
+                            <strong>Allow Guests View Poll Options:</strong><br />
                             If enabled Guests can see poll choices.
                         </td>
                         <td class="post">
@@ -571,7 +535,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Users Poll Images:</b><br />
+                            <strong>Allow Users Poll Images:</strong><br />
                             If enabled Users can add images as poll options.
                         </td>
                         <td class="post">
@@ -580,21 +544,21 @@
                     </tr>
                    <tr>
                         <td class="postheader">
-                            <b>Poll Image FileSize:</b><br />
+                            <strong>Poll Image FileSize:</strong><br />
                             Max file size for poll images in KB.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="PollImageMaxFileSize" MaxLength="4" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="PollImageMaxFileSize" MaxLength="4" runat="server"></asp:TextBox>
                         </td>
                     </tr>                  
                     <tr>
                         <td class="header1" colspan="2">
-                            Private Messages
+                            <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedTag="HEADER_PMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <b>Allow Private Messages:</b><br />
+                            <strong>Allow Private Messages:</strong><br />
                             Allow users to access and send private messages.
                             You should explicitly give permission for each group and/or rank too to enable them for users.                               
                         </td>
@@ -604,7 +568,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Private Message Notifications:</b><br />
+                            <strong>Allow Private Message Notifications:</strong><br />
                             Allow users email notifications when new private messages arrive.
                         </td>
                         <td class="post">
@@ -613,21 +577,21 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max no. of PM Recipients:</b><br />
+                            <strong>Max no. of PM Recipients:</strong><br />
                             Maximum allowed recipients per on PM sent (0 = unlimited)
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Album Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="HEADER_ALBUM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Album Feature:</b><br />
+                            <strong>Enable Album Feature:</strong><br />
                             If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature. 
                         </td>
                         <td class="post">
@@ -636,39 +600,39 @@
                     </tr>                    
                     <tr>
                         <td class="postheader">
-                            <b>Maximum Image Size:</b><br />
+                            <strong>Maximum Image Size:</strong><br />
                             Maximum size of image in bytes a user can upload.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Albums Per Page:</b><br />
+                            <strong>Albums Per Page:</strong><br />
                             Number of albums to show per page.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AlbumsPerPage" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AlbumsPerPage" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Images Per Page:</b><br />
+                            <strong>Images Per Page:</strong><br />
                             Number of images to show per page.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Syndication Feed Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedTag="HEADER_SYNDICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show RSS Links:</b><br />
+                            <strong>Show RSS Links:</strong><br />
                             Enable or disable display of RSS links throughout the forum.
                         </td>
                         <td class="post">
@@ -677,7 +641,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Atom Links:</b><br />
+                            <strong>Show Atom Links:</strong><br />
                             Enable or disable display of Atom links throughout the forum.
                         </td>
                         <td class="post">
@@ -686,92 +650,74 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Posts Feeds Access:</b><br />
+                            <strong>Posts Feeds Access:</strong><br />
                             Restrict display of posts feeds for a topic.
                         </td>              
                         <td class="post">
-                              <asp:DropDownList ID="PostsFeedAccess" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                              <asp:DropDownList Style="width:350px" ID="PostsFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Post Latest Feeds Access:</b><br />
+                            <strong>Post Latest Feeds Access:</strong><br />
                             Restrict display of posts feeds for latest posts.
                         </td>              
                         <td class="post">
-                              <asp:DropDownList ID="PostLatestFeedAccess" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                              <asp:DropDownList Style="width:350px" ID="PostLatestFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Forum Feeds Access:</b><br />
+                            <strong>Forum Feeds Access:</strong><br />
                             Restrict display of forum feeds.
                         </td>              
                         <td class="post">
-                              <asp:DropDownList ID="ForumFeedAccess" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                              <asp:DropDownList Style="width:350px" ID="ForumFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Topics Feeds Access:</b><br />
+                            <strong>Topics Feeds Access:</strong><br />
                             Restrict display of topics feeds.
                         </td>              
                         <td class="post">
-                              <asp:DropDownList ID="TopicsFeedAccess" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                              <asp:DropDownList Style="width:350px" ID="TopicsFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Topics Feeds Access:</b><br />
+                            <strong>Active Topics Feeds Access:</strong><br />
                             Restrict display of active topics feeds.
                         </td>              
                         <td class="post">
-                              <asp:DropDownList ID="ActiveTopicFeedAccess" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                              <asp:DropDownList Style="width:350px" ID="ActiveTopicFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Favorite Topics Feeds Access:</b><br />
+                            <strong>Favorite Topics Feeds Access:</strong><br />
                             Restrict display of active topics feeds.
                         </td>              
                         <td class="post">
-                              <asp:DropDownList ID="FavoriteTopicFeedAccess" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                              <asp:DropDownList Style="width:350px" ID="FavoriteTopicFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Irkoo Reputation Service
+                            <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="HEADER_IRKOO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <b>Use Irkoo Reputation Service:</b><br />
+                            <strong>Use Irkoo Reputation Service:</strong><br />
                             Irkoo is a free service that adds user reputations to your site 
-                            Visit <b>http://www.Irkoo.com</b> to get the site ID and secret key for your website.
+                            Visit <strong>http://www.Irkoo.com</strong> to get the site ID and secret key for your website.
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableIrkoo" runat="server"></asp:CheckBox>
@@ -779,25 +725,25 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Irkoo site ID:</b><br />
+                            <strong>Irkoo site ID:</strong><br />
                             Enter your Irkoo site ID.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="IrkooSiteID" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="IrkooSiteID" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Irkoo secret key:</b><br />
+                            <strong>Irkoo secret key:</strong><br />
                             Enter your Irkoo secret key.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="IrkooSecretKey" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="IrkooSecretKey" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show user reputations in user links only in topic pages:</b><br />
+                            <strong>Show user reputations in user links only in topic pages:</strong><br />
                             If checked, users' reputation will be displayed only in topic pages.
                         </td>
                         <td class="post">
@@ -806,7 +752,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow guests to view users' reputations:</b><br />
+                            <strong>Allow guests to view users' reputations:</strong><br />
                             If checked, guests can view members' reputations.
                         </td>
                         <td class="post">
@@ -815,39 +761,39 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            CAPTCHA Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedTag="HEADER_CAPTCHA" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>CAPTCHA Size:</b><br />
+                            <strong>CAPTCHA Size:</strong><br />
                             Size (length) of the CAPTCHA random alphanumeric string
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="CaptchaSize" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="CaptchaSize" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>reCAPTCHA Public Key:</b><br />
+                            <strong>reCAPTCHA Public Key:</strong><br />
                             Enter a reCAPTCHA Public Key
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="RecaptchaPublicKey" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="RecaptchaPublicKey" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>reCAPTCHA Private Key:</b><br />
+                            <strong>reCAPTCHA Private Key:</strong><br />
                             Enter a reCAPTCHA Private Key
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="RecaptchaPrivateKey" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="RecaptchaPrivateKey" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable reCAPTCHA Multiple Instances:</b><br />
+                            <strong>Enable reCAPTCHA Multiple Instances:</strong><br />
                             Enable reCAPTCHA Recapture Multiple Instances(shared keys).
                         </td>
                         <td class="post">
@@ -856,7 +802,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable CAPTCHA for Guest Posting:</b><br />
+                            <strong>Enable CAPTCHA for Guest Posting:</strong><br />
                             Require guest users to enter the CAPTCHA when they post or reply to a forum message
                             (including Quick Reply).
                         </td>
@@ -866,7 +812,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable CAPTCHA for Post a Message:</b><br />
+                            <strong>Enable CAPTCHA for Post a Message:</strong><br />
                             Require users to enter the CAPTCHA when they post or reply to a forum message (including
                             Quick Reply).
                         </td>
@@ -876,11 +822,11 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable CAPTCHA/reCAPTCHA for Register:</b><br />
+                            <strong>Enable CAPTCHA/reCAPTCHA for Register:</strong><br />
                             Require users to enter the CAPTCHA when they register for the forum.
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="CaptchaTypeRegister" runat="server">
+                            <asp:DropDownList Style="width:350px" ID="CaptchaTypeRegister" runat="server">
                                 <asp:ListItem Value="0" Text="Disabled" />
                                 <asp:ListItem Value="1" Text="YafCaptcha" />
                                 <asp:ListItem Value="2" Text="ReCaptcha" />
@@ -889,21 +835,21 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
-                            Log settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="HEADER_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Message history archieve time</b><br />
+                            <strong>Message history archieve time</strong><br />
                             Number of days to keep message change history.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Active Location Error Log:</b><br />
+                            <strong>Enable Active Location Error Log:</strong><br />
                             If checked, all active location path errors are logged.
                         </td>
                         <td class="post">
@@ -912,7 +858,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Unhandled UserAgent Log:</b><br />
+                            <strong>Enable Unhandled UserAgent Log:</strong><br />
                             If checked, all unhandled UserAgent strings are logged.
                         </td>
                         <td class="post">
@@ -925,21 +871,21 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Display Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="HEADER_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Users Time:</b><br />
+                            <strong>Active Users Time:</strong><br />
                             Number of minutes to display users in Active Users list.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ActiveListTime" runat="server" />
+                            <asp:TextBox Style="width:350px" ID="ActiveListTime" runat="server" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Avatars in Topic Listing:</b><br />
+                            <strong>Show Avatars in Topic Listing:</strong><br />
                             If this is checked, the topic pages will show avatar graphics.
                         </td>
                         <td class="post">
@@ -948,7 +894,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Moved Topics:</b><br />
+                            <strong>Show Moved Topics:</strong><br />
                             If this is checked, topics that are moved will leave behind a pointer to the new
                             topic.
                         </td>
@@ -958,7 +904,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Moderator List:</b><br />
+                            <strong>Show Moderator List:</strong><br />
                             If this is checked, the moderator list column is displayed in the forum list.
                         </td>
                         <td class="post">
@@ -967,7 +913,7 @@
                     </tr>
                                         <tr>
                         <td class="postheader">
-                            <b>Show Guests In Detailed Active List:</b><br />
+                            <strong>Show Guests In Detailed Active List:</strong><br />
                             If checked, Guests will be displayed In Detailed Active List.
                         </td>
                         <td class="post">
@@ -976,7 +922,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Crawlers In Active Lists:</b><br />
+                            <strong>Show Crawlers In Active Lists:</strong><br />
                             If checked, Crawlers will be displayed In Active Lists.
                         </td>
                         <td class="post">
@@ -985,7 +931,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Deleted Messages:</b><br />
+                            <strong>Show Deleted Messages:</strong><br />
                             If this is checked, messsages that are deleted will leave with some notes
                         </td>
                         <td class="post">
@@ -994,7 +940,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Deleted Messages to All:</b><br />
+                            <strong>Show Deleted Messages to All:</strong><br />
                             If Show Deleted Messages is checked above, checking this will force showing the
                             delete message stub to all users.<br />
                             If it remains unchecked, the deleted message stub will only show to administrators,
@@ -1006,7 +952,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Links in New Window:</b><br />
+                            <strong>Show Links in New Window:</strong><br />
                             If this is checked, links in messages will open in a new window.
                         </td>
                         <td class="post">
@@ -1015,7 +961,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show 'no-count' Forum Posts in Active Discussions :</b><br />
+                            <strong>Show 'no-count' Forum Posts in Active Discussions :</strong><br />
                             If this is checked, posts from 'no-count' forums will be displayed in Active Discussions.
                         </td>
                         <td class="post">
@@ -1024,7 +970,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Forum Statistics:</b><br />
+                            <strong>Show Forum Statistics:</strong><br />
                             Enable or disable display of forum statistics on board index page.
                         </td>
                         <td class="post">
@@ -1033,7 +979,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Active Discussions:</b><br />
+                            <strong>Show Active Discussions:</strong><br />
                             Enable or disable display of active discussions list on board index page.
                         </td>
                         <td class="post">
@@ -1042,7 +988,7 @@
                     </tr>                    
                     <tr>
                         <td class="postheader">
-                            <b>Show Forum Jump Box:</b><br />
+                            <strong>Show Forum Jump Box:</strong><br />
                             Enable or disable display of the Forum Jump Box throughout the forum.
                         </td>
                         <td class="post">
@@ -1051,7 +997,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Shoutbox:</b><br />
+                            <strong>Show Shoutbox:</strong><br />
                             Enable or disable display of the Shoutbox (Chat Module) in the forum page.
                         </td>
                         <td class="post">
@@ -1060,7 +1006,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Shoutbox Smiles:</b><br />
+                            <strong>Show Shoutbox Smiles:</strong><br />
                             Enable or disable display of the Shoutbox (Chat Module) smiles.
                         </td>
                         <td class="post">
@@ -1069,7 +1015,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Groups:</b><br />
+                            <strong>Show Groups:</strong><br />
                             Should the groups a user is part of be visible on the posts page.
                         </td>
                         <td class="post">
@@ -1078,7 +1024,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Groups in profile:</b><br />
+                            <strong>Show Groups in profile:</strong><br />
                             Should the groups a user is part of be visible on the users profile page.
                         </td>
                         <td class="post">
@@ -1087,7 +1033,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Medals:</b><br />
+                            <strong>Show Medals:</strong><br />
                             Should medals of a user be visible on the posts page.
                         </td>
                         <td class="post">
@@ -1096,7 +1042,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Users Browsing:</b><br />
+                            <strong>Show Users Browsing:</strong><br />
                             Should users currently browsing forums/topics be displayed at the bottom.
                         </td>
                         <td class="post">
@@ -1105,7 +1051,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Page Generated Time:</b><br />
+                            <strong>Show Page Generated Time:</strong><br />
                             Enable or disable display of page generation text at the bottom of the page.
                         </td>
                         <td class="post">
@@ -1114,7 +1060,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show YetAnotherForum Version:</b><br />
+                            <strong>Show YetAnotherForum Version:</strong><br />
                             Enable or disable display of the version/date information the bottom of the page
                             (disable if your concerned about security).
                         </td>
@@ -1124,7 +1070,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <b>Show Help:</b><br />
+                            <strong>Show Help:</strong><br />
                             Enable or disable display the Help Link in the Header that Shows the Help Files Pages
                         </td>
                         <td class="post">
@@ -1133,7 +1079,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Join Date:</b><br />
+                            <strong>Show Join Date:</strong><br />
                             If checked, join date will be displayed for each user.
                         </td>
                         <td class="post">
@@ -1142,7 +1088,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show "Rules" Before Registration:</b><br />
+                            <strong>Show "Rules" Before Registration:</strong><br />
                             Require that "rules" are shown and accepted before a new user can register.
                         </td>
                         <td class="post">
@@ -1151,16 +1097,16 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Discussions Count:</b><br />
+                            <strong>Active Discussions Count:</strong><br />
                             Number of records to display in Active Discussions list on forum index.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ActiveDiscussionsCount" runat="server" />
+                            <asp:TextBox Style="width:350px" ID="ActiveDiscussionsCount" runat="server" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use "NoFollow" Tag in Links:</b><br />
+                            <strong>Use "NoFollow" Tag in Links:</strong><br />
                             If this is checked, all links will have the nofollow tag.
                         </td>
                         <td class="post">
@@ -1169,20 +1115,20 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Posts Per Page:</b><br />
+                            <strong>Posts Per Page:</strong><br />
                             Number of posts to show per page.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="PostsPerPage" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="PostsPerPage" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Topics Per Page:</b><br />
+                            <strong>Topics Per Page:</strong><br />
                             Number of topics to show per page.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="TopicsPerPage" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="TopicsPerPage" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
@@ -1191,23 +1137,20 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Advert Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="HEADER_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
-                            <b>2nd post ad:</b><br />
-                            Place the code that you wish to be displayed in each thread after the 1st post.
-                            If you do not want an ad to be displayed, don't put anything in the box.
+                        <td class="postheader" style="width:450px">
+                            <YAF:HelpLabel ID="HelpLabel26" runat="server" LocalizedTag="POST_AD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox TextMode="MultiLine" runat="server" ID="AdPost" />
+                            <asp:TextBox Style="width:99%;height:80px;" TextMode="MultiLine" runat="server" ID="AdPost" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Ad to "Signed In" Users:</b><br />
-                            If checked, signed in users will see ads.
+                            <YAF:HelpLabel ID="HelpLabel27" runat="server" LocalizedTag="SHOWAD_LOGINUSERS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox runat="server" ID="ShowAdsToSignedInUsers" />
@@ -1219,44 +1162,44 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Editting/Formatting Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="HEADER_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
-                            <b>Forum Editor:</b><br />
+                        <td class="postheader" style="width:450px">
+                            <strong>Forum Editor:</strong><br />
                             Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox)
                             the .bin file must be in the \bin directory and the proper support files must be
                             put in \editors.
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="ForumEditor" runat="server" DataValueField="Value" DataTextField="Name">
+                            <asp:DropDownList Style="width:350px" ID="ForumEditor" runat="server" DataValueField="Value" DataTextField="Name">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Accepted HTML Tags:</b><br />
+                            <strong>Accepted HTML Tags:</strong><br />
                             Comma seperated list (no spaces) of HTML tags that are allowed in posts using HTML
                             editors.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AcceptedHTML" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Accepted Header HTML Tags:</b><br />
+                            <strong>Accepted Header HTML Tags:</strong><br />
                             Comma seperated list (no spaces) of HTML tags that are allowed in posts headers for common users
                             editors.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AcceptedHeadersHTML" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHeadersHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use styled nicks:</b><br />
+                            <strong>Use styled nicks:</strong><br />
                             If checked, you can use colors, font size change etc. for active users nicks.
                         </td>
                         <td class="post">
@@ -1269,12 +1212,12 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Permission
+                            <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="HEADER_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow User Change Theme:</b><br />
+                            <strong>Allow User Change Theme:</strong><br />
                             Should users be able to choose what theme they want to use?
                         </td>
                         <td class="post">
@@ -1283,7 +1226,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow User Change Language:</b><br />
+                            <strong>Allow User Change Language:</strong><br />
                             Should users be able to choose what language they want to use?
                         </td>
                         <td class="post">
@@ -1292,7 +1235,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Signatures:</b><br />
+                            <strong>Allow Signatures:</strong><br />
                             Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.
                         </td>
                         <td class="post">
@@ -1301,7 +1244,7 @@
                     </tr>                   
                     <tr>
                         <td class="postheader">
-                            <b>Allow Email Sending:</b><br />
+                            <strong>Allow Email Sending:</strong><br />
                             Allow users to send emails to each other.
                         </td>
                         <td class="post">
@@ -1310,7 +1253,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Email Change:</b><br />
+                            <strong>Allow Email Change:</strong><br />
                             Allow users to change their email address.
                         </td>
                         <td class="post">
@@ -1319,7 +1262,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Password Change:</b><br />
+                            <strong>Allow Password Change:</strong><br />
                             Allow users to change their passwords.
                         </td>
                         <td class="post">
@@ -1328,7 +1271,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Moderators View IPs:</b><br />
+                            <strong>Allow Moderators View IPs:</strong><br />
                             Allow to view IPs to moderators.
                         </td>
                         <td class="post">
@@ -1337,7 +1280,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Notification of All Posts on All topics:</b><br />
+                            <strong>Allow Notification of All Posts on All topics:</strong><br />
                             Allow users to get individual email notifications on all emails -- tons of email
                             traffic.
                         </td>
@@ -1347,68 +1290,56 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Report Post Permissions:</b><br />
+                            <strong>Report Post Permissions:</strong><br />
                             Allow reporting posts to:
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="ReportPostPermissions" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                            <asp:DropDownList Style="width:350px" ID="ReportPostPermissions" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Profile Viewing Permissions:</b><br />
+                            <strong>Profile Viewing Permissions:</strong><br />
                             Allow viewing of other users' profiles to:
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="ProfileViewPermissions" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                            <asp:DropDownList Style="width:350px" ID="ProfileViewPermissions" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Members List Viewing Permissions:</b><br />
+                            <strong>Members List Viewing Permissions:</strong><br />
                             Allow viewing of members list to:
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="MembersListViewPermissions" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                            <asp:DropDownList Style="width:350px" ID="MembersListViewPermissions" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Users Viewing Permissions:</b><br />
+                            <strong>Active Users Viewing Permissions:</strong><br />
                             Allow viewing of active users list to:
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="ActiveUsersViewPermissions" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                            <asp:DropDownList Style="width:350px" ID="ActiveUsersViewPermissions" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Word Length:</b><br />
+                            <strong>Max Word Length:</strong><br />
                             Use it to limit number of a word characters in topic names and some other places.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use SSL while logging in:</b><br />
+                            <strong>Use SSL while logging in:</strong><br />
                             Enforce a secure connection for users to log in.
                         </td>
                         <td class="post">
@@ -1417,7 +1348,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use SSL while registering:</b><br />
+                            <strong>Use SSL while registering:</strong><br />
                             Enforce a secure connection for users to register.
                         </td>
                         <td class="post">
@@ -1430,124 +1361,124 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Template Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="HEADER_TEMPLATES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>User box template:</b><br />
+                            <strong>User box template:</strong><br />
                             Template for rendering user box by user's posts.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBox" TextMode="MultiLine" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBox" TextMode="MultiLine" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar template:</b><br />
+                            <strong>Avatar template:</strong><br />
                             Template for rendering avatar.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxAvatar" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxAvatar" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Medals template:</b><br />
+                            <strong>Medals template:</strong><br />
                             Template for rendering user's medals.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxMedals" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxMedals" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Rank image template:</b><br />
+                            <strong>Rank image template:</strong><br />
                             Template for rendering rank image.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxRankImage" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxRankImage" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Rank template:</b><br />
+                            <strong>Rank template:</strong><br />
                             Template for rendering user's rank.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxRank" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxRank" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Groups template:</b><br />
+                            <strong>Groups template:</strong><br />
                             Template for rendering user's groups.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxGroups" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxGroups" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Join date template:</b><br />
+                            <strong>Join date template:</strong><br />
                             Template for rendering user's joine date.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxJoinDate" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxJoinDate" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Posts template:</b><br />
+                            <strong>Posts template:</strong><br />
                             Template for rendering user's posts.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxPosts" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxPosts" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Points template:</b><br />
+                            <strong>Points template:</strong><br />
                             Template for rendering user's points.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxPoints" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxPoints" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Location template:</b><br />
+                            <strong>Location template:</strong><br />
                             Template for rendering user's location.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxLocation" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxLocation" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Gender:</b><br />
+                            <strong>Gender:</strong><br />
                             Template for rendering user's gender.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxGender" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxGender" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Thanks From template:</b><br />
+                            <strong>Thanks From template:</strong><br />
                             Template for rendering user's thanks from.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Thanks To template:</b><br />
+                            <strong>Thanks To template:</strong><br />
                             Template for rendering user's thanks to. aLLOW
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="UserBoxThanksTo" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="UserBoxThanksTo" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
@@ -1556,12 +1487,12 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Avatar Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="HEADER_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow remote avatars:</b><br />
+                            <strong>Allow remote avatars:</strong><br />
                             Can users use avatars from other websites.
                         </td>
                         <td class="post">
@@ -1570,7 +1501,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow avatar uploading:</b><br />
+                            <strong>Allow avatar uploading:</strong><br />
                             Can users upload avatars to their profile.
                         </td>
                         <td class="post">
@@ -1579,7 +1510,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Gravatars:</b><br />
+                            <strong>Allow Gravatars:</strong><br />
                             Automatically use users Gavatars if they exist (note: may require additional processing).
                         </td>
                         <td class="post">
@@ -1588,11 +1519,11 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Gravatar Rating:</b><br />
+                            <strong>Gravatar Rating:</strong><br />
                             Max rating of Gravatar if allowed.
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="GravatarRating" runat="server">
+                            <asp:DropDownList Style="width:350px" ID="GravatarRating" runat="server">
                                 <asp:ListItem Value="G"></asp:ListItem>
                                 <asp:ListItem Value="PG"></asp:ListItem>
                                 <asp:ListItem Value="R"></asp:ListItem>
@@ -1602,29 +1533,29 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar Width:</b><br />
+                            <strong>Avatar Width:</strong><br />
                             Maximum width for avatars.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AvatarWidth" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AvatarWidth" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar Height:</b><br />
+                            <strong>Avatar Height:</strong><br />
                             Maximum height for avatars.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AvatarHeight" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AvatarHeight" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar Size:</b><br />
+                            <strong>Avatar Size:</strong><br />
                             Maximum size for avatars in bytes.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="AvatarSize" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:350px" ID="AvatarSize" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                 </table>
@@ -1633,100 +1564,100 @@
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Cache Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Forum Statistics Cache Timeout:</b><br />
+                            <strong>Forum Statistics Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="ForumStatisticsCacheTimeout" />
-                            <asp:Button ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="ForumStatisticsCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Board User Statistics Cache Timeout:</b><br />
+                            <strong>Board User Statistics Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="BoardUserStatsCacheTimeout" />
-                            <asp:Button ID="BoardUserStatsCacheReset" Text="Clear" runat="server" OnClick="BoardUserStatsCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="BoardUserStatsCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="BoardUserStatsCacheReset" Text="Clear" runat="server" OnClick="BoardUserStatsCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Discussions Cache Timeout:</b><br />
+                            <strong>Active Discussions Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="ActiveDiscussionsCacheTimeout" />
-                            <asp:Button ID="ActiveDiscussionsCacheReset" Text="Clear" runat="server" OnClick="ActiveDiscussionsCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="ActiveDiscussionsCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="ActiveDiscussionsCacheReset" Text="Clear" runat="server" OnClick="ActiveDiscussionsCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Board Categories Cache Timeout:</b><br />
+                            <strong>Board Categories Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="BoardCategoriesCacheTimeout" />
-                            <asp:Button ID="BoardCategoriesCacheReset" Text="Clear" runat="server" OnClick="BoardCategoriesCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="BoardCategoriesCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="BoardCategoriesCacheReset" Text="Clear" runat="server" OnClick="BoardCategoriesCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Board Moderators Cache Timeout:</b><br />
+                            <strong>Board Moderators Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="BoardModeratorsCacheTimeout" />
-                            <asp:Button ID="BoardModeratorsCacheReset" Text="Clear" runat="server" OnClick="BoardModeratorsCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="BoardModeratorsCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="BoardModeratorsCacheReset" Text="Clear" runat="server" OnClick="BoardModeratorsCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Replace Rules Cache Timeout:</b><br />
+                            <strong>Replace Rules Cache Timeout:</strong><br />
                             Smilies, BB code, bad wordsm, etc. (in minutes)
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="ReplaceRulesCacheTimeout" />
-                            <asp:Button ID="ReplaceRulesCacheReset" Text="Clear" runat="server" OnClick="ReplaceRulesCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="ReplaceRulesCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="ReplaceRulesCacheReset" Text="Clear" runat="server" OnClick="ReplaceRulesCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>First Post "Title" Cache Timeout:</b><br />
+                            <strong>First Post "Title" Cache Timeout:</strong><br />
                             First Post "Title" for SEO Cache Timeout (in minutes)
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="FirstPostCacheTimeout" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="FirstPostCacheTimeout" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Online User Status Cache Timeout:</b><br />
+                            <strong>Online User Status Cache Timeout:</strong><br />
                             You can fine-tune it depending on your site activity (in milliseconds)
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="OnlineStatusCacheTimeout" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="OnlineStatusCacheTimeout" />
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>User Lazy Data Cache Timeout:</b><br />
+                            <strong>User Lazy Data Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
-                            <asp:TextBox runat="server" ID="ActiveUserLazyDataCacheTimeout" />
-                            <asp:Button ID="ActiveUserLazyDataCacheReset" Text="Clear" runat="server" OnClick="UserLazyDataCacheReset_Click" />
+                            <asp:TextBox Style="width:350px" runat="server" ID="ActiveUserLazyDataCacheTimeout" />
+                            <asp:Button CssClass="pbutton" ID="ActiveUserLazyDataCacheReset" Text="Clear" runat="server" OnClick="UserLazyDataCacheReset_Click" />
                         </td>
                     </tr>
                     <tr>
-                        <td class="footer1" colspan="2">
-                            <asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" />
+                        <td class="footer1" colspan="2" style="text-align:center">
+                            <asp:Button CssClass="pbutton" runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" />
                         </td>
                     </tr>
                 </table>
@@ -1735,22 +1666,22 @@
                 <table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
                         <td class="header1" colspan="2">
-                            Search Settings
+                            <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="HEADER_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
-                            <b>Max Search Results:</b><br />
+                        <td class="postheader" style="width:450px">
+                            <strong>Max Search Results:</strong><br />
                             Maximum number of search results that can be returned. Enter "0" for unlimited (not
                             recommended).
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%" ID="ReturnSearchMax" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use SQL Full Text Search:</b><br />
+                            <strong>Use SQL Full Text Search:</strong><br />
                             Toggle use of FULLTEXT SQL Server support on searches.
                         </td>
                         <td class="post">
@@ -1759,38 +1690,38 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Text Minimal Length:</b><br />
+                            <strong>Search Text Minimal Length:</strong><br />
                             Minimal length of the search string allowed.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%" ID="SearchStringMinLength" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Text Maximum Length:</b><br />
+                            <strong>Search Text Maximum Length:</strong><br />
                             Maximum length of the search string allowed.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchStringMaxLength" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%" ID="SearchStringMaxLength" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Text Pattern:</b><br />
+                            <strong>Search Text Pattern:</strong><br />
                             Allowed search text (Regular Expression) pattern.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%" ID="SearchStringPattern" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Permissions:</b><br />
+                            <strong>Search Permissions:</strong><br />
                             Allow search to:
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="SearchPermissions" runat="server">
+                            <asp:DropDownList Style="width:99%" ID="SearchPermissions" runat="server">
                                 <asp:ListItem Value="0" Text="Forbidden" />
                                 <asp:ListItem Value="1" Text="Registered Users" />
                                 <asp:ListItem Value="2" Text="All Users" />
@@ -1799,47 +1730,47 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Engine 1:</b><br />
+                            <strong>Search Engine 1:</strong><br />
                             Enter here a search engine pattern.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchEngine1" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine1" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Parameters For Search Engine 1:</b><br />
+                            <strong>Parameters For Search Engine 1:</strong><br />
                             Enter here a search engine parameters.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchEngine1Parameters" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine1Parameters" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Engine 2:</b><br />
+                            <strong>Search Engine 2:</strong><br />
                             Enter here a search engine pattern.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchEngine2" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine2" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Parameters For Search Engine 2:</b><br />
+                            <strong>Parameters For Search Engine 2:</strong><br />
                             Enter here a search engine parameters.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SearchEngine2Parameters" runat="server"></asp:TextBox>
+                            <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine2Parameters" runat="server" TextMode="MultiLine"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>External Search Permissions:</b><br />
+                            <strong>External Search Permissions:</strong><br />
                             Allow external search to:
                         </td>
                         <td class="post">
-                            <asp:DropDownList ID="ExternalSearchPermissions" runat="server">
+                            <asp:DropDownList Style="width:99%" ID="ExternalSearchPermissions" runat="server">
                                 <asp:ListItem Value="0" Text="Forbidden" />
                                 <asp:ListItem Value="1" Text="Registered Users" />
                                 <asp:ListItem Value="2" Text="All Users" />
@@ -1848,7 +1779,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>External Search Results In A New Window:</b><br />
+                            <strong>External Search Results In A New Window:</strong><br />
                             Show External Search Results In A New Window.
                         </td>
                         <td class="post">
@@ -1857,7 +1788,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Quick Search:</b><br />
+                            <strong>Show Quick Search:</strong><br />
                             Show Quick Search field and button in toolbar.
                         </td>
                         <td class="post">

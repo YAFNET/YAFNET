@@ -157,7 +157,7 @@
     <Resource tag="CONFIRM_APROVE_ALL">Approve all Users?</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this User?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
-    <Resource tag="DAYS_AGO">{0:d} ({1:N0} days ago)</Resource>
+    <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
     <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
     <Resource tag="HEADER1">Who is Online</Resource>
     <Resource tag="HEADER2">Unverified Users</Resource>
@@ -718,6 +718,94 @@
     <Resource tag="TITLE">Roles</Resource>
     <Resource tag="UNLINKABLE">Unlinkable</Resource>
   </page>
+  <page name="ADMIN_HOSTSETTINGS">
+    <Resource tag="ABANDON_TRACKUSR">Abandon Sessions for "Don't Track" Users:</Resource>
+    <Resource tag="ABANDON_TRACKUSR_HELP">Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots. Enable if you're having any session issues.</Resource>
+    <Resource tag="ALL_USERS">All Users</Resource>
+    <Resource tag="CREATE_NNTPNAMES">Create NNTP user names:</Resource>
+    <Resource tag="CREATE_NNTPNAMES_HELP">Check to allow users to automatically be created when downloading usenet messages. Only enable this in a test environment, and &lt;em&gt;NEVER&lt;/em&gt; in a production environment. The main purpose of this option is for performance testing.</Resource>
+    <Resource tag="CROP_IMAGE_ATTACH">Crop Image Attachment Preview:</Resource>
+    <Resource tag="CROP_IMAGE_ATTACH_HELP">Crop the Preview of the Image and use above Dimensions as Image Size.</Resource>
+    <Resource tag="DISABLE_REGISTER">Disable New Registrations:</Resource>
+    <Resource tag="DISABLE_REGISTER_HELP">New users won't be able to register.</Resource>
+    <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Treshold:</Resource>
+    <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
+    <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
+    <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
+    <Resource tag="FILE_TABLE">Use File Table:</Resource>
+    <Resource tag="FILE_TABLE_HELP">Uploaded files will be saved in the database instead of the file system.</Resource>
+    <Resource tag="FLOOT_DELAY">Post Flood Delay:</Resource>
+    <Resource tag="FLOOT_DELAY_HELP">Number of seconds before another post can be entered (Does not apply to admins or mods).</Resource>
+    <Resource tag="FORBIDDEN">Forbidden</Resource>
+    <Resource tag="FORUM_EMAIL">Forum Email:</Resource>
+    <Resource tag="FORUM_EMAIL_HELP">The from address when sending emails to users.</Resource>
+    <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
+    <Resource tag="HEADER_ALBUM">Album Settings</Resource>
+    <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
+    <Resource tag="HEADER_CACHE">Cache Settings</Resource>
+    <Resource tag="HEADER_CAPTCHA">CAPTCHA Settings</Resource>
+    <Resource tag="HEADER_DISPLAY">Display Settings</Resource>
+    <Resource tag="HEADER_EDITORS">Editting/Formatting Settings</Resource>
+    <Resource tag="HEADER_FEATURES">Feature Settings</Resource>
+    <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
+    <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
+    <Resource tag="HEADER_LOG">Log settings</Resource>
+    <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
+    <Resource tag="HEADER_PERMISSION">Permission Settings</Resource>
+    <Resource tag="HEADER_PMS">Private Messages</Resource>
+    <Resource tag="HEADER_POLL">Poll Options</Resource>
+    <Resource tag="HEADER_SEARCH">Search Settings</Resource>
+    <Resource tag="HEADER_SETUP">Host Setup</Resource>
+    <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
+    <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
+    <Resource tag="HOST_ADVERTS">Adverts</Resource>
+    <Resource tag="HOST_AVATARS">Avatars</Resource>
+    <Resource tag="HOST_CACHE">Cache</Resource>
+    <Resource tag="HOST_DISPLAY">Display</Resource>
+    <Resource tag="HOST_EDITORS">Editors</Resource>
+    <Resource tag="HOST_FEATURES">Features</Resource>
+    <Resource tag="HOST_PERMISSION">Permission</Resource>
+    <Resource tag="HOST_SEARCH">Search</Resource>
+    <Resource tag="HOST_TEMPLATES">Templates</Resource>
+    <Resource tag="IMAGE_ATTACH_RESIZE">Enable Image Attachment Resize:</Resource>
+    <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Attached images will be resized to thumbnails if they are too large.</Resource>
+    <Resource tag="IMAGE_RESIZE_HEIGHT">Image Attachment Resize Max Height:</Resource>
+    <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH">Image Attachment Resize Max Width:</Resource>
+    <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images.</Resource>
+    <Resource tag="LOGIN_REDIR_URL">Custom Login Redirect Url:</Resource>
+    <Resource tag="LOGIN_REDIR_URL_HELP">If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to "false"), this is the URL users will be redirected to when they need to access the forum. Optionally add "{0}" to the URL to pass the return URL to the custom Url. E.g. "http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
+    <Resource tag="MAX_ATTACHMENTS">Maximum Number of Attachments per Post:</Resource>
+    <Resource tag="MAX_ATTACHMENTS_HELP">Maximum Number of uploaded files per Post. Set to 0 for unlimited.</Resource>
+    <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
+    <Resource tag="MAX_FILESIZE_HELP">Maximum size of uploaded files. Leave empty for no limit.</Resource>
+    <Resource tag="MAX_POST_CHARS">Max Report Post Chars:</Resource>
+    <Resource tag="MAX_POST_CHARS_HELP">Max Allowed Report Post length.</Resource>
+    <Resource tag="MAX_POST_SIZE">Max Post Size:</Resource>
+    <Resource tag="MAX_POST_SIZE_HELP">Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).</Resource>
+    <Resource tag="MODAL_LOGIN">Use Login Box (Modal PopUp Dialog):</Resource>
+    <Resource tag="MODAL_LOGIN_HELP">If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.</Resource>
+    <Resource tag="NAME_LENGTH">User Name Max Length:</Resource>
+    <Resource tag="NAME_LENGTH_HELP">Max Allowed User Name or User Display Name Max Length.</Resource>
+    <Resource tag="POST_AD">2nd post ad:</Resource>
+    <Resource tag="POST_AD_HELP">Place the code that you wish to be displayed in each thread after the 1st post. If you do not want an ad to be displayed, don't put anything in the box.</Resource>
+    <Resource tag="POSTEDIT_TIMEOUT">Post editing timeout:</Resource>
+    <Resource tag="POSTEDIT_TIMEOUT_HELP">Number of seconds while post may be modified without showing that to other users</Resource>
+    <Resource tag="REFERRER_CHECK">Enable Url Referrer Security Check:</Resource>
+    <Resource tag="REFERRER_CHECK_HELP">Validates all POSTs are from the same domain as the referring domain (No cross domain POSTs).</Resource>
+    <Resource tag="REG_USERS">Registered Users</Resource>
+    <Resource tag="REQUIRE_LOGIN">Require User Login:</Resource>
+    <Resource tag="REQUIRE_LOGIN_HELP">If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</Resource>
+    <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
+    <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
+    <Resource tag="SERVERTIME_CORRECT">Server Time Zone Correction:</Resource>
+    <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
+    <Resource tag="SHOWAD_LOGINUSERS">Show Ad to "Signed In" Users:</Resource>
+    <Resource tag="SHOWAD_LOGINUSERS_HELP">If checked, signed in users will see ads.</Resource>
+    <Resource tag="TITLE">Host Settings</Resource>
+    <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
+    <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
+  </page>
   <page name="ADMIN_LANGUAGES">
     <Resource tag="CULTURE_TAG">Culture Tag</Resource>
     <Resource tag="LANG_NAME">Language English Name</Resource>
@@ -931,6 +1019,9 @@
     <Resource tag="RUNNING">Is Running</Resource>
     <Resource tag="STOP_TASK">Stop Task</Resource>
     <Resource tag="TITLE">Task Manger</Resource>
+  </page>
+  <page name="ADMIN_TEST_DATA">
+    <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Approved</Resource>
@@ -1597,12 +1688,12 @@
 &lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;A Forums contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
-&lt;p&gt;The forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member messageed the most recent message.&lt;/p&gt;
+&lt;p&gt;The forum home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member messageed the most recent message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I find my way around?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When you click on a forum's name, you are taken to the list of topics it contains. A topic is a conversation between members or guests. Each topic starts out as a single message and grows as more individual messages are added by different users. &lt;/p&gt;
 &lt;p&gt;To start a new Topic simply click on the 'New Topic' button  (If you have access to it).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Paging&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;When there are more Topic to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
+&lt;p&gt;When there are more Topics to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
 &lt;p&gt;This method of splitting lists of items over many pages is used throughout the board.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What are sticky topics?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;'Sticky' Topics can be created by moderators or administrators, and remain 'stuck' to the top of the listing, even if they haven't had any messages recently. Their purpose is to keep important information visible and accessible at all times.&lt;/p&gt;
@@ -1656,8 +1747,8 @@
 &lt;p&gt;For Modify signatures, click on 'Signature' under the 'Personal Profile' area of the navigation bar within the User CP. You are only allowed to enter BB Code formatted Signatures.&lt;/p&gt;</Resource>
     <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
     <Resource tag="MYSETTINGSCONTENT">&lt;p&gt;The &lt;strong&gt;User Control Panel&lt;/strong&gt; is where you control your personal settings, options and preferences.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main will show your Account Summary including your user name, your email address, Number of posts, Member of Groups you ar in and since when you are member.&lt;/p&gt;
-&lt;p&gt;On the Left Side you find the Links to all Sub Pages and forms allow you to control:..&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main will show your Account Summary including your User Name, Email Address, Number of posts, Member of Groups you ar in and since when you are member.&lt;/p&gt;
+&lt;p&gt;On the Left Side you will find Links to all Sub Pages and Forms that allow you to control:..&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Messenger&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Inbox&lt;/li&gt;
@@ -1753,9 +1844,9 @@
   &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked  								and Number of posts for which this user was thanked.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Buddies - &lt;/strong&gt;Shows the Buddies the User has in the Forum.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the if enabled the Albums the User has Generated.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Personal informations such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
+&lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
     <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
     <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
     <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
@@ -1793,9 +1884,9 @@
     <Resource tag="SEARCHHELP">Search Help</Resource>
     <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
     <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
-&lt;p&gt;For more control over the search, you to restrict your search to individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
+&lt;p&gt;For more control over the search, you can restrict your search individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
-    <Resource tag="SEARCHLONGER">Search Input ist to short, must be at least 3 letters.</Resource>
+    <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
     <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;

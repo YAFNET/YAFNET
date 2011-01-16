@@ -156,7 +156,13 @@ namespace YAF.Pages.Admin
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Host Settings", string.Empty);
+        this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
+
+        this.Page.Header.Title = "{0} - {1}".FormatWith(
+       this.GetText("ADMIN_ADMIN", "Administration"),
+       this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
+
+          this.RenderListItems();
 
         this.BindData();
       }
@@ -189,21 +195,43 @@ namespace YAF.Pages.Admin
       // Ederon : 7/1/2007
       this.SmiliesPerRow.AddStyleAttributeWidth("25px");
       this.SmiliesPerRow.AddAttributeMaxWidth("2");
-      this.SmiliesColumns.AddStyleAttributeWidth("25px");
-      this.SmiliesColumns.AddAttributeMaxWidth("2");
+
 
       this.ImageAttachmentResizeWidth.AddStyleAttributeWidth("50px");
       this.DisableNoFollowLinksAfterDay.AddStyleAttributeWidth("100px");
 
       // Ederon : 7/14/2007
       this.UserBox.AddStyleAttributeSize("350px", "100px");
-      this.AdPost.AddStyleAttributeSize("400px", "150px");
 
       // CheckCache
       this.CheckCache();
     }
 
-    /// <summary>
+      /// <summary>
+      /// Fill Lists with Localized Items
+      /// </summary>
+      private void RenderListItems()
+      {
+          var itemsUsers = new[]
+              {
+                  new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "FORBIDDEN"), "0"),
+                  new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "REG_USERS"), "1"),
+                  new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "ALL_USERS"), "2")
+              };
+
+          PostsFeedAccess.Items.AddRange(itemsUsers);
+          PostLatestFeedAccess.Items.AddRange(itemsUsers);
+          ForumFeedAccess.Items.AddRange(itemsUsers);
+          TopicsFeedAccess.Items.AddRange(itemsUsers);
+          ActiveTopicFeedAccess.Items.AddRange(itemsUsers);
+          FavoriteTopicFeedAccess.Items.AddRange(itemsUsers);
+          ReportPostPermissions.Items.AddRange(itemsUsers);
+          ProfileViewPermissions.Items.AddRange(itemsUsers);
+          MembersListViewPermissions.Items.AddRange(itemsUsers);
+          ActiveUsersViewPermissions.Items.AddRange(itemsUsers);
+      }
+
+      /// <summary>
     /// The replace rules cache reset_ click.
     /// </summary>
     /// <param name="sender">
