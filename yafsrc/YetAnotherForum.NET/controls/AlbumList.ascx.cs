@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Types.Interfaces;
+
 namespace YAF.Controls
 {
   #region Using
@@ -124,8 +126,8 @@ namespace YAF.Controls
         YafContext.Current.PageElements.RegisterJsBlockStartup(
           "AlbumEventsJs", 
           JavaScriptBlocks.AlbumEventsJs(
-            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
-            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+            this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE"),
+            this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
         YafContext.Current.PageElements.RegisterJsBlockStartup(
           "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
         YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -160,46 +162,43 @@ namespace YAF.Controls
 
       this.BindData();
 
-      DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-      DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-      var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-      var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
-      if (allowedAlbums.HasValue && allowedAlbums > 0)
-      {
-        // this.AddAlbum.Visible = true;
-        this.AddAlbum.Visible = (LegacyDb.album_getstats(this.PageContext.PageUserID, null)[0] < allowedAlbums &&
-                                 this.UserID == this.PageContext.PageUserID)
-                                  ? true
-                                  : false;
-      }
-
-      if (this.AddAlbum.Visible)
-      {
-        this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");
-      }
-
       HttpContext.Current.Session["imagePreviewWidth"] = this.PageContext.BoardSettings.ImageAttachmentResizeWidth;
       HttpContext.Current.Session["imagePreviewHeight"] = this.PageContext.BoardSettings.ImageAttachmentResizeHeight;
       HttpContext.Current.Session["imagePreviewCropped"] = this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
-      HttpContext.Current.Session["localizationFile"] = this.PageContext.Localization.LanguageFileName;
+      HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
       // Show Albums Max Info
       if (this.UserID == this.PageContext.PageUserID)
       {
-        if (allowedAlbums.HasValue && allowedAlbums > 0)
+         this.albumsInfo.Text = this.Get<ILocalization>().GetTextFormatted("ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums);
+        if (this.PageContext.UsrAlbums > this.PageContext.NumAlbums)
         {
-          this.albumsInfo.Text = this.PageContext.Localization.GetTextFormatted("ALBUMS_INFO", numAlbums, allowedAlbums);
+            this.AddAlbum.Visible = true;
         }
-        else if (allowedAlbums.HasValue && allowedAlbums.Equals(0) || !allowedAlbums.HasValue)
-        {
-          this.albumsInfo.Text = this.PageContext.Localization.GetText("ALBUMS_NOTALLOWED");
-        }
+
+        this.albumsInfo.Text = this.PageContext.UsrAlbums > 0 ? this.Get<ILocalization>().GetTextFormatted("ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums) : this.Get<ILocalization>().GetText("ALBUMS_NOTALLOWED");
 
         this.albumsInfo.Visible = true;
       }
-      else
+      // vzrus: used if someone moderates usuful if a moderation is implemented 
+      /* else 
       {
-        this.albumsInfo.Visible = false;
+          DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+          DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+          var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+          var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
+          
+          if (allowedAlbums.HasValue && allowedAlbums > 0 && numAlbums < allowedAlbums)
+          {
+              this.AddAlbum.Visible = true;
+          }
+
+          this.albumsInfo.Visible = false;
+      } */
+
+      if (this.AddAlbum.Visible)
+      {
+          this.AddAlbum.Text = this.Get<ILocalization>().GetText("BUTTON", "BUTTON_ADDALBUM");
       }
     }
 

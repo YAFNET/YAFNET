@@ -255,13 +255,13 @@
     <Resource tag="TITLE">Доски</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
-    <Resource tag="BOARD_ALLOW_DIGEST">Allow Digest Email Sending for Users Once Daily:</Resource>
-    <Resource tag="BOARD_ALLOW_DIGEST_HELP">Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.</Resource>
-    <Resource tag="BOARD_CDN_HOSTED">Use Google Hosted CDN jQuery UI CSS File?</Resource>
+    <Resource tag="BOARD_ALLOW_DIGEST">Разрешить отправку дайджеста по пользователям ежедневно :</Resource>
+    <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: доска должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
+    <Resource tag="BOARD_CDN_HOSTED">Испольльзовать размешённый на Google CDN файл jQuery UI CSS?</Resource>
     <Resource tag="BOARD_CDN_HOSTED_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
-    <Resource tag="BOARD_CULTURE">Culture:</Resource>
-    <Resource tag="BOARD_CULTURE_HELP">The default culture &amp; language for this forum.</Resource>
-    <Resource tag="BOARD_DEFAULT_NOTIFICATION">Default Notification Setting:</Resource>
+    <Resource tag="BOARD_CULTURE">Язык/культура:</Resource>
+    <Resource tag="BOARD_CULTURE_HELP">Язык &amp; по умолчанию для этой доски.</Resource>
+    <Resource tag="BOARD_DEFAULT_NOTIFICATION">Настройки уведомления по-умолчанию:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Default Send Digest "On" for New Users?</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
@@ -286,8 +286,8 @@
     <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
-    <Resource tag="HEADER">Current Board Settings</Resource>
-    <Resource tag="TITLE">Board Settings</Resource>
+    <Resource tag="HEADER">Текущие настройки доски</Resource>
+    <Resource tag="TITLE">Настройки доски</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
@@ -314,15 +314,15 @@
     <Resource tag="TITLE">Digest</Resource>
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
-    <Resource tag="ACCESS">Access</Resource>
-    <Resource tag="MASK_NAME">Name:</Resource>
-    <Resource tag="MASK_NAME_HELP">Name of this access mask.</Resource>
-    <Resource tag="MASK_ORDER">Order:</Resource>
-    <Resource tag="MASK_ORDER_HELP">Sort order for this access mask.</Resource>
-    <Resource tag="MSG_MASK_NAME">You must enter a name for the Access Mask.</Resource>
-    <Resource tag="MSG_NUMBER_SORT">You must enter a number value from 0 to 32767 for sort order.</Resource>
-    <Resource tag="MSG_POSITIVE_SORT">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
-    <Resource tag="TITLE">Add/Edit Access Masks</Resource>
+    <Resource tag="ACCESS">Доступ</Resource>
+    <Resource tag="MASK_NAME">Название:</Resource>
+    <Resource tag="MASK_NAME_HELP">Название маски доступа.</Resource>
+    <Resource tag="MASK_ORDER">Сортировка:</Resource>
+    <Resource tag="MASK_ORDER_HELP">Порядковый номер для данной маски.</Resource>
+    <Resource tag="MSG_MASK_NAME">YВЫ должны ввести название для этой маски доступа.</Resource>
+    <Resource tag="MSG_NUMBER_SORT">Вы должны ввести значение от 0 до 32767 для порядкового номера сортировки.</Resource>
+    <Resource tag="MSG_POSITIVE_SORT">Порядковый номер должен быть между 0 и 32767.</Resource>
+    <Resource tag="TITLE">Добавить/изменить маску доступа</Resource>
   </page>
   <page name="ADMIN_EDITBOARD">
     <Resource tag="ADMIN_USER">Create New Admin User:</Resource>
@@ -693,14 +693,14 @@
     <Resource tag="TITLE">Import Extensions</Resource>
   </page>
   <page name="ADMIN_FORUMS">
-    <Resource tag="CONFIRM_DELETE">Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?</Resource>
-    <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
-    <Resource tag="CONFIRM_DELETE_POSITIVE">Are you POSITIVE?</Resource>
-    <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
-    <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
-    <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.</Resource>
-    <Resource tag="NEW_CATEGORY">New Category</Resource>
-    <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="CONFIRM_DELETE">Удалить этот форум навсегда, включая темы, сообщения, вложения и другую связанную с ним информацию?</Resource>
+    <Resource tag="CONFIRM_DELETE_CAT">Удалить категорию?</Resource>
+    <Resource tag="CONFIRM_DELETE_POSITIVE">Вы уверены, что вменяемы сегодня?</Resource>
+    <Resource tag="DELETE_MSG">Пожалуйста, не закрывайте эту страницу пока форум удаляется... </Resource>
+    <Resource tag="DELETE_TITLE">Удаление форума</Resource>
+    <Resource tag="MSG_NOT_DELETE">Вы не можете удалить категорию, до тех пор пока в ней есть хотя бы один форум.\nЧтобы переместит форум нажмите \"Изменить\"  и переместите форум в другую категорию.</Resource>
+    <Resource tag="NEW_CATEGORY">Добавить категорию</Resource>
+    <Resource tag="NEW_FORUM">Добавить форум</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="CONFIRM_DELETE">Delete this Role?</Resource>

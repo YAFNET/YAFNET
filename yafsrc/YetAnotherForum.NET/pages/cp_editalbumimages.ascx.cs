@@ -99,6 +99,8 @@ namespace YAF.Pages
           String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
       YafAlbum.Album_Image_Delete(
         sUpDir, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
+      // clear the cache for this user to update albums|images stats...
+      UserMembershipHelper.ClearCacheForUserId(this.PageContext.PageUserID);
       YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
     }
 
@@ -496,6 +498,8 @@ namespace YAF.Pages
         file.PostedFile.SaveAs(
           "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
         LegacyDb.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
+        // clear the cache for this user to update albums|images stats...
+        UserMembershipHelper.ClearCacheForUserId(this.PageContext.PageUserID);
         YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
       }
       else
