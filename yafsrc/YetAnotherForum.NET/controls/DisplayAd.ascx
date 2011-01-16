@@ -11,7 +11,7 @@
 </tr>
 <tr class="<%#GetPostClass()%>">
     <td valign="top" class="message" colspan='3'>
-        <div class="postdiv">
+        <div class="postdiv AdMessage">
             <YAF:MessagePost ID="AdMessage" runat="server"></YAF:MessagePost>
         </div>
     </td>

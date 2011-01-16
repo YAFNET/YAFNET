@@ -427,6 +427,9 @@ This CSS already works on FireFox.
 	min-height: 100px;
 	overflow: auto;	
 }
+.yafnet div.AdMessage {
+	min-height: 10px;
+}
 .yafnet div.yafsignature
 {
 	border-top: solid 1px #666666;
@@ -808,93 +811,4 @@ This CSS already works on FireFox.
 
 .yafnet .NextTopicLink {
 	background: url("RightArrow.png") transparent no-repeat 100% 50%;
-}
-
-/* clean up model dialog */
-.ModalDialog .DialogContent {
-  display:table;
-  width: 370px;
-  padding: 4px;
-  background: #eee;
-}
-.ModalDialog .modalHeader 
-{
-    padding: 4px;
-    border: 1px solid #999;
-  text-shadow: 0;
-  -webkit-box-shadow: 0;
-  moz-box-shadow: 0;
-  box-shadow: 0;
-  color: #fff;
-  background: #666;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
-  border-radius: 1px;
-  text-align:center;
-  
-  font-size: 10pt;
-}
-
-.ModalDialog .modalHeader h3
-{
-    display: inline;
-}
-
-.ModalDialog .modalFooter
-{
-    padding: 2px;
-    text-align: right;
-}
-
-.ModalDialog input, .ModalDialog select
-{
-    padding: 0px;
-}
-
-.ModalDialog hr
-{
-    height: 1px;
-    border: 0;
-    background-color: #aaa;
-    clear:both;
-}
-
-.ModalDialog .modalInner
-{
-    display: inline;
-}
-
-.StandardButton {
-	border: none;
-
-	vertical-align: baseline;
-	margin: 0;
-	cursor: pointer;
-	text-align: center!important;
-	text-decoration: none;
-	font: none !important;
-	padding: .1em 0.5em .1em;
-	text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	
-	-webkit-border-radius: .5em; 
-	-moz-border-radius: .5em;
-	border-radius: .5em;
-	
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-	box-shadow: 0 1px 2px rgba(0,0,0,.2);
-
-	color: #fff!important;
-	border: solid 1px #333;
-	background: #666 !important;
-	
-    height:auto;
-	width:80px;
-}
-
-.ModalDialog .close
-{
-    margin: 3px;
-    border: 1px solid #777;
-    background: #888;
 }

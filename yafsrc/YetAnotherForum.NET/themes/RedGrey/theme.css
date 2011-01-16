@@ -520,6 +520,9 @@ This CSS already works on FireFox.
 	min-height: 100px;
 	overflow: auto;	
 }
+.yafnet div.AdMessage {
+	min-height: 10px;
+}
 .yafnet div.yafsignature
 {
 	border-top: solid 1px #666666;

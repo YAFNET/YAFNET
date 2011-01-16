@@ -433,7 +433,9 @@
     min-height: 100px;
     overflow: auto;
 }
-
+.yafnet div.AdMessage {
+	min-height: 10px;
+}
 .yafnet .yafPageLink
 {
     font-weight: bold;
