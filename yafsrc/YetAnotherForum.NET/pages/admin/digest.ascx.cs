@@ -137,11 +137,11 @@ namespace YAF.Pages.Admin
           "Digest Send Test", 
           this.SendMethod.SelectedItem.Text == "Queued");
 
-        this.PageContext.AddLoadMessage(this.GetText("MSG_SEND_SUC", "MSG_VALID_MAIL").FormatWith(this.SendMethod.SelectedItem.Text));
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC").FormatWith(this.SendMethod.SelectedItem.Text));
       }
       catch (Exception ex)
       {
-        this.PageContext.AddLoadMessage(this.GetText("MSG_SEND_ERR", "MSG_VALID_MAIL").FormatWith(ex));
+        this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR").FormatWith(ex));
       }
     }
 
