@@ -32,6 +32,7 @@ namespace YAF.Core
   using YAF.Core.BBCode;
   using YAF.Core.Services;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -77,6 +78,7 @@ namespace YAF.Core
 
       // handle registration...
       this.RegisterExternalModules();
+      this.RegisterExternalServices();
       this.RegisterBasicBindings();
       this.RegisterEventBindings();
       this.RegisterServices();
@@ -101,72 +103,46 @@ namespace YAF.Core
         OwnedByLifetimeScope();
 
       // optional defaults.
-      if (this.IsNotRegistered<ISendMail>())
-      {
-        builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance();
-      }
+      builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<ISendNotification>())
-      {
-        builder.RegisterType<YafSendNotification>().As<ISendNotification>().OwnedByLifetimeScope();
-      }
+      builder.RegisterType<YafSendNotification>().As<ISendNotification>().OwnedByLifetimeScope().
+        PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IDigest>())
-      {
-        builder.RegisterType<YafDigest>().As<IDigest>().OwnedByLifetimeScope();
-      }
+      builder.RegisterType<YafDigest>().As<IDigest>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IUserDisplayName>())
-      {
-        builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().OwnedByLifetimeScope();
-      }
+        builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IUrlBuilder>())
-      {
-        builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope();
-      }
+        builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IBBCode>())
-      {
-        builder.RegisterType<YafBBCode>().As<IBBCode>().OwnedByLifetimeScope();
-      }
+        builder.RegisterType<YafBBCode>().As<IBBCode>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IFormatMessage>())
-      {
-        builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().OwnedByLifetimeScope();
-      }
+        builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IDBBroker>())
-      {
-        builder.RegisterType<YafDBBroker>().As<IDBBroker>().OwnedByLifetimeScope();
-      }
+        builder.RegisterType<YafDBBroker>().As<IDBBroker>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered<IAvatars>())
-      {
-        builder.RegisterType<YafAvatars>().As<IAvatars>().OwnedByLifetimeScope();
-      }
+        builder.RegisterType<YafAvatars>().As<IAvatars>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
       // stationary bindings...
-      builder.RegisterType<YafSession>().As<IYafSession>().OwnedByLifetimeScope();
-      builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().OwnedByLifetimeScope();
-      builder.RegisterType<YafPermissions>().As<IPermissions>().OwnedByLifetimeScope();
-      builder.RegisterType<YafDateTime>().As<IDateTime>().OwnedByLifetimeScope();
-      builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().OwnedByLifetimeScope();
-      builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().OwnedByLifetimeScope();
+      builder.RegisterType<YafSession>().As<IYafSession>().OwnedByLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().OwnedByLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<YafPermissions>().As<IPermissions>().OwnedByLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<YafDateTime>().As<IDateTime>().OwnedByLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().OwnedByLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().OwnedByLifetimeScope().PreserveExistingDefaults();
 
       // needs to be "instance per dependancy" so that each new request gets a new ScripBuilder.
-      builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency();
+      builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency().PreserveExistingDefaults();
 
       builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").OwnedByLifetimeScope();
 
-      builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+      builder.RegisterType<YafStopWatch>().As<IStopWatch>().InstancePerMatchingLifetimeScope(YafLifetimeScope.Context).PreserveExistingDefaults();
 
       // localization registration...
-      builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope();
+      builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.Register(k => k.Resolve<LocalizationProvider>().Localization);
 
       // theme registration...
-      builder.RegisterType<ThemeProvider>().InstancePerLifetimeScope();
+      builder.RegisterType<ThemeProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.Register(k => k.Resolve<ThemeProvider>().Theme);
 
       // module resolution bindings...
@@ -225,6 +201,58 @@ namespace YAF.Core
       // editor modules...
       builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AssignableTo<ForumEditor>().As<ForumEditor>().
         InstancePerLifetimeScope();
+
+      this.UpdateRegistry(builder);
+    }
+
+    /// <summary>
+    /// The register services.
+    /// </summary>
+    private void RegisterExternalServices()
+    {
+      var builder = new ContainerBuilder();
+
+      var classes =
+        this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()).FindClassesWithAttribute
+          <ExportServiceAttribute>();
+
+      foreach (var c in classes)
+      {
+        var built = builder.RegisterType(c).As(c);
+        c.GetInterfaces().ForEach(i => built.As(i));
+
+        var exportAttribute = c.GetAttribute<ExportServiceAttribute>();
+
+        if (exportAttribute != null && built != null)
+        {
+          switch (exportAttribute.ServiceLifetimeScope)
+          {
+            case ServiceLifetimeScope.Singleton:
+              built.SingleInstance();
+              break;
+
+            case ServiceLifetimeScope.Transient:
+              built.ExternallyOwned();
+              break;
+
+            case ServiceLifetimeScope.OwnedByContainer:
+              built.OwnedByLifetimeScope();
+              break;
+
+            case ServiceLifetimeScope.InstancePerScope:
+              built.InstancePerLifetimeScope();
+              break;
+
+            case ServiceLifetimeScope.InstancePerDependancy:
+              built.InstancePerDependency();
+              break;
+
+            case ServiceLifetimeScope.InstancePerContext:
+              built.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+              break;
+          }
+        }
+      }
 
       this.UpdateRegistry(builder);
     }

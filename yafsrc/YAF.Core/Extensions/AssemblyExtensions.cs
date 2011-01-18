@@ -58,6 +58,28 @@ namespace YAF.Core
       return moduleClassTypes.Distinct();
     }
 
+    [NotNull]
+    public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
+      where T : Attribute
+    {
+      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
+
+      var moduleClassTypes = new List<Type>();
+      var attributeType = typeof(T);
+
+      // get classes...
+      foreach (
+        var types in
+          assemblies.Select(
+            a =>
+            a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any()).ToList()))
+      {
+        moduleClassTypes.AddRange(types);
+      }
+
+      return moduleClassTypes.Distinct();
+    }
+
     /// <summary>
     /// The get assembly sort order.
     /// </summary>
