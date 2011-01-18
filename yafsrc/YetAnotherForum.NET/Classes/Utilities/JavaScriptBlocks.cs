@@ -358,7 +358,7 @@ function toggleMessage(divId)
       return
         @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
             function loadGotoAnchor() {{
-               window.location = window.location + ""#{0}""
+               window.location = window.location + ""#{0}"";
 			      }}"
           .FormatWith(anchor);
     }
