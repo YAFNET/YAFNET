@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Utils.Helpers.StringUtils;
+
 namespace YAF.Pages
 {
   // YAF.Pages
@@ -334,7 +336,7 @@ namespace YAF.Pages
     {
       text = YafContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
       return
-        @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" />&nbsp;{4}</a></td></tr><table>"
+        @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" ></img>{4}</a></td></tr><table>"
           .FormatWith(text, link, imgUrl, imgAlt, linkName);
     }
 
@@ -449,8 +451,8 @@ namespace YAF.Pages
                 feedType, 
                 atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
                 row["LinkTopicID"], 
-                row["LastMessageID"], 
-                this.PageContext.PageBoardID), 
+                row["LastMessageID"],
+                this.PageContext.PageBoardID).Unidecode(), 
               lastPosted, 
               feed);
           }
@@ -568,8 +570,8 @@ namespace YAF.Pages
                 atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
                 feedNameAlphaNum, 
                 Convert.ToInt32(row["LinkTopicID"]), 
-                row["LastMessageID"], 
-                this.PageContext.PageBoardID), 
+                row["LastMessageID"],
+                this.PageContext.PageBoardID).Unidecode(), 
               lastPosted, 
               feed);
           }
@@ -651,8 +653,8 @@ namespace YAF.Pages
               feedType, 
               atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
               row["ForumID"], 
-              row["LastMessageID"], 
-              this.PageContext.PageBoardID), 
+              row["LastMessageID"],
+              this.PageContext.PageBoardID).Unidecode(), 
             lastPosted, 
             feed);
         }
@@ -715,8 +717,8 @@ namespace YAF.Pages
                 feedType, 
                 atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), 
-                row["LastMessageID"], 
-                this.PageContext.PageBoardID), 
+                row["LastMessageID"],
+                this.PageContext.PageBoardID).Unidecode(), 
               lastPosted, 
               feed);
           }
@@ -846,8 +848,8 @@ namespace YAF.Pages
                 feedType, 
                 atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
                 row["TopicID"], 
-                row["LastMessageID"], 
-                this.PageContext.PageBoardID), 
+                row["LastMessageID"],
+                this.PageContext.PageBoardID).Unidecode(), 
               lastPosted, 
               feed);
           }
@@ -946,8 +948,8 @@ namespace YAF.Pages
               urlAlphaNum, 
               feedType, 
               atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
-              row["MessageID"], 
-              this.PageContext.PageBoardID), 
+              row["MessageID"],
+              this.PageContext.PageBoardID).Unidecode(), 
             posted, 
             feed, 
             attachementLinks);
@@ -1037,8 +1039,8 @@ namespace YAF.Pages
               feedType, 
               atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
               row["TopicID"], 
-              row["LastMessageID"], 
-              this.PageContext.PageBoardID), 
+              row["LastMessageID"],
+              this.PageContext.PageBoardID).Unidecode(), 
             lastPosted, 
             feed);
         }

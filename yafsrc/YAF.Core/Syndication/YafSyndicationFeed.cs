@@ -219,16 +219,16 @@ namespace YAF.Core.Syndication
         
         this.Generator = "YetAnotherForum.NET";
         this.LastUpdatedTime = DateTime.UtcNow;
-        this.Language = YafContext.Current.Localization.LanguageCode;
+        this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
         this.ImageUrl = new Uri("{0}/YAFLogo.jpg".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
        
        
           this.Id =
               "urn:{0}:{1}:{2}:{3}:{4}".FormatWith(urlAlphaNum,
                   sf == YafSyndicationFormats.Atom.ToInt()
-                      ? YafContext.Current.Localization.GetText("ATOMFEED")
-                      : YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name,
-                  subTitle, YafContext.Current.PageBoardID);
+                      ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED")
+                      : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"), YafContext.Current.BoardSettings.Name,
+                  subTitle, YafContext.Current.PageBoardID).Unidecode();
 
           this.Id = this.Id.Replace(" ", String.Empty);
 
