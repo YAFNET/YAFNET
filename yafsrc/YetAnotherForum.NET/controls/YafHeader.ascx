@@ -100,7 +100,7 @@
         <div class="menuContainer">
             <ul class="menuList">
                 <li class="menuGeneral"><a target='_top' title="<%=this.PageContext.Localization.GetText("DEFAULT", "FORUM")%>"
-                    href="<%=YafBuildLink.GetLink(ForumPages.forum) %>">
+                     rel="nofollow" href="<%=YafBuildLink.GetLink(ForumPages.forum) %>">
                     <%=this.PageContext.Localization.GetText("DEFAULT", "FORUM")%></a> </li>
                 <%if (this.PageContext.IsGuest)
                   {%>
@@ -113,7 +113,7 @@
                     if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                     {%>
                 <li class="menuGeneral"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")%>"
-                    href="<%=YafBuildLink.GetLink(ForumPages.search)%>">
+                    rel="nofollow" href="<%=YafBuildLink.GetLink(ForumPages.search)%>">
                     <%=this.PageContext.Localization.GetText("TOOLBAR", "SEARCH")%></a> </li>
                 <%
                     }                    
@@ -134,7 +134,7 @@
                     if (this.PageContext.BoardSettings.ShowHelp)
                     {%>
                 <li class="menuGeneral"><a target='_top' title="<%=this.PageContext.Localization.GetText("TOOLBAR", "HELP")%>"
-                    href="<%=YafBuildLink.GetLink(ForumPages.help_index) %>">
+                    rel="help" href="<%=YafBuildLink.GetLink(ForumPages.help_index) %>">
                     <%=this.PageContext.Localization.GetText("TOOLBAR", "HELP")%></a> </li>
                 <%
                     }                    
@@ -152,7 +152,7 @@
                         if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false))
                         {%>
                 <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>"
-                    class="LoginLink" href="#">
+                    class="LoginLink" rel="nofollow" href="#">
                     <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>
                 </a></li>
                 <%
@@ -160,7 +160,7 @@
                         else
                         {%>
                 <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%>"
-                    href="<%= YafBuildLink.GetLink(ForumPages.login, returnUrl) %>">
+                     rel="nofollow"  href="<%= YafBuildLink.GetLink(ForumPages.login, returnUrl) %>">
                     <%=this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")%></a></li>
                 <%}%>
                 <%
@@ -169,7 +169,7 @@
                     if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !YAF.Classes.Config.IsAnyPortal)
                     {%>
                 <li class="menuAccount"><a title="<%=this.PageContext.Localization.GetText("TOOLBAR", "REGISTER")%>"
-                    href="<%=this.PageContext.BoardSettings.ShowRulesForRegistration
+                     rel="nofollow" href="<%=this.PageContext.BoardSettings.ShowRulesForRegistration
                                                         ? YafBuildLink.GetLink(ForumPages.rules)
                                                         : (!this.PageContext.BoardSettings.UseSSLToRegister ? YafBuildLink.GetLink(ForumPages.register) : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:")) %>">
                     <%=this.PageContext.Localization.GetText("TOOLBAR", "REGISTER")%></a></li>

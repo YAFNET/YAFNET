@@ -146,6 +146,28 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
+    /// Sets if a useragent pattern is not checked against coockies support and JS. 
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The Is Not Checked For Cookies And JS.
+    /// </returns>
+    public static bool IsNotCheckedForCookiesAndJs ([CanBeNull] string userAgent)
+    {
+        if (userAgent.IsSet())
+        {
+            string[] userAgentContains = {
+                                          "W3C_Validator"
+                                         };
+            return userAgentContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
+        }
+
+        return false;
+    }
+
+
+    /// <summary>
     /// Returns a platform user friendly name.
     /// </summary>
     /// <param name="userAgent">
