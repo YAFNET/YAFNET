@@ -449,6 +449,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.reguser.UserName">
             <summary>
             UserName control.
@@ -461,6 +488,15 @@
         <member name="F:YAF.Pages.Admin.reguser.Requiredfieldvalidator1">
             <summary>
             Requiredfieldvalidator1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel6">
+            <summary>
+            LocalizedLabel6 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -485,6 +521,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel7">
+            <summary>
+            LocalizedLabel7 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.reguser.Password">
             <summary>
             Password control.
@@ -497,6 +542,15 @@
         <member name="F:YAF.Pages.Admin.reguser.Requiredfieldvalidator2">
             <summary>
             Requiredfieldvalidator2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel8">
+            <summary>
+            LocalizedLabel8 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -521,6 +575,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel9">
+            <summary>
+            LocalizedLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.reguser.Question">
             <summary>
             Question control.
@@ -533,6 +596,15 @@
         <member name="F:YAF.Pages.Admin.reguser.Requiredfieldvalidator3">
             <summary>
             Requiredfieldvalidator3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel10">
+            <summary>
+            LocalizedLabel10 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -557,6 +629,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel11">
+            <summary>
+            LocalizedLabel11 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.reguser.Location">
             <summary>
             Location control.
@@ -566,9 +656,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel12">
+            <summary>
+            LocalizedLabel12 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.reguser.HomePage">
             <summary>
             HomePage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.reguser.LocalizedLabel13">
+            <summary>
+            LocalizedLabel13 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -619,6 +736,17 @@
         <member name="M:YAF.Pages.Admin.bannedip.Page_Load(System.Object,System.EventArgs)">
             <summary>
             The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.bannedip.Add_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Add_Load
             </summary>
             <param name="sender">
             The sender.
@@ -5250,9 +5378,72 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.edituser.View6Li">
             <summary>
             View6Li control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel6">
+            <summary>
+            LocalizedLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel7">
+            <summary>
+            LocalizedLabel7 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -5268,9 +5459,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel8">
+            <summary>
+            LocalizedLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.edituser.View9Li">
             <summary>
             View9Li control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.edituser.LocalizedLabel9">
+            <summary>
+            LocalizedLabel9 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -7226,17 +7435,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.moderate.unapprovedposts.FormatMessage(System.Data.DataRowView)">
-            <summary>
-            Format message.
-            </summary>
-            <param name="row">
-            Message data row.
-            </param>
-            <returns>
-            Formatted string with escaped HTML markup and formatted YafBBCode.
-            </returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Pages.moderate.unapprovedposts.FormatMessage(System.Data.DataRowView)" -->
         <member name="M:YAF.Pages.moderate.unapprovedposts.OnInit(System.EventArgs)">
             <summary>
             The on init.
@@ -8951,9 +9150,18 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.editrank.AdminMenu1">
+        <member name="F:YAF.Pages.Admin.editrank.LocalizedLabel1">
             <summary>
-            AdminMenu1 control.
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -8969,9 +9177,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.IsStart">
             <summary>
             IsStart control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -8987,9 +9213,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel4">
+            <summary>
+            HelpLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.MinPosts">
             <summary>
             MinPosts control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel5">
+            <summary>
+            HelpLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -9005,9 +9249,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel6">
+            <summary>
+            HelpLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.Description">
             <summary>
             Description control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel7">
+            <summary>
+            HelpLabel7 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -9023,9 +9285,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel8">
+            <summary>
+            HelpLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.UsrSigBBCodes">
             <summary>
             UsrSigBBCodes control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel9">
+            <summary>
+            HelpLabel9 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -9041,9 +9321,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel10">
+            <summary>
+            HelpLabel10 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.UsrAlbums">
             <summary>
             UsrAlbums control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel11">
+            <summary>
+            HelpLabel11 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -9059,6 +9357,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel12">
+            <summary>
+            HelpLabel12 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.RankPriority">
             <summary>
             RankPriority control.
@@ -9068,9 +9375,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel13">
+            <summary>
+            HelpLabel13 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editrank.Style">
             <summary>
             Style control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editrank.HelpLabel14">
+            <summary>
+            HelpLabel14 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12252,9 +12577,36 @@
             The bind data.
             </summary>
         </member>
+        <member name="F:YAF.Controls.EditUsersInfo.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersInfo.Name">
             <summary>
             Name control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12270,9 +12622,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersInfo.Email">
             <summary>
             Email control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel4">
+            <summary>
+            HelpLabel4 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12297,6 +12667,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel5">
+            <summary>
+            HelpLabel5 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersInfo.IsHostAdminX">
             <summary>
             IsHostAdminX control.
@@ -12309,6 +12688,15 @@
         <member name="F:YAF.Controls.EditUsersInfo.IsCaptchaExcludedRow">
             <summary>
             IsCaptchaExcludedRow control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel6">
+            <summary>
+            HelpLabel6 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12333,9 +12721,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel7">
+            <summary>
+            HelpLabel7 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersInfo.IsExcludedFromActiveUsers">
             <summary>
             IsExcludedFromActiveUsers control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel8">
+            <summary>
+            HelpLabel8 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12360,6 +12766,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel9">
+            <summary>
+            HelpLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersInfo.IsGuestX">
             <summary>
             IsGuestX control.
@@ -12369,9 +12784,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel10">
+            <summary>
+            HelpLabel10 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersInfo.Joined">
             <summary>
             Joined control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersInfo.HelpLabel11">
+            <summary>
+            HelpLabel11 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12580,9 +13013,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.bannedip_edit.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.bannedip_edit.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.bannedip_edit.mask">
             <summary>
             mask control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.bannedip_edit.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -14062,6 +14522,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersKill.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersKill.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersKill.IpAddresses">
             <summary>
             IpAddresses control.
@@ -14071,9 +14549,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersKill.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersKill.BanIps">
             <summary>
             BanIps control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersKill.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -14092,6 +14588,15 @@
         <member name="F:YAF.Controls.EditUsersKill.ViewPostsLink">
             <summary>
             ViewPostsLink control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersKill.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -16215,17 +16720,7 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.moderate.reportedposts.FormatMessage(System.Data.DataRowView)">
-            <summary>
-            Format message.
-            </summary>
-            <param name="row">
-            Message data row.
-            </param>
-            <returns>
-            Formatted string with escaped HTML markup and formatted YafBBCode.
-            </returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Pages.moderate.reportedposts.FormatMessage(System.Data.DataRowView)" -->
         <member name="M:YAF.Pages.moderate.reportedposts.OnInit(System.EventArgs)">
             <summary>
             The on init.
@@ -21024,9 +21519,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.Name">
             <summary>
             Name control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21042,6 +21564,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.Message">
             <summary>
             Message control.
@@ -21051,9 +21582,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel4">
+            <summary>
+            HelpLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.Category">
             <summary>
             Category control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel5">
+            <summary>
+            HelpLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21078,6 +21627,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel6">
+            <summary>
+            HelpLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.RibbonImage">
             <summary>
             RibbonImage control.
@@ -21090,6 +21648,15 @@
         <member name="F:YAF.Pages.Admin.editmedal.RibbonPreview">
             <summary>
             RibbonPreview control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel7">
+            <summary>
+            HelpLabel7 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21114,6 +21681,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel8">
+            <summary>
+            HelpLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.SmallRibbonImage">
             <summary>
             SmallRibbonImage control.
@@ -21132,9 +21708,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel9">
+            <summary>
+            HelpLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.SortOrder">
             <summary>
             SortOrder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel10">
+            <summary>
+            HelpLabel10 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21150,6 +21744,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel11">
+            <summary>
+            HelpLabel11 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.AllowRibbon">
             <summary>
             AllowRibbon control.
@@ -21159,9 +21762,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel12">
+            <summary>
+            HelpLabel12 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.AllowHiding">
             <summary>
             AllowHiding control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel13">
+            <summary>
+            HelpLabel13 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21213,6 +21834,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.AddGroup">
+            <summary>
+            AddGroup control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.AddGroupPanel">
             <summary>
             AddGroupPanel control.
@@ -21231,9 +21861,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel14">
+            <summary>
+            HelpLabel14 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.AvailableGroupList">
             <summary>
             AvailableGroupList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel15">
+            <summary>
+            HelpLabel15 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21249,6 +21897,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel16">
+            <summary>
+            HelpLabel16 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.GroupSortOrder">
             <summary>
             GroupSortOrder control.
@@ -21258,9 +21915,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel17">
+            <summary>
+            HelpLabel17 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.GroupOnlyRibbon">
             <summary>
             GroupOnlyRibbon control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel18">
+            <summary>
+            HelpLabel18 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21285,6 +21960,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.AddGroupCancel">
+            <summary>
+            AddGroupCancel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.UserList">
             <summary>
             UserList control.
@@ -21303,6 +21987,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.AddUser">
+            <summary>
+            AddUser control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.AddUserPanel">
             <summary>
             AddUserPanel control.
@@ -21315,6 +22008,15 @@
         <member name="F:YAF.Pages.Admin.editmedal.UserMedalEditTitle">
             <summary>
             UserMedalEditTitle control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel23">
+            <summary>
+            HelpLabel23 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21366,9 +22068,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel19">
+            <summary>
+            HelpLabel19 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.UserMessage">
             <summary>
             UserMessage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel20">
+            <summary>
+            HelpLabel20 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21384,9 +22104,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel21">
+            <summary>
+            HelpLabel21 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editmedal.UserOnlyRibbon">
             <summary>
             UserOnlyRibbon control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.HelpLabel22">
+            <summary>
+            HelpLabel22 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21405,6 +22143,15 @@
         <member name="F:YAF.Pages.Admin.editmedal.AddUserSave">
             <summary>
             AddUserSave control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editmedal.AddUserCancel">
+            <summary>
+            AddUserCancel control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21630,9 +22377,36 @@
             The bind data.
             </summary>
         </member>
+        <member name="F:YAF.Controls.EditUsersPoints.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersPoints.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersPoints.ltrCurrentPoints">
             <summary>
             ltrCurrentPoints control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersPoints.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21666,6 +22440,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersPoints.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersPoints.txtAddPoints">
             <summary>
             txtAddPoints control.
@@ -21687,6 +22470,15 @@
         <member name="F:YAF.Controls.EditUsersPoints.btnAddPoints">
             <summary>
             btnAddPoints control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersPoints.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -21795,6 +22587,15 @@
         <member name="F:YAF.Pages.Admin.ranks.PageLinks">
             <summary>
             PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.ranks.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -23287,6 +24088,51 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel12">
+            <summary>
+            LocalizedLabel12 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel13">
+            <summary>
+            LocalizedLabel13 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel14">
+            <summary>
+            LocalizedLabel14 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel15">
+            <summary>
+            LocalizedLabel15 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.users.group">
             <summary>
             group control.
@@ -23323,6 +24169,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel16">
+            <summary>
+            LocalizedLabel16 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.users.Since">
             <summary>
             Since control.
@@ -23344,6 +24199,78 @@
         <member name="F:YAF.Pages.Admin.users.PagerTop">
             <summary>
             PagerTop control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel11">
+            <summary>
+            LocalizedLabel11 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel10">
+            <summary>
+            LocalizedLabel10 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel9">
+            <summary>
+            LocalizedLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel8">
+            <summary>
+            LocalizedLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel7">
+            <summary>
+            LocalizedLabel7 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel6">
+            <summary>
+            LocalizedLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.users.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -24704,6 +25631,15 @@
         <member name="F:YAF.Pages.Admin.medals.PageLinks">
             <summary>
             PageLinks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.medals.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28515,6 +29451,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.Name">
             <summary>
             Name control.
@@ -28533,9 +29487,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.IsStartX">
             <summary>
             IsStartX control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28551,9 +29523,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel4">
+            <summary>
+            HelpLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.IsAdminX">
             <summary>
             IsAdminX control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel5">
+            <summary>
+            HelpLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28569,9 +29559,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel6">
+            <summary>
+            HelpLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.Description">
             <summary>
             Description control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel7">
+            <summary>
+            HelpLabel7 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28587,9 +29595,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel8">
+            <summary>
+            HelpLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.UsrSigBBCodes">
             <summary>
             UsrSigBBCodes control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel9">
+            <summary>
+            HelpLabel9 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28605,9 +29631,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel10">
+            <summary>
+            HelpLabel10 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.UsrAlbums">
             <summary>
             UsrAlbums control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel11">
+            <summary>
+            HelpLabel11 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28623,9 +29667,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel12">
+            <summary>
+            HelpLabel12 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.Priority">
             <summary>
             Priority control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel13">
+            <summary>
+            HelpLabel13 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28650,6 +29712,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel14">
+            <summary>
+            HelpLabel14 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.editgroup.IsGuestX">
             <summary>
             IsGuestX control.
@@ -28662,6 +29733,15 @@
         <member name="F:YAF.Pages.Admin.editgroup.NewGroupRow">
             <summary>
             NewGroupRow control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.HelpLabel15">
+            <summary>
+            HelpLabel15 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -29734,9 +30814,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersResetPass.PasswordResetErrorHolder">
             <summary>
             PasswordResetErrorHolder control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -29770,6 +30877,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersResetPass.lblPassRequirements">
             <summary>
             lblPassRequirements control.
@@ -29797,6 +30931,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Controls.EditUsersResetPass.txtConfirmPassword">
             <summary>
             txtConfirmPassword control.
@@ -29818,6 +30961,15 @@
         <member name="F:YAF.Controls.EditUsersResetPass.CompareValidator1">
             <summary>
             CompareValidator1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.EditUsersResetPass.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32015,6 +33167,11 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.Admin.hostsettings.RenderListItems">
+            <summary>
+            Fill Lists with Localized Items
+            </summary>
+        </member>
         <member name="M:YAF.Pages.Admin.hostsettings.ReplaceRulesCacheReset_Click(System.Object,System.EventArgs)">
             <summary>
             The replace rules cache reset_ click.
@@ -32115,9 +33272,126 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel1">
+            <summary>
+            LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel2">
+            <summary>
+            LocalizedLabel2 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel3">
+            <summary>
+            LocalizedLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel4">
+            <summary>
+            LocalizedLabel4 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel6">
+            <summary>
+            LocalizedLabel6 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel7">
+            <summary>
+            LocalizedLabel7 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel8">
+            <summary>
+            LocalizedLabel8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel9">
+            <summary>
+            LocalizedLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel10">
+            <summary>
+            LocalizedLabel10 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel11">
+            <summary>
+            LocalizedLabel11 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel1">
+            <summary>
+            HelpLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.SQLVersion">
             <summary>
             SQLVersion control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel2">
+            <summary>
+            HelpLabel2 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32133,9 +33407,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel3">
+            <summary>
+            HelpLabel3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ForumEmail">
             <summary>
             ForumEmail control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel4">
+            <summary>
+            HelpLabel4 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32151,9 +33443,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel5">
+            <summary>
+            HelpLabel5 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.UseFileTable">
             <summary>
             UseFileTable control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel6">
+            <summary>
+            HelpLabel6 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32169,9 +33479,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel7">
+            <summary>
+            HelpLabel7 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.MaxNumberOfAttachments">
             <summary>
             MaxNumberOfAttachments control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel8">
+            <summary>
+            HelpLabel8 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32187,9 +33515,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel9">
+            <summary>
+            HelpLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.EditTimeOut">
             <summary>
             EditTimeOut control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel10">
+            <summary>
+            HelpLabel10 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32205,9 +33551,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel11">
+            <summary>
+            HelpLabel11 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.UserNameMaxLength">
             <summary>
             UserNameMaxLength control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel12">
+            <summary>
+            HelpLabel12 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32223,9 +33587,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel13">
+            <summary>
+            HelpLabel13 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.MaxPostSize">
             <summary>
             MaxPostSize control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel14">
+            <summary>
+            HelpLabel14 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32241,9 +33623,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel15">
+            <summary>
+            HelpLabel15 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.DoUrlReferrerSecurityCheck">
             <summary>
             DoUrlReferrerSecurityCheck control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel16">
+            <summary>
+            HelpLabel16 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32259,9 +33659,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel21">
+            <summary>
+            LocalizedLabel21 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel17">
+            <summary>
+            HelpLabel17 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.DisableRegistrations">
             <summary>
             DisableRegistrations control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel18">
+            <summary>
+            HelpLabel18 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32277,9 +33704,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel19">
+            <summary>
+            HelpLabel19 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.RequireLogin">
             <summary>
             RequireLogin control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel20">
+            <summary>
+            HelpLabel20 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32295,9 +33740,36 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel22">
+            <summary>
+            LocalizedLabel22 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel21">
+            <summary>
+            HelpLabel21 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.PictureAttachmentDisplayTreshold">
             <summary>
             PictureAttachmentDisplayTreshold control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel22">
+            <summary>
+            HelpLabel22 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32313,9 +33785,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel23">
+            <summary>
+            HelpLabel23 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ImageAttachmentResizeWidth">
             <summary>
             ImageAttachmentResizeWidth control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel24">
+            <summary>
+            HelpLabel24 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32331,9 +33821,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel25">
+            <summary>
+            HelpLabel25 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ImageAttachmentResizeCropped">
             <summary>
             ImageAttachmentResizeCropped control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel12">
+            <summary>
+            LocalizedLabel12 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32466,15 +33974,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.SmiliesColumns">
-            <summary>
-            SmiliesColumns control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.DisplayPoints">
             <summary>
             DisplayPoints control.
@@ -32550,6 +34049,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.EnableDNACalendar">
             <summary>
             EnableDNACalendar control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel23">
+            <summary>
+            LocalizedLabel23 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32637,6 +34145,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel24">
+            <summary>
+            LocalizedLabel24 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AllowPrivateMessages">
             <summary>
             AllowPrivateMessages control.
@@ -32658,6 +34175,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.PrivateMessageMaxRecipients">
             <summary>
             PrivateMessageMaxRecipients control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel25">
+            <summary>
+            LocalizedLabel25 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32694,6 +34220,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AlbumImagesPerPage">
             <summary>
             AlbumImagesPerPage control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel26">
+            <summary>
+            LocalizedLabel26 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32772,6 +34307,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel27">
+            <summary>
+            LocalizedLabel27 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.EnableIrkoo">
             <summary>
             EnableIrkoo control.
@@ -32811,6 +34355,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AllowGuestsViewReputation">
             <summary>
             AllowGuestsViewReputation control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel28">
+            <summary>
+            LocalizedLabel28 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32880,6 +34433,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel29">
+            <summary>
+            LocalizedLabel29 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.MessageHistoryDaysToLog">
             <summary>
             MessageHistoryDaysToLog control.
@@ -32901,6 +34463,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.UserAgentBadLog">
             <summary>
             UserAgentBadLog control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel13">
+            <summary>
+            LocalizedLabel13 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -33159,6 +34730,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel14">
+            <summary>
+            LocalizedLabel14 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel26">
+            <summary>
+            HelpLabel26 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AdPost">
             <summary>
             AdPost control.
@@ -33168,9 +34757,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel27">
+            <summary>
+            HelpLabel27 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ShowAdsToSignedInUsers">
             <summary>
             ShowAdsToSignedInUsers control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel15">
+            <summary>
+            LocalizedLabel15 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -33207,6 +34814,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.UseStyledNicks">
             <summary>
             UseStyledNicks control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel16">
+            <summary>
+            LocalizedLabel16 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -33348,6 +34964,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel17">
+            <summary>
+            LocalizedLabel17 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.UserBox">
             <summary>
             UserBox control.
@@ -33465,6 +35090,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel18">
+            <summary>
+            LocalizedLabel18 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AvatarRemote">
             <summary>
             AvatarRemote control.
@@ -33522,6 +35156,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AvatarSize">
             <summary>
             AvatarSize control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel19">
+            <summary>
+            LocalizedLabel19 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -33675,6 +35318,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ResetCacheAll">
             <summary>
             ResetCacheAll control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.LocalizedLabel20">
+            <summary>
+            LocalizedLabel20 control.
             </summary>
             <remarks>
             Auto-generated field.

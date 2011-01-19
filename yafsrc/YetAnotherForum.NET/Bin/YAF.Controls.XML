@@ -3524,7 +3524,7 @@
             The get current item.
             </returns>
         </member>
-        <member name="M:YAF.Controls.LocalizationSupportExtensions.LocalizeAndRender(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
+        <member name="M:YAF.Controls.LocalizationSupportExtensions.LocalizeAndRender(YAF.Controls.ILocalizationSupport,YAF.Core.BaseControl)">
             <summary>
             The localize and render.
             </summary>
