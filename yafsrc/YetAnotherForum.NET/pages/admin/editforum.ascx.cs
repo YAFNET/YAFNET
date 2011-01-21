@@ -423,7 +423,7 @@ namespace YAF.Pages.Admin
         DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null);
         if (dt.Rows.Count > 0)
         {
-          if (dt.Rows.Cast<DataRow>().Any(dr => dr["Name"].ToString() == this.Name.Text.Trim()))
+            if (!this.PageContext.BoardSettings.AllowForumsWithSameName  && dt.Rows.Cast<DataRow>().Any(dr => dr["Name"].ToString() == this.Name.Text.Trim()))
           {
               this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"));
               return;

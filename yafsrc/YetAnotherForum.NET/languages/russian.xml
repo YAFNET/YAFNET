@@ -1059,8 +1059,8 @@
     <Resource tag="admin_attachments">Вложения</Resource>
     <Resource tag="admin_bannedip">Запрещённые IP</Resource>
     <Resource tag="admin_bbcode">BB-коды</Resource>
-    <Resource tag="admin_boards">Форумы</Resource>
-    <Resource tag="admin_boardsettings">Настройки форума</Resource>
+    <Resource tag="admin_boards">Доски</Resource>
+    <Resource tag="admin_boardsettings">Настройки доски</Resource>
     <Resource tag="admin_digest">Дайджест</Resource>
     <Resource tag="admin_eventlog">Журнал</Resource>
     <Resource tag="admin_extensions">Расширения файлов</Resource>

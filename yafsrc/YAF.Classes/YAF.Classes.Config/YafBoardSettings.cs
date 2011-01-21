@@ -615,6 +615,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets AllowCreateTopicsSameName.
+        /// </summary>
+        public int AllowCreateTopicsSameName
+        {
+            get
+            {
+                return this._reg.GetValue<int>("AllowCreateTopicsSameName", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("AllowCreateTopicsSameName", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets AvatarSize.
         /// </summary>
         public int AvatarSize
@@ -1437,6 +1453,19 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue<bool>("AllowNotificationAllPostsAllTopics", value);
+            }
+        }
+
+        public bool AllowForumsWithSameName
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowForumsWithSameName", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowForumsWithSameName", value);
             }
         }
 

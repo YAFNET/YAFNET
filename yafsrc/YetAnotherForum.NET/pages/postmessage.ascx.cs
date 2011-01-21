@@ -277,8 +277,7 @@ namespace YAF.Pages
         this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"));
         return false;
       }
-
-      if (LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
+      if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
           this.EditMessageID == null)
       {
         this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));

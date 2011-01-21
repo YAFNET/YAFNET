@@ -163,8 +163,12 @@ namespace YAF.Controls
               };
           }
 
-          userLink.ID = "UserLink" + userLink.UserID;
-          if (isCrawler)
+          
+          if (!isCrawler)
+          {
+              userLink.ID = "UserLink" + userLink.UserID;
+          }
+          else
           {
             userLink.ID += userLink.ReplaceName;
           }
@@ -172,7 +176,7 @@ namespace YAF.Controls
           // how many users of this type is present (valid for guests, others have it 1)
           int userCount = Convert.ToInt32(row["UserCount"]);
 
-          if (userCount > 1 && !isCrawler)
+          if (userCount > 1)
           {
             // add postfix if there is more the one user of this name
             userLink.PostfixText = " ({0})".FormatWith(userCount);
@@ -204,7 +208,7 @@ namespace YAF.Controls
           // add user link if it's not supressed
           if (addControl)
           {
-            // vzrus: if guests there can be a control with the same id. 
+            // vzrus: if guests or crawlers there can be a control with the same id. 
             var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
             if (ul != null)
             {

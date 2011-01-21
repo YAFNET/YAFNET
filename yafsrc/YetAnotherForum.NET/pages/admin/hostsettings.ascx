@@ -1300,6 +1300,25 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <strong>Allow Topics With Same Name:</strong><br />
+                            Duplicate topic names are allowed to:
+                        </td>
+                        <td class="post">
+                            <asp:DropDownList Style="width:350px" ID="AllowCreateTopicsSameName" runat="server">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <strong>Allow Forums With Same Name:</strong><br />
+                           If checked forums with duplicated names can be created.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="AllowForumsWithSameName" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <strong>Profile Viewing Permissions:</strong><br />
                             Allow viewing of other users' profiles to:
                         </td>
