@@ -204,6 +204,22 @@ namespace YAF.Core.BBCode
       new Regex(
         @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.+?))\[/url\]", _options | RegexOptions.Compiled);
 
+      /// <summary>
+      /// The _rgx url 1.
+      /// </summary>
+      private static readonly Regex _rgxModalUrl1 =
+          new Regex(
+              @"\[modalurl](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.+?))\[/modalurl\]",
+              _options | RegexOptions.Compiled);
+
+      /// <summary>
+      /// The _rgx url 2.
+      /// </summary>
+      private static readonly Regex _rgxModalUrl2 =
+          new Regex(
+              @"\[modalurl\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.+?))\[/modalurl\]",
+              _options | RegexOptions.Compiled);
+
     /// <summary>
     /// Converts a string containing YafBBCode to the equivalent HTML string.
     /// </summary>
@@ -298,6 +314,8 @@ namespace YAF.Core.BBCode
                             : string.Empty;
         string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
+        var classModal = "class=\"ceebox\"";
+
         // pull localized strings
         string localQuoteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTE");
         string localQuoteWroteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTEWROTE");
@@ -361,6 +379,35 @@ namespace YAF.Core.BBCode
                     _rgxUrl1,
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace(
                         "{0}", target).Replace("{1}", nofollow),
+                    new[]
+                        {
+                            "http"
+                        },
+                    new[]
+                        {
+                            string.Empty, "http://"
+                        },
+                    50));
+
+            // urls
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxModalUrl2,
+                    "<a {0} {1} {2} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).
+                        Replace("{1}", nofollow).Replace("{2}", classModal),
+                    new[]
+                        {
+                            "url", "http"
+                        },
+                    new[]
+                        {
+                            string.Empty, "http://"
+                        }));
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxModalUrl1,
+                    "<a {0} {1} {2} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace(
+                        "{0}", target).Replace("{1}", nofollow).Replace("{2}", classModal),
                     new[]
                         {
                             "http"
@@ -477,8 +524,6 @@ namespace YAF.Core.BBCode
                         {
                             "quote", "id"
                         }));
-
-            
         }
 
         // post and topic rules...
