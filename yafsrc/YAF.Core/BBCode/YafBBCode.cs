@@ -111,6 +111,12 @@ namespace YAF.Core.BBCode
     private static readonly Regex _rgxImg = new Regex(
       @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg)|(png)|(gif)|(tif)|(ashx(.*?)))))\[/img\]", _options | RegexOptions.Compiled);
 
+       /// <summary>
+    /// The _rgx img Title.
+    /// </summary>
+    private static readonly Regex _rgxImgTitle = new Regex(
+      @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg)|(png)|(gif)|(tif)|(ashx(.*?)))))\](?<description>(.*?))\[/img\]", _options | RegexOptions.Compiled);
+
     /// <summary>
     /// The _rgx italic.
     /// </summary>
@@ -465,6 +471,20 @@ namespace YAF.Core.BBCode
                         {
                             "http://"
                         }));
+
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    _rgxImgTitle,
+                    "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" />",
+                    new[]
+                        {
+                            "http", "description"
+                        },
+                    new[]
+                        {
+                            "http://"
+                        }));
+
 
             // handle custom YafBBCode
             AddCustomBBCodeRules(ruleEngine);
