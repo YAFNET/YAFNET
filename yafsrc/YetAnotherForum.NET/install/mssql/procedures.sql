@@ -716,6 +716,10 @@ IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{database
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_list]
 GO
 
+IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}admin_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}admin_list]
+GO
+
 IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_listmembers]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_listmembers]
 GO
@@ -6246,6 +6250,45 @@ begin
 			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
 			(@GroupID is null or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
 			(@RankID is null or a.RankID=@RankID)
+		order by 
+			a.Name
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}admin_list](@BoardID int, @StyledNicks bit = null) as
+begin
+		 select 
+			a.*,
+			a.NumPosts,
+			CultureUser = a.Culture,			
+			r.RankID,						
+			RankName = r.Name,
+			Style = case(@StyledNicks)
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), r.Style)  
+			else ''	 end, 
+			NumDays = datediff(d,a.Joined,GETUTCDATE() )+1,
+			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
+			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
+			IsAdmin	= IsNull(c.IsAdmin,0),			
+			IsHostAdmin	= IsNull(a.Flags & 1,0),
+			IsForumModerator	= IsNull(c.IsForumModerator,0),
+			IsModerator		= IsNull(c.IsModerator,0)
+		from 
+			[{databaseOwner}].[{objectQualifier}User] a	
+			JOIN
+			[{databaseOwner}].[{objectQualifier}Rank] r	
+			ON r.RankID = a.RankID		
+			left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
+		where 			
+			a.BoardID = @BoardID and
+			-- is not guest 
+			IsNull(a.Flags & 4,0) = 0 and
+			IsNull(c.ForumID,0) = 0 and
+			-- is admin 
+			(IsNull(c.IsAdmin,0) <> 0 OR 
+			-- or forum admin
+			IsNull(c.IsForumModerator,0) <> 0) 
 		order by 
 			a.Name
 end

@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Core.Services;
+
 namespace YAF.Pages
 {
   #region Using
@@ -103,25 +105,21 @@ namespace YAF.Pages
     [NotNull]
     protected DataTable GetAdmins()
     {
-      DataTable adminListDataTable = LegacyDb.user_list(
-        this.PageContext.PageBoardID, null, true, null, 1, YafContext.Current.BoardSettings.UseStyledNicks);
+
+      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.BoardAdmins));
+
+        // get a row with user lazy data...
+      DataTable  adminListDataTable = YafContext.Current.Cache.GetItem(
+          key,
+          YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout,
+          () =>
+         LegacyDb.admin_list(
+        this.PageContext.PageBoardID, YafContext.Current.BoardSettings.UseStyledNicks));
+
+    
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
         this.Get<IStyleTransform>().DecodeStyleByTable(ref adminListDataTable, false);
-      }
-
-      // select only the guest user (if one exists)
-      DataRow[] guestRows = adminListDataTable.Select("IsGuest > 0");
-
-      if (guestRows.Length > 0)
-      {
-        foreach (DataRow row in guestRows)
-        {
-          row.Delete();
-        }
-
-        // commits the deletes to the table
-        adminListDataTable.AcceptChanges();
       }
 
       return adminListDataTable;

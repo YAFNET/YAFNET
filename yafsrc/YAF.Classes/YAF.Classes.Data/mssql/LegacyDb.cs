@@ -7422,6 +7422,18 @@ namespace YAF.Classes.Data
       }
     }
 
+    public static DataTable admin_list(object boardId, object useStyledNicks)
+    {
+        using (var cmd = MsSqlDbAccess.GetCommand("admin_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+            cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+
+            return MsSqlDbAccess.Current.GetData(cmd);
+        }
+    }
+
       /// <summary>
       /// The user_list20members.
       /// </summary>

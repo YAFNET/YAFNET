@@ -39,6 +39,11 @@ namespace YAF.Types.Constants
       public const string ActiveDiscussions = "ActiveDiscussions";
 
       /// <summary>
+      /// The board admins cache.
+      /// </summary>
+      public const string BoardAdmins = "BoardAdmins";
+
+      /// <summary>
       /// The banned ip.
       /// </summary>
       public const string BannedIP = "BannedIP";
