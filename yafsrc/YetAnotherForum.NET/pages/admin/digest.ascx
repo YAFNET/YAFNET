@@ -29,7 +29,7 @@
         <tr>
             <td class="postfooter" colspan="2" align="center">
                 <asp:Button ID="Button2" runat="server"
-                    OnClick="ForceSend_Click"></asp:Button>
+                    OnClick="ForceSend_Click" CssClass="pbutton"></asp:Button>
             </td>
         </tr>
     </table>
@@ -52,7 +52,7 @@
         </asp:PlaceHolder>   
         <tr>
             <td class="postfooter" colspan="2" align="center">
-                <asp:Button ID="GenerateDigest" runat="server" OnClick="GenerateDigest_Click">
+                <asp:Button ID="GenerateDigest" runat="server" OnClick="GenerateDigest_Click" CssClass="pbutton">
                 </asp:Button>
             </td>
         </tr>
@@ -69,7 +69,7 @@
                  <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DIGEST_EMAIL" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
-                <asp:TextBox ID="TextSendEmail" runat="server"></asp:TextBox>
+                <asp:TextBox ID="TextSendEmail" runat="server" Style="width:250px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
-                <asp:DropDownList ID="SendMethod" runat="server">
+                <asp:DropDownList ID="SendMethod" runat="server" Style="width:250px">
                     <asp:ListItem Text="Direct" />
                     <asp:ListItem Text="Queued" Selected="True" />
                 </asp:DropDownList>
@@ -85,7 +85,7 @@
         </tr>
         <tr>
             <td class="postfooter" colspan="2" align="center">
-                <asp:Button ID="TestSend" runat="server" OnClick="TestSend_Click">
+                <asp:Button ID="TestSend" runat="server" OnClick="TestSend_Click" CssClass="pbutton">
                 </asp:Button>
             </td>
         </tr>

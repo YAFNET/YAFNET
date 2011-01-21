@@ -75,6 +75,36 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
+    /// Add Localized Text to Button
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void addLoad(object sender, EventArgs e)
+    {
+        var add = (Button)sender;
+        add.Text = this.GetText("ADMIN_SMILIES", "ADD");
+    }
+
+    /// <summary>
+    /// Add Localized Text to Button
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void importLoad(object sender, EventArgs e)
+    {
+        var import = (Button)sender;
+        import.Text = this.GetText("ADMIN_SMILIES", "IMPORT");
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">

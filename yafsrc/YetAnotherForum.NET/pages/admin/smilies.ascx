@@ -64,9 +64,9 @@
                     <FooterTemplate>
                         <tr>
                             <td class="footer1" colspan="5" align="center">
-                                <asp:LinkButton runat="server" CommandName="add" CssClass="pbutton"> <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
+                                <asp:Button runat="server" CommandName="add" CssClass="pbutton" OnLoad="addLoad"> </asp:Button>
                                 |
-                                <asp:LinkButton runat="server" CommandName="import" CssClass="pbutton"> <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_SMILIES" /></asp:LinkButton>
+                                <asp:Button runat="server" CommandName="import" CssClass="pbutton" OnLoad="importLoad"></asp:Button>
                             </td>
                         </tr>
                     </FooterTemplate>

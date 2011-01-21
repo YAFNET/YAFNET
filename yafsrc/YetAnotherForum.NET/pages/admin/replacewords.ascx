@@ -44,17 +44,11 @@
 		<FooterTemplate>
 			<tr>
 				<td class="footer1" colspan="3" align="center">
-					<asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="pbutton">
-                      <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_REPLACEWORDS" />
-                    </asp:LinkButton>
+					<asp:Button runat="server" CommandName='add' ID="Linkbutton3" CssClass="pbutton" OnLoad="addLoad"> </asp:Button>
 					|
-					<asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5" CssClass="pbutton">
-                      <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_REPLACEWORDS" />
-                    </asp:LinkButton>
+					<asp:Button runat="server" CommandName='import' ID="Linkbutton5" CssClass="pbutton" OnLoad="importLoad"></asp:Button>
 					|
-					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="pbutton">
-                      <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="EXPORT" LocalizedPage="ADMIN_REPLACEWORDS" />
-                    </asp:LinkButton>
+					<asp:Button runat="server" CommandName='export' ID="Linkbutton4" CssClass="pbutton" OnLoad="exportLoad"></asp:Button>
 				</td>
 			</tr>
 			</table>

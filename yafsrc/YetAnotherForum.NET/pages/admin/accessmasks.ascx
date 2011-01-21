@@ -102,7 +102,7 @@
 		</asp:Repeater>
 		<tr class="footer1" align="center">
 			<td colspan="13">
-				<asp:LinkButton ID="New" runat="server" OnClick="New_Click" CssClass="pbutton" />
+				<asp:Button ID="New" runat="server" OnClick="New_Click" CssClass="pbutton" />
 			</td>
 		</tr>
 	</table>

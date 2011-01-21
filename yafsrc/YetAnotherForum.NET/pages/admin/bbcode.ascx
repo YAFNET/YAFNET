@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bbcode" Codebehind="BBCode.ascx.cs" %>
 <%@ Import Namespace="YAF.Core.BBCode" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
 
@@ -35,7 +36,7 @@
                 <td class="post">
                     <strong><%# Eval("Name") %></strong></td>
                 <td class="post">
-                    <strong><%# YafBBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></strong></td>                    
+                    <strong><%# this.Get<IBBCode>().LocalizeCustomBBCodeElement(Eval("Description").ToString())%></strong></td>                    
                 <td class="post">
                     <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("BBCodeID") %>'
                         ID="Linkbutton1">
@@ -52,17 +53,11 @@
         <FooterTemplate>
             <tr>
                 <td class="footer1" align="center" colspan="4">
-                    <asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="pbutton">
-                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ADD" LocalizedPage="ADMIN_EXTENSIONS" />
-                    </asp:LinkButton>
+                    <asp:Button runat="server" CommandName='add' ID="Linkbutton3" CssClass="pbutton" OnLoad="addLoad"></asp:Button>
                     |
-                    <asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5" CssClass="pbutton">
-                      <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="IMPORT" LocalizedPage="ADMIN_EXTENSIONS" />
-                    </asp:LinkButton>
+                    <asp:Button runat="server" CommandName='import' ID="Linkbutton5" CssClass="pbutton" OnLoad="importLoad"></asp:Button>
                     |
-                    <asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="pbutton">
-                      <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="EXPORT" LocalizedPage="ADMIN_BBCODE" />
-                    </asp:LinkButton>
+                    <asp:Button runat="server" CommandName='export' ID="Linkbutton4" CssClass="pbutton" OnLoad="exportLoad"></asp:Button>
                 </td>
             </tr>
              </table>
