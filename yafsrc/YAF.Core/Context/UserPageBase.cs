@@ -789,7 +789,7 @@ namespace YAF.Core
           bool isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent) || YafContext.Current.Get<HttpRequestBase>().Browser.IsMobileDevice;
 
           // try and get more verbose platform name by ref and other parameters             
-          UserAgentHelper.Platform(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
+          UserAgentHelper.Platform(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Crawler, ref platform, ref browser, out isSearchEngine, out dontTrack);
           dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList && isSearchEngine;
 
           // don't track if this is a feed reader. May be to make it switchable in host settings.

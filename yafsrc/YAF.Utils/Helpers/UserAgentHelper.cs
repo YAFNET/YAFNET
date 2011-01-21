@@ -106,19 +106,7 @@ namespace YAF.Utils.Helpers
       return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLowerInvariant().Contains(s));
     }
 
-    /// <summary>
-    /// Validates if the useragent is a search engine spider
-    /// </summary>
-    /// <param name="userAgent">
-    /// </param>
-    /// <returns>
-    /// The is search engine spider.
-    /// </returns>
-    public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
-    {
-      if (userAgent.IsSet())
-      {
-        string[] spiderContains = {
+   private static string[] spiderContains = {
                                     "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", 
                                     "AltaVista-Intranet", "Acoon Robot", "Atomz", "Arachnoidea", "AESOP_com_SpiderMan", 
                                     "AxmoRobot", "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias", 
@@ -139,6 +127,18 @@ namespace YAF.Utils.Helpers
                                     "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
                                     "MozSpider"
                                   };
+    /// <summary>
+    /// Validates if the useragent is a search engine spider
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The is search engine spider.
+    /// </returns>
+    public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
+    {
+      if (userAgent.IsSet())
+      {
         return spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
       }
 
@@ -153,7 +153,7 @@ namespace YAF.Utils.Helpers
     /// <returns>
     /// The Is Not Checked For Cookies And JS.
     /// </returns>
-    public static bool IsNotCheckedForCookiesAndJs ([CanBeNull] string userAgent)
+    public static bool IsNotCheckedForCookiesAndJs([CanBeNull] string userAgent)
     {
         if (userAgent.IsSet())
         {
@@ -166,8 +166,20 @@ namespace YAF.Utils.Helpers
         return false;
     }
 
-
     /// <summary>
+    /// Validates if the useragent is a search engine spider
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The is search engine spider.
+    /// </returns>
+    public static string SearchEngineSpiderName([CanBeNull] string userAgent)
+    {
+        return userAgent.IsSet() ? spiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant())) : null;
+    }
+
+      /// <summary>
     /// Returns a platform user friendly name.
     /// </summary>
     /// <param name="userAgent">
@@ -180,7 +192,7 @@ namespace YAF.Utils.Helpers
     /// </param>
     /// <param name="isIgnoredForDisplay">
     /// </param>
-    public static void Platform([CanBeNull] string userAgent, bool isCrawler, [NotNull] ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
+    public static void Platform([CanBeNull] string userAgent, bool isCrawler, [NotNull] ref string platform, [NotNull] ref string browser, out bool isSearchEngine, out bool isIgnoredForDisplay)
     {
       CodeContracts.ArgumentNotNull(platform, "platform");
 
@@ -246,7 +258,12 @@ namespace YAF.Utils.Helpers
       else
       {
         // check if it's a search engine spider or an ignored UI string...
-        isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
+        string san = SearchEngineSpiderName(userAgent);
+          if (san.IsSet())
+          {
+              browser = san;
+          }
+        isSearchEngine = isCrawler || san.IsSet();
         isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
       }
     }

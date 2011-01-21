@@ -671,7 +671,7 @@ namespace YAF
 
       // try and get more verbose platform name by ref and other parameters             
       UserAgentHelper.Platform(
-        userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
+        userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, ref browser, out isSearchEngine, out dontTrack);
 
       YafContext.Current.Get<StartupInitializeDb>().Run();
 
