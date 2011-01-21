@@ -132,7 +132,7 @@ namespace YAF.Pages.Admin
       YafContext.Current.PageElements.RegisterJsBlock(
         "yafTabsJs", 
         JavaScriptBlocks.JqueryUITabsLoadJs(this.HostSettingsTabs.ClientID, this.hidLastTab.ClientID, false));
-      this.RenderListItems();
+    
       base.OnPreRender(e);
     }
 
@@ -162,7 +162,7 @@ namespace YAF.Pages.Admin
        this.GetText("ADMIN_ADMIN", "Administration"),
        this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
 
-          
+        this.RenderListItems();
 
         this.BindData();
       }
