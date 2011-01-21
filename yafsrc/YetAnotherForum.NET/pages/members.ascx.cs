@@ -218,7 +218,11 @@ namespace YAF.Pages
             }
             else
             {
-                this.SetSort("Name");
+                ViewState["SortNameField"] = 1;
+                ViewState["SortRankNameField"] = 0;
+                ViewState["SortJoinedField"] = 0;
+                ViewState["SortNumPostsField"] = 0;
+                ViewState["SortLastVisitField"] = 0;
             }
 
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
