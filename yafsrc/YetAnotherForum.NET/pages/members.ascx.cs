@@ -162,6 +162,7 @@ namespace YAF.Pages
         /// </returns>
         protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
         {
+
             _userListDataTable =  LegacyDb.user_listmembers(
                 PageContext.PageBoardID,
                 null,
@@ -175,13 +176,14 @@ namespace YAF.Pages
                 !specialSymbol ? false : true,
                 this.Pager.CurrentPageIndex,
                 Pager.PageSize,
-                _sortName,
-                _sortRank,
-                _sortJoined,
-                _sortPosts);
+               (int?)ViewState["SortNameField"],
+               (int?)ViewState["SortRankNameField"],
+               (int?)ViewState["SortJoinedField"],
+               (int?)ViewState["SortNumPostsField"],
+               (int?)ViewState["SortLastVisitField"]);
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
-                new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref _userListDataTable, false);
+                new StyleTransform(YafContext.Current.Get<ITheme>()).DecodeStyleByTable(ref _userListDataTable, false);
             }
 
             if (_userListDataTable.Rows.Count > 0)
@@ -196,20 +198,6 @@ namespace YAF.Pages
             return _userListDataTable;
         }
 
-        /// <summary>
-        /// The joined_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Joined_Click(object sender, EventArgs e)
-        {
-            this.SetSort("Joined", true);
-            this.BindData(false);
-        }
 
         /// <summary>
         /// Called when the page loads
@@ -230,7 +218,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.SetSort("Name", true);
+                this.SetSort("Name");
             }
 
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
@@ -242,7 +230,7 @@ namespace YAF.Pages
             this.Rank.Text = this.GetText("rank");
             this.Joined.Text = this.GetText("joined");
             this.Posts.Text = this.GetText("posts");
-            this.Location.Text = this.GetText("location");
+            this.LastVisitLB.Text = this.GetText("members","lastvisit");
 
             using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
             {
@@ -317,6 +305,48 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// The joined_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Joined_Click(object sender, EventArgs e)
+        {
+            this.SetSort("Joined");
+
+            ViewState["SortNameField"] = 0;
+            ViewState["SortRankNameField"] = 0;
+            ViewState["SortNumPostsField"] = 0;
+            ViewState["SortLastVisitField"] = 0;
+
+            this.BindData(false);
+        }
+
+        /// <summary>
+        /// The LastVisitLB Click event.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void LastVisitLB_Click(object sender, EventArgs e)
+        {
+            this.SetSort("LastVisit");
+
+            ViewState["SortNameField"] = 0;
+            ViewState["SortRankNameField"] = 0;
+            ViewState["SortJoinedField"] = 0;
+            ViewState["SortNumPostsField"] = 0;
+
+            this.BindData(false);
+        }
+
+        /// <summary>
         /// The posts_ click.
         /// </summary>
         /// <param name="sender">
@@ -327,7 +357,13 @@ namespace YAF.Pages
         /// </param>
         protected void Posts_Click(object sender, EventArgs e)
         {
-            this.SetSort("NumPosts", false);
+            this.SetSort("NumPosts");
+
+            ViewState["SortNameField"] = 0;
+            ViewState["SortRankNameField"] = 0;
+            ViewState["SortJoinedField"] = 0;
+            ViewState["SortLastVisitField"] = 0;
+
             this.BindData(false);
         }
 
@@ -342,7 +378,13 @@ namespace YAF.Pages
         /// </param>
         protected void Rank_Click(object sender, EventArgs e)
         {
-            this.SetSort("RankName", true);
+            this.SetSort("RankName");
+
+            ViewState["SortNameField"] = 0;
+            ViewState["SortJoinedField"] = 0;
+            ViewState["SortNumPostsField"] = 0;
+            ViewState["SortLastVisitField"] = 0;
+
             this.BindData(false);
         }
 
@@ -357,7 +399,13 @@ namespace YAF.Pages
         /// </param>
         protected void UserName_Click(object sender, EventArgs e)
         {
-            this.SetSort("Name", true);
+            this.SetSort("Name");
+          
+            ViewState["SortRankNameField"] = 0;
+            ViewState["SortJoinedField"] = 0;
+            ViewState["SortNumPostsField"] = 0;
+            ViewState["SortLastVisitField"] = 0;
+
             this.BindData(false);
         }
 
@@ -398,22 +446,97 @@ namespace YAF.Pages
             // handle the sort fields at the top
             // TODO: make these "sorts" into controls
             // this.SortAscendingName = (string)this.ViewState["SortField"] == nameField;
-            /*  this.SortAscendingName.Value = "Name";
-            this.SortUserName.Src = this.GetThemeContents(
-                "SORT", ascM ? "ASCENDING" : "DESCENDING");
-            this.SortUserName.Visible = true;
-            this.SortUserName.Src = this.GetThemeContents(
-                "SORT", (bool)this.ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING"); */
-            /*  this.SortRank.Visible = (string)this.ViewState["SortField"] == "RankName";
-            this.SortRank.Src = this.SortUserName.Src;
-            this.SortJoined.Visible = (string)this.ViewState["SortField"] == "Joined";
-            this.SortJoined.Src = this.SortUserName.Src;
-            this.SortPosts.Visible = (string)this.ViewState["SortField"] == "NumPosts";
-            this.SortPosts.Src = this.SortUserName.Src; */
-            this.SortPosts.Visible = false;
-            this.SortJoined.Visible = false;
-            this.SortRank.Visible = false;
-            this.SortUserName.Visible = false;
+            // this.SortAscendingName.Value = "Name";
+            switch ((int?)ViewState["SortNameField"])
+            {
+                case 1:
+                    this.SortUserName.Src = this.GetThemeContents(
+                   "SORT", "ASCENDING");
+                     this.SortUserName.Visible = true;
+                    break;
+                case 2:
+                     this.SortUserName.Src = this.GetThemeContents(
+                   "SORT", "DESCENDING");
+                     this.SortUserName.Visible = true;
+                    break;
+                default:
+                    ViewState["SortNameField"] = 0;
+                    this.SortUserName.Visible = false;
+                    break;
+            }
+
+            switch ((int?)ViewState["SortRankNameField"])
+            {
+                case 1:
+                    this.SortRank.Src = this.GetThemeContents(
+                   "SORT", "ASCENDING");
+                     this.SortRank.Visible = true;
+                    break;
+                case 2:
+                     this.SortRank.Src = this.GetThemeContents(
+                   "SORT", "DESCENDING");
+                     this.SortRank.Visible = true;
+                    break;
+                default:
+                    ViewState["SortRankNameField"] = 0;
+                    this.SortRank.Visible = false;
+                    break;
+            } 
+ 
+             switch ((int?)ViewState["SortJoinedField"])
+            {
+                case 1:
+                    this.SortJoined.Src = this.GetThemeContents(
+                   "SORT", "ASCENDING");
+                     this.SortJoined.Visible = true;
+                    break;
+                case 2:
+                     this.SortJoined.Src = this.GetThemeContents(
+                   "SORT", "DESCENDING");
+                     this.SortJoined.Visible = true;
+                    break;
+                default:
+                    ViewState["SortJoinedField"] = 0;
+                    this.SortJoined.Visible = false;
+                    break;
+            }
+
+             switch ((int?)ViewState["SortNumPostsField"])
+            {
+                case 1:
+                    this.SortPosts.Src = this.GetThemeContents(
+                   "SORT", "ASCENDING");
+                     this.SortPosts.Visible = true;
+                    break;
+                case 2:
+                     this.SortPosts.Src = this.GetThemeContents(
+                   "SORT", "DESCENDING");
+                     this.SortPosts.Visible = true;
+                    break;
+                default:
+                    ViewState["SortNumPostsField"] = 0;
+                    this.SortPosts.Visible = false;
+                    break;
+            } 
+
+             switch ((int?)ViewState["SortLastVisitField"])
+            {
+                case 1:
+                    this.SortLastVisit.Src = this.GetThemeContents(
+                   "SORT", "ASCENDING");
+                     this.SortLastVisit.Visible = true;
+                    break;
+                case 2:
+                     this.SortLastVisit.Src = this.GetThemeContents(
+                   "SORT", "DESCENDING");
+                     this.SortLastVisit.Visible = true;
+                    break;
+                default:
+                    ViewState["SortLastVisitField"] = 0;
+                    this.SortLastVisit.Visible = false;
+                    break;
+            } 
+
         }
 
         /// <summary>
@@ -430,7 +553,7 @@ namespace YAF.Pages
         /// </returns>
         protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
         {
-            return YafContext.Current.Theme.GetItem(page, tag);
+            return YafContext.Current.Get<ITheme>().GetItem(page, tag);
         }
 
         /// <summary>
@@ -438,53 +561,36 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="field">
         /// </param>
-        /// <param name="asc">
+        /// <param name="desc">
         /// </param>
-        private void SetSort(string field, bool asc)
+        private void SetSort(string field)
         {
-          
-        switch (field)
-       {
-            case "Name":
-               _sortName = true;
-             //   _sortName = !_sortName;
-             //  this.SortUserName.Src = GetThemeContents("SORT", (bool) asc ? "ASCENDING" : "DESCENDING");
-             //   this.SortUserName.Visible = (string) field == "Name";
-                break;
-           case "RankName":
-                _sortRank = true;
-              //  this.SortRank.Src = GetThemeContents("SORT", (bool) asc ? "ASCENDING" : "DESCENDING");
-             //   this.SortRank.Visible = (string) field == "RankName";
-                break;
-            case "Joined":
-                _sortJoined = true;
-                break;
-            case "NumPosts":
-                _sortPosts = true;
-                break;
-            default: break;
-        }  
-
-     
-         /*  this.SortRank.Src = this.SortUserName.Src;
-             this.SortJoined.Visible = (string) ViewState["SortField"] == "Joined";
-             this.SortJoined.Src = this.SortUserName.Src;
-             this.SortPosts.Visible = (string) ViewState["SortField"] == "NumPosts";
-             this.SortPosts.Src = this.SortUserName.Src; 
-             this.SortAscendingName.Value = (!this.SortAscendingName.Value.ToType<bool>()).ToString();
-             if (ViewState["SortField"] != null && (string) ViewState["SortField"] == field)
-             {
-             ViewState["SortAscending"] = !(bool) ViewState["SortAscending"];
-             }
-             {
-             ViewState["SortField"] = field;
-             if (ViewState["SortAscending"] == null)
-             {ViewState["SortAscending"] = asc;
-             }
-           } */
-
+            switch (field)
+            {
+                case "Name":
+                    ViewState["SortNameField"] = ViewState["SortNameField"] == null ? 0 : 
+                    (ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1);
+                    break;
+                case "RankName":
+                    ViewState["SortRankNameField"] = ViewState["SortRankNameField"] == null ? 0 :
+                  (ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1);
+                  break;
+                case "Joined":
+                    ViewState["SortJoinedField"] = ViewState["SortJoinedField"] == null ? 0 :
+                  (ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1);
+                  break;
+                case "NumPosts":
+                  ViewState["SortNumPostsField"] = ViewState["SortNumPostsField"] == null ? 0 :
+                 (ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1);
+                 break;
+                case "LastVisit":
+                    ViewState["SortLastVisitField"] = ViewState["SortLastVisitField"] == null  ? 0 :
+                 (ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1);
+                 break;
+                default:
+                    break;
+            }
         }
-
         #endregion
     }
 }

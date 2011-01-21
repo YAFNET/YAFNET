@@ -59,15 +59,16 @@
 			<asp:LinkButton runat="server" ID="UserName" OnClick="UserName_Click" /></td>
 		<td class="header2">
 			<img runat="server" id="SortRank" alt="Sort Rank" style="vertical-align: middle" />
-			<asp:LinkButton runat="server" ID="Rank" OnClick="Rank_Click" /></td>
+			<asp:LinkButton runat="server" ID="Rank" Enabled="false" OnClick="Rank_Click" /></td>
 		<td class="header2">
 			<img runat="server" id="SortJoined" alt="Sort Joined" style="vertical-align: middle" />
 			<asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" /></td>
 		<td class="header2" align="center">
 			<img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" />
-			<asp:LinkButton runat="server" ID="Posts" OnClick="Posts_Click" /></td>
+			<asp:LinkButton runat="server" ID="Posts" Enabled="false" OnClick="Posts_Click" /></td>
 		<td class="header2">
-			<asp:Label runat="server" ID="Location" /></td>
+		    <img runat="server" id="SortLastVisit" alt="Sort Last Visit" style="vertical-align: middle" />
+			<asp:LinkButton runat="server" ID="LastVisitLB" OnClick="LastVisitLB_Click" /></td>
 	</tr>
 	<asp:Repeater ID="MemberList" runat="server">
 		<ItemTemplate>
@@ -88,7 +89,7 @@
 					<%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
 				</td>
 				<td class="post">
-					<%# GetStringSafely(YafUserProfile.GetProfile(DataBinder.Eval(Container.DataItem,"Name").ToString()).Location) %>
+					<%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
 				</td>
 			</tr>
 		</ItemTemplate>

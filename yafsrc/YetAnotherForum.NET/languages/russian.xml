@@ -2035,6 +2035,7 @@
     <Resource tag="ALL">Все</Resource>
     <Resource tag="AVATAR">Аватар</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
+    <Resource tag="LASTVISIT">Последнее посещение</Resource>
     <Resource tag="PAGES">{0} Страниц:</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="RANK">Ранг</Resource>
