@@ -9,7 +9,7 @@
         content="text/css" />
     <title>Yet Another Forum.NET Installation</title>
    <link type="text/css" rel="stylesheet" href="wizard.css" />
-   <script src="../resources/js/jquery-1.4.2.min.js" type="text/javascript"></script>    
+   <script src="../resources/js/jquery-1.4.4.min.js" type="text/javascript"></script>    
 </head>
 <body>
     <form id="Form1" runat="server">

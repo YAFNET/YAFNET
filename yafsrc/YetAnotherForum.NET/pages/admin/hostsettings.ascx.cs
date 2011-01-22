@@ -212,24 +212,76 @@ namespace YAF.Pages.Admin
       /// </summary>
       private void RenderListItems()
       {
-          var itemsUsers = new[]
-              {
-                  new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "FORBIDDEN"), "0"),
-                  new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "REG_USERS"), "1"),
-                  new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "ALL_USERS"), "2")
-              };
+          string entry1 = this.GetText("ADMIN_HOSTSETTINGS", "FORBIDDEN");
+          string entry2 = this.GetText("ADMIN_HOSTSETTINGS", "REG_USERS");
+          string entry3 = this.GetText("ADMIN_HOSTSETTINGS", "ALL_USERS");
 
-          PostsFeedAccess.Items.AddRange(itemsUsers);
-          AllowCreateTopicsSameName.Items.AddRange(itemsUsers);
-          PostLatestFeedAccess.Items.AddRange(itemsUsers);
-          ForumFeedAccess.Items.AddRange(itemsUsers);
-          TopicsFeedAccess.Items.AddRange(itemsUsers);
-          ActiveTopicFeedAccess.Items.AddRange(itemsUsers);
-          FavoriteTopicFeedAccess.Items.AddRange(itemsUsers);
-          ReportPostPermissions.Items.AddRange(itemsUsers);
-          ProfileViewPermissions.Items.AddRange(itemsUsers);
-          MembersListViewPermissions.Items.AddRange(itemsUsers);
-          ActiveUsersViewPermissions.Items.AddRange(itemsUsers);
+          PostsFeedAccess.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          AllowCreateTopicsSameName.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          PostLatestFeedAccess.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          ForumFeedAccess.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          TopicsFeedAccess.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          ActiveTopicFeedAccess.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          FavoriteTopicFeedAccess.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          ReportPostPermissions.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          ProfileViewPermissions.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          MembersListViewPermissions.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
+          ActiveUsersViewPermissions.Items.AddRange(new[]
+              {
+                  new ListItem(entry1, "0"),
+                  new ListItem(entry2, "1"),
+                  new ListItem(entry3, "2")
+              });
       }
 
       /// <summary>

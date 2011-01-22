@@ -103,7 +103,7 @@ namespace YAF.Utils.Helpers
                                       "blackberry", "opera mini", "mobile",
                                       "palm", "portable", "webos", "htc", "armv", "lg/u",
                                       "elaine", "nokia", "playstation", "symbian",
-                                      "sonyericsson", "mmp"
+                                      "sonyericsson", "mmp", "hd_mini"
                                 };
 
       return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLowerInvariant().Contains(s));
