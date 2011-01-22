@@ -328,9 +328,12 @@ namespace YAF.Controls
 
         if (avatarUrl.IsSet())
         {
-          filler =
-            this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(
-              @"<img class=""avatarimage"" src=""{0}"" alt="""" />".FormatWith(avatarUrl));
+            filler =
+                this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(
+                    @"<a href="""" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" /></a>".FormatWith(
+                        avatarUrl,
+                        YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}", this.UserId),
+                        UserMembershipHelper.GetUserNameFromID(this.UserId)));
         }
       }
 
