@@ -140,8 +140,6 @@
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="REFERRER_CHECK" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <strong></strong><br />
-                            
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="DoUrlReferrerSecurityCheck" runat="server"></asp:CheckBox>
@@ -248,9 +246,7 @@
                     </tr>          
                     <tr>
                         <td class="postheader" style="width:50%">
-                            <strong>Show Relative Time:</strong><br />
-                            If checked, client-side "Time Ago" library will be used to show "relative times" to users
-                            instead of UTC and or imperfect server-side times.
+                            <YAF:HelpLabel ID="HelpLabel91" runat="server" LocalizedTag="SHOW_RELATIVE_TIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowRelativeTime" runat="server"></asp:CheckBox>
@@ -258,8 +254,7 @@
                     </tr> 
                     <tr>
                         <td class="postheader" style="width:50%">
-                            <strong>Relative Time Refresh Rate:</strong><br />
-                            This allows to set how often the "Time Ago" libary should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).
+                            <YAF:HelpLabel ID="HelpLabel92" runat="server" LocalizedTag="TIMEAGO_INTERVAL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox ID="RelativeTimeRefreshTime" Style="width:350px" runat="server"></asp:TextBox>
@@ -267,9 +262,7 @@
                     </tr>                             
                     <tr>
                         <td class="postheader">
-                            <strong>Add Dynamic Page Meta Tags:</strong><br />
-                            If checked, description and keywords meta tags will be created dynamically on the
-                            post pages.
+                            <YAF:HelpLabel ID="HelpLabel93" runat="server" LocalizedTag="DYNAMIC_METATAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AddDynamicPageMetaTags" runat="server"></asp:CheckBox>
@@ -277,8 +270,7 @@
                     </tr>                   
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Display Gender:</strong><br />
-                            If checked, the user gender is displayed in the user data in messages list.
+                            <YAF:HelpLabel ID="HelpLabel94" runat="server" LocalizedTag="ALLOW_DISPLAY_GENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
@@ -286,8 +278,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow User To Hide Himself:</strong><br />
-                            If checked, the user who checked it will not be visible in the active users list.
+                            <YAF:HelpLabel ID="HelpLabel95" runat="server" LocalizedTag="ALLOW_USER_HIDE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowUserHideHimself" runat="server"></asp:CheckBox>
@@ -295,8 +286,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <strong>Enable Display Name:</strong><br />
-                            If checked, YAF uses an alternative "Display Name" instead of the UserName.
+                            <YAF:HelpLabel ID="HelpLabel96" runat="server" LocalizedTag="ENABLE_DISPLAY_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableDisplayName" runat="server"></asp:CheckBox>
@@ -304,9 +294,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Display Name Modification:</strong><br />
-                            If checked, and "Enable Display Name" checked, allow modification of Display Name
-                            in Edit Profile.
+                            <YAF:HelpLabel ID="HelpLabel97" runat="server" LocalizedTag="ALLOW_MODIFY_DISPLAYNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowDisplayNameModification" runat="server"></asp:CheckBox>
@@ -314,8 +302,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Member List Page Size:</strong><br />
-                            Number entries on a page in the members list. 
+                            <YAF:HelpLabel ID="HelpLabel98" runat="server" LocalizedTag="MEMBERLIST_PAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="MemberListPageSize" />                          
@@ -323,9 +310,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show User Online/Offline Status:</strong><br />
-                            If checked, current user status is displayed in the forum. Hidden users are always
-                            displayed as offline.
+                            <YAF:HelpLabel ID="HelpLabel99" runat="server" LocalizedTag="SHOW_USER_STATUS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
@@ -333,8 +318,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Users to Thank Posts:</strong><br />
-                            If checked users can thank posts they consider useful.
+                            <YAF:HelpLabel ID="HelpLabel100" runat="server" LocalizedTag="ALLOW_THANKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableThanksMod" runat="server"></asp:CheckBox>
@@ -342,18 +326,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable Buddy List:</strong><br />
-                            If checked users can add each other as buddies.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="EnableBuddyList" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <strong>Show The Date on Which Users Have Thanked Posts:</strong><br />
-                            If checked users can see on which date posts have been thanked. (Thanks Mod must
-                            be enabled first.)
+                            <YAF:HelpLabel ID="HelpLabel102" runat="server" LocalizedTag="SHOW_THANK_DATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowThanksDate" runat="server"></asp:CheckBox>
@@ -361,8 +334,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Remove Nested Quotes:</strong><br />
-                            Automatically remove nested [quote] tags from replies.
+                            <YAF:HelpLabel ID="HelpLabel101" runat="server" LocalizedTag="ENABLE_BUDDYLIST" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableBuddyList" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel103" runat="server" LocalizedTag="REMOVE_NESTED_QUOTES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="RemoveNestedQuotes" runat="server"></asp:CheckBox>
@@ -370,9 +350,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Disable "NoFollow" Tag on Links on Posts Older Than:</strong><br />
-                            If "NoFollow" is enabled above, this is disable no follow for links on messages
-                            older then X days old (which takes into consideration last edited).
+                            <YAF:HelpLabel ID="HelpLabel104" runat="server" LocalizedTag="DISABLE_NOFOLLOW_ONOLDERPOSTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox>
@@ -380,8 +358,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Smilies Display per Row:</strong><br />
-                            Number of smilies to show per row.
+                            <YAF:HelpLabel ID="HelpLabel105" runat="server" LocalizedTag="SMILIES_PER_ROW" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="SmiliesPerRow" runat="server"></asp:TextBox>
@@ -389,8 +366,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Display Points System:</strong><br />
-                            If checked, points for posting will be displayed for each user.
+                            <YAF:HelpLabel ID="HelpLabel106" runat="server" LocalizedTag="DISPLAY_POINTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="DisplayPoints" runat="server"></asp:CheckBox>
@@ -398,9 +374,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Days before posts are locked:</strong><br />
-                            Number of days until posts are locked and not possible to edit or delete. Set to
-                            0 for no limit.
+                            <YAF:HelpLabel ID="HelpLabel107" runat="server" LocalizedTag="DAYS_BEFORE_POSTLOCK" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="LockPosts" runat="server"></asp:TextBox>
@@ -408,8 +382,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <strong>Enable IP Info Service:</strong><br />
-                            If checked, we will get info about a registering user from a web service.
+                            <YAF:HelpLabel ID="HelpLabel108" runat="server" LocalizedTag="IP_INFOSERVICE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableIPInfoService" runat="server"></asp:CheckBox>
@@ -417,8 +390,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>IP Info XML Web Service URL:</strong><br />
-                            Set it to get details about user IPs as XML data.
+                            <YAF:HelpLabel ID="HelpLabel109" runat="server" LocalizedTag="IP_INFOSERVICE_XMLURL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="IPLocatorPath" runat="server"></asp:TextBox>
@@ -426,8 +398,7 @@
                     </tr>           
                     <tr>
                         <td class="postheader">
-                            <strong>IP Info Page URL:</strong><br />
-                            Set it to get details about IPs whereabouts as web page.
+                            <YAF:HelpLabel ID="HelpLabel110" runat="server" LocalizedTag="IPINFO_ULRL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="IPInfoPageURL" runat="server"></asp:TextBox>
@@ -436,8 +407,7 @@
                
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Post to Blog:</strong><br />
-                            If checked, post to blog feature is enabled.
+                            <YAF:HelpLabel ID="HelpLabel111" runat="server" LocalizedTag="ALLOW_POSTBLOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowPostToBlog" runat="server"></asp:CheckBox>
@@ -445,8 +415,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Email Topic:</strong><br />
-                            If checked, users will be allowed to email topics.
+                            <YAF:HelpLabel ID="HelpLabel112" runat="server" LocalizedTag="ALLOW_EMAIL_TOPIC" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowEmailTopic" runat="server"></asp:CheckBox>
@@ -454,8 +423,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Quick Answer:</strong><br />
-                            Enable or disable display of the Quick Reply Box at the bottom of the Posts page
+                            <YAF:HelpLabel ID="HelpLabel113" runat="server" LocalizedTag="ALLOW_QUICK_ANSWER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowQuickAnswer" runat="server"></asp:CheckBox>
@@ -463,9 +431,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable calendar:</strong><br />
-                            Enables/disables calendar in profile, if it causes troubles on servers/for users
-                            with different cultures.
+                            <YAF:HelpLabel ID="HelpLabel114" runat="server" LocalizedTag="ENABLE_CALENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableDNACalendar" runat="server"></asp:CheckBox>
@@ -478,8 +444,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allowed Poll Number:</strong><br />
-                            Number of polls, max value no more then 99.
+                            <YAF:HelpLabel ID="HelpLabel115" runat="server" LocalizedTag="MAX_ALLOWED_POLLS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AllowedPollNumber" MaxLength="2" runat="server"></asp:TextBox>
@@ -487,8 +452,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allowed Poll Choice Number:</strong><br />
-                            Number of a question choices, max value no more then 99.
+                            <YAF:HelpLabel ID="HelpLabel116" runat="server" LocalizedTag="MAX_ALLOWED_CHOICES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
@@ -496,10 +460,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Poll Votes Dependant on IP:</strong><br />
-                            By default, poll voting is tracked via username and client-side cookie. (One vote
-                            per username. Cookies are used if guest voting is allowed.) If this option is enabled,
-                            votes also use IP as a reference providing the most security against voter fraud.
+                            <YAF:HelpLabel ID="HelpLabel117" runat="server" LocalizedTag="POLLVOTING_PERIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="PollVoteTiedToIP" runat="server"></asp:CheckBox>
@@ -507,9 +468,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Poll Changes After First Vote:</strong><br />
-                            If enabled a poll creator can change choices and question after the first vote was
-                            given.
+                            <YAF:HelpLabel ID="HelpLabel118" runat="server" LocalizedTag="ALLOW_CHANGE_AFTERVOTE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowPollChangesAfterFirstVote" runat="server"></asp:CheckBox>
@@ -517,8 +476,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Multiple Choices Voting:</strong><br />
-                            If enabled users can create poll questions allowing multiple choices voting.
+                            <YAF:HelpLabel ID="HelpLabel119" runat="server" LocalizedTag="ALLOW_MULTI_VOTING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowMultipleChoices" runat="server"></asp:CheckBox>
@@ -526,8 +484,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Users Hide Poll Results:</strong><br />
-                            If enabled a poll creator can hide results before voting end or if not all polls in a group are voted.
+                            <YAF:HelpLabel ID="HelpLabel120" runat="server" LocalizedTag="ALLOW_HIDE_POLLRESULTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowUsersHidePollResults" runat="server"></asp:CheckBox>
@@ -535,8 +492,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Guests View Poll Options:</strong><br />
-                            If enabled Guests can see poll choices.
+                            <YAF:HelpLabel ID="HelpLabel121" runat="server" LocalizedTag="ALLOW_GUESTS_VIEWPOLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
@@ -544,8 +500,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Users Poll Images:</strong><br />
-                            If enabled Users can add images as poll options.
+                            <YAF:HelpLabel ID="HelpLabel122" runat="server" LocalizedTag="ALLOW_USERS_POLLIMAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowUsersImagedPoll" runat="server"></asp:CheckBox>
@@ -553,8 +508,7 @@
                     </tr>
                    <tr>
                         <td class="postheader">
-                            <strong>Poll Image FileSize:</strong><br />
-                            Max file size for poll images in KB.
+                            <YAF:HelpLabel ID="HelpLabel123" runat="server" LocalizedTag="POLL_IMAGE_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="PollImageMaxFileSize" MaxLength="4" runat="server"></asp:TextBox>
@@ -567,9 +521,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <strong>Allow Private Messages:</strong><br />
-                            Allow users to access and send private messages.
-                            You should explicitly give permission for each group and/or rank too to enable them for users.                               
+                            <YAF:HelpLabel ID="HelpLabel124" runat="server" LocalizedTag="ALLOW_PMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowPrivateMessages" runat="server"></asp:CheckBox>
@@ -577,8 +529,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Private Message Notifications:</strong><br />
-                            Allow users email notifications when new private messages arrive.
+                            <YAF:HelpLabel ID="HelpLabel125" runat="server" LocalizedTag="ALLOW_PM_NOTIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowPMEmailNotification" runat="server"></asp:CheckBox>
@@ -586,8 +537,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Max no. of PM Recipients:</strong><br />
-                            Maximum allowed recipients per on PM sent (0 = unlimited)
+                            <YAF:HelpLabel ID="HelpLabel126" runat="server" LocalizedTag="MAX_PM_RECIPIENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
@@ -600,8 +550,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable Album Feature:</strong><br />
-                            If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature. 
+                            <YAF:HelpLabel ID="HelpLabel127" runat="server" LocalizedTag="ENABLE_ABLBUMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableAlbum" runat="server"></asp:CheckBox>
@@ -609,8 +558,7 @@
                     </tr>                    
                     <tr>
                         <td class="postheader">
-                            <strong>Maximum Image Size:</strong><br />
-                            Maximum size of image in bytes a user can upload.
+                            <YAF:HelpLabel ID="HelpLabel128" runat="server" LocalizedTag="MAX_IMAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
@@ -618,8 +566,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Albums Per Page:</strong><br />
-                            Number of albums to show per page.
+                            <YAF:HelpLabel ID="HelpLabel129" runat="server" LocalizedTag="ALBUMS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AlbumsPerPage" runat="server"></asp:TextBox>
@@ -627,8 +574,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Images Per Page:</strong><br />
-                            Number of images to show per page.
+                            <YAF:HelpLabel ID="HelpLabel130" runat="server" LocalizedTag="IMAGES_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
@@ -641,8 +587,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show RSS Links:</strong><br />
-                            Enable or disable display of RSS links throughout the forum.
+                            <YAF:HelpLabel ID="HelpLabel131" runat="server" LocalizedTag="SHOW_RSS_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowRSSLink" runat="server"></asp:CheckBox>
@@ -650,8 +595,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Atom Links:</strong><br />
-                            Enable or disable display of Atom links throughout the forum.
+                            <YAF:HelpLabel ID="HelpLabel132" runat="server" LocalizedTag="SHOW_ATOM_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowAtomLink" runat="server"></asp:CheckBox>
@@ -659,8 +603,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Posts Feeds Access:</strong><br />
-                            Restrict display of posts feeds for a topic.
+                            <YAF:HelpLabel ID="HelpLabel133" runat="server" LocalizedTag="POSTS_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
                               <asp:DropDownList Style="width:350px" ID="PostsFeedAccess" runat="server">
@@ -669,8 +612,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Post Latest Feeds Access:</strong><br />
-                            Restrict display of posts feeds for latest posts.
+                            <YAF:HelpLabel ID="HelpLabel134" runat="server" LocalizedTag="LASTPOSTS_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
                               <asp:DropDownList Style="width:350px" ID="PostLatestFeedAccess" runat="server">
@@ -679,8 +621,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Forum Feeds Access:</strong><br />
-                            Restrict display of forum feeds.
+                            <YAF:HelpLabel ID="HelpLabel135" runat="server" LocalizedTag="FORUM_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
                               <asp:DropDownList Style="width:350px" ID="ForumFeedAccess" runat="server">
@@ -689,18 +630,16 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Topics Feeds Access:</strong><br />
-                            Restrict display of topics feeds.
+                            <YAF:HelpLabel ID="HelpLabel136" runat="server" LocalizedTag="TOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
-                              <asp:DropDownList Style="width:350px" ID="TopicsFeedAccess" runat="server">
+                            <asp:DropDownList Style="width:350px" ID="TopicsFeedAccess" runat="server">
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Active Topics Feeds Access:</strong><br />
-                            Restrict display of active topics feeds.
+                            <YAF:HelpLabel ID="HelpLabel137" runat="server" LocalizedTag="ACTIVETOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
                               <asp:DropDownList Style="width:350px" ID="ActiveTopicFeedAccess" runat="server">
@@ -709,8 +648,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Favorite Topics Feeds Access:</strong><br />
-                            Restrict display of active topics feeds.
+                            <YAF:HelpLabel ID="HelpLabel138" runat="server" LocalizedTag="FAVTOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>              
                         <td class="post">
                               <asp:DropDownList Style="width:350px" ID="FavoriteTopicFeedAccess" runat="server">
@@ -724,9 +662,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <strong>Use Irkoo Reputation Service:</strong><br />
-                            Irkoo is a free service that adds user reputations to your site 
-                            Visit <strong>http://www.Irkoo.com</strong> to get the site ID and secret key for your website.
+                            <YAF:HelpLabel ID="HelpLabel139" runat="server" LocalizedTag="ENABLE_IRKOO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableIrkoo" runat="server"></asp:CheckBox>
@@ -734,8 +670,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Irkoo site ID:</strong><br />
-                            Enter your Irkoo site ID.
+                            <YAF:HelpLabel ID="HelpLabel140" runat="server" LocalizedTag="IRKOO_SITEID" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="IrkooSiteID" runat="server"></asp:TextBox>
@@ -743,8 +678,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Irkoo secret key:</strong><br />
-                            Enter your Irkoo secret key.
+                            <YAF:HelpLabel ID="HelpLabel141" runat="server" LocalizedTag="IRKOO_SECRETKEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="IrkooSecretKey" runat="server"></asp:TextBox>
@@ -752,8 +686,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show user reputations in user links only in topic pages:</strong><br />
-                            If checked, users' reputation will be displayed only in topic pages.
+                            <YAF:HelpLabel ID="HelpLabel142" runat="server" LocalizedTag="IRKOO_ONLY_ONTOPICPAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowIrkooRepOnlyInTopics" runat="server"></asp:CheckBox>
@@ -761,8 +694,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow guests to view users' reputations:</strong><br />
-                            If checked, guests can view members' reputations.
+                            <YAF:HelpLabel ID="HelpLabel180" runat="server" LocalizedTag="GUESTS_VIEW_IRKOO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowGuestsViewReputation" runat="server"></asp:CheckBox>
@@ -775,8 +707,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>CAPTCHA Size:</strong><br />
-                            Size (length) of the CAPTCHA random alphanumeric string
+                            <YAF:HelpLabel ID="HelpLabel143" runat="server" LocalizedTag="CAPTCHA_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="CaptchaSize" runat="server"></asp:TextBox>
@@ -784,8 +715,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>reCAPTCHA Public Key:</strong><br />
-                            Enter a reCAPTCHA Public Key
+                            <YAF:HelpLabel ID="HelpLabel144" runat="server" LocalizedTag="RECAPTCHA_PUBLIC_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="RecaptchaPublicKey" runat="server"></asp:TextBox>
@@ -793,8 +723,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>reCAPTCHA Private Key:</strong><br />
-                            Enter a reCAPTCHA Private Key
+                            <YAF:HelpLabel ID="HelpLabel145" runat="server" LocalizedTag="RECAPTCHA_PRIVATE_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="RecaptchaPrivateKey" runat="server"></asp:TextBox>
@@ -802,8 +731,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable reCAPTCHA Multiple Instances:</strong><br />
-                            Enable reCAPTCHA Recapture Multiple Instances(shared keys).
+                            <YAF:HelpLabel ID="HelpLabel181" runat="server" LocalizedTag="RECAPTCHA_MULTI_INSTANCE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="RecaptureMultipleInstances" runat="server"></asp:CheckBox>
@@ -811,9 +739,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable CAPTCHA for Guest Posting:</strong><br />
-                            Require guest users to enter the CAPTCHA when they post or reply to a forum message
-                            (including Quick Reply).
+                            <YAF:HelpLabel ID="HelpLabel146" runat="server" LocalizedTag="CAPTCHA_GUEST_POSTING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableCaptchaForGuests" runat="server"></asp:CheckBox>
@@ -821,9 +747,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable CAPTCHA for Post a Message:</strong><br />
-                            Require users to enter the CAPTCHA when they post or reply to a forum message (including
-                            Quick Reply).
+                            <YAF:HelpLabel ID="HelpLabel147" runat="server" LocalizedTag="ENABLE_CAPTCHA_FORPOST" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableCaptchaForPost" runat="server"></asp:CheckBox>
@@ -831,8 +755,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable CAPTCHA/reCAPTCHA for Register:</strong><br />
-                            Require users to enter the CAPTCHA when they register for the forum.
+                            <YAF:HelpLabel ID="HelpLabel148" runat="server" LocalizedTag="CAPTCHA_FOR_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="CaptchaTypeRegister" runat="server">
@@ -849,8 +772,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Message history archieve time</strong><br />
-                            Number of days to keep message change history.
+                            <YAF:HelpLabel ID="HelpLabel149" runat="server" LocalizedTag="MESSAGE_CHANGE_HISTORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
@@ -858,8 +780,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable Active Location Error Log:</strong><br />
-                            If checked, all active location path errors are logged.
+                            <YAF:HelpLabel ID="HelpLabel150" runat="server" LocalizedTag="ENABLE_LOCATIONPATH_ERRORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
@@ -867,8 +788,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Enable Unhandled UserAgent Log:</strong><br />
-                            If checked, all unhandled UserAgent strings are logged.
+                            <YAF:HelpLabel ID="HelpLabel151" runat="server" LocalizedTag="UNHANDLED_USERAGENT_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UserAgentBadLog" runat="server"></asp:CheckBox>
@@ -885,8 +805,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Active Users Time:</strong><br />
-                            Number of minutes to display users in Active Users list.
+                            <YAF:HelpLabel ID="HelpLabel152" runat="server" LocalizedTag="ACTIVE_USERTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="ActiveListTime" runat="server" />
@@ -894,8 +813,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Avatars in Topic Listing:</strong><br />
-                            If this is checked, the topic pages will show avatar graphics.
+                            <YAF:HelpLabel ID="HelpLabel153" runat="server" LocalizedTag="SHOW_AVATARS_TOPICLISTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowAvatarsInTopic" runat="server"></asp:CheckBox>
@@ -903,9 +821,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Moved Topics:</strong><br />
-                            If this is checked, topics that are moved will leave behind a pointer to the new
-                            topic.
+                            <YAF:HelpLabel ID="HelpLabel154" runat="server" LocalizedTag="SHOW_MOVED_TOPICS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowMoved" runat="server"></asp:CheckBox>
@@ -913,17 +829,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Moderator List:</strong><br />
-                            If this is checked, the moderator list column is displayed in the forum list.
+                            <YAF:HelpLabel ID="HelpLabel155" runat="server" LocalizedTag="SHOW_MODLIST" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowModeratorList" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td class="postheader">
-                            <strong>Show Guests In Detailed Active List:</strong><br />
-                            If checked, Guests will be displayed In Detailed Active List.
+                            <YAF:HelpLabel ID="HelpLabel156" runat="server" LocalizedTag="SHOW_GUESTS_INACTIVE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowGuestsInDetailedActiveList" runat="server"></asp:CheckBox>
@@ -931,8 +845,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Crawlers In Active Lists:</strong><br />
-                            If checked, Crawlers will be displayed In Active Lists.
+                            <YAF:HelpLabel ID="HelpLabel157" runat="server" LocalizedTag="SHOW_BOTS_INACTIVE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowCrawlersInActiveList" runat="server"></asp:CheckBox>
@@ -940,8 +853,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Deleted Messages:</strong><br />
-                            If this is checked, messsages that are deleted will leave with some notes
+                            <YAF:HelpLabel ID="HelpLabel158" runat="server" LocalizedTag="SHOW_DEL_MESSAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowDeletedMessages" runat="server"></asp:CheckBox>
@@ -949,11 +861,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Deleted Messages to All:</strong><br />
-                            If Show Deleted Messages is checked above, checking this will force showing the
-                            delete message stub to all users.<br />
-                            If it remains unchecked, the deleted message stub will only show to administrators,
-                            moderators, and the owner of the deleted message.
+                            <YAF:HelpLabel ID="HelpLabel159" runat="server" LocalizedTag="SHOW_DEL_MESSAGES_TOALL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowDeletedMessagesToAll" runat="server"></asp:CheckBox>
@@ -961,8 +869,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Links in New Window:</strong><br />
-                            If this is checked, links in messages will open in a new window.
+                            <YAF:HelpLabel ID="HelpLabel160" runat="server" LocalizedTag="SHOW_LINKS_NEWWINDOW" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="BlankLinks" runat="server"></asp:CheckBox>
@@ -970,8 +877,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show 'no-count' Forum Posts in Active Discussions :</strong><br />
-                            If this is checked, posts from 'no-count' forums will be displayed in Active Discussions.
+                            <YAF:HelpLabel ID="HelpLabel161" runat="server" LocalizedTag="SHOW_NOCOUNT_POSTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="NoCountForumsInActiveDiscussions" runat="server"></asp:CheckBox>
@@ -979,8 +885,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Forum Statistics:</strong><br />
-                            Enable or disable display of forum statistics on board index page.
+                            <YAF:HelpLabel ID="HelpLabel162" runat="server" LocalizedTag="SHOW_FORUM_STATS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowForumStatistics" runat="server"></asp:CheckBox>
@@ -988,8 +893,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Active Discussions:</strong><br />
-                            Enable or disable display of active discussions list on board index page.
+                            <YAF:HelpLabel ID="HelpLabel163" runat="server" LocalizedTag="SHOW_ACTIVE_DISCUSSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowActiveDiscussions" runat="server"></asp:CheckBox>
@@ -997,8 +901,7 @@
                     </tr>                    
                     <tr>
                         <td class="postheader">
-                            <strong>Show Forum Jump Box:</strong><br />
-                            Enable or disable display of the Forum Jump Box throughout the forum.
+                            <YAF:HelpLabel ID="HelpLabel164" runat="server" LocalizedTag="SHOW_FORUM_JUMP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowForumJump" runat="server"></asp:CheckBox>
@@ -1006,8 +909,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Shoutbox:</strong><br />
-                            Enable or disable display of the Shoutbox (Chat Module) in the forum page.
+                            <YAF:HelpLabel ID="HelpLabel165" runat="server" LocalizedTag="SHOW_SHOUTBOX" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
@@ -1015,8 +917,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Shoutbox Smiles:</strong><br />
-                            Enable or disable display of the Shoutbox (Chat Module) smiles.
+                            <YAF:HelpLabel ID="HelpLabel166" runat="server" LocalizedTag="SHOW_SHOUTBOX_SMILIES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowShoutboxSmiles" runat="server"></asp:CheckBox>
@@ -1024,8 +925,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Groups:</strong><br />
-                            Should the groups a user is part of be visible on the posts page.
+                            <YAF:HelpLabel ID="HelpLabel167" runat="server" LocalizedTag="SHOW_GROUPS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowGroups" runat="server"></asp:CheckBox>
@@ -1033,8 +933,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Groups in profile:</strong><br />
-                            Should the groups a user is part of be visible on the users profile page.
+                            <YAF:HelpLabel ID="HelpLabel168" runat="server" LocalizedTag="SHOW_GROUPS_INPROFILE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowGroupsProfile" runat="server"></asp:CheckBox>
@@ -1042,8 +941,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Medals:</strong><br />
-                            Should medals of a user be visible on the posts page.
+                            <YAF:HelpLabel ID="HelpLabel169" runat="server" LocalizedTag="SHOW_MEDALS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowMedals" runat="server"></asp:CheckBox>
@@ -1051,8 +949,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Users Browsing:</strong><br />
-                            Should users currently browsing forums/topics be displayed at the bottom.
+                            <YAF:HelpLabel ID="HelpLabel170" runat="server" LocalizedTag="SHOW_USERSBROWSING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowBrowsingUsers" runat="server"></asp:CheckBox>
@@ -1060,8 +957,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Page Generated Time:</strong><br />
-                            Enable or disable display of page generation text at the bottom of the page.
+                            <YAF:HelpLabel ID="HelpLabel171" runat="server" LocalizedTag="SHOW_RENDERTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowPageGenerationTime" runat="server"></asp:CheckBox>
@@ -1069,9 +965,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show YetAnotherForum Version:</strong><br />
-                            Enable or disable display of the version/date information the bottom of the page
-                            (disable if your concerned about security).
+                            <YAF:HelpLabel ID="HelpLabel172" runat="server" LocalizedTag="SHOW_YAFVERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowYAFVersion" runat="server"></asp:CheckBox>
@@ -1079,8 +973,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <strong>Show Help:</strong><br />
-                            Enable or disable display the Help Link in the Header that Shows the Help Files Pages
+                            <YAF:HelpLabel ID="HelpLabel173" runat="server" LocalizedTag="SHOWHELP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowHelp" runat="server"></asp:CheckBox>
@@ -1088,8 +981,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Join Date:</strong><br />
-                            If checked, join date will be displayed for each user.
+                            <YAF:HelpLabel ID="HelpLabel174" runat="server" LocalizedTag="SHOW_JOINDATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="DisplayJoinDate" runat="server"></asp:CheckBox>
@@ -1097,8 +989,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show "Rules" Before Registration:</strong><br />
-                            Require that "rules" are shown and accepted before a new user can register.
+                            <YAF:HelpLabel ID="HelpLabel175" runat="server" LocalizedTag="RULES_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowRulesForRegistration" runat="server" />
@@ -1106,8 +997,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Active Discussions Count:</strong><br />
-                            Number of records to display in Active Discussions list on forum index.
+                            <YAF:HelpLabel ID="HelpLabel176" runat="server" LocalizedTag="LASTPOST_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="ActiveDiscussionsCount" runat="server" />
@@ -1115,8 +1005,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Use "NoFollow" Tag in Links:</strong><br />
-                            If this is checked, all links will have the nofollow tag.
+                            <YAF:HelpLabel ID="HelpLabel177" runat="server" LocalizedTag="NOFOLLOW_LINKTAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseNoFollowLinks" runat="server"></asp:CheckBox>
@@ -1124,8 +1013,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Posts Per Page:</strong><br />
-                            Number of posts to show per page.
+                            <YAF:HelpLabel ID="HelpLabel178" runat="server" LocalizedTag="POSTS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="PostsPerPage" runat="server"></asp:TextBox>
@@ -1133,8 +1021,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Topics Per Page:</strong><br />
-                            Number of topics to show per page.
+                            <YAF:HelpLabel ID="HelpLabel179" runat="server" LocalizedTag="TOPICS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="TopicsPerPage" runat="server"></asp:TextBox>
@@ -1194,8 +1081,6 @@
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel86" runat="server" LocalizedTag="ACCEPT_HEADER_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                           <strong></strong><br />
-                            
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHeadersHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
