@@ -255,7 +255,16 @@
                         <td class="post">
                             <asp:CheckBox ID="ShowRelativeTime" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>                              
+                    </tr> 
+                    <tr>
+                        <td class="postheader" style="width:50%">
+                            <strong>Relative Time Refresh Rate:</strong><br />
+                            This allows to set how often the "Time Ago" libary should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="RelativeTimeRefreshTime" Style="width:350px" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>                             
                     <tr>
                         <td class="postheader">
                             <strong>Add Dynamic Page Meta Tags:</strong><br />
@@ -1167,10 +1176,7 @@
                     </tr>
                     <tr>
                         <td class="postheader" style="width:450px">
-                            <strong>Forum Editor:</strong><br />
-                            Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox)
-                            the .bin file must be in the \bin directory and the proper support files must be
-                            put in \editors.
+                            <YAF:HelpLabel ID="HelpLabel88" runat="server" LocalizedTag="FORUM_EDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="ForumEditor" runat="server" DataValueField="Value" DataTextField="Name">
@@ -1179,9 +1185,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Accepted HTML Tags:</strong><br />
-                            Comma seperated list (no spaces) of HTML tags that are allowed in posts using HTML
-                            editors.
+                            <YAF:HelpLabel ID="HelpLabel87" runat="server" LocalizedTag="ACCEPT_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -1189,9 +1193,9 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Accepted Header HTML Tags:</strong><br />
-                            Comma seperated list (no spaces) of HTML tags that are allowed in posts headers for common users
-                            editors.
+                            <YAF:HelpLabel ID="HelpLabel86" runat="server" LocalizedTag="ACCEPT_HEADER_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                           <strong></strong><br />
+                            
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px;" ID="AcceptedHeadersHTML" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -1199,8 +1203,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Use styled nicks:</strong><br />
-                            If checked, you can use colors, font size change etc. for active users nicks.
+                            <YAF:HelpLabel ID="HelpLabel85" runat="server" LocalizedTag="STYLED_NICKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox runat="server" ID="UseStyledNicks" />
@@ -1217,8 +1220,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow User Change Theme:</strong><br />
-                            Should users be able to choose what theme they want to use?
+                            <YAF:HelpLabel ID="HelpLabel84" runat="server" LocalizedTag="USER_CHANGE_THEME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowUserTheme" runat="server"></asp:CheckBox>
@@ -1226,8 +1228,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow User Change Language:</strong><br />
-                            Should users be able to choose what language they want to use?
+                            <YAF:HelpLabel ID="HelpLabel83" runat="server" LocalizedTag="USER_CHANGE_LANGUAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowUserLanguage" runat="server"></asp:CheckBox>
@@ -1235,8 +1236,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Signatures:</strong><br />
-                            Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.
+                            <YAF:HelpLabel ID="HelpLabel82" runat="server" LocalizedTag="ALLOW_SIGNATURE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowSignatures" runat="server"></asp:CheckBox>
@@ -1244,8 +1244,7 @@
                     </tr>                   
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Email Sending:</strong><br />
-                            Allow users to send emails to each other.
+                            <YAF:HelpLabel ID="HelpLabel81" runat="server" LocalizedTag="ALLOW_SENDMAIL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowEmailSending" runat="server"></asp:CheckBox>
@@ -1253,8 +1252,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Email Change:</strong><br />
-                            Allow users to change their email address.
+                            <YAF:HelpLabel ID="HelpLabel80" runat="server" LocalizedTag="ALLOW_EMAIL_CHANGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowEmailChange" runat="server"></asp:CheckBox>
@@ -1262,8 +1260,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Password Change:</strong><br />
-                            Allow users to change their passwords.
+                            <YAF:HelpLabel ID="HelpLabel79" runat="server" LocalizedTag="ALLOW_PASS_CHANGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowPasswordChange" runat="server"></asp:CheckBox>
@@ -1271,8 +1268,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Moderators View IPs:</strong><br />
-                            Allow to view IPs to moderators.
+                            <YAF:HelpLabel ID="HelpLabel78" runat="server" LocalizedTag="ALLOW_MOD_VIEWIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
@@ -1280,9 +1276,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Notification of All Posts on All topics:</strong><br />
-                            Allow users to get individual email notifications on all emails -- tons of email
-                            traffic.
+                            <YAF:HelpLabel ID="HelpLabel77" runat="server" LocalizedTag="ALLOW_NOTIFICATION_ONALL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AllowNotificationAllPostsAllTopics" runat="server"></asp:CheckBox>
@@ -1290,8 +1284,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Report Post Permissions:</strong><br />
-                            Allow reporting posts to:
+                            <YAF:HelpLabel ID="HelpLabel76" runat="server" LocalizedTag="REPORT_POST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="ReportPostPermissions" runat="server">
@@ -1299,9 +1292,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
-                            <strong>Allow Topics With Same Name:</strong><br />
-                            Duplicate topic names are allowed to:
+                         <td class="postheader">
+                             <YAF:HelpLabel ID="HelpLabel89" runat="server" LocalizedTag="ALLOW_TOPICS_DUPLICATENAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="AllowCreateTopicsSameName" runat="server">
@@ -1310,17 +1302,15 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Forums With Same Name:</strong><br />
-                           If checked forums with duplicated names can be created.
+                             <YAF:HelpLabel ID="HelpLabel90" runat="server" LocalizedTag="ALLOW_FORUMS_DUPLICATENAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
-                        <td class="post">
+                       <td class="post">
                             <asp:CheckBox ID="AllowForumsWithSameName" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Profile Viewing Permissions:</strong><br />
-                            Allow viewing of other users' profiles to:
+                            <YAF:HelpLabel ID="HelpLabel75" runat="server" LocalizedTag="VIEWPROFILE_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="ProfileViewPermissions" runat="server">
@@ -1329,8 +1319,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Members List Viewing Permissions:</strong><br />
-                            Allow viewing of members list to:
+                            <YAF:HelpLabel ID="HelpLabel74" runat="server" LocalizedTag="VIEWMEMBERLIST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="MembersListViewPermissions" runat="server">
@@ -1339,8 +1328,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Active Users Viewing Permissions:</strong><br />
-                            Allow viewing of active users list to:
+                            <YAF:HelpLabel ID="HelpLabel73" runat="server" LocalizedTag="VIEWACTIVE_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="ActiveUsersViewPermissions" runat="server">
@@ -1349,8 +1337,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Max Word Length:</strong><br />
-                            Use it to limit number of a word characters in topic names and some other places.
+                            <YAF:HelpLabel ID="HelpLabel72" runat="server" LocalizedTag="MAX_WORD_LENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
@@ -1358,8 +1345,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Use SSL while logging in:</strong><br />
-                            Enforce a secure connection for users to log in.
+                            <YAF:HelpLabel ID="HelpLabel71" runat="server" LocalizedTag="SSL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
@@ -1367,8 +1353,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Use SSL while registering:</strong><br />
-                            Enforce a secure connection for users to register.
+                           <YAF:HelpLabel ID="HelpLabel70" runat="server" LocalizedTag="SSL_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseSSLToRegister" runat="server"></asp:CheckBox>
@@ -1385,8 +1370,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>User box template:</strong><br />
-                            Template for rendering user box by user's posts.
+                            <YAF:HelpLabel ID="HelpLabel57" runat="server" LocalizedTag="USERBOX_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBox" TextMode="MultiLine" runat="server"></asp:TextBox>
@@ -1394,8 +1378,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Avatar template:</strong><br />
-                            Template for rendering avatar.
+                            <YAF:HelpLabel ID="HelpLabel58" runat="server" LocalizedTag="AVATAR_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxAvatar" runat="server"></asp:TextBox>
@@ -1403,8 +1386,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Medals template:</strong><br />
-                            Template for rendering user's medals.
+                            <YAF:HelpLabel ID="HelpLabel59" runat="server" LocalizedTag="MEDALS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxMedals" runat="server"></asp:TextBox>
@@ -1412,8 +1394,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Rank image template:</strong><br />
-                            Template for rendering rank image.
+                            <YAF:HelpLabel ID="HelpLabel60" runat="server" LocalizedTag="RANKIMAGE_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxRankImage" runat="server"></asp:TextBox>
@@ -1421,8 +1402,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Rank template:</strong><br />
-                            Template for rendering user's rank.
+                            <YAF:HelpLabel ID="HelpLabel61" runat="server" LocalizedTag="RANK_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxRank" runat="server"></asp:TextBox>
@@ -1430,8 +1410,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Groups template:</strong><br />
-                            Template for rendering user's groups.
+                            <YAF:HelpLabel ID="HelpLabel62" runat="server" LocalizedTag="GROUPS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxGroups" runat="server"></asp:TextBox>
@@ -1439,8 +1418,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Join date template:</strong><br />
-                            Template for rendering user's joine date.
+                            <YAF:HelpLabel ID="HelpLabel63" runat="server" LocalizedTag="JOINDATE_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxJoinDate" runat="server"></asp:TextBox>
@@ -1448,8 +1426,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Posts template:</strong><br />
-                            Template for rendering user's posts.
+                            <YAF:HelpLabel ID="HelpLabel64" runat="server" LocalizedTag="POSTS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxPosts" runat="server"></asp:TextBox>
@@ -1457,8 +1434,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Points template:</strong><br />
-                            Template for rendering user's points.
+                            <YAF:HelpLabel ID="HelpLabel65" runat="server" LocalizedTag="POINTS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxPoints" runat="server"></asp:TextBox>
@@ -1466,8 +1442,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Location template:</strong><br />
-                            Template for rendering user's location.
+                            <YAF:HelpLabel ID="HelpLabel66" runat="server" LocalizedTag="LOCATION_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxLocation" runat="server"></asp:TextBox>
@@ -1475,8 +1450,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Gender:</strong><br />
-                            Template for rendering user's gender.
+                            <YAF:HelpLabel ID="HelpLabel67" runat="server" LocalizedTag="GENDER_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxGender" runat="server"></asp:TextBox>
@@ -1484,8 +1458,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Thanks From template:</strong><br />
-                            Template for rendering user's thanks from.
+                            <YAF:HelpLabel ID="HelpLabel68" runat="server" LocalizedTag="THANKS_FROM_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
@@ -1493,8 +1466,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Thanks To template:</strong><br />
-                            Template for rendering user's thanks to. aLLOW
+                            <YAF:HelpLabel ID="HelpLabel69" runat="server" LocalizedTag="THANKS_TO_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxThanksTo" runat="server"></asp:TextBox>
@@ -1511,8 +1483,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow remote avatars:</strong><br />
-                            Can users use avatars from other websites.
+                            <YAF:HelpLabel ID="HelpLabel50" runat="server" LocalizedTag="REMOTE_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AvatarRemote" runat="server"></asp:CheckBox>
@@ -1520,8 +1491,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow avatar uploading:</strong><br />
-                            Can users upload avatars to their profile.
+                            <YAF:HelpLabel ID="HelpLabel51" runat="server" LocalizedTag="AVATAR_UPLOAD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AvatarUpload" runat="server"></asp:CheckBox>
@@ -1529,8 +1499,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Allow Gravatars:</strong><br />
-                            Automatically use users Gavatars if they exist (note: may require additional processing).
+                            <YAF:HelpLabel ID="HelpLabel52" runat="server" LocalizedTag="ALLOW_GRAVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="AvatarGravatar" runat="server"></asp:CheckBox>
@@ -1538,8 +1507,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Gravatar Rating:</strong><br />
-                            Max rating of Gravatar if allowed.
+                            <YAF:HelpLabel ID="HelpLabel53" runat="server" LocalizedTag="GRAVATAR_RATING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:350px" ID="GravatarRating" runat="server">
@@ -1552,8 +1520,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Avatar Width:</strong><br />
-                            Maximum width for avatars.
+                            <YAF:HelpLabel ID="HelpLabel54" runat="server" LocalizedTag="AVATAR_WIDTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AvatarWidth" runat="server"></asp:TextBox>
@@ -1561,8 +1528,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Avatar Height:</strong><br />
-                            Maximum height for avatars.
+                            <YAF:HelpLabel ID="HelpLabel55" runat="server" LocalizedTag="AVATAR_HEIGHT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AvatarHeight" runat="server"></asp:TextBox>
@@ -1570,8 +1536,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Avatar Size:</strong><br />
-                            Maximum size for avatars in bytes.
+                            <YAF:HelpLabel ID="HelpLabel56" runat="server" LocalizedTag="AVATAR_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="AvatarSize" runat="server"></asp:TextBox>
@@ -1588,8 +1553,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Forum Statistics Cache Timeout:</strong><br />
-                            In minutes
+                            <YAF:HelpLabel ID="HelpLabel41" runat="server" LocalizedTag="STATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="ForumStatisticsCacheTimeout" />
@@ -1598,8 +1562,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Board User Statistics Cache Timeout:</strong><br />
-                            In minutes
+                            <YAF:HelpLabel ID="HelpLabel42" runat="server" LocalizedTag="USRSTATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="BoardUserStatsCacheTimeout" />
@@ -1608,8 +1571,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Active Discussions Cache Timeout:</strong><br />
-                            In minutes
+                            <YAF:HelpLabel ID="HelpLabel43" runat="server" LocalizedTag="DISCUSSIONS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="ActiveDiscussionsCacheTimeout" />
@@ -1618,8 +1580,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Board Categories Cache Timeout:</strong><br />
-                            In minutes
+                            <YAF:HelpLabel ID="HelpLabel44" runat="server" LocalizedTag="CAT_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="BoardCategoriesCacheTimeout" />
@@ -1628,8 +1589,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Board Moderators Cache Timeout:</strong><br />
-                            In minutes
+                            <YAF:HelpLabel ID="HelpLabel45" runat="server" LocalizedTag="MOD_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="BoardModeratorsCacheTimeout" />
@@ -1638,8 +1598,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Replace Rules Cache Timeout:</strong><br />
-                            Smilies, BB code, bad wordsm, etc. (in minutes)
+                            <YAF:HelpLabel ID="HelpLabel46" runat="server" LocalizedTag="REPLACE_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="ReplaceRulesCacheTimeout" />
@@ -1648,8 +1607,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>First Post "Title" Cache Timeout:</strong><br />
-                            First Post "Title" for SEO Cache Timeout (in minutes)
+                            <YAF:HelpLabel ID="HelpLabel47" runat="server" LocalizedTag="SEO_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="FirstPostCacheTimeout" />
@@ -1657,8 +1615,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Online User Status Cache Timeout:</strong><br />
-                            You can fine-tune it depending on your site activity (in milliseconds)
+                            <YAF:HelpLabel ID="HelpLabel48" runat="server" LocalizedTag="ONLINE_STATUS_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="OnlineStatusCacheTimeout" />
@@ -1666,8 +1623,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>User Lazy Data Cache Timeout:</strong><br />
-                            In minutes
+                            <YAF:HelpLabel ID="HelpLabel49" runat="server" LocalizedTag="LAZY_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:350px" runat="server" ID="ActiveUserLazyDataCacheTimeout" />
@@ -1690,9 +1646,7 @@
                     </tr>
                     <tr>
                         <td class="postheader" style="width:450px">
-                            <strong>Max Search Results:</strong><br />
-                            Maximum number of search results that can be returned. Enter "0" for unlimited (not
-                            recommended).
+                            <YAF:HelpLabel ID="HelpLabel28" runat="server" LocalizedTag="MAX_SEARCH_RESULTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%" ID="ReturnSearchMax" runat="server"></asp:TextBox>
@@ -1700,8 +1654,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Use SQL Full Text Search:</strong><br />
-                            Toggle use of FULLTEXT SQL Server support on searches.
+                            <YAF:HelpLabel ID="HelpLabel29" runat="server" LocalizedTag="SQL_FULLTEXT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox>
@@ -1709,8 +1662,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Search Text Minimal Length:</strong><br />
-                            Minimal length of the search string allowed.
+                            <YAF:HelpLabel ID="HelpLabel30" runat="server" LocalizedTag="SEARCH_MINLENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%" ID="SearchStringMinLength" runat="server"></asp:TextBox>
@@ -1718,8 +1670,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Search Text Maximum Length:</strong><br />
-                            Maximum length of the search string allowed.
+                            <YAF:HelpLabel ID="HelpLabel31" runat="server" LocalizedTag="SEARCH_MAXLENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%" ID="SearchStringMaxLength" runat="server"></asp:TextBox>
@@ -1727,8 +1678,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Search Text Pattern:</strong><br />
-                            Allowed search text (Regular Expression) pattern.
+                            <YAF:HelpLabel ID="HelpLabel32" runat="server" LocalizedTag="SEARCH_PATTERN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%" ID="SearchStringPattern" runat="server"></asp:TextBox>
@@ -1736,8 +1686,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Search Permissions:</strong><br />
-                            Allow search to:
+                            <YAF:HelpLabel ID="HelpLabel33" runat="server" LocalizedTag="SEARCH_PERMISS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:99%" ID="SearchPermissions" runat="server">
@@ -1749,8 +1698,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Search Engine 1:</strong><br />
-                            Enter here a search engine pattern.
+                            <YAF:HelpLabel ID="HelpLabel34" runat="server" LocalizedTag="SEARCH_ENGINE1" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine1" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -1758,8 +1706,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Parameters For Search Engine 1:</strong><br />
-                            Enter here a search engine parameters.
+                            <YAF:HelpLabel ID="HelpLabel35" runat="server" LocalizedTag="SEARCH_ENGINE1_PARAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine1Parameters" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -1767,8 +1714,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Search Engine 2:</strong><br />
-                            Enter here a search engine pattern.
+                            <YAF:HelpLabel ID="HelpLabel36" runat="server" LocalizedTag="SEARCH_ENGINE2" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine2" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -1776,8 +1722,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Parameters For Search Engine 2:</strong><br />
-                            Enter here a search engine parameters.
+                            <YAF:HelpLabel ID="HelpLabel40" runat="server" LocalizedTag="SEARCH_ENGINE2_PARAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:TextBox Style="width:99%;height:80px" ID="SearchEngine2Parameters" runat="server" TextMode="MultiLine"></asp:TextBox>
@@ -1785,8 +1730,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>External Search Permissions:</strong><br />
-                            Allow external search to:
+                            <YAF:HelpLabel ID="HelpLabel37" runat="server" LocalizedTag="EXTERN_SEARCH_PERMISS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:99%" ID="ExternalSearchPermissions" runat="server">
@@ -1798,8 +1742,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>External Search Results In A New Window:</strong><br />
-                            Show External Search Results In A New Window.
+                            <YAF:HelpLabel ID="HelpLabel38" runat="server" LocalizedTag="EXTERN_NEWWINDOW" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ExternalSearchInNewWindow" runat="server"></asp:CheckBox>
@@ -1807,8 +1750,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <strong>Show Quick Search:</strong><br />
-                            Show Quick Search field and button in toolbar.
+                            <YAF:HelpLabel ID="HelpLabel39" runat="server" LocalizedTag="QUICK_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowQuickSearch" runat="server"></asp:CheckBox>
