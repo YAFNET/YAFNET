@@ -1,5 +1,5 @@
 ﻿/*
-* timeago: a jQuery plugin, version: 0.9.2 (2010-09-14)
+* timeago: a jQuery plugin, version: 0.9.3 (2011-01-21)
 * @requires jQuery v1.2.3 or later
 *
 * Timeago is a jQuery plugin that makes it easy to support automatically
@@ -11,13 +11,17 @@
 * Licensed under the MIT:
 * http://www.opensource.org/licenses/mit-license.php
 *
-* Copyright (c) 2008-2010, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
+* Copyright (c) 2008-2011, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
 */
 (function ($) {
     $.timeago = function (timestamp) {
-        if (timestamp instanceof Date) return inWords(timestamp);
-        else if (typeof timestamp == "string") return inWords($.timeago.parse(timestamp));
-        else return inWords($.timeago.datetime(timestamp));
+        if (timestamp instanceof Date) {
+            return inWords(timestamp);
+        } else if (typeof timestamp === "string") {
+            return inWords($.timeago.parse(timestamp));
+        } else {
+            return inWords($.timeago.datetime(timestamp));
+        }
     };
     var $t = $.timeago;
 
@@ -87,12 +91,12 @@
             s = s.replace(/\.\d\d\d+/, ""); // remove milliseconds
             s = s.replace(/-/, "/").replace(/-/, "/");
             s = s.replace(/T/, " ").replace(/Z/, " UTC");
-            s = s.replace(/([\+-]\d\d)\:?(\d\d)/, " $1$2"); // -04:00 -> -0400
+            s = s.replace(/([\+\-]\d\d)\:?(\d\d)/, " $1$2"); // -04:00 -> -0400
             return new Date(s);
         },
         datetime: function (elem) {
             // jQuery's `is()` doesn't play well with HTML5 in IE
-            var isTime = $(elem).get(0).tagName.toLowerCase() == "time"; // $(elem).is("time");
+            var isTime = $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
             var iso8601 = isTime ? $(elem).attr("datetime") : $(elem).attr("title");
             return $t.parse(iso8601);
         }
@@ -122,7 +126,9 @@
         if (!element.data("timeago")) {
             element.data("timeago", { datetime: $t.datetime(element) });
             var text = $.trim(element.text());
-            if (text.length > 0) element.attr("title", text);
+            if (text.length > 0) {
+                element.attr("title", text);
+            }
         }
         return element.data("timeago");
     }
@@ -138,4 +144,4 @@
     // fix for IE6 suckage
     document.createElement("abbr");
     document.createElement("time");
-})(jQuery);
+} (jQuery));

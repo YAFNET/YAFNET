@@ -162,12 +162,11 @@ namespace YAF.Utilities
       {
         return
           @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-            function loadTimeAgo() {				      	
-            " +
-          YafContext.Current.Localization.GetText("TIMEAGO_JS") +
-          @"
+            function loadTimeAgo() {{	
+            jQuery.timeago.settings.refreshMillis = {1};			      	
+            {0}
               jQuery('abbr.timeago').timeago();	
-			      }";
+			      }}".FormatWith(YafContext.Current.Localization.GetText("TIMEAGO_JS"), YafContext.Current.BoardSettings.RelativeTimeRefreshTime);
       }
     }
 
