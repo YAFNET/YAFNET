@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Linq;
+using YAF.Types.Interfaces;
+
 namespace YAF.Controls
 {
   #region Using
@@ -109,9 +112,28 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      this.repLastPosts.DataSource = this.TopicID.HasValue
-                                       ? LegacyDb.post_list_reverse10(this.TopicID.Value).AsEnumerable()
-                                       : null;
+        bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
+                          !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
+                          !this.PageContext.IsForumModerator;
+        // convert to linq...
+        var dt= LegacyDb.post_list(this.TopicID, 0, dontShow, false,
+            DateTime.MinValue.AddYears(1901),
+              DateTime.UtcNow,
+              DateTime.MinValue.AddYears(1901),
+              DateTime.UtcNow,
+            0,10, 2, 0, false);
+
+       // convert to linq...
+        var rowList = dt.AsEnumerable();
+        // last page posts
+        var dataRows = rowList.Take(10);
+
+        // load the missing message test
+        this.Get<IDBBroker>().LoadMessageText(dataRows);
+
+        this.repLastPosts.DataSource = this.TopicID.HasValue
+            ? dataRows
+            : null;
       this.repLastPosts.DataBind();
     }
 

@@ -356,7 +356,7 @@
                     <asp:UpdatePanel ID="LoadingCheckPanel" runat="server">
                         <ContentTemplate>
                             <asp:Timer ID="UpdateStatusTimer" runat="server" Interval="5000" OnTick="UpdateStatusTimer_Tick" />
-                            <div align="center">
+                            <div style="text-align: center">
                                 <asp:Image ID="LoadingImage" runat="server" ImageUrl="../resources/images/loader.gif" />
                                 <br />
                                 <strong>Migrating Roles and Users...</strong>

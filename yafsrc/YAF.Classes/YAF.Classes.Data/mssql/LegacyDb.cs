@@ -3562,7 +3562,7 @@ namespace YAF.Classes.Data
       /// <summary>
       /// The post_list.
       /// </summary>
-      /// <param name="topicID">
+      /// <param name="topicId">
       /// The topic id.
       /// </param>
       /// <param name="updateViewCount">
@@ -3574,17 +3574,63 @@ namespace YAF.Classes.Data
       /// <param name="styledNicks">
       /// The styled nicks.
       /// </param>
+      /// <param name="sincePostedDate">
+      /// The posted date.
+      /// </param>
+      /// <param name="sinceEditedDate">
+      /// The edited date.
+      /// </param>
+      /// <param name="pageIndex">
+      /// The page index.
+      /// </param>
+      /// <param name="pageSize">
+      /// The Page size.
+      /// </param>
+      /// <param name="sortPosted">
+      /// The sort by posted date.
+      ///  0 - no sort, 1 - ASC, 2 - DESC
+      /// </param>
+      /// <param name="sortEdited">
+      ///  The sort by edited date.
+      ///  0 - no sort, 1 - ASC, 2 - DESC.
+      /// </param>
+      /// <param name="showThanks">
+      /// The show thanks. Returnes thanked posts. Not implemented.
+      /// </param>
       /// <returns>
+      /// 
       /// </returns>
-      public static DataTable post_list(object topicID, object updateViewCount, bool showDeleted, bool styledNicks)
+      public static DataTable post_list(
+        object topicId, 
+        object updateViewCount, 
+        bool showDeleted, 
+        bool styledNicks, 
+        DateTime sincePostedDate,
+        DateTime toPostedDate,
+        DateTime sinceEditedDate,
+        DateTime toEditedDate, 
+        int pageIndex, 
+        int pageSize, 
+        int sortPosted, 
+        int sortEdited, 
+        bool showThanks)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("post_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("TopicID", topicID);
+        cmd.Parameters.AddWithValue("TopicID", topicId);
         cmd.Parameters.AddWithValue("UpdateViewCount", updateViewCount);
         cmd.Parameters.AddWithValue("ShowDeleted", showDeleted);
         cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
+        cmd.Parameters.AddWithValue("SincePostedDate", sincePostedDate);
+        cmd.Parameters.AddWithValue("ToPostedDate", toPostedDate);
+        cmd.Parameters.AddWithValue("SinceEditedDate", sinceEditedDate);
+        cmd.Parameters.AddWithValue("ToEditedDate", toEditedDate);
+        cmd.Parameters.AddWithValue("PageIndex", pageIndex);
+        cmd.Parameters.AddWithValue("PageSize", pageSize);
+        cmd.Parameters.AddWithValue("SortPosted", sortPosted);
+        cmd.Parameters.AddWithValue("SortEdited", sortEdited);
+        cmd.Parameters.AddWithValue("ShowThanks", showThanks);
 
         return MsSqlDbAccess.Current.GetData(cmd);
       }

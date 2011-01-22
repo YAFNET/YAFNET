@@ -880,21 +880,18 @@ namespace YAF.Pages
       [NotNull] ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar, int topicId)
     {
       var syndicationItems = new List<SyndicationItem>();
-      using (DataTable dt = LegacyDb.post_list(topicId, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
+        bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
+                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
+                           !this.PageContext.IsForumModerator;
+        using (DataTable dt = LegacyDb.post_list(topicId, 0, dontShow,true,
+            DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow,
+            DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow,
+            0, this.PageContext.BoardSettings.PostsPerPage, 2, 0, false))
       {
         // convert to linq...
-        var rowList = dt.AsEnumerable().OrderByDescending(x => x.Field<DateTime>("Posted"));
-
-        // see if the deleted messages need to be edited out...)
-        if (this.PageContext.BoardSettings.ShowDeletedMessages &&
-            !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
-            !this.PageContext.IsForumModerator)
-        {
-          // remove posts that are deleted and do not belong to this user...
-          rowList =
-            rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID)).
-              OrderByDescending(y => y.Field<DateTime>("Posted"));
-        }
+        var rowList = dt.AsEnumerable();
 
         // last page posts
         var dataRows = rowList.Take(this.PageContext.BoardSettings.PostsPerPage);

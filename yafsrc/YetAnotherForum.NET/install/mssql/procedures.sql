@@ -4490,29 +4490,107 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1, @StyledNicks bit = 0) as
+create procedure [{databaseOwner}].[{objectQualifier}post_list](
+                 @TopicID int,
+				 @UpdateViewCount smallint=1, 
+				 @ShowDeleted bit = 1, 
+				 @StyledNicks bit = 0, 
+				 @SincePostedDate datetime, 
+				 @ToPostedDate datetime, 
+				 @SinceEditedDate datetime, 
+				 @ToEditedDate datetime, 
+				 @PageIndex int = 1, 
+				 @PageSize int = 0, 
+				 @SortPosted int = 2, 
+				 @SortEdited int = 0, 				
+				 @ShowThanks bit = 0) as
 begin
-		set nocount on
+   declare @post_totalrowsnumber int 
+   declare @firstselectrownum int 
+  
+   declare @firstselectposted datetime
+   declare @firstselectedited datetime
+     
+	set nocount on
 	if @UpdateViewCount>0
 		update [{databaseOwner}].[{objectQualifier}Topic] set [Views] = [Views] + 1 where TopicID = @TopicID
+	-- find total returned count
+		select
+		@post_totalrowsnumber = COUNT(m.MessageID)
+	from
+		[{databaseOwner}].[{objectQualifier}Message] m
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
+		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
+		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
+		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
+	where
+		m.TopicID = @TopicID
+		AND m.IsApproved = 1
+		AND (m.IsDeleted = 0 OR (@showdeleted = 1 AND m.IsDeleted = 1))
+		AND m.Posted >=
+		 @SincePostedDate
+		 /*
+		AND 
+		m.Edited >= SinceEditedDate
+		*/
+		
+
+   select @PageIndex = @PageIndex+1;   
+   select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
+   -- find first selectedrowid  
+   set rowcount @firstselectrownum
+   	
+   select		
+		@firstselectposted = m.Posted,
+		@firstselectedited = m.Edited
+	from
+		[{databaseOwner}].[{objectQualifier}Message] m
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
+		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
+		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
+		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
+	where
+		m.TopicID = @TopicID
+		AND m.IsApproved = 1
+		AND (m.IsDeleted = 0 OR (@showdeleted = 1 AND m.IsDeleted = 1)) 
+		AND m.Posted >=
+		 @SincePostedDate	
+		 /*
+		AND m.Edited > @SinceEditedDate
+		*/
+		
+	order by
+		 (case 
+        when @SortPosted = 2 then m.Posted end) DESC,
+		(case 
+        when @SortPosted = 1 then m.Posted end) ASC, 
+		(case 
+        when @SortEdited = 2 then m.Edited end) DESC,
+		(case 
+        when @SortEdited = 1 then m.Edited end) ASC		
+    
+	set rowcount @PageSize	
+		
 	select
 		d.TopicID,		
 		TopicFlags	= d.Flags,
 		ForumFlags	= g.Flags,
-		a.MessageID,
-		a.Posted,
+		m.MessageID,
+		m.Posted,
 		[Subject] = d.Topic,
 		[Message] = '', -- no longer returns message
-		a.UserID,
-		a.Position,
-		a.Indent,
-		a.IP,
-		a.Flags,
-		a.EditReason,
-		a.IsModeratorChanged,
-		a.IsDeleted,
-		a.DeleteReason,
-		UserName	= IsNull(a.UserName,b.Name),
+		m.UserID,
+		m.Position,
+		m.Indent,
+		m.IP,
+		m.Flags,
+		m.EditReason,
+		m.IsModeratorChanged,
+		m.IsDeleted,
+		m.DeleteReason,
+		UserName	= IsNull(m.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
 		b.[Signature],
@@ -4526,22 +4604,47 @@ begin
 			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
 			else ''	 end, 
-		Edited = IsNull(a.Edited,a.Posted),
-		HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),0),
-		HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0)
+		Edited = IsNull(m.Edited,m.Posted),
+		HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0),
+		HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0),
+		TotalRows = @post_totalrowsnumber
 	from
-		[{databaseOwner}].[{objectQualifier}Message] a
-		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=a.TopicID
+		[{databaseOwner}].[{objectQualifier}Message] m
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
+		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
 		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
 		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
 	where
-		a.TopicID = @TopicID
-		AND a.IsApproved = 1
-		AND (a.IsDeleted = 0 OR (@showdeleted = 1 AND a.IsDeleted = 1)) 
-	order by
-		a.Posted asc
+		m.TopicID = @TopicID
+		AND m.IsApproved = 1
+		AND (m.IsDeleted = 0 OR (@showdeleted = 1 AND m.IsDeleted = 1)) 
+			AND (m.Posted is null OR (m.Posted is not null AND
+		(m.Posted >= (case 
+        when @SortPosted = 1 then
+		 @firstselectposted end) OR m.Posted <= (case 
+        when @SortPosted = 2 then @firstselectposted end) OR
+		m.Posted >= (case 
+        when @SortPosted = 0 then 0 end))))	
+		/*
+		AND (m.Edited is null OR (m.Edited is not null AND
+		(m.Edited >= (case 
+        when @SortEdited = 1 then @firstselectedited end) 
+		OR m.Edited <= (case 
+        when @SortEdited = 2 then @firstselectedited end) OR
+		m.Edited >= (case 
+        when @SortEdited = 0 then 0
+		end)))) 
+		*/
+	order by		
+		(case 
+        when @SortPosted = 2 then m.Posted end) DESC,
+		(case 
+        when @SortPosted = 1 then m.Posted end) ASC, 
+		(case 
+        when @SortEdited = 2 then m.Edited end) DESC,
+		(case 
+        when @SortEdited = 1 then m.Edited end) ASC;	
 end
 GO
 

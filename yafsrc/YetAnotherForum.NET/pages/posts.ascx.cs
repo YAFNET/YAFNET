@@ -933,13 +933,19 @@ namespace YAF.Pages
       {
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
-
-      DataTable postListDataTable = LegacyDb.post_list(
-        this.PageContext.PageTopicID, 
-        this.IsPostBack ? 0 : 1, 
-        this.PageContext.BoardSettings.ShowDeletedMessages, 
-        YafContext.Current.BoardSettings.UseStyledNicks);
-
+        /*bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
+                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
+                           !this.PageContext.IsForumModerator; */
+        DataTable postListDataTable = LegacyDb.post_list(this.PageContext.PageTopicID, this.IsPostBack ? 0 : 1,
+                                                         this.PageContext.BoardSettings.ShowDeletedMessages,
+                                                         YafContext.Current.BoardSettings.UseStyledNicks,
+                                                        DateTime.MinValue.AddYears(1901),
+              DateTime.UtcNow,
+              DateTime.MinValue.AddYears(1901),
+              DateTime.UtcNow,
+                                                         0, 10000, 2, 0,
+                                                         YafContext.Current.BoardSettings.EnableThanksMod);
+     
       if (YafContext.Current.BoardSettings.EnableThanksMod)
       {
         // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
