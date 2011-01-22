@@ -330,7 +330,7 @@ namespace YAF.Controls
         {
             filler =
                 this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(
-                    @"<a href="""" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" /></a>".FormatWith(
+                    @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" /></a>".FormatWith(
                         avatarUrl,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}", this.UserId),
                         UserMembershipHelper.GetUserNameFromID(this.UserId)));
