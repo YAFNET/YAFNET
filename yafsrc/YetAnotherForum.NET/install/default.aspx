@@ -14,14 +14,16 @@
 <body>
     <form id="Form1" runat="server">
     <script type="text/javascript">
-        jQuery('form').submit(function () {
+        jQuery('#Form1').submit(function () {
             jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast');
-            jQuery('.wizMain').addClass('wizLoader');
+            jQuery('#YafLoader').css({top:'40%',left:'50%',margin: '-' + (jQuery('#YafLoader').height() / 2)+ 'px 0 0 -'+(jQuery('#YafLoader').width() / 2)+'px'});
+			jQuery('#YafLoader').show();
         });	
     </script>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <div id="wizContainer">
+        <img class="wizLoader" src="../resources/images/loader.gif" id="YafLoader" alt="loader" style="display:none;" />
         <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="1" 
             Font-Names="Verdana" Font-Size="9pt"
             Width="650px" CssClass="wizMain" DisplaySideBar="False" OnActiveStepChanged="Wizard_ActiveStepChanged"
