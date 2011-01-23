@@ -3602,23 +3602,26 @@ namespace YAF.Classes.Data
       /// </returns>
       public static DataTable post_list(
         object topicId, 
+        object authorUserID,
         object updateViewCount, 
         bool showDeleted, 
         bool styledNicks, 
         DateTime sincePostedDate,
         DateTime toPostedDate,
         DateTime sinceEditedDate,
-        DateTime toEditedDate, 
+        DateTime toEditedDate,
         int pageIndex, 
         int pageSize, 
         int sortPosted, 
         int sortEdited, 
+        int sortPosition,
         bool showThanks)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("post_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicId);
+        cmd.Parameters.AddWithValue("AuthorUserID", authorUserID);
         cmd.Parameters.AddWithValue("UpdateViewCount", updateViewCount);
         cmd.Parameters.AddWithValue("ShowDeleted", showDeleted);
         cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
@@ -3630,6 +3633,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("PageSize", pageSize);
         cmd.Parameters.AddWithValue("SortPosted", sortPosted);
         cmd.Parameters.AddWithValue("SortEdited", sortEdited);
+        cmd.Parameters.AddWithValue("SortPosition", sortPosition);
         cmd.Parameters.AddWithValue("ShowThanks", showThanks);
 
         return MsSqlDbAccess.Current.GetData(cmd);
@@ -4381,12 +4385,13 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable message_findunread(object topicID, object lastRead)
+    public static DataTable message_findunread(object topicID, object messageId, object lastRead)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("message_findunread"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("TopicID", topicID);
+        cmd.Parameters.AddWithValue("MessageID", messageId);
         cmd.Parameters.AddWithValue("LastRead", lastRead);
         return MsSqlDbAccess.Current.GetData(cmd);
       }

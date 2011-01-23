@@ -137,24 +137,40 @@ namespace YAF.Pages
         this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
         this.PageLinks.AddLink(
           this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-          bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
-                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
-                           !this.PageContext.IsForumModerator;
+        bool showDeleted = false;
+        int userId = 0;
+        if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+        {
+            showDeleted = true;
+        }
+        if (!showDeleted && ((this.PageContext.BoardSettings.ShowDeletedMessages &&
+                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+            || this.PageContext.IsAdmin ||
+                           this.PageContext.IsForumModerator))
+        {
+            userId = this.PageContext.PageUserID;
+        }
           var dt = LegacyDb.post_list(this.PageContext.PageTopicID,
-              1, 
-              dontShow, 
+              userId,
+              1,
+              showDeleted, 
               false, 
               DateTime.MinValue.AddYears(1901),
               DateTime.UtcNow,
               DateTime.MinValue.AddYears(1901),
               DateTime.UtcNow,
-              0, 500, 2, 0, false);
+              0, 
+              500, 
+              2, 
+              0, 
+              0, 
+              false);
       
         // get max 500 rows
         var dataRows = dt.AsEnumerable();
 
         // load the missing message test
-        this.Get<IDBBroker>().LoadMessageText(dataRows);
+        // this.Get<IDBBroker>().LoadMessageText(dataRows);
 
         this.Posts.DataSource = dataRows;
 

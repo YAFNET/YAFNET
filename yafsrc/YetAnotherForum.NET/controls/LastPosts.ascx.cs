@@ -112,16 +112,36 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-        bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
-                          !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
-                          !this.PageContext.IsForumModerator;
-        // convert to linq...
-        var dt= LegacyDb.post_list(this.TopicID, 0, dontShow, false,
+        bool showDeleted = false;
+        int userId = 0;
+        if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+        {
+            showDeleted = true;
+        }
+        if (!showDeleted && (this.PageContext.BoardSettings.ShowDeletedMessages &&
+                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+            || this.PageContext.IsAdmin ||
+                           this.PageContext.IsForumModerator)
+        {
+            userId = this.PageContext.PageUserID;
+        }
+       
+        var dt = LegacyDb.post_list(
+            this.TopicID, 
+            userId, 
+            0, 
+            showDeleted, 
+            false,
             DateTime.MinValue.AddYears(1901),
-              DateTime.UtcNow,
-              DateTime.MinValue.AddYears(1901),
-              DateTime.UtcNow,
-            0,10, 2, 0, false);
+            DateTime.UtcNow,
+            DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow,
+            0,
+            10,
+            2,
+            0,
+            0,
+            false);
 
        // convert to linq...
         var rowList = dt.AsEnumerable();
@@ -129,7 +149,7 @@ namespace YAF.Controls
         var dataRows = rowList.Take(10);
 
         // load the missing message test
-        this.Get<IDBBroker>().LoadMessageText(dataRows);
+        // this.Get<IDBBroker>().LoadMessageText(dataRows);
 
         this.repLastPosts.DataSource = this.TopicID.HasValue
             ? dataRows

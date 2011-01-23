@@ -854,8 +854,7 @@ namespace YAF.Pages
       {
         return;
       }
-
-      if (this.Page.Header != null && this.PageContext.BoardSettings.AddDynamicPageMetaTags)
+        if (this.Page.Header != null && this.PageContext.BoardSettings.AddDynamicPageMetaTags)
       {
         MessageCleaned message = this.Get<IFormatMessage>().GetCleanedTopicMessage(
           firstMessage, this.PageContext.PageTopicID);
@@ -928,25 +927,53 @@ namespace YAF.Pages
       this._dataBound = true;
 
       this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
+      int messagePosition = 0;
+      int findMessageId = this.GetFindMessageId(out messagePosition);
+
+      if (findMessageId > 0)
+      {
+          this.CurrentMessage = findMessageId;
+        
+              Pager.CurrentPageIndex =
+              (int)Math.Floor((double)((messagePosition / this.Pager.PageSize)));
+        
+      } 
 
       if (this._topic == null)
       {
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
-        /*bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
-                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
-                           !this.PageContext.IsForumModerator; */
-        DataTable postListDataTable = LegacyDb.post_list(this.PageContext.PageTopicID, this.IsPostBack ? 0 : 1,
-                                                         this.PageContext.BoardSettings.ShowDeletedMessages,
-                                                         YafContext.Current.BoardSettings.UseStyledNicks,
-                                                        DateTime.MinValue.AddYears(1901),
-              DateTime.UtcNow,
-              DateTime.MinValue.AddYears(1901),
-              DateTime.UtcNow,
-                                                         0, 10000, 2, 0,
-                                                         YafContext.Current.BoardSettings.EnableThanksMod);
-     
-      if (YafContext.Current.BoardSettings.EnableThanksMod)
+        bool showDeleted = false;
+        int userId = 0;
+        if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+        {
+            showDeleted = true;
+        }
+        if (!showDeleted && ((this.PageContext.BoardSettings.ShowDeletedMessages &&
+                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+            || this.PageContext.IsAdmin ||
+                           this.PageContext.IsForumModerator))
+        {
+            userId = this.PageContext.PageUserID;
+        }
+        DataTable postListDataTable = LegacyDb.post_list(this.PageContext.PageTopicID, 
+            userId, 
+            this.IsPostBack ? 0 : 1,
+            showDeleted,
+            YafContext.Current.BoardSettings.UseStyledNicks,
+            DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow,
+            DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow,
+            Pager.CurrentPageIndex, 
+            Pager.PageSize, 
+            1, 
+            0,
+            this.IsThreaded ? 1 : 0,
+            YafContext.Current.BoardSettings.EnableThanksMod);
+
+        
+        if (YafContext.Current.BoardSettings.EnableThanksMod)
       {
         // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
         // calls to database.)  
@@ -989,48 +1016,42 @@ namespace YAF.Pages
       var rowList = postListDataTable.AsEnumerable();
 
       // see if the deleted messages need to be edited out...
-      if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
-          !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
-      {
-        // remove posts that are deleted and do not belong to this user...
-        rowList =
-          rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
-      }
+      /*  if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
+            !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
+        {
+          // remove posts that are deleted and do not belong to this user...
+          rowList =
+            rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
+        }
+
+        // set the sorting
+        if (this.IsThreaded)
+        {
+          rowList = rowList.OrderBy(x => x.Field<int>("Position"));
+        }
+        else
+        {
+          rowList = rowList.OrderBy(x => x.Field<DateTime>("Posted"));
+
+          // reset position for updated sorting...
+          rowList.ForEachIndex(
+            (row, i) =>
+              {
+                row.BeginEdit();
+                row["Position"] = i;
+                row.EndEdit();
+              }); 
+        }
+          */
 
       // set the sorting
-      if (this.IsThreaded)
-      {
-        rowList = rowList.OrderBy(x => x.Field<int>("Position"));
-      }
-      else
-      {
-        rowList = rowList.OrderBy(x => x.Field<DateTime>("Posted"));
+      
 
-        // reset position for updated sorting...
-        rowList.ForEachIndex(
-          (row, i) =>
-            {
-              row.BeginEdit();
-              row["Position"] = i;
-              row.EndEdit();
-            });
-      }
+      this.Pager.Count = rowList.First().Field<int>("TotalRows");
 
-      this.Pager.Count = rowList.Count();
-      int findMessageId = this.GetFindMessageId();
+    
 
-      if (findMessageId > 0)
-      {
-        this.CurrentMessage = findMessageId;
-        var selectedMessage = rowList.Where(row => row.Field<int>("MessageID") == findMessageId).FirstOrDefault();
-        if (selectedMessage != null)
-        {
-          this.Pager.CurrentPageIndex =
-            (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
-        }
-      }
-
-      var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+    var pagedData = rowList; // .Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
 
       // Add thanks info and styled nicks if they are enabled
       if (YafContext.Current.BoardSettings.EnableThanksMod)
@@ -1039,9 +1060,10 @@ namespace YAF.Pages
       }
 
       // dynamic load messages that are needed...
-      this.Get<IDBBroker>().LoadMessageText(pagedData);
+      // this.Get<IDBBroker>().LoadMessageText(pagedData);
 
-      if (pagedData.Any())
+      // if current index is 0 we are on the first page and the metadata can be added.
+      if (Pager.CurrentPageIndex == 0)
       {
         // handle add description/keywords for SEO
         this.AddMetaData(pagedData.First()["Message"]);
@@ -1050,7 +1072,7 @@ namespace YAF.Pages
       if (pagedData.Any() && this.CurrentMessage == 0)
       {
         // set it to the first...
-        this.CurrentMessage = pagedData.First().Field<int>("MessageID");
+        // this.CurrentMessage = pagedData.First().Field<int>("MessageID");
       }
 
       this.MessageList.DataSource = pagedData;
@@ -1070,41 +1092,42 @@ namespace YAF.Pages
     /// <returns>
     /// The get find message id.
     /// </returns>
-    private int GetFindMessageId()
+    private int GetFindMessageId(out int messagePosition)
     {
       int findMessageId = 0;
-
+        messagePosition = 0;
+    
       try
       {
-        if (this._ignoreQueryString)
+       if (this._ignoreQueryString)
         {
         }
-        else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+       else
+       { 
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
         {
           // Show this message
           findMessageId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
         }
-        else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
-                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
-        {
+     
           // Find next unread
           using (
             DataTable unread = LegacyDb.message_findunread(
-              this.PageContext.PageTopicID, YafContext.Current.Get<IYafSession>().LastVisit))
+              this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
           {
             var unreadFirst = unread.AsEnumerable().FirstOrDefault();
 
             if (unreadFirst != null)
             {
               findMessageId = unreadFirst.Field<int>("MessageID");
-
+              messagePosition = unreadFirst.Field<int>("MessagePosition");
               // move to this message on load...
               PageContext.PageElements.RegisterJsBlockStartup(
                 this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
             }
           }
         }
-      }
+     }
       catch (Exception x)
       {
         LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);

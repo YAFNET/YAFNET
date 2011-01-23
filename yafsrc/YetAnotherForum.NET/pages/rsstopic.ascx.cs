@@ -880,15 +880,36 @@ namespace YAF.Pages
       [NotNull] ref YafSyndicationFeed feed, YafRssFeeds feedType, bool atomFeedByVar, int topicId)
     {
       var syndicationItems = new List<SyndicationItem>();
-        bool dontShow = this.PageContext.BoardSettings.ShowDeletedMessages &&
-                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll && !this.PageContext.IsAdmin &&
-                           !this.PageContext.IsForumModerator;
-        using (DataTable dt = LegacyDb.post_list(topicId, 0, dontShow,true,
+     
+      bool showDeleted = false;
+      int userId = 0;
+
+      if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+      {
+          showDeleted = true;
+      }
+      if (!showDeleted && ((this.PageContext.BoardSettings.ShowDeletedMessages &&
+                         !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+          || this.PageContext.IsAdmin ||
+                         this.PageContext.IsForumModerator))
+      {
+          userId = this.PageContext.PageUserID;
+      }
+
+        using (DataTable dt = LegacyDb.post_list(topicId,
+            userId, 0,
+            showDeleted,
+            true,
             DateTime.MinValue.AddYears(1901),
             DateTime.UtcNow,
             DateTime.MinValue.AddYears(1901),
             DateTime.UtcNow,
-            0, this.PageContext.BoardSettings.PostsPerPage, 2, 0, false))
+            0, 
+            this.PageContext.BoardSettings.PostsPerPage, 
+            2, 
+            0,
+            0,
+            false))
       {
         // convert to linq...
         var rowList = dt.AsEnumerable();
@@ -899,7 +920,7 @@ namespace YAF.Pages
         var altItem = false;
 
         // load the missing message test
-        this.Get<IDBBroker>().LoadMessageText(dataRows);
+        // this.Get<IDBBroker>().LoadMessageText(dataRows);
 
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 

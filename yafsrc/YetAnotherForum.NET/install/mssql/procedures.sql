@@ -3278,11 +3278,63 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}message_findunread](@TopicID int,@LastRead datetime) as
+create procedure [{databaseOwner}].[{objectQualifier}message_findunread](@TopicID int,@MessageID int,@LastRead datetime) as
 begin
-		select top 1 MessageID from [{databaseOwner}].[{objectQualifier}Message]
-	where TopicID=@TopicID and Posted>@LastRead
-	order by Posted
+
+declare @firstmessageid int
+
+declare @tbl_msglunr table 
+(
+cntrt int IDENTITY(1,1) NOT NULL,
+MessageID int,
+TopicID int,
+Posted datetime,
+Edited datetime
+)
+
+select top 1	  
+		@firstmessageid = m.MessageID
+	from
+		[{databaseOwner}].[{objectQualifier}Message] m	
+	where
+		m.TopicID = @TopicID ORDER BY m.Posted
+				
+	insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
+	select  top 100	  
+		m.MessageID,
+		m.TopicID,
+		m.Posted,
+		Edited = IsNull(m.Edited,m.Posted)
+	from
+		[{databaseOwner}].[{objectQualifier}Message] m	
+	where
+		m.TopicID = @TopicID and m.IsDeleted = 0		
+	order by		
+		m.Posted 
+    if (@MessageID > 0)
+	begin
+	if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and Posted>@LastRead)
+	begin
+	-- return last unread		
+	select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid from @tbl_msglunr
+	where TopicID=@TopicID and Posted>@LastRead  
+	order by Posted 
+	end
+	else
+	begin
+	-- return last post
+	select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid from @tbl_msglunr
+	where TopicID=@TopicID
+	order by Posted DESC
+	end
+	end
+	else
+	begin
+	select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid from @tbl_msglunr
+	where MessageID = @MessageID
+	order by Posted 
+	end
+
 end
 GO
 
@@ -4492,6 +4544,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_list](
                  @TopicID int,
+				 @AuthorUserID int,
 				 @UpdateViewCount smallint=1, 
 				 @ShowDeleted bit = 1, 
 				 @StyledNicks bit = 0, 
@@ -4502,7 +4555,8 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
 				 @PageIndex int = 1, 
 				 @PageSize int = 0, 
 				 @SortPosted int = 2, 
-				 @SortEdited int = 0, 				
+				 @SortEdited int = 0,
+				 @SortPosition int = 0,				
 				 @ShowThanks bit = 0) as
 begin
    declare @post_totalrowsnumber int 
@@ -4519,15 +4573,10 @@ begin
 		@post_totalrowsnumber = COUNT(m.MessageID)
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m
-		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
-		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
-		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
-		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
-		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
 	where
 		m.TopicID = @TopicID
 		AND m.IsApproved = 1
-		AND (m.IsDeleted = 0 OR (@showdeleted = 1 AND m.IsDeleted = 1))
+		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
 		AND m.Posted >=
 		 @SincePostedDate
 		 /*
@@ -4554,7 +4603,7 @@ begin
 	where
 		m.TopicID = @TopicID
 		AND m.IsApproved = 1
-		AND (m.IsDeleted = 0 OR (@showdeleted = 1 AND m.IsDeleted = 1)) 
+		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
 		AND m.Posted >=
 		 @SincePostedDate	
 		 /*
@@ -4562,14 +4611,17 @@ begin
 		*/
 		
 	order by
-		 (case 
+		(case 
+        when @SortPosition = 1 then m.Position end) ASC,	
+		(case 
         when @SortPosted = 2 then m.Posted end) DESC,
 		(case 
         when @SortPosted = 1 then m.Posted end) ASC, 
 		(case 
         when @SortEdited = 2 then m.Edited end) DESC,
 		(case 
-        when @SortEdited = 1 then m.Edited end) ASC		
+        when @SortEdited = 1 then m.Edited end) ASC  	 		
+			
     
 	set rowcount @PageSize	
 		
@@ -4580,7 +4632,7 @@ begin
 		m.MessageID,
 		m.Posted,
 		[Subject] = d.Topic,
-		[Message] = '', -- no longer returns message
+		[Message] = m.Message, 
 		m.UserID,
 		m.Position,
 		m.Indent,
@@ -4618,8 +4670,8 @@ begin
 	where
 		m.TopicID = @TopicID
 		AND m.IsApproved = 1
-		AND (m.IsDeleted = 0 OR (@showdeleted = 1 AND m.IsDeleted = 1)) 
-			AND (m.Posted is null OR (m.Posted is not null AND
+		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
+		AND (m.Posted is null OR (m.Posted is not null AND
 		(m.Posted >= (case 
         when @SortPosted = 1 then
 		 @firstselectposted end) OR m.Posted <= (case 
@@ -4638,13 +4690,15 @@ begin
 		*/
 	order by		
 		(case 
+        when @SortPosition = 1 then m.Position end) ASC,	
+		(case 
         when @SortPosted = 2 then m.Posted end) DESC,
 		(case 
         when @SortPosted = 1 then m.Posted end) ASC, 
 		(case 
         when @SortEdited = 2 then m.Edited end) DESC,
 		(case 
-        when @SortEdited = 1 then m.Edited end) ASC;	
+        when @SortEdited = 1 then m.Edited end) ASC  	
 end
 GO
 
