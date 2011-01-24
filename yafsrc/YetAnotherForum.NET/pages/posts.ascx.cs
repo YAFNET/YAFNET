@@ -1085,7 +1085,7 @@ namespace YAF.Pages
       } */
       this.DataBind();
     }
-
+ 
     /// <summary>
     /// Gets the message ID if "find" is in the query string
     /// </summary>
@@ -1095,8 +1095,8 @@ namespace YAF.Pages
     private int GetFindMessageId(out int messagePosition)
     {
       int findMessageId = 0;
-        messagePosition = 0;
-    
+      messagePosition = 0;
+
       try
       {
        if (this._ignoreQueryString)
@@ -1108,8 +1108,17 @@ namespace YAF.Pages
         {
           // Show this message
           findMessageId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+          // if the message id is already supplied we find message position in list to redirect to required page in parent method.
+          using (DataTable unread = LegacyDb.message_findunread(
+          this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
+          {
+
+              messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
+          }
         }
-     
+        else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
+                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+        {
           // Find next unread
           using (
             DataTable unread = LegacyDb.message_findunread(
@@ -1121,9 +1130,10 @@ namespace YAF.Pages
             {
               findMessageId = unreadFirst.Field<int>("MessageID");
               messagePosition = unreadFirst.Field<int>("MessagePosition");
-              // move to this message on load...
-              PageContext.PageElements.RegisterJsBlockStartup(
-                this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                  // move to this message on load...
+                  PageContext.PageElements.RegisterJsBlockStartup(
+                      this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+              }
             }
           }
         }

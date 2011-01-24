@@ -112,48 +112,48 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-        bool showDeleted = false;
-        int userId = 0;
-        if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+        if (this.TopicID.HasValue)
         {
-            showDeleted = true;
-        }
-        if (!showDeleted && (this.PageContext.BoardSettings.ShowDeletedMessages &&
-                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-            || this.PageContext.IsAdmin ||
-                           this.PageContext.IsForumModerator)
-        {
-            userId = this.PageContext.PageUserID;
-        }
-       
-        var dt = LegacyDb.post_list(
-            this.TopicID, 
-            userId, 
-            0, 
-            showDeleted, 
-            false,
-            DateTime.MinValue.AddYears(1901),
-            DateTime.UtcNow,
-            DateTime.MinValue.AddYears(1901),
-            DateTime.UtcNow,
-            0,
-            10,
-            2,
-            0,
-            0,
-            false);
+            bool showDeleted = false;
+            int userId = 0;
+            if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+            {
+                showDeleted = true;
+            }
+            if (!showDeleted && (this.PageContext.BoardSettings.ShowDeletedMessages &&
+                                 !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+                || this.PageContext.IsAdmin ||
+                this.PageContext.IsForumModerator)
+            {
+                userId = this.PageContext.PageUserID;
+            }
 
-       // convert to linq...
-        var rowList = dt.AsEnumerable();
-        // last page posts
-        var dataRows = rowList.Take(10);
+            this.repLastPosts.DataSource = LegacyDb.post_list(
+                this.TopicID,
+                userId,
+                0,
+                showDeleted,
+                false,
+                DateTime.MinValue.AddYears(1901),
+                DateTime.UtcNow,
+                DateTime.MinValue.AddYears(1901),
+                DateTime.UtcNow,
+                0,
+                10,
+                2,
+                0,
+                0,
+                false);
+        }
+        else
+        {
+            this.repLastPosts.DataSource = null;
+        }
 
         // load the missing message test
         // this.Get<IDBBroker>().LoadMessageText(dataRows);
 
-        this.repLastPosts.DataSource = this.TopicID.HasValue
-            ? dataRows
-            : null;
+      
       this.repLastPosts.DataBind();
     }
 
