@@ -112,6 +112,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
+        DataTable dt; 
         if (this.TopicID.HasValue)
         {
             bool showDeleted = false;
@@ -128,7 +129,7 @@ namespace YAF.Controls
                 userId = this.PageContext.PageUserID;
             }
 
-            this.repLastPosts.DataSource = LegacyDb.post_list(
+             dt = LegacyDb.post_list(
                 this.TopicID,
                 userId,
                 0,
@@ -144,17 +145,24 @@ namespace YAF.Controls
                 0,
                 0,
                 false);
+             // convert to linq...
+             var rowList = dt.AsEnumerable();
+             // last page posts
+             var dataRows = rowList.Take(10);
+
+             // load the missing message test
+             // this.Get<IDBBroker>().LoadMessageText(dataRows);
+
+             this.repLastPosts.DataSource = dataRows;
+                
+             
         }
         else
         {
-            this.repLastPosts.DataSource = null;
+           this.repLastPosts.DataSource = null;
         }
 
-        // load the missing message test
-        // this.Get<IDBBroker>().LoadMessageText(dataRows);
-
-      
-      this.repLastPosts.DataBind();
+        this.repLastPosts.DataBind();
     }
 
     #endregion

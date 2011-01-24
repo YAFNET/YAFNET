@@ -4587,8 +4587,11 @@ begin
 
    select @PageIndex = @PageIndex+1;   
    select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
-   -- find first selectedrowid  
+   -- find first selectedrowid 
+   if (@firstselectrownum > 0)   
    set rowcount @firstselectrownum
+   else
+   set rowcount 1
    	
    select		
 		@firstselectposted = m.Posted,

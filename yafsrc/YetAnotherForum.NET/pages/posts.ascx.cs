@@ -1010,6 +1010,7 @@ namespace YAF.Pages
         // needs to be moved to the paged data below -- so it doesn't operate on unnecessary rows
         new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
       }
+      
 
       // convert to linq...
       var rowList = postListDataTable.AsEnumerable();
@@ -1024,7 +1025,7 @@ namespace YAF.Pages
         } */
 
         // set the sorting
-        if (!this.IsThreaded)
+      /*  if (!this.IsThreaded)
         {
           // reset position for updated sorting...
           rowList.ForEachIndex(
@@ -1034,7 +1035,7 @@ namespace YAF.Pages
                 row["Position"] = ((Pager.CurrentPageIndex) * Pager.PageSize) + i;
                 row.EndEdit();
               }); 
-        }
+        } */
        
 
       // set the sorting
