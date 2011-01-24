@@ -933,10 +933,9 @@ namespace YAF.Pages
       if (findMessageId > 0)
       {
           this.CurrentMessage = findMessageId;
-        
-              Pager.CurrentPageIndex =
-              (int)Math.Floor((double)((messagePosition / this.Pager.PageSize)));
-        
+          int floor = (int) Math.Floor((double) ((messagePosition/this.Pager.PageSize)));
+          int ceiling = (int)Math.Ceiling((double)((messagePosition / this.Pager.PageSize)));
+          Pager.CurrentPageIndex = floor != ceiling ? floor : floor - 1;
       } 
 
       if (this._topic == null)
@@ -1022,27 +1021,21 @@ namespace YAF.Pages
           // remove posts that are deleted and do not belong to this user...
           rowList =
             rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
-        }
+        } */
 
         // set the sorting
-        if (this.IsThreaded)
+        if (!this.IsThreaded)
         {
-          rowList = rowList.OrderBy(x => x.Field<int>("Position"));
-        }
-        else
-        {
-          rowList = rowList.OrderBy(x => x.Field<DateTime>("Posted"));
-
           // reset position for updated sorting...
           rowList.ForEachIndex(
             (row, i) =>
               {
                 row.BeginEdit();
-                row["Position"] = i;
+                row["Position"] = ((Pager.CurrentPageIndex) * Pager.PageSize) + i;
                 row.EndEdit();
               }); 
         }
-          */
+       
 
       // set the sorting
       
