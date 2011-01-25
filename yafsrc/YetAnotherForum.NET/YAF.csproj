@@ -228,6 +228,9 @@
     <Compile Include="controls\ProfileYourAccount.ascx.designer.cs">
       <DependentUpon>ProfileYourAccount.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\ShoutBox.ascx.designer.cs">
+      <DependentUpon>ShoutBox.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
     </Compile>
@@ -1540,9 +1543,6 @@
     <Compile Include="controls\ShoutBox.ascx.cs">
       <DependentUpon>ShoutBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ShoutBox.ascx.designer.cs">
-      <DependentUpon>ShoutBox.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\smileys.ascx.cs">
       <DependentUpon>smileys.ascx</DependentUpon>

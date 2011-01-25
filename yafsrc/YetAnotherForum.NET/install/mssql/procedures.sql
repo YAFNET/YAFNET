@@ -8271,6 +8271,7 @@ BEGIN
 	SET ROWCOUNT @NumberOfMessages
 
 	SELECT
+		sh.[ShoutBoxMessageID],
 		sh.Username,
 		sh.UserID,
 		sh.[Message],

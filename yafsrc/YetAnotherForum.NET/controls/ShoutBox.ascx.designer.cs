@@ -22,24 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Panel shoutBoxPanel;
         
         /// <summary>
-        /// shoutBoxRefreshTimer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.Timer shoutBoxRefreshTimer;
-        
-        /// <summary>
-        /// shoutBoxUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel shoutBoxUpdatePanel;
-        
-        /// <summary>
         /// CollapsibleImageShoutBox control.
         /// </summary>
         /// <remarks>
@@ -137,6 +119,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClear;
+        
+        /// <summary>
+        /// btnRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRefresh;
         
         /// <summary>
         /// smiliesRepeater control.

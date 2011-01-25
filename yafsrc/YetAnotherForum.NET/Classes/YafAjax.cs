@@ -23,6 +23,8 @@ namespace YAF.Classes
 
   using System;
   using System.Data;
+  using System.Globalization;
+  using System.Linq;
   using System.Text;
   using System.Web;
   using System.Web.Script.Services;
@@ -89,7 +91,7 @@ namespace YAF.Classes
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [WebMethod(EnableSession = true)]
+    [CanBeNull, WebMethod(EnableSession = true)]
     public ThankYouInfo AddThanks([NotNull] object msgID)
     {
       var messageID = msgID.ToType<int>();
@@ -188,6 +190,36 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// The refresh shout box.
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="lastCheck">
+    /// The last check.
+    /// </param>
+    /// <returns>
+    /// The refresh shout box.
+    /// </returns>
+    [WebMethod]
+    public int RefreshShoutBox(int boardId)
+    {
+      var messages = YafContext.Current.Cache.GetItem(
+        YafCache.GetBoardCacheKey(Constants.Cache.Shoutbox + "_basic"),
+        (double)1000,
+        () => LegacyDb.shoutbox_getmessages(boardId, 1, false).AsEnumerable());
+
+      var message = messages.FirstOrDefault();
+
+      if (message != null)
+      {
+        return message.Field<int>("ShoutBoxMessageID");
+      }
+
+      return 0;
+    }
+
+    /// <summary>
     /// The remove favorite topic.
     /// </summary>
     /// <param name="topicId">
@@ -211,7 +243,7 @@ namespace YAF.Classes
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [WebMethod(EnableSession = true)]
+    [NotNull, WebMethod(EnableSession = true)]
     public ThankYouInfo RemoveThanks([NotNull] object msgID)
     {
       var messageID = msgID.ToType<int>();
@@ -285,7 +317,8 @@ namespace YAF.Classes
     /// Returns ThankYou Info
     /// </returns>
     [NotNull]
-    private ThankYouInfo CreateThankYou([NotNull] string username, [NotNull] string textTag, [NotNull] string titleTag, int messageId)
+    private ThankYouInfo CreateThankYou(
+      [NotNull] string username, [NotNull] string textTag, [NotNull] string titleTag, int messageId)
     {
       return new ThankYouInfo
         {

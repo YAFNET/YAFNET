@@ -13,6 +13,7 @@ namespace YAF.Controls
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.Data;
   using System.Text.RegularExpressions;
   using System.Web;
@@ -24,7 +25,6 @@ namespace YAF.Controls
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
-  using YAF.Types.Flags;
   using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
@@ -43,7 +43,7 @@ namespace YAF.Controls
     /// </summary>
     public ShoutBox()
     {
-      this.PreRender += this.ShoutBox_PreRender;
+      
     }
 
     #endregion
@@ -58,6 +58,14 @@ namespace YAF.Controls
       get
       {
         return YafCache.GetBoardCacheKey(Constants.Cache.Shoutbox);
+      }
+    }
+
+    public IEnumerable<DataRow> ShoutBoxMessages
+    {
+      get
+      {
+        return this.Get<IDBBroker>().GetShoutBoxMessages(YafContext.Current.PageBoardID);
       }
     }
 
@@ -119,8 +127,8 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      YafContext.Current.PageElements.RegisterJsBlockStartup(
-        this.shoutBoxUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
+      //YafContext.Current.PageElements.RegisterJsBlockStartup(
+      //  this.shoutBoxUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
 
       base.OnPreRender(e);
     }
@@ -147,6 +155,8 @@ namespace YAF.Controls
         }
       }
 
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
+
       if (!this.IsPostBack)
       {
         this.btnFlyOut.Text = this.PageContext.Localization.GetText("SHOUTBOX", "FLYOUT");
@@ -157,21 +167,7 @@ namespace YAF.Controls
         this.CollapsibleImageShoutBox.Visible = !YafControlSettings.Current.Popup;
 
         this.DataBind();
-      }
-    }
-
-    /// <summary>
-    /// The shout box refresh timer_ tick.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ShoutBoxRefreshTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.DataBind();
+      }  
     }
 
     /// <summary>
@@ -239,59 +235,19 @@ namespace YAF.Controls
         return;
       }
 
-      var shoutBoxMessages = (DataTable)this.PageContext.Cache[this.CacheKey];
+      this.shoutBoxRepeater.DataSource = this.ShoutBoxMessages;
 
-      if (shoutBoxMessages == null)
-      {
-        shoutBoxMessages = LegacyDb.shoutbox_getmessages(
-          this.PageContext.PageBoardID, 
-          this.PageContext.BoardSettings.ShoutboxShowMessageCount, 
-          this.PageContext.BoardSettings.UseStyledNicks);
-
-        // Set colorOnly parameter to false, as we get all color info from data base
-        if (this.PageContext.BoardSettings.UseStyledNicks)
-        {
-          this.Get<IStyleTransform>().DecodeStyleByTable(ref shoutBoxMessages, false);
-        }
-
-        var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
-
-        for (int i = 0; i < shoutBoxMessages.Rows.Count; i++)
-        {
-          string formattedMessage = this.Get<IFormatMessage>().FormatMessage(
-            shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
-
-          // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
-          // formattedMessage = FormatHyperLink(formattedMessage);
-          shoutBoxMessages.Rows[i]["Message"] = formattedMessage;
-        }
-
-        // cache for 30 seconds -- could cause problems on web farm configurations.
-        this.PageContext.Cache.Add(this.CacheKey, shoutBoxMessages, DateTime.UtcNow.AddSeconds(30));
-      }
-
-      this.shoutBoxRepeater.DataSource = shoutBoxMessages;
       if (this.PageContext.BoardSettings.ShowShoutboxSmiles)
       {
         this.smiliesRepeater.DataSource = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
       }
     }
 
-    /// <summary>
-    /// The shout box_ pre render.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ShoutBox_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // set timer status based on if the place holder is visible...
-      this.shoutBoxRefreshTimer.Enabled = this.shoutBoxPlaceHolder.Visible;
-    }
-
     #endregion
+
+    protected void btnRefresh_Click(object sender, EventArgs e)
+    {
+      this.DataBind();
+    }
   }
 }
