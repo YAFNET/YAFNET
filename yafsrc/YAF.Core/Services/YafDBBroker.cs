@@ -27,7 +27,9 @@ namespace YAF.Core.Services
   using System.Web;
   using System.Web.Caching;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
+  using YAF.Types.Flags;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -63,6 +65,39 @@ namespace YAF.Core.Services
 
       return YafContext.Current.Cache.GetItem(
         cacheKey, 999, CacheItemPriority.High, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null));
+    }
+
+    public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
+    {
+      return YafContext.Current.Cache.GetItem(
+        YafCache.GetBoardCacheKey(Constants.Cache.Shoutbox),
+        (double)30000,
+        () =>
+          {
+            var messages = LegacyDb.shoutbox_getmessages(
+              boardId,
+              YafContext.Current.BoardSettings.ShoutboxShowMessageCount,
+              YafContext.Current.BoardSettings.UseStyledNicks);
+
+            // Set colorOnly parameter to false, as we get all color info from data base
+            if (YafContext.Current.BoardSettings.UseStyledNicks)
+            {
+              this.Get<IStyleTransform>().DecodeStyleByTable(ref messages, false);
+            }
+
+            var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
+
+            foreach (var row in messages.AsEnumerable())
+            {
+              string formattedMessage = this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
+
+              // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
+              // formattedMessage = FormatHyperLink(formattedMessage);
+              row["Message"] = formattedMessage;
+            }
+
+            return messages;
+          }).AsEnumerable();
     }
 
     /// <summary>

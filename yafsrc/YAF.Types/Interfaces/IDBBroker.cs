@@ -37,6 +37,8 @@ namespace YAF.Types.Interfaces
 
     IEnumerable<TypedBBCode> GetCustomBBCode();
 
+    IEnumerable<DataRow> GetShoutBoxMessages(int boardId);
+
     /// <summary>
     /// The user lazy data.
     /// </summary>
