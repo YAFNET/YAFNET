@@ -177,7 +177,7 @@ namespace YAF.Pages
                 (int?) ViewState["SortNumPostsField"],
                 (int?) ViewState["SortLastVisitField"],
                 NumPostsTB.Text.Trim().IsSet() ? NumPostsTB.Text.Trim().ToType<int>() : 0,
-                this.NumPostDDL.SelectedIndex <= 0 ? 3 : (NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
+                this.NumPostDDL.SelectedIndex < 0 ? 3 : (NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
                 new StyleTransform(YafContext.Current.Get<ITheme>()).DecodeStyleByTable(ref _userListDataTable, false);
