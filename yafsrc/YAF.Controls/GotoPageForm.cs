@@ -204,7 +204,7 @@ namespace YAF.Controls
       this._mainPanel.Controls.Add(this._divInner);
 
       this._gotoButton.ID = this.GetExtendedID("GotoButton");
-      this._gotoButton.Style.Add(HtmlTextWriterStyle.Width, "30px");
+      this._gotoButton.Style.Add(HtmlTextWriterStyle.Width, "70px");
       this._gotoButton.CausesValidation = false;
       this._gotoButton.UseSubmitBehavior = false;
       this._gotoButton.Click += this.GotoButtonClick;

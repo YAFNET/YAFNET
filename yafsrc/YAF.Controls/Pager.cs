@@ -414,7 +414,7 @@ gotoForm.fadeIn( 'slow', function() {{
         return;
       }
 
-      output.WriteLine(@"<div class=""yafpager"" id=""{0}"">".FormatWith(this.ClientID));
+      output.WriteLine(@"<div class=""yafpager"" title=""{0}"" id=""{1}"">".FormatWith(this.PageContext.Localization.TransPage.IsSet() ? this.PageContext.Localization.GetText("COMMON", "GOTOPAGE_HEADER") : "Go to page...", this.ClientID));
 
       this._pageLabel.CssClass = "pagecount";
 
