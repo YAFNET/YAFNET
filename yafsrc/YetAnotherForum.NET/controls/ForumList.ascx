@@ -22,7 +22,7 @@
 					<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
 				</div>
 				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
-					Visible='<%# HasSubforums() %>' />
+					Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
 			</td>
 			<td class="moderatorListCol" id="ModeratorListTD" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
@@ -56,7 +56,7 @@
 					<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]"))%>
 				</div> 
 				<YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
-					Visible='<%# HasSubforums() %>' />
+					Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
 			</td>
 			<td class="moderatorListCol" id="ModeratorListTD" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />

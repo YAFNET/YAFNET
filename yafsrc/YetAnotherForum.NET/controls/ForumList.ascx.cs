@@ -382,8 +382,8 @@ namespace YAF.Controls
     /// </returns>
     protected IEnumerable GetSubforums([NotNull] DataRow row)
     {
-      
-      if (this.HasSubforums())
+
+        if (this.HasSubforums(row))
       {
           ArrayList arlist=  new ArrayList();
           foreach (DataRow subrow in SubDataSource.Rows)
@@ -431,11 +431,18 @@ namespace YAF.Controls
     /// <returns>
     /// The has subforums.
     /// </returns>
-    protected bool HasSubforums()
+    protected bool HasSubforums([NotNull] DataRow row)
     {
         if (SubDataSource != null)
         {
-            return (int) SubDataSource.Rows.Count > 0;
+         
+          foreach (DataRow subrow in SubDataSource.Rows)
+          {
+              if (row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
+              {
+                  return true;
+              }
+          }
         }
         return false;
     }
