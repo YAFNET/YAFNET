@@ -1018,6 +1018,10 @@
       <Resource tag="SEARCH_RANK">Rank:</Resource>
       <Resource tag="SEARCH_ROLE">Role:</Resource>
       <Resource tag="SEARCH_MEMBER">Member Name Contains:</Resource>
+      <Resource tag="NUMPOSTSEQUAL">is equal to</Resource>
+      <Resource tag="INVALIDPOSTSVALUE">You've entered an invalid value for number of posts.</Resource>
+      <Resource tag="NUMPOSTSLESSOREQUAL">is less or equal to</Resource>
+      <Resource tag="NUMPOSTSMOREOREQUAL">is more or equal to</Resource>
    </page>
    <page name="MOD_FORUMUSER">
       <Resource tag="ACCESSMASK">Access Mask:</Resource>

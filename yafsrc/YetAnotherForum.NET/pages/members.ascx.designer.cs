@@ -85,6 +85,33 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.TextBox UserSearchName;
         
         /// <summary>
+        /// NumPostsLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel NumPostsLabel;
+        
+        /// <summary>
+        /// NumPostDDL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList NumPostDDL;
+        
+        /// <summary>
+        /// NumPostsTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NumPostsTB;
+        
+        /// <summary>
         /// ResetUserSearch control.
         /// </summary>
         /// <remarks>

@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Web.UI.WebControls;
 using YAF.Types;
 using YAF.Types.Constants;
 using YAF.Types.Interfaces;
@@ -29,13 +30,8 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
-    using System.Linq;
-    using System.Web.UI.WebControls;
-
-    using YAF.Classes;
     using YAF.Core;
     using YAF.Classes.Data;
-    using YAF.Classes.Pattern;
     using YAF.Utils;
 
     #endregion
@@ -162,8 +158,7 @@ namespace YAF.Pages
         /// </returns>
         protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
         {
-
-            _userListDataTable =  LegacyDb.user_listmembers(
+            _userListDataTable = LegacyDb.user_listmembers(
                 PageContext.PageBoardID,
                 null,
                 true,
@@ -176,11 +171,13 @@ namespace YAF.Pages
                 !specialSymbol ? false : true,
                 this.Pager.CurrentPageIndex,
                 Pager.PageSize,
-               (int?)ViewState["SortNameField"],
-               (int?)ViewState["SortRankNameField"],
-               (int?)ViewState["SortJoinedField"],
-               (int?)ViewState["SortNumPostsField"],
-               (int?)ViewState["SortLastVisitField"]);
+                (int?) ViewState["SortNameField"],
+                (int?) ViewState["SortRankNameField"],
+                (int?) ViewState["SortJoinedField"],
+                (int?) ViewState["SortNumPostsField"],
+                (int?) ViewState["SortLastVisitField"],
+                NumPostsTB.Text.Trim().IsSet() ? NumPostsTB.Text.Trim().ToType<int>() : 0,
+                this.NumPostDDL.SelectedIndex <= 0 ? 3 : (NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
                 new StyleTransform(YafContext.Current.Get<ITheme>()).DecodeStyleByTable(ref _userListDataTable, false);
@@ -235,7 +232,7 @@ namespace YAF.Pages
             this.Joined.Text = this.GetText("joined");
             this.Posts.Text = this.GetText("posts");
             this.LastVisitLB.Text = this.GetText("members","lastvisit");
-
+       
             using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
             {
                 // add empty item for no filtering
@@ -262,6 +259,12 @@ namespace YAF.Pages
                 this.Group.DataValueField = "GroupID";
                 this.Group.DataBind();
             }
+
+            this.NumPostDDL.Items.Add(new ListItem(this.PageContext.Localization.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
+            this.NumPostDDL.Items.Add(new ListItem(this.PageContext.Localization.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
+            this.NumPostDDL.Items.Add(new ListItem(this.PageContext.Localization.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
+           
+            this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
             using (DataTable dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
@@ -434,6 +437,18 @@ namespace YAF.Pages
             else
             {
                 selectedLetter = selectedCharLetter.ToString();
+            }
+            
+            int numpostsTb = 0;
+            if (NumPostsTB.Text.Trim().IsSet() && (!int.TryParse(NumPostsTB.Text.Trim(), out numpostsTb ) || numpostsTb < 0 || numpostsTb > int.MaxValue))
+            {
+                PageContext.AddLoadMessage(GetText("MEMBERS","INVALIDPOSTSVALUE"));
+                return;
+            }
+            if (NumPostsTB.Text.Trim().IsNotSet())
+            {
+                NumPostsTB.Text = "0";
+                NumPostDDL.SelectedValue = "3";
             }
 
             // get the user list...

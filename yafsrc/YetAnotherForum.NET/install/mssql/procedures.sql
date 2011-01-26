@@ -6524,7 +6524,9 @@ create procedure [{databaseOwner}].[{objectQualifier}user_listmembers](
 				@SortRank int = 0,
 				@SortJoined int = 0,
 				@SortPosts int = 0,
-				@SortLastVisit int = 0) as
+				@SortLastVisit int = 0,
+				@NumPosts int = 0,
+				@NumPostsCompare int = 0) as
 begin
   
    declare @user_totalrowsnumber int 
@@ -6553,7 +6555,15 @@ begin
 		LOWER(a.DisplayName) LIKE CASE 
 			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
 			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
-			ELSE '%' END  	
+			ELSE '%' END  
+        and
+		(a.NumPosts >= (case 
+        when @NumPostsCompare = 3 then  @NumPosts end) 
+		OR a.NumPosts <= (case 
+        when @NumPostsCompare = 2 then @NumPosts end) OR
+		a.NumPosts = (case 
+        when @NumPostsCompare = 1 then @NumPosts end)) 
+				
 
 	--	SET @user_totalrowsnumber = @@ROWCOUNT    
 
@@ -6561,7 +6571,10 @@ begin
    select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
       
 	  -- fined first selectedrowid  
-	  set rowcount @firstselectrownum	 
+	  if (@firstselectrownum > 0)
+	  set rowcount @firstselectrownum
+	  else
+	  set rowcount	1 
 
       select @firstselectuserid = a.UserID ,  
 	         @firstselectlastvisit = a.LastVisit, 
@@ -6583,6 +6596,13 @@ begin
 			WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
 			WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
 			ELSE '%' END 
+        and
+		(a.NumPosts >= (case 
+        when @NumPostsCompare = 3 then  @NumPosts end) 
+		OR a.NumPosts <= (case 
+        when @NumPostsCompare = 2 then @NumPosts end) OR
+		a.NumPosts = (case 
+        when @NumPostsCompare = 1 then @NumPosts end)) 
      order by  	 
 	    (case 
         when @SortName = 2 then a.UserID end) DESC,
@@ -6644,6 +6664,12 @@ begin
         when @SortLastVisit = 2 then @firstselectlastvisit end) OR
 		a.LastVisit >= (case 
         when @SortLastVisit = 0 then 0 end))  and
+		(a.NumPosts >= (case 
+        when @NumPostsCompare = 3 then  @NumPosts end) 
+		OR a.NumPosts <= (case 
+        when @NumPostsCompare = 2 then @NumPosts end) OR
+		a.NumPosts = (case 
+        when @NumPostsCompare = 1 then @NumPosts end))  and
 		/*
 		(a.NumPosts >= (case 
         when @SortPosts = 1 then @firstselectposts end) 

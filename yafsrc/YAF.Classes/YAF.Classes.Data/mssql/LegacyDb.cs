@@ -7543,7 +7543,9 @@ namespace YAF.Classes.Data
           object sortRank, 
           object sortJoined, 
           object sortPosts,
-          object sortLastVisit)
+          object sortLastVisit,
+          object numPosts,
+          object numPostCompare)
     {
         using (var cmd = MsSqlDbAccess.GetCommand("user_listmembers"))
         {
@@ -7564,6 +7566,8 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("SortJoined", sortJoined);
             cmd.Parameters.AddWithValue("SortPosts", sortPosts);
             cmd.Parameters.AddWithValue("SortLastVisit", sortLastVisit);
+            cmd.Parameters.AddWithValue("NumPosts", numPosts);
+            cmd.Parameters.AddWithValue("NumPostsCompare", numPostCompare);
             return MsSqlDbAccess.Current.GetData(cmd);
         }
     }

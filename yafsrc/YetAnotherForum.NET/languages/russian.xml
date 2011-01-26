@@ -2342,8 +2342,12 @@
   <page name="MEMBERS">
     <Resource tag="ALL">Все</Resource>
     <Resource tag="AVATAR">Аватар</Resource>
+    <Resource tag="INVALIDPOSTSVALUE">Вы ввели недопустимое значение для числа сообщений.</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
     <Resource tag="LASTVISIT">Последнее посещение</Resource>
+    <Resource tag="NUMPOSTSEQUAL">равно</Resource>
+    <Resource tag="NUMPOSTSLESSOREQUAL">меньше или равно</Resource>
+    <Resource tag="NUMPOSTSMOREOREQUAL">больше или равно</Resource>
     <Resource tag="PAGES">{0} Страниц:</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="RANK">Ранг</Resource>

@@ -32,6 +32,14 @@
                 <asp:TextBox ID="UserSearchName" runat="server" Width="95%"></asp:TextBox>
             </td>
         </tr>
+         <tr class="post" >
+              <td colspan="3">
+                 <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" LocalizedTag="NUMPOSTS" />&nbsp;            
+                <asp:DropDownList ID="NumPostDDL" runat="server" Width="200px">                              
+                </asp:DropDownList>&nbsp;         
+                <asp:TextBox ID="NumPostsTB" runat="server" Width="70px"></asp:TextBox>
+              </td>                      
+        </tr>
         <tr>
             <td class="footer1" colspan="1" align="left">
             <asp:Button ID="ResetUserSearch" runat="server" OnClick="Reset_Click" Text='<%# this.GetText("Cancel") %>' ></asp:Button>
