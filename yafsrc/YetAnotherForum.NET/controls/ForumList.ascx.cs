@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Linq;
+using YAF.Utils.Helpers;
+
 namespace YAF.Controls
 {
   #region Using
@@ -75,16 +78,55 @@ namespace YAF.Controls
       }
     }
 
+    private IEnumerable _dataSource;
+
     /// <summary>
     ///   Sets DataSource.
     /// </summary>
     public IEnumerable DataSource
     {
-      set
-      {
-        this.ForumList1.DataSource = value;
-      }
+        get { return _dataSource; }
+        set
+        {
+            _dataSource = value;
+            
+            Type t = _dataSource.GetType();
+            if (t.Name == "DataRow[]")
+            {
+                ArrayList arlist = new ArrayList();
+                DataRow[] arr = (DataRow[])_dataSource;
+                for (int i = 0; i < arr.Count(); i++)
+                {
+                    if (!arr[i]["ParentID"].IsNullOrEmptyDBField() )
+                    {
+                        if (SubDataSource == null)
+                        {
+                            SubDataSource = arr[i].Table.Clone();
+                        }
+                        DataRow drow = SubDataSource.NewRow();
+                        drow.ItemArray = arr[i].ItemArray;
+                       
+                        SubDataSource.Rows.Add(drow);
+                    }
+                    else
+                    {
+                        arlist.Add(arr[i]);
+                    }
+                    
+                }
+   
+                SubDataSource.AcceptChanges();
+                _dataSource = arlist;
+
+                
+            }
+
+            this.ForumList1.DataSource = _dataSource;
+           
+        }
     }
+
+    private DataTable SubDataSource{get; set;}
 
     #endregion
 
@@ -340,11 +382,20 @@ namespace YAF.Controls
     /// </returns>
     protected IEnumerable GetSubforums([NotNull] DataRow row)
     {
+      
       if (this.HasSubforums(row))
       {
-        return
-          LegacyDb.forum_listread(
-            this.PageContext.PageBoardID, this.PageContext.PageUserID, row["CategoryID"], row["ForumID"], false).Rows;
+          ArrayList arlist=  new ArrayList();
+          foreach (DataRow subrow in SubDataSource.Rows)
+          {
+              if (row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
+              {
+                  arlist.Add(subrow);
+              }
+          }
+
+         SubDataSource.AcceptChanges();
+         return arlist;
       }
 
       return null;

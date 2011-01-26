@@ -2674,6 +2674,52 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null, @StyledNicks bit=null) as
 begin
+declare @tbl1 table
+( ForumID int, ParentID int)
+declare @tbl table
+( ForumID int, ParentID int)
+-- get parent forums list first
+insert into @tbl1(ForumID,ParentID)
+select 	
+		b.ForumID,
+		b.ParentID		
+	from 
+		[{databaseOwner}].[{objectQualifier}Category] a
+		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
+		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+	where 
+		a.BoardID = @BoardID and
+		((b.Flags & 2)=0 or x.ReadAccess<>0) and
+		(@CategoryID is null or a.CategoryID=@CategoryID) and
+		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
+		x.UserID = @UserID
+	order by
+		a.SortOrder,
+		b.SortOrder
+-- child forums
+insert into @tbl(ForumID,ParentID)
+select 	
+		b.ForumID,
+		b.ParentID		
+	from 
+		[{databaseOwner}].[{objectQualifier}Category] a
+		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
+		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+	where 
+		a.BoardID = @BoardID and
+		((b.Flags & 2)=0 or x.ReadAccess<>0) and
+		(@CategoryID is null or a.CategoryID=@CategoryID) and
+		(b.ParentID IN (SELECT ForumID FROM @tbl1)) and
+		x.UserID = @UserID
+	order by
+		a.SortOrder,
+		b.SortOrder
+
+   INSERT INTO @tbl(ForumID,ParentID)
+   SELECT * FROM @tbl1
+
 		select 
 		a.CategoryID, 
 		Category		= a.Name, 
@@ -2682,6 +2728,7 @@ begin
 		b.[Description],
 		b.ImageUrl,
 		b.Styles,
+		b.ParentID,
 		b.PollGroupID,
 		Topics			= [{databaseOwner}].[{objectQualifier}forum_topics](b.ForumID),
 		Posts			= [{databaseOwner}].[{objectQualifier}forum_posts](b.ForumID),
@@ -2710,11 +2757,11 @@ begin
 		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
 		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
 	where 
-		a.BoardID = @BoardID and
+		 a.BoardID = @BoardID and
 		((b.Flags & 2)=0 or x.ReadAccess<>0) and
-		(@CategoryID is null or a.CategoryID=@CategoryID) and
-		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
-		x.UserID = @UserID
+		(@CategoryID is null or a.CategoryID=@CategoryID) and		
+		x.UserID = @UserID and
+		b.ForumID IN (SELECT ForumID FROM @tbl)
 	order by
 		a.SortOrder,
 		b.SortOrder
