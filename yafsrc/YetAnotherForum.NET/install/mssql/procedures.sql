@@ -2731,8 +2731,7 @@ select
 		b.ParentID,
 		b.PollGroupID,
 		Topics			= [{databaseOwner}].[{objectQualifier}forum_topics](b.ForumID),
-		Posts			= [{databaseOwner}].[{objectQualifier}forum_posts](b.ForumID),
-		Subforums		= [{databaseOwner}].[{objectQualifier}forum_subforums](b.ForumID, @UserID),
+		Posts			= [{databaseOwner}].[{objectQualifier}forum_posts](b.ForumID),		
 		LastPosted		= t.LastPosted,
 		LastMessageID	= t.LastMessageID,
 		LastMessageFlags = t.LastMessageFlags,
@@ -3338,14 +3337,15 @@ TopicID int,
 Posted datetime,
 Edited datetime
 )
-
+-- find first message id
 select top 1	  
 		@firstmessageid = m.MessageID
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m	
 	where
 		m.TopicID = @TopicID ORDER BY m.Posted
-				
+
+	-- fill in the table variable with	first 100 values from topic's messages		
 	insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
 	select  top 100	  
 		m.MessageID,
@@ -3358,27 +3358,32 @@ select top 1
 		m.TopicID = @TopicID and m.IsDeleted = 0		
 	order by		
 		m.Posted 
+    -- the messageid was already supplied, find a particular message
     if (@MessageID > 0)
 	begin
-	if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and Posted>@LastRead)
-	begin
-	-- return last unread		
-	select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid from @tbl_msglunr
-	where TopicID=@TopicID and Posted>@LastRead  
-	order by Posted 
+	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and Posted>@LastRead)
+	    begin
+	     -- return last unread		
+	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+		   from @tbl_msglunr
+	       where TopicID=@TopicID and Posted>@LastRead  
+	       order by Posted 
+		end
+	    else
+	    begin
+	     -- simply return last post if no unread message is found
+	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+		   from @tbl_msglunr
+	       where TopicID=@TopicID
+	       order by Posted DESC
+	    end
 	end
 	else
 	begin
-	-- return last post
-	select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid from @tbl_msglunr
-	where TopicID=@TopicID
-	order by Posted DESC
-	end
-	end
-	else
-	begin
-	select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid from @tbl_msglunr
-	where MessageID = @MessageID
+	   -- simply return last message as no MessageID was supplied
+	   select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+	   from @tbl_msglunr
+		where TopicID=@TopicID
 	order by Posted 
 	end
 
@@ -4624,8 +4629,8 @@ begin
 		m.TopicID = @TopicID
 		AND m.IsApproved = 1
 		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
-		AND m.Posted >=
-		 @SincePostedDate
+		AND m.Posted BETWEEN
+		 @SincePostedDate AND @ToPostedDate
 		 /*
 		AND 
 		m.Edited >= SinceEditedDate
@@ -4638,6 +4643,7 @@ begin
    if (@firstselectrownum > 0)   
    set rowcount @firstselectrownum
    else
+   -- should not be 0
    set rowcount 1
    	
    select		
@@ -4654,8 +4660,8 @@ begin
 		m.TopicID = @TopicID
 		AND m.IsApproved = 1
 		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
-		AND m.Posted >=
-		 @SincePostedDate	
+		AND m.Posted BETWEEN
+		 @SincePostedDate AND @ToPostedDate
 		 /*
 		AND m.Edited > @SinceEditedDate
 		*/
@@ -4727,7 +4733,8 @@ begin
 		 @firstselectposted end) OR m.Posted <= (case 
         when @SortPosted = 2 then @firstselectposted end) OR
 		m.Posted >= (case 
-        when @SortPosted = 0 then 0 end))))	
+        when @SortPosted = 0 then 0 end))))	AND
+		(m.Posted <= @ToPostedDate)	
 		/*
 		AND (m.Edited is null OR (m.Edited is not null AND
 		(m.Edited >= (case 

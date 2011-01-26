@@ -145,15 +145,8 @@ namespace YAF.Controls
                 0,
                 0,
                 false);
-             // convert to linq...
-             var rowList = dt.AsEnumerable();
-             // last page posts
-             var dataRows = rowList.Take(10);
 
-             // load the missing message test
-             // this.Get<IDBBroker>().LoadMessageText(dataRows);
-
-             this.repLastPosts.DataSource = dataRows;
+             this.repLastPosts.DataSource = dt.AsEnumerable();
                 
              
         }

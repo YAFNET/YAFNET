@@ -919,9 +919,6 @@ namespace YAF.Pages
 
         var altItem = false;
 
-        // load the missing message test
-        // this.Get<IDBBroker>().LoadMessageText(dataRows);
-
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
         feed =

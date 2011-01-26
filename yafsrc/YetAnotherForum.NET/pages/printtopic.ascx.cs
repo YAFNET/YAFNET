@@ -165,14 +165,8 @@ namespace YAF.Pages
               0, 
               0, 
               false);
-      
-        // get max 500 rows
-        var dataRows = dt.AsEnumerable();
 
-        // load the missing message test
-        // this.Get<IDBBroker>().LoadMessageText(dataRows);
-
-        this.Posts.DataSource = dataRows;
+        this.Posts.DataSource = dt.AsEnumerable(); 
 
         this.DataBind();
       }

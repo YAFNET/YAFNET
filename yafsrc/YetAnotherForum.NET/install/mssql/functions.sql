@@ -143,25 +143,6 @@ begin
 end
 GO
 
-CREATE function [{databaseOwner}].[{objectQualifier}forum_subforums](@ForumID int, @UserID int) returns int as
-
-begin
-	declare @NumSubforums int
-
-	select 
-		@NumSubforums=COUNT(1)	
-	from 
-		[{databaseOwner}].[{objectQualifier}Forum] a 
-		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID 
-	where 
-		((a.Flags & 2)=0 or x.ReadAccess<>0) and 
-		(a.ParentID=@ForumID) and	
-		(x.UserID = @UserID)
-
-	return @NumSubforums
-end
-GO
-
 CREATE FUNCTION [{databaseOwner}].[{objectQualifier}forum_lasttopic] 
 
 (	

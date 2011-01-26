@@ -1053,9 +1053,6 @@ namespace YAF.Pages
         this.Get<IDBBroker>().AddThanksInfo(pagedData);
       }
 
-      // dynamic load messages that are needed...
-      // this.Get<IDBBroker>().LoadMessageText(pagedData);
-
       // if current index is 0 we are on the first page and the metadata can be added.
       if (Pager.CurrentPageIndex == 0)
       {
