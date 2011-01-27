@@ -2889,7 +2889,7 @@
     <Resource tag="ADMINS">Администраторы</Resource>
     <Resource tag="FORUMS">Форумы</Resource>
     <Resource tag="FORUMS_ALL">Все форумы...</Resource>
-    <Resource tag="GO">Готово</Resource>
+    <Resource tag="GO">Просмотр</Resource>
     <Resource tag="MODS">Модераторы</Resource>
     <Resource tag="TITLE">Команда</Resource>
     <Resource tag="USER">Пользователь</Resource>

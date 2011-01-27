@@ -114,8 +114,11 @@ namespace YAF.Controls
                     }
                     
                 }
-   
-                SubDataSource.AcceptChanges();
+
+                if (SubDataSource != null)
+                {
+                    SubDataSource.AcceptChanges();
+                }
                 _dataSource = arlist;
 
                 

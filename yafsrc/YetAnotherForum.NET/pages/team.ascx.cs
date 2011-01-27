@@ -85,11 +85,15 @@ namespace YAF.Pages
       var gridItem = (DataGridItem)goToForumButton.NamingContainer;
 
       var modForums = (DropDownList)gridItem.FindControl("ModForums");
+        
+        int redirForum = 0;
 
-      if (modForums.SelectedValue != "intro" || modForums.SelectedValue != "break")
+
+        if (int.TryParse(modForums.SelectedValue, out redirForum))
       {
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", modForums.SelectedValue);
       }
+        
     }
 
     #endregion
