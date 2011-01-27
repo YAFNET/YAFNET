@@ -152,57 +152,7 @@ namespace YAF.Pages
 
     #region Public Methods
 
-    /// <summary>
-    /// An image reader to read images on local disk.
-    /// </summary>
-    /// <param name="path">
-    /// The path.
-    /// </param>
-    public Stream GetLocalData(Uri path)
-    {
-      return new FileStream(path.LocalPath, FileMode.Open);
-    }
 
-      /// <summary>
-      /// The get remote data.
-      /// </summary>
-      /// <param name="url">
-      /// The url.
-      /// </param>
-      /// <param name="length">
-      /// The content length in bits.
-      /// </param>
-      /// <param name="contentType">
-      /// The content type.
-      /// </param>
-      /// <returns>
-      /// the Stream class.
-      /// </returns>
-      public Stream GetRemoteData(Uri url, out long length, out string contentType)
-    {
-      string path = url.ToString();
-      length = 0;
-      contentType = String.Empty;
-      try
-      {
-        if (path.StartsWith("~/"))
-        {
-          path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
-        }
-
-        WebRequest request = WebRequest.Create(new Uri(path));
-
-        WebResponse response = request.GetResponse();
-        length =  response.ContentLength;
-        contentType =  response.ContentType;
-        return response.GetResponseStream();
-      }
-      catch
-      {
-        return new MemoryStream();
-      }
- // Don't make the program crash just because we have a picture which failed downloading
-    }
 
     #endregion
 
@@ -220,49 +170,6 @@ namespace YAF.Pages
     protected void Cancel_Click(object sender, EventArgs eventArgs)
     {
       this.ReturnToPage();
-    }
-
-    /// <summary>
-    /// From a path, return a byte[] of the image.
-    /// </summary>
-    /// <param name="uriPath">
-    /// External image path.
-    /// </param>
-    /// <param name="length">
-    /// The image size in bytes.
-    /// </param>
-    /// <returns>
-    /// The get image parameters.
-    /// </returns>
-    protected string GetImageParameters(Uri uriPath, out long length)
-    {
-      string pseudoMime = string.Empty;
-      string contentType = string.Empty;
-      using (Stream stream = this.GetRemoteData(uriPath, out length, out contentType))
-      {
-        Bitmap img = null;
-        try
-        {
-          img = new Bitmap(stream);
-
-          // no need to set here mime exatly this is reserved for customization.
-          pseudoMime = "{0}!{1};{2}".FormatWith(contentType, img.Width, img.Height);
-        }
-        catch
-        {
-            return String.Empty;
-        }
-        finally
-        {
-          if (img != null)
-          {
-            img.Dispose();
-          }
-        }
-        stream.Close();
-      }
-
-        return pseudoMime;
     }
 
     /// <summary>
@@ -497,7 +404,7 @@ namespace YAF.Pages
          if (questionPath.IsSet())
          {
              long length = 0;
-             questionMime = this.GetImageParameters(new Uri(questionPath), out length);
+             questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
              if (questionMime.IsNotSet())
              {
                  YafContext.Current.AddLoadMessage(
@@ -513,10 +420,7 @@ namespace YAF.Pages
                            "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize, questionPath));
                  return false;
              }
-
-             
          }
-
 
           LegacyDb.poll_update(
           this.PollId, 
@@ -542,7 +446,7 @@ namespace YAF.Pages
           if (choiceObjectPath.IsSet())
           {
               long length = 0;
-              choiceImageMime = this.GetImageParameters(new Uri(choiceObjectPath), out length);
+              choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
               if (choiceImageMime.IsNotSet())
               {
                   YafContext.Current.AddLoadMessage(
@@ -605,7 +509,7 @@ namespace YAF.Pages
         if (questionPath.IsSet())
         {
             long length = 0;
-            questionMime = this.GetImageParameters(new Uri(questionPath), out length);
+            questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
             if (questionMime.IsNotSet())
             {
                 YafContext.Current.AddLoadMessage(
@@ -635,7 +539,7 @@ namespace YAF.Pages
             if (choiceObjectPath.IsSet())
             {
                 long length = 0;
-                choiceObjectMime = this.GetImageParameters(new Uri(choiceObjectPath), out length);
+                choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
                 if (choiceObjectMime.IsNotSet())
                 {
                     YafContext.Current.AddLoadMessage(
