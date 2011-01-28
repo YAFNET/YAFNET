@@ -2684,10 +2684,9 @@ select
 		b.ForumID,
 		b.ParentID		
 	from 
-		[{databaseOwner}].[{objectQualifier}Category] a
-		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
-		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+		[{databaseOwner}].[{objectQualifier}Category] a with(nolock) 
+		join [{databaseOwner}].[{objectQualifier}Forum] b  with(nolock) on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=b.ForumID	
 	where 
 		a.BoardID = @BoardID and
 		((b.Flags & 2)=0 or x.ReadAccess<>0) and
@@ -2703,10 +2702,9 @@ select
 		b.ForumID,
 		b.ParentID		
 	from 
-		[{databaseOwner}].[{objectQualifier}Category] a
-		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
-		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+		[{databaseOwner}].[{objectQualifier}Category] a  with(nolock)
+		join [{databaseOwner}].[{objectQualifier}Forum] b  with(nolock) on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=b.ForumID		
 	where 
 		a.BoardID = @BoardID and
 		((b.Flags & 2)=0 or x.ReadAccess<>0) and
@@ -2716,6 +2714,9 @@ select
 	order by
 		a.SortOrder,
 		b.SortOrder
+
+-- insert into @tbl(ForumID,ParentID)
+-- select * FROM @tbl1
  -- more childrens can be added to display as a tree
 
 		select 
@@ -2753,13 +2754,10 @@ select
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
 		join [{databaseOwner}].[{objectQualifier}ActiveAccess] x on x.ForumID=b.ForumID
 		left outer join [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
-	where 
-		 a.BoardID = @BoardID and
-		((b.Flags & 2)=0 or x.ReadAccess<>0) and
+	where 		
 		(@CategoryID is null or a.CategoryID=@CategoryID) and		
-		x.UserID = @UserID and
-		(b.ForumID IN (SELECT ForumID FROM @tbl) OR 
-		b.ForumID IN (SELECT ForumID FROM @tbl1))
+		 x.UserID = @UserID and		
+		(b.ForumID IN (SELECT ForumID FROM @tbl) OR b.ForumID IN (SELECT ForumID FROM @tbl1))
 	order by
 		a.SortOrder,
 		b.SortOrder
@@ -5577,6 +5575,7 @@ begin
 			c.Posted,
 			LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 			c.TopicMovedID,
+			FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = c.TopicMovedID OR (c.TopicMovedID IS NULL AND TopicId = c.TopicID)),
 			[Subject] = c.Topic,
 			c.UserID,
 			Starter = IsNull(c.UserName,b.Name),
