@@ -20,6 +20,8 @@ namespace YAF.Core
 {
   #region Using
 
+  using System;
+
   using Autofac;
   using Autofac.Core;
 
@@ -50,6 +52,40 @@ namespace YAF.Core
       CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(typeof(TRegistered)));
+    }
+
+    /// <summary>
+    /// Is not registered in the component registry.
+    /// </summary>
+    /// <param name="haveComponentRegistry">
+    /// The have component registry.
+    /// </param>
+    /// <param name="registeredType"></param>
+    /// <returns>
+    /// The is registered.
+    /// </returns>
+    public static bool IsNotRegistered([NotNull] this IHaveComponentRegistry haveComponentRegistry, Type registeredType)
+    {
+      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+
+      return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(registeredType));
+    }
+
+    /// <summary>
+    /// The is registered.
+    /// </summary>
+    /// <param name="haveComponentRegistry">
+    /// The have component registry.
+    /// </param>
+    /// <param name="registeredType"></param>
+    /// <returns>
+    /// The is registered.
+    /// </returns>
+    public static bool IsRegistered([NotNull] this IHaveComponentRegistry haveComponentRegistry, Type registeredType)
+    {
+      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+
+      return haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(registeredType));
     }
 
     /// <summary>

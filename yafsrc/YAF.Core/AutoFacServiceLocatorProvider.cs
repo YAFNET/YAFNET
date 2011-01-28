@@ -22,15 +22,19 @@ namespace YAF.Core
 
   using System;
   using System.Collections.Generic;
-  using System.ComponentModel;
   using System.Linq;
   using System.Reflection;
 
   using Autofac;
+  using Autofac.Core;
 
   using YAF.Classes.Pattern;
   using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  using NamedParameter = YAF.Types.NamedParameter;
+  using TypedParameter = YAF.Types.TypedParameter;
 
   #endregion
 
@@ -41,13 +45,16 @@ namespace YAF.Core
   {
     #region Constants and Fields
 
-    private static IThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>> _injectionCache =
-      new ThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>>();
-
     /// <summary>
-    /// The default flags.
+    ///   The default flags.
     /// </summary>
     private const BindingFlags DefaultFlags = BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.Instance;
+
+    /// <summary>
+    /// The _injection cache.
+    /// </summary>
+    private static readonly IThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>> _injectionCache =
+      new ThreadSafeDictionary<KeyValuePair<Type, Type>, IList<PropertyInfo>>();
 
     #endregion
 
@@ -94,8 +101,7 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(instance, "instance");
 
-      //Container.InjectUnsetProperties(instance);
-
+      // Container.InjectUnsetProperties(instance);
       var type = instance.GetType();
       var attributeType = typeof(TAttribute);
 
@@ -160,6 +166,29 @@ namespace YAF.Core
     /// <param name="serviceType">
     /// The service type.
     /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    /// <exception cref="NotSupportedException">
+    /// <c>NotSupportedException</c>.
+    /// </exception>
+    public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(serviceType, "serviceType");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
     /// <param name="named">
     /// The named.
     /// </param>
@@ -172,6 +201,30 @@ namespace YAF.Core
       CodeContracts.ArgumentNotNull(named, "named");
 
       return this.Container.ResolveNamed(named, serviceType);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(serviceType, "serviceType");
+      CodeContracts.ArgumentNotNull(named, "named");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
     }
 
     /// <summary>
@@ -241,6 +294,48 @@ namespace YAF.Core
     }
 
     #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The convert to autofac parameters.
+    /// </summary>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <exception cref="NotSupportedException">
+    /// <c>NotSupportedException</c>.
+    /// </exception>
+    [NotNull]
+    private static IEnumerable<Parameter> ConvertToAutofacParameters(
+      [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      var autoParams = new List<Parameter>();
+
+      foreach (var parameter in parameters)
+      {
+        if (parameter is NamedParameter)
+        {
+          var param = parameter as NamedParameter;
+          autoParams.Add(new Autofac.NamedParameter(param.Name, param.Value));
+        }
+        else if (parameter is TypedParameter)
+        {
+          var param = parameter as TypedParameter;
+          autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
+        }
+        else
+        {
+          throw new NotSupportedException("Parameter Type of {0} is not supported.".FormatWith(parameter.GetType()));
+        }
+      }
+
+      return autoParams;
+    }
 
     #endregion
   }

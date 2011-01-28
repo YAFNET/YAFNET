@@ -24,11 +24,9 @@ namespace YAF.Core
   using System.Web;
   using System.Web.Caching;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Types;
 
   #endregion
 
@@ -65,7 +63,7 @@ namespace YAF.Core
     /// <returns>
     /// The get captcha text.
     /// </returns>
-    public static string GetCaptchaText([NotNull] HttpSessionStateBase session, [NotNull] Cache cache, bool forceNew)
+    public static string GetCaptchaText([NotNull] HttpSessionStateBase session, [NotNull] System.Web.Caching.Cache cache, bool forceNew)
     {
       CodeContracts.ArgumentNotNull(session, "session");
 
@@ -85,7 +83,7 @@ namespace YAF.Core
       else
       {
         cache.Add(
-          cacheName, text, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10), CacheItemPriority.Low, null);
+          cacheName, text, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10), CacheItemPriority.Low, null);
       }
 
       return text;

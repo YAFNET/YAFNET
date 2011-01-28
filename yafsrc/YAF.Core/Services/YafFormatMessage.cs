@@ -51,10 +51,13 @@ namespace YAF.Core.Services
 
     public HttpServerUtilityBase HttpServer { get; set; }
 
-    public YafFormatMessage(IServiceLocator serviceLocator, HttpServerUtilityBase httpServer)
+    public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }
+
+    public YafFormatMessage(IServiceLocator serviceLocator, HttpServerUtilityBase httpServer, Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRuleFactory)
     {
       ServiceLocator = serviceLocator;
       HttpServer = httpServer;
+      ProcessReplaceRuleFactory = processReplaceRuleFactory;
     }
 
     /* Ederon : 6/16/2007 - conventions */
@@ -241,8 +244,7 @@ namespace YAF.Core.Services
       message = RepairHtml(message, messageFlags.IsHtml);
 
       // get the rules engine from the creator...
-      ProcessReplaceRules ruleEngine =
-        ReplaceRulesCreator.GetInstance(new[] { messageFlags.IsBBCode, targetBlankOverride, useNoFollow });
+      var ruleEngine = this.ProcessReplaceRuleFactory(new[] { messageFlags.IsBBCode, targetBlankOverride, useNoFollow });
 
       // see if the rules are already populated...
       if (!ruleEngine.HasRules)

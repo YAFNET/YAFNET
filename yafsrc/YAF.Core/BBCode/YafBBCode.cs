@@ -20,6 +20,7 @@
 namespace YAF.Core.BBCode
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
@@ -36,8 +37,18 @@ namespace YAF.Core.BBCode
   /// <summary>
   /// Summary description for YafBBCode.
   /// </summary>
-  public class YafBBCode : IBBCode
+  public class YafBBCode : IBBCode, IHaveServiceLocator
   {
+    public IServiceLocator ServiceLocator { get; set; }
+
+    public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRulesFactory { get; set; }
+
+    public YafBBCode(IServiceLocator serviceLocator, Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRulesFactory)
+    {
+      ServiceLocator = serviceLocator;
+      ProcessReplaceRulesFactory = processReplaceRulesFactory;
+    }
+
     /* Ederon : 6/16/2007 - conventions */
 
     /// <summary>
@@ -241,12 +252,9 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
     {
-      // get the rules engine from the creator...
-      ProcessReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
-        new[]
-          {
-            doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks
-          });
+      var ruleEngine =
+        this.ProcessReplaceRulesFactory(
+          new[] { doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks });
 
       if (!ruleEngine.HasRules)
       {
@@ -278,11 +286,9 @@ namespace YAF.Core.BBCode
       bool forHtmlEditing = true;
 
       // get the rules engine from the creator...
-      ProcessReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
-        new[]
-          {
-            doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, forHtmlEditing
-          });
+      var ruleEngine =
+        this.ProcessReplaceRulesFactory(
+          new[] { doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, forHtmlEditing });
 
       if (!ruleEngine.HasRules)
       {

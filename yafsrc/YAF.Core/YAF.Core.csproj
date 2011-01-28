@@ -56,6 +56,9 @@
     <Compile Include="BaseModules\ForumEditor.cs" />
     <Compile Include="BaseModules\MobileThemeForumModule.cs" />
     <Compile Include="BaseModules\YafModuleScanner.cs" />
+    <Compile Include="Cache\HttpRuntimeCache.cs" />
+    <Compile Include="Cache\StaticLockObject.cs" />
+    <Compile Include="Cache\TreatCacheKeyWithBoard.cs" />
     <Compile Include="Events\UpdateProviderOnInitEvent.cs" />
     <Compile Include="BaseModules\StartStopWatch.cs" />
     <Compile Include="BaseModules\UnloadSessionForumModule.cs" />
@@ -74,7 +77,7 @@
     <Compile Include="BBCode\HighLightList.cs" />
     <Compile Include="BBCode\ProcessReplaceRules.cs" />
     <Compile Include="BBCode\ReplaceBlocksCollection.cs" />
-    <Compile Include="BBCode\ReplaceRulesCreator.cs" />
+    <Compile Include="BBCode\ProcessReplaceRulesProvider.cs" />
     <Compile Include="BBCode\ReplaceRules\BaseReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\CodeRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules\FontSizeRegexReplaceRule.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\IBBCodeExtensions.cs" />
+    <Compile Include="Extensions\IDataCacheExtensions.cs" />
     <Compile Include="Extensions\IDateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormatMessageExtensions.cs" />
     <Compile Include="IHaveComponentRegistry.cs" />

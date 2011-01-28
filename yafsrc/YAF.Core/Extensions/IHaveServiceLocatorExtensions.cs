@@ -56,6 +56,22 @@ namespace YAF.Core
       startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).ForEach(service => service.Run());
     }
 
+    /// <summary>
+    /// The with parameters.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static IEnumerable<IServiceLocationParameter> WithParameters([NotNull] this IHaveServiceLocator serviceLocator, [NotNull] params IServiceLocationParameter[] parameters)
+    {
+      return parameters;
+    }
+
     #endregion
   }
 }

@@ -24,9 +24,8 @@ namespace YAF.Core
   using System.Globalization;
   using System.Threading;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Classes.Data;
   using YAF.Types.Interfaces;
+  using YAF.Classes.Data;
 
   #endregion
 

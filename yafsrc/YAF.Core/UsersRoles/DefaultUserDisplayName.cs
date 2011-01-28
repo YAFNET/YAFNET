@@ -26,10 +26,10 @@ namespace YAF.Core
   using System.Linq;
 
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Core.Services;
+  using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -41,9 +41,26 @@ namespace YAF.Core
     #region Constants and Fields
 
     /// <summary>
-    ///   The _user display name collection.
+    /// The _data cache.
     /// </summary>
-    private Dictionary<int, string> _userDisplayNameCollection;
+    private readonly IDataCache<IDictionary<int, string>> _dataCache;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultUserDisplayName"/> class.
+    /// </summary>
+    /// <param name="dataCache">
+    /// The data cache.
+    /// </param>
+    public DefaultUserDisplayName([NotNull] IDataCache<IDictionary<int, string>> dataCache)
+    {
+      CodeContracts.ArgumentNotNull(dataCache, "dataCache");
+
+      this._dataCache = dataCache;
+    }
 
     #endregion
 
@@ -52,18 +69,11 @@ namespace YAF.Core
     /// <summary>
     ///   Gets UserDisplayNameCollection.
     /// </summary>
-    private Dictionary<int, string> UserDisplayNameCollection
+    private IDictionary<int, string> UserDisplayNameCollection
     {
       get
       {
-        if (this._userDisplayNameCollection == null)
-        {
-          string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersDisplayNameCollection);
-          this._userDisplayNameCollection = YafContext.Current.Cache.GetItem(
-            key, 999, () => new Dictionary<int, string>());
-        }
-
-        return this._userDisplayNameCollection;
+        return this._dataCache.GetOrSet(Constants.Cache.UsersDisplayNameCollection, () => new Dictionary<int, string>());
       }
     }
 
@@ -104,7 +114,8 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public IDictionary<int, string> Find(string contains)
+    [NotNull]
+    public IDictionary<int, string> Find([NotNull] string contains)
     {
       var usersFound = new Dictionary<int, string>();
 
@@ -130,7 +141,7 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public int? GetId(string name)
+    public int? GetId([NotNull] string name)
     {
       int? userId = null;
 
@@ -153,7 +164,8 @@ namespace YAF.Core
         // find the username...
         if (YafContext.Current.BoardSettings.EnableDisplayName)
         {
-          var user = LegacyDb.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
+          var user =
+            LegacyDb.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
           if (user != null)
           {
             userId = user.UserID ?? 0;
@@ -167,7 +179,8 @@ namespace YAF.Core
         }
         else
         {
-          var user = LegacyDb.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
+          var user =
+            LegacyDb.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
           if (user != null)
           {
             userId = user.UserID ?? 0;
@@ -195,7 +208,7 @@ namespace YAF.Core
     /// </returns>
     public string GetName(int userId)
     {
-      string displayName = string.Empty;
+      string displayName;
 
       if (!this.UserDisplayNameCollection.TryGetValue(userId, out displayName))
       {

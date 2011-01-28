@@ -72,19 +72,6 @@ namespace YAF.Core.Services
     }
 
     /// <summary>
-    /// Gets Current.
-    /// </summary>
-    [Obsolete("Use YafContext.Current.Cache instead.")]
-    public static YafCache Current
-    {
-      get
-      {
-        return YafContext.Current.Cache;
-      }
-    }
-
-
-    /// <summary>
     /// Indexer for obtaining and setting cache keys
     /// </summary>
     /// <param name="key">Cache key to get or set</param>
