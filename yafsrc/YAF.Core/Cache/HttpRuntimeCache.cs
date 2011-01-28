@@ -29,6 +29,7 @@ namespace YAF.Core
   using YAF.Types;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -135,7 +136,10 @@ namespace YAF.Core
       {
         if (dictionaryEnumerator.Value is T)
         {
-          yield return new KeyValuePair<string, T>(dictionaryEnumerator.Key.ToString(), (T)dictionaryEnumerator.Value);
+          // key parts are [Provided Name]$[Type Name]$[Possibily More]"
+          var key = dictionaryEnumerator.Key.ToString().Split('$')[0];
+
+          yield return new KeyValuePair<string, T>(key, (T)dictionaryEnumerator.Value);
         }
       }
 
@@ -336,7 +340,7 @@ namespace YAF.Core
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat(this._typeName + "$" + key);
+      return this._treatCacheKey.Treat("{0}${1}".FormatWith(key, this._typeName));
     }
 
     /// <summary>
