@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -185,7 +186,7 @@ namespace YAF.Pages.Admin
           // invalidate the cache...
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
           this.BindData();
-          ReplaceRulesCreator.ClearCache();
+          this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
           break;
         case "movedown":
           LegacyDb.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
@@ -193,7 +194,7 @@ namespace YAF.Pages.Admin
           // invalidate the cache...
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
           this.BindData();
-          ReplaceRulesCreator.ClearCache();
+          this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
           break;
         case "delete":
           LegacyDb.smiley_delete(e.CommandArgument);
@@ -201,7 +202,7 @@ namespace YAF.Pages.Admin
           // invalidate the cache...
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
           this.BindData();
-          ReplaceRulesCreator.ClearCache();
+          this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
           break;
         case "import":
           YafBuildLink.Redirect(ForumPages.admin_smilies_import);

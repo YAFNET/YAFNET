@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -295,7 +296,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      ReplaceRulesCreator.ClearCache();
+      this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
       this.CheckCache();
     }
 

@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -252,7 +253,7 @@ namespace YAF.Pages.Admin
 
       // invalidate the cache...
       this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-      ReplaceRulesCreator.ClearCache();
+      this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
 
       YafBuildLink.Redirect(ForumPages.admin_smilies);
     }
