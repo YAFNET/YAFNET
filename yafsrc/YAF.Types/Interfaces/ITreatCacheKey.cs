@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -20,43 +20,26 @@ namespace YAF.Types.Interfaces
 {
   #region Using
 
-  using System;
+  using System.Collections.Generic;
 
   #endregion
 
   /// <summary>
-  /// Replace Rules Interface
+  /// The i treat cache key.
   /// </summary>
-  public interface IProcessReplaceRules
+  public interface ITreatCacheKey
   {
-    #region Properties
-
-    /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
-    /// </summary>
-    bool HasRules { get; }
-
-    #endregion
-
     #region Public Methods
 
     /// <summary>
-    /// The add rule.
+    /// The treat.
     /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
+    /// <param name="key">
+    /// The key.
     /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
-
-    /// <summary>
-    /// Process text using the rules.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process([NotNull] ref string text);
+    /// <returns>
+    /// </returns>
+    string Treat([NotNull] string key);
 
     #endregion
   }

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,47 +16,51 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types
 {
   #region Using
 
   using System;
 
+  using YAF.Types.Interfaces;
+
   #endregion
 
   /// <summary>
-  /// Replace Rules Interface
+  /// The typed parameter.
   /// </summary>
-  public interface IProcessReplaceRules
+  public class TypedParameter : IServiceLocationParameter
   {
-    #region Properties
+    #region Constructors and Destructors
 
     /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
+    /// Initializes a new instance of the <see cref="TypedParameter"/> class.
     /// </summary>
-    bool HasRules { get; }
+    /// <param name="type">
+    /// The type.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    public TypedParameter([NotNull] Type type, [NotNull] object value)
+    {
+      this.Type = type;
+      this.Value = value;
+    }
 
     #endregion
 
-    #region Public Methods
+    #region Properties
 
     /// <summary>
-    /// The add rule.
+    /// Gets or sets Type.
     /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
+    public Type Type { get; set; }
 
     /// <summary>
-    /// Process text using the rules.
+    /// Gets or sets Value.
     /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process([NotNull] ref string text);
+    public object Value { get; set; }
 
     #endregion
   }

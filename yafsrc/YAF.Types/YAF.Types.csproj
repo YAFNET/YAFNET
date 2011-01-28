@@ -61,6 +61,7 @@
     <Compile Include="Constants\ViewPermissions.cs" />
     <Compile Include="Constants\YafRssFeeds.cs" />
     <Compile Include="Constants\YafSyndicationFormats.cs" />
+    <Compile Include="EventProxies\CacheItemRemovedEvent.cs" />
     <Compile Include="EventProxies\ForumPageEvents.cs" />
     <Compile Include="EventProxies\HttpApplicationInitEvent.cs" />
     <Compile Include="EventProxies\NewUserRegisteredEvent.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
     <Compile Include="Interfaces\IBBCode.cs" />
+    <Compile Include="Interfaces\IDataCache.cs" />
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
     <Compile Include="Interfaces\IBaseModule.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
     <Compile Include="Interfaces\IFormatMessage.cs" />
+    <Compile Include="Interfaces\IHaveLockObject.cs" />
     <Compile Include="Interfaces\IHaveServiceLocator.cs" />
     <Compile Include="Interfaces\IInjectServices.cs" />
     <Compile Include="Interfaces\ILocalization.cs" />
@@ -110,6 +113,8 @@
     <Compile Include="Interfaces\IPermissions.cs" />
     <Compile Include="Interfaces\IProcessReplaceRules.cs" />
     <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
+    <Compile Include="Interfaces\IReadValue.cs" />
+    <Compile Include="Interfaces\IRemoveValue.cs" />
     <Compile Include="Interfaces\IReplaceBlocks.cs" />
     <Compile Include="Interfaces\IReplaceRule.cs" />
     <Compile Include="Interfaces\IScriptBuilder.cs" />
@@ -120,20 +125,25 @@
     <Compile Include="Interfaces\ISendMail.cs" />
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />
+    <Compile Include="Interfaces\ISimpleProvider.cs" />
     <Compile Include="Interfaces\IStartupService.cs" />
     <Compile Include="Interfaces\IStopWatch.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\ITreatCacheKey.cs" />
     <Compile Include="Interfaces\IUrlBuilder.cs" />
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
     <Compile Include="Interfaces\IDBAccess.cs" />
     <Compile Include="Interfaces\IDbConnectionManager.cs" />
+    <Compile Include="Interfaces\IWriteValue.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
     <Compile Include="Interfaces\ITheme.cs" />
     <Compile Include="Interfaces\IYafUserProfile.cs" />
     <Compile Include="MessageCleaned.cs" />
     <Compile Include="LanguageResources.cs" />
+    <Compile Include="Interfaces\IServiceLocationParameter.cs" />
+    <Compile Include="Objects\NamedParameter.cs" />
     <Compile Include="Objects\PollSaveList.cs" />
     <Compile Include="Objects\SimpleForum.cs" />
     <Compile Include="Objects\SimpleModerator.cs" />
@@ -143,6 +153,7 @@
     <Compile Include="Objects\TypedForumListAll.cs" />
     <Compile Include="Objects\TypedMailList.cs" />
     <Compile Include="Objects\TypedMessageList.cs" />
+    <Compile Include="Objects\TypedParameter.cs" />
     <Compile Include="Objects\TypedPollGroup.cs" />
     <Compile Include="Objects\TypedSmileyList.cs" />
     <Compile Include="Objects\TypedTopicSimpleList.cs" />

@@ -237,27 +237,6 @@ namespace YAF.Types.Flags
     }
 
     /// <summary>
-    /// Creates an integer value from an array of booleans.
-    /// </summary>
-    /// <param name="arrayBool">
-    /// array of boolean
-    /// </param>
-    /// <returns>
-    /// bit field of the array
-    /// </returns>
-    public static int GetIntFromBoolArray(bool[] arrayBool)
-    {
-      int finalValue = 0;
-
-      for (int i = 0; i < arrayBool.Length; i++)
-      {
-        finalValue = SetBitFromBool(finalValue, i, arrayBool[i]);
-      }
-
-      return finalValue;
-    }
-
-    /// <summary>
     /// Converts a Flag Enum to the associated index value.
     /// </summary>
     /// <param name="theEnum">
@@ -265,8 +244,10 @@ namespace YAF.Types.Flags
     /// <returns>
     /// The enum to index.
     /// </returns>
-    public int EnumToIndex(Enum theEnum)
+    public int EnumToIndex([NotNull] Enum theEnum)
     {
+      CodeContracts.ArgumentNotNull(theEnum, "theEnum");
+
       return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
     }
   }

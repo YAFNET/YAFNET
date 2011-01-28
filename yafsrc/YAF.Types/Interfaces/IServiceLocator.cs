@@ -21,6 +21,7 @@ namespace YAF.Types.Interfaces
   #region Using
 
   using System;
+  using System.Collections.Generic;
 
   #endregion
 
@@ -48,6 +49,20 @@ namespace YAF.Types.Interfaces
     /// <param name="serviceType">
     /// The service type.
     /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    object Get([NotNull] Type serviceType, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
     /// <param name="named">
     /// The named.
     /// </param>
@@ -57,15 +72,35 @@ namespace YAF.Types.Interfaces
     object Get([NotNull] Type serviceType, [NotNull] string named);
 
     /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceType">
+    /// The service type.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters">
+    /// The parameters.
+    /// </param>
+    /// <returns>
+    /// The get.
+    /// </returns>
+    object Get([NotNull] Type serviceType, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
+
+    /// <summary>
     /// The try get.
     /// </summary>
     /// <param name="serviceType">
     /// The service type.
     /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
     /// <returns>
     /// The try get.
     /// </returns>
-    bool TryGet([NotNull] Type serviceType, out object instance);
+    bool TryGet([NotNull] Type serviceType, [NotNull] out object instance);
 
     /// <summary>
     /// The try get.
@@ -76,10 +111,13 @@ namespace YAF.Types.Interfaces
     /// <param name="named">
     /// The named.
     /// </param>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
     /// <returns>
     /// The try get.
     /// </returns>
-    bool TryGet([NotNull] Type serviceType, [NotNull] string named, out object instance);
+    bool TryGet([NotNull] Type serviceType, [NotNull] string named, [NotNull] out object instance);
 
     #endregion
   }

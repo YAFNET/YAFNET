@@ -18,6 +18,8 @@
  */
 namespace YAF.Types.Interfaces
 {
+  using System.Collections.Generic;
+
   /// <summary>
   /// The i service locator extensions.
   /// </summary>
@@ -66,6 +68,48 @@ namespace YAF.Types.Interfaces
     /// <summary>
     /// The get.
     /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="parameters"></param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      return (TService)serviceLocator.Get(typeof(TService), parameters);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <param name="parameters"></param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.ArgumentNotNull(named, "named");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      return (TService)serviceLocator.Get(typeof(TService), named, parameters);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
     /// <param name="haveLocator">
     /// The have locator.
     /// </param>
@@ -99,6 +143,46 @@ namespace YAF.Types.Interfaces
       CodeContracts.ArgumentNotNull(named, "named");
 
       return haveLocator.ServiceLocator.Get<TService>(named);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      return haveLocator.ServiceLocator.Get<TService>(parameters);
+    }
+
+    /// <summary>
+    /// The get.
+    /// </summary>
+    /// <param name="haveLocator">
+    /// The have locator.
+    /// </param>
+    /// <param name="named">
+    /// The named.
+    /// </param>
+    /// <typeparam name="TService">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+    {
+      CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
+      CodeContracts.ArgumentNotNull(named, "named");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+      return haveLocator.ServiceLocator.Get<TService>(named, parameters);
     }
 
     /// <summary>

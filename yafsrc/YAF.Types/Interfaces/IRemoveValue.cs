@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,45 +18,20 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
-
-  using System;
-
-  #endregion
-
   /// <summary>
-  /// Replace Rules Interface
+  /// Generic I Remove Value interface.
   /// </summary>
-  public interface IProcessReplaceRules
+  public interface IRemoveValue
   {
-    #region Properties
-
-    /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
-    /// </summary>
-    bool HasRules { get; }
-
-    #endregion
-
     #region Public Methods
 
     /// <summary>
-    /// The add rule.
+    /// Remove a value.
     /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
+    /// <param name="key">
+    /// The key.
     /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
-
-    /// <summary>
-    /// Process text using the rules.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process([NotNull] ref string text);
+    void Remove([NotNull] string key);
 
     #endregion
   }

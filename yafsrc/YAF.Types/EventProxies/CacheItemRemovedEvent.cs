@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,47 +16,60 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.EventProxies
 {
   #region Using
 
-  using System;
+  using System.Web.Caching;
+
+  using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// Replace Rules Interface
+  /// The cache item removed event.
   /// </summary>
-  public interface IProcessReplaceRules
+  public class CacheItemRemovedEvent : IAmEvent
   {
-    #region Properties
+    #region Constructors and Destructors
 
     /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
+    /// Initializes a new instance of the <see cref="CacheItemRemovedEvent"/> class.
     /// </summary>
-    bool HasRules { get; }
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <param name="reason">
+    /// The reason.
+    /// </param>
+    public CacheItemRemovedEvent([NotNull] string key, [NotNull] object value, CacheItemRemovedReason reason)
+    {
+      this.Key = key;
+      this.Value = value;
+      this.Reason = reason;
+    }
 
     #endregion
 
-    #region Public Methods
+    #region Properties
 
     /// <summary>
-    /// The add rule.
+    /// Gets or sets Key.
     /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
-    /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
+    public string Key { get; set; }
 
     /// <summary>
-    /// Process text using the rules.
+    /// Gets or sets Reason.
     /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process([NotNull] ref string text);
+    public CacheItemRemovedReason Reason { get; set; }
+
+    /// <summary>
+    /// Gets or sets Value.
+    /// </summary>
+    public object Value { get; set; }
 
     #endregion
   }

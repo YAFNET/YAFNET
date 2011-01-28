@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,46 +18,23 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
-
-  using System;
-
-  #endregion
-
   /// <summary>
-  /// Replace Rules Interface
+  /// Generic I Read Value interface.
   /// </summary>
-  public interface IProcessReplaceRules
+  /// <typeparam name="T">
+  /// Type returned from the configuration.
+  /// </typeparam>
+  public interface IReadValue<out T>
   {
-    #region Properties
-
     /// <summary>
-    ///   Gets a value indicating whether any rules have been added.
+    /// Get a value.
     /// </summary>
-    bool HasRules { get; }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The add rule.
-    /// </summary>
-    /// <param name="newRule">
-    /// The new rule.
+    /// <param name="originalKey">
+    /// The key.
     /// </param>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
-
-    /// <summary>
-    /// Process text using the rules.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    void Process([NotNull] ref string text);
-
-    #endregion
+    /// <returns>
+    /// Config value or default(T) if not available.
+    /// </returns>
+    T Get(string originalKey);
   }
 }
