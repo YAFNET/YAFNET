@@ -112,15 +112,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.TextBox NumPostsTB;
         
         /// <summary>
-        /// ResetUserSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ResetUserSearch;
-        
-        /// <summary>
         /// SearchByUserName control.
         /// </summary>
         /// <remarks>
@@ -128,6 +119,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SearchByUserName;
+        
+        /// <summary>
+        /// ResetUserSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ResetUserSearch;
         
         /// <summary>
         /// AlphaSort1 control.
