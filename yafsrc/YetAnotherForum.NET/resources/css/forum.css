@@ -247,3 +247,16 @@
     padding: 2px 15px 2px 4px;
 	float:right;
 }
+.yafnet .pagination { font-size: 90%;text-align:center;margin-lefT:4px}
+
+.yafnet .pagination .next {float:right}
+        
+.yafnet .pagination a, .yafnet .pagination span {
+    display: block;
+    float: left;
+    padding: 0.3em 0.5em;
+    margin-right: 5px;
+	margin-bottom: 5px;
+	min-width:1em;
+	text-align:center;
+}

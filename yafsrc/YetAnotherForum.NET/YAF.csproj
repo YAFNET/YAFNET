@@ -1597,6 +1597,7 @@
     <Content Include="resources\js\jquery.blockUI.js" />
     <Content Include="resources\js\jquery.ceebox-min.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
+    <Content Include="resources\js\jquery.pagination.js" />
     <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
     <Content Include="resources\js\jquery.timeago.js" />

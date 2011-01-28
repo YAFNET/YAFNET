@@ -10,9 +10,16 @@
     <tr>
       <td class="post smilesBox">
         <div id="SmiliesBox" class="content">
-          <table align="center" cellspacing="3" cellpadding="9">
-	        <asp:Literal ID="SmileyResults" runat="server" />
-	      </table>
+           <div id="SmiliesPager"></div>
+           <br style="clear:both;" />
+           <div id="SmiliesPagerResult">
+            <p class="coda-loading" style="display:none">Loading...<br /><asp:Image ID="LoadingImage" runat="server" AlternateText="Loading..." /></p>
+           </div>
+
+            <div id="SmiliesPagerHidden" style="display:none;">
+	          <asp:Literal ID="SmileyResults" runat="server" />
+            </div>
+
         </div>
       </td>
     </tr>

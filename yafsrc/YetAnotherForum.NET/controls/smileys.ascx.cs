@@ -29,6 +29,7 @@ namespace YAF.Controls
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Utilities;
   using YAF.Utils;
 
   #endregion
@@ -75,6 +76,23 @@ namespace YAF.Controls
     #region Methods
 
     /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
+
+        // Setup Pagination js
+        YafContext.Current.PageElements.RegisterJsResourceInclude("paginationjs", "js/jquery.pagination.js");
+        YafContext.Current.PageElements.RegisterJsBlock("paginationloadjs", JavaScriptBlocks.PaginationLoadJs);
+
+        base.OnPreRender(e);
+    }
+
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -106,55 +124,85 @@ namespace YAF.Controls
     /// </summary>
     private void CreateSmileys()
     {
-      var html = new StringBuilder();
-      html.AppendFormat("<tr class='post'>");
-      int rowcells = 0;
+        var html = new StringBuilder();
 
-      for (int i = 0; i < this._dtSmileys.Rows.Count; i++)
-      {
-        DataRow row = this._dtSmileys.Rows[i];
-        if (i % this._perrow == 0 && i > 0 && i < this._dtSmileys.Rows.Count)
+        html.Append("<div class=\"result\">");
+        html.Append("<table align=\"center\" cellspacing=\"3\" cellpadding=\"9\">");
+        html.AppendFormat("<tr class=\"post\">");
+
+        int rowPanel = 0;
+
+        int rowcells = 0;
+
+        for (int i = 0; i < this._dtSmileys.Rows.Count; i++)
         {
-          html.Append("</tr><tr class='post'>\n");
-          rowcells = 0;
+            DataRow row = this._dtSmileys.Rows[i];
+            if (i % this._perrow == 0 && i > 0 && i < this._dtSmileys.Rows.Count)
+            {
+                //html.Append("</tr><tr class='post'>\n");
+
+                rowPanel++;
+
+                if (rowPanel == 3)
+                {
+                    html.Append("</tr></table></div>");
+                    html.Append("<div class=\"result\">");
+                    html.Append("<table align=\"center\" cellspacing=\"3\" cellpadding=\"9\">");
+                    html.Append("<tr class='post'>\n");
+
+                    rowPanel = 0;
+                }
+                else
+                {
+                    html.Append("</tr><tr class=\"post\">\n");
+                }
+
+                rowcells = 0;
+            }
+
+            string evt = string.Empty;
+            if (this._onclick.Length > 0)
+            {
+                string strCode = Convert.ToString(row["Code"]).ToLower();
+                strCode = strCode.Replace("&", "&amp;");
+                strCode = strCode.Replace(">", "&gt;");
+                strCode = strCode.Replace("<", "&lt;");
+                strCode = strCode.Replace("\"", "&quot;");
+                strCode = strCode.Replace("\\", "\\\\");
+                strCode = strCode.Replace("'", "\\'");
+                evt = "javascript:{0}('{1} ','{3}{4}/{2}')".FormatWith(
+                    this._onclick,
+                    strCode,
+                    row["Icon"],
+                    YafForumInfo.ForumClientFileRoot,
+                    YafBoardFolders.Current.Emoticons);
+            }
+            else
+            {
+                evt = "javascript:void()";
+            }
+
+            html.AppendFormat(
+                "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n",
+                YafBuildLink.Smiley((string)row["Icon"]),
+                row["Emoticon"],
+                evt);
+            rowcells++;
         }
 
-        string evt = string.Empty;
-        if (this._onclick.Length > 0)
+        while (rowcells++ < this._perrow)
         {
-          string strCode = Convert.ToString(row["Code"]).ToLower();
-          strCode = strCode.Replace("&", "&amp;");
-          strCode = strCode.Replace(">", "&gt;");
-          strCode = strCode.Replace("<", "&lt;");
-          strCode = strCode.Replace("\"", "&quot;");
-          strCode = strCode.Replace("\\", "\\\\");
-          strCode = strCode.Replace("'", "\\'");
-          evt = "javascript:{0}('{1} ','{3}{4}/{2}')".FormatWith(
-            this._onclick, strCode, row["Icon"], YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons);
-        }
-        else
-        {
-          evt = "javascript:void()";
+            html.AppendFormat("<td>&nbsp;</td>");
         }
 
-        html.AppendFormat(
-          "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n", 
-          YafBuildLink.Smiley((string)row["Icon"]), 
-          row["Emoticon"], 
-          evt);
-        rowcells++;
-      }
+        html.AppendFormat("</tr>");
 
-      while (rowcells++ < this._perrow)
-      {
-        html.AppendFormat("<td>&nbsp;</td>");
-      }
+        html.Append("</table>");
+        html.Append("</div>");
 
-      html.AppendFormat("</tr>");
-
-      this.SmileyResults.Text = html.ToString();
+        this.SmileyResults.Text = html.ToString();
     }
 
-    #endregion
+      #endregion
   }
 }

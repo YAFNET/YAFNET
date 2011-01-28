@@ -68,6 +68,34 @@ namespace YAF.Utilities
     }
 
     /// <summary>
+    ///   Gets Pagination Load Js.
+    /// </summary>
+    [NotNull]
+    public static string PaginationLoadJs
+    {
+        get
+        {
+            return @"function pageselectCallback(page_index, jq){
+                var new_content = jQuery('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
+                jQuery('#SmiliesPagerResult').empty().append(new_content);
+                return false;
+            }
+           
+            jQuery(document).ready(function(){      
+                var num_entries = jQuery('#SmiliesPagerHidden div.result').length;
+                jQuery('#SmiliesPager').pagination(num_entries, {
+                    callback: pageselectCallback,
+                    items_per_page:1,
+					num_display_entries: 3,
+					num_edge_entries: 1,
+					prev_text: '&laquo;',
+					next_text: '&raquo;'
+                });
+            });";
+        }
+    }
+
+    /// <summary>
     ///   Gets CeeBox Load Js.
     /// </summary>
     [NotNull]

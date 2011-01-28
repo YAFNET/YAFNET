@@ -31,6 +31,15 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
+        /// LoadingImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image LoadingImage;
+        
+        /// <summary>
         /// SmileyResults control.
         /// </summary>
         /// <remarks>
