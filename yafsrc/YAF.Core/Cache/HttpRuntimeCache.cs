@@ -336,7 +336,7 @@ namespace YAF.Core
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat(this._typeName + key);
+      return this._treatCacheKey.Treat(this._typeName + "$" + key);
     }
 
     /// <summary>

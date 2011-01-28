@@ -45,7 +45,7 @@ namespace YAF.Core
     /// </returns>
     public string Treat(string key)
     {
-      return "{0}.{1}".FormatWith(key, YafContext.Current.PageBoardID);
+      return "{0}${1}".FormatWith(key, YafContext.Current.PageBoardID);
     }
 
     #endregion
