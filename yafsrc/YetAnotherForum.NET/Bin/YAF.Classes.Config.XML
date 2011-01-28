@@ -1474,6 +1474,11 @@
             Gets or sets AvatarHeight.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowCreateTopicsSameName">
+            <summary>
+            Gets or sets AllowCreateTopicsSameName.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AvatarSize">
             <summary>
             Gets or sets AvatarSize.
@@ -1817,6 +1822,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.ShowRelativeTime">
             <summary>
             Gets or sets the if relative times are used on the forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RelativeTimeRefreshTime">
+            <summary>
+            Gets or sets the Refresh Rate for the Timeago
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowMultipleChoices">

@@ -1525,11 +1525,11 @@
             The body html.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.DateTime,System.DateTime,System.DateTime,System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
             The post_list.
             </summary>
-            <param name="topicID">
+            <param name="topicId">
             The topic id.
             </param>
             <param name="updateViewCount">
@@ -1541,7 +1541,31 @@
             <param name="styledNicks">
             The styled nicks.
             </param>
+            <param name="sincePostedDate">
+            The posted date.
+            </param>
+            <param name="sinceEditedDate">
+            The edited date.
+            </param>
+            <param name="pageIndex">
+            The page index.
+            </param>
+            <param name="pageSize">
+            The Page size.
+            </param>
+            <param name="sortPosted">
+            The sort by posted date.
+             0 - no sort, 1 - ASC, 2 - DESC
+            </param>
+            <param name="sortEdited">
+             The sort by edited date.
+             0 - no sort, 1 - ASC, 2 - DESC.
+            </param>
+            <param name="showThanks">
+            The show thanks. Returnes thanked posts. Not implemented.
+            </param>
             <returns>
+            
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.LegacyDb.post_list_reverse10(System.Object)">
@@ -1943,7 +1967,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.message_findunread(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.message_findunread(System.Object,System.Object,System.Object)">
             <summary>
             The message_findunread.
             </summary>
@@ -3527,7 +3551,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.user_listmembers(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.LegacyDb.user_listmembers(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_list20members.
             </summary>
