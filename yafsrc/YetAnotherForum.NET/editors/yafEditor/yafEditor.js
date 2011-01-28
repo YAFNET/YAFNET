@@ -29,7 +29,14 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
             else {
                 var imgUrl = prompt('Enter Image Url:', 'http://');
-                if (imgUrl != '' && imgUrl != null) {
+
+                // ask for the Image description text...
+                var imgDesc = prompt('Enter Image Description:', '');
+
+                if (imgDesc != '' && imgDesc != null) {
+                    replaceSelection(textObj, '[img=' + imgUrl + ']' + imgDesc + '[/img]');
+                }
+                else {
                     replaceSelection(textObj, '[img]' + imgUrl + '[/img]');
                 }
             }
@@ -82,11 +89,25 @@ yafEditor.prototype.FormatText = function (command, option) {
     }
 }
 
-yafEditor.prototype.AddImage = function() {
+yafEditor.prototype.AddImage = function () {
+
     var textObj = document.getElementById(this.Name);
-    var img = prompt('Enter image URL:', 'http://');
-    if (img != '' && img != null)
-        replaceSelection(textObj, '[img]' + img + '[/img]');
+
+    var imgUrl = prompt('Enter image URL:', 'http://');
+
+    // ask for the Image description text...
+    var imgDesc = prompt('Enter Image Description:', '');
+
+    if (imgDesc != '' && imgDesc != null) {
+        replaceSelection(textObj, '[img=' + imgUrl + ']' + imgDesc + '[/img]');
+    }
+    else {
+        if (imgUrl != '' && imgUrl != null) {
+            replaceSelection(textObj, '[img]' + imgUrl + '[/img]');
+        }
+    }
+
+
 }
 
 yafEditor.prototype.InsertSmiley = function(code) {
