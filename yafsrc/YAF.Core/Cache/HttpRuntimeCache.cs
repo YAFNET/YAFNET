@@ -57,6 +57,11 @@ namespace YAF.Core
     /// </summary>
     private readonly ITreatCacheKey _treatCacheKey;
 
+    /// <summary>
+    /// The _type name.
+    /// </summary>
+    private readonly string _typeName = string.Empty;
+
     #endregion
 
     #region Constructors and Destructors
@@ -84,6 +89,7 @@ namespace YAF.Core
       this._eventRaiser = eventRaiser;
       this._haveLockObject = haveLockObject;
       this._treatCacheKey = treatCacheKey;
+      this._typeName = typeof(T).ToString();
     }
 
     #endregion
@@ -330,7 +336,7 @@ namespace YAF.Core
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat(key);
+      return this._treatCacheKey.Treat(this._typeName + key);
     }
 
     /// <summary>
