@@ -47,7 +47,7 @@
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
             <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
         <%
-            var favoriteCount = this.TopicRow["FavoriteCount"].ToType<int>();
+            var favoriteCount = this.Get<IFavoriteTopic>().AddFavoriteTopic(this.TopicRow["LinkTopicID"].ToType<int>());
             
             if (favoriteCount > 0)
             {
