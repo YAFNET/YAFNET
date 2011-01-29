@@ -13,7 +13,7 @@
            <div id="SmiliesPager"></div>
            <br style="clear:both;" />
            <div id="SmiliesPagerResult">
-            <p class="coda-loading" style="display:none">Loading...<br /><asp:Image ID="LoadingImage" runat="server" AlternateText="Loading..." /></p>
+            <p>Loading...<br /><asp:Image ID="LoadingImage" runat="server" AlternateText="Loading..." /></p>
            </div>
 
             <div id="SmiliesPagerHidden" style="display:none;">

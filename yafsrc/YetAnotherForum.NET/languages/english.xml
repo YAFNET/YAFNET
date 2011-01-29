@@ -3022,8 +3022,6 @@ Visit {forumname} at {forumlink}
        <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
 	   <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS">Disable "NoFollow" Tag on Links on Posts Older Than:</Resource>
        <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP">If "NoFollow" is enabled above, this is disable no follow for links on messages older then X days old (which takes into consideration last edited).</Resource>
-	   <Resource tag="SMILIES_PER_ROW">Smilies Display per Row:</Resource>
-       <Resource tag="SMILIES_PER_ROW_HELP">Number of smilies to show per row.</Resource>
 	   <Resource tag="DISPLAY_POINTS">Display Points System:</Resource>
        <Resource tag="DISPLAY_POINTS_HELP">If checked, points for posting will be displayed for each user.</Resource>
 	   <Resource tag="DAYS_BEFORE_POSTLOCK">Days before posts are locked:</Resource>

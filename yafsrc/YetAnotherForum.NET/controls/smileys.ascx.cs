@@ -103,9 +103,9 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafBoardSettings bs = this.PageContext.BoardSettings;
+      //YafBoardSettings bs = this.PageContext.BoardSettings;
 
-      this._perrow = bs.SmiliesPerRow;
+      //this._perrow = bs.SmiliesPerRow;
 
       this._dtSmileys = LegacyDb.smiley_listunique(this.PageContext.PageBoardID);
 
@@ -127,12 +127,12 @@ namespace YAF.Controls
         var html = new StringBuilder();
 
         html.Append("<div class=\"result\">");
-        html.Append("<table align=\"center\" cellspacing=\"3\" cellpadding=\"9\">");
-        html.AppendFormat("<tr class=\"post\">");
+        //html.Append("<table align=\"center\" cellspacing=\"3\" cellpadding=\"9\">");
+        //html.AppendFormat("<tr class=\"post\">");
+
+        html.AppendFormat("<ul class=\"SmilieList\">");
 
         int rowPanel = 0;
-
-        int rowcells = 0;
 
         for (int i = 0; i < this._dtSmileys.Rows.Count; i++)
         {
@@ -145,19 +145,20 @@ namespace YAF.Controls
 
                 if (rowPanel == 3)
                 {
-                    html.Append("</tr></table></div>");
+                    //html.Append("</tr></table></div>");
+                    html.Append("</ul></div>");
                     html.Append("<div class=\"result\">");
-                    html.Append("<table align=\"center\" cellspacing=\"3\" cellpadding=\"9\">");
-                    html.Append("<tr class='post'>\n");
+                    // html.Append("<table align=\"center\" cellspacing=\"3\" cellpadding=\"9\">");
+                   // html.Append("<tr class='post'>\n");
+                    html.Append("<ul class=\"SmilieList\">\n");
 
                     rowPanel = 0;
                 }
-                else
+                /*else
                 {
-                    html.Append("</tr><tr class=\"post\">\n");
-                }
-
-                rowcells = 0;
+                    //html.Append("</tr><tr class=\"post\">\n");
+                    html.Append("</ul><ul class=\"SmilieList\">\n");
+                }*/
             }
 
             string evt = string.Empty;
@@ -183,21 +184,24 @@ namespace YAF.Controls
             }
 
             html.AppendFormat(
-                "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n",
+                "<li><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></li>\n",
+                //"<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n",
                 YafBuildLink.Smiley((string)row["Icon"]),
                 row["Emoticon"],
                 evt);
-            rowcells++;
         }
 
-        while (rowcells++ < this._perrow)
+        // not needed anymore, now its auto grow with the browser
+        /*while (rowcells++ < this._perrow)
         {
             html.AppendFormat("<td>&nbsp;</td>");
         }
 
         html.AppendFormat("</tr>");
 
-        html.Append("</table>");
+        html.Append("</table>");*/
+
+        html.Append("</ul>");
         html.Append("</div>");
 
         this.SmileyResults.Text = html.ToString();

@@ -868,24 +868,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox DisableNoFollowLinksAfterDay;
         
         /// <summary>
-        /// HelpLabel105 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel105;
-        
-        /// <summary>
-        /// SmiliesPerRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SmiliesPerRow;
-        
-        /// <summary>
         /// HelpLabel106 control.
         /// </summary>
         /// <remarks>

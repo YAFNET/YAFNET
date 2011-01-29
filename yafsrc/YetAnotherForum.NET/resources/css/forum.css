@@ -212,17 +212,6 @@
 .yafnet .quotetitle {
 	font-weight:bold;
 }
-
-.yafnet #SmiliesBox {
-	display:block;
-	overflow:auto;
-	height:180px;
-}
-
-.yafnet .smilesBox
-{
-    padding: 0 !important;
-}
 .yafnet .yafpopupmenu ul,
 .yafnet .yafpopupmenu li,
 .yafnet .adminContent li,
@@ -259,4 +248,32 @@
 	margin-bottom: 5px;
 	min-width:1em;
 	text-align:center;
+}
+
+.yafnet #SmiliesBox {
+	display:block;
+	overflow:auto;
+	min-width:180px;
+	min-height:100px;
+}
+
+.yafnet .smilesBox
+{
+    padding: 0 !important;
+}
+.yafnet .SmilieList {
+	margin:4px;
+	padding:4px;
+}
+.yafnet .SmilieList li {
+	list-style:none;
+	float: left;
+	padding: 0px;
+	margin:0px;
+    width:40px;
+	height:40px;
+}
+.yafnet .SmilieList li a{
+    display:block;
+    text-decoration:none;
 }

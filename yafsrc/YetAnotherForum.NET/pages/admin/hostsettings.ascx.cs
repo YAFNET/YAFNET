@@ -193,11 +193,6 @@ namespace YAF.Pages.Admin
       this.PictureAttachmentDisplayTreshold.AddStyleAttributeWidth("100px");
       this.PictureAttachmentDisplayTreshold.AddAttributeMaxWidth("11");
 
-      // Ederon : 7/1/2007
-      this.SmiliesPerRow.AddStyleAttributeWidth("25px");
-      this.SmiliesPerRow.AddAttributeMaxWidth("2");
-
-
       this.ImageAttachmentResizeWidth.AddStyleAttributeWidth("50px");
       this.DisableNoFollowLinksAfterDay.AddStyleAttributeWidth("100px");
 
