@@ -144,7 +144,8 @@ namespace YAF.Controls
                 2,
                 0,
                 0,
-                false);
+                false,
+                0);
 
              this.repLastPosts.DataSource = dt.AsEnumerable();
                 

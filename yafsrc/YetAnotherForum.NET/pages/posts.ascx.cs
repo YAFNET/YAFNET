@@ -925,17 +925,14 @@ namespace YAF.Pages
     private void BindData()
     {
       this._dataBound = true;
-
+      
       this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
       int messagePosition = 0;
-      int findMessageId = this.GetFindMessageId(out messagePosition);
-
+      bool  messageDefined = false;
+      int findMessageId = this.GetFindMessageId(out messagePosition, out messageDefined);
       if (findMessageId > 0)
       {
           this.CurrentMessage = findMessageId;
-          int floor = (int) Math.Floor((double) ((messagePosition/this.Pager.PageSize)));
-          int ceiling = (int)Math.Ceiling((double)((messagePosition / this.Pager.PageSize)));
-          Pager.CurrentPageIndex = floor != ceiling ? floor : floor - 1;
       } 
 
       if (this._topic == null)
@@ -969,8 +966,10 @@ namespace YAF.Pages
             1, 
             0,
             this.IsThreaded ? 1 : 0,
-            YafContext.Current.BoardSettings.EnableThanksMod);
+            YafContext.Current.BoardSettings.EnableThanksMod,
+            messageDefined ? messagePosition : 0);
 
+       
         
         if (YafContext.Current.BoardSettings.EnableThanksMod)
       {
@@ -1043,7 +1042,12 @@ namespace YAF.Pages
 
       this.Pager.Count = rowList.First().Field<int>("TotalRows");
 
-    
+      if (findMessageId > 0)
+      {
+          this.Pager.CurrentPageIndex = rowList.First().Field<int>("PageIndex");
+      } 
+
+      
 
     var pagedData = rowList; // .Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
 
@@ -1083,11 +1087,11 @@ namespace YAF.Pages
     /// <returns>
     /// The get find message id.
     /// </returns>
-    private int GetFindMessageId(out int messagePosition)
+    private int GetFindMessageId(out int messagePosition, out bool messageDefined)
     {
       int findMessageId = 0;
       messagePosition = 0;
-
+      messageDefined = false;
       try
       {
        if (this._ignoreQueryString)
@@ -1099,7 +1103,8 @@ namespace YAF.Pages
         {
           // Show this message
           findMessageId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
-          // if the message id is already supplied we find message position in list to redirect to required page in parent method.
+            messageDefined = true;
+            // if the message id is already supplied we find message position in list to redirect to required page in parent method.
           using (DataTable unread = LegacyDb.message_findunread(
           this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
           {

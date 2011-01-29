@@ -272,6 +272,17 @@ namespace YAF.Pages
         return false;
       }
 
+      // Check if the topic name is not too long
+      if (YafContext.Current.BoardSettings.MaxWordLength > 0 &&
+          this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
+      {
+          this.PageContext.AddLoadMessage(
+            this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
+          this.TopicSubjectTextBox.Text =
+              this.TopicSubjectTextBox.Text.Substring(YafContext.Current.BoardSettings.MaxWordLength);
+          return false;
+      }
+
       if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
       {
         this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"));
@@ -696,15 +707,6 @@ namespace YAF.Pages
 
       if (this.IsPostReplyDelay())
       {
-        return;
-      }
-
-      // Check if the topic name is not too long
-      if (YafContext.Current.BoardSettings.MaxWordLength > 0 &&
-          this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
-      {
-        this.PageContext.AddLoadMessage(
-          this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
         return;
       }
 

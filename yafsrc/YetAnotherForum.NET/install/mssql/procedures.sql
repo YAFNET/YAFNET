@@ -3354,7 +3354,7 @@ select top 1
 	where
 		m.TopicID = @TopicID and m.IsDeleted = 0		
 	order by		
-		m.Posted 
+		m.Posted DESC
     -- the messageid was already supplied, find a particular message
     if (@MessageID > 0)
 	begin
@@ -3364,7 +3364,7 @@ select top 1
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID and Posted>@LastRead  
-	       order by Posted 
+	       order by Posted DESC
 		end
 	    else
 	    begin
@@ -3372,7 +3372,7 @@ select top 1
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID
-	       order by Posted DESC
+	       order by Posted DESC 
 	    end
 	end
 	else
@@ -3381,7 +3381,7 @@ select top 1
 	   select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 	   from @tbl_msglunr
 		where TopicID=@TopicID
-	order by Posted 
+	order by Posted
 	end
 
 end
@@ -4606,14 +4606,21 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
 				 @SortPosted int = 2, 
 				 @SortEdited int = 0,
 				 @SortPosition int = 0,				
-				 @ShowThanks bit = 0) as
+				 @ShowThanks bit = 0,
+				 @MessagePosition int = 0) as
 begin
    declare @post_totalrowsnumber int 
    declare @firstselectrownum int 
   
    declare @firstselectposted datetime
    declare @firstselectedited datetime
-     
+
+   declare @floor decimal
+   declare @ceiling decimal
+   declare @newpageindex int
+   declare @offset int 
+   
+   declare @pagecorrection int  
 	set nocount on
 	if @UpdateViewCount>0
 		update [{databaseOwner}].[{objectQualifier}Topic] set [Views] = [Views] + 1 where TopicID = @TopicID
@@ -4632,10 +4639,46 @@ begin
 		AND 
 		m.Edited >= SinceEditedDate
 		*/
-		
-
-   select @PageIndex = @PageIndex+1;   
+	-- select last page	
+   if (@MessagePosition > 0)
+   begin
+  
+   SET @pagecorrection = 0;
+   -- round to ceiling
+   
+   SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
+   -- round to floor
+   SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
+ 
+   if @ceiling = @floor
+      begin
+         SET @pagecorrection = 1;
+		 SET @offset = 0;
+      end
+	  else 
+	  begin
+	  SET @pagecorrection = 0; 
+	  SET @offset = 1;
+	  end
+	       
+   SET @PageIndex = @ceiling +  @pagecorrection - 1 + @offset
+   select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1  -- @pagecorrection
+  if @ceiling = @floor
+           begin
+              SET @PageIndex = @PageIndex - @pagecorrection
+           end 
+		    else 
+	  begin
+	 SET @PageIndex = @PageIndex - @offset
+	  end
+   end
+   else
+   begin
+   SET @pagecorrection = 0;
+   select @PageIndex = @PageIndex+1;
    select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
+   end 
+  
    -- find first selectedrowid 
    if (@firstselectrownum > 0)   
    set rowcount @firstselectrownum
@@ -4712,7 +4755,8 @@ begin
 		Edited = IsNull(m.Edited,m.Posted),
 		HasAttachments	= ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0),
 		HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0),
-		TotalRows = @post_totalrowsnumber
+		TotalRows = @post_totalrowsnumber,
+		PageIndex = @PageIndex
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID

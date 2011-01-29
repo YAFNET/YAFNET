@@ -3615,7 +3615,8 @@ namespace YAF.Classes.Data
         int sortPosted, 
         int sortEdited, 
         int sortPosition,
-        bool showThanks)
+        bool showThanks,
+        int messagePosition)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("post_list"))
       {
@@ -3635,6 +3636,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("SortEdited", sortEdited);
         cmd.Parameters.AddWithValue("SortPosition", sortPosition);
         cmd.Parameters.AddWithValue("ShowThanks", showThanks);
+        cmd.Parameters.AddWithValue("MessagePosition", messagePosition);
 
         return MsSqlDbAccess.Current.GetData(cmd);
       }
