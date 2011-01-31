@@ -26,11 +26,9 @@ namespace YAF.Types.Interfaces
   #endregion
 
   /// <summary>
-  /// Defines a cache interface
+  /// Interface to the cache system.
   /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public interface IDataCache<T> : IReadValue<T>, IWriteValue<T>, IRemoveValue
+  public interface IDataCache : IReadValue<object>, IWriteValue<object>, IRemoveValue
   {
     #region Indexers
 
@@ -40,21 +38,21 @@ namespace YAF.Types.Interfaces
     /// <param name = "key">
     ///   The key.
     /// </param>
-    T this[[NotNull] string key] { get; set; }
+    object this[[NotNull] string key] { get; set; }
 
     #endregion
 
     #region Public Methods
 
     /// <summary>
-    /// The get all.
+    /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
     /// </summary>
     /// <returns>
     /// </returns>
-    IEnumerable<KeyValuePair<string, T>> GetAll();
+    IEnumerable<KeyValuePair<string, T>> GetAll<T>();
 
     /// <summary>
-    /// The get or set.
+    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
     /// </summary>
     /// <param name="key">
     /// The key.
@@ -67,10 +65,10 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// </returns>
-    T GetOrSet([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout);
+    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout);
 
     /// <summary>
-    /// The get or set.
+    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
     /// </summary>
     /// <param name="key">
     /// The key.
@@ -80,21 +78,10 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// </returns>
-    T GetOrSet([NotNull] string key, [NotNull] Func<T> getValue);
+    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
 
     /// <summary>
-    /// The remove.
-    /// </summary>
-    /// <param name="removeFunction">
-    /// The remove function.
-    /// </param>
-    /// <returns>
-    /// The remove.
-    /// </returns>
-    int Remove([NotNull] Func<string, bool> removeFunction);
-
-    /// <summary>
-    /// The set.
+    /// Sets a cache value with a timeout.
     /// </summary>
     /// <param name="key">
     /// The key.
@@ -105,7 +92,7 @@ namespace YAF.Types.Interfaces
     /// <param name="timeout">
     /// The timeout.
     /// </param>
-    void Set([NotNull] string key, T value, TimeSpan timeout);
+    void Set([NotNull] string key, object value, TimeSpan timeout);
 
     #endregion
   }

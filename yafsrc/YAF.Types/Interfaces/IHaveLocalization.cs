@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,29 +18,18 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Collections.Generic;
-
-  public interface IBadWordReplace
+  /// <summary>
+  /// The i have localization.
+  /// </summary>
+  public interface IHaveLocalization
   {
-    /// <summary>
-    ///   Gets ReplaceItems.
-    /// </summary>
-    IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
+    #region Properties
 
     /// <summary>
-    /// Searches through SearchText and replaces "bad words" with "good words"
-    ///   as defined in the database.
+    /// Gets Localization.
     /// </summary>
-    /// <param name="searchText">
-    /// The string to search through.
-    /// </param>
-    /// <returns>
-    /// The replace.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// <c>Exception</c>.
-    /// </exception>
-    string Replace([NotNull] string searchText);
+    ILocalization Localization { get; }
+
+    #endregion
   }
 }

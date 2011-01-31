@@ -65,6 +65,10 @@
     <Compile Include="EventProxies\ForumPageEvents.cs" />
     <Compile Include="EventProxies\HttpApplicationInitEvent.cs" />
     <Compile Include="EventProxies\NewUserRegisteredEvent.cs" />
+    <Compile Include="EventProxies\SuccessfulUserLoginEvent.cs" />
+    <Compile Include="EventProxies\UpdateUserEvent.cs" />
+    <Compile Include="EventProxies\UpdateUserPrivateMessageEvent.cs" />
+    <Compile Include="EventProxies\UserLogoutEvent.cs" />
     <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\ActiveFlags.cs" />
@@ -84,11 +88,14 @@
     <Compile Include="Interfaces\Events\IAmEvent.cs" />
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
+    <Compile Include="Interfaces\Extensions\IDataCacheExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
     <Compile Include="Interfaces\IBBCode.cs" />
+    <Compile Include="Interfaces\IBuddy.cs" />
     <Compile Include="Interfaces\IDataCache.cs" />
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
@@ -100,6 +107,7 @@
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
     <Compile Include="Interfaces\IFormatMessage.cs" />
+    <Compile Include="Interfaces\IHaveLocalization.cs" />
     <Compile Include="Interfaces\IHaveLockObject.cs" />
     <Compile Include="Interfaces\IHaveServiceLocator.cs" />
     <Compile Include="Interfaces\IInjectServices.cs" />

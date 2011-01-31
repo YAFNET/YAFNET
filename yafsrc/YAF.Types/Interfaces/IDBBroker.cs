@@ -47,7 +47,7 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// </returns>
-    DataRow ActiveUserLazyData([NotNull] object userID);
+    DataRow ActiveUserLazyData([NotNull] int userId);
 
     /// <summary>
     /// Adds the Thanks info to a dataTable

@@ -16,31 +16,41 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.EventProxies
 {
-  using System;
-  using System.Collections.Generic;
+  #region Using
 
-  public interface IBadWordReplace
+  using YAF.Types.Interfaces;
+
+  #endregion
+
+  /// <summary>
+  /// The update user event.
+  /// </summary>
+  public class UpdateUserEvent : IAmEvent
   {
-    /// <summary>
-    ///   Gets ReplaceItems.
-    /// </summary>
-    IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Searches through SearchText and replaces "bad words" with "good words"
-    ///   as defined in the database.
+    /// Initializes a new instance of the <see cref="UpdateUserEvent"/> class.
     /// </summary>
-    /// <param name="searchText">
-    /// The string to search through.
+    /// <param name="userId">
+    /// The user id.
     /// </param>
-    /// <returns>
-    /// The replace.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// <c>Exception</c>.
-    /// </exception>
-    string Replace([NotNull] string searchText);
+    public UpdateUserEvent(int userId)
+    {
+      this.UserId = userId;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets UserId.
+    /// </summary>
+    public int UserId { get; set; }
+
+    #endregion
   }
 }
