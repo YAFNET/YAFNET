@@ -486,7 +486,7 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (iStart > 0)
       {
-        output.RenderAnchorBegin(this.GetLinkUrl(1, postBack), "pagelinkfirst", "Go to First Page");
+          output.RenderAnchorBegin(this.GetLinkUrl(1, postBack), "pagelinkfirst", this.PageContext.Localization.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);
@@ -498,7 +498,7 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (this.CurrentPageIndex > iStart)
       {
-        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex, postBack), "pagelink", "Prev Page");
+          output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex, postBack), "pagelink", this.PageContext.Localization.GetText("COMMON", "GOTOPREVPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);
@@ -535,7 +535,7 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (this.CurrentPageIndex < (this.PageCount - 1))
       {
-        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), "pagelink", "Next Page");
+          output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), "pagelink", this.PageContext.Localization.GetText("COMMON", "GOTONEXTPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);
@@ -547,7 +547,7 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (iEnd < this.PageCount)
       {
-        output.RenderAnchorBegin(this.GetLinkUrl(this.PageCount, postBack), "pagelinklast", "Go to Last Page");
+        output.RenderAnchorBegin(this.GetLinkUrl(this.PageCount, postBack), "pagelinklast", this.PageContext.Localization.GetText("COMMON", "GOTOLASTPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);

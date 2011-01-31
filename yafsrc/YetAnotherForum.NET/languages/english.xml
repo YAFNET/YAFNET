@@ -618,7 +618,11 @@
     <Resource tag="VIEW_FULLINFO">View full info</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
-      <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>
+     <Resource tag="GOTOLASTPAGE_TT">Go to last page</Resource>
+     <Resource tag="GOTONEXTPAGE_TT">Next Page</Resource>
+     <Resource tag="GOTOPREVPAGE_TT">Prev Page</Resource>
       <Resource tag="HIDDEN">Hidden</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
@@ -1791,6 +1795,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="FORUM">Forum</Resource>
       <Resource tag="FORUMUSERS">Users browsing this forum</Resource>
       <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
+      <Resource tag="FAVORITE_COUNT_TT">How many times added to favorites</Resource>
       <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
       <Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts are made in this forum.</Resource>
       <Resource tag="LAST_DAY">from the last day</Resource>

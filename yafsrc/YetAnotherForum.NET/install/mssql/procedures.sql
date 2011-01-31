@@ -2715,8 +2715,8 @@ select
 		a.SortOrder,
 		b.SortOrder
 
--- insert into @tbl(ForumID,ParentID)
--- select * FROM @tbl1
+ insert into @tbl(ForumID,ParentID)
+ select * FROM @tbl1
  -- more childrens can be added to display as a tree
 
 		select 
@@ -2757,7 +2757,7 @@ select
 	where 		
 		(@CategoryID is null or a.CategoryID=@CategoryID) and		
 		 x.UserID = @UserID and		
-		(b.ForumID IN (SELECT ForumID FROM @tbl) OR b.ForumID IN (SELECT ForumID FROM @tbl1))
+		(b.ForumID IN (SELECT ForumID FROM @tbl) )
 	order by
 		a.SortOrder,
 		b.SortOrder

@@ -52,7 +52,7 @@
             if (favoriteCount > 0)
             {
 %>
-        <span class="topicFavoriteCount">[+<%=favoriteCount%>]</span>
+        <span class="topicFavoriteCount"><a title="<%=this.PageContext.Localization.GetText("FAVORITE_COUNT_TT")%>">[+<%=favoriteCount%>]</a></span>
         <%
             }
 %>
