@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="YAFVision" dir="yafvision">
   <page name="THEME">
-    <Resource tag="CREDIT">YAFVision Theme by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
+    <Resource tag="CREDIT"></Resource>
     <Resource tag="HEADER">&lt;script type="text/javascript" src="~/yafvision.js"&gt;&lt;/script&gt;</Resource>
   </page>
   <page name="FORUM">
