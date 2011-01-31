@@ -5222,12 +5222,6 @@
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.Pages.Admin.pm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-              the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="M:YAF.Pages.Admin.pm.commit_Click(System.Object,System.EventArgs)">
             <summary>
             The commit_ click.
@@ -5730,11 +5724,6 @@
         <member name="M:YAF.Pages.Admin.editforum.ClearCaches">
             <summary>
             The clear caches.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.editforum.InitializeComponent">
-            <summary>
-            The initialize component.
             </summary>
         </member>
         <member name="M:YAF.Pages.Admin.editforum.Save_Click(System.Object,System.EventArgs)">
@@ -8297,6 +8286,7 @@
             </returns>
             <exception cref="T:System.Exception">
             </exception>
+            <exception cref="T:SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
         </member>
         <member name="M:YafWebService.SetDisplayNameFromUsername(System.String,System.String,System.String)">
             <summary>
@@ -8317,6 +8307,36 @@
             <returns>
             The set display name from username.
             </returns>
+            <exception cref="T:NonUniqueDisplayNameException">
+            <c>NonUniqueDisplayNameException</c>.
+            </exception>
+            <exception cref="T:SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
+        </member>
+        <member name="T:SecurityFailureInvalidWebServiceTokenException">
+            <summary>
+            The security failure invalid web service token exception.
+            </summary>
+        </member>
+        <member name="M:SecurityFailureInvalidWebServiceTokenException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SecurityFailureInvalidWebServiceTokenException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="T:NonUniqueDisplayNameException">
+            <summary>
+            The non unique display name exception.
+            </summary>
+        </member>
+        <member name="M:NonUniqueDisplayNameException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NonUniqueDisplayNameException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
         </member>
         <member name="T:YAF.Pages.rsstopic">
             <summary>
@@ -11449,6 +11469,7 @@
             </param>
             <exception cref="T:System.Exception">
             </exception>
+            <exception cref="T:System.IO.IOException"><c>IOException</c>.</exception>
         </member>
         <member name="M:YAF.Install._default.FillWithConnectionStrings">
             <summary>
@@ -15959,7 +15980,7 @@
             The bind data.
             </summary>
         </member>
-        <member name="M:YAF.Pages.posts.GetFindMessageId(System.Int32@)">
+        <member name="M:YAF.Pages.posts.GetFindMessageId(System.Int32@,System.Boolean@)">
             <summary>
             Gets the message ID if "find" is in the query string
             </summary>
@@ -17378,11 +17399,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="P:YAF.Controls.ShoutBox.CacheKey">
-            <summary>
-              Gets CacheKey.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.ReportedPosts">
             <summary>
             The reported posts.
@@ -18247,6 +18263,11 @@
         <member name="M:YAF.Controls.PMList.BindData">
             <summary>
             The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PMList.ClearCache">
+            <summary>
+            The clear cache.
             </summary>
         </member>
         <member name="M:YAF.Controls.PMList.ExportCsvFile(System.Data.DataView)">
@@ -30252,14 +30273,6 @@
               Initializes a new instance of the <see cref="T:YAF.Pages.logout"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Pages.logout.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Pages.logout.Page_Load(System.Object,System.EventArgs)">
             <summary>
             The page_ load.
@@ -30270,12 +30283,6 @@
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="M:YAF.Pages.logout.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-              the contents of this method with the code editor.
-            </summary>
         </member>
         <member name="T:YAF.Pages.cp_message">
             <summary>
@@ -34286,24 +34293,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel105">
-            <summary>
-            HelpLabel105 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.SmiliesPerRow">
-            <summary>
-            SmiliesPerRow control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.HelpLabel106">
             <summary>
             HelpLabel106 control.
@@ -37395,7 +37384,7 @@
             The yaf modal dialog load js.
             </returns>
         </member>
-        <member name="M:YAF.Utilities.JavaScriptBlocks.addFavoriteTopicJs(System.String)">
+        <member name="M:YAF.Utilities.JavaScriptBlocks.AddFavoriteTopicJs(System.String)">
             <summary>
             script for the add Favorite Topic button
             </summary>
@@ -37406,7 +37395,7 @@
             The add Favorite Topic js.
             </returns>
         </member>
-        <member name="M:YAF.Utilities.JavaScriptBlocks.addThanksJs(System.String)">
+        <member name="M:YAF.Utilities.JavaScriptBlocks.AddThanksJs(System.String)">
             <summary>
             script for the addThanks button
             </summary>
@@ -37417,7 +37406,7 @@
             The add thanks js.
             </returns>
         </member>
-        <member name="M:YAF.Utilities.JavaScriptBlocks.removeFavoriteTopicJs(System.String)">
+        <member name="M:YAF.Utilities.JavaScriptBlocks.RemoveFavoriteTopicJs(System.String)">
             <summary>
             script for the remove Favorite Topic button
             </summary>
@@ -37428,7 +37417,7 @@
             The remove Favorite Topic js.
             </returns>
         </member>
-        <member name="M:YAF.Utilities.JavaScriptBlocks.removeThanksJs(System.String)">
+        <member name="M:YAF.Utilities.JavaScriptBlocks.RemoveThanksJs(System.String)">
             <summary>
             script for the removeThanks button
             </summary>
@@ -37662,6 +37651,53 @@
             The container.
             </param>
         </member>
+        <member name="T:YAF.Modules.ClearCacheOnEvents">
+            <summary>
+            The clear cache on events.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.ClearCacheOnEvents.#ctor(YAF.Types.Interfaces.IServiceLocator,YAF.Types.Interfaces.IDataCache)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.ClearCacheOnEvents"/> class.
+            </summary>
+            <param name="serviceLocator">
+            The service locator.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#UserLogoutEvent}#Handle(YAF.Types.EventProxies.UserLogoutEvent)">
+            <summary>
+            The handle.
+            </summary>
+            <param name="event">
+            The event.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#UpdateUserEvent}#Handle(YAF.Types.EventProxies.UpdateUserEvent)">
+            <summary>
+            The handle.
+            </summary>
+            <param name="event">
+            The event.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.ClearCacheOnEvents.YAF#Types#Interfaces#IHandleEvent{YAF#Types#EventProxies#SuccessfulUserLoginEvent}#Handle(YAF.Types.EventProxies.SuccessfulUserLoginEvent)">
+            <summary>
+            The handle.
+            </summary>
+            <param name="event">
+            The event.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.ClearCacheOnEvents.Order">
+            <summary>
+              Gets Order.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.ClearCacheOnEvents.ServiceLocator">
+            <summary>
+            Gets or sets ServiceLocator.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.YafAjax">
             <summary>
             Class for JS jQuery  Ajax Methods
@@ -37736,9 +37772,6 @@
             </summary>
             <param name="boardId">
             The board id.
-            </param>
-            <param name="lastCheck">
-            The last check.
             </param>
             <returns>
             The refresh shout box.
