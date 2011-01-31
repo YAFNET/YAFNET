@@ -1584,7 +1584,11 @@
     <Resource tag="FORUM_JUMP">עבור לפורום</Resource>
     <Resource tag="GENERATED">דף זה נוצר תוך {0:N3} שניות.</Resource>
     <Resource tag="GO">אישור</Resource>
+    <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>
+    <Resource tag="GOTOLASTPAGE_TT">Go to last page</Resource>
+    <Resource tag="GOTONEXTPAGE_TT">Next Page</Resource>
     <Resource tag="GOTOPAGE_HEADER">לך לעמוד...</Resource>
+    <Resource tag="GOTOPREVPAGE_TT">Prev Page</Resource>
     <Resource tag="HIDDEN">מוסתר</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
@@ -2349,8 +2353,12 @@
   <page name="MEMBERS">
     <Resource tag="ALL">All</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="INVALIDPOSTSVALUE">You've entered an invalid value for number of posts.</Resource>
     <Resource tag="JOINED">הצטרף/ה</Resource>
     <Resource tag="LASTVISIT">Last visit</Resource>
+    <Resource tag="NUMPOSTSEQUAL">is equal to</Resource>
+    <Resource tag="NUMPOSTSLESSOREQUAL">is less or equal to</Resource>
+    <Resource tag="NUMPOSTSMOREOREQUAL">is more or equal to</Resource>
     <Resource tag="PAGES">{0} דפים:</Resource>
     <Resource tag="POSTS">הודעות</Resource>
     <Resource tag="RANK">דירוג</Resource>
@@ -3186,6 +3194,7 @@
     <Resource tag="ATOMFEED">Atom Feed</Resource>
     <Resource tag="BY">ע"י {0}</Resource>
     <Resource tag="CREATED">נוצר</Resource>
+    <Resource tag="FAVORITE_COUNT_TT">How many times added to favorites</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">משתמשים הצופים בפורום זה</Resource>
     <Resource tag="GOTO_POST_PAGER">[ עבור לעמוד: {0} ]</Resource>

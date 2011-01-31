@@ -1867,7 +1867,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="admin_admin">Admin Index</Resource>
       <Resource tag="admin_boardsettings">Board Settings</Resource>
       <Resource tag="admin_forums">Forums</Resource>
-      <Resource tag="admin_smilies">Smiles</Resource>
+      <Resource tag="admin_smilies">Smilies</Resource>
      <Resource tag="admin_replacewords">Replace Words</Resource>
       <Resource tag="admin_extensions">File Extensions</Resource>
       <Resource tag="admin_bbcode">BBCode Extensions</Resource>

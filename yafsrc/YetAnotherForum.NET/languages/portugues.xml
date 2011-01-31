@@ -1561,7 +1561,11 @@
     <Resource tag="FORUM_JUMP">Ir para o Fórum</Resource>
     <Resource tag="GENERATED">Esta página foi gerada em {0:N3} segundos.</Resource>
     <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>
+    <Resource tag="GOTOLASTPAGE_TT">Go to last page</Resource>
+    <Resource tag="GOTONEXTPAGE_TT">Next Page</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="GOTOPREVPAGE_TT">Prev Page</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
@@ -2324,8 +2328,12 @@
   <page name="MEMBERS">
     <Resource tag="ALL">All</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="INVALIDPOSTSVALUE">You've entered an invalid value for number of posts.</Resource>
     <Resource tag="JOINED">Associado em</Resource>
     <Resource tag="LASTVISIT">Last visit</Resource>
+    <Resource tag="NUMPOSTSEQUAL">is equal to</Resource>
+    <Resource tag="NUMPOSTSLESSOREQUAL">is less or equal to</Resource>
+    <Resource tag="NUMPOSTSMOREOREQUAL">is more or equal to</Resource>
     <Resource tag="PAGES">{0} Páginas:</Resource>
     <Resource tag="POSTS">Participações</Resource>
     <Resource tag="RANK">Classe</Resource>
@@ -3058,6 +3066,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ATOMFEED">Atom Feed</Resource>
     <Resource tag="BY">por {0}</Resource>
     <Resource tag="CREATED">Criado</Resource>
+    <Resource tag="FAVORITE_COUNT_TT">How many times added to favorites</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Usuários visitando este fórum</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Ir para a Página: {0} ]</Resource>
