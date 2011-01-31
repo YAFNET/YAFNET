@@ -34,7 +34,6 @@ namespace YAF.Controls
 
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -105,9 +104,8 @@ namespace YAF.Controls
       }
 
       this.BindData();
-      this.PageContext.Cache.Remove(
-        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
-      this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
+      this.ClearCache();
+      this.PageContext.AddLoadMessage(this.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
     }
 
     /// <summary>
@@ -122,7 +120,7 @@ namespace YAF.Controls
     protected void ArchiveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CONFIRM_ARCHIVEALL"));
+        "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_ARCHIVEALL"));
     }
 
     /// <summary>
@@ -152,12 +150,11 @@ namespace YAF.Controls
       }
 
       this.BindData();
-      this.PageContext.Cache.Remove(
-        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+      this.ClearCache();
       this.PageContext.AddLoadMessage(
         archivedCount == 1
-          ? this.PageContext.Localization.GetText("MSG_ARCHIVED")
-          : this.PageContext.Localization.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
+          ? this.GetText("MSG_ARCHIVED")
+          : this.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
     }
 
     /// <summary>
@@ -233,9 +230,8 @@ namespace YAF.Controls
       }
 
       this.BindData();
-      this.PageContext.AddLoadMessage(this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
-      this.PageContext.Cache.Remove(
-        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+      this.PageContext.AddLoadMessage(this.GetTextFormatted("msgdeleted2", nItemCount));
+      this.ClearCache();
     }
 
     /// <summary>
@@ -250,7 +246,7 @@ namespace YAF.Controls
     protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CONFIRM_DELETEALL"));
+        "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_DELETEALL"));
     }
 
     /// <summary>
@@ -286,10 +282,9 @@ namespace YAF.Controls
 
       this.PageContext.AddLoadMessage(
         nItemCount == 1
-          ? this.PageContext.Localization.GetText("msgdeleted1")
-          : this.PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
-      this.PageContext.Cache.Remove(
-        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+          ? this.GetText("msgdeleted1")
+          : this.GetTextFormatted("msgdeleted2", nItemCount));
+      this.ClearCache();
     }
 
     /// <summary>
@@ -304,7 +299,7 @@ namespace YAF.Controls
     protected void DeleteSelected_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CONFIRM_DELETE"));
+        "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -323,7 +318,7 @@ namespace YAF.Controls
       // Return if No Messages are Available to Export
       if (messageList.Table.Rows.Count.Equals(0))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NO_MESSAGES"));
+        this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"));
         return;
       }
 
@@ -371,7 +366,7 @@ namespace YAF.Controls
       // Return if No Message Selected
       if (nItemCount.Equals(0))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("MSG_NOSELECTED"));
+        this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"));
 
         this.BindData();
 
@@ -456,7 +451,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetLocalizedText([NotNull] string text)
     {
-      return this.HtmlEncode(this.PageContext.Localization.GetText(text));
+      return this.HtmlEncode(this.GetText(text));
     }
 
     /// <summary>
@@ -531,7 +526,7 @@ namespace YAF.Controls
 
       return
         this.HtmlEncode(
-          this.PageContext.Localization.GetTextFormatted(text, _total, _inbox, _outbox, _archive, _limit, _percentage));
+          this.GetTextFormatted(text, _total, _inbox, _outbox, _archive, _limit, _percentage));
     }
 
     /// <summary>
@@ -585,8 +580,7 @@ namespace YAF.Controls
           LegacyDb.pmessage_markread(item["UserPMessageID"]);
 
           // Clearing cache with old permissions data...
-          this.PageContext.Cache.Remove(
-            YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+          this.ClearCache();
         }
       }
 
@@ -678,7 +672,7 @@ namespace YAF.Controls
         this.PageContext.LoadMessage.Clear();
       }
 
-      this.lblExportType.Text = this.PageContext.Localization.GetText("EXPORTFORMAT");
+      this.lblExportType.Text = this.GetText("EXPORTFORMAT");
 
       this.BindData();
     }
@@ -784,6 +778,14 @@ namespace YAF.Controls
       }
 
       this.Stats_Renew();
+    }
+
+    /// <summary>
+    /// The clear cache.
+    /// </summary>
+    private void ClearCache()
+    {
+      this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
     }
 
     /// <summary>

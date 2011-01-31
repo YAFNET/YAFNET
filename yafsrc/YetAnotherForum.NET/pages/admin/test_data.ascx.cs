@@ -839,8 +839,8 @@ namespace YAF.Pages.Admin
           LegacyDb.pmessage_markread(dr["PMessageID"]);
 
           // Clearing cache with old permissions data...
-          this.PageContext.Cache.Remove(
-            YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userAID)));
+          this.Get<IDataCache>().Remove(
+            Constants.Cache.ActiveUserLazyData.FormatWith(userAID));
         }
       }
 

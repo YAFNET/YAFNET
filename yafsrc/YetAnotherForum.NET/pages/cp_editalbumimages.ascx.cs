@@ -33,6 +33,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -100,7 +101,7 @@ namespace YAF.Pages
       YafAlbum.Album_Image_Delete(
         sUpDir, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
       // clear the cache for this user to update albums|images stats...
-      UserMembershipHelper.ClearCacheForUserId(this.PageContext.PageUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
       YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
     }
 
@@ -174,7 +175,7 @@ namespace YAF.Pages
               this.selectfiletr.Visible = true;
             }
 
-            this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted(
+            this.imagesInfo.Text = this.GetTextFormatted(
               "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
           }
           else
@@ -286,7 +287,7 @@ namespace YAF.Pages
             this.selectfiletr.Visible = true;
           }
 
-          this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted(
+          this.imagesInfo.Text = this.GetTextFormatted(
             "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
         }
         else
@@ -363,7 +364,7 @@ namespace YAF.Pages
             this.selectfiletr.Visible = true;
           }
 
-          this.imagesInfo.Text = this.PageContext.Localization.GetTextFormatted(
+          this.imagesInfo.Text = this.GetTextFormatted(
             "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed);
         }
         else
@@ -498,8 +499,9 @@ namespace YAF.Pages
         file.PostedFile.SaveAs(
           "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, albumID.ToString(), filename));
         LegacyDb.album_image_save(null, albumID, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
+
         // clear the cache for this user to update albums|images stats...
-        UserMembershipHelper.ClearCacheForUserId(this.PageContext.PageUserID);
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
         YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
       }
       else

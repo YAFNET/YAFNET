@@ -81,7 +81,7 @@ namespace YAF.Controls
       var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
       notification.Show(
-        this.PageContext.Localization.GetText("TOOLBAR", "LOGOUT_QUESTION"), 
+        this.GetText("TOOLBAR", "LOGOUT_QUESTION"), 
         "Logout?", 
         DialogBox.DialogIcon.Question, 
         new DialogBox.DialogButton
@@ -106,11 +106,11 @@ namespace YAF.Controls
       if (!string.IsNullOrEmpty(searchIcon))
       {
         this.doQuickSearch.Text = @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
-          searchIcon, this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH"));
+          searchIcon, this.GetText("SEARCH", "BTNSEARCH"));
       }
       else
       {
-        this.doQuickSearch.Text = this.PageContext.Localization.GetText("SEARCH", "BTNSEARCH");
+        this.doQuickSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
       }
 
       this.searchInput.Attributes["onkeydown"] =
@@ -118,12 +118,12 @@ namespace YAF.Controls
           .FormatWith(this.doQuickSearch.ClientID);
       this.searchInput.Attributes["onfocus"] =
         "if (this.value == '{0}') {{this.value = '';}}".FormatWith(
-          this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+          this.GetText("TOOLBAR", "SEARCHKEYWORD"));
       this.searchInput.Attributes["onblur"] =
         "if (this.value == '') {{this.value = '{0}';}}".FormatWith(
-          this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD"));
+          this.GetText("TOOLBAR", "SEARCHKEYWORD"));
 
-      this.searchInput.Text = this.PageContext.Localization.GetText("TOOLBAR", "SEARCHKEYWORD");
+      this.searchInput.Text = this.GetText("TOOLBAR", "SEARCHKEYWORD");
 
       base.OnPreRender(e);
     }

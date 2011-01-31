@@ -183,7 +183,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.lnkThanks.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
+      this.lnkThanks.Text = "({0})".FormatWith(this.GetText("VIEWTHANKS", "TITLE"));
       this.lnkThanks.Visible = YafContext.Current.BoardSettings.EnableThanksMod;
 
       // admin or moderator, set edit control to moderator mode...
@@ -254,7 +254,7 @@ namespace YAF.Pages
     {
       if (e.CommandArgument.ToString() == "addbuddy")
       {
-        string[] strBuddyRequest = YafBuddies.AddBuddyRequest(this.UserId);
+        string[] strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
 
         var linkButton = (LinkButton)this.ProfileTabs.FindControl("lnkBuddy");
 
@@ -263,20 +263,20 @@ namespace YAF.Pages
         if (Convert.ToBoolean(strBuddyRequest[1]))
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
+            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
         }
         else
         {
           var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
           literal.Visible = true;
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
+          this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"));
         }
       }
       else
       {
         this.PageContext.AddLoadMessage(
-          this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
-            YafBuddies.RemoveBuddy(this.UserId)));
+          this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
+            this.Get<IBuddy>().Remove(this.UserId)));
       }
 
       this.BindData();
@@ -431,16 +431,16 @@ namespace YAF.Pages
       {
         this.lnkBuddy.Visible = false;
       }
-      else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
+      else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
       {
         this.lnkBuddy.Visible = true;
-        this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
+        this.lnkBuddy.Text = "({0})".FormatWith(this.GetText("BUDDY", "REMOVEBUDDY"));
         this.lnkBuddy.CommandArgument = "removebuddy";
         this.lnkBuddy.Attributes["onclick"] =
           "return confirm('{0}')".FormatWith(
-            this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+            this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
       }
-      else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], false))
+      else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
       {
         this.lnkBuddy.Visible = false;
         this.ltrApproval.Visible = true;
@@ -450,7 +450,7 @@ namespace YAF.Pages
         if (!this.PageContext.IsGuest)
         {
           this.lnkBuddy.Visible = true;
-          this.lnkBuddy.Text = "({0})".FormatWith(this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+          this.lnkBuddy.Text = "({0})".FormatWith(this.GetText("BUDDY", "ADDBUDDY"));
           this.lnkBuddy.CommandArgument = "addbuddy";
           this.lnkBuddy.Attributes["onclick"] = string.Empty;
         }

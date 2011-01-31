@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Tasks;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -263,13 +264,13 @@ namespace YAF.Pages.Admin
     private void ClearCaches()
     {
       // clear moderatorss cache
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
       // clear category cache...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
 
       // clear active discussions cache..
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
     }
 
     /// <summary>

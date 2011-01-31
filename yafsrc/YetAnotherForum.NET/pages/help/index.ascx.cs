@@ -91,7 +91,7 @@ namespace YAF.Pages.help
       {
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(
-          this.PageContext.Localization.GetText("subtitle"), YafBuildLink.GetLink(ForumPages.help_index));
+          this.GetText("subtitle"), YafBuildLink.GetLink(ForumPages.help_index));
 
         this.DoSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
 
@@ -179,7 +179,7 @@ namespace YAF.Pages.help
 
       if (this.search.Text.Length <= 3)
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("SEARCHLONGER"));
+        this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"));
 
         return;
       }
@@ -202,7 +202,7 @@ namespace YAF.Pages.help
 
       if (searchlist.Count.Equals(0))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NORESULTS"));
+        this.PageContext.AddLoadMessage(this.GetText("NORESULTS"));
 
         return;
       }

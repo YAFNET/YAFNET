@@ -29,6 +29,7 @@ namespace YAF.Controls
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
 
@@ -117,8 +118,8 @@ namespace YAF.Controls
       {
         // Is this the cover image?
         setCover.Text = setCover.CommandArgument == this._coverImageID
-                          ? this.PageContext.Localization.GetText("BUTTON_RESETCOVER")
-                          : this.PageContext.Localization.GetText("BUTTON_SETCOVER");
+                          ? this.GetText("BUTTON_RESETCOVER")
+                          : this.GetText("BUTTON_SETCOVER");
       }
     }
 
@@ -153,8 +154,8 @@ namespace YAF.Controls
         YafContext.Current.PageElements.RegisterJsBlockStartup(
           "AlbumEventsJs", 
           JavaScriptBlocks.AlbumEventsJs(
-            this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE"), 
-            this.PageContext.Localization.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+            this.GetText("ALBUM_CHANGE_TITLE"), 
+            this.GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
         YafContext.Current.PageElements.RegisterJsBlockStartup(
           "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
         YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -187,7 +188,7 @@ namespace YAF.Controls
 
         // Initialize the edit control.
         this.EditAlbums.Visible = true;
-        this.EditAlbums.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
+        this.EditAlbums.Text = this.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
       }
 
       this.BindData();
@@ -219,7 +220,7 @@ namespace YAF.Controls
       // ltrTitle.Visible = false;
       this.ltrTitleOnly.Text = this.HtmlEncode(albumTitle);
       this.ltrTitle.Text = albumTitle == string.Empty
-                             ? this.PageContext.Localization.GetText("ALBUM_CHANGE_TITLE")
+                             ? this.GetText("ALBUM_CHANGE_TITLE")
                              : this.HtmlEncode(albumTitle);
 
       // set the Datatable

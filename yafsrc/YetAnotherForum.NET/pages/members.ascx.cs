@@ -260,9 +260,9 @@ namespace YAF.Pages
                 this.Group.DataBind();
             }
 
-            this.NumPostDDL.Items.Add(new ListItem(this.PageContext.Localization.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
-            this.NumPostDDL.Items.Add(new ListItem(this.PageContext.Localization.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
-            this.NumPostDDL.Items.Add(new ListItem(this.PageContext.Localization.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
+            this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
+            this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
+            this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
            
             this.NumPostDDL.DataBind();
 
@@ -442,7 +442,7 @@ namespace YAF.Pages
             int numpostsTb = 0;
             if (NumPostsTB.Text.Trim().IsSet() && (!int.TryParse(NumPostsTB.Text.Trim(), out numpostsTb ) || numpostsTb < 0 || numpostsTb > int.MaxValue))
             {
-                PageContext.AddLoadMessage(GetText("MEMBERS","INVALIDPOSTSVALUE"));
+                PageContext.AddLoadMessage(this.GetText("MEMBERS","INVALIDPOSTSVALUE"));
                 return;
             }
             if (NumPostsTB.Text.Trim().IsNotSet())

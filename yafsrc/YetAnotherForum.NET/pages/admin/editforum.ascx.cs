@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -314,17 +315,10 @@ namespace YAF.Pages.Admin
     private void ClearCaches()
     {
       // clear moderatorss cache
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
       // clear category cache...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
-    }
-
-    /// <summary>
-    /// The initialize component.
-    /// </summary>
-    private void InitializeComponent()
-    {
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
     }
 
     /// <summary>
@@ -479,7 +473,7 @@ namespace YAF.Pages.Admin
           LegacyDb.forumaccess_save(ForumID, groupId, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 
           // Update statistics
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+          this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
         }
 
         this.ClearCaches();

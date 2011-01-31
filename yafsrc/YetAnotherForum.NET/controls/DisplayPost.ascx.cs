@@ -160,7 +160,7 @@ namespace YAF.Controls
         {
           sb.AppendFormat(
             @" {0}", 
-            YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(
+            this.GetText("DEFAULT", "ONDATE").FormatWith(
               this.Get<IDateTime>().FormatDateShort(thanksDate)));
         }
       }
@@ -259,13 +259,13 @@ namespace YAF.Controls
       if (this.PopMenu1.Visible)
       {
         this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
-        this.PopMenu1.AddPostBackItem("userprofile", this.PageContext.Localization.GetText("POSTS", "USERPROFILE"));
+        this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"));
 
-        this.PopMenu1.AddPostBackItem("lastposts", this.PageContext.Localization.GetText("PROFILE", "SEARCHUSER"));
+        this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"));
 
         if (YafContext.Current.BoardSettings.EnableThanksMod)
         {
-          this.PopMenu1.AddPostBackItem("viewthanks", this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
+          this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"));
         }
 
         if (this.PageContext.IsAdmin)
@@ -278,12 +278,12 @@ namespace YAF.Controls
           if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
           {
             this.PopMenu1.AddPostBackItem(
-              "toggleuserposts_show", this.PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
+              "toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
           }
           else
           {
             this.PopMenu1.AddPostBackItem(
-              "toggleuserposts_hide", this.PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
+              "toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
           }
         }
 
@@ -291,18 +291,18 @@ namespace YAF.Controls
             this.PageContext.PageUserID != (int)this.DataRow["UserID"])
         {
           // Should we add the "Add Buddy" item?
-          if (!YafBuddies.IsBuddy((int)this.DataRow["UserID"], false) && !this.PageContext.IsGuest)
+          if (!this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], false) && !this.PageContext.IsGuest)
           {
-            this.PopMenu1.AddPostBackItem("addbuddy", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+            this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
           }
-          else if (YafBuddies.IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
+          else if (this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
           {
             // Are the users approved buddies? Add the "Remove buddy" item.
             this.PopMenu1.AddClientScriptItemWithPostback(
-              this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
+              this.GetText("BUDDY", "REMOVEBUDDY"), 
               "removebuddy", 
               "if (confirm('{0}')) {1}".FormatWith(
-                this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+                this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
           }
         }
 
@@ -395,8 +395,8 @@ namespace YAF.Controls
             "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
           var thanksJs =
-            this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML)).AddLine().Add(
-              JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
+            this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML)).AddLine().Add(
+              JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
 
           YafContext.Current.PageElements.RegisterJsBlockStartup(
           "ThanksJs", thanksJs);
@@ -481,30 +481,30 @@ namespace YAF.Controls
         case "addbuddy":
           var strBuddyRequest = new string[2];
           this.PopMenu1.RemovePostBackItem("addbuddy");
-          strBuddyRequest = YafBuddies.AddBuddyRequest(this.PostData.UserId);
+          strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
           if (Convert.ToBoolean(strBuddyRequest[1]))
           {
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
+              this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]));
             this.PopMenu1.AddClientScriptItemWithPostback(
-              this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"), 
+              this.GetText("BUDDY", "REMOVEBUDDY"), 
               "removebuddy", 
               "if (confirm('{0}')) {1}".FormatWith(
-                this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+                this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
           }
           else
           {
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
+            this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"));
           }
 
           break;
         case "removebuddy":
           {
             this.PopMenu1.RemovePostBackItem("removebuddy");
-            this.PopMenu1.AddPostBackItem("addbuddy", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+            this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
-                YafBuddies.RemoveBuddy(this.PostData.UserId)));
+              this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
+                this.Get<IBuddy>().Remove(this.PostData.UserId)));
             break;
           }
 

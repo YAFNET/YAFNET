@@ -25,6 +25,7 @@ namespace YAF.Pages
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
 

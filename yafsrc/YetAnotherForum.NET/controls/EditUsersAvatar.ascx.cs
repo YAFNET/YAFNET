@@ -34,6 +34,7 @@ namespace YAF.Controls
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -109,7 +110,7 @@ namespace YAF.Controls
       LegacyDb.user_deleteavatar(this._currentUserID);
 
       // clear the cache for this user...
-      UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
       this.BindData();
     }
 
@@ -148,18 +149,18 @@ namespace YAF.Controls
             null);
 
           // clear the cache for this user...
-          UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+          this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
         }
 
-        this.UpdateRemote.Text = this.PageContext.Localization.GetText("COMMON", "UPDATE");
-        this.UpdateUpload.Text = this.PageContext.Localization.GetText("COMMON", "UPDATE");
-        this.Back.Text = this.PageContext.Localization.GetText("COMMON", "BACK");
+        this.UpdateRemote.Text = this.GetText("COMMON", "UPDATE");
+        this.UpdateUpload.Text = this.GetText("COMMON", "UPDATE");
+        this.Back.Text = this.GetText("COMMON", "BACK");
 
-        this.NoAvatar.Text = this.PageContext.Localization.GetText("CP_EDITAVATAR", "NOAVATAR");
+        this.NoAvatar.Text = this.GetText("CP_EDITAVATAR", "NOAVATAR");
 
-        this.DeleteAvatar.Text = this.PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE");
+        this.DeleteAvatar.Text = this.GetText("CP_EDITAVATAR", "AVATARDELETE");
         this.DeleteAvatar.Attributes["onclick"] =
-          "return confirm('{0}?')".FormatWith(this.PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE"));
+          "return confirm('{0}?')".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
         string addAdminParam = string.Empty;
         if (this._adminEditMode)
@@ -168,13 +169,13 @@ namespace YAF.Controls
         }
 
         this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
-        this.OurAvatar.Text = this.PageContext.Localization.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
+        this.OurAvatar.Text = this.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
 
-        this.noteRemote.Text = this.PageContext.Localization.GetTextFormatted(
+        this.noteRemote.Text = this.GetTextFormatted(
           "NOTE_REMOTE", 
           this.PageContext.BoardSettings.AvatarWidth.ToString(), 
           this.PageContext.BoardSettings.AvatarHeight.ToString());
-        this.noteLocal.Text = this.PageContext.Localization.GetTextFormatted(
+        this.noteLocal.Text = this.GetTextFormatted(
           "NOTE_LOCAL", 
           this.PageContext.BoardSettings.AvatarWidth.ToString(), 
           this.PageContext.BoardSettings.AvatarHeight, 
@@ -204,7 +205,7 @@ namespace YAF.Controls
       LegacyDb.user_saveavatar(this._currentUserID, this.Avatar.Text.Trim(), null, null);
 
       // clear the cache for this user...
-      UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
 
       // clear the URL out...
       this.Avatar.Text = string.Empty;
@@ -242,10 +243,10 @@ namespace YAF.Controls
           if (img.Width > x || img.Height > y)
           {
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
+              this.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
+              this.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
+            this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
 
             double newWidth = img.Width;
             double newHeight = img.Height;
@@ -275,14 +276,14 @@ namespace YAF.Controls
             this._currentUserID, null, resized ?? this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
 
           // clear the cache for this user...
-          UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+          this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
 
           if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
           {
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
+              this.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(
+              this.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(
                 this.File.PostedFile.ContentLength));
           }
 
@@ -293,7 +294,7 @@ namespace YAF.Controls
       catch (Exception)
       {
         // image is probably invalid...
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("CP_EDITAVATAR", "INVALID_FILE"));
+        this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"));
       }
 
       // this.BindData();

@@ -122,8 +122,8 @@ namespace YAF.Modules
       if (this.DisplayPMPopup())
       {
         notification.Show(
-          this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate), 
-          this.PageContext.Localization.GetText("COMMON", "UNREAD_MSG_TITLE"), 
+          this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate), 
+          this.GetText("COMMON", "UNREAD_MSG_TITLE"), 
           DialogBox.DialogIcon.Mail, 
           new DialogBox.DialogButton
             {
@@ -142,8 +142,8 @@ namespace YAF.Modules
       }
 
       notification.Show(
-        this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies), 
-        this.PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES_TITLE"), 
+        this.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies), 
+        this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"), 
         DialogBox.DialogIcon.Info, 
         new DialogBox.DialogButton
           {

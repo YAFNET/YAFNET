@@ -336,21 +336,21 @@
 
       if (row["TopicMovedID"].ToString().Length > 0)
       {
-        strReturn = this.PageContext.Localization.GetText("MOVED");
+        strReturn = this.GetText("MOVED");
       }
       else if (row["PollID"].ToString() != string.Empty)
       {
-        strReturn = this.PageContext.Localization.GetText("POLL");
+        strReturn = this.GetText("POLL");
       }
       else
       {
         switch (int.Parse(row["Priority"].ToString()))
         {
           case 1:
-            strReturn = this.PageContext.Localization.GetText("STICKY");
+            strReturn = this.GetText("STICKY");
             break;
           case 2:
-            strReturn = this.PageContext.Localization.GetText("ANNOUNCEMENT");
+            strReturn = this.GetText("ANNOUNCEMENT");
             break;
         }
       }
@@ -395,7 +395,7 @@
         // bool bIsLocked = isLocked || General.BinaryAnd( row ["ForumFlags"], ForumFlags.Locked );
         if (row["TopicMovedID"].ToString().Length > 0)
         {
-          imgTitle = this.PageContext.Localization.GetText("MOVED");
+          imgTitle = this.GetText("MOVED");
           return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
         }
 
@@ -412,27 +412,27 @@
 
           if (row["PollID"] != DBNull.Value)
           {
-            imgTitle = this.PageContext.Localization.GetText("POLL_NEW");
+            imgTitle = this.GetText("POLL_NEW");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
           }
           else if (row["Priority"].ToString() == "1")
           {
-            imgTitle = this.PageContext.Localization.GetText("STICKY");
+            imgTitle = this.GetText("STICKY");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
           }
           else if (row["Priority"].ToString() == "2")
           {
-            imgTitle = this.PageContext.Localization.GetText("ANNOUNCEMENT");
+            imgTitle = this.GetText("ANNOUNCEMENT");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
           }
           else if (topicFlags.IsLocked || forumFlags.IsLocked)
           {
-            imgTitle = this.PageContext.Localization.GetText("NEW_POSTS_LOCKED");
+            imgTitle = this.GetText("NEW_POSTS_LOCKED");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
           }
           else
           {
-            imgTitle = this.PageContext.Localization.GetText("NEW_POSTS");
+            imgTitle = this.GetText("NEW_POSTS");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
           }
         }
@@ -440,27 +440,27 @@
         {
           if (row["PollID"] != DBNull.Value)
           {
-            imgTitle = this.PageContext.Localization.GetText("POLL");
+            imgTitle = this.GetText("POLL");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
           }
           else if (row["Priority"].ToString() == "1")
           {
-            imgTitle = this.PageContext.Localization.GetText("STICKY");
+            imgTitle = this.GetText("STICKY");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
           }
           else if (row["Priority"].ToString() == "2")
           {
-            imgTitle = this.PageContext.Localization.GetText("ANNOUNCEMENT");
+            imgTitle = this.GetText("ANNOUNCEMENT");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
           }
           else if (topicFlags.IsLocked || forumFlags.IsLocked)
           {
-            imgTitle = this.PageContext.Localization.GetText("NO_NEW_POSTS_LOCKED");
+            imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
           }
           else
           {
-            imgTitle = this.PageContext.Localization.GetText("NO_NEW_POSTS");
+            imgTitle = this.GetText("NO_NEW_POSTS");
             return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC");
           }
         }

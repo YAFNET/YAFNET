@@ -31,6 +31,7 @@ namespace YAF.Controls
   using YAF.Editors;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -179,8 +180,8 @@ namespace YAF.Controls
         return;
       }
 
-      this.save.Text = this.PageContext.Localization.GetText("COMMON", "Save");
-      this.cancel.Text = this.PageContext.Localization.GetText("COMMON", "Cancel");
+      this.save.Text = this.GetText("COMMON", "Save");
+      this.cancel.Text = this.GetText("COMMON", "Cancel");
 
       var warningMessage = new StringBuilder();
 
@@ -191,12 +192,12 @@ namespace YAF.Controls
         warningMessage.AppendFormat(
           "<li>{0}</li>", 
           this._allowedBbcodes.Contains("ALL")
-            ? this.PageContext.Localization.GetText("BBCODE_ALLOWEDALL")
-            : this.PageContext.Localization.GetTextFormatted("BBCODE_ALLOWEDLIST", this._allowedBbcodes));
+            ? this.GetText("BBCODE_ALLOWEDALL")
+            : this.GetTextFormatted("BBCODE_ALLOWEDLIST", this._allowedBbcodes));
       }
       else
       {
-        warningMessage.AppendFormat("<li>{0}</li>", this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
+        warningMessage.AppendFormat("<li>{0}</li>", this.GetText("BBCODE_FORBIDDEN"));
       }
 
       if (this._allowedHtml.IsSet())
@@ -204,23 +205,23 @@ namespace YAF.Controls
         warningMessage.AppendFormat(
           "<li>{0}</li>", 
           this._allowedHtml.Contains("ALL")
-            ? this.PageContext.Localization.GetText("HTML_ALLOWEDALL")
-            : this.PageContext.Localization.GetTextFormatted("HTML_ALLOWEDLIST", this._allowedHtml));
+            ? this.GetText("HTML_ALLOWEDALL")
+            : this.GetTextFormatted("HTML_ALLOWEDLIST", this._allowedHtml));
       }
       else
       {
-        warningMessage.AppendFormat("<li>{0}</li>", this.PageContext.Localization.GetText("HTML_FORBIDDEN"));
+        warningMessage.AppendFormat("<li>{0}</li>", this.GetText("HTML_FORBIDDEN"));
       }
 
       if (this._allowedNumberOfCharacters > 0)
       {
         warningMessage.AppendFormat(
           "<li>{0}</li>", 
-          this.PageContext.Localization.GetTextFormatted("SIGNATURE_CHARSMAX", this._allowedNumberOfCharacters));
+          this.GetTextFormatted("SIGNATURE_CHARSMAX", this._allowedNumberOfCharacters));
       }
       else
       {
-        warningMessage.AppendFormat("<li>{0}</li>", this.PageContext.Localization.GetText("SIGNATURE_NOEDIT"));
+        warningMessage.AppendFormat("<li>{0}</li>", this.GetText("SIGNATURE_NOEDIT"));
       }
 
       warningMessage.Append("</ul>");
@@ -287,13 +288,13 @@ namespace YAF.Controls
         if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+            this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
           return;
         }
 
         if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
+          this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"));
           return;
         }
       }
@@ -310,7 +311,7 @@ namespace YAF.Controls
 
         if (detectedHtmlTag.IsSet() && detectedHtmlTag == "ALL")
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTML_FORBIDDEN"));
+          this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"));
           return;
         }
       }
@@ -325,7 +326,7 @@ namespace YAF.Controls
         else
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
+            this.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
 
           return;
         }
@@ -336,7 +337,7 @@ namespace YAF.Controls
       }
 
       // clear the cache for this user...
-      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
       if (this.InAdminPages)
       {

@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Pages.cp_editalbumimages" Codebehind="cp_editalbumimages.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>
@@ -19,7 +20,7 @@
         </td>
         <td class="post">
             <asp:Button runat="server" CssClass="pbutton" ID="Delete" OnClick="DeleteAlbum_Click"
-                OnLoad="DeleteAlbum_Load" Text='<%# PageContext.Localization.GetText("Button_DeleteAlbum") %>' />
+                OnLoad="DeleteAlbum_Load" Text='<%# this.GetText("Button_DeleteAlbum") %>' />
         </td>
     </tr>
     <asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
@@ -46,7 +47,7 @@
                 </td>
                 <td class="post">
                     <asp:LinkButton ID="ImageDelete" runat="server" OnLoad="ImageDelete_Load" CommandName="delete"
-                        CommandArgument='<%# Eval( "ImageID") %>'><%# GetText("DELETE") %></asp:LinkButton>
+                        CommandArgument='<%# Eval( "ImageID") %>'><%# this.GetText("DELETE") %></asp:LinkButton>
                 </td>
             </tr>
         </ItemTemplate>

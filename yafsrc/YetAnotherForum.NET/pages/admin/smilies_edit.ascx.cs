@@ -252,8 +252,8 @@ namespace YAF.Pages.Admin
         this.Request.QueryString.GetFirstOrDefault("s"), this.PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
 
       // invalidate the cache...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-      this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+      this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
+      this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
 
       YafBuildLink.Redirect(ForumPages.admin_smilies);
     }

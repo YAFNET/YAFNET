@@ -122,8 +122,10 @@ namespace YAF.Pages.Admin
         this.chkUseModule.Checked, 
         this.txtModuleClass.Text, 
         sortOrder);
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
-      this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+      
+      this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
+      this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
+
       YafBuildLink.Redirect(ForumPages.admin_bbcode);
     }
 

@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td>
@@ -26,7 +27,7 @@
         </tr>
         <tr class="postheader">
             <td width="140px" id="ThanksNumberCell" valign="top" runat="server">
-                <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
+                <%# String.Format(this.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
             </td>
             <td width="140px" id="NameCell" valign="top" runat="server">
                 <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>

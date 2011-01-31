@@ -76,7 +76,7 @@ namespace YAF.Controls
     {
       ((Button)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(
-          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD"));
+          this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD"));
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ namespace YAF.Controls
     {
       ((Button)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(
-          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL"));
+          this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL"));
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ namespace YAF.Controls
     {
       ((Button)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(
-          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED"));
+          this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED"));
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ namespace YAF.Controls
     protected void Deny_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((LinkButton)sender).Attributes["onclick"] =
-        "return confirm('{0}')".FormatWith(this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
+        "return confirm('{0}')".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
     }
 
     /// <summary>
@@ -167,14 +167,14 @@ namespace YAF.Controls
       {
         this.SetSort("Name", true);
 
-        this.UserName.Text = this.PageContext.Localization.GetText("username");
-        this.Rank.Text = this.PageContext.Localization.GetText("rank");
-        this.Joined.Text = this.PageContext.Localization.GetText("members", "joined");
-        this.Posts.Text = this.PageContext.Localization.GetText("CP_EDITBUDDIES", "POSTS");
-        this.Location.Text = this.PageContext.Localization.GetText("POSTS", "LOCATION");
+        this.UserName.Text = this.GetText("username");
+        this.Rank.Text = this.GetText("rank");
+        this.Joined.Text = this.GetText("members", "joined");
+        this.Posts.Text = this.GetText("CP_EDITBUDDIES", "POSTS");
+        this.Location.Text = this.GetText("POSTS", "LOCATION");
         if (this.Mode == 4)
         {
-          this.LastColumn.Text = this.PageContext.Localization.GetText("REQUEST_DATE");
+          this.LastColumn.Text = this.GetText("REQUEST_DATE");
         }
 
         this.BindData();
@@ -238,7 +238,7 @@ namespace YAF.Controls
     {
       ((LinkButton)sender).Attributes["onclick"] =
         "return confirm('{0}')".FormatWith(
-          this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+          this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
     }
 
     /// <summary>
@@ -286,35 +286,35 @@ namespace YAF.Controls
       {
         case "remove":
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
-              YafBuddies.RemoveBuddy(Convert.ToInt32(e.CommandArgument))));
+            this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
+              this.Get<IBuddy>().Remove(Convert.ToInt32(e.CommandArgument))));
           this.CurrentUserID = this.PageContext.PageUserID;
           break;
         case "approve":
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED").FormatWith(
-              YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), false)));
+            this.GetText("NOTIFICATION_BUDDYAPPROVED").FormatWith(
+              this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), false)));
           break;
         case "approveadd":
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(
-              YafBuddies.ApproveBuddyRequest(Convert.ToInt32(e.CommandArgument), true)));
+            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(
+              this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), true)));
           break;
         case "approveall":
-          YafBuddies.ApproveAllBuddyRequests(false);
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_ALL_APPROVED"));
+          this.Get<IBuddy>().ApproveAllRequests(false);
+          this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED"));
           break;
         case "approveaddall":
-          YafBuddies.ApproveAllBuddyRequests(true);
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_ALL_APPROVED_ADDED"));
+          this.Get<IBuddy>().ApproveAllRequests(true);
+          this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"));
           break;
         case "deny":
-          YafBuddies.DenyBuddyRequest(Convert.ToInt32(e.CommandArgument));
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYDENIED"));
+          this.Get<IBuddy>().DenyRequest(Convert.ToInt32(e.CommandArgument));
+          this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"));
           break;
         case "denyall":
-          YafBuddies.DenyAllBuddyRequests();
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_ALL_DENIED"));
+          this.Get<IBuddy>().DenyAllRequests();
+          this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_DENIED"));
           break;
       }
 
@@ -399,7 +399,7 @@ namespace YAF.Controls
       this.Pager.PageSize = 20;
 
       // set the Datatable
-      DataTable buddyListDataTable = YafBuddies.GetBuddiesForUser(this.CurrentUserID);
+      DataTable buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
 
       if ((buddyListDataTable != null) && (buddyListDataTable.Rows.Count > 0))
       {

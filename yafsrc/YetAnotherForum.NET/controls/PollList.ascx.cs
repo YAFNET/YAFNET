@@ -369,7 +369,7 @@ namespace YAF.Controls
       string strPollClosed = string.Empty;
       if (this.IsPollClosed(pollId))
       {
-        strPollClosed = this.PageContext.Localization.GetText("POLL_CLOSED");
+        strPollClosed = this.GetText("POLL_CLOSED");
       }
 
       return strPollClosed;
@@ -839,14 +839,14 @@ namespace YAF.Controls
         {
           if (this._isBound && this.PollNumber > 1 && hasVoteEmptyCounter < this._dtPollGroupAllChoices.Rows.Count)
           {
-            notificationString += this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
+            notificationString += this.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
           }
         }
 
         if (cvote && hasVoteEmptyCounter > 0 && allowsMultipleChoices)
         {
           notificationString +=
-            " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
+            " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
         }
 
         if (this.PageContext.IsGuest)
@@ -856,13 +856,13 @@ namespace YAF.Controls
             if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
             {
               notificationString +=
-                " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
+                " {0}".FormatWith(this.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
             }
 
             if (isNotVoted)
             {
               notificationString +=
-                " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_NOPERM_GUEST"));
+                " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_NOPERM_GUEST"));
             }
           }
         }
@@ -871,7 +871,7 @@ namespace YAF.Controls
             (this.PageContext.ForumVoteAccess ||
              (this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0))))
         {
-          notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED"));
+          notificationString += " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_VOTED"));
         }
 
         // Poll has expiration date
@@ -882,20 +882,20 @@ namespace YAF.Controls
           if (!soon)
           {
             notificationString +=
-              " {0}".FormatWith(this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
-            pollClosedImage.Alt = this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE", daystorun);
+              " {0}".FormatWith(this.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
+            pollClosedImage.Alt = this.GetTextFormatted("POLL_WILLEXPIRE", daystorun);
           }
           else
           {
             notificationString +=
-              " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
-            pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
+              " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
+            pollClosedImage.Alt = this.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
           }
 
           if (isClosedBound)
           {
             notificationString +=
-              " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
+              " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
           }
 
           pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
@@ -903,11 +903,11 @@ namespace YAF.Controls
         }
         else if (daystorun == 0)
         {
-          notificationString += " {0}".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED"));
+          notificationString += " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_EXPIRED"));
 
           var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
           pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_CLOSED");
-          pollClosedImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_CLOSED");
+          pollClosedImage.Alt = this.GetText("POLLEDIT", "POLL_CLOSED");
           pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
           pollClosedImage.Visible = true;
         }
@@ -963,7 +963,7 @@ namespace YAF.Controls
     protected void RemovePollCompletely_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
     }
 
     /// <summary>
@@ -978,7 +978,7 @@ namespace YAF.Controls
     protected void RemovePoll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE"));
     }
 
     /// <summary>
@@ -1044,12 +1044,12 @@ namespace YAF.Controls
       // Add confirmations to delete buttons
       var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
       removePollAll.Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
       removePollAll.Visible = this.CanRemovePollCompletely(pollId);
 
       var removePoll = ri.FindControlRecursiveAs<ThemeButton>("RemovePoll");
       removePoll.Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE"));
       removePoll.Visible = this.CanRemovePoll(pollId);
     }
 
@@ -1071,15 +1071,15 @@ namespace YAF.Controls
       }
 
       ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
 
       ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(
-          this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+          this.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
 
       ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
         "return confirm('{0}');".FormatWith(
-          this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
+          this.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
     }
 
     /// <summary>
@@ -1223,7 +1223,7 @@ namespace YAF.Controls
       else
       {
         // image from theme no need to resize it
-        questionImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+        questionImage.Alt = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
         questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
         questionAnchor.HRef = string.Empty;
       }

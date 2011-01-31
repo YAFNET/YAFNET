@@ -29,6 +29,7 @@ namespace YAF.Modules
   using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -121,18 +122,18 @@ namespace YAF.Modules
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      this._okayButton.Text = YafContext.Current.Localization.GetText("COMMON", "OK");
+      this._okayButton.Text = this.GetText("COMMON", "OK");
 
       // add js for client-side error settings...
       string jsFunction =
-        "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').html(newErrorStr);\njQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{5}'}}); \n{3}\n{3}\n"
+        @"function {2}(newErrorStr) {{
+  if (newErrorStr != null && newErrorStr != """" && jQuery('#{1}') != null) {{
+    jQuery('#{1}').html(newErrorStr);
+    jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{3}'}});
+  }}
+}}"
           .FormatWith(
-            this.ClientID, 
-            this.MainTextClientID, 
-            '{', 
-            '}', 
-            this.ShowModalFunction, 
-            YafForumInfo.GetURLToResource("images/"));
+            this.ClientID, this.MainTextClientID, this.ShowModalFunction, YafForumInfo.GetURLToResource("images/"));
 
       YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
       YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");

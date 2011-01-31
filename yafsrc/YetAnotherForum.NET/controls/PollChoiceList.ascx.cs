@@ -200,19 +200,19 @@ namespace YAF.Controls
 
       if (!this.CanVote)
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
+        this.PageContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"));
         return;
       }
 
       if (this.IsLocked)
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
+        this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"));
         return;
       }
 
       if (this.IsClosed)
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
+        this.PageContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"));
         return;
       }
 
@@ -251,7 +251,7 @@ namespace YAF.Controls
       this.Response.Cookies.Add(c);
 
       // show an info that the user is voted 
-      string msg = this.PageContext.Localization.GetText("INFO_VOTED");
+      string msg = this.GetText("INFO_VOTED");
 
       this.BindData();
 
@@ -298,7 +298,7 @@ namespace YAF.Controls
       }
 
       myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
-      myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+      myLinkButton.ToolTip = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
       myLinkButton.Visible = true;
 
       // Poll Choice image
@@ -336,7 +336,7 @@ namespace YAF.Controls
       }
       else
       {
-        choiceImage.Alt = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+        choiceImage.Alt = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
         choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
         choiceAnchor.HRef = string.Empty;
       }
@@ -358,7 +358,7 @@ namespace YAF.Controls
     protected void RemovePollCompletely_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
     }
 
     /// <summary>
@@ -373,7 +373,7 @@ namespace YAF.Controls
     protected void RemovePoll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE"));
     }
 
     /// <summary>
@@ -445,7 +445,7 @@ namespace YAF.Controls
       string strPollClosed = string.Empty;
       if (this.IsClosed)
       {
-        strPollClosed = this.PageContext.Localization.GetText("POLL_CLOSED");
+        strPollClosed = this.GetText("POLL_CLOSED");
       }
 
       return strPollClosed;

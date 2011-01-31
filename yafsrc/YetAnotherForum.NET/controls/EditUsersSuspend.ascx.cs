@@ -115,9 +115,9 @@ namespace YAF.Controls
       if (!this.IsPostBack)
       {
         // add items to the dropdown
-        this.SuspendUnit.Items.Add(new ListItem(this.PageContext.Localization.GetText("PROFILE", "DAYS"), "1"));
-        this.SuspendUnit.Items.Add(new ListItem(this.PageContext.Localization.GetText("PROFILE", "HOURS"), "2"));
-        this.SuspendUnit.Items.Add(new ListItem(this.PageContext.Localization.GetText("PROFILE", "MINUTES"), "3"));
+        this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
+        this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
+        this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MINUTES"), "3"));
 
         // select hours
         this.SuspendUnit.SelectedIndex = 1;
@@ -183,7 +183,7 @@ namespace YAF.Controls
           if (row["IsAdmin"] != DBNull.Value && Convert.ToInt32(row["IsAdmin"]) > 0)
           {
             // tell user he can't suspend admin
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
+            this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
             return;
           }
 
@@ -191,7 +191,7 @@ namespace YAF.Controls
           if (!this.PageContext.IsAdmin && int.Parse(row["IsForumModerator"].ToString()) > 0)
           {
             // tell user he can't suspend forum moderator when he's not admin
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
+            this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
             return;
           }
 
@@ -200,7 +200,7 @@ namespace YAF.Controls
           // verify the user isn't guest...
           if (isGuest != DBNull.Value && Convert.ToInt32(isGuest) > 0)
           {
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
+            this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
             return;
           }
         }
@@ -271,11 +271,11 @@ namespace YAF.Controls
           this.ViewState["SuspendedUntil"] = this.Get<IDateTime>().FormatDateTime(user["Suspended"]);
 
           // localize remove suspension button
-          this.RemoveSuspension.Text = this.PageContext.Localization.GetText("PROFILE", "REMOVESUSPENSION");
+          this.RemoveSuspension.Text = this.GetText("PROFILE", "REMOVESUSPENSION");
         }
 
         // localize suspend button
-        this.Suspend.Text = this.PageContext.Localization.GetText("PROFILE", "SUSPEND");
+        this.Suspend.Text = this.GetText("PROFILE", "SUSPEND");
       }
     }
 

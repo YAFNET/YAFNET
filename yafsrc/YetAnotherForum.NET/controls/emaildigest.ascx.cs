@@ -161,7 +161,7 @@ namespace YAF.Controls
       }
       else if (this._localization == null)
       {
-        this._localization = this.PageContext.Localization;
+        this._localization = this.Get<ILocalization>();
       }
 
       return this._localization.GetText("DIGEST", tag);

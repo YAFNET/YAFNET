@@ -34,6 +34,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -234,7 +235,7 @@ namespace YAF.Pages
           this.BindData();
 
           // clear moderatorss cache
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+          this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
           break;
       }
     }

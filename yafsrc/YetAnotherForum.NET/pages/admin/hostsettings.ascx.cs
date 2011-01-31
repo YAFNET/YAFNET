@@ -23,6 +23,8 @@ namespace YAF.Pages.Admin
   #region Using
 
   using System;
+  using System.Collections.Generic;
+  using System.Data;
   using System.Linq;
   using System.Web.UI;
   using System.Web.UI.WebControls;
@@ -32,6 +34,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.BBCode;
   using YAF.Core.Services;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
   using YAF.Utilities;
@@ -208,76 +211,27 @@ namespace YAF.Pages.Admin
       /// </summary>
       private void RenderListItems()
       {
-          string entry1 = this.GetText("ADMIN_HOSTSETTINGS", "FORBIDDEN");
-          string entry2 = this.GetText("ADMIN_HOSTSETTINGS", "REG_USERS");
-          string entry3 = this.GetText("ADMIN_HOSTSETTINGS", "ALL_USERS");
+        var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
-          PostsFeedAccess.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          AllowCreateTopicsSameName.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          PostLatestFeedAccess.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          ForumFeedAccess.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          TopicsFeedAccess.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          ActiveTopicFeedAccess.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          FavoriteTopicFeedAccess.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          ReportPostPermissions.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          ProfileViewPermissions.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          MembersListViewPermissions.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
-          ActiveUsersViewPermissions.Items.AddRange(new[]
-              {
-                  new ListItem(entry1, "0"),
-                  new ListItem(entry2, "1"),
-                  new ListItem(entry3, "2")
-              });
+        var dropDownLists = new []
+          {
+            PostsFeedAccess,
+            AllowCreateTopicsSameName,
+            PostLatestFeedAccess,
+            ForumFeedAccess,
+            TopicsFeedAccess,
+            ActiveTopicFeedAccess,
+            FavoriteTopicFeedAccess,
+            ReportPostPermissions,
+            ProfileViewPermissions,
+            MembersListViewPermissions,
+            ActiveUsersViewPermissions
+          };
+
+        foreach (var ddl in dropDownLists)
+        {
+          ddl.Items.AddRange(localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString())).ToArray());
+        }
       }
 
       /// <summary>
@@ -291,7 +245,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+      this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
       this.CheckCache();
     }
 
@@ -307,7 +261,7 @@ namespace YAF.Pages.Admin
     protected void ResetCacheAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // clear all cache keys
-      this.PageContext.Cache.Clear();
+      this.Get<IDataCache>().Clear();
 
       this.CheckCache();
     }
@@ -434,7 +388,7 @@ namespace YAF.Pages.Admin
     protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // vzrus: remove all users lazy data 
-      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+      this.Get<IDataCache>().RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty)));
       this.CheckCache();
     }
 
@@ -563,7 +517,7 @@ namespace YAF.Pages.Admin
       this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
       this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
       this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);
-      this.ResetCacheAll.Enabled = this.PageContext.Cache.Count > 0;
+      this.ResetCacheAll.Enabled = this.Get<IDataCache>().Count() > 0;
     }
 
     /// <summary>
@@ -577,7 +531,7 @@ namespace YAF.Pages.Admin
     /// </returns>
     private bool CheckCacheKey([NotNull] string key)
     {
-      return this.PageContext.Cache[YafCache.GetBoardCacheKey(key)] != null;
+      return this.Get<IDataCache>()[key] != null;
     }
 
     /// <summary>
@@ -588,7 +542,7 @@ namespace YAF.Pages.Admin
     /// </param>
     private void RemoveCacheKey([NotNull] string key)
     {
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(key));
+      this.Get<IDataCache>().Remove(key);
       this.CheckCache();
     }
 

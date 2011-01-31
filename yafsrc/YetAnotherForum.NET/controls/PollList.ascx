@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs"
     Inherits="YAF.Controls.PollList" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
  <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
 <table cellpadding="0" cellspacing="1" class="content" width="100%">
     <asp:Repeater ID="PollGroup" OnItemCommand="PollGroup_ItemCommand" OnItemDataBound="PollGroup_OnItemDataBound"
@@ -41,7 +42,7 @@
                 <img id="PollClosedImage" title="" src="" alt="" visible="false"  runat="server" />               
                 </td>
                 <td class="header2">
-                    <%= PageContext.Localization.GetText("total") %>
+                    <%= this.GetText("total") %>
                 </td>
                 <td class="header2" align="center">
                     <%# DataBinder.Eval(Container.DataItem, "Total") %>

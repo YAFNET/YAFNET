@@ -99,7 +99,7 @@ namespace YAF.Pages
     {
       if (this.reportEditor.Text.Length > this.PageContext.BoardSettings.MaxReportPostChars)
       {
-        this.IncorrectReportLabel.Text = this.PageContext.Localization.GetTextFormatted(
+        this.IncorrectReportLabel.Text = this.GetTextFormatted(
           "REPORTTEXT_TOOLONG", this.PageContext.BoardSettings.MaxReportPostChars);
         this.IncorrectReportLabel.DataBind();
         return;
@@ -182,7 +182,7 @@ namespace YAF.Pages
         // Get Forum Link
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.btnReport.Attributes.Add(
-          "onclick", "return confirm('{0}');".FormatWith(this.PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
+          "onclick", "return confirm('{0}');".FormatWith(this.GetText("CONFIRM_REPORTPOST")));
       }
     }
 

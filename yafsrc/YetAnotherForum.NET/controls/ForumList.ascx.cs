@@ -159,13 +159,13 @@ namespace YAF.Controls
         output =
           "<a href=\"{0}\" title=\"{1}\" alt=\"{1}\" >{2}</a>".FormatWith(
             YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), 
-            this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), 
+            this.GetText("COMMON", "VIEW_FORUM"), 
             this.Page.HtmlEncode(output));
       }
       else
       {
         // no access to this forum
-        output = "{0} {1}".FormatWith(output, this.PageContext.Localization.GetText("NO_FORUM_ACCESS"));
+        output = "{0} {1}".FormatWith(output, this.GetText("NO_FORUM_ACCESS"));
       }
 
       return output;
@@ -246,8 +246,8 @@ namespace YAF.Controls
               if (flags.IsLocked)
               {
                 forumImage.Attributes.Add("class", "forum_customimage_locked");
-                forumImage.Attributes.Add("alt", this.PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED"));
-                forumImage.Attributes.Add("title", this.PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED"));
+                forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
+                forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
                 forumImage.Attributes.Add(
                   "src", 
                   "{0}{1}/{2}".FormatWith(
@@ -256,8 +256,8 @@ namespace YAF.Controls
               else if (lastPosted > lastRead)
               {
                 forumImage.Attributes.Add("class", "forum_customimage_newposts");
-                forumImage.Attributes.Add("alt", this.PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
-                forumImage.Attributes.Add("title", this.PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
+                forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NEW_POSTS"));
+                forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NEW_POSTS"));
                 forumImage.Attributes.Add(
                   "src", 
                   "{0}{1}/{2}".FormatWith(
@@ -270,8 +270,8 @@ namespace YAF.Controls
                   "src", 
                   "{0}{1}/{2}".FormatWith(
                     YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
-                forumImage.Attributes.Add("alt", this.PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
-                forumImage.Attributes.Add("title", this.PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
               }
 
               forumImage.Visible = true;
@@ -419,7 +419,7 @@ namespace YAF.Controls
       int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
       if (nViewing > 0)
       {
-        return "&nbsp;" + this.PageContext.Localization.GetTextFormatted("VIEWING", nViewing);
+        return "&nbsp;" + this.GetTextFormatted("VIEWING", nViewing);
       }
       else
       {
@@ -461,7 +461,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.AltLastPost = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+      this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
     }
 
     /// <summary>

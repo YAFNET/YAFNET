@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -65,9 +66,6 @@ namespace YAF.Pages.Admin
     protected override void OnInit([NotNull] EventArgs e)
     {
       this.commit.Click += this.commit_Click;
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -111,14 +109,6 @@ namespace YAF.Pages.Admin
       {
         this.Count.Text = dt.Rows[0]["NumTotal"].ToString();
       }
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     /// <summary>

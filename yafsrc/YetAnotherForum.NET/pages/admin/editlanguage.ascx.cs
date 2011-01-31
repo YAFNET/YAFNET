@@ -310,8 +310,8 @@ namespace YAF.Pages.Admin
         {
           PageName = sPageName, 
           ResourceName = resourceName, 
-          ResourceValue = this.Server.HtmlEncode(srcResourceValue), 
-          LocalizedValue = this.Server.HtmlEncode(dstResourceValue)
+          ResourceValue = srcResourceValue, 
+          LocalizedValue = dstResourceValue
         };
 
       this.translations.Add(translation);
@@ -524,7 +524,7 @@ namespace YAF.Pages.Admin
 
         xw.WriteStartElement("Resource");
         xw.WriteAttributeString("tag", trans.ResourceName);
-        xw.WriteString(this.Server.HtmlDecode(trans.LocalizedValue));
+        xw.WriteString(trans.LocalizedValue);
         xw.WriteFullEndElement();
       }
 

@@ -37,6 +37,7 @@ namespace YAF.Controls
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
@@ -163,7 +164,7 @@ namespace YAF.Controls
       YafContext.Current.PageElements.RegisterJQuery();
       YafContext.Current.PageElements.RegisterJQueryUI();
 
-      if (!string.IsNullOrEmpty(this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")))
+      if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
       {
         var jqueryuiUrl = Config.JQueryUILangFile;
 
@@ -180,8 +181,8 @@ namespace YAF.Controls
         JavaScriptBlocks.DatePickerLoadJs(
           this.Birthday.ClientID, 
           Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern, 
-          this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"), 
-          this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE")));
+          this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"), 
+          this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
       base.OnPreRender(e);
     }
@@ -218,13 +219,13 @@ namespace YAF.Controls
       this.LoginInfo.Visible = true;
 
       // Begin Modifications for enhanced profile
-      this.Gender.Items.Add(this.PageContext.Localization.GetText("PROFILE", "gender0"));
-      this.Gender.Items.Add(this.PageContext.Localization.GetText("PROFILE", "gender1"));
-      this.Gender.Items.Add(this.PageContext.Localization.GetText("PROFILE", "gender2"));
+      this.Gender.Items.Add(this.GetText("PROFILE", "gender0"));
+      this.Gender.Items.Add(this.GetText("PROFILE", "gender1"));
+      this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
       // End Modifications for enhanced profile
-      this.UpdateProfile.Text = this.PageContext.Localization.GetText("COMMON", "SAVE");
-      this.Cancel.Text = this.PageContext.Localization.GetText("COMMON", "CANCEL");
+      this.UpdateProfile.Text = this.GetText("COMMON", "SAVE");
+      this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
       this.ForumSettingsRows.Visible = this.PageContext.BoardSettings.AllowUserTheme ||
                                        this.PageContext.BoardSettings.AllowUserLanguage ||
@@ -262,33 +263,33 @@ namespace YAF.Controls
 
         if (!ValidationHelper.IsValidURL(this.HomePage.Text))
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
+          this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"));
           return;
         }
       }
 
       if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_WEBLOG"));
+        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"));
         return;
       }
 
       if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_MSN"));
+        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"));
         return;
       }
 
       if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_XMPP"));
+        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"));
         return;
       }
 
       if (this.ICQ.Text.IsSet() &&
           !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsValidInt(this.ICQ.Text)))
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_ICQ"));
+        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"));
         return;
       }
 
@@ -299,7 +300,7 @@ namespace YAF.Controls
       {
         if (this.DisplayName.Text.Trim().Length < 2)
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "INVALID_DISPLAYNAME"));
+          this.PageContext.AddLoadMessage(this.GetText("PROFILE", "INVALID_DISPLAYNAME"));
           return;
         }
 
@@ -308,7 +309,7 @@ namespace YAF.Controls
           if (this.PageContext.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
           {
             this.PageContext.AddLoadMessage(
-              this.PageContext.Localization.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
+              this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
 
             return;
           }
@@ -323,7 +324,7 @@ namespace YAF.Controls
 
         if (!ValidationHelper.IsValidEmail(newEmail))
         {
-          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_EMAIL"));
+          this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"));
           return;
         }
 
@@ -340,7 +341,7 @@ namespace YAF.Controls
           }
           catch (ApplicationException)
           {
-            this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "DUPLICATED_EMAIL"));
+            this.PageContext.AddLoadMessage(this.GetText("PROFILE", "DUPLICATED_EMAIL"));
 
             return;
           }
@@ -396,7 +397,7 @@ namespace YAF.Controls
         null);
 
       // clear the cache for this user...
-      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
       if (!this.AdminEditMode)
       {
@@ -438,7 +439,7 @@ namespace YAF.Controls
                                : DateTime.MinValue.Date.ToString(
                                  Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern);
 
-        this.Birthday.ToolTip = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");
+        this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
       }
       else
       {
@@ -559,11 +560,11 @@ namespace YAF.Controls
 
       // send a change email message...
       changeEmail.SendEmail(
-        new MailAddress(newEmail), this.PageContext.Localization.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
+        new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
 
       // show a confirmation
       this.PageContext.AddLoadMessage(
-        this.PageContext.Localization.GetText("PROFILE", "mail_sent").FormatWith(this.Email.Text));
+        this.GetText("PROFILE", "mail_sent").FormatWith(this.Email.Text));
     }
 
     /// <summary>

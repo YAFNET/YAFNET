@@ -390,7 +390,7 @@ namespace YAF.Pages
           this.btnSearchExt1.Visible = true;
           this.btnSearchExt1.Text =
             this.btnSearchExt1.ToolTip =
-            this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
+            this.GetText("btnsearch_external").FormatWith(
               this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0]);
         }
 
@@ -400,7 +400,7 @@ namespace YAF.Pages
           this.btnSearchExt2.Visible = true;
           this.btnSearchExt2.Text =
             this.btnSearchExt2.ToolTip =
-            this.PageContext.Localization.GetText("btnsearch_external").FormatWith(
+            this.GetText("btnsearch_external").FormatWith(
               this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0]);
         }
       }

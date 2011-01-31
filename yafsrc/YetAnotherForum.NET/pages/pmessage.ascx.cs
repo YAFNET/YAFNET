@@ -158,7 +158,7 @@ namespace YAF.Pages
 
       // private messages
       this.PageLinks.AddLink(
-        YafContext.Current.Localization.GetText(ForumPages.cp_pm.ToString(), "TITLE"), 
+        this.GetText(ForumPages.cp_pm.ToString(), "TITLE"), 
         YafBuildLink.GetLink(ForumPages.cp_pm));
 
       // post new message
@@ -414,9 +414,9 @@ namespace YAF.Pages
             // format localized string
             this.MultiReceiverInfo.Text =
               "<br />{0}<br />{1}".FormatWith(
-                YafContext.Current.Localization.GetText("MAX_RECIPIENT_INFO").FormatWith(
+                this.GetText("MAX_RECIPIENT_INFO").FormatWith(
                   YafContext.Current.BoardSettings.PrivateMessageMaxRecipients), 
-                YafContext.Current.Localization.GetText("MULTI_RECEIVER_INFO"));
+                this.GetText("MULTI_RECEIVER_INFO"));
 
             // display info
             this.MultiReceiverInfo.Visible = true;
@@ -606,8 +606,8 @@ namespace YAF.Pages
             YafContext.Current.PageUserID, userId, this.PmSubjectTextBox.Text, body, messageFlags.BitValue);
 
           // reset reciever's lazy data as he should be informed at once
-          this.PageContext.Cache.Remove(
-            YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
+          this.Get<IDataCache>().Remove(
+            Constants.Cache.ActiveUserLazyData.FormatWith(userId));
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {

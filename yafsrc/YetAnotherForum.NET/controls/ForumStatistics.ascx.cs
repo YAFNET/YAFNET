@@ -91,16 +91,16 @@ namespace YAF.Controls
         // always show active users...       
         sb.Append(
           "<a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
-            this.PageContext.Localization.GetTextFormatted(
+            this.GetTextFormatted(
               activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers), 
             YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0), 
-            this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
+            this.GetText("COMMON", "VIEW_FULLINFO")));
       }
       else
       {
         // no link because no permissions...
         sb.Append(
-          this.PageContext.Localization.GetTextFormatted(
+          this.GetTextFormatted(
             activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers));
       }
 
@@ -109,12 +109,12 @@ namespace YAF.Controls
         sb.Append(
           canViewActive
             ? ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
-              this.PageContext.Localization.GetTextFormatted(
+              this.GetTextFormatted(
                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers), 
               YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1), 
-              this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO"))
+              this.GetText("COMMON", "VIEW_FULLINFO"))
             : ", {0}".FormatWith(
-              this.PageContext.Localization.GetTextFormatted(
+              this.GetTextFormatted(
                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
       }
 
@@ -126,16 +126,16 @@ namespace YAF.Controls
         {
           sb.Append(
             ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\" >{0}</a>".FormatWith(
-              this.PageContext.Localization.GetTextFormatted(
+              this.GetTextFormatted(
                 activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests), 
               YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2), 
-              this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
+              this.GetText("COMMON", "VIEW_FULLINFO")));
         }
         else
         {
           sb.Append(
             ", {0}".FormatWith(
-              this.PageContext.Localization.GetTextFormatted(
+              this.GetTextFormatted(
                 activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests)));
         }
       }
@@ -147,20 +147,20 @@ namespace YAF.Controls
         {
           sb.Append(
             ", <a href=\"{1}\" alt=\"{2}\" title=\"{2}\">{0}</a>".FormatWith(
-              this.PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden), 
+              this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden), 
               YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3), 
-              this.PageContext.Localization.GetText("COMMON", "VIEW_FULLINFO")));
+              this.GetText("COMMON", "VIEW_FULLINFO")));
         }
         else
         {
           sb.Append(
-            ", {0}".FormatWith(this.PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)));
+            ", {0}".FormatWith(this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)));
         }
       }
 
       sb.Append(
         " {0}".FormatWith(
-          this.PageContext.Localization.GetTextFormatted(
+          this.GetTextFormatted(
             "ACTIVE_USERS_TIME", this.PageContext.BoardSettings.ActiveListTime)));
 
       return sb.ToString();
@@ -199,11 +199,10 @@ namespace YAF.Controls
     private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // Active users : Call this before forum_stats to clean up active users
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
-      DataTable activeUsers = this.PageContext.Cache.GetItem(
-        key, 
-        (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, 
-        () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
+      DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
+        Constants.Cache.UsersOnlineStatus,
+        () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
+        TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
@@ -212,10 +211,8 @@ namespace YAF.Controls
       this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
 
       // Forum Statistics
-      key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
-      var postsStatisticsDataRow = this.PageContext.Cache.GetItem(
-        key, 
-        this.PageContext.BoardSettings.ForumStatisticsCacheTimeout, 
+      var postsStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
+        Constants.Cache.BoardStats,
         () =>
           {
             // get the post stats
@@ -228,31 +225,31 @@ namespace YAF.Controls
                                       dr["LastUserStyle"].ToString(), false)
                                     : null;
             return dr;
-          });
+          },
+        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
 
       // Forum Statistics
-      var userStatisticsDataRow =
-        this.PageContext.Cache.GetItem(
-          YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats), 
-          this.PageContext.BoardSettings.BoardUserStatsCacheTimeout, 
-          () => LegacyDb.board_userstats(this.PageContext.PageBoardID));
+      var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
+        Constants.Cache.BoardUserStats,
+        () => LegacyDb.board_userstats(this.PageContext.PageBoardID),
+        TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardUserStatsCacheTimeout));
 
       // show max users...
       if (!userStatisticsDataRow.IsNull("MaxUsers"))
       {
-        this.MostUsersCount.Text = this.PageContext.Localization.GetTextFormatted(
+        this.MostUsersCount.Text = this.GetTextFormatted(
           "MAX_ONLINE", 
           userStatisticsDataRow["MaxUsers"], 
           this.Get<IDateTime>().FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
       }
       else
       {
-        this.MostUsersCount.Text = this.PageContext.Localization.GetTextFormatted(
+        this.MostUsersCount.Text = this.GetTextFormatted(
           "MAX_ONLINE", activeStats["ActiveUsers"], this.Get<IDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
       }
 
       // Posts and Topic Count...
-      this.StatsPostsTopicCount.Text = this.PageContext.Localization.GetTextFormatted(
+      this.StatsPostsTopicCount.Text = this.GetTextFormatted(
         "stats_posts", 
         postsStatisticsDataRow["posts"], 
         postsStatisticsDataRow["topics"], 
@@ -265,7 +262,7 @@ namespace YAF.Controls
 
         this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
         this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
-        this.StatsLastPost.Text = this.PageContext.Localization.GetTextFormatted(
+        this.StatsLastPost.Text = this.GetTextFormatted(
           "stats_lastpost", 
           new DisplayDateTime { DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic }.
             RenderToString());
@@ -276,16 +273,16 @@ namespace YAF.Controls
       }
 
       // Member Count
-      this.StatsMembersCount.Text = this.PageContext.Localization.GetTextFormatted(
+      this.StatsMembersCount.Text = this.GetTextFormatted(
         "stats_members", userStatisticsDataRow["members"]);
 
       // Newest Member
-      this.StatsNewestMember.Text = this.PageContext.Localization.GetText("stats_lastmember");
+      this.StatsNewestMember.Text = this.GetText("stats_lastmember");
       this.NewestMemberUserLink.UserID = Convert.ToInt32(userStatisticsDataRow["LastMemberID"]);
 
       // Todays Birthdays
       // tha_watcha : Disabled as future feature, until its cached?!
-      /*StatsTodaysBirthdays.Text = PageContext.Localization.GetText("stats_birthdays");// "";
+      /*StatsTodaysBirthdays.Text = this.GetText("stats_birthdays");// "";
 
             // get users for this board...
             List<DataRow> users = DB.user_list(PageContext.PageBoardID, null, null).Rows.Cast<DataRow>().ToList();

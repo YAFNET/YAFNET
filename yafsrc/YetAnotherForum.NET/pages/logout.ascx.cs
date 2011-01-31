@@ -30,6 +30,8 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -55,19 +57,6 @@ namespace YAF.Pages
     #region Methods
 
     /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -80,22 +69,11 @@ namespace YAF.Pages
     {
       FormsAuthentication.SignOut();
 
-      // Clearing user cache with permissions data and active users cache...
-      this.PageContext.Cache.Remove(
-        YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+      this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
 
       this.Session.Abandon();
 
       YafBuildLink.Redirect(ForumPages.forum);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     #endregion

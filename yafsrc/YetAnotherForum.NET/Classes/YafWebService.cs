@@ -22,11 +22,12 @@ using System;
 using System.Web.Services;
 
 using YAF.Classes;
-using YAF.Core;
 using YAF.Classes.Data;
-using YAF.Utils;
+using YAF.Core;
 using YAF.Types;
+using YAF.Types.EventProxies;
 using YAF.Types.Interfaces;
+using YAF.Utils;
 
 #endregion
 
@@ -74,17 +75,23 @@ public class YafWebService : WebService
   /// </returns>
   /// <exception cref="Exception">
   /// </exception>
+  /// <exception cref="SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
   [WebMethod]
-  public long CreateNewTopic([NotNull] string token, 
+  public long CreateNewTopic(
+    [NotNull] string token, 
     int forumid, 
-    int userid, [NotNull] string username, [NotNull] string subject, [NotNull] string post, [NotNull] string ip, 
+    int userid, 
+    [NotNull] string username, 
+    [NotNull] string subject, 
+    [NotNull] string post, 
+    [NotNull] string ip, 
     int priority, 
     int flags)
   {
     // validate token...
     if (token != YafContext.Current.BoardSettings.WebServiceToken)
     {
-      throw new Exception("Invalid Secure Web Service Token: Operation Failed");
+      throw new SecurityFailureInvalidWebServiceTokenException("Invalid Secure Web Service Token: Operation Failed");
     }
 
     long messageId = 0;
@@ -112,13 +119,18 @@ public class YafWebService : WebService
   /// <returns>
   /// The set display name from username.
   /// </returns>
+  /// <exception cref="NonUniqueDisplayNameException">
+  /// <c>NonUniqueDisplayNameException</c>.
+  /// </exception>
+  /// <exception cref="SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
   [WebMethod]
-  public bool SetDisplayNameFromUsername([NotNull] string token, [NotNull] string username, [NotNull] string displayName)
+  public bool SetDisplayNameFromUsername(
+    [NotNull] string token, [NotNull] string username, [NotNull] string displayName)
   {
     // validate token...
     if (token != YafContext.Current.BoardSettings.WebServiceToken)
     {
-      throw new Exception("Invalid Secure Web Service Token: Operation Failed");
+      throw new SecurityFailureInvalidWebServiceTokenException("Invalid Secure Web Service Token: Operation Failed");
     }
 
     // get the user id...
@@ -133,7 +145,7 @@ public class YafWebService : WebService
       if (displayNameId.HasValue && displayNameId.Value != userId)
       {
         // problem...
-        throw new Exception(
+        throw new NonUniqueDisplayNameException(
           "Display Name must be unique. {0} display name already exists in the database.".FormatWith(displayName));
       }
 
@@ -157,12 +169,54 @@ public class YafWebService : WebService
         null, 
         null);
 
-      UserMembershipHelper.ClearCacheForUserId(userId);
+      YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
       return true;
     }
 
     return false;
+  }
+
+  #endregion
+}
+
+/// <summary>
+/// The security failure invalid web service token exception.
+/// </summary>
+public class SecurityFailureInvalidWebServiceTokenException : Exception
+{
+  #region Constructors and Destructors
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SecurityFailureInvalidWebServiceTokenException"/> class.
+  /// </summary>
+  /// <param name="message">
+  /// The message.
+  /// </param>
+  public SecurityFailureInvalidWebServiceTokenException([NotNull] string message)
+    : base(message)
+  {
+  }
+
+  #endregion
+}
+
+/// <summary>
+/// The non unique display name exception.
+/// </summary>
+public class NonUniqueDisplayNameException : Exception
+{
+  #region Constructors and Destructors
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="NonUniqueDisplayNameException"/> class.
+  /// </summary>
+  /// <param name="message">
+  /// The message.
+  /// </param>
+  public NonUniqueDisplayNameException([NotNull] string message)
+    : base(message)
+  {
   }
 
   #endregion

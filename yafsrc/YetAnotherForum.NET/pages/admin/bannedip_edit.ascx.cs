@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -156,7 +157,7 @@ namespace YAF.Pages.Admin
         this.PageContext.PageUserID);
 
       // clear cache of banned IPs for this board
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+      this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
       // go back to banned IP's administration page
       YafBuildLink.Redirect(ForumPages.admin_bannedip);

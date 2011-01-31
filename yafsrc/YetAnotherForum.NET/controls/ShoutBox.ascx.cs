@@ -50,17 +50,6 @@ namespace YAF.Controls
 
     #region Properties
 
-    /// <summary>
-    ///   Gets CacheKey.
-    /// </summary>
-    public string CacheKey
-    {
-      get
-      {
-        return YafCache.GetBoardCacheKey(Constants.Cache.Shoutbox);
-      }
-    }
-
     public IEnumerable<DataRow> ShoutBoxMessages
     {
       get
@@ -159,9 +148,9 @@ namespace YAF.Controls
 
       if (!this.IsPostBack)
       {
-        this.btnFlyOut.Text = this.PageContext.Localization.GetText("SHOUTBOX", "FLYOUT");
-        this.btnClear.Text = this.PageContext.Localization.GetText("SHOUTBOX", "CLEAR");
-        this.btnButton.Text = this.PageContext.Localization.GetText("SHOUTBOX", "SUBMIT");
+        this.btnFlyOut.Text = this.GetText("SHOUTBOX", "FLYOUT");
+        this.btnClear.Text = this.GetText("SHOUTBOX", "CLEAR");
+        this.btnButton.Text = this.GetText("SHOUTBOX", "SUBMIT");
 
         this.FlyOutHolder.Visible = !YafControlSettings.Current.Popup;
         this.CollapsibleImageShoutBox.Visible = !YafControlSettings.Current.Popup;
@@ -192,8 +181,7 @@ namespace YAF.Controls
           this.PageContext.PageUserID, 
           this.Get<HttpRequestBase>().UserHostAddress);
 
-        // clear cache...
-        this.PageContext.Cache.Remove(this.CacheKey);
+        this.Get<IDataCache>().Remove(Constants.Cache.Shoutbox);
       }
 
       this.DataBind();
@@ -221,7 +209,7 @@ namespace YAF.Controls
       bool bl = LegacyDb.shoutbox_clearmessages(this.PageContext.PageBoardID);
 
       // cleared... re-load from cache...
-      this.PageContext.Cache.Remove(this.CacheKey);
+      this.Get<IDataCache>().Remove(Constants.Cache.Shoutbox);
       this.DataBind();
     }
 

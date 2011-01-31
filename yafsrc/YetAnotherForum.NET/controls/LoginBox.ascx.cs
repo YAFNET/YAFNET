@@ -24,6 +24,7 @@ namespace YAF.Controls
   #region Using
 
   using System;
+  using System.Data;
   using System.Web;
   using System.Web.UI.WebControls;
 
@@ -32,6 +33,7 @@ namespace YAF.Controls
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
@@ -61,9 +63,6 @@ namespace YAF.Controls
       var password = this.Login1.FindControlAs<TextBox>("Password");
 
       e.Authenticated = this.PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
-
-      // vzrus: to clear the cache to show user in the list at once
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
     }
 
     /// <summary>
@@ -84,13 +83,13 @@ namespace YAF.Controls
 
       if (userName.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("REGISTER", "NEED_USERNAME"));
+        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
         emptyFields = true;
       }
 
       if (password.Text.Trim().Length == 0)
       {
-        this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("REGISTER", "NEED_PASSWORD"));
+        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
         emptyFields = true;
       }
 
@@ -138,9 +137,9 @@ namespace YAF.Controls
 
       // Login1.CreateUserText = "Sign up for a new account.";
       // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
-      this.Login1.PasswordRecoveryText = this.PageContext.Localization.GetText("lostpassword");
+      this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
       this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
-      this.Login1.FailureText = this.PageContext.Localization.GetText("password_error");
+      this.Login1.FailureText = this.GetText("password_error");
 
       this.Login1.DestinationPageUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                                          ? this.Server.UrlDecode(
@@ -165,17 +164,17 @@ namespace YAF.Controls
           */
       if (rememberMe != null)
       {
-        rememberMe.Text = this.PageContext.Localization.GetText("auto");
+        rememberMe.Text = this.GetText("auto");
       }
 
       if (forumLogin != null)
       {
-        forumLogin.Text = this.PageContext.Localization.GetText("forum_login");
+        forumLogin.Text = this.GetText("forum_login");
       }
 
       if (passwordRecovery != null)
       {
-        passwordRecovery.Text = this.PageContext.Localization.GetText("lostpassword");
+        passwordRecovery.Text = this.GetText("lostpassword");
       }
 
       userName.Attributes.Add(
@@ -206,5 +205,10 @@ namespace YAF.Controls
     }
 
     #endregion
+
+    protected void Login1_LoggedIn(object sender, EventArgs e)
+    {
+      this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
+    }
   }
 }

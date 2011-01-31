@@ -120,25 +120,25 @@
             // reason was specified
             this.messageHistoryLink.Title +=
               " | {0}: {1}".FormatWith(
-                this.PageContext.Localization.GetText("EDIT_REASON"), 
+                this.GetText("EDIT_REASON"), 
                 this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
           {
             this.messageHistoryLink.Title += " {0}: {1}".FormatWith(
-              this.PageContext.Localization.GetText("EDIT_REASON"), 
-              this.PageContext.Localization.GetText("EDIT_REASON_NA"));
+              this.GetText("EDIT_REASON"), 
+              this.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
           // show, why the post was edited or deleted?
           string whoChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"])
-                                ? this.PageContext.Localization.GetText("EDITED_BY_MOD")
-                                : this.PageContext.Localization.GetText("EDITED_BY_USER");
+                                ? this.GetText("EDITED_BY_MOD")
+                                : this.GetText("EDITED_BY_USER");
 
           this.messageHistoryLink.InnerHtml =
             @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>".FormatWith(
-              this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText + this.messageHistoryLink.Title);
+              this.GetText("EDITED"), whoChanged, editedText + this.messageHistoryLink.Title);
           this.messageHistoryLink.HRef = YafBuildLink.GetLink(
             ForumPages.messagehistory, "m={0}", this.DataRow["MessageID"]);
         }
@@ -155,12 +155,12 @@
         else
         {
           // reason was not specified
-          deleteText = this.PageContext.Localization.GetText("EDIT_REASON_NA");
+          deleteText = this.GetText("EDIT_REASON_NA");
         }
 
         sb.AppendFormat(
           @" | <span class=""editedinfo"" title=""{1}"">{0}</span>", 
-          this.PageContext.Localization.GetText("EDIT_REASON"), 
+          this.GetText("EDIT_REASON"), 
           deleteText);
       }
 
@@ -171,7 +171,7 @@
         // We should show IP
         this.IPSpan1.Visible = true;
         this.IPLink1.HRef = this.PageContext.BoardSettings.IPInfoPageURL.FormatWith(this.DataRow["IP"].ToString());
-        this.IPLink1.Title = this.PageContext.Localization.GetText("COMMON", "TT_IPDETAILS");
+        this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
         this.IPLink1.InnerText = this.HtmlEncode(this.DataRow["IP"].ToString());
 
         sb.Append(' ');
@@ -262,7 +262,7 @@
 
           // vzrus Addition 
           this.reportPostLink.InnerText =
-            this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST");
+            this.reportPostLink.Title = this.GetText("REPORTPOST");
 
           this.reportPostLink.HRef = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
         }

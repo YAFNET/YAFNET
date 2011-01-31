@@ -32,6 +32,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -100,9 +101,6 @@ namespace YAF.Pages
       var password = this.Login1.FindControlAs<TextBox>("Password");
 
       e.Authenticated = this.PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
-
-      // vzrus: to clear the cache to show user in the list at once
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
     }
 
     /// <summary>
@@ -231,5 +229,10 @@ namespace YAF.Pages
     }
 
     #endregion
+
+    protected void Login1_LoggedIn(object sender, EventArgs e)
+    {
+      this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
+    }
   }
 }

@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -167,7 +168,7 @@ namespace YAF.Pages.Admin
                 break;
             case "delete":
                 LegacyDb.bbcode_delete(e.CommandArgument);
-                this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
+                this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
                 this.BindData();
                 break;
             case "export":

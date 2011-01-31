@@ -582,7 +582,7 @@ namespace YAF.Pages
       this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
       // remove cache if it exists...
-      this.PageContext.Cache.Remove(
+      this.Get<IDataCache>().Remove(
         Constants.Cache.FirstPostCleaned.FormatWith(this.PageContext.PageBoardID, this.TopicID));
 
       return messageId;
@@ -637,8 +637,8 @@ namespace YAF.Pages
       // clear caches as stats changed
       if (messageFlags.IsApproved)
       {
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
+        this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+        this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
       }
 
       return messageId;
@@ -684,8 +684,8 @@ namespace YAF.Pages
 
       if (messageFlags.IsApproved)
       {
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
+        this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+        this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
       }
 
       return messageId;

@@ -25,6 +25,7 @@ namespace YAF.Controls
 
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -68,7 +69,7 @@ namespace YAF.Controls
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.AdMessage.Message = this.PageContext.BoardSettings.AdPost;
-      this.AdMessage.Signature = this.PageContext.Localization.GetText("AD_SIGNATURE");
+      this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
 
       this.AdMessage.MessageFlags.IsLocked = true;
       this.AdMessage.MessageFlags.NotFormatted = true;

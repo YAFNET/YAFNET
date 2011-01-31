@@ -228,8 +228,8 @@ namespace YAF.Pages.Admin
         file.Close();
 
         // invalidate the cache...
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
-        this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+        this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
+        this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
       }
 
       YafBuildLink.Redirect(ForumPages.admin_smilies);

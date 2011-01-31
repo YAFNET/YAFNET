@@ -207,7 +207,7 @@ namespace YAF.Pages.moderate
           LegacyDb.message_approve(e.CommandArgument);
 
           // Update statistics
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+          this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
 
           // re-bind data
           this.BindData();
@@ -224,7 +224,7 @@ namespace YAF.Pages.moderate
           LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
 
           // Update statistics
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+          this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
 
           // re-bind data
           this.BindData();

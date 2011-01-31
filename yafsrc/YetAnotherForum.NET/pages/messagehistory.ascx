@@ -34,12 +34,12 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITREASON" />
                     </strong>
-                    <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.PageContext.Localization.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
+                    <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
                     <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
-                            <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
-                                title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>'
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>
                 </td>
@@ -64,8 +64,8 @@
                     <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
                     &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
-                            <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
-                                title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>'
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>
                 </td>
@@ -112,12 +112,12 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITREASON" />
                     </strong>
-                    <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.PageContext.Localization.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
+                    <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
                     <span id="IPSpan3" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
                         <strong>
-                            <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
-                                title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>'
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>
                     <br />

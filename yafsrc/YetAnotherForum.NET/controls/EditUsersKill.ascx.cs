@@ -185,7 +185,7 @@ namespace YAF.Controls
           this.PageContext.PageUserID));
 
       // clear cache of banned IPs for this board
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+      this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
     }
 
     /// <summary>

@@ -271,7 +271,7 @@ namespace YAF.Pages
       if (this.PageContext.BoardSettings.MaxFileSize > 0)
       {
         this.UploadNodePlaceHold.Visible = true;
-        this.UploadNote.Text = this.PageContext.Localization.GetTextFormatted(
+        this.UploadNote.Text = this.GetTextFormatted(
           "UPLOAD_NOTE", (this.PageContext.BoardSettings.MaxFileSize / 1024).ToString());
       }
       else
@@ -427,7 +427,7 @@ namespace YAF.Pages
           file.PostedFile.ContentLength > this.PageContext.BoardSettings.MaxFileSize)
       {
         this.PageContext.AddLoadMessage(
-          this.PageContext.Localization.GetTextFormatted(
+          this.GetTextFormatted(
             "UPLOAD_TOOBIG", file.PostedFile.ContentLength / 1024, this.PageContext.BoardSettings.MaxFileSize / 1024));
 
         return;

@@ -17,6 +17,7 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -513,8 +514,7 @@ namespace YAF.Pages.Admin
         protected void RemoveMedalsFromCache()
         {
             // remove all user medals...
-            this.PageContext.Cache.RemoveAllStartsWith(
-              YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(string.Empty)));
+          this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.UserMedals.FormatWith(string.Empty)));
         }
 
         /// <summary>
@@ -525,7 +525,7 @@ namespace YAF.Pages.Admin
         protected void RemoveUserFromCache(int userId)
         {
             // remove user from cache...
-            this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UserMedals.FormatWith(userId)));
+            this.Get<IDataCache>().Remove(Constants.Cache.UserMedals.FormatWith(userId));
         }
 
         /// <summary>

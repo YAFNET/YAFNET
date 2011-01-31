@@ -184,7 +184,7 @@ namespace YAF.Pages
       {
           if (this.Question.Text.Trim().Length == 0)
           {
-              YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_QUESTION"));
+              YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"));
               return false;
           }
 
@@ -228,7 +228,7 @@ namespace YAF.Pages
 
           if (notNullcount < 2)
           {
-              YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_CHOICES"));
+              YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"));
               return false;
           }
 
@@ -237,7 +237,7 @@ namespace YAF.Pages
           if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) &&
               (this.PollExpire.Text.Trim().IsSet()))
           {
-              YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "EXPIRE_BAD"));
+              YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"));
               return false;
           }
 
@@ -408,7 +408,7 @@ namespace YAF.Pages
              if (questionMime.IsNotSet())
              {
                  YafContext.Current.AddLoadMessage(
-                     YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                     this.GetTextFormatted("POLLIMAGE_INVALID",
                                                                       questionPath));
                  return false;
              }
@@ -416,7 +416,7 @@ namespace YAF.Pages
              if (length > PageContext.BoardSettings.PollImageMaxFileSize * 1024)
              {
                  YafContext.Current.AddLoadMessage(
-                       YafContext.Current.Localization.GetTextFormatted(
+                       this.GetTextFormatted(
                            "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize, questionPath));
                  return false;
              }
@@ -450,7 +450,7 @@ namespace YAF.Pages
               if (choiceImageMime.IsNotSet())
               {
                   YafContext.Current.AddLoadMessage(
-                      YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                      this.GetTextFormatted("POLLIMAGE_INVALID",
                                                                        choiceObjectPath.Trim()));
                   return false;
               }
@@ -458,7 +458,7 @@ namespace YAF.Pages
               if (length > PageContext.BoardSettings.PollImageMaxFileSize * 1024)
               {
                   YafContext.Current.AddLoadMessage(
-                      YafContext.Current.Localization.GetTextFormatted(
+                      this.GetTextFormatted(
                           "POLLIMAGE_TOOBIG", length/1024, PageContext.BoardSettings.PollImageMaxFileSize, choiceObjectPath));
                   return false;
               }
@@ -513,7 +513,7 @@ namespace YAF.Pages
             if (questionMime.IsNotSet())
             {
                 YafContext.Current.AddLoadMessage(
-                    YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                    this.GetTextFormatted("POLLIMAGE_INVALID",
                                                                      this.QuestionObjectPath.Text.Trim()));
                 return false;
             }
@@ -521,7 +521,7 @@ namespace YAF.Pages
             if (length > PageContext.BoardSettings.PollImageMaxFileSize*1024)
             {
                 YafContext.Current.AddLoadMessage(
-                    YafContext.Current.Localization.GetTextFormatted(
+                    this.GetTextFormatted(
                 "POLLIMAGE_TOOBIG", length/1024, PageContext.BoardSettings.PollImageMaxFileSize, questionPath));
             }
         }
@@ -543,7 +543,7 @@ namespace YAF.Pages
                 if (choiceObjectMime.IsNotSet())
                 {
                     YafContext.Current.AddLoadMessage(
-                        YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",
+                        this.GetTextFormatted("POLLIMAGE_INVALID",
                                                                          choiceObjectPath.Trim()));
                     return false;
                 }
@@ -551,7 +551,7 @@ namespace YAF.Pages
                 if (length > PageContext.BoardSettings.PollImageMaxFileSize * 1024)
                 {
                     YafContext.Current.AddLoadMessage(
-                        YafContext.Current.Localization.GetTextFormatted(
+                        this.GetTextFormatted(
                             "POLLIMAGE_TOOBIG", length / 1024, PageContext.BoardSettings.PollImageMaxFileSize, choiceObjectPath));
                     return false;
                 }

@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.DisplayPostFooter" Codebehind="DisplayPostFooter.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <div class="displayPostFooter">
 	<div class="leftItem postInfoLeft">
 		<YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
@@ -35,7 +36,7 @@
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
 		<span id="IPSpan1" runat="server" visible="false"> 
 		&nbsp;|&nbsp;
-		<strong><%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink1" target="_blank" runat="server"/>			   
+		<strong><%# this.GetText("IP") %>:</strong><a id="IPLink1" target="_blank" runat="server"/>			   
 		</span> 		
 	</div>
 </div>

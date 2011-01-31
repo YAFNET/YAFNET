@@ -1,8 +1,9 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumLastPost"
     CodeBehind="ForumLastPost.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <asp:PlaceHolder ID="LastPostedHolder" runat="server">
     <asp:PlaceHolder ID="TopicInPlaceHolder" runat="server">
-        <asp:HyperLink ID="topicLink" ToolTip='<%# PageContext.Localization.GetText("COMMON", "VIEW_TOPIC") %>' CssClass="forumTopicLink" runat="server"></asp:HyperLink>
+        <asp:HyperLink ID="topicLink" ToolTip='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' CssClass="forumTopicLink" runat="server"></asp:HyperLink>
         <br />
     </asp:PlaceHolder>
     <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />

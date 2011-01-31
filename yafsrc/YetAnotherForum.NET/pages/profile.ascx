@@ -68,7 +68,7 @@
 									<asp:Label ID="Name" runat="server" />
 									<YAF:OnlineStatusImage id="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
                             <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy"/>
-                                <asp:literal ID="ltrApproval" runat="server" Text='<%# PageContext.Localization.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
+                                <asp:literal ID="ltrApproval" runat="server" Text='<%# this.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
                                 Visible="false">
                                 </asp:literal>
 								</td>

@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -166,7 +167,7 @@ namespace YAF.Pages.Admin
         sortOrder);
 
       // clear cache
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
       // get back to access masks administration
       YafBuildLink.Redirect(ForumPages.admin_accessmasks);

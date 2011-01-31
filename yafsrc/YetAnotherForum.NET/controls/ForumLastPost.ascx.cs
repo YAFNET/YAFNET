@@ -123,7 +123,7 @@ namespace YAF.Controls
                                          : string.Empty;
           if (string.IsNullOrEmpty(this.Alt))
           {
-            this.Alt = this.PageContext.Localization.GetText("GO_LAST_POST");
+            this.Alt = this.GetText("GO_LAST_POST");
           }
 
           this.LastTopicImgLink.ToolTip = this.Alt;

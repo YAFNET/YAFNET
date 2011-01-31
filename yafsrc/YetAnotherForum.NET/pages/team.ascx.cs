@@ -109,17 +109,11 @@ namespace YAF.Pages
     [NotNull]
     protected DataTable GetAdmins()
     {
-
-      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.BoardAdmins));
-
         // get a row with user lazy data...
-      DataTable  adminListDataTable = YafContext.Current.Cache.GetItem(
-          key,
-          YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout,
-          () =>
-         LegacyDb.admin_list(
-        this.PageContext.PageBoardID, YafContext.Current.BoardSettings.UseStyledNicks));
-
+      DataTable adminListDataTable = this.Get<IDataCache>().GetOrSet(
+        Constants.Cache.BoardAdmins,
+        () => LegacyDb.admin_list(this.PageContext.PageBoardID, YafContext.Current.BoardSettings.UseStyledNicks),
+        TimeSpan.FromMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout));
     
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
@@ -166,7 +160,7 @@ namespace YAF.Pages
     [NotNull]
     protected List<Moderator> GetModerators()
     {
-      var moderators = YafContext.Current.Get<IDBBroker>().GetAllModerators().Where(mod => !mod.IsGroup);
+      var moderators = this.Get<IDBBroker>().GetAllModerators().Where(mod => !mod.IsGroup);
 
       var modsSorted = new List<Moderator>();
 

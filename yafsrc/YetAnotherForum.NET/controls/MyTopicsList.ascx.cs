@@ -217,20 +217,20 @@ namespace YAF.Controls
       // value 0, for since last visted
       this.Since.Items.Add(
         new ListItem(
-          this.PageContext.Localization.GetTextFormatted(
+          this.GetTextFormatted(
             "last_visit", this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit)), 
           "0"));
 
       // negative values for hours backward
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_hour"), "-1"));
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_two_hours"), "-2"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));
 
       // positive values for days backward
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_day"), "1"));
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_two_days"), "2"));
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_week"), "7"));
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_two_weeks"), "14"));
-      this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("last_month"), "31"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_day"), "1"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_two_days"), "2"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_week"), "7"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_two_weeks"), "14"));
+      this.Since.Items.Add(new ListItem(this.GetText("last_month"), "31"));
     }
 
     /// <summary>
@@ -244,7 +244,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+      this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
       if (!this.IsPostBack)
       {
         this.InitSinceDropdown();
@@ -265,7 +265,7 @@ namespace YAF.Controls
           previousSince = YafContext.Current.Get<IYafSession>().FavoriteTopicSince;
 
           // add "Show All" option
-          this.Since.Items.Add(new ListItem(this.PageContext.Localization.GetText("show_all"), "9999"));
+          this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
 
           // by default select "Show All" for favorites topics
           this.Since.SelectedIndex = this.Since.Items.Count - 1;

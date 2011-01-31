@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Types.Objects;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -258,7 +259,7 @@ namespace YAF.Pages.Admin
       this.PageContext.BoardSettings = null;
 
       // Clearing cache with old users permissions data to get new default styles...
-      this.PageContext.Cache.Remove(x => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
+      this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
       YafBuildLink.Redirect(ForumPages.admin_admin);
     }
 

@@ -74,7 +74,6 @@
                 <tr>
                     <td colspan="2" class="header1">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
-                        <%# GetText("TITLE") %>
                     </td>
                 </tr>
                 <tr>

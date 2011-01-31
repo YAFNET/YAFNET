@@ -87,25 +87,29 @@ namespace YAF.Modules
       {
         bool groupAccess =
           this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
         {
           // setup the rss link...
-          var rssLink = new HtmlLink();
+          var rssLink = new HtmlLink
+            {
+              Href =
+                YafBuildLink.GetLink(
+                  ForumPages.rsstopic,
+                  true,
+                  "pg={0}&ft={1}",
+                  YafRssFeeds.LatestPosts.ToInt(),
+                  YafSyndicationFormats.Rss.ToInt())
+            };
 
           // defaults to the "Active" rss.
-          rssLink.Href = YafBuildLink.GetLink(
-            ForumPages.rsstopic, 
-            true, 
-            "pg={0}&ft={1}", 
-            YafRssFeeds.LatestPosts.ToInt(), 
-            YafSyndicationFormats.Rss.ToInt());
 
           rssLink.Attributes.Add("rel", "alternate");
           rssLink.Attributes.Add("type", "application/rss+xml");
           rssLink.Attributes.Add(
             "title", 
             "{0} - {1}".FormatWith(
-              this.PageContext.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
+              this.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
 
           head.Controls.Add(rssLink);
         }
@@ -113,22 +117,25 @@ namespace YAF.Modules
         if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
         {
           // setup the rss link...
-          var atomLink = new HtmlLink();
+          var atomLink = new HtmlLink
+            {
+              Href =
+                YafBuildLink.GetLink(
+                  ForumPages.rsstopic,
+                  true,
+                  "pg={0}&ft={1}",
+                  YafRssFeeds.LatestPosts.ToInt(),
+                  YafSyndicationFormats.Atom.ToInt())
+            };
 
           // defaults to the "Active" rss.
-          atomLink.Href = YafBuildLink.GetLink(
-            ForumPages.rsstopic, 
-            true, 
-            "pg={0}&ft={1}", 
-            YafRssFeeds.LatestPosts.ToInt(), 
-            YafSyndicationFormats.Atom.ToInt());
 
           atomLink.Attributes.Add("rel", "alternate");
           atomLink.Attributes.Add("type", "application/atom+xml");
           atomLink.Attributes.Add(
             "title", 
             "{0} - {1}".FormatWith(
-              this.PageContext.Localization.GetText("ATOMFEED"), YafContext.Current.BoardSettings.Name));
+              this.GetText("ATOMFEED"), YafContext.Current.BoardSettings.Name));
 
           head.Controls.Add(atomLink);
         }

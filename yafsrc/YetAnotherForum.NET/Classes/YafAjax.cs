@@ -22,6 +22,7 @@ namespace YAF.Classes
   #region Using
 
   using System;
+  using System.Collections.Generic;
   using System.Data;
   using System.Globalization;
   using System.Linq;
@@ -195,19 +196,17 @@ namespace YAF.Classes
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    /// <param name="lastCheck">
-    /// The last check.
-    /// </param>
     /// <returns>
     /// The refresh shout box.
     /// </returns>
     [WebMethod]
     public int RefreshShoutBox(int boardId)
     {
-      var messages = YafContext.Current.Cache.GetItem(
-        YafCache.GetBoardCacheKey(Constants.Cache.Shoutbox + "_basic"),
-        (double)1000,
-        () => LegacyDb.shoutbox_getmessages(boardId, 1, false).AsEnumerable());
+      var messages =
+        this.Get<IDataCache>().GetOrSet(
+          Constants.Cache.Shoutbox + "_basic",
+          () => LegacyDb.shoutbox_getmessages(boardId, 1, false).AsEnumerable(),
+          TimeSpan.FromMilliseconds(1000));
 
       var message = messages.FirstOrDefault();
 

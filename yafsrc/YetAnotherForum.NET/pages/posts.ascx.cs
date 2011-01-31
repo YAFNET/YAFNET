@@ -508,18 +508,18 @@ namespace YAF.Pages
         string tagButtonHTML =
           "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
             .FormatWith(
-              this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"), 
-              this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
+              this.GetText("BUTTON_TAGFAVORITE_TT"), 
+              this.GetText("BUTTON_TAGFAVORITE"));
         string untagButtonHTML =
           "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
             .FormatWith(
-              this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), 
-              this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
+              this.GetText("BUTTON_UNTAGFAVORITE_TT"), 
+              this.GetText("BUTTON_UNTAGFAVORITE"));
 
         // Register the client side script for the "Favorite Topic".
         var favoriteTopicJs =
-          this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML)).AddLine
-            ().Add(JavaScriptBlocks.removeFavoriteTopicJs(tagButtonHTML));
+          this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHTML)).AddLine
+            ().Add(JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHTML));
 
         YafContext.Current.PageElements.RegisterJsBlockStartup(
        "favoriteTopicJs", favoriteTopicJs);

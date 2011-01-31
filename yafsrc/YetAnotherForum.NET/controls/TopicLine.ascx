@@ -52,7 +52,7 @@
             if (favoriteCount > 0)
             {
 %>
-        <span class="topicFavoriteCount"><a title="<%=this.PageContext.Localization.GetText("FAVORITE_COUNT_TT")%>">[+<%=favoriteCount%>]</a></span>
+        <span class="topicFavoriteCount"><a title="<%=this.GetText("FAVORITE_COUNT_TT")%>">[+<%=favoriteCount%>]</a></span>
         <%
             }
 %>
@@ -90,7 +90,7 @@
       {
         %>
         <span class="topicPager smallfont">-
-            <%=this.PageContext.Localization.GetText("GOTO_POST_PAGER").FormatWith(tPager) %></span>
+            <%=this.GetText("GOTO_POST_PAGER").FormatWith(tPager) %></span>
         <%
       }      
         %>
@@ -121,7 +121,7 @@
             : "ICON_LATEST");
         if (string.IsNullOrEmpty(this.AltLastPost))
         {
-            this.AltLastPost = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+            this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
         }
                 
         %>

@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -191,10 +192,10 @@ namespace YAF.Pages.Admin
       }
 
       // Group
-      int RankID = 0;
+      int rankID = 0;
       if (this.Request.QueryString.GetFirstOrDefault("r") != null)
       {
-        RankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
+        rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
       }
 
       object rankImage = null;
@@ -204,7 +205,7 @@ namespace YAF.Pages.Admin
       }
 
       LegacyDb.rank_save(
-        RankID, 
+        rankID, 
         this.PageContext.PageBoardID, 
         this.Name.Text, 
         this.IsStart.Checked, 
@@ -222,7 +223,8 @@ namespace YAF.Pages.Admin
         this.UsrAlbumImages.Text.Trim().ToType<int>());
 
       // Clearing cache with old permisssions data...
-      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+      this.Get<IDataCache>().RemoveOf<object>(
+        k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty)));
 
       YafBuildLink.Redirect(ForumPages.admin_ranks);
     }

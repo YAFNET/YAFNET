@@ -33,6 +33,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -216,12 +217,7 @@ namespace YAF.Pages
           this.rblNotificationType.SelectedValue, 
           this.DailyDigestEnabled.Checked);
 
-        // clear the cache for this user...
-        UserMembershipHelper.ClearCacheForUserId(this.PageContext.PageUserID);
-
-        // Clearing cache with old Active User Lazy Data ...
-        this.PageContext.Cache.Remove(
-          YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
         this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"));
       }

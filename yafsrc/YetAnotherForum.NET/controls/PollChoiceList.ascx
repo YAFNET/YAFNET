@@ -16,8 +16,8 @@
                             </div>
                         </td>
                         <td class="post">
-                         <img id="YourChoice" visible="false" runat="server" alt='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
-                                   title='<%# PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED") %>'
+                         <img id="YourChoice" visible="false" runat="server" alt='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'
+                                   title='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'
                                    width="16" height="16" src='<%# GetThemeContents("VOTE","POLL_VOTED") %>' />&nbsp; 
                           <YAF:MyLinkButton ID="MyLinkButton1"   CssClass="pollvote a" Enabled="false" runat="server" CommandName="vote"
                                 CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
@@ -28,8 +28,8 @@
                                 <%# DataBinder.Eval(Container.DataItem, "Votes") %>
                             </asp:Panel>
                             <asp:Panel ID="MaskSpan" Visible="false" runat="server">
-                                <img alt='<%# PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
-                                    title='<%# PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
+                                <img alt='<%# this.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
+                                    title='<%# this.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
                                     src='<%# GetThemeContents("VOTE","POLL_MASK") %>' />
                             </asp:Panel>
                         </td>

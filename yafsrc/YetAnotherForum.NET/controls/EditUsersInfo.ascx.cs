@@ -28,6 +28,7 @@ namespace YAF.Controls
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.EventProxies;
   using YAF.Types.Flags;
   using YAF.Types.Interfaces;
   using YAF.Utils.Helpers;
@@ -134,7 +135,7 @@ namespace YAF.Controls
         userFlags.BitValue, 
         this.RankID.SelectedValue);
 
-      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
       this.BindData();
     }

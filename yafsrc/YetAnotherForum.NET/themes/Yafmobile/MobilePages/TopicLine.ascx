@@ -82,7 +82,7 @@
       {
         %>
         <span class="topicPager smallfont">-
-            <%=this.PageContext.Localization.GetText("GOTO_POST_PAGER").FormatWith(tPager) %></span>
+            <%=this.GetText("GOTO_POST_PAGER").FormatWith(tPager) %></span>
         <%
       }      
         %>

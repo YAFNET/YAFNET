@@ -22,6 +22,7 @@ namespace YAF.Utilities
 
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -194,7 +195,7 @@ namespace YAF.Utilities
             jQuery.timeago.settings.refreshMillis = {1};			      	
             {0}
               jQuery('abbr.timeago').timeago();	
-			      }}".FormatWith(YafContext.Current.Localization.GetText("TIMEAGO_JS"), YafContext.Current.BoardSettings.RelativeTimeRefreshTime);
+			      }}".FormatWith(YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"), YafContext.Current.BoardSettings.RelativeTimeRefreshTime);
       }
     }
 
@@ -418,7 +419,7 @@ function toggleMessage(divId)
     /// <returns>
     /// The add Favorite Topic js.
     /// </returns>
-    public static string addFavoriteTopicJs([NotNull] string untagButtonHTML)
+    public static string AddFavoriteTopicJs([NotNull] string untagButtonHTML)
     {
       return
         @"function addFavoriteTopic(topicID){{ var topId = topicID; jQuery.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
@@ -442,7 +443,7 @@ function toggleMessage(divId)
     /// <returns>
     /// The add thanks js.
     /// </returns>
-    public static string addThanksJs([NotNull] string removeThankBoxHTML)
+    public static string AddThanksJs([NotNull] string removeThankBoxHTML)
     {
       return
         @"function addThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
@@ -468,7 +469,7 @@ function toggleMessage(divId)
     /// <returns>
     /// The remove Favorite Topic js.
     /// </returns>
-    public static string removeFavoriteTopicJs([NotNull] string tagButtonHTML)
+    public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHTML)
     {
       return
         @"function removeFavoriteTopic(topicID){{ var topId = topicID;jQuery.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
@@ -492,7 +493,7 @@ function toggleMessage(divId)
     /// <returns>
     /// The remove thanks js.
     /// </returns>
-    public static string removeThanksJs([NotNull] string addThankBoxHTML)
+    public static string RemoveThanksJs([NotNull] string addThankBoxHTML)
     {
       return
         @"function removeThanks(messageID){{ var messId = messageID;jQuery.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}

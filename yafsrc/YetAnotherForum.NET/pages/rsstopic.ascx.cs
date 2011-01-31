@@ -93,7 +93,7 @@ namespace YAF.Pages
       var syndicationItems = new List<SyndicationItem>();
       string lastPostIcon = BaseUrlBuilder.BaseUrl +
                             this.PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
-      string lastPostName = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+      string lastPostName = this.GetText("DEFAULT", "GO_LAST_POST");
 
       YafRssFeeds feedType = YafRssFeeds.Forum;
 
@@ -370,7 +370,7 @@ namespace YAF.Pages
     {
       var syndicationItems = new List<SyndicationItem>();
       DateTime toActDate = DateTime.UtcNow;
-      string toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
+      string toActText = this.GetText("MYTOPICS", "LAST_MONTH");
 
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt") != null)
       {
@@ -389,7 +389,7 @@ namespace YAF.Pages
         {
           toActDate = Convert.ToDateTime(this.Get<IDateTime>().FormatDateTimeShort(DateTime.UtcNow)) +
                       TimeSpan.FromDays(-31);
-          toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
+          toActText = this.GetText("MYTOPICS", "LAST_MONTH");
         }
         else
         {
@@ -397,7 +397,7 @@ namespace YAF.Pages
           if (toActDate < DateTime.UtcNow + TimeSpan.FromDays(-31))
           {
             toActDate = DateTime.UtcNow + TimeSpan.FromDays(-31);
-            toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
+            toActText = this.GetText("MYTOPICS", "LAST_MONTH");
           }
         }
       }
@@ -406,7 +406,7 @@ namespace YAF.Pages
       string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toActText, String.Empty);
       feed =
         new YafSyndicationFeed(
-          this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText, 
+          this.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText, 
           feedType, 
           atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
           urlAlphaNum);
@@ -492,7 +492,7 @@ namespace YAF.Pages
     {
       var syndicationItems = new List<SyndicationItem>();
       DateTime toFavDate = DateTime.UtcNow;
-      string toFavText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
+      string toFavText = this.GetText("MYTOPICS", "LAST_MONTH");
 
       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt") != null)
       {
@@ -512,7 +512,7 @@ namespace YAF.Pages
           toFavDate = this.PageContext.CurrentUserData.Joined == null
                         ? DateTime.MinValue + TimeSpan.FromDays(2)
                         : (DateTime)this.PageContext.CurrentUserData.Joined;
-          toFavText = this.PageContext.Localization.GetText("MYTOPICS", "SHOW_ALL");
+          toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
         }
       }
       else
@@ -520,7 +520,7 @@ namespace YAF.Pages
         toFavDate = this.PageContext.CurrentUserData.Joined == null
                       ? DateTime.MinValue + TimeSpan.FromDays(2)
                       : (DateTime)this.PageContext.CurrentUserData.Joined;
-        toFavText = this.PageContext.Localization.GetText("MYTOPICS", "SHOW_ALL");
+        toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
       }
 
       using (
@@ -531,7 +531,7 @@ namespace YAF.Pages
         string feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText, String.Empty);
         feed =
           new YafSyndicationFeed(
-            "{0} - {1}".FormatWith(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText), 
+            "{0} - {1}".FormatWith(this.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText), 
             feedType, 
             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
             urlAlphaNum);
@@ -607,7 +607,7 @@ namespace YAF.Pages
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
         feed = new YafSyndicationFeed(
-          this.PageContext.Localization.GetText("DEFAULT", "FORUM"), 
+          this.GetText("DEFAULT", "FORUM"), 
           feedType, 
           atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
           urlAlphaNum);
@@ -684,7 +684,7 @@ namespace YAF.Pages
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
         feed = new YafSyndicationFeed(
-          this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"), 
+          this.GetText("POSTMESSAGE", "ANNOUNCEMENT"), 
           feedType, 
           atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
           urlAlphaNum);
@@ -807,7 +807,7 @@ namespace YAF.Pages
         string urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
         feed = new YafSyndicationFeed(
-          this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"), 
+          this.GetText("ACTIVE_DISCUSSIONS"), 
           feedType, 
           atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
           urlAlphaNum);
@@ -925,7 +925,7 @@ namespace YAF.Pages
         feed =
           new YafSyndicationFeed(
             "{0}{1} - {2}".FormatWith(
-              this.PageContext.Localization.GetText("PROFILE", "TOPIC"), 
+              this.GetText("PROFILE", "TOPIC"), 
               this.PageContext.PageTopicName, 
               this.PageContext.BoardSettings.PostsPerPage), 
             feedType, 
@@ -1016,7 +1016,7 @@ namespace YAF.Pages
 
         feed =
           new YafSyndicationFeed(
-            this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName, 
+            this.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName, 
             feedType, 
             atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(), 
             urlAlphaNum);

@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -223,7 +224,7 @@ namespace YAF.Pages.Admin
           LegacyDb.group_delete(e.CommandArgument);
 
           // remove cache of forum moderators
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+          this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
           // re-bind data
           this.BindData();

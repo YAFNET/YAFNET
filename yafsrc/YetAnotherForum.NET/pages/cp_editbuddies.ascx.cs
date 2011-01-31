@@ -27,6 +27,7 @@ namespace YAF.Pages
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utilities;
   using YAF.Utils;
 
@@ -86,7 +87,7 @@ namespace YAF.Pages
         this.PageLinks.AddLink(
           this.HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName), 
           YafBuildLink.GetLink(ForumPages.cp_profile));
-        this.PageLinks.AddLink(this.PageContext.Localization.GetText("BUDDYLIST_TT"), string.Empty);
+        this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
       }
 
       this.BindData();

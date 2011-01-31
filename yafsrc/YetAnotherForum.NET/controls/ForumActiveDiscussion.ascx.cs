@@ -80,7 +80,7 @@ namespace YAF.Controls
 
         // populate them...
         textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
-        textMessageLink.ToolTip = this.PageContext.Localization.GetText("COMMON", "VIEW_TOPIC");
+        textMessageLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
         textMessageLink.NavigateUrl = messageUrl;
 
         imageMessageLink.NavigateUrl = messageUrl;
@@ -104,7 +104,7 @@ namespace YAF.Controls
         }
 
         forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
-        forumLink.ToolTip = this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM");
+        forumLink.ToolTip = this.GetText("COMMON", "VIEW_FORUM");
         forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
       }
     }
@@ -122,13 +122,13 @@ namespace YAF.Controls
     {
       // Latest forum posts
       // Shows the latest n number of posts on the main forum list page
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions);
+      string cacheKey = Constants.Cache.ForumActiveDiscussions;
       DataTable activeTopics = null;
 
       if (this.PageContext.IsGuest)
       {
         // allow caching since this is a guest...
-        activeTopics = this.PageContext.Cache[cacheKey] as DataTable;
+        activeTopics = this.Get<IDataCache>()[cacheKey] as DataTable;
       }
 
       if (activeTopics == null)
@@ -148,12 +148,8 @@ namespace YAF.Controls
 
         if (this.PageContext.IsGuest)
         {
-          this.PageContext.Cache.Insert(
-            cacheKey, 
-            activeTopics, 
-            null, 
-            DateTime.UtcNow.AddMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), 
-            TimeSpan.Zero);
+          this.Get<IDataCache>().Set(
+            cacheKey, activeTopics, TimeSpan.FromMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout));
         }
       }
 
@@ -161,7 +157,7 @@ namespace YAF.Controls
       this.AtomFeed.Visible = this.PageContext.BoardSettings.ShowAtomLink && groupAccess;
       this.RssFeed.Visible = this.PageContext.BoardSettings.ShowRSSLink && groupAccess;
 
-      this.lastPostToolTip = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+      this.lastPostToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
       this.LatestPosts.DataSource = activeTopics;
       this.LatestPosts.DataBind();
     }

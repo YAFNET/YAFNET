@@ -184,25 +184,25 @@ namespace YAF.Pages.Admin
           LegacyDb.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, -1);
 
           // invalidate the cache...
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+          this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
           this.BindData();
-          this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+          this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
           break;
         case "movedown":
           LegacyDb.smiley_resort(this.PageContext.PageBoardID, e.CommandArgument, 1);
 
           // invalidate the cache...
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+          this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
           this.BindData();
-          this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+          this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
           break;
         case "delete":
           LegacyDb.smiley_delete(e.CommandArgument);
 
           // invalidate the cache...
-          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+          this.Get<IDataCache>().Remove(Constants.Cache.Smilies);
           this.BindData();
-          this.Get<IDataCache<IProcessReplaceRules>>().RemoveAll();
+          this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
           break;
         case "import":
           YafBuildLink.Redirect(ForumPages.admin_smilies_import);

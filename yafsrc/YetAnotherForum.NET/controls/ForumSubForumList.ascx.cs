@@ -79,13 +79,13 @@ namespace YAF.Controls
         output =
           "<a href=\"{0}\" alt=\"{1}\" title=\"{1}\" >{2}</a>".FormatWith(
             YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), 
-            this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), 
+            this.GetText("COMMON", "VIEW_FORUM"), 
             output);
       }
       else
       {
         // no access to this forum
-        output = "{0} {1}".FormatWith(output, this.PageContext.Localization.GetText("NO_FORUM_ACCESS"));
+        output = "{0} {1}".FormatWith(output, this.GetText("NO_FORUM_ACCESS"));
       }
 
       return output;

@@ -35,7 +35,7 @@
          <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' ReplaceName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' Style='<%# Eval("Style") %>'  runat="server"/>
         </td>
         <td class="post">
-        <a href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
+        <a href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
         </td>
         <td class="post">
           <%# this.HtmlEncode(YafUserProfile.GetProfile(Eval("UserName").ToString()).Location)%>

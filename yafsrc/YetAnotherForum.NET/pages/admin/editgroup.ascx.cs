@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -306,10 +307,10 @@ namespace YAF.Pages.Admin
       }
 
       // remove caching in case something got updated...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
       // Clearing cache with old permissions data...
-      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+      this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty)));
 
       // Done, redirect to role editing page
       YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);

@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -198,7 +199,7 @@ namespace YAF.Pages.Admin
       LegacyDb.category_save(this.PageContext.PageBoardID, categoryID, name, categoryImage, sortOrder);
 
       // remove category cache...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
 
       // redirect
       YafBuildLink.Redirect(ForumPages.admin_forums);

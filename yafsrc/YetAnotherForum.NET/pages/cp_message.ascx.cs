@@ -35,6 +35,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -248,11 +249,10 @@ namespace YAF.Pages
 
       if (!this.IsOutbox)
       {
-        LegacyDb.pmessage_markread(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"));
+        var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").ToType<int>();
+        LegacyDb.pmessage_markread(userPmessageId);
 
-        // Clearing cache with old permissions data...
-        this.PageContext.Cache.Remove(
-          YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID)));
+        this.Get<IRaiseEvent>().Raise(new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, userPmessageId));
       }
     }
 

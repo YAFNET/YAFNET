@@ -24,6 +24,7 @@ namespace YAF.Pages
   #region Using
 
   using System;
+  using System.Linq;
   using System.Net.Mail;
   using System.Web;
   using System.Web.Security;
@@ -121,8 +122,8 @@ namespace YAF.Pages
     protected void CreateUserWizard1_ContinueButtonClick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // vzrus: to clear the cache to show user in the list at once
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
+      this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+      this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
       // redirect to the main forum URL      
       YafBuildLink.Redirect(ForumPages.forum);
@@ -267,7 +268,7 @@ namespace YAF.Pages
 
       // username cannot contain semi-colon or to be a bad word
       bool badWord =
-        this.Get<IBadWordReplace>().ReplaceItems.Exists(
+        this.Get<IBadWordReplace>().ReplaceItems.Any(
           i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
 
       string guestUserName = UserMembershipHelper.GuestUserName;
@@ -416,7 +417,7 @@ namespace YAF.Pages
           this.PageContext.BoardSettings.DefaultSendDigestEmail);
 
         // Clearing cache with old Active User Lazy Data ...
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
+        this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
 
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
       }
@@ -570,7 +571,7 @@ namespace YAF.Pages
       var notifyAdmin = new YafTemplateEmail();
 
       string subject =
-        this.PageContext.Localization.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
+        this.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(
           this.PageContext.BoardSettings.Name);
 
       notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);

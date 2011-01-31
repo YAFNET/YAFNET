@@ -51,18 +51,18 @@
                 </td>
                 <td class="post" runat="server" id="tdLastCol">
                     <asp:Panel ID="pnlRemove" runat="server" Visible="false">
-                        <asp:LinkButton ID="lnkRemove" runat="server" Text='<%# PageContext.Localization.GetText("REMOVEBUDDY") %>'
+                        <asp:LinkButton ID="lnkRemove" runat="server" Text='<%# this.GetText("REMOVEBUDDY") %>'
                            OnLoad="Remove_Load"  CommandName="remove" CommandArgument='<%# Eval("UserID") %>'></asp:LinkButton>
                     </asp:Panel>
                     <asp:Panel ID="pnlPending" runat="server" Visible="false">
                         <asp:LinkButton runat="server" CommandName="approve" CommandArgument='<%# Eval("FromUserID") %>'
-                            Text='<%# PageContext.Localization.GetText("APPROVE") %>' />
+                            Text='<%# this.GetText("APPROVE") %>' />
                         |
                         <asp:LinkButton runat="server" OnLoad="Deny_Load" CommandName="deny" CommandArgument='<%# Eval("FromUserID") %>'
-                            Text='<%# PageContext.Localization.GetText("DENY") %>' />
+                            Text='<%# this.GetText("DENY") %>' />
                         |
                         <asp:LinkButton runat="server" CommandName="approveadd" CommandArgument='<%# Eval("FromUserID") %>'
-                            Text='<%# PageContext.Localization.GetText("APPROVE_ADD") %>' />
+                            Text='<%# this.GetText("APPROVE_ADD") %>' />
                     </asp:Panel>
                     <asp:Panel ID="pnlRequests" runat="server" Visible="false">
                         <%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Requested"]) %>
@@ -74,12 +74,12 @@
             <tr runat="server" id="rptFooter" visible="false">
                 <td class="footer1" colspan="6">
                     <asp:Button ID="Button1" OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton"
-                        Text='<%# PageContext.Localization.GetText("APPROVE_ALL") %>' runat="server" />
+                        Text='<%# this.GetText("APPROVE_ALL") %>' runat="server" />
                     <asp:Button ID="Button3" OnLoad="ApproveAddAll_Load" CommandName="approveaddall"
-                        CssClass="pbutton" Text='<%# PageContext.Localization.GetText("APPROVE_ADD_ALL") %>'
+                        CssClass="pbutton" Text='<%# this.GetText("APPROVE_ADD_ALL") %>'
                         runat="server" />
                     <asp:Button ID="Button2" OnLoad="DenyAll_Load" CommandName="denyall" CssClass="pbutton"
-                        runat="server" Text='<%# PageContext.Localization.GetText("DENY_ALL") %>' />
+                        runat="server" Text='<%# this.GetText("DENY_ALL") %>' />
                 </td>
             </tr>
         </FooterTemplate>

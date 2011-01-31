@@ -29,6 +29,7 @@ namespace YAF.Controls
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -167,15 +168,14 @@ namespace YAF.Controls
           }
 
           // Clearing cache with old permisssions data...
-          this.PageContext.Cache.Remove(
-              YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
+        this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID));
       }
 
       // update forum moderators cache just in case something was changed...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
       // clear the cache for this user...
-      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
       this.BindData();
     }

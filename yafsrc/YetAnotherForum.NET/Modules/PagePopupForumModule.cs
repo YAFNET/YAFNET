@@ -26,6 +26,7 @@ namespace YAF.Modules
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Attributes;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -52,7 +53,7 @@ namespace YAF.Modules
     /// </summary>
     public override void InitAfterPage()
     {
-      this._errorPopup.Title = this.PageContext.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+      this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
       this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
     }
 

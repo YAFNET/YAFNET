@@ -34,6 +34,7 @@ namespace YAF.Pages
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion
@@ -247,13 +248,13 @@ namespace YAF.Pages
               verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
               this.PageContext.LoadMessage.AddSession(
-                this.PageContext.Localization.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email));
+                this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email));
             }
           }
           else
           {
             // explain they are not approved yet...
-            this.PageContext.LoadMessage.AddSession(this.PageContext.Localization.GetText("ACCOUNT_NOT_APPROVED"));
+            this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"));
           }
 
           // just in case cancel the verification...

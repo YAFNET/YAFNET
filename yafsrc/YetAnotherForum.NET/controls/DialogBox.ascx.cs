@@ -39,7 +39,7 @@ namespace YAF.Controls
   /// <summary>
   /// Summary description for Dialog Box.
   /// </summary>
-  public partial class DialogBox : UserControl
+  public partial class DialogBox : BaseUserControl
   {
     #region Enums
 
@@ -144,7 +144,7 @@ namespace YAF.Controls
       // Message Header
       this.Header.Text = !string.IsNullOrEmpty(title)
                            ? title
-                           : YafContext.Current.Localization.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+                           : this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
 
       // Message Text
       this.MessageText.Text = message;
@@ -189,7 +189,7 @@ namespace YAF.Controls
         }
         else
         {
-          okButton.Text = YafContext.Current.Localization.GetText("COMMON", "OK");
+          okButton.Text = this.GetText("COMMON", "OK");
         }
 
         this.OkButton.CssClass = okButton.CssClass.IsSet() ? okButton.CssClass : "LoginButton";
@@ -205,7 +205,7 @@ namespace YAF.Controls
 
         this.CancelButton.Text = cancelButton.Text.IsSet()
                                    ? cancelButton.Text
-                                   : YafContext.Current.Localization.GetText("COMMON", "CANCEL");
+                                   : this.GetText("COMMON", "CANCEL");
 
         this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "StandardButton";
 

@@ -183,7 +183,7 @@ namespace YAF.Pages
       this.MarkRead.Text = this.GetText("MARKREAD");
       this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump &&
                                      this.PageContext.Settings.LockedForum == 0;
-      this.lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+      this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
 
       if (!this.IsPostBack)
       {
