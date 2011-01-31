@@ -163,7 +163,6 @@
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
     <Compile Include="Services\YafBuddy.cs" />
-    <Compile Include="Services\YafCache.cs" />
     <Compile Include="Services\YafDateTime.cs" />
     <Compile Include="Services\YafDBBroker.cs" />
     <Compile Include="Services\YafDigest.cs" />
