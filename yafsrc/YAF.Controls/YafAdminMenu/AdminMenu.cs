@@ -26,12 +26,12 @@ namespace YAF.Controls
     using System.Text;
     using System.Web.UI;
     using System.Xml.Serialization;
-
-    using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-    using YAF.Utils;
+    using YAF.Core;
     using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
-  /// <summary>
+    /// <summary>
     /// Summary description for AdminMenu.
     /// </summary>
     public class AdminMenu : BasePanel
@@ -49,8 +49,6 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender(EventArgs e)
         {
-            int viewIndex = 0;
-
             const string DefFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
 
             // load menu definition...
@@ -67,23 +65,10 @@ namespace YAF.Controls
             string currentPage = this.PageContext.ForumPageType.ToString();
 
            // build menu...
-            foreach (var value in this._menuDef.Items)
-            {
-                bool addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin);
-
-                if (!addView)
-                {
-                    continue;
-                }
-
-                if (value.YafMenuItem.Any(x => x.ForumPage == currentPage))
-                {
-                    // select this view...
-                    break;
-                }
-
-                viewIndex++;
-            }
+            int viewIndex = (from value in this._menuDef.Items
+                             let addView = !(Convert.ToBoolean(value.HostAdminOnly) && !this.PageContext.IsHostAdmin)
+                             where addView
+                             select value).TakeWhile(value => !value.YafMenuItem.Any(x => x.ForumPage == currentPage)).Count();
 
             // setup jQuery
             PageContext.PageElements.RegisterJQuery();
@@ -207,7 +192,7 @@ namespace YAF.Controls
                         @"<li class=""YafMenuItem""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
                           <img alt=""{1}"" src=""{2}"" /><span style=""margin-left:3px;{3}"">{1}</span></a></li>",
                         url,
-                        this.PageContext.Localization.GetText(
+                        this.Get<ILocalization>().GetText(
                             "ADMINMENU", !string.IsNullOrEmpty(item.ForumPage) ? item.ForumPage : "admin_install"),
                         YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(item.Image)),
                         highlightStyle);
@@ -219,7 +204,7 @@ namespace YAF.Controls
                         @"<li class=""YafMenuItem""><span class=""YafMenuItemIcon""></span><a style=""position:relative;"" href=""{0}"">
                           <span style=""margin-left:3px;{2}"">{1}</span></a></li>",
                         url,
-                        this.PageContext.Localization.GetText("ADMINMENU", "admin_install"),
+                        this.Get<ILocalization>().GetText("ADMINMENU", "admin_install"),
                         highlightStyle);
                 }
             }
@@ -241,7 +226,9 @@ namespace YAF.Controls
                                   where addView
                                   select value)
             {
-                writer.WriteLine(@"<h3><a href=""#"">{0}</a></h3>".FormatWith(value.Title));
+                writer.WriteLine(
+                    @"<h3><a href=""#"">{0}</a></h3>".FormatWith(
+                        this.Get<ILocalization>().GetText("ADMINMENU", value.Tag)));
 
                 // add items...
                 this.BuildUrlList(writer, value.YafMenuItem);

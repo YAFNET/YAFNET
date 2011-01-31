@@ -1860,7 +1860,7 @@ Der Bestätigungscode lautet
 		<Resource tag="admin_attachments">Anhänge</Resource>
 		<Resource tag="admin_taskmanager">Task-Manager</Resource>
 		<Resource tag="admin_eventlog">Ereignisprotokoll</Resource>
-		<Resource tag="admin_restartapp">App neustarten</Resource>
+		<Resource tag="admin_restartapp">Anwendung neustarten</Resource>
 		<Resource tag="admin_reindex">DB Warten</Resource>
 		<Resource tag="admin_runsql">SQL Query ausführen</Resource>
 		<Resource tag="admin_test_data">Testdaten generieren</Resource>
