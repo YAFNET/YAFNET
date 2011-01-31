@@ -904,6 +904,8 @@ namespace YAF.Core
               pageRow.Table.AcceptChanges();
             }
             // vzrus: Current column count is 43 - change it if the total count changes
+            // TODO: THIS IS TERRIBLE CODE. FIX FIX FIX FIX FIX REMOVE FIX REMOVE FIX
+            // Lazy user!? This is LAZY PROGRAMMER!!
           }
           while (pageRow.Table.Columns.Count < 43);
 
@@ -911,7 +913,7 @@ namespace YAF.Core
           // vzrus: it can be anywhere, but temporary is here. To reset active users cache if a new user is in the active list
           if (Convert.ToBoolean(pageRow["ActiveUpdate"]))
           {
-            YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
           }
 
           YafContext.Current.Vars["DontTrack"] = dontTrack;

@@ -24,7 +24,6 @@ namespace YAF.Core
   using System.Web.UI.WebControls;
 
   using YAF.Types;
-  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -33,12 +32,26 @@ namespace YAF.Core
   /// <summary>
   /// Control derived from Panel that includes a reference to the <see cref="Core.YafContext"/>.
   /// </summary>
-  public class BasePanel : Panel, IHaveServiceLocator
+  public class BasePanel : Panel, IHaveServiceLocator, IHaveLocalization
   {
+    #region Constants and Fields
+
+    /// <summary>
+    ///   The _localization.
+    /// </summary>
+    private ILocalization _localization;
+
+    /// <summary>
+    /// The _logger.
+    /// </summary>
+    private ILogger _logger;
+
+    #endregion
+
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BasePanel"/> class.
+    ///   Initializes a new instance of the <see cref = "BasePanel" /> class.
     /// </summary>
     public BasePanel()
     {
@@ -48,6 +61,28 @@ namespace YAF.Core
     #endregion
 
     #region Properties
+
+    /// <summary>
+    ///   Gets Localization.
+    /// </summary>
+    public ILocalization Localization
+    {
+      get
+      {
+        return this._localization ?? (this._localization = this.Get<ILocalization>());
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets Logger.
+    /// </summary>
+    public ILogger Logger
+    {
+      get
+      {
+        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+      }
+    }
 
     /// <summary>
     ///   Gets PageContext.
@@ -60,31 +95,14 @@ namespace YAF.Core
       }
     }
 
-    #endregion
-
-    #region Implementation of IHaveServiceLocator
-
     /// <summary>
-    /// Gets ServiceLocator.
+    ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator
     {
       get
       {
         return this.PageContext.ServiceLocator;
-      }
-    }
-
-    private ILogger _logger = null;
-
-    /// <summary>
-    /// Gets or sets Logger.
-    /// </summary>
-    public ILogger Logger
-    {
-      get
-      {
-        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
       }
     }
 

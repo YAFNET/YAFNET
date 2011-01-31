@@ -24,14 +24,10 @@ namespace YAF.Core
   using System.Data;
   using System.Web.Security;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Utils;
-  using YAF.Utils.Helpers;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types.Constants;
   using YAF.Types.Flags;
-  using YAF.Types.Interfaces;
 
   #endregion
 

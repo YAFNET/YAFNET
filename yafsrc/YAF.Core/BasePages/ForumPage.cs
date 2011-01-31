@@ -29,10 +29,12 @@ namespace YAF.Core
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Types.Attributes;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Attributes;
+  using YAF.Types.Constants;
+  using YAF.Types.EventProxies;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -41,7 +43,11 @@ namespace YAF.Core
   /// <summary>
   /// The class that all YAF forum pages are derived from.
   /// </summary>
-  public abstract class ForumPage : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator, ILocatablePage
+  public abstract class ForumPage : UserControl, 
+                                    IRaiseControlLifeCycles, 
+                                    IHaveServiceLocator, 
+                                    ILocatablePage, 
+                                    IHaveLocalization
   {
     #region Constants and Fields
 
@@ -51,7 +57,7 @@ namespace YAF.Core
     private readonly Hashtable _pageCache;
 
     /// <summary>
-    /// The _trans page.
+    ///   The _trans page.
     /// </summary>
     private readonly string _transPage = string.Empty;
 
@@ -61,17 +67,17 @@ namespace YAF.Core
     private bool _noDataBase;
 
     /// <summary>
-    /// The _show footer.
+    ///   The _show footer.
     /// </summary>
     private bool _showFooter = Config.ShowFooter;
 
     /// <summary>
-    /// The _show tool bar.
+    ///   The _show tool bar.
     /// </summary>
     private bool _showToolBar = Config.ShowToolBar;
 
     /// <summary>
-    /// The _top page control.
+    ///   The _top page control.
     /// </summary>
     private Control _topPageControl;
 
@@ -93,7 +99,7 @@ namespace YAF.Core
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    public ForumPage(string transPage)
+    public ForumPage([NotNull] string transPage)
     {
       this.Get<IInjectServices>().Inject(this);
 
@@ -104,7 +110,6 @@ namespace YAF.Core
       this.Init += this.ForumPage_Init;
       this.Load += this.ForumPage_Load;
       this.Unload += this.ForumPage_Unload;
-      this.Error += this.ForumPage_Error;
       this.PreRender += this.ForumPage_PreRender;
     }
 
@@ -113,7 +118,7 @@ namespace YAF.Core
     #region Events
 
     /// <summary>
-    /// The forum page rendered.
+    ///   The forum page rendered.
     /// </summary>
     public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
 
@@ -139,10 +144,10 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// Gets or sets Logger.
+    ///   Gets or sets DataCache.
     /// </summary>
     [Inject]
-    public ILogger Logger { get; set; }
+    public IDataCache DataCache { get; set; }
 
     /// <summary>
     ///   Gets or sets ForumFooter.
@@ -154,11 +159,6 @@ namespace YAF.Core
     /// </summary>
     public Control ForumHeader { get; set; }
 
-    /// <summary>
-    ///   Gets or sets the Notification.
-    /// </summary>
-    public Control Notification { get; set; }
-    
     /// <summary>
     ///   Gets or sets ForumTopControl.
     /// </summary>
@@ -209,6 +209,28 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// Gets or sets Localization.
+    /// </summary>
+    public ILocalization Localization
+    {
+      get
+      {
+        return this.Get<ILocalization>();
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets Logger.
+    /// </summary>
+    [Inject]
+    public ILogger Logger { get; set; }
+
+    /// <summary>
+    ///   Gets or sets the Notification.
+    /// </summary>
+    public Control Notification { get; set; }
+
+    /// <summary>
     ///   Gets cache associated with this page.
     /// </summary>
     public Hashtable PageCache
@@ -231,6 +253,18 @@ namespace YAF.Core
     }
 
     /// <summary>
+    ///   Gets PageName.
+    /// </summary>
+    [NotNull]
+    public string PageName
+    {
+      get
+      {
+        return this.GetType().Name.Replace("aspx", string.Empty);
+      }
+    }
+
+    /// <summary>
     ///   Gets or sets RefreshTime.
     /// </summary>
     public int RefreshTime { get; set; }
@@ -239,6 +273,17 @@ namespace YAF.Core
     ///   Adds a message that is displayed to the user when the page is loaded.
     /// </summary>
     public string RefreshURL { get; set; }
+
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return this.PageContext().ServiceLocator;
+      }
+    }
 
     /// <summary>
     ///   Gets or sets a value indicating whether ShowFooter.
@@ -319,6 +364,115 @@ namespace YAF.Core
 
     #endregion
 
+    #region Public Methods
+
+    /// <summary>
+    /// The is null.
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// The is null.
+    /// </returns>
+    public static object IsNull([NotNull] string value)
+    {
+      if (value == null || value.ToLower() == string.Empty)
+      {
+        return DBNull.Value;
+      }
+      else
+      {
+        return value;
+      }
+    }
+
+    /// <summary>
+    /// Gets the collapsible panel image url (expanded or collapsed).
+    /// </summary>
+    /// <param name="panelID">
+    /// ID of collapsible panel
+    /// </param>
+    /// <param name="defaultState">
+    /// Default Panel State
+    /// </param>
+    /// <returns>
+    /// Image URL
+    /// </returns>
+    public string GetCollapsiblePanelImageURL([NotNull] string panelID, CollapsiblePanelState defaultState)
+    {
+      return this.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
+    }
+
+    /// <summary>
+    /// Get a value from the currently configured forum theme.
+    /// </summary>
+    /// <param name="page">
+    /// Page to look under
+    /// </param>
+    /// <param name="tag">
+    /// Theme item
+    /// </param>
+    /// <returns>
+    /// Converted Theme information
+    /// </returns>
+    public string GetThemeContents([NotNull] string page, [NotNull] string tag)
+    {
+      return this.Get<ITheme>().GetItem(page, tag);
+    }
+
+    /// <summary>
+    /// Get a value from the currently configured forum theme.
+    /// </summary>
+    /// <param name="page">
+    /// Page to look under
+    /// </param>
+    /// <param name="tag">
+    /// Theme item
+    /// </param>
+    /// <param name="defaultValue">
+    /// Value to return if the theme item doesn't exist
+    /// </param>
+    /// <returns>
+    /// Converted Theme information or Default Value if it doesn't exist
+    /// </returns>
+    public string GetThemeContents([NotNull] string page, [NotNull] string tag, [NotNull] string defaultValue)
+    {
+      return this.Get<ITheme>().GetItem(page, tag, defaultValue);
+    }
+
+    /// <summary>
+    /// The html encode.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// The html encode.
+    /// </returns>
+    [CanBeNull]
+    public string HtmlEncode([NotNull] object data)
+    {
+      if (data == null || !(data is string))
+      {
+        return null;
+      }
+
+      return this.Server.HtmlEncode(data.ToString());
+    }
+
+    /// <summary>
+    /// The redirect no access.
+    /// </summary>
+    public void RedirectNoAccess()
+    {
+      this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
     #region IRaiseControlLifeCycles
 
     /// <summary>
@@ -347,158 +501,6 @@ namespace YAF.Core
 
     #endregion
 
-    #region Public Methods
-
-    /// <summary>
-    /// The is null.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <returns>
-    /// The is null.
-    /// </returns>
-    public static object IsNull(string value)
-    {
-      if (value == null || value.ToLower() == string.Empty)
-      {
-        return DBNull.Value;
-      }
-      else
-      {
-        return value;
-      }
-    }
-
-    /// <summary>
-    /// Gets the collapsible panel image url (expanded or collapsed). 
-    ///   </summary>
-    /// <param name="panelID">
-    /// ID of collapsible panel
-    /// </param>
-    /// <param name="defaultState">
-    /// Default Panel State
-    /// </param>
-    /// <returns>
-    /// Image URL
-    /// </returns>
-    public string GetCollapsiblePanelImageURL(string panelID, CollapsiblePanelState defaultState)
-    {
-      return this.PageContext.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
-    }
-
-    /// <summary>
-    /// The get text.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetText(string text)
-    {
-      return this.PageContext.Localization.GetText(text);
-    }
-
-    /// <summary>
-    /// The get text.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetText(string page, string text)
-    {
-      return this.PageContext.Localization.GetText(page, text);
-    }
-
-    /// <summary>
-    /// The get text formatted.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <returns>
-    /// The get text formatted.
-    /// </returns>
-    public string GetTextFormatted(string text, params object[] args)
-    {
-      return this.PageContext.Localization.GetTextFormatted(text, args);
-    }
-
-    /// <summary>
-    /// Get a value from the currently configured forum theme.
-    /// </summary>
-    /// <param name="page">
-    /// Page to look under
-    /// </param>
-    /// <param name="tag">
-    /// Theme item
-    /// </param>
-    /// <returns>
-    /// Converted Theme information
-    /// </returns>
-    public string GetThemeContents(string page, string tag)
-    {
-      return this.PageContext.Get<ITheme>().GetItem(page, tag);
-    }
-
-    /// <summary>
-    /// Get a value from the currently configured forum theme.
-    /// </summary>
-    /// <param name="page">
-    /// Page to look under
-    /// </param>
-    /// <param name="tag">
-    /// Theme item
-    /// </param>
-    /// <param name="defaultValue">
-    /// Value to return if the theme item doesn't exist
-    /// </param>
-    /// <returns>
-    /// Converted Theme information or Default Value if it doesn't exist
-    /// </returns>
-    public string GetThemeContents(string page, string tag, string defaultValue)
-    {
-      return this.PageContext.Get<ITheme>().GetItem(page, tag, defaultValue);
-    }
-
-    /// <summary>
-    /// The html encode.
-    /// </summary>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <returns>
-    /// The html encode.
-    /// </returns>
-    public string HtmlEncode(object data)
-    {
-      if (data == null || !(data is string))
-      {
-        return null;
-      }
-
-      return this.Server.HtmlEncode(data.ToString());
-    }
-
-    /// <summary>
-    /// The redirect no access.
-    /// </summary>
-    public void RedirectNoAccess()
-    {
-      YafContext.Current.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
-    }
-
     #endregion
 
     #region Methods
@@ -517,33 +519,41 @@ namespace YAF.Core
     /// <param name="addTo">
     /// The add to.
     /// </param>
-    protected void InsertCssRefresh(Control addTo)
+    protected void InsertCssRefresh([NotNull] Control addTo)
     {
       // make the style sheet link controls.
       addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToResource("css/forum.css")));
-      addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafContext.Current.Theme.BuildThemePath("theme.css")));
+      addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
 
       if (this.RefreshURL != null && this.RefreshTime >= 0)
       {
         var refresh = new HtmlMeta
-          { HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) };
+          {
+             HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) 
+          };
 
         addTo.Controls.Add(refresh);
       }
     }
 
-
-    protected override void OnPreRender(EventArgs e)
+    /// <summary>
+    /// The on pre render.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
     {
-        YafContext.Current.PageElements.RegisterJQuery();
-        base.OnPreRender(e);
+      YafContext.Current.PageElements.RegisterJQuery();
+      base.OnPreRender(e);
     }
+
     /// <summary>
     /// Writes the document
     /// </summary>
     /// <param name="writer">
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    protected override void Render([NotNull] HtmlTextWriter writer)
     {
       base.Render(writer);
 
@@ -560,35 +570,13 @@ namespace YAF.Core
     protected void SetupHeaderElements()
     {
       this.InsertCssRefresh(this.TopPageControl);
-      string themeHeader = this.PageContext.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
+      string themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
 
       if (themeHeader.IsSet())
       {
-        var themeLiterial = new Literal();
-        themeLiterial.Text = themeHeader.Replace("~", this.PageContext.Get<ITheme>().ThemeDir);
-        TopPageControl.Controls.Add(themeLiterial);
+        var themeLiterial = new Literal { Text = themeHeader.Replace("~", this.Get<ITheme>().ThemeDir) };
+        this.TopPageControl.Controls.Add(themeLiterial);
       }
-    }
-
-    /// <summary>
-    /// The forum page_ error.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_Error(object sender, EventArgs e)
-    {
-      // This doesn't seem to work...
-      Exception x = this.Server.GetLastError();
-      LegacyDb.eventlog_create(this.PageContext.PageUserID, this, x);
-
-      // if (!YafForumInfo.IsLocal)
-      // {
-      // CreateMail.CreateLogEmail(this.Server.GetLastError());
-      // }
     }
 
     /// <summary>
@@ -598,7 +586,7 @@ namespace YAF.Core
     /// </param>
     /// <param name="e">
     /// </param>
-    private void ForumPage_Init(object sender, EventArgs e)
+    private void ForumPage_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
 
@@ -612,7 +600,7 @@ namespace YAF.Core
 #endif
 
       // set the current translation page...
-      YafContext.Current.Get<LocalizationProvider>().TranslationPage = this._transPage;
+      this.Get<LocalizationProvider>().TranslationPage = this._transPage;
 
       // fire preload event...
       this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
@@ -625,7 +613,7 @@ namespace YAF.Core
     /// </param>
     /// <param name="e">
     /// </param>
-    private void ForumPage_Load(object sender, EventArgs e)
+    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       if (this.PageContext.BoardSettings.DoUrlReferrerSecurityCheck)
       {
@@ -645,7 +633,7 @@ namespace YAF.Core
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_PreRender(object sender, EventArgs e)
+    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
 
@@ -664,7 +652,7 @@ namespace YAF.Core
     /// </param>
     /// <param name="e">
     /// </param>
-    private void ForumPage_Unload(object sender, EventArgs e)
+    private void ForumPage_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
 
@@ -676,29 +664,5 @@ namespace YAF.Core
     }
 
     #endregion
-
-    #region Implementation of IHaveServiceLocator
-
-    /// <summary>
-    /// Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator
-    {
-      get
-      {
-        return this.PageContext().ServiceLocator;
-      }
-    }
-
-    #endregion
-
-
-    public string PageName
-    {
-      get
-      {
-        return this.GetType().Name.Replace("aspx", string.Empty);
-      }
-    }
   }
 }

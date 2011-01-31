@@ -119,19 +119,15 @@ namespace YAF.Core
 
       // cache bindings.
       builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().InstancePerLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<HttpRuntimeCache>().As<IDataCache>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
-      if (this.IsNotRegistered(typeof(IDataCache<>)))
-      {
-        builder.RegisterGeneric(typeof(HttpRuntimeCache<>)).As(typeof(IDataCache<>)).InstancePerLifetimeScope();
-      }
-
-      // stationary bindings...
       builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<YafBuddy>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
       // needs to be "instance per dependancy" so that each new request gets a new ScripBuilder.
       builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency().PreserveExistingDefaults();

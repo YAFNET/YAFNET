@@ -47,9 +47,15 @@ namespace YAF.Core.Services
   {
     public IServiceLocator ServiceLocator { get; set; }
 
-    public YafDBBroker(IServiceLocator serviceLocator)
+    public HttpSessionStateBase HttpSessionState { get; set; }
+
+    public IDataCache DataCache { get; set; }
+
+    public YafDBBroker(IServiceLocator serviceLocator, HttpSessionStateBase httpSessionState, IDataCache dataCache)
     {
       ServiceLocator = serviceLocator;
+      HttpSessionState = httpSessionState;
+      DataCache = dataCache;
     }
 
     #region Public Methods
@@ -61,70 +67,63 @@ namespace YAF.Core.Services
     /// </returns>
     public IEnumerable<TypedBBCode> GetCustomBBCode()
     {
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode);
-
-      return YafContext.Current.Cache.GetItem(
-        cacheKey, 999, CacheItemPriority.High, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null));
+      return this.DataCache.GetOrSet(
+        Constants.Cache.CustomBBCode, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null));
     }
 
     public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
     {
-      return YafContext.Current.Cache.GetItem(
-        YafCache.GetBoardCacheKey(Constants.Cache.Shoutbox),
-        (double)30000,
-        () =>
+      return this.DataCache.GetOrSet(Constants.Cache.Shoutbox,() =>
+        {
+          var messages = LegacyDb.shoutbox_getmessages(
+            boardId,
+            YafContext.Current.BoardSettings.ShoutboxShowMessageCount,
+            YafContext.Current.BoardSettings.UseStyledNicks);
+
+          // Set colorOnly parameter to false, as we get all color info from data base
+          if (YafContext.Current.BoardSettings.UseStyledNicks)
           {
-            var messages = LegacyDb.shoutbox_getmessages(
-              boardId,
-              YafContext.Current.BoardSettings.ShoutboxShowMessageCount,
-              YafContext.Current.BoardSettings.UseStyledNicks);
+            this.Get<IStyleTransform>().DecodeStyleByTable(ref messages, false);
+          }
 
-            // Set colorOnly parameter to false, as we get all color info from data base
-            if (YafContext.Current.BoardSettings.UseStyledNicks)
-            {
-              this.Get<IStyleTransform>().DecodeStyleByTable(ref messages, false);
-            }
+          var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
 
-            var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
+          foreach (var row in messages.AsEnumerable())
+          {
+            string formattedMessage = this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
 
-            foreach (var row in messages.AsEnumerable())
-            {
-              string formattedMessage = this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
+            // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
+            // formattedMessage = FormatHyperLink(formattedMessage);
+            row["Message"] = formattedMessage;
+          }
 
-              // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
-              // formattedMessage = FormatHyperLink(formattedMessage);
-              row["Message"] = formattedMessage;
-            }
-
-            return messages;
-          }).AsEnumerable();
+          return messages;
+        }, TimeSpan.FromMilliseconds((double)30000)).AsEnumerable();
     }
 
     /// <summary>
     /// The user lazy data.
     /// </summary>
-    /// <param name="userID">
+    /// <param name="userId">
     /// The user ID.
     /// </param>
     /// <returns>
     /// </returns>
-    public DataRow ActiveUserLazyData(object userID)
+    public DataRow ActiveUserLazyData(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.ActiveUserLazyData, userID));
-
       // get a row with user lazy data...
-      return YafContext.Current.Cache.GetItem(
-        key, 
-        YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout, 
+      return this.DataCache.GetOrSet(
+        Constants.Cache.ActiveUserLazyData.FormatWith(userId),
         () =>
-        LegacyDb.user_lazydata(
-          userID, 
-          YafContext.Current.PageBoardID, 
-          YafContext.Current.BoardSettings.AllowEmailSending, 
-          YafContext.Current.BoardSettings.EnableBuddyList, 
-          YafContext.Current.BoardSettings.AllowPrivateMessages, 
-          YafContext.Current.BoardSettings.EnableAlbum, 
-          YafContext.Current.BoardSettings.UseStyledNicks));
+          LegacyDb.user_lazydata(
+            userId,
+            YafContext.Current.PageBoardID,
+            YafContext.Current.BoardSettings.AllowEmailSending,
+            YafContext.Current.BoardSettings.EnableBuddyList,
+            YafContext.Current.BoardSettings.AllowPrivateMessages,
+            YafContext.Current.BoardSettings.EnableAlbum,
+            YafContext.Current.BoardSettings.UseStyledNicks),
+        TimeSpan.FromMinutes(YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout));
     }
 
     /// <summary>
@@ -194,10 +193,10 @@ namespace YAF.Core.Services
     /// </returns>
     public IEnumerable<TypedSmileyList> GetSmilies()
     {
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.Smilies);
-
-      return YafContext.Current.Cache.GetItem(
-        cacheKey, 60, () => LegacyDb.SmileyList(YafContext.Current.PageBoardID, null));
+      return this.DataCache.GetOrSet(
+        Constants.Cache.Smilies,
+        () => LegacyDb.SmileyList(YafContext.Current.PageBoardID, null),
+        TimeSpan.FromMinutes(60));
     }
 
     /// <summary>
@@ -228,25 +227,24 @@ namespace YAF.Core.Services
       using (var ds = new DataSet())
       {
         // get the cached version of forum moderators if it's valid
-        string key = YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators);
-
-        var moderator = YafContext.Current.Cache.GetItem<DataTable>(
-          key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
+        var moderator = this.DataCache.GetOrSet(
+          Constants.Cache.ForumModerators,
+          this.GetModerators,
+          TimeSpan.FromMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout));
 
         // insert it into this DataSet
         ds.Tables.Add(moderator.Copy());
 
         // get the Category Table
-        key = YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory);
-        DataTable category = YafContext.Current.Cache.GetItem(
-          key, 
-          YafContext.Current.BoardSettings.BoardCategoriesCacheTimeout, 
+        DataTable category = this.DataCache.GetOrSet(
+          Constants.Cache.ForumCategory,
           () =>
             {
               var catDt = LegacyDb.category_list(boardID, null);
               catDt.TableName = MsSqlDbAccess.GetObjectName("Category");
               return catDt;
-            });
+            },
+          TimeSpan.FromMinutes(YafContext.Current.BoardSettings.BoardCategoriesCacheTimeout));
 
         // add it to this dataset				
         ds.Tables.Add(category.Copy());
@@ -313,10 +311,10 @@ namespace YAF.Core.Services
     /// </returns>
     public List<int> FavoriteTopicList(int userID)
     {
-      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.FavoriteTopicList, userID));
+      string key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.FavoriteTopicList.FormatWith(userID));
 
       // stored in the user session...
-      var favoriteTopicList = YafContext.Current.Get<HttpSessionStateBase>()[key] as List<int>;
+      var favoriteTopicList = this.HttpSessionState[key] as List<int>;
 
       // was it in the cache?
       if (favoriteTopicList == null)
@@ -328,7 +326,7 @@ namespace YAF.Core.Services
         favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
 
         // store it in the user session...
-        YafContext.Current.Get<HttpSessionStateBase>().Add(key, favoriteTopicList);
+        this.HttpSessionState.Add(key, favoriteTopicList);
       }
 
       return favoriteTopicList;
@@ -378,10 +376,12 @@ namespace YAF.Core.Services
     public List<SimpleModerator> GetAllModerators()
     {
       // get the cached version of forum moderators if it's valid
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators);
 
-      var moderator = YafContext.Current.Cache.GetItem<DataTable>(
-        key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
+      var moderator = this.DataCache.GetOrSet(
+        Constants.Cache.ForumModerators,
+        this.GetModerators,
+        TimeSpan.FromMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout));
+
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
           this.Get<IStyleTransform>().DecodeStyleByTable(ref moderator, false);
@@ -539,9 +539,9 @@ namespace YAF.Core.Services
     public void LoadMessageText(IEnumerable<DataRow> dataRows)
     {
       var messageIds =
-        dataRows.AsEnumerable().Where(x => StringExtensions.IsNotSet(x.Field<string>("Message"))).Select(x => x.Field<int>("MessageID"));
+        dataRows.AsEnumerable().Where(x => x.Field<string>("Message").IsNotSet()).Select(x => x.Field<int>("MessageID"));
 
-      var messageTextTable = LegacyDb.message_GetTextByIds(StringExtensions.ToDelimitedString(messageIds, ","));
+      var messageTextTable = LegacyDb.message_GetTextByIds(messageIds.ToDelimitedString(","));
 
       if (messageTextTable == null)
       {
@@ -617,9 +617,8 @@ namespace YAF.Core.Services
     /// </returns>
     public DataTable UserBuddyList(int UserID)
     {
-      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserBuddies, UserID));
-      DataTable buddyList = YafContext.Current.Cache.GetItem(key, 10, () => LegacyDb.buddy_list(UserID));
-      return buddyList;
+      return this.DataCache.GetOrSet(
+        Constants.Cache.UserBuddies.FormatWith(UserID), () => LegacyDb.buddy_list(UserID), TimeSpan.FromMinutes(10));
     }
 
     /// <summary>
@@ -632,10 +631,10 @@ namespace YAF.Core.Services
     /// </returns>
     public List<int> UserIgnoredList(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserIgnoreList, userId));
+      string key = Constants.Cache.UserIgnoreList.FormatWith(userId);
 
       // stored in the user session...
-      var userList = YafContext.Current.Get<HttpSessionStateBase>()[key] as List<int>;
+      var userList = this.HttpSessionState[key] as List<int>;
 
       // was it in the cache?
       if (userList == null)
@@ -647,7 +646,7 @@ namespace YAF.Core.Services
         userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
 
         // store it in the user session...
-        YafContext.Current.Get<HttpSessionStateBase>().Add(key, userList);
+        this.HttpSessionState.Add(key, userList);
       }
 
       return userList;
@@ -663,10 +662,11 @@ namespace YAF.Core.Services
     /// </returns>
     public DataTable UserMedals(int userId)
     {
-      string key = YafCache.GetBoardCacheKey(StringExtensions.FormatWith(Constants.Cache.UserMedals, userId));
+      string key = Constants.Cache.UserMedals.FormatWith(userId);
 
       // get the medals cached...
-      DataTable dt = YafContext.Current.Cache.GetItem(key, 10, () => LegacyDb.user_listmedals(userId));
+      DataTable dt = this.DataCache.GetOrSet(
+        key, () => LegacyDb.user_listmedals(userId), TimeSpan.FromMinutes(10));
 
       return dt;
     }

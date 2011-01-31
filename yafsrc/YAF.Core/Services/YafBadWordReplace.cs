@@ -26,13 +26,11 @@ namespace YAF.Core.Services
   using System.Linq;
   using System.Text.RegularExpressions;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -51,20 +49,40 @@ namespace YAF.Core.Services
 
     #endregion
 
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafBadWordReplace"/> class.
+    /// </summary>
+    /// <param name="dataCache">
+    /// The data cache.
+    /// </param>
+    public YafBadWordReplace([NotNull] IDataCache dataCache, ILogger logger)
+    {
+      this.DataCache = dataCache;
+      Logger = logger;
+    }
+
+    #endregion
+
     #region Properties
+
+    /// <summary>
+    /// Gets or sets DataCache.
+    /// </summary>
+    public IDataCache DataCache { get; set; }
+
+    public ILogger Logger { get; set; }
 
     /// <summary>
     ///   Gets ReplaceItems.
     /// </summary>
-    public List<BadWordReplaceItem> ReplaceItems
+    public IEnumerable<BadWordReplaceItem> ReplaceItems
     {
       get
       {
-        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
-
-        var replaceItems = YafContext.Current.Cache.GetItem(
-          cacheKey, 
-          30, 
+        var replaceItems = this.DataCache.GetOrSet(
+          Constants.Cache.ReplaceWords, 
           () =>
             {
               var replaceWords = LegacyDb.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
@@ -74,7 +92,8 @@ namespace YAF.Core.Services
                 replaceWords.Select(
                   row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).
                   ToList();
-            });
+            }, 
+          TimeSpan.FromMinutes(30));
 
         return replaceItems;
       }
@@ -82,7 +101,9 @@ namespace YAF.Core.Services
 
     #endregion
 
-    #region Public Methods
+    #region Implemented Interfaces
+
+    #region IBadWordReplace
 
     /// <summary>
     /// Searches through SearchText and replaces "bad words" with "good words"
@@ -97,14 +118,13 @@ namespace YAF.Core.Services
     /// <exception cref="Exception">
     /// <c>Exception</c>.
     /// </exception>
+    [NotNull]
     public string Replace([NotNull] string searchText)
     {
       if (searchText.IsNotSet())
       {
         return searchText;
       }
-
-      int? hashCode = null;
 
       string strReturn = searchText;
 
@@ -129,7 +149,7 @@ namespace YAF.Core.Services
         {
           // disable this regular expression henceforth...
           item.Active = false;
-          LegacyDb.eventlog_create(null, "BadWordReplace", x, EventLogTypes.Warning);
+          this.Logger.Warn(x, "Couldn't run RegEx for Bad Word Replace value: {0}", item.BadWordRegEx);
         }
 
 #endif
@@ -137,6 +157,8 @@ namespace YAF.Core.Services
 
       return strReturn;
     }
+
+    #endregion
 
     #endregion
   }

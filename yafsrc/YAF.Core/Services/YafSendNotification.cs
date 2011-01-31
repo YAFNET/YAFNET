@@ -32,10 +32,7 @@ namespace YAF.Core.Services
   using YAF.Classes.Data;
   using YAF.Utils;
   using YAF.Utils.Helpers;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
   using YAF.Types.Objects;
 
   #endregion
@@ -76,7 +73,7 @@ namespace YAF.Core.Services
       var notifyModerators = new YafTemplateEmail("NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL");
 
       string subject =
-        YafContext.Current.Localization.GetText("COMMON", "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL").FormatWith(
+        YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL").FormatWith(
           YafContext.Current.BoardSettings.Name);
 
       notifyModerators.TemplateParams["{adminlink}"] =
@@ -165,7 +162,7 @@ namespace YAF.Core.Services
 
 
           // create notification email subject
-          string emailSubject = YafContext.Current.Localization.GetText("COMMON", "PM_NOTIFICATION_SUBJECT", UserHelper.GetUserLanguageFile(toUserId)).FormatWith(
+          string emailSubject = YafContext.Current.Get<ILocalization>().GetText("COMMON", "PM_NOTIFICATION_SUBJECT", UserHelper.GetUserLanguageFile(toUserId)).FormatWith(
               YafContext.Current.PageUserName, YafContext.Current.BoardSettings.Name, subject);
 
           // send email
@@ -178,7 +175,7 @@ namespace YAF.Core.Services
         LegacyDb.eventlog_create(YafContext.Current.PageUserID, "SendPmNotification", x);
 
         // tell user about failure
-        YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetTextFormatted("Failed", x.Message));
+        YafContext.Current.AddLoadMessage(YafContext.Current.Get<ILocalization>().GetTextFormatted("Failed", x.Message));
       }
     }
 
@@ -215,7 +212,7 @@ namespace YAF.Core.Services
 
         // Send track mails
         string subject =
-            YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
+            YafContext.Current.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
                 YafContext.Current.BoardSettings.Name);
 
         watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
@@ -247,7 +244,7 @@ namespace YAF.Core.Services
           {
             watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
                                                 ? user.LanguageFile
-                                                : YafContext.Current.Localization.LanguageFileName;
+                                                : YafContext.Current.Get<ILocalization>().LanguageFileName;
             watchEmail.SendEmail(
               new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
               new MailAddress(membershipUser.Email, membershipUser.UserName),

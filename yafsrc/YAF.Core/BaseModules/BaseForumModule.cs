@@ -30,7 +30,7 @@ namespace YAF.Core
   /// <summary>
   /// The base forum module.
   /// </summary>
-  public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator
+  public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, IHaveLocalization
   {
     #region Properties
 
@@ -92,6 +92,17 @@ namespace YAF.Core
       get
       {
         return YafContext.Current.ServiceLocator;
+      }
+    }
+
+    /// <summary>
+    ///   Gets ServiceLocator.
+    /// </summary>
+    public virtual ILocalization Localization
+    {
+      get
+      {
+        return this.Get<ILocalization>();
       }
     }
 

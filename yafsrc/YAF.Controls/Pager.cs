@@ -25,11 +25,11 @@ namespace YAF.Controls
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
+  using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -414,15 +414,18 @@ gotoForm.fadeIn( 'slow', function() {{
         return;
       }
 
-      output.WriteLine(@"<div class=""yafpager"" title=""{0}"" id=""{1}"">".FormatWith(this.PageContext.Localization.TransPage.IsSet() ? this.PageContext.Localization.GetText("COMMON", "GOTOPAGE_HEADER") : "Go to page...", this.ClientID));
+      output.WriteLine(
+        @"<div class=""yafpager"" title=""{0}"" id=""{1}"">".FormatWith(
+          this.Get<ILocalization>().TransPage.IsSet() ? this.GetText("COMMON", "GOTOPAGE_HEADER") : "Go to page...", 
+          this.ClientID));
 
       this._pageLabel.CssClass = "pagecount";
 
       // have to be careful about localization because the pager is used in the admin pages...
       string pagesText = "Pages";
-      if (this.PageContext.Localization.TransPage.IsSet())
+      if (this.Get<ILocalization>().TransPage.IsSet())
       {
-        pagesText = this.PageContext.Localization.GetText("COMMON", "PAGES");
+        pagesText = this.GetText("COMMON", "PAGES");
       }
 
       this._pageLabel.Text = @"{0:N0} {1}".FormatWith(this.PageCount, pagesText);
@@ -486,7 +489,8 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (iStart > 0)
       {
-          output.RenderAnchorBegin(this.GetLinkUrl(1, postBack), "pagelinkfirst", this.PageContext.Localization.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
+        output.RenderAnchorBegin(
+          this.GetLinkUrl(1, postBack), "pagelinkfirst", this.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);
@@ -498,7 +502,8 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (this.CurrentPageIndex > iStart)
       {
-          output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex, postBack), "pagelink", this.PageContext.Localization.GetText("COMMON", "GOTOPREVPAGE_TT"));
+        output.RenderAnchorBegin(
+          this.GetLinkUrl(this.CurrentPageIndex, postBack), "pagelink", this.GetText("COMMON", "GOTOPREVPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);
@@ -535,7 +540,8 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (this.CurrentPageIndex < (this.PageCount - 1))
       {
-          output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), "pagelink", this.PageContext.Localization.GetText("COMMON", "GOTONEXTPAGE_TT"));
+        output.RenderAnchorBegin(
+          this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), "pagelink", this.GetText("COMMON", "GOTONEXTPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);
@@ -547,7 +553,8 @@ gotoForm.fadeIn( 'slow', function() {{
 
       if (iEnd < this.PageCount)
       {
-        output.RenderAnchorBegin(this.GetLinkUrl(this.PageCount, postBack), "pagelinklast", this.PageContext.Localization.GetText("COMMON", "GOTOLASTPAGE_TT"));
+        output.RenderAnchorBegin(
+          this.GetLinkUrl(this.PageCount, postBack), "pagelinklast", this.GetText("COMMON", "GOTOLASTPAGE_TT"));
 
         output.WriteBeginTag("span");
         output.Write(HtmlTextWriter.TagRightChar);

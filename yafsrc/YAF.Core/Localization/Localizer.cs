@@ -142,20 +142,20 @@ namespace YAF.Core
       tag = tag.ToUpper(this._currentCulture);
 
       var pagePointer =
-        this._localizationLanguageResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
+        this._localizationLanguageResources.page.Where(p => p.name.Equals(this._currentPage)).FirstOrDefault();
 
       LanuageResourcesPageResource pageResource = null;
 
       if (pagePointer != null)
       {
-        pageResource = pagePointer.Resource.Where(r => r.tag.ToUpper().Equals(tag)).FirstOrDefault();
+        pageResource = pagePointer.Resource.Where(r => r.tag.Equals(tag)).FirstOrDefault();
       }
 
       if (pageResource == null)
       {
         // attempt to find the tag anywhere...
         pageResource =
-          this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(r => r.tag.ToUpper().Equals(tag)).
+          this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(r => r.tag.Equals(tag)).
             FirstOrDefault();
       }
 

@@ -67,10 +67,10 @@ namespace YAF.Core.Services
                  YafContext.Current.PageUserName, 
                  YafContext.Current.BoardSettings.IrkooSecretKey)
                : string.Empty, 
-            YafContext.Current.Localization.GetText("IRKOO", "NOT_AUTHORIZED"), 
-            YafContext.Current.Localization.GetText("IRKOO", "MIN_VOTE_UP"), 
-            YafContext.Current.Localization.GetText("IRKOO", "MIN_VOTE_DOWN"), 
-            YafContext.Current.Localization.GetText("IRKOO", "SELF"));
+            YafContext.Current.Get<ILocalization>().GetText("IRKOO", "NOT_AUTHORIZED"), 
+            YafContext.Current.Get<ILocalization>().GetText("IRKOO", "MIN_VOTE_UP"), 
+            YafContext.Current.Get<ILocalization>().GetText("IRKOO", "MIN_VOTE_DOWN"), 
+            YafContext.Current.Get<ILocalization>().GetText("IRKOO", "SELF"));
     }
 
     /// <summary>

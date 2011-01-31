@@ -129,7 +129,7 @@ namespace YAF.Controls
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
             YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"), 
-            this.PageContext.Localization.GetText("COMMON", "MOBILE_FULLSITE")));
+            this.GetText("COMMON", "MOBILE_FULLSITE")));
       }
       else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null &&
                this.PageContext.Vars["IsMobile"].ToType<bool>())
@@ -137,11 +137,11 @@ namespace YAF.Controls
         footer.Append(
           @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
             YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"), 
-            this.PageContext.Localization.GetText("COMMON", "MOBILE_VIEWSITE")));
+            this.GetText("COMMON", "MOBILE_VIEWSITE")));
       }
 
       footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
-      footer.Append(this.PageContext.Localization.GetText("COMMON", "POWERED_BY"));
+      footer.Append(this.GetText("COMMON", "POWERED_BY"));
       footer.Append(@" YAF");
 
       if (this.PageContext.BoardSettings.ShowYAFVersion)
@@ -174,7 +174,7 @@ namespace YAF.Controls
       {
         footer.Append("<br />");
         footer.AppendFormat(
-          this.PageContext.Localization.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
+          this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
       }
 
       footer.Append(@"</div>");

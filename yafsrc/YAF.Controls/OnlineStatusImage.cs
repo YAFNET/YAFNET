@@ -20,6 +20,7 @@ namespace YAF.Controls
 {
   #region Using
 
+  using System;
   using System.Data;
   using System.Linq;
   using System.Web.UI;
@@ -72,11 +73,10 @@ namespace YAF.Controls
 
       if (Visible)
       {
-        string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
-        DataTable activeUsers = PageContext.Cache.GetItem(
-          key, 
-          (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, 
-          () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
+        DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
+          Constants.Cache.UsersOnlineStatus,
+          () => this.Get<IDBBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
+          TimeSpan.FromMilliseconds((double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
         if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == this.UserID && !x.Field<bool>("IsHidden")))
         {

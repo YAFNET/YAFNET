@@ -244,12 +244,12 @@ namespace YAF.Controls
         if (this.IsModeratorChanged)
         {
           // deleted by mod
-          writer.Write(this.PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_MOD"));
+          writer.Write(this.GetText("POSTS", "MESSAGEDELETED_MOD"));
         }
         else
         {
           // deleted by user
-          writer.Write(this.PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_USER"));
+          writer.Write(this.GetText("POSTS", "MESSAGEDELETED_USER"));
         }
       }
     }

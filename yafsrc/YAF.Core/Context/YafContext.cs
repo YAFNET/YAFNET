@@ -161,7 +161,7 @@ namespace YAF.Core
     {
       get
       {
-        string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
+        var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.BoardSettings);
 
         if (Application[key] == null)
         {
@@ -173,7 +173,7 @@ namespace YAF.Core
 
       set
       {
-        string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
+        var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.BoardSettings);
 
         if (value == null)
         {
@@ -184,17 +184,6 @@ namespace YAF.Core
           // set the updated board settings...	
           Application[key] = value;
         }
-      }
-    }
-
-    /// <summary>
-    ///   Current System-Wide Cache
-    /// </summary>
-    public YafCache Cache
-    {
-      get
-      {
-        return this._singleInstanceFactory.GetInstance<YafCache>();
       }
     }
 
@@ -333,18 +322,6 @@ namespace YAF.Core
       get
       {
         return this._singleInstanceFactory.GetInstance<LoadMessage>();
-      }
-    }
-
-    /// <summary>
-    /// Gets Localization.
-    /// </summary>
-    [Obsolete("Use Service Location or Dependency Injection to get interface: ILocalization")]
-    public ILocalization Localization
-    {
-      get
-      {
-        return this.Get<ILocalization>();
       }
     }
 

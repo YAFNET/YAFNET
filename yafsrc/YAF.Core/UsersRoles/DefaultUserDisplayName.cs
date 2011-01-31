@@ -26,9 +26,11 @@ namespace YAF.Core
   using System.Linq;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Pattern;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
   using YAF.Utils;
 
   #endregion
@@ -38,12 +40,11 @@ namespace YAF.Core
   /// </summary>
   public class DefaultUserDisplayName : IUserDisplayName
   {
+    private readonly IDataCache _dataCache;
+
     #region Constants and Fields
 
-    /// <summary>
-    /// The _data cache.
-    /// </summary>
-    private readonly IDataCache<IDictionary<int, string>> _dataCache;
+
 
     #endregion
 
@@ -55,11 +56,9 @@ namespace YAF.Core
     /// <param name="dataCache">
     /// The data cache.
     /// </param>
-    public DefaultUserDisplayName([NotNull] IDataCache<IDictionary<int, string>> dataCache)
+    public DefaultUserDisplayName([NotNull] IDataCache dataCache)
     {
-      CodeContracts.ArgumentNotNull(dataCache, "dataCache");
-
-      this._dataCache = dataCache;
+      _dataCache = dataCache;
     }
 
     #endregion
@@ -69,11 +68,11 @@ namespace YAF.Core
     /// <summary>
     ///   Gets UserDisplayNameCollection.
     /// </summary>
-    private IDictionary<int, string> UserDisplayNameCollection
+    private IThreadSafeDictionary<int, string> UserDisplayNameCollection
     {
       get
       {
-        return this._dataCache.GetOrSet(Constants.Cache.UsersDisplayNameCollection, () => new Dictionary<int, string>());
+        return this._dataCache.GetOrSet(Constants.Cache.UsersDisplayNameCollection, () => new ThreadSafeDictionary<int, string>());
       }
     }
 
@@ -117,20 +116,13 @@ namespace YAF.Core
     [NotNull]
     public IDictionary<int, string> Find([NotNull] string contains)
     {
-      var usersFound = new Dictionary<int, string>();
+      IEnumerable<TypedUserFind> found = YafContext.Current.BoardSettings.EnableDisplayName
+                                           ? LegacyDb.UserFind(
+                                             YafContext.Current.PageBoardID, true, null, null, contains, null, null)
+                                           : LegacyDb.UserFind(
+                                             YafContext.Current.PageBoardID, true, contains, null, null, null, null);
 
-      if (YafContext.Current.BoardSettings.EnableDisplayName)
-      {
-        var found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
-        found.ForEach(u => usersFound.Add(u.UserID ?? 0, u.DisplayName));
-      }
-      else
-      {
-        var found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, contains, null, null, null, null);
-        found.ForEach(u => usersFound.Add(u.UserID ?? 0, u.DisplayName));
-      }
-
-      return usersFound;
+      return found.ToDictionary(k => k.UserID ?? 0, v => v.DisplayName);
     }
 
     /// <summary>
@@ -166,30 +158,22 @@ namespace YAF.Core
         {
           var user =
             LegacyDb.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
+
           if (user != null)
           {
             userId = user.UserID ?? 0;
-
-            // update collection...
-            if (!this.UserDisplayNameCollection.ContainsKey(userId.Value))
-            {
-              this.UserDisplayNameCollection.Add(userId.Value, user.DisplayName);
-            }
+            this.UserDisplayNameCollection.MergeSafe(userId.Value, user.DisplayName);
           }
         }
         else
         {
           var user =
             LegacyDb.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
+
           if (user != null)
           {
             userId = user.UserID ?? 0;
-
-            // update collection...
-            if (!this.UserDisplayNameCollection.ContainsKey(userId.Value))
-            {
-              this.UserDisplayNameCollection.Add(userId.Value, user.DisplayName);
-            }
+            this.UserDisplayNameCollection.MergeSafe(userId.Value, user.DisplayName);
           }
         }
       }
@@ -227,11 +211,7 @@ namespace YAF.Core
             displayName = row.Field<string>("Name");
           }
 
-          // update collection...
-          if (!this.UserDisplayNameCollection.ContainsKey(userId))
-          {
-            this.UserDisplayNameCollection.Add(userId, displayName);
-          }
+          this.UserDisplayNameCollection.MergeSafe(userId, displayName);
         }
       }
 

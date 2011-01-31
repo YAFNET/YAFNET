@@ -52,44 +52,44 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.AllowPrivateMessages)
       {
-        html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", PageContext.Localization.GetText("MESSENGER"));
+        html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", this.GetText("MESSENGER"));
         html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilemessenger"">");
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.cp_pm, "v=in"), 
-          PageContext.Localization.GetText("INBOX"));
+          this.GetText("INBOX"));
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.cp_pm, "v=out"), 
-          PageContext.Localization.GetText("SENTITEMS"));
+          this.GetText("SENTITEMS"));
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.cp_pm, "v=arch"), 
-          PageContext.Localization.GetText("ARCHIVE"));
+          this.GetText("ARCHIVE"));
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.pmessage), 
-          PageContext.Localization.GetText("NEW_MESSAGE"));
+          this.GetText("NEW_MESSAGE"));
         html.AppendFormat(@"</ul></td></tr>");
       }
 
       html.AppendFormat(
-        @"<tr class=""header2""><td>{0}</td></tr>", this.PageContext.Localization.GetText("PERSONAL_PROFILE"));
+        @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("PERSONAL_PROFILE"));
       html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilepersonal"">");
       html.AppendFormat(
         @"<li><a href=""{0}"">{1}</a></li>", 
         YafBuildLink.GetLink(ForumPages.profile, "u={0}", PageContext.PageUserID), 
-        PageContext.Localization.GetText("VIEW_PROFILE"));
+        this.GetText("VIEW_PROFILE"));
       html.AppendFormat(
         @"<li><a href=""{0}"">{1}</a></li>", 
         YafBuildLink.GetLink(ForumPages.cp_editprofile), 
-        PageContext.Localization.GetText("EDIT_PROFILE"));
+        this.GetText("EDIT_PROFILE"));
       if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableThanksMod)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", PageContext.PageUserID), 
-          PageContext.Localization.GetText("ViewTHANKS", "TITLE"));
+          this.GetText("ViewTHANKS", "TITLE"));
       }
 
       if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableBuddyList & this.PageContext.UserHasBuddies)
@@ -97,7 +97,7 @@ namespace YAF.Controls
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.cp_editbuddies), 
-          PageContext.Localization.GetText("EDIT_BUDDIES"));
+          this.GetText("EDIT_BUDDIES"));
       }
 
       if (!this.PageContext.IsGuest && (this.PageContext.BoardSettings.EnableAlbum || (this.PageContext.NumAlbums > 0)))
@@ -105,31 +105,31 @@ namespace YAF.Controls
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID), 
-          this.PageContext.Localization.GetText("EDIT_ALBUMS"));
+          this.GetText("EDIT_ALBUMS"));
       }
 
       html.AppendFormat(
         @"<li><a href=""{0}"">{1}</a></li>", 
         YafBuildLink.GetLink(ForumPages.cp_editavatar), 
-        this.PageContext.Localization.GetText("EDIT_AVATAR"));
+        this.GetText("EDIT_AVATAR"));
       if (this.PageContext.BoardSettings.AllowSignatures)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.cp_signature), 
-          this.PageContext.Localization.GetText("SIGNATURE"));
+          this.GetText("SIGNATURE"));
       }
 
       html.AppendFormat(
         @"<li><a href=""{0}"">{1}</a></li>", 
         YafBuildLink.GetLink(ForumPages.cp_subscriptions), 
-        this.PageContext.Localization.GetText("SUBSCRIPTIONS"));
+        this.GetText("SUBSCRIPTIONS"));
       if (this.PageContext.BoardSettings.AllowPasswordChange)
       {
         html.AppendFormat(
           @"<li><a href=""{0}"">{1}</a></li>", 
           YafBuildLink.GetLink(ForumPages.cp_changepassword), 
-          this.PageContext.Localization.GetText("CHANGE_PASSWORD"));
+          this.GetText("CHANGE_PASSWORD"));
       }
 
       html.AppendFormat(@"</ul></td></tr>");

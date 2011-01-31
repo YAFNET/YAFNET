@@ -83,39 +83,33 @@ namespace YAF.Controls.Statistics
       var html = new StringBuilder();
 
       // try to get data from the cache first
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ActiveDiscussions);
-      var dt = this.PageContext.Cache[cacheKey] as DataTable;
+      var topicLatest = this.Get<IDataCache>().GetOrSet(
+        Constants.Cache.ActiveDiscussions,
+        () =>
+          {
+            // nothing was cached, retrieve it from the database
+            var dt = LegacyDb.topic_latest(
+              this.PageContext.PageBoardID,
+              this._displayNumber,
+              this.PageContext.PageUserID,
+              this.PageContext.BoardSettings.UseStyledNicks,
+              this.PageContext.BoardSettings.NoCountForumsInActiveDiscussions);
 
-      if (dt == null)
-      {
-        // nothing was cached, retrieve it from the database
-        dt = LegacyDb.topic_latest(
-          this.PageContext.PageBoardID, 
-          this._displayNumber, 
-          this.PageContext.PageUserID, 
-          this.PageContext.BoardSettings.UseStyledNicks, 
-          this.PageContext.BoardSettings.NoCountForumsInActiveDiscussions);
+            // Set colorOnly parameter to true, as we get all but color from css in the place
+            if (this.PageContext.BoardSettings.UseStyledNicks)
+            {
+              var styleTransform = this.Get<IStyleTransform>();
+              styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
+            }
 
-        // Set colorOnly parameter to true, as we get all but color from css in the place
-        if (this.PageContext.BoardSettings.UseStyledNicks)
-        {
-          var styleTransform = this.Get<IStyleTransform>();
-          styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
-        }
-
-        // and cache it
-        this.PageContext.Cache.Insert(
-          cacheKey, 
-          dt, 
-          null, 
-          DateTime.UtcNow.AddMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), 
-          TimeSpan.Zero);
-      }
+            return dt;
+          },
+        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout));
 
       // render head of control
       html.Append("<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">");
       html.AppendFormat(
-        "<tr><td class=\"header1\">{0}</td></tr>", this.PageContext.Localization.GetText("LATEST_POSTS"));
+        "<tr><td class=\"header1\">{0}</td></tr>", this.GetText("LATEST_POSTS"));
 
       // now container for posts themselves
       html.Append("<tr><td class=\"post\">");
@@ -124,7 +118,7 @@ namespace YAF.Controls.Statistics
       int currentPost = 1;
 
       // go through all active topics returned
-      foreach (DataRow r in dt.Rows)
+      foreach (DataRow r in topicLatest.Rows)
       {
         // Output Topic Link
         html.AppendFormat(
@@ -149,13 +143,5 @@ namespace YAF.Controls.Statistics
     }
 
     #endregion
-
-    /* Data */
-
-    /* Construction & Desctuction */
-
-    /* Properties */
-
-    /* Control Processing Methods */
   }
 }

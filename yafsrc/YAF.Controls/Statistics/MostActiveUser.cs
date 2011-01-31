@@ -102,14 +102,13 @@ namespace YAF.Controls.Statistics
     {
       int currentRank = 1;
       string actRank = string.Empty;
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.MostActiveUsers);
 
-      DataTable rankDt = this.PageContext.Cache.GetItem(
-        cacheKey, 
-        5, 
+      DataTable rankDt = this.Get<IDataCache>().GetOrSet(
+        Constants.Cache.MostActiveUsers,
         () =>
         LegacyDb.user_activity_rank(
-          this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber));
+          this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber),
+        TimeSpan.FromMinutes(5));
 
       //// create XML data document...
       // XmlDocument xml = new XmlDocument();

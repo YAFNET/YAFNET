@@ -89,8 +89,8 @@ namespace YAF.Core
     /// </summary>
     public override void RunOnce()
     {
-      // validate DB run...
-      YafContext.Current.Get<StartupInitializeDb>().Run();
+      //// validate DB run...
+      //YafContext.Current.Get<StartupInitializeDb>().Run();
 
       this.SendDigest();
     }

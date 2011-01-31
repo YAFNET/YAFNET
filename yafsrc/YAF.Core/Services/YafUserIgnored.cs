@@ -18,24 +18,100 @@
  */
 namespace YAF.Core.Services
 {
+  #region Using
+
   using System.Collections.Generic;
   using System.Web;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Utils;
+  using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
   /// User Ignored Service for the current user.
   /// </summary>
   public class YafUserIgnored : IUserIgnored
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _user ignore list.
+    /// The _db broker.
     /// </summary>
-    private List<int> _userIgnoreList = null;
+    private readonly IDBBroker _dbBroker;
+
+    /// <summary>
+    /// The _treat cache key.
+    /// </summary>
+    private readonly ITreatCacheKey _treatCacheKey;
+
+    /// <summary>
+    ///   The _user ignore list.
+    /// </summary>
+    private List<int> _userIgnoreList;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafUserIgnored"/> class.
+    /// </summary>
+    /// <param name="treatCacheKey">
+    /// The treat cache key.
+    /// </param>
+    /// <param name="sessionStateBase">
+    /// The session state base.
+    /// </param>
+    /// <param name="dbBroker">
+    /// The db broker.
+    /// </param>
+    public YafUserIgnored([NotNull] ITreatCacheKey treatCacheKey, [NotNull] HttpSessionStateBase sessionStateBase, [NotNull] IDBBroker dbBroker)
+    {
+      this.SessionStateBase = sessionStateBase;
+      this._treatCacheKey = treatCacheKey;
+      this._dbBroker = dbBroker;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets SessionStateBase.
+    /// </summary>
+    public HttpSessionStateBase SessionStateBase { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IUserIgnored
+
+    /// <summary>
+    /// The add ignored.
+    /// </summary>
+    /// <param name="ignoredUserId">
+    /// The ignored user id.
+    /// </param>
+    public void AddIgnored(int ignoredUserId)
+    {
+      LegacyDb.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
+      this.ClearIgnoreCache();
+    }
+
+    /// <summary>
+    /// The clear ignore cache.
+    /// </summary>
+    public void ClearIgnoreCache()
+    {
+      // clear for the session
+      this.SessionStateBase.Remove(
+        this._treatCacheKey.Treat(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID)));
+    }
 
     /// <summary>
     /// The is ignored.
@@ -50,7 +126,7 @@ namespace YAF.Core.Services
     {
       if (this._userIgnoreList == null)
       {
-        this._userIgnoreList = YafContext.Current.Get<IDBBroker>().UserIgnoredList(YafContext.Current.PageUserID);
+        this._userIgnoreList = this._dbBroker.UserIgnoredList(YafContext.Current.PageUserID);
       }
 
       if (this._userIgnoreList.Count > 0)
@@ -62,28 +138,6 @@ namespace YAF.Core.Services
     }
 
     /// <summary>
-    /// The clear ignore cache.
-    /// </summary>
-    public void ClearIgnoreCache()
-    {
-      // clear for the session
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID));
-      YafContext.Current.Get<HttpSessionStateBase>().Remove(key);
-    }
-
-    /// <summary>
-    /// The add ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    public void AddIgnored(int ignoredUserId)
-    {
-      LegacyDb.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
-      ClearIgnoreCache();
-    }
-
-    /// <summary>
     /// The remove ignored.
     /// </summary>
     /// <param name="ignoredUserId">
@@ -92,7 +146,11 @@ namespace YAF.Core.Services
     public void RemoveIgnored(int ignoredUserId)
     {
       LegacyDb.user_removeignoreduser(YafContext.Current.PageUserID, ignoredUserId);
-      ClearIgnoreCache();
+      this.ClearIgnoreCache();
     }
+
+    #endregion
+
+    #endregion
   }
 }

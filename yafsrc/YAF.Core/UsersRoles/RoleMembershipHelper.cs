@@ -19,19 +19,22 @@
 
 namespace YAF.Core
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Linq;
   using System.Threading;
   using System.Web.Security;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
+  using YAF.Utils;
+  using YAF.Utils.Helpers;
+
+  #endregion
 
   /// <summary>
   /// The role membership helper.
@@ -49,14 +52,14 @@ namespace YAF.Core
     /// <param name="role">
     /// The role.
     /// </param>
-    public static void AddUserToRole(string username, string role)
+    public static void AddUserToRole([NotNull] string username, [NotNull] string role)
     {
       YafContext.Current.CurrentRoles.AddUsersToRoles(new[] { username }, new[] { role });
     }
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
-    /// Also copies the Roles as groups into YAF DB for the current user
+    ///   Also copies the Roles as groups into YAF DB for the current user
     /// </summary>
     /// <param name="user">
     /// Current Membership User
@@ -67,17 +70,20 @@ namespace YAF.Core
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public static int? CreateForumUser(MembershipUser user, int pageBoardID)
+    public static int? CreateForumUser([NotNull] MembershipUser user, int pageBoardID)
     {
       return CreateForumUser(user, user.UserName, pageBoardID);
     }
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
-    /// Also copies the Roles as groups into YAF DB for the current user
+    ///   Also copies the Roles as groups into YAF DB for the current user
     /// </summary>
     /// <param name="user">
     /// Current Membership User
+    /// </param>
+    /// <param name="displayName">
+    /// The display Name.
     /// </param>
     /// <param name="pageBoardID">
     /// Current BoardID
@@ -85,13 +91,14 @@ namespace YAF.Core
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public static int? CreateForumUser(MembershipUser user, string displayName, int pageBoardID)
+    public static int? CreateForumUser([NotNull] MembershipUser user, [NotNull] string displayName, int pageBoardID)
     {
       int? userID = null;
 
       try
       {
-        userID = LegacyDb.user_aspnet(pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
+        userID = LegacyDb.user_aspnet(
+          pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
 
         foreach (string role in GetRolesForUser(user.UserName))
         {
@@ -114,7 +121,7 @@ namespace YAF.Core
     /// <param name="roleName">
     /// The role name.
     /// </param>
-    public static void CreateRole(string roleName)
+    public static void CreateRole([NotNull] string roleName)
     {
       YafContext.Current.CurrentRoles.CreateRole(roleName);
     }
@@ -128,7 +135,7 @@ namespace YAF.Core
     /// <param name="throwOnPopulatedRole">
     /// The throw on populated role.
     /// </param>
-    public static void DeleteRole(string roleName, bool throwOnPopulatedRole)
+    public static void DeleteRole([NotNull] string roleName, bool throwOnPopulatedRole)
     {
       YafContext.Current.CurrentRoles.DeleteRole(roleName, throwOnPopulatedRole);
     }
@@ -143,7 +150,7 @@ namespace YAF.Core
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    public static bool DidCreateForumUser(MembershipUser user, int pageBoardID)
+    public static bool DidCreateForumUser([NotNull] MembershipUser user, int pageBoardID)
     {
       int? userID = CreateForumUser(user, pageBoardID);
       return (userID == null) ? false : true;
@@ -167,7 +174,7 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public static string[] GetRolesForUser(string username)
+    public static string[] GetRolesForUser([NotNull] string username)
     {
       return YafContext.Current.CurrentRoles.GetRolesForUser(username);
     }
@@ -184,7 +191,7 @@ namespace YAF.Core
     /// <returns>
     /// The group in group table.
     /// </returns>
-    public static bool GroupInGroupTable(string groupName, DataTable groupTable)
+    public static bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable)
     {
       foreach (DataRow row in groupTable.Rows)
       {
@@ -212,7 +219,7 @@ namespace YAF.Core
     /// <returns>
     /// The is user in role.
     /// </returns>
-    public static bool IsUserInRole(string username, string role)
+    public static bool IsUserInRole([NotNull] string username, [NotNull] string role)
     {
       return YafContext.Current.CurrentRoles.IsUserInRole(username, role);
     }
@@ -226,7 +233,7 @@ namespace YAF.Core
     /// <param name="role">
     /// The role.
     /// </param>
-    public static void RemoveUserFromRole(string username, string role)
+    public static void RemoveUserFromRole([NotNull] string username, [NotNull] string role)
     {
       YafContext.Current.CurrentRoles.RemoveUsersFromRoles(new[] { username }, new[] { role });
     }
@@ -240,7 +247,7 @@ namespace YAF.Core
     /// <returns>
     /// The role exists.
     /// </returns>
-    public static bool RoleExists(string roleName)
+    public static bool RoleExists([NotNull] string roleName)
     {
       return YafContext.Current.CurrentRoles.RoleExists(roleName);
     }
@@ -257,7 +264,7 @@ namespace YAF.Core
     /// <returns>
     /// The role in role array.
     /// </returns>
-    public static bool RoleInRoleArray(string roleName, string[] roleArray)
+    public static bool RoleInRoleArray([NotNull] string roleName, [NotNull] string[] roleArray)
     {
       foreach (string role in roleArray)
       {
@@ -278,7 +285,7 @@ namespace YAF.Core
     /// </param>
     /// <param name="userName">
     /// </param>
-    public static void SetupUserRoles(int pageBoardID, string userName)
+    public static void SetupUserRoles(int pageBoardID, [NotNull] string userName)
     {
       using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
       {
@@ -303,8 +310,8 @@ namespace YAF.Core
 
     /// <summary>
     /// Goes through every membership user and manually "syncs" them to the forum.
-    /// Best for an existing membership structure -- will migrate all users at once 
-    /// rather then one at a time...
+    ///   Best for an existing membership structure -- will migrate all users at once 
+    ///   rather then one at a time...
     /// </summary>
     /// <param name="pageBoardId">
     /// The page Board Id.
@@ -392,7 +399,7 @@ namespace YAF.Core
 
     /// <summary>
     /// Updates the information in the YAF DB from the ASP.NET Membership user information.
-    /// Called once per session for a user to sync up the data
+    ///   Called once per session for a user to sync up the data
     /// </summary>
     /// <param name="user">
     /// Current Membership User
@@ -400,7 +407,7 @@ namespace YAF.Core
     /// <param name="pageBoardID">
     /// Current BoardID
     /// </param>
-    public static int? UpdateForumUser(MembershipUser user, int pageBoardID)
+    public static int? UpdateForumUser([NotNull] MembershipUser user, int pageBoardID)
     {
       if (user == null)
       {
@@ -411,7 +418,8 @@ namespace YAF.Core
       // is this a new user?
       var isNewUser = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey) <= 0;
 
-      int userId = LegacyDb.user_aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
+      int userId = LegacyDb.user_aspnet(
+        pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
 
       // get user groups...
       DataTable groupTable = LegacyDb.group_member(pageBoardID, userId);
@@ -441,7 +449,8 @@ namespace YAF.Core
       {
         try
         {
-          UserNotificationSetting defaultNotificationSetting = YafContext.Current.BoardSettings.DefaultNotificationSetting;
+          UserNotificationSetting defaultNotificationSetting =
+            YafContext.Current.BoardSettings.DefaultNotificationSetting;
           bool defaultSendDigestEmail = YafContext.Current.BoardSettings.DefaultSendDigestEmail;
 
           // setup default notifications...
@@ -449,18 +458,12 @@ namespace YAF.Core
 
           // save the settings...
           LegacyDb.user_savenotification(
-            userId,
-            true,
-            autoWatchTopicsEnabled,
-            defaultNotificationSetting,
-            defaultSendDigestEmail);
+            userId, true, autoWatchTopicsEnabled, defaultNotificationSetting, defaultSendDigestEmail);
         }
         catch (Exception ex)
         {
           LegacyDb.eventlog_create(
-            userId,
-            "UpdateForumUser",
-            "Failed to save default notifications for new user: " + ex.ToString());
+            userId, "UpdateForumUser", "Failed to save default notifications for new user: " + ex);
         }
       }
 
@@ -494,8 +497,7 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    private static MembershipCreateStatus MigrateCreateUser(
-      string name, string email, string question, string answer, bool approved, out MembershipUser user)
+    private static MembershipCreateStatus MigrateCreateUser([NotNull] string name, [NotNull] string email, [NotNull] string question, [NotNull] string answer, bool approved, [NotNull] out MembershipUser user)
     {
       string password;
       MembershipCreateStatus status;
@@ -525,7 +527,7 @@ namespace YAF.Core
     /// <param name="dataTable">
     /// The dataTable.
     /// </param>
-    private static void MigrateUsersFromDataTable(int pageBoardID, bool approved, DataTable dataTable)
+    private static void MigrateUsersFromDataTable(int pageBoardID, bool approved, [NotNull] DataTable dataTable)
     {
       // is this the Yaf membership provider?
       bool isYafProvider = YafContext.Current.CurrentMembership.GetType().Name == "YafMembershipProvider";

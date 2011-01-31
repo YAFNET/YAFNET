@@ -300,7 +300,7 @@ namespace YAF.Controls
 
             // Write Title
             output.Write(
-                this.Get<ILocalization>().GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(
+                this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(
                     this.Param0, this.Param1, this.Param2));
 
             // Append Suffix
@@ -316,7 +316,7 @@ namespace YAF.Controls
 
             // Write Help Text
             output.Write(
-                this.Get<ILocalization>().GetText(this.LocalizedPage, this.LocalizedHelpTag).FormatWith(
+                this.GetText(this.LocalizedPage, this.LocalizedHelpTag).FormatWith(
                     this.ParamHelp0, this.ParamHelp1, this.ParamHelp2));
 
             output.Write("</em>");

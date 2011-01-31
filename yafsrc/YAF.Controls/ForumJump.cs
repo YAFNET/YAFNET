@@ -129,20 +129,12 @@ namespace YAF.Controls
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
-      string cacheKey =
-        YafCache.GetBoardCacheKey(
+      var forumJump =
+        this.Get<IDataCache>().GetOrSet(
           Constants.Cache.ForumJump.FormatWith(
-            this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"));
-      DataTable dataTable;
-      if (this.PageContext.Cache[cacheKey] != null)
-      {
-        dataTable = (DataTable)this.PageContext.Cache[cacheKey];
-      }
-      else
-      {
-        dataTable = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
-        this.PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.UtcNow.AddMinutes(5), TimeSpan.Zero);
-      }
+            this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+          () => LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID),
+          TimeSpan.FromMinutes(5));
 
       writer.WriteLine(
         @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">".FormatWith(
@@ -154,7 +146,7 @@ namespace YAF.Controls
         writer.WriteLine("<option/>");
       }
 
-      foreach (DataRow row in dataTable.Rows)
+      foreach (DataRow row in forumJump.Rows)
       {
         writer.WriteLine(
           @"<option {2}value=""{0}"">{1}</option>".FormatWith(

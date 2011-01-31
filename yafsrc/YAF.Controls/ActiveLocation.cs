@@ -301,43 +301,43 @@ namespace YAF.Controls
         switch (forumPageName)
         {
           case "topics":
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");
+            outText += this.GetText("ACTIVELOCATION", "TOPICS");
             break;
 
           case "posts":
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
+            outText += this.GetText("ACTIVELOCATION", "POSTS");
             break;
 
           case "postmessage":
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL");
+            outText += this.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL");
             break;
 
           case "reportpost":
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "REPORTPOST");
+            outText += this.GetText("ACTIVELOCATION", "REPORTPOST");
             outText += ". ";
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");
+            outText += this.GetText("ACTIVELOCATION", "TOPICS");
             break;
 
           case "messagehistory":
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "MESSAGEHISTORY");
+            outText += this.GetText("ACTIVELOCATION", "MESSAGEHISTORY");
             outText += ". ";
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");
+            outText += this.GetText("ACTIVELOCATION", "TOPICS");
             break;
 
           default:
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
+            outText += this.GetText("ACTIVELOCATION", "POSTS");
             break;
         }
 
         if (this.HasForumAccess)
         {
           outText +=
-            @"<a href=""{0}"" id=""topicid_{1}""  alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.PageContext.Localization.GetText("COMMON", "VIEW_TOPIC"), HttpUtility.HtmlEncode(this.TopicName));
+            @"<a href=""{0}"" id=""topicid_{1}""  alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.GetText("COMMON", "VIEW_TOPIC"), HttpUtility.HtmlEncode(this.TopicName));
           if (!this.LastLinkOnly)
           {
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICINFORUM");
+            outText += this.GetText("ACTIVELOCATION", "TOPICINFORUM");
             outText +=
-              @"<a href=""{0}"" id=""forumidtopic_{1}"" alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), HttpUtility.HtmlEncode(this.ForumName));
+              @"<a href=""{0}"" id=""forumidtopic_{1}"" alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.GetText("COMMON", "VIEW_FORUM"), HttpUtility.HtmlEncode(this.ForumName));
           }
         }
       }
@@ -346,11 +346,11 @@ namespace YAF.Controls
         // User views a forum
         if (forumPageName == "topics")
         {
-          outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM");
+          outText = this.GetText("ACTIVELOCATION", "FORUM");
           if (this.HasForumAccess)
           {
             outText +=
-              @"<a href=""{0}"" id=""forumid_{1}""  alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.PageContext.Localization.GetText("COMMON", "VIEW_FORUM"), HttpUtility.HtmlEncode(this.ForumName));
+              @"<a href=""{0}"" id=""forumid_{1}""  alt=""{2}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.GetText("COMMON", "VIEW_FORUM"), HttpUtility.HtmlEncode(this.ForumName));
           }
         }
       }
@@ -376,27 +376,27 @@ namespace YAF.Controls
         {
           if (this.ForumPage.Contains("c="))
           {
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY");
+            outText += this.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY");
           }
           else
           {
-            outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE");
+            outText += this.GetText("ACTIVELOCATION", "MAINPAGE");
           }
         }
         else if (!YafContext.Current.IsAdmin && forumPageName.ToUpper().Contains("MODERATE_"))
         {
           // We shouldn't show moderators activity to all users but admins
-          outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE");
+          outText += this.GetText("ACTIVELOCATION", "MODERATE");
         }
         else if (!YafContext.Current.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
         {
           // We shouldn't show admin activity to all users 
-          outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK");
+          outText += this.GetText("ACTIVELOCATION", "ADMINTASK");
         }
         else
         {
           // Generic action name based on page name
-          outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName.ToUpper());
+          outText += this.GetText("ACTIVELOCATION", forumPageName.ToUpper());
         }
       }
 
@@ -405,7 +405,7 @@ namespace YAF.Controls
       {
         if (forumPageName.Contains("p="))
         {
-          outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA") + ".";
+          outText += this.GetText("ACTIVELOCATION", "NODATA") + ".";
         }
         else
         {
@@ -418,7 +418,7 @@ namespace YAF.Controls
               EventLogTypes.Error);
           }
 
-          outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");
+          outText = this.GetText("ACTIVELOCATION", "NODATA");
         }
       }
 
@@ -477,20 +477,20 @@ namespace YAF.Controls
         // Render
         if (Convert.ToInt32(userID) != this.UserID)
         {
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
           outstring += @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID), userID + this.PageContext.PageUserID, HttpUtility.HtmlEncode(albumName));
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM_OFUSER").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "ALBUM_OFUSER").FormatWith();
           outstring += @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID, HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
         }
         else
         {
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM_OWN").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "ALBUM_OWN").FormatWith();
           outstring += @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID), userID + this.PageContext.PageUserID, HttpUtility.HtmlEncode(albumName));
         }
       }
       else
       {
-        outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
+        outstring += this.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
       }
 
       return outstring;
@@ -515,17 +515,17 @@ namespace YAF.Controls
       {
         if (userID.ToType<int>() == this.UserID)
         {
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUMS_OWN").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "ALBUMS_OWN").FormatWith();
         }
         else
         {
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUMS_OFUSER").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER").FormatWith();
           outstring += @"<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + this.PageContext.PageUserID, HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
         }
       }
       else
       {
-        outstring += YafContext.Current.Localization.GetTextFormatted("ACTIVELOCATION", "ALBUMS").FormatWith();
+        outstring += this.GetTextFormatted("ACTIVELOCATION", "ALBUMS").FormatWith();
       }
 
       return outstring;
@@ -558,18 +558,18 @@ namespace YAF.Controls
       {
         if (userID.ToType<int>() != this.UserID)
         {
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
           outstring +=
-            @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + this.PageContext.PageUserID, this.PageContext.Localization.GetText("COMMON", "VIEW_USRPROFILE"), HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
+            @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + this.PageContext.PageUserID, this.GetText("COMMON", "VIEW_USRPROFILE"), HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID))));
         }
         else
         {
-          outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE_OWN").FormatWith();
+          outstring += this.GetText("ACTIVELOCATION", "PROFILE_OWN").FormatWith();
         }
       }
       else
       {
-        outstring += YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE").FormatWith();
+        outstring += this.GetText("ACTIVELOCATION", "PROFILE").FormatWith();
       }
 
       return outstring;

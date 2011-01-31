@@ -196,7 +196,7 @@ namespace YAF.Controls
               userLink.CssClass = "active_hidden";
 
               // and also add postfix
-              userLink.PostfixText = " ({0})".FormatWith(this.PageContext.Localization.GetText("HIDDEN"));
+              userLink.PostfixText = " ({0})".FormatWith(this.GetText("HIDDEN"));
             }
             else
             {

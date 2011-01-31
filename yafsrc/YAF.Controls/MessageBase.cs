@@ -32,6 +32,7 @@ namespace YAF.Controls
   using YAF.Types;
   using YAF.Types.Flags;
   using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -47,51 +48,27 @@ namespace YAF.Controls
     /// <summary>
     ///   The _options.
     /// </summary>
-    private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-
-    /// <summary>
-    ///   The _rgx module.
-    /// </summary>
-    private static string _rgxModule =
-      @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.+?))\</YafModuleFactoryInvocation\>";
-
-    /// <summary>
-    ///   The _rgx module param.
-    /// </summary>
-    private static string _rgxModuleParam = @"\<Param Name=\""(?<name>(.*?))\""\>(?<inner>(.+?))\</Param\>";
+    private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
 
     #endregion
 
-    #region Methods
-
-    /// <summary>
-    /// The get module parameters.
-    /// </summary>
-    /// <param name="paramDic">
-    /// The param dic.
-    /// </param>
-    /// <param name="invokeString">
-    /// The invoke string.
-    /// </param>
-    protected virtual void GetModuleParameters(
-      [NotNull] ref Dictionary<string, string> paramDic, [NotNull] string invokeString)
+    protected IDictionary<TypedBBCode, Regex> CustomBBCode
     {
-      var regExSearch = new Regex(_rgxModuleParam, _options);
-      Match m = regExSearch.Match(invokeString);
-
-      var sb = new StringBuilder(invokeString);
-
-      while (m.Success)
+      get
       {
-        paramDic.Add(m.Groups["name"].Value, m.Groups["inner"].Value);
-
-        // remove old param...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
-
-        // match updated string...
-        m = regExSearch.Match(sb.ToString());
+        return this.Get<IDataCache>().GetOrSet(
+          "CustomBBCodeRegExDictionary",
+          () =>
+            {
+              var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
+              return
+                bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).
+                  ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _options));
+            });
       }
     }
+
+    #region Methods
 
     /// <summary>
     /// The render modules in bb code.
@@ -111,19 +88,18 @@ namespace YAF.Controls
     protected virtual void RenderModulesInBBCode(
       [NotNull] HtmlTextWriter writer, [NotNull] string messageStr, [NotNull] MessageFlags theseFlags, int? displayUserId)
     {
-      var bbcodeTable = this.Get<IDBBroker>().GetCustomBBCode();
-
       string workingMessage = messageStr;
 
       // handle custom bbcodes row by row...
-      foreach (
-        var codeRow in bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()))
+      foreach (var keyPair in this.CustomBBCode)
       {
+        var codeRow = keyPair.Key;
+
         Match match = null;
 
         do
         {
-          match = this.GetMatch(codeRow.SearchRegex, workingMessage);
+          match = keyPair.Value.Match(workingMessage);
 
           if (!match.Success)
           {
@@ -166,24 +142,6 @@ namespace YAF.Controls
       }
 
       writer.Write(workingMessage);
-    }
-
-    /// <summary>
-    /// The get match.
-    /// </summary>
-    /// <param name="searchRegEx">
-    /// The search reg ex.
-    /// </param>
-    /// <param name="searchString">
-    /// The search string.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    private Match GetMatch([NotNull] string searchRegEx, [NotNull] string searchString)
-    {
-      var regExSearch = new Regex(searchRegEx, _options);
-      return regExSearch.Match(searchString);
     }
 
     #endregion

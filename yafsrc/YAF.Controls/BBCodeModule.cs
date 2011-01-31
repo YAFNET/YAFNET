@@ -121,9 +121,9 @@ namespace YAF.Controls
     /// </returns>
     protected string LocalizedString([NotNull] string tag, [NotNull] string defaultStr)
     {
-      if (this.PageContext.Localization.GetTextExists("BBCODEMODULE", tag))
+      if (this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag))
       {
-        return this.PageContext.Localization.GetText("BBCODEMODULE", tag);
+        return this.GetText("BBCODEMODULE", tag);
       }
 
       return defaultStr;

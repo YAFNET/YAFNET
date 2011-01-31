@@ -230,7 +230,7 @@ namespace YAF.Core
       if (this._themeXmlDoc != null)
       {
         string themeDir = this._themeXmlDoc.DocumentElement.Attributes["dir"].Value;
-        string langCode = YafContext.Current.Localization.LanguageCode.ToUpper();
+        string langCode = YafContext.Current.Get<ILocalization>().LanguageCode.ToUpper();
         string select = "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']".FormatWith(
           page.ToUpper(), tag.ToUpper(), langCode);
 

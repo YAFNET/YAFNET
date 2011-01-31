@@ -280,11 +280,11 @@ namespace YAF.Controls
     {
       if (this._localizedTitlePage.IsSet() && this._localizedTitleTag.IsSet())
       {
-        return this.PageContext.Localization.GetText(this._localizedTitlePage, this._localizedTitleTag);
+        return this.GetText(this._localizedTitlePage, this._localizedTitleTag);
       }
       else if (this._localizedTitleTag.IsSet())
       {
-        return this.PageContext.Localization.GetText(this._localizedTitleTag);
+        return this.GetText(this._localizedTitleTag);
       }
 
       return null;

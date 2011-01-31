@@ -72,6 +72,10 @@ namespace YAF.Core
           {
             var resources = (LanguageResources)serializer.Deserialize(sourceReader);
 
+            // transform the page and tag name ToUpper...
+            resources.page.ForEach(p => p.name = p.name.ToUpper());
+            resources.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpper()));
+
             if (cacheName.IsSet())
             {
               var fileDependency = new CacheDependency(languageFileName);

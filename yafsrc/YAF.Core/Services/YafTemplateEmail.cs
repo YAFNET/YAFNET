@@ -178,7 +178,7 @@ namespace YAF.Core.Services
           return localization.GetText("TEMPLATES", templateName);
         }
 
-        return YafContext.Current.Localization.GetText("TEMPLATES", templateName);
+        return YafContext.Current.Get<ILocalization>().GetText("TEMPLATES", templateName);
       }
 
       return null;

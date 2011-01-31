@@ -329,10 +329,10 @@ namespace YAF.Core.BBCode
         var classModal = "class=\"ceebox\"";
 
         // pull localized strings
-        string localQuoteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTE");
-        string localQuoteWroteStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTEWROTE");
-        string localQuotePostedStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_QUOTEPOSTED");
-        string localCodeStr = YafContext.Current.Localization.GetText("COMMON", "BBCODE_CODE");
+        string localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
+        string localQuoteWroteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
+        string localQuotePostedStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
+        string localCodeStr = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
 
         // add rule for code block type with syntax highlighting			
         ruleEngine.AddRule(
@@ -749,9 +749,9 @@ namespace YAF.Core.BBCode
         // insert localized value...
         string localValue = defaultValue;
 
-        if (YafContext.Current.Localization.GetTextExists("BBCODEMODULE", tagValue))
+        if (YafContext.Current.Get<ILocalization>().GetTextExists("BBCODEMODULE", tagValue))
         {
-          localValue = YafContext.Current.Localization.GetText("BBCODEMODULE", tagValue);
+          localValue = YafContext.Current.Get<ILocalization>().GetText("BBCODEMODULE", tagValue);
         }
 
         sb.Insert(m.Groups[0].Index, localValue);

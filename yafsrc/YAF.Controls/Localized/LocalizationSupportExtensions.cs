@@ -57,11 +57,11 @@ namespace YAF.Controls
       }
       else if (supportItem.LocalizedPage.IsSet() && supportItem.LocalizedTag.IsSet())
       {
-        return YafContext.Current.Localization.GetText(supportItem.LocalizedPage, supportItem.LocalizedTag);
+        return YafContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedPage, supportItem.LocalizedTag);
       }
       else if (supportItem.LocalizedTag.IsSet())
       {
-        return YafContext.Current.Localization.GetText(supportItem.LocalizedTag);
+        return YafContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedTag);
       }
 
       return null;

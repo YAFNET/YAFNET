@@ -92,7 +92,7 @@ namespace YAF.Controls
       this.Controls.Add(table);
 
       // get the localized character set
-      string[] charSet = this.PageContext.Localization.GetText("LANGUAGE", "CHARSET").Split('/');
+      string[] charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
 
       for (int i = 0; i < charSet.Length; i++)
       {

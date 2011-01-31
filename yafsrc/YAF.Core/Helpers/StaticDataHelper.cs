@@ -329,7 +329,7 @@ namespace YAF.Core
     /// </returns>
     public static DataTable TimeZones()
     {
-      return TimeZones(YafContext.Current.Localization);
+      return TimeZones(YafContext.Current.Get<ILocalization>());
     }
 
     /// <summary>

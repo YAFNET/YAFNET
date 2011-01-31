@@ -98,7 +98,6 @@
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\IBBCodeExtensions.cs" />
-    <Compile Include="Extensions\IDataCacheExtensions.cs" />
     <Compile Include="Extensions\IDateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormatMessageExtensions.cs" />
     <Compile Include="IHaveComponentRegistry.cs" />
@@ -163,7 +162,7 @@
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
-    <Compile Include="Services\YafBuddies.cs" />
+    <Compile Include="Services\YafBuddy.cs" />
     <Compile Include="Services\YafCache.cs" />
     <Compile Include="Services\YafDateTime.cs" />
     <Compile Include="Services\YafDBBroker.cs" />
@@ -179,6 +178,7 @@
     <Compile Include="Services\YafStopWatch.cs" />
     <Compile Include="Services\YafTemplateEmail.cs" />
     <Compile Include="Services\YafUserIgnored.cs" />
+    <Compile Include="Extensions\SyndicationItemExtensions.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
     <Compile Include="Tasks\BackgroundTaskExtensions.cs" />
     <Compile Include="Tasks\BaseBackgroundTask.cs" />

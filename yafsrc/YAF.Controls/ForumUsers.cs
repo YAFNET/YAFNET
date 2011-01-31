@@ -101,7 +101,7 @@ namespace YAF.Controls
       {
         writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
         writer.WriteLine(
-          "<td colspan=\"3\">{0}</td>".FormatWith(this.PageContext.Localization.GetText("TOPICBROWSERS")));
+          "<td colspan=\"3\">{0}</td>".FormatWith(this.GetText("TOPICBROWSERS")));
         writer.WriteLine("</tr>");
         writer.WriteLine("<tr class=\"post\">");
         writer.WriteLine("<td colspan=\"3\">");
@@ -109,7 +109,7 @@ namespace YAF.Controls
       else
       {
         writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
-        writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.PageContext.Localization.GetText("FORUMUSERS")));
+        writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.GetText("FORUMUSERS")));
         writer.WriteLine("</tr>");
         writer.WriteLine("<tr class=\"post\">");
         writer.WriteLine("<td colspan=\"6\">");

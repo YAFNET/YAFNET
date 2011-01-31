@@ -28,8 +28,7 @@ namespace YAF.Providers.Profile
   using System.Web.Profile;
 
   using YAF.Classes.Pattern;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Types;
+  using YAF.Core; using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Providers.Utils;
 
@@ -104,13 +103,15 @@ namespace YAF.Providers.Profile
     /// <summary>
     /// Gets UserProfileCache.
     /// </summary>
-    private ThreadSafeDictionary<string, SettingsPropertyValueCollection> UserProfileCache
+    private IThreadSafeDictionary<string, SettingsPropertyValueCollection> UserProfileCache
     {
       get
       {
         string key = this.GenerateCacheKey("UserProfileDictionary");
-        return YafContext.Current.Cache.GetItem(
-          key, 999, () => new ThreadSafeDictionary<string, SettingsPropertyValueCollection>());
+
+        return
+          YafContext.Current.Get<IDataCache>().GetOrSet(
+            key, () => new ThreadSafeDictionary<string, SettingsPropertyValueCollection>(), TimeSpan.FromMinutes(999));
       }
     }
 
@@ -645,7 +646,8 @@ namespace YAF.Providers.Profile
     /// </summary>
     private void ClearUserProfileCache()
     {
-      YafContext.Current.Cache.Remove(this.GenerateCacheKey("UserProfileDictionary"));
+      YafContext.Current.Get<IDataCache>().Remove(
+        this.GenerateCacheKey("UserProfileDictionary"));
     }
 
     /// <summary>

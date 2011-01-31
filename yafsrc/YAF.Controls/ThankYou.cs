@@ -131,8 +131,8 @@ namespace YAF.Controls
           MessageID = MessageID,
           ThanksInfo = ThanksNumber(username),
           Thanks = GetThanks(MessageID),
-          Text = YafContext.Current.Localization.GetText("BUTTON", textTag),
-          Title = YafContext.Current.Localization.GetText("BUTTON", titleTag)
+          Text = this.GetText("BUTTON", textTag),
+          Title = this.GetText("BUTTON", titleTag)
         };
     }
 
@@ -173,7 +173,7 @@ namespace YAF.Controls
           if (YafContext.Current.BoardSettings.ShowThanksDate)
           {
             filler.AppendFormat(
-              @" {0}", YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
+              @" {0}", this.GetText("DEFAULT", "ONDATE").FormatWith(YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
           }
         }
       }
@@ -207,10 +207,10 @@ namespace YAF.Controls
         case 0:
           return String.Empty;
         case 1:
-          return YafContext.Current.Localization.GetText("POSTS", "THANKSINFOSINGLE").FormatWith(displayName);
+          return this.GetText("POSTS", "THANKSINFOSINGLE").FormatWith(displayName);
       }
 
-      return YafContext.Current.Localization.GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
+      return this.GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
     }
   }*/
 

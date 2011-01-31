@@ -109,7 +109,7 @@ namespace YAF.Controls
     {
       string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
-      string stats = this.PageContext.Localization.GetText("ATTACHMENTINFO");
+      string stats = this.GetText("ATTACHMENTINFO");
       string strFileIcon = this.PageContext.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
 
       string attachGroupId = Guid.NewGuid().ToString().Substring(0, 5);
@@ -121,7 +121,7 @@ namespace YAF.Controls
       YafContext.Current.Get<HttpSessionStateBase>()["imagePreviewCropped"] =
         this.PageContext.BoardSettings.ImageAttachmentResizeCropped;
       YafContext.Current.Get<HttpSessionStateBase>()["localizationFile"] =
-        this.PageContext.Localization.LanguageFileName;
+        this.Get<ILocalization>().LanguageFileName;
 
       using (DataTable attachListDT = LegacyDb.attachment_list(this.MessageID, null, null))
       {
@@ -153,7 +153,7 @@ namespace YAF.Controls
               {
                 writer.Write(@"<div class=""imgtitle"">");
                 writer.Write(
-                  this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
+                  this.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
                     this.HtmlEncode(Convert.ToString(this.UserName))));
                 writer.Write("</div>");
                 bFirstItem = false;
@@ -178,7 +178,7 @@ namespace YAF.Controls
                         YafForumInfo.ForumClientFileRoot, 
                         dr["AttachmentID"], 
                         "{0} {1}".FormatWith(
-                          this.PageContext.Localization.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
+                          this.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
                             this.HtmlEncode(Convert.ToString(this.UserName))), 
                           this.HtmlEncode(dr["FileName"]))));
 
@@ -202,7 +202,7 @@ namespace YAF.Controls
               if (bFirstItem)
               {
                 writer.Write(
-                  @"<div class=""filetitle"">{0}</div>".FormatWith(this.PageContext.Localization.GetText("ATTACHMENTS")));
+                  @"<div class=""filetitle"">{0}</div>".FormatWith(this.GetText("ATTACHMENTS")));
                 bFirstItem = false;
               }
 
@@ -243,11 +243,11 @@ namespace YAF.Controls
           writer.Write(@"<br /><div class=""attachmentinfo"">");
           if (this.PageContext.IsGuest)
           {
-            writer.Write(this.PageContext.Localization.GetText("POSTS", "CANT_DOWNLOAD_REGISTER"));
+            writer.Write(this.GetText("POSTS", "CANT_DOWNLOAD_REGISTER"));
           }
           else
           {
-            writer.Write(this.PageContext.Localization.GetText("POSTS", "CANT_DOWNLOAD"));
+            writer.Write(this.GetText("POSTS", "CANT_DOWNLOAD"));
           }
 
           writer.Write(@"</div>");

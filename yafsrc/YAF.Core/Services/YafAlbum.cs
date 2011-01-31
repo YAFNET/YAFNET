@@ -117,7 +117,7 @@ namespace YAF.Core.Services
       var returnObject = new ReturnClass { NewTitle = newTitle };
 
         returnObject.NewTitle = (newTitle == string.Empty)
-                                ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_CHANGE_TITLE")
+                                ? YafContext.Current.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
                                 : newTitle;
       returnObject.Id = "0{0}".FormatWith(albumID.ToString());
       return returnObject;
@@ -147,7 +147,7 @@ namespace YAF.Core.Services
       var returnObject = new ReturnClass { NewTitle = newCaption };
 
         returnObject.NewTitle = (newCaption == string.Empty)
-                                ? YafContext.Current.Localization.GetText("ALBUM", "ALBUM_IMAGE_CHANGE_CAPTION")
+                                ? YafContext.Current.Get<ILocalization>().GetText("ALBUM", "ALBUM_IMAGE_CHANGE_CAPTION")
                                 : newCaption;
       returnObject.Id = imageID.ToString();
       return returnObject;

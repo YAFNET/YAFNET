@@ -36,8 +36,21 @@ namespace YAF.Core.Services
   /// <summary>
   /// Favorite Topic Service for the current user.
   /// </summary>
-  public class YafFavoriteTopic : IFavoriteTopic
+  public class YafFavoriteTopic : IFavoriteTopic, IHaveServiceLocator
   {
+    public HttpSessionStateBase SessionState { get; set; }
+
+    public IServiceLocator ServiceLocator { get; set; }
+
+    public ITreatCacheKey TreatCacheKey { get; set; }
+
+    public YafFavoriteTopic(HttpSessionStateBase sessionState, IServiceLocator serviceLocator, ITreatCacheKey treatCacheKey)
+    {
+      SessionState = sessionState;
+      ServiceLocator = serviceLocator;
+      TreatCacheKey = treatCacheKey;
+    }
+
     #region Constants and Fields
 
     /// <summary>
@@ -80,9 +93,8 @@ namespace YAF.Core.Services
     public void ClearFavoriteTopicCache()
     {
       // clear for the session
-      string key = YafCache.GetBoardCacheKey(
-        Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID));
-      YafContext.Current.Get<HttpSessionStateBase>().Remove(key);
+      this.SessionState.Remove(
+        this.TreatCacheKey.Treat(Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID)));
     }
 
     /// <summary>
@@ -96,11 +108,11 @@ namespace YAF.Core.Services
     /// </returns>
     public int FavoriteTopicCount(int topicId)
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.FavoriteTopicCount.FormatWith(topicId));
-
       return
-        YafContext.Current.Cache.GetItem(key, (double)90000, () => LegacyDb.TopicFavoriteCount(topicId) as object).ToType<int>
-          ();
+        this.Get<IDataCache>().GetOrSet(
+          Constants.Cache.FavoriteTopicCount.FormatWith(topicId),
+          () => LegacyDb.TopicFavoriteCount(topicId),
+          TimeSpan.FromMilliseconds(90000)).ToType<int>();
     }
 
     /// <summary>

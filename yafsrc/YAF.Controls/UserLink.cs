@@ -101,7 +101,7 @@ namespace YAF.Controls
 
           output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
 
-          output.WriteAttribute("title", this.PageContext.Localization.GetText("COMMON", "VIEW_USRPROFILE"));
+          output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
 
           if (this.BlankTarget)
           {

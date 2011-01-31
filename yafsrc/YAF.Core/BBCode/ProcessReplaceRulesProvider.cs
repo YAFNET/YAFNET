@@ -41,7 +41,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///   The _data cache.
     /// </summary>
-    private readonly IDataCache<IProcessReplaceRules> _dataCache;
+    private readonly IDataCache _dataCache;
 
     /// <summary>
     ///   The _inject services.
@@ -73,7 +73,7 @@ namespace YAF.Core.BBCode
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-      [NotNull] IDataCache<IProcessReplaceRules> dataCache, 
+      [NotNull] IDataCache dataCache, 
       [NotNull] IServiceLocator serviceLocator, 
       [NotNull] IInjectServices injectServices, [NotNull] IEnumerable<bool> uniqueFlags)
     {

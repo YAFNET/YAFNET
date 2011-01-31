@@ -196,12 +196,12 @@ namespace YAF.Core.Services
       string detectedHtmlTag = HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
       if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
       {
-        return YafContext.Current.Localization.GetTextFormatted(
+        return YafContext.Current.Get<ILocalization>().GetTextFormatted(
           "HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
       }
       else if (detectedHtmlTag == "ALL")
       {
-        return YafContext.Current.Localization.GetText("HTMLTAG_FORBIDDEN");
+        return YafContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN");
       }
 
       return string.Empty;
@@ -375,16 +375,15 @@ namespace YAF.Core.Services
       CodeContracts.ArgumentNotNull(topicId, "topicId");
 
       // get the common words for the language -- should be all lower case.
-      List<string> commonWords = YafContext.Current.Localization.GetText("COMMON", "COMMON_WORDS").StringToList(',');
+      List<string> commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
 
       string cacheKey = Constants.Cache.FirstPostCleaned.FormatWith(YafContext.Current.PageBoardID, topicId);
       var message = new MessageCleaned();
 
       if (!topicMessage.IsNullOrEmptyDBField())
       {
-        message = YafContext.Current.Cache.GetItem(
-          cacheKey, 
-          YafContext.Current.BoardSettings.FirstPostCacheTimeout, 
+        message = this.Get<IDataCache>().GetOrSet(
+          cacheKey,
           () =>
             {
               string returnMsg = topicMessage.ToString();
@@ -431,7 +430,8 @@ namespace YAF.Core.Services
               }
 
               return new MessageCleaned(StringExtensions.Truncate(returnMsg, 255), keywordList);
-            });
+            },
+          TimeSpan.FromMinutes(YafContext.Current.BoardSettings.FirstPostCacheTimeout));
       }
 
       return message;

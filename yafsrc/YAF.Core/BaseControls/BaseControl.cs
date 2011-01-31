@@ -24,7 +24,6 @@ namespace YAF.Core
   using System;
   using System.Web.UI;
 
-  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -32,12 +31,26 @@ namespace YAF.Core
   /// <summary>
   /// Summary description for BaseControl.
   /// </summary>
-  public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator
+  public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
   {
+    #region Constants and Fields
+
+    /// <summary>
+    ///   The _localization.
+    /// </summary>
+    private ILocalization _localization;
+
+    /// <summary>
+    /// The _logger.
+    /// </summary>
+    private ILogger _logger;
+
+    #endregion
+
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseControl"/> class.
+    ///   Initializes a new instance of the <see cref = "BaseControl" /> class.
     /// </summary>
     public BaseControl()
     {
@@ -49,6 +62,28 @@ namespace YAF.Core
     #region Properties
 
     /// <summary>
+    ///   Gets Localization.
+    /// </summary>
+    public ILocalization Localization
+    {
+      get
+      {
+        return this._localization ?? (this._localization = this.Get<ILocalization>());
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets Logger.
+    /// </summary>
+    public ILogger Logger
+    {
+      get
+      {
+        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+      }
+    }
+
+    /// <summary>
     ///   Gets PageContext.
     /// </summary>
     public YafContext PageContext
@@ -56,19 +91,6 @@ namespace YAF.Core
       get
       {
         return YafContext.Current;
-      }
-    }
-
-    private ILogger _logger = null;
-
-    /// <summary>
-    /// Gets or sets Logger.
-    /// </summary>
-    public ILogger Logger
-    {
-      get
-      {
-        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
       }
     }
 

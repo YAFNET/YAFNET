@@ -21,6 +21,7 @@ namespace YAF.Core
 {
   using System;
   using System.Data;
+  using System.Linq;
   using System.Web;
   using System.Web.Security;
 
@@ -52,42 +53,32 @@ namespace YAF.Core
     {
       get
       {
-        int? guestUserID = null;
+        int? guestUserID = YafContext.Current.Get<IDataCache>().GetOrSet(
+          Constants.Cache.GuestUserID,
+          () =>
+            {
+              // get the guest user for this board...
+              guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
 
-        // obtain board specific cache key
-        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.GuestUserID);
+              if (!guestUserID.HasValue)
+              {
+                //// attempt to fix the guest user by re-associating them with the guest group...
+                //FixGuestUserForBoard(YafContext.Current.PageBoardID);
 
-        // check if there is value cached
-        if (YafContext.Current.Cache[cacheKey] == null)
-        {
-          // get the guest user for this board...
-          guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+                // attempt to get the guestUser again...
+                guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+              }
 
-          if (!guestUserID.HasValue)
-          {
-            //// attempt to fix the guest user by re-associating them with the guest group...
-            //FixGuestUserForBoard(YafContext.Current.PageBoardID);
+              if (!guestUserID.HasValue)
+              {
+                // failure...
+                throw new NoValidGuestUserForBoardException(
+                  "Could not locate the guest user for the board id {0}. You might have deleted the guest group or removed the guest user."
+                    .FormatWith(YafContext.Current.PageBoardID));
+              }
 
-            // attempt to get the guestUser again...
-            guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
-          }
-
-          if (!guestUserID.HasValue)
-          {
-            // failure...
-            throw new NoValidGuestUserForBoardException(
-              "Could not locate the guest user for the board id {0}. You might have deleted the guest group or removed the guest user."
-                .FormatWith(YafContext.Current.PageBoardID));
-          }
-
-          // cache it
-          YafContext.Current.Cache[cacheKey] = guestUserID.Value;
-        }
-        else
-        {
-          // retrieve guest user id from cache
-          guestUserID = YafContext.Current.Cache[cacheKey].ToType<int>();
-        }
+              return guestUserID.Value;
+            });
 
         return guestUserID ?? -1;
       }
@@ -195,17 +186,16 @@ namespace YAF.Core
     public static void ClearCacheForUserId(long userId)
     {
       YafContext.Current.Get<IUserDisplayName>().Clear((int)userId);
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey("UserListForID{0}".FormatWith(userId)));
+      YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UserListForID.FormatWith(userId));
 
-      string cacheKey =
-          YafCache.GetBoardCacheKey(Constants.Cache.UserSignatureCache);
-      var cache = YafContext.Current.Cache.GetItem<MostRecentlyUsed>(cacheKey, 10, () => new MostRecentlyUsed(250));
+      var cache = YafContext.Current.Get<IDataCache>().GetOrSet(
+        Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
 
       // remove from the the signature cache...
       cache.Remove((int)userId);
 
       // Clearing cache with old Active User Lazy Data ...
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
+      YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
     }
 
     /// <summary>
@@ -226,14 +216,12 @@ namespace YAF.Core
         MembershipUserCollection allUsers = GetAllUsers(pageCount, out exitCount, 1000);
 
         // iterate through each one...
-        foreach (MembershipUser user in allUsers)
+        foreach (MembershipUser user in
+          allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.CreationDate < createdCutoff))
         {
-          if (!user.IsApproved && user.CreationDate < createdCutoff)
-          {
-            // delete this user...
-            LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
-            YafContext.Current.CurrentMembership.DeleteUser(user.UserName, true);
-          }
+          // delete this user...
+          LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
+          YafContext.Current.CurrentMembership.DeleteUser(user.UserName, true);
         }
 
         pageCount++;
@@ -584,12 +572,10 @@ namespace YAF.Core
       }
 
       // get the item cached...
-      string cacheKey = YafCache.GetBoardCacheKey("UserListForID{0}".FormatWith(userID));
-
-      var userRow = YafContext.Current.Cache.GetItem<DataRow>(
-        cacheKey, 5, () => LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow());
-
-      return userRow;
+      return YafContext.Current.Get<IDataCache>().GetOrSet(
+        Constants.Cache.UserListForID.FormatWith(userID),
+        () => LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow(),
+        TimeSpan.FromMinutes(5));
     }
 
     /// <summary>

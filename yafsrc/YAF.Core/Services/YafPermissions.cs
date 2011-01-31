@@ -24,11 +24,9 @@ namespace YAF.Core.Services
   using System.Web.Hosting;
 
   using YAF.Classes;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 

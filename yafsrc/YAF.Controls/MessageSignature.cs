@@ -20,6 +20,7 @@ namespace YAF.Controls
 {
   #region Using
 
+  using System;
   using System.Web.UI;
 
   using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
@@ -66,9 +67,8 @@ namespace YAF.Controls
     {
       get
       {
-        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.UserSignatureCache);
-
-        var cache = YafContext.Current.Cache.GetItem(cacheKey, 10, () => new MostRecentlyUsed(250));
+        var cache = this.Get<IDataCache>().GetOrSet(
+          Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
 
         return cache;
       }

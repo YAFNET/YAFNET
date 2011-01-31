@@ -36,11 +36,10 @@ namespace YAF.Core
   /// <summary>
   /// The http runtime cache -- uses HttpRuntime cache to store cache information.
   /// </summary>
-  /// <typeparam name="T">
-  /// Type of item to cache.
-  /// </typeparam>
-  public class HttpRuntimeCache<T> : IDataCache<T>
+  public class HttpRuntimeCache : IDataCache
   {
+    private const string YafCacheKey = "YAFCACHE";
+
     #region Constants and Fields
 
     /// <summary>
@@ -58,17 +57,13 @@ namespace YAF.Core
     /// </summary>
     private readonly ITreatCacheKey _treatCacheKey;
 
-    /// <summary>
-    /// The _type name.
-    /// </summary>
-    private readonly string _typeName = string.Empty;
-
     #endregion
 
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HttpRuntimeCache{T}"/> class.
+    /// Initializes a new instance of the <see cref="HttpRuntimeCache"></see>
+    ///   class.
     /// </summary>
     /// <param name="eventRaiser">
     /// The event raiser.
@@ -90,7 +85,6 @@ namespace YAF.Core
       this._eventRaiser = eventRaiser;
       this._haveLockObject = haveLockObject;
       this._treatCacheKey = treatCacheKey;
-      this._typeName = typeof(T).ToString();
     }
 
     #endregion
@@ -103,7 +97,7 @@ namespace YAF.Core
     /// <param name = "key">
     ///   The key.
     /// </param>
-    public T this[[NotNull] string key]
+    public object this[[NotNull] string key]
     {
       get
       {
@@ -120,7 +114,7 @@ namespace YAF.Core
 
     #region Implemented Interfaces
 
-    #region IDataCache<T>
+    #region IDataCache
 
     /// <summary>
     /// The get all.
@@ -128,19 +122,27 @@ namespace YAF.Core
     /// <returns>
     /// </returns>
     [NotNull]
-    public IEnumerable<KeyValuePair<string, T>> GetAll()
+    public IEnumerable<KeyValuePair<string, T>> GetAll<T>()
     {
+      var isObject = typeof(T) == typeof(object);
       var dictionaryEnumerator = HttpRuntime.Cache.GetEnumerator();
 
       while (dictionaryEnumerator.MoveNext())
       {
-        if (dictionaryEnumerator.Value is T)
+        if (!dictionaryEnumerator.Key.ToString().StartsWith(YafCacheKey + "$"))
         {
-          // key parts are [Provided Name]$[Type Name]$[Possibily More]"
-          var key = dictionaryEnumerator.Key.ToString().Split('$')[0];
-
-          yield return new KeyValuePair<string, T>(key, (T)dictionaryEnumerator.Value);
+          continue;
         }
+
+        if (!isObject && !(dictionaryEnumerator.Value is T))
+        {
+          continue;
+        }
+
+        // key parts are YAFCACHE$[Provided Name]$[Possibily More]"
+        var key = dictionaryEnumerator.Key.ToString().Split('$')[1];
+
+        yield return new KeyValuePair<string, T>(key, (T)dictionaryEnumerator.Value);
       }
 
       yield break;
@@ -160,13 +162,13 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public T GetOrSet([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout)
+    public T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout)
     {
       CodeContracts.ArgumentNotNull(key, "key");
       CodeContracts.ArgumentNotNull(getValue, "getValue");
 
       return this.GetOrSetInternal(
-        this.CreateKey(key), 
+        key, 
         getValue, 
         (c) =>
         HttpRuntime.Cache.Add(
@@ -190,13 +192,13 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public T GetOrSet(string key, Func<T> getValue)
+    public T GetOrSet<T>(string key, Func<T> getValue)
     {
       CodeContracts.ArgumentNotNull(key, "key");
       CodeContracts.ArgumentNotNull(getValue, "getValue");
 
       return this.GetOrSetInternal(
-        this.CreateKey(key), 
+        key, 
         getValue, 
         (c) =>
         HttpRuntime.Cache.Add(
@@ -207,25 +209,6 @@ namespace YAF.Core
           Cache.NoSlidingExpiration, 
           CacheItemPriority.Default, 
           (k, v, r) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k, v, r))));
-    }
-
-    /// <summary>
-    /// The remove.
-    /// </summary>
-    /// <param name="removeFunction">
-    /// The remove function.
-    /// </param>
-    /// <returns>
-    /// The remove.
-    /// </returns>
-    public int Remove([NotNull] Func<string, bool> removeFunction)
-    {
-      CodeContracts.ArgumentNotNull(removeFunction, "removeFunction");
-
-      // remove all keys that match...
-      return
-        HttpRuntime.Cache.Cast<string>().AsEnumerable().Where(removeFunction).Count(
-          key => HttpRuntime.Cache.Remove(this.CreateKey(key)) != null);
     }
 
     /// <summary>
@@ -240,7 +223,7 @@ namespace YAF.Core
     /// <param name="timeout">
     /// The timeout.
     /// </param>
-    public void Set([NotNull] string key, T value, TimeSpan timeout)
+    public void Set([NotNull] string key, object value, TimeSpan timeout)
     {
       CodeContracts.ArgumentNotNull(key, "key");
 
@@ -276,16 +259,11 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public T Get([NotNull] string originalKey)
+    public object Get([NotNull] string originalKey)
     {
       CodeContracts.ArgumentNotNull(originalKey, "key");
 
-      if (HttpRuntime.Cache[this.CreateKey(originalKey)] == null)
-      {
-        return default(T);
-      }
-
-      return (T)HttpRuntime.Cache[this.CreateKey(originalKey)];
+      return HttpRuntime.Cache[this.CreateKey(originalKey)] ?? null;
     }
 
     #endregion
@@ -316,7 +294,7 @@ namespace YAF.Core
     /// <param name="value">
     /// The value.
     /// </param>
-    public void Set([NotNull] string key, T value)
+    public void Set([NotNull] string key, [CanBeNull] object value)
     {
       CodeContracts.ArgumentNotNull(key, "key");
 
@@ -340,7 +318,7 @@ namespace YAF.Core
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat("{0}${1}".FormatWith(key, this._typeName));
+      return this._treatCacheKey.Treat("{0}${1}".FormatWith(YafCacheKey, key.Replace('$', '.')));
     }
 
     /// <summary>
@@ -357,22 +335,20 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
-    private T GetOrSetInternal([NotNull] string key, [NotNull] Func<T> getValue, [NotNull] Action<T> addToCacheFunction)
+    private T GetOrSetInternal<T>([NotNull] string key, [NotNull] Func<T> getValue, [NotNull] Action<T> addToCacheFunction)
     {
       CodeContracts.ArgumentNotNull(key, "key");
       CodeContracts.ArgumentNotNull(getValue, "getValue");
       CodeContracts.ArgumentNotNull(addToCacheFunction, "addToCacheFunction");
 
-      var actualKey = this.CreateKey(key);
-
-      var cachedItem = this.Get(actualKey);
+      var cachedItem = this.Get<T>(key);
 
       if (Equals(cachedItem, default(T)))
       {
-        lock (this._haveLockObject.Get(actualKey))
+        lock (this._haveLockObject.Get(this.CreateKey(key)))
         {
           // now that we're on lockdown, try one more time...
-          cachedItem = this.Get(actualKey);
+          cachedItem = this.Get<T>(key);
 
           if (Equals(cachedItem, default(T)))
           {

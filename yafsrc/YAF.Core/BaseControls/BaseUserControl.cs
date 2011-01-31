@@ -23,7 +23,6 @@ namespace YAF.Core
   using System;
   using System.Web.UI;
 
-  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -31,13 +30,26 @@ namespace YAF.Core
   /// <summary>
   /// The base user control.
   /// </summary>
-  public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator
+  public class BaseUserControl : UserControl, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _localization.
+    /// </summary>
+    private ILocalization _localization;
+
+    /// <summary>
+    /// The _logger.
+    /// </summary>
+    private ILogger _logger;
+
+    #endregion
+
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseUserControl"/> class. 
-    ///   Initializes a new instance of the <see cref="BaseControl"/> class.
+    ///   Initializes a new instance of the <see cref = "BaseUserControl" /> class. 
     /// </summary>
     public BaseUserControl()
     {
@@ -48,10 +60,19 @@ namespace YAF.Core
 
     #region Properties
 
-    private ILogger _logger = null;
+    /// <summary>
+    /// Gets Localization.
+    /// </summary>
+    public ILocalization Localization
+    {
+      get
+      {
+        return this._localization ?? (this._localization = this.Get<ILocalization>());
+      }
+    }
 
     /// <summary>
-    /// Gets or sets Logger.
+    ///   Gets or sets Logger.
     /// </summary>
     public ILogger Logger
     {

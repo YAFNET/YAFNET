@@ -355,11 +355,11 @@ namespace YAF.Controls
       }
       else if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
       {
-        return PageContext.Localization.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag);
+        return this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag);
       }
       else if (this.TitleLocalizedTag.IsSet())
       {
-        return PageContext.Localization.GetText(this.TitleLocalizedTag);
+        return this.GetText(this.TitleLocalizedTag);
       }
 
       return null;

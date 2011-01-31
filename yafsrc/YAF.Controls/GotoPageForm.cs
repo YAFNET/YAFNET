@@ -294,10 +294,10 @@ namespace YAF.Controls
 
       // localization has to be done in here so as to not attempt
       // to localize before the class has been created
-      if (this.PageContext.Localization.TransPage.IsSet())
+      if (this.Get<ILocalization>().TransPage.IsSet())
       {
-        this._headerText.Text = this.PageContext.Localization.GetText("COMMON", "GOTOPAGE_HEADER");
-        this._gotoButton.Text = this.PageContext.Localization.GetText("COMMON", "GO");
+        this._headerText.Text = this.GetText("COMMON", "GOTOPAGE_HEADER");
+        this._gotoButton.Text = this.GetText("COMMON", "GO");
       }
       else
       {

@@ -20,16 +20,16 @@ namespace YAF.Core.Services
 {
   #region Using
 
+  using System.Collections.Generic;
   using System.Data;
+  using System.Linq;
   using System.Web;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
+  using YAF.Utils.Helpers;
 
   #endregion
 
@@ -47,7 +47,57 @@ namespace YAF.Core.Services
 
     #endregion
 
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StartupCheckBannedIps"/> class.
+    /// </summary>
+    /// <param name="dataCache">
+    /// The data cache.
+    /// </param>
+    /// <param name="httpResponseBase">
+    /// The http response base.
+    /// </param>
+    /// <param name="httpRequestBase">
+    /// The http request base.
+    /// </param>
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    public StartupCheckBannedIps(
+      [NotNull] IDataCache dataCache, 
+      [NotNull] HttpResponseBase httpResponseBase, 
+      [NotNull] HttpRequestBase httpRequestBase, [NotNull] ILogger logger)
+    {
+      this.DataCache = dataCache;
+      this.HttpResponseBase = httpResponseBase;
+      this.HttpRequestBase = httpRequestBase;
+      this.Logger = logger;
+    }
+
+    #endregion
+
     #region Properties
+
+    /// <summary>
+    ///   Gets or sets DataCache.
+    /// </summary>
+    public IDataCache DataCache { get; set; }
+
+    /// <summary>
+    ///   Gets or sets HttpRequestBase.
+    /// </summary>
+    public HttpRequestBase HttpRequestBase { get; set; }
+
+    /// <summary>
+    ///   Gets or sets HttpResponseBase.
+    /// </summary>
+    public HttpResponseBase HttpResponseBase { get; set; }
+
+    /// <summary>
+    /// Gets or sets Logger.
+    /// </summary>
+    public ILogger Logger { get; set; }
 
     /// <summary>
     ///   Gets InitVarName.
@@ -73,25 +123,18 @@ namespace YAF.Core.Services
     /// </returns>
     protected override bool RunService()
     {
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.BannedIP);
-
-      // load the banned IP table...
-      var bannedIPs = (DataTable)YafContext.Current.Cache[key];
-
-      if (bannedIPs == null)
-      {
-        // load the table and cache it...
-        bannedIPs = LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null);
-        YafContext.Current.Cache[key] = bannedIPs;
-      }
+      var bannedIPs = this.DataCache.GetOrSet(
+        Constants.Cache.BannedIP, () => LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null).AsEnumerable());
 
       // check for this user in the list...
-      foreach (DataRow row in bannedIPs.Rows)
+      if (
+        bannedIPs.Any(
+          row => IPHelper.IsBanned(row.Field<string>("Mask"), this.HttpRequestBase.ServerVariables["REMOTE_ADDR"])))
       {
-        if (IPHelper.IsBanned((string)row["Mask"], YafContext.Current.Get<HttpRequestBase>().ServerVariables["REMOTE_ADDR"]))
-        {
-          YafContext.Current.Get<HttpResponseBase>().End();
-        }
+        // we're done...
+        this.Logger.Info(@"Ending Response for Banned User at IP ""{0}""", this.HttpRequestBase.ServerVariables["REMOTE_ADDR"]);
+        this.HttpResponseBase.End();
+        return false;
       }
 
       return true;

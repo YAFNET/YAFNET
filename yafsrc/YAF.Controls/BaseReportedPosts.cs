@@ -156,7 +156,7 @@ namespace YAF.Controls
             writer.Write(@"<tr><td class=""header2"">");
             writer.Write(
               @"<span class=""postheader"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>", 
-              this.PageContext.Localization.GetText("RESOLVEDBY"), 
+              this.GetText("RESOLVEDBY"), 
               YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)), 
               !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy)))
                 ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(Convert.ToInt32(this.ResolvedBy)))
@@ -174,7 +174,7 @@ namespace YAF.Controls
               : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), 
             howMany, 
-            this.PageContext.Localization.GetText("REPORTEDBY"));
+            this.GetText("REPORTEDBY"));
           writer.WriteLine(@"</td></tr>");
 
           string[] reportString = reporter["ReportText"].ToString().Trim().Split('|');
@@ -226,7 +226,7 @@ namespace YAF.Controls
               : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
             YafBuildLink.GetLink(
               ForumPages.pmessage, "u={0}&r={1}", Convert.ToInt32(reporter["UserID"]), this.MessageID), 
-            this.PageContext.Localization.GetText("REPLYTO"));
+            this.GetText("REPLYTO"));
           writer.WriteLine(@"</td></tr>");
 
           // TODO: Remove hard-coded formatting.

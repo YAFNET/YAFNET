@@ -28,11 +28,10 @@ namespace YAF.Core.Nntp
   using System.Text.RegularExpressions;
   using System.Web;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
+  using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types.Constants;
 
   #endregion
 

@@ -41,7 +41,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///   Time zone suffix for Guests
     /// </summary>
-    private readonly string timeZoneName = YafContext.Current.Localization.GetText("TIMEZONES", "NAME_UTC");
+    private readonly string timeZoneName = YafContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
 
     #endregion
 
@@ -88,8 +88,8 @@ namespace YAF.Core.Services
       try
       {
         strDateFormat =
-          YafContext.Current.Localization.FormatDateTime(
-            YafContext.Current.Localization.GetText("FORMAT_DATE_LONG"), dateTime);
+          YafContext.Current.Get<ILocalization>().FormatDateTime(
+            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
       }
       catch (Exception)
       {
@@ -116,8 +116,8 @@ namespace YAF.Core.Services
       try
       {
         strDateFormat =
-          YafContext.Current.Localization.FormatDateTime(
-            YafContext.Current.Localization.GetText("FORMAT_DATE_SHORT"), dateTime);
+          YafContext.Current.Get<ILocalization>().FormatDateTime(
+            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
       }
       catch (Exception)
       {
@@ -145,8 +145,8 @@ namespace YAF.Core.Services
       try
       {
         strDateFormat =
-          YafContext.Current.Localization.FormatDateTime(
-            YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_LONG"), dateTime);
+          YafContext.Current.Get<ILocalization>().FormatDateTime(
+            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"), dateTime);
       }
       catch (Exception)
       {
@@ -173,8 +173,8 @@ namespace YAF.Core.Services
       try
       {
         strDateFormat =
-          YafContext.Current.Localization.FormatDateTime(
-            YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_SHORT"), dateTime);
+          YafContext.Current.Get<ILocalization>().FormatDateTime(
+            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"), dateTime);
       }
       catch (Exception)
       {
@@ -207,20 +207,20 @@ namespace YAF.Core.Services
         {
           // today
           strDateFormat =
-            YafContext.Current.Localization.FormatString(YafContext.Current.Localization.GetText("TodayAt"), dateTime);
+            YafContext.Current.Get<ILocalization>().FormatString(YafContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
         }
         else if (dateTime.Date == nowDateTime.AddDays(-1).Date)
         {
           // yesterday
           strDateFormat =
-            YafContext.Current.Localization.FormatString(
-              YafContext.Current.Localization.GetText("YesterdayAt"), dateTime);
+            YafContext.Current.Get<ILocalization>().FormatString(
+              YafContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
         }
         else
         {
           strDateFormat =
-            YafContext.Current.Localization.FormatDateTime(
-              YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_SHORT"), dateTime);
+            YafContext.Current.Get<ILocalization>().FormatDateTime(
+              YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"), dateTime);
         }
 
         return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
@@ -249,8 +249,8 @@ namespace YAF.Core.Services
       try
       {
         strDateFormat =
-          YafContext.Current.Localization.FormatDateTime(
-            YafContext.Current.Localization.GetText("FORMAT_TIME"), dateTime);
+          YafContext.Current.Get<ILocalization>().FormatDateTime(
+            YafContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
       }
       catch (Exception)
       {
