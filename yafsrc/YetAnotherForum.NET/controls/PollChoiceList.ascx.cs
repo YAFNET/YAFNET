@@ -326,11 +326,14 @@ namespace YAF.Controls
             imageWidth = 40;
           }
 
+          choiceImage.Width = imageWidth;
+          choiceImage.Height = Convert.ToInt32(choiceImage.Width / aspect);
+
           choiceImage.Attributes["style"] = "width:{0}px; height:{1}px;".FormatWith(
-            imageWidth, choiceImage.Width / aspect);
+            imageWidth, choiceImage.Height);
 
           // reserved to get equal row heights
-          string height = (this.MaxImageAspect * choiceImage.Width).ToString();
+          int height = Convert.ToInt32(this.MaxImageAspect * choiceImage.Width);
           trow.Attributes["style"] = "height:{0}px;".FormatWith(height);
         }
       }

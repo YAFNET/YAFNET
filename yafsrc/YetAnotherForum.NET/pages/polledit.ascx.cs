@@ -974,7 +974,10 @@ namespace YAF.Pages
             {
                 pollGroupId = Convert.ToInt32(_topicInfo["PollID"]);
             }
-
+            if (!PageContext.ForumPollAccess)
+            {
+                return false;
+            }
             if (pollGroupId == null && PageContext.BoardSettings.AllowedPollNumber > 0 && PageContext.ForumPollAccess)
             {
                 return true;
