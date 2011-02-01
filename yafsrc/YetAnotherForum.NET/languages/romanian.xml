@@ -136,9 +136,21 @@
   </page>
   <page name="ADMIN_ACCESSMASKS">
     <Resource tag="CONFIRM_DELETE">Delete this access mask?</Resource>
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DOWNLOAD">Download</Resource>
+    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="MODERATOR">Moderate</Resource>
     <Resource tag="MSG_NOT_DELETE">You cannot delete this access mask because it is in use.</Resource>
+    <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_MASK">New Access Mask</Resource>
+    <Resource tag="POLL">Poll</Resource>
+    <Resource tag="POST">Post</Resource>
+    <Resource tag="PRIORITY">Priority</Resource>
+    <Resource tag="READ">Read</Resource>
+    <Resource tag="REPLY">Reply</Resource>
     <Resource tag="TITLE">Access Masks</Resource>
+    <Resource tag="UPLOAD">Upload</Resource>
+    <Resource tag="VOTE">Vote</Resource>
   </page>
   <page name="ADMIN_ADMIN">
     <Resource tag="ADMIN_APPROVE">Approve</Resource>
@@ -1577,6 +1589,7 @@
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notificare</Resource>
     <Resource tag="MODERATOR">Moderator</Resource>
     <Resource tag="NAME">Name</Resource>
+    <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Utilizator nou inregistrat pe forum {0} </Resource>
@@ -1623,6 +1636,7 @@
     <Resource tag="VIEW_TOPIC">View topic</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="VOTE">Vote</Resource>
+    <Resource tag="YES">Yes</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Transmite</Resource>

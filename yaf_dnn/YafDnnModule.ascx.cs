@@ -42,6 +42,7 @@ namespace YAF.DotNetNuke
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
@@ -159,6 +160,7 @@ namespace YAF.DotNetNuke
         {
             Exception x = this.Server.GetLastError();
             LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, x);
+
             base.OnError(e);
         }
 
@@ -458,7 +460,7 @@ namespace YAF.DotNetNuke
         /// </returns>
         private int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser)
         {
-            YafContext.Current.Cache.Clear();
+            YafContext.Current.Get<IDataCache>().Clear();
 
             // setup roles
             RoleMembershipHelper.SetupUserRoles(this.forum1.BoardID, dnnUser.UserName);
@@ -616,7 +618,7 @@ namespace YAF.DotNetNuke
                     RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
                 }
 
-                YafContext.Current.Cache.Clear();
+                YafContext.Current.Get<IDataCache>().Clear();
 
                 DataCache.ClearPortalCache(this._portalSettings.PortalId, true);
 

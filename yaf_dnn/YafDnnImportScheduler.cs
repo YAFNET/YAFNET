@@ -33,6 +33,7 @@ namespace YAF.DotNetNuke
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
   #endregion
@@ -147,8 +148,8 @@ namespace YAF.DotNetNuke
     /// </returns>
     private static int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser, int boardId)
     {
-      YafContext.Current.Cache.Clear();
-
+      YafContext.Current.Get<IDataCache>().Clear();
+        
       // setup roles
       RoleMembershipHelper.SetupUserRoles(boardId, dnnUser.UserName);
 
@@ -366,7 +367,7 @@ namespace YAF.DotNetNuke
           this.sInfo += ", Roles already syncronized!";
         }
 
-        YafContext.Current.Cache.Clear();
+        YafContext.Current.Get<IDataCache>().Clear();
 
         DataCache.ClearCache();
 
