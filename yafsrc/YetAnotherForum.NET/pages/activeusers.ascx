@@ -54,7 +54,7 @@
 					<%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
 				</td>
 				<td class="post">
-					<%# GetTextFormatted( "minutes", ((System.Data.DataRowView)Container.DataItem)["Active"]) %>
+					<%# this.Get<ILocalization>().GetTextFormatted("minutes", ((System.Data.DataRowView)Container.DataItem)["Active"])%>
 				</td>
 				<td class="post">
 					<%# Eval("Browser") %>
