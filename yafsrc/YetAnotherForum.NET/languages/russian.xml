@@ -136,9 +136,21 @@
   </page>
   <page name="ADMIN_ACCESSMASKS">
     <Resource tag="CONFIRM_DELETE">Удалить эту маску доступа?</Resource>
+    <Resource tag="DELETE">Удаление</Resource>
+    <Resource tag="DOWNLOAD">Загрузка</Resource>
+    <Resource tag="EDIT">Редактирование</Resource>
+    <Resource tag="MODERATOR">Модерирование</Resource>
     <Resource tag="MSG_NOT_DELETE">Вы не можете удалить эту маску доступа, так как она используется.</Resource>
+    <Resource tag="NAME">Название</Resource>
     <Resource tag="NEW_MASK">Новая маска</Resource>
+    <Resource tag="POLL">Опросы</Resource>
+    <Resource tag="POST">Посты</Resource>
+    <Resource tag="PRIORITY">Приоритет</Resource>
+    <Resource tag="READ">Чтение</Resource>
+    <Resource tag="REPLY">Ответы</Resource>
     <Resource tag="TITLE">Маски доступа</Resource>
+    <Resource tag="UPLOAD">Аплоад</Resource>
+    <Resource tag="VOTE">Голосование</Resource>
   </page>
   <page name="ADMIN_ADMIN">
     <Resource tag="ADMIN_APPROVE">Одобрить</Resource>
@@ -180,23 +192,23 @@
     <Resource tag="TITLE">Вложения</Resource>
   </page>
   <page name="ADMIN_BANNEDIP">
-    <Resource tag="ADD_IP">Add New Adress</Resource>
-    <Resource tag="BAN_BY">Banned By</Resource>
-    <Resource tag="MASK">Mask</Resource>
-    <Resource tag="REASON">Reason</Resource>
-    <Resource tag="SINCE">Since</Resource>
-    <Resource tag="TITLE">Banned IP Addresses</Resource>
+    <Resource tag="ADD_IP">Добавить новый IP</Resource>
+    <Resource tag="BAN_BY">Забанил: </Resource>
+    <Resource tag="MASK">Маска</Resource>
+    <Resource tag="REASON">Причина</Resource>
+    <Resource tag="SINCE">С</Resource>
+    <Resource tag="TITLE">Запрещённые адреса IP</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_EDIT">
-    <Resource tag="INVALID_ADRESS">Invalid IP address.</Resource>
-    <Resource tag="INVALID_LESS">"{0}" is not a valid IP section value (must be less then 255).</Resource>
-    <Resource tag="INVALID_SECTION">"{0}" is not a valid IP section value.</Resource>
-    <Resource tag="INVALID_VALUE">One of the IP section does not have a value. Valid values are 0-255 or "*" for a wildcard.</Resource>
-    <Resource tag="MASK">Mask:</Resource>
-    <Resource tag="MASK_HELP">The ip address to ban. You can use wildcards (127.0.0.*).</Resource>
-    <Resource tag="REASON">Reason:</Resource>
-    <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
-    <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
+    <Resource tag="INVALID_ADRESS">Неверный адрес IP.</Resource>
+    <Resource tag="INVALID_LESS">"{0}" неверное значение части IP (должно быть меньше 255).</Resource>
+    <Resource tag="INVALID_SECTION">"{0}" неверное значение части IP.</Resource>
+    <Resource tag="INVALID_VALUE">Одна из частей IP не содержит значения. Подходящие значения в интервале 0-255 или "*" для определения любого символа.</Resource>
+    <Resource tag="MASK">Маска:</Resource>
+    <Resource tag="MASK_HELP">Адрес ip для бана. Вы можете использовать звёздочки (127.0.0.*).</Resource>
+    <Resource tag="REASON">Причина:</Resource>
+    <Resource tag="REASON_HELP">Причина запрещения адреса.</Resource>
+    <Resource tag="TITLE">Добавить/Изменить запрещённый адрес IP</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="CONFIRM_DELETE">Удалить это расширение для YafBBCode?</Resource>
@@ -215,9 +227,9 @@
     <Resource tag="CLASS_NAME">Название класса модуля:</Resource>
     <Resource tag="CLASS_NAME_HELP">Полное название класса модуля, включая пространство имён.</Resource>
     <Resource tag="DISPLAY_CSS">Отображаемый CSS:</Resource>
-    <Resource tag="DISPLAY_CSS_HELP">CSS для того, чтобы лучше отобразить это расширение. Просто введите CSS в это поле. Тэг style будет добавлен автоматически.</Resource>
+    <Resource tag="DISPLAY_CSS_HELP">CSS для того, чтобы лучше отобразить это расширение. Просто введите CSS в это поле. Тег style будет добавлен автоматически.</Resource>
     <Resource tag="DISPLAY_JS">Отображаемый JS:</Resource>
-    <Resource tag="DISPLAY_JS_HELP">JS code used to help with the extension display. Just enter javascript into this field. script tag will be added automatically.</Resource>
+    <Resource tag="DISPLAY_JS_HELP">JS используемый для  помоши в отображении расширения . Просто введите скрипт в это поле. Тег script будет добавлен автоматически.</Resource>
     <Resource tag="EDIT_JS">Редактировать JS:</Resource>
     <Resource tag="EDIT_JS_HELP">Код JS для изменения тектового редактора. Используйте "{{editorid}}" (without quotes) для замены ID текстового редактора в коде. Просто введите javascript в это поле. Тэг script будет добавлен автоматически.</Resource>
     <Resource tag="EXEC_ORDER">Порядок выполнения:</Resource>
@@ -257,35 +269,35 @@
   <page name="ADMIN_BOARDSETTINGS">
     <Resource tag="BOARD_ALLOW_DIGEST">Разрешить отправку дайджеста по пользователям ежедневно :</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: доска должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
-    <Resource tag="BOARD_CDN_HOSTED">Испольльзовать размешённый на Google CDN файл jQuery UI CSS?</Resource>
-    <Resource tag="BOARD_CDN_HOSTED_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
+    <Resource tag="BOARD_CDN_HOSTED">Использовать внешний Google CDN файл jQuery UI CSS</Resource>
+    <Resource tag="BOARD_CDN_HOSTED_HELP">Вы можете использовать размешённый на Google CDN файл jQuery UI CSS вместо встроенного</Resource>
     <Resource tag="BOARD_CULTURE">Язык/культура:</Resource>
-    <Resource tag="BOARD_CULTURE_HELP">Язык &amp; по умолчанию для этой доски.</Resource>
-    <Resource tag="BOARD_DEFAULT_NOTIFICATION">Настройки уведомления по-умолчанию:</Resource>
-    <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
-    <Resource tag="BOARD_DIGEST_NEWUSERS">Default Send Digest "On" for New Users?</Resource>
-    <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
-    <Resource tag="BOARD_EMAIL_MODS">Email Moderators On New Moderated Post:</Resource>
-    <Resource tag="BOARD_EMAIL_MODS_HELP">Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>
-    <Resource tag="BOARD_EMAIL_ONREGISTER">Send Email Notification On User Register to Emails:</Resource>
-    <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
-    <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
-    <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
-    <Resource tag="BOARD_MOBILE_THEME_HELP">The mobile theme to use on this board.</Resource>
-    <Resource tag="BOARD_NAME">Board Name:</Resource>
-    <Resource tag="BOARD_NAME_HELP">The name of the board.</Resource>
-    <Resource tag="BOARD_SETUP">Board Setup</Resource>
-    <Resource tag="BOARD_THEME">Theme:</Resource>
-    <Resource tag="BOARD_THEME_HELP">The theme to use on this board.</Resource>
-    <Resource tag="BOARD_THEME_LOGO">Allow Themed Logo:</Resource>
-    <Resource tag="BOARD_THEME_LOGO_HELP">Gets logo from theme file (Does not work in portal).</Resource>
-    <Resource tag="BOARD_THREADED">Allow Threaded:</Resource>
-    <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
-    <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
-    <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
+    <Resource tag="BOARD_CULTURE_HELP">Язык &amp; культура по умолчанию для этой доски.</Resource>
+    <Resource tag="BOARD_DEFAULT_NOTIFICATION">Настройки уведомлений по-умолчанию:</Resource>
+    <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">Когда новый пользователь регистрируется на сайте, это определяет какой тип уведомления при этом используется</Resource>
+    <Resource tag="BOARD_DIGEST_NEWUSERS">Включить по умолчанию посылку дайджеста для новых пользователей</Resource>
+    <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">Включить по умолчанию посылку дайджеста для новых пользователей?</Resource>
+    <Resource tag="BOARD_EMAIL_MODS">Посылать собщение Email модераторам при появлении нового (пред)модерируемого поста:</Resource>
+    <Resource tag="BOARD_EMAIL_MODS_HELP">Посылать собщение Email модераторам при появлении нового предмодерируемого или подлежащего модерации поста?</Resource>
+    <Resource tag="BOARD_EMAIL_ONREGISTER">Посылать уведомление по Email при регистрации пользователя на адреса:</Resource>
+    <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Разделённый точкой с запятой (;) список адресов электронной почты дял посылки уведомлений при регистрации нового пользователя.</Resource>
+    <Resource tag="BOARD_FILE_EXTENSIONS">Список разрешённых расширений файлов:</Resource>
+    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Список разрешённых/запрещённых расширений файлов. Последнее менее безопасно.</Resource>
+    <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
+    <Resource tag="BOARD_JQ_THEME_HELP">Тема jQuery UI Theme для испольлзования на это даске для вкладок и аккордиона.</Resource>
+    <Resource tag="BOARD_MOBILE_THEME">Мобильная тема:</Resource>
+    <Resource tag="BOARD_MOBILE_THEME_HELP">Мобильная тема для использования на этой доске.</Resource>
+    <Resource tag="BOARD_NAME">Название:</Resource>
+    <Resource tag="BOARD_NAME_HELP">Название доски</Resource>
+    <Resource tag="BOARD_SETUP">Настройки текущей доски</Resource>
+    <Resource tag="BOARD_THEME">Тема:</Resource>
+    <Resource tag="BOARD_THEME_HELP">Тема используемая по умолчанию во всех форумах доски.</Resource>
+    <Resource tag="BOARD_THEME_LOGO">Разрешить логотип из темы:</Resource>
+    <Resource tag="BOARD_THEME_LOGO_HELP">Загружать логотип из темы. Не работает при интеграции</Resource>
+    <Resource tag="BOARD_THREADED">Разрешить отображение в виде дерева:</Resource>
+    <Resource tag="BOARD_THREADED_HELP">Разрешить отображение в виде дерева для сообщений.</Resource>
+    <Resource tag="BOARD_TOPIC_DEFAULT">Показывать темы по умолчанию:</Resource>
+    <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Интервал в котором отображать темы по умолчанию.</Resource>
     <Resource tag="HEADER">Текущие настройки доски</Resource>
     <Resource tag="TITLE">Настройки доски</Resource>
   </page>
@@ -316,10 +328,10 @@
   <page name="ADMIN_EDITACCESSMASKS">
     <Resource tag="ACCESS">Доступ</Resource>
     <Resource tag="MASK_NAME">Название:</Resource>
-    <Resource tag="MASK_NAME_HELP">Название маски доступа.</Resource>
+    <Resource tag="MASK_NAME_HELP">Название маски доступа</Resource>
     <Resource tag="MASK_ORDER">Сортировка:</Resource>
     <Resource tag="MASK_ORDER_HELP">Порядковый номер для данной маски.</Resource>
-    <Resource tag="MSG_MASK_NAME">YВЫ должны ввести название для этой маски доступа.</Resource>
+    <Resource tag="MSG_MASK_NAME">Вы должны ввести название для этой маски доступа.</Resource>
     <Resource tag="MSG_NUMBER_SORT">Вы должны ввести значение от 0 до 32767 для порядкового номера сортировки.</Resource>
     <Resource tag="MSG_POSITIVE_SORT">Порядковый номер должен быть между 0 и 32767.</Resource>
     <Resource tag="TITLE">Добавить/изменить маску доступа</Resource>
@@ -1131,11 +1143,11 @@
     <Resource tag="TITLE">Почта</Resource>
   </page>
   <page name="ADMIN_MEDALS">
-    <Resource tag="CONFIRM_DELETE">Delete this Medal?</Resource>
-    <Resource tag="DISPLAY_BOX">Medal image as it'll be displayed in user box.</Resource>
-    <Resource tag="DISPLAY_RIBBON">Ribbon bar image as it'll be displayed in user box.</Resource>
-    <Resource tag="NEW_MEDAL">New Medal</Resource>
-    <Resource tag="TITLE">Medals</Resource>
+    <Resource tag="CONFIRM_DELETE">Удалить эту медаль?</Resource>
+    <Resource tag="DISPLAY_BOX">Изображение медали как она будет отображаться в блоке пользователя в постах.</Resource>
+    <Resource tag="DISPLAY_RIBBON">Орденская планка  как она будет отображаться в блоке пользователя в постах.</Resource>
+    <Resource tag="NEW_MEDAL">Новая медаль</Resource>
+    <Resource tag="TITLE">Медали</Resource>
   </page>
   <page name="ADMIN_NNTPFORUMS">
     <Resource tag="ACTIVE">Активен</Resource>
@@ -1245,23 +1257,23 @@
     <Resource tag="TITLE">Reindex DB</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS">
-    <Resource tag="ADD">Add</Resource>
-    <Resource tag="BAD">"Bad" (Find) Expression</Resource>
-    <Resource tag="EXPORT">Export to XML</Resource>
-    <Resource tag="GOOD">"Good" (Replace) Expression</Resource>
-    <Resource tag="IMPORT">Import from XML</Resource>
-    <Resource tag="MSG_DELETE">Delete this Word Replacement?</Resource>
-    <Resource tag="TITLE">Replace Words</Resource>
+    <Resource tag="ADD">Добавить</Resource>
+    <Resource tag="BAD">«Плохое» выражение</Resource>
+    <Resource tag="EXPORT">Экспортировать в формат XML</Resource>
+    <Resource tag="GOOD">«Хорошее» выражение</Resource>
+    <Resource tag="IMPORT">Импортировать из формата XML</Resource>
+    <Resource tag="MSG_DELETE">Удалить эту замену?</Resource>
+    <Resource tag="TITLE">Замена слов</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_EDIT">
-    <Resource tag="BAD">"Bad" Expression:</Resource>
-    <Resource tag="BAD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. '\.').</Resource>
-    <Resource tag="GOOD">"Good" Expression:</Resource>
-    <Resource tag="GOOD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+    <Resource tag="BAD">«Плохое» выражение:</Resource>
+    <Resource tag="BAD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем (например '\.').</Resource>
+    <Resource tag="GOOD">«Хорошее» выражение:</Resource>
+    <Resource tag="GOOD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем  (например '\.').</Resource>
+    <Resource tag="TITLE">Добавить/Изменить замену</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
-    <Resource tag="HEADER">Импорт словаря замены</Resource>
+    <Resource tag="HEADER">Импорт словаря замен</Resource>
     <Resource tag="MSG_IMPORTED">{0} новые слова для замены успешно импортированы.</Resource>
     <Resource tag="MSG_IMPORTED_FAILED">Невозможно импортировать - неподдерживаемый формат файла.</Resource>
     <Resource tag="MSG_IMPORTED_FAILEDX">Невозможно импортировать: {0}</Resource>
@@ -1327,7 +1339,7 @@
     <Resource tag="TITLE">Диспетчер задач</Resource>
   </page>
   <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
+    <Resource tag="TITLE">Создать тестовые данные (только в режиме отладки)</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Approved</Resource>
@@ -1430,7 +1442,7 @@
     <Resource tag="SELECT_FILE">Выберите файл для загрузки.</Resource>
     <Resource tag="SIZE">Размер</Resource>
     <Resource tag="TITLE">Вложения</Resource>
-    <Resource tag="UPLOAD">Загрузка</Resource>
+    <Resource tag="UPLOAD">Аплоад</Resource>
     <Resource tag="UPLOAD_NOTE">Максимальный размер вложения {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Загрузить файл</Resource>
     <Resource tag="UPLOAD_TOOBIG">Вы не можете загружать файлы более чем {1} KB. Ваш файл имеет размер {0} KB.</Resource>
@@ -1586,7 +1598,7 @@
     <Resource tag="POST">Пост</Resource>
     <Resource tag="POWERED_BY">Форум </Resource>
     <Resource tag="PRIORITY">Приоритет</Resource>
-    <Resource tag="READ">Читать</Resource>
+    <Resource tag="READ">Чтение</Resource>
     <Resource tag="REGMAIL_SENT">Сообщение по электронной почте отправлено. Проверьте свою почту и перейдите по ссылке в полученном сообщении.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт Вы должны проверить Ваш почтовый ящик и перейти по ссылке в сообщении.</Resource>
     <Resource tag="REPLY">Ответить</Resource>

@@ -10,40 +10,40 @@
 		</tr>
 		<tr class="header2">
 			<td>
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NAME" />
+				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NAME"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ" />
+				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST" />
+				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPLY" />
+				<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPLY"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="PRIORITY" />
+				<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="PRIORITY"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="POLL" />
+				<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="POLL"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="VOTE" />
+				<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="VOTE"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="MODERATOR" />
+				<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="MODERATOR"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="EDIT" />
+				<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="EDIT"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="DELETE" />
+				<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="DELETE"  LocalizedPage="ADMIN_ACCESSMASKS"/>
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="UPLOAD" />
+				<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="UPLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD" />
+				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />
 			</td>
 			<td>
 				&nbsp;

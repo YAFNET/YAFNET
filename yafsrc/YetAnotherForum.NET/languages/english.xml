@@ -2440,6 +2440,18 @@ Visit {forumname} at {forumlink}
       <Resource tag="NEW_MASK">New Access Mask</Resource>
       <Resource tag="CONFIRM_DELETE">Delete this access mask?</Resource>
       <Resource tag="MSG_NOT_DELETE">You cannot delete this access mask because it is in use.</Resource>
+      <Resource tag="NAME">Name</Resource>
+      <Resource tag="READ">Read</Resource>
+      <Resource tag="POST">Post</Resource>
+      <Resource tag="REPLY">Reply</Resource>
+      <Resource tag="PRIORITY">Priority</Resource>
+      <Resource tag="POLL">Poll</Resource>
+      <Resource tag="VOTE">Vote</Resource>
+      <Resource tag="MODERATOR">Moderate</Resource>
+      <Resource tag="EDIT">Edit</Resource>
+      <Resource tag="DELETE">Delete</Resource>
+      <Resource tag="UPLOAD">Upload</Resource>
+      <Resource tag="DOWNLOAD">Download</Resource>      
     </page>
     <page name="ADMIN_EDITACCESSMASKS">
       <Resource tag="TITLE">Add/Edit Access Masks</Resource>
