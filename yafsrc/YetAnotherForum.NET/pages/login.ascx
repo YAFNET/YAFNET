@@ -3,8 +3,8 @@
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <div align="center">
-            <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnLoggedIn=Login1_LoggedIn"
-                OnAuthenticate="Login1_Authenticate" VisibleWhenLoggedIn="True">
+            <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnLoggedIn="Login1_LoggedIn"
+             OnAuthenticate="Login1_Authenticate" VisibleWhenLoggedIn="True">
                 <LayoutTemplate>
                     <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
                         <tr>
