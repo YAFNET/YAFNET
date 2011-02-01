@@ -1518,7 +1518,7 @@
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>    
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Сообщение не может быть пустым.</Resource>
@@ -1589,6 +1589,7 @@
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
     <Resource tag="MODERATOR">Модератор</Resource>
     <Resource tag="NAME">Имя</Resource>
+    <Resource tag="NO">Нет</Resource>
     <Resource tag="NONE">Ничего</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
@@ -1667,7 +1668,8 @@
     <Resource tag="VIEW_FULLINFO">Показать подробности</Resource>
     <Resource tag="VIEW_TOPIC">Просмотреть тему</Resource>
     <Resource tag="VIEW_USRPROFILE">Просмотреть профиль</Resource>
-    <Resource tag="VOTE">Vote</Resource>
+    <Resource tag="VOTE">Vote</Resource>   
+    <Resource tag="YES">Да</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Отправить</Resource>

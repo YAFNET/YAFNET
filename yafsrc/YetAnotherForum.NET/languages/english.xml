@@ -550,7 +550,7 @@
       <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
       <Resource tag="BUTTON_UNDELETE_TT">Undelete this post</Resource>
       <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
-      <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+      <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>      
    </page>
    <page name="COMMON">
       <Resource tag="MESSAGE">Message</Resource>
@@ -612,6 +612,8 @@
       <Resource tag="FORUM_JUMP">Forum Jump</Resource>
       <Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
       <Resource tag="GO">GO</Resource>
+     <Resource tag="YES">Yes</Resource>
+     <Resource tag="NO">No</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>
     <Resource tag="VIEW_FORUM">View forum</Resource>
     <Resource tag="VIEW_TOPIC">View topic</Resource>
@@ -2451,7 +2453,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="EDIT">Edit</Resource>
       <Resource tag="DELETE">Delete</Resource>
       <Resource tag="UPLOAD">Upload</Resource>
-      <Resource tag="DOWNLOAD">Download</Resource>      
+      <Resource tag="DOWNLOAD">Download</Resource>
     </page>
     <page name="ADMIN_EDITACCESSMASKS">
       <Resource tag="TITLE">Add/Edit Access Masks</Resource>

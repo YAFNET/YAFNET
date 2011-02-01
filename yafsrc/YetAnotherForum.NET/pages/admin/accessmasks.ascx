@@ -11,40 +11,7 @@
 		<tr class="header2">
 			<td>
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NAME"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPLY"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="PRIORITY"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="POLL"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="VOTE"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="MODERATOR"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="EDIT"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="DELETE"  LocalizedPage="ADMIN_ACCESSMASKS"/>
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="UPLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
-			<td align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />
-			</td>
+			</td>			
 			<td>
 				&nbsp;
 			</td>
@@ -54,40 +21,7 @@
 				<tr class="post">
 					<td>
 						<%# Eval( "Name") %>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label1" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReadAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label2" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PostAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.PostAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label3" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label5" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PollAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.PollAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.VoteAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.VoteAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label7" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ModeratorAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.ModeratorAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label8" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.EditAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.EditAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label9" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DeleteAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DeleteAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label10" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.UploadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.UploadAccess) %></asp:Label>
-					</td>
-					<td align="center">
-						<asp:Label ID="Label11" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess) %></asp:Label>
-					</td>
+					</td>					
 					<td width="15%" style="font-weight: normal">
 						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>'>
                           <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
@@ -98,6 +32,43 @@
                         </asp:LinkButton>
 					</td>
 				</tr>
+                <tr class="post">
+                    <td align="center" colspan = 2>
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+					    <asp:Label ID="Label1" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>'><%# GetItemName(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %></asp:Label>&nbsp;|&nbsp; 
+                       
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+						<asp:Label ID="Label2" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PostAccess)) %>'><%# GetItemName(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PostAccess)) %></asp:Label>&nbsp;|&nbsp;
+                        
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPLY"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+                        <asp:Label ID="Label3" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess)) %>'><%# GetItemName(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess)) %></asp:Label>&nbsp;|&nbsp;
+					 	
+                        <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="PRIORITY"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+                        <asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess)) %>'><%# GetItemName(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess)) %></asp:Label>&nbsp;|&nbsp;
+                   <br />
+				
+                    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="POLL"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+					<asp:Label ID="Label5" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PollAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.PollAccess)) %></asp:Label>&nbsp;|&nbsp;
+				
+					<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="VOTE"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+						<asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.VoteAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.VoteAccess)) %></asp:Label>&nbsp;|&nbsp;
+					
+				<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="MODERATOR"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+						<asp:Label ID="Label7" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ModeratorAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.ModeratorAccess)) %></asp:Label>&nbsp;|&nbsp;
+				
+					<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="EDIT"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+						<asp:Label ID="Label8" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.EditAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.EditAccess)) %></asp:Label>&nbsp;|&nbsp;
+				 <br />	
+				<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="DELETE"  LocalizedPage="ADMIN_ACCESSMASKS"/>&nbsp;
+						<asp:Label ID="Label9" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DeleteAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DeleteAccess)) %></asp:Label>&nbsp;|&nbsp;
+				
+				<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="UPLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+						<asp:Label ID="Label10" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.UploadAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.UploadAccess)) %></asp:Label>&nbsp;|&nbsp;
+					
+				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
+						<asp:Label ID="Label11" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'><%# GetItemName(BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess)) %></asp:Label>
+					</td>
+                </tr>
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr class="footer1" align="center">

@@ -111,7 +111,21 @@ namespace YAF.Pages.Admin
     protected Color GetItemColor(bool enabled)
     {
         // show enabled flag red
-        return enabled ? Color.Red : Color.Black;
+        return enabled ? Color.Red : Color.Cyan;
+    }
+
+    /// <summary>
+    /// Get a user friendly item name.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Item Name.
+    /// </returns>
+    protected string GetItemName(bool enabled)
+    {
+        return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
     }
 
       /// <summary>
