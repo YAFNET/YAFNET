@@ -31,7 +31,7 @@
 					<%# Eval( "Bytes") %>
 				</td>
 				<td class="post">
-					<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "AttachmentID") %>'><%# GetText("DELETE") %></asp:LinkButton>
+					<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "AttachmentID") %>'><%# this.GetText("DELETE") %></asp:LinkButton>
 				</td>
 			</tr>
 		</ItemTemplate>
