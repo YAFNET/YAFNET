@@ -1,4 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.ranks" Codebehind="ranks.ascx.cs" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Flags" %>
+<%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
@@ -33,10 +36,10 @@
 						<%# Eval( "Name") %>
 					</td>
 					<td class="post">
-						<%# BitSet(Eval( "Flags"),1) %>
+                     <asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>
 					</td>
 					<td class="post">
-						<%# LadderInfo(Container.DataItem) %>
+                    <asp:Label ID="Label1" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(RankFlags.Flags.IsLadder)) %>'><%# LadderInfo(Container.DataItem) %></asp:Label>
 					</td>
 					<td class="post">
 						<%# Eval( "PMLimit" ) %>

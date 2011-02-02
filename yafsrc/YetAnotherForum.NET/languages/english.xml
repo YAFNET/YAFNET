@@ -2467,6 +2467,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="MSG_NUMBER_SORT">You must enter a number value from 0 to 32767 for sort order.</Resource>
     </page>
 	<page name="ADMIN_GROUPS">
+     <Resource tag="COMMAND">Command</Resource>
 	   <Resource tag="TITLE">Roles</Resource>
 	   <Resource tag="HEADER">YetAnotherForum Roles</Resource>
 	   <Resource tag="NEW_ROLE">New Role</Resource>
@@ -2476,7 +2477,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="PROVIDER_ROLES">Provider Roles</Resource>
 	   <Resource tag="NOTE_DELETE">Note: Deleting a role here removes it completely from the provider. "Add to YAF" to make this role accessible in the forum.</Resource>
 	   <Resource tag="NOTE_DELETE_LINKED">Note: Deleting one of these "linked" roles outside of YAF will cause user data loss. If you want to delete the role, first "Delete from YAF" then the role can be managed outside of YAF.</Resource>
-       <Resource tag="IS_GUEST">Is Guest</Resource>
+     <Resource tag="IS_GUEST">Is Guest</Resource>
 	   <Resource tag="IS_START">Is Start</Resource>
 	   <Resource tag="IS_MOD">Is Moderator</Resource>
 	   <Resource tag="IS_ADMIN">Is Admin</Resource>
