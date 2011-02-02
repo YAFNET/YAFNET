@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Drawing;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -54,7 +56,34 @@ namespace YAF.Pages.Admin
     #endregion
 
     #region Methods
+    /// <summary>
+    /// Format access mask setting color formatting.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Set access mask flags are rendered red, rest black.
+    /// </returns>
+    protected Color GetItemColor(bool enabled)
+    {
+        // show enabled flag red
+        return enabled ? Color.Red : Color.Cyan;
+    }
 
+    /// <summary>
+    /// Get a user friendly item name.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// Item Name.
+    /// </returns>
+    protected string GetItemName(bool enabled)
+    {
+        return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
+    }
     /// <summary>
     /// Creates page links for this page.
     /// </summary>

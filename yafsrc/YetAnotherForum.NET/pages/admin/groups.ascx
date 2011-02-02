@@ -44,7 +44,7 @@
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="7">
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="COMMON" />
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
@@ -83,16 +83,16 @@
 						(<%# GetLinkedStatus( (DataRowView) Container.DataItem )%>)
 					</td>
 					<td class="post">
-						<%# this.Eval( "Flags" ).BinaryAnd(2) %>
+                      <asp:Label ID="Label2" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(2)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(2)) %></asp:Label>
 					</td>
 					<td class="post">
-						<%# this.Eval( "Flags" ).BinaryAnd(4) %>
+                     <asp:Label ID="Label1" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(4)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(4)) %></asp:Label>
 					</td>
 					<td class="post">
-						<%# this.Eval( "Flags" ).BinaryAnd(8) %>
+						 <asp:Label ID="Label3" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(8)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(8)) %></asp:Label>
 					</td>
 					<td class="post">
-						<%# this.Eval( "Flags" ).BinaryAnd(1) %>
+						 <asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>
 					</td>
 					<td class="post">
 						<%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())%>
