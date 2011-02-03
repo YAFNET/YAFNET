@@ -37,6 +37,7 @@ namespace YAF.Pages
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
+  using YAF.Utilities;
   using YAF.Utils;
 
   #endregion
@@ -109,6 +110,23 @@ namespace YAF.Pages
     #endregion
 
     #region Methods
+
+    /// <summary>
+    /// The On PreRender event.
+    /// </summary>
+    /// <param name="e">
+    /// the Event Arguments
+    /// </param>
+    protected override void OnPreRender([NotNull] EventArgs e)
+    {
+        // Setup Syntax Highlight JS
+        YafContext.Current.PageElements.RegisterJsResourceInclude("syntaxhighlighter", "js/jquery.syntaxhighligher.js");
+        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
+        YafContext.Current.PageElements.RegisterJsBlockStartup(
+          "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
+
+        base.OnPreRender(e);
+    }
 
     /// <summary>
     /// The inbox_ item command.
