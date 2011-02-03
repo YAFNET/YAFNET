@@ -24,6 +24,7 @@ namespace YAF.Core
   using System.Web;
   using System.Web.Security;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Utils;
   using YAF.Utils.Helpers;
@@ -340,7 +341,7 @@ namespace YAF.Core
     {
       get
       {
-        return YafContext.Current.Settings == null ? 1 : YafContext.Current.Settings.BoardID;
+        return YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
       }
     }
 

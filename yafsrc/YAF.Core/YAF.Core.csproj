@@ -137,6 +137,7 @@
     <Compile Include="Nntp\YafNntp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseStartupService.cs" />
+    <Compile Include="Services\CurrentBoardId.cs" />
     <Compile Include="Services\ScriptBuilder\JavaScriptBuilder.cs" />
     <Compile Include="Services\ScriptBuilder\JavaScriptFunction.cs" />
     <Compile Include="Services\CheckForSpam\AkismetSpamClient.cs" />

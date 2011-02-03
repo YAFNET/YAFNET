@@ -92,6 +92,7 @@
     <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
+    <Compile Include="Interfaces\Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
     <Compile Include="Interfaces\IBBCode.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Interfaces\IFavoriteTopic.cs" />
     <Compile Include="Interfaces\Events\IHandleEvent.cs" />
     <Compile Include="Interfaces\IFormatMessage.cs" />
+    <Compile Include="Interfaces\IHaveBoardId.cs" />
     <Compile Include="Interfaces\IHaveLocalization.cs" />
     <Compile Include="Interfaces\IHaveLockObject.cs" />
     <Compile Include="Interfaces\IHaveServiceLocator.cs" />

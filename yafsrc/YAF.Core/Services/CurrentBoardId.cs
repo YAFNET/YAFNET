@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+/* Yet Another Forum.net
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,64 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Core.Services
 {
   #region Using
 
-  using YAF.Types;
+  using YAF.Classes;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 
   /// <summary>
-  /// The treat cache key with board.
+  /// The current board id.
   /// </summary>
-  public class TreatCacheKeyWithBoard : ITreatCacheKey
+  public class CurrentBoardId : IHaveBoardId
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="TreatCacheKeyWithBoard"/> class.
-    /// </summary>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    public TreatCacheKeyWithBoard([NotNull] IHaveBoardId boardId)
-    {
-      this.BoardId = boardId;
-    }
-
-    #endregion
-
     #region Properties
 
     /// <summary>
-    /// Gets or sets BoardId.
+    ///   Gets BoardId.
     /// </summary>
-    public IHaveBoardId BoardId { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ITreatCacheKey
-
-    /// <summary>
-    /// The treat.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <returns>
-    /// The treat.
-    /// </returns>
-    public string Treat(string key)
+    public int BoardId
     {
-      return "{0}${1}".FormatWith(key, this.BoardId);
+      get
+      {
+        return YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
+      }
     }
-
-    #endregion
 
     #endregion
   }

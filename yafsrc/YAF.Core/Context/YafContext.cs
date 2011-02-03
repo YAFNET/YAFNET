@@ -41,7 +41,8 @@ namespace YAF.Core
   /// <summary>
   /// Context class that accessible with the same instance from all locations
   /// </summary>
-  public class YafContext : UserPageBase, IDisposable, IHaveServiceLocator
+  public class 
+    YafContext : UserPageBase, IDisposable, IHaveServiceLocator
   {
     #region Constants and Fields
 

@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,64 +16,56 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Types.Interfaces
 {
   #region Using
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+  using System.Collections.Generic;
 
   #endregion
 
   /// <summary>
-  /// The treat cache key with board.
+  /// The key value pair extensions.
   /// </summary>
-  public class TreatCacheKeyWithBoard : ITreatCacheKey
+  public static class KeyValuePairExtensions
   {
-    #region Constructors and Destructors
+    #region Public Methods
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TreatCacheKeyWithBoard"/> class.
+    /// The is not null.
     /// </summary>
-    /// <param name="boardId">
-    /// The board id.
+    /// <param name="keyValuePair">
+    /// The key value pair.
     /// </param>
-    public TreatCacheKeyWithBoard([NotNull] IHaveBoardId boardId)
-    {
-      this.BoardId = boardId;
-    }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets BoardId.
-    /// </summary>
-    public IHaveBoardId BoardId { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ITreatCacheKey
-
-    /// <summary>
-    /// The treat.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
+    /// <typeparam name="TKey">
+    /// </typeparam>
+    /// <typeparam name="TValue">
+    /// </typeparam>
     /// <returns>
-    /// The treat.
+    /// The is not null.
     /// </returns>
-    public string Treat(string key)
+    public static bool IsNotNull<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair)
     {
-      return "{0}${1}".FormatWith(key, this.BoardId);
+      return !Equals(keyValuePair, default(KeyValuePair<TKey, TValue>));
     }
 
-    #endregion
+    /// <summary>
+    /// The is null.
+    /// </summary>
+    /// <param name="keyValuePair">
+    /// The key value pair.
+    /// </param>
+    /// <typeparam name="TKey">
+    /// </typeparam>
+    /// <typeparam name="TValue">
+    /// </typeparam>
+    /// <returns>
+    /// The is null.
+    /// </returns>
+    public static bool IsNull<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair)
+    {
+      return Equals(keyValuePair, default(KeyValuePair<TKey, TValue>));
+    }
 
     #endregion
   }

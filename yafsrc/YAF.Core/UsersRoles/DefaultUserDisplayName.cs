@@ -142,14 +142,13 @@ namespace YAF.Core
         return userId;
       }
 
-      if (
-        this.UserDisplayNameCollection.Any(
-          x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)))
+      var keyValue =
+        this.UserDisplayNameCollection.Where(
+          x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+
+      if (keyValue.IsNotNull())
       {
-        userId =
-          this.UserDisplayNameCollection.Where(
-            x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault().
-            Key;
+        userId = keyValue.Key;
       }
       else
       {
