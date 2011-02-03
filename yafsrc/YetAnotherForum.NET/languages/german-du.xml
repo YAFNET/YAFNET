@@ -153,36 +153,37 @@
     <Resource tag="VOTE">Vote</Resource>
   </page>
   <page name="ADMIN_ADMIN">
-    <Resource tag="ADMIN_APPROVE">Approve</Resource>
-    <Resource tag="ADMIN_DELETE">Delete</Resource>
+    <Resource tag="ADMIN_APPROVE">Genehmigen</Resource>
+    <Resource tag="ADMIN_DELETE">Löschen</Resource>
     <Resource tag="ADMIN_EMAIL">E-Mail</Resource>
-    <Resource tag="ADMIN_IPADRESS">IP Address</Resource>
-    <Resource tag="ADMIN_JOINED">Joined</Resource>
-    <Resource tag="ADMIN_LOCATION">Board Location</Resource>
+    <Resource tag="ADMIN_IPADRESS">IP Adresse</Resource>
+    <Resource tag="ADMIN_JOINED">Registriert</Resource>
+    <Resource tag="ADMIN_LOCATION">Board Ort</Resource>
     <Resource tag="ADMIN_NAME">Name</Resource>
     <Resource tag="ADMIN_UPGRADE"> and update your database.</Resource>
-    <Resource tag="Administration">Administration</Resource>
-    <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
-    <Resource tag="APROVE_ALL">Approve All</Resource>
-    <Resource tag="BOARD_STARTED">Board started:</Resource>
-    <Resource tag="CONFIRM_APROVE">Approve this User?</Resource>
-    <Resource tag="CONFIRM_APROVE_ALL">Approve all Users?</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete this User?</Resource>
+    <Resource tag="Administration">Verwaltung</Resource>
+    <Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
+    <Resource tag="APROVE_ALL">Alle Genehmigen</Resource>
+    <Resource tag="BOARD_STARTED">Board begonnen:</Resource>
+    <Resource tag="CONFIRM_APROVE">Diesen Benutzer genehmigen?</Resource>
+    <Resource tag="CONFIRM_APROVE_ALL">Alle Benutzer Genehmigen?</Resource>
+    <Resource tag="CONFIRM_DELETE">Diesen Benutzer löschen
+Diesen  Benutzer löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
     <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
-    <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
-    <Resource tag="HEADER1">Who is Online</Resource>
-    <Resource tag="HEADER2">Unverified Users</Resource>
-    <Resource tag="HEADER3">Statistics for</Resource>
+    <Resource tag="DELETE_ALL">Alle löschen älter als Tage:</Resource>
+    <Resource tag="HEADER1">Wer ist Online</Resource>
+    <Resource tag="HEADER2">Nicht verifizierte Benutzer</Resource>
+    <Resource tag="HEADER3">Statistik für</Resource>
     <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
-    <Resource tag="NUM_POSTS">Number of posts:</Resource>
-    <Resource tag="NUM_TOPICS">Number of topics:</Resource>
-    <Resource tag="NUM_USERS">Number of users:</Resource>
-    <Resource tag="POSTS_DAY">Posts per day:</Resource>
-    <Resource tag="SIZE_DATABASE">Size of database:</Resource>
+    <Resource tag="NUM_POSTS">Anzahl der Beiträge:</Resource>
+    <Resource tag="NUM_TOPICS">Anzahl der Themen:</Resource>
+    <Resource tag="NUM_USERS">Anzahl der Benutzer:</Resource>
+    <Resource tag="POSTS_DAY">Beiträge pro Tag:</Resource>
+    <Resource tag="SIZE_DATABASE">Größe der Datenbank:</Resource>
     <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
-    <Resource tag="TOPICS_DAY">Topics per day:</Resource>
-    <Resource tag="USERS_DAY">Users per day:</Resource>
+    <Resource tag="TOPICS_DAY">Themen pro Tag:</Resource>
+    <Resource tag="USERS_DAY">Benutzer pro Tag:</Resource>
   </page>
   <page name="ADMIN_ATTACHMENTS">
     <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>
@@ -260,10 +261,10 @@
     <Resource tag="TITLE">Import Custom YafBBCode</Resource>
   </page>
   <page name="ADMIN_BOARDS">
-    <Resource tag="CONFIRM_DELETE">Delete this board?</Resource>
+    <Resource tag="CONFIRM_DELETE">Dieses Board löschen?</Resource>
     <Resource tag="ID">ID</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="NEW_BOARD">New Board</Resource>
+    <Resource tag="NEW_BOARD">Neues Board</Resource>
     <Resource tag="TITLE">Boards</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
@@ -377,17 +378,17 @@
     <Resource tag="VERIFY_PASS_HELP">Verify the password.</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
-    <Resource tag="CATEGORY_IMAGE">Category Image:</Resource>
+    <Resource tag="CATEGORY_IMAGE">Kategorie Bild:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">This image will be shown next to this category.</Resource>
-    <Resource tag="CATEGORY_NAME">Category Name:</Resource>
-    <Resource tag="CATEGORY_NAME_HELP">Name of this category.</Resource>
-    <Resource tag="HEADER">Edit Category:</Resource>
+    <Resource tag="CATEGORY_NAME">Kategorie Name:</Resource>
+    <Resource tag="CATEGORY_NAME_HELP">Name dieser Kategorie.</Resource>
+    <Resource tag="HEADER">Kategorie bearbeiten:</Resource>
     <Resource tag="MSG_NUMBER">Invalid value entered for sort order: must enter a number.</Resource>
-    <Resource tag="MSG_POSITIVE_VALUE">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
+    <Resource tag="MSG_POSITIVE_VALUE">Der sortiert nach Wert sollte eine positive Zahl zwischen 0 und 32767 sein.</Resource>
     <Resource tag="MSG_VALUE">Must enter a value for the category name field.</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
+    <Resource tag="SORT_ORDER">Sortiert nach:</Resource>
     <Resource tag="SORT_ORDER_HELP">Order the display of this category. Number, lower first.</Resource>
-    <Resource tag="TITLE">Add/Edit Category</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten Kategorie</Resource>
   </page>
   <page name="ADMIN_EDITFORUM">
     <Resource tag="ACCESS_MASK">Access Mask</Resource>
@@ -713,6 +714,7 @@
     <Resource tag="NEW_FORUM">New Forum</Resource>
   </page>
   <page name="ADMIN_GROUPS">
+    <Resource tag="COMMAND">Command</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this Role?</Resource>
     <Resource tag="HEADER">YetAnotherForum Roles</Resource>
     <Resource tag="IS_ADMIN">Is Admin</Resource>
@@ -949,7 +951,7 @@
     <Resource tag="MEDALS_TEMPLATE_HELP">Template for rendering user's medals.</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE">Member List Page Size:</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Number entries on a page in the members list. </Resource>
-    <Resource tag="MESSAGE_CHANGE_HISTORY">Message history archieve time</Resource>
+    <Resource tag="MESSAGE_CHANGE_HISTORY"> Beitragsverlauf Archivzeit</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Number of days to keep message change history.</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT">Board Moderators Cache Timeout:</Resource>
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">In minutes</Resource>
@@ -1006,8 +1008,8 @@
     <Resource tag="RULES_ONREGISTER_HELP">Require that "rules" are shown and accepted before a new user can register.</Resource>
     <Resource tag="SEARCH_ENGINE1">Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_HELP">Enter here a search engine pattern.</Resource>
+    <Resource tag="SEARCH_ENGINE1_PARAM">Parameters For Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_PARAM_HELP">Enter here a search engine parameters.</Resource>
-    <Resource tag="SEARCH_ENGINE1_PARAMS">Parameters For Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE2">Search Engine 2:</Resource>
     <Resource tag="SEARCH_ENGINE2_HELP">Enter here a search engine pattern.</Resource>
     <Resource tag="SEARCH_ENGINE2_PARAM">Parameters For Search Engine 2:</Resource>
@@ -1361,15 +1363,15 @@
     <Resource tag="USER_NAME">User Name</Resource>
   </page>
   <page name="ADMIN_VERSION">
-    <Resource tag="LATEST_VERSION">The latest final version available is &lt;strong&gt;{0}&lt;/strong&gt; released &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
-    <Resource tag="RUNNING_VERSION">You are running YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Date: {1}).</Resource>
+    <Resource tag="LATEST_VERSION">Di aktuell letzte Finale Version ist verfügbar&lt;strong&gt;{0}&lt;/strong&gt; veröffentlicht am &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
+    <Resource tag="RUNNING_VERSION">Sie verwenden YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Datum: {1}).</Resource>
     <Resource tag="TITLE">Version Check</Resource>
     <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
 						here&lt;/a&gt;.</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Zugriffsmasken</Resource>
-    <Resource tag="admin_admin">Admin Index</Resource>
+    <Resource tag="admin_admin">Admin-Index</Resource>
     <Resource tag="admin_attachments">Anhänge</Resource>
     <Resource tag="admin_bannedip">Gesperrte IPs</Resource>
     <Resource tag="admin_bbcode">BBCode Erweiterungen</Resource>
@@ -1938,7 +1940,7 @@
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
 &lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
         </Resource>
-    <Resource tag="ANOUNCETITLE">Announcements</Resource>
+    <Resource tag="ANOUNCETITLE">Ankündigungen</Resource>
     <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
 &lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
 &lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
@@ -1948,7 +1950,7 @@
 &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you have uploaded an image as an attachment, there will be automatically generated an thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
-    <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
+    <Resource tag="ATTACHMENTSTITLE">Anhänge und Bilder</Resource>
     <Resource tag="BUDDIESCONTENT">&lt;p&gt;Buddies are a friendship function and are a  two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Where is list of Buddies displayed?&lt;/strong&gt;&lt;/p&gt;
@@ -1967,7 +1969,7 @@
 &lt;p&gt;To remove a Buddy from Your List  go to your 'My Buddies' page. On the Tab 'Buddy List' Click on the Button 'Remove Buddy' of the User you want to remove&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the 'My Buddies' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
-    <Resource tag="BUDDIESTITLE">Buddies</Resource>
+    <Resource tag="BUDDIESTITLE">Freunde</Resource>
     <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
 &lt;p&gt;You have two choices:&lt;/p&gt;
 &lt;ul&gt;
@@ -1975,14 +1977,14 @@
   &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - A tree is shown along with every post. This shows you the relationship each post has to the others. It's easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.&lt;/li&gt;
 &lt;/ul&gt;
 </Resource>
-    <Resource tag="DISPLAYTITLE">Thread Display Options</Resource>
+    <Resource tag="DISPLAYTITLE">Thema Anzeige-Optionen</Resource>
     <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you currently registered and logged in, you may be able to edit and delete your messages (if the  administrator doesnt  turned off this option). &lt;/p&gt;
 &lt;p&gt;To edit or delete your posts, click the 'Edit'  button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
 &lt;p&gt;Once you've made your modifications, a note may appear to inform other users that you have edited your post.&lt;/p&gt;
 &lt;p&gt;Please also Enter in The Field 'Reason for edit' an Reason why you edit this Message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Administrators and moderators may also edit your messages. If they do, there may not be a note telling other users that the post was modified.&lt;/p&gt;</Resource>
-    <Resource tag="EDITDELETETITLE">Editing and Deleting your Posts</Resource>
+    <Resource tag="EDITDELETETITLE">Bearbeiten und Löschen von Beiträgen</Resource>
     <Resource tag="EDITPROFILECONTENT">&lt;p&gt;You can change your account information using Personal Profile -&amp;gt; 'Edit Profile' option from within the User CP. If you want to change your Password there is an extra Page (Change Password) for that in the User CP, where you can set a new Password.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Edit Profile&lt;/strong&gt; Page&lt;/p&gt;
 &lt;p&gt;This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.&lt;/p&gt;
@@ -2001,7 +2003,7 @@
 &lt;p&gt;And if the Administrator has enabled it you can change the Forum &lt;strong&gt;Language&lt;/strong&gt; and the &lt;strong&gt;Theme&lt;/strong&gt; of the Site.&lt;/p&gt;
 
 </Resource>
-    <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
+    <Resource tag="EDITPROFILETITLE">Benutzer Profil bearbeiten &amp; Forumeinstellungen</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronouced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is lead by Jaben Cargman of Tiny Gecko. YAF runs on any web server that supports ASP.NET v2.0 (and above) and SQL Server. YAF is licensed under GPL.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
@@ -2023,8 +2025,8 @@
 &lt;p&gt;To view information about a particular member, click on the user name. This will take you to their public profile page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What is the Header?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Header on top of every page has links to help you move around. A form on the right allows you to quickly login. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
-    <Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
-    <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
+    <Resource tag="FORUMSTITLE">Foren, Themen und Beiträge</Resource>
+    <Resource tag="GENERALTOPICS">Forum und seine Benutzung</Resource>
     <Resource tag="INDEX">Index</Resource>
     <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification' Preferences Page inside your User Control Panel you can set Up, what type of Email Notifications you want to receive.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you wont receive any emails.&lt;/p&gt;
@@ -2033,23 +2035,23 @@
 &lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive an private message.&lt;/p&gt;
 </Resource>
-    <Resource tag="MAILSETTINGSTITLE">Email Notification Preferences</Resource>
+    <Resource tag="MAILSETTINGSTITLE">E-Mail Benachrichtigungseinstellungen</Resource>
     <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name.&lt;/p&gt;
 &lt;p&gt;To view the members list, click on 'Members' on main Header at the top of the page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Are all members listed?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Some members may not be on the list. The administrator has options over who is shown on the list. They may, for example, omit members who have not made many posts or who belong to certain user groups.&lt;/p&gt;</Resource>
-    <Resource tag="MEMBERSLISTTITLE">Members List</Resource>
+    <Resource tag="MEMBERSLISTTITLE">Benutzerliste</Resource>
     <Resource tag="MESSENGERCONTENT">&lt;em&gt;Help Content coming soon...&lt;/em&gt;</Resource>
-    <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
+    <Resource tag="MESSENGERTITLE">Private Nachrichten (Messenger)</Resource>
     <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
 &lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
-    <Resource tag="MODSADMINSTITLE">Moderators and Administrators</Resource>
+    <Resource tag="MODSADMINSTITLE">Moderatoren und Administratoren</Resource>
     <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member which has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the User Control Panel, and clicking on the 'Edit Albums' link, and then clicking on 'Add New Album'. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
 &lt;p&gt;Each album can have a title and you can Set a Cover for it (Image from the Album), or use random. And you can choose a Description for every Image.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I upload pictures?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you are on the Add/Edit Album Page you select an Image on your Computer and Click Upload to Add it to the Album.&lt;/p&gt;
 &lt;p&gt;You'll have the option to give each picture a caption, and to set one image as the Album cover, which will be displayed on the public profile. To delete an album or edit the title, add image(s) or delete(s) image, click on 'Edit'. To edit or add a caption of an image click on the text bellow the image. If you want to Set an Cover or Remove the Cover Click on the Button Bellow the Cover.&lt;/p&gt;</Resource>
-    <Resource tag="MYALBUMSTITLE">Albums</Resource>
+    <Resource tag="MYALBUMSTITLE">Alben</Resource>
     <Resource tag="MYPICSCONTENT">&lt;p&gt;&lt;strong&gt;What are avatars?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Avatars are small images that people use to identify or distinguish themselves to other forum members. These avatars will be displayed as part of the user info in posts, as well as in the public profile.&lt;/p&gt;
 &lt;p&gt;You can Modify your Avatar by  click on 'Modify Avatar' under the 'Personal Profile' area of the navigation bar within the User CP.&lt;/p&gt;
@@ -2063,7 +2065,7 @@
 &lt;p&gt;&lt;strong&gt;What are signatures?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;'Signatures' contain information that you want to include at the bottom of all your posts. This might include pictures, links to your site(s), quotes, etc.&lt;/p&gt;
 &lt;p&gt;For Modify signatures, click on 'Signature' under the 'Personal Profile' area of the navigation bar within the User CP. You are only allowed to enter BB Code formatted Signatures.&lt;/p&gt;</Resource>
-    <Resource tag="MYPICSTITLE">Signatures, Avatars Pictures</Resource>
+    <Resource tag="MYPICSTITLE">Signaturen, Avatar Bilder</Resource>
     <Resource tag="MYSETTINGSCONTENT">&lt;p&gt;The &lt;strong&gt;User Control Panel&lt;/strong&gt; is where you control your personal settings, options and preferences.&lt;/p&gt;
 &lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main will show your Account Summary including your User Name, Email Address, Number of posts, Member of Groups you ar in and since when you are member.&lt;/p&gt;
 &lt;p&gt;On the Left Side you will find Links to all Sub Pages and Forms that allow you to control:..&lt;/p&gt;
@@ -2085,14 +2087,14 @@
   &lt;li&gt;Email Notification Preferences&lt;/li&gt;
   &lt;li&gt;Change Password&lt;/li&gt;
 &lt;/ul&gt;</Resource>
-    <Resource tag="MYSETTINGSTITLE">My Settings (User Control Panel)</Resource>
+    <Resource tag="MYSETTINGSTITLE">Meine Einstellungen (Benutzer Einstellungen)</Resource>
     <Resource tag="NAVIGATION">Navigation</Resource>
     <Resource tag="NEWPOSTSCONTENT">&lt;p&gt;If you are not logged in, the 'Active Topics' link in the Header, will show a list of all topics that have been created or updated since your last visit.&lt;/p&gt;
 &lt;p&gt;If you are logged in, the 'Active Topics' link will change to 'My Topics', which gives you a listing of all topics that have been created or updated since your last visit.&lt;/p&gt;
 &lt;p&gt;The administrator can also set up the forums so that each thread you read is marked in the database. If this option is set, then new topic (or topics with new posts) will not be marked as read until you have actually read them.&lt;/p&gt;
 &lt;p&gt;There will be also an Second Tab 'Favorite Topics' which shows all Topics which you have tagged as Favorite Topic.&lt;/p&gt;</Resource>
-    <Resource tag="NEWPOSTSTITLE">Viewing New Posts</Resource>
-    <Resource tag="NORESULTS">No Results found.</Resource>
+    <Resource tag="NEWPOSTSTITLE">Neue Beiträge anzeigen</Resource>
+    <Resource tag="NORESULTS">Keine Ergebnisse gefunden.</Resource>
     <Resource tag="PMCONTENT">&lt;p&gt;You can contact another by sending an E-Mail, you find them on the member list.&lt;/p&gt;
 &lt;p&gt;This will usually open a page that contains a form where you can enter your message. When you have finished typing your message, press the 'Send E-mail' button and your message will be sent instantly.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Can I see e-mail addresses?&lt;/strong&gt;&lt;/p&gt;
@@ -2101,7 +2103,7 @@
 &lt;p&gt;If you cannot find an e-mail button or link for a member, it means either that the administrator has disabled e-mail functions for this forum, or that the member has said that they do not wish to receive e-mail from other members.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What is private messaging?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Registered members may also be able to send messages to other members of this forum using the private messaging system.&lt;/p&gt;</Resource>
-    <Resource tag="PMTITLE">Contacting other Members</Resource>
+    <Resource tag="PMTITLE">Kontaktaufnahme mit anderen Mitgliedern</Resource>
     <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When you post a new Topic, you have the Option 'Add Poll?' to create a new poll. If you don't see that Option you may don't have access to that Option.&lt;/p&gt;
@@ -2124,7 +2126,7 @@
 &lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
 &lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;
 </Resource>
-    <Resource tag="POLLSTITLE">Creating and Participating in Polls</Resource>
+    <Resource tag="POLLSTITLE">Erstellen und Teilnehmen an Umfragen</Resource>
     <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may Receive an Pop Up Notification on the Center of your Browser Window.&lt;/p&gt;
 &lt;p&gt;This will inform you about serval actions...&lt;/p&gt;
 &lt;ul&gt;
@@ -2135,7 +2137,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;You will also Receive Couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
-    <Resource tag="POPUPSTITLE">PopUp Notifications</Resource>
+    <Resource tag="POPUPSTITLE">PopUp Benachrichtigungen</Resource>
     <Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
 &lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
 &lt;ol&gt;
@@ -2146,8 +2148,8 @@
 &lt;p&gt;Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.&lt;/p&gt;
 &lt;p&gt;To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.&lt;/p&gt;
 &lt;p&gt;BB code is a special set of codes similar to HTML that can be used in posts to the board.&lt;/p&gt;</Resource>
-    <Resource tag="POSTINGTITLE">Posting New Topics and Posts</Resource>
-    <Resource tag="PROFILETOPICS">Setting and Profile Features</Resource>
+    <Resource tag="POSTINGTITLE">Neue Themen und Beiträge erstellen</Resource>
+    <Resource tag="PROFILETOPICS">Einstellungen und Profil Funktionen</Resource>
     <Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;As member you have an publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;There are a multiple ways to view an members profile...&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2165,8 +2167,8 @@
   &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
-    <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
-    <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
+    <Resource tag="PUBLICPROFILETITLE">Mein öffentliches Profil</Resource>
+    <Resource tag="READPOSTTOPICS">Beiträge lesen und schreiben</Resource>
     <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
   link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
 &lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
@@ -2176,7 +2178,7 @@
 &lt;p&gt;You must be able to receive emails to your registered email address for this to 
   work. You may need to check your spam filters and folder if you do not see this 
   email in a few minutes. &lt;/p&gt;</Resource>
-    <Resource tag="RECOVERTITLE">Recover lost password</Resource>
+    <Resource tag="RECOVERTITLE">Vergessenes Passwort wiederherstellen</Resource>
     <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
 &lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
 &lt;ul&gt;
@@ -2189,21 +2191,21 @@
 &lt;p&gt;&lt;strong&gt;How do I register?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;You register by clicking on the 'Register' in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator has enabled it enter the Shown Captcha Code.&lt;/p&gt;
 </Resource>
-    <Resource tag="REGISTRATIONTITLE">Registration</Resource>
+    <Resource tag="REGISTRATIONTITLE">Anmeldung</Resource>
     <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
 &lt;p&gt;A registered user  can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button  and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a quick editor box listed below the posts in the Topic.&lt;/p&gt;
 &lt;p&gt;If you want to Reply a Message hit the 'Quote' Button And you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
-    <Resource tag="REPLYINGTITLE">Replying to a Message</Resource>
+    <Resource tag="REPLYINGTITLE">Auf einen Beitrag antworten</Resource>
     <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
 &lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
 &lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
-    <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
-    <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
-    <Resource tag="SEARCHHELP">Search Help</Resource>
-    <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
+    <Resource tag="RSSTITLE">RSS</Resource>
+    <Resource tag="SEARCHFOR">Geben Sie einen Suchbegriff ein:</Resource>
+    <Resource tag="SEARCHHELP">Hilfe durchsuchen</Resource>
+    <Resource tag="SEARCHHELPTITLE">Hilfethemen durchsuchen</Resource>
     <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
 &lt;p&gt;For more control over the search, you can restrict your search individual forums, or find posts or topics written by an specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
-    <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
+    <Resource tag="SEARCHINGTITLE">Durchsuchen von Foren und Themen</Resource>
     <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
     <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
 &lt;/p&gt;
@@ -2218,7 +2220,7 @@
 &lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User CP. There you can select which subscriptions you wish to delete by Clicking on the Unwatch Button.&lt;/p&gt;</Resource>
-    <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
+    <Resource tag="SUBSCRIPTIONSTITLE">Abonnements</Resource>
     <Resource tag="SUBTITLE">Forum Hilfe</Resource>
     <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to gave back an other user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
 &lt;p&gt;How to gave a User a Thanks?&lt;/p&gt;
@@ -2229,7 +2231,7 @@
   &lt;li&gt; &lt;strong&gt;Your Name thanked&lt;/strong&gt; - Shows the List of Messages where you gave a thank.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Your Name was thanked -&lt;/strong&gt; Shows the List your Messages where you received thanks.&lt;/li&gt;
 &lt;/ul&gt;</Resource>
-    <Resource tag="THANKSTITLE">Thanks Feature</Resource>
+    <Resource tag="THANKSTITLE">Danksagungs-Funktion</Resource>
     <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
@@ -2238,9 +2240,9 @@
   &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
 &lt;/ul&gt;
 </Resource>
-    <Resource tag="THREADOPTTITLE">Topic Options</Resource>
+    <Resource tag="THREADOPTTITLE">Themen Optionen</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Hife</Resource>
-    <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
+    <Resource tag="WELCOME">Hier können Sie Antworten auf Fragen finden darüber wie das Forum Funktioniert. Benutzen Sie die Links auf der Linken Seite oder die Suchbox um zu finden wonach Sie suchen.</Resource>
   </page>
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>

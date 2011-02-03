@@ -715,6 +715,7 @@
     <Resource tag="NEW_FORUM">New Forum</Resource>
   </page>
   <page name="ADMIN_GROUPS">
+    <Resource tag="COMMAND">Command</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this Role?</Resource>
     <Resource tag="HEADER">YetAnotherForum Roles</Resource>
     <Resource tag="IS_ADMIN">Is Admin</Resource>
@@ -1008,8 +1009,8 @@
     <Resource tag="RULES_ONREGISTER_HELP">Require that "rules" are shown and accepted before a new user can register.</Resource>
     <Resource tag="SEARCH_ENGINE1">Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_HELP">Enter here a search engine pattern.</Resource>
+    <Resource tag="SEARCH_ENGINE1_PARAM">Parameters For Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_PARAM_HELP">Enter here a search engine parameters.</Resource>
-    <Resource tag="SEARCH_ENGINE1_PARAMS">Parameters For Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE2">Search Engine 2:</Resource>
     <Resource tag="SEARCH_ENGINE2_HELP">Enter here a search engine pattern.</Resource>
     <Resource tag="SEARCH_ENGINE2_PARAM">Parameters For Search Engine 2:</Resource>

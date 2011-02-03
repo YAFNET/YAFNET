@@ -525,7 +525,7 @@
     <Resource tag="MSG_AMBIGOUS_USER">Такое имя пользователя уже указано!</Resource>
     <Resource tag="MSG_IMAGE">Изображение для медали должно быть выбрано!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Уменьшенное изображение медали должно быть выбрано!</Resource>
-    <Resource tag="MSG_VALID_USER">Пожалуйста, введите верное имя/ник!</Resource> 
+    <Resource tag="MSG_VALID_USER">Пожалуйста, введите верное имя/ник!</Resource>
     <Resource tag="ONLY_RIBBON">Показывать только орденскую планку:</Resource>
     <Resource tag="ONLY_RIBBON_HELP">Если выбрано, то только орденская планка будет отображаться в боксе пользователя в сообщениях.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Сообщение:</Resource>
@@ -728,7 +728,7 @@
     <Resource tag="PMS">ЛС</Resource>
     <Resource tag="PROVIDER_ROLES">Роли провайдера</Resource>
     <Resource tag="TITLE">Роли</Resource>
-    <Resource tag="UNLINKABLE">Несвязанная</Resource>    
+    <Resource tag="UNLINKABLE">Несвязанная</Resource>
   </page>
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Сбрасывать сессии для пользователей, которые не отслеживаются:</Resource>
@@ -1008,8 +1008,8 @@
     <Resource tag="RULES_ONREGISTER_HELP">Require that "rules" are shown and accepted before a new user can register.</Resource>
     <Resource tag="SEARCH_ENGINE1">Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_HELP">Enter here a search engine pattern.</Resource>
-    <Resource tag="SEARCH_ENGINE1_PARAM_HELP">Enter here a search engine parameters.</Resource>
     <Resource tag="SEARCH_ENGINE1_PARAM">Parameters For Search Engine 1:</Resource>
+    <Resource tag="SEARCH_ENGINE1_PARAM_HELP">Enter here a search engine parameters.</Resource>
     <Resource tag="SEARCH_ENGINE2">Search Engine 2:</Resource>
     <Resource tag="SEARCH_ENGINE2_HELP">Enter here a search engine pattern.</Resource>
     <Resource tag="SEARCH_ENGINE2_PARAM">Parameters For Search Engine 2:</Resource>
@@ -1219,14 +1219,14 @@
     <Resource tag="TITLE">Почистить темы</Resource>
   </page>
   <page name="ADMIN_RANKS">
-    <Resource tag="TITLE">Статусы</Resource>
-    <Resource tag="NEW_RANK">Новый статус</Resource>
-    <Resource tag="CONFIRM_DELETE">Удалить этот статус?</Resource>
-    <Resource tag="POSTS">сообщения</Resource>
-    <Resource tag="IS_START">Стартовый</Resource>
-    <Resource tag="IS_LADDER">Автостатус</Resource>
-    <Resource tag="PM_LIMIT">Кол-во ЛС</Resource>
     <Resource tag="COMMAND">Действие</Resource>
+    <Resource tag="CONFIRM_DELETE">Удалить этот статус?</Resource>
+    <Resource tag="IS_LADDER">Автостатус</Resource>
+    <Resource tag="IS_START">Стартовый</Resource>
+    <Resource tag="NEW_RANK">Новый статус</Resource>
+    <Resource tag="PM_LIMIT">Кол-во ЛС</Resource>
+    <Resource tag="POSTS">сообщения</Resource>
+    <Resource tag="TITLE">Статусы</Resource>
   </page>
   <page name="ADMIN_REGUSER">
     <Resource tag="HEADER">Создать нового пользователя</Resource>

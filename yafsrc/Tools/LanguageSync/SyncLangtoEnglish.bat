@@ -4,6 +4,7 @@ YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\Yet
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\czech.xml" -o
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\danish.xml" -o
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\dutch.xml" -o
+YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\estonian.xml" -o
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\finnish.xml" -o
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\french.xml" -o
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\german-du.xml" -o 
