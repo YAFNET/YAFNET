@@ -20,7 +20,7 @@
     }
     function openShoutBoxWin() {  
         var hostname = window.location.hostname
-        window.open("<%=YafForumInfo.ForumBaseUrl %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=475,height=300");
+        window.open("<%=YafForumInfo.ForumClientFileRoot %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=475,height=300");
         return false;
     }
 
