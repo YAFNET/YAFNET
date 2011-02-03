@@ -16,10 +16,10 @@
 		</td>
 	</tr>
 	<tr id="ToRow" runat="server">
-		<td width="30%" class="postformheader">
+		<td style="width:210px" class="postformheader">
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
 		</td>
-		<td width="70%" class="post">
+		<td class="post">
 			<asp:TextBox ID="To" runat="server" />
 			<asp:DropDownList runat="server" ID="ToList" Visible="false" />
 			<asp:Button runat="server" ID="FindUsers" CssClass="pbutton" OnClick="FindUsers_Click" />
