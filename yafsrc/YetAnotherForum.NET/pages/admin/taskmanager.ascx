@@ -2,6 +2,7 @@
     CodeBehind="taskmanager.ascx.cs" %>
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="YAF.Core.Tasks" %>
+<%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
@@ -29,11 +30,11 @@
                         <strong>
                             <%# Eval("Key") %></strong>
                             <asp:PlaceHolder ID="StopTaskHolder" runat="server" Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
-                            [<asp:LinkButton ID="stop" runat="server" CommandName="stop" CommandArgument=<%# Eval("Key") %>><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="STOP_TASK" LocalizedPage="ADMIN_TASKMANAGER" /></asp:LinkButton>]
+                            [<asp:LinkButton ID="stop" runat="server" CommandName="stop" CommandArgument="<%# Eval("Key") %>"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="STOP_TASK" LocalizedPage="ADMIN_TASKMANAGER" /></asp:LinkButton>]
                         </asp:PlaceHolder>
                     </td>
                     <td>
-                        <%# Eval("Value.IsRunning") %>
+                    <asp:Label ID="Label2" runat="server" ForeColor='<%# GetItemColor(Eval("Value.IsRunning").ToType<bool>()) %>'><%# GetItemName(Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
                     </td>
                     <td>
                         <%# FormatTimeSpan(Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.Started)%>

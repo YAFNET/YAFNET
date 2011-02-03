@@ -2846,7 +2846,7 @@ Visit {forumname} at {forumlink}
        <Resource tag="SEARCH_PERMISS_HELP">Allow search to:</Resource>
 	   <Resource tag="SEARCH_ENGINE1">Search Engine 1:</Resource>
        <Resource tag="SEARCH_ENGINE1_HELP">Enter here a search engine pattern.</Resource>
-	   <Resource tag="SEARCH_ENGINE1_PARAMS">Parameters For Search Engine 1:</Resource>
+	   <Resource tag="SEARCH_ENGINE1_PARAM">Parameters For Search Engine 1:</Resource>
        <Resource tag="SEARCH_ENGINE1_PARAM_HELP">Enter here a search engine parameters.</Resource>
 	   <Resource tag="SEARCH_ENGINE2">Search Engine 2:</Resource>
        <Resource tag="SEARCH_ENGINE2_HELP">Enter here a search engine pattern.</Resource>

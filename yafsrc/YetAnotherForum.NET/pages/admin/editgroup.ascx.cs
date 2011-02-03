@@ -45,6 +45,7 @@ namespace YAF.Pages.Admin
   {
     #region Methods
 
+    public DataTable AccessMasksList { get; set; }
     /// <summary>
     /// Handles databinding event of initial access maks dropdown control.
     /// </summary>
@@ -60,8 +61,7 @@ namespace YAF.Pages.Admin
       var c = (DropDownList)sender;
 
       // list all access masks as data source
-      c.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
-
+      c.DataSource = this.AccessMasksList;
       // set value and text field names
       c.DataValueField = "AccessMaskID";
       c.DataTextField = "Name";
@@ -350,7 +350,7 @@ namespace YAF.Pages.Admin
       {
         this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
       }
-
+      this.AccessMasksList = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       // bind data to controls
       this.DataBind();
     }
