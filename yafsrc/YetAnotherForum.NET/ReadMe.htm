@@ -209,7 +209,13 @@
 		{
 			color: #CC0000;
 		}
-	</style>
+	#content-wrap .content div p code.remove {
+	color: #F00;
+}
+    #content-wrap .content div p code.add {
+	color: green;
+}
+    </style>
 </head>
 <body>
 	<div id="wrap">
@@ -317,22 +323,55 @@
 						folder you want to run YAF to run inside. The YAF \Bin directory <strong>must</strong> 
                         be in your application root.</li>
 				</ol>
-                  <h3>STEP 3. Upgade WEB.CONFIG FILE</h3>
+                  <h3>STEP 3. Upgade - The WEB.CONFIG FILE</h3>
   <p>Please follow these important directions:</p>
 	      <p>You need to MERGE the changes for the /webconfigs/recommended-web.config or the
 		  /webconfigs/v191-upgrade-web.config depending on the original web config you used.</p>
-	      <p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5.1</p>
-          <p><code>&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI.JQuery&quot; assembly=&quot;DNA.UI.JQuery&quot;/&gt;<br />
+	      <hr />
+<p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5.5</p>
+<div style="margin-left: 30px;border:1px dotted black;padding:5px">
+          <p><code class="remove">&lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI.JQuery&quot; assembly=&quot;DNA.UI.JQuery&quot;/&gt;<br />
 &lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI&quot; assembly=&quot;DNA&quot;/&gt;</code><br />
-            <br />
-            and<br />
-          </p>
-          <p><code>&lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</code></p>
-          <p>and</p>
-          <p><code>&lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot; /&gt;</code></p>
-<p><span class="error"><strong>IMPORTANT</strong>:</span> Remove the Lines if you Upgrade to YAF Version &gt;= 1.9.5</p>
-	      <p><code>&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot; assembly=&quot;YAF.Classes.UI&quot;/&gt;  </code><br /></p>
-	      <p><code>&lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</code></p>
+      <hr />
+      <p><code class="remove">&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot; assembly=&quot;YAF.Classes.UI&quot;/&gt;  </code></p>
+<hr />
+<p><code class="remove">&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Utils&quot; assembly=&quot;YAF.Classes.Utils&quot;/&gt;<br />
+&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Core&quot; assembly=&quot;YAF.Classes.Core&quot;/&gt;<br />
+&lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Data&quot; assembly=&quot;YAF.Classes.Data&quot;/&gt; </code></p>
+<hr />
+<p><code class="remove">&lt;add namespace=&quot;YAF&quot;/&gt;<br />
+&lt;add namespace=&quot;YAF.Classes.Utils&quot;/&gt;<br />
+&lt;add namespace=&quot;YAF.Classes.Core&quot;/&gt;<br />
+&lt;add namespace=&quot;YAF.Controls&quot;/&gt;<br />
+&lt;add namespace=&quot;YAF.Classes.Data&quot;/&gt;</code></p>
+<hr />
+<p><code class="remove">&lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</code></p>
+</div>
+<br />
+<p><span class="error"><strong>IMPORTANT</strong>:</span> Update this following lines if you Upgrade to YAF Version &gt;= 1.9.5.5</p>
+<div style="margin-left: 30px;border:1px dotted black;padding:5px">
+<p>Change the Line from....</p>
+<p><code class="remove">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot;/&gt;</code></p>
+<p>to</p>
+<p><code>&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot;/&gt;</code></p>
+<p>Change the Line from....</p>
+<p><code class="remove">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</code></p>
+<p>to</p>
+<p><code class="add">&lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</code></p>
+<p>Change the Line from....</p>
+<p><code class="remove">&lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Classes.Utils.YafUserProfile&quot;&gt;</code></p>
+<p>to</p>
+<p><code class="add">&lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Utils.YafUserProfile&quot;&gt;</code></p>
+<p>Change the Line from....</p>
+<p><code class="remove">&lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</code></p>
+<p>to</p>
+<p><code class="add">&lt;add verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler, YAF&quot; /&gt;</code></p>
+<p>Change the Line from....</p>
+<p><code class="remove">&lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot; /&gt;</code></p>
+<p>to</p>
+<p><code class="add">&lt;add name=&quot;YafHandler&quot; preCondition=&quot;integratedMode&quot; verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler, YAF&quot; /&gt;</code></p>
+</div>
+<hr />
 <p><strong>How to merging Web.Config Files:</strong> </p>
 						<ol>
 						  <li>A tip to merge web.config files is to download 
