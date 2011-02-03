@@ -30,7 +30,7 @@
                         <strong>
                             <%# Eval("Key") %></strong>
                             <asp:PlaceHolder ID="StopTaskHolder" runat="server" Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
-                            [<asp:LinkButton ID="stop" runat="server" CommandName="stop" CommandArgument="<%# Eval("Key") %>"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="STOP_TASK" LocalizedPage="ADMIN_TASKMANAGER" /></asp:LinkButton>]
+                            [<asp:LinkButton ID="stop" runat="server" CommandName="stop" CommandArgument='<%# Eval("Key") %>'><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="STOP_TASK" LocalizedPage="ADMIN_TASKMANAGER" /></asp:LinkButton>]
                         </asp:PlaceHolder>
                     </td>
                     <td>
