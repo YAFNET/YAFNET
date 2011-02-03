@@ -20,12 +20,10 @@ namespace YAF.Utils.Helpers
 {
   #region Using
 
-  using System;
   using System.Linq;
   using System.Web;
 
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+  using YAF.Classes;
   using YAF.Types;
 
   #endregion
@@ -35,6 +33,41 @@ namespace YAF.Utils.Helpers
   /// </summary>
   public static class UserAgentHelper
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The spider contains.
+    /// </summary>
+    private static readonly string[] spiderContains = {
+                                                        "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", 
+                                                        "appie", "AltaVista-Intranet", "Acoon Robot", "Atomz", 
+                                                        "Arachnoidea", "AESOP_com_SpiderMan", "AxmoRobot", 
+                                                        "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias", 
+                                                        "Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", 
+                                                        "Crawler", "CrawlerBoy", "DeepIndex", "DefaultCrawler", 
+                                                        "DittoSpyder", "DIIbot", "EZResult", "EARTHCOM.info", "EuripBot"
+                                                        , "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", 
+                                                        "Findexa Crawler", "Fluffy", "Googlebot", "geckobot", 
+                                                        "GenCrawler", "GeonaBot", "getRAX", "Gulliver", "Hubater", 
+                                                        "ia_archiver", "Slurp", "Scooter", "Mercator", "RaBot", "Jack", 
+                                                        "Speedy Spider", "moget", "Toutatis", "IlTrovatore-Setaccio", 
+                                                        "IncyWincy", "UltraSeek", "InfoSeek Sidewinder", "Mole2", 
+                                                        "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", 
+                                                        "Linknzbot", "lookbot", "MantraAgent", "NetResearchServer", 
+                                                        "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", 
+                                                        "mozDex", "MSNBOT", "Navadoo Crawler", "ObjectsSearch", 
+                                                        "OnetSzukaj", "PicoSearch", "PJspider", "nttdirectory_robot", 
+                                                        "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler", 
+                                                        "SeznamBot", "Search-10", "Scrubby", "speedfind ramBot xtreme", 
+                                                        "Kototoi", "SearchByUsa", "Searchspider", "SightQuestBot", 
+                                                        "Spider_Monkey", "Surfnomore", "teoma", "UK Searcher Spider", 
+                                                        "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot"
+                                                        , "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
+                                                        "MozSpider"
+                                                      };
+
+    #endregion
+
     #region Public Methods
 
     /// <summary>
@@ -98,38 +131,31 @@ namespace YAF.Utils.Helpers
     /// </returns>
     public static bool IsMobileDevice([CanBeNull] string userAgent)
     {
-        string[] mobileContains = {
-                                      "iphone", "ipad", "midp", "windows ce", "android",
-                                      "blackberry", "opera mini", "mobile",
-                                      "palm", "portable", "webos", "htc", "armv", "lg/u",
-                                      "elaine", "nokia", "playstation", "symbian",
-                                      "sonyericsson", "mmp", "hd_mini"
-                                };
+      var mobileContains =
+        Config.MobileUserAgents.Split(',').Where(m => m.IsSet()).Select(m => m.Trim().ToLowerInvariant());
 
-      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLowerInvariant().Contains(s));
+      return userAgent.IsSet() && mobileContains.Any(s => userAgent.Contains(s));
     }
 
-   private static string[] spiderContains = {
-                                    "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", 
-                                    "AltaVista-Intranet", "Acoon Robot", "Atomz", "Arachnoidea", "AESOP_com_SpiderMan", 
-                                    "AxmoRobot", "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias", 
-                                    "Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "CrawlerBoy", 
-                                    "DeepIndex", "DefaultCrawler", "DittoSpyder", "DIIbot", "EZResult", "EARTHCOM.info", 
-                                    "EuripBot", "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", "Findexa Crawler", 
-                                    "Fluffy", "Googlebot", "geckobot", "GenCrawler", "GeonaBot", "getRAX", "Gulliver", 
-                                    "Hubater", "ia_archiver", "Slurp", "Scooter", "Mercator", "RaBot", "Jack", 
-                                    "Speedy Spider", "moget", "Toutatis", "IlTrovatore-Setaccio", "IncyWincy", 
-                                    "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot"
-                                    , "LNSpiderguy", "Linknzbot", "lookbot", "MantraAgent", "NetResearchServer", "Lycos"
-                                    , "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex", "MSNBOT", 
-                                    "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", 
-                                    "nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler"
-                                    , "SeznamBot", "Search-10", "Scrubby", "speedfind ramBot xtreme", "Kototoi", 
-                                    "SearchByUsa", "Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", 
-                                    "teoma", "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", 
-                                    "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", 
-                                    "MozSpider"
-                                  };
+    /// <summary>
+    /// Sets if a useragent pattern is not checked against coockies support and JS.
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The Is Not Checked For Cookies And JS.
+    /// </returns>
+    public static bool IsNotCheckedForCookiesAndJs([CanBeNull] string userAgent)
+    {
+      if (userAgent.IsSet())
+      {
+        string[] userAgentContains = { "W3C_Validator" };
+        return userAgentContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
+      }
+
+      return false;
+    }
+
     /// <summary>
     /// Validates if the useragent is a search engine spider
     /// </summary>
@@ -149,40 +175,6 @@ namespace YAF.Utils.Helpers
     }
 
     /// <summary>
-    /// Sets if a useragent pattern is not checked against coockies support and JS. 
-    /// </summary>
-    /// <param name="userAgent">
-    /// </param>
-    /// <returns>
-    /// The Is Not Checked For Cookies And JS.
-    /// </returns>
-    public static bool IsNotCheckedForCookiesAndJs([CanBeNull] string userAgent)
-    {
-        if (userAgent.IsSet())
-        {
-            string[] userAgentContains = {
-                                          "W3C_Validator"
-                                         };
-            return userAgentContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
-        }
-
-        return false;
-    }
-
-    /// <summary>
-    /// Validates if the useragent is a search engine spider
-    /// </summary>
-    /// <param name="userAgent">
-    /// </param>
-    /// <returns>
-    /// The is search engine spider.
-    /// </returns>
-    public static string SearchEngineSpiderName([CanBeNull] string userAgent)
-    {
-        return userAgent.IsSet() ? spiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant())) : null;
-    }
-
-      /// <summary>
     /// Returns a platform user friendly name.
     /// </summary>
     /// <param name="userAgent">
@@ -191,11 +183,20 @@ namespace YAF.Utils.Helpers
     /// </param>
     /// <param name="platform">
     /// </param>
+    /// <param name="browser">
+    /// The browser.
+    /// </param>
     /// <param name="isSearchEngine">
     /// </param>
     /// <param name="isIgnoredForDisplay">
     /// </param>
-    public static void Platform([CanBeNull] string userAgent, bool isCrawler, [NotNull] ref string platform, [NotNull] ref string browser, out bool isSearchEngine, out bool isIgnoredForDisplay)
+    public static void Platform(
+      [CanBeNull] string userAgent, 
+      bool isCrawler, 
+      [NotNull] ref string platform, 
+      [NotNull] ref string browser, 
+      out bool isSearchEngine, 
+      out bool isIgnoredForDisplay)
     {
       CodeContracts.ArgumentNotNull(platform, "platform");
 
@@ -262,13 +263,29 @@ namespace YAF.Utils.Helpers
       {
         // check if it's a search engine spider or an ignored UI string...
         string san = SearchEngineSpiderName(userAgent);
-          if (san.IsSet())
-          {
-              browser = san;
-          }
+        if (san.IsSet())
+        {
+          browser = san;
+        }
+
         isSearchEngine = isCrawler || san.IsSet();
         isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
       }
+    }
+
+    /// <summary>
+    /// Validates if the useragent is a search engine spider
+    /// </summary>
+    /// <param name="userAgent">
+    /// </param>
+    /// <returns>
+    /// The is search engine spider.
+    /// </returns>
+    public static string SearchEngineSpiderName([CanBeNull] string userAgent)
+    {
+      return userAgent.IsSet()
+               ? spiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()))
+               : null;
     }
 
     #endregion
