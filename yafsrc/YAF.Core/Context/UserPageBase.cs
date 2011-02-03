@@ -258,10 +258,10 @@ namespace YAF.Core
     /// </summary>
     public bool BoardVoteAccess
     {
-        get
-        {
-            return AccessNotNull("BoardVoteAccess");
-        }
+      get
+      {
+        return AccessNotNull("BoardVoteAccess");
+      }
     }
 
     /// <summary>
@@ -324,10 +324,10 @@ namespace YAF.Core
     /// </summary>
     public bool IsCrawler
     {
-        get
-        {
-            return AccessNotNull("IsCrawler");
-        }
+      get
+      {
+        return AccessNotNull("IsCrawler");
+      }
     }
 
     /// <summary>
@@ -335,10 +335,10 @@ namespace YAF.Core
     /// </summary>
     public bool IsMobileDevice
     {
-        get
-        {
-            return AccessNotNull("IsMobileDevice");
-        }
+      get
+      {
+        return AccessNotNull("IsMobileDevice");
+      }
     }
 
     /// <summary>
@@ -357,10 +357,10 @@ namespace YAF.Core
     /// </summary>
     public Guid PageBoardUid
     {
-        get
-        {
-            return YafContext.Current.Settings == null ? Guid.Empty : YafContext.Current.Settings.BoardUid;
-        }
+      get
+      {
+        return YafContext.Current.Settings == null ? Guid.Empty : YafContext.Current.Settings.BoardUid;
+      }
     }
 
     /// <summary>
@@ -789,7 +789,7 @@ namespace YAF.Core
 
           string browser = "{0} {1}".FormatWith(YafContext.Current.Get<HttpRequestBase>().Browser.Browser, YafContext.Current.Get<HttpRequestBase>().Browser.Version);
           string platform = YafContext.Current.Get<HttpRequestBase>().Browser.Platform;
-         
+
           bool isSearchEngine = false;
           bool dontTrack = false;
 
@@ -804,7 +804,7 @@ namespace YAF.Core
           // we don't have page 'g' token for the feed page.
           if (browser.Contains("Unknown") && !dontTrack)
           {
-              dontTrack = UserAgentHelper.IsFeedReader(userAgent);
+            dontTrack = UserAgentHelper.IsFeedReader(userAgent);
           }
 
           int? categoryID = ObjectExtensions.ValidInt(YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"));
@@ -822,12 +822,22 @@ namespace YAF.Core
           {
             if (userAgent.IsNotSet())
             {
-              LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
+              LegacyDb.eventlog_create(null, this, "UserAgent string is empty.", EventLogTypes.Warning);
             }
 
             if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
             {
-              LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, YafContext.Current.Get<HttpRequestBase>().Browser.Platform, YafContext.Current.Get<HttpRequestBase>().Browser.Browser, YafContext.Current.Get<HttpRequestBase>().Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+              LegacyDb.eventlog_create(
+                null,
+                this,
+                "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'."
+                  .FormatWith(
+                    userAgent,
+                    YafContext.Current.Get<HttpRequestBase>().Browser.Platform,
+                    YafContext.Current.Get<HttpRequestBase>().Browser.Browser,
+                    YafContext.Current.Get<HttpRequestBase>().Browser.Cookies,
+                    user != null ? user.UserName : String.Empty),
+                EventLogTypes.Warning);
             }
           }
 
@@ -842,25 +852,25 @@ namespace YAF.Core
 
           do
           {
-              pageRow = LegacyDb.pageload(
-              YafContext.Current.Get<HttpSessionStateBase>().SessionID,
-              PageBoardID,
-              PageBoardUid,
-              userKey,
-              YafContext.Current.Get<HttpRequestBase>().UserHostAddress,
-              YafContext.Current.Get<HttpRequestBase>().FilePath,
-              YafContext.Current.Get<HttpRequestBase>().QueryString.ToString(),
-              browser,
-              platform,
-              categoryID,
-              forumID,
-              topicID,
-              messageID,
+            pageRow = LegacyDb.pageload(
+            YafContext.Current.Get<HttpSessionStateBase>().SessionID,
+            PageBoardID,
+            PageBoardUid,
+            userKey,
+            YafContext.Current.Get<HttpRequestBase>().UserHostAddress,
+            YafContext.Current.Get<HttpRequestBase>().FilePath,
+            YafContext.Current.Get<HttpRequestBase>().QueryString.ToString(),
+            browser,
+            platform,
+            categoryID,
+            forumID,
+            topicID,
+            messageID,
               // don't track if this is a search engine
-              isSearchEngine,
-              isMobileDevice,
-              dontTrack
-             );
+            isSearchEngine,
+            isMobileDevice,
+            dontTrack
+           );
 
             // if the user doesn't exist...
             if (user != null && pageRow == null)
@@ -936,23 +946,23 @@ namespace YAF.Core
         catch (Exception x)
         {
 #if !DEBUG
-  
-  // log the exception...
-					LegacyDb.eventlog_create( null, "Failure Initializing User/Page.", x, EventLogTypes.Warning );
-					
-// log the user out...
-					FormsAuthentication.SignOut();
 
-					if ( YafContext.Current.ForumPageType != ForumPages.info )
-					{
-						// show a failure notice since something is probably up with membership...
-						YafBuildLink.RedirectInfoPage( InfoMessage.Failure );
-					}
-					else
-					{
-						// totally failing... just re-throw the exception...
-						throw;
-					}
+          // log the exception...
+          LegacyDb.eventlog_create(null, "Failure Initializing User/Page.", x, EventLogTypes.Warning);
+
+          // log the user out...
+          FormsAuthentication.SignOut();
+
+          if (YafContext.Current.ForumPageType != ForumPages.info)
+          {
+            // show a failure notice since something is probably up with membership...
+            YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
+          }
+          else
+          {
+            // totally failing... just re-throw the exception...
+            throw;
+          }
 #else
 
           // re-throw exception...
