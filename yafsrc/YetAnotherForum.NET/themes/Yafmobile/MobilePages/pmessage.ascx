@@ -27,7 +27,7 @@
 	<tr>
 		<td class="post">
 			<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
-			<asp:TextBox ID="Subject" runat="server" />
+			<asp:TextBox ID="PmSubjectTextBox" Width="100%" runat="server" />
 		</td>
 	</tr>
 	<tr>

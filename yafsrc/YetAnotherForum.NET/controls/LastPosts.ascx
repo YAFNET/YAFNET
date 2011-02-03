@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.LastPosts"
     CodeBehind="LastPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Utils" %>
-<asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="15000" OnTick="LastPostUpdateTimer_Tick">
+<asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="30000" OnTick="LastPostUpdateTimer_Tick">
 </asp:Timer>
 <div style="overflow: scroll; height: 400px;">
     <asp:UpdatePanel ID="LastPostUpdatePanel" runat="server" UpdateMode="Conditional">
