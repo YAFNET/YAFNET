@@ -143,7 +143,7 @@ namespace YAF.Core
       }
 
       var keyValue =
-        this.UserDisplayNameCollection.Where(
+        this.UserDisplayNameCollection.ToList().Where(
           x => x.Value.IsSet() && x.Value.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
 
       if (keyValue.IsNotNull())
