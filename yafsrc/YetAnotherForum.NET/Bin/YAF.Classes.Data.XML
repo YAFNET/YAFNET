@@ -1525,7 +1525,7 @@
             The body html.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.DateTime,System.DateTime,System.DateTime,System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+        <member name="M:YAF.Classes.Data.LegacyDb.post_list(System.Object,System.Object,System.Object,System.Boolean,System.Boolean,System.DateTime,System.DateTime,System.DateTime,System.DateTime,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)">
             <summary>
             The post_list.
             </summary>

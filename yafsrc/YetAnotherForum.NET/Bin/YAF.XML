@@ -9720,6 +9720,28 @@
             Summary description for prune.
             </summary>
         </member>
+        <member name="M:YAF.Pages.Admin.taskmanager.GetItemColor(System.Boolean)">
+            <summary>
+            Format access mask setting color formatting.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Set access mask flags are rendered red, rest black.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.taskmanager.GetItemName(System.Boolean)">
+            <summary>
+            Get a user friendly item name.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Item Name.
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.taskmanager.BindData">
             <summary>
             binds data for this control
@@ -13478,6 +13500,14 @@
               The search page constructor.
             </summary>
         </member>
+        <member name="M:YAF.Pages.search.OnPreRender(System.EventArgs)">
+            <summary>
+            The On PreRender event.
+            </summary>
+            <param name="e">
+            the Event Arguments
+            </param>
+        </member>
         <member name="M:YAF.Pages.search.BtnExtSearch1_Click(System.Object,System.EventArgs)">
             <summary>
             Handles btn Click eventn for external search button 1
@@ -14037,6 +14067,17 @@
             Set access mask flags are rendered red, rest black.
             </returns>
         </member>
+        <member name="M:YAF.Pages.Admin.accessmasks.GetItemName(System.Boolean)">
+            <summary>
+            Get a user friendly item name.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Item Name.
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.accessmasks.List_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
             The list_ item command.
@@ -14096,105 +14137,6 @@
         <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel4">
             <summary>
             LocalizedLabel4 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel5">
-            <summary>
-            LocalizedLabel5 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel6">
-            <summary>
-            LocalizedLabel6 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel7">
-            <summary>
-            LocalizedLabel7 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel8">
-            <summary>
-            LocalizedLabel8 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel9">
-            <summary>
-            LocalizedLabel9 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel10">
-            <summary>
-            LocalizedLabel10 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel11">
-            <summary>
-            LocalizedLabel11 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel12">
-            <summary>
-            LocalizedLabel12 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel13">
-            <summary>
-            LocalizedLabel13 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel14">
-            <summary>
-            LocalizedLabel14 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.Admin.accessmasks.LocalizedLabel15">
-            <summary>
-            LocalizedLabel15 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -22729,6 +22671,28 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="M:YAF.Pages.Admin.ranks.GetItemColor(System.Boolean)">
+            <summary>
+            Format access mask setting color formatting.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Set access mask flags are rendered red, rest black.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.ranks.GetItemName(System.Boolean)">
+            <summary>
+            Get a user friendly item name.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Item Name.
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.ranks.BitSet(System.Object,System.Int32)">
             <summary>
             The bit set.
@@ -29342,6 +29306,28 @@
               Temporary storage of un-linked provider roles.
             </summary>
         </member>
+        <member name="M:YAF.Pages.Admin.groups.GetItemColor(System.Boolean)">
+            <summary>
+            Format access mask setting color formatting.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Set access mask flags are rendered red, rest black.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.groups.GetItemName(System.Boolean)">
+            <summary>
+            Get a user friendly item name.
+            </summary>
+            <param name="enabled">
+            The enabled.
+            </param>
+            <returns>
+            Item Name.
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.groups.CreatePageLinks">
             <summary>
             Creates page links for this page.
@@ -30320,6 +30306,14 @@
             <summary>
               Initializes a new instance of the <see cref="T:YAF.Pages.cp_message"/> class.
             </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_message.OnPreRender(System.EventArgs)">
+            <summary>
+            The On PreRender event.
+            </summary>
+            <param name="e">
+            the Event Arguments
+            </param>
         </member>
         <member name="M:YAF.Pages.cp_message.Inbox_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
             <summary>
@@ -31546,15 +31540,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.pmessage.PreviewCell">
-            <summary>
-            PreviewCell control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.pmessage.PreviewMessagePost">
             <summary>
             PreviewMessagePost control.
@@ -31654,27 +31639,18 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.pmessage.LocalizedLabel5">
-            <summary>
-            LocalizedLabel5 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.pmessage.SmileysBox">
-            <summary>
-            SmileysBox control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.pmessage.EditorLine">
             <summary>
             EditorLine control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.pmessage.LocalizedLabel5">
+            <summary>
+            LocalizedLabel5 control.
             </summary>
             <remarks>
             Auto-generated field.

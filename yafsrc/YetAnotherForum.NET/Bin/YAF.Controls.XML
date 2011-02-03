@@ -365,27 +365,6 @@
               The _options.
             </summary>
         </member>
-        <member name="F:YAF.Controls.MessageBase._rgxModule">
-            <summary>
-              The _rgx module.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageBase._rgxModuleParam">
-            <summary>
-              The _rgx module param.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageBase.GetModuleParameters(System.Collections.Generic.Dictionary{System.String,System.String}@,System.String)">
-            <summary>
-            The get module parameters.
-            </summary>
-            <param name="paramDic">
-            The param dic.
-            </param>
-            <param name="invokeString">
-            The invoke string.
-            </param>
-        </member>
         <member name="M:YAF.Controls.MessageBase.RenderModulesInBBCode(System.Web.UI.HtmlTextWriter,System.String,YAF.Types.Flags.MessageFlags,System.Nullable{System.Int32})">
             <summary>
             The render modules in bb code.
@@ -402,19 +381,6 @@
             <param name="displayUserId">
             The display user id.
             </param>
-        </member>
-        <member name="M:YAF.Controls.MessageBase.GetMatch(System.String,System.String)">
-            <summary>
-            The get match.
-            </summary>
-            <param name="searchRegEx">
-            The search reg ex.
-            </param>
-            <param name="searchString">
-            The search string.
-            </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Controls.MessagePost.HighlightMessage(System.String)">
             <summary>
@@ -2119,8 +2085,19 @@
         </member>
         <member name="F:YAF.Controls.AdminMenu._menuDef">
             <summary>
-            The _menu def.
+              The _menu def.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(System.Web.UI.HtmlTextWriter,YafMenuYafMenuSectionYafMenuItem[])">
+            <summary>
+            Builds a Url List
+            </summary>
+            <param name="writer">
+            The HtmlWriter 
+            </param>
+            <param name="listItems">
+            Menu Items
+            </param>
         </member>
         <member name="M:YAF.Controls.AdminMenu.OnPreRender(System.EventArgs)">
             <summary>
@@ -2136,17 +2113,6 @@
             </summary>
             <param name="writer">
             The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(System.Web.UI.HtmlTextWriter,YafMenuYafMenuSectionYafMenuItem[])">
-            <summary>
-            Builds a Url List
-            </summary>
-            <param name="writer">
-            The HtmlWriter 
-            </param>
-            <param name="listItems">
-             Menu Items
             </param>
         </member>
         <member name="M:YAF.Controls.AdminMenu.RenderAccordian(System.Web.UI.HtmlTextWriter)">
@@ -2878,6 +2844,16 @@
             User box control string to display on a page.
             </returns>
         </member>
+        <member name="M:YAF.Controls.UserBox.GetRegex(System.String)">
+            <summary>
+            The get regex.
+            </summary>
+            <param name="search">
+            The search.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Controls.UserBox.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
@@ -3059,6 +3035,11 @@
         <member name="P:YAF.Controls.UserBox.CachedUserBox">
             <summary>
               Gets or sets CachedUserBox.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserBox.UserBoxRegex">
+            <summary>
+            Gets UserBoxRegex.
             </summary>
         </member>
         <member name="P:YAF.Controls.UserBox.UserId">
