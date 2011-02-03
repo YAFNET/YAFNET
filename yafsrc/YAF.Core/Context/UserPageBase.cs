@@ -21,6 +21,7 @@ namespace YAF.Core
 {
   using System;
   using System.Data;
+  using System.Threading;
   using System.Web;
   using System.Web.Security;
 
@@ -62,7 +63,20 @@ namespace YAF.Core
       {
         if (!this._initUserPage)
         {
-          InitUserAndPage();
+          if (Monitor.TryEnter(this))
+          {
+            try
+            {
+              if (!this._initUserPage)
+              {
+                InitUserAndPage();
+              }
+            }
+            finally
+            {
+              Monitor.Exit(this);
+            }
+          }
         }
 
         return this._page;
@@ -74,14 +88,7 @@ namespace YAF.Core
         this._initUserPage = value != null;
 
         // get user flags
-        if (this._page != null)
-        {
-          this._userFlags = new UserFlags(this._page["UserFlags"]);
-        }
-        else
-        {
-          this._userFlags = null;
-        }
+        this._userFlags = this._page != null ? new UserFlags(this._page["UserFlags"]) : null;
       }
     }
 
