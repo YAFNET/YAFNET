@@ -39,7 +39,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
                     </b>
                     <%# DataBinder.Eval(Container.DataItem, "[\"NumberOfReports\"]") %>
-                    <label id="Label1" runat="server" visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
+                    <label id="Label1" runat="server" visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
                         <b>
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
                         </b>
@@ -47,7 +47,7 @@
                 </td>
                 <td>
                     <YAF:ThemeButton ID="CopyOverBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="COPYOVER" CommandName="CopyOver" Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
+                        TextLocalizedTag="COPYOVER" CommandName="CopyOver" Visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
                         CommandArgument='<%# Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="DELETE" CommandName="Delete" CommandArgument='<%# Eval("MessageID") %>'
