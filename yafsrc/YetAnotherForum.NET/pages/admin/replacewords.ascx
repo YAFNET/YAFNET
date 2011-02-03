@@ -31,12 +31,14 @@
 					<%# HtmlEncode(Eval("goodword")) %>
 				</td>
 				<td class="post">
-					<asp:LinkButton runat="server" Text="Edit" CommandName='edit' CommandArgument='<%# Eval("ID") %>'
+					<asp:LinkButton runat="server" CommandName='edit' CommandArgument='<%# Eval("ID") %>'
 						ID="Linkbutton1">
+  <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
 					</asp:LinkButton>
 					|
-					<asp:LinkButton runat="server" Text="Delete" CommandName='delete' OnLoad="Delete_Load"
+					<asp:LinkButton runat="server"  CommandName='delete' OnLoad="Delete_Load"
 						CommandArgument='<%# Eval("ID") %>' ID="Linkbutton2">
+                          <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE" />
 					</asp:LinkButton>
 				</td>
 			</tr>
