@@ -3,54 +3,8 @@
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu ID="Adminmenu1" runat="server">	
+<YAF:AdminMenu ID="Adminmenu1" runat="server">		
 	
-	<table width="100%" cellspacing="1" cellpadding="0" class="content">
-    <asp:Repeater ID="ActiveList" runat="server">
-    <HeaderTemplate>
-      
-        <tr>
-          <td class="header1" colspan="4">
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
-          </td>
-        </tr>
-        <tr>
-          <td class="header2">
-            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME" LocalizedPage="ADMIN_ADMIN" />
-          </td>
-          <td class="header2">
-            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
-          </td>
-          <td class="header2">
-            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
-          </td>
-          <td class="header2">
-              <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
-           </td>   
-        </tr>
-    		</HeaderTemplate>
-    <ItemTemplate>
-      <tr>
-        <td class="post">
-         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' ReplaceName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' Style='<%# Eval("Style") %>'  runat="server"/>
-        </td>
-        <td class="post">
-        <a href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
-        </td>
-        <td class="post">
-          <%# this.HtmlEncode(YafUserProfile.GetProfile(Eval("UserName").ToString()).Location)%>
-        </td>
-         <td class="post">
-         <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>'  ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
-        </td>      
-      </tr>
-    		</ItemTemplate>
-    <FooterTemplate>
-      
-    		</FooterTemplate>
-    	</asp:Repeater>
-	</table>
-	&nbsp;<br />
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
 		<asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
     <HeaderTemplate>      
@@ -180,6 +134,53 @@
           <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_UPGRADE" LocalizedPage="ADMIN_ADMIN" />
 		
 		</p>
+
+&nbsp;<br />
+	<table width="100%" cellspacing="1" cellpadding="0" class="content">
+    <asp:Repeater ID="ActiveList" runat="server">
+    <HeaderTemplate>
+      
+        <tr>
+          <td class="header1" colspan="4">
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
+          </td>
+        </tr>
+        <tr>
+          <td class="header2">
+            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME" LocalizedPage="ADMIN_ADMIN" />
+          </td>
+          <td class="header2">
+            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
+          </td>
+          <td class="header2">
+            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
+          </td>
+          <td class="header2">
+              <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
+           </td>   
+        </tr>
+    		</HeaderTemplate>
+    <ItemTemplate>
+      <tr>
+        <td class="post">
+         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' ReplaceName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' Style='<%# Eval("Style") %>'  runat="server"/>
+        </td>
+        <td class="post">
+        <a id="A1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
+        </td>
+        <td class="post">
+          <%# this.HtmlEncode(YafUserProfile.GetProfile(Eval("UserName").ToString()).Location)%>
+        </td>
+         <td class="post">
+         <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>'  ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
+        </td>      
+      </tr>
+    		</ItemTemplate>
+    <FooterTemplate>
+      
+    		</FooterTemplate>
+    	</asp:Repeater>
+	</table>
 	
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

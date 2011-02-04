@@ -238,6 +238,7 @@ namespace YAF.Pages.Admin
       // Access Mask Lists               
       this.ForumsStartMask.DataSource = LegacyDb.accessmask_list(this.PageContext.PageBoardID, null);
       this.ForumsAdminMask.DataSource = this.ForumsStartMask.DataSource;
+     
       this.ForumsGroups.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
 
       // Board lists
@@ -247,7 +248,8 @@ namespace YAF.Pages.Admin
 
       this.DataBind();
 
-      this.ForumsAdminMask.SelectedIndex = 0;
+      if (this.ForumsAdminMask.Items.Count > 0)
+          this.ForumsAdminMask.SelectedIndex = this.ForumsAdminMask.Items.Count - 1;
 
       if (this.ForumsStartMask.Items.Count > 1)
       {
