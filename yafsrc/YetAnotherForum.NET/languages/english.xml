@@ -3047,7 +3047,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="DAYS_BEFORE_POSTLOCK">Days before posts are locked:</Resource>
        <Resource tag="DAYS_BEFORE_POSTLOCK_HELP">Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit.</Resource>
 	   <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
-       <Resource tag="IP_INFOSERVICE_HELP">If checked, we will get info about a registering user from a web service.</Resource>
+       <Resource tag="IP_INFOSERVICE_HELP">If checked, we will get info about a registering user from a web service, like his DST and Location field is filled in.</Resource>
 	   <Resource tag="IP_INFOSERVICE_XMLURL">IP Info XML Web Service URL:</Resource>
        <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Set it to get details about user IPs as XML data.</Resource>
 	   <Resource tag="IPINFO_ULRL">IP Info Page URL:</Resource>
