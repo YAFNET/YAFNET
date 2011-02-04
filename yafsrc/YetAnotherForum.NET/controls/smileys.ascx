@@ -13,7 +13,7 @@
            <div id="SmiliesPager"></div>
            <br style="clear:both;" />
            <div id="SmiliesPagerResult">
-            <p>Loading...<br /><asp:Image ID="LoadingImage" runat="server" AlternateText="Loading..." /></p>
+            <p style="text-align:center"><asp:Label ID="LoadingText" runat="server"></asp:Label><br /><asp:Image ID="LoadingImage" runat="server" /></p>
            </div>
 
             <div id="SmiliesPagerHidden" style="display:none;">

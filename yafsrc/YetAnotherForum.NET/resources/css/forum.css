@@ -238,7 +238,7 @@
 }
 .yafnet .pagination { font-size: 90%;text-align:center;margin-lefT:4px}
 
-.yafnet .pagination .next {float:right}
+.yafnet .pagination .smiliesPagerNext {float:right}
         
 .yafnet .pagination a, .yafnet .pagination span {
     display: block;

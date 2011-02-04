@@ -92,7 +92,7 @@
 			
 			// Generate "Previous"-Link
 			if(this.opts.prev_text && (current_page > 0 || this.opts.prev_show_always)){
-				fragment.append(this.createLink(current_page-1, current_page, {text:this.opts.prev_text, classes:"prev"}));
+				fragment.append(this.createLink(current_page-1, current_page, {text:this.opts.prev_text, classes:this.opts.prev_class}));
 			}
 			// Generate starting points
 			if (interval.start > 0 && this.opts.num_edge_entries > 0)
@@ -119,7 +119,7 @@
 			}
 			// Generate "Next"-Link
 			if(this.opts.next_text && (current_page < np-1 || this.opts.next_show_always)){
-				fragment.append(this.createLink(current_page+1, current_page, {text:this.opts.next_text, classes:"next"}));
+				fragment.append(this.createLink(current_page+1, current_page, {text:this.opts.next_text, classes:this.opts.next_class}));
 			}
 			$('a', fragment).click(eventHandler);
 			return fragment;
@@ -137,7 +137,9 @@
 			num_edge_entries:0,
 			link_to:"#",
 			prev_text:"Prev",
-			next_text:"Next",
+            prev_class:"prev",
+			next_text: "Next",
+            next_class: "next",
 			ellipse_text:"...",
 			prev_show_always:true,
 			next_show_always:true,

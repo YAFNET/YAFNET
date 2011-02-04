@@ -1250,7 +1250,7 @@ height:80em;
 	border: solid 1px #AAE;
 }
 
-.yafnet .pagination .current.prev, .yafnet .pagination .current.next{
+.yafnet .pagination .current.smiliesPagerPrev, .yafnet .pagination .current.smiliesPagerNext{
 	color:#999;
 	border-color:#999;
 	background:#fff;

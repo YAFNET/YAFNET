@@ -89,6 +89,8 @@ namespace YAF.Utilities
                     items_per_page:1,
 					num_display_entries: 3,
 					num_edge_entries: 1,
+                    prev_class: 'smiliesPagerPrev',
+					next_class: 'smiliesPagerNext',
 					prev_text: '&laquo;',
 					next_text: '&raquo;'
                 });
