@@ -1567,10 +1567,7 @@
                         </td>
                         <td class="post">
                             <asp:DropDownList Style="width:99%" ID="SearchPermissions" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
-                            </asp:DropDownList>
+                               </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
@@ -1610,10 +1607,7 @@
                             <YAF:HelpLabel ID="HelpLabel37" runat="server" LocalizedTag="EXTERN_SEARCH_PERMISS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:DropDownList Style="width:99%" ID="ExternalSearchPermissions" runat="server">
-                                <asp:ListItem Value="0" Text="Forbidden" />
-                                <asp:ListItem Value="1" Text="Registered Users" />
-                                <asp:ListItem Value="2" Text="All Users" />
+                            <asp:DropDownList Style="width:99%" ID="ExternalSearchPermissions" runat="server">                               
                             </asp:DropDownList>
                         </td>
                     </tr>

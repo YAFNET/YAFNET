@@ -225,7 +225,10 @@ namespace YAF.Pages.Admin
             ReportPostPermissions,
             ProfileViewPermissions,
             MembersListViewPermissions,
-            ActiveUsersViewPermissions
+            ActiveUsersViewPermissions,
+            ExternalSearchPermissions,
+            SearchPermissions,
+
           };
 
         foreach (var ddl in dropDownLists)
