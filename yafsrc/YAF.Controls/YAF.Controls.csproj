@@ -125,7 +125,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\ActiveDiscussions.cs" />
     <Compile Include="Statistics\MostActiveUser.cs" />
-    <Compile Include="ThankYou.cs" />
     <Compile Include="ThemeButton.cs" />
     <Compile Include="ThemeImage.cs" />
     <Compile Include="DisplayDateTime.cs" />

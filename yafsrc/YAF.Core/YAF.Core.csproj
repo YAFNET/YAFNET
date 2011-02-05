@@ -177,6 +177,7 @@
     <Compile Include="Services\YafSession.cs" />
     <Compile Include="Services\YafStopWatch.cs" />
     <Compile Include="Services\YafTemplateEmail.cs" />
+    <Compile Include="Services\YafThankYou.cs" />
     <Compile Include="Services\YafUserIgnored.cs" />
     <Compile Include="Extensions\SyndicationItemExtensions.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
