@@ -6,6 +6,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{
 DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_Topics
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'{databaseOwner}{objectQualifier}YafDnn_LastUpdatedProfile') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE {databaseOwner}{objectQualifier}YafDnn_LastUpdatedProfile
+GO
+
 /****YAF DNN SQL UNINSTALL SCRIPT BY INGO HERBOTE*/
 /**CONTRAINTS**/
 if exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}yaf_Buddy_{objectQualifier}yaf_User') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)

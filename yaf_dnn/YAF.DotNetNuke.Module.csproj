@@ -68,6 +68,9 @@
     <Compile Include="DnnRichEditor.cs" />
     <Compile Include="DnnSendMail.cs" />
     <Compile Include="DotNetNukeUrlBuilder.cs" />
+    <Compile Include="ProfileSyncronizer.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="YafDnnWhatsNew.ascx.cs">
       <DependentUpon>YafDnnWhatsNew.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -113,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DnnModule\01.94.01.SqlDataProvider" />
+    <None Include="DnnModule\01.95.50.SqlDataProvider" />
     <None Include="DnnModule\Uninstall.SqlDataProvider" />
     <None Include="DnnModule\YAF_DNNv5.dnn">
       <SubType>Designer</SubType>

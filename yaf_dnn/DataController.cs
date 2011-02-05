@@ -25,7 +25,10 @@ namespace YAF.DotNetNuke
     using System.Collections.Generic;
     using System.Data;
 
+    using global::DotNetNuke.Common.Lists;
+    using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Data;
+    using global::DotNetNuke.Entities.Profile;
 
     using YAF.Utils;
 
@@ -94,6 +97,95 @@ namespace YAF.DotNetNuke
             }
 
             return topicsList;
+        }
+
+        /// <summary>
+        /// Get The Latest DateTime where on of the DNN Profile Fields was updated
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>
+        /// The DateTime when the dnn Profile was last updated.
+        /// </returns>
+        public static DateTime YafDnnGetLastUpdatedProfile(int userID)
+        {
+            DateTime lastUpdatedDate = new DateTime();
+
+            using (IDataReader dr = DataProvider.Instance().ExecuteReader("YafDnn_LastUpdatedProfile", userID))
+            {
+                while (dr.Read())
+                {
+                    lastUpdatedDate = (DateTime)dr["LastUpdatedDate"];
+                }
+            }
+
+            return lastUpdatedDate;
+        }       
+
+        /// <summary>
+        /// Adds the Yaf Profile property definitions for a portal
+        /// </summary>
+        /// <param name="portalId">Id of the Portal</param>
+        public static void AddYafProfileDefinitions(int portalId)
+        {
+            ListController objListController = new ListController();
+            ListEntryInfoCollection dataTypes = objListController.GetListEntryInfoCollection("DataType");
+
+            AddYafProfileDefinition(portalId, "YAF Profile", "Birthday", "DateTime", 0, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Occupation", "Text", 0, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Gender", "Integer", 0, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Blog", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "MSN", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "YIM", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "AIM", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "ICQ", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "Region", "Text", 50, dataTypes);
+            AddYafProfileDefinition(portalId, "YAF Profile", "XMPP", "Text", 50, dataTypes);
+        }
+
+        /// <summary>
+        /// Adds a single default property definition
+        /// </summary>
+        /// <param name="portalId">
+        /// Id of the Portal
+        /// </param>
+        /// <param name="category">
+        /// Category of the Property
+        /// </param>
+        /// <param name="name">
+        /// Name of the Property
+        /// </param>
+        /// <param name="strType">
+        /// The str Type.
+        /// </param>
+        /// <param name="length">
+        /// The length.
+        /// </param>
+        /// <param name="types">
+        /// The types.
+        /// </param>
+        public static void AddYafProfileDefinition(int portalId, string category, string name, string strType, int length, ListEntryInfoCollection types)
+        {
+            ProfilePropertyDefinitionCollection profileProperties = ProfileController.GetPropertyDefinitionsByPortal(portalId);
+
+            int lastViewOrder = profileProperties[profileProperties.Count - 1].ViewOrder;
+
+            ListEntryInfo typeInfo = types.Item("DataType:{0}".FormatWith(strType));
+
+            ProfilePropertyDefinition propertyDefinition = new ProfilePropertyDefinition
+                {
+                    DataType = typeInfo.EntryID,
+                    DefaultValue = string.Empty,
+                    ModuleDefId = Null.NullInteger,
+                    PortalId = portalId,
+                    PropertyCategory = category,
+                    PropertyName = name,
+                    Required = false,
+                    Visible = true,
+                    Length = length,
+                    ViewOrder = ++lastViewOrder
+                };
+
+            ProfileController.AddPropertyDefinition(propertyDefinition);
         }
 
         #endregion

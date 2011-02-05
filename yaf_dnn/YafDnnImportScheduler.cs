@@ -171,16 +171,17 @@ namespace YAF.DotNetNuke
       userProfile.Homepage = dnnUserInfo.Profile.Website;
       userProfile.Save();
 
+
       int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
       // Save User
       LegacyDb.user_save(
         yafUserId, 
-        boardId, 
-        null, 
-        null, 
-        null, 
-        GetUserTimeZoneOffset(dnnUserInfo), 
+        boardId,
+        dnnUserInfo.DisplayName,
+        dnnUserInfo.DisplayName, 
+        null,
+        ProfileSyncronizer.GetUserTimeZoneOffset(dnnUserInfo, null), 
         null, 
         null, 
         null, 
@@ -193,30 +194,6 @@ namespace YAF.DotNetNuke
         null);
 
       return yafUserId;
-    }
-
-    /// <summary>
-    /// The get user time zone offset.
-    /// </summary>
-    /// <param name="userInfo">
-    /// The user info.
-    /// </param>
-    /// <returns>
-    /// The get user time zone offset.
-    /// </returns>
-    private static int GetUserTimeZoneOffset(UserInfo userInfo)
-    {
-      int timeZone;
-      if ((userInfo != null) && (userInfo.UserID != Null.NullInteger))
-      {
-        timeZone = userInfo.Profile.TimeZone;
-      }
-      else
-      {
-        timeZone = -480;
-      }
-
-      return timeZone;
     }
 
     /// <summary>
@@ -335,6 +312,8 @@ namespace YAF.DotNetNuke
           try
           {
             yafUserId = LegacyDb.user_get(board, dnnUser.ProviderUserKey);
+
+            ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, portal, board);
           }
           catch (Exception)
           {

@@ -29,11 +29,14 @@ namespace YAF.DotNetNuke
     using System.Web;
     using System.Web.Security;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
+
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Common.Utilities;
     using global::DotNetNuke.Entities.Modules;
     using global::DotNetNuke.Entities.Modules.Actions;
     using global::DotNetNuke.Entities.Portals;
+    using global::DotNetNuke.Entities.Profile;
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Framework;
     using global::DotNetNuke.Security;
@@ -176,33 +179,6 @@ namespace YAF.DotNetNuke
             base.OnInit(e);
         }
 
-        /// <summary>
-        /// The get user time zone offset.
-        /// </summary>
-        /// <param name="userInfo">
-        /// The user info.
-        /// </param>
-        /// <param name="portalSettings">
-        /// The portal settings.
-        /// </param>
-        /// <returns>
-        /// The get user time zone offset.
-        /// </returns>
-        private static int GetUserTimeZoneOffset(UserInfo userInfo, PortalSettings portalSettings)
-        {
-            int timeZone;
-            if ((userInfo != null) && (userInfo.UserID != Null.NullInteger))
-            {
-                timeZone = userInfo.Profile.TimeZone;
-            }
-            else
-            {
-                timeZone = portalSettings.TimeZoneOffset;
-            }
-
-            return timeZone;
-        }
-        
         /// <summary>
         /// Get Default CDefault
         /// </summary>
@@ -494,7 +470,7 @@ namespace YAF.DotNetNuke
                 dnnUserInfo.DisplayName,
                 dnnUserInfo.DisplayName,
                 null, 
-                GetUserTimeZoneOffset(dnnUserInfo, this.PortalSettings), 
+                ProfileSyncronizer.GetUserTimeZoneOffset(dnnUserInfo, this.PortalSettings), 
                 null, 
                 null, 
                 null, 
@@ -508,7 +484,7 @@ namespace YAF.DotNetNuke
 
             return yafUserId;
         }
-
+        
         /// <summary>
         /// The dot net nuke module_ load.
         /// </summary>
@@ -531,104 +507,141 @@ namespace YAF.DotNetNuke
                 return;
             }
 
+            // Check if Yaf Profile exists as dnn profile Definition
+            if (this.Session["{0}_profileproperties".FormatWith(this.CurrentPortalSettings.PortalId)] == null)
+            {
+                if (ProfileController.GetPropertyDefinitionsByCategory(this.CurrentPortalSettings.PortalId, "YAF Profile").Count == 0)
+                {
+                    DataController.AddYafProfileDefinitions(this.CurrentPortalSettings.PortalId);
+                }
+                else
+                {
+                    this.Session["{0}_profileproperties".FormatWith(this.CurrentPortalSettings.PortalId)] = true;
+                }
+            }
+            
+
             try
             {
-                // Get current Dnn user (DNN 4)
-                UserInfo dnnUserInfo = UserController.GetUser(this.CurrentPortalSettings.PortalId, this.UserId, false);
-
-                // Get current Dnn user (DNN 5)
-                // UserInfo dnnUserInfo= UserController.GetUserById(CurrentPortalSettings.PortalId, UserId);  
-
-                // get the user from the membership provider
-                MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
-
-                if (dnnUser == null)
-                {
-                    return;
-                }
-
-                // see if the roles have been syncronized...
-                if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] == null)
-                {
-                    bool roleChanged = false;
-                    foreach (string role in dnnUserInfo.Roles)
-                    {
-                        if (!Roles.RoleExists(role))
-                        {
-                            Roles.CreateRole(role);
-                            roleChanged = true;
-                        }
-
-                        if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
-                        {
-                            Roles.AddUserToRole(dnnUserInfo.Username, role);
-                        }
-                    }
-
-                    if (roleChanged)
-                    {
-                        MarkRolesChanged();
-                    }
-
-                    this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] = true;
-                }
-
-                // Admin or Host user?
-                if ((dnnUserInfo.IsSuperUser || dnnUserInfo.UserID == this._portalSettings.AdministratorId) &&
-                    this._createNewBoard)
-                {
-                    this.CreateNewBoard(dnnUserInfo, dnnUser);
-                }
-
-                int yafUserId;
-
-                try
-                {
-                    yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
-                    if (yafUserId > 0)
-                    {
-                        this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
-                    }
-                }
-                catch (Exception)
-                {
-                    yafUserId = 0;
-                    this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = null;
-                }
-
-                // Has this user been registered in YAF already?
-                if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
-                {
-                    return;
-                }
-
-                if (yafUserId == 0)
-                {
-                    yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
-                }
-
-                // super admin check...
-                if (dnnUserInfo.IsSuperUser)
-                {
-                    this.CreateYafHostUser(yafUserId);
-                }
-
-                if (YafContext.Current.Settings != null)
-                {
-                    RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
-                }
-
-                YafContext.Current.Get<IDataCache>().Clear();
-
-                DataCache.ClearPortalCache(this._portalSettings.PortalId, true);
-
-                this.Session.Clear();
-                this.Response.Redirect(Globals.NavigateURL(), true);
+                this.VerifyUser();
             }
             catch (Exception ex)
             {
                 Exceptions.ProcessModuleLoadException(this, ex);
             }
+        }
+
+        /// <summary>
+        /// Check if roles are syncronized and the user is added to them
+        /// </summary>
+        /// <param name="dnnUser">The Current DNN User</param>
+        private void CheckForRoles(UserInfo dnnUser)
+        {
+            // see if the roles have been syncronized...
+            if (this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] != null)
+            {
+                return;
+            }
+
+            bool roleChanged = false;
+            foreach (string role in dnnUser.Roles)
+            {
+                if (!Roles.RoleExists(role))
+                {
+                    Roles.CreateRole(role);
+                    roleChanged = true;
+                }
+
+                if (!Roles.IsUserInRole(dnnUser.Username, role))
+                {
+                    Roles.AddUserToRole(dnnUser.Username, role);
+                }
+            }
+
+            if (roleChanged)
+            {
+                MarkRolesChanged();
+            }
+
+            this.Session["{0}_rolesloaded".FormatWith(this.SessionUserKeyName)] = true;
+        }
+
+        /// <summary>
+        /// Check if the DNN User exists in yaf, and if the Profile is up to date.
+        /// </summary>
+        private void VerifyUser()
+        {
+            // Get current Dnn user (DNN 4)
+            UserInfo dnnUserInfo = UserController.GetUser(this.CurrentPortalSettings.PortalId, this.UserId, false);
+
+            // Get current Dnn user (DNN 5)
+            // UserInfo dnnUserInfo= UserController.GetUserById(CurrentPortalSettings.PortalId, UserId);  
+
+            // get the user from the membership provider
+            MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
+
+            if (dnnUser == null)
+            {
+                return;
+            }
+
+            this.CheckForRoles(dnnUserInfo);
+
+            // Admin or Host user?
+            if ((dnnUserInfo.IsSuperUser || dnnUserInfo.UserID == this._portalSettings.AdministratorId) &&
+                this._createNewBoard)
+            {
+                this.CreateNewBoard(dnnUserInfo, dnnUser);
+            }
+
+            int yafUserId;
+
+           /* try
+            {
+*/                yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
+
+                if (yafUserId > 0)
+                {
+                    this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
+
+                    ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, PortalSettings.PortalId, this.forum1.BoardID);
+                }
+           /* }
+            catch (Exception)
+            {
+                yafUserId = 0;
+                this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = null;
+            }*/
+
+            // Has this user been registered in YAF already?
+            if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
+            {
+                return;
+            }
+
+            if (yafUserId == 0)
+            {
+                yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
+            }
+            
+
+            // super admin check...
+            if (dnnUserInfo.IsSuperUser)
+            {
+                this.CreateYafHostUser(yafUserId);
+            }
+
+            if (YafContext.Current.Settings != null)
+            {
+                RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
+            }
+
+            YafContext.Current.Get<IDataCache>().Clear();
+
+            DataCache.ClearPortalCache(this._portalSettings.PortalId, true);
+
+            this.Session.Clear();
+            this.Response.Redirect(Globals.NavigateURL(), true);
         }
 
         /// <summary>
