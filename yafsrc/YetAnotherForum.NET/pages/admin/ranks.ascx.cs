@@ -45,6 +45,21 @@ namespace YAF.Pages.Admin
     public partial class ranks : AdminPage
     {
         #region Methods
+
+        /// <summary>
+        /// Format string color.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Set values are rendered red, else cyan.
+        /// </returns>
+        protected Color GetItemColorString(string item)
+        {
+            // show enabled flag red
+            return item.IsSet() ? Color.Red : Color.Cyan;
+        }
         /// <summary>
         /// Format access mask setting color formatting.
         /// </summary>

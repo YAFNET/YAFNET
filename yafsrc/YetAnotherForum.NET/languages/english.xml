@@ -1937,6 +1937,11 @@ Visit {forumname} at {forumlink}
       <Resource tag="APROVE_ALL">Approve All</Resource>
       <Resource tag="DELETE_ALL">Delete All More Than Days Old:</Resource>
    </page>
+  <page name="ADMIN_COMMON">
+    <Resource tag="YES">Yes</Resource>
+    <Resource tag="NO">No</Resource>
+    <Resource tag="DISABLED">Disabled</Resource>
+  </page>
    <page name="ADMIN_VERSION">
       <Resource tag="TITLE">Version Check</Resource>
      <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target=&quot;_top&quot; href=&quot;http://yafnet.codeplex.com/&quot;&gt;
@@ -2088,6 +2093,10 @@ Visit {forumname} at {forumlink}
       <Resource tag="INDEX_SHRINK">Shrink operation was Successful.Your database size is now: {0}MB</Resource>
       <Resource tag="REINDEX">With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance.</Resource>
       <Resource tag="SHRINK">You can use the Shrink method to reduce the size of the files that make up the database manually. The data is stored more densely and unused pages are removed</Resource>
+      <Resource tag="TBLINDEXSTATS_BTN">Table index statistics</Resource>
+      <Resource tag="REINDEXTBL_BTN">Reindex tables</Resource>
+      <Resource tag="SHRINK_BTN">Shrink database</Resource>
+      <Resource tag="SETRECOVERY_BTN">Set recovery mode</Resource>
     </page>
     <page name="ADMIN_EDITNNTPFORUM">
       <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>

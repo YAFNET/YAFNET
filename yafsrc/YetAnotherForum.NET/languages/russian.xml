@@ -301,6 +301,11 @@
     <Resource tag="HEADER">Текущие настройки конференции</Resource>
     <Resource tag="TITLE">Настройки конференции</Resource>
   </page>
+  <page name="ADMIN_COMMON">
+    <Resource tag="NO">Нет</Resource>
+    <Resource tag="YES">Да</Resource>
+    <Resource tag="DISABLED">Отключено</Resource>
+  </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Вы уверены, что хотите инициировать отправку дайджеста прямо сейчас?</Resource>
     <Resource tag="DIGEST_EMAIL">Email:</Resource>
@@ -1252,8 +1257,12 @@
     <Resource tag="RECOVERY2">Простое (Простоое восстановление позволяет восстановить копию последнего резервного бэкапа. Вы должны делать регулярные бэкапы.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (Восстановление в режиме Bulk-Logged выполняет такие операции.)</Resource>
     <Resource tag="REINDEX">При любых модификациях данных происходит фрагментация данных в таблицах. Эта команда может быть использована для воссоздания индексов во всех таблицах БД, чтобы увеличить скорость.</Resource>
+    <Resource tag="REINDEXTBL_BTN">Реиндексировать таблицы</Resource>
+    <Resource tag="SETRECOVERY_BTN">Установить режим</Resource>
     <Resource tag="SHOW_STATS">Показать статистическую информацию об индексах таблиц YAF.</Resource>
     <Resource tag="SHRINK">Вы можете использовать сжатие, чтобы снизить размер БД вручную. Данные более компактны и неиспользуемые странциы удаляются.</Resource>
+    <Resource tag="SHRINK_BTN">Сжать БД</Resource>
+    <Resource tag="TBLINDEXSTATS_BTN">Статистика индексов</Resource>
     <Resource tag="TITLE">Реиндексирование и обслуживание БД</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS">

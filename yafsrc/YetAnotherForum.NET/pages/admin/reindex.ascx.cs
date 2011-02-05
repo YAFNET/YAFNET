@@ -69,10 +69,10 @@ namespace YAF.Pages.Admin
         this.PanelGetStats.Visible = LegacyDb.PanelGetStats;
 
         // Get the name of buttons
-        this.btnReindex.Text = LegacyDb.btnReindexName;
-        this.btnGetStats.Text = LegacyDb.btnGetStatsName;
-        this.btnShrink.Text = LegacyDb.btnShrinkName;
-        this.btnRecoveryMode.Text = LegacyDb.btnRecoveryModeName;
+        this.btnReindex.Text = this.GetText("ADMIN_REINDEX", "REINDEXTBL_BTN");
+        this.btnGetStats.Text = this.GetText("ADMIN_REINDEX", "TBLINDEXSTATS_BTN");
+        this.btnShrink.Text = this.GetText("ADMIN_REINDEX", "SHRINK_BTN");
+        this.btnRecoveryMode.Text = this.GetText("ADMIN_REINDEX", "SETRECOVERY_BTN");
 
         this.btnShrink.OnClientClick =
             "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK"));

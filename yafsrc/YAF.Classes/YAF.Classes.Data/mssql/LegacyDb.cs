@@ -9077,50 +9077,6 @@ namespace YAF.Classes.Data
 
     #region reindex page controls
 
-    // DB Maintenance page buttons name
-    /// <summary>
-    /// Gets btnGetStatsName.
-    /// </summary>
-    public static string btnGetStatsName
-    {
-      get
-      {
-        return "Table Index Statistics";
-      }
-    }
-
-    /// <summary>
-    /// Gets btnShrinkName.
-    /// </summary>
-    public static string btnShrinkName
-    {
-      get
-      {
-        return "Shrink Database";
-      }
-    }
-
-    /// <summary>
-    /// Gets btnRecoveryModeName.
-    /// </summary>
-    public static string btnRecoveryModeName
-    {
-      get
-      {
-        return "Set Recovery Mode";
-      }
-    }
-
-    /// <summary>
-    /// Gets btnReindexName.
-    /// </summary>
-    public static string btnReindexName
-    {
-      get
-      {
-        return "Reindex Tables";
-      }
-    }
 
     // DB Maintenance page panels visibility
     /// <summary>
