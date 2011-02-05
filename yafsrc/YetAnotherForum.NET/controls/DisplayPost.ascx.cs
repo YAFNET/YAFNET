@@ -270,7 +270,7 @@ namespace YAF.Controls
 
         if (this.PageContext.IsAdmin)
         {
-          this.PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
+          this.PopMenu1.AddPostBackItem("edituser",  this.GetText("POSTS", "EDITUSER"));
         }
 
         if (!this.PageContext.IsGuest)

@@ -1011,7 +1011,7 @@
     <Resource tag="SEARCH_ENGINE1_PARAM">Параметры поисковой машины 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_PARAM_HELP">Введите спецстроку параметров поисковой машины.</Resource>
     <Resource tag="SEARCH_ENGINE2">Поисковая машина 2:</Resource>
-    <Resource tag="SEARCH_ENGINE2_HELP">>Введите специальную строку поисковой машины.</Resource>
+    <Resource tag="SEARCH_ENGINE2_HELP">&gt;Введите специальную строку поисковой машины.</Resource>
     <Resource tag="SEARCH_ENGINE2_PARAM">Параметры поисковой машины 2:</Resource>
     <Resource tag="SEARCH_ENGINE2_PARAM_HELP">Введите спецстроку параметров поисковой машины.</Resource>
     <Resource tag="SEARCH_MAXLENGTH">Максимальная длина текста для поиска:</Resource>
@@ -1032,7 +1032,7 @@
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Вклчюить или отключить отображение активных обсуждений.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Отображать ссылки на ленты Atom:</Resource>
     <Resource tag="SHOW_ATOM_LINKS_HELP">Отображать ссылки на ленты Atom по всему форумы. Вы должны также включить индивидуальные ленты.</Resource>
-    <Resource tag="SHOW_AVATARS_TOPICLISTS">Показыать авватары в списке тем:</Resource>
+    <Resource tag="SHOW_AVATARS_TOPICLISTS">Показывать аватары в списке тем:</Resource>
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">На страницах со списком тем будут отображены миниатюры аватаров.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Отображать ботов в активных пользователях:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Боты будут отображаться в активных пользователях, иначе они будут обрабатываться как гости.</Resource>
@@ -2619,6 +2619,7 @@
     <Resource tag="EDITED">Отредактировано</Resource>
     <Resource tag="EDITED_BY_MOD">модератором</Resource>
     <Resource tag="EDITED_BY_USER">пользователем</Resource>
+    <Resource tag="EDITUSER">Редактировать</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
     <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
