@@ -302,9 +302,9 @@
     <Resource tag="TITLE">Настройки конференции</Resource>
   </page>
   <page name="ADMIN_COMMON">
+    <Resource tag="DISABLED">Отключено</Resource>
     <Resource tag="NO">Нет</Resource>
     <Resource tag="YES">Да</Resource>
-    <Resource tag="DISABLED">Отключено</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Вы уверены, что хотите инициировать отправку дайджеста прямо сейчас?</Resource>

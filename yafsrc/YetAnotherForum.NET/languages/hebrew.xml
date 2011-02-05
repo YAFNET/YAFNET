@@ -323,6 +323,11 @@
     <Resource tag="HEADER">Current Board Settings</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
+  <page name="ADMIN_COMMON">
+    <Resource tag="DISABLED">Disabled</Resource>
+    <Resource tag="NO">No</Resource>
+    <Resource tag="YES">Yes</Resource>
+  </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
     <Resource tag="DIGEST_EMAIL">Email:</Resource>
@@ -1275,8 +1280,12 @@
     <Resource tag="RECOVERY2">Simple (Simple Recovery allows the database to be recovered to the most recent backup.You need to backup your DB regularly.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (Bulk-Logged Recovery allows bulk-logged operations.)</Resource>
     <Resource tag="REINDEX">With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance.</Resource>
+    <Resource tag="REINDEXTBL_BTN">Reindex tables</Resource>
+    <Resource tag="SETRECOVERY_BTN">Set recovery mode</Resource>
     <Resource tag="SHOW_STATS">Show statistical information about YAF table indexes.</Resource>
     <Resource tag="SHRINK">You can use the Shrink method to reduce the size of the files that make up the database manually. The data is stored more densely and unused pages are removed</Resource>
+    <Resource tag="SHRINK_BTN">Shrink database</Resource>
+    <Resource tag="TBLINDEXSTATS_BTN">Table index statistics</Resource>
     <Resource tag="TITLE">Reindex DB</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS">
@@ -2646,6 +2655,7 @@
     <Resource tag="EDITED">נערך</Resource>
     <Resource tag="EDITED_BY_MOD">ע"י מנהל</Resource>
     <Resource tag="EDITED_BY_USER">ע"י משתמש</Resource>
+    <Resource tag="EDITUSER">Edit</Resource>
     <Resource tag="EMAIL">דוא"ל</Resource>
     <Resource tag="EMAILTOPIC">שלח דיון זה בדוא"ל</Resource>
     <Resource tag="EMPTY_MESSAGE">חובה להזין תוכן בהודעה.</Resource>
