@@ -74,7 +74,11 @@ namespace YAF.Controls
       // add each YafMenuItem to the NavView...
       foreach (var item in listItems)
       {
-        bool isVisible = !(item.Debug.IsSet() && Convert.ToBoolean(item.Debug));
+        bool isVisible = true;
+
+        #if !DEBUG
+        isVisible = !(item.Debug.IsSet() && Convert.ToBoolean(item.Debug));
+        #endif
 
         if (!isVisible)
         {

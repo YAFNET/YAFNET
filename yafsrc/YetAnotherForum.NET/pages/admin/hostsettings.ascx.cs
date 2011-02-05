@@ -235,6 +235,10 @@ namespace YAF.Pages.Admin
         {
           ddl.Items.AddRange(localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString())).ToArray());
         }
+
+          CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
+          CaptchaTypeRegister.Items.Add(new ListItem("YafCaptcha","1"));
+          CaptchaTypeRegister.Items.Add(new ListItem("ReCaptcha", "2"));
       }
 
       /// <summary>
