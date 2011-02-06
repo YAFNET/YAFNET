@@ -56,7 +56,10 @@ CKEDITOR.htmlDataProcessor.prototype =
 		data = data.replace(/\[\/code\]/gi,'</code>');
 		
 		// [color]
-		data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi,'<span style="color: $1">$2</span>');
+		data = data.replace(/\[color=(.*?)\](.*?)\[\/color\]/gi, '<span style="color: $1">$2</span>');
+
+		// [youtube]
+/*		data = data.replace(/\[youtube\](.*?)\[\/youtube\]/gi, '<object width="425" height="350"><param name="movie" value="$1"></param><param name="wmode" value="transparent" /><embed src="$1" type="application/x-shockwave-flash" width="425" height="350" wmode="transparent"></embed></object>');*/
 			
 		return data;
 	},
@@ -103,14 +106,17 @@ CKEDITOR.htmlDataProcessor.prototype =
 		html = html.replace( /<code>/gi, '[code]') ;
 		// [code=language]
         html = html.replace(/<code title=\"(.*?)\">/gi,"[code=$1]");
-		html = html.replace(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi,"[color=$1]$2[/color]");
+		html = html.replace( /<\/code>/gi, '[/code]') ;
 		
 		// [color]
 		html = html.replace(/<span style=\"color: ?(.*?);\">(.*?)<\/span>/gi,"[color=$1]$2[/color]");
-		html = html.replace(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi,"[color=$1]$2[/color]");
+		html = html.replace(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi, "[color=$1]$2[/color]");
+		
+		// [youtube]
+		//html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
 		
 		// Remove remaining tags.
-		html = html.replace( /<[^>]+>/g, '') ;
+		//html = html.replace( /<[^>]+>/g, '') ;
 
 		return html;
 	}

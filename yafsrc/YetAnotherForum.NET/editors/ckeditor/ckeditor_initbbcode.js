@@ -5,12 +5,12 @@
 	   
 	   CKEDITOR.replaceAll(function( textarea, config ){
 		  
-		  config.extraPlugins = 'bbcode';
+		   config.extraPlugins = 'bbcode,syntaxhighlight';
 		  config.toolbar_Full = [
 		                         ['Source'],
 		                         ['Undo','Redo'],
 		                         ['Bold','Italic','Underline','-','Link', 'Unlink'], 
-		                         ['Blockquote', 'TextColor', 'Image'],
+		                         ['Blockquote', 'syntaxhighlight', 'TextColor', 'Image'],
 		                         ['SelectAll', 'RemoveFormat'],
 								 ['About']
 		                        ] ;
