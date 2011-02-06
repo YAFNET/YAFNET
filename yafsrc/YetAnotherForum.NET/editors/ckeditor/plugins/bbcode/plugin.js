@@ -149,7 +149,7 @@ CKEDITOR.htmlDataProcessor.prototype =
 		
 		
 		// Remove remaining tags.
-		//html = html.replace( /<[^>]+>/g, '') ;
+		html = html.replace( /<[^>]+>/g, '') ;
 
 		return html;
 	}
