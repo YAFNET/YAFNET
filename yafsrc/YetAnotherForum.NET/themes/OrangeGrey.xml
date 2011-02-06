@@ -39,7 +39,9 @@
 	  <Resource tag="FORUM_USERS">~/folder_who.gif</Resource>
 	  <Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
 	  <Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
-	  <Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
+    <Resource tag="ICON_NEWEST_UNREAD">~/icon_newest_reply.gif</Resource>
+    <Resource tag="ICON_LATEST_UNREAD">~/icon_latest_reply.gif</Resource>
+    <Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
     <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
     <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>
 	  <Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>

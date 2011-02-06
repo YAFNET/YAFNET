@@ -3342,7 +3342,7 @@ select top 1
 	where
 		m.TopicID = @TopicID ORDER BY m.Posted
 
-	-- fill in the table variable with	first 100 values from topic's messages		
+	-- fill in the table variable with last 100 values from topic's messages		
 	insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
 	select  top 100	  
 		m.MessageID,
@@ -3358,13 +3358,32 @@ select top 1
     -- the messageid was already supplied, find a particular message
     if (@MessageID > 0)
 	begin
-	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and Posted>@LastRead)
+	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and MessageID = @MessageID)
+	    begin
+	     -- return last unread		
+	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+		   from @tbl_msglunr
+	       where TopicID=@TopicID and  MessageID = @MessageID 		
+		end
+	    else
+	    begin
+	     -- simply return last post if no unread message is found
+	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+		   from @tbl_msglunr
+	       where TopicID=@TopicID and Posted> @LastRead
+	       order by Posted DESC
+	    end
+	end
+	else
+	begin
+	   -- simply return last message as no MessageID was supplied 
+	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and Posted> @LastRead)
 	    begin
 	     -- return last unread		
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID and Posted>@LastRead  
-	       order by Posted DESC
+	       order by Posted  ASC
 		end
 	    else
 	    begin
@@ -3372,16 +3391,8 @@ select top 1
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID
-	       order by Posted DESC 
-	    end
-	end
-	else
-	begin
-	   -- simply return last message as no MessageID was supplied
-	   select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
-	   from @tbl_msglunr
-		where TopicID=@TopicID
-	order by Posted
+	       order by Posted DESC  
+	    end	
 	end
 
 end
@@ -4642,10 +4653,11 @@ begin
 	-- select last page	
    if (@MessagePosition > 0)
    begin
-  
+   declare @pageshift int;
+   SET @pageshift = @MessagePosition/@PageSize
    SET @pagecorrection = 0;
-   -- round to ceiling
    
+   -- round to ceiling   
    SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
    -- round to floor
    SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
@@ -4661,7 +4673,7 @@ begin
 	  SET @offset = 1;
 	  end
 	       
-   SET @PageIndex = @ceiling +  @pagecorrection - 1 + @offset
+   SET @PageIndex = @ceiling +  @pagecorrection - 1 + @offset - @pageshift
    select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1  -- @pagecorrection
   if @ceiling = @floor
            begin
@@ -4669,7 +4681,7 @@ begin
            end 
 		    else 
 	  begin
-	 SET @PageIndex = @PageIndex - @offset
+	 SET @PageIndex = @PageIndex - @offset  
 	  end
    end
    else

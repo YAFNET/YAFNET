@@ -1101,16 +1101,39 @@ namespace YAF.Pages
        { 
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
         {
-          // Show this message
-          findMessageId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
             messageDefined = true;
-            // if the message id is already supplied we find message position in list to redirect to required page in parent method.
-          using (DataTable unread = LegacyDb.message_findunread(
-          this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
-          {
-
-              messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
-          }
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
+                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+            {
+                // Find next unread
+                using (
+                  DataTable unread = LegacyDb.message_findunread(
+                    this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit))
+                {
+                    var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                    if (unreadFirst != null)
+                    {
+                        findMessageId = unreadFirst.Field<int>("MessageID");
+                        messagePosition = unreadFirst.Field<int>("MessagePosition");
+                        // move to this message on load...
+                        PageContext.PageElements.RegisterJsBlockStartup(
+                            this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                    }
+                }
+            }
+            else
+            {
+                // Show this message
+                findMessageId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+               
+                // if the message id is already supplied we find message position in list to redirect to required page in parent method.
+                using (DataTable unread = LegacyDb.message_findunread(
+                this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
+                {
+                    messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
+                }
+            }
+         
         }
         else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
                                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
@@ -1118,7 +1141,7 @@ namespace YAF.Pages
           // Find next unread
           using (
             DataTable unread = LegacyDb.message_findunread(
-              this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
+              this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit))
           {
             var unreadFirst = unread.AsEnumerable().FirstOrDefault();
 

@@ -24,11 +24,15 @@
                                 &nbsp;<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
                                 &nbsp;<YAF:UserLink ID="LastUserLink" runat="server" />&nbsp;(<asp:HyperLink ID="ForumLink" runat="server" />)
                             </td>
-                            <td class="post" style="width: 30em; text-align: right;">
+                            <td class="post" style="width: 30em; text-align: right;">                            
                                 <YAF:DisplayDateTime ID="LastPostDate" runat="server" Format="BothTopic" />
                                 <asp:HyperLink ID="ImageMessageLink" runat="server">
                                     <YAF:ThemeImage ID="LastPostedImage" runat="server" LocalizedTitlePage="DEFAULT"
                                         LocalizedTitleTag="GO_LAST_POST" Style="border: 0" />
+                                </asp:HyperLink>
+                                <asp:HyperLink ID="ImageLastUnreadMessageLink" runat="server">
+                                 <YAF:ThemeImage ID="LastUnreadImage" runat="server" LocalizedTitlePage="DEFAULT"
+                                        LocalizedTitleTag="GO_LASTUNREAD_POST" Style="border: 0" />
                                 </asp:HyperLink>
                             </td>
                         </tr>
