@@ -60,6 +60,24 @@ CKEDITOR.htmlDataProcessor.prototype =
 
 		// [youtube]
 /*		data = data.replace(/\[youtube\](.*?)\[\/youtube\]/gi, '<object width="425" height="350"><param name="movie" value="$1"></param><param name="wmode" value="transparent" /><embed src="$1" type="application/x-shockwave-flash" width="425" height="350" wmode="transparent"></embed></object>');*/
+
+        // [left]
+		data = data.replace(/\[left\](.*?)\[\/left\]/gi,'<div style="text-align:left">$1</div>');
+		
+		// [center]
+		data = data.replace(/\[center\](.*?)\[\/center\]/gi,'<div style="text-align:center">$1</div>');
+		
+		// [right]
+		data = data.replace(/\[right\](.*?)\[\/right\]/gi,'<div style="text-align:right">$1</div>');
+		
+		// [list]
+		data = data.replace(/\[list\](.*?)\[\/list\]/gi,'<ul>$1</ul>');
+		
+		// [list=1]
+		data = data.replace(/\[list=1\](.*?)\[\/list\]/gi,'<ol>$1</ol>');
+		
+		// [*]
+		data = data.replace(/\[\*]/gi,'<li>');
 			
 		return data;
 	},
@@ -115,8 +133,23 @@ CKEDITOR.htmlDataProcessor.prototype =
 		// [youtube]
 		//html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
 		
+        // [left], [center] and [right] 
+        html = html.replace(/<p style=\"text-align:(.*?)\">(.*?)<\/p>/gi, '[$1]$2[/$1]')
+		html = html.replace(/<div style=\"text-align:(.*?)\">(.*?)<\/div>/gi, '[$1]$2[/$1]')
+		
+		// [list=1]
+		html = html.replace(/<ol>(.*?)<\/ol>/gi, '[list=1]$1[/list]')
+		
+		// [list]
+		html = html.replace(/<ul>(.*?)<\/ul>/gi, '[list]$1[/list]')
+		
+		// [*]
+		html = html.replace(/<li>(.*?)<\/li>/gi, '[*]$1')
+		html = html.replace(/<li>/gi, '[*]')
+		
+		
 		// Remove remaining tags.
-		html = html.replace( /<[^>]+>/g, '') ;
+		//html = html.replace( /<[^>]+>/g, '') ;
 
 		return html;
 	}

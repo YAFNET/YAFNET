@@ -9,8 +9,11 @@
 		  config.toolbar_Full = [
 		                         ['Source'],
 		                         ['Undo','Redo'],
-		                         ['Bold','Italic','Underline','-','Link', 'Unlink'], 
-		                         ['Blockquote', 'syntaxhighlight', 'TextColor', 'Image'],
+		                         ['Bold','Italic','Underline','TextColor'],
+								 ['JustifyLeft','JustifyCenter','JustifyRight'], 
+								 ['-','NumberedList','BulletedList'], 
+								 ['-','Link', 'Unlink', 'Image'], 
+		                         ['Blockquote', 'syntaxhighlight'],
 		                         ['SelectAll', 'RemoveFormat'],
 								 ['About']
 		                        ] ;
