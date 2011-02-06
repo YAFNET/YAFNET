@@ -2126,6 +2126,8 @@
     <Content Include="themes\cleanSlate\icon_skype.png" />
     <Content Include="themes\cleanSlate\icon_subforum.gif" />
     <Content Include="themes\cleanSlate\icon_subforum_new.gif" />
+    <Content Include="themes\cleanSlate\icon_topiclatestunread_newest.gif" />
+    <Content Include="themes\cleanSlate\icon_topic_latestunread.gif" />
     <Content Include="themes\cleanSlate\icon_useroffline.png" />
     <Content Include="themes\cleanSlate\icon_useronline.png" />
     <Content Include="themes\cleanSlate\icon_xmpp.png" />
@@ -2770,6 +2772,57 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="editors\ckeditor\adapters\" />
+    <Folder Include="editors\ckeditor\images\" />
+    <Folder Include="editors\ckeditor\lang\" />
+    <Folder Include="editors\ckeditor\plugins\a11yhelp\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\a11yhelp\lang\" />
+    <Folder Include="editors\ckeditor\plugins\about\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\adobeair\" />
+    <Folder Include="editors\ckeditor\plugins\autogrow\" />
+    <Folder Include="editors\ckeditor\plugins\bbcode\" />
+    <Folder Include="editors\ckeditor\plugins\clipboard\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\colordialog\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\dialog\" />
+    <Folder Include="editors\ckeditor\plugins\div\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\find\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\flash\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\flash\images\" />
+    <Folder Include="editors\ckeditor\plugins\forms\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\forms\images\" />
+    <Folder Include="editors\ckeditor\plugins\iframedialog\" />
+    <Folder Include="editors\ckeditor\plugins\iframe\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\iframe\images\" />
+    <Folder Include="editors\ckeditor\plugins\image\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\link\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\link\images\" />
+    <Folder Include="editors\ckeditor\plugins\liststyle\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\pagebreak\images\" />
+    <Folder Include="editors\ckeditor\plugins\pastefromword\filter\" />
+    <Folder Include="editors\ckeditor\plugins\pastetext\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\placeholder\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\placeholder\lang\" />
+    <Folder Include="editors\ckeditor\plugins\scayt\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\showblocks\images\" />
+    <Folder Include="editors\ckeditor\plugins\smiley\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\smiley\images\" />
+    <Folder Include="editors\ckeditor\plugins\specialchar\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\specialchar\lang\" />
+    <Folder Include="editors\ckeditor\plugins\styles\styles\" />
+    <Folder Include="editors\ckeditor\plugins\tableresize\" />
+    <Folder Include="editors\ckeditor\plugins\tabletools\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\table\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\templates\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\templates\templates\images\" />
+    <Folder Include="editors\ckeditor\plugins\uicolor\dialogs\" />
+    <Folder Include="editors\ckeditor\plugins\uicolor\lang\" />
+    <Folder Include="editors\ckeditor\plugins\uicolor\yui\assets\" />
+    <Folder Include="editors\ckeditor\plugins\wsc\dialogs\" />
+    <Folder Include="editors\ckeditor\skins\black\images\" />
+    <Folder Include="editors\ckeditor\skins\kama\images\" />
+    <Folder Include="editors\ckeditor\skins\office2003\images\" />
+    <Folder Include="editors\ckeditor\skins\v2\images\" />
+    <Folder Include="editors\ckeditor\themes\default\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
