@@ -15,7 +15,7 @@
                               </div>
                               <div>
                                 <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
+                                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="LOGIN" LocalizedTag="username" />
                                 </asp:Label>
                                 <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
                               </div>
