@@ -252,7 +252,7 @@ namespace YAF.Classes
     {
       get
       {
-        return IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic;
+          return IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal || IsPortalomatic;
       }
     }
 
@@ -361,7 +361,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.4.4.min.js";
+        return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.5.min.js";
       }
     }
 
