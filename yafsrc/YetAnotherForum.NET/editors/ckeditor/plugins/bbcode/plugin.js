@@ -116,7 +116,7 @@ CKEDITOR.htmlDataProcessor.prototype =
 		//html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
 		
 		// Remove remaining tags.
-		//html = html.replace( /<[^>]+>/g, '') ;
+		html = html.replace( /<[^>]+>/g, '') ;
 
 		return html;
 	}
