@@ -9,13 +9,14 @@
 		  config.toolbar_Full = [
 		                         ['Source'],
 		                         ['Undo','Redo'],
-		                         ['Bold','Italic','Underline','TextColor'],
-								 ['JustifyLeft','JustifyCenter','JustifyRight'], 
 								 ['-','NumberedList','BulletedList'], 
 								 ['-','Link', 'Unlink', 'Image'], 
 		                         ['Blockquote', 'syntaxhighlight'],
 		                         ['SelectAll', 'RemoveFormat'],
-								 ['About']
+								 ['About'],
+								 '/',
+								 ['Bold','Italic','Underline','-', 'TextColor', 'Font', 'FontSize'],
+								 ['JustifyLeft','JustifyCenter','JustifyRight'],
 		                        ] ;
 
 // Add the BBCode plugin.

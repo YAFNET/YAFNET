@@ -62,13 +62,16 @@ CKEDITOR.htmlDataProcessor.prototype =
 /*		data = data.replace(/\[youtube\](.*?)\[\/youtube\]/gi, '<object width="425" height="350"><param name="movie" value="$1"></param><param name="wmode" value="transparent" /><embed src="$1" type="application/x-shockwave-flash" width="425" height="350" wmode="transparent"></embed></object>');*/
 
         // [left]
-		data = data.replace(/\[left\](.*?)\[\/left\]/gi,'<div style="text-align:left">$1</div>');
+		data = data.replace(/\[left\]/gi,'<div style="text-align:left">');
+		data = data.replace(/\[\/left\]/gi,'</div>');
 		
 		// [center]
-		data = data.replace(/\[center\](.*?)\[\/center\]/gi,'<div style="text-align:center">$1</div>');
+		data = data.replace(/\[center\]/gi,'<div style="text-align:center">');
+		data = data.replace(/\[\/center\]/gi,'</div>');
 		
 		// [right]
-		data = data.replace(/\[right\](.*?)\[\/right\]/gi,'<div style="text-align:right">$1</div>');
+		data = data.replace(/\[right\]/gi,'<div style="text-align:right">');
+		data = data.replace(/\[\/right\]/gi,'</div>');
 		
 		// [list]
 		data = data.replace(/\[list\](.*?)\[\/list\]/gi,'<ul>$1</ul>');
@@ -78,18 +81,18 @@ CKEDITOR.htmlDataProcessor.prototype =
 		
 		// [*]
 		data = data.replace(/\[\*]/gi,'<li>');
+		
+		// [size=1]
+		data = data.replace(/\[size=(.*?)\](((\n|.)*).*?)\[\/size\]/gi,'<span style="font-size:$1">$2</span>');
+		
+		// [font=?]
+		data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi,'<span style="font-family:$1">$2</span>');
 			
 		return data;
 	},
 
 	toDataFormat : function( html, fixForBody )
 	{
-		// Convert <br> to line breaks.
-		html = html.replace( /<br(?=[ \/>]).*?>/gi, '\r\n') ;
-		html = html.replace(/<p>/gi,"");
-		html = html.replace(/<\/p>/gi,"\n");
-		html = html.replace(/&nbsp;/gi," ");
-
 		// [url]
 		html = html.replace( /<a .*?href=(["'])(.+?)\1.*?>(.+?)<\/a>/gi, '[url=$2]$3[/url]') ;
 		//html = html.replace(/<a.*?href=\"(.*?)\".*?>(.*?)<\/a>/gi,"[url=$1]$2[/url]");
@@ -134,21 +137,42 @@ CKEDITOR.htmlDataProcessor.prototype =
 		//html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
 		
         // [left], [center] and [right] 
-        html = html.replace(/<p style=\"text-align:(.*?)\">(.*?)<\/p>/gi, '[$1]$2[/$1]')
-		html = html.replace(/<div style=\"text-align:(.*?)\">(.*?)<\/div>/gi, '[$1]$2[/$1]')
+        html = html.replace(/<p style=\"text-align:(.+?)\">(((\n|.)*).*?)<\/p>/gi, '[$1]$2[/$1]');
+		html = html.replace(/<div style=\"text-align:(.+?)\">(((\n|.)*).*?)<\/div>/gi, '[$1]$2[/$1]');
+		
+		//html = html.replace(/<div style=\"text-align:(.*?)\">/gi, '[$1]');
 		
 		// [list=1]
-		html = html.replace(/<ol>(.*?)<\/ol>/gi, '[list=1]$1[/list]')
+		html = html.replace(/<ol>(.*?)<\/ol>/gi, '[list=1]$1[/list]');
 		
 		// [list]
-		html = html.replace(/<ul>(.*?)<\/ul>/gi, '[list]$1[/list]')
+		html = html.replace(/<ul>(.*?)<\/ul>/gi, '[list]$1[/list]');
 		
 		// [*]
-		html = html.replace(/<li>(.*?)<\/li>/gi, '[*]$1')
-		html = html.replace(/<li>/gi, '[*]')
+		html = html.replace(/<li>(.*?)<\/li>/gi, '[*]$1');
+		html = html.replace(/<li>/gi, '[*]');
 		
+        // [size=1]
+	    html = html.replace(/<span style=\"font-size:(.*?);\">(((\n|.)*).*?)<\/span>/gi,"[size=$1]$2[/size]");
+		html = html.replace(/<p style=\"font-size:(.*?);\">(((\n|.)*).*?)<\/p>/gi,"[size=$1]$2[/size]");
+		html = html.replace(/<span style=\"font-size:(.*?)\">(((\n|.)*).*?)<\/span>/gi,"[size=$1]$2[/size]");
+		html = html.replace(/<p style=\"font-size:(.*?)\">(((\n|.)*).*?)<\/p>/gi,"[size=$1]$2[/size]");
+		
+		// [font]
+	    html = html.replace(/<span style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/span>/gi,"[font=$1]$2[/font]");
+		html = html.replace(/<p style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/p>/gi,"[font=$1]$2[/font]");
+		html = html.replace(/<span style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/span>/gi,"[font=$1]$2[/font]");
+		html = html.replace(/<p style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/p>/gi,"[font=$1]$2[/font]");
+		
+		
+		// Convert <br> to line breaks.
+		html = html.replace( /<br(?=[ \/>]).*?>/gi, '\r\n') ;
 		
 		// Remove remaining tags.
+		html = html.replace(/<p>/gi,"");
+		html = html.replace(/<\/p>/gi,"\n");
+		html = html.replace(/&nbsp;/gi," ");
+
 		html = html.replace( /<[^>]+>/g, '') ;
 
 		return html;
