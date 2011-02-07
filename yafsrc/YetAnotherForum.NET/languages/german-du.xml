@@ -169,7 +169,7 @@
     <Resource tag="CONFIRM_APROVE_ALL">Alle Benutzer Genehmigen?</Resource>
     <Resource tag="CONFIRM_DELETE">Diesen Benutzer löschen
 Diesen  Benutzer löschen?</Resource>
-    <Resource tag="CONFIRM_DELETE_ALL">Delete all Unapproved Users more than the specified number of days old?</Resource>
+    <Resource tag="CONFIRM_DELETE_ALL">Alle nicht bestätigten Benutzer löschen die älter als die spezifierte Anzahl an Tagen sind?</Resource>
     <Resource tag="DAYS_AGO">"{0:d} ({1:N0} days ago)</Resource>
     <Resource tag="DELETE_ALL">Alle löschen älter als Tage:</Resource>
     <Resource tag="HEADER1">Wer ist Online</Resource>
@@ -303,9 +303,9 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
   <page name="ADMIN_COMMON">
-    <Resource tag="DISABLED">Disabled</Resource>
-    <Resource tag="NO">No</Resource>
-    <Resource tag="YES">Yes</Resource>
+    <Resource tag="DISABLED">Deaktiviert</Resource>
+    <Resource tag="NO">Nein </Resource>
+    <Resource tag="YES">Ja</Resource>
   </page>
   <page name="ADMIN_DIGEST">
     <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
@@ -1153,15 +1153,15 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Medals</Resource>
   </page>
   <page name="ADMIN_NNTPFORUMS">
-    <Resource tag="ACTIVE">Active</Resource>
-    <Resource tag="DELETE">Delete</Resource>
-    <Resource tag="DELETE_FORUM">Delete this forum?</Resource>
-    <Resource tag="EDIT">Edit</Resource>
+    <Resource tag="ACTIVE">Aktiv</Resource>
+    <Resource tag="DELETE">Löschen</Resource>
+    <Resource tag="DELETE_FORUM">Dieses Forum löschen?</Resource>
+    <Resource tag="EDIT">Bearbeiten</Resource>
     <Resource tag="FORUM">Forum</Resource>
-    <Resource tag="GROUP">Group</Resource>
-    <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="GROUP">Gruppe</Resource>
+    <Resource tag="NEW_FORUM">Neues Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
-    <Resource tag="TITLE">NNTP Forums</Resource>
+    <Resource tag="TITLE">NNTP Foren</Resource>
   </page>
   <page name="ADMIN_NNTPRETRIEVE">
     <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
@@ -1180,23 +1180,23 @@ Diesen  Benutzer löschen?</Resource>
 	&lt;p style="color: red"&gt;
 		To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
 	&lt;/p&gt;</Resource>
-    <Resource tag="GROUPS">Groups ready for retrieval</Resource>
-    <Resource tag="HEADER">Retrieve NNTP Articles</Resource>
-    <Resource tag="LAST_MESSAGE">Last Message</Resource>
-    <Resource tag="LAST_UPDATE">Last Update</Resource>
-    <Resource tag="RETRIEVE">Retrieve</Resource>
+    <Resource tag="GROUPS">Gruppen zum Abruf bereit</Resource>
+    <Resource tag="HEADER">NNTP Artikel abrufen</Resource>
+    <Resource tag="LAST_MESSAGE">Letzte Nachricht</Resource>
+    <Resource tag="LAST_UPDATE">Letztes Update</Resource>
+    <Resource tag="RETRIEVE">Abrufen</Resource>
     <Resource tag="Retrieved">Retrieved {0} articles. {1:N2} articles per second.</Resource>
-    <Resource tag="SECONDS">seconds</Resource>
+    <Resource tag="SECONDS">Sekunden</Resource>
     <Resource tag="TIME">Specify how much time article retrieval should use.</Resource>
-    <Resource tag="TITLE">NNTP Retrieve</Resource>
+    <Resource tag="TITLE">NNTP abrufen</Resource>
   </page>
   <page name="ADMIN_NNTPSERVERS">
-    <Resource tag="ADRESS">Adress</Resource>
-    <Resource tag="DELETE_SERVER">Delete this server?</Resource>
+    <Resource tag="ADRESS">Adresse</Resource>
+    <Resource tag="DELETE_SERVER">Diesen Server löschen?</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="NEW_SERVER">New Server</Resource>
-    <Resource tag="TITLE">NNTP Servers</Resource>
-    <Resource tag="USERNAME">User Name</Resource>
+    <Resource tag="NEW_SERVER">Neuer Server</Resource>
+    <Resource tag="TITLE">NNTP Server</Resource>
+    <Resource tag="USERNAME">Benutzername</Resource>
   </page>
   <page name="ADMIN_PM">
     <Resource tag="CONFIRM_DELETE">Do you really want to delete private messages? This process is irreversible.</Resource>
@@ -1264,51 +1264,51 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Reindex DB</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS">
-    <Resource tag="ADD">Add</Resource>
-    <Resource tag="BAD">"Bad" (Find) Expression</Resource>
-    <Resource tag="EXPORT">Export to XML</Resource>
-    <Resource tag="GOOD">"Good" (Replace) Expression</Resource>
-    <Resource tag="IMPORT">Import from XML</Resource>
-    <Resource tag="MSG_DELETE">Delete this Word Replacement?</Resource>
-    <Resource tag="TITLE">Replace Words</Resource>
+    <Resource tag="ADD">Hinzufügen</Resource>
+    <Resource tag="BAD">"Bad" (Suche) Expression</Resource>
+    <Resource tag="EXPORT">Als XML exportieren</Resource>
+    <Resource tag="GOOD">"Good" (Ersetzen) Expression</Resource>
+    <Resource tag="IMPORT">Import von XML</Resource>
+    <Resource tag="MSG_DELETE">Diesen Wort Ersatz löschen?</Resource>
+    <Resource tag="TITLE">Ersetzen von Wörtern</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_EDIT">
-    <Resource tag="BAD">"Bad" Expression:</Resource>
+    <Resource tag="BAD">"Bad" Ausdruck:</Resource>
     <Resource tag="BAD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. '\.').</Resource>
-    <Resource tag="GOOD">"Good" Expression:</Resource>
+    <Resource tag="GOOD">"Good" Ausdruck:</Resource>
     <Resource tag="GOOD_HELP">Regular expression statement. Escape puncutation with a preceeding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten von Word ersetzen</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
-    <Resource tag="HEADER">Import Replace Word List</Resource>
+    <Resource tag="HEADER">Import ersetzen Wortliste</Resource>
     <Resource tag="MSG_IMPORTED">{0} new replacement word(s) were imported successfully.</Resource>
-    <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
-    <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
-    <Resource tag="MSG_NOTHING">Nothing imported: no new replacement words were found in the upload.</Resource>
-    <Resource tag="SELECT_IMPORT">Select Import File:</Resource>
-    <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
-    <Resource tag="TITLE">Import Replace Words</Resource>
+    <Resource tag="MSG_IMPORTED_FAILED">Import fehlgeschlagen: Falsches Dateiformat.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILEDX">Import fehlgeschlagen: {0}</Resource>
+    <Resource tag="MSG_NOTHING">Es wurde nichts Importiert, da keine neuen Wörter gefunden wurden.</Resource>
+    <Resource tag="SELECT_IMPORT">Datei auswählen:</Resource>
+    <Resource tag="SELECT_IMPORT_HELP">(Muss eine *. xml-Datei sein)</Resource>
+    <Resource tag="TITLE">Import Ersetzen von Wörtern</Resource>
   </page>
   <page name="ADMIN_RESTARTAPP">
     <Resource tag="INFO">Restarting the application will reload all .config files.</Resource>
-    <Resource tag="MSG_TRUST">Must have High/Unrestricted Trust to Unload Application. Restart Failed.</Resource>
-    <Resource tag="TITLE">Restart Application</Resource>
+    <Resource tag="MSG_TRUST">Sie müssen Vollen Zugriff auf die Anwendung haben. Neustarten fehlgeschlagen.</Resource>
+    <Resource tag="TITLE">Anwendung (YAF) neustarten</Resource>
   </page>
   <page name="ADMIN_RUNSQL">
-    <Resource tag="HEADER">Run SQL Query</Resource>
-    <Resource tag="RUN_QUERY">Run Query</Resource>
-    <Resource tag="RUN_TRANSCATION">Run In Transaction</Resource>
-    <Resource tag="SQL_COMMAND">SQL Command:</Resource>
-    <Resource tag="TITLE">Run SQL Code</Resource>
+    <Resource tag="HEADER">SQL Query ausführen</Resource>
+    <Resource tag="RUN_QUERY">Query ausführen</Resource>
+    <Resource tag="RUN_TRANSCATION">Als Transaction ausführen</Resource>
+    <Resource tag="SQL_COMMAND">SQL-Befehl:</Resource>
+    <Resource tag="TITLE">SQL Code ausführen</Resource>
   </page>
   <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Add Smiley</Resource>
+    <Resource tag="ADD">Smiley hinzufügen</Resource>
     <Resource tag="CODE">Code</Resource>
     <Resource tag="COMANDS">Emotion</Resource>
     <Resource tag="EMOTION">Emotion</Resource>
-    <Resource tag="IMPORT">Import Smiley Pack</Resource>
-    <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
-    <Resource tag="ORDER">Order</Resource>
+    <Resource tag="IMPORT">Smiley Pack importieren</Resource>
+    <Resource tag="MSG_DELETE">Dieses Smiley löschen?</Resource>
+    <Resource tag="ORDER">Reihenfolge</Resource>
     <Resource tag="SMILEY">Smiley</Resource>
     <Resource tag="TITLE">Smilies</Resource>
   </page>
@@ -1316,34 +1316,34 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="CODE">Code:</Resource>
     <Resource tag="EMOTION">Emotion:</Resource>
     <Resource tag="ICON">Icon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
-    <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
+    <Resource tag="MSG_CODE_BRACK">Bitte geben Sie den Code für dieses Emotion in "[...]" ein.</Resource>
+    <Resource tag="MSG_CODE_LONG">Der Code der für diese Emotion verwendet wird darf nicht mehr als 10 Zeichen lang sein.</Resource>
     <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
     <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
     <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
     <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
     <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-    <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
-    <Resource tag="TITLE">Add/Edit Smiley</Resource>
+    <Resource tag="SELECT_SMILEY">Smileybild wählen</Resource>
+    <Resource tag="SORT_ORDER">Sortiert nach:</Resource>
+    <Resource tag="TITLE">Hinzufügen / Bearbeiten Smiley</Resource>
   </page>
   <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
+    <Resource tag="CHOOSE_PAK">Wählen Sie eine .pak Datei:</Resource>
+    <Resource tag="CHOOSE_PAK_HELP">Sie müssen das Smiley Pack zunächst entpacken bevor Sie alle Dateien in den Smilies Ordner hochladen können (Boards/BordNO/Images/Emoticons).</Resource>
+    <Resource tag="DELETE_EXISTING">Löschen Sie vorhandene Smiles:</Resource>
     <Resource tag="DELETE_EXISTING_HELP">Will delete all existing smilies if you check this.</Resource>
     <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-    <Resource tag="HEADER">Import Smiley Pack</Resource>
-    <Resource tag="IMPORT">Import</Resource>
-    <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
-    <Resource tag="TITLE">Smilies Import</Resource>
+    <Resource tag="HEADER">Smiley Pack importieren</Resource>
+    <Resource tag="IMPORT">Importieren</Resource>
+    <Resource tag="SELECT_FILE">Datei auswählen (*.pak)</Resource>
+    <Resource tag="TITLE">Smilies Importieren</Resource>
   </page>
   <page name="ADMIN_TASKMANAGER">
-    <Resource tag="DURATION">Duration</Resource>
+    <Resource tag="DURATION">Dauer</Resource>
     <Resource tag="HEADER">Task Manager: {0} Task(s) Running</Resource>
-    <Resource tag="RUNNING">Is Running</Resource>
-    <Resource tag="STOP_TASK">Stop Task</Resource>
-    <Resource tag="TITLE">Task Manger</Resource>
+    <Resource tag="RUNNING">Läuft</Resource>
+    <Resource tag="STOP_TASK">Task stoppen</Resource>
+    <Resource tag="TITLE">Taskmanger</Resource>
   </page>
   <page name="ADMIN_TEST_DATA">
     <Resource tag="TITLE">Testdaten generieren (Nur DEBUG)</Resource>
@@ -1595,7 +1595,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Mitteilung</Resource>
     <Resource tag="MODERATOR">Moderator</Resource>
     <Resource tag="NAME">Name</Resource>
-    <Resource tag="NO">No</Resource>
+    <Resource tag="NO">Nein</Resource>
     <Resource tag="NONE">Keine</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
@@ -1659,7 +1659,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="VIEW_TOPIC">Thema anzeigen</Resource>
     <Resource tag="VIEW_USRPROFILE">Profil anzeigen</Resource>
     <Resource tag="VOTE">Abstimmen</Resource>
-    <Resource tag="YES">Yes</Resource>
+    <Resource tag="YES">Ja</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Ändern</Resource>

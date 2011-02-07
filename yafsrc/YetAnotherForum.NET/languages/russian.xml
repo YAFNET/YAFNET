@@ -1902,7 +1902,6 @@
     <Resource tag="CURRENT_TIME">Текущее время: {0}.</Resource>
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="GO_LAST_POST">К последнему сообщению</Resource>
-    <Resource tag="GO_LASTUNREAD_POST">К последнему непрочитанному</Resource>
     <Resource tag="IN">в {0}</Resource>
     <Resource tag="INFORMATION">Информация</Resource>
     <Resource tag="LAST_VISIT">Последний раз Вы были: {0}.</Resource>

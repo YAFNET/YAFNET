@@ -142,7 +142,7 @@ namespace YAF.Modules
       }
 
       notification.Show(
-        this.GetText("BUDDY", "PENDINGBUDDIES").FormatWith(this.PageContext.PendingBuddies), 
+        this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies), 
         this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"), 
         DialogBox.DialogIcon.Info, 
         new DialogBox.DialogButton
