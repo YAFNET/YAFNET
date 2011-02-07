@@ -48,12 +48,12 @@ namespace YAF.Pages.Admin
       /// The enabled.
       /// </param>
       /// <returns>
-      /// Set access mask flags are rendered red, rest black.
+      /// Set access mask flags are rendered green, rest black.
       /// </returns>
       protected Color GetItemColor(bool enabled)
       {
           // show enabled flag red
-          return enabled ? Color.Red : Color.Cyan;
+          return enabled ? Color.Green : Color.Black;
       }
 
       /// <summary>

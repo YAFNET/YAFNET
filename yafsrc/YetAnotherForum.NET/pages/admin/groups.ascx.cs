@@ -63,12 +63,12 @@ namespace YAF.Pages.Admin
     /// The enabled.
     /// </param>
     /// <returns>
-    /// Set access mask flags are rendered red, rest black.
+    /// Set access mask flags are rendered green if true, and if not red
     /// </returns>
     protected Color GetItemColor(bool enabled)
     {
         // show enabled flag red
-        return enabled ? Color.Red : Color.Cyan;
+        return enabled ? Color.Green : Color.Red;
     }
 
     /// <summary>
@@ -78,12 +78,12 @@ namespace YAF.Pages.Admin
     /// The item.
     /// </param>
     /// <returns>
-    /// Set values are rendered red, else cyan.
+    /// Set values are are rendered green if true, and if not red
     /// </returns>
     protected Color GetItemColorString(string item)
     {
         // show enabled flag red
-        return item.IsSet() ? Color.Red : Color.Cyan;
+        return item.IsSet() ? Color.Green : Color.Red;
     }
 
     /// <summary>
@@ -99,6 +99,7 @@ namespace YAF.Pages.Admin
     {
         return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
     }
+
     /// <summary>
     /// Creates page links for this page.
     /// </summary>
