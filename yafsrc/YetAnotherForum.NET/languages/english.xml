@@ -869,6 +869,7 @@
       <Resource tag="CURRENT_TIME">Current time: {0}.</Resource>
       <Resource tag="FORUM">Forum</Resource>
       <Resource tag="GO_LAST_POST">Go to last post</Resource>
+      <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
       <Resource tag="IN">in {0}</Resource>
       <Resource tag="INFORMATION">Information</Resource>
       <Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
