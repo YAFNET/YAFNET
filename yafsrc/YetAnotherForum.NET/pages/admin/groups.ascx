@@ -8,17 +8,17 @@
 		<asp:Repeater ID="RoleListNet" runat="server" OnItemCommand="RoleListNet_ItemCommand">
 			<HeaderTemplate>
 				<tr>
-					<td class="header1" colspan="7">
+					<td class="header1" colspan="2">
 						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="7" class="header2" style="text-align:center">
+					<td colspan="2" class="header2" style="text-align:center">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
-					<td class="header2" colspan="6">
+					<td class="header2">
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
 					</td>
 					<td class="header2">
@@ -28,7 +28,7 @@
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
-					<td class="post" colspan="6">
+					<td class="post" colspan="2">
 						<%# Container.DataItem %>
 						(Unlinked)
 					</td>
@@ -44,22 +44,19 @@
 		<asp:Repeater ID="RoleListYaf" runat="server" OnItemCommand="RoleListYaf_ItemCommand">
 			<HeaderTemplate>
 				<tr>
-					<td class="header1" colspan="7">
+					<td class="header1" colspan="2">
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="7" class="header2" style="text-align:center">
+					<td colspan="2" class="header2" style="text-align:center">
 						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE_LINKED" LocalizedPage="ADMIN_GROUPS" />
 					</td>
 				</tr>
 				<tr>
 					<td class="header1">
 						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
-					</td>
-					<td class="header1">
-						
-					</td>		
+					</td>	
 					<td class="header1">
 						&nbsp;
 					</td>
@@ -71,20 +68,20 @@
 						<%# Eval( "Name" ) %>
 						(<%# GetLinkedStatus( (DataRowView) Container.DataItem )%>)&nbsp;&nbsp;                        
 					</td>
-                    <td class="post">
-						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) == true ? false : true)%>'
+                    <td class="header2" align="right">
+						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) ? false : true)%>'
 							CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
                          </asp:LinkButton>
 						|
-						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) == true ? false : true)%>'
+						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) ? false : true)%>'
 							CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
                         </asp:LinkButton>
 					</td>
                      </tr>
                     <tr>           
-					<td class="post">
+					<td class="post" colspan="2">
                      <YAF:LocalizedLabel ID="HelpLabel6" Visible='<%# Eval("Description").ToString().IsSet() %>' runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                          </YAF:LocalizedLabel>
                           &nbsp;<%# Eval("Description").ToString() %>&nbsp; 
@@ -123,7 +120,7 @@
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr>
-			<td class="footer1" colspan="7" align="center">
+			<td class="footer1" colspan="2" align="center">
 				<asp:Button ID="NewGroup" runat="server" OnClick="NewGroup_Click" CssClass="pbutton"></asp:Button>
 			</td>
 		</tr>
