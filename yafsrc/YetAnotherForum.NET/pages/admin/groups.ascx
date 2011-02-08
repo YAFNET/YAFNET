@@ -21,18 +21,18 @@
 					<td class="header2">
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
 					</td>
-					<td class="header2">
-						&nbsp;
+					<td class="header2">&nbsp;
+						
 					</td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
-					<td class="post" colspan="2">
+					<td class="post">
 						<%# Container.DataItem %>
 						(Unlinked)
 					</td>
-					<td class="post">
+					<td class="post" align="right">
 						<asp:LinkButton ID="LinkButtonAdd" runat="server" CommandName="add" CommandArgument='<%# Container.DataItem %>'>Add to YAF</asp:LinkButton>
 						|
 						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" CommandName="delete"
@@ -57,8 +57,8 @@
 					<td class="header1">
 						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
 					</td>	
-					<td class="header1">
-						&nbsp;
+					<td class="header1">&nbsp;
+						
 					</td>
 				</tr>
 			</HeaderTemplate>
