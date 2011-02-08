@@ -692,16 +692,17 @@ namespace YAF.Core.BBCode
 
         // CODE Tags
         ruleEngine.AddRule(
-            new SimpleRegexReplaceRule(
-                "<div class=\"innercode\">(?<inner>(.*?))</div>",
-                "[code]${inner}[/code]",
-                _options));
+            new VariableRegexReplaceRule(
+                @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
+                "[code=${language}]${inner}[/code]",
+                _options,
+                new[] { "language" }));
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<div class=\"code\"><strong>(.*?)</strong>", string.Empty, _options));
         ruleEngine.AddRule(
-            new SimpleRegexReplaceRule(@"\<pre class=""brush:(?<inner>(.*?));"">", "[code=${inner}]", _options));
-
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</pre>", "[/code]", _options));
+           new SimpleRegexReplaceRule(
+               "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
+               "[code]${inner}[/code]",
+               _options));
 
         ruleEngine.AddRule(new SingleRegexReplaceRule("<br />", "\r\n", _options));
 
