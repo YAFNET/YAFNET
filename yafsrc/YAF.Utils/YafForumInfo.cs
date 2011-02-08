@@ -147,7 +147,7 @@ namespace YAF.Utils
     {
       get
       {
-        return new DateTime(2011, 2, 3);
+        return new DateTime(2011, 2, 8);
       }
     }
 
