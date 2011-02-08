@@ -2019,36 +2019,6 @@
             <remarks>
             </remarks>
         </member>
-        <member name="T:YAF.Controls.ThankYouInfo">
-            <summary>
-            Thank You Info
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYouInfo.Text">
-            <summary>
-            Gets or sets Text.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYouInfo.Title">
-            <summary>
-            Gets or sets Title.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYouInfo.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYouInfo.ThanksInfo">
-            <summary>
-            Gets or sets ThanksInfo.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYouInfo.Thanks">
-            <summary>
-            Gets or sets Thanks.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.Header">
             <summary>
             Summary description for Header.

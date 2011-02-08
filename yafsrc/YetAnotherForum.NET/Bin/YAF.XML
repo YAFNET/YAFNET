@@ -9728,7 +9728,7 @@
             The enabled.
             </param>
             <returns>
-            Set access mask flags are rendered red, rest black.
+            Set access mask flags are rendered green, rest black.
             </returns>
         </member>
         <member name="M:YAF.Pages.Admin.taskmanager.GetItemName(System.Boolean)">
@@ -14064,7 +14064,7 @@
             The enabled.
             </param>
             <returns>
-            Set access mask flags are rendered red, rest black.
+            Set access mask flags are rendered green if true, and if not red
             </returns>
         </member>
         <member name="M:YAF.Pages.Admin.accessmasks.GetItemName(System.Boolean)">
@@ -14226,6 +14226,15 @@
         <member name="F:YAF.Controls.smileys.LocalizedLabel1">
             <summary>
             LocalizedLabel1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.smileys.LoadingText">
+            <summary>
+            LoadingText control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -22671,6 +22680,17 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="M:YAF.Pages.Admin.ranks.GetItemColorString(System.String)">
+            <summary>
+            Format string color.
+            </summary>
+            <param name="item">
+            The item.
+            </param>
+            <returns>
+            Set values  are rendered green if true, and if not red
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.ranks.GetItemColor(System.Boolean)">
             <summary>
             Format access mask setting color formatting.
@@ -22679,7 +22699,7 @@
             The enabled.
             </param>
             <returns>
-            Set access mask flags are rendered red, rest black.
+            Set access mask flags  are rendered green if true, and if not red
             </returns>
         </member>
         <member name="M:YAF.Pages.Admin.ranks.GetItemName(System.Boolean)">
@@ -26720,15 +26740,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.admin.ActiveList">
-            <summary>
-            ActiveList control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.admin.UserList">
             <summary>
             UserList control.
@@ -26930,6 +26941,15 @@
         <member name="F:YAF.Pages.Admin.admin.LocalizedLabel9">
             <summary>
             LocalizedLabel9 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.admin.ActiveList">
+            <summary>
+            ActiveList control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -29314,7 +29334,18 @@
             The enabled.
             </param>
             <returns>
-            Set access mask flags are rendered red, rest black.
+            Set access mask flags are rendered green if true, and if not red
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.groups.GetItemColorString(System.String)">
+            <summary>
+            Format string color.
+            </summary>
+            <param name="item">
+            The item.
+            </param>
+            <returns>
+            Set values are are rendered green if true, and if not red
             </returns>
         </member>
         <member name="M:YAF.Pages.Admin.groups.GetItemName(System.Boolean)">
@@ -37679,28 +37710,6 @@
             Class for JS jQuery  Ajax Methods
             </summary>
         </member>
-        <member name="M:YAF.Classes.YafAjax.AddFavoriteTopic(System.Int32)">
-            <summary>
-            The add favorite topic.
-            </summary>
-            <param name="topicId">
-            The topic ID.
-            </param>
-            <returns>
-            The add favorite topic.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.YafAjax.AddThanks(System.Object)">
-            <summary>
-            Add Thanks to post
-            </summary>
-            <param name="msgID">
-            The msg id.
-            </param>
-            <returns>
-            Returns ThankYou Info
-            </returns>
-        </member>
         <member name="M:YAF.Classes.YafAjax.ChangeAlbumTitle(System.Int32,System.String)">
             <summary>
             The change album title.
@@ -37729,19 +37738,6 @@
             the return object.
             </returns>
         </member>
-        <member name="M:YAF.Classes.YafAjax.GetThanks(System.Int32)">
-            <summary>
-            This method returns a string containing the HTML code for
-              showing the the post footer. the HTML content is the name of users
-              who thanked the post and the date they thanked.
-            </summary>
-            <param name="messageId">
-            The msg ID.
-            </param>
-            <returns>
-            The get thanks.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.YafAjax.RefreshShoutBox(System.Int32)">
             <summary>
             The refresh shout box.
@@ -37751,6 +37747,17 @@
             </param>
             <returns>
             The refresh shout box.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.YafAjax.AddFavoriteTopic(System.Int32)">
+            <summary>
+            The add favorite topic.
+            </summary>
+            <param name="topicId">
+            The topic ID.
+            </param>
+            <returns>
+            The add favorite topic.
             </returns>
         </member>
         <member name="M:YAF.Classes.YafAjax.RemoveFavoriteTopic(System.Int32)">
@@ -37764,47 +37771,23 @@
             The remove favorite topic.
             </returns>
         </member>
+        <member name="M:YAF.Classes.YafAjax.AddThanks(System.Object)">
+            <summary>
+            Add Thanks to post
+            </summary>
+            <param name="msgID">
+            The msg id.
+            </param>
+            <returns>
+            Returns ThankYou Info
+            </returns>
+        </member>
         <member name="M:YAF.Classes.YafAjax.RemoveThanks(System.Object)">
             <summary>
             This method is called asynchronously when the user clicks on "Remove Thank" button.
             </summary>
             <param name="msgID">
             Message Id
-            </param>
-            <returns>
-            Returns ThankYou Info
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.YafAjax.ThanksNumber(System.String,System.Int32)">
-            <summary>
-            This method returns a string which shows how many times users have
-              thanked the message with the provided messageID. Returns an empty string.
-            </summary>
-            <param name="username">
-            The username.
-            </param>
-            <param name="messageID">
-            The Message ID.
-            </param>
-            <returns>
-            The thanks number.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.YafAjax.CreateThankYou(System.String,System.String,System.String,System.Int32)">
-            <summary>
-            Creates an instance of the thank you object from the current information.
-            </summary>
-            <param name="username">
-            The Current Username
-            </param>
-            <param name="textTag">
-            Button Text
-            </param>
-            <param name="titleTag">
-            Button  Title
-            </param>
-            <param name="messageId">
-            The message Id.
             </param>
             <returns>
             Returns ThankYou Info

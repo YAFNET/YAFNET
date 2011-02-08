@@ -995,24 +995,6 @@
             Static class that access the app settings in the web.config file
             </summary>
         </member>
-        <member name="M:YAF.Classes.Config.GetProvider(System.String)">
-            <summary>
-            Gets a Provider type string from the config.
-            </summary>
-            <param name="providerName"></param>
-            <returns>Provider type string or <see langword="null"/> if none exist.</returns>
-        </member>
-        <member name="M:YAF.Classes.Config.GetConfigValueAsString(System.String)">
-            <summary>
-            The get config value as string.
-            </summary>
-            <param name="configKey">
-            The config key.
-            </param>
-            <returns>
-            The get config value as string.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Config.GetConfigValueAsBool(System.String,System.Boolean)">
             <summary>
             The get config value as bool.
@@ -1027,236 +1009,267 @@
             The get config value as bool.
             </returns>
         </member>
-        <member name="P:YAF.Classes.Config.BoardID">
+        <member name="M:YAF.Classes.Config.GetConfigValueAsString(System.String)">
             <summary>
-            Current BoardID -- default is 1.
+            The get config value as string.
             </summary>
+            <param name="configKey">
+            The config key.
+            </param>
+            <returns>
+            The get config value as string.
+            </returns>
         </member>
-        <member name="P:YAF.Classes.Config.CategoryID">
+        <member name="M:YAF.Classes.Config.GetProvider(System.String)">
             <summary>
-            Current CategoryID -- default is null.
+            Gets a Provider type string from the config.
             </summary>
+            <param name="providerName">
+            </param>
+            <returns>
+            Provider type string or <see langword="null"/> if none exist.
+            </returns>
         </member>
-        <member name="P:YAF.Classes.Config.EnableURLRewriting">
+        <member name="P:YAF.Classes.Config.AllowLoginAndLogoff">
             <summary>
-            Is Url Rewriting enabled? -- default is false.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UrlRewritingMode">
-            <summary>
-            Url Rewriting URLRewritingMode? -- default is Unicode.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DisableJQuery">
-            <summary>
-            Is Jquery Registration disabled? -- default is false.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryFile">
-            <summary>
-            Gets JQuery File Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryUIFile">
-            <summary>
-            Gets JQuery UI File Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryUILangFile">
-            <summary>
-            Gets jQuery UI date picker lang File Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.JQueryAlias">
-            <summary>
-            Gets jQuery Alias
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ForceScriptName">
-            <summary>
-            Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.BaseScriptFile">
-            <summary>
-            Used for Url Rewriting -- default is "default.aspx"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UrlRewritingPrefix">
-            <summary>
-            Prefix used for Url Rewriting -- default is "yaf_"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.CreateDistinctRoles">
-            <summary>
-            Use it if distinct YAF role names are required. Used in integration environments only. 
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ServerFileRoot">
-            <summary>
-            Gets ServerFileRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ClientFileRoot">
-            <summary>
-            Gets ClientFileRoot.
+              Gets a value indicating whether AllowLoginAndLogoff.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.AppRoot">
             <summary>
-            Gets AppRoot.
+              Gets AppRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BaseScriptFile">
+            <summary>
+              Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.BaseUrlMask">
             <summary>
-            Gets BaseUrlMask.
+              Gets BaseUrlMask.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BoardID">
+            <summary>
+              Current BoardID -- default is 1.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.BoardRoot">
             <summary>
-            Folder to use for board specific uploads, images, themes
-            Example : /Boards/
+              Folder to use for board specific uploads, images, themes
+              Example : /Boards/
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.MultiBoardFolders">
+        <member name="P:YAF.Classes.Config.CategoryID">
             <summary>
-            Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
-            Example : true /false
+              Current CategoryID -- default is null.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.ProviderKeyType">
+        <member name="P:YAF.Classes.Config.ClientFileRoot">
             <summary>
-            Gets ProviderKeyType.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ProviderProvider">
-            <summary>
-            Gets ProfileProvider.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.MembershipProvider">
-            <summary>
-            Gets MembershipProvider.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.RoleProvider">
-            <summary>
-            Gets RoleProvider.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.AllowLoginAndLogoff">
-            <summary>
-            Gets a value indicating whether AllowLoginAndLogoff.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ShowToolBar">
-            <summary>
-            Display the default toolbar at the top -- default is "true"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.ShowFooter">
-            <summary>
-            Diisplay the footer at the bottom of the page -- default is "true"
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UseSMTPSSL">
-            <summary>
-            Use an SSL connection for the SMTP server -- default is "false"
+              Gets ClientFileRoot.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ConnectionString">
             <summary>
-            Gets ConnectionString.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.LogToMail">
-            <summary>
-            Gets LogToMail.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsDotNetNuke">
-            <summary>
-            Gets a value indicating whether IsDotNetNuke.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsMojoPortal">
-            <summary>
-            Gets a value indicating whether IsMojoPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsRainbow">
-            <summary>
-            Gets a value indicating whether IsRainbow.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsPortal">
-            <summary>
-            Gets a value indicating whether IsPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsPortalomatic">
-            <summary>
-            Gets a value indicating whether IsPortalomatic.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.IsAnyPortal">
-            <summary>
-            Gets a value indicating whether IsAnyPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.RadEditorSkin">
-            <summary>
-            Gets RadEditorSkin.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.RadEditorToolsFile">
-            <summary>
-            Gets RadEditorToolsFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UseRadEditorToolsFile">
-            <summary>
-            Gets a value indicating whether UseRadEditorToolsFile.
+              Gets ConnectionString.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ConnectionStringName">
             <summary>
-            Gets ConnectionStringName.
+              Gets ConnectionStringName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.DatabaseOwner">
+        <member name="P:YAF.Classes.Config.CreateDistinctRoles">
             <summary>
-            Gets DatabaseOwner.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DatabaseObjectQualifier">
-            <summary>
-            Gets DatabaseObjectQualifier.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.DatabaseEncoding">
-            <summary>
-            Gets DatabaseEncoding.
+              Use it if distinct YAF role names are required. Used in integration environments only.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.DatabaseCollation">
             <summary>
-            Gets DatabaseCollation.
+              Gets DatabaseCollation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseEncoding">
+            <summary>
+              Gets DatabaseEncoding.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseObjectQualifier">
+            <summary>
+              Gets DatabaseObjectQualifier.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseOwner">
+            <summary>
+              Gets DatabaseOwner.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DisableJQuery">
+            <summary>
+              Is Jquery Registration disabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.EnableURLRewriting">
+            <summary>
+              Is Url Rewriting enabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ForceScriptName">
+            <summary>
+              Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsAnyPortal">
+            <summary>
+              Gets a value indicating whether IsAnyPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsDotNetNuke">
+            <summary>
+              Gets a value indicating whether IsDotNetNuke.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsMojoPortal">
+            <summary>
+              Gets a value indicating whether IsMojoPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsPortal">
+            <summary>
+              Gets a value indicating whether IsPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsPortalomatic">
+            <summary>
+              Gets a value indicating whether IsPortalomatic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsRainbow">
+            <summary>
+              Gets a value indicating whether IsRainbow.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryAlias">
+            <summary>
+              Gets jQuery Alias
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryFile">
+            <summary>
+              Gets JQuery File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryUIFile">
+            <summary>
+              Gets JQuery UI File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.JQueryUILangFile">
+            <summary>
+              Gets jQuery UI date picker lang File Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.LogToMail">
+            <summary>
+              Gets LogToMail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MembershipProvider">
+            <summary>
+              Gets MembershipProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MobileUserAgents">
+            <summary>
+            Gets MobileUserAgents.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MultiBoardFolders">
+            <summary>
+              Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
+              Example : true /false
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.OverrideTrustLevel">
+            <summary>
+            Gets OverrideTrustLevel.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ProviderKeyType">
+            <summary>
+              Gets ProviderKeyType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ProviderProvider">
+            <summary>
+              Gets ProfileProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RadEditorSkin">
+            <summary>
+              Gets RadEditorSkin.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RadEditorToolsFile">
+            <summary>
+              Gets RadEditorToolsFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RoleProvider">
+            <summary>
+              Gets RoleProvider.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.SchemaName">
             <summary>
-            Gets SchemaName.
+              Gets SchemaName.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.WithOIDs">
+        <member name="P:YAF.Classes.Config.ServerFileRoot">
             <summary>
-            Gets WithOIDs.
+              Gets ServerFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ShowFooter">
+            <summary>
+              Diisplay the footer at the bottom of the page -- default is "true"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ShowToolBar">
+            <summary>
+              Display the default toolbar at the top -- default is "true"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.SqlCommandTimeout">
             <summary>
-            Current BoardID -- default is 1.
+              Current BoardID -- default is 1.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UrlRewritingMode">
+            <summary>
+              Url Rewriting URLRewritingMode? -- default is Unicode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UrlRewritingPrefix">
+            <summary>
+              Prefix used for Url Rewriting -- default is "yaf_"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UseRadEditorToolsFile">
+            <summary>
+              Gets a value indicating whether UseRadEditorToolsFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UseSMTPSSL">
+            <summary>
+              Use an SSL connection for the SMTP server -- default is "false"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.WithOIDs">
+            <summary>
+              Gets WithOIDs.
             </summary>
         </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">

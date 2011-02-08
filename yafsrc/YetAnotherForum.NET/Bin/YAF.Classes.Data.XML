@@ -5132,26 +5132,6 @@
             Gets ScriptList.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.btnGetStatsName">
-            <summary>
-            Gets btnGetStatsName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.btnShrinkName">
-            <summary>
-            Gets btnShrinkName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.btnRecoveryModeName">
-            <summary>
-            Gets btnRecoveryModeName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.LegacyDb.btnReindexName">
-            <summary>
-            Gets btnReindexName.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Data.LegacyDb.PanelGetStats">
             <summary>
             Gets a value indicating whether PanelGetStats.
