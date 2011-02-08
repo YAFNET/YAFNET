@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.moderate0" CodeBehind="moderate.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="../controls/TopicLine.ascx" %>
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -34,9 +35,9 @@
                     <%# Eval("Access") %>
                 </td>
                 <td>
-                    <asp:LinkButton runat="server" Text='<%#GetText("EDIT")%>' CommandName="edit" CommandArgument='<%# Eval("UserID") %>' />
+                    <asp:LinkButton runat="server" Text='<%# this.GetText("EDIT")%>' CommandName="edit" CommandArgument='<%# Eval("UserID") %>' />
                     |
-                    <asp:LinkButton runat="server" Text='<%#GetText("REMOVE")%>' OnLoad="DeleteUser_Load"
+                    <asp:LinkButton runat="server" Text='<%# this.GetText("REMOVE")%>' OnLoad="DeleteUser_Load"
                         CommandName="remove" CommandArgument='<%# Eval("UserID") %>' />
                 </td>
             </tr>
