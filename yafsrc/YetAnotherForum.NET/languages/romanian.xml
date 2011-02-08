@@ -1871,6 +1871,7 @@
     <Resource tag="CURRENT_TIME">Timpul curent: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Ultima postare.</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">in {0}</Resource>
     <Resource tag="INFORMATION">Informati</Resource>
     <Resource tag="LAST_VISIT">Ultima vizita: {0}.</Resource>

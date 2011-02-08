@@ -1883,6 +1883,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="CURRENT_TIME">Aktuelle Zeit: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Gehe zum aktuellsten Beitrag</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">in {0}</Resource>
     <Resource tag="INFORMATION">Informationen</Resource>
     <Resource tag="LAST_VISIT">Dein letzter Besuch: {0}.</Resource>
@@ -2461,7 +2462,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="LAST_DAY">Letzter Tag</Resource>
     <Resource tag="LAST_HOUR">Letzte Stunde</Resource>
     <Resource tag="LAST_MONTH">Letzter Monat</Resource>
-    <Resource tag="LAST_TWO_DAYS">Letzte zwei Tagem</Resource>
+    <Resource tag="LAST_TWO_DAYS">Letzte zwei Tage</Resource>
     <Resource tag="LAST_TWO_HOURS">Letzte zwei Stunden</Resource>
     <Resource tag="LAST_TWO_WEEKS">Letzte zwei Wochen</Resource>
     <Resource tag="LAST_VISIT">Letzter Besuch am {0}</Resource>

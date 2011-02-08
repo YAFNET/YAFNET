@@ -1910,6 +1910,7 @@
     <Resource tag="CURRENT_TIME">שעה נוכחית: {0}.</Resource>
     <Resource tag="FORUM">פורום</Resource>
     <Resource tag="GO_LAST_POST">עבור להודעה אחרונה</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">ב- {0}</Resource>
     <Resource tag="INFORMATION">מידע</Resource>
     <Resource tag="LAST_VISIT">ביקורך האחרון: {0}.</Resource>

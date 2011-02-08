@@ -1870,6 +1870,7 @@
     <Resource tag="CURRENT_TIME">Giờ hiện tại: {0}.</Resource>
     <Resource tag="FORUM">Diễn đàn</Resource>
     <Resource tag="GO_LAST_POST">Xem bài viết cuối</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN"> {0}</Resource>
     <Resource tag="INFORMATION">Thông tin</Resource>
     <Resource tag="LAST_VISIT">Lần cuối bạn truy cập diễn đàn: {0}.</Resource>

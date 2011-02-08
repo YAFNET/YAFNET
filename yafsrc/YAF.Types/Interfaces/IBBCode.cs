@@ -40,6 +40,17 @@
     string ConvertBBCodeToHtmlForEdit([NotNull] string message);
 
     /// <summary>
+    /// Converts a message containing HTML to YafBBCode for editing in a rich bbcode editor.
+    /// </summary>
+    /// <param name="message">
+    /// String containing the body of the message to convert
+    /// </param>
+    /// <returns>
+    /// The converted text
+    /// </returns>
+    string ConvertHtmltoBBCodeForEdit([NotNull] string message);
+
+    /// <summary>
     /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
     /// </summary>
     /// <param name="ruleEngine">
@@ -57,11 +68,29 @@
     /// <param name="convertBBQuotes">
     /// The convert BB Quotes.
     /// </param>
-    void CreateBBCodeRules([NotNull] IProcessReplaceRules ruleEngine, 
-      bool doFormatting, 
-      bool targetBlankOverride, 
-      bool useNoFollow, 
-      bool convertBBQuotes);
+    void CreateBBCodeRules(
+        [NotNull] IProcessReplaceRules ruleEngine,
+        bool doFormatting,
+        bool targetBlankOverride, 
+        bool useNoFollow, 
+        bool convertBBQuotes);
+
+    /// <summary>
+    /// Creates the rules that convert HTML to <see cref="YafBBCode"/>
+    /// </summary>
+    /// <param name="ruleEngine">
+    /// The rule Engine.
+    /// </param>
+    /// <param name="doFormatting">
+    /// The do Formatting.
+    /// </param>
+    /// <param name="convertBBQuotes">
+    /// The convert BB Quotes.
+    /// </param>
+    void CreateHtmlRules(
+        [NotNull] IProcessReplaceRules ruleEngine,
+        bool doFormatting,
+        bool convertBBQuotes);
 
     /// <summary>
     /// Handles localization for a Custom YafBBCode Elements using

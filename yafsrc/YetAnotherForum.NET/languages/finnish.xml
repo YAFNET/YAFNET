@@ -1870,6 +1870,7 @@
     <Resource tag="CURRENT_TIME">Aika nyt: {0}.</Resource>
     <Resource tag="FORUM">Alue</Resource>
     <Resource tag="GO_LAST_POST">Siirry viimeisimpään viestiin</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">aiheessa {0}</Resource>
     <Resource tag="INFORMATION">Tietoja</Resource>
     <Resource tag="LAST_VISIT">Vierailit viimeksi: {0}.</Resource>

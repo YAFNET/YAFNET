@@ -1886,6 +1886,7 @@
     <Resource tag="CURRENT_TIME">Kellaaeg: {0}.</Resource>
     <Resource tag="FORUM">Foorum</Resource>
     <Resource tag="GO_LAST_POST">Mine viimasele postitusele</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">sees {0}</Resource>
     <Resource tag="INFORMATION">Info</Resource>
     <Resource tag="LAST_VISIT">Sinu viimane külastus: {0}.</Resource>

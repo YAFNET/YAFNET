@@ -1870,6 +1870,7 @@
     <Resource tag="CURRENT_TIME">Je presne {0}.</Resource>
     <Resource tag="FORUM">Fórum</Resource>
     <Resource tag="GO_LAST_POST">Prejsť k najnovšej správe</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">v {0}</Resource>
     <Resource tag="INFORMATION">Informácie</Resource>
     <Resource tag="LAST_VISIT">Naposledy ste tu bol {0}.</Resource>

@@ -1958,6 +1958,7 @@
     <Resource tag="CURRENT_TIME">Dabartinis laikas: {0}. </Resource>
     <Resource tag="FORUM">Forumas </Resource>
     <Resource tag="GO_LAST_POST">Eiti į paskutinį pranešimą </Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">į {0} </Resource>
     <Resource tag="INFORMATION">Informacija </Resource>
     <Resource tag="LAST_VISIT">Jūsų paskutinis apsilankymas: {0}. </Resource>

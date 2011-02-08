@@ -1870,6 +1870,7 @@
     <Resource tag="CURRENT_TIME">Klokka er nå: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Gå til siste innlegg</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">i {0}</Resource>
     <Resource tag="INFORMATION">Informasjon</Resource>
     <Resource tag="LAST_VISIT">Ditt siste besøk: {0}.</Resource>

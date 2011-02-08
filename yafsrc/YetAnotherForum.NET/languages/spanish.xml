@@ -1887,6 +1887,7 @@
     <Resource tag="CURRENT_TIME">Hora actual: {0}.</Resource>
     <Resource tag="FORUM">Foro</Resource>
     <Resource tag="GO_LAST_POST">Ir al último mensaje</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">en {0}</Resource>
     <Resource tag="INFORMATION">Información</Resource>
     <Resource tag="LAST_VISIT">Ultima visita: {0}.</Resource>

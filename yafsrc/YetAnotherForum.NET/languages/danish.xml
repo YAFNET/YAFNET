@@ -1887,6 +1887,7 @@
     <Resource tag="CURRENT_TIME">Klokken er nu: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Gå til sidste indlæg</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">med emne {0}</Resource>
     <Resource tag="INFORMATION">Information</Resource>
     <Resource tag="LAST_VISIT">Dit sidste besøg var: {0}.</Resource>

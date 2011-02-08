@@ -1870,6 +1870,7 @@
     <Resource tag="CURRENT_TIME">زمان فعلی: {0}.</Resource>
     <Resource tag="FORUM">انجمن</Resource>
     <Resource tag="GO_LAST_POST">برو به آخرین ارسال</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">در {0}</Resource>
     <Resource tag="INFORMATION">اطلاعات</Resource>
     <Resource tag="LAST_VISIT">آخرین بازدید شما: {0}.</Resource>

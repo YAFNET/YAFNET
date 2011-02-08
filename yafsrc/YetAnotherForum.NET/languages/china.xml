@@ -1888,6 +1888,7 @@
     <Resource tag="CURRENT_TIME">当前时间: {0}.</Resource>
     <Resource tag="FORUM">论坛</Resource>
     <Resource tag="GO_LAST_POST">前往最新帖子</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">在 {0}</Resource>
     <Resource tag="INFORMATION">信息</Resource>
     <Resource tag="LAST_VISIT">上次登录时间: {0}.</Resource>

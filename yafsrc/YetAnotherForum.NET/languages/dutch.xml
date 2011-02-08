@@ -1885,6 +1885,7 @@
     <Resource tag="CURRENT_TIME">Huidige tijd: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GO_LAST_POST">Ga naar laatste bericht</Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to last unread</Resource>
     <Resource tag="IN">in {0}</Resource>
     <Resource tag="INFORMATION">Informatie</Resource>
     <Resource tag="LAST_VISIT">Laatste bezoek: {0}.</Resource>

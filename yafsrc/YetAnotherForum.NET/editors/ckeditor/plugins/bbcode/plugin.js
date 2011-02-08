@@ -38,6 +38,9 @@ CKEDITOR.htmlDataProcessor.prototype =
 		// [u]
 		data = data.replace( /\[u\](.+?)\[\/u]/gi, '<u>$1</u>' ) ;
 		
+		// [h]
+		data = data.replace( /\[h\](.+?)\[\/h]/gi, '<span style="background:yellow">$1</span>' ) ;
+		
 		// [img]
 		data = data.replace(/\[img\](.*?)\[\/img\]/gi,'<img src="$1" />');
 		data = data.replace( /\[img\=([^\]]+)](.+?)\[\/img]/gi, '<img src="$1" alt="$2" title="$2" />' ) ;
@@ -109,11 +112,15 @@ CKEDITOR.htmlDataProcessor.prototype =
 		html = html.replace( /<u>/gi, '[u]') ;
 		html = html.replace( /<\/u>/gi, '[/u]') ;
 		
+		// [h]
+		html = html.replace( /<span style=\"background:yellow\">(.+?)<\/span>/gi, '[h]$1[/h]' ) ;
+		html = html.replace( /<span class=\"highlight\">(.+?)<\/span>/gi, '[h]$1[/h]' ) ;
+		
 		// [img]
+		html = html.replace( /<img .*?alt=(["'])(.+?)\1.*?src=(["'])(.+?)\1.*?.*?>/gi, '[img=$4]$2[/img]') ;		
 		html = html.replace( /<img .*?src=(["'])(.+?)\1.*?alt=(["'])(.+?)\1.*?>/gi, '[img=$2]$4[/img]') ;		
 		html = html.replace( /<img .*?src=(["'])(.+?)\1.*?\/>/gi, '[img]$2[/img]') ;
 		html = html.replace( /<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]') ;
-		
 		
 		// [quote=username;1234]
 		html = html.replace(/<blockquote title=\"(.*?)\">/gi,"[quote=$1]");
