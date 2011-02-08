@@ -10,6 +10,7 @@ namespace YAF.Classes.UnitTests
   using YAF.Core;
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -54,7 +55,8 @@ namespace YAF.Classes.UnitTests
         sb.CreateStatement().AddSelectorFormat("'Blah{0}'", 10).Dot().AddCall("html", "donkey's").Dot().AddCall(
           "click", sb.CreateFunction().AddCall("alert", "It's clicked!").End()).End().Build();
 
-      str.ShouldBe(@"jQuery('Blah10').html(""donkey\'s"").click(function(){ alert(""It\'s clicked!""); });");
+      str.ShouldBe(
+        @"jQuery('Blah10').html(""donkey\'s"").click(function(){{ alert(""It\'s clicked!"");{0} }});{0}".FormatWith("\r\n"));
     }
 
     #endregion

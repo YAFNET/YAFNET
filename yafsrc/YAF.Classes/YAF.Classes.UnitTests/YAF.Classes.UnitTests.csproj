@@ -70,6 +70,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -83,6 +84,7 @@
     <Reference Include="xunit.should, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainerTests.cs" />
     <Compile Include="ScriptBuilderTests.cs" />
     <Compile Include="SpamClientTester.cs" />
     <Compile Include="ProviderTests.cs" />

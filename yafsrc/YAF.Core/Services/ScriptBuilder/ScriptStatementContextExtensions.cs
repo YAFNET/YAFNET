@@ -457,7 +457,7 @@ namespace YAF.Core
             {
               if (!isFirst)
               {
-                scriptStatement.Add(", ");
+                scriptStatement.Add(",");
               }
 
               if (allowStatement && param.HasInterface<IScriptStatementContext>())

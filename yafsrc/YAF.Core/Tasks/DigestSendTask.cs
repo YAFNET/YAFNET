@@ -90,7 +90,7 @@ namespace YAF.Core
     public override void RunOnce()
     {
       //// validate DB run...
-      //YafContext.Current.Get<StartupInitializeDb>().Run();
+      //this.Get<StartupInitializeDb>().Run();
 
       this.SendDigest();
     }
@@ -199,7 +199,7 @@ namespace YAF.Core
 
         try
         {
-          digestHtml = YafContext.Current.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId);
+          digestHtml = this.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId);
         }
         catch (Exception e)
         {
@@ -222,7 +222,7 @@ namespace YAF.Core
           }
 
           // send the digest...
-          YafContext.Current.Get<YafDigest>().SendDigest(digestHtml, forumName, membershipUser.Email, user.DisplayName, true);
+          this.Get<YafDigest>().SendDigest(digestHtml, forumName, membershipUser.Email, user.DisplayName, true);
         }
       }
     }
