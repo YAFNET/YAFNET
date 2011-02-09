@@ -3149,9 +3149,8 @@ Visit {forumname} at {forumlink}
        <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
 	   <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
        <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
-	   
-	   
-	   
+	   <Resource tag="SHOWAD_LOGINUSERS">Show Ad to "Signed In" Users:</Resource>
+       <Resource tag="SHOWAD_LOGINUSERS_HELP">If checked, signed in users will see ads.</Resource>
 	 </page>
 	  <page name="ADMIN_TEST_DATA">
 	   <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>

@@ -1085,6 +1085,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="SHOW_USERSBROWSING_HELP">Should users currently browsing forums/topics be displayed at the bottom.</Resource>
     <Resource tag="SHOW_YAFVERSION">Show YetAnotherForum Version:</Resource>
     <Resource tag="SHOW_YAFVERSION_HELP">Enable or disable display of the version/date information the bottom of the page (disable if your concerned about security).</Resource>
+    <Resource tag="SHOWAD_LOGINUSERS">Show Ad to "Signed In" Users:</Resource>
+    <Resource tag="SHOWAD_LOGINUSERS_HELP">If checked, signed in users will see ads.</Resource>
     <Resource tag="SHOWHELP">Show Help:</Resource>
     <Resource tag="SHOWHELP_HELP">Enable or disable display the Help Link in the Header that Shows the Help Files Pages</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
