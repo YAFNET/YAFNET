@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Collections.Generic;
 using System.Linq;
 using YAF.Utils.Helpers;
 
@@ -89,15 +90,54 @@ namespace YAF.Controls
         set
         {
             _dataSource = value;
-            
+            DataRow[] arr;
             Type t = _dataSource.GetType();
-            if (t.Name == "DataRow[]")
+            List<DataRow> arlist = new List<DataRow>();
+            List<DataRow> subLIst = new List<DataRow>();
+            List<int> parents = new List<int>();
+            if (t.Name == "DataRowCollection")
             {
-                ArrayList arlist = new ArrayList();
-                DataRow[] arr = (DataRow[])_dataSource;
+                arr = new DataRow[((DataRowCollection) _dataSource).Count];
+                ((DataRowCollection) _dataSource).CopyTo(arr, 0);
+
                 for (int i = 0; i < arr.Count(); i++)
                 {
-                    if (!arr[i]["ParentID"].IsNullOrEmptyDBField() )
+                    // these are all subforums related to start page forums
+                    if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
+                    {
+                        if (SubDataSource == null)
+                        {
+                            SubDataSource = arr[i].Table.Clone();
+                        }
+
+                        DataRow drow = SubDataSource.NewRow();
+                        drow.ItemArray = arr[i].ItemArray;
+
+                        parents.Add(drow["ForumID"].ToType<int>());
+
+                        if (parents.Contains(drow["ParentID"].ToType<int>()))
+                        {
+                            SubDataSource.Rows.Add(drow);
+                            subLIst.Add(drow);
+                        }
+                        else
+                        {
+                            arlist.Add(arr[i]);
+                        }
+                    }
+                    else
+                    {
+                        arlist.Add(arr[i]);
+                    }
+                }
+            }
+            else // (t.Name == "DataRow[]")
+            {
+                
+                arr = (DataRow[])_dataSource;
+                for (int i = 0; i < arr.Count(); i++)
+                {
+                    if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
                     {
                         if (SubDataSource == null)
                         {
@@ -105,28 +145,27 @@ namespace YAF.Controls
                         }
                         DataRow drow = SubDataSource.NewRow();
                         drow.ItemArray = arr[i].ItemArray;
-                       
+
                         SubDataSource.Rows.Add(drow);
                     }
                     else
                     {
                         arlist.Add(arr[i]);
                     }
-                    
                 }
 
-                if (SubDataSource != null)
-                {
-                    SubDataSource.AcceptChanges();
-                }
-                _dataSource = arlist;
-
-                
             }
 
+            if (SubDataSource != null)
+            {
+                SubDataSource.AcceptChanges();
+            }
+
+            _dataSource = arlist;
+
             this.ForumList1.DataSource = _dataSource;
-           
         }
+
     }
 
     private DataTable SubDataSource{get; set;}
