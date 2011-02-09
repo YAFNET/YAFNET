@@ -42,6 +42,7 @@ namespace YAF.Pages.Admin
   /// </summary>
   public partial class admin : AdminPage
   {
+    
     #region Public Methods
 
     /// <summary>
@@ -126,6 +127,20 @@ namespace YAF.Pages.Admin
     #endregion
 
     #region Methods
+
+    /// <summary>
+    /// The pager_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+        this.BindActiveUserData();
+    }
 
     /// <summary>
     /// The approve all_ load.
@@ -257,6 +272,7 @@ namespace YAF.Pages.Admin
 
         // bind data
         this.BindBoardsList();
+
         this.BindData();
 
         // TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
@@ -292,28 +308,45 @@ namespace YAF.Pages.Admin
             this.BoardStatsSelect.Items.IndexOf(
                 this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
     }
+    /// <summary>
+    /// Gets active user data Table data for a page user
+    /// </summary>
+    /// <param name="showGuests">
+    /// The show guests.
+    /// </param>
+    /// <param name="showCrawlers">
+    /// The show crawlers.
+    /// </param>
+    /// <returns>
+    /// A DataTable
+    /// </returns>
+    private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
+    {
+        // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+        DataTable activeUsers = LegacyDb.active_list_user(
+          this.PageContext.PageBoardID,
+          this.PageContext.PageUserID,
+          showGuests,
+          showCrawlers,
+          this.PageContext.BoardSettings.ActiveListTime,
+          this.PageContext.BoardSettings.UseStyledNicks);
 
+        // Set colorOnly parameter to false, as we get active users style from database        
+        if (this.PageContext.BoardSettings.UseStyledNicks)
+        {
+            this.Get<IStyleTransform>().DecodeStyleByTable(ref activeUsers, false);
+        }
+
+        return activeUsers;
+    }
     /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()
     {
-      DataTable activeList = LegacyDb.active_list(
-        this.PageContext.PageBoardID, 
-        true, 
-        true, 
-        this.PageContext.BoardSettings.ActiveListTime, 
-        this.PageContext.BoardSettings.UseStyledNicks);
-
-      // Set colorOnly parameter to false, as we get active users style from database        
-      if (this.PageContext.BoardSettings.UseStyledNicks)
-      {
-        this.Get<IStyleTransform>().DecodeStyleByTable(ref activeList, false);
-      }
-
-      this.ActiveList.DataSource = activeList;
+      
       this.UserList.DataSource = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
-      this.DataBind();
+      // this.DataBind();
 
       // get stats for current board, selected board or all boards (see function)
       DataRow row = LegacyDb.board_stats(this.GetSelectedBoardID());
@@ -337,6 +370,38 @@ namespace YAF.Pages.Admin
       this.DayUsers.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
       this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.DBSize);
+      BindActiveUserData();
+      
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindActiveUserData()
+    {
+
+        DataTable activeList = GetActiveUsersData(true, true);
+       
+        if (activeList != null && activeList.Rows.Count > 0)
+        {
+            var activeUsersView = activeList.DefaultView;
+            this.Pager.PageSize = 50;
+
+            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.Pager.PageSize };
+            this.Pager.Count = activeUsersView.Count;
+            pds.DataSource = activeUsersView;
+            pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
+
+            if (pds.CurrentPageIndex >= pds.PageCount)
+            {
+                pds.CurrentPageIndex = pds.PageCount - 1;
+            }
+
+            this.ActiveList.DataSource = pds;
+            this.ActiveList.DataBind();
+        } 
+        
     }
 
     /// <summary>

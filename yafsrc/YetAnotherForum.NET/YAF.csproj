@@ -778,6 +778,7 @@
     <Content Include="images\medals\medal_small.png" />
     <Content Include="images\YafLogo.png" />
     <Content Include="install\wizard.css" />
+    <Content Include="languages\estonian.xml" />
     <Content Include="resources\images\ceebox\cee-close-btn.png" />
     <Content Include="resources\images\ceebox\cee-next-btn.gif" />
     <Content Include="resources\images\ceebox\cee-next-btn.png" />
@@ -2735,9 +2736,6 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
-    <Content Include="web.config">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

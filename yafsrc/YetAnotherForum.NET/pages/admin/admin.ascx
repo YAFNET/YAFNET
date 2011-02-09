@@ -136,6 +136,7 @@
 		</p>
 
 &nbsp;<br />
+<YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
     <asp:Repeater ID="ActiveList" runat="server">
     <HeaderTemplate>
@@ -181,6 +182,6 @@
     		</FooterTemplate>
     	</asp:Repeater>
 	</table>
-	
+	<YAF:Pager ID="Pager1" runat="server"  LinkedPager="Pager" OnPageChange="Pager_PageChange" />
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
