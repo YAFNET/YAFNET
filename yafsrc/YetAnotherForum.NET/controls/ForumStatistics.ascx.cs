@@ -224,15 +224,15 @@ namespace YAF.Controls
                                     ? this.Get<IStyleTransform>().DecodeStyleByString(
                                       dr["LastUserStyle"].ToString(), false)
                                     : null;
-            return dr;
+            return dr.Table;
           },
-        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
+        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout)).Rows[0];
 
       // Forum Statistics
       var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
         Constants.Cache.BoardUserStats,
-        () => LegacyDb.board_userstats(this.PageContext.PageBoardID),
-        TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardUserStatsCacheTimeout));
+        () => LegacyDb.board_userstats(this.PageContext.PageBoardID).Table,
+        TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardUserStatsCacheTimeout)).Rows[0];
 
       // show max users...
       if (!userStatisticsDataRow.IsNull("MaxUsers"))

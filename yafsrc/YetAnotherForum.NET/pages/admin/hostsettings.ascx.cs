@@ -252,7 +252,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
+      this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
       this.CheckCache();
     }
 
@@ -268,6 +268,7 @@ namespace YAF.Pages.Admin
     protected void ResetCacheAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
       // clear all cache keys
+      this.Get<IObjectStore>().Clear();
       this.Get<IDataCache>().Clear();
 
       this.CheckCache();

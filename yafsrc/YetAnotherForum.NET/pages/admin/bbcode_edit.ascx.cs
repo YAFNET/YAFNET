@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
         sortOrder);
       
       this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
-      this.Get<IDataCache>().RemoveOf<IProcessReplaceRules>();
+      this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
 
       YafBuildLink.Redirect(ForumPages.admin_bbcode);
     }
