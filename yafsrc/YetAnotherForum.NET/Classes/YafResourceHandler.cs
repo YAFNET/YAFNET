@@ -44,7 +44,10 @@ namespace YAF
 
   #endregion
 
-  public class YafResourceHandler : IHttpHandler, IReadOnlySessionState
+    /// <summary>
+    /// Yaf Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
+    /// </summary>
+    public class YafResourceHandler : IHttpHandler, IReadOnlySessionState
   {
     #region Properties
 
@@ -79,7 +82,7 @@ namespace YAF
         // resource request
         GetResource(context);
       }
-      else if (context.Session["lastvisit"] != null)
+      else if (context.Request.UrlReferrer.AbsoluteUri.Contains(BaseUrlBuilder.BaseUrl) || context.Session["lastvisit"] != null)
       {
         if (context.Request.QueryString.GetFirstOrDefault("u") != null)
         {
@@ -261,7 +264,6 @@ namespace YAF
           newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
         }
 
-
         using (
           var dst = new Bitmap(newImgSize.Width + PixelPadding, newImgSize.Height + BottomSize + PixelPadding, PixelFormat.Format24bppRgb))
         {
@@ -430,7 +432,6 @@ namespace YAF
           newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
         }
 
-
         using (
           var dst = new Bitmap(newImgSize.Width + PixelPadding, newImgSize.Height + BottomSize + PixelPadding, PixelFormat.Format24bppRgb))
         {
@@ -523,7 +524,7 @@ namespace YAF
     private static void GetResource([NotNull] HttpContext context)
     {
       // redirect to the resource?
-      context.Response.Redirect("resources/" + context.Request.QueryString.GetFirstOrDefault("r"));
+      context.Response.Redirect("resources/{0}".FormatWith(context.Request.QueryString.GetFirstOrDefault("r")));
 
       /*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
 			int lastIndex = resourceName.LastIndexOf( '.' );
@@ -633,6 +634,7 @@ namespace YAF
             context.Response.ContentType = contentType;
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
             context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+            
             // context.Response.Cache.SetETag( eTag );
             context.Response.OutputStream.Write(data, 0, data.Length);
             break;
@@ -649,6 +651,9 @@ namespace YAF
     /// </summary>
     /// <param name="boardID">
     /// The board id.
+    /// </param>
+    /// <param name="boardUid">
+    /// The board Uid.
     /// </param>
     /// <param name="messageID">
     /// The message id.
@@ -721,13 +726,11 @@ namespace YAF
         null,
         messageID,
         // don't track if this is a search engine
-        // don't track if this is a search engine
         isSearchEngine,
         isMobileDevice,
-        dontTrack
-        );
+          dontTrack);
 
-      DataRow auldRow;
+        DataRow auldRow;
       if (pageRow != null)
       {
         // We should be sure that all columns are added
@@ -1108,7 +1111,6 @@ namespace YAF
       {
 #endif
 
-
       var captchaImage = new CaptchaImage(
         CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), context.Cache, true), 250, 50, "Century Schoolbook");
       context.Response.Clear();
@@ -1411,10 +1413,6 @@ namespace YAF
       }
     }
 
-    #endregion
-
-    // TommyB: End MOD: Preview Images
-
-    // TommyB: End MOD: Preview Images                     
+    #endregion              
   }
 }
