@@ -33,6 +33,7 @@ namespace YAF.Core
   using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Attributes;
+  using YAF.Types.Constants;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -119,8 +120,11 @@ namespace YAF.Core
       builder.RegisterType<CurrentBoardId>().As<IHaveBoardId>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
       // cache bindings.
-      builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().InstancePerLifetimeScope().PreserveExistingDefaults();
+      builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();
       builder.RegisterType<HttpRuntimeCache>().As<IDataCache>().InstancePerLifetimeScope().PreserveExistingDefaults();
+
+      // Shared object store -- used for objects local only
+      builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
       builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
       builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().InstancePerLifetimeScope().PreserveExistingDefaults();

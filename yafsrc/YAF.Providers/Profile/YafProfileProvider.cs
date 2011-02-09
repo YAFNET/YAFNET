@@ -100,6 +100,8 @@ namespace YAF.Providers.Profile
       }
     }
 
+    private IThreadSafeDictionary<string, SettingsPropertyValueCollection> _userProfileCache = null;
+
     /// <summary>
     /// Gets UserProfileCache.
     /// </summary>
@@ -109,9 +111,10 @@ namespace YAF.Providers.Profile
       {
         string key = this.GenerateCacheKey("UserProfileDictionary");
 
-        return
-          YafContext.Current.Get<IDataCache>().GetOrSet(
-            key, () => new ThreadSafeDictionary<string, SettingsPropertyValueCollection>(), TimeSpan.FromMinutes(999));
+        return this._userProfileCache ??
+               (this._userProfileCache =
+                YafContext.Current.Get<IObjectStore>().GetOrSet(
+                  key, () => new ThreadSafeDictionary<string, SettingsPropertyValueCollection>()));
       }
     }
 
@@ -646,7 +649,7 @@ namespace YAF.Providers.Profile
     /// </summary>
     private void ClearUserProfileCache()
     {
-      YafContext.Current.Get<IDataCache>().Remove(
+      YafContext.Current.Get<IObjectStore>().Remove(
         this.GenerateCacheKey("UserProfileDictionary"));
     }
 

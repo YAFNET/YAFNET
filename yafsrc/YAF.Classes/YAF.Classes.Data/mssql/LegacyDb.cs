@@ -3001,6 +3001,8 @@ namespace YAF.Classes.Data
     {
       var listDestination = new DataTable();
 
+      listDestination.TableName = "forum_sort_list";
+
       listDestination.Columns.Add("ForumID", typeof(int));
       listDestination.Columns.Add("Title", typeof(string));
 

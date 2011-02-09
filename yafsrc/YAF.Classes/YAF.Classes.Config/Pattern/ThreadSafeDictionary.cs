@@ -70,9 +70,9 @@ namespace YAF.Classes.Pattern
     /// <summary>
     /// The dictionary lock.
     /// </summary>
-    [NonSerialized] private ReaderWriterLockSlim dictionaryLock = Locks.GetLockInstance(LockRecursionPolicy.NoRecursion); // setup the lock;
+    private ReaderWriterLockSlim dictionaryLock = Locks.GetLockInstance(LockRecursionPolicy.NoRecursion); // setup the lock;
 
-    #region IThreadSafeDictionary<TKey,TValue> Members
+    #region IThreadSafeDictionary<TKey,TValue> MembersG
 
     /// <summary>
     /// This is a blind remove. Prevents the need to check for existence first.

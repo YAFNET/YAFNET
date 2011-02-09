@@ -27,6 +27,7 @@ namespace YAF.Utils.Structures
   ///   have one of these).  The primary usage for this class is with the MostRecenlyUsed class,
   ///   but can be used in a variety of scenarios.
   /// </summary>
+  [Serializable]
   public class DoubleLinkedList : IList
   {
     #region Constants and Fields
@@ -589,6 +590,7 @@ namespace YAF.Utils.Structures
     /// <summary>
     /// Public class to enumerate the items in the list
     /// </summary>
+    [Serializable]
     public class EnumLinkList : IEnumerator
     {
       #region Constants and Fields
@@ -690,6 +692,7 @@ namespace YAF.Utils.Structures
     /// <summary>
     /// Class that represents an element in the doubly linked list
     /// </summary>
+    [Serializable]
     public class LinkItem
     {
       #region Constants and Fields

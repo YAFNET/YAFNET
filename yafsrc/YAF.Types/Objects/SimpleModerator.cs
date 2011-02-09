@@ -18,9 +18,12 @@
  */
 namespace YAF.Types.Objects
 {
+  using System;
+
   /// <summary>
   /// The moderator.
   /// </summary>
+  [Serializable]
   public class SimpleModerator
   {
     /// <summary>

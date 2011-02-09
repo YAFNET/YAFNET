@@ -21,35 +21,15 @@ namespace YAF.Types.Interfaces
   #region Using
 
   using System;
-  using System.Collections.Generic;
 
   #endregion
 
   /// <summary>
   /// Interface to the cache system.
   /// </summary>
-  public interface IDataCache : IReadValue<object>, IWriteValue<object>, IRemoveValue
+  public interface IDataCache : IObjectStore
   {
-    #region Indexers
-
-    /// <summary>
-    ///   The this.
-    /// </summary>
-    /// <param name = "key">
-    ///   The key.
-    /// </param>
-    object this[[NotNull] string key] { get; set; }
-
-    #endregion
-
     #region Public Methods
-
-    /// <summary>
-    /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    IEnumerable<KeyValuePair<string, T>> GetAll<T>();
 
     /// <summary>
     /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
@@ -66,19 +46,6 @@ namespace YAF.Types.Interfaces
     /// <returns>
     /// </returns>
     T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout);
-
-    /// <summary>
-    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="getValue">
-    /// The get value.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
 
     /// <summary>
     /// Sets a cache value with a timeout.

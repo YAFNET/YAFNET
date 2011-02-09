@@ -28,6 +28,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed all thanks.
   /// </summary>
+  [Serializable]
   public class TypedAllThanks
   {
     #region Constructors and Destructors

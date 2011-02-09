@@ -572,10 +572,11 @@ namespace YAF.Core
       }
 
       // get the item cached...
-      return YafContext.Current.Get<IDataCache>().GetOrSet(
-        Constants.Cache.UserListForID.FormatWith(userID),
-        () => LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow(),
-        TimeSpan.FromMinutes(5));
+      return
+        YafContext.Current.Get<IDataCache>().GetOrSet(
+          Constants.Cache.UserListForID.FormatWith(userID),
+          () => LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value),
+          TimeSpan.FromMinutes(5)).GetFirstRow();
     }
 
     /// <summary>

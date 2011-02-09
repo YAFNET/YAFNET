@@ -38,27 +38,18 @@ namespace YAF.Core
   /// <summary>
   /// The default user display name.
   /// </summary>
-  public class DefaultUserDisplayName : IUserDisplayName
+  public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
   {
-    private readonly IDataCache _dataCache;
-
-    #region Constants and Fields
-
-
-
-    #endregion
+    public IServiceLocator ServiceLocator { get; set; }
 
     #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DefaultUserDisplayName"/> class.
     /// </summary>
-    /// <param name="dataCache">
-    /// The data cache.
-    /// </param>
-    public DefaultUserDisplayName([NotNull] IDataCache dataCache)
+    public DefaultUserDisplayName(IServiceLocator serviceLocator)
     {
-      _dataCache = dataCache;
+      ServiceLocator = serviceLocator;
     }
 
     #endregion
@@ -72,7 +63,9 @@ namespace YAF.Core
     {
       get
       {
-        return this._dataCache.GetOrSet(Constants.Cache.UsersDisplayNameCollection, () => new ThreadSafeDictionary<int, string>());
+        return
+          this.Get<IObjectStore>().GetOrSet(
+            Constants.Cache.UsersDisplayNameCollection, () => new ThreadSafeDictionary<int, string>());
       }
     }
 

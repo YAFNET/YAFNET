@@ -69,6 +69,7 @@
     <Compile Include="EventProxies\UpdateUserEvent.cs" />
     <Compile Include="EventProxies\UpdateUserPrivateMessageEvent.cs" />
     <Compile Include="EventProxies\UserLogoutEvent.cs" />
+    <Compile Include="Extensions\IReadValueExtensions.cs" />
     <Compile Include="Interfaces\Events\EventConverterArgs.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\ActiveFlags.cs" />
@@ -88,11 +89,11 @@
     <Compile Include="Interfaces\Events\IAmEvent.cs" />
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
-    <Compile Include="Interfaces\Extensions\IDataCacheExtensions.cs" />
-    <Compile Include="Interfaces\Extensions\IDbAccessExtensions.cs" />
-    <Compile Include="Interfaces\Extensions\IHaveLocalizationExtensions.cs" />
-    <Compile Include="Interfaces\Extensions\InjectServicesExtensions.cs" />
-    <Compile Include="Interfaces\Extensions\KeyValuePairExtensions.cs" />
+    <Compile Include="Extensions\IObjectStoreExtensions.cs" />
+    <Compile Include="Extensions\IDbAccessExtensions.cs" />
+    <Compile Include="Extensions\IHaveLocalizationExtensions.cs" />
+    <Compile Include="Extensions\InjectServicesExtensions.cs" />
+    <Compile Include="Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
     <Compile Include="Interfaces\IBBCode.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Interfaces\ILoggerProvider.cs" />
     <Compile Include="Interfaces\IModuleManager.cs" />
     <Compile Include="Interfaces\INavigatablePage.cs" />
+    <Compile Include="Interfaces\IObjectStore.cs" />
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />
     <Compile Include="Interfaces\IProcessReplaceRules.cs" />
@@ -169,7 +171,7 @@
     <Compile Include="Objects\TypedTopicSimpleList.cs" />
     <Compile Include="Objects\TypedUserList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
+    <Compile Include="Extensions\IServiceLocatorExtensions.cs" />
     <Compile Include="ServiceLocatorAccess.cs" />
     <Compile Include="YafLifetimeScope.cs" />
   </ItemGroup>

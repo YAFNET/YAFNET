@@ -29,6 +29,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed smiley list.
   /// </summary>
+  [Serializable]
   public class TypedSmileyList
   {
     #region Constructors and Destructors

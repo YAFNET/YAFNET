@@ -21,6 +21,7 @@ namespace YAF.Types.Objects
 {
   #region Using
 
+  using System;
   using System.Data;
 
   #endregion
@@ -28,6 +29,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed poll group.
   /// </summary>
+  [Serializable]
   public class TypedPollGroup
   {
     #region Constructors and Destructors

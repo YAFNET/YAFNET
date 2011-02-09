@@ -20,6 +20,7 @@ namespace YAF.Types.Objects
 {
   #region Using
 
+  using System;
   using System.Data;
 
   #endregion
@@ -27,6 +28,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed forum list all.
   /// </summary>
+  [Serializable]
   public class TypedForumListAll
   {
     #region Constructors and Destructors

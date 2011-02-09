@@ -158,7 +158,7 @@ namespace YAF.Controls
     {
       get
       {
-        return this.Get<IDataCache>().GetOrSet(
+        return this.Get<IObjectStore>().GetOrSet(
           "UserBoxRegexDictionary", () => new ThreadSafeDictionary<string, Regex>());
       }
     }

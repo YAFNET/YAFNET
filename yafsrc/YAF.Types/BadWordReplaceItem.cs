@@ -18,11 +18,13 @@
  */
 namespace YAF.Types
 {
+  using System;
   using System.Text.RegularExpressions;
 
   /// <summary>
   /// The bad word replace item.
   /// </summary>
+  [Serializable]
   public class BadWordReplaceItem
   {
     #region Constants and Fields

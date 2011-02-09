@@ -27,6 +27,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The simple topic.
   /// </summary>
+  [Serializable]
   public class SimpleTopic
   {
     #region Properties

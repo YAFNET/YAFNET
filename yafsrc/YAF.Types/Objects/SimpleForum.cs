@@ -20,6 +20,7 @@ namespace YAF.Types.Objects
 {
   #region Using
 
+  using System;
   using System.Collections.Generic;
 
   #endregion
@@ -27,6 +28,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The simple forum.
   /// </summary>
+  [Serializable]
   public class SimpleForum
   {
     #region Constants and Fields

@@ -90,6 +90,8 @@ namespace YAF.Providers.Roles
       }
     }
 
+    private IThreadSafeDictionary<string, StringCollection> _userRoleCache = null;
+
     /// <summary>
     /// Gets UserRoleCache.
     /// </summary>
@@ -98,8 +100,11 @@ namespace YAF.Providers.Roles
       get
       {
         string key = this.GenerateCacheKey("UserRoleDictionary");
-        return YafContext.Current.Get<IDataCache>().GetOrSet(
-          key, () => new ThreadSafeDictionary<string, StringCollection>(), TimeSpan.FromMinutes(999));
+
+        return this._userRoleCache ??
+               (this._userRoleCache =
+                YafContext.Current.Get<IObjectStore>().GetOrSet(
+                  key, () => new ThreadSafeDictionary<string, StringCollection>()));
       }
     }
 
@@ -425,7 +430,7 @@ namespace YAF.Providers.Roles
     private void ClearUserRoleCache()
     {
       string key = this.GenerateCacheKey("UserRoleDictionary");
-      YafContext.Current.Get<IDataCache>().Remove(key);
+      YafContext.Current.Get<IObjectStore>().Remove(key);
     }
 
     /// <summary>

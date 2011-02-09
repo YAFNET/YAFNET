@@ -32,6 +32,7 @@ namespace YAF.Utils.Structures
   /// <summary>
   /// The most recently used.
   /// </summary>
+  [Serializable]
   public class MostRecentlyUsed : DictionaryBase
   {
     #region Constants and Fields

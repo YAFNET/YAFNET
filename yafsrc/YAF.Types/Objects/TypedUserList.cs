@@ -28,6 +28,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed user list.
   /// </summary>
+  [Serializable]
   public class TypedUserList
   {
     #region Constructors and Destructors

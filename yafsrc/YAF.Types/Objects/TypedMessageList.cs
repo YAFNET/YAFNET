@@ -30,6 +30,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed message list.
   /// </summary>
+  [Serializable]
   public class TypedMessageList
   {
     #region Constructors and Destructors

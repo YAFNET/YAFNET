@@ -123,8 +123,9 @@ namespace YAF.Core.Services
     /// </returns>
     protected override bool RunService()
     {
-      var bannedIPs = this.DataCache.GetOrSet(
-        Constants.Cache.BannedIP, () => LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null).AsEnumerable());
+      var bannedIPs =
+        this.DataCache.GetOrSet(
+          Constants.Cache.BannedIP, () => LegacyDb.bannedip_list(YafContext.Current.PageBoardID, null)).AsEnumerable();
 
       // check for this user in the list...
       if (

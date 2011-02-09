@@ -68,7 +68,7 @@ namespace YAF.Core.Services
     public IEnumerable<TypedBBCode> GetCustomBBCode()
     {
       return this.DataCache.GetOrSet(
-        Constants.Cache.CustomBBCode, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null));
+        Constants.Cache.CustomBBCode, () => LegacyDb.BBCodeList(YafContext.Current.PageBoardID, null).ToList());
     }
 
     public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
@@ -112,9 +112,10 @@ namespace YAF.Core.Services
     public DataRow ActiveUserLazyData(int userId)
     {
       // get a row with user lazy data...
-      return this.DataCache.GetOrSet(
-        Constants.Cache.ActiveUserLazyData.FormatWith(userId),
-        () =>
+      return
+        this.DataCache.GetOrSet(
+          Constants.Cache.ActiveUserLazyData.FormatWith(userId),
+          () =>
           LegacyDb.user_lazydata(
             userId,
             YafContext.Current.PageBoardID,
@@ -122,8 +123,8 @@ namespace YAF.Core.Services
             YafContext.Current.BoardSettings.EnableBuddyList,
             YafContext.Current.BoardSettings.AllowPrivateMessages,
             YafContext.Current.BoardSettings.EnableAlbum,
-            YafContext.Current.BoardSettings.UseStyledNicks),
-        TimeSpan.FromMinutes(YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout));
+            YafContext.Current.BoardSettings.UseStyledNicks).Table,
+          TimeSpan.FromMinutes(YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout)).Rows[0];
     }
 
     /// <summary>
@@ -195,7 +196,7 @@ namespace YAF.Core.Services
     {
       return this.DataCache.GetOrSet(
         Constants.Cache.Smilies,
-        () => LegacyDb.SmileyList(YafContext.Current.PageBoardID, null),
+        () => LegacyDb.SmileyList(YafContext.Current.PageBoardID, null).ToList(),
         TimeSpan.FromMinutes(60));
     }
 

@@ -60,20 +60,6 @@ namespace YAF.Controls
     /// </summary>
     public string Signature { get; set; }
 
-    /// <summary>
-    ///   Gets UserSignatureCache.
-    /// </summary>
-    public MostRecentlyUsed UserSignatureCache
-    {
-      get
-      {
-        var cache = this.Get<IDataCache>().GetOrSet(
-          Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
-
-        return cache;
-      }
-    }
-
     #endregion
 
     #region Methods
@@ -129,18 +115,7 @@ namespace YAF.Controls
       // don't allow any HTML on signatures
       var signatureFlags = new MessageFlags { IsHtml = false };
 
-      var cache = this.UserSignatureCache;
-      string signatureRendered;
-
-      if (cache.Contains(this.DisplayUserID.Value))
-      {
-        signatureRendered = cache[this.DisplayUserID.Value] as string;
-      }
-      else
-      {
-        signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
-        cache[this.DisplayUserID.Value] = signatureRendered;
-      }
+      string signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
 
       this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID);
     }

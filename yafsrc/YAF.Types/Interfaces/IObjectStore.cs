@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,63 +16,57 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Objects
+namespace YAF.Types.Interfaces
 {
   #region Using
 
   using System;
-  using System.Data;
+  using System.Collections.Generic;
 
   #endregion
 
   /// <summary>
-  /// The typed topic simple list.
+  /// The i object store.
   /// </summary>
-  [Serializable]
-  public class TypedTopicSimpleList
+  public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemoveValue
   {
-    #region Constructors and Destructors
+    #region Indexers
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypedTopicSimpleList"/> class.
+    ///   The this.
     /// </summary>
-    /// <param name="row">
-    /// The row.
+    /// <param name = "key">
+    ///   The key.
     /// </param>
-    public TypedTopicSimpleList([NotNull] DataRow row)
-    {
-      this.TopicID = row.Field<int?>("TopicID");
-      this.Topic = row.Field<string>("Topic");
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="TypedTopicSimpleList"/> class.
-    /// </summary>
-    /// <param name="topicid">
-    /// The topicid.
-    /// </param>
-    /// <param name="topic">
-    /// The topic.
-    /// </param>
-    public TypedTopicSimpleList(int? topicid, [NotNull] string topic)
-    {
-      this.TopicID = topicid;
-      this.Topic = topic;
-    }
+    object this[[NotNull] string key] { get; set; }
 
     #endregion
 
-    #region Properties
+    #region Public Methods
 
     /// <summary>
-    /// Gets or sets Topic.
+    /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
     /// </summary>
-    public string Topic { get; set; }
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    IEnumerable<KeyValuePair<string, T>> GetAll<T>();
 
     /// <summary>
-    /// Gets or sets TopicID.
+    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
     /// </summary>
-    public int? TopicID { get; set; }
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="getValue">
+    /// The get value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
 
     #endregion
   }

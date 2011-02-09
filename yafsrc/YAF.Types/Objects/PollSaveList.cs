@@ -27,6 +27,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// Class to hold polls and questions data to save
   /// </summary>
+  [Serializable]
   public class PollSaveList
   {
     #region Constructors and Destructors

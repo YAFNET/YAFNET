@@ -28,6 +28,7 @@ namespace YAF.Types.Objects
   /// <summary>
   /// The typed mail list.
   /// </summary>
+  [Serializable]
   public class TypedMailList
   {
     #region Constructors and Destructors
