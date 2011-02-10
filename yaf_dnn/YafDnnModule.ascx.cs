@@ -91,11 +91,11 @@ namespace YAF.DotNetNuke
                 ModuleActionCollection actions = new ModuleActionCollection
                     {
                         {
-                            this.GetNextActionID(), "Edit YAF Settings", ModuleActionType.AddContent, String.Empty, 
+                            this.GetNextActionID(), Localization.GetString("EditYafSettings.Text", this.LocalResourceFile), ModuleActionType.AddContent, String.Empty, 
                             String.Empty, this.EditUrl(), false, SecurityAccessLevel.Host, true, false
                             }, 
                         {
-                            this.GetNextActionID(), "DNN User Importer", ModuleActionType.AddContent, String.Empty, 
+                            this.GetNextActionID(), Localization.GetString("UserImporter.Text", this.LocalResourceFile), ModuleActionType.AddContent, String.Empty, 
                             String.Empty, this.EditUrl("Import"), false, SecurityAccessLevel.Host, true, false
                             }
                     };
@@ -520,7 +520,6 @@ namespace YAF.DotNetNuke
                 }
             }
             
-
             try
             {
                 this.VerifyUser();
@@ -596,24 +595,36 @@ namespace YAF.DotNetNuke
 
             int yafUserId;
 
-           /* try
+            try
             {
-*/                yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
+                yafUserId = LegacyDb.user_get(this.forum1.BoardID, dnnUser.ProviderUserKey);
 
                 if (yafUserId > 0)
                 {
                     this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = true;
-
-                    ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, PortalSettings.PortalId, this.forum1.BoardID);
                 }
-           /* }
+            }
             catch (Exception)
             {
                 yafUserId = 0;
                 this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] = null;
-            }*/
+            }
 
-            // Has this user been registered in YAF already?
+            // Load Auto Sync Setting
+            bool autoSyncProfile = true;
+
+            if ((string)this.Settings["AutoSyncProfile"] != null)
+            {
+                bool.TryParse((string)this.Settings["AutoSyncProfile"], out autoSyncProfile);
+            }
+
+            if (yafUserId > 0 && autoSyncProfile)
+            {
+                ProfileSyncronizer.UpdateUserProfile(yafUserId, dnnUserInfo, dnnUser, PortalSettings.PortalId, this.forum1.BoardID);
+            }
+
+
+            // Has this user been registered in YAF already?);
             if (this.Session["{0}_userSync".FormatWith(this.SessionUserKeyName)] != null)
             {
                 return;
@@ -624,7 +635,6 @@ namespace YAF.DotNetNuke
                 yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
             }
             
-
             // super admin check...
             if (dnnUserInfo.IsSuperUser)
             {
@@ -686,8 +696,12 @@ namespace YAF.DotNetNuke
                 this.forum1.BoardID = int.Parse(this.Settings["forumboardid"].ToString());
 
                 // Inherit Language from Dnn?
-                bool ineritDnnLang;
-                bool.TryParse((string)this.Settings["InheritDnnLanguage"], out ineritDnnLang);
+                bool ineritDnnLang = true;
+
+                if ((string)this.Settings["InheritDnnLanguage"] != null)
+                {
+                    bool.TryParse((string)this.Settings["InheritDnnLanguage"], out ineritDnnLang);
+                }
 
                 if (ineritDnnLang)
                 {

@@ -86,20 +86,28 @@ namespace YAF.DotNetNuke
         /// </param>
         public static void UpdateUserProfile(int yafUserId, UserInfo dnnUserInfo, MembershipUser membershipUser, int portalId, int boardId)
         {
-            var yafUserProfile = YafUserProfile.GetProfile(membershipUser.UserName);
-
-            var yafTime = yafUserProfile.LastUpdatedDate;
-            var dnnTime = DataController.YafDnnGetLastUpdatedProfile(10);
-
-            TimeSpan timeCompare = dnnTime - yafTime;
-
-            if (timeCompare.TotalSeconds > 0)
+            try
             {
-                SyncYaf(yafUserId, yafUserProfile, dnnUserInfo, portalId, boardId);
+                var yafUserProfile = YafUserProfile.GetProfile(membershipUser.UserName);
+
+                var yafTime = yafUserProfile.LastUpdatedDate;
+                var dnnTime = DataController.YafDnnGetLastUpdatedProfile(dnnUserInfo.UserID);
+
+                TimeSpan timeCompare = dnnTime - yafTime;
+
+                if (timeCompare.TotalSeconds > 0)
+                {
+                    SyncYaf(dnnTime, yafUserId, yafUserProfile, dnnUserInfo, portalId, boardId);
+                }
+                else
+                {
+                    SyncDnn(yafTime, yafUserId, yafUserProfile, dnnUserInfo, membershipUser, portalId);
+                }
             }
-            else
+            catch (Exception)
             {
-                SyncDnn(yafUserId, yafUserProfile, dnnUserInfo, membershipUser, portalId);
+                //EventLogController objEventLog = new EventLogController();
+                //objEventLog.AddLog();
             }
         }
 
@@ -141,6 +149,9 @@ namespace YAF.DotNetNuke
         /// <summary>
         /// yaf profile is newer sync dnn now
         /// </summary>
+        /// <param name="dnnTime">
+        /// The dnn Time.
+        /// </param>
         /// <param name="yafUserId">
         /// The yaf user id.
         /// </param>
@@ -156,8 +167,30 @@ namespace YAF.DotNetNuke
         /// <param name="portalId">
         /// The portal id.
         /// </param>
-        private static void SyncDnn(int yafUserId, YafUserProfile yafUserProfile, UserInfo dnnUserInfo, MembershipUser membershipUser, int portalId)
+        private static void SyncDnn(DateTime dnnTime, int yafUserId, YafUserProfile yafUserProfile, UserInfo dnnUserInfo, MembershipUser membershipUser, int portalId)
         {
+            var cacheKeyDnnName = "dnnsync_userid{0}_portalid{1}".FormatWith(dnnUserInfo.UserID, portalId);
+
+            DateTime cacheTime = dnnTime;
+
+            // Make sure its syncs only when needed
+            try
+            {
+                if (DataCache.GetCache(cacheKeyDnnName) != null)
+                {
+                    cacheTime = (DateTime)DataCache.GetCache(cacheKeyDnnName);
+                }
+            }
+            catch (Exception)
+            {
+                cacheTime = dnnTime;
+            }
+            
+            if (dnnTime < cacheTime)
+            {
+                return;
+            }
+
             var yafUserData = new CombinedUserDataHelper(yafUserId);
 
             if (yafUserProfile.RealName.Contains(" "))
@@ -184,7 +217,6 @@ namespace YAF.DotNetNuke
                 dnnUserInfo.Profile.PreferredLocale = yafUserData.CultureUser;
             }
 
-            // TODO : Save Yaf Avatar
             /*var userAvatarUrl = YafContext.Current.Get<IAvatars>().GetAvatarUrlForUser(yafUserId);
 
             if (!string.IsNullOrEmpty(userAvatarUrl))
@@ -208,14 +240,20 @@ namespace YAF.DotNetNuke
 
             ProfileController.UpdateUserProfile(dnnUserInfo, dnnUserInfo.Profile.ProfileProperties);
 
-            // Save both to make sure both have the same Last Update flag.
             UserController.UpdateUser(portalId, dnnUserInfo);
+
+            var currentTime = DateTime.Now;
+
+            DataCache.SetCache(cacheKeyDnnName, currentTime);
         }
 
         /// <summary>
         /// Dnn Profile is newer, sync yaf now
         /// NOTE : no neeed to manually sync Email Adress
         /// </summary>
+        /// <param name="yafTime">
+        /// The yaf Time.
+        /// </param>
         /// <param name="yafUserId">
         /// The yaf user id.
         /// </param>
@@ -226,12 +264,35 @@ namespace YAF.DotNetNuke
         /// The dnn user info.
         /// </param>
         /// <param name="portalId">
-        /// The Portal id.</param>
+        /// The Portal id.
+        /// </param>
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        private static void SyncYaf(int yafUserId, YafUserProfile yafUserProfile, UserInfo dnnUserInfo, int portalId, int boardId)
+        private static void SyncYaf(DateTime yafTime, int yafUserId, YafUserProfile yafUserProfile, UserInfo dnnUserInfo, int portalId, int boardId)
         {
+            var cacheKeyYafName = "yafsync_userid{0}_portalid{1}".FormatWith(dnnUserInfo.UserID, portalId);
+
+            DateTime cacheTime = yafTime;
+
+            // Make sure its syncs only when needed
+            try
+            {
+                if (DataCache.GetCache(cacheKeyYafName) != null)
+                {
+                    cacheTime = (DateTime)DataCache.GetCache(cacheKeyYafName);
+                }
+            }
+            catch (Exception)
+            {
+                cacheTime = yafTime;
+            }
+
+            if (yafTime < cacheTime)
+            {
+                return;
+            }
+
             var yafUserData = new CombinedUserDataHelper(yafUserId);
 
             yafUserProfile.Location = dnnUserInfo.Profile.Country;
@@ -269,7 +330,6 @@ namespace YAF.DotNetNuke
                 yafUserProfile.Save();
             }
             
-
             YafDnnModule.YafCultureInfo userCuluture = new YafDnnModule.YafCultureInfo
                 {
                     LanguageFile = yafUserData.LanguageFile,
@@ -308,11 +368,14 @@ namespace YAF.DotNetNuke
                 yafUserData.DSTUser,
                 yafUserData.IsActiveExcluded,
                 null);
-        }
 
+            var currentTime = DateTime.Now;
+
+            DataCache.SetCache(cacheKeyYafName, currentTime);
+        }
         /*
         /// <summary>
-        /// TODO : Extract YAF Avatar to DNN Photo
+        /// Extract YAF Avatar to DNN Photo
         /// </summary>
         /// <param name="avatarUrl">
         /// The avatar url.
@@ -324,6 +387,7 @@ namespace YAF.DotNetNuke
         /// The portal id.
         /// </param>
         /// <returns>
+        /// File ID of the yaf Avatar inside dnn
         /// </returns>
         private static string SaveYafAvatar(string avatarUrl, UserInfo dnnUserInfo, int portalId)
         {
@@ -332,13 +396,11 @@ namespace YAF.DotNetNuke
                 var folderPath = FileSystemUtils.GetUserFolderPath(dnnUserInfo.UserID);
 
                 // Make sure the user folder exists
-                FileSystemUtils.AddUserFolder(
+                DnnUtils.DnnFileSystem.AddUserFolder(
                     CurrentPortalSettings,
                     CurrentPortalSettings.HomeDirectoryMapPath,
                     (int)FolderController.StorageLocationTypes.InsecureFileSystem,
                     dnnUserInfo.UserID);
-
-                FolderInfo folder = new FolderController().GetFolder(portalId, folderPath, true);
 
                 var yafAvatarName = "YafAvatar{0}.jpg".FormatWith(dnnUserInfo.UserID);
 
@@ -352,14 +414,15 @@ namespace YAF.DotNetNuke
 
                 wc.Headers.Add("Referer", YafBuildLink.GetLink(ForumPages.forum));
 
-
                 wc.DownloadFile(avatarUrl, Path.Combine(CurrentPortalSettings.HomeDirectoryMapPath, Path.Combine(folderPath, yafAvatarName)));
 
-                FileSystemUtils.AddFile(Path.Combine(folderPath, yafAvatarName), portalId, true, folder);
+                FolderInfo folder = new FolderController().GetFolder(portalId, Path.Combine(CurrentPortalSettings.HomeDirectoryMapPath, folderPath), true);
+
+                FileSystemUtils.AddFile(yafAvatarName, portalId, true, folder);
 
                 FileController fileController = new FileController();
 
-                FileInfo info = fileController.GetFile(yafAvatarName, portalId, folder.FolderID);
+                FileInfo info = fileController.GetFile(yafAvatarName, portalId, folderPath);
 
                 return info.FileId.ToString();
             }
@@ -368,7 +431,6 @@ namespace YAF.DotNetNuke
                 return string.Empty;
             }
         }*/
-
 
         /// <summary>
         /// Save Dnn Avatar as Yaf Remote Avatar with relative Path.

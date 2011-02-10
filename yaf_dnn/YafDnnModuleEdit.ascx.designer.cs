@@ -13,6 +13,15 @@ namespace YAF.DotNetNuke {
     public partial class YafDnnModuleEdit {
         
         /// <summary>
+        /// BoardName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl BoardName;
+        
+        /// <summary>
         /// BoardID control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,24 @@ namespace YAF.DotNetNuke {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList BoardID;
+        
+        /// <summary>
+        /// create control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button create;
+        
+        /// <summary>
+        /// Category control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl Category;
         
         /// <summary>
         /// CategoryID control.
@@ -31,6 +58,15 @@ namespace YAF.DotNetNuke {
         protected global::System.Web.UI.WebControls.DropDownList CategoryID;
         
         /// <summary>
+        /// InheritLanguage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl InheritLanguage;
+        
+        /// <summary>
         /// InheritDnnLanguage control.
         /// </summary>
         /// <remarks>
@@ -40,13 +76,31 @@ namespace YAF.DotNetNuke {
         protected global::System.Web.UI.WebControls.CheckBox InheritDnnLanguage;
         
         /// <summary>
+        /// SyncProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl SyncProfile;
+        
+        /// <summary>
+        /// AutoSyncProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AutoSyncProfile;
+        
+        /// <summary>
         /// update control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton update;
+        protected global::System.Web.UI.WebControls.Button update;
         
         /// <summary>
         /// cancel control.
@@ -55,15 +109,6 @@ namespace YAF.DotNetNuke {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton cancel;
-        
-        /// <summary>
-        /// create control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton create;
+        protected global::System.Web.UI.WebControls.Button cancel;
     }
 }

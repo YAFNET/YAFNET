@@ -27,8 +27,9 @@ namespace YAF.DotNetNuke
 
   using global::DotNetNuke.Entities.Modules;
   using global::DotNetNuke.Framework;
+  using global::DotNetNuke.Services.Localization;
 
-    using YAF.Classes.Data;
+  using YAF.Classes.Data;
   using YAF.Types.Constants;
   using YAF.Utils;
 
@@ -95,7 +96,7 @@ namespace YAF.DotNetNuke
       using (DataTable dt = LegacyDb.category_list(this.BoardID.SelectedValue, DBNull.Value))
       {
         DataRow row = dt.NewRow();
-        row["Name"] = "[All Categories]";
+        row["Name"] = Localization.GetString("AllCategories.Text", this.LocalResourceFile);
         row["CategoryID"] = DBNull.Value;
         dt.Rows.InsertAt(row, 0);
 
@@ -142,11 +143,9 @@ namespace YAF.DotNetNuke
     /// </param>
     private void DotNetNukeModuleEdit_Load(object sender, EventArgs e)
     {
-        ((CDefault)this.Page).AddStyleSheet("YafDefaultTheme", this.ResolveUrl("themes/standard/theme.css"));
-
-        this.update.Text = "Update";
-        this.cancel.Text = "Cancel";
-        this.create.Text = "Create New Board";
+        this.update.Text = Localization.GetString("Update.Text", this.LocalResourceFile);
+        this.cancel.Text = Localization.GetString("Cancel.Text", this.LocalResourceFile);
+        this.create.Text = Localization.GetString("Create.Text", this.LocalResourceFile);
 
         this.update.Visible = this.IsEditable;
         this.create.Visible = this.IsEditable;
@@ -174,10 +173,25 @@ namespace YAF.DotNetNuke
 
         this.BindCategories();
 
-        bool ineritDnnLang;
-        bool.TryParse((string)this.Settings["InheritDnnLanguage"], out ineritDnnLang);
+        // Load Inherit DNN Language Setting
+        bool ineritDnnLang = true;
+
+        if ((string)this.Settings["InheritDnnLanguage"] != null)
+        {
+            bool.TryParse((string)this.Settings["InheritDnnLanguage"], out ineritDnnLang);
+        }
 
         this.InheritDnnLanguage.Checked = ineritDnnLang;
+
+        // Load Auto Sync Setting
+        bool autoSyncProfile = true;
+
+        if ((string)this.Settings["AutoSyncProfile"] != null)
+        {
+            bool.TryParse((string)this.Settings["AutoSyncProfile"], out autoSyncProfile);
+        }
+
+        this.AutoSyncProfile.Checked = autoSyncProfile;
     }
 
       /// <summary>
@@ -196,6 +210,7 @@ namespace YAF.DotNetNuke
       objModules.UpdateModuleSetting(this.ModuleId, "forumboardid", this.BoardID.SelectedValue);
       objModules.UpdateModuleSetting(this.ModuleId, "forumcategoryid", this.CategoryID.SelectedValue);
       objModules.UpdateModuleSetting(this.ModuleId, "InheritDnnLanguage", this.InheritDnnLanguage.Checked.ToString());
+      objModules.UpdateModuleSetting(this.ModuleId, "AutoSyncProfile", this.AutoSyncProfile.Checked.ToString());
 
       YafBuildLink.Redirect(ForumPages.forum);
     }

@@ -35,6 +35,7 @@ namespace YAF.DotNetNuke
     using global::DotNetNuke.Entities.Portals;
     using global::DotNetNuke.Entities.Users;
     using global::DotNetNuke.Services.Exceptions;
+    using global::DotNetNuke.Services.Localization;
     using global::DotNetNuke.Services.Scheduling;
     using YAF.Classes.Data;
     using YAF.Core;
@@ -98,17 +99,17 @@ namespace YAF.DotNetNuke
         case "add":
           this.InstallScheduleClient();
           btn.CommandArgument = "update";
-          btn.Text = "Update Yaf User Importer Schedule";
+          btn.Text = Localization.GetString("UpdateSheduler.Text", this.LocalResourceFile);
           break;
         case "update":
           UpdateScheduleItem(GetIdOfScheduleClient(TypeFullName));
           btn.CommandArgument = "delete";
-          btn.Text = "Delete Yaf User Importer Schedule";
+          btn.Text = Localization.GetString("DeleteShedulerText", this.LocalResourceFile);
           break;
         case "delete":
           RemoveScheduleClient(GetIdOfScheduleClient(TypeFullName));
           btn.CommandArgument = "add";
-          btn.Text = "Install Yaf User Importer Schedule";
+          btn.Text = Localization.GetString("InstallSheduler.Text", this.LocalResourceFile);
           break;
       }
     }
@@ -358,8 +359,9 @@ namespace YAF.DotNetNuke
     /// </param>
     private void DotNetNukeModuleImport_Load(object sender, EventArgs e)
     {
-      this.btnImportUsers.Text = "Import Now";
-      this.Close.Text = "<- Go Back";
+      this.btnImportUsers.Text = Localization.GetString("ImportNow.Text", this.LocalResourceFile);
+      this.Close.Text = Localization.GetString("Close.Text", this.LocalResourceFile);
+      this.btnAddScheduler.Text = Localization.GetString("InstallSheduler.Text", this.LocalResourceFile);
 
       try
       {
@@ -426,7 +428,7 @@ namespace YAF.DotNetNuke
       }
 
       this.btnAddScheduler.CommandArgument = "delete";
-      this.btnAddScheduler.Text = "Delete Yaf User Importer Schedule";
+      this.btnAddScheduler.Text = Localization.GetString("DeleteSheduler.Text", this.LocalResourceFile);
     }
 
     /// <summary>
@@ -513,15 +515,15 @@ namespace YAF.DotNetNuke
           }
         }
 
-        this.lInfo.Text = "{0} User(s) Imported".FormatWith(this.NewUsers);
+        this.lInfo.Text = Localization.GetString("UsersImported.Text", this.LocalResourceFile).FormatWith(this.NewUsers);
 
         if (bRolesChanged)
         {
-          this.lInfo.Text += ", but all Roles are syncronized!";
+          this.lInfo.Text += Localization.GetString("RolesSynced.Text", this.LocalResourceFile);
         }
         else
         {
-          this.lInfo.Text += ", Roles already syncronized!";
+          this.lInfo.Text += Localization.GetString("RolesNotSynced.Text", this.LocalResourceFile);
         }
 
         YafContext.Current.Get<IDataCache>().Clear();
