@@ -1348,11 +1348,6 @@
               Gets or sets Signature.
             </summary>
         </member>
-        <member name="P:YAF.Controls.MessageSignature.UserSignatureCache">
-            <summary>
-              Gets UserSignatureCache.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.DataPanel">
             <summary>
             Web control which provides a panel control as a 

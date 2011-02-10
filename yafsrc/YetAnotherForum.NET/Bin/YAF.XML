@@ -26621,6 +26621,17 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.Admin.admin.Pager_PageChange(System.Object,System.EventArgs)">
+            <summary>
+            The pager_ page change.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.Admin.admin.ApproveAll_Load(System.Object,System.EventArgs)">
             <summary>
             The approve all_ load.
@@ -26709,7 +26720,26 @@
             Bind list of boards to dropdown
             </summary>
         </member>
+        <member name="M:YAF.Pages.Admin.admin.GetActiveUsersData(System.Boolean,System.Boolean)">
+            <summary>
+            Gets active user data Table data for a page user
+            </summary>
+            <param name="showGuests">
+            The show guests.
+            </param>
+            <param name="showCrawlers">
+            The show crawlers.
+            </param>
+            <returns>
+            A DataTable
+            </returns>
+        </member>
         <member name="M:YAF.Pages.Admin.admin.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.admin.BindActiveUserData">
             <summary>
             The bind data.
             </summary>
@@ -26947,9 +26977,27 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.admin.Pager">
+            <summary>
+            Pager control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.admin.ActiveList">
             <summary>
             ActiveList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.admin.Pager1">
+            <summary>
+            Pager1 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -32103,6 +32151,11 @@
               Gets or sets DataRow.
             </summary>
         </member>
+        <member name="T:YAF.YafResourceHandler">
+            <summary>
+            Yaf Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
+            </summary>
+        </member>
         <member name="M:YAF.YafResourceHandler.ProcessRequest(System.Web.HttpContext)">
             <summary>
             The process request.
@@ -32206,6 +32259,9 @@
             </summary>
             <param name="boardID">
             The board id.
+            </param>
+            <param name="boardUid">
+            The board Uid.
             </param>
             <param name="messageID">
             The message id.
