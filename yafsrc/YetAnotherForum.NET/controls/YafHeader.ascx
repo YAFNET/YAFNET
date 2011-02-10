@@ -124,6 +124,12 @@
                 <li class="menuGeneral"><a title="<%=this.GetText("TOOLBAR", "MEMBERS")%>"
                     href="<%=YafBuildLink.GetLink(ForumPages.members)%>">
                     <%=this.GetText("TOOLBAR", "MEMBERS")%></a> </li>
+                <%
+                    }                    
+                %>
+                    <%
+                    if (this.PageContext.BoardSettings.ShowTeam)
+                    {%>
                 <li class="menuGeneral"><a title="<%=this.GetText("TOOLBAR", "TEAM")%>"
                     href="<%=YafBuildLink.GetLink(ForumPages.team)%>">
                     <%=this.GetText("TOOLBAR", "TEAM")%></a> </li>

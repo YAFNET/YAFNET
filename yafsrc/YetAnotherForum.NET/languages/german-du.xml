@@ -1089,6 +1089,8 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="SHOWAD_LOGINUSERS_HELP">If checked, signed in users will see ads.</Resource>
     <Resource tag="SHOWHELP">Show Help:</Resource>
     <Resource tag="SHOWHELP_HELP">Enable or disable display the Help Link in the Header that Shows the Help Files Pages</Resource>
+    <Resource tag="SHOWTEAM">Show Team Page:</Resource>
+    <Resource tag="SHOWTEAM_HELP">Enable or disable display the Team Link in the Header that Shows the Team Page</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Toggle use of FULLTEXT SQL Server support on searches.</Resource>
     <Resource tag="SSL_LOGIN">Use SSL while logging in:</Resource>

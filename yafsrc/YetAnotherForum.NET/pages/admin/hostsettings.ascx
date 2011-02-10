@@ -962,6 +962,14 @@
                     </tr>
                      <tr>
                         <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel105" runat="server" LocalizedTag="SHOWTEAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowTeam" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel173" runat="server" LocalizedTag="SHOWHELP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">

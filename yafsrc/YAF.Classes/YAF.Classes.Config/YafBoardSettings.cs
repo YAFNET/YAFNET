@@ -2656,7 +2656,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///  Gets or sets a value indicating whether Show Help or not.
+        ///  Gets or sets a value indicating whether Show Help Page or not.
         /// </summary>
         public bool ShowHelp
         {
@@ -2668,6 +2668,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue<bool>("ShowHelp", value);
+            }
+        }
+
+        /// <summary>
+        ///  Gets or sets a value indicating whether Show Team Page or not.
+        /// </summary>
+        public bool ShowTeam
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowTeam", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowTeam", value);
             }
         }
 

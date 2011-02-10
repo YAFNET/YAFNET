@@ -1089,6 +1089,8 @@
     <Resource tag="SHOWAD_LOGINUSERS_HELP">Показывать рекламу зарегистрированным пользователям.</Resource>
     <Resource tag="SHOWHELP">Показывать помощь:</Resource>
     <Resource tag="SHOWHELP_HELP">Покахывать ссылку на страницу поиска в заголовке страницы.</Resource>
+    <Resource tag="SHOWTEAM">Show Team Page:</Resource>
+    <Resource tag="SHOWTEAM_HELP">Enable or disable display the Team Link in the Header that Shows the Team Page</Resource>
     <Resource tag="SQL_FULLTEXT">Использовать полнотекстовой поиск SQL-сервера:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Использовать полнотекстовой поиск сервера базы данных.</Resource>
     <Resource tag="SSL_LOGIN">Требовать SSL при входе на форум:</Resource>
