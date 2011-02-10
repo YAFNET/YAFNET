@@ -787,7 +787,7 @@
     <Resource tag="ALLOW_SENDMAIL_HELP">Разрешить пользователям отправлять сообщения друг другу по электронной почте.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
-    <Resource tag="ALLOW_THANKS">Разрешить "Спасибо"</Resource>
+    <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Пользователи могут благодарить других пользователей за понравившиеся сообщения.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Разрешить темы с совпадающим именем для:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Темы с совпадающим именем разрешены для пользователей из списка.</Resource>
@@ -1077,8 +1077,8 @@
     <Resource tag="SHOW_SHOUTBOX_HELP">Включить чат на главной странице форума.</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES">Показывать смайлы в чате:</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Включить отображение смайлов в чате.</Resource>
-    <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали Спасибо:</Resource>
-    <Resource tag="SHOW_THANK_DATE_HELP">Показывать дату, когда пользователя сказали Спасибо за пост. (Функция Спасибо должна быть включена.)</Resource>
+    <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали «Спасибо»:</Resource>
+    <Resource tag="SHOW_THANK_DATE_HELP">Показывать дату, когда пользователя сказали «Спасибо» за пост. (Функция Спасибо должна быть включена.)</Resource>
     <Resource tag="SHOW_USER_STATUS">Показывать иконку пользователя онлайн/оффлайн:</Resource>
     <Resource tag="SHOW_USER_STATUS_HELP">Показывать иконку пользователя онлайн/оффлайн. Скрытые пользователи отображаются как оффлайн.</Resource>
     <Resource tag="SHOW_USERSBROWSING">Показывать актиных пользователей форума/темы:</Resource>
@@ -1088,9 +1088,9 @@
     <Resource tag="SHOWAD_LOGINUSERS">Показывать рекламу зарегистрированным пользователям:</Resource>
     <Resource tag="SHOWAD_LOGINUSERS_HELP">Показывать рекламу зарегистрированным пользователям.</Resource>
     <Resource tag="SHOWHELP">Показывать помощь:</Resource>
-    <Resource tag="SHOWHELP_HELP">Покахывать ссылку на страницу поиска в заголовке страницы.</Resource>
-    <Resource tag="SHOWTEAM">Show Team Page:</Resource>
-    <Resource tag="SHOWTEAM_HELP">Enable or disable display the Team Link in the Header that Shows the Team Page</Resource>
+    <Resource tag="SHOWHELP_HELP">Показывать ссылку на страницу поиска в заголовке страницы.</Resource>
+    <Resource tag="SHOWTEAM">Показывать страницу команды:</Resource>
+    <Resource tag="SHOWTEAM_HELP">Показывать ссылку на страницу страницу команды форума(админстраторы, модераторы...) в заголовке</Resource>
     <Resource tag="SQL_FULLTEXT">Использовать полнотекстовой поиск SQL-сервера:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Использовать полнотекстовой поиск сервера базы данных.</Resource>
     <Resource tag="SSL_LOGIN">Требовать SSL при входе на форум:</Resource>
@@ -1101,9 +1101,9 @@
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цыета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE">Шаблон для отображения Спасибо пользователю:</Resource>
+    <Resource tag="THANKS_FROM_TEMPLATE">Шаблон для отображения «Спасибо» пользователю:</Resource>
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователю.</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения Спасибо:</Resource>
+    <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения «Спасибо»:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователя.</Resource>
     <Resource tag="TIMEAGO_INTERVAL">Интервал обновления относительного времени:</Resource>
     <Resource tag="TIMEAGO_INTERVAL_HELP">Позволяет определять как часто библиотека "Time Ago" должна обновлять относительное время(в миллисекундах).</Resource>

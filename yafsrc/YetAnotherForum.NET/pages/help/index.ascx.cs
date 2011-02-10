@@ -72,6 +72,10 @@ namespace YAF.Pages.help
     {
       this.DoSearch.Click += this.DoSearch_Click;
       base.OnInit(e);
+      if (!YafContext.Current.BoardSettings.ShowHelp)
+      {
+          YafBuildLink.AccessDenied();
+      }
     }
 
     /// <summary>

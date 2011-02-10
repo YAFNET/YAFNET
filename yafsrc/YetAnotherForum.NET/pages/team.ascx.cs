@@ -217,6 +217,10 @@ namespace YAF.Pages
     {
       this.InitializeComponent();
       base.OnInit(e);
+        if (!YafContext.Current.BoardSettings.ShowTeam)
+        {
+            YafBuildLink.AccessDenied();
+        }
     }
 
     /// <summary>
