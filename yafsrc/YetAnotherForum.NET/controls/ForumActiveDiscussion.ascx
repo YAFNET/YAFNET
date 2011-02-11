@@ -31,7 +31,7 @@
                                         LocalizedTitleTag="GO_LAST_POST" Style="border: 0" />
                                 </asp:HyperLink>
                                 <asp:HyperLink ID="ImageLastUnreadMessageLink" runat="server">
-                                 <YAF:ThemeImage ID="LastUnreadImage" runat="server" LocalizedTitlePage="DEFAULT"
+                                 <YAF:ThemeImage ID="LastUnreadImage" runat="server" Visible="false" LocalizedTitlePage="DEFAULT"
                                         LocalizedTitleTag="GO_LASTUNREAD_POST" Style="border: 0" />
                                 </asp:HyperLink>
                             </td>
