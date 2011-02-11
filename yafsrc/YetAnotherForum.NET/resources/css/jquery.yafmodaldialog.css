@@ -41,9 +41,8 @@
 .ModalDialog .close img{opacity:0.3;}
 .ModalDialog .close:hover img{opacity:1.0;}
 
-.ModalDialog_overlay { position: fixed;top: 0px;left: 0px;height:100%;width:100%;}
-.ModalDialog_hide { z-index:-100;}
-.ModalDialog_overlayBG {background-color: #000;z-index: 99;}
+.ModalDialog_overlayBG { position: fixed;top: 0px;left: 0px;height:100%;width:100%;background-color: #000;z-index: 99;opacity: 0.2}
+
 .ModalDialog input[type=text], .ModalDialog input[type=password] {
 	display:block;
 	-moz-border-radius:4px;
