@@ -553,6 +553,7 @@
       <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>      
    </page>
    <page name="COMMON">
+      <Resource tag="OR">or</Resource>
       <Resource tag="MESSAGE">Message</Resource>
       <Resource tag="NAME">Name</Resource>
       <Resource tag="READ">Read</Resource>
@@ -1790,6 +1791,9 @@ Visit {forumname} at {forumlink}
       <Resource tag="SEARCH">Search</Resource>
       <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
       <Resource tag="WELCOME_GUEST">Welcome Guest! To enable all features please try to register or login.</Resource>
+	  <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+	  <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
+	  <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
       <Resource tag="TEAM">Team</Resource>
    </page>
    <page name="TOPICS">

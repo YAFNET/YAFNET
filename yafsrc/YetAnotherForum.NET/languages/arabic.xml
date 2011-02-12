@@ -1608,6 +1608,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">يوجد رسالة  جديدة في  {0} المنتدى  تحتاج الى التثبيت</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">تم  تسجيل  عضو  جديد في {0} المنتدى </Resource>
     <Resource tag="OK">أجل</Resource>
+    <Resource tag="OR">or</Resource>
     <Resource tag="PAGES">صفحات</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">يوجد رسالة  خاصة {0} في{1}</Resource>
     <Resource tag="POST">Post</Resource>
@@ -2379,7 +2380,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="POLL_IMGWIDTH">عرض الصورة  بالبكسل:</Resource>
     <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
     <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try login or register.</Resource>
     <Resource tag="POLL_PLEASEVOTE">اضغظ هنا لتصويت </Resource>
     <Resource tag="POLL_SHOWVOTERS">Show who voted</Resource>
     <Resource tag="POLL_SHOWVOTERS_INFO">Show who has voted.</Resource>
@@ -2397,10 +2398,10 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="POLLIMAGE_INVALID">الصورة او الامتداء  غير صحيح لـ {0}.</Resource>
     <Resource tag="POLLIMAGE_TEXT">إمتداد الصورة :</Resource>
     <Resource tag="POLLIMAGE_TOOBIG">Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. </Resource>
-    <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try and register.</Resource>
+    <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try login or register.</Resource>
     <Resource tag="POLLQUESTION">سوال الإستفتاء:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">لايمكن  مشاهدة نتائج الاستفتاء قبل عملية التصويت.</Resource>
-    <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try and register.</Resource>
+    <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try login or register.</Resource>
     <Resource tag="POLLRESULTSHIDDEN_SHORT">إخفاء  النتائج</Resource>
     <Resource tag="POLLSAVE">حفظ إستفتاء</Resource>
     <Resource tag="REMOVEPOLL">حدف  الاستفتاء</Resource>
@@ -2920,6 +2921,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ADMIN">لوحة التحكم </Resource>
     <Resource tag="BUDDIES">الاصدقاء</Resource>
     <Resource tag="BUDDYREQUEST">({0} قيد الارسال)</Resource>
+    <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
     <Resource tag="HELP">مساعدة </Resource>
     <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">صندوق الوارد </Resource>
@@ -2938,6 +2940,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">مرحبا بك ضيفاً.</Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">الكل</Resource>

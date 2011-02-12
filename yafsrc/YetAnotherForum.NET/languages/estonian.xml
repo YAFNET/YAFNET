@@ -1608,6 +1608,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Uus sõnum {0} foorumis vajab kinnitust</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Uus kasutaja registreerus {0} foorumil </Resource>
     <Resource tag="OK">OK</Resource>
+    <Resource tag="OR">or</Resource>
     <Resource tag="PAGES">Lehed</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Uus privaatsõnum {0} {1}</Resource>
     <Resource tag="POST">Post</Resource>
@@ -2905,6 +2906,7 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="ADMIN">Administraator</Resource>
     <Resource tag="BUDDIES">Minu sõbrad</Resource>
     <Resource tag="BUDDYREQUEST">({0} ootel)</Resource>
+    <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
     <Resource tag="HELP">Abi</Resource>
     <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">Minu postkast</Resource>
@@ -2923,6 +2925,8 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">Tere tulemast, külaline! Kõigi võimaluste kasutamiseks palume registreeruda või sisse logida.</Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Kõik</Resource>

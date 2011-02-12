@@ -1608,6 +1608,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Yeni Kullanıcı {0} Forumuna kayıt oldu.</Resource>
     <Resource tag="OK">TAMAM</Resource>
+    <Resource tag="OR">or</Resource>
     <Resource tag="PAGES">Sayfalar</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT"> {0} tarafından size kişisel mesaj gönderildi. at {1}</Resource>
     <Resource tag="POST">Post</Resource>
@@ -2360,7 +2361,7 @@
     <Resource tag="POLL_IMGWIDTH">Resim genişliği:</Resource>
     <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
     <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try login or register.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Oya Tıklayın</Resource>
     <Resource tag="POLL_SHOWVOTERS">Show who is voted</Resource>
     <Resource tag="POLL_SHOWVOTERS_INFO">Show who is voted.</Resource>
@@ -2895,6 +2896,7 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="ADMIN">Yönetim Paneli</Resource>
     <Resource tag="BUDDIES">Arkadaşlarım</Resource>
     <Resource tag="BUDDYREQUEST">({0} Arkadaş İsteği)</Resource>
+    <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
     <Resource tag="HELP">Yardım</Resource>
     <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">Gelen Kutum</Resource>
@@ -2913,6 +2915,8 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="SEARCHKEYWORD">Kelime Arama...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">Hoşgeldiniz</Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Hepsi</Resource>

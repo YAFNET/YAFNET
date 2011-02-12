@@ -557,6 +557,89 @@ namespace YAF.Controls
             }
 
             this.GuestUserMessage.Visible = true;
+
+            this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST_FULL");
+
+            var endPoint = new Label { Text = "." };
+
+            var isLoginAllowed = false;
+            var isRegisterAllowed = false;
+
+            if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+            {
+                // show login
+                var loginLink = new HyperLink
+                    {
+                        Text = this.GetText("TOOLBAR", "LOGIN"), 
+                        ToolTip = this.GetText("TOOLBAR", "LOGIN")
+                    };
+
+                if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false))
+                {
+                    loginLink.NavigateUrl = "{0}#".FormatWith(YafBuildLink.GetLink(this.PageContext.ForumPageType));
+
+                    loginLink.CssClass = "LoginLink";
+                }
+                else
+                {
+                    string returnUrl = this.GetReturnUrl().IsSet()
+                                             ? "ReturnUrl={0}".FormatWith(
+                                               this.PageContext.BoardSettings.UseSSLToLogIn
+                                                 ? this.GetReturnUrl().Replace("http:", "https:")
+                                                 : this.GetReturnUrl())
+                                             : string.Empty;
+
+
+                    loginLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.login, returnUrl);
+                }
+
+                this.GuestUserMessage.Controls.Add(loginLink);
+
+                isLoginAllowed = true;
+            }
+
+            if (!this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
+            {
+                if (isLoginAllowed)
+                {
+                    this.GuestUserMessage.Controls.Add(
+                        new Label { Text = "&nbsp;{0}&nbsp;".FormatWith(this.GetText("COMMON", "OR")) });
+                }
+
+                // show register link
+                var registerLink = new HyperLink
+                    {
+                        Text = this.GetText("TOOLBAR", "REGISTER"),
+                        NavigateUrl =
+                            this.PageContext.BoardSettings.ShowRulesForRegistration
+                                ? YafBuildLink.GetLink(ForumPages.rules)
+                                : (!this.PageContext.BoardSettings.UseSSLToRegister
+                                       ? YafBuildLink.GetLink(ForumPages.register)
+                                       : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"))
+                    };
+
+                this.GuestUserMessage.Controls.Add(registerLink);
+
+                this.GuestUserMessage.Controls.Add(endPoint);
+
+                isRegisterAllowed = true;
+            }
+            else
+            {
+                this.GuestUserMessage.Controls.Add(endPoint);
+
+                this.GuestUserMessage.Controls.Add(
+                      new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
+            }
+
+
+            // If both disallowed
+            if (!isLoginAllowed && !isRegisterAllowed)
+            {
+                this.GuestUserMessage.Controls.Clear();
+                this.GuestUserMessage.Controls.Add(
+                      new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
+            }
         }
 
         #endregion

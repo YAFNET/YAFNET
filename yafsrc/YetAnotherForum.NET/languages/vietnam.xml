@@ -1608,6 +1608,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
+    <Resource tag="OR">or</Resource>
     <Resource tag="PAGES">Trang</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Tin nhắn mới từ {0} vào lúc {1}</Resource>
     <Resource tag="POST">Post</Resource>
@@ -2521,7 +2522,7 @@
     <Resource tag="POLL_IMGWIDTH">Image width in px:</Resource>
     <Resource tag="POLL_MULTIPLECHOICES">Allow to vote for many choices</Resource>
     <Resource tag="POLL_MULTIPLECHOICES_INFO">You can vote for many choices.</Resource>
-    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try login or register.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Click to vote</Resource>
     <Resource tag="POLL_SHOWVOTERS">Show who is voted</Resource>
     <Resource tag="POLL_SHOWVOTERS_INFO">Show who is voted.</Resource>
@@ -2540,10 +2541,10 @@
     <Resource tag="POLLIMAGE_INVALID">The image or its path is invalid for {0}.</Resource>
     <Resource tag="POLLIMAGE_TEXT">Image path:</Resource>
     <Resource tag="POLLIMAGE_TOOBIG">Your image file size is {0} KB, it  should not be more than  {1}  KB.  Image path: {2}. </Resource>
-    <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try and register.</Resource>
+    <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try login or register.</Resource>
     <Resource tag="POLLQUESTION">Poll Question:</Resource>
     <Resource tag="POLLRESULTSHIDDEN">You can't see poll results before voting.</Resource>
-    <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try and register.</Resource>
+    <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try login or register.</Resource>
     <Resource tag="POLLRESULTSHIDDEN_SHORT">Results hidden</Resource>
     <Resource tag="POLLSAVE">Save Poll</Resource>
     <Resource tag="REMOVEPOLL">Remove Poll</Resource>
@@ -3071,6 +3072,7 @@
     <Resource tag="ADMIN">Admin</Resource>
     <Resource tag="BUDDIES">Bạn bè</Resource>
     <Resource tag="BUDDYREQUEST">({0} Chờ đồng ý)</Resource>
+    <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
     <Resource tag="HELP">Trợ giúp</Resource>
     <Resource tag="HOST">Host</Resource>
     <Resource tag="INBOX">My Inbox</Resource>
@@ -3089,6 +3091,8 @@
     <Resource tag="SEARCHKEYWORD">Search Keyword...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="WELCOME_GUEST">Chào mừng khách</Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Tất cả</Resource>

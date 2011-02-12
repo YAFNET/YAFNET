@@ -1607,6 +1607,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">ОК</Resource>
+    <Resource tag="OR">or</Resource>
     <Resource tag="PAGES">Страницы</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Новое личное сообщение от {0} на {1}</Resource>
     <Resource tag="POST">Пост</Resource>
@@ -3086,6 +3087,7 @@
     <Resource tag="ADMIN">Админ</Resource>
     <Resource tag="BUDDIES">Друзья</Resource>
     <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
+    <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
     <Resource tag="HELP">Помощь</Resource>
     <Resource tag="HOST">Хост</Resource>
     <Resource tag="INBOX">Входящие</Resource>
@@ -3104,6 +3106,8 @@
     <Resource tag="SEARCHKEYWORD">Введите слово...</Resource>
     <Resource tag="TEAM">Команда</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Всё</Resource>
