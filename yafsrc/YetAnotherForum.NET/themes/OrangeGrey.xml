@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="Orange-Grey" dir="OrangeGrey">
   <page name="THEME">   
-    <Resource tag="CREDIT">Orange-Grey Theme Created by Ingo Herbote (&lt;a href='http://www.watchersnet.de'&gt;WatchersNET.de&lt;/a&gt;)</Resource>
+    <Resource tag="CREDIT"></Resource>
 	<Resource tag="HEADER">
 	&lt;script type="text/javascript" src="~/js/jquery.tipTip.minified.js"&gt;&lt;/script&gt;
 	&lt;script type="text/javascript" src="~/js/jquery.corner.js"&gt;&lt;/script&gt;

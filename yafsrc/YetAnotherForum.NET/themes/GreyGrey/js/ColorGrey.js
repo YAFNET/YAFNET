@@ -1,6 +1,6 @@
 ﻿jQuery(document).ready(function() {
 	
-	jQuery("img, input").tipTip();
+	jQuery("img, input, a").tipTip();
 	
   // TipTip
   if(!jQuery.browser.msie)
