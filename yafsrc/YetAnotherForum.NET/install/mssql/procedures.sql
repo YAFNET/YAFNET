@@ -3321,7 +3321,14 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}message_findunread](@TopicID int,@MessageID int,@LastRead datetime) as
+create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
+@TopicID int,
+@MessageID int,
+@LastRead datetime,
+@ShowDeleted bit = 0,
+@AuthorUserID int,
+@SincePostedDate datetime,
+@ToPostedDate datetime) as
 begin
 
 declare @firstmessageid int
@@ -3352,7 +3359,11 @@ select top 1
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m	
 	where
-		m.TopicID = @TopicID and m.IsDeleted = 0		
+		m.TopicID = @TopicID			
+		AND m.IsApproved = 1
+		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
+		 AND m.Posted BETWEEN
+		 @SincePostedDate AND @ToPostedDate 
 	order by		
 		m.Posted DESC
     -- the messageid was already supplied, find a particular message
@@ -4631,7 +4642,9 @@ begin
    declare @newpageindex int
    declare @offset int 
    
-   declare @pagecorrection int  
+   declare @pagecorrection int
+   declare @pageshift int;
+
 	set nocount on
 	if @UpdateViewCount>0
 		update [{databaseOwner}].[{objectQualifier}Topic] set [Views] = [Views] + 1 where TopicID = @TopicID
@@ -4652,15 +4665,28 @@ begin
 		*/
 	-- select last page	
    if (@MessagePosition > 0)
-   begin
-   declare @pageshift int;
-   SET @pageshift = @MessagePosition/@PageSize
-   SET @pagecorrection = 0;
-   
+   begin  
    -- round to ceiling   
    SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
    -- round to floor
    SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
+   -- number of messages on the last page @post_totalrowsnumber - @floor*@PageSize
+   SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
+
+   if (@pageshift < 0)
+   begin
+   SET  @pageshift = 0
+   end
+   else if (@pageshift < @PageSize*2)
+   begin
+   SET  @pageshift = 1
+   end
+   else
+   begin
+   Set @pageshift = @pageshift/@PageSize
+   end
+
+
  
    if @ceiling = @floor
       begin

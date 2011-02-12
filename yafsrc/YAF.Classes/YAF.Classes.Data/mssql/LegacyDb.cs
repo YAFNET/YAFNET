@@ -4389,7 +4389,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable message_findunread(object topicID, object messageId, object lastRead)
+    public static DataTable message_findunread(object topicID, object messageId, object lastRead, object showDeleted, object authorUserID, object sincePostedDate, object toPostedDate)
     {
       using (var cmd = MsSqlDbAccess.GetCommand("message_findunread"))
       {
@@ -4397,6 +4397,10 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("TopicID", topicID);
         cmd.Parameters.AddWithValue("MessageID", messageId);
         cmd.Parameters.AddWithValue("LastRead", lastRead);
+        cmd.Parameters.AddWithValue("ShowDeleted", showDeleted);
+        cmd.Parameters.AddWithValue("AuthorUserID", authorUserID);
+        cmd.Parameters.AddWithValue("SincePostedDate", sincePostedDate);
+        cmd.Parameters.AddWithValue("ToPostedDate", toPostedDate);
         return MsSqlDbAccess.Current.GetData(cmd);
       }
     }

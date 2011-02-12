@@ -925,11 +925,26 @@ namespace YAF.Pages
     private void BindData()
     {
       this._dataBound = true;
-      
+
+      bool showDeleted = false;
+      int userId = 0;
+      if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+      {
+          showDeleted = true;
+      }
+
+      if (!showDeleted && ((this.PageContext.BoardSettings.ShowDeletedMessages &&
+                         !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
+          || this.PageContext.IsAdmin ||
+                         this.PageContext.IsForumModerator))
+      {
+          userId = this.PageContext.PageUserID;
+      }
+
       this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
       int messagePosition = 0;
       bool  messageDefined = false;
-      int findMessageId = this.GetFindMessageId(out messagePosition, out messageDefined);
+      int findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition, out messageDefined);
       if (findMessageId > 0)
       {
           this.CurrentMessage = findMessageId;
@@ -939,19 +954,8 @@ namespace YAF.Pages
       {
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
-        bool showDeleted = false;
-        int userId = 0;
-        if (this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-        {
-            showDeleted = true;
-        }
-        if (!showDeleted && ((this.PageContext.BoardSettings.ShowDeletedMessages &&
-                           !this.PageContext.BoardSettings.ShowDeletedMessagesToAll)
-            || this.PageContext.IsAdmin ||
-                           this.PageContext.IsForumModerator))
-        {
-            userId = this.PageContext.PageUserID;
-        }
+
+        
         DataTable postListDataTable = LegacyDb.post_list(this.PageContext.PageTopicID, 
             userId, 
             this.IsPostBack ? 0 : 1,
@@ -1087,7 +1091,7 @@ namespace YAF.Pages
     /// <returns>
     /// The get find message id.
     /// </returns>
-    private int GetFindMessageId(out int messagePosition, out bool messageDefined)
+    private int GetFindMessageId(bool showDeleted, int userId, out int messagePosition, out bool messageDefined)
     {
       int findMessageId = 0;
       messagePosition = 0;
@@ -1108,7 +1112,8 @@ namespace YAF.Pages
                 // Find next unread
                 using (
                   DataTable unread = LegacyDb.message_findunread(
-                    this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit))
+                    this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted, userId, DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow))
                 {
                     var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                     if (unreadFirst != null)
@@ -1128,7 +1133,8 @@ namespace YAF.Pages
                
                 // if the message id is already supplied we find message position in list to redirect to required page in parent method.
                 using (DataTable unread = LegacyDb.message_findunread(
-                this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit))
+                this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,userId, DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow))
                 {
                     messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
                 }
@@ -1141,7 +1147,8 @@ namespace YAF.Pages
           // Find next unread
           using (
             DataTable unread = LegacyDb.message_findunread(
-              this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit))
+              this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,userId, DateTime.MinValue.AddYears(1901),
+            DateTime.UtcNow))
           {
             var unreadFirst = unread.AsEnumerable().FirstOrDefault();
 
