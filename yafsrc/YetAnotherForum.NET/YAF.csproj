@@ -813,6 +813,7 @@
     <Content Include="install\mssql\tables.sql" />
     <Content Include="install\mssql\triggers.sql" />
     <Content Include="install\mssql\views.sql" />
+    <Content Include="languages\arabic.xml" />
     <Content Include="languages\china.xml">
       <SubType>Designer</SubType>
     </Content>
