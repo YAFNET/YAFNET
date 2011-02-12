@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
         this.Page.Header.Title = "{0} - {1}".FormatWith(
               this.GetText("ADMIN_ADMIN", "Administration"),
               this.GetText("ADMIN_ATTACHMENTS", "TITLE"));
-
+        
         this.BindData();
     }
 

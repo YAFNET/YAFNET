@@ -1946,6 +1946,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="YES">Yes</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="DISABLED">Disabled</Resource>
+    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="CANCEL">Cancel</Resource>
   </page>
    <page name="ADMIN_VERSION">
       <Resource tag="TITLE">Version Check</Resource>
@@ -2021,8 +2023,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
       <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
       <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-      <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
-      
+      <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>      
       <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
       <Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
     </page>
@@ -2399,7 +2400,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="EXPORT">Export Selected to XML</Resource>
       <Resource tag="CONFIRM_DELETE">Delete this YafBBCode Extension?</Resource>
       <Resource tag="MSG_NOTHING_SELECTED">Nothing selected to export.</Resource>
-	  <Resource tag="ADD">Add new BBCode</Resource>
+	    <Resource tag="ADD">Add new BBCode</Resource>
     </page>
      <page name="ADMIN_BBCODE_EDIT">
       <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
@@ -2486,6 +2487,7 @@ Visit {forumname} at {forumlink}
      <Resource tag="COMMAND">Command</Resource>
 	   <Resource tag="TITLE">Roles</Resource>
 	   <Resource tag="HEADER">YetAnotherForum Roles</Resource>
+     <Resource tag="NAME">Name</Resource>
 	   <Resource tag="NEW_ROLE">New Role</Resource>
 	   <Resource tag="UNLINKABLE">Unlinkable</Resource>
 	   <Resource tag="LINKED">Linked</Resource>
@@ -2634,6 +2636,7 @@ Visit {forumname} at {forumlink}
 	   <Resource tag="IS_LADDER">Is Ladder</Resource>
 	   <Resource tag="PM_LIMIT">PM limit</Resource>
 	   <Resource tag="COMMAND">Command</Resource>
+     <Resource tag="NAME">Name</Resource>
 	 </page>
 	 <page name="ADMIN_EDITRANK">
 	   <Resource tag="TITLE">Add/Edit Rank</Resource>

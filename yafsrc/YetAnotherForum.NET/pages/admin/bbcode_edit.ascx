@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bbcode_edit" Codebehind="bbcode_edit.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:adminmenu runat="server" id="Adminmenu1">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -108,8 +109,8 @@
 		</tr>		
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
-				<asp:button id="save" runat="server" text="Save" OnClick="Add_Click" CssClass="pbutton"></asp:button>
-				<asp:button id="cancel" runat="server" text="Cancel" CausesValidation="False" OnClick="Cancel_Click" CssClass="pbutton"></asp:button></td>
+				<asp:Button id="save" runat="server"  OnClick="Add_Click" CssClass="pbutton"></asp:Button>
+				<asp:Button id="cancel" runat="server"  CausesValidation="False" OnClick="Cancel_Click" CssClass="pbutton"></asp:Button></td>
 		</tr>
 	</table>
 </YAF:adminmenu>

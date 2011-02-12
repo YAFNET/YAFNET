@@ -68,7 +68,7 @@
 						<%# Eval( "Bytes") %>
 					</td>
 					<td>
-						<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "AttachmentID") %>'>Delete</asp:LinkButton>
+						<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "AttachmentID") %>'><%# this.GetText("DELETE")%></asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>

@@ -211,7 +211,7 @@
     <Resource tag="TITLE">Добавить/Изменить запрещённый адрес IP</Resource>
   </page>
   <page name="ADMIN_BBCODE">
-    <Resource tag="ADD">Add new BBCode</Resource>
+    <Resource tag="ADD">Новый BB-код</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить это расширение для YafBBCode?</Resource>
     <Resource tag="DESCRIPTION">Описание</Resource>
     <Resource tag="EXPORT">Экспорт в формате XML</Resource>
@@ -234,7 +234,7 @@
     <Resource tag="EDIT_JS">Редактировать JS:</Resource>
     <Resource tag="EDIT_JS_HELP">Код JS для изменения тектового редактора. Используйте "{{editorid}}" (without quotes) для замены ID текстового редактора в коде. Просто введите javascript в это поле. Тэг script будет добавлен автоматически.</Resource>
     <Resource tag="EXEC_ORDER">Порядок выполнения:</Resource>
-    <Resource tag="EXEC_ORDER_HELP">Необхидимое поле, которое определяет порядок, в котором выполняются расширения. Наменьшее выполняется первым.</Resource>
+    <Resource tag="EXEC_ORDER_HELP">Необходимое поле, которое определяет порядок, в котором выполняются расширения. Наменьшее выполняется первым.</Resource>
     <Resource tag="HEADER">Добавить/изменить расширение BBCode</Resource>
     <Resource tag="HEADER1">Название &amp; Описание (все поля обязательны)</Resource>
     <Resource tag="HEADER2">Регулярное выражение</Resource>
@@ -303,8 +303,10 @@
     <Resource tag="TITLE">Настройки конференции</Resource>
   </page>
   <page name="ADMIN_COMMON">
+    <Resource tag="CANCEL">Отменить</Resource>
     <Resource tag="DISABLED">Отключено</Resource>
     <Resource tag="NO">Нет</Resource>
+    <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="YES">Да</Resource>
   </page>
   <page name="ADMIN_DIGEST">
@@ -728,6 +730,7 @@
     <Resource tag="IS_MOD">Модератор</Resource>
     <Resource tag="IS_START">Стартовая</Resource>
     <Resource tag="LINKED">Связанная</Resource>
+    <Resource tag="NAME">Название</Resource>
     <Resource tag="NEW_ROLE">Новая роль</Resource>
     <Resource tag="NOTE_DELETE">Предупреждение: Удаление роли отсюда удаляет её также и из провайдера. "Добавить к YAF" делает эту роль доступной на форуме.</Resource>
     <Resource tag="NOTE_DELETE_LINKED">Предупреждение: Удаление одной из этих связанных ролей из YAF вызовет потерю пользовательских данных. Если вы желаете удалить эту роль сначала выполните "Удалить из YAF", тогда эта роль будет доступна вне границ YAF.</Resource>
@@ -1233,6 +1236,7 @@
     <Resource tag="CONFIRM_DELETE">Удалить этот статус?</Resource>
     <Resource tag="IS_LADDER">Автостатус</Resource>
     <Resource tag="IS_START">Стартовый</Resource>
+    <Resource tag="NAME">Название</Resource>
     <Resource tag="NEW_RANK">Новый статус</Resource>
     <Resource tag="PM_LIMIT">Кол-во ЛС</Resource>
     <Resource tag="POSTS">сообщений</Resource>

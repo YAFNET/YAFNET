@@ -14,7 +14,7 @@
 			<HeaderTemplate>
 				<tr>
 					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_RANKS" />
                     </td>			
 					<td class="header2">
 						&nbsp;

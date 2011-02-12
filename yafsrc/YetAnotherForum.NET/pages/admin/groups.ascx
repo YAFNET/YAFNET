@@ -55,7 +55,7 @@
 				</tr>
 				<tr>
 					<td class="header1">
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_GROUPS" />
 					</td>	
 					<td class="header1">&nbsp;
 						

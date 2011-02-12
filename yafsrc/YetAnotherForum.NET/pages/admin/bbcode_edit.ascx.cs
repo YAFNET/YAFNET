@@ -154,6 +154,7 @@ namespace YAF.Pages.Admin
         this.txtVariables.Text = row["Variables"].ToString();
         this.txtModuleClass.Text = row["ModuleClass"].ToString();
         this.chkUseModule.Checked = Convert.ToBoolean((row["UseModule"] == DBNull.Value) ? false : row["UseModule"]);
+
     }
 
     /// <summary>
@@ -194,7 +195,8 @@ namespace YAF.Pages.Admin
               this.GetText("ADMIN_ADMIN", "Administration"),
               this.GetText("ADMIN_BBCODE", "TITLE"),
               this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
-
+          this.save.Text = this.GetText("ADMIN_COMMON", "SAVE");
+          this.cancel.Text = this.GetText("ADMIN_COMMON", "CANCEL");
         this.BindData();
       }
 
