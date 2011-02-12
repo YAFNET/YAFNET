@@ -524,6 +524,17 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    ///   Allowed browser JS version.
+    /// </summary>
+    public static string BrowserJSVersion
+    {
+        get
+        {
+            return GetConfigValueAsString("YAF.BrowserJSVersion") ?? "1.0"; ;
+        }
+    }
+
+    /// <summary>
     ///   Gets ServerFileRoot.
     /// </summary>
     [NotNull]

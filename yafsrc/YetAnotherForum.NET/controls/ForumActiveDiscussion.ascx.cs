@@ -80,19 +80,24 @@ namespace YAF.Controls
         var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
         var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
         var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
-
+        imageLastUnreadMessageLink.Visible =  this.PageContext.BoardSettings.ShowLastUnreadPost;
         // populate them...
         textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
         textMessageLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
         textMessageLink.NavigateUrl = messageUrl;
-
-        imageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-          ForumPages.posts, "m={0}&find=unread", currentRow["LastMessageID"]);
-          imageMessageLink.NavigateUrl = messageUrl;
-        lastUnreadImage.LocalizedTitle = this.lastUnreadPostToolTip;
+        imageMessageLink.NavigateUrl = messageUrl;
         lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 
-        // Just in case...
+        if (imageLastUnreadMessageLink.Visible)
+        {
+            imageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.posts, "m={0}&find=unread", currentRow["LastMessageID"]);
+           
+            lastUnreadImage.LocalizedTitle = this.lastUnreadPostToolTip;
+          
+        }
+
+          // Just in case...
         if (currentRow["LastUserID"] != DBNull.Value)
         {
           lastUserLink.UserID = Convert.ToInt32(currentRow["LastUserID"]);

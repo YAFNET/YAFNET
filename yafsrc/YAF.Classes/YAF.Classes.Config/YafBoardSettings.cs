@@ -1486,6 +1486,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether ShowLastUnreadPost is enabled.
+        /// </summary>
+        public bool ShowLastUnreadPost
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("ShowLastUnreadPost", true);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("ShowLastUnreadPost", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether Enable IP Info Service.
         /// </summary>
         public bool EnableIPInfoService

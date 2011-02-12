@@ -1948,13 +1948,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowDeletedMessagesToAll;
         
         /// <summary>
-        /// HelpLabel160 control.
+        /// BlankLinksHelpLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel160;
+        protected global::YAF.Controls.HelpLabel BlankLinksHelpLabel;
         
         /// <summary>
         /// BlankLinks control.
@@ -1964,6 +1964,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox BlankLinks;
+        
+        /// <summary>
+        /// ShowLastUnreadPostHelpLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel ShowLastUnreadPostHelpLabel;
+        
+        /// <summary>
+        /// ShowLastUnreadPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowLastUnreadPost;
         
         /// <summary>
         /// HelpLabel161 control.

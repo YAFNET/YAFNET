@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using YAF.Classes;
+
 namespace YAF.Pages
 {
   #region Using
@@ -79,10 +81,19 @@ namespace YAF.Pages
               Version ecmaVersion = HttpContext.Current.Request.Browser.EcmaScriptVersion;
               if (ecmaVersion != null)
               {
-                  if (!(ecmaVersion.Major > 0))
+                  try
                   {
-                      YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
+                      string[] arrJsVer = Config.BrowserJSVersion.Split('.');
+
+                      if (!(ecmaVersion.Major >= arrJsVer[0].ToType<int>()) && !(ecmaVersion.Minor >= arrJsVer[1].ToType<int>()))
+                      {
+                          YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
+                      }
                   }
+                  catch (Exception)
+                  {
+                  }
+               
               }
               else
               {
