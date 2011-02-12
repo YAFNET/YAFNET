@@ -212,6 +212,7 @@ Diesen  Benutzer löschen?</Resource>
     <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BBCODE">
+    <Resource tag="ADD">Add new BBCode</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this YafBBCode Extension?</Resource>
     <Resource tag="DESCRIPTION">Description</Resource>
     <Resource tag="EXPORT">Export Selected to XML</Resource>

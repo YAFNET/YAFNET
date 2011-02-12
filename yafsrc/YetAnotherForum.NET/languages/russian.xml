@@ -211,6 +211,7 @@
     <Resource tag="TITLE">Добавить/Изменить запрещённый адрес IP</Resource>
   </page>
   <page name="ADMIN_BBCODE">
+    <Resource tag="ADD">Add new BBCode</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить это расширение для YafBBCode?</Resource>
     <Resource tag="DESCRIPTION">Описание</Resource>
     <Resource tag="EXPORT">Экспорт в формате XML</Resource>

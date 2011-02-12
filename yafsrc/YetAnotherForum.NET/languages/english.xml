@@ -1190,9 +1190,9 @@
       <Resource tag="POLL_WILLEXPIRE_HOURS">Last hours to vote!</Resource>
       <Resource tag="POLLRESULTSHIDDEN_SHORT">Results hidden</Resource>
       <Resource tag="POLLRESULTSHIDDEN">You can't see poll results before voting.</Resource>
-      <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try and register.</Resource>
-      <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try and register.</Resource>
-      <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
+      <Resource tag="POLLOPTIONSHIDDEN_GUEST">Guests can't see poll choices and poll results. Try login or register.</Resource>
+      <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try login or register.</Resource>
+      <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try login or register.</Resource>
       <Resource tag="POLL_PLEASEVOTE">Click to vote</Resource>
       <Resource tag="POLLGROUP_CLOSEDBOUND">Bound voting</Resource>
     <Resource tag="POLL_CLOSEDBOUND">You can't see results before the poll expires.</Resource>
@@ -1278,7 +1278,7 @@
       <Resource tag="ATTACHMENTS">File Attachment(s):</Resource>
       <Resource tag="BLOG">BLOG</Resource>
       <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
-      <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try and register.</Resource>
+      <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try to login or register.</Resource>
       <Resource tag="CHOICE">Choice</Resource>
       <Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
       <Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>    
@@ -2399,6 +2399,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="EXPORT">Export Selected to XML</Resource>
       <Resource tag="CONFIRM_DELETE">Delete this YafBBCode Extension?</Resource>
       <Resource tag="MSG_NOTHING_SELECTED">Nothing selected to export.</Resource>
+	  <Resource tag="ADD">Add new BBCode</Resource>
     </page>
      <page name="ADMIN_BBCODE_EDIT">
       <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
