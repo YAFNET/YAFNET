@@ -325,8 +325,10 @@
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
   <page name="ADMIN_COMMON">
+    <Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="NO">No</Resource>
+    <Resource tag="SAVE">Save</Resource>
     <Resource tag="YES">Yes</Resource>
   </page>
   <page name="ADMIN_DIGEST">
@@ -751,6 +753,7 @@
     <Resource tag="IS_MOD">Is Moderator</Resource>
     <Resource tag="IS_START">Is Start</Resource>
     <Resource tag="LINKED">Linked</Resource>
+    <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_ROLE">New Role</Resource>
     <Resource tag="NOTE_DELETE">Note: Deleting a role here removes it completely from the provider. "Add to YAF" to make this role accessible in the forum.</Resource>
     <Resource tag="NOTE_DELETE_LINKED">Note: Deleting one of these "linked" roles outside of YAF will cause user data loss. If you want to delete the role, first "Delete from YAF" then the role can be managed outside of YAF.</Resource>
@@ -1256,6 +1259,7 @@
     <Resource tag="CONFIRM_DELETE">Delete this rank?</Resource>
     <Resource tag="IS_LADDER">Is Ladder</Resource>
     <Resource tag="IS_START">Is Start</Resource>
+    <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_RANK">New Rank</Resource>
     <Resource tag="PM_LIMIT">PM limit</Resource>
     <Resource tag="POSTS">posts</Resource>
