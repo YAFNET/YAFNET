@@ -7924,6 +7924,7 @@ namespace YAF.Classes.Data
       object languageFile,
       object culture,
       object themeFile,
+      object textEditor,
       object useMobileTheme,
       object approved,
       object pmNotification,
@@ -7944,6 +7945,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("LanguageFile", languageFile);
         cmd.Parameters.AddWithValue("Culture", culture);
         cmd.Parameters.AddWithValue("ThemeFile", themeFile);
+        cmd.Parameters.AddWithValue("TextEditor", textEditor);
         cmd.Parameters.AddWithValue("OverrideDefaultTheme", useMobileTheme);
         cmd.Parameters.AddWithValue("Approved", approved);
         cmd.Parameters.AddWithValue("PMNotification", pmNotification);

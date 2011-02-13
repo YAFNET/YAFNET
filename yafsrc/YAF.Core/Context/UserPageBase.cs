@@ -714,6 +714,17 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// Gets the user text editor
+    /// </summary>
+    public string TextEditor
+    {
+        get
+        {
+            return PageValueAsString("TextEditor");
+        }
+    }
+
+    /// <summary>
     /// Gets the UserStyle for the user
     /// </summary>
     public string UserStyle
