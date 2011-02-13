@@ -427,10 +427,20 @@ border-bottom-left-radius:0.3em;}
 	height: 200px;
 }
 /* Forum Welcome Message */
-.yafnet .yafForumWelcome
+.yafForumWelcome
 {
-	text-align: right;
-	padding: 5px;
+	float:right;
+	color: #333;
+	margin: 2px;
+	font-size: 7.5pt;
+	margin-bottom: 5px;
+	padding: 6px;
+	
+}
+.yafForumWelcome div
+{
+	text-align:right;
+	display:inline;
 }
 /* poll vote link */
 .yafnet a.pollvote:link {text-decoration: underline; color: #666;
@@ -451,18 +461,15 @@ border-bottom-left-radius:0.3em;}
 	color: #000000;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	padding: 2px;
-	text-align: center;
-	font-style:italic;
+	padding: 2px 2px 2px 10px;
 	background: url('Header2Back.png') repeat-x #ffffff;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
 	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
 }
 .yafnet .yafPageLink a{ color: #000000; text-decoration: none; }
-
 .yafnet .yafPageLink .currentPageLink { color: blue; }
-.yafnet .yafPageLink .linkSeperator { color: #666666; }
+.yafnet .yafPageLink .linkSeperator { color: #666666;  }
 .yafnet .yafPageLink a:hover {color: red; }
 /* for printing */
 .yafnet table.print {
