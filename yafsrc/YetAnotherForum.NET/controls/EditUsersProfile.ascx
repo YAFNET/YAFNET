@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
-<table width="100%" class="content" cellspacing="1" cellpadding="4">
+<table width="100%" class="content EditUserProfileTable" cellspacing="1" cellpadding="4">
     <tr>
         <td class="header1" colspan="2">
             <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="title" />
@@ -16,7 +16,7 @@
     </tr>
     <asp:PlaceHolder ID="DisplayNamePlaceholder" runat="server" Visible="false">
         <tr>
-            <td class="postheader">
+            <td class="postheader" style="width:50%">
                 <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="DISPLAYNAME" />
             </td>
@@ -26,7 +26,7 @@
         </tr>
     </asp:PlaceHolder>
     <tr>
-        <td class="postheader">
+        <td class="postheader" style="width:50%">
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="realname2" />
         </td>
@@ -40,7 +40,7 @@
                 LocalizedTag="HIDEME" />
         </td>
         <td class="post">
-            <asp:CheckBox ID="HideMe" runat="server" Checked="false" CssClass="edit" />
+            <asp:CheckBox ID="HideMe" runat="server" Checked="false" />
         </td>
     </tr>    
     <tr>
@@ -49,7 +49,7 @@
                 LocalizedTag="BIRTHDAY" />
         </td>
         <td class="post">
-            <asp:TextBox ID="Birthday" runat="server"></asp:TextBox>
+            <asp:TextBox ID="Birthday" runat="server" CssClass="edit"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -247,7 +247,7 @@
                 LocalizedTag="timezone2" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" />
+            <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" CssClass="edit" />
         </td>
     </tr>
     <tr runat="server" id="ForumSettingsRows">
@@ -264,7 +264,7 @@
                 LocalizedTag="SELECT_THEME" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="Theme" />
+            <asp:DropDownList runat="server" ID="Theme" CssClass="edit" />
         </td>
     </tr>
     <tr runat="server" id="UseMobileThemeRow" visible="false">
@@ -282,7 +282,7 @@
                 LocalizedTag="SELECT_LANGUAGE" />
         </td>
         <td class="post">
-             <asp:DropDownList runat="server" ID="Culture" />
+             <asp:DropDownList runat="server" ID="Culture" CssClass="edit" />
         </td>
     </tr>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">
