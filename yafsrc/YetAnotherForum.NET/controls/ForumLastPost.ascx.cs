@@ -110,6 +110,8 @@ namespace YAF.Controls
 
         if (this.DataRow["LastPosted"] != DBNull.Value)
         {
+         
+
           this.LastPostDate.DateTime = this.DataRow["LastPosted"];
           this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
             ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
@@ -134,6 +136,21 @@ namespace YAF.Controls
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
           this.Icon.Alt = this.LastTopicImgLink.ToolTip;
+
+          ImageLastUnreadMessageLink.Visible = this.PageContext.BoardSettings.ShowLastUnreadPost;
+
+          if (ImageLastUnreadMessageLink.Visible)
+          {
+              ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                  ForumPages.posts, "m={0}&find=unread", this.DataRow["LastMessageID"]);
+
+              LastUnreadImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+              LastUnreadImage.ThemeTag = (DateTime.Parse(this.DataRow["LastPosted"].ToString()) >
+                                                 YafContext.Current.Get<IYafSession>().GetTopicRead(
+                                                   Convert.ToInt32(this.DataRow["LastTopicID"])))
+                                                  ? "ICON_NEWEST_UNREAD"
+                                                  : "ICON_LATEST_UNREAD";
+          }
 
           this.LastPostedHolder.Visible = true;
           this.NoPostsLabel.Visible = false;

@@ -11,6 +11,9 @@
     &nbsp;<asp:HyperLink ID="LastTopicImgLink" runat="server">
         <YAF:ThemeImage ID="Icon" runat="server" />
     </asp:HyperLink>
+      <asp:HyperLink ID="ImageLastUnreadMessageLink" runat="server">
+                                 <YAF:ThemeImage ID="LastUnreadImage" runat="server" Style="border: 0" />
+                                </asp:HyperLink>
     <br />
     <YAF:DisplayDateTime ID="LastPostDate" runat="server" Format="BothTopic" />
 </asp:PlaceHolder>
