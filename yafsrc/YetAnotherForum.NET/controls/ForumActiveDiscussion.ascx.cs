@@ -84,7 +84,8 @@ namespace YAF.Controls
         // populate them...
         textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
         textMessageLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
-        textMessageLink.NavigateUrl = messageUrl;
+        textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+          ForumPages.posts, "t={0}", currentRow["TopicID"]); ;
         imageMessageLink.NavigateUrl = messageUrl;
         lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 
