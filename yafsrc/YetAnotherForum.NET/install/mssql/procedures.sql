@@ -3326,9 +3326,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
 @MessageID int,
 @LastRead datetime,
 @ShowDeleted bit = 0,
-@AuthorUserID int,
-@SincePostedDate datetime,
-@ToPostedDate datetime) as
+@AuthorUserID int) as
 begin
 
 declare @firstmessageid int
@@ -3362,10 +3360,13 @@ select top 1
 		m.TopicID = @TopicID			
 		AND m.IsApproved = 1
 		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
-		 AND m.Posted BETWEEN
-		 @SincePostedDate AND @ToPostedDate 
+		 AND m.Posted >	 @LastRead
 	order by		
 		m.Posted DESC
+
+	     -- simply return last post if no unread message is found
+		   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr) 
+		   begin
     -- the messageid was already supplied, find a particular message
     if (@MessageID > 0)
 	begin
@@ -3398,12 +3399,24 @@ select top 1
 		end
 	    else
 	    begin
-	     -- simply return last post if no unread message is found
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID
 	       order by Posted DESC  
 	    end	
+	end
+	end
+	else
+	begin
+		select top 1 m.MessageID, MessagePosition = 0, FirstMessageID = @firstmessageid 
+	from
+		[{databaseOwner}].[{objectQualifier}Message] m	
+	where
+		m.TopicID = @TopicID			
+		AND m.IsApproved = 1
+		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))	
+	order by		
+		m.Posted DESC
 	end
 
 end
@@ -4664,16 +4677,23 @@ begin
 		m.Edited >= SinceEditedDate
 		*/
 	-- select last page	
-   if (@MessagePosition > 0)
+   if (@MessagePosition >= 0)
    begin  
    -- round to ceiling   
    SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
    -- round to floor
    SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
    -- number of messages on the last page @post_totalrowsnumber - @floor*@PageSize
+   if (@MessagePosition > 0)
+   begin
    SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
+   end
+   else
+   begin
+   SET @pageshift = 0
+   end
 
-   if (@pageshift < 0)
+   if (@pageshift <= 0)
    begin
    SET  @pageshift = 0
    end

@@ -1094,7 +1094,7 @@ namespace YAF.Pages
     private int GetFindMessageId(bool showDeleted, int userId, out int messagePosition, out bool messageDefined)
     {
       int findMessageId = 0;
-      messagePosition = 0;
+      messagePosition = -1;
       messageDefined = false;
       try
       {
@@ -1106,63 +1106,48 @@ namespace YAF.Pages
         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
         {
             messageDefined = true;
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
-                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+            // find last unread
+            if (!(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
+                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread") || (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
+                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "laspost"))
             {
-                // Find next unread
-                using (
-                  DataTable unread = LegacyDb.message_findunread(
-                    this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted, userId, DateTime.MinValue.AddYears(1901),
-            DateTime.UtcNow))
+                // we find message position always by time.
+                using (DataTable unread = LegacyDb.message_findunread(
+                this.PageContext.PageTopicID, 0, DateTime.UtcNow, showDeleted,userId))
                 {
                     var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                     if (unreadFirst != null)
                     {
                         findMessageId = unreadFirst.Field<int>("MessageID");
-                        messagePosition = unreadFirst.Field<int>("MessagePosition");
-                        // move to this message on load...
-                        PageContext.PageElements.RegisterJsBlockStartup(
-                            this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                        messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
                     }
-                }
-            }
-            else
-            {
-                // Show this message
-                findMessageId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
-               
-                // if the message id is already supplied we find message position in list to redirect to required page in parent method.
-                using (DataTable unread = LegacyDb.message_findunread(
-                this.PageContext.PageTopicID, findMessageId, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,userId, DateTime.MinValue.AddYears(1901),
-            DateTime.UtcNow))
-                {
-                    messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
                 }
             }
          
         }
-        else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
+
+       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
                                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
         {
-          // Find next unread
-          using (
-            DataTable unread = LegacyDb.message_findunread(
-              this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,userId, DateTime.MinValue.AddYears(1901),
-            DateTime.UtcNow))
-          {
-            var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-
-            if (unreadFirst != null)
+            // Find next unread
+            // Find next unread
+            using (
+                DataTable unread = LegacyDb.message_findunread(
+                    this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,
+                    userId))
             {
-              findMessageId = unreadFirst.Field<int>("MessageID");
-              messagePosition = unreadFirst.Field<int>("MessagePosition");
-                  // move to this message on load...
-                  PageContext.PageElements.RegisterJsBlockStartup(
-                      this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
-              }
+                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                if (unreadFirst != null)
+                {
+                    findMessageId = unreadFirst.Field<int>("MessageID");
+                    messagePosition = unreadFirst.Field<int>("MessagePosition");
+                    // move to this message on load...
+                    PageContext.PageElements.RegisterJsBlockStartup(
+                        this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                }
             }
-          }
         }
+       }
      }
       catch (Exception x)
       {
