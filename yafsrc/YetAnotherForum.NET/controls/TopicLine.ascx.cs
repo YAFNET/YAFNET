@@ -28,6 +28,11 @@
     private string _altLastPost;
 
     /// <summary>
+    ///   The last unread post tooltip string.
+    /// </summary>
+    private string _altLastUnreadPost;
+      
+    /// <summary>
     ///   The _selected checkbox.
     /// </summary>
     private CheckBox _selectedCheckbox;
@@ -82,6 +87,28 @@
       {
         this._altLastPost = value;
       }
+    }
+
+    /// <summary>
+    ///   Gets or sets Alt Unread Post.
+    /// </summary>
+    [NotNull]
+    public string AltLastUnreadPost
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this._altLastUnreadPost))
+            {
+                return string.Empty;
+            }
+
+            return this._altLastUnreadPost;
+        }
+
+        set
+        {
+            this._altLastUnreadPost = value;
+        }
     }
 
     /// <summary>

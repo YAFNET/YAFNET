@@ -119,16 +119,31 @@
           (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
             ? "ICON_NEWEST"
             : "ICON_LATEST");
+        string strMiniUnreadPost = this.PageContext.Get<ITheme>().GetItem(
+          "ICONS",
+          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
+          ? "ICON_NEWEST_UNREAD"
+          : "ICON_LATEST_UNREAD");   
+                  
         if (string.IsNullOrEmpty(this.AltLastPost))
         {
             this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
         }
                 
+        if (string.IsNullOrEmpty(this.AltLastUnreadPost))
+        {
+            this.AltLastUnreadPost = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+        }    
+                
         %>
         <%=new UserLink { UserID = userID, Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.TopicRow["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">
-            <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />
+            <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />            
+        </a>
+        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=unread", this.TopicRow["LastMessageID"]) %>"
+            title="<%=this.AltLastUnreadPost%>">
+        <img src="<%=strMiniUnreadPost%>" visible="<%=this.PageContext.BoardSettings.ShowLastUnreadPost%>" alt="<%=this.AltLastUnreadPost%>" title="<%=this.AltLastUnreadPost%>" />
         </a>
         <br />
         <%=new DisplayDateTime() { Format = DateTimeFormat.BothTopic, DateTime = this.TopicRow["LastPosted"] }.RenderToString()%>
