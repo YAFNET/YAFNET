@@ -448,6 +448,7 @@ border-bottom-left-radius:0.3em;}
 /* div at the top of pages with navigation links */
 .yafnet .yafPageLink
 {
+	text-align:center;
 	border: solid 1px #666;
     -moz-border-radius: 0.4em; 
 	-webkit-border-radius: 0.4em;
@@ -1274,4 +1275,8 @@ height:80em;
 	color:#999;
 	border-color:#999;
 	background:#fff;
+}
+.yafnet .EditUserProfileTable .postheader {
+	padding-left: 30px;
+	height: 20px;
 }
