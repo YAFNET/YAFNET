@@ -2861,7 +2861,7 @@ END
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
-	@ForumID 		int,
+	@ForumID 		int=null,
 	@CategoryID		int,
 	@ParentID		int=null,
 	@Name			nvarchar(50),

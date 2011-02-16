@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.forums" Codebehind="forums.ascx.cs" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -36,9 +37,11 @@
 								<%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
 							</td>
 							<td>
-								<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
+								<asp:LinkButton ID="btnEdit" runat='server' CommandName='edit' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
 								|
-								<asp:LinkButton runat='server' OnLoad="DeleteForum_Load" CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
+								<asp:LinkButton ID="btnDuplicate" runat='server' CommandName='copy' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COPY" /></asp:LinkButton>
+								|
+								<asp:LinkButton ID="btnDelete" runat='server' OnLoad="DeleteForum_Load" CommandName='delete' CommandArgument='<%# Eval( "[\"ForumID\"]") %>'><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE" /></asp:LinkButton>
 							</td>
 						</tr>
 					</ItemTemplate>

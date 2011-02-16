@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
@@ -112,11 +111,11 @@ namespace YAF.Pages.Admin
                                     where sExt == ".png" || sExt == ".gif" || sExt == ".jpg" || sExt == ".jpeg"
                                     select file)
           {
-              dr = dt.NewRow();
-              dr["FileID"] = nFileID++;
-              dr["FileName"] = file.Name;
-              dr["Description"] = file.Name;
-              dt.Rows.Add(dr);
+            dr = dt.NewRow();
+            dr["FileID"] = nFileID++;
+            dr["FileName"] = file.Name;
+            dr["Description"] = file.Name;
+            dt.Rows.Add(dr);
           }
         }
 
@@ -125,6 +124,27 @@ namespace YAF.Pages.Admin
         this.ForumImages.DataTextField = "Description";
         this.ForumImages.DataBind();
       }
+    }
+
+    /// <summary>
+    /// The get query string as int.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    protected int? GetQueryStringAsInt([NotNull] string name)
+    {
+      int value;
+
+      if (this.Request.QueryString.GetFirstOrDefault(name) != null &&
+          int.TryParse(this.Request.QueryString.GetFirstOrDefault(name), out value))
+      {
+        return value;
+      }
+
+      return null;
     }
 
     /// <summary>
@@ -152,83 +172,85 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.IsPostBack)
+      if (this.IsPostBack)
+      {
+        return;
+      }
+
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(
+        this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+      this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+      this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
+
+      this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+        this.GetText("ADMIN_ADMIN", "Administration"), 
+        this.GetText("TEAM", "FORUMS"), 
+        this.GetText("ADMIN_EDITFORUM", "TITLE"));
+
+      this.Save.Text = this.GetText("SAVE");
+      this.Cancel.Text = this.GetText("CANCEL");
+
+      // Populate Forum Images Table
+      this.CreateImagesDataTable();
+
+      this.ForumImages.Attributes["onchange"] =
+        "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
+          YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
+
+      this.BindData();
+
+      var forumId = this.GetQueryStringAsInt("f") ?? this.GetQueryStringAsInt("copy");
+
+      if (!forumId.HasValue)
+      {
+        return;
+      }
+
+      using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
+      {
+        DataRow row = dt.Rows[0];
+        var flags = new ForumFlags(row["Flags"]);
+        this.Name.Text = (string)row["Name"];
+        this.Description.Text = (string)row["Description"];
+        this.SortOrder.Text = row["SortOrder"].ToString();
+        this.HideNoAccess.Checked = flags.IsHidden;
+        this.Locked.Checked = flags.IsLocked;
+        this.IsTest.Checked = flags.IsTest;
+        this.ForumNameTitle.Text = this.Name.Text;
+        this.Moderated.Checked = flags.IsModerated;
+        this.Styles.Text = row["Styles"].ToString();
+
+        this.CategoryList.SelectedValue = row["CategoryID"].ToString();
+
+        this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+
+        ListItem item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
+        if (item != null)
         {
-            return;
+          item.Selected = true;
+          this.Preview.Src = "{0}{2}/{1}".FormatWith(
+            YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+        // populate parent forums list with forums according to selected category
+        this.BindParentList();
 
-        this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
-        this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
-
-        this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-              this.GetText("ADMIN_ADMIN", "Administration"),
-              this.GetText("TEAM", "FORUMS"),
-              this.GetText("ADMIN_EDITFORUM", "TITLE"));
-
-        this.Save.Text = this.GetText("SAVE");
-        this.Cancel.Text = this.GetText("CANCEL");
-
-        // Populate Forum Images Table
-        this.CreateImagesDataTable();
-
-        this.ForumImages.Attributes["onchange"] =
-            "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
-                YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
-
-        this.BindData();
-
-        if (this.Request.QueryString.GetFirstOrDefault("f") == null)
+        if (!row.IsNull("ParentID"))
         {
-            return;
+          this.ParentList.SelectedValue = row["ParentID"].ToString();
         }
 
-        using (
-            DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("f")))
+        if (!row.IsNull("ThemeURL"))
         {
-            DataRow row = dt.Rows[0];
-            var flags = new ForumFlags(row["Flags"]);
-            this.Name.Text = (string)row["Name"];
-            this.Description.Text = (string)row["Description"];
-            this.SortOrder.Text = row["SortOrder"].ToString();
-            this.HideNoAccess.Checked = flags.IsHidden;
-            this.Locked.Checked = flags.IsLocked;
-            this.IsTest.Checked = flags.IsTest;
-            this.ForumNameTitle.Text = this.Name.Text;
-            this.Moderated.Checked = flags.IsModerated;
-            this.Styles.Text = row["Styles"].ToString();
-
-            this.CategoryList.SelectedValue = row["CategoryID"].ToString();
-
-            this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-
-            ListItem item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
-            if (item != null)
-            {
-                item.Selected = true;
-                this.Preview.Src = "{0}{2}/{1}".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
-            }
-
-            // populate parent forums list with forums according to selected category
-            this.BindParentList();
-
-            if (!row.IsNull("ParentID"))
-            {
-                this.ParentList.SelectedValue = row["ParentID"].ToString();
-            }
-
-            if (!row.IsNull("ThemeURL"))
-            {
-                this.ThemeList.SelectedValue = row["ThemeURL"].ToString();
-            }
-
-            this.remoteurl.Text = row["RemoteURL"].ToString();
+          this.ThemeList.SelectedValue = row["ThemeURL"].ToString();
         }
 
-        this.NewGroupRow.Visible = false;
+        this.remoteurl.Text = row["RemoteURL"].ToString();
+      }
+
+      this.NewGroupRow.Visible = false;
     }
 
     /// <summary>
@@ -257,14 +279,14 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      int forumId;
+      var forumId = this.GetQueryStringAsInt("f") ?? this.GetQueryStringAsInt("copy");
+
       this.CategoryList.DataSource = LegacyDb.category_list(this.PageContext.PageBoardID, null);
       this.CategoryList.DataBind();
 
-      if (this.Request.QueryString.GetFirstOrDefault("f") != null &&
-          int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
+      if (forumId.HasValue)
       {
-        this.AccessList.DataSource = LegacyDb.forumaccess_list(forumId);
+        this.AccessList.DataSource = LegacyDb.forumaccess_list(forumId.Value);
         this.AccessList.DataBind();
       }
 
@@ -274,7 +296,7 @@ namespace YAF.Pages.Admin
       // Load forum's themes
       var listheader = new ListItem { Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), Value = string.Empty };
 
-        this.AccessMaskID.DataBind();
+      this.AccessMaskID.DataBind();
 
       this.ThemeList.DataSource = StaticDataHelper.Themes();
       this.ThemeList.DataTextField = "Theme";
@@ -387,49 +409,28 @@ namespace YAF.Pages.Admin
 
       // Forum
       // vzrus: it's stored in the DB as int
-      long ForumID = 0;
-
-      if (this.Request.QueryString.GetFirstOrDefault("f") != null)
-      {
-        ForumID = long.Parse(this.Request.QueryString.GetFirstOrDefault("f"));
-      }
-      else if (this.AccessMaskID.SelectedValue.Length == 0)
-      {
-        this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_INITAL_MASK"));
-        return;
-      }
+      int? forumId = this.GetQueryStringAsInt("f");
+      int? forumCopyId = this.GetQueryStringAsInt("copy");
 
       object parentID = null;
+
       if (this.ParentList.SelectedValue.Length > 0)
       {
         parentID = this.ParentList.SelectedValue;
       }
 
+      // parent selection check.
       if (parentID != null && parentID.ToString() == this.Request.QueryString.GetFirstOrDefault("f"))
       {
         this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"));
         return;
       }
 
-      // a new forum is creating
-      if (ForumID == 0)
-      {
-        DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null);
-        if (dt.Rows.Count > 0)
-        {
-            if (!this.PageContext.BoardSettings.AllowForumsWithSameName  && dt.Rows.Cast<DataRow>().Any(dr => dr["Name"].ToString() == this.Name.Text.Trim()))
-          {
-              this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"));
-              return;
-          }
-        }
-      }
-
       // The picked forum cannot be a child forum as it's a parent
       // If we update a forum ForumID > 0 
-      if (ForumID > 0 && parentID != null)
+      if (forumId.HasValue && parentID != null)
       {
-        int dependency = LegacyDb.forum_save_parentschecker(ForumID, parentID);
+        int dependency = LegacyDb.forum_save_parentschecker(forumId.Value, parentID);
         if (dependency > 0)
         {
           this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
@@ -437,14 +438,38 @@ namespace YAF.Pages.Admin
         }
       }
 
-      object themeURL = null;
-      if (this.ThemeList.SelectedValue.Length > 0)
+      // inital access mask
+      if (!forumId.HasValue && !forumCopyId.HasValue)
       {
-        themeURL = this.ThemeList.SelectedValue;
+        if (this.AccessMaskID.SelectedValue.Length == 0)
+        {
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_INITAL_MASK"));
+          return;
+        }
       }
 
-      ForumID = LegacyDb.forum_save(
-        ForumID, 
+      // duplicate name checking...
+      if (!forumId.HasValue)
+      {
+        var forumList = LegacyDb.forum_list(this.PageContext.PageBoardID, null).AsEnumerable();
+
+        if (forumList.Any() && !this.PageContext.BoardSettings.AllowForumsWithSameName &&
+            forumList.Any(dr => dr.Field<string>("Name") == this.Name.Text.Trim()))
+        {
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"));
+          return;
+        }
+      }
+
+      object themeUrl = null;
+
+      if (this.ThemeList.SelectedValue.Length > 0)
+      {
+        themeUrl = this.ThemeList.SelectedValue;
+      }
+
+      var newForumId = LegacyDb.forum_save(
+        forumId, 
         this.CategoryList.SelectedValue, 
         parentID, 
         this.Name.Text.Trim(), 
@@ -456,7 +481,7 @@ namespace YAF.Pages.Admin
         this.Moderated.Checked, 
         this.AccessMaskID.SelectedValue, 
         IsNull(this.remoteurl.Text), 
-        themeURL, 
+        themeUrl, 
         this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null, 
         this.Styles.Text, 
         false);
@@ -464,27 +489,26 @@ namespace YAF.Pages.Admin
       LegacyDb.activeaccess_reset();
 
       // Access
-      if (this.Request.QueryString.GetFirstOrDefault("f") != null)
+      if (forumId.HasValue || forumCopyId.HasValue)
       {
-        for (int i = 0; i < this.AccessList.Items.Count; i++)
+        foreach (var item in this.AccessList.Items.OfType<RepeaterItem>())
         {
-          RepeaterItem item = this.AccessList.Items[i];
-          int groupId = int.Parse(((Label)item.FindControl("GroupID")).Text);
-          LegacyDb.forumaccess_save(ForumID, groupId, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+          int groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
-          // Update statistics
-          this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+          LegacyDb.forumaccess_save(newForumId, groupId, item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue);
         }
-
-        this.ClearCaches();
-
-        YafBuildLink.Redirect(ForumPages.admin_forums);
       }
 
       this.ClearCaches();
 
-      // Done
-      YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", ForumID);
+      if (forumId.HasValue)
+      {
+        YafBuildLink.Redirect(ForumPages.admin_forums);
+      }
+      else
+      {
+        YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", newForumId);
+      }
     }
 
     #endregion

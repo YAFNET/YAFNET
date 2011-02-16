@@ -568,6 +568,7 @@
       <Resource tag="DISALLOWED">Disallowed</Resource>
       <Resource tag="DELETE">Delete</Resource>
       <Resource tag="EDIT">Edit</Resource>
+     <Resource tag="COPY">Copy</Resource>
       <Resource tag="BACK">Back</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
