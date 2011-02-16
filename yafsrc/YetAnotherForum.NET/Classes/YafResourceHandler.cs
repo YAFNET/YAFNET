@@ -82,7 +82,7 @@ namespace YAF
         // resource request
         GetResource(context);
       }
-      else if (context.Request.UrlReferrer.AbsoluteUri.Contains(BaseUrlBuilder.BaseUrl) || context.Session["lastvisit"] != null)
+      else if (context.Session["lastvisit"] != null || context.Request.UrlReferrer.AbsoluteUri.Contains(BaseUrlBuilder.BaseUrl))
       {
         if (context.Request.QueryString.GetFirstOrDefault("u") != null)
         {
