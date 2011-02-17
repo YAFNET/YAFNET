@@ -971,7 +971,7 @@ namespace YAF.Pages
             0,
             this.IsThreaded ? 1 : 0,
             YafContext.Current.BoardSettings.EnableThanksMod,
-            messageDefined ? messagePosition : 0);
+            messageDefined ? messagePosition : -1);
 
        
         
