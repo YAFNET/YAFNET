@@ -44,11 +44,6 @@ namespace YAF.Core.Services
     private readonly IDBBroker _dbBroker;
 
     /// <summary>
-    /// The _treat cache key.
-    /// </summary>
-    private readonly ITreatCacheKey _treatCacheKey;
-
-    /// <summary>
     ///   The _user ignore list.
     /// </summary>
     private List<int> _userIgnoreList;
@@ -60,19 +55,15 @@ namespace YAF.Core.Services
     /// <summary>
     /// Initializes a new instance of the <see cref="YafUserIgnored"/> class.
     /// </summary>
-    /// <param name="treatCacheKey">
-    /// The treat cache key.
-    /// </param>
     /// <param name="sessionStateBase">
     /// The session state base.
     /// </param>
     /// <param name="dbBroker">
     /// The db broker.
     /// </param>
-    public YafUserIgnored([NotNull] ITreatCacheKey treatCacheKey, [NotNull] HttpSessionStateBase sessionStateBase, [NotNull] IDBBroker dbBroker)
+    public YafUserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] IDBBroker dbBroker)
     {
       this.SessionStateBase = sessionStateBase;
-      this._treatCacheKey = treatCacheKey;
       this._dbBroker = dbBroker;
     }
 
@@ -109,8 +100,7 @@ namespace YAF.Core.Services
     public void ClearIgnoreCache()
     {
       // clear for the session
-      this.SessionStateBase.Remove(
-        this._treatCacheKey.Treat(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID)));
+      this.SessionStateBase.Remove(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID));
     }
 
     /// <summary>
