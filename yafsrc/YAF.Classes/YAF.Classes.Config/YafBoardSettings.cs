@@ -518,6 +518,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets DigestSendEveryXHours.
+        /// </summary>
+        public int DigestSendEveryXHours
+        {
+          get
+          {
+            return this._reg.GetValue<int>("DigestSendEveryXHours", 24);
+          }
+
+          set
+          {
+            this._reg.SetValue<int>("DigestSendEveryXHours", value);
+          }
+        }
+
+        /// <summary>
         /// Gets or sets TopicsFeedAccess.
         /// </summary>
         public int TopicsFeedAccess
