@@ -23,14 +23,27 @@ namespace YAF.Types.Interfaces
   /// </summary>
   public interface IStartupService
   {
+    #region Properties
+
     /// <summary>
-    /// Gets a value indicating whether Initialized.
+    ///   Gets a value indicating whether Initialized.
     /// </summary>
     bool Initialized { get; }
+
+    /// <summary>
+    /// Gets the execution priority -- lower is run first.
+    /// </summary>
+    int Priority { get; }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Called to run the service.
     /// </summary>
     void Run();
+
+    #endregion
   }
 }
