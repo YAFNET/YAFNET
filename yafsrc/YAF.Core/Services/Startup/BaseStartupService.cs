@@ -22,7 +22,6 @@ namespace YAF.Core.Services
 
   using System;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -37,7 +36,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///   Gets a value indicating whether Initialized.
     /// </summary>
-    public bool Initialized
+    public virtual bool Initialized
     {
       get
       {
@@ -52,6 +51,17 @@ namespace YAF.Core.Services
       private set
       {
         YafContext.Current[this.InitVarName] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets Priority.
+    /// </summary>
+    public virtual int Priority
+    {
+      get
+      {
+        return 1000;
       }
     }
 

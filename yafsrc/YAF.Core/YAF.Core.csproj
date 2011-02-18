@@ -136,7 +136,7 @@
     <Compile Include="Nntp\NntpUtil.cs" />
     <Compile Include="Nntp\YafNntp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BaseStartupService.cs" />
+    <Compile Include="Services\Startup\BaseStartupService.cs" />
     <Compile Include="Services\CurrentBoardId.cs" />
     <Compile Include="Services\ScriptBuilder\JavaScriptBuilder.cs" />
     <Compile Include="Services\ScriptBuilder\JavaScriptFunction.cs" />
@@ -148,7 +148,6 @@
     <Compile Include="Services\CheckForSpam\ICheckForSpamClient.cs" />
     <Compile Include="Services\CheckForSpam\IComment.cs" />
     <Compile Include="Services\CheckForSpam\InvalidResponseException.cs" />
-    <Compile Include="Services\CreateMail.cs" />
     <Compile Include="Services\ScriptBuilder\JavaScriptStatement.cs" />
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />
@@ -158,8 +157,9 @@
     <Compile Include="Services\ScriptBuilder\ScriptStatementContext.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptStatementContextExtensions.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptFunctionContextExtensions.cs" />
-    <Compile Include="Services\StartupCheckBannedIps.cs" />
-    <Compile Include="Services\StartupInitializeDb.cs" />
+    <Compile Include="Services\Startup\StartupCheckBannedIps.cs" />
+    <Compile Include="Services\Startup\StartupInitializeDb.cs" />
+    <Compile Include="Services\Startup\ValidateTaskModuleRunningStartup.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
@@ -210,6 +210,7 @@
     <Compile Include="UsersRoles\UserMembershipHelper.cs" />
     <Compile Include="YafBaseContainerModule.cs" />
     <Compile Include="YAFTaskModule.cs" />
+    <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

@@ -31,6 +31,7 @@ namespace YAF.Core
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Core.Tasks;
+  using YAF.Types;
   using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Utils;
@@ -108,23 +109,27 @@ namespace YAF.Core
     /// <returns>
     /// The is time to send digest for board.
     /// </returns>
-    private bool IsTimeToSendDigestForBoard(YafLoadBoardSettings boardSettings)
+    private bool IsTimeToSendDigestForBoard([NotNull] YafLoadBoardSettings boardSettings)
     {
+      CodeContracts.ArgumentNotNull(boardSettings, "boardSettings");
+
       if (boardSettings.AllowDigestEmail)
       {
         DateTime lastSend = DateTime.MinValue;
         bool sendDigest = false;
+        int sendEveryXHours = boardSettings.DigestSendEveryXHours;
 
         if (boardSettings.LastDigestSend.IsSet())
         {
           lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
         }
+
 #if (DEBUG)
-        // haven't sent in 24 hours or more and it's 12 to 5 am.
-        sendDigest = lastSend < DateTime.Now.AddHours(-24);      
+        // haven't sent in X hours or more and it's 12 to 5 am.
+        sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);      
 #else
-        // haven't sent in 24 hours or more and it's 12 to 5 am.
-        sendDigest = lastSend < DateTime.Now.AddHours(-24) && DateTime.Now < DateTime.Today.AddHours(6);
+        // haven't sent in X hours or more and it's 12 to 5 am.
+        sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours) && DateTime.Now < DateTime.Today.AddHours(6);
 #endif
         if (sendDigest || boardSettings.ForceDigestSend)
         {

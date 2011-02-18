@@ -21,7 +21,7 @@ namespace YAF.Core.Tasks
   using System.Security.Principal;
   using System.Threading;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
 
   /// <summary>
   /// The intermittent background task.
