@@ -213,15 +213,7 @@ namespace YAF.Utilities
           @"
 function toggleMessage(divId)
 {
-    if(divId != null)
-    {
-        var o = $get(divId);
-
-        if(o != null)
-        {
-            o.style.display = (o.style.display == ""none"" ? ""block"" : ""none"");
-        }
-    }
+  jQuery('#' + divId).toggle();
 }
 ";
       }
