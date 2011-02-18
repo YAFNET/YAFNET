@@ -17,40 +17,51 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-
 namespace YAF
 {
-	/// <summary>
-	/// Summary description for error.
-	/// </summary>
-	public partial class error : System.Web.UI.Page
-	{
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			//YafBuildLink.Redirect( ForumPages.error,Request.QueryString.ToString());
-      if ( !IsPostBack )
+  #region Using
+
+  using System;
+  using System.Web.UI;
+
+  using YAF.Types;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for error.
+  /// </summary>
+  public partial class error : Page
+  {
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      if (!this.IsPostBack)
       {
         string errorMessage = @"There has been a serious error loading the forum. No further information is available.";
 
         // show error message if one was provided...
-        if ( Session[ "StartupException" ] != null )
+        if (this.Session["StartupException"] != null)
         {
-          errorMessage = "Startup Error: " + Session ["StartupException"].ToString();
-          Session ["StartupException"] = null;
+          errorMessage = "Startup Error: " + this.Session["StartupException"];
+          this.Session["StartupException"] = null;
         }
 
-        ErrorMsg.Text = errorMessage + "<br /><br />" + "Please contact the administrator if this message persists.";
+        this.ErrorMsg.Text = Server.HtmlEncode(errorMessage) + "<br /><br />" +
+                             "Please contact the administrator if this message persists.";
       }
-		}
-	}
+    }
+
+    #endregion
+  }
 }
