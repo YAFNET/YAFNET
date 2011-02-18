@@ -36,12 +36,14 @@ namespace YAF.Core
     /// <summary>
     /// Initializes a new instance of the <see cref="TreatCacheKeyWithBoard"/> class.
     /// </summary>
-    /// <param name="boardId">
+    /// <param name="haveBoardId">
     /// The board id.
     /// </param>
-    public TreatCacheKeyWithBoard([NotNull] IHaveBoardId boardId)
+    public TreatCacheKeyWithBoard([NotNull] IHaveBoardId haveBoardId)
     {
-      this.BoardId = boardId;
+      CodeContracts.ArgumentNotNull(haveBoardId, "haveBoardId");
+
+      this.HaveBoardId = haveBoardId;
     }
 
     #endregion
@@ -49,9 +51,9 @@ namespace YAF.Core
     #region Properties
 
     /// <summary>
-    /// Gets or sets BoardId.
+    /// Gets or sets HaveBoardId.
     /// </summary>
-    public IHaveBoardId BoardId { get; set; }
+    public IHaveBoardId HaveBoardId { get; set; }
 
     #endregion
 
@@ -70,7 +72,7 @@ namespace YAF.Core
     /// </returns>
     public string Treat(string key)
     {
-      return "{0}${1}".FormatWith(key, this.BoardId);
+      return "{0}${1}".FormatWith(key, this.HaveBoardId.BoardId);
     }
 
     #endregion
