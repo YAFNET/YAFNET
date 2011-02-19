@@ -37,6 +37,7 @@
 New features:</p>
 	<ul>
 		
+		<li>Rev. #4661 - Added &quot;Copy&quot; function to forum administration -- Now instead of having to manually re-enter all the access masks, etc, you can just duplicate an existing forum and modify after the fact.</li>
 		<li>Rev. #4642 - New Setting to Enable/Disable Last Unread posts links</li>
 		<li>Rev. #4641 - Added Arabic Language thx to &quot;Ahmadq&quot;</li>
 		<li>Rev. #4635 - Added a Setting to Show/Hide Team Page Link in Header</li>
@@ -72,6 +73,9 @@ New features:</p>
 <p><em>changes</em></p>
 	<ul>
 		
+		<li>Rev. #4663 - Added priority to startup services. Added ValidateTaskModule running startup service (runs before DB Init) testing that the module has been registered.</li>
+		<li>Rev. #4646 - The Welcome Guest Message in the Header now shows different info text based on if login and register is disabled or enabled.</li>
+		<li>Rev. #4645 - Loading Animation Gif is now preloaded on the Installer Page, otherwise it would been not shown properly</li>
 		<li>Rev. #4628 - The problem with subforum-subforums should be fixed.</li>
 		<li>Rev. #4627 - Added a very basic paging for activeUsers in admin. Too many entries on frequented forums.</li>
 		<li>Rev. #4626 - Resource Handler access check now contains referrer check, to allow linking inside portals to yaf</li>

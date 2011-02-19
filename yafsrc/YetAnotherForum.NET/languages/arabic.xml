@@ -304,6 +304,7 @@
   </page>
   <page name="ADMIN_COMMON">
     <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="CLEAR">Clear</Resource>
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="SAVE">Save</Resource>
@@ -818,6 +819,7 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Categories Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
+    <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
     <Resource tag="CREATE_NNTPNAMES">Create NNTP user names:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Check to allow users to automatically be created when downloading usenet messages. Only enable this in a test environment, and &lt;em&gt;NEVER&lt;/em&gt; in a production environment. The main purpose of this option is for performance testing.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Crop Image Attachment Preview:</Resource>
@@ -1016,6 +1018,7 @@
     <Resource tag="REQUIRE_LOGIN_HELP">If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</Resource>
     <Resource tag="RULES_ONREGISTER">Show "Rules" Before Registration:</Resource>
     <Resource tag="RULES_ONREGISTER_HELP">Require that "rules" are shown and accepted before a new user can register.</Resource>
+    <Resource tag="SAVE_SETTINGS">Save Settings</Resource>
     <Resource tag="SEARCH_ENGINE1">Search Engine 1:</Resource>
     <Resource tag="SEARCH_ENGINE1_HELP">Enter here a search engine pattern.</Resource>
     <Resource tag="SEARCH_ENGINE1_PARAM">Parameters For Search Engine 1:</Resource>
@@ -1575,6 +1578,7 @@
     <Resource tag="CHANGEEMAIL_SUBJECT">تغيير البريد الاكتروني</Resource>
     <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="COPY">Copy</Resource>
     <Resource tag="CUSTOM_BBCODE">المزيد من   الكود </Resource>
     <Resource tag="DELETE">Delete</Resource>
     <Resource tag="DISALLOWED">Disallowed</Resource>
