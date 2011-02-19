@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
     <page name="HELP_INDEX">
-      <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
+      <Resource tag="TITLE">YetAnotherForum.NET  Help</Resource>
     <Resource tag="NAVIGATION">Navigation</Resource>
     <Resource tag="INDEX">Index</Resource>
       <Resource tag="SUBTITLE">Forum Help</Resource>

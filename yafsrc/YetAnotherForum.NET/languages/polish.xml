@@ -801,6 +801,8 @@
     <Resource tag="ALLOW_USER_HIDE_HELP">If checked, the user who checked it will not be visible in the active users list.</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Height:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Maximum height for avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Size:</Resource>
@@ -1793,6 +1795,7 @@
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">Jakie jest Twoje prawdziwe imię?</Resource>
     <Resource tag="SELECT_LANGUAGE">Jakiego języka chcesz używać:</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Wybierz Twój preferowany wygląd:</Resource>
     <Resource tag="TIMEZONE">Strefa czasowa:</Resource>
     <Resource tag="TIMEZONE2">Aby podawać Twoje godziny i daty w Twoim lokalnym czasie, potrzebujemy znać Twoją strefę czasową.</Resource>

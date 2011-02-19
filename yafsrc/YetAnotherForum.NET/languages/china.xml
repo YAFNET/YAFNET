@@ -801,6 +801,8 @@
     <Resource tag="ALLOW_USER_HIDE_HELP">If checked, the user who checked it will not be visible in the active users list.</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Height:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Maximum height for avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Size:</Resource>
@@ -1781,6 +1783,7 @@
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">您的真实名字?</Resource>
     <Resource tag="SELECT_LANGUAGE">请选择您使用的语言:</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">请选择您要使用的页面主题:</Resource>
     <Resource tag="TIMEZONE">时区</Resource>
     <Resource tag="TIMEZONE2">请输入您所在的时区，GMT+8:00 表示中国.</Resource>

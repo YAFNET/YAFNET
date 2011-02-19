@@ -801,6 +801,8 @@
     <Resource tag="ALLOW_USER_HIDE_HELP">If checked, the user who checked it will not be visible in the active users list.</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Height:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Maximum height for avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Size:</Resource>
@@ -1781,6 +1783,7 @@
     <Resource tag="PM_EMAIL_NOTIFICATION">Kas saata e-posti teavitus uue privaatsõnumi laekumise kohta?</Resource>
     <Resource tag="REALNAME2">Mis on teie tegelik nimi?</Resource>
     <Resource tag="SELECT_LANGUAGE">Mis keelt soovite kasutada:</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Valige eelistatud kujundus:</Resource>
     <Resource tag="TIMEZONE">Ajavöönd</Resource>
     <Resource tag="TIMEZONE2">Kellaaegade ja kuupäevade kuvamiseks vastavalt kohalikule ajale, palume märkida teie ajavöönd.</Resource>

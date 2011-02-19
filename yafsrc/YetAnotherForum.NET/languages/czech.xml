@@ -801,6 +801,8 @@
     <Resource tag="ALLOW_USER_HIDE_HELP">If checked, the user who checked it will not be visible in the active users list.</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES">Allow Users Poll Images:</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AVATAR_HEIGHT">Avatar Height:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Maximum height for avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Size:</Resource>
@@ -1763,6 +1765,7 @@
     <Resource tag="PM_EMAIL_NOTIFICATION">Zaslat e-mailovou notifikaci když dostaneš novou soukromou zprávu?</Resource>
     <Resource tag="REALNAME2">Jméno a příjmení</Resource>
     <Resource tag="SELECT_LANGUAGE">Jaký jazyk chcete používat:</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Vyberte si oblíbené téma:</Resource>
     <Resource tag="TIMEZONE">Časová zóna</Resource>
     <Resource tag="TIMEZONE2">Abychom mohli uvádět čas a datum ve vašem místním čase, musíme znát vaši časovou zónu.</Resource>

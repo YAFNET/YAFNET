@@ -3,7 +3,7 @@
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Просматривает список активных пользователей</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Просматривает маски доступа</Resource>
-    <Resource tag="ADMIN_ADMIN">Просматривает главную страницу администратора</Resource>
+    <Resource tag="ADMIN_ADMIN">Просматривает  главную страницу администратора</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">Администрирует прикреплённые файлы</Resource>
     <Resource tag="ADMIN_BANNEDIP">Просматривает запрещённые IP</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Редактирует запрещённые IP</Resource>
