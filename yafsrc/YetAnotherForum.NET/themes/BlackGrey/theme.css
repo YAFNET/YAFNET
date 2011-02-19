@@ -242,13 +242,22 @@
 .yafnet tr.post_alt:hover,
 .yafnet tr.topicRow_Alt:hover td,
 .yafnet tr.post_alt:hover td {
-	background-color: #eee;	
+	background-color: #eee;
+	-moz-transition: color .15s linear,background-color .15s linear;
+	-webkit-transition: color .15s linear,background-color .15s linear;
+	transition: color .15s linear,background-color .15s linear;
 }
 .yafnet tr.post:hover .message {
 	background-color: #ffffff;
+	-moz-transition: color .15s linear,background-color .15s linear;
+	-webkit-transition: color .15s linear,background-color .15s linear;
+	transition: color .15s linear,background-color .15s linear;
 }
 .yafnet tr.post_alt:hover .message {
 	background-color: #e3e3e3;
+	-moz-transition: color .15s linear,background-color .15s linear;
+	-webkit-transition: color .15s linear,background-color .15s linear;
+	transition: color .15s linear,background-color .15s linear;
 }
 /* Footer of posts */
 .yafnet .postfooter {
@@ -1280,3 +1289,8 @@ height:80em;
 	-moz-box-shadow: 0 1px 3px rgba(0,0,0,.4);
 	box-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
+.yafnet tr.forumRowTitle .headerForum {padding-left:34px;}
+.yafnet tr.forumRowTitle .headerLastPost,
+.yafnet tr.forumRowTitle .headerModerators,
+.yafnet tr.forumRowTitle .headerPosts,
+.yafnet tr.forumRowTitle .headerLastPost {text-align:left;}
