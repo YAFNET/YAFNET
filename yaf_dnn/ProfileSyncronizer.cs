@@ -361,6 +361,7 @@ namespace YAF.DotNetNuke
                 userCuluture.LanguageFile,
                 userCuluture.Culture,
                 yafUserData.ThemeFile,
+                yafUserData.TextEditor,
                 yafUserData.UseMobileTheme,
                 null,
                 null,

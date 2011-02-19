@@ -171,7 +171,6 @@ namespace YAF.DotNetNuke
       userProfile.Homepage = dnnUserInfo.Profile.Website;
       userProfile.Save();
 
-
       int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
       // Save User
@@ -185,7 +184,8 @@ namespace YAF.DotNetNuke
         null, 
         null, 
         null, 
-        null, 
+        null,
+        null,
         null, 
         null, 
         null, 

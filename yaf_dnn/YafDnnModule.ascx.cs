@@ -472,6 +472,7 @@ namespace YAF.DotNetNuke
                 null, 
                 ProfileSyncronizer.GetUserTimeZoneOffset(dnnUserInfo, this.PortalSettings), 
                 null, 
+                null,
                 null, 
                 null, 
                 true, 
