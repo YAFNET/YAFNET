@@ -1949,6 +1949,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="SAVE">Save</Resource>
     <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="CLEAR">Clear</Resource>
   </page>
    <page name="ADMIN_VERSION">
       <Resource tag="TITLE">Version Check</Resource>
@@ -2769,6 +2770,8 @@ Visit {forumname} at {forumlink}
 	 </page>
 	 <page name="ADMIN_HOSTSETTINGS">
 	   <Resource tag="TITLE">Host Settings</Resource>
+     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
+     <Resource tag="SAVE_SETTINGS">Save Settings</Resource>
 	   <Resource tag="HOST_FEATURES">Features</Resource>
 	   <Resource tag="HOST_DISPLAY">Display</Resource>
 	   <Resource tag="HOST_ADVERTS">Adverts</Resource>
