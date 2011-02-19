@@ -1113,7 +1113,7 @@ namespace YAF.Pages
                   
                        // we find message position always by time.
                        using (DataTable unread = LegacyDb.message_findunread(
-                           this.PageContext.PageTopicID, 0, DateTime.UtcNow, showDeleted, userId))
+                           this.PageContext.PageTopicID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), DateTime.MinValue.AddYears(1902), showDeleted, userId))
                        {
                            var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                            if (unreadFirst != null)
