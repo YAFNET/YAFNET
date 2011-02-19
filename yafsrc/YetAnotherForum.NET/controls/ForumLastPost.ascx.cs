@@ -130,7 +130,7 @@ namespace YAF.Controls
 
           this.LastTopicImgLink.ToolTip = this.Alt;
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-            ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
+            ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
           this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) >
                                 YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"

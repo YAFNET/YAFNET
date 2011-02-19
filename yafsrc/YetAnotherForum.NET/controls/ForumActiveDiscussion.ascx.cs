@@ -68,8 +68,8 @@ namespace YAF.Controls
 
         // make message url...
         string messageUrl = YafBuildLink.GetLinkNotEscaped(
-          ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
-
+          ForumPages.posts, "m={0}&find=lastpost", currentRow["LastMessageID"]);
+        
         // get the controls
         var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
         var imageMessageLink = (HyperLink)e.Item.FindControl("ImageMessageLink");

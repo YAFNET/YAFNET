@@ -1102,51 +1102,77 @@ namespace YAF.Pages
         {
         }
        else
-       { 
-        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
-        {
-            messageDefined = true;
-            // find last unread
-            if (!(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
-                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread") || (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
-                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "laspost"))
-            {
-                // we find message position always by time.
-                using (DataTable unread = LegacyDb.message_findunread(
-                this.PageContext.PageTopicID, 0, DateTime.UtcNow, showDeleted,userId))
-                {
-                    var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                    if (unreadFirst != null)
-                    {
-                        findMessageId = unreadFirst.Field<int>("MessageID");
-                        messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
-                    }
-                }
-            }
-         
-        }
+       {
+           // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
+           if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
+           {
 
-       if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") != null &&
-                                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
-        {
-            // Find next unread
-            // Find next unread
-            using (
-                DataTable unread = LegacyDb.message_findunread(
-                    this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,
-                    userId))
-            {
-                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                if (unreadFirst != null)
-                {
-                    findMessageId = unreadFirst.Field<int>("MessageID");
-                    messagePosition = unreadFirst.Field<int>("MessagePosition");
-                    // move to this message on load...
-                    PageContext.PageElements.RegisterJsBlockStartup(
-                        this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
-                }
-            }
-        }
+               if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+               {
+                   messageDefined = true;
+                  
+                       // we find message position always by time.
+                       using (DataTable unread = LegacyDb.message_findunread(
+                           this.PageContext.PageTopicID, 0, DateTime.UtcNow, showDeleted, userId))
+                       {
+                           var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                           if (unreadFirst != null)
+                           {
+                               findMessageId = unreadFirst.Field<int>("MessageID");
+                               messagePosition = unread.AsEnumerable().FirstOrDefault().Field<int>("MessagePosition");
+                           }
+                       }
+               }
+           }
+           else
+           {
+               // find last unread message
+               if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+               {
+                   messageDefined = true;
+                  
+                   // Find next unread
+                   using (
+                       DataTable unread = LegacyDb.message_findunread(
+                           this.PageContext.PageTopicID, 0, YafContext.Current.Get<IYafSession>().LastVisit, showDeleted,
+                           userId))
+                   {
+                       var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                       if (unreadFirst != null)
+                       {
+                           findMessageId = unreadFirst.Field<int>("MessageID");
+                           messagePosition = unreadFirst.Field<int>("MessagePosition");
+                           // move to this message on load...
+                           PageContext.PageElements.RegisterJsBlockStartup(
+                               this, "GotoAnchorJs",
+                               JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                       }
+                   }
+               }
+               // find last post
+               if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "lastpost")
+               {
+                   messageDefined = true;
+                  
+                   // Find next unread
+                   using (
+                       DataTable unread = LegacyDb.message_findunread(
+                           this.PageContext.PageTopicID, 0, DateTime.UtcNow, showDeleted,
+                           userId))
+                   {
+                       var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                       if (unreadFirst != null)
+                       {
+                           findMessageId = unreadFirst.Field<int>("MessageID");
+                           messagePosition = unreadFirst.Field<int>("MessagePosition");
+                           // move to this message on load...
+                           PageContext.PageElements.RegisterJsBlockStartup(
+                               this, "GotoAnchorJs",
+                               JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                       }
+                   }
+               }
+           }
        }
      }
       catch (Exception x)

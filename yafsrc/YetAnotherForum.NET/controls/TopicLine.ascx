@@ -137,7 +137,7 @@
                 
         %>
         <%=new UserLink { UserID = userID, Style = this.TopicRow["LastUserStyle"].ToString() }.RenderToString() %>
-        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.TopicRow["LastMessageID"]) %>"
+        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", this.TopicRow["LastMessageID"]) %>"
             title="<%=this.AltLastPost%>">
             <img src="<%=strMiniPost%>" alt="<%=this.AltLastPost%>" title="<%=this.AltLastPost%>" />            
         </a>

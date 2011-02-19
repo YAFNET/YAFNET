@@ -106,8 +106,8 @@ namespace YAF.Pages
           "lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
         string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
-          by, 
-          YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]), 
+          by,
+          YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]), 
           this.GetThemeContents("ICONS", "ICON_LATEST"));
 
         return html;
