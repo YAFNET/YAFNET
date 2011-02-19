@@ -153,6 +153,17 @@ namespace YAF.Core
     }
 
     /// <summary>
+    ///   Gets User's Text Editor.
+    /// </summary>
+    public string TextEditor
+    {
+        get
+        {
+            return this.RowConvert.AsString("TextEditor");
+        }
+    }
+
+    /// <summary>
     ///   Gets DBRow.
     /// </summary>
     public DataRow DBRow

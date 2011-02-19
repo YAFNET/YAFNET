@@ -232,6 +232,7 @@ namespace YAF.Controls
                                        this.PageContext.BoardSettings.AllowPMEmailNotification;
 
       this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
+      this.TrTextEditors.Visible = this.PageContext.BoardSettings.AllowUsersTextEditor;
       this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
       this.MetaWeblogAPI.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
       this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
@@ -357,10 +358,16 @@ namespace YAF.Controls
       object language = null;
       object culture = this.Culture.SelectedValue;
       object theme = this.Theme.SelectedValue;
+      object editor = this.ForumEditor.SelectedValue;
 
       if (string.IsNullOrEmpty(this.Theme.SelectedValue))
       {
         theme = null;
+      }
+
+      if (string.IsNullOrEmpty(this.ForumEditor.SelectedValue))
+      {
+          editor = null;
       }
 
       if (string.IsNullOrEmpty(this.Culture.SelectedValue))
@@ -388,7 +395,7 @@ namespace YAF.Controls
         language, 
         culture, 
         theme,
-        null,
+        editor,
         this.UseMobileTheme.Checked, 
         null, 
         null, 
@@ -430,7 +437,14 @@ namespace YAF.Controls
         this.Culture.DataTextField = "CultureNativeName";
       }
 
-      this.DataBind();
+      if (this.PageContext.BoardSettings.AllowUsersTextEditor)
+      {
+          this.ForumEditor.DataSource = this.PageContext.EditorModuleManager.ActiveAsDataTable("Editors");
+          this.ForumEditor.DataValueField = "Value";
+          this.ForumEditor.DataTextField = "Name";
+      }
+
+        this.DataBind();
 
       if (this.PageContext.BoardSettings.EnableDNACalendar)
       {
@@ -503,11 +517,26 @@ namespace YAF.Controls
         }
       }
 
-      if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
+      if (this.PageContext.BoardSettings.AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
+      {
+          // Text editor
+          string textEditor = !string.IsNullOrEmpty(this.UserData.TextEditor)
+                                  ? this.UserData.TextEditor
+                                  : this.PageContext.BoardSettings.ForumEditor;
+
+          ListItem editorItem = this.ForumEditor.Items.FindByValue(textEditor);
+          if (editorItem != null)
+          {
+              editorItem.Selected = true;
+          }
+      }
+
+        if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
       {
         return;
       }
 
+      // Language and culture
       string languageFile = this.PageContext.BoardSettings.Language;
       string culture4tag = this.PageContext.BoardSettings.Culture;
 

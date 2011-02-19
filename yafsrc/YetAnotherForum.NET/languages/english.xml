@@ -753,6 +753,7 @@
       <Resource tag="REALNAME2">What's your real name?</Resource>
       <Resource tag="SELECT_LANGUAGE">What language do you want to use:</Resource>
       <Resource tag="SELECT_THEME">Select your preferred theme:</Resource>
+      <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
       <Resource tag="TIMEZONE">Time Zone</Resource>
       <Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
       <Resource tag="TITLE">Edit Profile</Resource>
@@ -2771,6 +2772,8 @@ Visit {forumname} at {forumlink}
 	 <page name="ADMIN_HOSTSETTINGS">
 	   <Resource tag="TITLE">Host Settings</Resource>
      <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
+     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
+     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
      <Resource tag="SAVE_SETTINGS">Save Settings</Resource>
 	   <Resource tag="HOST_FEATURES">Features</Resource>
 	   <Resource tag="HOST_DISPLAY">Display</Resource>

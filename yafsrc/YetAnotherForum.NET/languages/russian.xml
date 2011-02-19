@@ -800,6 +800,8 @@
     <Resource tag="ALLOW_USER_HIDE_HELP">Пользователь может сделать себя невидимым в списке активных пользователей.</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES">Разрешить изображения в опросах:</Resource>
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Пользователи могут добавлять изображения как опции опроса или как вопрос.</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR">Разрешить выбор текстового редактора</Resource>
+    <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Пользователи смогут выбирать текстовой редактор в своих профилях.</Resource>
     <Resource tag="AVATAR_HEIGHT">Высота аватара:</Resource>
     <Resource tag="AVATAR_HEIGHT_HELP">Максимальная высота аватара(пикс.).</Resource>
     <Resource tag="AVATAR_SIZE">Размер аватара:</Resource>
@@ -1795,6 +1797,7 @@
     <Resource tag="PM_EMAIL_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте при получении нового личного сообщения?</Resource>
     <Resource tag="REALNAME2">Ваше настоящее имя:</Resource>
     <Resource tag="SELECT_LANGUAGE">Какой язык вы хотите использовать:</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">Текстовой редактор:</Resource>
     <Resource tag="SELECT_THEME">Выберите нужную тему:</Resource>
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>

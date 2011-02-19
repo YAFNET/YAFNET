@@ -1076,6 +1076,14 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
+                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel160" runat="server" LocalizedTag="ALLOW_USERTEXTEDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox runat="server" ID="AllowUsersTextEditor" />
+                        </td>
+                    </tr>
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel87" runat="server" LocalizedTag="ACCEPT_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />

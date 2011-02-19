@@ -1444,6 +1444,22 @@ namespace YAF.Classes
         #region boolean settings
 
         /// <summary>
+        /// Gets or sets a value indicating whether AllowUsersTextEditor.
+        /// </summary>
+        public bool AllowUsersTextEditor
+        {
+            get
+            {
+                return this._reg.GetValue<bool>("AllowUsersTextEditor", false);
+            }
+
+            set
+            {
+                this._reg.SetValue<bool>("AllowUsersTextEditor", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether EmailVerification.
         /// </summary>
         public bool EmailVerification

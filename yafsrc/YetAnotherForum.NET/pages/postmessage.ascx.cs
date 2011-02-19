@@ -325,10 +325,19 @@ namespace YAF.Pages
         protected override void OnInit([NotNull] EventArgs e)
         {
             // get the forum editor based on the settings
-            this._forumEditor =
-             this.Get<IModuleManager<ForumEditor>>().GetBy(this.PageContext.BoardSettings.ForumEditor);
-            this.EditorLine.Controls.Add(this._forumEditor);
+            string editorId = this.PageContext.BoardSettings.ForumEditor;
+            if (this.PageContext.BoardSettings.AllowUsersTextEditor)
+            {
+                // Text editor
+                editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
+                                        ? this.PageContext.TextEditor
+                                        : this.PageContext.BoardSettings.ForumEditor;
+            } 
 
+                this._forumEditor =
+                    this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
+                this.EditorLine.Controls.Add(this._forumEditor);
+           
             base.OnInit(e);
         }
 

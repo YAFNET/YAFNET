@@ -267,6 +267,16 @@
             <asp:DropDownList runat="server" ID="Theme" CssClass="edit" />
         </td>
     </tr>
+    <tr runat="server" id="TrTextEditors">
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="SELECT_TEXTEDITOR" />
+        </td> 
+        <td class="post">
+         <asp:DropDownList Style="width:350px" ID="ForumEditor" runat="server" DataValueField="Value" DataTextField="Name">
+                            </asp:DropDownList>
+        </td>
+    </tr>
     <tr runat="server" id="UseMobileThemeRow" visible="false">
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedPage="CP_EDITPROFILE"

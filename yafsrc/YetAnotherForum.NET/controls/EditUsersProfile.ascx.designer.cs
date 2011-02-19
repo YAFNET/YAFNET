@@ -526,6 +526,33 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.DropDownList Theme;
         
         /// <summary>
+        /// TrTextEditors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TrTextEditors;
+        
+        /// <summary>
+        /// LocalizedLabel19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel19;
+        
+        /// <summary>
+        /// ForumEditor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ForumEditor;
+        
+        /// <summary>
         /// UseMobileThemeRow control.
         /// </summary>
         /// <remarks>
