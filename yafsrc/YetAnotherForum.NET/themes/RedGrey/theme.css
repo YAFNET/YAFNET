@@ -1270,3 +1270,9 @@ height:80em;
 	padding-left: 30px;
 	height: 20px;
 }
+.yafnet .header2 input[type=image],
+.yafnet .header1 input[type=image] {
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.4);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,.4);
+	box-shadow: 0 1px 4px rgba(0,0,0,.4);
+}
