@@ -723,8 +723,10 @@
     <Resource tag="NEW_FORUM">Добавить форум</Resource>
   </page>
   <page name="ADMIN_GROUPS">
+    <Resource tag="ADD_ROLETOYAF">Добавить к YAF</Resource>
     <Resource tag="COMMAND">Действие</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить эту роль?</Resource>
+    <Resource tag="DELETE_ROLEFROMYAF">Удалить роль</Resource>
     <Resource tag="HEADER">Роли</Resource>
     <Resource tag="IS_ADMIN">Администратор</Resource>
     <Resource tag="IS_GUEST">Гость</Resource>
@@ -738,7 +740,8 @@
     <Resource tag="PMS">ЛС</Resource>
     <Resource tag="PROVIDER_ROLES">Роли провайдера</Resource>
     <Resource tag="TITLE">Роли</Resource>
-    <Resource tag="UNLINKABLE">Несвязанная</Resource>
+    <Resource tag="UNLINKABLE">Несвязываемая</Resource>
+    <Resource tag="UNLINKED">Несвязанная</Resource>
   </page>
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Сбрасывать сессии для пользователей, которые не отслеживаются:</Resource>

@@ -19,7 +19,7 @@
 				</tr>
 				<tr>
 					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" />
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_COMMON" />
 					</td>
 					<td class="header2">&nbsp;
 						
@@ -30,13 +30,17 @@
 				<tr>
 					<td class="post">
 						<%# Container.DataItem %>
-						(Unlinked)
+						(<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />)
 					</td>
 					<td class="post" align="right">
-						<asp:LinkButton ID="LinkButtonAdd" runat="server" CommandName="add" CommandArgument='<%# Container.DataItem %>'>Add to YAF</asp:LinkButton>
+						<asp:LinkButton ID="LinkButtonAdd" runat="server" CommandName="add" CommandArgument='<%# Container.DataItem %>'>
+                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="ADD_ROLETOYAF" />
+                        </asp:LinkButton>
 						|
 						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" CommandName="delete"
-							CommandArgument='<%# Container.DataItem %>'>Delete Role</asp:LinkButton>
+							CommandArgument='<%# Container.DataItem %>'>
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="DELETE_ROLEFROMYAF" />
+                            </asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
@@ -95,14 +99,7 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_GROUPS" />&nbsp;
 					<asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>&nbsp;|&nbsp;
 					<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="PMS" LocalizedPage="ADMIN_GROUPS" />&nbsp;
-					 <asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColorString(((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())) %>'><%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;
-                    <br />
-                    <YAF:LocalizedLabel ID="HelpLabel7" runat="server" LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />                   
-                    <asp:Label ID="Label5" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrSigChars" ).ToString()) %>'><%# this.Eval("UsrSigChars").ToString().IsSet() ? this.Eval("UsrSigChars").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel ID="HelpLabel8" runat="server" LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label7" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrSigBBCodes" ).ToString()) %>'><%# this.Eval("UsrSigBBCodes").ToString().IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;                   
-                    <YAF:LocalizedLabel ID="HelpLabel9" runat="server"  LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />                
-                    <asp:Label ID="Label8" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrSigHTMLTags" ).ToString()) %>'><%#  this.Eval("UsrSigHTMLTags").ToString().IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
+					 <asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColorString(((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())) %>'><%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;                   
                     <br />
                     <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label9" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'><%# this.Eval("UsrAlbums").ToString()%></asp:Label>&nbsp;|&nbsp;
@@ -115,6 +112,13 @@
                     <YAF:LocalizedLabel  ID="HelpLabel13" runat="server" LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />&nbsp;  
                     <asp:Label ID="Label12" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "Style" ).ToString()) %>'><%# this.Eval("Style").ToString().IsSet() && (this.Eval("Style").ToString().Trim().Length > 0) ? "" : this.GetItemName(false)%></asp:Label>&nbsp;
                     <YAF:RoleRankStyles ID="RoleRankStylesGroups" RawStyles='<%# this.Eval( "Style" ).ToString() %>' runat="server" /> 
+                     <br />
+                    <YAF:LocalizedLabel ID="HelpLabel7" runat="server" LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />                   
+                    <asp:Label ID="Label5" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrSigChars" ).ToString()) %>'><%# this.Eval("UsrSigChars").ToString().IsSet() ? this.Eval("UsrSigChars").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
+                    <YAF:LocalizedLabel ID="HelpLabel8" runat="server" LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
+                    <asp:Label ID="Label7" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrSigBBCodes" ).ToString()) %>'><%# this.Eval("UsrSigBBCodes").ToString().IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;                   
+                    <YAF:LocalizedLabel ID="HelpLabel9" runat="server"  LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />                
+                    <asp:Label ID="Label8" runat="server" ForeColor='<%# GetItemColorString(this.Eval( "UsrSigHTMLTags" ).ToString()) %>'><%#  this.Eval("UsrSigHTMLTags").ToString().IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
                     </td>
                     </tr>					
 				</tr>

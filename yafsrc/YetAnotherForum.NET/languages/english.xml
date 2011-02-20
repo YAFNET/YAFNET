@@ -2487,12 +2487,15 @@ Visit {forumname} at {forumlink}
       <Resource tag="MSG_NUMBER_SORT">You must enter a number value from 0 to 32767 for sort order.</Resource>
     </page>
 	<page name="ADMIN_GROUPS">
+     <Resource tag="ADD_ROLETOYAF">Add to YAF</Resource>
+     <Resource tag="DELETE_ROLEFROMYAF">Delete Role</Resource>
      <Resource tag="COMMAND">Command</Resource>
 	   <Resource tag="TITLE">Roles</Resource>
 	   <Resource tag="HEADER">YetAnotherForum Roles</Resource>
      <Resource tag="NAME">Name</Resource>
 	   <Resource tag="NEW_ROLE">New Role</Resource>
 	   <Resource tag="UNLINKABLE">Unlinkable</Resource>
+     <Resource tag="UNLINKED">Unlinked</Resource>
 	   <Resource tag="LINKED">Linked</Resource>
 	   <Resource tag="CONFIRM_DELETE">Delete this Role?</Resource>
 	   <Resource tag="PROVIDER_ROLES">Provider Roles</Resource>
