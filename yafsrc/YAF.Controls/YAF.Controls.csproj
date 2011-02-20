@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="UserStyles.cs" />
     <Compile Include="Localized\ILocalizationSupport.cs" />
     <Compile Include="Localized\LocalizationSupportExtensions.cs" />
     <Compile Include="Localized\LocalizedCustomValidator.cs" />
