@@ -5,22 +5,19 @@
 	   
 	   CKEDITOR.replaceAll(function( textarea, config ){
 		  
-		   config.extraPlugins = 'bbcode,syntaxhighlight';
+		  config.extraPlugins = 'bbcode,syntaxhighlight,bbcodeselector';
 		  config.toolbar_Full = [
 		                         ['Source'],
 		                         ['Undo','Redo'],
 								 ['-','NumberedList','BulletedList'], 
 								 ['-','Link', 'Unlink', 'Image'], 
-		                         ['Blockquote', 'syntaxhighlight'],
+		                         ['Blockquote', 'syntaxhighlight','bbcodeselector'],
 		                         ['SelectAll', 'RemoveFormat'],
 								 ['About'],
 								 '/',
 								 ['Bold','Italic','Underline','-', 'TextColor', 'Font', 'FontSize'],
 								 ['JustifyLeft','JustifyCenter','JustifyRight'],
 		                        ] ;
-
-// Add the BBCode plugin.
-CKEDITOR.config.extraPlugins = 'bbcode';
 		  });
 };
    
