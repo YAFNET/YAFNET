@@ -273,7 +273,7 @@
                 LocalizedTag="SELECT_TEXTEDITOR" />
         </td> 
         <td class="post">
-         <asp:DropDownList Style="width:350px" ID="ForumEditor" runat="server" DataValueField="Value" DataTextField="Name">
+         <asp:DropDownList ID="ForumEditor" CssClass="edit" runat="server" DataValueField="Value" DataTextField="Name">
                             </asp:DropDownList>
         </td>
     </tr>
