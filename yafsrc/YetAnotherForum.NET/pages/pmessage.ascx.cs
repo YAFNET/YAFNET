@@ -221,9 +221,19 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // create editor based on administrator's settings
-      this._editor =
-        YafContext.Current.EditorModuleManager.GetBy(YafContext.Current.BoardSettings.ForumEditor);
+        // create editor based on administrator's settings
+        // get the forum editor based on the settings
+        string editorId = this.PageContext.BoardSettings.ForumEditor;
+        if (this.PageContext.BoardSettings.AllowUsersTextEditor)
+        {
+            // Text editor
+            editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
+                                    ? this.PageContext.TextEditor
+                                    : this.PageContext.BoardSettings.ForumEditor;
+        }
+        
+        this._editor =
+            this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
 
       // add editor to the page
       this.EditorLine.Controls.Add(this._editor);
