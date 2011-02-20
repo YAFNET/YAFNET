@@ -798,7 +798,7 @@ namespace YAF.Pages
                     if (attachp.IsNotSet() || (!this.PostOptions1.PollChecked))
                     {
                         // regular redirect...
-                        YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
+                        YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", messageId);
                     }
                     else
                     {

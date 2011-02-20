@@ -3346,7 +3346,28 @@ select top 1
 		[{databaseOwner}].[{objectQualifier}Message] m	
 	where
 		m.TopicID = @TopicID ORDER BY m.Posted
-
+   -- we return last 100 messages ONLY if we look for last unread or lastpost(Messageid = 0)
+   if (@MessageID > 0)
+   begin
+   -- fill in the table variable with all topic's messages(slow). It's used in cases when we forced to find a particular message. 		
+	insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
+	select  
+		m.MessageID,
+		m.TopicID,
+		m.Posted,
+		Edited = IsNull(m.Edited,m.Posted)
+	from
+		[{databaseOwner}].[{objectQualifier}Message] m	
+	where
+		m.TopicID = @TopicID			
+		AND m.IsApproved = 1
+		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
+		 AND m.Posted >	 @LastRead
+	order by		
+		m.Posted DESC
+		end
+    else
+	    begin
 	-- fill in the table variable with last 100 values from topic's messages		
 	insert into @tbl_msglunr (MessageID,TopicID,Posted,Edited) 
 	select  top 100	  
@@ -3363,7 +3384,7 @@ select top 1
 		 AND m.Posted >	 @LastRead
 	order by		
 		m.Posted DESC
-
+		end
 	     -- simply return last post if no unread message is found
 		   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr) 
 		   begin
