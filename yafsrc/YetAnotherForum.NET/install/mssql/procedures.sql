@@ -3346,6 +3346,8 @@ select top 1
 		[{databaseOwner}].[{objectQualifier}Message] m	
 	where
 		m.TopicID = @TopicID ORDER BY m.Posted
+
+
    -- we return last 100 messages ONLY if we look for last unread or lastpost(Messageid = 0)
    if (@MessageID > 0)
    begin
@@ -3381,13 +3383,14 @@ select top 1
 		m.TopicID = @TopicID			
 		AND m.IsApproved = 1
 		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))
-		 AND m.Posted >	 @LastRead
+		AND m.Posted >	@LastRead
 	order by		
 		m.Posted DESC
 		end
+
 	     -- simply return last post if no unread message is found
-		   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr) 
-		   begin
+  if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr) 
+  begin
     -- the messageid was already supplied, find a particular message
     if (@MessageID > 0)
 	begin
@@ -3401,7 +3404,7 @@ select top 1
 	    else
 	    begin
 	     -- simply return last post if no unread message is found
-	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+	       select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID and Posted> @LastRead
 	       order by Posted DESC
@@ -3410,7 +3413,7 @@ select top 1
 	else
 	begin
 	   -- simply return last message as no MessageID was supplied 
-	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE TopicID = @TopicID and Posted> @LastRead)
+	   if EXISTS (SELECT TOP 1 1 FROM @tbl_msglunr WHERE Posted> @LastRead)
 	    begin
 	     -- return last unread		
 	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
@@ -3420,16 +3423,16 @@ select top 1
 		end
 	    else
 	    begin
-	       select top 1 MessageID, MessagePosition = cntrt, FirstMessageID = @firstmessageid 
+	       select top 1 MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
 		   from @tbl_msglunr
 	       where TopicID=@TopicID
 	       order by Posted DESC  
 	    end	
 	end
-	end
+end
 	else
-	begin
-		select top 1 m.MessageID, MessagePosition = 0, FirstMessageID = @firstmessageid 
+begin
+		select top 1 m.MessageID, MessagePosition = 1, FirstMessageID = @firstmessageid 
 	from
 		[{databaseOwner}].[{objectQualifier}Message] m	
 	where
@@ -3438,7 +3441,7 @@ select top 1
 		AND (m.IsDeleted = 0 OR ((@ShowDeleted = 1 AND m.IsDeleted = 1) OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID)))	
 	order by		
 		m.Posted DESC
-	end
+end
 
 end
 GO
@@ -4673,7 +4676,7 @@ begin
 
    declare @floor decimal
    declare @ceiling decimal
-   declare @newpageindex int
+  
    declare @offset int 
    
    declare @pagecorrection int
@@ -4697,66 +4700,43 @@ begin
 		AND 
 		m.Edited >= SinceEditedDate
 		*/
-	-- select last page	
-   if (@MessagePosition >= 0)
-   begin  
-   -- round to ceiling   
-   SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
-   -- round to floor
-   SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
+  
    -- number of messages on the last page @post_totalrowsnumber - @floor*@PageSize
    if (@MessagePosition > 0)
-   begin
-   SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
-   end
-   else
-   begin
-   SET @pageshift = 0
-   end
+ begin
 
+       -- round to ceiling - total number of pages  
+       SELECT @ceiling = CEILING(CONVERT(decimal,@post_totalrowsnumber)/@PageSize) 
+       -- round to floor - a number of full pages
+       SELECT @floor = FLOOR(CONVERT(decimal,@post_totalrowsnumber)/@PageSize)
+
+       SET @pageshift = @MessagePosition - (@post_totalrowsnumber - @floor*@PageSize)
+            if  @pageshift < 0
+			   begin
+			      SET @pageshift = 0
+				     end   
+   -- here pageshift converts to full pages 
    if (@pageshift <= 0)
-   begin
-   SET  @pageshift = 0
+   begin    
+   set @pageshift = 0
    end
-   else if (@pageshift < @PageSize*2)
+   else 
    begin
-   SET  @pageshift = 1
-   end
-   else
-   begin
-   Set @pageshift = @pageshift/@PageSize
-   end
+   set @pageshift = CEILING(CONVERT(decimal,@pageshift)/@PageSize) 
+   end   
+   
+   SET @PageIndex = @ceiling - @pageshift 
+   if @ceiling != @floor
+   SET @PageIndex = @PageIndex - 1	      
 
-
- 
-   if @ceiling = @floor
-      begin
-         SET @pagecorrection = 1;
-		 SET @offset = 0;
-      end
-	  else 
-	  begin
-	  SET @pagecorrection = 0; 
-	  SET @offset = 1;
-	  end
-	       
-   SET @PageIndex = @ceiling +  @pagecorrection - 1 + @offset - @pageshift
-   select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1  -- @pagecorrection
-  if @ceiling = @floor
-           begin
-              SET @PageIndex = @PageIndex - @pagecorrection
-           end 
-		    else 
-	  begin
-	 SET @PageIndex = @PageIndex - @offset  
-	  end
-   end
-   else
-   begin
-   SET @pagecorrection = 0;
+   select @firstselectrownum = (@PageIndex) * @PageSize + 1    
+  
+ end  
+ else
+ begin
    select @PageIndex = @PageIndex+1;
    select @firstselectrownum = (@PageIndex - 1) * @PageSize + 1 
-   end 
+ end 
   
    -- find first selectedrowid 
    if (@firstselectrownum > 0)   
