@@ -21,6 +21,7 @@ namespace YAF.Core.Tasks
   using System;
 
   using YAF.Classes.Data;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
 
@@ -135,12 +136,12 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId, int forumId, int days, bool permDelete)
     {
-      if (YafTaskModule.Current == null)
+      if (YafContext.Current.Get<YafTaskModule>() == null)
       {
         return false;
       }
 
-      if (!YafTaskModule.Current.TaskExists(TaskName))
+      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
       {
         var task = new PruneTopicTask
           {
@@ -149,7 +150,7 @@ namespace YAF.Core.Tasks
             Days = days, 
             PermDelete = permDelete
           };
-        YafTaskModule.Current.StartTask(TaskName, task);
+        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
       }
 
       return true;

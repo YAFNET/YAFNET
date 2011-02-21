@@ -24,6 +24,7 @@ namespace YAF.Core.Services
 
   using YAF.Core.Tasks;
   using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -34,10 +35,26 @@ namespace YAF.Core.Services
   /// </summary>
   public class ValidateTaskModuleRunningStartup : BaseStartupService, ICriticalStartupService
   {
+    private readonly HttpApplicationStateBase _httpApplicationState;
+
+    #region Constants and Fields
+
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    public ValidateTaskModuleRunningStartup(HttpApplicationStateBase httpApplicationState)
+    {
+      _httpApplicationState = httpApplicationState;
+    }
+
+    #endregion
+
     #region Properties
 
     /// <summary>
-    /// Gets Priority.
+    ///   Gets Priority.
     /// </summary>
     public override int Priority
     {
@@ -78,7 +95,8 @@ namespace YAF.Core.Services
 #if DEBUG
       debugging = true;
 #endif
-      if (YafTaskModule.Current == null)
+
+      if (this._httpApplicationState[Constants.Cache.TaskModule] == null)
       {
         if (!debugging)
         {

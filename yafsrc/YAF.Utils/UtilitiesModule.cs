@@ -68,8 +68,6 @@ namespace YAF.Utils
       builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>().InstancePerYafContext();
 
       builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>().InstancePerYafContext();
-
-      builder.Register(c => c.Resolve<HttpContextBase>().Application).As<HttpApplicationStateBase>().InstancePerYafContext();
     }
 
     #endregion

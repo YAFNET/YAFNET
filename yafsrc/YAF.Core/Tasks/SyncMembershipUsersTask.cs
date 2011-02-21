@@ -18,26 +18,37 @@
  */
 namespace YAF.Core.Tasks
 {
+  #region Using
+
   using System;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+
+  #endregion
 
   /// <summary>
   /// Run when we want to do migration of users in the background...
   /// </summary>
   public class SyncMembershipUsersTask : LongBackgroundTask
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _task name.
+    ///   The _task name.
     /// </summary>
     private const string _taskName = "SyncMembershipUsersTask";
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets TaskName.
+    ///   Gets TaskName.
     /// </summary>
+    [NotNull]
     public static string TaskName
     {
       get
@@ -45,6 +56,10 @@ namespace YAF.Core.Tasks
         return _taskName;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The start.
@@ -57,18 +72,15 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId)
     {
-      if (YafTaskModule.Current == null)
+      if (YafContext.Current.Get<YafTaskModule>() == null)
       {
         return false;
       }
 
-      if (!YafTaskModule.Current.TaskExists(TaskName))
+      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
       {
-        var task = new SyncMembershipUsersTask
-          {
-            BoardID = boardId
-          };
-        YafTaskModule.Current.StartTask(TaskName, task);
+        var task = new SyncMembershipUsersTask { BoardID = boardId };
+        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
       }
 
       return true;
@@ -82,12 +94,14 @@ namespace YAF.Core.Tasks
       try
       {
         // attempt to run the sync code...
-        RoleMembershipHelper.SyncAllMembershipUsers(BoardID);
+        RoleMembershipHelper.SyncAllMembershipUsers(this.BoardID);
       }
       catch (Exception x)
       {
         LegacyDb.eventlog_create(null, TaskName, "Error In SyncMembershipUsers Task: {0}".FormatWith(x));
       }
     }
+
+    #endregion
   }
 }

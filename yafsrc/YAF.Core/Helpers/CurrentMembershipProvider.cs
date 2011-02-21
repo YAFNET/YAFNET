@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+/* Yet Another Forum.net
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,23 +16,43 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Core
 {
+  #region Using
+
+  using System.Web.Security;
+
+  using YAF.Classes;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
+
   /// <summary>
-  /// The i simple provider.
+  /// The current membership provider.
   /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public interface ISimpleProvider<out T>
+  public class CurrentMembershipProvider : IReadOnlyProvider<MembershipProvider>
   {
-    #region Public Methods
+    #region Properties
 
     /// <summary>
-    /// The create.
+    ///   The instance.
     /// </summary>
     /// <returns>
     /// </returns>
-    T Create();
+    public MembershipProvider Instance
+    {
+      get
+      {
+        if (Config.MembershipProvider.IsSet() && Membership.Providers[Config.MembershipProvider] != null)
+        {
+          return Membership.Providers[Config.MembershipProvider];
+        }
+
+        // return default membership provider
+        return Membership.Provider;
+      }
+    }
 
     #endregion
   }

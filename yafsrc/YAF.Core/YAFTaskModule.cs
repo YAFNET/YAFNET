@@ -68,31 +68,9 @@ namespace YAF.Core
     /// </summary>
     protected static Dictionary<string, IBackgroundTask> _taskManager = new Dictionary<string, IBackgroundTask>();
 
-    /// <summary>
-    ///   The _module app name.
-    /// </summary>
-    private const string _moduleAppName = "YafTaskModule";
-
     #endregion
 
     #region Properties
-
-    /// <summary>
-    ///   Gets Current.
-    /// </summary>
-    [CanBeNull]
-    public static YafTaskModule Current
-    {
-      get
-      {
-        if (YafContext.Application[_moduleAppName] != null)
-        {
-          return YafContext.Application[_moduleAppName] as YafTaskModule;
-        }
-
-        return null;
-      }
-    }
 
     /// <summary>
     ///   Gets TaskCount.
@@ -194,7 +172,6 @@ namespace YAF.Core
           Debug.WriteLine("Starting Task {0} Under User {1}...".FormatWith(instanceName, Environment.UserName));
 
           // setup and run...
-          start.AppContext = _appInstance;
           this.Get<IInjectServices>().Inject(start);
           start.Run();
 
@@ -292,8 +269,12 @@ namespace YAF.Core
           {
             _appInstance = httpApplication;
 
-            // create a hook into the application allow YAF to find this handler...
-            httpApplication.Application.Add(_moduleAppName, this);
+            // set the httpApplication as early as possible...
+            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+              new HttpApplicationStateWrapper(httpApplication.Application);
+
+            // wire up provider so that the task module can be found...
+            GlobalContainer.Container.Resolve<CurrentTaskModuleProvider>().Instance = this;
 
             _moduleInitialized = true;
 

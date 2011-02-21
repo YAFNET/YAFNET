@@ -31,6 +31,7 @@ namespace YAF.Core
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Flags;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -54,7 +55,7 @@ namespace YAF.Core
     /// </param>
     public static void AddUserToRole([NotNull] string username, [NotNull] string role)
     {
-      YafContext.Current.CurrentRoles.AddUsersToRoles(new[] { username }, new[] { role });
+      YafContext.Current.Get<RoleProvider>().AddUsersToRoles(new[] { username }, new[] { role });
     }
 
     /// <summary>
@@ -123,7 +124,7 @@ namespace YAF.Core
     /// </param>
     public static void CreateRole([NotNull] string roleName)
     {
-      YafContext.Current.CurrentRoles.CreateRole(roleName);
+      YafContext.Current.Get<RoleProvider>().CreateRole(roleName);
     }
 
     /// <summary>
@@ -137,7 +138,7 @@ namespace YAF.Core
     /// </param>
     public static void DeleteRole([NotNull] string roleName, bool throwOnPopulatedRole)
     {
-      YafContext.Current.CurrentRoles.DeleteRole(roleName, throwOnPopulatedRole);
+      YafContext.Current.Get<RoleProvider>().DeleteRole(roleName, throwOnPopulatedRole);
     }
 
     /// <summary>
@@ -163,7 +164,7 @@ namespace YAF.Core
     /// </returns>
     public static string[] GetAllRoles()
     {
-      return YafContext.Current.CurrentRoles.GetAllRoles();
+      return YafContext.Current.Get<RoleProvider>().GetAllRoles();
     }
 
     /// <summary>
@@ -176,7 +177,7 @@ namespace YAF.Core
     /// </returns>
     public static string[] GetRolesForUser([NotNull] string username)
     {
-      return YafContext.Current.CurrentRoles.GetRolesForUser(username);
+      return YafContext.Current.Get<RoleProvider>().GetRolesForUser(username);
     }
 
     /// <summary>
@@ -221,7 +222,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsUserInRole([NotNull] string username, [NotNull] string role)
     {
-      return YafContext.Current.CurrentRoles.IsUserInRole(username, role);
+      return YafContext.Current.Get<RoleProvider>().IsUserInRole(username, role);
     }
 
     /// <summary>
@@ -235,7 +236,7 @@ namespace YAF.Core
     /// </param>
     public static void RemoveUserFromRole([NotNull] string username, [NotNull] string role)
     {
-      YafContext.Current.CurrentRoles.RemoveUsersFromRoles(new[] { username }, new[] { role });
+      YafContext.Current.Get<RoleProvider>().RemoveUsersFromRoles(new[] { username }, new[] { role });
     }
 
     /// <summary>
@@ -249,7 +250,7 @@ namespace YAF.Core
     /// </returns>
     public static bool RoleExists([NotNull] string roleName)
     {
-      return YafContext.Current.CurrentRoles.RoleExists(roleName);
+      return YafContext.Current.Get<RoleProvider>().RoleExists(roleName);
     }
 
     /// <summary>
@@ -322,7 +323,7 @@ namespace YAF.Core
 
       // get all users in membership...
       var users =
-        YafContext.Current.CurrentMembership.GetAllUsers(0, 999999, out totalRecords).Cast<MembershipUser>().Where(
+        YafContext.Current.Get<MembershipProvider>().GetAllUsers(0, 999999, out totalRecords).Cast<MembershipUser>().Where(
           u => u != null && u.Email.IsSet());
 
       // create/update users...
@@ -507,7 +508,7 @@ namespace YAF.Core
       do
       {
         password = Membership.GeneratePassword(7 + retry, 1 + retry);
-        user = YafContext.Current.CurrentMembership.CreateUser(
+        user = YafContext.Current.Get<MembershipProvider>().CreateUser(
           name, password, email, question, answer, approved, null, out status);
       }
       while (status == MembershipCreateStatus.InvalidPassword && ++retry < 10);
@@ -530,7 +531,7 @@ namespace YAF.Core
     private static void MigrateUsersFromDataTable(int pageBoardID, bool approved, [NotNull] DataTable dataTable)
     {
       // is this the Yaf membership provider?
-      bool isYafProvider = YafContext.Current.CurrentMembership.GetType().Name == "YafMembershipProvider";
+      bool isYafProvider = YafContext.Current.Get<MembershipProvider>().GetType().Name == "YafMembershipProvider";
       bool isLegacyYafDB = dataTable.Columns.Contains("Location");
 
       foreach (DataRow row in dataTable.Rows)
@@ -580,7 +581,7 @@ namespace YAF.Core
 
               user.Comment = "Migrated from YetAnotherForum.NET";
 
-              YafContext.Current.CurrentMembership.UpdateUser(user);
+              YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
 
               if (!isYafProvider)
               {

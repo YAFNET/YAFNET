@@ -24,6 +24,7 @@ namespace YAF.Core.Tasks
 
   using YAF.Types;
   using YAF.Types.Attributes;
+  using YAF.Types.Interfaces;
 
   #endregion
 
@@ -60,10 +61,10 @@ namespace YAF.Core.Tasks
     private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // add the mailing task if it's not already added...
-      if (YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists(UserCleanUpTask.TaskName))
+      if (this.Get<YafTaskModule>() != null && !this.Get<YafTaskModule>().TaskExists(UserCleanUpTask.TaskName))
       {
         // start it...
-        YafTaskModule.Current.StartTask(UserCleanUpTask.TaskName, new UserCleanUpTask());
+        this.Get<YafTaskModule>().StartTask(UserCleanUpTask.TaskName, new UserCleanUpTask());
       }
     }
 

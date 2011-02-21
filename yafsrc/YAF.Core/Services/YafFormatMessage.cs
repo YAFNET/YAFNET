@@ -27,6 +27,7 @@ namespace YAF.Core.Services
   using System.Text.RegularExpressions;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Core.BBCode;
   using YAF.Core.BBCode.ReplaceRules;
@@ -207,6 +208,26 @@ namespace YAF.Core.Services
       return string.Empty;
     }
 
+    private static readonly Regex _rgxEmail =
+      new Regex(
+        @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
+        _options | RegexOptions.Compiled);
+
+    private static readonly Regex _rgxUrl1 =
+      new Regex(
+        @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
+        _options | RegexOptions.Compiled);
+
+    private static readonly Regex _rgxUrl2 =
+      new Regex(
+        @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
+        _options | RegexOptions.Compiled);
+
+    private static readonly Regex _rgxUrl3 =
+      new Regex(
+        @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+        _options | RegexOptions.Compiled);
+
     /// <summary>
     /// The format message.
     /// </summary>
@@ -227,13 +248,15 @@ namespace YAF.Core.Services
     /// </returns>
     public string FormatMessage([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
     {
-      bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
+      var boardSettings = this.Get<YafBoardSettings>();
+
+      bool useNoFollow = boardSettings.UseNoFollowLinks;
 
       // check to see if no follow should be disabled since the message is properly aged
-      if (useNoFollow && YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay > 0)
+      if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
       {
         TimeSpan messageAge = messageLastEdited - DateTime.UtcNow;
-        if (messageAge.Days > YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay)
+        if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
         {
           // disable no follow
           useNoFollow = false;
@@ -257,34 +280,26 @@ namespace YAF.Core.Services
         // add email rule
         // vzrus: it's freezing  when post body contains full email adress.
         // the fix provided by community 
-        var email =
-          new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})", 
-            "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
-            _options, 
-            new[] { "before" });
-
-        email.RuleRank = 10;
+        var email = new VariableRegexReplaceRule(
+          _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" }) { RuleRank = 10 };
 
         ruleEngine.AddRule(email);
 
         // URLs Rules
-        string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride)
+        string target = (boardSettings.BlankLinks || targetBlankOverride)
                           ? "target=\"_blank\""
                           : string.Empty;
+
         string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
-        var url =
-          new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
-            "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
-              "{1}", nofollow), 
-            _options, 
-            new[] { "before" }, 
-            new[] { string.Empty }, 
-            50);
+        var url = new VariableRegexReplaceRule(
+          _rgxUrl1,
+          "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
+            "{1}", nofollow),
+          new[] { "before" },
+          new[] { string.Empty },
+          50) { RuleRank = 10 };
 
-        url.RuleRank = 10;
         ruleEngine.AddRule(url);
 
         // ?<! - match if prefixes href="" and src="" are not present
@@ -293,35 +308,31 @@ namespace YAF.Core.Services
         // Match expression but don't capture it, one or more repetions, in the end is dot(\.)? here we match "www." - (?:[\w-]+\.)+
         // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
         // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
-        url =
-          new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)", 
-            "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
-              "{1}", nofollow), 
-            _options, 
-            new[] { "before" }, 
-            new[] { string.Empty }, 
-            50);
-        url.RuleRank = 10;
+        url = new VariableRegexReplaceRule(
+          _rgxUrl2,
+          "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
+            "{1}", nofollow),
+          new[] { "before" },
+          new[] { string.Empty },
+          50) { RuleRank = 10 };
+
         ruleEngine.AddRule(url);
 
-        url =
-          new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
-            "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
-              "{0}", target).Replace("{1}", nofollow), 
-            _options, 
-            new[] { "before" }, 
-            new[] { string.Empty }, 
-            50);
-        url.RuleRank = 10;
+        url = new VariableRegexReplaceRule(
+          _rgxUrl3,
+          "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
+            "{0}", target).Replace("{1}", nofollow),
+          new[] { "before" },
+          new[] { string.Empty },
+          50) { RuleRank = 10 };
+
         ruleEngine.AddRule(url);
       }
 
       // process...
       ruleEngine.Process(ref message);
 
-      message = YafContext.Current.Get<IBadWordReplace>().Replace(message);
+      message = this.Get<IBadWordReplace>().Replace(message);
 
       return message;
     }

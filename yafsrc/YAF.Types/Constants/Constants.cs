@@ -147,6 +147,11 @@ namespace YAF.Types.Constants
       public const string Smilies = "Smilies";
 
       /// <summary>
+      /// The task module.
+      /// </summary>
+      public const string TaskModule = "YafTaskModule";
+
+      /// <summary>
       ///   The user boxes.
       /// </summary>
       public const string UserBoxes = "UserBoxes";
@@ -162,7 +167,7 @@ namespace YAF.Types.Constants
       public const string UserIgnoreList = "UserIgnoreList{0}";
 
       /// <summary>
-      /// The user list for id.
+      ///   The user list for id.
       /// </summary>
       public const string UserListForID = "UserListForID{0}";
 
@@ -172,7 +177,7 @@ namespace YAF.Types.Constants
       public const string UserMedals = "UserMedals{0}";
 
       /// <summary>
-      /// The user signature cache.
+      ///   The user signature cache.
       /// </summary>
       public const string UserSignatureCache = "UserSignatureCache";
 

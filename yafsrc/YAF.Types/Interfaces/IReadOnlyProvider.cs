@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,43 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Web;
-
   /// <summary>
-  /// The i background task.
+  /// The read only provider interface.
   /// </summary>
-  public interface IBackgroundTask : IDisposable
+  /// <typeparam name="T">
+  /// </typeparam>
+  public interface IReadOnlyProvider<out T>
   {
-    /// <summary>
-    /// Sets BoardID.
-    /// </summary>
-    int BoardID
-    {
-      set;
-    }
+    #region Public Methods
 
     /// <summary>
-    /// Gets Started.
+    /// The create.
     /// </summary>
-    DateTime Started
-    {
-      get;
-    }
+    /// <returns>
+    /// </returns>
+    T Instance { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether IsRunning.
-    /// </summary>
-    bool IsRunning
-    {
-      get;
-    }
-
-    /// <summary>
-    /// The run.
-    /// </summary>
-    void Run();
+    #endregion
   }
 }

@@ -93,8 +93,6 @@ namespace YAF.Core.Tasks
     {
       if (!this.IsRunning)
       {
-        YafContext.Application = this.AppContext.Application;
-
         // keep the context...
         this._primaryThreadIdentity = WindowsIdentity.GetCurrent();
 

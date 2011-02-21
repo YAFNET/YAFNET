@@ -20,7 +20,6 @@ namespace YAF.Core.BBCode
 {
   #region Using
 
-  using System;
   using System.Collections.Generic;
 
   using YAF.Types;
@@ -34,11 +33,9 @@ namespace YAF.Core.BBCode
   /// Gets an instance of replace rules and uses
   ///   caching if possible.
   /// </summary>
-  public class ProcessReplaceRulesProvider : IHaveServiceLocator, ISimpleProvider<IProcessReplaceRules>
+  public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvider<IProcessReplaceRules>
   {
     #region Constants and Fields
-
-    private readonly IObjectStore _objectStore;
 
     /// <summary>
     ///   The _inject services.
@@ -46,7 +43,12 @@ namespace YAF.Core.BBCode
     private readonly IInjectServices _injectServices;
 
     /// <summary>
-    /// The _unique flags.
+    /// The _object store.
+    /// </summary>
+    private readonly IObjectStore _objectStore;
+
+    /// <summary>
+    ///   The _unique flags.
     /// </summary>
     private readonly IEnumerable<bool> _uniqueFlags;
 
@@ -57,8 +59,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     /// Initializes a new instance of the <see cref="ProcessReplaceRulesProvider"/> class.
     /// </summary>
-    /// <param name="dataCache">
-    /// The data cache.
+    /// <param name="objectStore">
     /// </param>
     /// <param name="serviceLocator">
     /// The service locator.
@@ -72,10 +73,11 @@ namespace YAF.Core.BBCode
     public ProcessReplaceRulesProvider(
       [NotNull] IObjectStore objectStore, 
       [NotNull] IServiceLocator serviceLocator, 
-      [NotNull] IInjectServices injectServices, [NotNull] IEnumerable<bool> uniqueFlags)
+      [NotNull] IInjectServices injectServices, 
+      [NotNull] IEnumerable<bool> uniqueFlags)
     {
       this.ServiceLocator = serviceLocator;
-      _objectStore = objectStore;
+      this._objectStore = objectStore;
       this._injectServices = injectServices;
       this._uniqueFlags = uniqueFlags;
     }
@@ -85,37 +87,32 @@ namespace YAF.Core.BBCode
     #region Properties
 
     /// <summary>
-    ///   Gets or sets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region ISimpleProvider<IProcessReplaceRules>
-
-    /// <summary>
-    /// The create.
+    ///   The Instance of this provider.
     /// </summary>
     /// <returns>
     /// </returns>
-    public IProcessReplaceRules Create()
+    public IProcessReplaceRules Instance
     {
-      return this._objectStore.GetOrSet(
-        Constants.Cache.ReplaceRules.FormatWith(this._uniqueFlags.ToIntOfBits()),
-        () =>
-          {
-            var processRules = new ProcessReplaceRules();
+      get
+      {
+        return this._objectStore.GetOrSet(
+          Constants.Cache.ReplaceRules.FormatWith(this._uniqueFlags.ToIntOfBits()), 
+          () =>
+            {
+              var processRules = new ProcessReplaceRules();
 
-            // inject
-            this._injectServices.Inject(processRules);
+              // inject
+              this._injectServices.Inject(processRules);
 
-            return processRules;
-          });
+              return processRules;
+            });
+      }
     }
 
-    #endregion
+    /// <summary>
+    ///   Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
     #endregion
   }

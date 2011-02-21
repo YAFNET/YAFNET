@@ -113,28 +113,10 @@ namespace YAF.Core.Tasks
     }
 
     /// <summary>
-    /// Gets or sets AppContext.
-    /// </summary>
-    public virtual HttpApplication AppContext
-    {
-      protected get
-      {
-        return this._appContext;
-      }
-
-      set
-      {
-        this._appContext = value;
-      }
-    }
-
-    /// <summary>
     /// The run.
     /// </summary>
     public virtual void Run()
     {
-      YafContext.Application = this.AppContext.Application;
-
       this.IsRunning = true;
 
       this.RunOnce();

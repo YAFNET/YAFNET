@@ -20,6 +20,9 @@ namespace YAF.Core
 {
   #region Using
 
+  using System.Web.Security;
+
+  using YAF.Classes;
   using YAF.Types;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
@@ -31,6 +34,48 @@ namespace YAF.Core
   /// </summary>
   public class UpdateProviderOnInitEvent : IHandleEvent<ForumPageInitEvent>
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _board settings.
+    /// </summary>
+    private readonly YafBoardSettings _boardSettings;
+
+    /// <summary>
+    /// The _membership provider.
+    /// </summary>
+    private readonly MembershipProvider _membershipProvider;
+
+    /// <summary>
+    /// The _role provider.
+    /// </summary>
+    private readonly RoleProvider _roleProvider;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateProviderOnInitEvent"/> class.
+    /// </summary>
+    /// <param name="membershipProvider">
+    /// The membership provider.
+    /// </param>
+    /// <param name="roleProvider">
+    /// The role provider.
+    /// </param>
+    /// <param name="boardSettings">
+    /// The board settings.
+    /// </param>
+    public UpdateProviderOnInitEvent([NotNull] MembershipProvider membershipProvider, [NotNull] RoleProvider roleProvider, [NotNull] YafBoardSettings boardSettings)
+    {
+      this._membershipProvider = membershipProvider;
+      this._roleProvider = roleProvider;
+      this._boardSettings = boardSettings;
+    }
+
+    #endregion
+
     #region Properties
 
     /// <summary>
@@ -41,17 +86,6 @@ namespace YAF.Core
       get
       {
         return 1000;
-      }
-    }
-
-    /// <summary>
-    ///   Gets PageContext.
-    /// </summary>
-    public YafContext PageContext
-    {
-      get
-      {
-        return YafContext.Current;
       }
     }
 
@@ -70,14 +104,14 @@ namespace YAF.Core
     public void Handle([NotNull] ForumPageInitEvent @event)
     {
       // initialize the providers...
-      if (!this.PageContext.CurrentMembership.ApplicationName.Equals(this.PageContext.BoardSettings.MembershipAppName))
+      if (!this._membershipProvider.ApplicationName.Equals(this._boardSettings.MembershipAppName))
       {
-        this.PageContext.CurrentMembership.ApplicationName = this.PageContext.BoardSettings.MembershipAppName;
+        this._membershipProvider.ApplicationName = this._boardSettings.MembershipAppName;
       }
 
-      if (!this.PageContext.CurrentRoles.ApplicationName.Equals(this.PageContext.BoardSettings.RolesAppName))
+      if (!this._roleProvider.ApplicationName.Equals(this._boardSettings.RolesAppName))
       {
-        this.PageContext.CurrentRoles.ApplicationName = this.PageContext.BoardSettings.RolesAppName;
+        this._roleProvider.ApplicationName = this._boardSettings.RolesAppName;
       }
     }
 

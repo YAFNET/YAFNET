@@ -27,22 +27,51 @@ namespace YAF.Core.Services
   using System.Linq;
   using System.Net.Mail;
   using System.Web;
+  using System.Web.Security;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Classes;
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Objects;
   using YAF.Utils;
   using YAF.Utils.Helpers;
-  using YAF.Types;
-  using YAF.Types.Objects;
 
   #endregion
 
   /// <summary>
   /// The yaf send notification.
   /// </summary>
-  public class YafSendNotification : ISendNotification
+  public class YafSendNotification : ISendNotification, IHaveServiceLocator
   {
-    #region Public Methods
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafSendNotification"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">
+    /// The service locator.
+    /// </param>
+    public YafSendNotification([NotNull] IServiceLocator serviceLocator)
+    {
+      this.ServiceLocator = serviceLocator;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region ISendNotification
 
     /// <summary>
     /// The to moderators that message needs approval.
@@ -55,14 +84,14 @@ namespace YAF.Core.Services
     /// </param>
     public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId)
     {
-      var moderatorsFiltered = Enumerable.Where<SimpleModerator>(YafContext.Current.Get<IDBBroker>().GetAllModerators(), f => f.ForumID.Equals(forumId));
+      var moderatorsFiltered = this.Get<IDBBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
       var moderatorUserNames = new List<string>();
 
       foreach (var moderator in moderatorsFiltered)
       {
         if (moderator.IsGroup)
         {
-          moderatorUserNames.AddRange(YafContext.Current.CurrentRoles.GetUsersInRole(moderator.Name));
+          moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
         }
         else
         {
@@ -73,8 +102,8 @@ namespace YAF.Core.Services
       var notifyModerators = new YafTemplateEmail("NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL");
 
       string subject =
-        YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL").FormatWith(
-          YafContext.Current.BoardSettings.Name);
+        this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL").FormatWith(
+          this.Get<YafBoardSettings>().Name);
 
       notifyModerators.TemplateParams["{adminlink}"] =
         YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
@@ -112,7 +141,7 @@ namespace YAF.Core.Services
         // user's email
         string toEMail = string.Empty;
 
-          // NOTE: Not Working 
+        // NOTE: Not Working 
 
         /*var userList = DB.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
 
@@ -121,13 +150,12 @@ namespace YAF.Core.Services
           privateMessageNotificationEnabled = userList.First().PMNotification ?? false;
           toEMail = userList.First().Email;
         }*/
-
         var userList = LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
 
         if (userList.Rows.Count > 0)
         {
-            privateMessageNotificationEnabled = (bool)userList.Rows[0]["PMNotification"];
-            toEMail = (string)userList.Rows[0]["Email"];
+          privateMessageNotificationEnabled = (bool)userList.Rows[0]["PMNotification"];
+          toEMail = (string)userList.Rows[0]["Email"];
         }
 
         if (privateMessageNotificationEnabled)
@@ -149,7 +177,7 @@ namespace YAF.Core.Services
           // send this user a PM notification e-mail
           var notificationTemplate = new YafTemplateEmail("PMNOTIFICATION")
             {
-              TemplateLanguageFile = UserHelper.GetUserLanguageFile(toUserId)
+               TemplateLanguageFile = UserHelper.GetUserLanguageFile(toUserId) 
             };
 
           // fill the template with relevant info
@@ -160,10 +188,11 @@ namespace YAF.Core.Services
           notificationTemplate.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
           notificationTemplate.TemplateParams["{subject}"] = subject;
 
-
           // create notification email subject
-          string emailSubject = YafContext.Current.Get<ILocalization>().GetText("COMMON", "PM_NOTIFICATION_SUBJECT", UserHelper.GetUserLanguageFile(toUserId)).FormatWith(
-              YafContext.Current.PageUserName, YafContext.Current.BoardSettings.Name, subject);
+          string emailSubject =
+            this.Get<ILocalization>().GetText(
+              "COMMON", "PM_NOTIFICATION_SUBJECT", UserHelper.GetUserLanguageFile(toUserId)).FormatWith(
+                YafContext.Current.PageUserName, YafContext.Current.BoardSettings.Name, subject);
 
           // send email
           notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, true);
@@ -175,7 +204,7 @@ namespace YAF.Core.Services
         LegacyDb.eventlog_create(YafContext.Current.PageUserID, "SendPmNotification", x);
 
         // tell user about failure
-        YafContext.Current.AddLoadMessage(YafContext.Current.Get<ILocalization>().GetTextFormatted("Failed", x.Message));
+        YafContext.Current.AddLoadMessage(this.Get<ILocalization>().GetTextFormatted("Failed", x.Message));
       }
     }
 
@@ -201,19 +230,19 @@ namespace YAF.Core.Services
         int userId = message.UserID ?? 0;
 
         var watchEmail = new YafTemplateEmail("TOPICPOST")
-            {
-              TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId)
-            };
+          {
+             TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId) 
+          };
 
         // cleaned body as text...
         string bodyText =
-            StringExtensions.RemoveMultipleWhitespace(
-                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))));
+          StringExtensions.RemoveMultipleWhitespace(
+            BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))));
 
         // Send track mails
         string subject =
-            YafContext.Current.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
-                YafContext.Current.BoardSettings.Name);
+          this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(
+            YafContext.Current.BoardSettings.Name);
 
         watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
         watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
@@ -221,13 +250,13 @@ namespace YAF.Core.Services
         watchEmail.TemplateParams["{body}"] = bodyText;
         watchEmail.TemplateParams["{bodytruncated}"] = StringExtensions.Truncate(bodyText, 160);
         watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-            ForumPages.posts, true, "m={0}#post{0}", newMessageId);
+          ForumPages.posts, true, "m={0}#post{0}", newMessageId);
 
         watchEmail.CreateWatch(
-            message.TopicID ?? 0,
-            userId,
-            new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-            subject);
+          message.TopicID ?? 0, 
+          userId, 
+          new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name), 
+          subject);
 
         // create individual watch emails for all users who have All Posts on...
         foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
@@ -244,16 +273,18 @@ namespace YAF.Core.Services
           {
             watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
                                                 ? user.LanguageFile
-                                                : YafContext.Current.Get<ILocalization>().LanguageFileName;
+                                                : this.Get<ILocalization>().LanguageFileName;
             watchEmail.SendEmail(
-              new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name),
-              new MailAddress(membershipUser.Email, membershipUser.UserName),
-              subject,
+              new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name), 
+              new MailAddress(membershipUser.Email, membershipUser.UserName), 
+              subject, 
               true);
           }
         }
       }
     }
+
+    #endregion
 
     #endregion
   }

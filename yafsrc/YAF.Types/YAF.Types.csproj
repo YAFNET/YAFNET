@@ -125,6 +125,7 @@
     <Compile Include="Interfaces\IPanelSessionState.cs" />
     <Compile Include="Interfaces\IPermissions.cs" />
     <Compile Include="Interfaces\IProcessReplaceRules.cs" />
+    <Compile Include="Interfaces\IReadWriteProvider.cs" />
     <Compile Include="Interfaces\IRaiseControlLifeCycles.cs" />
     <Compile Include="Interfaces\IReadValue.cs" />
     <Compile Include="Interfaces\IRemoveValue.cs" />
@@ -138,7 +139,7 @@
     <Compile Include="Interfaces\ISendMail.cs" />
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />
-    <Compile Include="Interfaces\ISimpleProvider.cs" />
+    <Compile Include="Interfaces\IReadOnlyProvider.cs" />
     <Compile Include="Interfaces\IStartupService.cs" />
     <Compile Include="Interfaces\IStopWatch.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />

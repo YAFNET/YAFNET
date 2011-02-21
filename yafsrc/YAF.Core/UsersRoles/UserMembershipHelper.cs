@@ -135,7 +135,7 @@ namespace YAF.Core
           {
             // approve this user...
             user.IsApproved = true;
-            YafContext.Current.CurrentMembership.UpdateUser(user);
+            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
             int id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
             if (id > 0)
             {
@@ -169,7 +169,7 @@ namespace YAF.Core
           user.IsApproved = true;
         }
 
-        YafContext.Current.CurrentMembership.UpdateUser(user);
+        YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
         LegacyDb.user_approve(userID);
 
         return true;
@@ -221,7 +221,7 @@ namespace YAF.Core
         {
           // delete this user...
           LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
-          YafContext.Current.CurrentMembership.DeleteUser(user.UserName, true);
+          YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
         }
 
         pageCount++;
@@ -254,7 +254,7 @@ namespace YAF.Core
           }
         }
 
-        YafContext.Current.CurrentMembership.DeleteUser(userName, true);
+        YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
         LegacyDb.user_delete(userID);
         return true;
       }
@@ -273,7 +273,7 @@ namespace YAF.Core
     public static MembershipUserCollection FindUsersByEmail(string email)
     {
       int totalRecords;
-      return YafContext.Current.CurrentMembership.FindUsersByEmail(email, 1, 999999, out totalRecords);
+      return YafContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 1, 999999, out totalRecords);
     }
 
     /// <summary>
@@ -287,7 +287,7 @@ namespace YAF.Core
     public static MembershipUserCollection FindUsersByName(string username)
     {
       int totalRecords;
-      return YafContext.Current.CurrentMembership.FindUsersByName(username, 1, 999999, out totalRecords);
+      return YafContext.Current.Get<MembershipProvider>().FindUsersByName(username, 1, 999999, out totalRecords);
     }
 
     /// <summary>
@@ -307,7 +307,7 @@ namespace YAF.Core
     public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
     {
       int totalRecords;
-      MembershipUserCollection muc = YafContext.Current.CurrentMembership.GetAllUsers(pageCount, 1000, out totalRecords);
+      MembershipUserCollection muc = YafContext.Current.Get<MembershipProvider>().GetAllUsers(pageCount, 1000, out totalRecords);
       exitCount = totalRecords;
       return muc;
     }
@@ -444,7 +444,7 @@ namespace YAF.Core
     /// </returns>
     public static MembershipUser GetUser(string username, bool updateOnlineStatus)
     {
-      return YafContext.Current.CurrentMembership.GetUser(username, updateOnlineStatus);
+      return YafContext.Current.Get<MembershipProvider>().GetUser(username, updateOnlineStatus);
     }
 
     /// <summary>
@@ -457,7 +457,7 @@ namespace YAF.Core
     /// </returns>
     public static MembershipUser GetUser(object providerKey)
     {
-      return YafContext.Current.CurrentMembership.GetUser(providerKey, false);
+      return YafContext.Current.Get<MembershipProvider>().GetUser(providerKey, false);
     }
 
     /// <summary>
@@ -472,7 +472,7 @@ namespace YAF.Core
     /// </returns>
     public static MembershipUser GetUser(object providerKey, bool updateOnlineStatus)
     {
-      return YafContext.Current.CurrentMembership.GetUser(providerKey, updateOnlineStatus);
+      return YafContext.Current.Get<MembershipProvider>().GetUser(providerKey, updateOnlineStatus);
     }
 
     /// <summary>
@@ -680,7 +680,7 @@ namespace YAF.Core
 
         user.Email = newEmail;
 
-        YafContext.Current.CurrentMembership.UpdateUser(user);
+        YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
 
         LegacyDb.user_aspnet(YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
 

@@ -16,43 +16,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core
 {
-  using System;
-  using System.Web;
+  #region Using
+
+  using System.Web.Profile;
+
+  using YAF.Classes;
+  using YAF.Types.Interfaces;
+  using YAF.Utils;
+
+  #endregion
 
   /// <summary>
-  /// The i background task.
+  /// The current profile provider.
   /// </summary>
-  public interface IBackgroundTask : IDisposable
+  public class CurrentProfileProvider : IReadOnlyProvider<ProfileProvider>
   {
-    /// <summary>
-    /// Sets BoardID.
-    /// </summary>
-    int BoardID
-    {
-      set;
-    }
+    #region Properties
 
     /// <summary>
-    /// Gets Started.
+    ///   The instance.
     /// </summary>
-    DateTime Started
+    /// <returns>
+    /// </returns>
+    public ProfileProvider Instance
     {
-      get;
+      get
+      {
+        if (Config.ProviderProvider.IsSet() && ProfileManager.Providers[Config.ProviderProvider] != null)
+        {
+          return ProfileManager.Providers[Config.ProviderProvider];
+        }
+
+        // return default membership provider
+        return ProfileManager.Provider;
+      }
     }
 
-    /// <summary>
-    /// Gets a value indicating whether IsRunning.
-    /// </summary>
-    bool IsRunning
-    {
-      get;
-    }
-
-    /// <summary>
-    /// The run.
-    /// </summary>
-    void Run();
+    #endregion
   }
 }

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* Yet Another Forum.net
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,64 +16,54 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core
 {
   #region Using
 
-  using System;
+  using System.Web;
 
   using YAF.Types;
-  using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
   #endregion
 
   /// <summary>
-  /// The mail sending module.
+  /// The current http application provider.
   /// </summary>
-  [YafModule("Digest Send Starting Module", "Tiny Gecko", 1)]
-  public class DigestSendForumModule : BaseForumModule
+  public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpApplicationStateBase>
   {
     #region Constants and Fields
 
     /// <summary>
-    ///   The _key name.
+    /// The _application.
     /// </summary>
-    private const string _keyName = "DigestSendTask";
+    protected HttpApplicationStateBase _application;
 
     #endregion
 
-    #region Public Methods
+    #region Properties
 
     /// <summary>
-    /// The init.
+    ///   Gets or sets the Instance.
     /// </summary>
-    public override void Init()
+    [CanBeNull]
+    public HttpApplicationStateBase Instance
     {
-      // hook the page init for mail sending...
-      YafContext.Current.AfterInit += this.Current_AfterInit;
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The current_ after init.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // add the mailing task if it's not already added...
-      if (this.Get<YafTaskModule>() != null && !this.Get<YafTaskModule>().TaskExists(_keyName))
+      get
       {
-        // start it...
-        this.Get<YafTaskModule>().StartTask(_keyName, new DigestSendTask());
+        if (this._application == null && HttpContext.Current != null)
+        {
+          this._application = new HttpApplicationStateWrapper(HttpContext.Current.Application);
+        }
+
+        return this._application;
+      }
+
+      set
+      {
+        CodeContracts.ArgumentNotNull(value, "value");
+
+        this._application = value;
       }
     }
 

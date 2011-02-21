@@ -21,6 +21,7 @@ namespace YAF.Core.Tasks
   using System;
 
   using YAF.Classes.Data;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
 
@@ -101,15 +102,15 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId, int forumId)
     {
-      if (YafTaskModule.Current == null)
+      if (YafContext.Current.Get<YafTaskModule>() == null)
       {
         return false;
       }
 
-      if (!YafTaskModule.Current.TaskExists(TaskName))
+      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
       {
         var task = new ForumDeleteTask { BoardID = boardId, ForumId = forumId };
-        YafTaskModule.Current.StartTask(TaskName, task);
+        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
       }
 
       return true;

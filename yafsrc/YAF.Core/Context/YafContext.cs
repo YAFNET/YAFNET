@@ -47,11 +47,6 @@ namespace YAF.Core
     #region Constants and Fields
 
     /// <summary>
-    ///   The _application.
-    /// </summary>
-    protected static HttpApplicationState _application;
-
-    /// <summary>
     /// The _context lifetime container.
     /// </summary>
     protected ILifetimeScope _contextLifetimeContainer;
@@ -122,29 +117,6 @@ namespace YAF.Core
     #region Properties
 
     /// <summary>
-    ///   Get/set the current state of the Http Application.
-    ///   Defaults to HttpContext.Current.Application. If not available
-    ///   pulls from application variable.
-    /// </summary>
-    public static HttpApplicationState Application
-    {
-      get
-      {
-        if (HttpContext.Current != null)
-        {
-          return HttpContext.Current.Application;
-        }
-
-        return _application;
-      }
-
-      set
-      {
-        _application = value;
-      }
-    }
-
-    /// <summary>
     ///   Get the instance of the Forum Context
     /// </summary>
     public static YafContext Current
@@ -156,35 +128,31 @@ namespace YAF.Core
     }
 
     /// <summary>
+    /// Returns the current application.
+    /// </summary>
+    [Obsolete("Use Service Location: this.Get<HttpApplicationStateBase>()")]
+    public static HttpApplicationStateBase Application
+    {
+      get
+      {
+        return GlobalContainer.Container.Resolve<HttpApplicationStateBase>();
+      }
+    }
+
+    /// <summary>
     ///   Current Board Settings
     /// </summary>
+    [Obsolete("Use ServiceLocation or DI directly: this.Get<YafBoardSettings>().")]
     public virtual YafBoardSettings BoardSettings
     {
       get
       {
-        var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.BoardSettings);
-
-        if (Application[key] == null)
-        {
-          Application[key] = new YafLoadBoardSettings(this.PageBoardID);
-        }
-
-        return (YafBoardSettings)Application[key];
+        return this.Get<YafBoardSettings>();
       }
 
       set
       {
-        var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.BoardSettings);
-
-        if (value == null)
-        {
-          Application.Remove(key);
-        }
-        else
-        {
-          // set the updated board settings...	
-          Application[key] = value;
-        }
+        this.Get<CurrentBoardSettings>().Instance = value;
       }
     }
 
@@ -206,60 +174,9 @@ namespace YAF.Core
     }
 
     /// <summary>
-    ///   Current Membership Provider used by YAF
-    /// </summary>
-    public MembershipProvider CurrentMembership
-    {
-      get
-      {
-        if (Config.MembershipProvider.IsSet() && Membership.Providers[Config.MembershipProvider] != null)
-        {
-          return Membership.Providers[Config.MembershipProvider];
-        }
-
-        // return default membership provider
-        return Membership.Provider;
-      }
-    }
-
-    /// <summary>
-    ///   Current Profile Provider used by YAF
-    /// </summary>
-    public ProfileProvider CurrentProfile
-    {
-      get
-      {
-        if (Config.ProviderProvider.IsSet() && ProfileManager.Providers[Config.ProviderProvider] != null)
-        {
-          return ProfileManager.Providers[Config.ProviderProvider];
-        }
-
-        // return default membership provider
-        return ProfileManager.Provider;
-      }
-    }
-
-    /// <summary>
-    ///   Current Membership Roles Provider used by YAF
-    /// </summary>
-    public RoleProvider CurrentRoles
-    {
-      get
-      {
-        if (Config.RoleProvider.IsSet() && Roles.Providers[Config.RoleProvider] != null)
-        {
-          return Roles.Providers[Config.RoleProvider];
-        }
-
-        // return default role provider
-        return Roles.Provider;
-      }
-    }
-
-    /// <summary>
     ///   Instance of the Combined UserData for the current user.
     /// </summary>
-    public CombinedUserDataHelper CurrentUserData
+    public IUserData CurrentUserData
     {
       get
       {

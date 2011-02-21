@@ -22,14 +22,13 @@ namespace YAF.Core
 
   using System;
   using System.Data;
+  using System.Web.Security;
 
   using YAF.Classes;
   using YAF.Classes.Data;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-  using YAF.Core.Services;
-  using YAF.Types;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
+  using YAF.Types;
 
   #endregion
 
@@ -48,6 +47,7 @@ namespace YAF.Core
     /// </param>
     /// <exception cref="Exception">
     /// </exception>
+    /// <exception cref="EmptyBoardSettingException"><c>EmptyBoardSettingException</c>.</exception>
     public YafLoadBoardSettings([NotNull] object boardID)
     {
       this._boardID = boardID;
@@ -57,7 +57,7 @@ namespace YAF.Core
 
       if (dataTable.Rows.Count == 0)
       {
-        throw new Exception("No data for board with id: " + this._boardID);
+        throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
       }
 
       // setup legacy board settings...
@@ -99,26 +99,14 @@ namespace YAF.Core
     /// </exception>
     protected void LoadBoardSettingsFromDB()
     {
-      // verify DB is initialized...
-      if (!YafContext.Current.Get<StartupInitializeDb>().Initialized)
-      {
-        YafContext.Current.Get<StartupInitializeDb>().Run();
-      }
-
       DataTable dataTable;
+
       using (dataTable = LegacyDb.registry_list())
       {
         // get all the registry settings into our hash table
         foreach (DataRow dr in dataTable.Rows)
         {
-          if (dr["Value"] == DBNull.Value)
-          {
-            this._reg.Add(dr["Name"].ToString().ToLower(), null);
-          }
-          else
-          {
-            this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"]);
-          }
+          this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
         }
       }
 
@@ -127,14 +115,7 @@ namespace YAF.Core
         // get all the registry settings into our hash table
         foreach (DataRow dr in dataTable.Rows)
         {
-          if (dr["Value"] == DBNull.Value)
-          {
-            this._regBoard.Add(dr["Name"].ToString().ToLower(), null);
-          }
-          else
-          {
-            this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"]);
-          }
+          this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
         }
       }
     }
@@ -147,12 +128,14 @@ namespace YAF.Core
     /// </param>
     private void SetupLegacyBoardSettings([NotNull] DataRow board)
     {
+      CodeContracts.ArgumentNotNull(board, "board");
+
       this._membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
-                                  ? YafContext.Current.CurrentMembership.ApplicationName
+                                  ? YafContext.Current.Get<MembershipProvider>().ApplicationName
                                   : board["MembershipAppName"].ToString();
 
       this._rolesAppName = board["RolesAppName"].ToString().IsNotSet()
-                             ? YafContext.Current.CurrentRoles.ApplicationName
+                             ? YafContext.Current.Get<RoleProvider>().ApplicationName
                              : board["RolesAppName"].ToString();
 
       this._legacyBoardSettings = new YafLegacyBoardSettings(
@@ -164,5 +147,14 @@ namespace YAF.Core
     }
 
     #endregion
+  }
+
+  public class EmptyBoardSettingException : Exception
+  {
+    public EmptyBoardSettingException(string message)
+      : base(message)
+    {
+      
+    }
   }
 }
