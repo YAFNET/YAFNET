@@ -1,4 +1,4 @@
-/* Yet Another Forum.net
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,23 +16,43 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Types.EventProxies
 {
+  #region Using
+
+  using System.Web.UI;
+
   using YAF.Types.Interfaces;
 
+  #endregion
+
   /// <summary>
-  /// Extensions for the <see cref="IBackgroundTask"/> interface
+  /// The event pre request page execute.
   /// </summary>
-  public static class BackgroundTaskExtensions
+  public class EventPreRequestPageExecute : IAmEvent
   {
+    #region Constructors and Destructors
+
     /// <summary>
-    /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+    /// Initializes a new instance of the <see cref="EventPreRequestPageExecute"/> class.
     /// </summary>
-    /// <param name="backgroundTask"></param>
-    /// <returns></returns>
-    public static bool IsStoppable(this IBackgroundTask backgroundTask)
+    /// <param name="requestedPage">
+    /// The requested page.
+    /// </param>
+    public EventPreRequestPageExecute([NotNull] Page requestedPage)
     {
-      return !(backgroundTask is ICriticalBackgroundTask);
+      this.RequestedPage = requestedPage;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets RequestedPage.
+    /// </summary>
+    public Page RequestedPage { get; set; }
+
+    #endregion
   }
 }

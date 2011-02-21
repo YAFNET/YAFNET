@@ -1,4 +1,4 @@
-/* Yet Another Forum.net
+﻿/* Yet Another Forum.net
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,23 +16,42 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Types.Interfaces
 {
-  using YAF.Types.Interfaces;
+  using System;
 
   /// <summary>
-  /// Extensions for the <see cref="IBackgroundTask"/> interface
+  /// The background task interface
   /// </summary>
-  public static class BackgroundTaskExtensions
+  public interface IBackgroundTask : IDisposable
   {
     /// <summary>
-    /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+    /// Sets Data
     /// </summary>
-    /// <param name="backgroundTask"></param>
-    /// <returns></returns>
-    public static bool IsStoppable(this IBackgroundTask backgroundTask)
+    object Data
     {
-      return !(backgroundTask is ICriticalBackgroundTask);
+      set;
     }
+
+    /// <summary>
+    /// Gets Started.
+    /// </summary>
+    DateTime Started
+    {
+      get;
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether IsRunning.
+    /// </summary>
+    bool IsRunning
+    {
+      get;
+    }
+
+    /// <summary>
+    /// The run.
+    /// </summary>
+    void Run();
   }
 }

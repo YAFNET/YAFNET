@@ -22,6 +22,7 @@ namespace YAF.Core.Services
 
   using System;
 
+  using YAF.Types.Constants;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -55,7 +56,7 @@ namespace YAF.Core.Services
     }
 
     /// <summary>
-    /// Gets Priority.
+    ///   Gets Priority.
     /// </summary>
     public virtual int Priority
     {

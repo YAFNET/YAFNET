@@ -25,6 +25,7 @@ namespace YAF.Core
 
   using YAF.Core.Tasks;
   using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Types.Interfaces;
   using YAF.Utils;
 
@@ -47,7 +48,8 @@ namespace YAF.Core
     {
       CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
 
-      var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>();
+      var startupServices =
+        serviceLocator.Get<IEnumerable<IStartupService>>();
 
       // run critical first...
       startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority).ForEach(
@@ -69,8 +71,12 @@ namespace YAF.Core
     /// </param>
     /// <returns>
     /// </returns>
+    [NotNull]
     public static IEnumerable<IServiceLocationParameter> WithParameters([NotNull] this IHaveServiceLocator serviceLocator, [NotNull] params IServiceLocationParameter[] parameters)
     {
+      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.ArgumentNotNull(parameters, "parameters");
+
       return parameters;
     }
 

@@ -136,21 +136,21 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId, int forumId, int days, bool permDelete)
     {
-      if (YafContext.Current.Get<YafTaskModule>() == null)
+      if (YafContext.Current.Get<ITaskModuleManager>() == null)
       {
         return false;
       }
 
-      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
+      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
       {
         var task = new PruneTopicTask
           {
-            BoardID = boardId, 
+            Data = boardId, 
             ForumId = forumId, 
             Days = days, 
             PermDelete = permDelete
           };
-        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
+        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
       }
 
       return true;
@@ -163,7 +163,7 @@ namespace YAF.Core.Tasks
     {
       try
       {
-        int count = LegacyDb.topic_prune(this.BoardID, this.ForumId, this.Days, this.PermDelete);
+        int count = LegacyDb.topic_prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
 
         LegacyDb.eventlog_create(null, TaskName, "Prune Task Complete. Pruned {0} topics.".FormatWith(count), 2);
       }

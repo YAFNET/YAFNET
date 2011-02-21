@@ -31,7 +31,7 @@ namespace YAF.Types.Interfaces
     bool Initialized { get; }
 
     /// <summary>
-    /// Gets the execution priority -- lower is run first.
+    ///   Gets the execution priority -- lower is run first.
     /// </summary>
     int Priority { get; }
 

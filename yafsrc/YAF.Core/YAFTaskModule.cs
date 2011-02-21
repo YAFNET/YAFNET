@@ -21,15 +21,13 @@ namespace YAF.Core
   #region Using
 
   using System;
-  using System.Collections.Generic;
-  using System.Diagnostics;
-  using System.Linq;
   using System.Web;
+  using System.Web.UI;
 
   using Autofac;
 
-  using YAF.Core.Tasks;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
@@ -37,7 +35,7 @@ namespace YAF.Core
   #endregion
 
   /// <summary>
-  /// Runs Tasks in the background -- controlled by the context.
+  /// Lifecycle module used to throw events around...
   /// </summary>
   public class YafTaskModule : IHttpModule, IHaveServiceLocator
   {
@@ -46,198 +44,21 @@ namespace YAF.Core
     /// <summary>
     ///   The _app instance.
     /// </summary>
-    protected static HttpApplication _appInstance;
-
-    /// <summary>
-    ///   The _lock object.
-    /// </summary>
-    protected static object _lockObject = new object();
-
-    /// <summary>
-    ///   The _lock task manager object.
-    /// </summary>
-    protected static object _lockTaskManagerObject = new object();
+    protected HttpApplication _appInstance;
 
     /// <summary>
     ///   The _module initialized.
     /// </summary>
-    protected static bool _moduleInitialized;
+    protected bool _moduleInitialized;
 
     /// <summary>
-    ///   The _task manager.
+    ///   Gets or sets the logger associated with the object.
     /// </summary>
-    protected static Dictionary<string, IBackgroundTask> _taskManager = new Dictionary<string, IBackgroundTask>();
+    [Inject]
+    public ILogger Logger { get; set; }
 
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets TaskCount.
-    /// </summary>
-    public int TaskCount
-    {
-      get
-      {
-        return _taskManager.Count;
-      }
-    }
-
-    /// <summary>
-    ///   Current Page Instance of the Module Manager
-    /// </summary>
-    public Dictionary<string, IBackgroundTask> TaskManager
-    {
-      get
-      {
-        return _taskManager;
-      }
-    }
-
-    /// <summary>
-    ///   All the names of tasks running.
-    /// </summary>
-    [NotNull]
-    public List<string> TaskManagerInstances
-    {
-      get
-      {
-        lock (_lockTaskManagerObject)
-        {
-          return this.TaskManager.Keys.ToList();
-        }
-      }
-    }
-
-    /// <summary>
-    ///   Gets TaskManagerSnapshot.
-    /// </summary>
-    [NotNull]
-    public Dictionary<string, IBackgroundTask> TaskManagerSnapshot
-    {
-      get
-      {
-        var tasks = new Dictionary<string, IBackgroundTask>();
-
-        lock (_lockTaskManagerObject)
-        {
-          _taskManager.ToList().ForEach(x => tasks.Add(x.Key, x.Value));
-        }
-
-        return tasks;
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// Check if a Task is Running.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// The is task running.
-    /// </returns>
-    public bool IsTaskRunning([NotNull] string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        if (this.TaskManager.ContainsKey(instanceName) && this.TaskManager[instanceName].IsRunning)
-        {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-    /// <summary>
-    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
-    /// </summary>
-    /// <param name="instanceName">
-    /// Unique name of this task
-    /// </param>
-    /// <param name="start">
-    /// Task to run
-    /// </param>
-    public void StartTask([NotNull] string instanceName, [NotNull] IBackgroundTask start)
-    {
-      if (_moduleInitialized)
-      {
-        // add and start this module...
-        if (!start.IsRunning && !this.TaskExists(instanceName))
-        {
-          Debug.WriteLine("Starting Task {0} Under User {1}...".FormatWith(instanceName, Environment.UserName));
-
-          // setup and run...
-          this.Get<IInjectServices>().Inject(start);
-          start.Run();
-
-          // add it after so that IsRunning is set first...
-          this.AddTask(instanceName, start);
-        }
-      }
-    }
-
-    /// <summary>
-    /// Stops a task from running if it's not critical
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    public void StopTask([NotNull] string instanceName)
-    {
-      if (_moduleInitialized)
-      {
-        var task = this.TryGetTask(instanceName);
-
-        if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
-        {
-          if (this.TryRemoveTask(instanceName))
-          {
-            Debug.WriteLine("Stopped Task {0}...".FormatWith(instanceName));
-            task.Dispose();
-          }
-        }
-      }
-    }
-
-    /// <summary>
-    /// Check if a task exists in the task manager. May not be running.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// The task exists.
-    /// </returns>
-    public bool TaskExists([NotNull] string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        return this.TaskManager.ContainsKey(instanceName);
-      }
-    }
-
-    /// <summary>
-    /// Attempt to get the instance of the task.
-    /// </summary>
-    /// <param name="instanceName">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public IBackgroundTask TryGetTask([NotNull] string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        if (this.TaskManager.ContainsKey(instanceName))
-        {
-          return this.TaskManager[instanceName];
-        }
-      }
-
-      return null;
-    }
+    [Inject]
+    public IServiceLocator ServiceLocator { get; set; }
 
     #endregion
 
@@ -246,48 +67,48 @@ namespace YAF.Core
     #region IHttpModule
 
     /// <summary>
-    /// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule"/>.
-    /// </summary>
-    public void Dispose()
-    {
-    }
-
-    /// <summary>
-    /// The i http module. init.
+    /// Bootstrapping fun
     /// </summary>
     /// <param name="httpApplication">
     /// The http application.
     /// </param>
     public void Init([NotNull] HttpApplication httpApplication)
     {
-      if (!_moduleInitialized)
+      CodeContracts.ArgumentNotNull(httpApplication, "httpApplication");
+
+      if (_moduleInitialized)
       {
-        // create a lock so no other instance can affect the static variable
-        lock (_lockObject)
-        {
-          if (!_moduleInitialized)
-          {
-            _appInstance = httpApplication;
-
-            // set the httpApplication as early as possible...
-            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
-              new HttpApplicationStateWrapper(httpApplication.Application);
-
-            // wire up provider so that the task module can be found...
-            GlobalContainer.Container.Resolve<CurrentTaskModuleProvider>().Instance = this;
-
-            _moduleInitialized = true;
-
-            // create intermittent cleanup task...
-            this.StartTask("CleanUpTask", new CleanUpTask { Module = this });
-          }
-        }
-
-        // now lock is released and the static variable is true...
-
-        // app init notification -- no event logging is allowed at this point.
-        this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(_appInstance), null);
+        return;
       }
+
+      // create a lock so no other instance can affect the static variable
+      lock (this)
+      {
+        if (!_moduleInitialized)
+        {
+          _appInstance = httpApplication;
+
+          // set the httpApplication as early as possible...
+          GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+            new HttpApplicationStateWrapper(httpApplication.Application);
+
+          GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
+
+          _moduleInitialized = true;
+
+          _appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
+        }
+      }
+
+      // app init notification...
+      this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(_appInstance), null);
+    }
+
+    /// <summary>
+    /// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule"/>.
+    /// </summary>
+    void IHttpModule.Dispose()
+    {
     }
 
     #endregion
@@ -297,64 +118,31 @@ namespace YAF.Core
     #region Methods
 
     /// <summary>
-    /// The try remove task.
+    /// The application pre request handler execute.
     /// </summary>
-    /// <param name="instanceName">
-    /// The instance name.
+    /// <param name="sender">
+    /// The sender.
     /// </param>
-    /// <returns>
-    /// The try remove task.
-    /// </returns>
-    internal bool TryRemoveTask([NotNull] string instanceName)
-    {
-      lock (_lockTaskManagerObject)
-      {
-        if (this.TaskManager.ContainsKey(instanceName))
-        {
-          this.TaskManager.Remove(instanceName);
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-    /// <summary>
-    /// The add task.
-    /// </summary>
-    /// <param name="instanceName">
-    /// The instance name.
+    /// <param name="e">
+    /// The e.
     /// </param>
-    /// <param name="newTask">
-    /// The new task.
-    /// </param>
-    protected void AddTask([NotNull] string instanceName, [NotNull] IBackgroundTask newTask)
+    protected void ApplicationPreRequestHandlerExecute([NotNull] object sender, [NotNull] EventArgs e)
     {
-      lock (_lockTaskManagerObject)
+      if (HttpContext.Current.CurrentHandler != null && HttpContext.Current.CurrentHandler is Page)
       {
-        if (!this.TaskManager.ContainsKey(instanceName))
+        var page = HttpContext.Current.CurrentHandler as Page;
+
+        try
         {
-          this.TaskManager.Add(instanceName, newTask);
+          // call from YafContext only -- so that the events have access to the full YafContext lifecycle.
+          YafContext.Current.Get<IRaiseEvent>().RaiseIssolated(
+            new EventPreRequestPageExecute(page),
+            (m, ex) => this.Logger.Fatal(ex, "Failed to Call Event Pre Request Page Execute Event {0}".FormatWith(m)));
         }
-        else
+        catch (Exception ex)
         {
-          this.TaskManager[instanceName] = newTask;
+          this.Logger.Fatal(ex, "Exception in PreRequestHandlerExecute.");
         }
-      }
-    }
-
-    #endregion
-
-    #region Implementation of IHaveServiceLocator
-
-    /// <summary>
-    /// Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator
-    {
-      get
-      {
-        return GlobalContainer.Container.Resolve<IServiceLocator>();
       }
     }
 

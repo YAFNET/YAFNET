@@ -72,15 +72,15 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId)
     {
-      if (YafContext.Current.Get<YafTaskModule>() == null)
+      if (YafContext.Current.Get<ITaskModuleManager>() == null)
       {
         return false;
       }
 
-      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
+      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
       {
-        var task = new SyncMembershipUsersTask { BoardID = boardId };
-        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
+        var task = new SyncMembershipUsersTask { Data = boardId };
+        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
       }
 
       return true;
@@ -94,7 +94,7 @@ namespace YAF.Core.Tasks
       try
       {
         // attempt to run the sync code...
-        RoleMembershipHelper.SyncAllMembershipUsers(this.BoardID);
+        RoleMembershipHelper.SyncAllMembershipUsers((int)this.Data);
       }
       catch (Exception x)
       {

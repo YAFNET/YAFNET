@@ -31,14 +31,9 @@ namespace YAF.Core
   /// <summary>
   /// The current task module provider.
   /// </summary>
-  public class CurrentTaskModuleProvider : IReadWriteProvider<YafTaskModule>
+  public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
   {
     #region Constants and Fields
-
-    /// <summary>
-    /// The _yaf task module.
-    /// </summary>
-    protected YafTaskModule _yafTaskModule;
 
     /// <summary>
     /// The _http application state.
@@ -72,12 +67,12 @@ namespace YAF.Core
     /// <returns>
     /// </returns>
     [CanBeNull]
-    public YafTaskModule Instance
+    public ITaskModuleManager Instance
     {
       get
       {
         // Note: not treated with "BoardID" at all -- only one instance per application.
-        return this._httpApplicationState[Constants.Cache.TaskModule] as YafTaskModule;
+        return this._httpApplicationState[Constants.Cache.TaskModule] as ITaskModuleManager;
       }
 
       set

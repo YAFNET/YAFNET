@@ -102,15 +102,15 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId, int forumId)
     {
-      if (YafContext.Current.Get<YafTaskModule>() == null)
+      if (YafContext.Current.Get<ITaskModuleManager>() == null)
       {
         return false;
       }
 
-      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
+      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
       {
-        var task = new ForumDeleteTask { BoardID = boardId, ForumId = forumId };
-        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
+        var task = new ForumDeleteTask { Data = boardId, ForumId = forumId };
+        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
       }
 
       return true;

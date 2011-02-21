@@ -56,9 +56,11 @@
     <Compile Include="BaseModules\ForumEditor.cs" />
     <Compile Include="BaseModules\MobileThemeForumModule.cs" />
     <Compile Include="BaseModules\YafModuleScanner.cs" />
+    <Compile Include="Tasks\BaseTaskModuleManager.cs" />
     <Compile Include="Cache\HttpRuntimeCache.cs" />
     <Compile Include="Cache\StaticLockObject.cs" />
     <Compile Include="Cache\TreatCacheKeyWithBoard.cs" />
+    <Compile Include="Events\AppInitTaskManager.cs" />
     <Compile Include="Events\UpdateProviderOnInitEvent.cs" />
     <Compile Include="BaseModules\StartStopWatch.cs" />
     <Compile Include="BaseModules\UnloadSessionForumModule.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Extensions\IBBCodeExtensions.cs" />
     <Compile Include="Extensions\IDateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormatMessageExtensions.cs" />
+    <Compile Include="Extensions\ITaskModuleManagerExtensions.cs" />
     <Compile Include="Helpers\CurrentBoardSettings.cs" />
     <Compile Include="Helpers\CurrentHttpApplicationStateBaseProvider.cs" />
     <Compile Include="Helpers\CurrentMembershipProvider.cs" />
@@ -164,9 +167,9 @@
     <Compile Include="Services\ScriptBuilder\ScriptStatementContext.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptStatementContextExtensions.cs" />
     <Compile Include="Services\ScriptBuilder\ScriptFunctionContextExtensions.cs" />
+    <Compile Include="Services\Startup\PageRequestLoadServices.cs" />
     <Compile Include="Services\Startup\StartupCheckBannedIps.cs" />
     <Compile Include="Services\Startup\StartupInitializeDb.cs" />
-    <Compile Include="Services\Startup\ValidateTaskModuleRunningStartup.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
@@ -195,7 +198,6 @@
     <Compile Include="Tasks\DigestSendForumModule.cs" />
     <Compile Include="Tasks\DigestSendTask.cs" />
     <Compile Include="Tasks\ForumDeleteTask.cs" />
-    <Compile Include="Tasks\IBackgroundTask.cs" />
     <Compile Include="Tasks\ICriticalBackgroundTask.cs" />
     <Compile Include="Tasks\ICriticalStartupService.cs" />
     <Compile Include="Tasks\IntermittentBackgroundTask.cs" />

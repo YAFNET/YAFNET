@@ -61,7 +61,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// Gets or sets BoardID.
     /// </summary>
-    public virtual int BoardID
+    public virtual object Data
     {
       protected get
       {
@@ -70,7 +70,7 @@ namespace YAF.Core.Tasks
 
       set
       {
-        this._boardId = value;
+        this._boardId = (int)value;
       }
     }
 

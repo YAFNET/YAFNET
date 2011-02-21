@@ -1,4 +1,4 @@
-/* Yet Another Forum.net
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2011 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,23 +16,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Types.Interfaces
 {
-  using YAF.Types.Interfaces;
-
   /// <summary>
-  /// Extensions for the <see cref="IBackgroundTask"/> interface
+  /// Interface for starting tasks
   /// </summary>
-  public static class BackgroundTaskExtensions
+  public interface IStartTasks
   {
     /// <summary>
-    /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+    /// Start various tasks
     /// </summary>
-    /// <param name="backgroundTask"></param>
-    /// <returns></returns>
-    public static bool IsStoppable(this IBackgroundTask backgroundTask)
-    {
-      return !(backgroundTask is ICriticalBackgroundTask);
-    }
+    /// <param name="manager"></param>
+    void Start(ITaskModuleManager manager);
   }
 }

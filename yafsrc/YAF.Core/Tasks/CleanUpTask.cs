@@ -18,6 +18,8 @@
  */
 namespace YAF.Core.Tasks
 {
+  using YAF.Types.Interfaces;
+
   /// <summary>
   /// Automatically cleans up the tasks if they are no longer running...
   /// </summary>
@@ -40,9 +42,9 @@ namespace YAF.Core.Tasks
     #region Properties
 
     /// <summary>
-    /// Gets or sets Module.
+    /// Gets or sets TaskManager.
     /// </summary>
-    public YafTaskModule Module { get; set; }
+    public ITaskModuleManager TaskManager { get; set; }
 
     #endregion
 
@@ -54,22 +56,22 @@ namespace YAF.Core.Tasks
     public override void RunOnce()
     {
       // look for tasks to clean up...
-      if (this.Module != null)
+      if (this.TaskManager != null)
       {
         // make collection local...
-        var taskListKeys = this.Module.TaskManagerInstances;
+        var taskListKeys = this.TaskManager.TaskManagerInstances;
 
         foreach (string instanceName in taskListKeys)
         {
-          IBackgroundTask task = this.Module.TryGetTask(instanceName);
+          IBackgroundTask task = this.TaskManager.TryGetTask(instanceName);
 
           if (task == null)
           {
-            this.Module.TryRemoveTask(instanceName);
+            this.TaskManager.TryRemoveTask(instanceName);
           }
           else if (!task.IsRunning)
           {
-            this.Module.TryRemoveTask(instanceName);
+            this.TaskManager.TryRemoveTask(instanceName);
             task.Dispose();
           }
         }

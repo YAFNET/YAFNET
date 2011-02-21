@@ -62,6 +62,7 @@
     <Compile Include="Constants\YafRssFeeds.cs" />
     <Compile Include="Constants\YafSyndicationFormats.cs" />
     <Compile Include="EventProxies\CacheItemRemovedEvent.cs" />
+    <Compile Include="EventProxies\EventPreRequestPageExecute.cs" />
     <Compile Include="EventProxies\ForumPageEvents.cs" />
     <Compile Include="EventProxies\HttpApplicationInitEvent.cs" />
     <Compile Include="EventProxies\NewUserRegisteredEvent.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Interfaces\Extensions\IServiceLocatorExtensions.cs" />
     <Compile Include="Interfaces\Extensions\KeyValuePairExtensions.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
+    <Compile Include="Interfaces\IBackgroundTask.cs" />
     <Compile Include="Interfaces\IBadWordReplace.cs" />
     <Compile Include="Interfaces\IBBCode.cs" />
     <Compile Include="Interfaces\IBuddy.cs" />
@@ -140,9 +142,11 @@
     <Compile Include="Interfaces\ISendNotification.cs" />
     <Compile Include="Interfaces\IServiceLocator.cs" />
     <Compile Include="Interfaces\IReadOnlyProvider.cs" />
+    <Compile Include="Interfaces\IStartTasks.cs" />
     <Compile Include="Interfaces\IStartupService.cs" />
     <Compile Include="Interfaces\IStopWatch.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\ITaskModuleManager.cs" />
     <Compile Include="Interfaces\ITreatCacheKey.cs" />
     <Compile Include="Interfaces\IUrlBuilder.cs" />
     <Compile Include="Interfaces\IUserData.cs" />

@@ -18,26 +18,37 @@
  */
 namespace YAF.Core.Tasks
 {
+  #region Using
+
   using System;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+
+  #endregion
 
   /// <summary>
   /// Run when we want to do migration of users in the background...
   /// </summary>
   public class MigrateUsersTask : LongBackgroundTask
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _task name.
+    ///   The _task name.
     /// </summary>
     private const string _taskName = "MigrateUsersTask";
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets TaskName.
+    ///   Gets TaskName.
     /// </summary>
+    [NotNull]
     public static string TaskName
     {
       get
@@ -45,6 +56,10 @@ namespace YAF.Core.Tasks
         return _taskName;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The start.
@@ -57,19 +72,16 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId)
     {
-      if (YafContext.Current.Get<YafTaskModule>() == null)
+      if (YafContext.Current.Get<ITaskModuleManager>() == null)
       {
         return false;
       }
 
-      if (!YafContext.Current.Get<YafTaskModule>().TaskExists(TaskName))
+      if (!YafContext.Current.Get<ITaskModuleManager>().TaskExists(TaskName))
       {
-        var task = new MigrateUsersTask
-          {
-            BoardID = boardId
-          };
+        var task = new MigrateUsersTask { Data = boardId };
 
-        YafContext.Current.Get<YafTaskModule>().StartTask(TaskName, task);
+        YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, task);
       }
 
       return true;
@@ -83,12 +95,14 @@ namespace YAF.Core.Tasks
       try
       {
         // attempt to run the migration code...
-        RoleMembershipHelper.SyncUsers(BoardID);
+        RoleMembershipHelper.SyncUsers((int)this.Data);
       }
       catch (Exception x)
       {
         LegacyDb.eventlog_create(null, TaskName, "Error In MigrateUsers Task: {0}".FormatWith(x));
       }
     }
+
+    #endregion
   }
 }

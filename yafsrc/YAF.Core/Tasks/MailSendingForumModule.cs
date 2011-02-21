@@ -70,10 +70,10 @@ namespace YAF.Core.Tasks
     private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
     {
       // add the mailing task if it's not already added...
-      if (this.Get<YafTaskModule>() != null && !this.Get<YafTaskModule>().TaskExists(_keyName))
+      if (this.Get<ITaskModuleManager>() != null && !this.Get<ITaskModuleManager>().TaskExists(_keyName))
       {
         // start it...
-        this.Get<YafTaskModule>().StartTask(_keyName, new MailSendTask());
+        this.Get<ITaskModuleManager>().StartTask(_keyName, new MailSendTask());
       }
     }
 
