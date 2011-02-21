@@ -165,7 +165,7 @@ namespace YAF.Pages
               0, 
               0, 
               false,
-              0);
+              -1);
 
         this.Posts.DataSource = dt.AsEnumerable(); 
 

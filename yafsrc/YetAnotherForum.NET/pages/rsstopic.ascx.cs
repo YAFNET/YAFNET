@@ -910,7 +910,7 @@ namespace YAF.Pages
             0,
             0,
             false,
-            0))
+            -1))
       {
         // convert to linq...
         var rowList = dt.AsEnumerable();

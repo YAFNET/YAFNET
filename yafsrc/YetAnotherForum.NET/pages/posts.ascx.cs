@@ -943,8 +943,7 @@ namespace YAF.Pages
 
       this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
       int messagePosition = 0;
-      bool  messageDefined = false;
-      int findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition, out messageDefined);
+      int findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition);
       if (findMessageId > 0)
       {
           this.CurrentMessage = findMessageId;
@@ -971,7 +970,7 @@ namespace YAF.Pages
             0,
             this.IsThreaded ? 1 : 0,
             YafContext.Current.BoardSettings.EnableThanksMod,
-            messageDefined ? messagePosition : -1);
+            messagePosition);
 
        
         
@@ -1091,11 +1090,11 @@ namespace YAF.Pages
     /// <returns>
     /// The get find message id.
     /// </returns>
-    private int GetFindMessageId(bool showDeleted, int userId, out int messagePosition, out bool messageDefined)
+    private int GetFindMessageId(bool showDeleted, int userId, out int messagePosition)
     {
       int findMessageId = 0;
       messagePosition = -1;
-      messageDefined = false;
+    
       try
       {
        if (this._ignoreQueryString)
@@ -1109,7 +1108,6 @@ namespace YAF.Pages
 
                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
                {
-                   messageDefined = true;
                   
                        // we find message position always by time.
                        using (DataTable unread = LegacyDb.message_findunread(
@@ -1129,7 +1127,6 @@ namespace YAF.Pages
                // find last unread message
                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
                {
-                   messageDefined = true;
                   
                    // Find next unread
                    using (
@@ -1152,8 +1149,6 @@ namespace YAF.Pages
                // find last post
                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "lastpost")
                {
-                   messageDefined = true;
-                  
                    // Find next unread
                    using (
                        DataTable unread = LegacyDb.message_findunread(
