@@ -6869,7 +6869,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZone,null,null,null,null, 1, null, null, null, 0, 0
+		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZone,null,null,null,null,null, 1, null, null, null, 0, 0
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
 	end
