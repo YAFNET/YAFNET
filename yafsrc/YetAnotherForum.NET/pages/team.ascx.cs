@@ -217,7 +217,7 @@ namespace YAF.Pages
     {
       this.InitializeComponent();
       base.OnInit(e);
-        if (!YafContext.Current.BoardSettings.ShowTeam)
+        if (! this.Get<IPermissions>().Check(YafContext.Current.BoardSettings.ShowTeamTo))
         {
             YafBuildLink.AccessDenied();
         }

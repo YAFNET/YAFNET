@@ -2200,40 +2200,40 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowYAFVersion;
         
         /// <summary>
-        /// HelpLabel105 control.
+        /// HelpLabel182 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel105;
+        protected global::YAF.Controls.HelpLabel HelpLabel182;
         
         /// <summary>
-        /// ShowTeam control.
+        /// ShowHelpTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowTeam;
+        protected global::System.Web.UI.WebControls.DropDownList ShowHelpTo;
         
         /// <summary>
-        /// HelpLabel173 control.
+        /// HelpLabel183 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel173;
+        protected global::YAF.Controls.HelpLabel HelpLabel183;
         
         /// <summary>
-        /// ShowHelp control.
+        /// ShowTeamTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowHelp;
+        protected global::System.Web.UI.WebControls.DropDownList ShowTeamTo;
         
         /// <summary>
         /// HelpLabel174 control.

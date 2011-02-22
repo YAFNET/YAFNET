@@ -968,21 +968,23 @@
                         <td class="post">
                             <asp:CheckBox ID="ShowYAFVersion" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>
-                     <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel105" runat="server" LocalizedTag="SHOWTEAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    </tr>        
+                    <tr>
+                       <td class="postheader" style="width:450px">
+                            <YAF:HelpLabel ID="HelpLabel182" runat="server" LocalizedTag="SHOWHELP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="ShowTeam" runat="server"></asp:CheckBox>
+                            <asp:DropDownList Style="width:350px" ID="ShowHelpTo" runat="server" DataValueField="Value" DataTextField="Name">
+                            </asp:DropDownList>
                         </td>
                     </tr>
-                     <tr>
-                        <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel173" runat="server" LocalizedTag="SHOWHELP" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <tr>
+                        <td class="postheader" style="width:450px">
+                            <YAF:HelpLabel ID="HelpLabel183" runat="server" LocalizedTag="SHOWTEAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="ShowHelp" runat="server"></asp:CheckBox>
+                            <asp:DropDownList Style="width:350px" ID="ShowTeamTo" runat="server" DataValueField="Value" DataTextField="Name">
+                            </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>

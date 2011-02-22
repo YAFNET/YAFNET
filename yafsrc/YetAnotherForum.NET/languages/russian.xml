@@ -276,8 +276,8 @@
     <Resource tag="BOARD_CULTURE_HELP">Язык &amp; культура по умолчанию для этой конференции.</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">Настройки уведомлений по-умолчанию:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">Когда новый пользователь регистрируется на сайте, это определяет какой тип уведомления при этом используется</Resource>
-    <Resource tag="BOARD_DIGEST_HOURS">Hours Between Digest Sending:</Resource>
-    <Resource tag="BOARD_DIGEST_HOURS_HELP">Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am.</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS">Период отсылки дайджеста(часы):</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS_HELP">Кол-во часов перед отсылкой следующего дайджеста. ПЕриод рассылки только с 12:00 до 6:00am.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Включить по умолчанию посылку дайджеста для новых пользователей</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">Включить по умолчанию посылку дайджеста для новых пользователей?</Resource>
     <Resource tag="BOARD_EMAIL_MODS">Посылать собщение Email модераторам при появлении нового (пред)модерируемого поста:</Resource>
@@ -549,9 +549,9 @@
     <Resource tag="SHOW_MESSAGE">Показать сообщение:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Сообщение о том, за что пользователю вручена медаль будет отображаться.</Resource>
     <Resource tag="SMALL_IMAGE">Уменьшенное изображение медали:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">Это иззображение будет показываться в данных пользователя в постах.</Resource>
+    <Resource tag="SMALL_IMAGE_HELP">Это изображение будет показываться в данных пользователя в постах.</Resource>
     <Resource tag="SMALL_RIBBON">Уменьшенное изображение орденской планки:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">Это иззображение будет показываться в данных пользователя в постах(по выбору).</Resource>
+    <Resource tag="SMALL_RIBBON_HELP">Это изображение будет показываться в данных пользователя в постах(по выбору).</Resource>
     <Resource tag="SORT_ORDER">Порядок сортировки:</Resource>
     <Resource tag="SORT_ORDER_HELP">Порядок сортировки по-умолчанию для медали.</Resource>
     <Resource tag="TITLE">Добавить/Изменить медаль</Resource>
@@ -1186,19 +1186,13 @@
   <page name="ADMIN_NNTPRETRIEVE">
     <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
 		NNTP  для Yet Another Forum.net находится в бета-статусе, и &lt;strong&gt;имеет&lt;/strong&gt; баги.
-		Bugs you should look for is character set conversion, and incorrect time on posts.
-		Usenet articles will be posted to the forum with the date from the article header,
-		meaning that you well could get future dates. Please let me know of any unknown
-		time zones that are encountered.
+		Сообщайте о найденных проблемах разработчикам.
 	&lt;/p&gt;
 	&lt;p style="color: red"&gt;
-		The forums usenet artiles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
-		be posted back to the usenet. For speed purposes usenet articles are automatically
-		approved, meaning that if the forum is moderated, the posts will be automatically
-		approved.
+		Статьи только для чтения и вы не сможете посылать ответы на них.
 	&lt;/p&gt;
 	&lt;p style="color: red"&gt;
-		To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
+		Для защиты польователей групп новостей статьи обновляются раз в 10 минут.
 	&lt;/p&gt;</Resource>
     <Resource tag="GROUPS">Группы готовые для захвата</Resource>
     <Resource tag="HEADER">Получить статьи NNTP</Resource>
@@ -1623,7 +1617,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">ОК</Resource>
-    <Resource tag="OR">or</Resource>
+    <Resource tag="OR">или</Resource>
     <Resource tag="PAGES">Страницы</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Новое личное сообщение от {0} на {1}</Resource>
     <Resource tag="POST">Пост</Resource>
@@ -1698,7 +1692,7 @@
     <Resource tag="VIEW_FULLINFO">Показать подробности</Resource>
     <Resource tag="VIEW_TOPIC">Просмотреть тему</Resource>
     <Resource tag="VIEW_USRPROFILE">Просмотреть профиль</Resource>
-    <Resource tag="VOTE">Vote</Resource>
+    <Resource tag="VOTE">Голос</Resource>
     <Resource tag="YES">Да</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
@@ -1992,7 +1986,7 @@
 &lt;p&gt;Объявления в списке отображаются выше обычных и прикрепленных тем.&lt;/p&gt;
         </Resource>
     <Resource tag="ANOUNCETITLE">Объявления</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
+    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;Чтобы прикрепить файл к сообщению используйте кнопки 'Ответить' или 'Новая тема' page and not 'Quick Reply', or Click the 'Attach' Button to on an existing Message.&lt;/p&gt;
 &lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' Button you are redirected to the Attachments Page where you can Upload an Attach Files.&lt;/p&gt;
 &lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
 &lt;p&gt;Once the upload is completed the file name will appear over the Upload Section. You can click 'Back' to return to the Topic.&lt;/p&gt;
@@ -2571,8 +2565,8 @@
     <Resource tag="POLL_MULTIPLECHOICES_INFO">Вы можете голосовать за несколько вариантов.</Resource>
     <Resource tag="POLL_NOPERM_GUEST">Гости не могут голосовать. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="POLL_PLEASEVOTE">Кликните чтобы проголосовать</Resource>
-    <Resource tag="POLL_SHOWVOTERS">Show who is voted</Resource>
-    <Resource tag="POLL_SHOWVOTERS_INFO">Show who is voted.</Resource>
+    <Resource tag="POLL_SHOWVOTERS">Показывать проголосовавших</Resource>
+    <Resource tag="POLL_SHOWVOTERS_INFO">Показывать проголосовавших в опросе.</Resource>
     <Resource tag="POLL_VOTED">Вы уже голосовали.</Resource>
     <Resource tag="POLL_WILLEXPIRE">Опрос завершится через {0} дней.</Resource>
     <Resource tag="POLL_WILLEXPIRE_HOURS">Последние часы голосования!</Resource>
@@ -3104,7 +3098,7 @@
     <Resource tag="ADMIN">Админ</Resource>
     <Resource tag="BUDDIES">Друзья</Resource>
     <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
-    <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
+    <Resource tag="DISABLED_REGISTER"> Новые регистрации запрещены.</Resource>
     <Resource tag="HELP">Помощь</Resource>
     <Resource tag="HOST">Хост</Resource>
     <Resource tag="INBOX">Входящие</Resource>
@@ -3123,8 +3117,8 @@
     <Resource tag="SEARCHKEYWORD">Введите слово...</Resource>
     <Resource tag="TEAM">Команда</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
-    <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
-    <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
+    <Resource tag="WELCOME_GUEST_FULL">Добро пожаловать, Гость! Чтобы использовать все возможности </Resource>
+    <Resource tag="WELCOME_GUEST_NO">Добро пожаловать, Гость! Вы  &lt;strong&gt;не&lt;/strong&gt; зарегистрироваться или войти.</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Всё</Resource>

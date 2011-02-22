@@ -454,6 +454,37 @@ namespace YAF.Classes
         #region int settings
 
         /// <summary>
+        ///  Gets or sets a value indicating whether Show Team Page To or not.
+        /// </summary>
+        public int ShowTeamTo
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ShowTeamTo", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ShowTeamTo", value);
+            }
+        }
+
+        /// <summary>
+        ///  Gets or sets a value indicating whether Show Help Page To or not.
+        /// </summary>
+        public int ShowHelpTo
+        {
+            get
+            {
+                return this._reg.GetValue<int>("ShowHelpTo", 0);
+            }
+
+            set
+            {
+                this._reg.SetValue<int>("ShowHelpTo", value);
+            }
+        }
+        /// <summary>
         /// Gets or sets ServerTimeCorrection.
         /// </summary>
         public int ServerTimeCorrection
@@ -2700,38 +2731,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue<bool>("AllowDisplayNameModification", value);
-            }
-        }
-
-        /// <summary>
-        ///  Gets or sets a value indicating whether Show Help Page or not.
-        /// </summary>
-        public bool ShowHelp
-        {
-            get
-            {
-                return this._reg.GetValue<bool>("ShowHelp", true);
-            }
-
-            set
-            {
-                this._reg.SetValue<bool>("ShowHelp", value);
-            }
-        }
-
-        /// <summary>
-        ///  Gets or sets a value indicating whether Show Team Page or not.
-        /// </summary>
-        public bool ShowTeam
-        {
-            get
-            {
-                return this._reg.GetValue<bool>("ShowTeam", true);
-            }
-
-            set
-            {
-                this._reg.SetValue<bool>("ShowTeam", value);
             }
         }
 

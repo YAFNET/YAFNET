@@ -228,7 +228,8 @@ namespace YAF.Pages.Admin
             ActiveUsersViewPermissions,
             ExternalSearchPermissions,
             SearchPermissions,
-
+            ShowHelpTo,
+            ShowTeamTo,
           };
 
         foreach (var ddl in dropDownLists)

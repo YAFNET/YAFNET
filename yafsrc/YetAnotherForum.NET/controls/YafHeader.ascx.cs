@@ -376,7 +376,7 @@ namespace YAF.Controls
             }
 
             // Team
-            if (this.PageContext.BoardSettings.ShowTeam)
+            if ( this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
             {
                 RenderMenuItem(
                     menuListItems,
@@ -390,7 +390,7 @@ namespace YAF.Controls
             }
 
             // Help
-            if (this.PageContext.BoardSettings.ShowHelp)
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
             {
                 RenderMenuItem(
                     menuListItems,
