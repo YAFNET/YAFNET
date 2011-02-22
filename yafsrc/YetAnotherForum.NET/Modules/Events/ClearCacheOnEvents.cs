@@ -21,10 +21,9 @@ namespace YAF.Modules
   #region Using
 
   using System;
-  using System.Data;
 
-  using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
@@ -36,7 +35,11 @@ namespace YAF.Modules
   /// <summary>
   /// The clear cache on events.
   /// </summary>
-  public class ClearCacheOnEvents : IHaveServiceLocator, IHandleEvent<SuccessfulUserLoginEvent>, IHandleEvent<UpdateUserEvent>, IHandleEvent<UserLogoutEvent>
+  [ExportService(ServiceLifetimeScope.InstancePerScope)]
+  public class ClearCacheOnEvents : IHaveServiceLocator, 
+                                    IHandleEvent<SuccessfulUserLoginEvent>, 
+                                    IHandleEvent<UpdateUserEvent>, 
+                                    IHandleEvent<UserLogoutEvent>
   {
     #region Constructors and Destructors
 
@@ -46,15 +49,26 @@ namespace YAF.Modules
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public ClearCacheOnEvents([NotNull] IServiceLocator serviceLocator, IDataCache dataCache)
+    /// <param name="dataCache">
+    /// The data Cache.
+    /// </param>
+    public ClearCacheOnEvents([NotNull] IServiceLocator serviceLocator, [NotNull] IDataCache dataCache)
     {
+      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.ArgumentNotNull(dataCache, "dataCache");
+
       this.ServiceLocator = serviceLocator;
-      DataCache = dataCache;
+      this.DataCache = dataCache;
     }
 
     #endregion
 
     #region Properties
+
+    /// <summary>
+    /// Gets or sets DataCache.
+    /// </summary>
+    public IDataCache DataCache { get; set; }
 
     /// <summary>
     ///   Gets Order.
@@ -68,17 +82,15 @@ namespace YAF.Modules
     }
 
     /// <summary>
-    /// The handle.
+    ///   Gets or sets ServiceLocator.
     /// </summary>
-    /// <param name="event">
-    /// The event.
-    /// </param>
-    void IHandleEvent<UserLogoutEvent>.Handle(UserLogoutEvent @event)
-    {
-      // Clearing user cache with permissions data and active users cache...));
-      this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(@event.UserId));
-      this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
-    }
+    public IServiceLocator ServiceLocator { get; set; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IHandleEvent<SuccessfulUserLoginEvent>
 
     /// <summary>
     /// The handle.
@@ -86,7 +98,23 @@ namespace YAF.Modules
     /// <param name="event">
     /// The event.
     /// </param>
-    void IHandleEvent<UpdateUserEvent>.Handle(UpdateUserEvent @event)
+    void IHandleEvent<SuccessfulUserLoginEvent>.Handle([NotNull] SuccessfulUserLoginEvent @event)
+    {
+      // vzrus: to clear the cache to show user in the list at once));
+      this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+    }
+
+    #endregion
+
+    #region IHandleEvent<UpdateUserEvent>
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    /// The event.
+    /// </param>
+    void IHandleEvent<UpdateUserEvent>.Handle([NotNull] UpdateUserEvent @event)
     {
       // clear the cache for this user...
       var userId = @event.UserId;
@@ -105,18 +133,9 @@ namespace YAF.Modules
       this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
     }
 
-    /// <summary>
-    /// Gets or sets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator { get; set; }
-
-    public IDataCache DataCache { get; set; }
-
     #endregion
 
-    #region Implemented Interfaces
-
-    #region IHandleEvent<SuccessfulUserLoginEvent>
+    #region IHandleEvent<UserLogoutEvent>
 
     /// <summary>
     /// The handle.
@@ -124,9 +143,10 @@ namespace YAF.Modules
     /// <param name="event">
     /// The event.
     /// </param>
-    void IHandleEvent<SuccessfulUserLoginEvent>.Handle([NotNull] SuccessfulUserLoginEvent @event)
+    void IHandleEvent<UserLogoutEvent>.Handle([NotNull] UserLogoutEvent @event)
     {
-      // vzrus: to clear the cache to show user in the list at once));
+      // Clearing user cache with permissions data and active users cache...));
+      this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(@event.UserId));
       this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
     }
 

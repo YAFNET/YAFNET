@@ -24,6 +24,7 @@ namespace YAF.Modules
 
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
 
@@ -32,6 +33,7 @@ namespace YAF.Modules
   /// <summary>
   /// The last visit handler.
   /// </summary>
+  [ExportService(ServiceLifetimeScope.InstancePerScope)]
   public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>
   {
     #region Constructors and Destructors
