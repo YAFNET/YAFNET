@@ -145,6 +145,15 @@
         </tr>
         <tr>
             <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabelDigest1" runat="server" LocalizedTag="BOARD_DIGEST_HOURS"
+                    LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
+            <td class="post">
+                <asp:TextBox ID="DigestSendEveryXHours" runat="server" Width="100"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="postheader">
                 <YAF:HelpLabel ID="LocalizedLabel16" runat="server" LocalizedTag="BOARD_DIGEST_NEWUSERS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </td>

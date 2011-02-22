@@ -79,6 +79,7 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -101,6 +102,8 @@
       <Name>System.Drawing</Name>
     </Reference>
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web">
       <Name>System.Web</Name>
@@ -137,9 +140,7 @@
     <Compile Include="Classes\ForumPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Classes\Register Forum\Reference.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Classes\LatestInformationTask.cs" />
     <Compile Include="Classes\Utilities\JavaScriptBlocks.cs" />
     <Compile Include="Classes\Utilities\MetaWeblog.cs">
       <SubType>Component</SubType>
@@ -679,8 +680,17 @@
       <DependentUpon>viewthanks.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\RegisterV2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Content Include="advanced.aspx" />
-    <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
@@ -1951,6 +1961,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Browsers\w3cvalidator.browser" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <Content Include="themes\BlackGrey.xml" />
     <Content Include="themes\BlackGrey\atomfeed.png" />
     <Content Include="themes\BlackGrey\ButtonActive.png" />
@@ -2592,10 +2606,16 @@
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
     <Content Include="themes\yafvision\yafvision.js" />
+    <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RegisterV2\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\RegisterV2\RegisterV2.disco" />
     <Content Include="YafAjax.asmx" />
     <Content Include="YafWebService.asmx" />
-    <None Include="Classes\Register Forum\Reference.map" />
-    <None Include="Classes\Register Forum\Register.wsdl" />
     <Content Include="db.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2737,6 +2757,8 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="UrlRewriter.config" />
+    <Content Include="web.config" />
+    <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
@@ -2825,6 +2847,22 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://yetanotherforum.net/RegisterV2.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\RegisterV2\</RelPath>
+      <UpdateFromURL>http://yetanotherforum.net/RegisterV2.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>YAF_RegisterV2_RegisterV2</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

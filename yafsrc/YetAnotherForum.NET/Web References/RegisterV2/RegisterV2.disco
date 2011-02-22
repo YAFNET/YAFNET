@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://yetanotherforum.net/RegisterV2.asmx?wsdl" docRef="http://yetanotherforum.net/RegisterV2.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://yetanotherforum.net/RegisterV2.asmx" xmlns:q1="http://yetanotherforum.net/RegisterV2" binding="q1:RegisterV2Soap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://yetanotherforum.net/RegisterV2.asmx" xmlns:q2="http://yetanotherforum.net/RegisterV2" binding="q2:RegisterV2Soap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

@@ -310,6 +310,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowDigestEmail;
         
         /// <summary>
+        /// HelpLabelDigest1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabelDigest1;
+        
+        /// <summary>
+        /// DigestSendEveryXHours control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DigestSendEveryXHours;
+        
+        /// <summary>
         /// LocalizedLabel16 control.
         /// </summary>
         /// <remarks>

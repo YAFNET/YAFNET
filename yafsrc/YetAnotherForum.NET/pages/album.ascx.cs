@@ -100,7 +100,7 @@ namespace YAF.Pages
       var userId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
       var albumId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
-      string displayName = this.PageContext.Get<IUserDisplayName>().GetName((int)userId);
+      string displayName = this.Get<IUserDisplayName>().GetName((int)userId);
 
       // Generate the page links.
       this.PageLinks.Clear();

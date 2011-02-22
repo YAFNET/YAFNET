@@ -184,7 +184,7 @@ namespace YAF.Pages
       }
 
       // try to find users by user name
-      var usersFound = this.PageContext.Get<IUserDisplayName>().Find(this.To.Text.Trim());
+      var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim());
 
       if (usersFound.Count > 0)
       {
@@ -307,7 +307,7 @@ namespace YAF.Pages
 
             this.PmSubjectTextBox.Text = subject;
 
-            string displayName = this.PageContext.Get<IUserDisplayName>().GetName(fromUserId);
+            string displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
 
             // set "To" user and disable changing...
             this.To.Text = displayName;
@@ -364,7 +364,7 @@ namespace YAF.Pages
                 // handle subject                                           
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
-                string displayName = this.PageContext.Get<IUserDisplayName>().GetName(
+                string displayName = this.Get<IUserDisplayName>().GetName(
                   messagesRow.Field<int>("UserID"));
 
                 // set "To" user and disable changing...
@@ -405,7 +405,7 @@ namespace YAF.Pages
 
             if (currentRow != null)
             {
-              this.To.Text = this.PageContext.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID"));
+              this.To.Text = this.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID"));
               this.To.Enabled = false;
 
               // hide find user/all users buttons
@@ -571,7 +571,7 @@ namespace YAF.Pages
         // get recipients' IDs
         foreach (string recipient in recipients)
         {
-          int? userId = this.PageContext.Get<IUserDisplayName>().GetId(recipient);
+          int? userId = this.Get<IUserDisplayName>().GetId(recipient);
 
           if (!userId.HasValue)
           {

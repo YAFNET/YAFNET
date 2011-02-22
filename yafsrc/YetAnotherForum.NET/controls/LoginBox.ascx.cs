@@ -26,6 +26,7 @@ namespace YAF.Controls
   using System;
   using System.Data;
   using System.Web;
+  using System.Web.Security;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
@@ -62,7 +63,7 @@ namespace YAF.Controls
       var userName = this.Login1.FindControlAs<TextBox>("UserName");
       var password = this.Login1.FindControlAs<TextBox>("Password");
 
-      e.Authenticated = this.PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
+      e.Authenticated = this.Get<MembershipProvider>().ValidateUser(userName.Text.Trim(), password.Text.Trim());
     }
 
     /// <summary>

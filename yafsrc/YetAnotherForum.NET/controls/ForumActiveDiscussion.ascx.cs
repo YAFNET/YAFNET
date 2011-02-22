@@ -109,12 +109,12 @@ namespace YAF.Controls
         {
           lastPostedDateLabel.DateTime = currentRow["LastPosted"];
           lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                      YafContext.Current.Get<IYafSession>().GetTopicRead(
+                                      this.Get<IYafSession>().GetTopicRead(
                                         Convert.ToInt32(currentRow["TopicID"])))
                                        ? "ICON_NEWEST_UNREAD"
                                        : "ICON_LATEST_UNREAD";
           lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) >
-                                      YafContext.Current.Get<IYafSession>().GetTopicRead(
+                                      this.Get<IYafSession>().GetTopicRead(
                                         Convert.ToInt32(currentRow["TopicID"])))
                                        ? "ICON_NEWEST"
                                        : "ICON_LATEST";
@@ -140,6 +140,7 @@ namespace YAF.Controls
       // Latest forum posts
       // Shows the latest n number of posts on the main forum list page
       string cacheKey = Constants.Cache.ForumActiveDiscussions;
+
       DataTable activeTopics = null;
 
       if (this.PageContext.IsGuest)

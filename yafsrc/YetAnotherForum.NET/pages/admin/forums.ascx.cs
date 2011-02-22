@@ -198,8 +198,8 @@ namespace YAF.Pages.Admin
     protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // see if the migration is done....
-      if (YafTaskModule.Current.TaskManager.ContainsKey(ForumDeleteTask.TaskName) &&
-          YafTaskModule.Current.TaskManager[ForumDeleteTask.TaskName].IsRunning)
+      if (this.Get<ITaskModuleManager>().TaskManager.ContainsKey(ForumDeleteTask.TaskName) &&
+          this.Get<ITaskModuleManager>().TaskManager[ForumDeleteTask.TaskName].IsRunning)
       {
         // continue...
         return;

@@ -231,13 +231,13 @@ namespace YAF.Pages
                 this.PageContext.BoardSettings.PostFloodDelay > 0)
             {
                 // see if they've past that delay point
-                if (YafContext.Current.Get<IYafSession>().LastPost >
+                if (this.Get<IYafSession>().LastPost >
                     DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) && this.EditMessageID == null)
                 {
                     this.PageContext.AddLoadMessage(
                       this.GetTextFormatted(
                         "wait",
-                        (YafContext.Current.Get<IYafSession>().LastPost -
+                        (this.Get<IYafSession>().LastPost -
                          DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
                     return true;
                 }
@@ -426,7 +426,7 @@ namespace YAF.Pages
             }
 
             // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-            this._forumEditor.StyleSheet = this.PageContext.Get<ITheme>().BuildThemePath("theme.css");
+            this._forumEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
             this._forumEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
 
             this.Title.Text = this.GetText("NEWTOPIC");
@@ -732,7 +732,7 @@ namespace YAF.Pages
             }
 
             // update the last post time...
-            YafContext.Current.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
+            this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
             long messageId = 0;
             long newTopic = 0;
@@ -1104,7 +1104,7 @@ namespace YAF.Pages
             // Quote the original message
             this._forumEditor.Text =
               "[quote={0};{1}]{2}[/quote]\n".FormatWith(
-                this.PageContext.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID")),
+                this.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID")),
                 currentRow.Field<int>("MessageID"),
                 message).TrimStart();
         }

@@ -30,7 +30,7 @@ namespace YAF.Controls
     /// </param>
     protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafContext.Current.Get<IYafSession>().LastVisit = DateTime.UtcNow;
+      this.Get<IYafSession>().LastVisit = DateTime.UtcNow;
     }
 
     /// <summary>

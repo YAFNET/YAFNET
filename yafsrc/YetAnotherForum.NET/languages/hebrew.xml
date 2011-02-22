@@ -298,6 +298,8 @@
     <Resource tag="BOARD_CULTURE_HELP">The default culture &amp; language for this forum.</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">Default Notification Setting:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS">Hours Between Digest Sending:</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS_HELP">Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Default Send Digest "On" for New Users?</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
     <Resource tag="BOARD_EMAIL_MODS">Email Moderators On New Moderated Post:</Resource>
@@ -746,8 +748,10 @@
     <Resource tag="NEW_FORUM">New Forum</Resource>
   </page>
   <page name="ADMIN_GROUPS">
+    <Resource tag="ADD_ROLETOYAF">Add to YAF</Resource>
     <Resource tag="COMMAND">Command</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this Role?</Resource>
+    <Resource tag="DELETE_ROLEFROMYAF">Delete Role</Resource>
     <Resource tag="HEADER">YetAnotherForum Roles</Resource>
     <Resource tag="IS_ADMIN">Is Admin</Resource>
     <Resource tag="IS_GUEST">Is Guest</Resource>
@@ -762,6 +766,7 @@
     <Resource tag="PROVIDER_ROLES">Provider Roles</Resource>
     <Resource tag="TITLE">Roles</Resource>
     <Resource tag="UNLINKABLE">Unlinkable</Resource>
+    <Resource tag="UNLINKED">Unlinked</Resource>
   </page>
   <page name="ADMIN_HOSTSETTINGS">
     <Resource tag="ABANDON_TRACKUSR">Abandon Sessions for "Don't Track" Users:</Resource>

@@ -1162,7 +1162,7 @@ namespace YAF.Pages.Admin
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             MembershipCreateStatus status;
-            MembershipUser user = YafContext.Current.CurrentMembership.CreateUser(
+            MembershipUser user = this.Get<MembershipProvider>().CreateUser(
               newUsername, 
               this.Password.Text.Trim(), 
               newEmail, 

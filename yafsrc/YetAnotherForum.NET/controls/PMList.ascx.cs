@@ -436,7 +436,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetImage([NotNull] object o)
     {
-      return this.PageContext.Get<ITheme>().GetItem(
+      return this.Get<ITheme>().GetItem(
         "ICONS", SqlDataLayerConverter.VerifyBool(((DataRowView)o)["IsRead"]) ? "TOPIC" : "TOPIC_NEW");
     }
 
@@ -616,15 +616,15 @@ namespace YAF.Controls
         SortFrom.Visible = (this.View == PMView.Outbox)
                              ? (string)this.ViewState["SortField"] == "ToUser"
                              : (string)this.ViewState["SortField"] == "FromUser";
-        SortFrom.ImageUrl = this.PageContext.Get<ITheme>().GetItem(
+        SortFrom.ImageUrl = this.Get<ITheme>().GetItem(
           "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 
         SortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
-        SortSubject.ImageUrl = this.PageContext.Get<ITheme>().GetItem(
+        SortSubject.ImageUrl = this.Get<ITheme>().GetItem(
           "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 
         SortDate.Visible = (string)this.ViewState["SortField"] == "Created";
-        SortDate.ImageUrl = this.PageContext.Get<ITheme>().GetItem(
+        SortDate.ImageUrl = this.Get<ITheme>().GetItem(
           "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
       }
       else if (e.Row.RowType == DataControlRowType.Footer)

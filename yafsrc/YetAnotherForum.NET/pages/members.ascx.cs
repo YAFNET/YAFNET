@@ -180,7 +180,7 @@ namespace YAF.Pages
                 this.NumPostDDL.SelectedIndex < 0 ? 3 : (NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
-                new StyleTransform(YafContext.Current.Get<ITheme>()).DecodeStyleByTable(ref _userListDataTable, false);
+                new StyleTransform(this.Get<ITheme>()).DecodeStyleByTable(ref _userListDataTable, false);
             }
 
             if (_userListDataTable.Rows.Count > 0)
@@ -572,7 +572,7 @@ namespace YAF.Pages
         /// </returns>
         protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
         {
-            return YafContext.Current.Get<ITheme>().GetItem(page, tag);
+            return this.Get<ITheme>().GetItem(page, tag);
         }
 
         /// <summary>

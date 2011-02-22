@@ -106,7 +106,7 @@ namespace YAF.Controls
 
         // Update IsApproved
         user.IsApproved = this.IsApproved.Checked;
-        this.PageContext.CurrentMembership.UpdateUser(user);
+        this.Get<MembershipProvider>().UpdateUser(user);
       }
       else
       {

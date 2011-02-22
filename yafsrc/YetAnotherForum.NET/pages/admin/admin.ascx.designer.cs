@@ -31,6 +31,42 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.AdminMenu Adminmenu1;
         
         /// <summary>
+        /// UpdateHightlight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UpdateHightlight;
+        
+        /// <summary>
+        /// UpdateLinkHighlight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink UpdateLinkHighlight;
+        
+        /// <summary>
+        /// UpdateWarning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UpdateWarning;
+        
+        /// <summary>
+        /// UpdateLinkWarning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink UpdateLinkWarning;
+        
+        /// <summary>
         /// UserList control.
         /// </summary>
         /// <remarks>

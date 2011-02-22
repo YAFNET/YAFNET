@@ -149,7 +149,7 @@ namespace YAF.Modules
         if (this.PageContext.PageTopicID != 0)
         {
           // Tack on the topic we're viewing
-          title.AppendFormat("{0} - ", this.PageContext.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName));
+          title.AppendFormat("{0} - ", this.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName));
         }
 
         if (this.ForumPageType == ForumPages.posts)

@@ -410,7 +410,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
     {
-      return this.PageContext.Get<ITheme>().GetItem(page, tag);
+      return this.Get<ITheme>().GetItem(page, tag);
     }
 
     /// <summary>
@@ -1212,7 +1212,7 @@ namespace YAF.Controls
 
           questionImage.Width = 80;
 
-          if (YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false)
+          if (this.Get<IYafSession>().UseMobileTheme ?? false)
           {
             questionImage.Width = 40;
           }

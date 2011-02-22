@@ -114,14 +114,14 @@
         <%
             }
 
-        string strMiniPost = this.PageContext.Get<ITheme>().GetItem(
+        string strMiniPost = this.Get<ITheme>().GetItem(
           "ICONS",
-          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
+          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > this.Get<IYafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
             ? "ICON_NEWEST"
             : "ICON_LATEST");
-        string strMiniUnreadPost = this.PageContext.Get<ITheme>().GetItem(
+        string strMiniUnreadPost = this.Get<ITheme>().GetItem(
           "ICONS",
-          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
+          (DateTime.Parse(this.TopicRow["LastPosted"].ToString()) > this.Get<IYafSession>().GetTopicRead((int)this.TopicRow["TopicID"]))
           ? "ICON_NEWEST_UNREAD"
           : "ICON_LATEST_UNREAD");   
                   

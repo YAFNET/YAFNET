@@ -235,7 +235,7 @@ namespace YAF.Controls
 
             this.quickSearch.Visible = true;
 
-            var searchIcon = this.PageContext.Get<ITheme>().GetItem("ICONS", "SEARCH");
+            var searchIcon = this.Get<ITheme>().GetItem("ICONS", "SEARCH");
 
             if (!string.IsNullOrEmpty(searchIcon))
             {
@@ -406,7 +406,7 @@ namespace YAF.Controls
             // Login
             if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
-                if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false))
+                if (this.PageContext.BoardSettings.UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                 {
                     RenderMenuItem(
                         menuListItems,
@@ -580,7 +580,7 @@ namespace YAF.Controls
                         ToolTip = this.GetText("TOOLBAR", "LOGIN")
                     };
 
-                    if (this.PageContext.BoardSettings.UseLoginBox && !(YafContext.Current.Get<IYafSession>().UseMobileTheme ?? false))
+                    if (this.PageContext.BoardSettings.UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                     {
                         loginLink.NavigateUrl = "{0}#".FormatWith(YafBuildLink.GetLink(this.PageContext.ForumPageType));
 

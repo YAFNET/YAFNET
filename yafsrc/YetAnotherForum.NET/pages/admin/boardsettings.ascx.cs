@@ -143,8 +143,7 @@ namespace YAF.Pages.Admin
         SetSelectedOnList(ref this.JqueryUITheme, this.PageContext.BoardSettings.JqueryUITheme);
 
         // Get first default full culture from a language file tag.
-        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ??
-                                 "en";
+        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ?? "en-US";
 
         SetSelectedOnList(ref this.Theme, this.PageContext.BoardSettings.Theme);
         SetSelectedOnList(ref this.MobileTheme, this.PageContext.BoardSettings.MobileTheme);
@@ -158,12 +157,12 @@ namespace YAF.Pages.Admin
         SetSelectedOnList(ref this.Culture, this.PageContext.BoardSettings.Culture);
         if (this.Culture.SelectedIndex == 0)
         {
-            // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-            SetSelectedOnList(
-                ref this.Culture, 
-                langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
-                    ? this.PageContext.BoardSettings.Culture
-                    : langFileCulture);
+          // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
+          SetSelectedOnList(
+            ref this.Culture,
+            langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture
+              ? this.PageContext.BoardSettings.Culture
+              : langFileCulture);
         }
 
         SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
@@ -181,6 +180,8 @@ namespace YAF.Pages.Admin
         this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
         this.DefaultSendDigestEmail.Checked = this.PageContext.BoardSettings.DefaultSendDigestEmail;
         this.JqueryUIThemeCDNHosted.Checked = this.PageContext.BoardSettings.JqueryUIThemeCDNHosted;
+
+      this.DigestSendEveryXHours.Text = this.PageContext.BoardSettings.DigestSendEveryXHours.ToString();
 
         if (this.PageContext.BoardSettings.BoardPollID > 0)
         {
@@ -251,6 +252,15 @@ namespace YAF.Pages.Admin
 
       this.PageContext.BoardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
       this.PageContext.BoardSettings.JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
+
+      int hours;
+
+      if (!int.TryParse(this.DigestSendEveryXHours.Text, out hours))
+      {
+        hours = 24;
+      }
+
+      this.PageContext.BoardSettings.DigestSendEveryXHours = hours;
 
       // save the settings to the database
       ((YafLoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();

@@ -304,7 +304,7 @@ namespace YAF.Pages
             return;
           }
 
-          if (this.PageContext.Get<IUserDisplayName>().GetId(displayName.Text.Trim()).HasValue)
+          if (this.Get<IUserDisplayName>().GetId(displayName.Text.Trim()).HasValue)
           {
             this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
             e.Cancel = true;
@@ -545,8 +545,8 @@ namespace YAF.Pages
 
       // password requirement parameters...
       var requirementText = (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
-      requirementText.Param0 = this.PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
-      requirementText.Param1 = this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
+      requirementText.Param0 = this.Get<MembershipProvider>().MinRequiredPasswordLength.ToString();
+      requirementText.Param1 = this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters.ToString();
 
       // max user name length
       var usernamelehgthText =
@@ -668,7 +668,7 @@ namespace YAF.Pages
       this.SetupDisplayNameUI(this.CreateUserStepContainer, this.PageContext.BoardSettings.EnableDisplayName);
 
       var questionAnswerPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("QuestionAnswerPlaceHolder");
-      questionAnswerPlaceHolder.Visible = this.PageContext.CurrentMembership.RequiresQuestionAndAnswer;
+      questionAnswerPlaceHolder.Visible = this.Get<MembershipProvider>().RequiresQuestionAndAnswer;
     }
 
     /// <summary>

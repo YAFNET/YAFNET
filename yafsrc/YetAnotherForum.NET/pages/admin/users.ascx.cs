@@ -207,7 +207,7 @@ namespace YAF.Pages.Admin
       this.Since.Items.Add(
         new ListItem(
           "Last visit at {0}".FormatWith(
-            this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit)), 
+            this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)), 
           "0"));
 
       // negative values for hours backward
@@ -371,7 +371,7 @@ namespace YAF.Pages.Admin
     protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // see if the migration is done...
-      if (YafTaskModule.Current.IsTaskRunning(SyncMembershipUsersTask.TaskName))
+      if (this.Get<ITaskModuleManager>().IsTaskRunning(SyncMembershipUsersTask.TaskName))
       {
         // continue...
         return;
@@ -428,7 +428,7 @@ namespace YAF.Pages.Admin
       // we want to filter topics since last visit
       if (sinceValue == 0)
       {
-        sinceDate = YafContext.Current.Get<IYafSession>().LastVisit;
+        sinceDate = this.Get<IYafSession>().LastVisit;
       }
 
       // we are going to page results

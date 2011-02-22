@@ -175,7 +175,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafContext.Current.Get<IYafSession>().UnreadTopics = 0;
+      this.Get<IYafSession>().UnreadTopics = 0;
       this.AtomFeed.AdditionalParameters =
         "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
       this.RssFeed.AdditionalParameters =
@@ -201,9 +201,9 @@ namespace YAF.Pages
         this.ShowList.DataSource = StaticDataHelper.TopicTimes();
         this.ShowList.DataTextField = "TopicText";
         this.ShowList.DataValueField = "TopicValue";
-        this._showTopicListSelected = (YafContext.Current.Get<IYafSession>().ShowList == -1)
+        this._showTopicListSelected = (this.Get<IYafSession>().ShowList == -1)
                                         ? this.PageContext.BoardSettings.ShowTopicsDefault
-                                        : YafContext.Current.Get<IYafSession>().ShowList;
+                                        : this.Get<IYafSession>().ShowList;
 
         this.HandleWatchForum();
       }
@@ -449,7 +449,7 @@ namespace YAF.Pages
 
       // setup the show topic list selection after data binding
       this.ShowList.SelectedIndex = this._showTopicListSelected;
-      YafContext.Current.Get<IYafSession>().ShowList = this._showTopicListSelected;
+      this.Get<IYafSession>().ShowList = this._showTopicListSelected;
 
       this.Pager.Count = nRowCount;
     }
@@ -497,7 +497,7 @@ namespace YAF.Pages
     /// </param>
     private void MarkRead_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      YafContext.Current.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
+      this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
       this.BindData();
     }
 
@@ -542,9 +542,9 @@ namespace YAF.Pages
     /// </param>
     private void topics_Unload([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (YafContext.Current.Get<IYafSession>().UnreadTopics == 0)
+      if (this.Get<IYafSession>().UnreadTopics == 0)
       {
-        YafContext.Current.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
+        this.Get<IYafSession>().SetForumRead(this.PageContext.PageForumID, DateTime.UtcNow);
       }
     }
 

@@ -69,7 +69,7 @@ namespace YAF.Modules
     protected bool DisplayPMPopup()
     {
       return (this.PageContext.UnreadPrivate > 0) &&
-             (this.PageContext.LastUnreadPm > YafContext.Current.Get<IYafSession>().LastPm);
+             (this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ namespace YAF.Modules
     protected bool DisplayPendingBuddies()
     {
       return (this.PageContext.PendingBuddies > 0) &&
-             (this.PageContext.LastPendingBuddies > YafContext.Current.Get<IYafSession>().LastPendingBuddies);
+             (this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies);
     }
 
     /// <summary>
@@ -133,7 +133,7 @@ namespace YAF.Modules
             }, 
           new DialogBox.DialogButton { Text = "No", CssClass = "StandardButton" });
 
-        this.PageContext.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
+        this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
       }
 
       if (!this.DisplayPendingBuddies())
@@ -158,7 +158,7 @@ namespace YAF.Modules
             ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
           });
 
-      this.PageContext.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+      this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
     }
 
     #endregion

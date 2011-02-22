@@ -1954,10 +1954,10 @@ Visit {forumname} at {forumlink}
   </page>
    <page name="ADMIN_VERSION">
       <Resource tag="TITLE">Version Check</Resource>
-     <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target=&quot;_top&quot; href=&quot;http://yafnet.codeplex.com/&quot;&gt;
-                  here&lt;/a&gt;.</Resource>
-     <Resource tag="RUNNING_VERSION">You are running YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Date: {1}).</Resource>
-     <Resource tag="LATEST_VERSION">The latest final version available is &lt;strong&gt;{0}&lt;/strong&gt; released &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
+     <Resource tag="UPGRADE_VERSION">Get the Latest Version &lt;a target=&quot;_top&quot; href=&quot;http://yetanotherforum.net/&quot;&gt;
+                  Here&lt;/a&gt;.</Resource>
+     <Resource tag="RUNNING_VERSION">Your YAF.NET Version: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
+     <Resource tag="LATEST_VERSION">The Latest Stable Version is: &lt;b&gt;{0}&lt;/b&gt; Released &lt;b&gt;{1}&lt;/b&gt;.</Resource>
    </page>
    <page name="ADMIN_NNTPRETRIEVE">
      <Resource tag="TITLE">NNTP Retrieve</Resource>
@@ -2234,7 +2234,9 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
       <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
       <Resource tag="BOARD_EMAIL_ONREGISTER">Send Email Notification On User Register to Emails:</Resource>
-      <Resource tag="BOARD_ALLOW_DIGEST">Allow Digest Email Sending for Users Once Daily:</Resource>
+      <Resource tag="BOARD_ALLOW_DIGEST">Allow Digest Email Sending for Users:</Resource>
+      <Resource tag="BOARD_DIGEST_HOURS">Hours Between Digest Sending:</Resource>
+      <Resource tag="BOARD_DIGEST_HOURS_HELP">Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am.</Resource>
       <Resource tag="BOARD_DIGEST_NEWUSERS">Default Send Digest "On" for New Users?</Resource>
       <Resource tag="BOARD_DEFAULT_NOTIFICATION">Default Notification Setting:</Resource>
       <Resource tag="BOARD_EMAIL_MODS">Email Moderators On New Moderated Post:</Resource>
@@ -2247,7 +2249,7 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
       <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
       <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
-      <Resource tag="BOARD_ALLOW_DIGEST_HELP">Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.</Resource>
+      <Resource tag="BOARD_ALLOW_DIGEST_HELP">NOTE: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to function.</Resource>
       <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">When a new user account is created, default send digest to true?</Resource>
       <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
       <Resource tag="BOARD_EMAIL_MODS_HELP">Should all the moderators of a forum be notified if a new post that needs approval is created?</Resource>

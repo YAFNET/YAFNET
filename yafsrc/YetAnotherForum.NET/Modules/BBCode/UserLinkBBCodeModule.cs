@@ -54,7 +54,7 @@ namespace YAF.Modules
         return;
       }
 
-      var foundUsers = YafContext.Current.Get<IUserDisplayName>().Find(userName.Trim());
+      var foundUsers = this.Get<IUserDisplayName>().Find(userName.Trim());
 
       if (foundUsers.Any())
       {

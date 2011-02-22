@@ -109,7 +109,7 @@ namespace YAF.Pages
       }
 
       // tell the provider to update...
-      this.PageContext.CurrentMembership.UpdateUser(user);
+      this.Get<MembershipProvider>().UpdateUser(user);
 
       // now redirect to login...
       this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"));

@@ -147,7 +147,7 @@ namespace YAF.Controls
         }
 
         // Get the username related to this User ID
-        string displayName = this.PageContext.Get<IUserDisplayName>().GetName(userId);
+        string displayName = this.Get<IUserDisplayName>().GetName(userId);
 
         sb.AppendFormat(
           @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", 

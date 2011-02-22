@@ -276,6 +276,8 @@
     <Resource tag="BOARD_CULTURE_HELP">Язык &amp; культура по умолчанию для этой конференции.</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">Настройки уведомлений по-умолчанию:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">Когда новый пользователь регистрируется на сайте, это определяет какой тип уведомления при этом используется</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS">Hours Between Digest Sending:</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS_HELP">Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Включить по умолчанию посылку дайджеста для новых пользователей</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">Включить по умолчанию посылку дайджеста для новых пользователей?</Resource>
     <Resource tag="BOARD_EMAIL_MODS">Посылать собщение Email модераторам при появлении нового (пред)модерируемого поста:</Resource>

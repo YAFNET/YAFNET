@@ -24,11 +24,13 @@ namespace YAF.Pages.Admin
 
   using System;
   using System.Data;
+  using System.Web;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.RegisterV2;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -42,7 +44,6 @@ namespace YAF.Pages.Admin
   /// </summary>
   public partial class admin : AdminPage
   {
-    
     #region Public Methods
 
     /// <summary>
@@ -129,20 +130,6 @@ namespace YAF.Pages.Admin
     #region Methods
 
     /// <summary>
-    /// The pager_ page change.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.BindActiveUserData();
-    }
-
-    /// <summary>
     /// The approve all_ load.
     /// </summary>
     /// <param name="sender">
@@ -153,8 +140,8 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
+      ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
     }
 
     /// <summary>
@@ -168,7 +155,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
     }
 
     /// <summary>
@@ -182,9 +169,9 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
+      ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
 
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
     }
 
     /// <summary>
@@ -198,7 +185,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
+      ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
     }
 
     /// <summary>
@@ -260,22 +247,88 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (this.IsPostBack)
+      if (this.IsPostBack)
+      {
+        return;
+      }
+
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+
+      this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
+
+      // bind data
+      this.BindBoardsList();
+
+      this.BindData();
+
+      var latestInfo =
+        this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] as LatestVersionInformation;
+
+      if (latestInfo != null && latestInfo.Version > YafForumInfo.AppVersionCode)
+      {
+        // updateLink
+        var updateLink = new Action<HyperLink>(
+          link =>
+            {
+              link.Text = latestInfo.Message;
+              link.NavigateUrl = latestInfo.Link;
+            });
+
+        if (latestInfo.IsWarning)
         {
-            return;
+          this.UpdateWarning.Visible = true;
+          updateLink(UpdateLinkWarning);
+        }
+        else
+        {
+          this.UpdateHightlight.Visible = true;
+          updateLink(UpdateLinkHighlight);
+        }
+      }
+
+      // UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
+    }
+
+    /// <summary>
+    /// The pager_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    {
+      this.BindActiveUserData();
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindActiveUserData()
+    {
+      DataTable activeList = this.GetActiveUsersData(true, true);
+
+      if (activeList != null && activeList.Rows.Count > 0)
+      {
+        var activeUsersView = activeList.DefaultView;
+        this.Pager.PageSize = 50;
+
+        var pds = new PagedDataSource { AllowPaging = true, PageSize = this.Pager.PageSize };
+        this.Pager.Count = activeUsersView.Count;
+        pds.DataSource = activeUsersView;
+        pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
+
+        if (pds.CurrentPageIndex >= pds.PageCount)
+        {
+          pds.CurrentPageIndex = pds.PageCount - 1;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-
-        this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
-
-        // bind data
-        this.BindBoardsList();
-
-        this.BindData();
-
-        // TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
+        this.ActiveList.DataSource = pds;
+        this.ActiveList.DataBind();
+      }
     }
 
     /// <summary>
@@ -283,69 +336,39 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindBoardsList()
     {
-        // only if user is hostadmin, otherwise boards' list is hidden
-        if (!this.PageContext.IsHostAdmin)
-        {
-            return;
-        }
+      // only if user is hostadmin, otherwise boards' list is hidden
+      if (!this.PageContext.IsHostAdmin)
+      {
+        return;
+      }
 
-        DataTable dt = LegacyDb.board_list(null);
+      DataTable dt = LegacyDb.board_list(null);
 
-        // add row for "all boards" (null value)
-        DataRow r = dt.NewRow();
+      // add row for "all boards" (null value)
+      DataRow r = dt.NewRow();
 
-        r["BoardID"] = -1;
-        r["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
+      r["BoardID"] = -1;
+      r["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
 
-        dt.Rows.InsertAt(r, 0);
+      dt.Rows.InsertAt(r, 0);
 
-        // set datasource
-        this.BoardStatsSelect.DataSource = dt;
-        this.BoardStatsSelect.DataBind();
+      // set datasource
+      this.BoardStatsSelect.DataSource = dt;
+      this.BoardStatsSelect.DataBind();
 
-        // select current board as default
-        this.BoardStatsSelect.SelectedIndex =
-            this.BoardStatsSelect.Items.IndexOf(
-                this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
+      // select current board as default
+      this.BoardStatsSelect.SelectedIndex =
+        this.BoardStatsSelect.Items.IndexOf(
+          this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
     }
-    /// <summary>
-    /// Gets active user data Table data for a page user
-    /// </summary>
-    /// <param name="showGuests">
-    /// The show guests.
-    /// </param>
-    /// <param name="showCrawlers">
-    /// The show crawlers.
-    /// </param>
-    /// <returns>
-    /// A DataTable
-    /// </returns>
-    private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
-    {
-        // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
-        DataTable activeUsers = LegacyDb.active_list_user(
-          this.PageContext.PageBoardID,
-          this.PageContext.PageUserID,
-          showGuests,
-          showCrawlers,
-          this.PageContext.BoardSettings.ActiveListTime,
-          this.PageContext.BoardSettings.UseStyledNicks);
 
-        // Set colorOnly parameter to false, as we get active users style from database        
-        if (this.PageContext.BoardSettings.UseStyledNicks)
-        {
-            this.Get<IStyleTransform>().DecodeStyleByTable(ref activeUsers, false);
-        }
-
-        return activeUsers;
-    }
     /// <summary>
     /// The bind data.
     /// </summary>
     private void BindData()
     {
-      
       this.UserList.DataSource = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
+
       // this.DataBind();
 
       // get stats for current board, selected board or all boards (see function)
@@ -370,38 +393,41 @@ namespace YAF.Pages.Admin
       this.DayUsers.Text = "{0:N2}".FormatWith(SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
       this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.DBSize);
-      BindActiveUserData();
-      
+      this.BindActiveUserData();
+
       this.DataBind();
     }
 
     /// <summary>
-    /// The bind data.
+    /// Gets active user data Table data for a page user
     /// </summary>
-    private void BindActiveUserData()
+    /// <param name="showGuests">
+    /// The show guests.
+    /// </param>
+    /// <param name="showCrawlers">
+    /// The show crawlers.
+    /// </param>
+    /// <returns>
+    /// A DataTable
+    /// </returns>
+    private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
     {
+      // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+      DataTable activeUsers = LegacyDb.active_list_user(
+        this.PageContext.PageBoardID, 
+        this.PageContext.PageUserID, 
+        showGuests, 
+        showCrawlers, 
+        this.PageContext.BoardSettings.ActiveListTime, 
+        this.PageContext.BoardSettings.UseStyledNicks);
 
-        DataTable activeList = GetActiveUsersData(true, true);
-       
-        if (activeList != null && activeList.Rows.Count > 0)
-        {
-            var activeUsersView = activeList.DefaultView;
-            this.Pager.PageSize = 50;
+      // Set colorOnly parameter to false, as we get active users style from database        
+      if (this.PageContext.BoardSettings.UseStyledNicks)
+      {
+        this.Get<IStyleTransform>().DecodeStyleByTable(ref activeUsers, false);
+      }
 
-            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.Pager.PageSize };
-            this.Pager.Count = activeUsersView.Count;
-            pds.DataSource = activeUsersView;
-            pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
-
-            if (pds.CurrentPageIndex >= pds.PageCount)
-            {
-                pds.CurrentPageIndex = pds.PageCount - 1;
-            }
-
-            this.ActiveList.DataSource = pds;
-            this.ActiveList.DataBind();
-        } 
-        
+      return activeUsers;
     }
 
     /// <summary>
@@ -412,16 +438,16 @@ namespace YAF.Pages.Admin
     /// </returns>
     private object GetSelectedBoardID()
     {
-        // check dropdown only if user is hostadmin
-        if (!this.PageContext.IsHostAdmin)
-        {
-            return this.PageContext.PageBoardID;
-        }
+      // check dropdown only if user is hostadmin
+      if (!this.PageContext.IsHostAdmin)
+      {
+        return this.PageContext.PageBoardID;
+      }
 
-        // -1 means all boards are selected
-        return this.BoardStatsSelect.SelectedValue == "-1" ? null : this.BoardStatsSelect.SelectedValue;
+      // -1 means all boards are selected
+      return this.BoardStatsSelect.SelectedValue == "-1" ? null : this.BoardStatsSelect.SelectedValue;
     }
 
-      #endregion
+    #endregion
   }
 }

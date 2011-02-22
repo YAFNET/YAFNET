@@ -35,6 +35,14 @@ namespace YAF.Pages.Admin
   /// </summary>
   public partial class digest : AdminPage
   {
+    ///<summary>
+    ///</summary>
+    public digest()
+      : base("ADMIN_DIGEST")
+    {
+      
+    }
+
     #region Methods
 
     /// <summary>

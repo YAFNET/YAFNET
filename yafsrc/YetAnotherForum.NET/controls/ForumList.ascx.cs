@@ -229,7 +229,7 @@ namespace YAF.Controls
       {
         var row = (DataRow)e.Item.DataItem;
         var flags = new ForumFlags(row["Flags"]);
-        DateTime lastRead = YafContext.Current.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+        DateTime lastRead = this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
         DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
 
         if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))

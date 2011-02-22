@@ -10,7 +10,8 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DIGEST_ENABLED" LocalizedPage="ADMIN_DIGEST" />
+                <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DIGEST_ENABLED"
+                    LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
                 <b>
@@ -19,7 +20,7 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DIGEST_LAST" LocalizedPage="ADMIN_DIGEST" />
+                <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DIGEST_LAST" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
                 <b>
@@ -28,8 +29,8 @@
         </tr>
         <tr>
             <td class="postfooter" colspan="2" align="center">
-                <asp:Button ID="Button2" runat="server"
-                    OnClick="ForceSend_Click" CssClass="pbutton"></asp:Button>
+                <asp:Button ID="Button2" runat="server" OnClick="ForceSend_Click" CssClass="pbutton">
+                </asp:Button>
             </td>
         </tr>
     </table>
@@ -41,15 +42,16 @@
             </td>
         </tr>
         <asp:PlaceHolder ID="DigestHtmlPlaceHolder" runat="server" Visible="false">
-        <tr>
-            <td class="postheader" width="25%">
-                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DIGEST_GENERATE" LocalizedPage="ADMIN_DIGEST" />
-            </td>
-            <td class="post" width="75%">
-                <iframe id="DigestFrame" runat="server" style="width:100%;height:500px"></iframe>
-            </td>
-        </tr>     
-        </asp:PlaceHolder>   
+            <tr>
+                <td class="postheader" width="25%">
+                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DIGEST_GENERATE"
+                        LocalizedPage="ADMIN_DIGEST" />
+                </td>
+                <td class="post" width="75%">
+                    <iframe id="DigestFrame" runat="server" style="width: 100%; height: 500px"></iframe>
+                </td>
+            </tr>
+        </asp:PlaceHolder>
         <tr>
             <td class="postfooter" colspan="2" align="center">
                 <asp:Button ID="GenerateDigest" runat="server" OnClick="GenerateDigest_Click" CssClass="pbutton">
@@ -66,10 +68,10 @@
         </tr>
         <tr>
             <td class="postheader" width="25%">
-                 <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DIGEST_EMAIL" LocalizedPage="ADMIN_DIGEST" />
+                <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DIGEST_EMAIL" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
-                <asp:TextBox ID="TextSendEmail" runat="server" Style="width:250px"></asp:TextBox>
+                <asp:TextBox ID="TextSendEmail" runat="server" Style="width: 250px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -77,7 +79,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
-                <asp:DropDownList ID="SendMethod" runat="server" Style="width:250px">
+                <asp:DropDownList ID="SendMethod" runat="server" Style="width: 250px">
                     <asp:ListItem Text="Direct" />
                     <asp:ListItem Text="Queued" Selected="True" />
                 </asp:DropDownList>

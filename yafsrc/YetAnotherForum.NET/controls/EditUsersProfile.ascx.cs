@@ -307,7 +307,7 @@ namespace YAF.Controls
 
         if (this.DisplayName.Text.Trim() != this.UserData.DisplayName)
         {
-          if (this.PageContext.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
+          if (this.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
           {
             this.PageContext.AddLoadMessage(
               this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));

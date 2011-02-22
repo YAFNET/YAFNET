@@ -87,7 +87,7 @@ namespace YAF.Pages.Admin
 
       this.lblPruneInfo.Text = string.Empty;
 
-        if (!YafTaskModule.Current.IsTaskRunning(PruneTopicTask.TaskName))
+        if (!this.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
         {
             return;
         }

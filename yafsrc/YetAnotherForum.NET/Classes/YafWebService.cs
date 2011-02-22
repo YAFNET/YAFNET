@@ -36,8 +36,16 @@ using YAF.Utils;
 /// </summary>
 [WebService(Namespace = "http://yetanotherforum.net/services")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-public class YafWebService : WebService
+public class YafWebService : WebService, IHaveServiceLocator
 {
+  public IServiceLocator ServiceLocator
+  {
+    get
+    {
+      return YafContext.Current.ServiceLocator;
+    }
+  }
+
   #region Public Methods
 
   /// <summary>
@@ -140,7 +148,7 @@ public class YafWebService : WebService
     {
       var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
 
-      var displayNameId = YafContext.Current.Get<IUserDisplayName>().GetId(displayName);
+      var displayNameId = this.Get<IUserDisplayName>().GetId(displayName);
 
       if (displayNameId.HasValue && displayNameId.Value != userId)
       {
@@ -170,7 +178,7 @@ public class YafWebService : WebService
         null, 
         null);
 
-      YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+      this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
       return true;
     }

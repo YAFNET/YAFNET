@@ -159,14 +159,14 @@ namespace YAF.Pages.Admin
         bool createUserAndRoles)
     {
       // Store current App Names
-      string currentMembershipAppName = this.PageContext.CurrentMembership.ApplicationName;
-      string currentRolesAppName = this.PageContext.CurrentRoles.ApplicationName;
+      string currentMembershipAppName = this.Get<MembershipProvider>().ApplicationName;
+      string currentRolesAppName = this.Get<RoleProvider>().ApplicationName;
 
       if (boardMembershipAppName.IsSet() && boardRolesAppName.IsSet())
       {
         // Change App Names for new board
-        this.PageContext.CurrentMembership.ApplicationName = boardMembershipAppName;
-        this.PageContext.CurrentMembership.ApplicationName = boardRolesAppName;
+        this.Get<MembershipProvider>().ApplicationName = boardMembershipAppName;
+        this.Get<MembershipProvider>().ApplicationName = boardRolesAppName;
       }
 
       int newBoardID;
@@ -183,7 +183,7 @@ namespace YAF.Pages.Admin
       {
         // Create new admin users
         MembershipCreateStatus createStatus;
-        MembershipUser newAdmin = this.PageContext.CurrentMembership.CreateUser(
+        MembershipUser newAdmin = this.Get<MembershipProvider>().CreateUser(
           adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, null, out createStatus);
         if (createStatus != MembershipCreateStatus.Success)
         {
@@ -264,8 +264,8 @@ namespace YAF.Pages.Admin
       }
 
       // Return application name to as they were before.
-      YafContext.Current.CurrentMembership.ApplicationName = currentMembershipAppName;
-      YafContext.Current.CurrentRoles.ApplicationName = currentRolesAppName;
+      this.Get<MembershipProvider>().ApplicationName = currentMembershipAppName;
+      YafContext.Current.Get<RoleProvider>().ApplicationName = currentRolesAppName;
     }
 
     /// <summary>
@@ -343,7 +343,7 @@ namespace YAF.Pages.Admin
         this.Save.Text = this.GetText("SAVE");
         this.Cancel.Text = this.GetText("CANCEL");
 
-        this.Culture.DataSource = StaticDataHelper.Cultures();
+        this.Culture.DataSource = StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
         this.Culture.DataValueField = "CultureTag";
         this.Culture.DataTextField = "CultureNativeName";
 

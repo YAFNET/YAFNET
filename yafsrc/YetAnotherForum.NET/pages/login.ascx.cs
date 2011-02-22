@@ -25,6 +25,7 @@ namespace YAF.Pages
 
   using System;
   using System.Web;
+  using System.Web.Security;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
@@ -97,10 +98,29 @@ namespace YAF.Pages
     /// </param>
     protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
     {
-      var userName = this.Login1.FindControlAs<TextBox>("UserName");
-      var password = this.Login1.FindControlAs<TextBox>("Password");
+      var userName = this.Login1.FindControlAs<TextBox>("UserName").Text.Trim();
+      var password = this.Login1.FindControlAs<TextBox>("Password").Text.Trim();
 
-      e.Authenticated = this.PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
+      e.Authenticated = false;
+
+      // validate userName and password...
+      if (this.Get<MembershipProvider>().ValidateUser(userName, password))
+      {
+        e.Authenticated = true;
+      }
+      else if (this.Get<YafBoardSettings>().EnableDisplayName)
+      {
+        var id = this.Get<IUserDisplayName>().GetId(userName);
+
+        if (id.HasValue)
+        {
+          // get the username associated with this id...
+          userName = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+          // validate again...
+          e.Authenticated = this.Get<MembershipProvider>().ValidateUser(userName, password);
+        }
+      }
     }
 
     /// <summary>

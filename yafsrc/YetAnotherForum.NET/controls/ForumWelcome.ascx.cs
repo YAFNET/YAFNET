@@ -63,11 +63,11 @@ namespace YAF.Controls
       this.TimeNow.Text = this.GetTextFormatted(
         "Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
-      if (YafContext.Current.Get<IYafSession>().LastVisit != DateTime.MinValue)
+      if (this.Get<IYafSession>().LastVisit != DateTime.MinValue)
       {
         this.TimeLastVisit.Visible = true;
         this.TimeLastVisit.Text = this.GetTextFormatted(
-          "last_visit", this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit));
+          "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit));
       }
       else
       {

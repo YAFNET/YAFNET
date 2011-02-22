@@ -47,7 +47,7 @@ namespace YAF
     /// <summary>
     /// Yaf Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
     /// </summary>
-    public class YafResourceHandler : IHttpHandler, IReadOnlySessionState
+    public class YafResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
   {
     #region Properties
 
@@ -61,6 +61,15 @@ namespace YAF
         return false;
       }
     }
+
+      public IServiceLocator ServiceLocator
+      {
+        get
+        {
+          return YafContext.Current.ServiceLocator;
+        }
+      }
+
 
     #endregion
 
@@ -678,7 +687,7 @@ namespace YAF
       UserAgentHelper.Platform(
         userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, ref browser, out isSearchEngine, out dontTrack);
 
-      YafContext.Current.Get<StartupInitializeDb>().Run();
+      this.Get<StartupInitializeDb>().Run();
 
       // vzrus: to log unhandled UserAgent strings
       if (YafContext.Current.BoardSettings.UserAgentBadLog)
@@ -736,7 +745,7 @@ namespace YAF
         // We should be sure that all columns are added
         do
         {
-          auldRow = YafContext.Current.Get<IDBBroker>().ActiveUserLazyData((int)pageRow["UserID"]);
+          auldRow = this.Get<IDBBroker>().ActiveUserLazyData((int)pageRow["UserID"]);
 
           foreach (DataColumn col in auldRow.Table.Columns)
           {

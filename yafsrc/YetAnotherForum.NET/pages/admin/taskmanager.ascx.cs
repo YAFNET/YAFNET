@@ -74,9 +74,9 @@ namespace YAF.Pages.Admin
     /// </summary>
     protected void BindData()
     {
-        this.lblTaskCount.Text = this.GetText("ADMIN_TASKMANAGER", "HEADER").FormatWith(YafTaskModule.Current.TaskCount.ToString());
+        this.lblTaskCount.Text = this.GetText("ADMIN_TASKMANAGER", "HEADER").FormatWith(this.Get<ITaskModuleManager>().TaskCount.ToString());
 
-      this.taskRepeater.DataSource = YafTaskModule.Current.TaskManagerSnapshot;
+      this.taskRepeater.DataSource = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
       this.taskRepeater.DataBind();
     }
 
@@ -138,7 +138,7 @@ namespace YAF.Pages.Admin
         }
 
         // attempt to stop a task...
-        YafTaskModule.Current.StopTask(e.CommandArgument.ToString());
+        this.Get<ITaskModuleManager>().StopTask(e.CommandArgument.ToString());
 
         // refresh the display
         this.BindData();

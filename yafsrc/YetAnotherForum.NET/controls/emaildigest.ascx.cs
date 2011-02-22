@@ -250,6 +250,19 @@ namespace YAF.Controls
         return;
       }
 
+      if (Config.ForceScriptName.IsNotSet())
+      {
+        // fail... ForceScriptName required for Digest.
+        if (showErrors)
+        {
+          this.OutputError(
+            @"Cannot generate digest unless YAF.ForceScriptName AppSetting is specified in your app.config (default). Please specify the full page name for YAF.NET -- usually ""default.aspx"".");
+        }
+
+        this.Response.End();
+        return;
+      }
+
       if (this.CurrentUserID == 0)
       {
         this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("UserID").ToType<int>();
@@ -260,6 +273,10 @@ namespace YAF.Controls
         this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("BoardID").ToType<int>();
       }
 
+      // get topic hours...
+      this._topicHours = -YafContext.Current.BoardSettings.DigestSendEveryXHours;
+
+
       this._forumData = this.Get<IDBBroker>().GetSimpleForumTopic(
         this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
 
@@ -267,7 +284,8 @@ namespace YAF.Controls
       {
         if (showErrors)
         {
-          this.OutputError("No topics for the last 24 hours.");
+          this.OutputError(
+            "No topics for the last {0} hours.".FormatWith(YafContext.Current.BoardSettings.DigestSendEveryXHours));
         }
 
         this.Response.End();

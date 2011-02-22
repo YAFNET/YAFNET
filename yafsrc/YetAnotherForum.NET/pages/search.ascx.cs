@@ -353,7 +353,7 @@ namespace YAF.Pages
       string[] pagerData = e.EntryName.Split('|');
 
       if (pagerData.Length < 2 || !int.TryParse(pagerData[0], out pageNumber) ||
-          !int.TryParse(pagerData[1], out pageSize) || YafContext.Current.Get<IYafSession>().SearchData == null)
+          !int.TryParse(pagerData[1], out pageSize) || this.Get<IYafSession>().SearchData == null)
       {
         return;
       }
@@ -639,7 +639,7 @@ namespace YAF.Pages
         return;
       }
 
-      if (newSearch || YafContext.Current.Get<IYafSession>().SearchData == null)
+      if (newSearch || this.Get<IYafSession>().SearchData == null)
       {
         var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
         var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
@@ -663,7 +663,7 @@ namespace YAF.Pages
           this.SetupHighlightWords(sw);
         }
 
-        YafContext.Current.Get<IYafSession>().SearchData = searchResults;
+        this.Get<IYafSession>().SearchData = searchResults;
 
         this.Pager.CurrentPageIndex = 0;
         this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);

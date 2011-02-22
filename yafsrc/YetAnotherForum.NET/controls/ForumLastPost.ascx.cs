@@ -132,7 +132,7 @@ namespace YAF.Controls
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
             ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
           this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) >
-                                YafContext.Current.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
+                                this.Get<IYafSession>().GetTopicRead((int)this.DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"
                                  : "ICON_LATEST";
           this.Icon.Alt = this.LastTopicImgLink.ToolTip;
@@ -146,7 +146,7 @@ namespace YAF.Controls
 
               LastUnreadImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
               LastUnreadImage.ThemeTag = (DateTime.Parse(this.DataRow["LastPosted"].ToString()) >
-                                                 YafContext.Current.Get<IYafSession>().GetTopicRead(
+                                                 this.Get<IYafSession>().GetTopicRead(
                                                    Convert.ToInt32(this.DataRow["LastTopicID"])))
                                                   ? "ICON_NEWEST_UNREAD"
                                                   : "ICON_LATEST_UNREAD";

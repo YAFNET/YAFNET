@@ -87,14 +87,14 @@ namespace YAF.Controls
 
             this.lblPassRequirements.Text =
                 this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_REQUIREMENT").FormatWith(
-                    this.PageContext.CurrentMembership.MinRequiredPasswordLength,
-                    this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters);
+                    this.Get<MembershipProvider>().MinRequiredPasswordLength,
+                    this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
 
             this.PasswordValidator.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_NEW_PASS");
             this.RequiredFieldValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_CONFIRM_PASS");
             this.CompareValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH");
 
-            if (!this.PageContext.CurrentMembership.EnablePasswordReset)
+            if (!this.Get<MembershipProvider>().EnablePasswordReset)
             {
                 this.PasswordResetErrorHolder.Visible = true;
                 this.btnResetPassword.Enabled = false;

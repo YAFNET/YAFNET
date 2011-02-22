@@ -49,7 +49,7 @@ namespace YAF.Install
   /// <summary>
   /// Summary description for install.
   /// </summary>
-  public partial class _default : Page
+  public partial class _default : Page, IHaveServiceLocator
   {
     #region Constants and Fields
 
@@ -111,6 +111,14 @@ namespace YAF.Install
     #endregion
 
     #region Properties
+
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return YafContext.Current.ServiceLocator;
+      }
+    }
 
     /// <summary>
     ///   Gets CurrentConnString.
@@ -323,7 +331,7 @@ namespace YAF.Install
     protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
     {
       // see if the migration is done....
-      if (YafTaskModule.Current.IsTaskRunning(MigrateUsersTask.TaskName))
+      if (this.Get<ITaskModuleManager>().IsTaskRunning(MigrateUsersTask.TaskName))
       {
         // proceed...
         return;
@@ -645,7 +653,7 @@ else
             RoleMembershipHelper.SyncRoles(this.PageBoardID);
 
             // start the background migration task...
-            MigrateUsersTask.Start(this.PageBoardID);
+            this.Get<ITaskModuleManager>().Start<MigrateUsersTask>(this.PageBoardID);
           }
 
           e.Cancel = false;
@@ -788,7 +796,7 @@ else
     {
       try
       {
-        YafContext.Current.Get<ISendMail>().Send(
+        this.Get<ISendMail>().Send(
             this.txtTestFromEmail.Text.Trim(),
             this.txtTestToEmail.Text.Trim(),
             "Test Email From Yet Another Forum.NET",
@@ -998,7 +1006,7 @@ else
 
         // create the admin user...
         MembershipCreateStatus status;
-        user = YafContext.Current.CurrentMembership.CreateUser(
+        user = this.Get<MembershipProvider>().CreateUser(
             this.UserName.Text,
             this.Password1.Text,
             this.AdminEmail.Text,

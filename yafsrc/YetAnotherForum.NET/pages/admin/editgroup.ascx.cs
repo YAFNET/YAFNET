@@ -24,6 +24,8 @@ namespace YAF.Pages.Admin
 
   using System;
   using System.Data;
+  using System.Linq;
+  using System.Web.Security;
   using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
@@ -265,7 +267,7 @@ namespace YAF.Pages.Admin
           !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {
         // transfer users in addition to changing the name of the role...
-        string[] users = this.PageContext.CurrentRoles.GetUsersInRole(oldRoleName);
+        var users = this.Get<RoleProvider>().GetUsersInRole(oldRoleName);
 
         // delete the old role...
         RoleMembershipHelper.DeleteRole(oldRoleName, false);
@@ -273,10 +275,10 @@ namespace YAF.Pages.Admin
         // create new role...
         RoleMembershipHelper.CreateRole(roleName);
 
-        if (users.Length > 0)
+        if (users.Any())
         {
           // put users into new role...
-          this.PageContext.CurrentRoles.AddUsersToRoles(users, new[] { roleName });
+          this.Get<RoleProvider>().AddUsersToRoles(users, new[] { roleName });
         }
       }
       else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked) 

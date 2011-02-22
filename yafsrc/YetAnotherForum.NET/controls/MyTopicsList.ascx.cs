@@ -140,7 +140,7 @@ namespace YAF.Controls
       // we want to filter topics since last visit
       if (this.sinceValue == 0)
       {
-        this.sinceDate = YafContext.Current.Get<IYafSession>().LastVisit;
+        this.sinceDate = this.Get<IYafSession>().LastVisit;
       }
 
       // we want to page results
@@ -218,7 +218,7 @@ namespace YAF.Controls
       this.Since.Items.Add(
         new ListItem(
           this.GetTextFormatted(
-            "last_visit", this.Get<IDateTime>().FormatDateTime(YafContext.Current.Get<IYafSession>().LastVisit)), 
+            "last_visit", this.Get<IDateTime>().FormatDateTime(this.Get<IYafSession>().LastVisit)), 
           "0"));
 
       // negative values for hours backward
@@ -254,7 +254,7 @@ namespace YAF.Controls
         if (this.CurrentMode == TopicListMode.Active)
         {
           // active topics mode
-          previousSince = YafContext.Current.Get<IYafSession>().ActiveTopicSince;
+          previousSince = this.Get<IYafSession>().ActiveTopicSince;
 
           // by default select "Last visited..." for active discussions
           this.Since.SelectedIndex = 0;
@@ -262,7 +262,7 @@ namespace YAF.Controls
         else if (this.CurrentMode == TopicListMode.Favorite)
         {
           // favorites mode
-          previousSince = YafContext.Current.Get<IYafSession>().FavoriteTopicSince;
+          previousSince = this.Get<IYafSession>().FavoriteTopicSince;
 
           // add "Show All" option
           this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
@@ -343,12 +343,12 @@ namespace YAF.Controls
       if (this.CurrentMode == TopicListMode.Active)
       {
         // for active topics
-        YafContext.Current.Get<IYafSession>().ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+        this.Get<IYafSession>().ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
       }
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
         // for favorites
-        YafContext.Current.Get<IYafSession>().FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+        this.Get<IYafSession>().FavoriteTopicSince = Convert.ToInt32(this.Since.SelectedValue);
       }
 
       // re-bind data

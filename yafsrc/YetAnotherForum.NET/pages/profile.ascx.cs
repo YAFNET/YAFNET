@@ -351,7 +351,7 @@ namespace YAF.Pages
         this.AlbumList1.Dispose();
       }
 
-      string userDisplayName = this.PageContext.Get<IUserDisplayName>().GetName(this.UserId);
+      string userDisplayName = this.Get<IUserDisplayName>().GetName(this.UserId);
 
       this.SetupUserProfileInfo(this.UserId, user, userData, userDisplayName);
 

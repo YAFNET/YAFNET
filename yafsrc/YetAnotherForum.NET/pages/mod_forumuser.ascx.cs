@@ -147,7 +147,7 @@ namespace YAF.Pages
       }
 
       // get found users
-      var foundUsers = this.PageContext.Get<IUserDisplayName>().Find(this.UserName.Text.Trim());
+      var foundUsers = this.Get<IUserDisplayName>().Find(this.UserName.Text.Trim());
 
       // have we found anyone?
       if (foundUsers.Count > 0)
@@ -250,7 +250,7 @@ namespace YAF.Pages
       }
 
       // we need to verify user exists
-      var userId = this.PageContext.Get<IUserDisplayName>().GetId(this.UserName.Text.Trim());
+      var userId = this.Get<IUserDisplayName>().GetId(this.UserName.Text.Trim());
 
       // there is no such user or reference is ambiugous
       if (!userId.HasValue)

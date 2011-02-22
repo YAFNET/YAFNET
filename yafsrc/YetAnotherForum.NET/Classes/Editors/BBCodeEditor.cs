@@ -274,7 +274,7 @@ namespace YAF.Editors
         this.GetText("COMMON", "TT_ALIGNRIGHT"), 
         "yafEditor/justifyright.gif");
 
-      var customBbCode = YafContext.Current.Get<IDBBroker>().GetCustomBBCode();
+      var customBbCode = this.Get<IDBBroker>().GetCustomBBCode();
 
       if (customBbCode.Any())
       {

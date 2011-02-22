@@ -25,7 +25,7 @@ namespace YAF.Pages.Admin
   using System;
 
   using YAF.Core;
-  using YAF.RegisterForum;
+  using RegisterV2;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
     {
       if (!this.IsPostBack)
       {
-          using (var reg = new Register())
+          using (var reg = new RegisterV2())
           {
               this._lastVersion = reg.LatestVersion();
               this._lastVersionDate = reg.LatestVersionDate();

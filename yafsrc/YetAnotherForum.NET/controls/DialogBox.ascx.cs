@@ -271,7 +271,7 @@ namespace YAF.Controls
       if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
       {
         // Make Sure the Current Page is correctly Returned with all querystrings
-        YafContext.Current.Get<HttpResponseBase>().Redirect(YafContext.Current.Get<HttpRequestBase>().Url.ToString());
+        this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
       }
       else
       {
@@ -301,7 +301,7 @@ namespace YAF.Controls
       if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
       {
         // Make Sure the Current Page is correctly Returned with all querystrings
-        YafContext.Current.Get<HttpResponseBase>().Redirect(YafContext.Current.Get<HttpRequestBase>().Url.ToString());
+        this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
       }
       else
       {

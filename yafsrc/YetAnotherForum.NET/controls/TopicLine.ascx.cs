@@ -423,11 +423,11 @@
         if (row["TopicMovedID"].ToString().Length > 0)
         {
           imgTitle = this.GetText("MOVED");
-          return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
+          return this.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
         }
 
-        DateTime lastRead = YafContext.Current.Get<IYafSession>().GetTopicRead((int)row["TopicID"]);
-        DateTime lastReadForum = YafContext.Current.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
+        DateTime lastRead = this.Get<IYafSession>().GetTopicRead((int)row["TopicID"]);
+        DateTime lastReadForum = this.Get<IYafSession>().GetForumRead((int)row["ForumID"]);
         if (lastReadForum > lastRead)
         {
           lastRead = lastReadForum;
@@ -435,32 +435,32 @@
 
         if (lastPosted > lastRead)
         {
-          YafContext.Current.Get<IYafSession>().UnreadTopics++;
+          this.Get<IYafSession>().UnreadTopics++;
 
           if (row["PollID"] != DBNull.Value)
           {
             imgTitle = this.GetText("POLL_NEW");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
           }
           else if (row["Priority"].ToString() == "1")
           {
             imgTitle = this.GetText("STICKY");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
           }
           else if (row["Priority"].ToString() == "2")
           {
             imgTitle = this.GetText("ANNOUNCEMENT");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
           }
           else if (topicFlags.IsLocked || forumFlags.IsLocked)
           {
             imgTitle = this.GetText("NEW_POSTS_LOCKED");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
           }
           else
           {
             imgTitle = this.GetText("NEW_POSTS");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
           }
         }
         else
@@ -468,33 +468,33 @@
           if (row["PollID"] != DBNull.Value)
           {
             imgTitle = this.GetText("POLL");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
           }
           else if (row["Priority"].ToString() == "1")
           {
             imgTitle = this.GetText("STICKY");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
           }
           else if (row["Priority"].ToString() == "2")
           {
             imgTitle = this.GetText("ANNOUNCEMENT");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
           }
           else if (topicFlags.IsLocked || forumFlags.IsLocked)
           {
             imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
           }
           else
           {
             imgTitle = this.GetText("NO_NEW_POSTS");
-            return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC");
+            return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
           }
         }
       }
       catch (Exception)
       {
-        return this.PageContext.Get<ITheme>().GetItem("ICONS", "TOPIC");
+        return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
       }
     }
 

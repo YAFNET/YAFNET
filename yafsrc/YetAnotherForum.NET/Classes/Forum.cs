@@ -102,7 +102,7 @@ namespace YAF
   /// Summary description for Forum.
   /// </summary>
   [ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
-  public class Forum : UserControl
+  public class Forum : UserControl, IHaveServiceLocator
   {
     #region Constants and Fields
 
@@ -149,16 +149,46 @@ namespace YAF
       this.Init += this.Forum_Init;
       this.Unload += this.Forum_Unload;
 
-      // init the modules and run them immediately...
-      var baseModules = YafContext.Current.Get<IModuleManager<IBaseForumModule>>();
+      // validate YafTaskModule is running...
+      this.TaskModuleRunning();
 
-      // run services before modules...
-      YafContext.Current.RunStartupServices();
+      // init the modules and run them immediately...
+      var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
 
       foreach (var module in baseModules.GetAll())
       {
         module.ForumControlObj = this;
         module.Init();
+      }
+    }
+
+    /// <summary>
+    /// Validates that the Task Module is running...
+    /// </summary>
+    private void TaskModuleRunning()
+    {
+      bool debugging = false;
+
+#if DEBUG
+      debugging = true;
+#endif
+
+      if (HttpContext.Current.Application[Constants.Cache.TaskModule] == null)
+      {
+        if (!debugging)
+        {
+          // YAF is not setup properly...
+          HttpContext.Current.Session["StartupException"] =
+            @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
+
+          // go immediately to the error page.
+          HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+        }
+        else
+        {
+          throw new YafTaskModuleNotRegisteredException(
+            @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
+        }
       }
     }
 
@@ -184,6 +214,14 @@ namespace YAF
     #endregion
 
     #region Properties
+
+    public IServiceLocator ServiceLocator
+    {
+      get
+      {
+        return YafContext.Current.ServiceLocator;
+      }
+    }
 
     /// <summary>
     ///   Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
@@ -515,12 +553,12 @@ namespace YAF
     [NotNull]
     private string GetPageSource()
     {
-      if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g") != null)
+      if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g") != null)
       {
         try
         {
           this._page =
-            YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
+            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
         }
         catch (Exception)
         {
