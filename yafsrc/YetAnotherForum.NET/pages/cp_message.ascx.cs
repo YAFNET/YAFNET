@@ -152,6 +152,8 @@ namespace YAF.Pages
 
         this.BindData();
         this.PageContext.AddLoadMessage(this.GetText("msg_deleted"));
+
+        YafBuildLink.Redirect(ForumPages.cp_pm);
       }
       else if (e.CommandName == "reply")
       {
