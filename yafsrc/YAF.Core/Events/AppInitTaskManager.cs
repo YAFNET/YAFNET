@@ -26,6 +26,7 @@ namespace YAF.Core
 
   using YAF.Core.Tasks;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
   using YAF.Utils;
@@ -35,6 +36,7 @@ namespace YAF.Core
   /// <summary>
   /// The app init task manager.
   /// </summary>
+  [ExportService(ServiceLifetimeScope.Singleton)]
   public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
   {
     #region Constants and Fields

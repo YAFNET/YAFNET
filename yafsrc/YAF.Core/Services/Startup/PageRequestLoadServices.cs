@@ -24,6 +24,7 @@ namespace YAF.Core.Services
   using System.Web.UI;
 
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
 
@@ -32,6 +33,7 @@ namespace YAF.Core.Services
   /// <summary>
   /// The page request load services.
   /// </summary>
+  [ExportService(ServiceLifetimeScope.OwnedByContainer)]
   public class PageRequestLoadServices : IHandleEvent<EventPreRequestPageExecute>, IHaveServiceLocator
   {
     #region Constructors and Destructors
@@ -63,10 +65,13 @@ namespace YAF.Core.Services
     }
 
     /// <summary>
-    /// Gets or sets ServiceLocator.
+    ///   Gets or sets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
 
+    /// <summary>
+    /// Gets or sets RequestPage.
+    /// </summary>
     protected Page RequestPage { get; set; }
 
     #endregion

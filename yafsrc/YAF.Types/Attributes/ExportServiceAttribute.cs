@@ -22,6 +22,8 @@ namespace YAF.Types.Attributes
 
   using System;
 
+  using YAF.Types.Interfaces;
+
   #endregion
 
   /// <summary>
@@ -50,7 +52,7 @@ namespace YAF.Types.Attributes
     InstancePerScope, 
 
     /// <summary>
-    /// One instance per dependancy.
+    ///   One instance per dependancy.
     /// </summary>
     InstancePerDependancy, 
 
@@ -66,7 +68,21 @@ namespace YAF.Types.Attributes
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
   public class ExportServiceAttribute : Attribute
   {
+    public string Named { get; set; }
+
     #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExportServiceAttribute"/> class.
+    /// </summary>
+    /// <param name="serviceLifetimeScope">
+    /// The service lifetime scope.
+    /// </param>
+    public ExportServiceAttribute(ServiceLifetimeScope serviceLifetimeScope, [NotNull] string named)
+      : this(serviceLifetimeScope)
+    {
+      Named = named;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ExportServiceAttribute"/> class.

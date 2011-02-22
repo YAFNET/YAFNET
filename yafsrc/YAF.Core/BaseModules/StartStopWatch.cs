@@ -30,9 +30,9 @@ namespace YAF.Core
   #endregion
 
   /// <summary>
-  /// The init services module.
+  /// Stop watch start/stop
   /// </summary>
-  [YafModule("Start Stop Watch Module", "Tiny Gecko", 1)]
+  [ExportService(ServiceLifetimeScope.InstancePerScope)]
   public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<ForumPageUnloadEvent>
   {
     #region Constants and Fields

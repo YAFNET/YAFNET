@@ -79,7 +79,13 @@ namespace YAF.Core
 
       // handle registration...
       this.RegisterExternalModules();
-      this.RegisterExternalServices();
+
+      // external first...
+      this.RegisterDynamicServices(this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()));
+
+      // internal bindings next...
+      this.RegisterDynamicServices(new[] { Assembly.GetExecutingAssembly() });
+
       this.RegisterBasicBindings();
       this.RegisterEventBindings();
       this.RegisterMembershipProviders();
@@ -195,9 +201,9 @@ namespace YAF.Core
       builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
       builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
-      // scan assemblies for events to wire up...
-      builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
-        AsImplementedInterfaces().InstancePerLifetimeScope();
+      //// scan assemblies for events to wire up...
+      //builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
+      //  AsImplementedInterfaces().InstancePerLifetimeScope();
 
       this.UpdateRegistry(builder);
     }
@@ -221,23 +227,31 @@ namespace YAF.Core
     /// <summary>
     /// The register services.
     /// </summary>
-    private void RegisterExternalServices()
+    /// <exception cref="NotSupportedException"><c>NotSupportedException</c>.</exception>
+    private void RegisterDynamicServices([NotNull] IEnumerable<Assembly> assemblies)
     {
+      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
+
       var builder = new ContainerBuilder();
 
-      var classes =
-        this.ExtensionAssemblies.Where(a => a != Assembly.GetExecutingAssembly()).FindClassesWithAttribute
-          <ExportServiceAttribute>();
+      var classes = assemblies.FindClassesWithAttribute<ExportServiceAttribute>();
+
+      var exclude = new List<Type> { typeof(IDisposable), typeof(IHaveServiceLocator), typeof(IHaveLocalization) };
 
       foreach (var c in classes)
       {
         var built = builder.RegisterType(c).As(c);
-        c.GetInterfaces().Where(i => i != typeof(IDisposable)).ForEach(i => built.As(i));
-
+        c.GetInterfaces().Where(i => !exclude.Contains(i)).ForEach(i => built.As(i));
+        
         var exportAttribute = c.GetAttribute<ExportServiceAttribute>();
 
         if (exportAttribute != null && built != null)
         {
+          if (exportAttribute.Named.IsSet())
+          {
+            built = built.Named(exportAttribute.Named, c.GetType());
+          }
+
           switch (exportAttribute.ServiceLifetimeScope)
           {
             case ServiceLifetimeScope.Singleton:
@@ -264,6 +278,8 @@ namespace YAF.Core
               built.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
               break;
           }
+
+          built.PreserveExistingDefaults();
         }
       }
 

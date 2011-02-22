@@ -24,6 +24,7 @@ namespace YAF.Core
 
   using YAF.Classes;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
 
@@ -32,6 +33,7 @@ namespace YAF.Core
   /// <summary>
   /// The update provider on init event.
   /// </summary>
+  [ExportService(ServiceLifetimeScope.InstancePerScope)]
   public class UpdateProviderOnInitEvent : IHandleEvent<ForumPageInitEvent>
   {
     #region Constants and Fields

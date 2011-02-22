@@ -20,7 +20,7 @@ using YAF.Types.Attributes;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
-[assembly: AssemblyProduct("YAF.Classes.Core")]
+[assembly: AssemblyProduct("YAF.Core")]
 [assembly: AssemblyCopyright("Copyright © 2006-2011 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
