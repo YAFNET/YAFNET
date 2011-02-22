@@ -118,7 +118,13 @@ namespace YAF.Pages
           userName = UserMembershipHelper.GetUserNameFromID(id.Value);
 
           // validate again...
-          e.Authenticated = this.Get<MembershipProvider>().ValidateUser(userName, password);
+           if (this.Get<MembershipProvider>().ValidateUser(userName, password))
+           {
+             e.Authenticated = true;
+
+             // update the username
+             this.Login1.UserName = userName;
+           }
         }
       }
     }
