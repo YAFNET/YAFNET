@@ -146,6 +146,7 @@
     <Compile Include="Interfaces\IStartupService.cs" />
     <Compile Include="Interfaces\IStopWatch.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\IRequireStartupServices.cs" />
     <Compile Include="Interfaces\ITaskModuleManager.cs" />
     <Compile Include="Interfaces\ITreatCacheKey.cs" />
     <Compile Include="Interfaces\IUrlBuilder.cs" />

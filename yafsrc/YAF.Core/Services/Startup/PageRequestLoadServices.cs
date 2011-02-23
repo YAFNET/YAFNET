@@ -27,6 +27,7 @@ namespace YAF.Core.Services
   using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
+  using YAF.Utils;
 
   #endregion
 
@@ -111,8 +112,12 @@ namespace YAF.Core.Services
     /// </exception>
     private void RequestedPage_PreInit([NotNull] object sender, [NotNull] EventArgs e)
     {
-      // run startup services...
-      this.RunStartupServices();
+      // only run startup services for pages that require it.
+      if (this.RequestPage.HasInterface<IRequireStartupServices>())
+      {
+        // run startup services...
+        this.RunStartupServices();
+      }
     }
 
     #endregion
