@@ -270,8 +270,9 @@ namespace YAF.Pages
       if (!this.IsOutbox)
       {
         var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").ToType<int>();
+        
         LegacyDb.pmessage_markread(userPmessageId);
-
+        this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
         this.Get<IRaiseEvent>().Raise(new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, userPmessageId));
       }
     }

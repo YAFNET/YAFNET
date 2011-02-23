@@ -37,7 +37,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="postformheader" valign="top">
+		<td class="postformheader" valign="top"  width="20%">
 			<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
 			<uc1:smileys runat="server" OnClick="insertsmiley" ID="SmileysBox" />
 		</td>
