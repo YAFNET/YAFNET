@@ -13,6 +13,15 @@ namespace YAF.Controls {
     public partial class PollList {
         
         /// <summary>
+        /// PollListHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PollListHolder;
+        
+        /// <summary>
         /// PollGroup control.
         /// </summary>
         /// <remarks>

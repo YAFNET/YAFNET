@@ -2,6 +2,7 @@
     Inherits="YAF.Controls.PollList" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
  <%@ Register TagPrefix="YAF" TagName="PollChoiceList" Src="PollChoiceList.ascx" %>
+<asp:PlaceHolder id="PollListHolder" runat="server" Visible="true">
 <table cellpadding="0" cellspacing="1" class="content" width="100%">
     <asp:Repeater ID="PollGroup" OnItemCommand="PollGroup_ItemCommand" OnItemDataBound="PollGroup_OnItemDataBound"
         runat="server" Visible="true">
@@ -97,4 +98,4 @@
         </td>
     </tr>
 </table>
-<br />
+</asp:PlaceHolder>

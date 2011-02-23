@@ -30,6 +30,7 @@ namespace YAF.Controls
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
+  using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
@@ -180,8 +181,8 @@ namespace YAF.Controls
     /// </returns>
     protected bool CanCreatePoll()
     {
-      return (this.PollNumber < this.PageContext.BoardSettings.AllowedPollNumber) &&
-             (this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0) && this.HasOwnerExistingGroupAccess() &&
+        return (this.PollNumber < this.Get<YafBoardSettings>().AllowedPollNumber) &&
+             (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0) && this.HasOwnerExistingGroupAccess() &&
              (this.PollGroupId >= 0);
     }
 
@@ -196,7 +197,7 @@ namespace YAF.Controls
     protected bool CanEditPoll([NotNull] object pollId)
     {
       // The host admin can forbid a user to change poll after first vote to avoid fakes.    
-      if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+        if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
       {
         // Only if show buttons are enabled user can edit poll 
         return this.ShowButtons &&
@@ -227,7 +228,7 @@ namespace YAF.Controls
         hasNoVotes = false;
       }
 
-      if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+      if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
@@ -289,7 +290,7 @@ namespace YAF.Controls
     /// </returns>
     protected bool CanRemovePollCompletely([NotNull] object pollId)
     {
-      if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+        if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.IsModerator ||
@@ -387,8 +388,7 @@ namespace YAF.Controls
     protected string GetPollQuestion([NotNull] object pollId)
     {
       foreach (DataRow dr in
-        this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>())
-        )
+        this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
       {
         return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(dr["Question"].ToString()));
       }
@@ -425,8 +425,7 @@ namespace YAF.Controls
     protected string GetTotal([NotNull] object pollId)
     {
       foreach (DataRow dr in
-        this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>())
-        )
+        this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
       {
         return this.HtmlEncode(dr["Total"].ToString());
       }
@@ -507,7 +506,7 @@ namespace YAF.Controls
       }
 
       // voting is not tied to IP and they are a guest...
-      if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
+      if (this.PageContext.IsGuest && !this.Get<YafBoardSettings>().PollVoteTiedToIP)
       {
         hasVote = false;
         return true;
@@ -853,7 +852,7 @@ namespace YAF.Controls
         {
           if (!cvote)
           {
-            if (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions)
+              if (!this.Get<YafBoardSettings>().AllowGuestsViewPollOptions)
             {
               notificationString +=
                 " {0}".FormatWith(this.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
@@ -1159,7 +1158,7 @@ namespace YAF.Controls
         object userId = null;
         object remoteIp = null;
 
-        if (this.PageContext.BoardSettings.PollVoteTiedToIP)
+        if (this.Get<YafBoardSettings>().PollVoteTiedToIP)
         {
           remoteIp = IPHelper.IPStrToLong(this.Request.UserHostAddress).ToString();
         }
@@ -1237,7 +1236,7 @@ namespace YAF.Controls
     /// </returns>
     private bool HasOwnerExistingGroupAccess()
     {
-      if (this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0)
+        if (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0)
       {
         // if topicid > 0 it can be every member
         if (this.TopicId > 0)
@@ -1290,46 +1289,55 @@ namespace YAF.Controls
     /// </summary>
     private void LoadData()
     {
-      // Only if this control is in a topic we find the topic creator
-      if (this.TopicId > 0)
-      {
-        DataRow dti = LegacyDb.topic_info(this.TopicId);
-        this._topicUser = dti["UserID"].ToType<int>();
-        if (!dti["PollID"].IsNullOrEmptyDBField())
+        // Only if this control is in a topic we find the topic creator
+        if (this.TopicId > 0)
         {
-          this.PollGroupId = dti["PollID"].ToType<int>();
+            DataRow dti = LegacyDb.topic_info(this.TopicId);
+            this._topicUser = dti["UserID"].ToType<int>();
+            if (!dti["PollID"].IsNullOrEmptyDBField())
+            {
+                this.PollGroupId = dti["PollID"].ToType<int>();
+            }
         }
-      }
 
-      // We check here various variants if a poll exists, as we don't know from which place comes the call
-      bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
+        // We check here various variants if a poll exists, as we don't know from which place comes the call
+        bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
 
-      // Here we'll find whether we should display create new poll button only 
-      bool topicPoll = this.PageContext.ForumPollAccess &&
-                       (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
-      bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
-      bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
-      bool boardPoll = this.PageContext.BoardVoteAccess &&
-                       (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
+        // Here we'll find whether we should display create new poll button only 
+        bool topicPoll = this.PageContext.ForumPollAccess &&
+                         (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
+        bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
+        bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
+        bool boardPoll = this.PageContext.BoardVoteAccess &&
+                         (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
 
-      this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) &&
-                                this.HasOwnerExistingGroupAccess() && (!existingPoll);
+        this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) &&
+                                  this.HasOwnerExistingGroupAccess() && (!existingPoll);
 
-      // if this is > 0 then we already have a poll and will display all buttons
-      if (this.PollGroupId > 0)
-      {
-        this.BindData();
-      }
-      else
-      {
-        if (this.NewPollRow.Visible)
+        // if this is > 0 then we already have a poll and will display all buttons
+        if (this.PollGroupId > 0)
         {
-          this.BindCreateNewPollRow();
+            this.BindData();
+
+            if (!this._canChange && this.PageContext.ForumPageType == ForumPages.postmessage)
+            {
+                this.PollListHolder.Visible = false;
+            }
         }
-      }
+        else
+        {
+            if (this.NewPollRow.Visible)
+            {
+                this.BindCreateNewPollRow();
+            }
+            else
+            {
+                this.PollListHolder.Visible = false;
+            }
+        }
     }
 
-    /// <summary>
+      /// <summary>
     /// A method to return parameters string. 
     ///   Consrtucts parameters string to send to other forms.
     /// </summary>
