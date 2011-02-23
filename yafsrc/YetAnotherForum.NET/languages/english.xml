@@ -623,6 +623,7 @@
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
      <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+     <Resource tag="GOTOPOST_ТТ">Go to message</Resource>
      <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>
      <Resource tag="GOTOLASTPAGE_TT">Go to last page</Resource>
      <Resource tag="GOTONEXTPAGE_TT">Next Page</Resource>

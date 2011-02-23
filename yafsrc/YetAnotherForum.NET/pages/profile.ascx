@@ -258,9 +258,12 @@
 										<td class="small" align="left" colspan="2">
 											<strong>
 												<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
-											</strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+											</strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
 												<%# this.Get<IBadWordReplace>().Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
-											</a>
+											</a>&nbsp;
+                                            <a href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",Container.DataItemToField<int>("MessageID")) %>'>
+												<YAF:ThemeImage ID="ThisPostImage" ThemeTag="ICON_LATEST" LocalizedTitle='<%# this.GetText("DEFAULT", "GO_LAST_POST") %>' UseTitleForEmptyAlt="true"  runat="server" Style="border: 0" />
+                                            </a>
 											<br />
 											<strong>
 												<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
