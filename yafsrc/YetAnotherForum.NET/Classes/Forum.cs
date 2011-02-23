@@ -22,14 +22,12 @@ namespace YAF
   #region Using
 
   using System;
-  using System.Collections.Generic;
   using System.IO;
   using System.Web;
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Data;
   using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
@@ -426,6 +424,9 @@ namespace YAF
     /// </param>
     private void Forum_Init([NotNull] object sender, [NotNull] EventArgs e)
     {
+      // run startup services -- should already be called except when running inside a CMS.
+      this.RunStartupServices();
+
       // handle script manager first...
       if (ScriptManager.GetCurrent(this.Page) != null)
       {
