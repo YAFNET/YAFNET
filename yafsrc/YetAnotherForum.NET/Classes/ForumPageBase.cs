@@ -35,7 +35,7 @@ namespace YAF
   /// <summary>
   /// Optional forum page base providing some helper functions.
   /// </summary>
-  public class ForumPageBase : Page, IHaveServiceLocator
+  public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
   {
     #region Properties
 
