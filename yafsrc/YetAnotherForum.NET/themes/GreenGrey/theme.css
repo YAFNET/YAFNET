@@ -135,10 +135,11 @@
 }
 .yafnet tr.header2 td,
 .yafnet tr.header2 th,
-.yafnet td.header2 {
+.yafnet td.header2,
+.yafnet th.header2 {
 	border-top:1px solid #555;
 	line-height: 20px;
-	background: url('Header2Back.png') repeat-x #ffffff;
+	background: url('Header2Back.png') repeat-x -3px #ffffff;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#e3e3e3), to(#ffffff));
 	background: -moz-linear-gradient(top,  #e3e3e3,  #ffffff);
@@ -147,6 +148,12 @@
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	font-weight: bold;
 }
+.yafnet .headerReplies,
+.yafnet .headerViews {
+	text-align:left;
+}
+.headerLastPost {text-align:center;}
+
 .postForumUsers tr.header2 td,
 #DataPanel1_Table td.header2,
 #yafprofilecontent td.header2,
