@@ -4855,7 +4855,9 @@ begin
 		(case 
         when @SortEdited = 2 then m.Edited end) DESC,
 		(case 
-        when @SortEdited = 1 then m.Edited end) ASC  	
+        when @SortEdited = 1 then m.Edited end) ASC  
+
+		SET ROWCOUNT 0
 end
 GO
 
@@ -6820,6 +6822,7 @@ begin
 		 when @SortPosts = 1 then a.NumPosts end) ASC 
    
    set nocount off
+   SET ROWCOUNT 0
 end
 GO
 
