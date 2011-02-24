@@ -1345,6 +1345,7 @@
     <Content Include="resources\icons\folders-stack.png" />
     <Content Include="resources\icons\gear--pencil.png" />
     <Content Include="resources\icons\gear.png" />
+    <Content Include="resources\icons\globe-green.png" />
     <Content Include="resources\icons\hammer-screwdriver.png" />
     <Content Include="resources\icons\InfoBig.png" />
     <Content Include="resources\icons\information.png" />
