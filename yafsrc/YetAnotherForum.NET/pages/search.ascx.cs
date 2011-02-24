@@ -542,8 +542,25 @@ namespace YAF.Pages
 
       string messageID = cell.InnerText;
       int rowCount = e.Item.ItemIndex + 1 + (this.Pager.CurrentPageIndex * this.Pager.PageSize);
-      cell.InnerHtml = "<a href=\"{1}\">{0}</a>".FormatWith(
+      cell.InnerHtml = "<a href=\"{1}\">{0}</a><a href=\"{1}\">".FormatWith(
         rowCount, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
+    }
+
+    /// <summary>
+    /// Get Theme Contents
+    /// </summary>
+    /// <param name="page">
+    /// The Localization Page.
+    /// </param>
+    /// <param name="tag">
+    /// The Localisation Page Tag.
+    /// </param>
+    /// <returns>
+    /// Returns Theme Content.
+    /// </returns>
+    protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
+    {
+        return this.Get<ITheme>().GetItem(page, tag);
     }
 
     /// <summary>
