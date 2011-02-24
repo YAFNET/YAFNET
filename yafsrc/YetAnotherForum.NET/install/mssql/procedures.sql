@@ -1451,8 +1451,9 @@ begin
 			JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID	
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID							  
 		where
-			c.BoardID = @BoardID 	
-			   and ((c.Flags & 4) = 4 OR (c.Flags & 2) <> 2 OR  (c.Flags & 8) = 8)					  
+			c.BoardID = @BoardID 
+			   -- is registered or is crawler 
+			   and ((c.Flags & 4) = 4 OR (c.Flags & 8) = 8)			  
 		order by 
 			c.LastActive desc
 	else
@@ -1572,7 +1573,9 @@ begin
 			inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x
 			ON (x.ForumID = ISNULL(c.ForumID,0))						
 		where		
-			c.BoardID = @BoardID AND x.UserID = @UserID	  and ((c.Flags & 4) = 4 OR (c.Flags & 2) <> 2 OR  (c.Flags & 8) = 8)		
+			c.BoardID = @BoardID AND x.UserID = @UserID	     
+			-- is registered or (is crawler and is registered 	
+			   and ((c.Flags & 4) = 4 OR (c.Flags & 8) = 8)		
 		order by
 			c.LastActive desc
 	else
@@ -4037,7 +4040,9 @@ begin
 	select top 1 @BoardUID = BoardUID from [{databaseOwner}].[{objectQualifier}Board] where BoardID=@BoardID
 	end
 	else
-	select top 1 @BoardID = BoardID from [{databaseOwner}].[{objectQualifier}Board] where BoardUID=@BoardUID
+	begin
+	select top 1 @BoardID = BoardID from [{databaseOwner}].[{objectQualifier}Board] where BoardUID=@BoardUID	
+    end
 
 	-- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
 	select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
@@ -4045,9 +4050,8 @@ begin
 		if (@rowcount = 0)
 		begin
 			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
-	end
-
-
+			end	
+         
 	if @UserKey is null
 	begin
 	
@@ -4062,9 +4066,10 @@ begin
 				-- set IsCrawler ActiveFlag
 				set @ActiveFlags =  @ActiveFlags | 8
 			end 
-	end else	
+	end 
+	else	
 	begin
-		select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@UserKey
+		select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] with(nolock) where BoardID=@BoardID and ProviderUserKey=@UserKey
 		set @IsGuest = 0
 		-- make sure that registered users are not crawlers
 		set @IsCrawler = 0
@@ -4091,7 +4096,7 @@ begin
 	end
 
 	-- ensure that no duplicates and that the guest access rights always present in the access table 
-	 if not exists (select 
+	 if not exists (select top 1
 			UserID	
 			from [{databaseOwner}].[{objectQualifier}ActiveAccess] 
 			where UserID = @GuestID)
@@ -4186,13 +4191,13 @@ begin
 	end
 	-- update active
 	-- ensure that access right are in place		
-		if exists (select 
+		if exists (select top 1
 			UserID	
 			from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
 			where UserID = @UserID )
 			begin
 
-			if not exists (select 
+			if not exists (select  top 1
 			UserID	
 			from [{databaseOwner}].[{objectQualifier}ActiveAccess]  WITH(NOLOCK)
 			where UserID = @UserID and ForumID=IsNull(@ForumID,0)) 
