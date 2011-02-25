@@ -25,10 +25,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader" width="50%">
+                        <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="SERVER_VERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
-                        <td class="post" width="50%">
+                        <td class="post">
                             <asp:Label ID="SQLVersion" runat="server" CssClass="smallfont"></asp:Label>
                         </td>
                     </tr>
@@ -794,7 +794,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
+                        <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel152" runat="server" LocalizedTag="ACTIVE_USERTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1045,7 +1045,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader" style="width:450px">
+                        <td class="postheader"  style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel26" runat="server" LocalizedTag="POST_AD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1070,7 +1070,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader" style="width:450px">
+                        <td class="postheader"  style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel88" runat="server" LocalizedTag="FORUM_EDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1120,7 +1120,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
+                        <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel84" runat="server" LocalizedTag="USER_CHANGE_THEME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1270,7 +1270,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
+                        <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel57" runat="server" LocalizedTag="USERBOX_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1383,7 +1383,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
+                        <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel50" runat="server" LocalizedTag="REMOTE_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1453,7 +1453,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader">
+                        <td class="postheader" style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel41" runat="server" LocalizedTag="STATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
@@ -1546,7 +1546,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="postheader" style="width:450px">
+                        <td class="postheader"  style="width:50%">
                             <YAF:HelpLabel ID="HelpLabel28" runat="server" LocalizedTag="MAX_SEARCH_RESULTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
