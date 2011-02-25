@@ -239,10 +239,10 @@ namespace YAF.Classes
     /// </summary>
     public static string ForceScriptName
     {
-      get
-      {
-        return GetConfigValueAsString("YAF.ForceScriptName");
-      }
+        get
+        {
+            return GetConfigValueAsString("YAF.ForceScriptName");
+        }
     }
 
     /// <summary>
@@ -361,7 +361,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.5.min.js";
+        return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery-1.5.1.min.js";
       }
     }
 
