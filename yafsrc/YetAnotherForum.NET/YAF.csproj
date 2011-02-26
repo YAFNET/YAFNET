@@ -1977,9 +1977,7 @@
     <Content Include="themes\BlackGrey\expand.gif" />
     <Content Include="themes\BlackGrey\female.gif" />
     <Content Include="themes\BlackGrey\folder_stats.gif" />
-    <Content Include="themes\BlackGrey\folder_stats.png" />
     <Content Include="themes\BlackGrey\folder_who.gif" />
-    <Content Include="themes\BlackGrey\folder_who.png" />
     <Content Include="themes\BlackGrey\FooterBack.png" />
     <Content Include="themes\BlackGrey\forum.png" />
     <Content Include="themes\BlackGrey\forum_locked.png" />
@@ -2054,9 +2052,7 @@
     <Content Include="themes\BlueGrey\expand.gif" />
     <Content Include="themes\BlueGrey\female.gif" />
     <Content Include="themes\BlueGrey\folder_stats.gif" />
-    <Content Include="themes\BlueGrey\folder_stats.png" />
     <Content Include="themes\BlueGrey\folder_who.gif" />
-    <Content Include="themes\BlueGrey\folder_who.png" />
     <Content Include="themes\BlueGrey\FooterBack.png" />
     <Content Include="themes\BlueGrey\forum.png" />
     <Content Include="themes\BlueGrey\forum_locked.png" />
@@ -2202,9 +2198,7 @@
     <Content Include="themes\GreenGrey\expand.gif" />
     <Content Include="themes\GreenGrey\female.gif" />
     <Content Include="themes\GreenGrey\folder_stats.gif" />
-    <Content Include="themes\GreenGrey\folder_stats.png" />
     <Content Include="themes\GreenGrey\folder_who.gif" />
-    <Content Include="themes\GreenGrey\folder_who.png" />
     <Content Include="themes\GreenGrey\FooterBack.png" />
     <Content Include="themes\GreenGrey\forum.png" />
     <Content Include="themes\GreenGrey\forum_locked.png" />
@@ -2279,9 +2273,7 @@
     <Content Include="themes\GreyGrey\expand.gif" />
     <Content Include="themes\GreyGrey\female.gif" />
     <Content Include="themes\GreyGrey\folder_stats.gif" />
-    <Content Include="themes\GreyGrey\folder_stats.png" />
     <Content Include="themes\GreyGrey\folder_who.gif" />
-    <Content Include="themes\GreyGrey\folder_who.png" />
     <Content Include="themes\GreyGrey\FooterBack.png" />
     <Content Include="themes\GreyGrey\forum.png" />
     <Content Include="themes\GreyGrey\forum_locked.png" />
@@ -2354,9 +2346,7 @@
     <Content Include="themes\OrangeGrey\expand.gif" />
     <Content Include="themes\OrangeGrey\female.gif" />
     <Content Include="themes\OrangeGrey\folder_stats.gif" />
-    <Content Include="themes\OrangeGrey\folder_stats.png" />
     <Content Include="themes\OrangeGrey\folder_who.gif" />
-    <Content Include="themes\OrangeGrey\folder_who.png" />
     <Content Include="themes\OrangeGrey\FooterBack.png" />
     <Content Include="themes\OrangeGrey\forum.png" />
     <Content Include="themes\OrangeGrey\forum_locked.png" />
@@ -2431,9 +2421,7 @@
     <Content Include="themes\RedGrey\expand.gif" />
     <Content Include="themes\RedGrey\female.gif" />
     <Content Include="themes\RedGrey\folder_stats.gif" />
-    <Content Include="themes\RedGrey\folder_stats.png" />
     <Content Include="themes\RedGrey\folder_who.gif" />
-    <Content Include="themes\RedGrey\folder_who.png" />
     <Content Include="themes\RedGrey\FooterBack.png" />
     <Content Include="themes\RedGrey\forum.png" />
     <Content Include="themes\RedGrey\forum_locked.png" />
