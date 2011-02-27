@@ -689,30 +689,6 @@ namespace YAF
 
       this.Get<StartupInitializeDb>().Run();
 
-      // vzrus: to log unhandled UserAgent strings
-      if (YafContext.Current.BoardSettings.UserAgentBadLog)
-      {
-        if (userAgent.IsNotSet())
-        {
-          LegacyDb.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
-        }
-
-        if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
-        {
-          LegacyDb.eventlog_create(
-            YafContext.Current.PageUserID,
-            this,
-            "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'."
-              .FormatWith(
-                userAgent,
-                HttpContext.Current.Request.Browser.Platform,
-                HttpContext.Current.Request.Browser.Browser,
-                HttpContext.Current.Request.Browser.Cookies,
-                user != null ? user.UserName : String.Empty),
-            EventLogTypes.Warning);
-        }
-      }
-
       object userKey = DBNull.Value;
 
       if (user != null)
@@ -742,6 +718,7 @@ namespace YAF
         DataRow auldRow;
       if (pageRow != null)
       {
+         
         // We should be sure that all columns are added
         do
         {
@@ -759,6 +736,13 @@ namespace YAF
           // vzrus: Current column count is 43 - change it if the total count changes
         }
         while (pageRow.Table.Columns.Count < 43);
+
+        // vzrus: to log unhandled UserAgent strings
+        if (YafContext.Current.BoardSettings.UserAgentBadLog)
+        {
+            new UserAgentLogger().WriteLog(userAgent, YafContext.Current.Get<HttpRequestBase>(), platform, browser,
+                user != null ? user.UserName : string.Empty);
+        }
       }
 
       return pageRow["DownloadAccess"].ToType<bool>() ||

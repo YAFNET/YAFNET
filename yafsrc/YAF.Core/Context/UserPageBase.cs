@@ -831,26 +831,30 @@ namespace YAF.Core
           // vzrus: to log unhandled UserAgent strings
           if (YafContext.Current.BoardSettings.UserAgentBadLog)
           {
-            if (userAgent.IsNotSet())
-            {
-              LegacyDb.eventlog_create(null, this, "UserAgent string is empty.", EventLogTypes.Warning);
-            }
-
-            if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
-            {
-              LegacyDb.eventlog_create(
-                null,
-                this,
-                "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'."
-                  .FormatWith(
-                    userAgent,
-                    YafContext.Current.Get<HttpRequestBase>().Browser.Platform,
-                    YafContext.Current.Get<HttpRequestBase>().Browser.Browser,
-                    YafContext.Current.Get<HttpRequestBase>().Browser.Cookies,
-                    user != null ? user.UserName : String.Empty),
-                EventLogTypes.Warning);
-            }
-          }
+              if (userAgent.IsNotSet())
+              {
+                  LegacyDb.eventlog_create(null, this, "UserAgent string is empty.", EventLogTypes.Warning);
+              }
+              else
+              {
+                  if (YafContext.Current.Get<HttpRequestBase>() != null && YafContext.Current.Get<HttpRequestBase>().Browser != null && platform.ToLower().Contains("unknown") ||
+                  browser.ToLower().Contains("unknown"))
+                  {
+                  LegacyDb.eventlog_create(
+                      null,
+                      this,
+                      "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nSupports EcmaScript='{4}' /r/nUserID='{5}'."
+                          .FormatWith(
+                              userAgent,
+                              YafContext.Current.Get<HttpRequestBase>().Browser.Platform,
+                              YafContext.Current.Get<HttpRequestBase>().Browser.Browser,
+                              YafContext.Current.Get<HttpRequestBase>().Browser.Cookies,
+                              YafContext.Current.Get<HttpRequestBase>().Browser.EcmaScriptVersion.ToString(),
+                              user != null ? user.UserName : String.Empty),
+                      EventLogTypes.Warning);
+                  }
+              }
+        }
 
           object userKey = DBNull.Value;
 
@@ -943,6 +947,13 @@ namespace YAF.Core
           if (Convert.ToBoolean(pageRow["ActiveUpdate"]))
           {
             YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+          }
+
+          // vzrus: to log unhandled UserAgent strings
+          if (YafContext.Current.BoardSettings.UserAgentBadLog)
+          {
+              new UserAgentLogger().WriteLog(userAgent, YafContext.Current.Get<HttpRequestBase>(), platform, browser,
+                  user != null ? user.UserName : string.Empty);
           }
 
           YafContext.Current.Vars["DontTrack"] = dontTrack;
