@@ -19,7 +19,8 @@
                 <asp:Repeater runat="server" ID="LatestPosts" OnItemDataBound="LatestPosts_ItemDataBound">
                     <ItemTemplate>
                         <tr>
-                            <td class="post">
+                            <td class="post" style="padding-left:10px">
+                                <asp:Image ID="NewPostIcon" runat="server" style="border: 0;width:16px;height:16px" />
                                 &nbsp;<strong><asp:HyperLink ID="TextMessageLink" runat="server" /></strong>
                                 &nbsp;<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
                                 &nbsp;<YAF:UserLink ID="LastUserLink" runat="server" />&nbsp;(<asp:HyperLink ID="ForumLink" runat="server" />)
