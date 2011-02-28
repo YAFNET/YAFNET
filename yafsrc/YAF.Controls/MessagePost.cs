@@ -275,14 +275,17 @@ namespace YAF.Controls
       {
         string formattedMessage = this.HighlightMessage(this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags));
 
-        if (this.MessageFlags.IsBBCode)
+        // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
+        this.RenderModulesInBBCode(writer, formattedMessage, this.MessageFlags, this.DisplayUserID);
+
+        /*if (this.MessageFlags.IsBBCode)
         {
           this.RenderModulesInBBCode(writer, formattedMessage, this.MessageFlags, this.DisplayUserID);
         }
         else
         {
           writer.Write(formattedMessage);
-        }
+        }*/
       }
     }
 

@@ -293,7 +293,15 @@ namespace YAF.Controls
             editedMessage = this.Edited;
           }
 
-          if (this.MessageFlags.IsBBCode)
+          // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
+          this.RenderModulesInBBCode(
+           writer,
+           this.HighlightMessage(
+             this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)),
+           this.MessageFlags,
+           this.DisplayUserID);
+
+          /*/if (this.MessageFlags.IsBBCode)
           {
             this.RenderModulesInBBCode(
               writer, 
@@ -301,13 +309,13 @@ namespace YAF.Controls
                 this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
               this.MessageFlags, 
               this.DisplayUserID);
-          }
+         /* }
           else
           {
             writer.Write(
               this.HighlightMessage(
                 this.Get<IFormatMessage>().FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
-          }
+          }*/
         }
         else
         {
