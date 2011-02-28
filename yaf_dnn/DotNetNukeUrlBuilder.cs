@@ -23,6 +23,7 @@ namespace YAF.DotNetNuke
 
     using System;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Web;
     using global::DotNetNuke.Common;
     using global::DotNetNuke.Entities.Portals;
@@ -201,6 +202,13 @@ namespace YAF.DotNetNuke
         }
 
          newUrl.Append(".aspx");
+
+        if (newUrl.Length >= 260)
+        {
+            newUrl.Remove(newUrl.ToString().LastIndexOf("/"), newUrl.Length - newUrl.ToString().LastIndexOf("/"));
+
+            newUrl.Append("/Default.aspx");
+        }
 
         string restURL = parser.CreateQueryString(new[] { "g", useKey });
 
