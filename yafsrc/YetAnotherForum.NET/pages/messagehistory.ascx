@@ -11,49 +11,13 @@
     </tr>
     <asp:Repeater ID="RevisionsList" runat="server">
         <ItemTemplate>
-            <tr class="header2">
-                <td>
-                    <strong>
-                       <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="MESSAGEHISTORY"
-                          LocalizedTag='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) ? "ORIGINALMESSAGE" : "HISTORYSTART"  %>'
-                        />
-                        
-                    </strong>
-                </td>
-                <td colspan="2">
-                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) ? "POSTEDBY" : "EDITEDBY"  %>' />
-                    <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />&nbsp;-&nbsp;
-                    <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
-                </td>
-            </tr>
-            <tr runat="server" id="history_tr"
+            <tr runat="server" id="history_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted")) %>'
                 class="postheader">
-                <td id="original_column" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
-                    runat="server" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) %>'
-                    style="width:20%;vertical-align:top;">
-                    
-                    <strong>
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
-                    </strong>
-                    <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
-                    <br />
-                    <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="POSTEDBY" />:</strong>
-                      <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
-                        Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                      <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                      <br />
-                      <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
-                        <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
-                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
-                    </span>
+                <td colspan="1" class="header2">
+                    &nbsp;
                 </td>
                 <td id="history_column" colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
-                     visible='<%# (Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted")) %>'
-                    runat="server" style="width:20%;vertical-align:top;">
+                    runat="server">
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITED" />
@@ -79,28 +43,59 @@
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>
                 </td>
-                <td class="post">
+            </tr>
+            <tr runat="server" id="original_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) %>'
+                class="postheader">
+                <td class="header2" colspan="1">
+                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="MESSAGEHISTORY"
+                        LocalizedTag="ORIGINALMESSAGE">
+                    </YAF:LocalizedLabel>
+                </td>
+                <td id="original_column" colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
+                    runat="server">
+                    <strong>
+                        <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                    </strong>
+                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
+                        Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                    &nbsp; <strong>
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
+                    </strong>
+                    <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
+                    &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
+                        <strong>
+                            <%# this.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
+                                target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="post" colspan="2" align="center">
                     <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
                         ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModerator ? Container.DataItem : null %>">
                     </YAF:MessagePostData>
+                </td>
+            </tr>
+            <tr runat="server" id="historystart_tr" visible='<%# (Container.DataItemToField<DateTime>("Edited") == Container.DataItemToField<DateTime>("Posted")) && !singleReport %>'
+                class="postheader">
+                <td class="header2" colspan="2">
+                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="MESSAGEHISTORY"
+                        LocalizedTag="HISTORYSTART">
+                    </YAF:LocalizedLabel>
                 </td>
             </tr>
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="CurrentMessageRpt" Visible="false" runat="server">
         <ItemTemplate>
-            <tr class="header2">
-                <td><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="MESSAGEHISTORY"
-                        LocalizedTag="CURRENTMESSAGE" /> </td>
-                <td style="vertical-align:top">
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEDBY" />
-                    <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />&nbsp;-&nbsp;
-                    <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
+            <tr class="postheader">
+                <td class="header2" colspan="1" valign="top">
+                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="MESSAGEHISTORY"
+                        LocalizedTag="CURRENTMESSAGE" />
                 </td>
-            </tr>
-                <td class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
-                    runat="server" style="vertical-align:top">
+                <td colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
+                    runat="server">
                     <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITED" />
@@ -127,7 +122,9 @@
                     </span>
                     <br />
                 </td>
-                <td class="post" style="vertical-align:top">
+            </tr>
+            <tr>
+                <td class="post" colspan="2" align="center">
                     <YAF:MessagePostData ID="MessagePostCurrent" runat="server" ShowAttachments="false"
                         ShowSignature="false" DataRow="<%# PageContext.IsAdmin || PageContext.IsModerator ? Container.DataItem : null %>">
                     </YAF:MessagePostData>
@@ -136,8 +133,7 @@
         </ItemTemplate>
     </asp:Repeater>
     <tr class="postfooter">
-        <td></td>
-        <td>
+        <td class="post" colspan="2">
             <YAF:ThemeButton ID="ReturnBtn" CssClass="yafcssbigbutton leftItem" OnClick="ReturnBtn_OnClick"
                 TextLocalizedTag="TOMESSAGE" Visible="false" runat="server">
             </YAF:ThemeButton>
