@@ -23,6 +23,7 @@ namespace YAF.Controls
   using System;
   using System.Collections;
   using System.Data;
+  using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web.UI;
@@ -125,29 +126,31 @@ namespace YAF.Controls
 
       set
       {
-        if (this.PageCache != null && this.DataRow != null)
-        {
+          if (this.PageCache == null || this.DataRow == null)
+          {
+              return;
+          }
+
           // get cache for user boxes
           object cache = this.PageCache[Constants.Cache.UserBoxes];
 
           // is it hashtable?
           if (cache != null && cache is Hashtable)
           {
-            // save userbox for user of this id to cache
-            ((Hashtable)cache)[this.UserId] = value;
+              // save userbox for user of this id to cache
+              ((Hashtable)cache)[this.UserId] = value;
           }
           else
           {
-            // create new hashtable for userbox caching
-            cache = new Hashtable();
+              // create new hashtable for userbox caching
+              cache = new Hashtable();
 
-            // save userbox of this user
-            ((Hashtable)cache)[this.UserId] = value;
+              // save userbox of this user
+              ((Hashtable)cache)[this.UserId] = value;
 
-            // save cache
-            this.PageCache[Constants.Cache.UserBoxes] = cache;
+              // save cache
+              this.PageCache[Constants.Cache.UserBoxes] = cache;
           }
-        }
       }
     }
 
@@ -170,12 +173,7 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.DataRow != null)
-        {
-          return this.DataRow["UserID"].ToType<int>();
-        }
-
-        return 0;
+          return this.DataRow != null ? this.DataRow["UserID"].ToType<int>() : 0;
       }
     }
 
@@ -186,13 +184,8 @@ namespace YAF.Controls
     {
       get
       {
-        if (this._userProfile == null)
-        {
-          // setup instance of the user profile...
-          this._userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
-        }
-
-        return this._userProfile;
+          return this._userProfile ??
+                 (this._userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId)));
       }
     }
 
@@ -208,18 +201,13 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    ///   Refines style string from other skins info
+    ///   Gets Refines style string from other skins info
     /// </summary>
     private IStyleTransform TransformStyle
     {
       get
       {
-        if (this._styleTransforum == null)
-        {
-          this._styleTransforum = this.Get<IStyleTransform>();
-        }
-
-        return this._styleTransforum;
+          return this._styleTransforum ?? (this._styleTransforum = this.Get<IStyleTransform>());
       }
     }
 
@@ -236,14 +224,14 @@ namespace YAF.Controls
     [NotNull]
     protected string CreateUserBox()
     {
-      string userBox = this.PageContext.BoardSettings.UserBox;
+      string userBox = this.Get<YafBoardSettings>().UserBox;
 
       // Get styles table for user 
       // this should be called once for groups and for rank for each user/post.
       DataTable roleRankStyleTable = this.Get<IDataCache>().GetOrSet(
         Constants.Cache.GroupRankStyles, 
-        () => LegacyDb.group_rank_style(YafContext.Current.PageBoardID), 
-        TimeSpan.FromMinutes(YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout));
+        () => LegacyDb.group_rank_style(YafContext.Current.PageBoardID),
+        TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
 
       // Avatar
       userBox = this.MatchUserBoxAvatar(userBox);
@@ -362,7 +350,7 @@ namespace YAF.Controls
         if (avatarUrl.IsSet())
         {
           filler =
-            this.PageContext.BoardSettings.UserBoxAvatar.FormatWith(
+            this.Get<YafBoardSettings>().UserBoxAvatar.FormatWith(
               @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" /></a>".FormatWith(
                 avatarUrl, 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}", this.UserId), 
@@ -424,23 +412,24 @@ namespace YAF.Controls
       string imagePath = string.Empty;
       string imageAlt = string.Empty;
 
-      if (this.PageContext.BoardSettings.AllowGenderInUserBox)
+      if (this.Get<YafBoardSettings>().AllowGenderInUserBox)
       {
         if (userGender > 0)
         {
-          if (userGender == 1)
-          {
-            imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
-            imageAlt = this.GetText("USERGENDER_MAS");
-          }
-          else if (userGender == 2)
-          {
-            imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
-            imageAlt = this.GetText("USERGENDER_FEM");
-          }
+            switch (userGender)
+            {
+                case 1:
+                    imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
+                    imageAlt = this.GetText("USERGENDER_MAS");
+                    break;
+                case 2:
+                    imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
+                    imageAlt = this.GetText("USERGENDER_FEM");
+                    break;
+            }
 
-          filler =
-            this.PageContext.BoardSettings.UserBoxGender.FormatWith(
+            filler =
+            this.Get<YafBoardSettings>().UserBoxGender.FormatWith(
               @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
         }
       }
@@ -471,7 +460,7 @@ namespace YAF.Controls
 
       Regex rx = this.GetRegex(Constants.UserBox.Groups);
 
-      if (this.PageContext.BoardSettings.ShowGroups)
+      if (this.Get<YafBoardSettings>().ShowGroups)
       {
         var groupsText = new StringBuilder(500);
 
@@ -480,32 +469,25 @@ namespace YAF.Controls
 
         foreach (string role in RoleMembershipHelper.GetRolesForUser(this.DataRow["UserName"].ToString()))
         {
-          foreach (DataRow drow in roleStyleTable.Rows)
+            string role1 = role;
+
+            foreach (DataRow drow in
+              roleStyleTable.Rows.Cast<DataRow>().Where(drow => drow["LegendID"].ToType<int>() == 1 && drow["Style"] != null && drow["Name"].ToString() == role1))
           {
-            // Groups for a user have LegendID = 1
-            if (Convert.ToInt32(drow["LegendID"]) == 1 && drow["Style"] != null && drow["Name"].ToString() == role)
-            {
               roleStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
               break;
-            }
           }
 
           if (bFirst)
           {
-            if (YafContext.Current.BoardSettings.UseStyledNicks)
-            {
-              groupsText.AppendLine(StyledNick.FormatWith(role, roleStyle));
-            }
-            else
-            {
-              groupsText.AppendLine(role);
-            }
+              groupsText.AppendLine(
+                   this.Get<YafBoardSettings>().UseStyledNicks ? StyledNick.FormatWith(role, roleStyle) : role);
 
-            bFirst = false;
+              bFirst = false;
           }
           else
           {
-            if (YafContext.Current.BoardSettings.UseStyledNicks)
+              if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
               groupsText.AppendLine((@", " + StyledNick).FormatWith(role, roleStyle));
             }
@@ -518,7 +500,7 @@ namespace YAF.Controls
           roleStyle = null;
         }
 
-        filler = this.PageContext.BoardSettings.UserBoxGroups.FormatWith(
+        filler = this.Get<YafBoardSettings>().UserBoxGroups.FormatWith(
           this.GetText("groups"), groupsText);
 
         // mddubs : 02/21/2009
@@ -546,10 +528,10 @@ namespace YAF.Controls
       string filler = string.Empty;
       var rx = this.GetRegex(Constants.UserBox.JoinDate);
 
-      if (this.PageContext.BoardSettings.DisplayJoinDate)
+      if (this.Get<YafBoardSettings>().DisplayJoinDate)
       {
         filler =
-          this.PageContext.BoardSettings.UserBoxJoinDate.FormatWith(
+          this.Get<YafBoardSettings>().UserBoxJoinDate.FormatWith(
             this.GetText("joined"), 
             this.Get<IDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]));
       }
@@ -577,7 +559,7 @@ namespace YAF.Controls
       if (this.UserProfile.Location.IsSet())
       {
         filler =
-          this.PageContext.BoardSettings.UserBoxLocation.FormatWith(
+          this.Get<YafBoardSettings>().UserBoxLocation.FormatWith(
             this.GetText("location"), 
             this.Get<IFormatMessage>().RepairHtml(this.UserProfile.Location, false));
       }
@@ -602,7 +584,7 @@ namespace YAF.Controls
       string filler = string.Empty;
       var rx = this.GetRegex(Constants.UserBox.Medals);
 
-      if (this.PageContext.BoardSettings.ShowMedals)
+      if (this.Get<YafBoardSettings>().ShowMedals)
       {
         DataTable dt = this.Get<IDBBroker>().UserMedals(this.UserId);
 
@@ -643,15 +625,16 @@ namespace YAF.Controls
               inRow = 0;
             }
 
+            var title = "{0}{1}".FormatWith(r["Name"], f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty);
+
             ribbonBar.AppendFormat(
-              "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />", 
-              YafForumInfo.ForumClientFileRoot, 
-              r["SmallRibbonURL"], 
-              r["SmallRibbonWidth"], 
-              r["SmallRibbonHeight"], 
-              r["Name"], 
-              f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty, 
-              YafBoardFolders.Current.Medals);
+            "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
+            YafForumInfo.ForumClientFileRoot,
+            r["SmallRibbonURL"],
+            r["SmallRibbonWidth"],
+            r["SmallRibbonHeight"],
+            title,
+            YafBoardFolders.Current.Medals); 
 
             inRow++;
           }
@@ -684,7 +667,7 @@ namespace YAF.Controls
           i++;
         }
 
-        filler = this.PageContext.BoardSettings.UserBoxMedals.FormatWith(
+        filler = this.Get<YafBoardSettings>().UserBoxMedals.FormatWith(
           this.GetText("MEDALS"), ribbonBar, medals);
       }
 
@@ -708,9 +691,9 @@ namespace YAF.Controls
     {
       string filler = string.Empty;
       var rx = this.GetRegex(Constants.UserBox.Points);
-      if (this.PageContext.BoardSettings.DisplayPoints)
+      if (this.Get<YafBoardSettings>().DisplayPoints)
       {
-        filler = this.PageContext.BoardSettings.UserBoxPoints.FormatWith(
+        filler = this.Get<YafBoardSettings>().UserBoxPoints.FormatWith(
           this.GetText("points"), this.DataRow["Points"]);
       }
 
@@ -737,7 +720,7 @@ namespace YAF.Controls
       // if ((int)this.DataRow["Posts"] > 0)
       // {
       string filler =
-        this.PageContext.BoardSettings.UserBoxPosts.FormatWith(
+        this.Get<YafBoardSettings>().UserBoxPosts.FormatWith(
           this.GetText("posts"), this.DataRow["Posts"]);
 
       // }
@@ -762,35 +745,20 @@ namespace YAF.Controls
     [NotNull]
     private string MatchUserBoxRank([NotNull] string userBox, [NotNull] DataTable roleStyleTable)
     {
-      string rankStyle = null;
-
-      foreach (DataRow drow in roleStyleTable.Rows)
-      {
-        // Rank for a user has LegendID = 2
-        if (Convert.ToInt32(drow["LegendID"]) == 2 && drow["Style"] != null &&
-            drow["Name"].ToString() == this.DataRow["RankName"].ToString())
-        {
-          rankStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
-          break;
-        }
-      }
-
-      string filler = null;
+      string rankStyle = (from DataRow drow in roleStyleTable.Rows
+                          where drow["LegendID"].ToType<int>() == 2 && drow["Style"] != null && drow["Name"].ToString() == this.DataRow["RankName"].ToString()
+                          select this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true)).FirstOrDefault();
 
       var rx = this.GetRegex(Constants.UserBox.Rank);
-      if (YafContext.Current.BoardSettings.UseStyledNicks)
-      {
-        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(
-          this.GetText("rank"), 
-          @"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>".FormatWith(this.DataRow["RankName"], rankStyle));
-      }
-      else
-      {
-        filler = this.PageContext.BoardSettings.UserBoxRank.FormatWith(
-          this.GetText("rank"), this.DataRow["RankName"]);
-      }
 
-      // replaces template placeholder with actual rank
+      string filler = this.Get<YafBoardSettings>().UserBoxRank.FormatWith(
+            this.GetText("rank"),
+            this.Get<YafBoardSettings>().UseStyledNicks
+                ? @"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>".FormatWith(
+                    this.DataRow["RankName"], rankStyle)
+                    : this.DataRow["RankName"]);
+
+        // replaces template placeholder with actual rank
       userBox = rx.Replace(userBox, filler);
       return userBox;
     }
@@ -813,7 +781,7 @@ namespace YAF.Controls
       if (!this.DataRow["RankImage"].IsNullOrEmptyDBField())
       {
         filler =
-          this.PageContext.BoardSettings.UserBoxRankImage.FormatWith(
+          this.Get<YafBoardSettings>().UserBoxRankImage.FormatWith(
             @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />".FormatWith(
               YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.DataRow["RankImage"]));
       }
@@ -839,12 +807,12 @@ namespace YAF.Controls
       var rx = this.GetRegex(Constants.UserBox.ThanksFrom);
 
       // vzrus: should not display if no thanks?
-      if (this.PageContext.BoardSettings.EnableThanksMod)
+      if (this.Get<YafBoardSettings>().EnableThanksMod)
       {
         if ((int)this.DataRow["ThanksFromUserNumber"] > 0)
         {
           filler =
-            this.PageContext.BoardSettings.UserBoxThanksFrom.FormatWith(
+            this.Get<YafBoardSettings>().UserBoxThanksFrom.FormatWith(
               (this.UserProfile.Gender == 1
                  ? this.GetText("thanksfrom_musc")
                  : (this.UserProfile.Gender == 2
@@ -876,12 +844,12 @@ namespace YAF.Controls
       var rx = this.GetRegex(Constants.UserBox.ThanksTo);
 
       // vzrus: should not display if no thanks?
-      if (this.PageContext.BoardSettings.EnableThanksMod)
+      if (this.Get<YafBoardSettings>().EnableThanksMod)
       {
         if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
         {
           filler =
-            this.PageContext.BoardSettings.UserBoxThanksTo.FormatWith(
+            this.Get<YafBoardSettings>().UserBoxThanksTo.FormatWith(
               this.GetText("thanksto").FormatWith(
                 this.DataRow["ThanksToUserNumber"], this.DataRow["ThanksToUserPostsNumber"]));
         }
@@ -907,17 +875,15 @@ namespace YAF.Controls
     {
       if (userBox.IndexOf(@"<div class=""section""></div>") > 0)
       {
-        if (userBox.IndexOf(@"<div class=""section""></div><br />") > 0)
-        {
-          userBox = userBox.Replace(@"<div class=""section""></div><br />", String.Empty);
-        }
-        else
-        {
-          userBox = userBox.Replace(@"<div class=""section""></div>", String.Empty);
-        }
+          userBox =
+              userBox.Replace(
+                  userBox.IndexOf(@"<div class=""section""></div><br />") > 0
+                      ? @"<div class=""section""></div><br />"
+                      : @"<div class=""section""></div>",
+                  String.Empty);
       }
 
-      return userBox;
+        return userBox;
     }
 
     #endregion
