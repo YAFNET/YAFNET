@@ -116,7 +116,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        ///   Gets PollGroupId if the topic has a poll attached
+        ///   Gets or sets the PollGroupId if the topic has a poll attached
         /// </summary>
         protected int? PollGroupId { get; set; }
 
@@ -196,7 +196,7 @@ namespace YAF.Pages
             string blogPostID = string.Empty;
 
             // Does user wish to post this to their blog?
-            if (this.PageContext.BoardSettings.AllowPostToBlog && this.PostToBlog.Checked)
+            if (this.Get<YafBoardSettings>().AllowPostToBlog && this.PostToBlog.Checked)
             {
                 try
                 {
@@ -228,17 +228,17 @@ namespace YAF.Pages
         {
             // see if there is a post delay
             if (!(this.PageContext.IsAdmin || this.PageContext.IsModerator) &&
-                this.PageContext.BoardSettings.PostFloodDelay > 0)
+                this.Get<YafBoardSettings>().PostFloodDelay > 0)
             {
                 // see if they've past that delay point
                 if (this.Get<IYafSession>().LastPost >
-                    DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) && this.EditMessageID == null)
+                    DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay) && this.EditMessageID == null)
                 {
                     this.PageContext.AddLoadMessage(
                       this.GetTextFormatted(
                         "wait",
                         (this.Get<IYafSession>().LastPost -
-                         DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
+                         DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds));
                     return true;
                 }
             }
@@ -264,20 +264,20 @@ namespace YAF.Pages
             }
 
             // No need to check whitespace if they are actually posting something
-            if (this._forumEditor.Text.Length >= YafContext.Current.BoardSettings.MaxPostSize)
+            if (this._forumEditor.Text.Length >= this.Get<YafBoardSettings>().MaxPostSize)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"));
                 return false;
             }
 
             // Check if the topic name is not too long
-            if (YafContext.Current.BoardSettings.MaxWordLength > 0 &&
-                this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
+            if (this.Get<YafBoardSettings>().MaxWordLength > 0 &&
+                this.TopicSubjectTextBox.Text.Trim().AreAnyWordsOverMaxLength(this.Get<YafBoardSettings>().MaxWordLength))
             {
                 this.PageContext.AddLoadMessage(
-                  this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
+                  this.GetTextFormatted("TOPICNAME_TOOLONG", this.Get<YafBoardSettings>().MaxWordLength));
                 this.TopicSubjectTextBox.Text =
-                    this.TopicSubjectTextBox.Text.Substring(YafContext.Current.BoardSettings.MaxWordLength);
+                    this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength);
                 return false;
             }
 
@@ -287,15 +287,15 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().AllowCreateTopicsSameName) && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null &&
                 this.EditMessageID == null)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"));
                 return false;
             }
 
-            if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
-                 (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) &&
+            if (((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests) ||
+                 (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) &&
                 !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
@@ -325,19 +325,19 @@ namespace YAF.Pages
         protected override void OnInit([NotNull] EventArgs e)
         {
             // get the forum editor based on the settings
-            string editorId = this.PageContext.BoardSettings.ForumEditor;
-            if (this.PageContext.BoardSettings.AllowUsersTextEditor)
+            string editorId = this.Get<YafBoardSettings>().ForumEditor;
+            if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
             {
                 // Text editor
                 editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
                                         ? this.PageContext.TextEditor
-                                        : this.PageContext.BoardSettings.ForumEditor;
-            } 
+                                        : this.Get<YafBoardSettings>().ForumEditor;
+            }
 
-                this._forumEditor =
-                    this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
-                this.EditorLine.Controls.Add(this._forumEditor);
-           
+            this._forumEditor =
+                this.Get<IModuleManager<ForumEditor>>().GetBy(editorId);
+            this.EditorLine.Controls.Add(this._forumEditor);
+
             base.OnInit(e);
         }
 
@@ -372,7 +372,7 @@ namespace YAF.Pages
                     YafBuildLink.AccessDenied();
                 }
 
-                this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]);
+                this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : currentRow["PollID"].ToType<int>();
 
                 // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
                 this.PollList.TopicId = (int)this.TopicID;
@@ -381,7 +381,7 @@ namespace YAF.Pages
                 {
                     this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
                                               ? 0
-                                              : Convert.ToInt32(currentRow["TopicID"]);
+                                              : currentRow["TopicID"].ToType<int>();
                 }
             }
             else if (this.EditMessageID != null)
@@ -389,14 +389,14 @@ namespace YAF.Pages
                 currentRow = LegacyDb.message_list(this.EditMessageID).GetFirstRowOrInvalid();
                 this.OriginalMessage = currentRow["Message"].ToString();
 
-                this._ownerUserId = Convert.ToInt32(currentRow["UserId"]);
+                this._ownerUserId = currentRow["UserId"].ToType<int>();
 
                 if (!this.CanEditPostCheck(currentRow))
                 {
                     YafBuildLink.AccessDenied();
                 }
 
-                this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]);
+                this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : currentRow["PollID"].ToType<int>();
 
                 // we edit message and should transfer both the message ID and TopicID for PageLinks. 
                 this.PollList.EditMessageId = (int)this.EditMessageID;
@@ -405,7 +405,7 @@ namespace YAF.Pages
                 {
                     this.PollList.TopicId = currentRow["TopicID"].IsNullOrEmptyDBField()
                                               ? 0
-                                              : Convert.ToInt32(currentRow["TopicID"]);
+                                              : currentRow["TopicID"].ToType<int>();
                 }
             }
 
@@ -430,7 +430,7 @@ namespace YAF.Pages
             this._forumEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
 
             this.Title.Text = this.GetText("NEWTOPIC");
-            this.LocalizedLblMaxNumberOfPost.Param0 = YafContext.Current.BoardSettings.MaxPostSize.ToString();
+            this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<YafBoardSettings>().MaxPostSize.ToString();
 
             if (!this.IsPostBack)
             {
@@ -447,7 +447,7 @@ namespace YAF.Pages
                 this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
 
                 // Show post to blog option only to a new post
-                this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog && isNewTopic && !this.PageContext.IsGuest;
+                this.BlogRow.Visible = this.Get<YafBoardSettings>().AllowPostToBlog && isNewTopic && !this.PageContext.IsGuest;
 
                 // update options...
                 this.PostOptions1.Visible = !this.PageContext.IsGuest;
@@ -458,19 +458,16 @@ namespace YAF.Pages
 
                 if (!this.PageContext.IsGuest)
                 {
-                    if (this.PageContext.PageTopicID > 0)
-                    {
-                        this.PostOptions1.WatchChecked =
-                          this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
-                    }
-                    else
-                    {
-                        this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
-                    }
+                    this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
+                                                         ? this.TopicWatchedId(
+                                                             this.PageContext.PageUserID, this.PageContext.PageTopicID).
+                                                               HasValue
+                                                         : new CombinedUserDataHelper(this.PageContext.PageUserID).
+                                                               AutoWatchTopics;
                 }
 
-                if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
-                    (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+                if ((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests) ||
+                    (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 {
                     this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
                     this.tr_captcha1.Visible = true;
@@ -479,7 +476,7 @@ namespace YAF.Pages
 
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
-                    this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                    this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
                     this.PageLinks.AddLink(
                       this.PageContext.PageCategoryName,
                       YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
@@ -515,7 +512,7 @@ namespace YAF.Pages
                         this.PollList.EditMessageId = (int)this.EditMessageID;
                     }
 
-                    this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : Convert.ToInt32(currentRow["PollID"]);
+                    this.PollGroupId = currentRow["PollID"].IsNullOrEmptyDBField() ? 0 : currentRow["PollID"].ToType<int>();
                 }
 
                 // add the "New Topic" page link last...
@@ -548,7 +545,7 @@ namespace YAF.Pages
         /// </returns>
         protected long PostReplyHandleEditPost()
         {
-            long messageId = 0;
+            long messageId;
 
             if (!this.PageContext.ForumEditAccess)
             {
@@ -670,12 +667,13 @@ namespace YAF.Pages
             object replyTo = (this.QuotedMessageID != null) ? this.QuotedMessageID.Value : -1;
 
             // make message flags
-            var messageFlags = new MessageFlags();
-
-            messageFlags.IsHtml = this._forumEditor.UsesHTML;
-            messageFlags.IsBBCode = this._forumEditor.UsesBBCode;
-            messageFlags.IsPersistent = this.PostOptions1.PersistantChecked;
-            messageFlags.IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator;
+            var messageFlags = new MessageFlags
+                {
+                    IsHtml = this._forumEditor.UsesHTML,
+                    IsBBCode = this._forumEditor.UsesBBCode,
+                    IsPersistent = this.PostOptions1.PersistantChecked,
+                    IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
+                };
 
             LegacyDb.message_save(
               this.TopicID.Value,
@@ -722,7 +720,7 @@ namespace YAF.Pages
             if (!(this.PageContext.IsModerator || this.PageContext.IsForumModerator || this.PageContext.IsAdmin))
             {
                 string tag = this.Get<IFormatMessage>().CheckHtmlTags(
-                  this.TopicSubjectTextBox.Text, this.PageContext.BoardSettings.AcceptedHeadersHTML, ',');
+                  this.TopicSubjectTextBox.Text, this.Get<YafBoardSettings>().AcceptedHeadersHTML, ',');
 
                 if (tag.IsSet())
                 {
@@ -734,7 +732,7 @@ namespace YAF.Pages
             // update the last post time...
             this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
-            long messageId = 0;
+            long messageId;
             long newTopic = 0;
 
             if (this.TopicID != null)
@@ -810,7 +808,7 @@ namespace YAF.Pages
             else
             {
                 // Not Approved
-                if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
+                if (this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost)
                 {
                     // not approved, notifiy moderators
                     this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
@@ -867,21 +865,23 @@ namespace YAF.Pages
             this.PreviewMessagePost.MessageFlags.IsBBCode = this._forumEditor.UsesBBCode;
             this.PreviewMessagePost.Message = this._forumEditor.Text;
 
-            if (!this.PageContext.BoardSettings.AllowSignatures)
+            if (!this.Get<YafBoardSettings>().AllowSignatures)
             {
                 return;
             }
 
             using (DataTable userDt = LegacyDb.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
             {
-                if (userDt.Rows.Count > 0)
+                if (userDt.Rows.Count <= 0)
                 {
-                    DataRow userRow = userDt.Rows[0];
+                    return;
+                }
 
-                    if (!userRow.IsNull("Signature"))
-                    {
-                        this.PreviewMessagePost.Signature = userRow["Signature"].ToString();
-                    }
+                DataRow userRow = userDt.Rows[0];
+
+                if (!userRow.IsNull("Signature"))
+                {
+                    this.PreviewMessagePost.Signature = userRow["Signature"].ToString();
                 }
             }
         }
@@ -899,20 +899,20 @@ namespace YAF.Pages
         {
             bool postLocked = false;
 
-            if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
+            if (!this.PageContext.IsAdmin && this.Get<YafBoardSettings>().LockPosts > 0)
             {
                 var edited = (DateTime)message["Edited"];
 
-                if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
+                if (edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow)
                 {
                     postLocked = true;
                 }
             }
 
-            DataRow forumInfo, topicInfo;
+            DataRow forumInfo;
 
             // get topic and forum information
-            topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+            DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
@@ -951,10 +951,10 @@ namespace YAF.Pages
         /// </returns>
         private bool CanQuotePostCheck([NotNull] DataRow message)
         {
-            DataRow forumInfo, topicInfo;
+            DataRow forumInfo;
 
             // get topic and forum information
-            topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+            DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
@@ -1011,60 +1011,60 @@ namespace YAF.Pages
         /// </param>
         private void InitEditedPost(
           [NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
-    {
-      if (messageFlags.IsBBCode && this._forumEditor.UsesHTML)
-      {
-          // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
-        message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
-      }
-      
-      if (messageFlags.IsHtml && this._forumEditor.UsesBBCode)
-      {
-          // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-          message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(message);
-      }
+        {
+            if (this._forumEditor.UsesHTML && messageFlags.IsBBCode)
+            {
+                // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
+                message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
+            }
+            
+            if (this._forumEditor.UsesBBCode && messageFlags.IsHtml)
+            {
+                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
+                message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(message);
+            }
 
-        this._forumEditor.Text = message;
+            this._forumEditor.Text = message;
 
-      this.Title.Text = this.GetText("EDIT");
+            this.Title.Text = this.GetText("EDIT");
 
-      // add topic link...
-      this.PageLinks.AddLink(
-        this.Server.HtmlDecode(currentRow["Topic"].ToString()), 
-        YafBuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageID));
+            // add topic link...
+            this.PageLinks.AddLink(
+              this.Server.HtmlDecode(currentRow["Topic"].ToString()),
+              YafBuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageID));
 
-      // editing..
-      this.PageLinks.AddLink(this.GetText("EDIT"));
+            // editing..
+            this.PageLinks.AddLink(this.GetText("EDIT"));
 
-      string blogPostID = currentRow["BlogPostID"].ToString();
-      if (blogPostID != string.Empty)
-      {
-        // The user used this post to blog
-        this.BlogPostID.Value = blogPostID;
-        this.PostToBlog.Checked = true;
-        this.BlogRow.Visible = true;
-      }
+            string blogPostID = currentRow["BlogPostID"].ToString();
+            if (blogPostID != string.Empty)
+            {
+                // The user used this post to blog
+                this.BlogPostID.Value = blogPostID;
+                this.PostToBlog.Checked = true;
+                this.BlogRow.Visible = true;
+            }
 
-      this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
+            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
 
-      if ((currentRow["TopicOwnerID"].ToType<int>() == currentRow["UserID"].ToType<int>()) ||
-          this.PageContext.ForumModeratorAccess)
-      {
-        // allow editing of the topic subject
-        this.TopicSubjectTextBox.Enabled = true;
-      }
-      else
-      {
-        // disable the subject
-        this.TopicSubjectTextBox.Enabled = false;
-      }
+            if ((currentRow["TopicOwnerID"].ToType<int>() == currentRow["UserID"].ToType<int>()) ||
+                this.PageContext.ForumModeratorAccess)
+            {
+                // allow editing of the topic subject
+                this.TopicSubjectTextBox.Enabled = true;
+            }
+            else
+            {
+                // disable the subject
+                this.TopicSubjectTextBox.Enabled = false;
+            }
 
-      this.Priority.SelectedItem.Selected = false;
-      this.Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
-      this.EditReasonRow.Visible = true;
-      this.ReasonEditor.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
-      this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
-    }
+            this.Priority.SelectedItem.Selected = false;
+            this.Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
+            this.EditReasonRow.Visible = true;
+            this.ReasonEditor.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
+            this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
+        }
 
         /// <summary>
         /// The init quoted reply.
@@ -1081,18 +1081,18 @@ namespace YAF.Pages
         private void InitQuotedReply(
           [NotNull] DataRow currentRow, [NotNull] string message, [NotNull] MessageFlags messageFlags)
         {
-            if (this.PageContext.BoardSettings.RemoveNestedQuotes)
+            if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
             {
                 message = this.Get<IFormatMessage>().RemoveNestedQuotes(message);
             }
 
-            // If the message being quoted in YafBBCode but the editor uses HTML, convert the message text to HTML
-            if (messageFlags.IsBBCode && this._forumEditor.UsesHTML)
+            if (this._forumEditor.UsesHTML && messageFlags.IsBBCode)
             {
+                // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(message);
             }
-
-            if (messageFlags.IsHtml && this._forumEditor.UsesBBCode)
+            
+            if (this._forumEditor.UsesBBCode && messageFlags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
                 message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(message);

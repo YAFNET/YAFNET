@@ -19,20 +19,21 @@
  */
 namespace YAF.Core.BBCode
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
-  using System.Text.RegularExpressions;
-  using System.Web;
-  using System.Web.UI;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Web;
+    using System.Web.UI;
 
-  using YAF.Core;
-  using YAF.Core.BBCode.ReplaceRules;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
+    using YAF.Classes;
+    using YAF.Core;
+    using YAF.Core.BBCode.ReplaceRules;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
   /// <summary>
   /// Summary description for YafBBCode.
@@ -254,11 +255,11 @@ namespace YAF.Core.BBCode
     {
       var ruleEngine =
         this.ProcessReplaceRulesFactory(
-          new[] { doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks });
+          new[] { doFormatting, targetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks });
 
       if (!ruleEngine.HasRules)
       {
-        this.CreateBBCodeRules(ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks);
+        this.CreateBBCodeRules(ruleEngine, doFormatting, targetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks);
       }
 
       ruleEngine.Process(ref inputString);
@@ -281,19 +282,15 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string ConvertBBCodeToHtmlForEdit(string message)
     {
-      bool doFormatting = true;
-      bool targetBlankOverride = false;
-      bool forHtmlEditing = true;
-
       // get the rules engine from the creator...
       var ruleEngine =
         this.ProcessReplaceRulesFactory(
-          new[] { doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, forHtmlEditing });
+          new[] { true, false, this.Get<YafBoardSettings>().UseNoFollowLinks, true });
 
       if (!ruleEngine.HasRules)
       {
-        // Do not convert BBQuotes to HTML when editing -- "[quote]...[/quote]" will remain in plaintext in the rich text editor
-        this.CreateBBCodeRules(ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, false /*convertBBQuotes*/);
+          // NOTE : Do not convert BBQuotes, BBCodes and Custom BBCodes to HTML when editing -- "[quote]...[/quote]", and [code]..[/code] will remain in plaintext in the rich text editor
+          this.CreateBBCodeRules(ruleEngine, true, false, this.Get<YafBoardSettings>().UseNoFollowLinks, false /*convertBBQuotes*/);
       }
 
       ruleEngine.Process(ref message);
@@ -319,12 +316,11 @@ namespace YAF.Core.BBCode
         // get the rules engine from the creator...
         var ruleEngine =
           this.ProcessReplaceRulesFactory(
-            new[] { DoFormatting, TargetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, ForBBCodeEditing });
+            new[] { DoFormatting, TargetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks, ForBBCodeEditing });
 
         if (!ruleEngine.HasRules)
         {
-            // Do not convert BBQuotes to HTML when editing -- "[quote]...[/quote]" will remain in plaintext in the rich text editor
-            this.CreateHtmlRules(ruleEngine, DoFormatting, false);
+            this.CreateHtmlRules(ruleEngine, DoFormatting, true);
         }
 
         ruleEngine.Process(ref message);
@@ -352,12 +348,12 @@ namespace YAF.Core.BBCode
     /// </param>
     public void CreateBBCodeRules(IProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes)
     {
-        string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride)
+        string target = (this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride)
                             ? "target=\"_blank\""
                             : string.Empty;
         string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
-        var classModal = "class=\"ceebox\"";
+        const string ClassModal = "class=\"ceebox\"";
 
         // pull localized strings
         string localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
@@ -365,22 +361,9 @@ namespace YAF.Core.BBCode
         string localQuotePostedStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
         string localCodeStr = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
 
-        // add rule for code block type with syntax highlighting			
-        ruleEngine.AddRule(
-            new SyntaxHighlightedCodeRegexReplaceRule(
-                _rgxCode2,
-                @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace(
-                    "{0}", localCodeStr)));
-
-        // add rule for code block type with no syntax highlighting
-        ruleEngine.AddRule(
-            new CodeRegexReplaceRule(_rgxCode1,
-                                     @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>"
-                                         .Replace("{0}", localCodeStr)));
-
         // handle font sizes -- this rule class internally handles the "size" variable
-        ruleEngine.AddRule(new FontSizeRegexReplaceRule(_rgxSize, @"<span style=""font-size:${size}"">${inner}</span>",
-                                                        _options));
+        ruleEngine.AddRule(
+            new FontSizeRegexReplaceRule(_rgxSize, @"<span style=""font-size:${size}"">${inner}</span>", _options));
 
         if (doFormatting)
         {
@@ -388,8 +371,8 @@ namespace YAF.Core.BBCode
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<em>${inner}</em>", _options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _options));
-            ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>",
-                                                          _options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>", _options));
             
             // e-mails
             ruleEngine.AddRule(
@@ -437,7 +420,7 @@ namespace YAF.Core.BBCode
                 new VariableRegexReplaceRule(
                     _rgxModalUrl2,
                     "<a {0} {1} {2} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).
-                        Replace("{1}", nofollow).Replace("{2}", classModal),
+                        Replace("{1}", nofollow).Replace("{2}", ClassModal),
                     new[]
                         {
                             "url", "http"
@@ -450,7 +433,7 @@ namespace YAF.Core.BBCode
                 new VariableRegexReplaceRule(
                     _rgxModalUrl1,
                     "<a {0} {1} {2} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace(
-                        "{0}", target).Replace("{1}", nofollow).Replace("{2}", classModal),
+                        "{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
                     new[]
                         {
                             "http"
@@ -523,14 +506,13 @@ namespace YAF.Core.BBCode
                         }));
 
 
-            // handle custom YafBBCode
-            AddCustomBBCodeRules(ruleEngine);
+           
 
             // basic hr and br rules
             var hrRule = new SingleRegexReplaceRule(_rgxHr, "<hr />", _options | RegexOptions.Multiline);
 
             // Multiline, since ^ must match beginning of line
-            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) {RuleRank = hrRule.RuleRank + 1};
+            var brRule = new SingleRegexReplaceRule(_rgxBr, "<br />", _options) { RuleRank = hrRule.RuleRank + 1 };
 
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(hrRule);
@@ -542,6 +524,22 @@ namespace YAF.Core.BBCode
 
         if (convertBBQuotes)
         {
+            // add rule for code block type with syntax highlighting
+            ruleEngine.AddRule(
+                new SyntaxHighlightedCodeRegexReplaceRule(
+                    _rgxCode2,
+                    @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace(
+                        "{0}", localCodeStr)));
+
+            // handle custom YafBBCode
+            this.AddCustomBBCodeRules(ruleEngine);
+
+            // add rule for code block type with no syntax highlighting
+            ruleEngine.AddRule(
+                new CodeRegexReplaceRule(
+                    _rgxCode1,
+                    @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
+
             // "quote" handling...
             string tmpReplaceStr2 =
                 @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">{1}</div></div>".
@@ -562,7 +560,7 @@ namespace YAF.Core.BBCode
 
             ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr1));
 
-          var sl = Core.YafContext.Current.ServiceLocator;
+          var sl = YafContext.Current.ServiceLocator;
 
           string tmpReplaceStr3 =
             @"<div class=""quote""><span class=""quotetitle"">{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></span><div class=""innerquote"">{4}</div></div>"
@@ -584,12 +582,13 @@ namespace YAF.Core.BBCode
         }
 
         // post and topic rules...
-        ruleEngine.AddRule(new PostTopicRegexReplaceRule(_rgxPost,
-                                                         @"<a {0} href=""${post}"">${inner}</a>".Replace("{0}", target),
-                                                         _options));
-        ruleEngine.AddRule(new PostTopicRegexReplaceRule(_rgxTopic,
-                                                         @"<a {0} href=""${topic}"">${inner}</a>".Replace("{0}", target),
-                                                         _options));
+        ruleEngine.AddRule(
+            new PostTopicRegexReplaceRule(
+                _rgxPost, @"<a {0} href=""${post}"">${inner}</a>".Replace("{0}", target), _options));
+
+        ruleEngine.AddRule(
+            new PostTopicRegexReplaceRule(
+                _rgxTopic, @"<a {0} href=""${topic}"">${inner}</a>".Replace("{0}", target), _options));
     }
 
     /// <summary>
@@ -625,8 +624,8 @@ namespace YAF.Core.BBCode
                 _options,
                 new[] { "description" }));
 
-        // TODO : Handle Smilies
-        //this.AddSmiles(ruleEngine);
+        // TODO : this.AddSmiles(ruleEngine);
+
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
                 @"<img.*?src=""(?<inner>(.*?))"".*?alt=""(?<description>(.*?))"".*?/>",
@@ -668,7 +667,6 @@ namespace YAF.Core.BBCode
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<div align=\"center\">(?<inner>(.*?))</div>", "[center]${inner}[/center]", _options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<div align=\"left\">(?<inner>(.*?))</div>", "[left]${inner}[/left]", _options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<div align=\"right\">(?<inner>(.*?))</div>", "[right]${inner}[/right]", _options));
-
 
         ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]",  _options));
         ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", _options));
@@ -782,13 +780,21 @@ namespace YAF.Core.BBCode
                   ';'
                 });
 
-            var rule = new VariableRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _options, variables) {RuleRank = 50};
-            rulesEngine.AddRule(rule);
+              var rule = new VariableRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _options, variables)
+                  {
+                      RuleRank = 50
+                  };
+
+              rulesEngine.AddRule(rule);
           }
           else
           {
             // just standard replace...
-            var rule = new SimpleRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _options) {RuleRank = 50};
+              var rule = new SimpleRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _options)
+                  {
+                      RuleRank = 50
+                  };
+
             rulesEngine.AddRule(rule);
           }
         }
@@ -806,7 +812,7 @@ namespace YAF.Core.BBCode
     /// </param>
     public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType)
     {
-      RegisterCustomBBCodePageElements(currentPage, currentType, null);
+      this.RegisterCustomBBCodePageElements(currentPage, currentType, null);
     }
 
     /// <summary>
@@ -839,12 +845,12 @@ namespace YAF.Core.BBCode
 
         if (row.DisplayJS.IsSet())
         {
-          displayScript = LocalizeCustomBBCodeElement(row.DisplayJS.Trim());
+          displayScript = this.LocalizeCustomBBCodeElement(row.DisplayJS.Trim());
         }
 
         if (editorID.IsSet() && row.EditJS.IsSet())
         {
-          editScript = LocalizeCustomBBCodeElement(row.EditJS.Trim());
+          editScript = this.LocalizeCustomBBCodeElement(row.EditJS.Trim());
 
           // replace any instances of editor ID in the javascript in case the ID is needed
           editScript = editScript.Replace("{editorid}", editorID);
@@ -859,7 +865,7 @@ namespace YAF.Core.BBCode
         if (row.DisplayCSS.IsSet() && row.DisplayCSS.IsSet())
         {
           // yes, add it into the builder
-          cssBuilder.AppendLine(LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));
+          cssBuilder.AppendLine(this.LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));
         }
       }
 
