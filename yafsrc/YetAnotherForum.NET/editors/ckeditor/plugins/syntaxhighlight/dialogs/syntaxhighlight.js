@@ -113,10 +113,12 @@ CKEDITOR.dialog.add('syntaxhighlight', function(editor)
                 preElement.setAttribute('title', optionsString);
                 preElement.setText(data.code);
             } else {
-                var newElement = new CKEDITOR.dom.element('code');
+                /*var newElement = new CKEDITOR.dom.element('code');
                 newElement.setAttribute('title', optionsString);
                 newElement.setText(data.code);
-                editor.insertElement(newElement);
+                editor.insertElement(newElement);*/
+				
+				editor.insertHtml("[code=" + optionsString + "]" + data.code + "[/code]");
             }
         },
         contents : [

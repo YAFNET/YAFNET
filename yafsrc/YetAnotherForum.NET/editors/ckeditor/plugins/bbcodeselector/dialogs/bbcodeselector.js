@@ -64,11 +64,13 @@ CKEDITOR.dialog.add('bbcodeselector', function(editor)
             var data = getDefaultOptions();
             this.commitContent(data);
             var optionsString = getStringForOptions(data);
-			
+			/*
 			var newElement = new CKEDITOR.dom.element(optionsString);
             newElement.setText("[" + optionsString + "]" + data.code + "[/"+ optionsString + "]");
             
-			editor.insertElement(newElement);
+			editor.insertElement(newElement);*/
+			
+			editor.insertHtml("[" + optionsString + "]" + data.code + "[/"+ optionsString + "]");
         },
         contents : [
             {

@@ -5,10 +5,19 @@ function CKEditor_Load() {
 	   
 	   
 	   CKEDITOR.replaceAll(function( textarea, config ){
-		  
-		  config.toolbar_Full = [ 
-		                          ['Cut','Copy','Paste'],['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],['Link','Unlink','Image'],['About'],'/', 
-		                          ['Bold','Italic','Underline','Strike'],['Font','FontSize'],['TextColor','BGColor']
+
+	      config.extraPlugins = 'syntaxhighlight,bbcodeselector';
+	      config.toolbar_Full = [
+                                 ['Source'],
+		                         ['Cut', 'Copy', 'Paste'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+								 ['-', 'NumberedList', 'BulletedList'],
+								 ['-', 'Link', 'Unlink', 'Image'],
+		                         ['Blockquote', 'syntaxhighlight', 'bbcodeselector'],
+		                         ['SelectAll', 'RemoveFormat'],
+								 ['About'],
+								 '/',
+								 ['Bold', 'Italic', 'Underline', '-', 'TextColor', 'Font', 'FontSize'],
+								 ['JustifyLeft', 'JustifyCenter', 'JustifyRight']
 								] ;
 		  });
 };
