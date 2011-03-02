@@ -38,10 +38,6 @@
             }
 
             string linkParams = "t={0}";
-            if (this.FindUnread)
-            {
-                linkParams += "&find=unread";
-            }
         %>
         <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
