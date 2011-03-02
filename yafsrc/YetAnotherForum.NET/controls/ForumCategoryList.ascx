@@ -33,12 +33,12 @@
 					<td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
 						<YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
 							PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>'
-							AttachedControlID="forumList" />
-						&nbsp;&nbsp; <a href='<%# YAF.Utils.YafBuildLink.GetLink(ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
+							AttachedControlID="forumList" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>' /> 
+						&nbsp;&nbsp; <a href='<%# YAF.Utils.YafBuildLink.GetLink(ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>' title='<%# this.GetText("COMMON", "VIEW_CATEGORY") %>' alt='<%# this.GetText("COMMON", "VIEW_CATEGORY") %>'>
 							
 							<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
 							
-							<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
+							<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %> 
 						</a>
 					</td>
 				</tr>

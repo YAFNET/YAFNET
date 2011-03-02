@@ -554,6 +554,7 @@
    </page>
    <page name="COMMON">
       <Resource tag="OR">or</Resource>
+     <Resource tag="SHOWHIDE">Show/Hide</Resource>
       <Resource tag="MESSAGE">Message</Resource>
       <Resource tag="NAME">Name</Resource>
       <Resource tag="READ">Read</Resource>

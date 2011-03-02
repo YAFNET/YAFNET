@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.accessmasks" Codebehind="accessmasks.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Flags" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -18,9 +19,11 @@
 		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
 			<ItemTemplate>
-				<tr class="post">
+				<tr class="postheader">
 					<td>
-						<%# Eval( "Name") %>
+					  <img alt='<%# Eval( "Name") %>'
+                                    title='<%# Eval( "Name") %>'
+                                    src='<%# this.Get<ITheme>().GetItem("VOTE","POLL_MASK") %>' />&nbsp;<%# Eval( "Name") %>
 					</td>					
 					<td width="15%" style="font-weight: normal">
 						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>'>

@@ -1600,6 +1600,7 @@
     <Resource tag="GOTOLASTPAGE_TT">Перейти на последнюю страницу</Resource>
     <Resource tag="GOTONEXTPAGE_TT">Следующая страница</Resource>
     <Resource tag="GOTOPAGE_HEADER">Перейти на страницу...</Resource>
+    <Resource tag="GOTOPOST_ТТ">Go to message</Resource>
     <Resource tag="GOTOPREVPAGE_TT">Предыдущая страница</Resource>
     <Resource tag="HIDDEN">Скрыт</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены HTML тэги.</Resource>
@@ -1628,6 +1629,7 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт Вы должны проверить Ваш почтовый ящик и перейти по ссылке в сообщении.</Resource>
     <Resource tag="REPLY">Ответить</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
+    <Resource tag="SHOWHIDE">Показать/Скрыть</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TIMEAGO_JS">
       // Russian
