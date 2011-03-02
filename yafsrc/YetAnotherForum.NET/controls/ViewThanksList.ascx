@@ -18,11 +18,14 @@
     <ItemTemplate>
         <tr class="header2">
             <td colspan="2">
-                <b>
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="topic" />
-                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",Container.DataItemToField<int>("TopicID"),Container.DataItemToField<int>("MessageID")) %>">
-                    <%# Container.DataItemToField<string>("Topic") %>
-                </a>
+                 <b>
+                      <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="topic" />
+                        </b><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
+                            <%# this.HtmlEncode(Container.DataItemToField<string>("Topic")) %>
+                        </a>
+                        <a id="AncPost"  href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" runat="server">&nbsp;
+                           <img id="ImgPost" runat="server" title='<%#  this.GetText("GO_LAST_POST") %>' alt='<%#  this.GetText("GO_TO_LASTPOST") %>' src='<%#  this.Get<ITheme>().GetItem("ICONS", "ICON_LATEST") %>' />
+                        </a>
             </td>
         </tr>
         <tr class="postheader">

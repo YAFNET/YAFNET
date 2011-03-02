@@ -899,7 +899,7 @@
     <Resource tag="HEADER_LOGIN">Настройки входа/регистрации</Resource>
     <Resource tag="HEADER_PERMISSION">Настройки разрешений</Resource>
     <Resource tag="HEADER_PMS">Личные сообщения</Resource>
-    <Resource tag="HEADER_POLL">Опиции опроса</Resource>
+    <Resource tag="HEADER_POLL">Опции опроса</Resource>
     <Resource tag="HEADER_SEARCH">Настройки поиска</Resource>
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
     <Resource tag="HEADER_SYNDICATION">Настройки синдикации</Resource>
@@ -985,7 +985,7 @@
     <Resource tag="POINTS_TEMPLATE_HELP">Шаблон для отображения очков пользователя.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
-    <Resource tag="POLLVOTING_PERIP">Голоосвание зависит от IP:</Resource>
+    <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
     <Resource tag="POLLVOTING_PERIP_HELP">По умолчанию, голосование отслеживается по имени пользователя и куки. (Один голос на ник. куки используются если включено гостевое голосование.) &lt;br /&gt;Если эта опция включена, то YAF также использует IP как ссылку обеспечивающую максимальную защиту от фальсификаций.</Resource>
     <Resource tag="POST_AD">Реклама во 2ом сообщении:</Resource>
     <Resource tag="POST_AD_HELP">Поместите код, который вы желаете отображать во 2ом сообщении каждой темы. Оставьте пустым, если вы не желаете отображать что-либо.</Resource>

@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="YAF.ForumPageBase" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
-
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <script runat="server">
     public void Page_PreRender(object sender, System.EventArgs e)
@@ -9,7 +8,7 @@
         if (this.PageContext != null && this.PageContext.CurrentForumPage != null && !this.PageContext.CurrentForumPage.AllowAsPopup)
         {
             // redirect back to default.aspx page...
-            this.Get<HttpResponseBase>().Redirect(String.Format("{0}?{1}", YAF.Classes.Config.BaseScriptFile, Request.QueryString.ToString()));
+           Response.Redirect(String.Format("{0}?{1}", YAF.Classes.Config.BaseScriptFile, Request.QueryString.ToString()));
         }
     }
 </script>
