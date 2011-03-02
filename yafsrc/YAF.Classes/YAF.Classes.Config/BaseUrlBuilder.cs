@@ -57,13 +57,16 @@ namespace YAF.Classes
       get
       {
         string baseUrl;
-
+        // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
+        var urlKey = String.Format("{0}{1}", HttpContext.Current.Request.ServerVariables["SERVER_NAME"], HttpContext.Current.Request.FilePath);
+          
         try
         {
           if (HttpContext.Current != null)
           {
-            // Lookup the AppRoot based on the current path. 
-            baseUrl = _baseUrls[HttpContext.Current.Request.FilePath];
+              
+            // Lookup the AppRoot based on the current host + path. 
+              baseUrl = _baseUrls[urlKey];
 
             if (String.IsNullOrEmpty(baseUrl))
             {
@@ -78,7 +81,7 @@ namespace YAF.Classes
               }
 
               // save to cache
-              _baseUrls[HttpContext.Current.Request.FilePath] = baseUrl;
+              _baseUrls[urlKey] = baseUrl;
             }
           }
           else
