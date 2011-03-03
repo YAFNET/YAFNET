@@ -18,6 +18,9 @@
 								 ['Bold','Italic','Underline','-', 'TextColor', 'Font', 'FontSize'],
 								 ['JustifyLeft','JustifyCenter','JustifyRight'],
 		                        ] ;
+								
+			config.entities_greek = false;
+			config.entities_latin = false;
 		  });
 };
    
