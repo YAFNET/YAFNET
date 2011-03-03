@@ -2228,6 +2228,10 @@ Visit {forumname} at {forumlink}
       <Resource tag="BOARD_THREADED">Allow Threaded:</Resource>
       <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
       <Resource tag="BOARD_THEME">Theme:</Resource>
+      <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+      <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">
+        <![CDATA[Remove the copyright information and link back to YAF from the footer of your entire forum domain. Avaliable <a href="http://yetanotherforum.net/purchase.aspx">from YAF.NET site</a>. ]]>
+      </Resource>
       <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
       <Resource tag="BOARD_THEME_LOGO">Allow Themed Logo:</Resource>
       <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>

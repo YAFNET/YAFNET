@@ -22,6 +22,14 @@
             </td>
         </tr>
         <tr>
+            <td class="postheader" style="width: 50%">
+                <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            </td>
+            <td class="post" style="width: 50%">
+                <asp:TextBox ID="CopyrightRemovalKey" runat="server" Width="400"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
             <td class="postheader">
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="BOARD_THREADED"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />

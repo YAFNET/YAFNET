@@ -181,6 +181,8 @@ namespace YAF.Pages.Admin
         this.DefaultSendDigestEmail.Checked = this.PageContext.BoardSettings.DefaultSendDigestEmail;
         this.JqueryUIThemeCDNHosted.Checked = this.PageContext.BoardSettings.JqueryUIThemeCDNHosted;
 
+      this.CopyrightRemovalKey.Text = this.PageContext.BoardSettings.CopyrightRemovalDomainKey;
+
       this.DigestSendEveryXHours.Text = this.PageContext.BoardSettings.DigestSendEveryXHours.ToString();
 
         if (this.PageContext.BoardSettings.BoardPollID > 0)
@@ -250,6 +252,7 @@ namespace YAF.Pages.Admin
       this.PageContext.BoardSettings.DefaultNotificationSetting =
         this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
+      this.PageContext.BoardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
       this.PageContext.BoardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
       this.PageContext.BoardSettings.JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
 

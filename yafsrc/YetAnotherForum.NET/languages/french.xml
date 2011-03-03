@@ -301,6 +301,8 @@
     <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Avaliable &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
@@ -1607,6 +1609,7 @@
     <Resource tag="GOTOLASTPAGE_TT">Go to last page</Resource>
     <Resource tag="GOTONEXTPAGE_TT">Next Page</Resource>
     <Resource tag="GOTOPAGE_HEADER">Aller à la page...</Resource>
+    <Resource tag="GOTOPOST_ТТ">Go to message</Resource>
     <Resource tag="GOTOPREVPAGE_TT">Prev Page</Resource>
     <Resource tag="HIDDEN">Masquer</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>

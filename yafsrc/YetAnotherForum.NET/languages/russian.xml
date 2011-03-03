@@ -301,6 +301,8 @@
     <Resource tag="BOARD_THREADED_HELP">Разрешить отображение в виде дерева для сообщений.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Показывать темы по умолчанию:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Интервал в котором отображать темы по умолчанию.</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Avaliable &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Текущие настройки конференции</Resource>
     <Resource tag="TITLE">Настройки конференции</Resource>
   </page>

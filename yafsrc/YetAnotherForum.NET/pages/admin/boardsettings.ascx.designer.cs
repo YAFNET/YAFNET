@@ -67,6 +67,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox Name;
         
         /// <summary>
+        /// HelpLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel2;
+        
+        /// <summary>
+        /// CopyrightRemovalKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CopyrightRemovalKey;
+        
+        /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
         /// <remarks>
