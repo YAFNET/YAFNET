@@ -426,6 +426,19 @@ namespace YAF.Classes
             }
         }
 
+        public string CopyrightRemovalDomainKey
+        {
+          get
+          {
+            return this._regBoard.GetValue<string>("CopyrightRemovalDomainKey", null);
+          }
+
+          set
+          {
+            this._regBoard.SetValue<string>("CopyrightRemovalDomainKey", value);
+          }
+        }
+
         public bool EmailModeratorsOnModeratedPost
         {
             get
