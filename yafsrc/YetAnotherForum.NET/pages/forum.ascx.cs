@@ -16,8 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using YAF.Classes;
-
 namespace YAF.Pages
 {
   #region Using
@@ -25,6 +23,7 @@ namespace YAF.Pages
   using System;
   using System.Web;
 
+  using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -70,52 +69,57 @@ namespace YAF.Pages
       if (!this.IsPostBack)
       {
         // vzrus: needs testing, potentially can cause problems 
-          string ua = HttpContext.Current.Request.UserAgent;
 
-          if (!UserAgentHelper.IsSearchEngineSpider(ua) && (!UserAgentHelper.IsNotCheckedForCookiesAndJs(ua)))
+        // Jaben: I can't access MY OWN FORUM with this code. Commented out. Either it's an optional feature or will be completely removed.
+        // As far as I can see this is the worst kind of "feature": that no one asked for and solves a problem that no one had.
+
+        //string ua = HttpContext.Current.Request.UserAgent;
+
+        //if (!UserAgentHelper.IsSearchEngineSpider(ua) && (!UserAgentHelper.IsNotCheckedForCookiesAndJs(ua)))
+        //{
+        //  if (!HttpContext.Current.Request.Browser.Cookies)
+        //  {
+        //    YafBuildLink.RedirectInfoPage(InfoMessage.RequiresCookies);
+        //  }
+
+        //  Version ecmaVersion = HttpContext.Current.Request.Browser.EcmaScriptVersion;
+
+        //  if (ecmaVersion != null)
+        //  {
+        //    try
+        //    {
+        //      string[] arrJsVer = Config.BrowserJSVersion.Split('.');
+
+        //      if (!(ecmaVersion.Major >= arrJsVer[0].ToType<int>()) && !(ecmaVersion.Minor >= arrJsVer[1].ToType<int>()))
+        //      {
+        //        YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
+        //      }
+        //    }
+        //    catch (Exception)
+        //    {
+        //    }
+        //  }
+        //  else
+        //  {
+        //    YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
+        //  }
+        //}
+
+        this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
+        this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
+        this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
+
+        if (this.PageContext.Settings.LockedForum == 0)
+        {
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          if (this.PageContext.PageCategoryID != 0)
           {
-              if (!HttpContext.Current.Request.Browser.Cookies)
-              {
-                  YafBuildLink.RedirectInfoPage(InfoMessage.RequiresCookies);
-              }
-              Version ecmaVersion = HttpContext.Current.Request.Browser.EcmaScriptVersion;
-              if (ecmaVersion != null)
-              {
-                  try
-                  {
-                      string[] arrJsVer = Config.BrowserJSVersion.Split('.');
-
-                      if (!(ecmaVersion.Major >= arrJsVer[0].ToType<int>()) && !(ecmaVersion.Minor >= arrJsVer[1].ToType<int>()))
-                      {
-                          YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
-                      }
-                  }
-                  catch (Exception)
-                  {
-                  }
-               
-              }
-              else
-              {
-                  YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
-              }
+            this.PageLinks.AddLink(
+              this.PageContext.PageCategoryName, 
+              YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.Welcome.Visible = false;
           }
-
-          this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
-          this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
-          this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
-          
-          if (this.PageContext.Settings.LockedForum == 0)
-          {
-              this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-              if (this.PageContext.PageCategoryID != 0)
-              {
-                  this.PageLinks.AddLink(
-                      this.PageContext.PageCategoryName,
-                      YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                  this.Welcome.Visible = false;
-              }
-          }
+        }
       }
     }
 
