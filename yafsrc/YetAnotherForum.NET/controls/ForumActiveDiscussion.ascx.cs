@@ -97,8 +97,19 @@ namespace YAF.Controls
             newPostIcon.ImageUrl = this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
 
             textMessageLink.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"].ToString()));
-            textMessageLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
-            textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", currentRow["TopicID"]);
+
+            if (!this.PageContext.IsMobileDevice)
+            {
+                textMessageLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
+                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}",
+                                                                             currentRow["TopicID"]);
+            }
+            else
+            {
+                textMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}&find=lastunread",
+                                                                             currentRow["LastMessageID"]);
+            }
             imageMessageLink.NavigateUrl = messageUrl;
             lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 

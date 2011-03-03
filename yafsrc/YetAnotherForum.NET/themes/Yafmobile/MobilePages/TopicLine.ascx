@@ -28,26 +28,23 @@
             <%=priorityMessage %></span>
         <%
             }
-
-            string linkParams = "t={0}";
-            if (this.FindUnread)
-            {
-                linkParams += "&find=unread";
-            }
+            
         %>
-        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, linkParams, this.TopicRow["LinkTopicID"])%>"
+
+        <a href="<%=YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=unread", this.TopicRow["LastMessageID"])%>"
             class="post_link" title="<%=this.Get<IFormatMessage>().GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated%>">
-            <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"])))%></a>
+            <%=this.Get<IBadWordReplace>().Replace(Convert.ToString(this.HtmlEncode(this.TopicRow["Subject"]).ToString()))%></a>
         <%
             var favoriteCount = this.Get<IFavoriteTopic>().FavoriteTopicCount((int)this.TopicRow["LinkTopicID"]);
             
             if (favoriteCount > 0)
             {
-%>
+        %>
         <span class="topicFavoriteCount">[+<%=favoriteCount%>]</span>
         <%
             }
-%>
+        
+      %>            
         <br />
         <span class="topicStarter">
             <%= new UserLink
